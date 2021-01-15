@@ -12,7 +12,7 @@ export { default as DividerNode, DIVIDER_NODE_TYPE, isDividerNode } from './Divi
 export { default as DocumentNode, DOCUMENT_NODE_TYPE, isDocumentNode } from './DocumentNode';
 export { default as ElementNode, isElementNode } from './ElementNode';
 export { default as EmbedNode, EMBED_NODE_TYPE, isEmbedElement } from './EmbedNode';
-export { default as GalleryNode } from './GalleryNode';
+export { default as GalleryNode, GALLERY_NODE_TYPE, isGalleryNode } from './GalleryNode';
 export { default as HeadingNode } from './HeadingNode';
 export { default as ImageNode } from './ImageNode';
 export { default as InlineNode } from './InlineNode';
