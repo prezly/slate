@@ -6,7 +6,7 @@
  * packages?
  */
 
-export { default as OEmbedInfo } from './OEmbedInfo';
+export { default as OEmbedInfo, isOEmbedInfo } from './OEmbedInfo';
 export { default as OEmbedInfoType } from './OEmbedInfoType';
 export { default as PressContact, isPressContact } from './PressContact';
 export { default as UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';

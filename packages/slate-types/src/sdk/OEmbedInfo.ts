@@ -19,3 +19,12 @@ export default interface OEmbedInfo {
     version: '1.0';
     width?: number;
 }
+
+export const isOEmbedInfo = (value: any): value is OEmbedInfo =>
+    typeof value === 'object' &&
+    value !== null &&
+    Object.values(OEmbedInfoType).includes(value.type) &&
+    typeof value.url === 'string' &&
+    value.url.length > 0 &&
+    typeof value.version === 'string' &&
+    value.version.length > 0;
