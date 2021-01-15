@@ -23,4 +23,9 @@ type BlockNode =
     | ParagraphNode
     | QuoteNode;
 
+export const isBlockNode = (value: any): value is BlockNode => {
+    // TODO: implement me
+    return false;
+};
+
 export default BlockNode;

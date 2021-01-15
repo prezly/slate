@@ -1,7 +1,19 @@
 import BlockNode from './BlockNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
-export default interface DocumentNode {
+export const DOCUMENT_NODE_TYPE = 'document';
+
+export default interface DocumentNode extends ElementNode {
     children: BlockNode[];
-    type: 'document';
+    type: typeof DOCUMENT_NODE_TYPE;
     version: string;
 }
+
+export const isDocumentNode = (value: any): value is DocumentNode => {
+    return (
+        isElementNode(value) &&
+        value.type === DOCUMENT_NODE_TYPE &&
+        typeof value.version === 'string' &&
+        value.version.length > 0
+    );
+};
