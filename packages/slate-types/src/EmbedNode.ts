@@ -10,7 +10,7 @@ export default interface EmbedNode {
     uuid: string;
 }
 
-export const isEmbedElement = (value: any): value is ElementNode => {
+export const isEmbedNode = (value: any): value is ElementNode => {
     return (
         isElementNode(value) &&
         value.type === EMBED_NODE_TYPE &&
