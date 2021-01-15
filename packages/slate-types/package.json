@@ -2,8 +2,17 @@
     "name": "@prezly/slate-types",
     "version": "0.0.1",
     "description": "TypeScript definitions for Slate document structure at Prezly",
+    "license": "MIT",
     "main": "build/index.js",
     "types": "build/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/prezly/slate.git"
+    },
+    "bugs": {
+        "url": "https://github.com/prezly/slate/issues"
+    },
+    "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "build": "tsc --project .",
         "clean": "rimraf build/"

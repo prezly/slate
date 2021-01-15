@@ -1,5 +1,15 @@
 {
   "name": "prezly-slate",
+  "description": "Prezly software built upon Slate",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prezly/slate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/prezly/slate/issues"
+  },
+  "homepage": "https://github.com/prezly/slate#readme",
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",

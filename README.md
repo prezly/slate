@@ -26,5 +26,5 @@ npm run build       # build all packages
 
 ```Shell
 npm run release     # rebuild everything from scratch and...
-                    # ...and run a wizard that guides you through publishing the npm packages
+                    # ...and run a wizard that'll guide you through bulk-publishing the npm packages
 ```
