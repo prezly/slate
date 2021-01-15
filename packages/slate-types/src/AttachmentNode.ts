@@ -9,7 +9,7 @@ export default interface AttachmentNode extends ElementNode {
     type: typeof ATTACHMENT_NODE_TYPE;
 }
 
-export const isFileAttachmentNode = (value: any): value is AttachmentNode => {
+export const isAttachmentNode = (value: any): value is AttachmentNode => {
     return (
         isElementNode(value) &&
         value.type === ATTACHMENT_NODE_TYPE &&

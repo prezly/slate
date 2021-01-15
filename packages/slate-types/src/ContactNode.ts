@@ -9,7 +9,7 @@ export default interface ContactNode extends ElementNode {
     uuid: string;
 }
 
-export const isPressContactNode = (value: any): value is ContactNode => {
+export const isContactNode = (value: any): value is ContactNode => {
     return (
         isElementNode(value) &&
         value.type === CONTACT_NODE_TYPE &&

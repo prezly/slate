@@ -3,10 +3,10 @@ export * from './sdk';
 export {
     default as AttachmentNode,
     ATTACHMENT_NODE_TYPE,
-    isFileAttachmentNode,
+    isAttachmentNode,
 } from './AttachmentNode';
 export { default as BlockNode, isBlockNode } from './BlockNode';
-export { default as ContactNode, CONTACT_NODE_TYPE, isPressContactNode } from './ContactNode';
+export { default as ContactNode, CONTACT_NODE_TYPE, isContactNode } from './ContactNode';
 export { default as CoverageNode, COVERAGE_NODE_TYPE, isCoverageNode } from './CoverageNode';
 export { default as DividerNode, DIVIDER_NODE_TYPE, isDividerNode } from './DividerNode';
 export { default as DocumentNode, DOCUMENT_NODE_TYPE, isDocumentNode } from './DocumentNode';
