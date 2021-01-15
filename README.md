@@ -4,11 +4,27 @@
 
 [Prezly](https://www.prezly.com/) software built upon [Slate](http://slatejs.org/).
 
-
-----
+---
 
 # Packages
 
 | npm                                                              | source                                                                                   |                                                                                                                             |                                                                                                  |
-|------------------------------------------------------------------|------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | [@prezly/slate-types](https://www.npmjs.com/package/@prezly/sdk) | [packages/slate-types](https://github.com/prezly/slate/tree/master/packages/slate-types) | ![Version](https://img.shields.io/github/package-json/v/prezly/slate) ![License](https://img.shields.io/npm/l/prezly/slate) | [README.md](packages/slate-types/README.md) \| [package.json](packages/slate-types/package.json) |
+
+# Development
+
+## Setup
+
+```Shell
+npm install         # install dependencies
+npm run bootstrap   # bootstrap packages with lerna
+npm run build       # build all packages
+```
+
+## Publishing
+
+```Shell
+npm run release     # rebuild everything from scratch and...
+                    # ...and run a wizard that guides you through publishing the npm packages
+```

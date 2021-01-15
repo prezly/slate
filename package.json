@@ -3,13 +3,17 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "clean": "lerna clean && lerna run clean",
+    "clean": "lerna clean --yes && lerna run clean && rimraf node_modules/",
     "prettier": "prettier --check './**/*.(js|ts|scss)'",
     "prettier:fix": "npm run prettier -- --write --no-list-different",
-    "publish": "lerna publish from-package"
+    "release": "npm run release:prepare && npm run release:publish",
+    "release:prepare": "npm run clean && npm install && npm run bootstrap && npm run build",
+    "release:publish": "lerna publish from-package"
   },
   "devDependencies": {
     "lerna": "^3.22.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.3"
   }
 }

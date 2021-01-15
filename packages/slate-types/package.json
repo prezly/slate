@@ -6,12 +6,9 @@
     "types": "build/index.d.ts",
     "scripts": {
         "build": "tsc --project .",
-        "clean": "rm -rf build/"
+        "clean": "rimraf build/"
     },
     "dependencies": {
         "@prezly/sdk": "^2.2.1"
-    },
-    "devDependencies": {
-        "typescript": "^4.1.3"
     }
 }
