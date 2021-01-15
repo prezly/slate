@@ -16,9 +16,11 @@
         "clean": "lerna clean --yes && lerna run clean && rimraf node_modules/",
         "prettier": "prettier --check './**/*.(js|ts|scss)'",
         "prettier:fix": "npm run prettier -- --write --no-list-different",
-        "release": "npm run release:prepare && npm run release:publish",
+        "release": "npm run release:prepare && npm run release:version && npm run release:version-commit && npm run release:publish",
         "release:prepare": "npm run clean && npm install && npm run bootstrap && npm run build",
-        "release:publish": "lerna publish from-package --force-publish"
+        "release:publish": "lerna publish --force-publish",
+        "release:version": "lerna version --force-publish --no-git-tag-version --no-push",
+        "release:version-commit": "git add . && git commit -m \"Bump packages with 'lerna version'\""
     },
     "devDependencies": {
         "lerna": "^3.22.1",
