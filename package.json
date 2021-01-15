@@ -18,12 +18,17 @@
         "prettier:fix": "npm run prettier -- --write --no-list-different",
         "release": "npm run release:prepare && npm run release:publish",
         "release:prepare": "npm run clean && npm install && npm run bootstrap && npm run build",
-        "release:publish": "lerna publish --force-publish"
+        "release:publish": "lerna publish --force-publish",
+        "test": "jest --no-cache --coverage",
+        "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
+        "test:watch": "jest --no-cache --watch"
     },
     "devDependencies": {
+        "jest": "^26.6.3",
         "lerna": "^3.22.1",
         "prettier": "^2.2.1",
         "rimraf": "^3.0.2",
+        "ts-jest": "^26.4.4",
         "typescript": "^4.1.3"
     }
 }
