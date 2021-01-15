@@ -13,9 +13,9 @@ export { default as DocumentNode, DOCUMENT_NODE_TYPE, isDocumentNode } from './D
 export { default as ElementNode, isElementNode } from './ElementNode';
 export { default as EmbedNode, EMBED_NODE_TYPE, isEmbedElement } from './EmbedNode';
 export { default as GalleryNode, GALLERY_NODE_TYPE, isGalleryNode } from './GalleryNode';
-export { default as HeadingNode } from './HeadingNode';
+export { default as HeadingNode, HEADING_1_NODE_TYPE, isHeadingNode } from './HeadingNode';
 export { default as ImageNode } from './ImageNode';
-export { default as InlineNode } from './InlineNode';
+export { default as InlineNode, isInlineNode } from './InlineNode';
 export { default as LinkNode, isLinkNode, LINK_NODE_TYPE } from './LinkNode';
 export { default as ListNode, ListItemNode, ListItemTextNode } from './ListNode';
 export { default as MentionNode, isMentionNode, MENTION_NODE_TYPE } from './MentionNode';
