@@ -8,7 +8,7 @@
 
 # Packages
 
-| npm                                                                      |                                                                                                                           |                                             |
+| npm                                                                      | Badges                                                                                                                    | Readme                                      |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
 | [@prezly/slate-types](https://www.npmjs.com/package/@prezly/slate-types) | ![Version](https://img.shields.io/npm/v/@prezly/slate-types) ![License](https://img.shields.io/npm/l/@prezly/slate-types) | [README.md](packages/slate-types/README.md) |
 
