@@ -19,7 +19,7 @@ export { default as InlineNode, isInlineNode } from './InlineNode';
 export { default as LinkNode, isLinkNode, LINK_NODE_TYPE } from './LinkNode';
 export { default as ListNode, ListItemNode, ListItemTextNode } from './ListNode';
 export { default as MentionNode, isMentionNode, MENTION_NODE_TYPE } from './MentionNode';
-export { default as ParagraphNode } from './ParagraphNode';
+export { default as ParagraphNode, isParagraphNode, PARAGRAPH_NODE_TYPE } from './ParagraphNode';
 export {
     default as PlaceholderNode,
     isPlaceholderNode,

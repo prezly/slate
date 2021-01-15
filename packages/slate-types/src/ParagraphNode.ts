@@ -1,6 +1,20 @@
+import ElementNode, { isElementNode } from './ElementNode';
+import { isInlineNode } from './InlineNode';
+
 import InlineNode from './InlineNode';
 
-export default interface ParagraphNode {
+export const PARAGRAPH_NODE_TYPE = 'paragraph';
+
+export default interface ParagraphNode extends ElementNode {
     children: InlineNode[];
-    type: 'paragraph';
+    type: typeof PARAGRAPH_NODE_TYPE;
 }
+
+export const isParagraphNode = (value: any): value is ParagraphNode => {
+    return (
+        isElementNode(value) &&
+        value.type === PARAGRAPH_NODE_TYPE &&
+        Array.isArray(value.children) &&
+        value.children.every(isInlineNode)
+    );
+};
