@@ -16,7 +16,7 @@ export { default as GalleryNode, GALLERY_NODE_TYPE, isGalleryNode } from './Gall
 export { default as HeadingNode } from './HeadingNode';
 export { default as ImageNode } from './ImageNode';
 export { default as InlineNode } from './InlineNode';
-export { default as LinkNode } from './LinkNode';
+export { default as LinkNode, isLinkNode, LINK_NODE_TYPE } from './LinkNode';
 export { default as ListNode, ListItemNode, ListItemTextNode } from './ListNode';
 export { default as MentionNode } from './MentionNode';
 export { default as ParagraphNode } from './ParagraphNode';
