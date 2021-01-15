@@ -20,6 +20,10 @@ export { default as LinkNode, isLinkNode, LINK_NODE_TYPE } from './LinkNode';
 export { default as ListNode, ListItemNode, ListItemTextNode } from './ListNode';
 export { default as MentionNode, isMentionNode, MENTION_NODE_TYPE } from './MentionNode';
 export { default as ParagraphNode } from './ParagraphNode';
-export { default as PlaceholderNode } from './PlaceholderNode';
+export {
+    default as PlaceholderNode,
+    isPlaceholderNode,
+    PLACEHOLDER_NODE_TYPE,
+} from './PlaceholderNode';
 export { default as QuoteNode } from './QuoteNode';
 export { default as TextNode, isTextNode } from './TextNode';
