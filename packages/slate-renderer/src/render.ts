@@ -1,10 +1,9 @@
-import { ReactNode } from 'react';
 import { DocumentNode } from '@prezly/slate-types';
+import { ReactNode } from 'react';
 
 import { Options } from './types';
 
-const render = (documentNode: DocumentNode, options?: Options): ReactNode => {
-    console.log(documentNode, options);
+const render = (_documentNode: DocumentNode, _options?: Options): ReactNode => {
     return null;
 };
 

@@ -24,6 +24,7 @@
         "test:watch": "jest --no-cache --watch"
     },
     "devDependencies": {
+        "@types/jest": "^26.0.20",
         "jest": "^26.6.3",
         "lerna": "^3.22.1",
         "prettier": "^2.2.1",
