@@ -11,4 +11,7 @@ export { default as OEmbedInfoType } from './OEmbedInfoType';
 export { default as PressContact } from './PressContact';
 export { default as UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
 export { default as UploadcareImageStoragePayload } from './UploadcareImageStoragePayload';
-export { default as UploadcareStoragePayload } from './UploadcareStoragePayload';
+export {
+    default as UploadcareStoragePayload,
+    isPrezlyStoragePayload,
+} from './UploadcareStoragePayload';
