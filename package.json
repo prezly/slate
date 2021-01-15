@@ -18,7 +18,7 @@
         "prettier:fix": "npm run prettier -- --write --no-list-different",
         "release": "npm run release:prepare && npm run release:publish",
         "release:prepare": "npm run clean && npm install && npm run bootstrap && npm run build",
-        "release:publish": "lerna publish from-package"
+        "release:publish": "lerna publish from-package --force-publish"
     },
     "devDependencies": {
         "lerna": "^3.22.1",
