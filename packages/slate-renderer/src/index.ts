@@ -1,1 +1,1 @@
-export const HELLO = 'WORLD';
+export { default as render } from './render';
