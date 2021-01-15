@@ -6,11 +6,14 @@ export const ATTACHMENT_NODE_TYPE = 'attachment';
 export default interface AttachmentNode extends ElementNode {
     description: string;
     file: UploadcareStoragePayload;
-    type: 'attachment';
+    type: typeof ATTACHMENT_NODE_TYPE;
 }
 
-export const isFileAttachmentNode = (node: any): node is AttachmentNode =>
-    isElementNode(node) &&
-    node.type === ATTACHMENT_NODE_TYPE &&
-    typeof node.description === 'string' &&
-    isPrezlyStoragePayload(node.file);
+export const isFileAttachmentNode = (value: any): value is AttachmentNode => {
+    return (
+        isElementNode(value) &&
+        value.type === ATTACHMENT_NODE_TYPE &&
+        typeof value.description === 'string' &&
+        isPrezlyStoragePayload(value.file)
+    );
+};

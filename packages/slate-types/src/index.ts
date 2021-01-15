@@ -6,7 +6,7 @@ export {
     isFileAttachmentNode,
 } from './AttachmentNode';
 export { default as BlockNode } from './BlockNode';
-export { default as ContactNode } from './ContactNode';
+export { default as ContactNode, CONTACT_NODE_TYPE, isPressContactNode } from './ContactNode';
 export { default as CoverageNode } from './CoverageNode';
 export { default as DividerNode } from './DividerNode';
 export { default as DocumentNode } from './DocumentNode';
