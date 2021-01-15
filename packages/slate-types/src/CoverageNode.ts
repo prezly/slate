@@ -11,7 +11,7 @@ export default interface CoverageNode extends ElementNode {
     uuid: string;
 }
 
-export const isCoverageElement = (value: any): value is CoverageNode => {
+export const isCoverageNode = (value: any): value is CoverageNode => {
     return (
         isElementNode(value) &&
         value.type === COVERAGE_NODE_TYPE &&

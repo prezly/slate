@@ -7,8 +7,8 @@ export {
 } from './AttachmentNode';
 export { default as BlockNode } from './BlockNode';
 export { default as ContactNode, CONTACT_NODE_TYPE, isPressContactNode } from './ContactNode';
-export { default as CoverageNode, COVERAGE_NODE_TYPE, isCoverageElement } from './CoverageNode';
-export { default as DividerNode } from './DividerNode';
+export { default as CoverageNode, COVERAGE_NODE_TYPE, isCoverageNode } from './CoverageNode';
+export { default as DividerNode, DIVIDER_NODE_TYPE, isDividerNode } from './DividerNode';
 export { default as DocumentNode } from './DocumentNode';
 export { default as ElementNode, isElementNode } from './ElementNode';
 export { default as EmbedNode } from './EmbedNode';
