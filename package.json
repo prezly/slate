@@ -13,11 +13,12 @@
     "scripts": {
         "bootstrap": "lerna bootstrap",
         "build": "lerna run build",
+        "check": "npm run prettier && npm run test",
         "clean": "lerna clean --yes && lerna run clean && rimraf node_modules/",
         "prettier": "prettier --check './**/*.(js|ts|scss)'",
         "prettier:fix": "npm run prettier -- --write --no-list-different",
         "release": "npm run release:prepare && npm run release:publish",
-        "release:prepare": "npm run clean && npm install && npm run bootstrap && npm run build",
+        "release:prepare": "npm run clean && npm install && npm run bootstrap && npm run check && npm run build",
         "release:publish": "lerna publish --force-publish",
         "test": "jest --no-cache --coverage",
         "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
