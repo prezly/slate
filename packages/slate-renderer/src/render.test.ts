@@ -11,5 +11,8 @@ const documentNode: DocumentNode = {
 describe('render', () => {
     it('returns null', () => {
         expect(render(documentNode)).toBe(null);
+        render(documentNode, {
+            // 'attachment': ()
+        })
     });
 });
