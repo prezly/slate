@@ -17,7 +17,18 @@ export { default as HeadingNode, HEADING_1_NODE_TYPE, isHeadingNode } from './He
 export { default as ImageNode, IMAGE_NODE_TYPE, isImageNode } from './ImageNode';
 export { default as InlineNode, isInlineNode } from './InlineNode';
 export { default as LinkNode, isLinkNode, LINK_NODE_TYPE } from './LinkNode';
-export { default as ListNode, ListItemNode, ListItemTextNode } from './ListNode';
+export {
+    default as ListNode,
+    BULLETED_LIST_NODE_TYPE,
+    isListItemNode,
+    isListItemTextNode,
+    isListNode,
+    LIST_ITEM_NODE_TYPE,
+    LIST_ITEM_TEXT_NODE_TYPE,
+    ListItemNode,
+    ListItemTextNode,
+    NUMBERED_LIST_NODE_TYPE,
+} from './ListNode';
 export { default as MentionNode, isMentionNode, MENTION_NODE_TYPE } from './MentionNode';
 export { default as ParagraphNode, isParagraphNode, PARAGRAPH_NODE_TYPE } from './ParagraphNode';
 export {
