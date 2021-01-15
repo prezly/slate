@@ -4,7 +4,7 @@
 
 [Prezly](https://www.prezly.com/) software built upon [Slate](http://slatejs.org/).
 
----
+----
 
 # Packages
 
