@@ -18,7 +18,7 @@ export { default as ImageNode } from './ImageNode';
 export { default as InlineNode } from './InlineNode';
 export { default as LinkNode, isLinkNode, LINK_NODE_TYPE } from './LinkNode';
 export { default as ListNode, ListItemNode, ListItemTextNode } from './ListNode';
-export { default as MentionNode } from './MentionNode';
+export { default as MentionNode, isMentionNode, MENTION_NODE_TYPE } from './MentionNode';
 export { default as ParagraphNode } from './ParagraphNode';
 export { default as PlaceholderNode } from './PlaceholderNode';
 export { default as QuoteNode } from './QuoteNode';
