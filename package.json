@@ -3,7 +3,9 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "clean": "lerna run clean"
+    "clean": "lerna run clean",
+    "prettier": "prettier --check './**/*.(js|ts|scss)'",
+    "prettier:fix": "npm run prettier -- --write --no-list-different"
   },
   "devDependencies": {
     "lerna": "^3.22.1",
