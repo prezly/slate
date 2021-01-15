@@ -25,5 +25,5 @@ export {
     isPlaceholderNode,
     PLACEHOLDER_NODE_TYPE,
 } from './PlaceholderNode';
-export { default as QuoteNode } from './QuoteNode';
+export { default as QuoteNode, isQuoteNode, QUOTE_NODE_TYPE } from './QuoteNode';
 export { default as TextNode, isTextNode } from './TextNode';

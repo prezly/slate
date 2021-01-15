@@ -1,7 +1,5 @@
 import ElementNode, { isElementNode } from './ElementNode';
-import { isInlineNode } from './InlineNode';
-
-import InlineNode from './InlineNode';
+import InlineNode, { isInlineNode } from './InlineNode';
 
 export const PARAGRAPH_NODE_TYPE = 'paragraph';
 
