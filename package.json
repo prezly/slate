@@ -5,7 +5,8 @@
     "build": "lerna run build",
     "clean": "lerna clean && lerna run clean",
     "prettier": "prettier --check './**/*.(js|ts|scss)'",
-    "prettier:fix": "npm run prettier -- --write --no-list-different"
+    "prettier:fix": "npm run prettier -- --write --no-list-different",
+    "publish": "lerna publish from-package"
   },
   "devDependencies": {
     "lerna": "^3.22.1",
