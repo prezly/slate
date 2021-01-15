@@ -8,6 +8,9 @@
         "build": "tsc --project .",
         "clean": "rm -rf build/"
     },
+    "dependencies": {
+        "@prezly/sdk": "^2.2.1"
+    },
     "devDependencies": {
         "typescript": "^4.1.3"
     }
