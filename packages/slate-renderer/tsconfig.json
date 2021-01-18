@@ -2,7 +2,7 @@
     "extends": "../../tsconfig.json",
 
     "compilerOptions": {
-        "jsx": "preserve",
+        "jsx": "react",
         "outDir": "./build",
         "rootDir": "./src"
     },
