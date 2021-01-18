@@ -32,7 +32,12 @@ const render = (nodes: (ElementNode | TextNode)[], userOptions: Options = {}): R
                     }
                 }
 
-                throw new Error(`Unknown node "${node.type}": "${JSON.stringify(node)}"`);
+                return (
+                    <div key={index}>
+                        <h3>Unknown node "{node.type}"</h3>
+                        <pre>{`${JSON.stringify(node, null, 4)}`}</pre>
+                    </div>
+                );
             })}
         </>
     );
