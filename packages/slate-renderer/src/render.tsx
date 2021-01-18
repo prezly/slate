@@ -1,11 +1,11 @@
 import { ElementNode, isElementNode, isTextNode, TextNode } from '@prezly/slate-types';
-import React, { ReactNode } from 'react';
+import React, { ReactElement } from 'react';
 
 import defaultOptions from './defaultOptions';
 import { appendKeyToValidElement } from './lib';
 import { Options } from './types';
 
-const render = (nodes: (ElementNode | TextNode)[], userOptions: Options = {}): ReactNode => {
+const render = (nodes: (ElementNode | TextNode)[], userOptions: Options = {}): ReactElement => {
     const options = { ...defaultOptions, ...userOptions };
 
     return (
