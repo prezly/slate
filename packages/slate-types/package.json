@@ -1,7 +1,7 @@
 {
     "name": "@prezly/slate-types",
     "version": "0.1.0-alpha.3",
-    "description": "TypeScript definitions for Slate document structure at Prezly",
+    "description": "TypeScript definitions for Slate document structure used at Prezly",
     "license": "MIT",
     "main": "build/index.js",
     "types": "build/index.d.ts",
