@@ -12,15 +12,18 @@ export default interface PressContact {
     website: string | null;
 }
 
-export const isPressContact = (value: any): value is PressContact =>
-    (typeof value.avatar_url === 'string' || value.avatar_url === null) &&
-    (typeof value.company === 'string' || value.company === null) &&
-    (typeof value.description === 'string' || value.description === null) &&
-    (typeof value.email === 'string' || value.email === null) &&
-    (typeof value.facebook === 'string' || value.facebook === null) &&
-    typeof value.id === 'number' &&
-    (typeof value.mobile === 'string' || value.mobile === null) &&
-    typeof value.name === 'string' &&
-    (typeof value.phone === 'string' || value.phone === null) &&
-    (typeof value.twitter === 'string' || value.twitter === null) &&
-    (typeof value.website === 'string' || value.website === null);
+export const isPressContact = (value: any): value is PressContact => {
+    return (
+        (typeof value.avatar_url === 'string' || value.avatar_url === null) &&
+        (typeof value.company === 'string' || value.company === null) &&
+        (typeof value.description === 'string' || value.description === null) &&
+        (typeof value.email === 'string' || value.email === null) &&
+        (typeof value.facebook === 'string' || value.facebook === null) &&
+        typeof value.id === 'number' &&
+        (typeof value.mobile === 'string' || value.mobile === null) &&
+        typeof value.name === 'string' &&
+        (typeof value.phone === 'string' || value.phone === null) &&
+        (typeof value.twitter === 'string' || value.twitter === null) &&
+        (typeof value.website === 'string' || value.website === null)
+    );
+};

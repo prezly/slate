@@ -3,7 +3,7 @@ import { isOEmbedInfo, OEmbedInfo } from './sdk';
 
 export const EMBED_NODE_TYPE = 'embed';
 
-export default interface EmbedNode {
+export default interface EmbedNode extends ElementNode {
     oembed: OEmbedInfo;
     type: typeof EMBED_NODE_TYPE;
     url: string;

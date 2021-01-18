@@ -20,11 +20,14 @@ export default interface OEmbedInfo {
     width?: number;
 }
 
-export const isOEmbedInfo = (value: any): value is OEmbedInfo =>
-    typeof value === 'object' &&
-    value !== null &&
-    Object.values(OEmbedInfoType).includes(value.type) &&
-    typeof value.url === 'string' &&
-    value.url.length > 0 &&
-    typeof value.version === 'string' &&
-    value.version.length > 0;
+export const isOEmbedInfo = (value: any): value is OEmbedInfo => {
+    return (
+        typeof value === 'object' &&
+        value !== null &&
+        Object.values(OEmbedInfoType).includes(value.type) &&
+        typeof value.url === 'string' &&
+        value.url.length > 0 &&
+        typeof value.version === 'string' &&
+        value.version.length > 0
+    );
+};
