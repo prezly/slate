@@ -1,14 +1,14 @@
 {
     "name": "@prezly/slate-examples",
     "private": true,
-    "version": "0.0.1",
+    "version": "0.1.0-alpha.3",
     "engines": {
         "node": ">=12.4.0"
     },
     "scripts": {
-        "build": "NEXT_TELEMETRY_DISABLED=1 next build",
-        "dev": "NEXT_TELEMETRY_DISABLED=1 next dev",
-        "start": "NEXT_TELEMETRY_DISABLED=1 next start"
+        "build": "next build",
+        "dev": "next dev",
+        "start": "next start"
     },
     "dependencies": {
         "@prezly/slate-renderer": "^0.1.0-alpha.3",

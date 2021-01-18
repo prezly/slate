@@ -1,4 +1,4 @@
 declare module '*.scss' {
-    const content: Record<string, string>;
+    const content: void;
     export default content;
 }

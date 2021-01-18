@@ -22,13 +22,8 @@ const render = (nodes: (ElementNode | TextNode)[], userOptions: Options = {}): R
                     const renderNode = options[type];
 
                     if (renderNode) {
-                        return appendKeyToValidElement(
-                            renderNode({
-                                ...node,
-                                children: render(children),
-                            }),
-                            index,
-                        );
+                        const nodeWithChildren = { ...node, children: render(children) };
+                        return appendKeyToValidElement(renderNode(nodeWithChildren), index);
                     }
                 }
 

@@ -7,6 +7,7 @@
         "lib": ["esnext"],
         "module": "commonjs",
         "moduleResolution": "node",
+        "noImplicitAny": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
