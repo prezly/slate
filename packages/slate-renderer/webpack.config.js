@@ -13,7 +13,18 @@ module.exports = {
             },
             {
                 test: /\.scss$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sassOptions: {
+                                includePaths: [path.resolve(__dirname, 'src')],
+                            },
+                        },
+                    },
+                ],
             },
         ],
     },

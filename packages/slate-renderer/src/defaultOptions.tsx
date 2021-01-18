@@ -22,6 +22,7 @@ import {
 import React from 'react';
 
 import defaultRenderText from './defaultRenderText';
+import { Heading1 } from './elements';
 import { Options } from './types';
 import './styles.scss';
 
@@ -35,7 +36,7 @@ const defaultOptions: Required<Options> = {
     [DOCUMENT_NODE_TYPE]: ({ children }) => <div>{children}</div>,
     [EMBED_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [GALLERY_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
-    [HEADING_1_NODE_TYPE]: ({ children }) => <h1 className="heading-1">{children}</h1>,
+    [HEADING_1_NODE_TYPE]: ({ children }) => <Heading1>{children}</Heading1>,
     [HEADING_2_NODE_TYPE]: ({ children }) => <h2>{children}</h2>,
     [IMAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [LINK_NODE_TYPE]: ({ children, href }) => (
