@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-renderer",
-    "version": "0.1.0-alpha.2",
+    "version": "0.1.0-alpha.3",
     "description": "Render Slate documents used at Prezly",
     "license": "MIT",
     "main": "build/index.js",
@@ -22,7 +22,7 @@
         "react-dom": ">=16.0.0"
     },
     "dependencies": {
-        "@prezly/slate-types": "^0.1.0-alpha.2"
+        "@prezly/slate-types": "^0.1.0-alpha.3"
     },
     "devDependencies": {
         "@types/react": "^17.0.0",
