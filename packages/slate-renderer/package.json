@@ -18,13 +18,16 @@
         "clean": "rimraf build/"
     },
     "peerDependencies": {
-        "react": ">=16.0.0"
+        "react": ">=16.0.0",
+        "react-dom": ">=16.0.0"
     },
     "dependencies": {
         "@prezly/slate-types": "^0.1.0-alpha.0"
     },
     "devDependencies": {
         "@types/react": "^17.0.0",
-        "react": "^17.0.1"
+        "@types/react-dom": "^17.0.0",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1"
     }
 }
