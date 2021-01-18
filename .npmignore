@@ -1,4 +1,5 @@
 coverage/
+**/examples/**
 **/node_modules/**
 *.eslintcache
 *.db
