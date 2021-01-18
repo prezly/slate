@@ -7,5 +7,6 @@
         "rootDir": "./src"
     },
     "exclude": ["node_modules", "**/*.test.ts"],
+    "files": ["./src/@types/scss.d.ts"],
     "include": ["./src"]
 }
