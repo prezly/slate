@@ -1,5 +1,6 @@
 {
-    "name": "ultimate-story",
+    "name": "@prezly/slate-examples",
+    "private": true,
     "version": "0.0.1",
     "engines": {
         "node": ">=12.4.0"

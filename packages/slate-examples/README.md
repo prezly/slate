@@ -1,4 +1,4 @@
-# @prezly/slate-renderer - ultimate-story example
+# @prezly/slate-examples
 
 http://localhost:3000/
 
