@@ -1,13 +1,13 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, HTMLAttributes } from 'react';
 
 import './Heading1.scss';
 
-interface Props {
-    className?: string;
-}
-
-const Heading1: FunctionComponent<Props> = ({ children, className, ...props }) => (
+const Heading1: FunctionComponent<HTMLAttributes<HTMLHeadingElement>> = ({
+    children,
+    className,
+    ...props
+}) => (
     <h1 className={classNames('prezly-slate-heading-1', className)} {...props}>
         {children}
     </h1>

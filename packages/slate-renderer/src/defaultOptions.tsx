@@ -22,7 +22,7 @@ import {
 import React from 'react';
 
 import defaultRenderText from './defaultRenderText';
-import { Heading1 } from './elements';
+import { Heading1, Heading2 } from './elements';
 import { Options } from './types';
 import './styles.scss';
 
@@ -37,7 +37,7 @@ const defaultOptions: Required<Options> = {
     [EMBED_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [GALLERY_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [HEADING_1_NODE_TYPE]: ({ children }) => <Heading1>{children}</Heading1>,
-    [HEADING_2_NODE_TYPE]: ({ children }) => <h2>{children}</h2>,
+    [HEADING_2_NODE_TYPE]: ({ children }) => <Heading2>{children}</Heading2>,
     [IMAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [LINK_NODE_TYPE]: ({ children, href }) => (
         <a href={href} rel="noopener noreferrer" target="_blank">
