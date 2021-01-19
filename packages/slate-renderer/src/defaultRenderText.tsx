@@ -24,7 +24,7 @@ const defaultRenderText = (text: TextNode): ReactNode => {
         spanChildren = <u>{spanChildren}</u>;
     }
 
-    return <span>{spanChildren}</span>;
+    return spanChildren;
 };
 
 export default defaultRenderText;
