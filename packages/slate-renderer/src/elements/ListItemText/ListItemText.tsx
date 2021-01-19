@@ -3,7 +3,7 @@ import React, { FunctionComponent, HTMLAttributes } from 'react';
 
 import './ListItemText.scss';
 
-const ListItemText: FunctionComponent<HTMLAttributes<HTMLLIElement>> = ({
+const ListItemText: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({
     children,
     className,
     ...props

@@ -30,6 +30,7 @@ import {
     ListItemText,
     NumberedList,
     Paragraph,
+    Quote,
 } from './elements';
 import { Options } from './types';
 import './styles.scss';
@@ -58,7 +59,7 @@ const defaultOptions: Required<Options> = {
     [NUMBERED_LIST_NODE_TYPE]: ({ children }) => <NumberedList>{children}</NumberedList>,
     [PARAGRAPH_NODE_TYPE]: ({ children }) => <Paragraph>{children}</Paragraph>,
     [PLACEHOLDER_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
-    [QUOTE_NODE_TYPE]: ({ children }) => <blockquote>{children}</blockquote>,
+    [QUOTE_NODE_TYPE]: ({ children }) => <Quote>{children}</Quote>,
 };
 
 export default defaultOptions;
