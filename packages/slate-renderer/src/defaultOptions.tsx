@@ -41,7 +41,7 @@ import './styles.scss';
 const defaultOptions: Required<Options> = {
     text: defaultRenderText,
     [ATTACHMENT_NODE_TYPE]: ({ description, file }) => (
-        <Attachment description={description} file={file} />
+        <Attachment description={description} file={file} styled />
     ),
     [BULLETED_LIST_NODE_TYPE]: ({ children }) => <BulletedList>{children}</BulletedList>,
     [CONTACT_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO

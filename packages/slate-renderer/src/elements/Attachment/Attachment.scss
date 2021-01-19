@@ -2,12 +2,63 @@
 
 .prezly-slate {
     &-attachment {
-        margin: $spacing-3 0;
-        padding: $spacing-2 + $spacing-half;
-        border-left: 4px solid $border-color;
-        color: $text-color-2;
-        font-size: $font-size;
-        line-height: $line-height;
-        font-style: italic;
+        margin: $block-spacing-vertical 0;
+        border: 1px solid $color-grey-250;
+        border-radius: 2px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+
+        &__content {
+            display: flex;
+            align-items: center;
+        }
+
+        &__icon-container {
+            $size: 48px;
+
+            width: $size;
+            height: $size;
+            color: black;
+            border: 1px solid $color-grey-250;
+            border-radius: 2.67px;
+            margin-left: $spacing-3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__icon {
+            $size: 22px;
+
+            height: $size;
+            width: $size;
+        }
+
+        &__details {
+            flex: 1;
+            padding: $spacing-3;
+        }
+
+        &__title {
+            color: $text-color;
+            font-size: 24px;
+            line-height: 1;
+            font-weight: bold;
+            cursor: default;
+
+            &--unstyled {
+                color: black;
+            }
+        }
+
+        &__subtitle {
+            color: $text-color-2;
+            font-size: 15px;
+            line-height: (22 / 15);
+            cursor: default;
+
+            &--unstyled {
+                color: black;
+            }
+        }
     }
 }

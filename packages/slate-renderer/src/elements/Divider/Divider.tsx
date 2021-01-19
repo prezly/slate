@@ -3,7 +3,11 @@ import React, { FunctionComponent, HTMLAttributes } from 'react';
 
 import './Divider.scss';
 
-const Divider: FunctionComponent<HTMLAttributes<HTMLHRElement>> = ({ className, ...props }) => (
+interface Props extends HTMLAttributes<HTMLHRElement> {
+    children?: never;
+}
+
+const Divider: FunctionComponent<Props> = ({ className, ...props }) => (
     <hr className={classNames('prezly-slate-divider', className)} {...props} />
 );
 

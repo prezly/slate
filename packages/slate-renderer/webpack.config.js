@@ -12,7 +12,7 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.scss$/i,
+                test: /\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
@@ -25,6 +25,15 @@ module.exports = {
                         },
                     },
                 ],
+            },
+            {
+                test: /\.svg$/,
+                use: {
+                    loader: 'svg-url-loader',
+                    options: {
+                        iesafe: true,
+                    },
+                },
             },
         ],
     },
