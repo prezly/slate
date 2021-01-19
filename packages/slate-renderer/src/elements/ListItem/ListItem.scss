@@ -1,0 +1,12 @@
+@import "styles/variables.scss";
+
+.prezly-slate {
+    &-list-item {
+        margin: $spacing-2 0;
+        padding: 0;
+        padding-left: $spacing-4;
+        color: $text-color;
+        font-size: $font-size;
+        line-height: $line-height;
+    }
+}
