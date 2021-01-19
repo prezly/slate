@@ -24,6 +24,7 @@ import React from 'react';
 import defaultRenderText from './defaultRenderText';
 import {
     BulletedList,
+    Divider,
     Heading1,
     Heading2,
     Link,
@@ -42,7 +43,7 @@ const defaultOptions: Required<Options> = {
     [BULLETED_LIST_NODE_TYPE]: ({ children }) => <BulletedList>{children}</BulletedList>,
     [CONTACT_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [COVERAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
-    [DIVIDER_NODE_TYPE]: () => <hr />,
+    [DIVIDER_NODE_TYPE]: () => <Divider />,
     [DOCUMENT_NODE_TYPE]: ({ children }) => <div>{children}</div>,
     [EMBED_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [GALLERY_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
