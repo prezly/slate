@@ -6,9 +6,7 @@
         "node": ">=12.4.0"
     },
     "scripts": {
-        "build": "next build",
-        "dev": "next dev",
-        "start": "next start"
+        "dev": "next dev"
     },
     "dependencies": {
         "@prezly/slate-renderer": "^0.1.0-alpha.4",
