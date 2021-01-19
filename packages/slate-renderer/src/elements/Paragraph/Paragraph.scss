@@ -1,0 +1,11 @@
+@import "styles/variables.scss";
+
+.prezly-slate {
+    &-paragraph {
+        margin: $spacing-2 0;
+        color: $text-color;
+        font-weight: 500;
+        font-size: $font-size;
+        line-height: $line-height;
+    }
+}
