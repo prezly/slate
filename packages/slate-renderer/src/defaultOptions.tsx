@@ -25,6 +25,7 @@ import defaultRenderText from './defaultRenderText';
 import {
     Attachment,
     BulletedList,
+    Contact,
     Divider,
     Heading1,
     Heading2,
@@ -44,7 +45,7 @@ const defaultOptions: Required<Options> = {
         <Attachment description={description} file={file} styled />
     ),
     [BULLETED_LIST_NODE_TYPE]: ({ children }) => <BulletedList>{children}</BulletedList>,
-    [CONTACT_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
+    [CONTACT_NODE_TYPE]: ({ contact }) => <Contact contact={contact} />,
     [COVERAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [DIVIDER_NODE_TYPE]: () => <Divider />,
     [DOCUMENT_NODE_TYPE]: ({ children }) => <div>{children}</div>,

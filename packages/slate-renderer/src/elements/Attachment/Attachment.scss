@@ -4,7 +4,7 @@
     &-attachment {
         margin: $block-spacing-vertical 0;
         border: 1px solid $color-grey-250;
-        border-radius: 2px;
+        border-radius: $border-radius-base;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
 
         &__content {
@@ -19,7 +19,7 @@
             height: $size;
             color: black;
             border: 1px solid $color-grey-250;
-            border-radius: 2.67px;
+            border-radius: $border-radius-base;
             margin-left: $spacing-3;
             display: flex;
             align-items: center;
