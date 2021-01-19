@@ -23,6 +23,7 @@ import React from 'react';
 
 import defaultRenderText from './defaultRenderText';
 import {
+    Attachment,
     BulletedList,
     Divider,
     Heading1,
@@ -39,7 +40,9 @@ import './styles.scss';
 
 const defaultOptions: Required<Options> = {
     text: defaultRenderText,
-    [ATTACHMENT_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
+    [ATTACHMENT_NODE_TYPE]: ({ description, file }) => (
+        <Attachment description={description} file={file} />
+    ),
     [BULLETED_LIST_NODE_TYPE]: ({ children }) => <BulletedList>{children}</BulletedList>,
     [CONTACT_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [COVERAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO

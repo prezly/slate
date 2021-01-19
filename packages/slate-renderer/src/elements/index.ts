@@ -1,3 +1,4 @@
+export { default as Attachment } from './Attachment';
 export { default as BulletedList } from './BulletedList';
 export { default as Divider } from './Divider';
 export { default as Heading1 } from './Heading1';
