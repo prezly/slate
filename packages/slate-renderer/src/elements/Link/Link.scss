@@ -1,0 +1,15 @@
+@import "styles/variables.scss";
+
+.prezly-slate {
+    &-link {
+        text-decoration: underline;
+
+        &,
+        &:hover,
+        &:active,
+        &:focus,
+        &:visited {
+            color: $link-color;
+        }
+    }
+}

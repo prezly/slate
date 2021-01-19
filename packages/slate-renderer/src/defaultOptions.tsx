@@ -26,6 +26,7 @@ import {
     BulletedList,
     Heading1,
     Heading2,
+    Link,
     ListItem,
     ListItemText,
     NumberedList,
@@ -48,11 +49,7 @@ const defaultOptions: Required<Options> = {
     [HEADING_1_NODE_TYPE]: ({ children }) => <Heading1>{children}</Heading1>,
     [HEADING_2_NODE_TYPE]: ({ children }) => <Heading2>{children}</Heading2>,
     [IMAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
-    [LINK_NODE_TYPE]: ({ children, href }) => (
-        <a href={href} rel="noopener noreferrer" target="_blank">
-            {children}
-        </a>
-    ),
+    [LINK_NODE_TYPE]: ({ children, href }) => <Link href={href}>{children}</Link>,
     [LIST_ITEM_NODE_TYPE]: ({ children }) => <ListItem>{children}</ListItem>,
     [LIST_ITEM_TEXT_NODE_TYPE]: ({ children }) => <ListItemText>{children}</ListItemText>,
     [MENTION_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
