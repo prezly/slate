@@ -22,7 +22,7 @@ import {
 import React from 'react';
 
 import defaultRenderText from './defaultRenderText';
-import { BulletedList, Heading1, Heading2, Paragraph } from './elements';
+import { BulletedList, Heading1, Heading2, NumberedList, Paragraph } from './elements';
 import { Options } from './types';
 import './styles.scss';
 
@@ -47,7 +47,7 @@ const defaultOptions: Required<Options> = {
     [LIST_ITEM_NODE_TYPE]: ({ children }) => <li>{children}</li>,
     [LIST_ITEM_TEXT_NODE_TYPE]: ({ children }) => <div>{children}</div>,
     [MENTION_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
-    [NUMBERED_LIST_NODE_TYPE]: ({ children }) => <ol>{children}</ol>,
+    [NUMBERED_LIST_NODE_TYPE]: ({ children }) => <NumberedList>{children}</NumberedList>,
     [PARAGRAPH_NODE_TYPE]: ({ children }) => <Paragraph>{children}</Paragraph>,
     [PLACEHOLDER_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [QUOTE_NODE_TYPE]: ({ children }) => <blockquote>{children}</blockquote>,
