@@ -22,14 +22,14 @@ import {
 import React from 'react';
 
 import defaultRenderText from './defaultRenderText';
-import { Heading1, Heading2, Paragraph } from './elements';
+import { BulletedList, Heading1, Heading2, Paragraph } from './elements';
 import { Options } from './types';
 import './styles.scss';
 
 const defaultOptions: Required<Options> = {
     text: defaultRenderText,
     [ATTACHMENT_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
-    [BULLETED_LIST_NODE_TYPE]: ({ children }) => <ul>{children}</ul>,
+    [BULLETED_LIST_NODE_TYPE]: ({ children }) => <BulletedList>{children}</BulletedList>,
     [CONTACT_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [COVERAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [DIVIDER_NODE_TYPE]: () => <hr />,
