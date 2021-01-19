@@ -1,0 +1,10 @@
+@import "styles/variables.scss";
+
+.prezly-slate {
+    &-list-item-text {
+        color: $text-color;
+        font-weight: 500;
+        font-size: $font-size;
+        line-height: $line-height;
+    }
+}
