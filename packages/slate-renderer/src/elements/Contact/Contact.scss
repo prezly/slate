@@ -72,7 +72,11 @@ $avatar-size: 64px;
             cursor: default; // Text selection doesn't work, use default cursor.
         }
 
-        &__social-icon {
+        &__social-field-icon {
+            $size: 16px;
+
+            width: $size;
+            height: $size;
             margin-right: $spacing-1;
         }
     }

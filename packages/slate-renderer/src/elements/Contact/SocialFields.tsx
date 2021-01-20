@@ -1,7 +1,7 @@
 import { ContactNode } from '@prezly/slate-types';
 import React, { FunctionComponent } from 'react';
 
-import { envelope, facebook, globe, phoneFill, telephoneFill, twitter } from '../../icons';
+import { envelope, facebook, phone, telephone, twitter, window } from '../../icons';
 
 interface Props {
     contact: ContactNode['contact'];
@@ -18,14 +18,14 @@ const SocialFields: FunctionComponent<Props> = ({ contact }) => (
 
         {contact.phone && (
             <li className="prezly-slate-contact__social-field">
-                <img className="prezly-slate-contact__social-field-icon" src={telephoneFill} />
+                <img className="prezly-slate-contact__social-field-icon" src={telephone} />
                 {contact.phone}
             </li>
         )}
 
         {contact.mobile && (
             <li className="prezly-slate-contact__social-field">
-                <img className="prezly-slate-contact__social-field-icon" src={phoneFill} />
+                <img className="prezly-slate-contact__social-field-icon" src={phone} />
                 {contact.mobile}
             </li>
         )}
@@ -46,7 +46,7 @@ const SocialFields: FunctionComponent<Props> = ({ contact }) => (
 
         {contact.website && (
             <li className="prezly-slate-contact__social-field">
-                <img className="prezly-slate-contact__social-field-icon" src={globe} />
+                <img className="prezly-slate-contact__social-field-icon" src={window} />
                 {contact.website}
             </li>
         )}
