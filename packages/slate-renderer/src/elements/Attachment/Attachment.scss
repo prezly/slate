@@ -2,10 +2,17 @@
 
 .prezly-slate {
     &-attachment {
+        display: block;
         margin: $block-spacing-vertical 0;
         border: 1px solid $color-grey-250;
         border-radius: $border-radius-base;
         box-shadow: $box-shadow;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+        }
 
         &__content {
             display: flex;
@@ -43,7 +50,6 @@
             color: $text-color;
             font-size: $font-size-l;
             font-weight: bold;
-            cursor: default;
 
             &--unstyled {
                 color: black;
@@ -53,7 +59,6 @@
         &__subtitle {
             color: $text-color-2;
             font-size: $font-size-s;
-            cursor: default;
 
             &--unstyled {
                 color: black;

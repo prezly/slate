@@ -1,22 +1,63 @@
+@import "styles/mixins.scss";
 @import "styles/variables.scss";
 
 .prezly-slate {
     &-image {
         margin: $spacing-3 0;
+        white-space: normal;
+        text-align: center;
 
-        // &__image {
-        //     max-width: 100%;
-        //     max-height: 100%;
-        //     width: 100%;
-        //     height: auto;
-        //     cursor: default;
-        //     margin: 0 auto;
-        // }
+        &--contained {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &--expanded {
+            @include media-layout-expanded;
+
+            .prezly-slate-image__link,
+            .prezly-slate-image__image,
+            .prezly-slate-image__video,
+            img {
+                width: 100%;
+            }
+        }
+
+        &--full-width {
+            @include media-layout-full-width;
+
+            .prezly-slate-image__link,
+            .prezly-slate-image__image,
+            .prezly-slate-image__video,
+            img {
+                width: 100%;
+            }
+        }
+
+        &--gif {
+            display: block;
+        }
+
+        &__image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        &__video {
+            max-width: 100%;
+        }
+
+        &__link {
+            position: relative;
+            z-index: 0;
+            display: block;
+            text-decoration: none;
+        }
 
         &__caption {
             display: block;
-            margin: 0 auto;
-            padding: $spacing-1-5 0 0;
+            margin: $spacing-1-5 auto 0;
             color: $text-color-2;
             font-style: italic;
             font-size: $font-size-s;
@@ -27,4 +68,7 @@
             }
         }
     }
+}
+
+.prezly-slate-image {
 }

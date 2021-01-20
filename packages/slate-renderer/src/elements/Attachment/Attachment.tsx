@@ -3,15 +3,16 @@ import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 
 import { download } from '../../icons';
-import { formatBytes } from '../../lib';
+import { formatBytes, getUploadcareCdnUrl } from '../../lib';
 
 import './Attachment.scss';
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
+interface Props extends HTMLAttributes<HTMLAnchorElement> {
     children?: never;
     description: AttachmentNode['description'];
     file: AttachmentNode['file'];
     styled?: boolean;
+    uuid: AttachmentNode['uuid'];
 }
 
 const Attachment: FunctionComponent<Props> = ({
@@ -19,12 +20,14 @@ const Attachment: FunctionComponent<Props> = ({
     description,
     file,
     styled,
+    uuid,
     ...props
 }) => {
     const isUsingCustomTitle = Boolean(description);
+    const href = getUploadcareCdnUrl(file, { download: true });
 
     return (
-        <div className={classNames('prezly-slate-attachment', className)} {...props}>
+        <a className={classNames('prezly-slate-attachment', className)} href={href} {...props}>
             <div className="prezly-slate-attachment__content">
                 {styled && (
                     <div className="prezly-slate-attachment__icon-container">
@@ -52,7 +55,7 @@ const Attachment: FunctionComponent<Props> = ({
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     );
 };
 

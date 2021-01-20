@@ -4,3 +4,38 @@
     text-overflow: ellipsis;
     display: block;
 }
+
+// Make a block expand outside the story.
+@mixin media-layout-expanded() {
+    $block-offset: -10%;
+
+    width: 120%;
+
+    [dir="ltr"] & {
+        margin-left: $block-offset;
+    }
+
+    @include rtl {
+        margin-right: $block-offset;
+    }
+
+    @media (max-width: 992px) {
+        @include media-layout-full-width;
+    }
+}
+
+// Make a block take the full width of the screen.
+@mixin media-layout-full-width() {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+}
+
+@mixin rtl {
+    html[dir="rtl"] & {
+        @content;
+    }
+}
