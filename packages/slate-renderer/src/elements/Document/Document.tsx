@@ -12,8 +12,8 @@ interface Props extends HTMLAttributes<HTMLElement> {
 const Document: FunctionComponent<Props> = ({ children, className, version, ...props }) => (
     <section
         className={classNames('prezly-slate-document', className)}
-        {...props}
         data-version={version}
+        {...props}
     >
         {children}
     </section>
