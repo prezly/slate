@@ -460,6 +460,28 @@
         },
         {
             "type": "image-block",
+            "href": "",
+            "file": {
+                "version": 2,
+                "uuid": "920c7059-bbbb-4db2-9d5d-45382f8eb4d2",
+                "filename": "cat-1200x1199.jpg",
+                "mime_type": "image/jpeg",
+                "size": 156145,
+                "original_width": 1200,
+                "original_height": 1199,
+                "effects": ["/crop/1200x767/0,103/", "/preview/"]
+            },
+            "layout": "contained",
+            "width": "100%",
+            "width_factor": "100%",
+            "children": [
+                {
+                    "text": "Image with a caption"
+                }
+            ]
+        },
+        {
+            "type": "image-block",
             "href": "https://rock.prezly.com",
             "file": {
                 "version": 2,
@@ -469,10 +491,7 @@
                 "size": 156145,
                 "original_width": 1200,
                 "original_height": 1199,
-                "effects": [
-                    "/crop/1200x767/0,103/",
-                    "/preview/"
-                ]
+                "effects": ["/crop/1200x767/0,103/", "/preview/"]
             },
             "layout": "contained",
             "width": "100%",
