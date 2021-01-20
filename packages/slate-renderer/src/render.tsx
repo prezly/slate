@@ -1,8 +1,7 @@
 import { ElementNode, isElementNode, isTextNode, TextNode } from '@prezly/slate-types';
-import React, { ReactElement } from 'react';
+import React, { Fragment, ReactElement } from 'react';
 
 import defaultOptions from './defaultOptions';
-import { appendKeyToValidElement } from './lib';
 import { Options } from './types';
 
 const render = (nodes: (ElementNode | TextNode)[], userOptions: Options = {}): ReactElement => {
@@ -13,7 +12,7 @@ const render = (nodes: (ElementNode | TextNode)[], userOptions: Options = {}): R
             {nodes.map((node, index) => {
                 if (isTextNode(node)) {
                     const renderText = options.text;
-                    return appendKeyToValidElement(renderText(node), index);
+                    return <Fragment key={index}>{renderText(node)}</Fragment>;
                 }
 
                 if (isElementNode(node)) {
@@ -23,7 +22,7 @@ const render = (nodes: (ElementNode | TextNode)[], userOptions: Options = {}): R
 
                     if (renderNode) {
                         const nodeWithChildren = { ...node, children: render(children) };
-                        return appendKeyToValidElement(renderNode(nodeWithChildren), index);
+                        return <Fragment key={index}>{renderNode(nodeWithChildren)}</Fragment>;
                     }
                 }
 
