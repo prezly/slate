@@ -1,12 +1,12 @@
 import { ElementNode, isElementNode, isTextNode, TextNode } from '@prezly/slate-types';
-import React, { Fragment, ReactNode } from 'react';
+import React, { Fragment, ReactElement } from 'react';
 
 import defaultOptions from './defaultOptions';
 import { Options } from './types';
 
 type Node = ElementNode | TextNode;
 
-const render = (nodes: Node | Node[], userOptions: Options = {}): ReactNode => {
+const render = (nodes: Node | Node[], userOptions: Options = {}): ReactElement => {
     const nodesArray = Array.isArray(nodes) ? nodes : [nodes];
     const options = { ...defaultOptions, ...userOptions };
 

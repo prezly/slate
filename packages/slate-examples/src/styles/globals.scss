@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,500,700&subset=latin-ext&display=swap");
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0 auto;
+    padding: 0;
+}
+
+body {
+    // Prevent vertical scrollbar from appearing when setting 100vw on full-width images and galleries
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    margin: 0;
+}

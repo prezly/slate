@@ -3,12 +3,13 @@ import { FileInfo } from 'uploadcare-widget';
 import { UPLOADCARE_CDN_URL, UPLOADCARE_FILE_DATA_KEY } from '../constants';
 
 import UploadcareFile from './UploadcareFile';
+import UploadcareGifVideo from './UploadcareGifVideo';
 import UploadcareImageStoragePayload from './UploadcareImageStoragePayload';
 
 const MAX_PREVIEW_SIZE = 2000;
 
 class UploadcareImage {
-    static createFromUploadcareWidgetPayload = (fileInfo: FileInfo): UploadcareImage => {
+    public static createFromUploadcareWidgetPayload = (fileInfo: FileInfo): UploadcareImage => {
         if (!fileInfo.originalImageInfo) {
             throw new Error('UploadcareImage was given a non-image FileInfo object');
         }
@@ -24,7 +25,7 @@ class UploadcareImage {
         });
     };
 
-    static createFromPrezlyStoragePayload = (
+    public static createFromPrezlyStoragePayload = (
         payload: UploadcareImageStoragePayload,
     ): UploadcareImage => {
         return new UploadcareImage({
@@ -39,7 +40,9 @@ class UploadcareImage {
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static isPrezlyStoragePayload = (payload: any): payload is UploadcareImageStoragePayload => {
+    public static isPrezlyStoragePayload = (
+        payload: any,
+    ): payload is UploadcareImageStoragePayload => {
         return (
             payload !== null &&
             typeof payload === 'object' &&
@@ -149,9 +152,20 @@ class UploadcareImage {
         };
     }
 
-    private isGif = () => {
+    isGif = () => {
         return this.mimeType === 'image/gif';
     };
+
+    getSrcSet(width: number = 1200) {
+        if (this.originalWidth < width * 2) {
+            return '';
+        }
+
+        const src1x = this.resize(width).cdnUrl;
+        const src2x = this.resize(width * 2).cdnUrl;
+
+        return `${src1x} 1x, ${src2x} 2x`;
+    }
 
     preview = (width: number | null = null, height: number | null = null): UploadcareImage => {
         if (this.isGif()) {
@@ -210,6 +224,10 @@ class UploadcareImage {
         uuid: this.uuid,
         version: 2,
     });
+
+    toVideo(): UploadcareGifVideo {
+        return UploadcareGifVideo.createFromUploadcareImage(this);
+    }
 
     withEffect = (effect: string): UploadcareImage => {
         return new UploadcareImage({

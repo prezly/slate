@@ -1,8 +1,9 @@
 import { ImageNode, UploadcareImage } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { FunctionComponent, HTMLAttributes } from 'react';
+import React, { CSSProperties, FunctionComponent, HTMLAttributes } from 'react';
 
 import './Image.scss';
+import Media from './Media';
 
 interface Props extends HTMLAttributes<HTMLElement> {
     file: ImageNode['file'];
@@ -12,7 +13,19 @@ interface Props extends HTMLAttributes<HTMLElement> {
     widthFactor: ImageNode['width_factor'];
 }
 
-// const availableWidth = 1000; //TODO
+const getMediaStyle = ({
+    layout,
+    width,
+    widthFactor,
+}: Pick<Props, 'layout' | 'width' | 'widthFactor'>): CSSProperties => {
+    if (layout !== 'contained') {
+        return {};
+    }
+
+    return {
+        width: `${((parseFloat(width) * parseFloat(widthFactor)) / 100).toFixed(2)}%`,
+    };
+};
 
 const Image: FunctionComponent<Props> = ({
     children,
@@ -25,33 +38,36 @@ const Image: FunctionComponent<Props> = ({
     ...props
 }) => {
     const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
-    // image.preview(
-    //     availableWidth * 2, // Using 2x for retina.
-    // );
-
-    const computedWidth = file.original_width;
-    const computedHeight = file.original_height;
-
-    const image = (
-        <img
-            alt={typeof children === 'string' ? children : file.filename}
-            className="prezly-slate-image__image"
-            height={computedHeight}
-            src={uploadcareImage.cdnUrl}
-            // srcSet={getUploadcareSrcSet(file)}
-            width={computedWidth}
-        />
-    );
+    const mediaStyle = getMediaStyle({ layout, width, widthFactor });
 
     return (
-        <figure className={classNames('prezly-slate-image', className)} {...props}>
+        <figure
+            className={classNames('prezly-slate-image', className, {
+                'prezly-slate-image--contained': layout === 'contained',
+                'prezly-slate-image--expanded': layout === 'expanded',
+                'prezly-slate-image--full-width': layout === 'full-width',
+                'prezly-slate-image--gif': uploadcareImage.isGif(),
+            })}
+            {...props}
+        >
             {href && (
-                <a href={href} target="_blank" rel="noopener noreferrer">
-                    {image}
+                <a
+                    href={href}
+                    className="prezly-slate-image__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <Media file={file} style={mediaStyle}>
+                        {children}
+                    </Media>
                 </a>
             )}
 
-            {!href && image}
+            {!href && (
+                <Media file={file} style={mediaStyle}>
+                    {children}
+                </Media>
+            )}
 
             <figcaption className="prezly-slate-image__caption">{children}</figcaption>
         </figure>

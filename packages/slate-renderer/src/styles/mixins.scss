@@ -10,12 +10,10 @@
     $block-offset: -10%;
 
     width: 120%;
-
-    [dir="ltr"] & {
-        margin-left: $block-offset;
-    }
+    margin-left: $block-offset;
 
     @include rtl {
+        margin-left: initial;
         margin-right: $block-offset;
     }
 
@@ -35,7 +33,7 @@
 }
 
 @mixin rtl {
-    html[dir="rtl"] & {
+    [dir="rtl"] & {
         @content;
     }
 }
