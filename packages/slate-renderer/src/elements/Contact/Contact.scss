@@ -8,8 +8,7 @@ $avatar-size: 64px;
         margin: $block-spacing-vertical 0;
         border: 1px solid $color-grey-250;
         border-radius: $border-radius-base;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11);
-        // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+        box-shadow: $box-shadow;
         color: $text-color;
 
         &__wrapper {
