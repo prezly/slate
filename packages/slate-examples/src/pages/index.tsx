@@ -5,7 +5,7 @@ import story from './story.json';
 import styles from './index.module.scss';
 
 const Index = () => {
-    return <article className={styles.article}>{render(story.children)}</article>;
+    return <div className={styles.article}>{render(story)}</div>;
 };
 
 export default Index;

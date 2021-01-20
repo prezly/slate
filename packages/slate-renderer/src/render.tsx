@@ -4,12 +4,15 @@ import React, { Fragment, ReactElement } from 'react';
 import defaultOptions from './defaultOptions';
 import { Options } from './types';
 
-const render = (nodes: (ElementNode | TextNode)[], userOptions: Options = {}): ReactElement => {
+type Node = ElementNode | TextNode;
+
+const render = (nodes: Node | Node[], userOptions: Options = {}): ReactElement => {
+    const nodesArray = Array.isArray(nodes) ? nodes : [nodes];
     const options = { ...defaultOptions, ...userOptions };
 
     return (
         <>
-            {nodes.map((node, index) => {
+            {nodesArray.map((node, index) => {
                 if (isTextNode(node)) {
                     const renderText = options.text;
                     return <Fragment key={index}>{renderText(node)}</Fragment>;

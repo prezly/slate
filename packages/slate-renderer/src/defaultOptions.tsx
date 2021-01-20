@@ -27,6 +27,7 @@ import {
     BulletedList,
     Contact,
     Divider,
+    Document,
     Heading1,
     Heading2,
     Image,
@@ -49,7 +50,9 @@ const defaultOptions: Required<Options> = {
     [CONTACT_NODE_TYPE]: ({ contact }) => <Contact contact={contact} />,
     [COVERAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [DIVIDER_NODE_TYPE]: () => <Divider />,
-    [DOCUMENT_NODE_TYPE]: ({ children }) => <div>{children}</div>,
+    [DOCUMENT_NODE_TYPE]: ({ children, version }) => (
+        <Document version={version}>{children}</Document>
+    ),
     [EMBED_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [GALLERY_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [HEADING_1_NODE_TYPE]: ({ children }) => <Heading1>{children}</Heading1>,
