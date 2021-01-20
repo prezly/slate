@@ -1,7 +1,7 @@
+import { isPrezlyStoragePayload, UploadcareImageStoragePayload } from '../sdk';
+
 import ElementNode, { isElementNode } from './ElementNode';
-// import TextNode, { isTextNode } from './TextNode';
 import InlineNode from './InlineNode';
-import { isPrezlyStoragePayload, UploadcareImageStoragePayload } from './sdk';
 
 export const IMAGE_NODE_TYPE = 'image-block';
 

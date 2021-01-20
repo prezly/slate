@@ -1,5 +1,6 @@
+import { UploadcareStoragePayload, isPrezlyStoragePayload } from '../sdk';
+
 import ElementNode, { isElementNode } from './ElementNode';
-import { UploadcareStoragePayload, isPrezlyStoragePayload } from './sdk';
 
 export const ATTACHMENT_NODE_TYPE = 'attachment';
 

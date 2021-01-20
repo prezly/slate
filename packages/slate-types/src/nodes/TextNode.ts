@@ -1,4 +1,4 @@
-import { isObject } from './lib';
+import { isObject } from '../lib';
 
 export default interface TextNode {
     bold?: boolean;

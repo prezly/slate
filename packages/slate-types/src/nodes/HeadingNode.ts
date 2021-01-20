@@ -1,5 +1,4 @@
 import ElementNode, { isElementNode } from './ElementNode';
-
 import InlineNode, { isInlineNode } from './InlineNode';
 
 export const HEADING_1_NODE_TYPE = 'heading-one';

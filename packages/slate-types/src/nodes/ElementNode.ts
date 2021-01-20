@@ -1,4 +1,5 @@
-import { isObject } from './lib';
+import { isObject } from '../lib';
+
 import TextNode from './TextNode';
 
 export default interface ElementNode extends Record<string, unknown> {

@@ -1,5 +1,6 @@
-import ElementNode, { isElementNode } from './ElementNode';
 import { Coverage } from '@prezly/sdk';
+
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const COVERAGE_NODE_TYPE = 'coverage';
 

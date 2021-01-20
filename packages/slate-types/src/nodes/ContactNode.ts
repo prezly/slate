@@ -1,5 +1,6 @@
+import { isPressContact, PressContact } from '../sdk';
+
 import ElementNode, { isElementNode } from './ElementNode';
-import { isPressContact, PressContact } from './sdk';
 
 export const CONTACT_NODE_TYPE = 'contact';
 

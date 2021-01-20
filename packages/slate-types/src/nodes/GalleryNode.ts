@@ -1,5 +1,6 @@
+import { UploadcareImageStoragePayload, isPrezlyStoragePayload } from '../sdk';
+
 import ElementNode, { isElementNode } from './ElementNode';
-import { UploadcareImageStoragePayload, isPrezlyStoragePayload } from './sdk';
 
 export const GALLERY_NODE_TYPE = 'gallery';
 

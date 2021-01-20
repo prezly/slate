@@ -1,5 +1,6 @@
+import { isObject } from '../lib';
+
 import ElementNode, { isElementNode } from './ElementNode';
-import { isObject } from './lib';
 import TextNode, { isTextNode } from './TextNode';
 
 export const MENTION_NODE_TYPE = 'mention';

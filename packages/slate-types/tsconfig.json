@@ -2,6 +2,7 @@
     "extends": "../../tsconfig.json",
 
     "compilerOptions": {
+        "lib": ["dom", "dom.iterable", "esnext"],
         "outDir": "./build",
         "rootDir": "./src",
         "typeRoots": ["./node_modules/@types", "./src/@types"]

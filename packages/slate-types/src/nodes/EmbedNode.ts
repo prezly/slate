@@ -1,5 +1,6 @@
+import { isOEmbedInfo, OEmbedInfo } from '../sdk';
+
 import ElementNode, { isElementNode } from './ElementNode';
-import { isOEmbedInfo, OEmbedInfo } from './sdk';
 
 export const EMBED_NODE_TYPE = 'embed';
 
