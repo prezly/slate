@@ -5,7 +5,7 @@ module.exports = {
         },
     },
     moduleNameMapper: {
-        '\\.scss$': '<rootDir>/styleMock',
+        '\\.(scss|svg)$': '<rootDir>/universalMock',
     },
     preset: 'ts-jest',
     testEnvironment: 'node',
