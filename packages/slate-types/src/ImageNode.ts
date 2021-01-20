@@ -3,7 +3,7 @@ import ElementNode, { isElementNode } from './ElementNode';
 import InlineNode from './InlineNode';
 import { isPrezlyStoragePayload, UploadcareImageStoragePayload } from './sdk';
 
-export const IMAGE_NODE_TYPE = 'image';
+export const IMAGE_NODE_TYPE = 'image-block';
 
 const LAYOUTS = ['contained', 'expanded', 'full-width'];
 
@@ -14,7 +14,7 @@ export default interface ImageNode extends ElementNode {
     /** empty string if no URL */
     href: string;
     layout: 'contained' | 'expanded' | 'full-width';
-    type: 'image-block';
+    type: typeof IMAGE_NODE_TYPE;
     /** matches this regexp: /^\d+(\.\d+)?%$/ */
     width: string;
     /** matches this regexp: /^\d+(\.\d+)?%$/ */

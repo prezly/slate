@@ -1,4 +1,9 @@
-import { DIVIDER_NODE_TYPE, DocumentNode, HEADING_1_NODE_TYPE } from '@prezly/slate-types';
+import {
+    DIVIDER_NODE_TYPE,
+    DOCUMENT_NODE_TYPE,
+    DocumentNode,
+    HEADING_1_NODE_TYPE,
+} from '@prezly/slate-types';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
@@ -15,7 +20,7 @@ const documentNode: DocumentNode = {
             type: DIVIDER_NODE_TYPE,
         },
     ],
-    type: 'document',
+    type: DOCUMENT_NODE_TYPE,
     version: '0.50',
 };
 

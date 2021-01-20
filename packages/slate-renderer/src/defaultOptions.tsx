@@ -29,6 +29,7 @@ import {
     Divider,
     Heading1,
     Heading2,
+    Image,
     Link,
     ListItem,
     ListItemText,
@@ -53,7 +54,11 @@ const defaultOptions: Required<Options> = {
     [GALLERY_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
     [HEADING_1_NODE_TYPE]: ({ children }) => <Heading1>{children}</Heading1>,
     [HEADING_2_NODE_TYPE]: ({ children }) => <Heading2>{children}</Heading2>,
-    [IMAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
+    [IMAGE_NODE_TYPE]: ({ children, file, href, layout, width, width_factor }) => (
+        <Image file={file} href={href} layout={layout} width={width} widthFactor={width_factor}>
+            {children}
+        </Image>
+    ),
     [LINK_NODE_TYPE]: ({ children, href }) => <Link href={href}>{children}</Link>,
     [LIST_ITEM_NODE_TYPE]: ({ children }) => <ListItem>{children}</ListItem>,
     [LIST_ITEM_TEXT_NODE_TYPE]: ({ children }) => <ListItemText>{children}</ListItemText>,

@@ -1,0 +1,30 @@
+@import "styles/variables.scss";
+
+.prezly-slate {
+    &-image {
+        margin: $spacing-3 0;
+
+        // &__image {
+        //     max-width: 100%;
+        //     max-height: 100%;
+        //     width: 100%;
+        //     height: auto;
+        //     cursor: default;
+        //     margin: 0 auto;
+        // }
+
+        &__caption {
+            display: block;
+            margin: 0 auto;
+            padding: $spacing-1-5 0 0;
+            color: $text-color-2;
+            font-style: italic;
+            font-size: $font-size-s;
+            text-align: center;
+
+            &:empty {
+                display: none;
+            }
+        }
+    }
+}
