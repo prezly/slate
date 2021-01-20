@@ -58,11 +58,14 @@ $avatar-size: 64px;
             margin: 0;
             padding: 0;
             columns: 2;
+            margin-bottom: -$spacing-1;
         }
 
         &__social-field {
             @include ellipsis;
 
+            display: flex;
+            align-items: center;
             margin: 0;
             margin-bottom: $spacing-1;
             padding: 0;
@@ -76,7 +79,7 @@ $avatar-size: 64px;
 
             width: $size;
             height: $size;
-            margin-right: $spacing-1;
+            margin-right: $spacing-1-5;
         }
     }
 }
