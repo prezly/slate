@@ -25,6 +25,7 @@ const render = (nodes: Node | Node[], userOptions: Options = {}): ReactElement =
 
                     if (renderNode) {
                         const nodeWithChildren = { ...node, children: render(children) };
+                        // @ts-ignore
                         return <Fragment key={index}>{renderNode(nodeWithChildren)}</Fragment>;
                     }
                 }
