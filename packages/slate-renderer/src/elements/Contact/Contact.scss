@@ -20,8 +20,8 @@ $avatar-size: 64px;
 
         &__name {
             margin: 0;
+            margin-bottom: $spacing-1;
             font-size: $font-size-l;
-            line-height: 34px;
         }
 
         &__job-description {

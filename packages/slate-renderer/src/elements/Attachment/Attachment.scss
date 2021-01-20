@@ -39,9 +39,9 @@
         }
 
         &__title {
+            margin-bottom: $spacing-1;
             color: $text-color;
             font-size: $font-size-l;
-            line-height: 1;
             font-weight: bold;
             cursor: default;
 
@@ -52,8 +52,7 @@
 
         &__subtitle {
             color: $text-color-2;
-            font-size: 15px;
-            line-height: (22 / 15);
+            font-size: $font-size-s;
             cursor: default;
 
             &--unstyled {
