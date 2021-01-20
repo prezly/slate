@@ -30,12 +30,13 @@ const render = (nodes: Node | Node[], userOptions: Options = {}): ReactElement =
                     }
                 }
 
-                return (
-                    <div key={index}>
-                        <h3>Unknown node "{node.type}"</h3>
-                        <pre>{`${JSON.stringify(node, null, 4)}`}</pre>
-                    </div>
-                );
+                if (process.env.NODE_ENV === 'development') {
+                    console.warn(
+                        `[@prezly/slate-renderer] Unknown node type encountered: ${node.type}`,
+                    );
+                }
+
+                return <Fragment key={index} />;
             })}
         </>
     );
