@@ -1,9 +1,9 @@
-import { AttachmentNode } from '@prezly/slate-types';
+import { AttachmentNode, UploadcareFile } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 
 import { download } from '../../icons';
-import { formatBytes, getUploadcareCdnUrl } from '../../lib';
+import { formatBytes } from '../../lib';
 
 import './Attachment.scss';
 
@@ -23,11 +23,15 @@ const Attachment: FunctionComponent<Props> = ({
     uuid,
     ...props
 }) => {
+    const attachment = UploadcareFile.createFromPrezlyStoragePayload(file);
     const isUsingCustomTitle = Boolean(description);
-    const href = getUploadcareCdnUrl(file, { download: true });
 
     return (
-        <a className={classNames('prezly-slate-attachment', className)} href={href} {...props}>
+        <a
+            className={classNames('prezly-slate-attachment', className)}
+            href={attachment.downloadUrl}
+            {...props}
+        >
             <div className="prezly-slate-attachment__content">
                 {styled && (
                     <div className="prezly-slate-attachment__icon-container">

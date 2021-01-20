@@ -1,8 +1,6 @@
-import { ImageNode } from '@prezly/slate-types';
+import { ImageNode, UploadcareImage } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
-
-import { getUploadcareCdnUrl } from '../../lib';
 
 import './Image.scss';
 
@@ -26,15 +24,34 @@ const Image: FunctionComponent<Props> = ({
     widthFactor,
     ...props
 }) => {
+    const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
+    // image.preview(
+    //     availableWidth * 2, // Using 2x for retina.
+    // );
+
+    const computedWidth = file.original_width;
+    const computedHeight = file.original_height;
+
+    const image = (
+        <img
+            alt={typeof children === 'string' ? children : file.filename}
+            className="prezly-slate-image__image"
+            height={computedHeight}
+            src={uploadcareImage.cdnUrl}
+            // srcSet={getUploadcareSrcSet(file)}
+            width={computedWidth}
+        />
+    );
+
     return (
         <figure className={classNames('prezly-slate-image', className)} {...props}>
-            <img
-                alt={file.filename}
-                className="prezly-slate-image__image"
-                height={file.original_height}
-                src={getUploadcareCdnUrl(file)}
-                width={file.original_width}
-            />
+            {href && (
+                <a href={href} target="_blank" rel="noopener noreferrer">
+                    {image}
+                </a>
+            )}
+
+            {!href && image}
 
             <figcaption className="prezly-slate-image__caption">{children}</figcaption>
         </figure>
