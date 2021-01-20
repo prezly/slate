@@ -2,6 +2,7 @@
 @import "styles/variables.scss";
 
 $avatar-size: 64px;
+$avatar-placeholder-size: 24px;
 
 .prezly-slate {
     &-contact {
@@ -32,19 +33,24 @@ $avatar-size: 64px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
             height: $avatar-size;
+            align-items: center;
             border-radius: $border-radius-base;
             border: 1px solid $color-grey-250;
             grid-row: 1;
             grid-column: 1;
+            overflow: hidden;
+            box-sizing: border-box;
         }
 
-        &__placeholder {
-            $size: 24px;
+        &__avatar-image {
+            width: 100%;
+            height: 100%;
 
-            width: $size;
-            height: $size;
+            &--empty {
+                width: $avatar-placeholder-size;
+                height: $avatar-placeholder-size;
+            }
         }
 
         &__content {

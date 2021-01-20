@@ -2,8 +2,7 @@ import { ContactNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 
-import { personFill } from '../../icons';
-
+import Avatar from './Avatar';
 import './Contact.scss';
 import SocialFields from './SocialFields';
 
@@ -19,22 +18,7 @@ const Contact: FunctionComponent<Props> = ({ className, contact, ...props }) => 
     return (
         <div className={classNames('prezly-slate-contact', className)} {...props}>
             <div className="prezly-slate-contact__wrapper">
-                {contact.avatar_url &&
-                    {
-                        /*<Avatar
-                                    className="prezly-slate-contact__avatar"
-                                    name={contact.name}
-                                    size="large"
-                                    square
-                                    src={contact.avatar_url}
-                                />*/
-                    }}
-
-                {!contact.avatar_url && (
-                    <div className="prezly-slate-contact__avatar">
-                        <img className="prezly-slate-contact__placeholder" src={personFill} />
-                    </div>
-                )}
+                <Avatar name={contact.name} src={contact.avatar_url} />
 
                 <div className="prezly-slate-contact__content">
                     <h3 className="prezly-slate-contact__name">{contact.name}</h3>
