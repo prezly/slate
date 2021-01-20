@@ -20,7 +20,7 @@ $avatar-size: 64px;
 
         &__name {
             margin: 0;
-            font-size: 24px;
+            font-size: $font-size-l;
             line-height: 34px;
         }
 
@@ -58,6 +58,7 @@ $avatar-size: 64px;
             margin: 0;
             padding: 0;
             columns: 2;
+            margin-top: $spacing-2;
             margin-bottom: -$spacing-1;
         }
 
@@ -69,9 +70,9 @@ $avatar-size: 64px;
             margin: 0;
             margin-bottom: $spacing-1;
             padding: 0;
-            line-height: 26px;
+            line-height: $line-height;
+            font-size: $font-size-s;
             list-style: none;
-            cursor: default; // Text selection doesn't work, use default cursor.
         }
 
         &__social-field-icon {

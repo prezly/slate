@@ -1,7 +1,7 @@
 $spacing-base: 8px;
 $spacing-half: 0.5 * $spacing-base;
 $spacing-1: 1 * $spacing-base;
-$spacing-1-half: $spacing-1 + $spacing-half;
+$spacing-1-5: $spacing-1 + $spacing-half;
 $spacing-2: 2 * $spacing-base;
 $spacing-3: 3 * $spacing-base;
 $spacing-4: 4 * $spacing-base;
@@ -21,7 +21,10 @@ $color-grey-500: #cccccc;
 $color-grey-750: #afafaf;
 $color-grey-900: #757777;
 
-$font-size: 16px;
+$font-size-s: 14px;
+$font-size-m: 16px;
+$font-size-l: 24px;
+
 $line-height: 22px;
 $box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
 $border-radius-base: 4px;
