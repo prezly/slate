@@ -14,8 +14,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 const Contact: FunctionComponent<Props> = ({ className, contact, ...props }) => {
     const { description, company } = contact;
-    // If there is no text to show, render an empty <div> to keep height consistent
-    const jobDescription = [description, company].filter(Boolean).join(', ') || <>&nbsp;</>;
+    const jobDescription = [description, company].filter(Boolean).join(', ');
 
     return (
         <div className={classNames('prezly-slate-contact', className)} {...props}>
@@ -39,7 +38,10 @@ const Contact: FunctionComponent<Props> = ({ className, contact, ...props }) => 
 
                 <div className="prezly-slate-contact__content">
                     <h3 className="prezly-slate-contact__name">{contact.name}</h3>
-                    <div className="prezly-slate-contact__job-description">{jobDescription}</div>
+                    <div className="prezly-slate-contact__job-description">
+                        {/* If there is no text to show, render an empty <div> to keep height consistent */}
+                        {jobDescription || <>&nbsp;</>}
+                    </div>
                     <SocialFields contact={contact} />
                 </div>
             </div>
