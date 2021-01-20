@@ -9,7 +9,9 @@
 export { default as OEmbedInfo, isOEmbedInfo } from './OEmbedInfo';
 export { default as OEmbedInfoType } from './OEmbedInfoType';
 export { default as PressContact, isPressContact } from './PressContact';
+export { default as UploadcareFile } from './UploadcareFile';
 export { default as UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
+export { default as UploadcareImage } from './UploadcareImage';
 export { default as UploadcareImageStoragePayload } from './UploadcareImageStoragePayload';
 export {
     default as UploadcareStoragePayload,
