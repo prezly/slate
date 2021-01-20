@@ -13,6 +13,7 @@ import {
     DocumentNode,
     EMBED_NODE_TYPE,
     EmbedNode,
+    ElementNode,
     GALLERY_NODE_TYPE,
     GalleryNode,
     HEADING_1_NODE_TYPE,
@@ -43,18 +44,24 @@ import { ReactNode } from 'react';
 
 export type Node = BlockNode | InlineNode | TextNode;
 
-export type Render<T> = (node: T) => ReactNode;
+export type Render<T extends ElementNode | TextNode> = (
+    node: T & { children: ReactNode },
+) => ReactNode;
+
+export type RenderElement<T extends ElementNode> = (node: T & { children: never }) => ReactNode;
+
+export type RenderText = (node: TextNode) => ReactNode;
 
 export interface Options {
-    text?: Render<TextNode>;
-    [ATTACHMENT_NODE_TYPE]?: Render<AttachmentNode>;
+    text?: RenderText;
+    [ATTACHMENT_NODE_TYPE]?: RenderElement<AttachmentNode>;
     [BULLETED_LIST_NODE_TYPE]?: Render<ListNode>;
-    [CONTACT_NODE_TYPE]?: Render<ContactNode>;
-    [COVERAGE_NODE_TYPE]?: Render<CoverageNode>;
-    [DIVIDER_NODE_TYPE]?: Render<DividerNode>;
+    [CONTACT_NODE_TYPE]?: RenderElement<ContactNode>;
+    [COVERAGE_NODE_TYPE]?: RenderElement<CoverageNode>;
+    [DIVIDER_NODE_TYPE]?: RenderElement<DividerNode>;
     [DOCUMENT_NODE_TYPE]?: Render<DocumentNode>;
-    [EMBED_NODE_TYPE]?: Render<EmbedNode>;
-    [GALLERY_NODE_TYPE]?: Render<GalleryNode>;
+    [EMBED_NODE_TYPE]?: RenderElement<EmbedNode>;
+    [GALLERY_NODE_TYPE]?: RenderElement<GalleryNode>;
     [HEADING_1_NODE_TYPE]?: Render<HeadingNode>;
     [HEADING_2_NODE_TYPE]?: Render<HeadingNode>;
     [IMAGE_NODE_TYPE]?: Render<ImageNode>;

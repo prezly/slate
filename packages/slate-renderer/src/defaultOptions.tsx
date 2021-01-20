@@ -48,13 +48,13 @@ const defaultOptions: Required<Options> = {
     ),
     [BULLETED_LIST_NODE_TYPE]: ({ children }) => <BulletedList>{children}</BulletedList>,
     [CONTACT_NODE_TYPE]: ({ contact }) => <Contact contact={contact} />,
-    [COVERAGE_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
+    [COVERAGE_NODE_TYPE]: () => <div>TODO</div>, // TODO
     [DIVIDER_NODE_TYPE]: () => <Divider />,
     [DOCUMENT_NODE_TYPE]: ({ children, version }) => (
         <Document version={version}>{children}</Document>
     ),
-    [EMBED_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
-    [GALLERY_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
+    [EMBED_NODE_TYPE]: () => <div>TODO</div>, // TODO
+    [GALLERY_NODE_TYPE]: () => <div>TODO</div>, // TODO
     [HEADING_1_NODE_TYPE]: ({ children }) => <Heading1>{children}</Heading1>,
     [HEADING_2_NODE_TYPE]: ({ children }) => <Heading2>{children}</Heading2>,
     [IMAGE_NODE_TYPE]: ({ children, file, href, layout, width, width_factor }) => (
