@@ -4,6 +4,7 @@ import React, { CSSProperties, FunctionComponent, HTMLAttributes } from 'react';
 
 import './Image.scss';
 import Media from './Media';
+import Rollover from './Rollover';
 
 interface Props extends HTMLAttributes<HTMLElement> {
     file: ImageNode['file'];
@@ -40,6 +41,10 @@ const Image: FunctionComponent<Props> = ({
     const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
     const mediaStyle = getMediaStyle({ layout, width, widthFactor });
 
+    const handleRolloverClick = () => {
+        // TODO: implement me
+    };
+
     return (
         <figure
             className={classNames('prezly-slate-image', className, {
@@ -64,9 +69,11 @@ const Image: FunctionComponent<Props> = ({
             )}
 
             {!href && (
-                <Media file={file} style={mediaStyle}>
-                    {children}
-                </Media>
+                <Rollover disabled={uploadcareImage.isGif()} onClick={handleRolloverClick}>
+                    <Media file={file} style={mediaStyle}>
+                        {children}
+                    </Media>
+                </Rollover>
             )}
 
             <figcaption className="prezly-slate-image__caption">{children}</figcaption>

@@ -1,3 +1,4 @@
+export { default as arrowsAngleExpand } from './arrowsAngleExpand.svg';
 export { default as download } from './download.svg';
 export { default as envelope } from './envelope.svg';
 export { default as facebook } from './facebook.svg';

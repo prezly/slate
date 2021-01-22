@@ -1,0 +1,86 @@
+@import "styles/variables.scss";
+
+$background-color: #fff;
+$link-color: #0082db;
+
+.prezly-slate-image-rollover {
+    position: relative;
+    cursor: pointer;
+
+    &:before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        pointer-events: none;
+        background-color: $background-color;
+        opacity: 0;
+        transition: opacity linear 150ms;
+    }
+
+    &:hover {
+        &:before {
+            opacity: 0.9;
+        }
+
+        .prezly-slate-image-rollover__caption {
+            opacity: 1;
+        }
+    }
+
+    &__caption {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity linear 150ms;
+        font-size: $font-size-s;
+        text-align: center;
+    }
+
+    &__caption-icon {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        padding: 0.7em 0;
+        border-radius: 50%;
+        background-color: $link-color;
+        // to workaround theme.scss .icon { color }
+        color: $background-color !important;
+        margin-top: auto;
+
+        @media (max-width: $screen-s-max) {
+            margin-top: 0;
+        }
+
+        // :only-child applies if there is no caption, in which case the `&__caption-text`
+        // is not added, so the push towards center is not necessary.
+        &:only-child {
+            margin-top: 0;
+        }
+    }
+
+    &__caption-text {
+        display: block;
+        width: 100%;
+        height: 50%;
+        padding: 0.5em;
+        padding-top: 1.5em;
+
+        @media (max-width: $screen-s-max) {
+            display: none;
+        }
+    }
+}
