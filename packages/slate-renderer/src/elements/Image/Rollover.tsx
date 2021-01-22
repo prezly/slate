@@ -19,7 +19,9 @@ const Rollover: FunctionComponent<Props> = ({ children, className, disabled, ...
             {children}
 
             <div className="prezly-slate-image-rollover__caption">
-                <ArrowsAngleExpand className="prezly-slate-image-rollover__caption-icon" />
+                <span className="prezly-slate-image-rollover__caption-icon-background">
+                    <ArrowsAngleExpand className="prezly-slate-image-rollover__caption-icon" />
+                </span>
             </div>
         </div>
     );
