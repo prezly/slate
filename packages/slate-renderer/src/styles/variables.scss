@@ -1,3 +1,11 @@
+$screen-xs: 480px;
+$screen-s: 768px;
+$screen-m: 992px;
+$screen-l: 1200px;
+$screen-xs-max: ($screen-s - 1);
+$screen-s-max: ($screen-m - 1);
+$screen-m-max: ($screen-l - 1);
+
 $spacing-base: 8px;
 $spacing-half: 0.5 * $spacing-base;
 $spacing-1: 1 * $spacing-base;

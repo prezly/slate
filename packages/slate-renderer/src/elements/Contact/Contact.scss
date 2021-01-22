@@ -54,23 +54,26 @@ $avatar-placeholder-size: 24px;
         }
 
         &__content {
-            @include ellipsis;
-
             grid-row: 1;
             grid-column: 2;
+            overflow: hidden;
         }
 
         &__social-fields {
+            flex: 1;
             margin: 0;
-            padding: 0;
-            columns: 2;
             margin-top: $spacing-2;
             margin-bottom: -$spacing-1;
+            padding: 0;
+            columns: 2;
+            overflow: hidden;
+
+            @media (max-width: $screen-xs) {
+                columns: 1;
+            }
         }
 
         &__social-field {
-            @include ellipsis;
-
             display: flex;
             align-items: center;
             margin: 0;
@@ -87,6 +90,10 @@ $avatar-placeholder-size: 24px;
             width: $size;
             height: $size;
             margin-right: $spacing-1-5;
+        }
+
+        &__social-field-value {
+            @include ellipsis;
         }
     }
 }

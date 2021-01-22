@@ -22,6 +22,7 @@
         &__icon-container {
             $size: 48px;
 
+            flex: 0 0 auto;
             width: $size;
             height: $size;
             color: black;
