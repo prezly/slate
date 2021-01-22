@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 
-import { arrowsAngleExpand } from '../../icons';
+import { ArrowsAngleExpand } from '../../icons';
 
 import './Rollover.scss';
 
@@ -19,11 +19,7 @@ const Rollover: FunctionComponent<Props> = ({ children, className, disabled, ...
             {children}
 
             <div className="prezly-slate-image-rollover__caption">
-                <img
-                    alt="Expand" // TODO: localize
-                    className="prezly-slate-image-rollover__caption-icon"
-                    src={arrowsAngleExpand}
-                />
+                <ArrowsAngleExpand className="prezly-slate-image-rollover__caption-icon" />
             </div>
         </div>
     );

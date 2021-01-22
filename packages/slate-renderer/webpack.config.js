@@ -28,17 +28,19 @@ module.exports = {
             },
             {
                 test: /\.svg$/,
-                use: {
-                    loader: 'svg-url-loader',
-                    options: {
-                        iesafe: true,
+                use: [
+                    {
+                        loader: '@svgr/webpack',
+                        options: {
+                            typescript: true,
+                        },
                     },
-                },
+                ],
             },
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss'],
+        extensions: ['.svg', '.scss', '.tsx', '.ts', '.js'],
     },
     output: {
         filename: 'index.js',

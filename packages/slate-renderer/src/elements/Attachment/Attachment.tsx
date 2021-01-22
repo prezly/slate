@@ -2,7 +2,7 @@ import { AttachmentNode, UploadcareFile } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 
-import { download } from '../../icons';
+import { Download } from '../../icons';
 import { formatBytes } from '../../lib';
 
 import './Attachment.scss';
@@ -35,7 +35,7 @@ const Attachment: FunctionComponent<Props> = ({
             <div className="prezly-slate-attachment__content">
                 {styled && (
                     <div className="prezly-slate-attachment__icon-container">
-                        <img className="prezly-slate-attachment__icon" src={download} />
+                        <Download className="prezly-slate-attachment__icon" />
                     </div>
                 )}
 
