@@ -1,8 +1,10 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
+const isDev = process.env.NODE_ENV === 'development';
+
 module.exports = {
-    mode: 'production',
+    mode: isDev ? 'development' : 'production',
     entry: './src/index.ts',
     module: {
         rules: [
@@ -54,4 +56,5 @@ module.exports = {
             filename: 'styles.css',
         }),
     ],
+    watch: isDev,
 };

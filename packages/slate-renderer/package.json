@@ -19,6 +19,7 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "build": "NODE_ENV=production webpack",
+        "build:watch": "NODE_ENV=development webpack",
         "clean": "rimraf build/"
     },
     "peerDependencies": {
