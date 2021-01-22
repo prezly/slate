@@ -1,3 +1,4 @@
+@import "styles/mixins.scss";
 @import "styles/variables.scss";
 
 $background-color: #fff;
@@ -5,6 +6,8 @@ $link-color: #0082db;
 
 .prezly-slate {
     &-image-rollover {
+        @include button-reset;
+
         position: relative;
         cursor: pointer;
 

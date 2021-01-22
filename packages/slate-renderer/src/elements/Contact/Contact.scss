@@ -87,6 +87,7 @@ $avatar-placeholder-size: 24px;
         &__social-field-icon {
             $size: 16px;
 
+            flex: 0 0 auto;
             width: $size;
             height: $size;
             margin-right: $spacing-1-5;
