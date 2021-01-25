@@ -13,6 +13,7 @@ interface Props {
 
 const Media: FunctionComponent<Props> = ({ children, className, file, style }) => {
     const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
+    const title = typeof children === 'string' ? children : file.filename;
 
     if (uploadcareImage.isGif()) {
         const video = uploadcareImage.toVideo().bestQuality();
@@ -27,6 +28,7 @@ const Media: FunctionComponent<Props> = ({ children, className, file, style }) =
                 muted
                 playsInline
                 style={style}
+                title={title}
                 webkit-playsinline
             >
                 <source src={sourceWebm} type="video/webm" />
@@ -37,11 +39,12 @@ const Media: FunctionComponent<Props> = ({ children, className, file, style }) =
 
     return (
         <img
-            alt={typeof children === 'string' ? children : file.filename}
+            alt={title}
             className={classNames('prezly-slate-image__image', className)}
             src={uploadcareImage.cdnUrl}
             srcSet={uploadcareImage.getSrcSet()}
             style={style}
+            title={title}
         />
     );
 };

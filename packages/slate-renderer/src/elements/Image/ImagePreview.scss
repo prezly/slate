@@ -24,7 +24,6 @@ body.ReactModal__Body--open {
             justify-content: center;
             height: 100%;
             margin: 0;
-            padding: $spacing-3;
 
             @include mobile-down {
                 padding: $spacing-1;
@@ -34,18 +33,27 @@ body.ReactModal__Body--open {
         &__image-container {
             display: flex;
             align-items: center;
+            overflow-y: hidden;
+            margin: $spacing-3 auto;
         }
 
         &__image {
+            max-height: 100%;
         }
 
         &__caption {
             flex: 0 0 auto;
-            padding: $spacing-3;
+            margin: $spacing-3;
+            margin-top: 0;
             line-height: $line-height;
             font-size: $font-size-m;
+            font-style: italic;
             text-align: center;
-            color: $text-color;
+            color: $text-color-2;
+
+            &:empty {
+                display: none;
+            }
 
             @include mobile-down {
                 padding: $spacing-3 $spacing-1;
