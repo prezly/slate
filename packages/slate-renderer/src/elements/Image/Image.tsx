@@ -62,11 +62,9 @@ const Image: FunctionComponent<Props> = ({ children, className, node, ...props }
 
             <figcaption className="prezly-slate-image__caption">{children}</figcaption>
 
-            <ImagePreview
-                image={uploadcareImage}
-                isOpen={isPreviewOpen}
-                onClose={handleImagePreviewClose}
-            />
+            <ImagePreview file={file} isOpen={isPreviewOpen} onClose={handleImagePreviewClose}>
+                {children}
+            </ImagePreview>
         </figure>
     );
 };

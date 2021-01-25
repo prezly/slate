@@ -15,12 +15,49 @@ body.ReactModal__Body--open {
         left: 0;
         width: 100vw;
         height: 100vh;
+        outline: none;
+        background-color: white;
+
+        &__figure {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            margin: 0;
+            padding: $spacing-3;
+
+            @include mobile-down {
+                padding: $spacing-1;
+            }
+        }
+
+        &__image-container {
+            display: flex;
+            align-items: center;
+        }
 
         &__image {
         }
 
+        &__caption {
+            flex: 0 0 auto;
+            padding: $spacing-3;
+            line-height: $line-height;
+            font-size: $font-size-m;
+            text-align: center;
+            color: $text-color;
+
+            @include mobile-down {
+                padding: $spacing-3 $spacing-1;
+            }
+        }
+
         &__close {
             @include button-reset;
+
+            &:focus {
+                @include focus-state;
+            }
 
             position: absolute;
             top: $spacing-1;

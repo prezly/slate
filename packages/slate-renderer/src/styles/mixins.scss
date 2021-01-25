@@ -1,3 +1,45 @@
+@mixin mobile-down() {
+    @media (max-width: $screen-xs-max) {
+        @content;
+    }
+}
+
+@mixin mobile-up() {
+    @media (min-width: $screen-xs) {
+        @content;
+    }
+}
+
+@mixin tablet-portrait-down {
+    @media (max-width: $screen-sm-max) {
+        @content;
+    }
+}
+
+@mixin tablet-portrait-up {
+    @media (min-width: $screen-sm) {
+        @content;
+    }
+}
+
+@mixin tablet-landscape-down {
+    @media (max-width: $screen-md-max) {
+        @content;
+    }
+}
+
+@mixin tablet-landscape-up {
+    @media (min-width: $screen-md) {
+        @content;
+    }
+}
+
+@mixin desktop-up {
+    @media (min-width: $screen-lg-min) {
+        @content;
+    }
+}
+
 @mixin ellipsis {
     white-space: nowrap;
     overflow: hidden;
@@ -17,6 +59,13 @@
     &:disabled {
         cursor: not-allowed;
     }
+}
+
+@mixin focus-state {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
 // Make a block expand outside the story.
