@@ -21,7 +21,7 @@ import {
 } from '@prezly/slate-types';
 import React from 'react';
 
-import DefaultRenderText from './DefaultRenderText';
+import DefaultTextRenderer from './DefaultTextRenderer';
 import {
     Attachment,
     BulletedList,
@@ -61,7 +61,7 @@ const defaultOptions: Required<Options> = {
     [PARAGRAPH_NODE_TYPE]: Paragraph,
     [PLACEHOLDER_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO,
     [QUOTE_NODE_TYPE]: Quote,
-    text: DefaultRenderText,
+    text: DefaultTextRenderer,
 };
 
 export default defaultOptions;

@@ -44,29 +44,29 @@ import { FunctionComponent } from 'react';
 
 export type Node = BlockNode | InlineNode | TextNode;
 
-export type Render<T extends ElementNode> = FunctionComponent<{ node: T }>;
+export type NodeRenderer<T extends ElementNode> = FunctionComponent<{ node: T }>;
 
-export type RenderText = FunctionComponent<TextNode & { children?: never }>;
+export type TextRenderer = FunctionComponent<TextNode & { children?: never }>;
 
 export interface Options {
-    [ATTACHMENT_NODE_TYPE]?: Render<AttachmentNode>;
-    [BULLETED_LIST_NODE_TYPE]?: Render<ListNode>;
-    [CONTACT_NODE_TYPE]?: Render<ContactNode>;
-    [COVERAGE_NODE_TYPE]?: Render<CoverageNode>;
-    [DIVIDER_NODE_TYPE]?: Render<DividerNode>;
-    [DOCUMENT_NODE_TYPE]?: Render<DocumentNode>;
-    [EMBED_NODE_TYPE]?: Render<EmbedNode>;
-    [GALLERY_NODE_TYPE]?: Render<GalleryNode>;
-    [HEADING_1_NODE_TYPE]?: Render<HeadingNode>;
-    [HEADING_2_NODE_TYPE]?: Render<HeadingNode>;
-    [IMAGE_NODE_TYPE]?: Render<ImageNode>;
-    [LINK_NODE_TYPE]?: Render<LinkNode>;
-    [LIST_ITEM_NODE_TYPE]?: Render<ListItemNode>;
-    [LIST_ITEM_TEXT_NODE_TYPE]?: Render<ListItemTextNode>;
-    [MENTION_NODE_TYPE]?: Render<MentionNode>;
-    [NUMBERED_LIST_NODE_TYPE]?: Render<ListNode>;
-    [PARAGRAPH_NODE_TYPE]?: Render<ParagraphNode>;
-    [PLACEHOLDER_NODE_TYPE]?: Render<PlaceholderNode>;
-    [QUOTE_NODE_TYPE]?: Render<QuoteNode>;
-    text?: RenderText;
+    [ATTACHMENT_NODE_TYPE]?: NodeRenderer<AttachmentNode>;
+    [BULLETED_LIST_NODE_TYPE]?: NodeRenderer<ListNode>;
+    [CONTACT_NODE_TYPE]?: NodeRenderer<ContactNode>;
+    [COVERAGE_NODE_TYPE]?: NodeRenderer<CoverageNode>;
+    [DIVIDER_NODE_TYPE]?: NodeRenderer<DividerNode>;
+    [DOCUMENT_NODE_TYPE]?: NodeRenderer<DocumentNode>;
+    [EMBED_NODE_TYPE]?: NodeRenderer<EmbedNode>;
+    [GALLERY_NODE_TYPE]?: NodeRenderer<GalleryNode>;
+    [HEADING_1_NODE_TYPE]?: NodeRenderer<HeadingNode>;
+    [HEADING_2_NODE_TYPE]?: NodeRenderer<HeadingNode>;
+    [IMAGE_NODE_TYPE]?: NodeRenderer<ImageNode>;
+    [LINK_NODE_TYPE]?: NodeRenderer<LinkNode>;
+    [LIST_ITEM_NODE_TYPE]?: NodeRenderer<ListItemNode>;
+    [LIST_ITEM_TEXT_NODE_TYPE]?: NodeRenderer<ListItemTextNode>;
+    [MENTION_NODE_TYPE]?: NodeRenderer<MentionNode>;
+    [NUMBERED_LIST_NODE_TYPE]?: NodeRenderer<ListNode>;
+    [PARAGRAPH_NODE_TYPE]?: NodeRenderer<ParagraphNode>;
+    [PLACEHOLDER_NODE_TYPE]?: NodeRenderer<PlaceholderNode>;
+    [QUOTE_NODE_TYPE]?: NodeRenderer<QuoteNode>;
+    text?: TextRenderer;
 }

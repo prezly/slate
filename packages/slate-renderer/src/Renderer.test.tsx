@@ -2,12 +2,14 @@ import {
     DIVIDER_NODE_TYPE,
     DOCUMENT_NODE_TYPE,
     DocumentNode,
+    Image,
+    IMAGE_NODE_TYPE,
     HEADING_1_NODE_TYPE,
 } from '@prezly/slate-types';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
-import Render from './Render';
+import Renderer from './Renderer';
 
 const documentNode: DocumentNode = {
     children: [
@@ -24,9 +26,16 @@ const documentNode: DocumentNode = {
     version: '0.50',
 };
 
-describe('render', () => {
+describe('Renderer', () => {
     it('Renders a <h1> for a heading and a <section> for a divider', () => {
-        const asString = renderToString(<Render nodes={documentNode} />);
+        const asString = renderToString(
+            <Renderer
+                nodes={documentNode}
+                options={{
+                    [IMAGE_NODE_TYPE]: ({ node }) => <Image {...node} />,
+                }}
+            />,
+        );
 
         expect(asString).toContain('<h1');
         expect(asString).toContain('<section');

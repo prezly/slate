@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 
-import { RenderText } from './types';
+import { TextRenderer } from './types';
 
-const DefaultRenderText: RenderText = ({
+const DefaultTextRenderer: TextRenderer = ({
     bold,
     italic,
     subscript,
@@ -35,4 +35,4 @@ const DefaultRenderText: RenderText = ({
     return <>{spanChildren}</>;
 };
 
-export default DefaultRenderText;
+export default DefaultTextRenderer;

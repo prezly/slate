@@ -2,7 +2,7 @@ import { ElementNode, isElementNode, isTextNode, TextNode } from '@prezly/slate-
 import React, { Fragment, FunctionComponent } from 'react';
 
 import defaultOptions from './defaultOptions';
-import { Options, Render } from './types';
+import { Options } from './types';
 
 type Node = ElementNode | TextNode;
 
@@ -11,7 +11,7 @@ interface Props {
     options?: Options;
 }
 
-const Render: FunctionComponent<Props> = ({ nodes, options: userOptions = {} }) => {
+const Renderer: FunctionComponent<Props> = ({ nodes, options: userOptions = {} }) => {
     const nodesArray = Array.isArray(nodes) ? nodes : [nodes];
     const options = { ...defaultOptions, ...userOptions };
 
@@ -19,21 +19,21 @@ const Render: FunctionComponent<Props> = ({ nodes, options: userOptions = {} }) 
         <>
             {nodesArray.map((node, index) => {
                 if (isTextNode(node)) {
-                    const RenderText = options.text;
-                    return <RenderText key={index} {...node} />;
+                    const TextRenderer = options.text;
+                    return <TextRenderer key={index} {...node} />;
                 }
 
                 if (isElementNode(node)) {
                     const { children, type } = node;
-                    const RenderNode = options[type as keyof Options];
+                    const NodeRenderer = options[type as keyof Options];
 
-                    if (RenderNode) {
+                    if (NodeRenderer) {
                         return (
                             // @ts-ignore
-                            <RenderNode key={index} node={node}>
+                            <NodeRenderer key={index} node={node}>
                                 {/* @ts-ignore */}
                                 <Render nodes={children} />
-                            </RenderNode>
+                            </NodeRenderer>
                         );
                     }
                 }
@@ -50,4 +50,4 @@ const Render: FunctionComponent<Props> = ({ nodes, options: userOptions = {} }) 
     );
 };
 
-export default Render;
+export default Renderer;
