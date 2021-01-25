@@ -1,4 +1,5 @@
 module.exports = {
+    coveragePathIgnorePatterns: ['/node_modules/', '/build/'],
     globals: {
         'ts-jest': {
             tsconfig: 'tsconfig.jest.json',

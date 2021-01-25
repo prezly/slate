@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode } from 'react';
 import Modal from 'react-modal';
 
-// import './ImagePreview.module.scss';
+import './ImagePreview.module.scss';
 
 interface Props {
     children?: ReactNode;
