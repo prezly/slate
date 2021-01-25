@@ -1,0 +1,44 @@
+@import "styles/mixins.scss";
+@import "styles/variables.scss";
+
+$close-icon-size: 24px;
+$close-icon-padding: $spacing-1;
+
+body.ReactModal__Body--open {
+    overflow: hidden;
+}
+
+.prezly-slate {
+    &-image-preview {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+
+        &__image {
+        }
+
+        &__close {
+            @include button-reset;
+
+            position: absolute;
+            top: $spacing-1;
+            right: $spacing-1;
+            width: $close-icon-size + 2 * $close-icon-padding;
+            height: $close-icon-size + 2 * $close-icon-padding;
+            z-index: 1;
+            padding: $close-icon-padding;
+            color: $link-color;
+
+            &:hover {
+                color: $color-link-hover;
+            }
+        }
+
+        &__close-icon {
+            width: $close-icon-size;
+            height: $close-icon-size;
+        }
+    }
+}

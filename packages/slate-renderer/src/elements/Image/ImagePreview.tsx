@@ -3,7 +3,9 @@ import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode } from 'react';
 import Modal from 'react-modal';
 
-import './ImagePreview.module.scss';
+import { Close } from '../../icons';
+
+import './ImagePreview.scss';
 
 interface Props {
     children?: ReactNode;
@@ -33,6 +35,15 @@ const ImagePreview: FunctionComponent<Props> = ({
             src={image.cdnUrl}
             srcSet={image.getSrcSet()}
         />
+
+        <button
+            className="prezly-slate-image-preview__close"
+            onClick={onClose}
+            type="button"
+            title="Esc"
+        >
+            <Close className="prezly-slate-image-preview__close-icon" />
+        </button>
     </Modal>
 );
 

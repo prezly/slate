@@ -45,21 +45,21 @@ const defaultOptions: Required<Options> = {
     [ATTACHMENT_NODE_TYPE]: Attachment,
     [BULLETED_LIST_NODE_TYPE]: BulletedList,
     [CONTACT_NODE_TYPE]: Contact,
-    [COVERAGE_NODE_TYPE]: () => <div>TODO</div>, // TODO
+    [COVERAGE_NODE_TYPE]: () => <span>TODO</span>, // TODO
     [DIVIDER_NODE_TYPE]: Divider,
     [DOCUMENT_NODE_TYPE]: Document,
-    [EMBED_NODE_TYPE]: () => <div>TODO</div>, // TODO
-    [GALLERY_NODE_TYPE]: () => <div>TODO</div>, // TODO
+    [EMBED_NODE_TYPE]: () => <span>TODO</span>, // TODO
+    [GALLERY_NODE_TYPE]: () => <span>TODO</span>, // TODO
     [HEADING_1_NODE_TYPE]: Heading1,
     [HEADING_2_NODE_TYPE]: Heading2,
     [IMAGE_NODE_TYPE]: Image,
     [LINK_NODE_TYPE]: Link,
     [LIST_ITEM_NODE_TYPE]: ListItem,
     [LIST_ITEM_TEXT_NODE_TYPE]: ListItemText,
-    [MENTION_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO
+    [MENTION_NODE_TYPE]: ({ children }) => <span>{children}</span>, // TODO
     [NUMBERED_LIST_NODE_TYPE]: NumberedList,
     [PARAGRAPH_NODE_TYPE]: Paragraph,
-    [PLACEHOLDER_NODE_TYPE]: ({ children }) => <div>{children}</div>, // TODO,
+    [PLACEHOLDER_NODE_TYPE]: ({ children }) => <span>{children}</span>, // TODO,
     [QUOTE_NODE_TYPE]: Quote,
     text: DefaultTextRenderer,
 };
