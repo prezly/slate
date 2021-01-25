@@ -7,7 +7,7 @@ import {
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
-import render from './render';
+import Render from './Render';
 
 const documentNode: DocumentNode = {
     children: [
@@ -26,15 +26,7 @@ const documentNode: DocumentNode = {
 
 describe('render', () => {
     it('Renders a <h1> for a heading and a <section> for a divider', () => {
-        const components = render(documentNode.children, {
-            [HEADING_1_NODE_TYPE]: ({ children }) => {
-                return <h1>{children}</h1>;
-            },
-            [DIVIDER_NODE_TYPE]: ({ children }) => {
-                return <section>{children}</section>;
-            },
-        });
-        const asString = renderToString(components);
+        const asString = renderToString(<Render nodes={documentNode} />);
 
         expect(asString).toContain('<h1');
         expect(asString).toContain('<section');

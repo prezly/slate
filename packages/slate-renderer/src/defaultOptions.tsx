@@ -49,7 +49,7 @@ const defaultOptions: Required<Options> = {
     [DIVIDER_NODE_TYPE]: Divider,
     [DOCUMENT_NODE_TYPE]: Document,
     [EMBED_NODE_TYPE]: () => <div>TODO</div>, // TODO
-    [GALLERY_NODE_TYPE]: ({ node }) => <div>TODO</div>, // TODO
+    [GALLERY_NODE_TYPE]: () => <div>TODO</div>, // TODO
     [HEADING_1_NODE_TYPE]: Heading1,
     [HEADING_2_NODE_TYPE]: Heading2,
     [IMAGE_NODE_TYPE]: Image,
