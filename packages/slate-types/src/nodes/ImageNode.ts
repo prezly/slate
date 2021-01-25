@@ -7,14 +7,13 @@ export const IMAGE_NODE_TYPE = 'image-block';
 
 const LAYOUTS = ['contained', 'expanded', 'full-width'];
 
-export default interface ImageNode extends ElementNode {
+export default interface ImageNode extends ElementNode<typeof IMAGE_NODE_TYPE> {
     /** caption */
     children: InlineNode[];
     file: UploadcareImageStoragePayload;
     /** empty string if no URL */
     href: string;
     layout: 'contained' | 'expanded' | 'full-width';
-    type: typeof IMAGE_NODE_TYPE;
     /** matches this regexp: /^\d+(\.\d+)?%$/ */
     width: string;
     /** matches this regexp: /^\d+(\.\d+)?%$/ */

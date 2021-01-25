@@ -4,9 +4,8 @@ import ElementNode, { isElementNode } from './ElementNode';
 
 export const EMBED_NODE_TYPE = 'embed';
 
-export default interface EmbedNode extends ElementNode {
+export default interface EmbedNode extends ElementNode<typeof EMBED_NODE_TYPE> {
     oembed: OEmbedInfo;
-    type: typeof EMBED_NODE_TYPE;
     url: string;
     uuid: string;
 }

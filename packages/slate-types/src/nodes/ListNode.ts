@@ -9,19 +9,17 @@ export const LIST_ITEM_NODE_TYPE = 'list-item';
 
 export const LIST_ITEM_TEXT_NODE_TYPE = 'list-item-text';
 
-export default interface ListNode extends ElementNode {
+export default interface ListNode
+    extends ElementNode<typeof BULLETED_LIST_NODE_TYPE | typeof NUMBERED_LIST_NODE_TYPE> {
     children: ListItemNode[];
-    type: typeof BULLETED_LIST_NODE_TYPE | typeof NUMBERED_LIST_NODE_TYPE;
 }
 
-export interface ListItemNode extends ElementNode {
+export interface ListItemNode extends ElementNode<typeof LIST_ITEM_NODE_TYPE> {
     children: [ListItemTextNode] | [ListItemTextNode, ListNode];
-    type: typeof LIST_ITEM_NODE_TYPE;
 }
 
-export interface ListItemTextNode extends ElementNode {
+export interface ListItemTextNode extends ElementNode<typeof LIST_ITEM_TEXT_NODE_TYPE> {
     children: InlineNode[];
-    type: typeof LIST_ITEM_TEXT_NODE_TYPE;
 }
 
 export const isListNode = (value: any): value is ListNode => {

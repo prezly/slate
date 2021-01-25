@@ -4,9 +4,8 @@ import ElementNode, { isElementNode } from './ElementNode';
 
 export const CONTACT_NODE_TYPE = 'contact';
 
-export default interface ContactNode extends ElementNode {
+export default interface ContactNode extends ElementNode<typeof CONTACT_NODE_TYPE> {
     contact: PressContact;
-    type: typeof CONTACT_NODE_TYPE;
     uuid: string;
 }
 

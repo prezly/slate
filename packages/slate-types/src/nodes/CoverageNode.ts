@@ -4,11 +4,10 @@ import ElementNode, { isElementNode } from './ElementNode';
 
 export const COVERAGE_NODE_TYPE = 'coverage';
 
-export default interface CoverageNode extends ElementNode {
+export default interface CoverageNode extends ElementNode<typeof COVERAGE_NODE_TYPE> {
     coverage: {
         id: Coverage['id'];
     };
-    type: typeof COVERAGE_NODE_TYPE;
     uuid: string;
 }
 

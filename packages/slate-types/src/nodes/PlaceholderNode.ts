@@ -3,7 +3,7 @@ import TextNode, { isTextNode } from './TextNode';
 
 export const PLACEHOLDER_NODE_TYPE = 'placeholder';
 
-export default interface PlaceholderNode extends ElementNode {
+export default interface PlaceholderNode extends ElementNode<typeof PLACEHOLDER_NODE_TYPE> {
     children: TextNode[];
     key:
         | 'contact.firstname'
@@ -13,7 +13,6 @@ export default interface PlaceholderNode extends ElementNode {
         | 'publication.date'
         | 'release.shorturl'
         | 'release.url';
-    type: typeof PLACEHOLDER_NODE_TYPE;
 }
 
 export const isPlaceholderNode = (value: any): value is PlaceholderNode => {

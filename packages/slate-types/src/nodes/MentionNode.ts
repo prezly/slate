@@ -5,9 +5,8 @@ import TextNode, { isTextNode } from './TextNode';
 
 export const MENTION_NODE_TYPE = 'mention';
 
-export default interface MentionNode extends ElementNode {
+export default interface MentionNode extends ElementNode<typeof MENTION_NODE_TYPE> {
     children: TextNode[];
-    type: typeof MENTION_NODE_TYPE;
     user: {
         avatar_url: string;
         id: number;

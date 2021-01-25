@@ -10,7 +10,7 @@ const PADDINGS = ['S', 'M', 'L'];
 
 const THUMBNAIL_SIZES = ['XS', 'S', 'M', 'L', 'XL'];
 
-export default interface GalleryNode extends ElementNode {
+export default interface GalleryNode extends ElementNode<typeof GALLERY_NODE_TYPE> {
     images: {
         /** empty string if no caption */
         caption: string;
@@ -19,7 +19,6 @@ export default interface GalleryNode extends ElementNode {
     layout: 'contained' | 'expanded' | 'full-width';
     padding: 'S' | 'M' | 'L';
     thumbnail_size: 'XS' | 'S' | 'M' | 'L' | 'XL';
-    type: typeof GALLERY_NODE_TYPE;
     uuid: string;
 }
 
