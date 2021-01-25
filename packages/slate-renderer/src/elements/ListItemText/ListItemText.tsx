@@ -1,13 +1,14 @@
+import { ListItemTextNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 
 import './ListItemText.scss';
 
-const ListItemText: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({
-    children,
-    className,
-    ...props
-}) => (
+interface Props extends HTMLAttributes<HTMLDivElement> {
+    node: ListItemTextNode;
+}
+
+const ListItemText: FunctionComponent<Props> = ({ children, className, node, ...props }) => (
     <div className={classNames('prezly-slate-list-item-text', className)} {...props}>
         {children}
     </div>

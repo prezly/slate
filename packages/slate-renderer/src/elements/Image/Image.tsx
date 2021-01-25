@@ -1,49 +1,33 @@
 import { ImageNode, UploadcareImage } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { CSSProperties, FunctionComponent, HTMLAttributes } from 'react';
+import React, { CSSProperties, FunctionComponent, HTMLAttributes, useState } from 'react';
 
 import './Image.scss';
+import ImagePreview from './ImagePreview';
 import Media from './Media';
 import Rollover from './Rollover';
 
 interface Props extends HTMLAttributes<HTMLElement> {
-    file: ImageNode['file'];
-    href: ImageNode['href'];
-    layout: ImageNode['layout'];
-    width: ImageNode['width'];
-    widthFactor: ImageNode['width_factor'];
+    node: ImageNode;
 }
 
-const getMediaStyle = ({
-    layout,
-    width,
-    widthFactor,
-}: Pick<Props, 'layout' | 'width' | 'widthFactor'>): CSSProperties => {
-    if (layout !== 'contained') {
+const getMediaStyle = (node: ImageNode): CSSProperties => {
+    if (node.layout !== 'contained') {
         return {};
     }
 
     return {
-        width: `${((parseFloat(width) * parseFloat(widthFactor)) / 100).toFixed(2)}%`,
+        width: `${((parseFloat(node.width) * parseFloat(node.width_factor)) / 100).toFixed(2)}%`,
     };
 };
 
-const Image: FunctionComponent<Props> = ({
-    children,
-    className,
-    file,
-    href,
-    layout,
-    width,
-    widthFactor,
-    ...props
-}) => {
+const Image: FunctionComponent<Props> = ({ children, className, node, ...props }) => {
+    const { file, href, layout } = node;
+    const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
     const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
-    const mediaStyle = getMediaStyle({ layout, width, widthFactor });
-
-    const handleRolloverClick = () => {
-        // TODO: implement me
-    };
+    const mediaStyle = getMediaStyle(node);
+    const handleRolloverClick = () => setIsPreviewOpen(true);
+    const handleImagePreviewClose = () => setIsPreviewOpen(false);
 
     return (
         <figure
@@ -77,6 +61,12 @@ const Image: FunctionComponent<Props> = ({
             )}
 
             <figcaption className="prezly-slate-image__caption">{children}</figcaption>
+
+            <ImagePreview
+                image={uploadcareImage}
+                isOpen={isPreviewOpen}
+                onClose={handleImagePreviewClose}
+            />
         </figure>
     );
 };

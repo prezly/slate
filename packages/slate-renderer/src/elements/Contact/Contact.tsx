@@ -8,12 +8,12 @@ import SocialFields from './SocialFields';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     children?: never;
-    contact: ContactNode['contact'];
+    node: ContactNode;
 }
 
-const Contact: FunctionComponent<Props> = ({ className, contact, ...props }) => {
-    const { description, company } = contact;
-    const jobDescription = [description, company].filter(Boolean).join(', ');
+const Contact: FunctionComponent<Props> = ({ children, className, node, ...props }) => {
+    const { contact } = node;
+    const jobDescription = [contact.description, contact.company].filter(Boolean).join(', ');
 
     return (
         <div className={classNames('prezly-slate-contact', className)} {...props}>

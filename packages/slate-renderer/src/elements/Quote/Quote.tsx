@@ -1,13 +1,14 @@
+import { QuoteNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 
 import './Quote.scss';
 
-const Quote: FunctionComponent<HTMLAttributes<HTMLQuoteElement>> = ({
-    children,
-    className,
-    ...props
-}) => (
+interface Props extends HTMLAttributes<HTMLQuoteElement> {
+    node: QuoteNode;
+}
+
+const Quote: FunctionComponent<Props> = ({ children, className, node, ...props }) => (
     <blockquote className={classNames('prezly-slate-quote', className)} {...props}>
         {children}
     </blockquote>

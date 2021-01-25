@@ -1,12 +1,17 @@
 import { ElementNode, isElementNode, isTextNode, TextNode } from '@prezly/slate-types';
-import React, { Fragment, ReactElement } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 
 import defaultOptions from './defaultOptions';
-import { Options } from './types';
+import { Options, Render } from './types';
 
 type Node = ElementNode | TextNode;
 
-const render = (nodes: Node | Node[], userOptions: Options = {}): ReactElement => {
+interface Props {
+    nodes: Node | Node[];
+    options?: Options;
+}
+
+const Render: FunctionComponent<Props> = ({ nodes, options: userOptions = {} }) => {
     const nodesArray = Array.isArray(nodes) ? nodes : [nodes];
     const options = { ...defaultOptions, ...userOptions };
 
@@ -14,18 +19,22 @@ const render = (nodes: Node | Node[], userOptions: Options = {}): ReactElement =
         <>
             {nodesArray.map((node, index) => {
                 if (isTextNode(node)) {
-                    const renderText = options.text;
-                    return <Fragment key={index}>{renderText(node)}</Fragment>;
+                    const RenderText = options.text;
+                    return <RenderText key={index} {...node} />;
                 }
 
                 if (isElementNode(node)) {
                     const { children, type } = node;
-                    const renderNode = options[type];
+                    const RenderNode = options[type as keyof Options];
 
-                    if (renderNode) {
-                        const nodeWithChildren = { ...node, children: render(children) };
-                        // @ts-ignore
-                        return <Fragment key={index}>{renderNode(nodeWithChildren)}</Fragment>;
+                    if (RenderNode) {
+                        return (
+                            // @ts-ignore
+                            <RenderNode key={index} node={node}>
+                                {/* @ts-ignore */}
+                                <Render nodes={children} />
+                            </RenderNode>
+                        );
                     }
                 }
 
@@ -41,4 +50,4 @@ const render = (nodes: Node | Node[], userOptions: Options = {}): ReactElement =
     );
 };
 
-export default render;
+export default Render;

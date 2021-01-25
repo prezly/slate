@@ -9,20 +9,11 @@ import './Attachment.scss';
 
 interface Props extends HTMLAttributes<HTMLAnchorElement> {
     children?: never;
-    description: AttachmentNode['description'];
-    file: AttachmentNode['file'];
-    styled?: boolean;
-    uuid: AttachmentNode['uuid'];
+    node: AttachmentNode;
 }
 
-const Attachment: FunctionComponent<Props> = ({
-    className,
-    description,
-    file,
-    styled,
-    uuid,
-    ...props
-}) => {
+const Attachment: FunctionComponent<Props> = ({ className, children, node, ...props }) => {
+    const { description, file, styled } = node;
     const attachment = UploadcareFile.createFromPrezlyStoragePayload(file);
     const isUsingCustomTitle = Boolean(description);
 

@@ -1,13 +1,14 @@
+import { HeadingNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 
 import './Heading1.scss';
 
-const Heading1: FunctionComponent<HTMLAttributes<HTMLHeadingElement>> = ({
-    children,
-    className,
-    ...props
-}) => (
+interface Props extends HTMLAttributes<HTMLHeadingElement> {
+    node: HeadingNode;
+}
+
+const Heading1: FunctionComponent<Props> = ({ children, className, node, ...props }) => (
     <h1 className={classNames('prezly-slate-heading-1', className)} {...props}>
         {children}
     </h1>
