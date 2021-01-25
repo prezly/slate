@@ -2,8 +2,6 @@ import {
     DIVIDER_NODE_TYPE,
     DOCUMENT_NODE_TYPE,
     DocumentNode,
-    Image,
-    IMAGE_NODE_TYPE,
     HEADING_1_NODE_TYPE,
 } from '@prezly/slate-types';
 import React from 'react';
@@ -32,7 +30,7 @@ describe('Renderer', () => {
             <Renderer
                 nodes={documentNode}
                 options={{
-                    [IMAGE_NODE_TYPE]: ({ node }) => <Image {...node} />,
+                    [DIVIDER_NODE_TYPE]: () => <section>divider</section>,
                 }}
             />,
         );
