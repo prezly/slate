@@ -9,7 +9,7 @@ body.ReactModal__Body--open {
 }
 
 .prezly-slate {
-    &-image-preview {
+    &-lightbox {
         position: fixed;
         top: 0;
         left: 0;
@@ -38,7 +38,7 @@ body.ReactModal__Body--open {
             margin: $spacing-3 auto;
 
             &:hover {
-                .prezly-slate-image-preview__actions {
+                .prezly-slate-lightbox__actions {
                     opacity: 1;
                 }
             }

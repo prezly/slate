@@ -4,10 +4,12 @@ import React, { FunctionComponent, KeyboardEvent, ReactNode } from 'react';
 import Modal from 'react-modal';
 import useEvent from 'react-use/lib/useEvent';
 
-import { Media, PinterestButton } from '../../components';
 import { Close } from '../../icons';
 
-import './ImagePreview.scss';
+import Media from '../Media';
+import PinterestButton from '../PinterestButton';
+
+import './Lightbox.scss';
 
 interface Props {
     children?: ReactNode;
@@ -17,7 +19,7 @@ interface Props {
     onClose: () => void;
 }
 
-const ImagePreview: FunctionComponent<Props> = ({ children, className, file, isOpen, onClose }) => {
+const Lightbox: FunctionComponent<Props> = ({ children, className, file, isOpen, onClose }) => {
     const image = UploadcareImage.createFromPrezlyStoragePayload(file);
 
     useEvent('keypress', (event: KeyboardEvent) => {
@@ -28,19 +30,19 @@ const ImagePreview: FunctionComponent<Props> = ({ children, className, file, isO
 
     return (
         <Modal
-            className={classNames('prezly-slate-image-preview', className)}
+            className={classNames('prezly-slate-lightbox', className)}
             isOpen={isOpen}
             onRequestClose={onClose}
         >
-            <figure className="prezly-slate-image-preview__figure">
-                <div className="prezly-slate-image-preview__image-container">
-                    <Media className="prezly-slate-image-preview__image" file={file}>
+            <figure className="prezly-slate-lightbox__figure">
+                <div className="prezly-slate-lightbox__image-container">
+                    <Media className="prezly-slate-lightbox__image" file={file}>
                         {children}
                     </Media>
 
-                    <div className="prezly-slate-image-preview__actions">
+                    <div className="prezly-slate-lightbox__actions">
                         <a
-                            className="prezly-slate-image-preview__download"
+                            className="prezly-slate-lightbox__download"
                             href={image.downloadUrl}
                             rel="noreferrer noopener"
                             target="_blank"
@@ -50,25 +52,25 @@ const ImagePreview: FunctionComponent<Props> = ({ children, className, file, isO
                         </a>
 
                         <PinterestButton
-                            className="prezly-slate-image-preview__pinterest"
+                            className="prezly-slate-lightbox__pinterest"
                             image={image.downloadUrl}
                         />
                     </div>
                 </div>
 
-                <div className="prezly-slate-image-preview__caption">{children}</div>
+                <div className="prezly-slate-lightbox__caption">{children}</div>
             </figure>
 
             <button
-                className="prezly-slate-image-preview__close"
+                className="prezly-slate-lightbox__close"
                 onClick={onClose}
                 type="button"
                 title="Esc"
             >
-                <Close className="prezly-slate-image-preview__close-icon" />
+                <Close className="prezly-slate-lightbox__close-icon" />
             </button>
         </Modal>
     );
 };
 
-export default ImagePreview;
+export default Lightbox;

@@ -2,10 +2,9 @@ import { ImageNode, UploadcareImage } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { CSSProperties, FunctionComponent, HTMLAttributes, useState } from 'react';
 
-import { Media, Rollover } from '../../components';
+import { Lightbox, Media, Rollover } from '../../components';
 
 import './Image.scss';
-import ImagePreview from './ImagePreview';
 
 interface Props extends HTMLAttributes<HTMLElement> {
     node: ImageNode;
@@ -62,9 +61,9 @@ const Image: FunctionComponent<Props> = ({ children, className, node, ...props }
 
             <figcaption className="prezly-slate-image__caption">{children}</figcaption>
 
-            <ImagePreview file={file} isOpen={isPreviewOpen} onClose={handleImagePreviewClose}>
+            <Lightbox file={file} isOpen={isPreviewOpen} onClose={handleImagePreviewClose}>
                 {children}
-            </ImagePreview>
+            </Lightbox>
         </figure>
     );
 };
