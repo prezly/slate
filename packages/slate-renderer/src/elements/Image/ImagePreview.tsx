@@ -1,6 +1,6 @@
 import { UploadcareImage, UploadcareImageStoragePayload } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent, KeyboardEvent, ReactNode } from 'react';
 import Modal from 'react-modal';
 import useEvent from 'react-use/lib/useEvent';
 
@@ -20,8 +20,10 @@ interface Props {
 const ImagePreview: FunctionComponent<Props> = ({ children, className, file, isOpen, onClose }) => {
     const image = UploadcareImage.createFromPrezlyStoragePayload(file);
 
-    useEvent('keypress', (event) => {
-
+    useEvent('keypress', (event: KeyboardEvent) => {
+        if (event.key === 'Esc' && isOpen) {
+            onClose();
+        }
     });
 
     return (
