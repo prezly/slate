@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import { ImageNode, UploadcareImage } from '@prezly/slate-types';
 import React, { CSSProperties, FunctionComponent, ReactNode } from 'react';
 
+import { stringifyReactNode } from '../../lib';
+
 import './Image.scss';
 
 interface Props {
@@ -13,7 +15,7 @@ interface Props {
 
 const Media: FunctionComponent<Props> = ({ children, className, file, style }) => {
     const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
-    const title = typeof children === 'string' ? children : file.filename;
+    const title = stringifyReactNode(children) || file.filename;
 
     if (uploadcareImage.isGif()) {
         const video = uploadcareImage.toVideo().bestQuality();
