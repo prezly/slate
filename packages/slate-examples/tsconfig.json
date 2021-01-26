@@ -3,7 +3,6 @@
 
     "compilerOptions": {
         "jsx": "preserve",
-        "lib": ["dom", "dom.iterable", "esnext"],
         "outDir": "./build",
         "rootDir": "./src",
         "allowJs": true,
