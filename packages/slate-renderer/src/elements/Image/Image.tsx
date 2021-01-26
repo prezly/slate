@@ -45,7 +45,7 @@ const Image: FunctionComponent<Props> = ({ children, className, node, ...props }
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <Media file={file} style={mediaStyle}>
+                    <Media className="prezly-slate-image__media" image={image} style={mediaStyle}>
                         {children}
                     </Media>
                 </a>
@@ -53,7 +53,7 @@ const Image: FunctionComponent<Props> = ({ children, className, node, ...props }
 
             {!href && (
                 <Rollover disabled={image.isGif()} onClick={handleRolloverClick}>
-                    <Media file={file} style={mediaStyle}>
+                    <Media className="prezly-slate-image__media" image={image} style={mediaStyle}>
                         {children}
                     </Media>
                 </Rollover>
@@ -61,7 +61,7 @@ const Image: FunctionComponent<Props> = ({ children, className, node, ...props }
 
             <figcaption className="prezly-slate-image__caption">{children}</figcaption>
 
-            <Lightbox file={file} isOpen={isPreviewOpen} onClose={handleImagePreviewClose}>
+            <Lightbox image={image} isOpen={isPreviewOpen} onClose={handleImagePreviewClose}>
                 {children}
             </Lightbox>
         </figure>

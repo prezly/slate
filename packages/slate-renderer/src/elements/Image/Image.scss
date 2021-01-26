@@ -16,8 +16,8 @@
             @include media-layout-expanded;
 
             .prezly-slate-image__link,
-            .prezly-slate-image__image,
-            .prezly-slate-image__video,
+            .prezly-slate-image__media,
+            video,
             img {
                 width: 100%;
             }
@@ -27,8 +27,8 @@
             @include media-layout-full-width;
 
             .prezly-slate-image__link,
-            .prezly-slate-image__image,
-            .prezly-slate-image__video,
+            .prezly-slate-image__media,
+            video,
             img {
                 width: 100%;
             }

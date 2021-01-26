@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ImageNode, UploadcareImage } from '@prezly/slate-types';
+import { UploadcareImage } from '@prezly/slate-types';
 import React, { CSSProperties, FunctionComponent, ReactNode } from 'react';
 
 import { stringifyReactNode } from '../../lib';
@@ -9,20 +9,19 @@ import './Media.scss';
 interface Props {
     children?: ReactNode;
     className?: string;
-    file: ImageNode['file'];
+    image: UploadcareImage;
     style?: CSSProperties;
 }
 
-const Media: FunctionComponent<Props> = ({ children, className, file, style }) => {
-    const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
-    const title = stringifyReactNode(children) || file.filename;
+const Media: FunctionComponent<Props> = ({ children, className, image, style }) => {
+    const title = stringifyReactNode(children);
     const computedClassName = classNames('prezly-slate-media', className, {
-        'prezly-slate-media--image': !uploadcareImage.isGif(),
-        'prezly-slate-media--video': uploadcareImage.isGif(),
+        'prezly-slate-media--image': !image.isGif(),
+        'prezly-slate-media--video': image.isGif(),
     });
 
-    if (uploadcareImage.isGif()) {
-        const video = uploadcareImage.toVideo().bestQuality();
+    if (image.isGif()) {
+        const video = image.toVideo().bestQuality();
         const sourceWebm = video.format('webm').cdnUrl;
         const sourceMp4 = video.format('mp4').cdnUrl;
 
@@ -47,8 +46,8 @@ const Media: FunctionComponent<Props> = ({ children, className, file, style }) =
         <img
             alt={title}
             className={computedClassName}
-            src={uploadcareImage.cdnUrl}
-            srcSet={uploadcareImage.getSrcSet()}
+            src={image.cdnUrl}
+            srcSet={image.getSrcSet()}
             style={style}
             title={title}
         />

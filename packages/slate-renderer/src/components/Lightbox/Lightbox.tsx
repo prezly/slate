@@ -1,4 +1,4 @@
-import { UploadcareImage, UploadcareImageStoragePayload } from '@prezly/slate-types';
+import { UploadcareImage } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, KeyboardEvent, ReactNode } from 'react';
 import Modal from 'react-modal';
@@ -14,14 +14,12 @@ import './Lightbox.scss';
 interface Props {
     children?: ReactNode;
     className?: string;
-    file: UploadcareImageStoragePayload;
+    image: UploadcareImage;
     isOpen: boolean;
     onClose: () => void;
 }
 
-const Lightbox: FunctionComponent<Props> = ({ children, className, file, isOpen, onClose }) => {
-    const image = UploadcareImage.createFromPrezlyStoragePayload(file);
-
+const Lightbox: FunctionComponent<Props> = ({ children, className, image, isOpen, onClose }) => {
     useEvent('keypress', (event: KeyboardEvent) => {
         if (event.key === 'Esc' && isOpen) {
             onClose();
@@ -36,7 +34,7 @@ const Lightbox: FunctionComponent<Props> = ({ children, className, file, isOpen,
         >
             <figure className="prezly-slate-lightbox__figure">
                 <div className="prezly-slate-lightbox__image-container">
-                    <Media className="prezly-slate-lightbox__image" file={file}>
+                    <Media className="prezly-slate-lightbox__image" image={image}>
                         {children}
                     </Media>
 
