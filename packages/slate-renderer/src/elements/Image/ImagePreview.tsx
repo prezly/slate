@@ -21,8 +21,7 @@ const ImagePreview: FunctionComponent<Props> = ({ children, className, file, isO
     const image = UploadcareImage.createFromPrezlyStoragePayload(file);
 
     useEvent('keypress', (event) => {
-        if (event.target) {
-        }
+
     });
 
     return (
@@ -43,6 +42,7 @@ const ImagePreview: FunctionComponent<Props> = ({ children, className, file, isO
                             href={image.downloadUrl}
                             rel="noreferrer noopener"
                             target="_blank"
+                            title="Download"
                         >
                             Download
                         </a>
