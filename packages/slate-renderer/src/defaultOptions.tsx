@@ -39,7 +39,6 @@ import {
     Quote,
 } from './elements';
 import { Options } from './types';
-import './styles.scss';
 
 const defaultOptions: Required<Options> = {
     [ATTACHMENT_NODE_TYPE]: Attachment,
