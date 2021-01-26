@@ -1,10 +1,8 @@
 import classNames from 'classnames';
 import React, { AnchorHTMLAttributes, FunctionComponent, ReactNode, useCallback } from 'react';
-import { renderToString } from 'react-dom/server';
-import striptags from 'striptags';
 
 import { Pinterest } from '../../icons';
-import { openWindow } from '../../lib';
+import { openWindow, stringifyReactNode } from '../../lib';
 
 import { getPinterestShareUrl } from './lib';
 import './PinterestButton.scss';
@@ -25,7 +23,7 @@ const PinterestButton: FunctionComponent<Props> = ({
     ...props
 }) => {
     const pinterestShareUrl = getPinterestShareUrl({
-        description: striptags(renderToString(<>{description}</>)),
+        description: stringifyReactNode(description),
         image,
         url,
     });
