@@ -36,6 +36,12 @@ body.ReactModal__Body--open {
             position: relative;
             overflow-y: hidden;
             margin: $spacing-3 auto;
+
+            &:hover {
+                .prezly-slate-image-preview__actions {
+                    opacity: 1;
+                }
+            }
         }
 
         &__image {
@@ -51,6 +57,12 @@ body.ReactModal__Body--open {
             align-items: center;
             justify-content: center;
             padding: $spacing-2 0;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+
+            &:focus-within {
+                opacity: 1;
+            }
         }
 
         &__download,
