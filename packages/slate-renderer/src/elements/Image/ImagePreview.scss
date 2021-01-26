@@ -2,7 +2,7 @@
 @import "styles/variables.scss";
 
 $close-icon-size: 24px;
-$close-icon-padding: $spacing-1;
+$close-icon-padding: $spacing-2;
 
 body.ReactModal__Body--open {
     overflow: hidden;
@@ -68,8 +68,8 @@ body.ReactModal__Body--open {
             }
 
             position: absolute;
-            top: $spacing-1;
-            right: $spacing-1;
+            top: 0;
+            right: 0;
             width: $close-icon-size + 2 * $close-icon-padding;
             height: $close-icon-size + 2 * $close-icon-padding;
             z-index: 1;
