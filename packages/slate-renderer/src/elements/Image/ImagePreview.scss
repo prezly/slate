@@ -33,12 +33,49 @@ body.ReactModal__Body--open {
         &__image-container {
             display: flex;
             align-items: center;
+            position: relative;
             overflow-y: hidden;
             margin: $spacing-3 auto;
         }
 
         &__image {
             max-height: 100%;
+        }
+
+        &__actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: $spacing-2 0;
+        }
+
+        &__download {
+            @include button-reset;
+
+            &:focus {
+                @include focus-state;
+            }
+
+            padding: $spacing-1 $spacing-3;
+            background-color: $link-color;
+            color: white;
+            border-radius: $border-radius-base;
+            font-size: $font-size-m;
+            line-height: $line-height;
+            text-decoration: none;
+
+            &:active {
+                padding-top: $spacing-1 + 1px;
+                padding-bottom: $spacing-1 - 1px;
+            }
+
+            &:hover {
+                background-color: $color-link-hover;
+            }
         }
 
         &__caption {

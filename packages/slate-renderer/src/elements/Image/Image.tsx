@@ -24,7 +24,7 @@ const getMediaStyle = (node: ImageNode): CSSProperties => {
 const Image: FunctionComponent<Props> = ({ children, className, node, ...props }) => {
     const { file, href, layout } = node;
     const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
-    const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
+    const image = UploadcareImage.createFromPrezlyStoragePayload(file);
     const mediaStyle = getMediaStyle(node);
     const handleRolloverClick = () => setIsPreviewOpen(true);
     const handleImagePreviewClose = () => setIsPreviewOpen(false);
@@ -35,7 +35,7 @@ const Image: FunctionComponent<Props> = ({ children, className, node, ...props }
                 'prezly-slate-image--contained': layout === 'contained',
                 'prezly-slate-image--expanded': layout === 'expanded',
                 'prezly-slate-image--full-width': layout === 'full-width',
-                'prezly-slate-image--gif': uploadcareImage.isGif(),
+                'prezly-slate-image--gif': image.isGif(),
             })}
             {...props}
         >
@@ -53,7 +53,7 @@ const Image: FunctionComponent<Props> = ({ children, className, node, ...props }
             )}
 
             {!href && (
-                <Rollover disabled={uploadcareImage.isGif()} onClick={handleRolloverClick}>
+                <Rollover disabled={image.isGif()} onClick={handleRolloverClick}>
                     <Media file={file} style={mediaStyle}>
                         {children}
                     </Media>
