@@ -1,0 +1,17 @@
+@import "styles/mixins.scss";
+@import "styles/variables.scss";
+
+.prezly-slate {
+    &-media {
+        &--image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        &--video {
+            max-width: 100%;
+        }
+    }
+}

@@ -4,11 +4,10 @@ import React, { FunctionComponent, KeyboardEvent, ReactNode } from 'react';
 import Modal from 'react-modal';
 import useEvent from 'react-use/lib/useEvent';
 
-import { PinterestButton } from '../../components';
+import { Media, PinterestButton } from '../../components';
 import { Close } from '../../icons';
 
 import './ImagePreview.scss';
-import Media from './Media';
 
 interface Props {
     children?: ReactNode;

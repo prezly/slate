@@ -2,9 +2,10 @@ import { ImageNode, UploadcareImage } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { CSSProperties, FunctionComponent, HTMLAttributes, useState } from 'react';
 
+import { Media } from '../../components';
+
 import './Image.scss';
 import ImagePreview from './ImagePreview';
-import Media from './Media';
 import Rollover from './Rollover';
 
 interface Props extends HTMLAttributes<HTMLElement> {

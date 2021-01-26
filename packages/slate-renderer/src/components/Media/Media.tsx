@@ -4,7 +4,7 @@ import React, { CSSProperties, FunctionComponent, ReactNode } from 'react';
 
 import { stringifyReactNode } from '../../lib';
 
-import './Image.scss';
+import './Media.scss';
 
 interface Props {
     children?: ReactNode;
@@ -16,6 +16,10 @@ interface Props {
 const Media: FunctionComponent<Props> = ({ children, className, file, style }) => {
     const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
     const title = stringifyReactNode(children) || file.filename;
+    const computedClassName = classNames('prezly-slate-media', className, {
+        'prezly-slate-media--image': !uploadcareImage.isGif(),
+        'prezly-slate-media--video': uploadcareImage.isGif(),
+    });
 
     if (uploadcareImage.isGif()) {
         const video = uploadcareImage.toVideo().bestQuality();
@@ -25,7 +29,7 @@ const Media: FunctionComponent<Props> = ({ children, className, file, style }) =
         return (
             <video
                 autoPlay
-                className={classNames('prezly-slate-image__video', className)}
+                className={computedClassName}
                 loop
                 muted
                 playsInline
@@ -42,7 +46,7 @@ const Media: FunctionComponent<Props> = ({ children, className, file, style }) =
     return (
         <img
             alt={title}
-            className={classNames('prezly-slate-image__image', className)}
+            className={computedClassName}
             src={uploadcareImage.cdnUrl}
             srcSet={uploadcareImage.getSrcSet()}
             style={style}
