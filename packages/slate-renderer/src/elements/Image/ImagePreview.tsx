@@ -1,10 +1,13 @@
 import { UploadcareImage, UploadcareImageStoragePayload } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, KeyboardEvent, ReactNode } from 'react';
+import { renderToString } from 'react-dom/server';
 import Modal from 'react-modal';
 import useEvent from 'react-use/lib/useEvent';
+import striptags from 'striptags';
 
-import { Close } from '../../icons';
+import { Close, Pinterest } from '../../icons';
+import { openWindow } from '../../lib';
 
 import './ImagePreview.scss';
 import Media from './Media';
@@ -17,8 +20,29 @@ interface Props {
     onClose: () => void;
 }
 
+const getPinterestShareUrl = (description: string, url: string, image?: string): string => {
+    const parameters = {
+        description: encodeURIComponent(description),
+        media: image ? encodeURIComponent(image) : undefined,
+        url: encodeURIComponent(url),
+    };
+
+    const parametersString = Object.entries(parameters)
+        .filter(([value]) => value)
+        .map((entry) => entry.join('='))
+        .join('&');
+
+    return `https://pinterest.com/pin/create/button/?${parametersString}`;
+};
+
 const ImagePreview: FunctionComponent<Props> = ({ children, className, file, isOpen, onClose }) => {
     const image = UploadcareImage.createFromPrezlyStoragePayload(file);
+
+    const handlePinterestClick = () => {
+        const description = striptags(renderToString(<>{children}</>));
+        const url = getPinterestShareUrl(description, document.location.href, image.downloadUrl);
+        openWindow(url, 575, 400);
+    };
 
     useEvent('keypress', (event: KeyboardEvent) => {
         if (event.key === 'Esc' && isOpen) {
@@ -48,6 +72,15 @@ const ImagePreview: FunctionComponent<Props> = ({ children, className, file, isO
                         >
                             Download
                         </a>
+
+                        <button
+                            className="prezly-slate-image-preview__pinterest"
+                            onClick={handlePinterestClick}
+                            title="Pin"
+                            type="button"
+                        >
+                            <Pinterest className="prezly-slate-image-preview__pinterest-icon" />
+                        </button>
                     </div>
                 </div>
 

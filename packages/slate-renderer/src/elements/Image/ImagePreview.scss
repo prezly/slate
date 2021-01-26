@@ -53,13 +53,33 @@ body.ReactModal__Body--open {
             padding: $spacing-2 0;
         }
 
-        &__download {
+        &__download,
+        &__pinterest {
             @include button-reset;
+
+            margin-right: $spacing-2;
+
+            &:last-child {
+                margin-right: 0;
+            }
 
             &:focus {
                 @include focus-state;
             }
+        }
 
+        &__pinterest {
+            border-radius: 50%;
+        }
+
+        &__pinterest-icon {
+            $size: 38px;
+
+            width: $size;
+            height: $size;
+        }
+
+        &__download {
             padding: $spacing-1 $spacing-3;
             background-color: $link-color;
             color: white;
