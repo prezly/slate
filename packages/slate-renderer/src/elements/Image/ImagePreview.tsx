@@ -50,7 +50,10 @@ const ImagePreview: FunctionComponent<Props> = ({ children, className, file, isO
                             Download
                         </a>
 
-                        <PinterestButton className="prezly-slate-image-preview__pinterest" />
+                        <PinterestButton
+                            className="prezly-slate-image-preview__pinterest"
+                            image={image}
+                        />
                     </div>
                 </div>
 

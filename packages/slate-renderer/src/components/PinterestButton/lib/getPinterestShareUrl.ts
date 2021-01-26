@@ -1,8 +1,14 @@
-const getPinterestShareUrl = (
-    description: string,
+interface Options {
+    description?: string;
+    url?: string;
+    image?: string;
+}
+
+const getPinterestShareUrl = ({
+    description = document.title,
     url = document.location.href,
-    image?: string,
-): string => {
+    image,
+}: Options): string => {
     const parameters = {
         description: encodeURIComponent(description),
         media: image ? encodeURIComponent(image) : undefined,
@@ -10,7 +16,6 @@ const getPinterestShareUrl = (
     };
 
     const parametersString = Object.entries(parameters)
-        .filter(([value]) => value)
         .map((entry) => entry.join('='))
         .join('&');
 

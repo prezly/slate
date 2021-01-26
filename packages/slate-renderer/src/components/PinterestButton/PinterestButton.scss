@@ -5,8 +5,9 @@ $button-size: 38px;
 
 .prezly-slate {
     &-pinterest-button {
-        @include button-reset;
-
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: $button-size;
         height: $button-size;
         border-radius: 50%;

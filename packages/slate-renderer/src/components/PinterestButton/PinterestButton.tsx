@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { ButtonHTMLAttributes, FunctionComponent, ReactNode, useCallback } from 'react';
+import React, { AnchorHTMLAttributes, FunctionComponent, ReactNode, useCallback } from 'react';
 import { renderToString } from 'react-dom/server';
 import striptags from 'striptags';
 
@@ -9,10 +9,10 @@ import { openWindow } from '../../lib';
 import { getPinterestShareUrl } from './lib';
 import './PinterestButton.scss';
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
     children?: never;
     description?: ReactNode;
-    image?: string;
+    image: string;
     url?: string;
 }
 
@@ -24,10 +24,16 @@ const PinterestButton: FunctionComponent<Props> = ({
     onClick,
     ...props
 }) => {
+    const pinterestShareUrl = getPinterestShareUrl({
+        description: striptags(renderToString(<>{description}</>)),
+        image,
+        url,
+    });
+
     const handlePinterestClick: Props['onClick'] = useCallback(
         (event) => {
-            const descriptionString = striptags(renderToString(<>{description}</>));
-            const pinterestShareUrl = getPinterestShareUrl(descriptionString, url, image);
+            event.preventDefault();
+
             openWindow(pinterestShareUrl, 575, 400);
 
             if (onClick) {
@@ -38,15 +44,17 @@ const PinterestButton: FunctionComponent<Props> = ({
     );
 
     return (
-        <button
+        <a
             className={classNames('prezly-slate-pinterest-button', className)}
+            href={pinterestShareUrl}
             onClick={handlePinterestClick}
-            title="Pin"
-            type="button"
+            rel="noreferrer noopener"
+            target="_blank"
+            title="Save this Pin!"
             {...props}
         >
             <Pinterest className="prezly-slate-pinterest-button__icon" />
-        </button>
+        </a>
     );
 };
 
