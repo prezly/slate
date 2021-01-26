@@ -1,15 +1,15 @@
+const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 const isDev = process.env.NODE_ENV === 'development';
+const packageJson = fs.readFileSync('./package.json', 'utf-8');
+const { peerDependencies } = JSON.parse(packageJson);
 
 module.exports = {
     mode: isDev ? 'development' : 'production',
     entry: './src/index.ts',
-    externals: {
-        react: 'react',
-        'react-dom': 'react-dom',
-    },
+    externals: Object.fromEntries(Object.keys(peerDependencies).map((name) => [name, name])),
     module: {
         rules: [
             {
