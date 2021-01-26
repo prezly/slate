@@ -67,27 +67,12 @@ body.ReactModal__Body--open {
 
         &__download,
         &__pinterest {
-            @include button-reset;
-
             margin: 0 $spacing-1;
-
-            &:focus {
-                @include focus-state;
-            }
-        }
-
-        &__pinterest {
-            border-radius: 50%;
-        }
-
-        &__pinterest-icon {
-            $size: 38px;
-
-            width: $size;
-            height: $size;
         }
 
         &__download {
+            @include button-reset;
+
             padding: $spacing-1 $spacing-3;
             background-color: $link-color;
             color: white;
@@ -101,9 +86,20 @@ body.ReactModal__Body--open {
                 padding-bottom: $spacing-1 - 1px;
             }
 
+            &:focus {
+                @include focus-state;
+            }
+
             &:hover {
                 background-color: $color-link-hover;
             }
+        }
+
+        &__pinterest {
+            $size: 38px;
+
+            width: $size;
+            height: $size;
         }
 
         &__caption {

@@ -1,3 +1,4 @@
+@import "styles/mixins.scss";
 @import "styles/variables.scss";
 
 .prezly-slate {
@@ -10,6 +11,10 @@
         &:focus,
         &:visited {
             color: $link-color;
+        }
+
+        &:focus {
+            @include focus-state;
         }
     }
 }

@@ -1,0 +1,23 @@
+@import "styles/mixins.scss";
+@import "styles/variables.scss";
+
+$button-size: 38px;
+
+.prezly-slate {
+    &-pinterest-button {
+        @include button-reset;
+
+        width: $button-size;
+        height: $button-size;
+        border-radius: 50%;
+
+        &:focus {
+            @include focus-state;
+        }
+
+        &__icon {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
