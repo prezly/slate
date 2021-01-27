@@ -1,4 +1,4 @@
-import { GalleryNode, UploadcareImage } from '@prezly/slate-types';
+import { GalleryNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes, useMemo } from 'react';
 import useMeasure from 'react-use/lib/useMeasure';
@@ -8,7 +8,7 @@ import { Lightbox } from '../../components';
 import { DEFAULT_MAX_VIEWPORT_WIDTH, IMAGE_PADDING, IMAGE_SIZE } from './constants';
 import './Gallery.scss';
 import GalleryImage from './GalleryImage';
-import { calculateLayout, useGallery } from './lib';
+import { calculateLayout, prepareImages, useGallery } from './lib';
 
 interface Props extends HTMLAttributes<HTMLElement> {
     node: GalleryNode;
@@ -26,11 +26,7 @@ const Gallery: FunctionComponent<Props> = ({
     const margin = IMAGE_PADDING[node.padding];
     const idealHeight = IMAGE_SIZE[node.thumbnail_size] + 2 * margin;
     const imagesStyle = { margin: -margin };
-    const images = useMemo(() => {
-        return node.images
-            .map(({ file }) => UploadcareImage.createFromPrezlyStoragePayload(file))
-            .map((image) => image.preview(maxViewportWidth));
-    }, [node]);
+    const images = useMemo(() => prepareImages(node, maxViewportWidth), [node]);
     const calculatedLayout = calculateLayout({ idealHeight, images, viewportWidth: width });
     const [
         { image, isNextEnabled, isPreviousEnabled },
