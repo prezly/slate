@@ -164,6 +164,7 @@ body.ReactModal__Body--open {
             @include button-reset;
 
             padding: $spacing-5 $spacing-1;
+            z-index: 1;
 
             &:active {
                 .prezly-slate-lightbox__nav-button-icon {

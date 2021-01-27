@@ -62,6 +62,28 @@ const Lightbox: FunctionComponent<Props> = ({
             onRequestClose={onClose}
         >
             <figure className="prezly-slate-lightbox__figure">
+                <div className="prezly-slate-lightbox__nav">
+                    <button
+                        className="prezly-slate-lightbox__nav-button"
+                        disabled={!isPreviousEnabled}
+                        onClick={onPrevious}
+                        type="button"
+                        title="Previous (Left Arrow)"
+                    >
+                        <ChevronLeft className="prezly-slate-lightbox__nav-button-icon" />
+                    </button>
+
+                    <button
+                        className="prezly-slate-lightbox__nav-button"
+                        disabled={!isNextEnabled}
+                        onClick={onNext}
+                        type="button"
+                        title="Next (Right Arrow)"
+                    >
+                        <ChevronRight className="prezly-slate-lightbox__nav-button-icon" />
+                    </button>
+                </div>
+
                 <div className="prezly-slate-lightbox__image-container">
                     <Media className="prezly-slate-lightbox__image" image={image}>
                         {children}
@@ -86,28 +108,6 @@ const Lightbox: FunctionComponent<Props> = ({
                 </div>
 
                 <div className="prezly-slate-lightbox__caption">{children}</div>
-
-                <div className="prezly-slate-lightbox__nav">
-                    <button
-                        className="prezly-slate-lightbox__nav-button"
-                        disabled={!isPreviousEnabled}
-                        onClick={onPrevious}
-                        type="button"
-                        title="Previous (Left Arrow)"
-                    >
-                        <ChevronLeft className="prezly-slate-lightbox__nav-button-icon" />
-                    </button>
-
-                    <button
-                        className="prezly-slate-lightbox__nav-button"
-                        disabled={!isNextEnabled}
-                        onClick={onNext}
-                        type="button"
-                        title="Next (Right Arrow)"
-                    >
-                        <ChevronRight className="prezly-slate-lightbox__nav-button-icon" />
-                    </button>
-                </div>
             </figure>
 
             <button
