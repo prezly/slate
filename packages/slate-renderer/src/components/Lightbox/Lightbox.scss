@@ -3,6 +3,7 @@
 
 $close-icon-size: 24px;
 $close-icon-padding: $spacing-2;
+$nav-icon-size: 48px;
 
 body.ReactModal__Body--open {
     overflow: hidden;
@@ -145,6 +146,39 @@ body.ReactModal__Body--open {
         &__close-icon {
             width: $close-icon-size;
             height: $close-icon-size;
+        }
+
+        &__nav {
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: $spacing-3;
+        }
+
+        &__nav-button {
+            @include button-reset;
+
+            padding: $spacing-5 $spacing-1;
+
+            &:focus-within {
+                @include focus-state;
+            }
+
+            &--left {
+            }
+
+            &--right {
+            }
+        }
+
+        &__nav-button-icon {
+            width: $nav-icon-size;
+            height: $nav-icon-size;
         }
     }
 }

@@ -1,4 +1,6 @@
 export { default as ArrowsAngleExpand } from './ArrowsAngleExpand.svg';
+export { default as ChevronLeft } from './ChevronLeft.svg';
+export { default as ChevronRight } from './ChevronRight.svg';
 export { default as Close } from './Close.svg';
 export { default as Download } from './Download.svg';
 export { default as Envelope } from './Envelope.svg';

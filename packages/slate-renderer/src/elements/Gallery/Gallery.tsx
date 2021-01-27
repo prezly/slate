@@ -1,14 +1,14 @@
 import { GalleryNode, UploadcareImage } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { FunctionComponent, HTMLAttributes, useState } from 'react';
+import React, { FunctionComponent, HTMLAttributes } from 'react';
 import useMeasure from 'react-use/lib/useMeasure';
 
 import { Lightbox } from '../../components';
 
 import { DEFAULT_MAX_VIEWPORT_WIDTH, IMAGE_PADDING, IMAGE_SIZE } from './constants';
-import GalleryImage from './GalleryImage';
-import { calculateLayout } from './lib';
 import './Gallery.scss';
+import GalleryImage from './GalleryImage';
+import { calculateLayout, useGallery } from './lib';
 
 interface Props extends HTMLAttributes<HTMLElement> {
     node: GalleryNode;
@@ -22,7 +22,6 @@ const Gallery: FunctionComponent<Props> = ({
     node,
     ...props
 }) => {
-    const [lightboxImage, setLightboxImage] = useState<UploadcareImage | null>(null);
     const [ref, { width }] = useMeasure<HTMLDivElement>();
     const margin = IMAGE_PADDING[node.padding];
     const idealHeight = IMAGE_SIZE[node.thumbnail_size] + 2 * margin;
@@ -32,8 +31,10 @@ const Gallery: FunctionComponent<Props> = ({
         UploadcareImage.createFromPrezlyStoragePayload(file),
     );
     const calculatedLayout = calculateLayout({ idealHeight, images, viewportWidth: width });
-
-    const handleImagePreviewClose = () => setLightboxImage(null);
+    const [
+        { image, isNextEnabled, isPreviousEnabled },
+        { onClose, onNext, onOpen, onPrevious },
+    ] = useGallery(images);
 
     // TODO: multiline ellipsis (3 lines)
 
@@ -54,7 +55,7 @@ const Gallery: FunctionComponent<Props> = ({
                                 height={height}
                                 image={image}
                                 key={image.uuid}
-                                onClick={setLightboxImage}
+                                onClick={onOpen}
                                 style={imageStyle}
                                 width={width}
                                 withBorderRadius={margin > 0}
@@ -65,11 +66,16 @@ const Gallery: FunctionComponent<Props> = ({
                 ))}
             </div>
 
-            {lightboxImage && (
-                <Lightbox image={lightboxImage} isOpen onClose={handleImagePreviewClose}>
-                    {children}
-                </Lightbox>
-            )}
+            <Lightbox
+                image={image}
+                isNextEnabled={isNextEnabled}
+                isPreviousEnabled={isPreviousEnabled}
+                onClose={onClose}
+                onNext={onNext}
+                onPrevious={onPrevious}
+            >
+                {children}
+            </Lightbox>
         </figure>
     );
 };
