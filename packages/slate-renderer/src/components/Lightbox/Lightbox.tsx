@@ -63,7 +63,7 @@ const Lightbox: FunctionComponent<Props> = ({ children, className, image, isOpen
                 className="prezly-slate-lightbox__close"
                 onClick={onClose}
                 type="button"
-                title="Esc"
+                title="Close (Esc)"
             >
                 <Close className="prezly-slate-lightbox__close-icon" />
             </button>
