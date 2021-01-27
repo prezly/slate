@@ -1,4 +1,4 @@
-import { UploadcareImage, UPLOADCARE_FILE_DATA_KEY } from '@prezly/slate-types';
+import { UploadcareImage } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { CSSProperties, FunctionComponent } from 'react';
 
@@ -37,7 +37,7 @@ const GalleryImage: FunctionComponent<Props> = ({ height, image, margin, onClick
                 })}
                 image={image}
             >
-                {image[UPLOADCARE_FILE_DATA_KEY]?.caption}
+                {image.caption}
             </Media>
         </Rollover>
     );

@@ -27,8 +27,10 @@ class UploadcareImage {
 
     public static createFromPrezlyStoragePayload = (
         payload: UploadcareImageStoragePayload,
+        caption?: string,
     ): UploadcareImage => {
         return new UploadcareImage({
+            caption,
             effects: payload.effects || [],
             filename: payload.filename,
             mimeType: payload.mime_type,
@@ -72,6 +74,7 @@ class UploadcareImage {
     uuid: string;
 
     constructor({
+        caption,
         effects = [],
         filename,
         mimeType,
@@ -80,6 +83,7 @@ class UploadcareImage {
         size,
         uuid,
     }: {
+        caption?: string;
         effects: string[];
         filename: string;
         mimeType: string;
@@ -95,6 +99,10 @@ class UploadcareImage {
         this.originalWidth = originalWidth;
         this.size = size;
         this.uuid = uuid;
+
+        if (typeof caption !== 'undefined') {
+            this[UPLOADCARE_FILE_DATA_KEY] = { caption };
+        }
     }
 
     get aspectRatio(): number {
@@ -105,6 +113,10 @@ class UploadcareImage {
         }
 
         return width / height;
+    }
+
+    get caption(): string | undefined {
+        return this[UPLOADCARE_FILE_DATA_KEY]?.caption;
     }
 
     get cdnUrl(): string {
@@ -231,6 +243,7 @@ class UploadcareImage {
 
     withEffect = (effect: string): UploadcareImage => {
         return new UploadcareImage({
+            caption: this.caption,
             effects: [...this.effects, effect],
             filename: this.filename,
             mimeType: this.mimeType,
