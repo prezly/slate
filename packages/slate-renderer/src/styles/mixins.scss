@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 @mixin mobile-down() {
     @media (max-width: $screen-xs-max) {
         @content;
@@ -11,31 +13,31 @@
 }
 
 @mixin tablet-portrait-down {
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: $screen-s-max) {
         @content;
     }
 }
 
 @mixin tablet-portrait-up {
-    @media (min-width: $screen-sm) {
+    @media (min-width: $screen-s) {
         @content;
     }
 }
 
 @mixin tablet-landscape-down {
-    @media (max-width: $screen-md-max) {
+    @media (max-width: $screen-m-max) {
         @content;
     }
 }
 
 @mixin tablet-landscape-up {
-    @media (min-width: $screen-md) {
+    @media (min-width: $screen-m) {
         @content;
     }
 }
 
 @mixin desktop-up {
-    @media (min-width: $screen-lg-min) {
+    @media (min-width: $screen-l) {
         @content;
     }
 }

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { ButtonHTMLAttributes, FunctionComponent } from 'react';
 
+import { MultilineEllipsis } from '../../components';
 import { ArrowsAngleExpand } from '../../icons';
 
 import './Rollover.scss';
@@ -8,6 +9,9 @@ import './Rollover.scss';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     caption?: string;
 }
+
+const LINE_HEIGHT = 22;
+const MAX_CAPTION_LINES = 3;
 
 const Rollover: FunctionComponent<Props> = ({
     caption = '',
@@ -42,7 +46,9 @@ const Rollover: FunctionComponent<Props> = ({
                     </span>
 
                     <span className="prezly-slate-image-rollover__caption-text">
-                        {caption.trim()}
+                        <MultilineEllipsis maxHeight={MAX_CAPTION_LINES * LINE_HEIGHT}>
+                            {caption.trim()}
+                        </MultilineEllipsis>
                     </span>
                 </span>
             </span>

@@ -33,8 +33,6 @@ const Gallery: FunctionComponent<Props> = ({
         { onClose, onNext, onOpen, onPrevious },
     ] = useGallery(images);
 
-    // TODO: multiline ellipsis (3 lines)
-
     return (
         <figure
             className={classNames('prezly-slate-gallery', className, {

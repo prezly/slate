@@ -79,12 +79,16 @@ $link-color: #0082db;
         }
 
         &__caption-icon-container {
-            margin-top: auto;
             display: flex;
+            margin-top: auto;
             padding: $spacing-1;
             background-color: $link-color;
             color: $background-color;
             border-radius: 50%;
+
+            @include tablet-portrait-down {
+                margin-bottom: auto;
+            }
         }
 
         &__caption-icon {
@@ -101,6 +105,10 @@ $link-color: #0082db;
             padding: $spacing-1;
             padding-top: $spacing-2;
             font-size: $font-size-s;
+
+            @include tablet-portrait-down {
+                display: none;
+            }
         }
     }
 }

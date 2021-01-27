@@ -32,6 +32,7 @@
         "classnames": "^2.2.6",
         "react-modal": "^3.12.1",
         "react-use": "^15.3.8",
+        "shave": "^2.5.10",
         "striptags": "^3.1.1"
     },
     "devDependencies": {
