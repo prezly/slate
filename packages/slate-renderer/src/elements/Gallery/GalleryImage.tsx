@@ -18,8 +18,8 @@ const getStyle = (props: Pick<Props, 'height' | 'margin' | 'width'>): CSSPropert
     const { height, margin, width } = props;
 
     return {
-        margin,
         height: height - 2 * margin,
+        margin,
         width: width - 2 * margin,
     };
 };

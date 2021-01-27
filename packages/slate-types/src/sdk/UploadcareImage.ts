@@ -188,6 +188,7 @@ class UploadcareImage {
         if (width === null && height === null) {
             return this.withEffect('/preview/');
         }
+
         const effectiveWidth = Math.min(Math.round(width || MAX_PREVIEW_SIZE), MAX_PREVIEW_SIZE);
         const effectiveHeight = Math.min(Math.round(height || MAX_PREVIEW_SIZE), MAX_PREVIEW_SIZE);
         return this.withEffect(`/preview/${effectiveWidth}x${effectiveHeight}/`);
