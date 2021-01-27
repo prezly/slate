@@ -11,6 +11,10 @@ $link-color: #0082db;
         position: relative;
         cursor: pointer;
 
+        &:focus {
+            @include focus-state;
+        }
+
         &:before {
             content: " ";
             position: absolute;
