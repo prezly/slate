@@ -3,6 +3,9 @@
 
 .prezly-slate {
     &-image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin: $block-spacing-vertical 0;
         white-space: normal;
         text-align: center;
@@ -51,7 +54,8 @@
 
         &__caption {
             display: block;
-            margin: $spacing-1-5 auto 0;
+            padding: $spacing-1-5 $spacing-3;
+            padding-bottom: 0;
             color: $text-color-2;
             font-style: italic;
             font-size: $font-size-s;

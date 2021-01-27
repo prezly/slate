@@ -92,6 +92,10 @@ class UploadcareImage {
         size: number;
         uuid: string;
     }) {
+        if (typeof caption === 'string') {
+            this[UPLOADCARE_FILE_DATA_KEY] = { caption };
+        }
+
         this.effects = effects;
         this.filename = filename;
         this.mimeType = mimeType;
@@ -99,10 +103,6 @@ class UploadcareImage {
         this.originalWidth = originalWidth;
         this.size = size;
         this.uuid = uuid;
-
-        if (typeof caption !== 'undefined') {
-            this[UPLOADCARE_FILE_DATA_KEY] = { caption };
-        }
     }
 
     get aspectRatio(): number {
