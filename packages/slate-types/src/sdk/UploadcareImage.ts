@@ -6,6 +6,8 @@ import UploadcareFile from './UploadcareFile';
 import UploadcareGifVideo from './UploadcareGifVideo';
 import UploadcareImageStoragePayload from './UploadcareImageStoragePayload';
 
+type ImageFormat = 'auto' | 'jpeg' | 'png' | 'web';
+
 const MAX_PREVIEW_SIZE = 2000;
 
 class UploadcareImage {
@@ -120,31 +122,7 @@ class UploadcareImage {
     }
 
     get cdnUrl(): string {
-        const cdnUrl = [
-            UPLOADCARE_CDN_URL,
-            this.uuid,
-            // Prepend a dash only if effects exist.
-            // It doesn't matter if there's a dash at the end of URL even if there are no effects,
-            // but it looks cleaner without it.
-            this.effects.length === 0 ? this.effects : ['', ...this.effects].join('-'),
-        ].join('/');
-
-        return `${cdnUrl}${encodeURIComponent(this.filename)}`;
-    }
-
-    get downloadUrl(): string {
-        const downloadUrl = [
-            UPLOADCARE_CDN_URL,
-            this.uuid,
-            // Prepend a dash only if effects exist.
-            // It doesn't matter if there's a dash at the end of URL even if there are no effects,
-            // but it looks cleaner without it.
-            this.effects.length === 0
-                ? this.effects
-                : ['', ...this.effects, '/inline/no/'].join('-'),
-        ].join('/');
-
-        return `${downloadUrl}${encodeURIComponent(this.filename)}`;
+        return this.format().rawCdnUrl;
     }
 
     get croppedSize(): { height?: number; width?: number } {
@@ -164,6 +142,27 @@ class UploadcareImage {
         };
     }
 
+    get downloadUrl(): string {
+        return this.download().rawCdnUrl;
+    }
+
+    get rawCdnUrl(): string {
+        const cdnUrl = [
+            UPLOADCARE_CDN_URL,
+            this.uuid,
+            // Prepend a dash only if effects exist.
+            // It doesn't matter if there's a dash at the end of URL even if there are no effects,
+            // but it looks cleaner without it.
+            this.effects.length === 0 ? this.effects : ['', ...this.effects].join('-'),
+        ].join('/');
+
+        return `${cdnUrl}${encodeURIComponent(this.filename)}`;
+    }
+
+    format = (imageFormat: ImageFormat = 'auto'): UploadcareImage => {
+        return this.withEffect(`/format/${imageFormat}/`);
+    };
+
     isGif = () => {
         return this.mimeType === 'image/gif';
     };
@@ -177,6 +176,10 @@ class UploadcareImage {
         const src2x = this.resize(width * 2).cdnUrl;
 
         return `${src1x} 1x, ${src2x} 2x`;
+    }
+
+    download() {
+        return this.withEffect('/inline/no/');
     }
 
     preview = (width: number | null = null, height: number | null = null): UploadcareImage => {
