@@ -56,9 +56,7 @@ const Rollover: FunctionComponent<Props> = ({
 
                     <span className="prezly-slate-image-rollover__caption-text" ref={ref}>
                         <MultilineEllipsis maxHeight={maxHeight}>
-                            aposid pqpwi epiqw epiqwpoei qwpoei pqwie poqwieopiqwepiq wpeipqow
-                            iepoqwi epqiwepi qpei qwpei pqwiepqwie pqiep iqpei qwpei pqwieiqpeo
-                            iqpeoiq wpe
+                            {caption.trim()}
                         </MultilineEllipsis>
                     </span>
                 </span>
