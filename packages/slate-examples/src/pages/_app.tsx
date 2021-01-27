@@ -12,6 +12,7 @@ const App = ({ Component, pageProps }: AppProps) => (
             <title>@prezly/slate-renderer - ultimate-story example</title>
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <script src="//cdnjs.cloudflare.com/ajax/libs/object-fit-images/3.2.4/ofi.min.js"></script>
         </Head>
 
         <Component {...pageProps} />
