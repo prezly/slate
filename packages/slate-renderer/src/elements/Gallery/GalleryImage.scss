@@ -4,25 +4,9 @@
 .prezly-slate {
     &-gallery-image {
         position: relative;
-        background-size: cover;
-        background-position: 50% 50%;
-        overflow: hidden;
 
         &--with-border-radius {
             border-radius: 2px;
-        }
-
-        &__image {
-            width: 100%;
-            height: 100%;
-
-            &--with-border-radius {
-                border-radius: 2px;
-            }
-
-            &--hidden {
-                visibility: hidden;
-            }
         }
     }
 }
