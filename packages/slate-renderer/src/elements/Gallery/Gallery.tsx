@@ -26,11 +26,11 @@ const Gallery: FunctionComponent<Props> = ({
     const margin = IMAGE_PADDING[node.padding];
     const idealHeight = IMAGE_SIZE[node.thumbnail_size] + 2 * margin;
     const imagesStyle = { margin: -margin };
-    const imageStyle = { margin };
-    const images = useMemo(
-        () => node.images.map(({ file }) => UploadcareImage.createFromPrezlyStoragePayload(file)),
-        [node],
-    );
+    const images = useMemo(() => {
+        return node.images
+            .map(({ file }) => UploadcareImage.createFromPrezlyStoragePayload(file))
+            .map((image) => image.preview(maxViewportWidth));
+    }, [node]);
     const calculatedLayout = calculateLayout({ idealHeight, images, viewportWidth: width });
     const [
         { image, isNextEnabled, isPreviousEnabled },
@@ -56,11 +56,9 @@ const Gallery: FunctionComponent<Props> = ({
                                 height={height}
                                 image={image}
                                 key={image.uuid}
+                                margin={margin}
                                 onClick={onOpen}
-                                style={imageStyle}
                                 width={width}
-                                withBorderRadius={margin > 0}
-                                url={image.resize(maxViewportWidth).cdnUrl}
                             />
                         ))}
                     </div>
