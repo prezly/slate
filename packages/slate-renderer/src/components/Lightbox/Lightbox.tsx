@@ -4,7 +4,7 @@ import React, { FunctionComponent, KeyboardEvent, ReactNode } from 'react';
 import Modal from 'react-modal';
 import useEvent from 'react-use/lib/useEvent';
 
-import { ChevronLeft, ChevronLeft, Close } from '../../icons';
+import { ChevronLeft, ChevronRight, Close } from '../../icons';
 import { noop } from '../../lib';
 
 import Media from '../Media';
@@ -88,33 +88,25 @@ const Lightbox: FunctionComponent<Props> = ({
                 <div className="prezly-slate-lightbox__caption">{children}</div>
 
                 <div className="prezly-slate-lightbox__nav">
-                    {isPreviousEnabled && (
-                        <button
-                            className={classNames(
-                                'prezly-slate-lightbox__nav-button',
-                                'prezly-slate-lightbox__nav-button--left',
-                            )}
-                            onClick={onPrevious}
-                            type="button"
-                            title="Previous (Left Arrow)"
-                        >
-                            <ChevronLeft className="prezly-slate-lightbox__nav-button-icon" />
-                        </button>
-                    )}
+                    <button
+                        className="prezly-slate-lightbox__nav-button"
+                        disabled={!isPreviousEnabled}
+                        onClick={onPrevious}
+                        type="button"
+                        title="Previous (Left Arrow)"
+                    >
+                        <ChevronLeft className="prezly-slate-lightbox__nav-button-icon" />
+                    </button>
 
-                    {isNextEnabled && (
-                        <button
-                            className={classNames(
-                                'prezly-slate-lightbox__nav-button',
-                                'prezly-slate-lightbox__nav-button--right',
-                            )}
-                            onClick={onNext}
-                            type="button"
-                            title="Previous (Right Arrow)"
-                        >
-                            <ChevronLeft className="prezly-slate-lightbox__nav-button-icon" />
-                        </button>
-                    )}
+                    <button
+                        className="prezly-slate-lightbox__nav-button"
+                        disabled={!isNextEnabled}
+                        onClick={onNext}
+                        type="button"
+                        title="Next (Right Arrow)"
+                    >
+                        <ChevronRight className="prezly-slate-lightbox__nav-button-icon" />
+                    </button>
                 </div>
             </figure>
 

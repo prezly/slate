@@ -165,14 +165,19 @@ body.ReactModal__Body--open {
 
             padding: $spacing-5 $spacing-1;
 
+            &:active {
+                .prezly-slate-lightbox__nav-button-icon {
+                    position: relative;
+                    top: 1px;
+                }
+            }
+
+            &:disabled {
+                visibility: hidden;
+            }
+
             &:focus-within {
                 @include focus-state;
-            }
-
-            &--left {
-            }
-
-            &--right {
             }
         }
 

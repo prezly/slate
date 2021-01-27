@@ -1,6 +1,6 @@
 import { GalleryNode, UploadcareImage } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { FunctionComponent, HTMLAttributes } from 'react';
+import React, { FunctionComponent, HTMLAttributes, useMemo } from 'react';
 import useMeasure from 'react-use/lib/useMeasure';
 
 import { Lightbox } from '../../components';
@@ -27,8 +27,9 @@ const Gallery: FunctionComponent<Props> = ({
     const idealHeight = IMAGE_SIZE[node.thumbnail_size] + 2 * margin;
     const imagesStyle = { margin: -margin };
     const imageStyle = { margin };
-    const images = node.images.map(({ file }) =>
-        UploadcareImage.createFromPrezlyStoragePayload(file),
+    const images = useMemo(
+        () => node.images.map(({ file }) => UploadcareImage.createFromPrezlyStoragePayload(file)),
+        [node],
     );
     const calculatedLayout = calculateLayout({ idealHeight, images, viewportWidth: width });
     const [
