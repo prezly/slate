@@ -17,8 +17,8 @@ interface Actions {
 const useGallery = (images: UploadcareImage[]): [State, Actions] => {
     const [image, setImage] = useState<UploadcareImage | null>(null);
     const currentIndex = image === null ? null : images.indexOf(image);
-    const isNextEnabled = typeof currentIndex === 'number' && currentIndex + 1 < images.length;
-    const isPreviousEnabled = typeof currentIndex === 'number' && currentIndex > 0;
+    const isNextEnabled = typeof currentIndex === 'number' && images.length > 1;
+    const isPreviousEnabled = isNextEnabled;
 
     const onClose = () => {
         setImage(null);
@@ -26,13 +26,15 @@ const useGallery = (images: UploadcareImage[]): [State, Actions] => {
 
     const onPrevious = () => {
         if (typeof currentIndex === 'number' && isPreviousEnabled) {
-            setImage(images[currentIndex - 1]);
+            const previousIndex = (images.length + currentIndex - 1) % images.length;
+            setImage(images[previousIndex]);
         }
     };
 
     const onNext = () => {
         if (typeof currentIndex === 'number' && isNextEnabled) {
-            setImage(images[currentIndex + 1]);
+            const nextIndex = (currentIndex + 1) % images.length;
+            setImage(images[nextIndex]);
         }
     };
 
