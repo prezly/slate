@@ -28,6 +28,7 @@ If you need to support older browsers, you can use this polyfill for `object-fit
 
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/object-fit-images/3.2.4/ofi.min.js"></script>
+<script>objectFitImages();</script>
 ```
 
 ## Usage
