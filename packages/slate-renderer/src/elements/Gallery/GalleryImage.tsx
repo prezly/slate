@@ -30,7 +30,11 @@ const GalleryImage: FunctionComponent<Props> = ({ height, image, margin, onClick
     };
 
     return (
-        <Rollover onClick={handleClick} style={getStyle({ height, margin, width })}>
+        <Rollover
+            caption={image.caption}
+            onClick={handleClick}
+            style={getStyle({ height, margin, width })}
+        >
             <Media
                 className={classNames('prezly-slate-gallery-image', {
                     'prezly-slate-gallery-image--with-border-radius': margin > 0,

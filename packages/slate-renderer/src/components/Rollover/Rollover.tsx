@@ -5,7 +5,12 @@ import { ArrowsAngleExpand } from '../../icons';
 
 import './Rollover.scss';
 
-const Rollover: FunctionComponent<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+    caption?: string;
+}
+
+const Rollover: FunctionComponent<Props> = ({
+    caption = '',
     children,
     className,
     disabled,
@@ -27,9 +32,17 @@ const Rollover: FunctionComponent<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 
                 <span className="prezly-slate-image-rollover__dim" />
 
-                <span className="prezly-slate-image-rollover__caption">
-                    <span className="prezly-slate-image-rollover__caption-icon-background">
+                <span
+                    className={classNames('prezly-slate-image-rollover__caption', {
+                        'prezly-slate-image-rollover__caption--empty': !caption.trim(),
+                    })}
+                >
+                    <span className="prezly-slate-image-rollover__caption-icon-container">
                         <ArrowsAngleExpand className="prezly-slate-image-rollover__caption-icon" />
+                    </span>
+
+                    <span className="prezly-slate-image-rollover__caption-text">
+                        {caption.trim()}
                     </span>
                 </span>
             </span>

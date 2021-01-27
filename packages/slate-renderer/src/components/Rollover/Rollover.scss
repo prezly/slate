@@ -66,9 +66,20 @@ $link-color: #0082db;
             transition: opacity linear 150ms;
             font-size: $font-size-s;
             text-align: center;
+
+            &--empty {
+                .prezly-slate-image-rollover__caption-icon-container {
+                    margin-bottom: auto;
+                }
+
+                .prezly-slate-image-rollover__caption-text {
+                    display: none;
+                }
+            }
         }
 
-        &__caption-icon-background {
+        &__caption-icon-container {
+            margin-top: auto;
             display: flex;
             padding: $spacing-1;
             background-color: $link-color;
@@ -81,6 +92,15 @@ $link-color: #0082db;
 
             width: $size;
             height: $size;
+        }
+
+        &__caption-text {
+            display: block;
+            width: 100%;
+            height: 50%;
+            padding: $spacing-1;
+            padding-top: $spacing-2;
+            font-size: $font-size-s;
         }
     }
 }
