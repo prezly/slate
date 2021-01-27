@@ -20,6 +20,10 @@
             @include media-layout-full-width;
         }
 
+        &__images {
+            margin: -1px;
+        }
+
         &__row {
             display: flex;
             justify-content: center;

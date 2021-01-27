@@ -25,7 +25,6 @@ const Gallery: FunctionComponent<Props> = ({
     const [ref, { width }] = useMeasure<HTMLDivElement>();
     const margin = IMAGE_PADDING[node.padding];
     const idealHeight = IMAGE_SIZE[node.thumbnail_size] + 2 * margin;
-    const imagesStyle = { margin: -margin };
     const images = useMemo(() => prepareImages(node, maxViewportWidth), [node]);
     const calculatedLayout = calculateLayout({ idealHeight, images, viewportWidth: width });
     const [
@@ -42,7 +41,7 @@ const Gallery: FunctionComponent<Props> = ({
             })}
             {...props}
         >
-            <div ref={ref} style={imagesStyle}>
+            <div className="prezly-slate-gallery__images" ref={ref} style={{ margin: -margin }}>
                 {calculatedLayout.map((row, index) => (
                     <div className="prezly-slate-gallery__row" key={index}>
                         {row.map(({ height, image, width }) => (
