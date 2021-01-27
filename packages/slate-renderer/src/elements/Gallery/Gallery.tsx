@@ -11,12 +11,12 @@ import GalleryImage from './GalleryImage';
 import { calculateLayout, prepareImages, useGallery } from './lib';
 
 interface Props extends HTMLAttributes<HTMLElement> {
+    children?: never;
     node: GalleryNode;
     maxViewportWidth?: number;
 }
 
 const Gallery: FunctionComponent<Props> = ({
-    children,
     className,
     maxViewportWidth = DEFAULT_MAX_VIEWPORT_WIDTH,
     node,
@@ -67,7 +67,7 @@ const Gallery: FunctionComponent<Props> = ({
                 onNext={onNext}
                 onPrevious={onPrevious}
             >
-                {children}
+                {image?.caption}
             </Lightbox>
         </figure>
     );
