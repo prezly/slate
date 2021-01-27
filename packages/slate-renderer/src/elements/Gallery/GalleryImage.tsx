@@ -1,5 +1,5 @@
 import { UploadcareImage, UPLOADCARE_FILE_DATA_KEY } from '@prezly/slate-types';
-// import classNames from 'classnames';
+import classNames from 'classnames';
 import React, { Component, createRef, CSSProperties } from 'react';
 
 import { Media, Rollover } from '../../components';
@@ -69,7 +69,7 @@ class GalleryImage extends Component<Props, State> {
     };
 
     render() {
-        const { height, image, onClick, width /*, withBorderRadius*/ } = this.props;
+        const { height, image, onClick, width, withBorderRadius } = this.props;
 
         const handleClick = () => {
             onClick(image);
@@ -78,12 +78,11 @@ class GalleryImage extends Component<Props, State> {
         return (
             <Rollover onClick={handleClick}>
                 <Media
-                    className="prezly-slate-gallery-image"
+                    className={classNames('prezly-slate-gallery-image', {
+                        'prezly-slate-gallery-image--with-border-radius': withBorderRadius,
+                    })}
                     image={image}
-                    style={{
-                        height,
-                        width,
-                    }}
+                    style={{ height, width }}
                 >
                     {image[UPLOADCARE_FILE_DATA_KEY]?.caption}
                 </Media>
