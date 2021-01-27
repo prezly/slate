@@ -19,15 +19,20 @@ const Rollover: FunctionComponent<ButtonHTMLAttributes<HTMLButtonElement>> = ({
         <button
             className={classNames('prezly-slate-image-rollover', className)}
             type="button"
+            style={props.style}
             {...props}
         >
-            {children}
+            <span className="prezly-slate-image-rollover__content">
+                {children}
 
-            <div className="prezly-slate-image-rollover__caption">
-                <span className="prezly-slate-image-rollover__caption-icon-background">
-                    <ArrowsAngleExpand className="prezly-slate-image-rollover__caption-icon" />
+                <span className="prezly-slate-image-rollover__dim" />
+
+                <span className="prezly-slate-image-rollover__caption">
+                    <span className="prezly-slate-image-rollover__caption-icon-background">
+                        <ArrowsAngleExpand className="prezly-slate-image-rollover__caption-icon" />
+                    </span>
                 </span>
-            </div>
+            </span>
         </button>
     );
 };
