@@ -48,7 +48,7 @@ const Gallery: FunctionComponent<Props> = ({
         >
             <div ref={ref} style={imagesStyle}>
                 {calculatedLayout.map((row, index) => (
-                    <div className="prezly-slate-gallery__images-row" key={index}>
+                    <div className="prezly-slate-gallery__row" key={index}>
                         {row.map(({ width, height, image }) => (
                             <GalleryImage
                                 height={height}
