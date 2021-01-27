@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, { ButtonHTMLAttributes, FunctionComponent } from 'react';
+import { useMeasure } from 'react-use';
 
 import { MultilineEllipsis } from '../../components';
 import { ArrowsAngleExpand } from '../../icons';
@@ -12,6 +13,10 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const LINE_HEIGHT = 22;
 const MAX_CAPTION_LINES = 3;
+const CAPTION_PADDING_TOP = 16;
+const CAPTION_PADDING_BOTTOM = 8;
+const CAPTION_PADDING_VERTICAL = CAPTION_PADDING_BOTTOM + CAPTION_PADDING_TOP;
+const IDEAL_MAX_HEIGHT = MAX_CAPTION_LINES * LINE_HEIGHT;
 
 const Rollover: FunctionComponent<Props> = ({
     caption = '',
@@ -20,6 +25,10 @@ const Rollover: FunctionComponent<Props> = ({
     disabled,
     ...props
 }) => {
+    const [ref, { height }] = useMeasure<HTMLSpanElement>();
+    const captionHeight = height - CAPTION_PADDING_VERTICAL;
+    const maxHeight = height > 0 ? Math.min(IDEAL_MAX_HEIGHT, captionHeight) : IDEAL_MAX_HEIGHT;
+
     if (disabled) {
         return <>{children}</>;
     }
@@ -45,9 +54,11 @@ const Rollover: FunctionComponent<Props> = ({
                         <ArrowsAngleExpand className="prezly-slate-image-rollover__caption-icon" />
                     </span>
 
-                    <span className="prezly-slate-image-rollover__caption-text">
-                        <MultilineEllipsis maxHeight={MAX_CAPTION_LINES * LINE_HEIGHT}>
-                            {caption.trim()}
+                    <span className="prezly-slate-image-rollover__caption-text" ref={ref}>
+                        <MultilineEllipsis maxHeight={maxHeight}>
+                            aposid pqpwi epiqw epiqwpoei qwpoei pqwie poqwieopiqwepiq wpeipqow
+                            iepoqwi epqiwepi qpei qwpei pqwiepqwie pqiep iqpei qwpei pqwieiqpeo
+                            iqpeoiq wpe
                         </MultilineEllipsis>
                     </span>
                 </span>
