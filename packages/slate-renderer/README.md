@@ -13,6 +13,15 @@ Render [Slate](https://www.slatejs.org/) documents used at [Prezly](https://www.
 npm install --save @prezly/slate-renderer
 ```
 
+#### peerDependencies
+
+Make sure all peer dependencies are met (`react`, `react-dom`).
+
+```Shell
+npm install --save react react-dom
+npm install --save-dev @types/react @types/react-dom
+```
+
 ### object-fit-images polyfill
 
 If you need to support older browsers, you can use this polyfill for `object-fit`: https://github.com/fregante/object-fit-images. This package already includes necessary syntax to work with the polyfill - all you have to do is include the polyfill.
