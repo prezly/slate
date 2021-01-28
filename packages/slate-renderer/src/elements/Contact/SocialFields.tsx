@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, SVGProps } from 'react';
 
 import { Envelope, Facebook, Phone, Telephone, Twitter, Window } from '../../icons';
+import { identity } from '../../lib';
 
 import SocialField from './SocialField';
 import './SocialFields.scss';
@@ -14,22 +15,34 @@ interface Props {
 
 interface Entry {
     href: string;
-    IconComponent: FunctionComponent<SVGProps<SVGSVGElement>>;
+    Icon: FunctionComponent<SVGProps<SVGSVGElement>>;
     value: string;
 }
 
-const getMailtoHref = (email: string | null): string => (email ? `mailto:${email}` : '');
+const getMailtoHref = (email: string | null): string => {
+    return email ? `mailto:${email}` : '';
+};
 
-const getTelHref = (phone: string | null): string => (phone ? `tel:${phone}` : '');
+const getTelHref = (phone: string | null): string => {
+    return phone ? `tel:${phone}` : '';
+};
+
+const getFacebookHref = (facebook: string | null): string => {
+    return facebook ? `https://www.facebook.com/${facebook}` : '';
+};
+
+const getTwitterHref = (twitter: string | null): string => {
+    return twitter ? `https://twitter.com/${twitter}` : '';
+};
 
 const SocialFields: FunctionComponent<Props> = ({ className, contact }) => {
     const socialFields = [
-        { href: getMailtoHref(contact.email), IconComponent: Envelope, value: contact.email },
-        { href: getTelHref(contact.phone), IconComponent: Telephone, value: contact.phone },
-        { href: getTelHref(contact.mobile), IconComponent: Phone, value: contact.mobile },
-        { href: contact.twitter, IconComponent: Twitter, value: contact.twitter },
-        { href: contact.facebook, IconComponent: Facebook, value: contact.facebook },
-        { href: contact.website, IconComponent: Window, value: contact.website },
+        { href: getMailtoHref(contact.email), Icon: Envelope, value: contact.email },
+        { href: getTelHref(contact.phone), Icon: Telephone, value: contact.phone },
+        { href: getTelHref(contact.mobile), Icon: Phone, value: contact.mobile },
+        { href: getTwitterHref(contact.twitter), Icon: Twitter, value: contact.twitter },
+        { href: getFacebookHref(contact.facebook), Icon: Facebook, value: contact.facebook },
+        { href: identity(contact.website), Icon: Window, value: contact.website },
     ];
 
     const nonEmptySocialFields = socialFields.filter(({ value }) => Boolean(value)) as Entry[];
@@ -40,11 +53,11 @@ const SocialFields: FunctionComponent<Props> = ({ className, contact }) => {
 
     return (
         <ul className={classNames('prezly-slate-social-fields', className)}>
-            {nonEmptySocialFields.map(({ href, IconComponent, value }) => (
+            {nonEmptySocialFields.map(({ href, Icon, value }) => (
                 <SocialField
                     className="prezly-slate-social-fields__field"
                     href={href}
-                    IconComponent={IconComponent}
+                    Icon={Icon}
                     value={value}
                 />
             ))}

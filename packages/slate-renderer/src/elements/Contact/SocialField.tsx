@@ -6,11 +6,11 @@ import './SocialField.scss';
 interface Props {
     className?: string;
     href: string;
-    IconComponent: FunctionComponent<SVGProps<SVGSVGElement>>;
+    Icon: FunctionComponent<SVGProps<SVGSVGElement>>;
     value: string;
 }
 
-const SocialFields: FunctionComponent<Props> = ({ className, href, IconComponent, value }) => (
+const SocialFields: FunctionComponent<Props> = ({ className, href, Icon, value }) => (
     <li className={classNames('prezly-slate-social-field', className)} title={value}>
         <a
             className="prezly-slate-social-field__link"
@@ -18,7 +18,7 @@ const SocialFields: FunctionComponent<Props> = ({ className, href, IconComponent
             rel="noreferrer noopener"
             target="_blank"
         >
-            <IconComponent className="prezly-slate-social-field__icon" />
+            <Icon className="prezly-slate-social-field__icon" />
             <span className="prezly-slate-social-field__value">{value}</span>
         </a>
     </li>
