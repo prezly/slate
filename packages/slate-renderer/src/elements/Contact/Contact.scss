@@ -56,6 +56,7 @@ $avatar-placeholder-size: 24px;
         &__content {
             grid-row: 1;
             grid-column: 2;
+            overflow: hidden;
         }
 
         &__social-fields {
