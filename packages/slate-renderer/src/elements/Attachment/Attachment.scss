@@ -1,3 +1,4 @@
+@import "styles/mixins.scss";
 @import "styles/variables.scss";
 
 .prezly-slate {
@@ -9,6 +10,10 @@
         box-shadow: $box-shadow;
         cursor: pointer;
         text-decoration: none;
+
+        &:focus {
+            @include focus-state;
+        }
 
         &:hover {
             text-decoration: none;
