@@ -1,9 +1,6 @@
 @import "styles/mixins.scss";
 @import "styles/variables.scss";
 
-$avatar-size: 64px;
-$avatar-placeholder-size: 24px;
-
 .prezly-slate {
     &-social-fields {
         padding: 0;
@@ -15,49 +12,7 @@ $avatar-placeholder-size: 24px;
         }
 
         &__field {
-            display: flex;
-            align-items: center;
-            margin: 0;
             margin-bottom: $spacing-1;
-            padding: 0;
-            line-height: $line-height;
-            font-size: $font-size-s;
-            list-style: none;
-        }
-
-        &__link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-
-            &,
-            &:active,
-            &:focus,
-            &:hover,
-            &:visited {
-                color: inherit;
-            }
-
-            &:focus {
-                @include focus-state;
-            }
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-        &__icon {
-            $size: 16px;
-
-            flex: 0 0 auto;
-            width: $size;
-            height: $size;
-            margin-right: $spacing-1-5;
-        }
-
-        &__value {
-            @include ellipsis;
         }
     }
 }

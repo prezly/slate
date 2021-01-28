@@ -1,9 +1,10 @@
 import { ContactNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, SVGProps } from 'react';
 
 import { Envelope, Facebook, Phone, Telephone, Twitter, Window } from '../../icons';
 
+import SocialField from './SocialField';
 import './SocialFields.scss';
 
 interface Props {
@@ -11,59 +12,44 @@ interface Props {
     contact: ContactNode['contact'];
 }
 
-const getMailtoLink = (email: string): string => `mailto:${email}`;
+interface Entry {
+    href: string;
+    IconComponent: FunctionComponent<SVGProps<SVGSVGElement>>;
+    value: string;
+}
 
-const SocialFields: FunctionComponent<Props> = ({ className, contact }) => (
-    <ul className={classNames('prezly-slate-social-fields', className)}>
-        {contact.email && (
-            <li className="prezly-slate-social-fields__field" title={contact.email}>
-                <a
-                    className="prezly-slate-social-fields__link"
-                    href={getMailtoLink(contact.email)}
-                    rel="noreferrer noopener"
-                    target="_blank"
-                >
-                    <Envelope className="prezly-slate-social-fields__icon" />
-                    <span className="prezly-slate-social-fields__value">{contact.email}</span>
-                </a>
-            </li>
-        )}
+const getMailtoHref = (email: string | null): string => (email ? `mailto:${email}` : '');
 
-        {contact.phone && (
-            <li className="prezly-slate-social-fields__field" title={contact.phone}>
-                <Telephone className="prezly-slate-social-fields__icon" />
-                <span className="prezly-slate-social-fields__value">{contact.phone}</span>
-            </li>
-        )}
+const getTelHref = (phone: string | null): string => (phone ? `tel:${phone}` : '');
 
-        {contact.mobile && (
-            <li className="prezly-slate-social-fields__field" title={contact.mobile}>
-                <Phone className="prezly-slate-social-fields__icon" />
-                <span className="prezly-slate-social-fields__value">{contact.mobile}</span>
-            </li>
-        )}
+const SocialFields: FunctionComponent<Props> = ({ className, contact }) => {
+    const socialFields = [
+        { href: getMailtoHref(contact.email), IconComponent: Envelope, value: contact.email },
+        { href: getTelHref(contact.phone), IconComponent: Telephone, value: contact.phone },
+        { href: getTelHref(contact.mobile), IconComponent: Phone, value: contact.mobile },
+        { href: contact.twitter, IconComponent: Twitter, value: contact.twitter },
+        { href: contact.facebook, IconComponent: Facebook, value: contact.facebook },
+        { href: contact.website, IconComponent: Window, value: contact.website },
+    ];
 
-        {contact.twitter && (
-            <li className="prezly-slate-social-fields__field" title={contact.twitter}>
-                <Twitter className="prezly-slate-social-fields__icon" />
-                <span className="prezly-slate-social-fields__value">{contact.twitter}</span>
-            </li>
-        )}
+    const nonEmptySocialFields = socialFields.filter(({ value }) => Boolean(value)) as Entry[];
 
-        {contact.facebook && (
-            <li className="prezly-slate-social-fields__field" title={contact.facebook}>
-                <Facebook className="prezly-slate-social-fields__icon" />
-                <span className="prezly-slate-social-fields__value">{contact.facebook}</span>
-            </li>
-        )}
+    if (nonEmptySocialFields.length === 0) {
+        return null;
+    }
 
-        {contact.website && (
-            <li className="prezly-slate-social-fields__field" title={contact.website}>
-                <Window className="prezly-slate-social-fields__icon" />
-                <span className="prezly-slate-social-fields__value">{contact.website}</span>
-            </li>
-        )}
-    </ul>
-);
+    return (
+        <ul className={classNames('prezly-slate-social-fields', className)}>
+            {nonEmptySocialFields.map(({ href, IconComponent, value }) => (
+                <SocialField
+                    className="prezly-slate-social-fields__field"
+                    href={href}
+                    IconComponent={IconComponent}
+                    value={value}
+                />
+            ))}
+        </ul>
+    );
+};
 
 export default SocialFields;
