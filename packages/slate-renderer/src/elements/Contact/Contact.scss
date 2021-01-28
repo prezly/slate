@@ -64,37 +64,6 @@ $avatar-placeholder-size: 24px;
             margin: 0;
             margin-top: $spacing-2;
             margin-bottom: -$spacing-1;
-            padding: 0;
-            columns: 2;
-            overflow: hidden;
-
-            @media (max-width: $screen-xs) {
-                columns: 1;
-            }
-        }
-
-        &__social-field {
-            display: flex;
-            align-items: center;
-            margin: 0;
-            margin-bottom: $spacing-1;
-            padding: 0;
-            line-height: $line-height;
-            font-size: $font-size-s;
-            list-style: none;
-        }
-
-        &__social-field-icon {
-            $size: 16px;
-
-            flex: 0 0 auto;
-            width: $size;
-            height: $size;
-            margin-right: $spacing-1-5;
-        }
-
-        &__social-field-value {
-            @include ellipsis;
         }
     }
 }

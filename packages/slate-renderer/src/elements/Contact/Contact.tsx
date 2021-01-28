@@ -22,11 +22,16 @@ const Contact: FunctionComponent<Props> = ({ children, className, node, ...props
 
                 <div className="prezly-slate-contact__content">
                     <h3 className="prezly-slate-contact__name">{contact.name}</h3>
+
                     <div className="prezly-slate-contact__job-description">
                         {/* If there is no text to show, render an empty <div> to keep height consistent */}
                         {jobDescription || <>&nbsp;</>}
                     </div>
-                    <SocialFields contact={contact} />
+
+                    <SocialFields
+                        className="prezly-slate-contact__social-fields"
+                        contact={contact}
+                    />
                 </div>
             </div>
         </div>

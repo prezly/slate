@@ -1,0 +1,41 @@
+@import "styles/mixins.scss";
+@import "styles/variables.scss";
+
+$avatar-size: 64px;
+$avatar-placeholder-size: 24px;
+
+.prezly-slate {
+    &-social-fields {
+        padding: 0;
+        columns: 2;
+        overflow: hidden;
+
+        @media (max-width: $screen-xs) {
+            columns: 1;
+        }
+
+        &__field {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            margin-bottom: $spacing-1;
+            padding: 0;
+            line-height: $line-height;
+            font-size: $font-size-s;
+            list-style: none;
+        }
+
+        &__icon {
+            $size: 16px;
+
+            flex: 0 0 auto;
+            width: $size;
+            height: $size;
+            margin-right: $spacing-1-5;
+        }
+
+        &__value {
+            @include ellipsis;
+        }
+    }
+}

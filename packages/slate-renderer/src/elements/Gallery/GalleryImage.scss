@@ -3,14 +3,19 @@
 
 .prezly-slate {
     &-gallery-image {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        font-family: "object-fit: cover;";
-
         &--with-border-radius {
-            border-radius: 2px;
+            &,
+            .prezly-slate-gallery-image__media {
+                border-radius: 2px;
+            }
+        }
+
+        &__media {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            font-family: "object-fit: cover;";
         }
     }
 }
