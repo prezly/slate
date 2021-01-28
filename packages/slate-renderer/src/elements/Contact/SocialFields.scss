@@ -25,6 +25,28 @@ $avatar-placeholder-size: 24px;
             list-style: none;
         }
 
+        &__link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+
+            &,
+            &:active,
+            &:focus,
+            &:hover,
+            &:visited {
+                color: inherit;
+            }
+
+            &:focus {
+                @include focus-state;
+            }
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
         &__icon {
             $size: 16px;
 

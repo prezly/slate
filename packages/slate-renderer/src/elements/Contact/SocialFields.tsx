@@ -11,12 +11,21 @@ interface Props {
     contact: ContactNode['contact'];
 }
 
+const getMailtoLink = (email: string): string => `mailto:${email}`;
+
 const SocialFields: FunctionComponent<Props> = ({ className, contact }) => (
     <ul className={classNames('prezly-slate-social-fields', className)}>
         {contact.email && (
             <li className="prezly-slate-social-fields__field" title={contact.email}>
-                <Envelope className="prezly-slate-social-fields__icon" />
-                <span className="prezly-slate-social-fields__value">{contact.email}</span>
+                <a
+                    className="prezly-slate-social-fields__link"
+                    href={getMailtoLink(contact.email)}
+                    rel="noreferrer noopener"
+                    target="_blank"
+                >
+                    <Envelope className="prezly-slate-social-fields__icon" />
+                    <span className="prezly-slate-social-fields__value">{contact.email}</span>
+                </a>
             </li>
         )}
 
