@@ -5,14 +5,15 @@
     &-social-fields {
         padding: 0;
         columns: 2;
-        overflow: hidden;
+        margin: -$focus-state-size 0;
 
         @media (max-width: $screen-xs) {
             columns: 1;
         }
 
         &__field {
-            margin-bottom: $spacing-1;
+            margin-bottom: $spacing-1 - $focus-state-size * 2;
+            padding: $focus-state-size 0;
         }
     }
 }
