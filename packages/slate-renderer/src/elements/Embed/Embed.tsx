@@ -16,7 +16,6 @@ const Embed: FunctionComponent<Props> = ({
     ...props
 }) => {
     const { oembed, url } = node;
-    const title = oembed.title || url;
 
     return (
         <a
@@ -27,11 +26,17 @@ const Embed: FunctionComponent<Props> = ({
             href={url}
             rel="noreferrer noopener"
             target="_blank"
-            title={title}
+            title={oembed.title || url}
             {...props}
         >
             {oembed.type === OEmbedInfoType.LINK && (
-                <span className="prezly-slate-embed__link">{title}</span>
+                <span className="prezly-slate-embed__link">
+                    {oembed.title && (
+                        <span className="prezly-slate-embed__link-title">{oembed.title}</span>
+                    )}
+
+                    <span className="prezly-slate-embed__link-url">{url}</span>
+                </span>
             )}
 
             {oembed.type !== OEmbedInfoType.LINK && (
