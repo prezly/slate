@@ -1,24 +1,18 @@
 @import "styles/mixins.scss";
 @import "styles/variables.scss";
 
-.prezly-slate {
-    &-embed {
-        display: flex;
-        flex-direction: column;
-        margin: $block-spacing-vertical 0;
+.prezly-slate-embed {
+    display: flex;
+    flex-direction: column;
+    margin: $block-spacing-vertical 0;
 
-        &:focus-within {
-            @include focus-state;
-        }
+    &:focus-within {
+        @include focus-state;
+    }
 
-        &__screenshot {
-            flex: 1;
-            margin: 0 auto;
-            max-width: 100%;
-        }
-
-        &__iframely {
-            width: 100%;
-        }
+    &__screenshot {
+        flex: 1;
+        margin: 0 auto;
+        max-width: 100%;
     }
 }
