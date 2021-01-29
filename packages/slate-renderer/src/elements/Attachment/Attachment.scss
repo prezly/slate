@@ -56,19 +56,11 @@
             color: $text-color;
             font-size: $font-size-l;
             font-weight: bold;
-
-            &--unstyled {
-                color: black;
-            }
         }
 
         &__subtitle {
             color: $text-color-2;
             font-size: $font-size-s;
-
-            &--unstyled {
-                color: black;
-            }
         }
     }
 }

@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLAnchorElement> {
 }
 
 const Attachment: FunctionComponent<Props> = ({ className, children, node, ...props }) => {
-    const { description, file, styled } = node;
+    const { description, file } = node;
     const attachment = UploadcareFile.createFromPrezlyStoragePayload(file);
     const isUsingCustomTitle = Boolean(description);
 
@@ -24,26 +24,16 @@ const Attachment: FunctionComponent<Props> = ({ className, children, node, ...pr
             {...props}
         >
             <div className="prezly-slate-attachment__content">
-                {styled && (
-                    <div className="prezly-slate-attachment__icon-container">
-                        <Download className="prezly-slate-attachment__icon" />
-                    </div>
-                )}
+                <div className="prezly-slate-attachment__icon-container">
+                    <Download className="prezly-slate-attachment__icon" />
+                </div>
 
                 <div className="prezly-slate-attachment__details">
-                    <div
-                        className={classNames('prezly-slate-attachment__title', {
-                            'prezly-slate-attachment__title--unstyled': !styled,
-                        })}
-                    >
+                    <div className="prezly-slate-attachment__title">
                         {isUsingCustomTitle ? description : file.filename}
                     </div>
 
-                    <div
-                        className={classNames('prezly-slate-attachment__subtitle', {
-                            'prezly-slate-attachment__subtitle--unstyled': !styled,
-                        })}
-                    >
+                    <div className="prezly-slate-attachment__subtitle">
                         {isUsingCustomTitle
                             ? `${file.filename} - ${formatBytes(file.size)}`
                             : formatBytes(file.size)}
