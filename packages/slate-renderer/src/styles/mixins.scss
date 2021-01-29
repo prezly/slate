@@ -66,7 +66,7 @@
 @mixin focus-state {
     outline: none;
     border-color: #80bdff;
-    box-shadow: 0 0 0 $focus-state-size rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 0 $focus-state-size $color-focus;
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
@@ -89,8 +89,8 @@
 
 // Make a block take the full width of the screen.
 @mixin media-layout-full-width() {
-    width: 100vw;
     position: relative;
+    width: 100vw;
     left: 50%;
     right: 50%;
     margin-left: -50vw !important;
