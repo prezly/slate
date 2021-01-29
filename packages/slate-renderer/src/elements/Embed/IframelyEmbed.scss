@@ -1,7 +1,12 @@
+@import "styles/mixins.scss";
+@import "styles/variables.scss";
+
 .prezly-slate-iframely-embed {
     width: 100%;
 
     &--error {
-        // TODO
+        color: $color-error;
+        border: 1px solid $color-error;
+        border-radius: $border-radius-base;
     }
 }
