@@ -4,42 +4,11 @@
 .prezly-slate {
     &-embed {
         display: flex;
+        flex-direction: column;
         margin: $block-spacing-vertical 0;
 
         &:focus-within {
             @include focus-state;
-        }
-
-        &--link {
-            display: block;
-            margin: $block-spacing-vertical 0;
-            padding: $spacing-3;
-            border: 1px solid $color-grey-250;
-            border-radius: $border-radius-base;
-            box-shadow: $box-shadow;
-            text-decoration: none;
-
-            &,
-            &:hover {
-                color: $text-color;
-            }
-        }
-
-        &__link-title,
-        &__link-url {
-            @include ellipsis;
-        }
-
-        &__link-title {
-            margin-bottom: $spacing-1;
-            line-height: $line-height-l;
-            font-size: $font-size-l;
-            font-weight: bold;
-        }
-
-        &__link-url {
-            font-size: $font-size-s;
-            color: $text-color-2;
         }
 
         &__screenshot {

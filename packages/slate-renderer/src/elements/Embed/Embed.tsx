@@ -4,6 +4,7 @@ import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState }
 
 import './Embed.scss';
 import { injectOembedMarkup } from './lib';
+import Link from './Link';
 
 interface Props extends HTMLAttributes<HTMLElement> {
     node: EmbedNode;
@@ -42,17 +43,7 @@ const Embed: FunctionComponent<Props> = ({
     };
 
     if (oembed.type === OEmbedInfoType.LINK) {
-        return (
-            <a href={url} rel="noreferrer noopener" target="_blank" {...commonProps}>
-                <span className="prezly-slate-embed__link">
-                    {oembed.title && (
-                        <span className="prezly-slate-embed__link-title">{oembed.title}</span>
-                    )}
-
-                    <span className="prezly-slate-embed__link-url">{url}</span>
-                </span>
-            </a>
-        );
+        return <Link {...commonProps} node={node} />;
     }
 
     return (
