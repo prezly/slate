@@ -27,11 +27,12 @@
 
         &__link-title,
         &__link-url {
-            display: block;
+            @include ellipsis;
         }
 
         &__link-title {
             margin-bottom: $spacing-1;
+            line-height: $line-height-l;
             font-size: $font-size-l;
             font-weight: bold;
         }

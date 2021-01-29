@@ -40,7 +40,17 @@ const Embed: FunctionComponent<Props> = ({
             )}
 
             {oembed.type !== OEmbedInfoType.LINK && (
-                <img className="prezly-slate-embed__screenshot" src={oembed.screenshot_url} />
+                <>
+                    {showAsScreenshot && (
+                        <img
+                            alt={oembed.title}
+                            className="prezly-slate-embed__screenshot"
+                            src={oembed.screenshot_url}
+                        />
+                    )}
+
+                    {!showAsScreenshot && <div>TODO</div>}
+                </>
             )}
         </a>
     );

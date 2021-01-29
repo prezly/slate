@@ -22,6 +22,7 @@ $avatar-placeholder-size: 24px;
         &__name {
             margin: 0;
             margin-bottom: $spacing-1;
+            line-height: $line-height-l;
             font-size: $font-size-l;
         }
 
