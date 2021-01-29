@@ -16,10 +16,7 @@ const Embed: FunctionComponent<Props> = ({ className, node, showAsScreenshot, ..
     const { oembed, url } = node;
 
     const commonProps = {
-        className: classNames('prezly-slate-embed', className, {
-            'prezly-slate-embed--link': oembed.type === OEmbedInfoType.LINK,
-            'prezly-slate-embed--video': oembed.type === OEmbedInfoType.VIDEO,
-        }),
+        className: classNames('prezly-slate-embed', className),
         title: oembed.title || url,
         ...props,
     };
