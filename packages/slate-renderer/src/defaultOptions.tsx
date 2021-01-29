@@ -39,12 +39,13 @@ import {
     Mention,
     NumberedList,
     Paragraph,
-    Placeholder,
     Quote,
 } from './elements';
 import { Options } from './types';
 
-const defaultOptions: Required<Options> = {
+// The default PLACEHOLDER_NODE_TYPE renderer (Placeholder) has a required prop that can only
+// be provided by library consumer - that's why it's not included here in the defaultOptions.
+const defaultOptions: Required<Omit<Options, typeof PLACEHOLDER_NODE_TYPE>> = {
     [ATTACHMENT_NODE_TYPE]: Attachment,
     [BULLETED_LIST_NODE_TYPE]: BulletedList,
     [CONTACT_NODE_TYPE]: Contact,
@@ -62,7 +63,6 @@ const defaultOptions: Required<Options> = {
     [MENTION_NODE_TYPE]: Mention,
     [NUMBERED_LIST_NODE_TYPE]: NumberedList,
     [PARAGRAPH_NODE_TYPE]: Paragraph,
-    [PLACEHOLDER_NODE_TYPE]: Placeholder,
     [QUOTE_NODE_TYPE]: Quote,
     text: DefaultTextRenderer,
 };
