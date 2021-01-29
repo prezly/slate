@@ -14,4 +14,5 @@ export { default as ListItem } from './ListItem';
 export { default as ListItemText } from './ListItemText';
 export { default as NumberedList } from './NumberedList';
 export { default as Paragraph } from './Paragraph';
+export { default as Placeholder } from './Placeholder';
 export { default as Quote } from './Quote';

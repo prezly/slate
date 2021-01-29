@@ -39,6 +39,7 @@ import {
     Mention,
     NumberedList,
     Paragraph,
+    Placeholder,
     Quote,
 } from './elements';
 import { Options } from './types';
@@ -61,7 +62,7 @@ const defaultOptions: Required<Options> = {
     [MENTION_NODE_TYPE]: Mention,
     [NUMBERED_LIST_NODE_TYPE]: NumberedList,
     [PARAGRAPH_NODE_TYPE]: Paragraph,
-    [PLACEHOLDER_NODE_TYPE]: ({ children }) => <span>{children}</span>, // TODO,
+    [PLACEHOLDER_NODE_TYPE]: Placeholder,
     [QUOTE_NODE_TYPE]: Quote,
     text: DefaultTextRenderer,
 };
