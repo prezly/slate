@@ -1,9 +1,7 @@
 @import "styles/variables.scss";
 
-.prezly-slate {
-    &-divider {
-        margin: $block-spacing-vertical 0;
-        border: none;
-        border-top: 1px solid $color-border;
-    }
+.prezly-slate-divider {
+    margin: $block-spacing-vertical 0;
+    border: none;
+    border-top: 1px solid $color-border;
 }

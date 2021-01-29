@@ -1,11 +1,9 @@
 @import "styles/variables.scss";
 
-.prezly-slate {
-    &-heading-1 {
-        margin: $block-spacing-vertical 0 $spacing-3 0;
-        color: $color-text;
-        font-weight: bold;
-        font-size: 28px;
-        line-height: 34px;
-    }
+.prezly-slate-heading-1 {
+    margin: $block-spacing-vertical 0 $spacing-3 0;
+    color: $color-text;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 34px;
 }

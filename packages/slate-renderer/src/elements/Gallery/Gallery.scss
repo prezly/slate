@@ -1,34 +1,32 @@
 @import "styles/mixins.scss";
 @import "styles/variables.scss";
 
-.prezly-slate {
-    &-gallery {
-        margin: $block-spacing-vertical 0;
-        white-space: normal;
-        text-align: center;
+.prezly-slate-gallery {
+    margin: $block-spacing-vertical 0;
+    white-space: normal;
+    text-align: center;
 
-        &--contained {
-            margin-left: auto;
-            margin-right: auto;
-        }
+    &--contained {
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        &--expanded {
-            @include media-layout-expanded;
-        }
+    &--expanded {
+        @include media-layout-expanded;
+    }
 
-        &--full-width {
-            @include media-layout-full-width;
-        }
+    &--full-width {
+        @include media-layout-full-width;
+    }
 
-        &__images {
-            margin: -1px;
-        }
+    &__images {
+        margin: -1px;
+    }
 
-        &__row {
-            display: flex;
-            justify-content: center;
-            flex: 1;
-            flex-wrap: wrap;
-        }
+    &__row {
+        display: flex;
+        justify-content: center;
+        flex: 1;
+        flex-wrap: wrap;
     }
 }

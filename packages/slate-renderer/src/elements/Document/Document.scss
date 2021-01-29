@@ -1,9 +1,7 @@
 @import "styles/variables.scss";
 
-.prezly-slate {
-    &-document {
-        color: $color-text;
-        font-size: $font-size-m;
-        line-height: $line-height;
-    }
+.prezly-slate-document {
+    color: $color-text;
+    font-size: $font-size-m;
+    line-height: $line-height;
 }

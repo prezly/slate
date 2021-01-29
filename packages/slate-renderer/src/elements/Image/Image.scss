@@ -1,70 +1,68 @@
 @import "styles/mixins.scss";
 @import "styles/variables.scss";
 
-.prezly-slate {
-    &-image {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: $block-spacing-vertical 0;
-        white-space: normal;
+.prezly-slate-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: $block-spacing-vertical 0;
+    white-space: normal;
+    text-align: center;
+
+    &--contained {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &--expanded {
+        @include media-layout-expanded;
+
+        .prezly-slate-image__link,
+        .prezly-slate-image__media,
+        video,
+        img {
+            width: 100%;
+        }
+    }
+
+    &--full-width {
+        @include media-layout-full-width;
+
+        .prezly-slate-image__link,
+        .prezly-slate-image__media,
+        video,
+        img {
+            width: 100%;
+        }
+    }
+
+    &--gif {
+        display: block;
+    }
+
+    &__link {
+        position: relative;
+        z-index: 0;
+        display: block;
+        text-decoration: none;
+
+        &:focus {
+            @include focus-state;
+        }
+    }
+
+    &__caption {
+        display: block;
+        padding: $spacing-1-5 $spacing-3;
+        padding-bottom: 0;
+        color: $color-text-2;
+        font-style: italic;
+        font-size: $font-size-s;
         text-align: center;
+        word-break: break-all;
 
-        &--contained {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        &--expanded {
-            @include media-layout-expanded;
-
-            .prezly-slate-image__link,
-            .prezly-slate-image__media,
-            video,
-            img {
-                width: 100%;
-            }
-        }
-
-        &--full-width {
-            @include media-layout-full-width;
-
-            .prezly-slate-image__link,
-            .prezly-slate-image__media,
-            video,
-            img {
-                width: 100%;
-            }
-        }
-
-        &--gif {
-            display: block;
-        }
-
-        &__link {
-            position: relative;
-            z-index: 0;
-            display: block;
-            text-decoration: none;
-
-            &:focus {
-                @include focus-state;
-            }
-        }
-
-        &__caption {
-            display: block;
-            padding: $spacing-1-5 $spacing-3;
-            padding-bottom: 0;
-            color: $color-text-2;
-            font-style: italic;
-            font-size: $font-size-s;
-            text-align: center;
-            word-break: break-all;
-
-            &:empty {
-                display: none;
-            }
+        &:empty {
+            display: none;
         }
     }
 }

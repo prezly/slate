@@ -1,67 +1,65 @@
 @import "styles/mixins.scss";
 @import "styles/variables.scss";
 
-.prezly-slate {
-    &-attachment {
-        display: block;
-        margin: $block-spacing-vertical 0;
+.prezly-slate-attachment {
+    display: block;
+    margin: $block-spacing-vertical 0;
+    border: 1px solid $color-grey-250;
+    border-radius: $border-radius-base;
+    box-shadow: $box-shadow;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:focus {
+        @include focus-state;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+    }
+
+    &__icon-container {
+        $size: 48px;
+
+        flex: 0 0 auto;
+        width: $size;
+        height: $size;
+        color: black;
         border: 1px solid $color-grey-250;
         border-radius: $border-radius-base;
-        box-shadow: $box-shadow;
-        cursor: pointer;
-        text-decoration: none;
+        margin-left: $spacing-3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        &:focus {
-            @include focus-state;
-        }
+    &__icon {
+        $size: 22px;
 
-        &:hover {
-            text-decoration: none;
-        }
+        height: $size;
+        width: $size;
+    }
 
-        &__content {
-            display: flex;
-            align-items: center;
-        }
+    &__details {
+        flex: 1;
+        padding: $spacing-3;
+    }
 
-        &__icon-container {
-            $size: 48px;
+    &__title {
+        margin-bottom: $spacing-1;
+        color: $color-text;
+        line-height: $line-height-l;
+        font-size: $font-size-l;
+        font-weight: bold;
+    }
 
-            flex: 0 0 auto;
-            width: $size;
-            height: $size;
-            color: black;
-            border: 1px solid $color-grey-250;
-            border-radius: $border-radius-base;
-            margin-left: $spacing-3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        &__icon {
-            $size: 22px;
-
-            height: $size;
-            width: $size;
-        }
-
-        &__details {
-            flex: 1;
-            padding: $spacing-3;
-        }
-
-        &__title {
-            margin-bottom: $spacing-1;
-            color: $color-text;
-            line-height: $line-height-l;
-            font-size: $font-size-l;
-            font-weight: bold;
-        }
-
-        &__subtitle {
-            color: $color-text-2;
-            font-size: $font-size-s;
-        }
+    &__subtitle {
+        color: $color-text-2;
+        font-size: $font-size-s;
     }
 }
