@@ -31,21 +31,19 @@ const Embed: FunctionComponent<Props> = ({
         }
     }, [oembed, isUsingScreenshots]);
 
-    // TODO: render div if not link
-    return (
-        <a
-            className={classNames('prezly-slate-embed', className, {
-                'prezly-slate-embed--error': !isValid,
-                'prezly-slate-embed--link': oembed.type === OEmbedInfoType.LINK,
-                'prezly-slate-embed--video': oembed.type === OEmbedInfoType.VIDEO,
-            })}
-            href={url}
-            rel="noreferrer noopener"
-            target="_blank"
-            title={oembed.title || url}
-            {...props}
-        >
-            {oembed.type === OEmbedInfoType.LINK && (
+    const commonProps = {
+        className: classNames('prezly-slate-embed', className, {
+            'prezly-slate-embed--error': !isValid,
+            'prezly-slate-embed--link': oembed.type === OEmbedInfoType.LINK,
+            'prezly-slate-embed--video': oembed.type === OEmbedInfoType.VIDEO,
+        }),
+        title: oembed.title || url,
+        ...props,
+    };
+
+    if (oembed.type === OEmbedInfoType.LINK) {
+        return (
+            <a href={url} rel="noreferrer noopener" target="_blank" {...commonProps}>
                 <span className="prezly-slate-embed__link">
                     {oembed.title && (
                         <span className="prezly-slate-embed__link-title">{oembed.title}</span>
@@ -53,24 +51,22 @@ const Embed: FunctionComponent<Props> = ({
 
                     <span className="prezly-slate-embed__link-url">{url}</span>
                 </span>
+            </a>
+        );
+    }
+
+    return (
+        <div {...commonProps}>
+            {showAsScreenshot && (
+                <img
+                    alt={oembed.title}
+                    className="prezly-slate-embed__screenshot"
+                    src={oembed.screenshot_url}
+                />
             )}
 
-            {oembed.type !== OEmbedInfoType.LINK && (
-                <>
-                    {showAsScreenshot && (
-                        <img
-                            alt={oembed.title}
-                            className="prezly-slate-embed__screenshot"
-                            src={oembed.screenshot_url}
-                        />
-                    )}
-
-                    {!showAsScreenshot && (
-                        <div className="prezly-slate-embed__iframely" ref={contentRef} />
-                    )}
-                </>
-            )}
-        </a>
+            {!showAsScreenshot && <div className="prezly-slate-embed__iframely" ref={contentRef} />}
+        </div>
     );
 };
 
