@@ -1,8 +1,9 @@
 import { EmbedNode, OEmbedInfoType } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { FunctionComponent, HTMLAttributes } from 'react';
+import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
 
 import './Embed.scss';
+import { injectOembedMarkup } from './lib';
 
 interface Props extends HTMLAttributes<HTMLElement> {
     node: EmbedNode;
@@ -15,11 +16,26 @@ const Embed: FunctionComponent<Props> = ({
     showAsScreenshot,
     ...props
 }) => {
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [isValid, setIsValid] = useState<boolean>(true);
     const { oembed, url } = node;
+    const isUsingScreenshots = showAsScreenshot && oembed.type !== 'link';
 
+    useEffect(() => {
+        if (!isUsingScreenshots && contentRef.current && typeof window !== 'undefined') {
+            injectOembedMarkup({
+                oembed,
+                onError: () => setIsValid(false),
+                target: contentRef.current,
+            });
+        }
+    }, [oembed, isUsingScreenshots]);
+
+    // TODO: render div if not link
     return (
         <a
             className={classNames('prezly-slate-embed', className, {
+                'prezly-slate-embed--error': !isValid,
                 'prezly-slate-embed--link': oembed.type === OEmbedInfoType.LINK,
                 'prezly-slate-embed--video': oembed.type === OEmbedInfoType.VIDEO,
             })}
@@ -49,7 +65,9 @@ const Embed: FunctionComponent<Props> = ({
                         />
                     )}
 
-                    {!showAsScreenshot && <div>TODO</div>}
+                    {!showAsScreenshot && (
+                        <div className="prezly-slate-embed__iframely" ref={contentRef} />
+                    )}
                 </>
             )}
         </a>
