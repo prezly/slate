@@ -3,6 +3,7 @@ export { default as BulletedList } from './BulletedList';
 export { default as Contact } from './Contact';
 export { default as Divider } from './Divider';
 export { default as Document } from './Document';
+export { default as Embed } from './Embed';
 export { default as Gallery } from './Gallery';
 export { default as Heading1 } from './Heading1';
 export { default as Heading2 } from './Heading2';

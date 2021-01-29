@@ -1,0 +1,14 @@
+@import "styles/mixins.scss";
+@import "styles/variables.scss";
+
+.prezly-slate {
+    &-embed {
+        display: block;
+        margin: $block-spacing-vertical 0;
+
+        &__screenshot {
+            margin: 0 auto;
+            max-width: 100%;
+        }
+    }
+}

@@ -28,6 +28,7 @@ import {
     Contact,
     Divider,
     Document,
+    Embed,
     Gallery,
     Heading1,
     Heading2,
@@ -48,7 +49,7 @@ const defaultOptions: Required<Options> = {
     [COVERAGE_NODE_TYPE]: () => <span>TODO</span>, // TODO
     [DIVIDER_NODE_TYPE]: Divider,
     [DOCUMENT_NODE_TYPE]: Document,
-    [EMBED_NODE_TYPE]: () => <span>TODO</span>, // TODO
+    [EMBED_NODE_TYPE]: Embed,
     [GALLERY_NODE_TYPE]: Gallery,
     [HEADING_1_NODE_TYPE]: Heading1,
     [HEADING_2_NODE_TYPE]: Heading2,
