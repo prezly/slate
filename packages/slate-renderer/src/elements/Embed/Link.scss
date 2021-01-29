@@ -10,7 +10,7 @@
 
     &,
     &:hover {
-        color: $text-color;
+        color: $color-text;
     }
 
     &__title,
@@ -27,6 +27,6 @@
 
     &__url {
         font-size: $font-size-s;
-        color: $text-color-2;
+        color: $color-text-2;
     }
 }

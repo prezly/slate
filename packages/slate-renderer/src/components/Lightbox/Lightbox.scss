@@ -75,7 +75,7 @@ body.ReactModal__Body--open {
             @include button-reset;
 
             padding: $spacing-1 $spacing-3;
-            background-color: $link-color;
+            background-color: $color-link;
             color: white;
             border-radius: $border-radius-base;
             font-size: $font-size-m;
@@ -111,7 +111,7 @@ body.ReactModal__Body--open {
             font-size: $font-size-m;
             font-style: italic;
             text-align: center;
-            color: $text-color-2;
+            color: $color-text-2;
 
             &:empty {
                 display: none;
@@ -136,7 +136,7 @@ body.ReactModal__Body--open {
             height: $close-icon-size + 2 * $close-icon-padding;
             z-index: 1;
             padding: $close-icon-padding;
-            color: $link-color;
+            color: $color-link;
 
             &:hover {
                 color: $color-link-hover;

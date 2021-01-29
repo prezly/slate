@@ -53,14 +53,14 @@
 
         &__title {
             margin-bottom: $spacing-1;
-            color: $text-color;
+            color: $color-text;
             line-height: $line-height-l;
             font-size: $font-size-l;
             font-weight: bold;
         }
 
         &__subtitle {
-            color: $text-color-2;
+            color: $color-text-2;
             font-size: $font-size-s;
         }
     }

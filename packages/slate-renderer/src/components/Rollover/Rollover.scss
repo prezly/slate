@@ -2,7 +2,7 @@
 @import "styles/variables.scss";
 
 $background-color: #fff;
-$link-color: #0082db;
+$color-link: #0082db;
 
 .prezly-slate {
     &-image-rollover {
@@ -83,7 +83,7 @@ $link-color: #0082db;
             display: flex;
             margin-top: auto;
             padding: $spacing-1;
-            background-color: $link-color;
+            background-color: $color-link;
             color: $background-color;
             border-radius: 50%;
 
