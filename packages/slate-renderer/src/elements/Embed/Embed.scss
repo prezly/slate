@@ -3,8 +3,12 @@
 
 .prezly-slate {
     &-embed {
-        display: block;
+        display: flex;
         margin: $block-spacing-vertical 0;
+
+        &:focus-within {
+            @include focus-state;
+        }
 
         &--link {
             display: block;
@@ -38,6 +42,7 @@
         }
 
         &__screenshot {
+            flex: 1;
             margin: 0 auto;
             max-width: 100%;
         }
