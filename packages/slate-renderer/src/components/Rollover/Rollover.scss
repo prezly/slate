@@ -9,7 +9,6 @@ $link-color: #0082db;
         @include button-reset;
 
         position: relative;
-        cursor: pointer;
 
         &:focus-within {
             z-index: 1;
