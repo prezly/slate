@@ -36,6 +36,7 @@ import {
     Link,
     ListItem,
     ListItemText,
+    Mention,
     NumberedList,
     Paragraph,
     Quote,
@@ -57,7 +58,7 @@ const defaultOptions: Required<Options> = {
     [LINK_NODE_TYPE]: Link,
     [LIST_ITEM_NODE_TYPE]: ListItem,
     [LIST_ITEM_TEXT_NODE_TYPE]: ListItemText,
-    [MENTION_NODE_TYPE]: ({ children }) => <span>{children}</span>, // TODO
+    [MENTION_NODE_TYPE]: Mention,
     [NUMBERED_LIST_NODE_TYPE]: NumberedList,
     [PARAGRAPH_NODE_TYPE]: Paragraph,
     [PLACEHOLDER_NODE_TYPE]: ({ children }) => <span>{children}</span>, // TODO,
