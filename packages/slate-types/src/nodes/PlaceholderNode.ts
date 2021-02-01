@@ -1,21 +1,19 @@
+import { PlaceholderKey } from '../sdk';
+
 import ElementNode, { isElementNode } from './ElementNode';
 import TextNode, { isTextNode } from './TextNode';
 
 export const PLACEHOLDER_NODE_TYPE = 'placeholder';
 
-export default interface PlaceholderNode extends ElementNode<typeof PLACEHOLDER_NODE_TYPE> {
+export default interface PlaceholderNode<Key extends string = PlaceholderKey>
+    extends ElementNode<typeof PLACEHOLDER_NODE_TYPE> {
     children: TextNode[];
-    key:
-        | 'contact.firstname'
-        | 'contact.fullname'
-        | 'contact.lastname'
-        | 'contact.salutation'
-        | 'publication.date'
-        | 'release.shorturl'
-        | 'release.url';
+    key: Key;
 }
 
-export const isPlaceholderNode = (value: any): value is PlaceholderNode => {
+export const isPlaceholderNode = <Key extends string>(
+    value: any,
+): value is PlaceholderNode<Key> => {
     return (
         isElementNode(value) &&
         value.type === PLACEHOLDER_NODE_TYPE &&

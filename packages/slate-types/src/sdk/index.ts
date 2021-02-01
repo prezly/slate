@@ -6,9 +6,12 @@
  * packages?
  */
 
+export { default as EmailPlaceholderKey } from './EmailPlaceholderKey';
 export { default as OEmbedInfo, isOEmbedInfo } from './OEmbedInfo';
 export { default as OEmbedInfoType } from './OEmbedInfoType';
+export { default as PlaceholderKey } from './PlaceholderKey';
 export { default as PressContact, isPressContact } from './PressContact';
+export { default as StoryPlaceholderKey } from './StoryPlaceholderKey';
 export { default as UploadcareFile } from './UploadcareFile';
 export { default as UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
 export { default as UploadcareGifVideo } from './UploadcareGifVideo';
