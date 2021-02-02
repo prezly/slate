@@ -9,11 +9,16 @@
 
 # Packages
 
-| npm                                                                                | Badges                                                                                                                              | Readme                                           |
-|------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
-| [@prezly/linear-partition](https://www.npmjs.com/package/@prezly/linear-partition) | ![Version](https://img.shields.io/npm/v/@prezly/linear-partition) ![License](https://img.shields.io/npm/l/@prezly/linear-partition) | [README.md](packages/linear-partition/README.md) |
-| [@prezly/slate-renderer](https://www.npmjs.com/package/@prezly/slate-renderer)     | ![Version](https://img.shields.io/npm/v/@prezly/slate-renderer) ![License](https://img.shields.io/npm/l/@prezly/slate-renderer)     | [README.md](packages/slate-renderer/README.md)   |
-| [@prezly/slate-types](https://www.npmjs.com/package/@prezly/slate-types)           | ![Version](https://img.shields.io/npm/v/@prezly/slate-types) ![License](https://img.shields.io/npm/l/@prezly/slate-types)           | [README.md](packages/slate-types/README.md)      |
+Every package has been implemented with TypeScript.
+
+Prezly-specific packages mention Prezly in the description. All other packages should be generic and reusable in any project.
+
+| Package                                                                              | Version                                                            | License                                                            | Readme                                            | Description                                                                                                                        |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| [@prezly/linear-partition](https://www.npmjs.com/package/@prezly/linear-partition)   | ![Version](https://img.shields.io/npm/v/@prezly/linear-partition)  | ![License](https://img.shields.io/npm/l/@prezly/linear-partition)  | [README.md](packages/linear-partition/README.md)  | [Solution to The Partition Problem](https://github.com/technically-php/linear-partitioning/blob/master/src/LinearPartitioning.php) |
+| [@prezly/slate-hyperscript](https://www.npmjs.com/package/@prezly/slate-hyperscript) | ![Version](https://img.shields.io/npm/v/@prezly/slate-hyperscript) | ![License](https://img.shields.io/npm/l/@prezly/slate-hyperscript) | [README.md](packages/slate-hyperscript/README.md) | Hyperscript helpers for creating [Slate](https://www.slatejs.org/) documents with JSX                                              |
+| [@prezly/slate-renderer](https://www.npmjs.com/package/@prezly/slate-renderer)       | ![Version](https://img.shields.io/npm/v/@prezly/slate-renderer)    | ![License](https://img.shields.io/npm/l/@prezly/slate-renderer)    | [README.md](packages/slate-renderer/README.md)    | Render [Slate](https://www.slatejs.org/) documents used at [Prezly](https://www.prezly.com/)                                       |
+| [@prezly/slate-types](https://www.npmjs.com/package/@prezly/slate-types)             | ![Version](https://img.shields.io/npm/v/@prezly/slate-types)       | ![License](https://img.shields.io/npm/l/@prezly/slate-types)       | [README.md](packages/slate-types/README.md)       | TypeScript definitions for [Slate](https://www.slatejs.org/) document structure used at [Prezly](https://www.prezly.com/)          |
 
 # Development
 
