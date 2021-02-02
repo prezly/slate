@@ -32,7 +32,7 @@ const Renderer: FunctionComponent<Props> = ({ nodes, options: userOptions = {} }
                             // @ts-ignore
                             <NodeRenderer key={index} node={node}>
                                 {/* @ts-ignore */}
-                                <Renderer nodes={children} />
+                                <Renderer nodes={children} options={options} />
                             </NodeRenderer>
                         );
                     }
