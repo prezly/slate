@@ -3,8 +3,7 @@
 
     "compilerOptions": {
         "outDir": "./build",
-        "rootDir": "./src",
-        "typeRoots": ["./node_modules/@types", "./src/@types"]
+        "rootDir": "./src"
     },
     "exclude": ["node_modules", "**/*.test.ts"],
     "include": ["./src"]

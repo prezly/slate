@@ -1,7 +1,6 @@
-import { FileInfo } from 'uploadcare-widget';
-
 import { UPLOADCARE_CDN_URL } from '../constants';
 
+import UploadcareFileInfo from './UploadcareFileInfo';
 import UploadcareFileStoragePayload from './UploadcareFileStoragePayload';
 
 interface UploadcareFileParameters {
@@ -31,7 +30,7 @@ const toStoragePayload = ({ uuid, filename, size, mimeType }: UploadcareFilePara
     version: 2,
 });
 
-const fromWidgetPayload = ({ uuid, name: filename, size, mimeType }: FileInfo) => ({
+const fromWidgetPayload = ({ uuid, name: filename, size, mimeType }: UploadcareFileInfo) => ({
     filename,
     mimeType,
     size,
@@ -43,7 +42,7 @@ export default class UploadcareFile {
         payload: UploadcareFileStoragePayload,
     ): UploadcareFile => new UploadcareFile(fromStoragePayload(payload));
 
-    static createFromUploadcareWidgetPayload = (payload: FileInfo): UploadcareFile =>
+    static createFromUploadcareWidgetPayload = (payload: UploadcareFileInfo): UploadcareFile =>
         new UploadcareFile(fromWidgetPayload(payload));
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
