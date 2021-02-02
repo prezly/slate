@@ -13,6 +13,7 @@ export { default as PlaceholderKey } from './PlaceholderKey';
 export { default as PressContact, isPressContact } from './PressContact';
 export { default as StoryPlaceholderKey } from './StoryPlaceholderKey';
 export { default as UploadcareFile } from './UploadcareFile';
+export { default as UploadcareFileInfo } from './UploadcareFileInfo';
 export { default as UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
 export { default as UploadcareGifVideo } from './UploadcareGifVideo';
 export { default as UploadcareImage } from './UploadcareImage';

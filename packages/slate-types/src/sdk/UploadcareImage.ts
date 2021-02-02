@@ -1,8 +1,7 @@
-import { FileInfo } from 'uploadcare-widget';
-
 import { UPLOADCARE_CDN_URL, UPLOADCARE_FILE_DATA_KEY } from '../constants';
 
 import UploadcareFile from './UploadcareFile';
+import UploadcareFileInfo from './UploadcareFileInfo';
 import UploadcareGifVideo from './UploadcareGifVideo';
 import UploadcareImageStoragePayload from './UploadcareImageStoragePayload';
 
@@ -11,9 +10,11 @@ type ImageFormat = 'auto' | 'jpeg' | 'png' | 'web';
 const MAX_PREVIEW_SIZE = 2000;
 
 class UploadcareImage {
-    public static createFromUploadcareWidgetPayload = (fileInfo: FileInfo): UploadcareImage => {
+    public static createFromUploadcareWidgetPayload = (
+        fileInfo: UploadcareFileInfo,
+    ): UploadcareImage => {
         if (!fileInfo.originalImageInfo) {
-            throw new Error('UploadcareImage was given a non-image FileInfo object');
+            throw new Error('UploadcareImage was given a non-image UploadcareFileInfo object');
         }
 
         return new UploadcareImage({
