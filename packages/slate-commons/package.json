@@ -1,7 +1,7 @@
 {
-	"name": "@prezly/slate-hyperscript",
+	"name": "@prezly/slate-commons",
 	"version": "0.1.0-alpha.17",
-	"description": "Hyperscript helpers for creating Slate documents with JSX",
+	"description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
 	"license": "MIT",
 	"main": "build/index.js",
 	"types": "build/index.d.ts",
@@ -23,9 +23,14 @@
 	},
 	"peerDependencies": {
 		"react": "*",
-		"slate": ">=0.50.0"
+		"slate": ">=0.50.0",
+		"slate-react": ">=0.50.0"
 	},
 	"dependencies": {
-		"is-plain-object": "^5.0.0"
+		"uuid": "^8.3.2"
+	},
+	"devDependencies": {
+		"@prezly/slate-hyperscript": "^0.1.0-alpha.17",
+		"@types/uuid": "^8.3.0"
 	}
 }
