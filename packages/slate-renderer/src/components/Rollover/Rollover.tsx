@@ -37,7 +37,6 @@ const Rollover: FunctionComponent<Props> = ({
         <button
             className={classNames('prezly-slate-image-rollover', className)}
             type="button"
-            style={props.style}
             {...props}
         >
             <span className="prezly-slate-image-rollover__content">

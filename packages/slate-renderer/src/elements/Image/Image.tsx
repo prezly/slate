@@ -10,21 +10,25 @@ interface Props extends HTMLAttributes<HTMLElement> {
     node: ImageNode;
 }
 
-const getMediaStyle = (node: ImageNode): CSSProperties => {
+const getContainerStyle = (node: ImageNode): CSSProperties => {
     if (node.layout !== 'contained') {
         return {};
     }
 
-    return {
-        width: `${((parseFloat(node.width) * parseFloat(node.width_factor)) / 100).toFixed(2)}%`,
-    };
+    const width = `${((parseFloat(node.width) * parseFloat(node.width_factor)) / 100).toFixed(2)}%`;
+
+    if (width === `${(100).toFixed(2)}%`) {
+        return {};
+    }
+
+    return { width };
 };
 
 const Image: FunctionComponent<Props> = ({ children, className, node, ...props }) => {
     const { file, href, layout } = node;
     const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
     const image = UploadcareImage.createFromPrezlyStoragePayload(file);
-    const mediaStyle = getMediaStyle(node);
+    const containerStyle = getContainerStyle(node);
     const handleRolloverClick = () => setIsPreviewOpen(true);
     const handleImagePreviewClose = () => setIsPreviewOpen(false);
 
@@ -44,16 +48,21 @@ const Image: FunctionComponent<Props> = ({ children, className, node, ...props }
                     className="prezly-slate-image__link"
                     target="_blank"
                     rel="noopener noreferrer"
+                    style={containerStyle}
                 >
-                    <Media className="prezly-slate-image__media" image={image} style={mediaStyle}>
+                    <Media className="prezly-slate-image__media" image={image}>
                         {children}
                     </Media>
                 </a>
             )}
 
             {!href && (
-                <Rollover disabled={image.isGif()} onClick={handleRolloverClick}>
-                    <Media className="prezly-slate-image__media" image={image} style={mediaStyle}>
+                <Rollover
+                    disabled={image.isGif()}
+                    onClick={handleRolloverClick}
+                    style={containerStyle}
+                >
+                    <Media className="prezly-slate-image__media" image={image}>
                         {children}
                     </Media>
                 </Rollover>
