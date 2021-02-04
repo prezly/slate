@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const Document: FunctionComponent<Props> = ({ children, className, node, ...props }) => {
-    const version = { node };
+    const { version } = node;
 
     return (
         <section
