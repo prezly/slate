@@ -1,5 +1,6 @@
 ![alt Prezly ❤️ Slate](https://cdn.uc.assets.prezly.com/b9c8de97-cc75-4780-baa0-c9d9ac4c7c09/prezly-slate.png)
 
+![Build](https://github.com/kamilmielnik/scrabble-solver/workflows/Build/badge.svg)
 ![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
 ![Prettier](https://github.com/prezly/slate/workflows/Prettier/badge.svg)
 
