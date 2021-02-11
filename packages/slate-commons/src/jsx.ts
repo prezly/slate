@@ -8,6 +8,53 @@ import { INLINE_ELEMENT, INLINE_VOID_ELEMENT, VOID_ELEMENT } from './test-utils'
 
 declare global {
     namespace JSX {
+        // This is copied from "packages/slate-hyperscript/src/index.ts"
+        // TODO: find a way to not have to copy it and still have type hinting
+        // when using hyperscript.
+        interface IntrinsicElements {
+            anchor:
+                | {
+                      offset?: never;
+                      path?: never;
+                  }
+                | {
+                      offset: number;
+                      path: number[];
+                  };
+            cursor: {
+                children?: never;
+            };
+            editor: {
+                children?: ReactNode;
+            };
+            element: {
+                [key: string]: any;
+                children?: ReactNode;
+                type: string;
+            };
+            focus:
+                | {
+                      offset?: never;
+                      path?: never;
+                  }
+                | {
+                      offset: number;
+                      path: number[];
+                  };
+            fragment: {
+                children?: ReactNode;
+            };
+            selection: {
+                children?: ReactNode;
+            };
+            // using 'h-text' instead of 'text' to avoid collision with React typings, see:
+            // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0182cd9094aa081558a3c4bfc970bbdfb71d891d/types/react/index.d.ts#L3136
+            'h-text': {
+                [key: string]: any; // allow marks
+                children?: ReactNode;
+            };
+        }
+
         interface IntrinsicElements {
             'h-inline-element': {
                 children?: ReactNode;
