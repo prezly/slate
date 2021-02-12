@@ -27,7 +27,7 @@
         "react-dom": "*"
     },
     "dependencies": {
-        "@prezly/linear-partition": "^0.1.0-alpha.19",
+        "@prezly/linear-partition": "^1.0.0",
         "@prezly/slate-types": "^0.1.0-alpha.19",
         "classnames": "^2.2.6",
         "react-modal": "^3.12.1",
