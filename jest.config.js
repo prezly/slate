@@ -10,7 +10,6 @@ module.exports = {
     },
     preset: 'ts-jest',
     setupFiles: ['<rootDir>/setupTests.js'],
-    // testEnvironment: 'node',
     testEnvironment: 'jsdom',
     testPathIgnorePatterns: ['/node_modules/', '/build/', '/examples/'],
 };
