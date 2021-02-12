@@ -1,7 +1,8 @@
+import { RtfImage } from '../types';
+
 import getRtfImageHex from './getRtfImageHex';
 import getRtfImageMimeType from './getRtfImageMimeType';
 import getRtfImageSpid from './getRtfImageSpid';
-import { RtfImage } from './types';
 
 const getRtfImagesByType = (rtf: string, spidPrefix: string, type: string): RtfImage[] => {
     const [, ...images] = rtf.split(type);

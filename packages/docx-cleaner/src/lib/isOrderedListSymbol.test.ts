@@ -1,4 +1,5 @@
-import { NO_BREAK_SPACE, SPACE } from './constants';
+import { NO_BREAK_SPACE, SPACE } from '../constants';
+
 import isOrderedListSymbol from './isOrderedListSymbol';
 
 describe('isOrderedListSymbol', () => {

@@ -1,17 +1,19 @@
-import cleanBrElements from './cleanBrElements';
-import cleanEmptyElements from './cleanEmptyElements';
-import cleanEmptyParagraphs from './cleanEmptyParagraphs';
-import cleanFontElements from './cleanFontElements';
-import cleanFootnotes from './cleanFootnotes';
-import cleanImageElements from './cleanImageElements';
-import cleanLinkElements from './cleanLinkElements';
-import cleanListElements from './cleanListElements';
-import cleanQuotes from './cleanQuotes';
-import cleanSpans from './cleanSpans';
-import cleanTextNodes from './cleanTextNodes';
-import isDocxContent from './isDocxContent';
-import postCleanHtml from './postCleanHtml';
-import preCleanHtml from './preCleanHtml';
+import {
+    cleanBrElements,
+    cleanEmptyElements,
+    cleanEmptyParagraphs,
+    cleanFontElements,
+    cleanFootnotes,
+    cleanImageElements,
+    cleanLinkElements,
+    cleanListElements,
+    cleanQuotes,
+    cleanSpans,
+    cleanTextNodes,
+    isDocxContent,
+    postCleanHtml,
+    preCleanHtml,
+} from './lib';
 
 const parser = new DOMParser();
 

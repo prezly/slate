@@ -1,5 +1,6 @@
+import { RtfImagesMap } from '../types';
+
 import getRtfImagesByType from './getRtfImagesByType';
-import { RtfImagesMap } from './types';
 
 const getRtfImagesMap = (rtf: string): RtfImagesMap => {
     const rtfImagesMap: RtfImagesMap = {};

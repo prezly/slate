@@ -1,4 +1,5 @@
-import { LINE_FEED } from './constants';
+import { LINE_FEED } from '../constants';
+
 import isComment from './isComment';
 import removeNodesBetweenComments from './removeNodesBetweenComments';
 import traverseElements from './traverseElements';

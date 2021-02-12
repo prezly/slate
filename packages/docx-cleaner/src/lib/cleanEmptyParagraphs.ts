@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
-import { NO_BREAK_SPACE } from './constants';
+import { NO_BREAK_SPACE } from '../constants';
+
 import traverseElements from './traverseElements';
 
 const isEmptyOp = (element: Element): boolean =>

@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
-import { CARRIAGE_RETURN, LINE_FEED, NO_BREAK_SPACE, SPACE } from './constants';
+import { CARRIAGE_RETURN, LINE_FEED, NO_BREAK_SPACE, SPACE } from '../constants';
+
 import traverseTexts from './traverseTexts';
 
 const cleanTextNodes = (rootNode: Node): void => {
