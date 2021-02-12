@@ -1,7 +1,5 @@
 /** @jsx jsx */
 
-import { Editor } from 'slate';
-
 import jsx from '../jsx';
 import { createListsEditor, options } from '../test-utils';
 
