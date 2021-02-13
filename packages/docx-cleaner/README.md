@@ -15,9 +15,8 @@ const MyComponent = () => {
     const [value, setValue] = useState<string>('');
 
     const handlePaste = (event: ClipboardEvent<HTMLTextAreaElement>) => {
-        const clipboardData = event.clipboardData || window.clipboardData;
-        const html = data.getData('text/html');
-        const rtf = data.getData('text/rtf');
+        const html = event.clipboardData.getData('text/html');
+        const rtf = event.clipboardData.getData('text/rtf');
 
         try {
             const cleanHtml = cleanDocx(html, rtf);
