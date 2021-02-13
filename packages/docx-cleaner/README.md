@@ -22,6 +22,7 @@ const MyComponent = () => {
             const cleanHtml = cleanDocx(html, rtf);
             setValue(cleanHtml);
         } catch (error) {
+            setValue(error.message);
             console.error(error);
         }
     };
