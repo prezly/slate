@@ -18,7 +18,7 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
     -   [`Lists`](#Lists)
     -   [`withLists`](#withLists)
     -   [`withListsReact`](#withListsReact)
--   [`Examples`](#Examples)
+    -   [`Examples`](#Examples)
 
 ### Constraints
 
@@ -223,8 +223,8 @@ splitListItem(editor: Editor) => void
 unwrapList(editor: Editor) => void
 
 wrapInList(editor: Editor, listType: string) => void
+```
 
 ### Examples
 
 TODO
-```
