@@ -9,13 +9,13 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 ![Version](https://img.shields.io/npm/v/@prezly/slate-lists)
 ![License](https://img.shields.io/npm/l/@prezly/slate-lists)
 
-## API
+## Documentation
 
 Only core API is documented although all utility functions are exposed. Should you ever need anything beyond the core API, please have a look at [`src/index.ts`](src/index.ts) to see what's available.
 
 ### Assumptions
 
--   all list-related nodes have a `type: string` attribute (you can customize the supported string values via [ListsOptions](#ListsOptions))
+-   all list-related nodes have a `type: string` attribute (you can customize the supported string values via [ListsOptions](src/types.ts))
 -   there is a _default_ node `type` to which this extension can convert list-related nodes to (e.g. during normalization, or unwrapping lists)
 
 ### Schema
@@ -52,35 +52,22 @@ interface ListItemTextNode {
 }
 ```
 
+## API
+
 ### ListsOptions
 
+First you're going to want to define options that will be passed to the extension. Just create an instance of [ListsOptions](src/types.ts) somewhere.
+
 ```tsx
-export interface ListsOptions {
-    /**
-     * Type of the node that "listItemTextType" will become when it is unwrapped or normalized.
-     */
-    defaultBlockType: string;
+import { ListsOptions } from '@prezly/slate-lists';
 
-    /**
-     * Type of the node representing list item text.
-     */
-    listItemTextType: string;
-
-    /**
-     * Type of the node representing list item.
-     */
-    listItemType: string;
-
-    /**
-     * Types of nodes representing lists.
-     */
-    listTypes: string[];
-
-    /**
-     * Types of nodes that can be converted into a node representing list item text.
-     */
-    wrappableTypes: string[];
-}
+const options: ListsOptions = {
+    defaultBlockType: PARAGRAPH_TYPE,
+    listItemTextType: ElementType.LIST_ITEM_TEXT,
+    listItemType: ElementType.LIST_ITEM,
+    listTypes: [ElementType.BULLETED_LIST, ElementType.NUMBERED_LIST],
+    wrappableTypes: [PARAGRAPH_TYPE],
+};
 ```
 
 ### Lists
