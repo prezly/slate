@@ -98,30 +98,49 @@ const lists = Lists(options);
 
 The `lists` object has the following methods:
 
--   [`decreaseDepth(editor: Editor) => void`](src/lib/decreaseDepth.ts)
-    Decrease nesting depth of all "list-items" in the current selection. All "list-items" in the root "list" will become "default" nodes.
+##### [`decreaseDepth(editor: Editor) => void`](src/lib/decreaseDepth.ts)
 
--   [`decreaseListItemDepth(editor: Editor, listItemPath: Path) => void`](src/lib/decreaseListItemDepth.ts)
-    Decrease nesting depth of "list-item" at a given Path. If the "list-item" is in the root "list", it will become a "default" node.
+Decreases nesting depth of all "list-items" in the current selection. All "list-items" in the root "list" will become "default" nodes.
 
--   [`getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListItemsInRange.ts)
--   [`getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListsInRange.ts)
--   [`getListType(node: Node) => string`](src/lib/getListType.ts)
--   [`getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getNestedList.ts)
--   [`getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getParentList.ts)
--   [`getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getParentListItem.ts)
--   [`increaseDepth(editor: Editor) => void`](src/lib/increaseDepth.ts)
--   [`increaseListItemDepth(editor: Editor, listItemPath: Path) => void`](src/lib/increaseListItemDepth.ts)
--   [`isList(node: Node) => node is Element`](src/lib/isList.ts)
--   [`isListItem(node: Node) => node is Element`](src/lib/isListItem.ts)
--   [`isListItemText(node: Node) => node is Element`](src/lib/isListItemText.ts)
--   [`listItemContainsText(editor: Editor, node: Node) => boolean`](src/lib/listItemContainsText.ts)
--   [`moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`](src/lib/moveListItemsToAnotherList.ts)
--   [`moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`](src/lib/moveListToListItem.ts)
--   [`setListType(editor: Editor, listType: string) => void`](src/lib/setListType.ts)
--   [`splitListItem(editor: Editor) => void`](src/lib/splitListItem.ts)
--   [`unwrapList(editor: Editor) => void`](src/lib/unwrapList.ts)
--   [`wrapInList(editor: Editor, listType: string) => void`](src/lib/wrapInList.ts)
+##### [`decreaseListItemDepth(editor: Editor, listItemPath: Path) => void`](src/lib/decreaseListItemDepth.ts)
+
+Decreases nesting depth of "list-item" at a given Path. If the "list-item" is in the root "list", it will become a "default" node.
+
+##### [`getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListItemsInRange.ts)
+
+##### [`getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListsInRange.ts)
+
+##### [`getListType(node: Node) => string`](src/lib/getListType.ts)
+
+##### [`getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getNestedList.ts)
+
+##### [`getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getParentList.ts)
+
+##### [`getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getParentListItem.ts)
+
+##### [`increaseDepth(editor: Editor) => void`](src/lib/increaseDepth.ts)
+
+##### [`increaseListItemDepth(editor: Editor, listItemPath: Path) => void`](src/lib/increaseListItemDepth.ts)
+
+##### [`isList(node: Node) => node is Element`](src/lib/isList.ts)
+
+##### [`isListItem(node: Node) => node is Element`](src/lib/isListItem.ts)
+
+##### [`isListItemText(node: Node) => node is Element`](src/lib/isListItemText.ts)
+
+##### [`listItemContainsText(editor: Editor, node: Node) => boolean`](src/lib/listItemContainsText.ts)
+
+##### [`moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`](src/lib/moveListItemsToAnotherList.ts)
+
+##### [`moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`](src/lib/moveListToListItem.ts)
+
+##### [`setListType(editor: Editor, listType: string) => void`](src/lib/setListType.ts)
+
+##### [`splitListItem(editor: Editor) => void`](src/lib/splitListItem.ts)
+
+##### [`unwrapList(editor: Editor) => void`](src/lib/unwrapList.ts)
+
+##### [`wrapInList(editor: Editor, listType: string) => void`](src/lib/wrapInList.ts)
 
 #### withLists
 
