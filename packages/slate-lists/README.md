@@ -204,18 +204,39 @@ increaseDepth(editor: Editor) => void
  */
 increaseListItemDepth(editor: Editor, listItemPath: Path) => void
 
+/**
+ * Checks whether node.type is an Element matching any of options.listTypes.
+ */
 isList(node: Node) => node is Element
 
+/**
+ * Checks whether node.type is an Element matching options.listItemType.
+ */
 isListItem(node: Node) => node is Element
 
+/**
+ * Checks whether node.type is an Element matching options.listItemTextType.
+ */
 isListItemText(node: Node) => node is Element
 
+/**
+ * Returns true if given "list-item" node contains a non-empty "list-item-text" node.
+ */
 listItemContainsText(editor: Editor, node: Node) => boolean
 
+/**
+ * Moves all "list-items" from one "list" to the end of another "list".
+ */
 moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void
 
+/**
+ * Nests (moves) given "list" in a given "list-item".
+ */
 moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void
 
+/**
+ * Sets "type" of all "list" nodes in the current selection.
+ */
 setListType(editor: Editor, listType: string) => void
 
 splitListItem(editor: Editor) => void

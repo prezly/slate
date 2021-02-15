@@ -4,6 +4,9 @@ import { ListsOptions } from '../types';
 
 import isList from './isList';
 
+/**
+ * Moves all "list-items" from one "list" to the end of another "list".
+ */
 const moveListItemsToAnotherList = (
     options: ListsOptions,
     editor: Editor,

@@ -5,6 +5,9 @@ import { ListsOptions } from '../types';
 import isListItem from './isListItem';
 import isListItemText from './isListItemText';
 
+/**
+ * Returns true if given "list-item" node contains a non-empty "list-item-text" node.
+ */
 const listItemContainsText = (options: ListsOptions, editor: Editor, node: Node): boolean => {
     if (!isListItem(options, node)) {
         return false;
