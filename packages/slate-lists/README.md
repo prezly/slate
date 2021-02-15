@@ -96,7 +96,7 @@ const options: ListsOptions = {
 const lists = Lists(options);
 ```
 
-Now, the `lists` object has the following methods:
+The `lists` object has the following methods:
 
 -   [`decreaseDepth(editor: Editor) => void`](src/lib/decreaseDepth.ts)
 -   [`decreaseListItemDepth(editor: Editor, listItemPath: Path) => void`](src/lib/decreaseListItemDepth.ts)
@@ -121,7 +121,7 @@ Now, the `lists` object has the following methods:
 
 #### withLists
 
-Enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) that enforce [schema](#Schema) constraints and recover from unsupported cases.
+A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
 
 ```tsx
 import { Lists, ListsOptions, withLists } from '@prezly/slate-lists';
