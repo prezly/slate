@@ -54,6 +54,11 @@ interface ListItemTextNode {
 
 ## API
 
+-   [`ListsOptions`](#ListsOptions)
+-   [`Lists`](#Lists)
+-   [`withLists`](#withLists)
+-   [`withListsReact`](#withListsReact)
+
 ### `ListsOptions`
 
 First you're going to want to define options that will be passed to the extension. Just create an instance of [ListsOptions](src/types.ts) somewhere.
@@ -70,7 +75,7 @@ const options: ListsOptions = {
 };
 ```
 
-### Lists
+### `Lists`
 
 The next step is to pass the [ListsOptions](src/types.ts) instance to `Lists` function. It will create an object with utilities and transforms bound to the options you passed to it.
 
