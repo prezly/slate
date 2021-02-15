@@ -67,7 +67,7 @@ Only core API is documented although all utility functions are exposed. Should y
 -   [`withListsReact`](#withListsReact)
 -   [`Lists`](#Lists)
 
-#### `ListsOptions`
+#### `ListsOptions` ([source](src/types.ts))
 
 First you're going to want to define options that will be passed to the extension. Just create an instance of [ListsOptions](src/types.ts) somewhere.
 
