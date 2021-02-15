@@ -142,7 +142,7 @@ Decreases nesting depth of "list-item" at a given Path. If the "list-item" is in
 
 ##### [`wrapInList(editor: Editor, listType: string) => void`](src/lib/wrapInList.ts)
 
-#### withLists
+#### [`withLists<T extends Editor>(editor: T, options: ListsOptions): T`](src/lib/withLists.ts)
 
 A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
 
@@ -158,7 +158,7 @@ const baseEditor = createEditor();
 const editor = withLists(options)(baseEditor);
 ```
 
-#### withListsReact
+#### [`withListsReact<T extends ReactEditor>(editor: T): T`](src/lib/withListsReact.ts)
 
 A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. Enables `Range.prototype.cloneContents` monkey patch to improve pasting behavior in some edge cases.
 
