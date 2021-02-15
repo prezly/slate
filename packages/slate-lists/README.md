@@ -11,15 +11,11 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 
 ## Documentation
 
--   [`Features`](#Features)
--   [`Constraints`](#Constraints)
--   [`Schema`](#Schema)
--   [`API`](#API)
-    -   [`ListsOptions`](#ListsOptions)
-    -   [`Lists`](#Lists)
-    -   [`withLists`](#withLists)
-    -   [`withListsReact`](#withListsReact)
-    -   [Examples](#Examples)
+-   [Features](#Features)
+-   [Constraints](#Constraints)
+-   [Schema](#Schema)
+-   [API](#API)
+-   [Examples](#Examples)
 
 ### Features
 
