@@ -6,6 +6,9 @@ import { ListsOptions } from '../types';
 import decreaseListItemDepth from './decreaseListItemDepth';
 import getListItemsInRange from './getListItemsInRange';
 
+/**
+ * Decrease nesting depth of all "list-items" in the current selection.
+ */
 const decreaseDepth = (options: ListsOptions, editor: Editor): void => {
     if (!editor.selection) {
         return;
