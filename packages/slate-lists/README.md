@@ -34,7 +34,6 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 -   a **list** node can either:
     -   have no parent node
     -   have a parent **list item** node (in that order)
--   every **list**, **list item** and **list item text** node needs to have children
 
 #### TypeScript interface
 
