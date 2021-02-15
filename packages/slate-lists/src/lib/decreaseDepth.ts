@@ -8,6 +8,7 @@ import getListItemsInRange from './getListItemsInRange';
 
 /**
  * Decrease nesting depth of all "list-items" in the current selection.
+ * All "list-items" in the root "list" will become "default" nodes.
  */
 const decreaseDepth = (options: ListsOptions, editor: Editor): void => {
     if (!editor.selection) {

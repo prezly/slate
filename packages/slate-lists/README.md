@@ -54,7 +54,7 @@ interface ListItemTextNode {
 
 ## API
 
-### ListsOptions
+### `ListsOptions`
 
 First you're going to want to define options that will be passed to the extension. Just create an instance of [ListsOptions](src/types.ts) somewhere.
 
@@ -62,11 +62,11 @@ First you're going to want to define options that will be passed to the extensio
 import { ListsOptions } from '@prezly/slate-lists';
 
 const options: ListsOptions = {
-    defaultBlockType: PARAGRAPH_TYPE,
-    listItemTextType: ElementType.LIST_ITEM_TEXT,
-    listItemType: ElementType.LIST_ITEM,
-    listTypes: [ElementType.BULLETED_LIST, ElementType.NUMBERED_LIST],
-    wrappableTypes: [PARAGRAPH_TYPE],
+    defaultBlockType: 'paragraph',
+    listItemTextType: 'list-item-text',
+    listItemType: 'list-item,
+    listTypes: ['ordered-list', 'unordered-list'],
+    wrappableTypes: ['paragraph'],
 };
 ```
 
