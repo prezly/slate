@@ -11,6 +11,7 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 
 ## Documentation
 
+-   [`Features`](#Features)
 -   [`Constraints`](#Constraints)
 -   [`Schema`](#Schema)
 -   [`API`](#API)
@@ -20,20 +21,29 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
     -   [`withListsReact`](#withListsReact)
     -   [Examples](#Examples)
 
+### Features
+
+-   Nested lists
+-   Customizable list types (ordered, bulleted, dashed - anything goes)
+-   Transformations support multiple list items in selection
+-   Normalizations recover from invalid structure (helpful when pasting)
+-   Merges sibling lists of same type
+-   `Range.prototype.cloneContents` monkey patch to improve copying edge cases
+
 ### Constraints
 
 -   all list-related nodes have a `type: string` attribute (you can customize the supported string values via [ListsOptions](src/types.ts))
--   there is a _default_ node `type` to which this extension can convert list-related nodes to (e.g. during normalization, or unwrapping lists)
+-   there is an assumption that a _default_ node `type` to which this extension can convert list-related nodes to exists (e.g. during normalization, or unwrapping lists)
 
 ### Schema
 
 -   a **list** node can only contain **list item** nodes
 -   a **list item** node can contain either:
     -   a **list item text** node
-    -   a **list item text** node and a **list** node (nested list)
+    -   a **list item text** node and a **list** node (in that order) (nesting lists)
 -   a **list** node can either:
     -   have no parent node
-    -   have a parent **list item** node (in that order)
+    -   have a parent **list item** node
 
 #### TypeScript interface
 
