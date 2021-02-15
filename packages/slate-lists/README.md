@@ -63,9 +63,9 @@ interface ListItemTextNode {
 Only core API is documented although all utility functions are exposed. Should you ever need anything beyond the core API, please have a look at [`src/index.ts`](src/index.ts) to see what's available.
 
 -   [`ListsOptions`](#ListsOptions)
--   [`Lists`](#Lists)
 -   [`withLists`](#withLists)
 -   [`withListsReact`](#withListsReact)
+-   [`Lists`](#Lists)
 
 #### `ListsOptions`
 
@@ -81,6 +81,46 @@ const options: ListsOptions = {
     listTypes: ['ordered-list', 'unordered-list'],
     wrappableTypes: ['paragraph'],
 };
+```
+
+#### `withLists<T extends Editor>(editor: T, options: ListsOptions): T` ([source](src/lib/withLists.ts))
+
+A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
+
+```tsx
+import { Lists, ListsOptions, withLists } from '@prezly/slate-lists';
+import { createEditor } from 'slate';
+
+const options: ListsOptions = {
+    /* ... */
+};
+
+const baseEditor = createEditor();
+const editor = withLists(options)(baseEditor);
+```
+
+#### `withListsReact<T extends ReactEditor>(editor: T): T` ([source](src/lib/withListsReact.ts))
+
+A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. Enables `Range.prototype.cloneContents` monkey patch to improve pasting behavior in some edge cases.
+
+```tsx
+import { Lists, ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
+import React, { useMemo } from 'react';
+import { createEditor } from 'slate';
+import { withReact } from 'slate-react';
+
+const options: ListsOptions = {
+    /* ... */
+};
+
+const MyEditor = (/* ... */) => {
+    const baseEditor = useMemo(() => withReact(createEditor()), []);
+    const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
+
+    /* ... */
+};
+
+export default MyEditor;
 ```
 
 #### `Lists`
@@ -141,43 +181,3 @@ Decreases nesting depth of "list-item" at a given Path. If the "list-item" is in
 ##### `unwrapList(editor: Editor) => void` ([source](src/lib/unwrapList.ts))
 
 ##### `wrapInList(editor: Editor, listType: string) => void` ([source](src/lib/wrapInList.ts))
-
-#### `withLists<T extends Editor>(editor: T, options: ListsOptions): T` ([source](src/lib/withLists.ts))
-
-A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
-
-```tsx
-import { Lists, ListsOptions, withLists } from '@prezly/slate-lists';
-import { createEditor } from 'slate';
-
-const options: ListsOptions = {
-    /* ... */
-};
-
-const baseEditor = createEditor();
-const editor = withLists(options)(baseEditor);
-```
-
-#### `withListsReact<T extends ReactEditor>(editor: T): T` ([source](src/lib/withListsReact.ts))
-
-A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. Enables `Range.prototype.cloneContents` monkey patch to improve pasting behavior in some edge cases.
-
-```tsx
-import { Lists, ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
-import React, { useMemo } from 'react';
-import { createEditor } from 'slate';
-import { withReact } from 'slate-react';
-
-const options: ListsOptions = {
-    /* ... */
-};
-
-const MyEditor = (/* ... */) => {
-    const baseEditor = useMemo(() => withReact(createEditor()), []);
-    const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
-
-    /* ... */
-};
-
-export default MyEditor;
-```
