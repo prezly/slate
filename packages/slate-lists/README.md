@@ -18,7 +18,7 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
     -   [`Lists`](#Lists)
     -   [`withLists`](#withLists)
     -   [`withListsReact`](#withListsReact)
-    -   [`Examples`](#Examples)
+    -   [Examples](#Examples)
 
 ### Constraints
 
@@ -239,10 +239,23 @@ moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEn
  */
 setListType(editor: Editor, listType: string) => void
 
+/**
+ * Collapses the current selection (by removing everything in it) and if the cursor
+ * ends up in a "list-item" node, it will break that "list-item" into 2 nodes, splitting
+ * the text at the cursor location.
+ */
 splitListItem(editor: Editor) => void
 
+/**
+ * Unwraps all "list-items" in the current selection.
+ * No list be left in the current selection.
+ */
 unwrapList(editor: Editor) => void
 
+/**
+ * All nodes matching options.wrappableTypes in the current selection
+ * will be converted to "list-items" and wrapped in "lists".
+ */
 wrapInList(editor: Editor, listType: string) => void
 ```
 
