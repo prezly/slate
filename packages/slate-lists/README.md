@@ -134,6 +134,14 @@ const options: ListsOptions = {
     /* ... */
 };
 const lists = Lists(options);
+
+const MyComponent = ({ editor }) => (
+    <>
+        <button onClick={() => lists.wrapInList(editor, 'bulleted-list')}>Bulleted list</button>
+        <button onClick={() => lists.wrapInList(editor, 'numbered-list')}>Numbered list</button>
+        <button onClick={() => lists.unwrapList(editor)}>Remove list</button>
+    </>
+);
 ```
 
 The `lists` object has the following methods:
