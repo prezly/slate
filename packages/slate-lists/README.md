@@ -22,7 +22,7 @@ API is inspired by https://github.com/GitbookIO/slate-edit-list.
 -   Transformations support multiple list items in selection
 -   Normalizations recover from invalid structure (helpful when pasting)
 -   Merges sibling lists of same type
--   `Range.prototype.cloneContents` monkey patch to improve copying edge cases
+-   `Range.prototype.cloneContents` monkey patch to improve edge cases that occur when copying lists
 
 ## Constraints
 
