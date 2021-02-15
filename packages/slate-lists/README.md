@@ -98,51 +98,51 @@ const lists = Lists(options);
 
 The `lists` object has the following methods:
 
-##### [`decreaseDepth(editor: Editor) => void`](src/lib/decreaseDepth.ts)
+##### `decreaseDepth(editor: Editor) => void` ([source](src/lib/decreaseDepth.ts))
 
 Decreases nesting depth of all "list-items" in the current selection. All "list-items" in the root "list" will become "default" nodes.
 
-##### [`decreaseListItemDepth(editor: Editor, listItemPath: Path) => void`](src/lib/decreaseListItemDepth.ts)
+##### `decreaseListItemDepth(editor: Editor, listItemPath: Path) => void` ([source](src/lib/decreaseListItemDepth.ts))
 
 Decreases nesting depth of "list-item" at a given Path. If the "list-item" is in the root "list", it will become a "default" node.
 
-##### [`getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListItemsInRange.ts)
+##### `getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]` ([source](src/lib/getListItemsInRange.ts))
 
-##### [`getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListsInRange.ts)
+##### `getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]` ([source](src/lib/getListsInRange.ts))
 
-##### [`getListType(node: Node) => string`](src/lib/getListType.ts)
+##### `getListType(node: Node) => string` ([source](src/lib/getListType.ts))
 
-##### [`getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getNestedList.ts)
+##### `getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null` ([source](src/lib/getNestedList.ts))
 
-##### [`getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getParentList.ts)
+##### `getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null` ([source](src/lib/getParentList.ts))
 
-##### [`getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getParentListItem.ts)
+##### `getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null` ([source](src/lib/getParentListItem.ts))
 
-##### [`increaseDepth(editor: Editor) => void`](src/lib/increaseDepth.ts)
+##### `increaseDepth(editor: Editor) => void` ([source](src/lib/increaseDepth.ts))
 
-##### [`increaseListItemDepth(editor: Editor, listItemPath: Path) => void`](src/lib/increaseListItemDepth.ts)
+##### `increaseListItemDepth(editor: Editor, listItemPath: Path) => void` ([source](src/lib/increaseListItemDepth.ts))
 
-##### [`isList(node: Node) => node is Element`](src/lib/isList.ts)
+##### `isList(node: Node) => node is Element` ([source](src/lib/isList.ts))
 
-##### [`isListItem(node: Node) => node is Element`](src/lib/isListItem.ts)
+##### `isListItem(node: Node) => node is Element` ([source](src/lib/isListItem.ts))
 
-##### [`isListItemText(node: Node) => node is Element`](src/lib/isListItemText.ts)
+##### `isListItemText(node: Node) => node is Element` ([source](src/lib/isListItemText.ts))
 
-##### [`listItemContainsText(editor: Editor, node: Node) => boolean`](src/lib/listItemContainsText.ts)
+##### `listItemContainsText(editor: Editor, node: Node) => boolean` ([source](src/lib/listItemContainsText.ts))
 
-##### [`moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`](src/lib/moveListItemsToAnotherList.ts)
+##### `moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void` ([source](src/lib/moveListItemsToAnotherList.ts))
 
-##### [`moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`](src/lib/moveListToListItem.ts)
+##### `moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void` ([source](src/lib/moveListToListItem.ts))
 
-##### [`setListType(editor: Editor, listType: string) => void`](src/lib/setListType.ts)
+##### `setListType(editor: Editor, listType: string) => void` ([source](src/lib/setListType.ts))
 
-##### [`splitListItem(editor: Editor) => void`](src/lib/splitListItem.ts)
+##### `splitListItem(editor: Editor) => void` ([source](src/lib/splitListItem.ts))
 
-##### [`unwrapList(editor: Editor) => void`](src/lib/unwrapList.ts)
+##### `unwrapList(editor: Editor) => void` ([source](src/lib/unwrapList.ts))
 
-##### [`wrapInList(editor: Editor, listType: string) => void`](src/lib/wrapInList.ts)
+##### `wrapInList(editor: Editor, listType: string) => void` ([source](src/lib/wrapInList.ts))
 
-#### [`withLists<T extends Editor>(editor: T, options: ListsOptions): T`](src/lib/withLists.ts)
+#### `withLists<T extends Editor>(editor: T, options: ListsOptions): T` ([source](src/lib/withLists.ts))
 
 A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
 
@@ -158,7 +158,7 @@ const baseEditor = createEditor();
 const editor = withLists(options)(baseEditor);
 ```
 
-#### [`withListsReact<T extends ReactEditor>(editor: T): T`](src/lib/withListsReact.ts)
+#### `withListsReact<T extends ReactEditor>(editor: T): T` ([source](src/lib/withListsReact.ts))
 
 A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. Enables `Range.prototype.cloneContents` monkey patch to improve pasting behavior in some edge cases.
 
