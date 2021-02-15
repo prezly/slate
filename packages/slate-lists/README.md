@@ -101,7 +101,7 @@ const editor = withLists(options)(baseEditor);
 
 #### `withListsReact<T extends ReactEditor>(editor: T): T` ([source](src/lib/withListsReact.ts))
 
-You may also want to use `withListsReact` on the client-side - it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. It enables `Range.prototype.cloneContents` monkey patch to improve pasting behavior in some edge cases.
+You may also want to use `withListsReact` on the client-side - it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. It enables `Range.prototype.cloneContents` monkey patch to improve copying behavior in some edge cases.
 
 ```tsx
 import { Lists, ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
