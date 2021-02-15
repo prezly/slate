@@ -11,8 +11,6 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 
 ## Documentation
 
-Only core API is documented although all utility functions are exposed. Should you ever need anything beyond the core API, please have a look at [`src/index.ts`](src/index.ts) to see what's available.
-
 -   [`Constraints`](#Constraints)
 -   [`Schema`](#Schema)
 -   [`API`](#API)
@@ -61,6 +59,8 @@ interface ListItemTextNode {
 ```
 
 ### API
+
+Only core API is documented although all utility functions are exposed. Should you ever need anything beyond the core API, please have a look at [`src/index.ts`](src/index.ts) to see what's available.
 
 -   [`ListsOptions`](#ListsOptions)
 -   [`Lists`](#Lists)
