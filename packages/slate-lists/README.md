@@ -9,7 +9,7 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 ![Version](https://img.shields.io/npm/v/@prezly/slate-lists)
 ![License](https://img.shields.io/npm/l/@prezly/slate-lists)
 
-## Documentation
+## Table of contents
 
 -   [Features](#Features)
 -   [Constraints](#Constraints)
@@ -17,7 +17,7 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 -   [API](#API)
 -   [Examples](#Examples)
 
-### Features
+## Features
 
 -   Nested lists
 -   Customizable list types (ordered, bulleted, dashed - anything goes)
@@ -26,12 +26,12 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 -   Merges sibling lists of same type
 -   `Range.prototype.cloneContents` monkey patch to improve copying edge cases
 
-### Constraints
+## Constraints
 
 -   all list-related nodes have a `type: string` attribute (you can customize the supported string values via [ListsOptions](src/types.ts))
 -   there is an assumption that a _default_ node `type` to which this extension can convert list-related nodes to exists (e.g. during normalization, or unwrapping lists)
 
-### Schema
+## Schema
 
 -   a **list** node can only contain **list item** nodes
 -   a **list item** node can contain either:
@@ -41,7 +41,7 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
     -   have no parent node
     -   have a parent **list item** node
 
-#### TypeScript interface
+### TypeScript interface
 
 Sometimes code can be better than words. Here are example TypeScript interfaces that describe the above schema (some schema rules are not expressible in TypeScript, so please treat it just as a quick overview).
 
@@ -64,7 +64,7 @@ interface ListItemTextNode {
 }
 ```
 
-### API
+## API
 
 Only core API is documented although all utility functions are exposed. Should you ever need anything beyond the core API, please have a look at [`src/index.ts`](src/index.ts) to see what's available.
 
@@ -73,7 +73,7 @@ Only core API is documented although all utility functions are exposed. Should y
 -   [`withListsReact`](#withListsReact)
 -   [`Lists`](#Lists)
 
-#### `ListsOptions` ([source](src/types.ts))
+### `ListsOptions` ([source](src/types.ts))
 
 First you're going to want to define options that will be passed to the extension. Just create an instance of [ListsOptions](src/types.ts) somewhere.
 
@@ -89,7 +89,7 @@ const options: ListsOptions = {
 };
 ```
 
-#### `withLists<T extends Editor>(editor: T, options: ListsOptions): T` ([source](src/lib/withLists.ts))
+### `withLists<T extends Editor>(editor: T, options: ListsOptions): T` ([source](src/lib/withLists.ts))
 
 The next step is to use the `withLists` plugin. It's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
 
@@ -105,7 +105,7 @@ const baseEditor = createEditor();
 const editor = withLists(options)(baseEditor);
 ```
 
-#### `withListsReact<T extends ReactEditor>(editor: T): T` ([source](src/lib/withListsReact.ts))
+### `withListsReact<T extends ReactEditor>(editor: T): T` ([source](src/lib/withListsReact.ts))
 
 You may also want to use `withListsReact` on the client-side - it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. It enables `Range.prototype.cloneContents` monkey patch to improve copying behavior in some edge cases.
 
@@ -129,7 +129,7 @@ const MyEditor = (/* ... */) => {
 export default MyEditor;
 ```
 
-#### `Lists`
+### `Lists`
 
 It's time to pass the [ListsOptions](src/types.ts) instance to `Lists` function. It will create an object (`lists`) with utilities and transforms bound to the options you passed to it. Those are the building blocks you're going to use when adding lists support to your editor. Use them to implement UI controls, keyboard shortcuts, etc.
 
@@ -265,6 +265,6 @@ unwrapList(editor: Editor) => void
 wrapInList(editor: Editor, listType: string) => void
 ```
 
-### Examples
+## Examples
 
 TODO
