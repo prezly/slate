@@ -87,7 +87,7 @@ Now, the `lists` object has the following methods:
 
 -   [`decreaseDepth(editor: Editor) => void`](src/lib/decreaseDepth.ts)
 -   [`decreaseListItemDepth(editor: Editor, listItemPath: Path) => void`](src/lib/decreaseListItemDepth.ts)
--   [`getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]](src/lib/getListItemsInRange.ts)`
+-   [`getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListItemsInRange.ts)
 -   [`getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListsInRange.ts)
 -   [`getListType(node: Node) => string`](src/lib/getListType.ts)
 -   [`getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`](src/lib/getNestedList.ts)
@@ -99,8 +99,8 @@ Now, the `lists` object has the following methods:
 -   [`isListItem(node: Node) => node is Element`](src/lib/isListItem.ts)
 -   [`isListItemText(node: Node) => node is Element`](src/lib/isListItemText.ts)
 -   [`listItemContainsText(editor: Editor, node: Node) => boolean`](src/lib/listItemContainsText.ts)
--   [`moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: ](src/lib/moveListItemsToAnotherList.ts)NodeEntry<Node>; }) => void`
--   [`moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<](src/lib/moveListToListItem.ts)Node>; }) => void`
+-   [`moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`](src/lib/moveListItemsToAnotherList.ts)
+-   [`moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`](src/lib/moveListToListItem.ts)
 -   [`setListType(editor: Editor, listType: string) => void`](src/lib/setListType.ts)
 -   [`splitListItem(editor: Editor) => void`](src/lib/splitListItem.ts)
 -   [`unwrapList(editor: Editor) => void`](src/lib/unwrapList.ts)
