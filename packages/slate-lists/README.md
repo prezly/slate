@@ -13,6 +13,14 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 
 Only core API is documented although all utility functions are exposed. Should you ever need anything beyond the core API, please have a look at [`src/index.ts`](src/index.ts) to see what's available.
 
+-   [`Assumptions`](#Assumptions)
+-   [`Schema`](#Schema)
+-   [`API`](#API)
+    -   [`ListsOptions`](#ListsOptions)
+    -   [`Lists`](#Lists)
+    -   [`withLists`](#withLists)
+    -   [`withListsReact`](#withListsReact)
+
 ### Assumptions
 
 -   all list-related nodes have a `type: string` attribute (you can customize the supported string values via [ListsOptions](src/types.ts))
@@ -52,14 +60,14 @@ interface ListItemTextNode {
 }
 ```
 
-## API
+### API
 
 -   [`ListsOptions`](#ListsOptions)
 -   [`Lists`](#Lists)
 -   [`withLists`](#withLists)
 -   [`withListsReact`](#withListsReact)
 
-### `ListsOptions`
+#### `ListsOptions`
 
 First you're going to want to define options that will be passed to the extension. Just create an instance of [ListsOptions](src/types.ts) somewhere.
 
@@ -75,7 +83,7 @@ const options: ListsOptions = {
 };
 ```
 
-### `Lists`
+#### `Lists`
 
 The next step is to pass the [ListsOptions](src/types.ts) instance to `Lists` function. It will create an object with utilities and transforms bound to the options you passed to it.
 
@@ -111,6 +119,6 @@ Now, the `lists` object has the following methods:
 -   [`unwrapList(editor: Editor) => void`](src/lib/unwrapList.ts)
 -   [`wrapInList(editor: Editor, listType: string) => void`](src/lib/wrapInList.ts)
 
-### withLists
+#### withLists
 
-### withListsReact
+#### withListsReact
