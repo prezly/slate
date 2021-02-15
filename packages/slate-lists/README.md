@@ -18,6 +18,7 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
     -   [`Lists`](#Lists)
     -   [`withLists`](#withLists)
     -   [`withListsReact`](#withListsReact)
+-   [`Examples`](#Examples)
 
 ### Constraints
 
@@ -181,3 +182,7 @@ Decreases nesting depth of "list-item" at a given Path. If the "list-item" is in
 ##### `unwrapList(editor: Editor) => void` ([source](src/lib/unwrapList.ts))
 
 ##### `wrapInList(editor: Editor, listType: string) => void` ([source](src/lib/wrapInList.ts))
+
+### Examples
+
+TODO
