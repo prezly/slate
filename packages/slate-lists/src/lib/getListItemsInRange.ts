@@ -2,6 +2,10 @@ import { Editor, Node, NodeEntry, Path, Range } from 'slate';
 
 import { ListsOptions } from '../types';
 
+/**
+ * Returns all "list-items" in a given Range.
+ * @param at defaults to current selection if not specified
+ */
 const getListItemsInRange = (
     options: ListsOptions,
     editor: Editor,

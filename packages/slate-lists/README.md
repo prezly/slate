@@ -138,50 +138,60 @@ const lists = Lists(options);
 
 The `lists` object has the following methods:
 
-##### `decreaseDepth(editor: Editor) => void` ([source](src/lib/decreaseDepth.ts))
+```tsx
+/**
+ * Decreases nesting depth of all "list-items" in the current selection.
+ * All "list-items" in the root "list" will become "default" nodes.
+ */
+decreaseDepth(options: ListsOptions, editor: Editor) => void;
 
-Decreases nesting depth of all "list-items" in the current selection. All "list-items" in the root "list" will become "default" nodes.
+/**
+ * Decreases nesting depth of "list-item" at a given Path.
+ * If the "list-item" is in the root "list", it will become a "default" node.
+ */
+decreaseListItemDepth(options: ListsOptions, editor: Editor, listItemPath: Path) => void;
 
-##### `decreaseListItemDepth(editor: Editor, listItemPath: Path) => void` ([source](src/lib/decreaseListItemDepth.ts))
+/**
+ * Returns all "list-items" in a given Range.
+ * @param at defaults to current selection if not specified
+ */
+getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]
 
-Decreases nesting depth of "list-item" at a given Path. If the "list-item" is in the root "list", it will become a "default" node.
+getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]
 
-##### `getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]` ([source](src/lib/getListItemsInRange.ts))
+getListType(node: Node) => string
 
-##### `getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]` ([source](src/lib/getListsInRange.ts))
+getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
-##### `getListType(node: Node) => string` ([source](src/lib/getListType.ts))
+getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
-##### `getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null` ([source](src/lib/getNestedList.ts))
+getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
-##### `getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null` ([source](src/lib/getParentList.ts))
+increaseDepth(editor: Editor) => void
 
-##### `getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null` ([source](src/lib/getParentListItem.ts))
+increaseListItemDepth(editor: Editor, listItemPath: Path) => void
 
-##### `increaseDepth(editor: Editor) => void` ([source](src/lib/increaseDepth.ts))
+isList(node: Node) => node is Element
 
-##### `increaseListItemDepth(editor: Editor, listItemPath: Path) => void` ([source](src/lib/increaseListItemDepth.ts))
+isListItem(node: Node) => node is Element
 
-##### `isList(node: Node) => node is Element` ([source](src/lib/isList.ts))
+isListItemText(node: Node) => node is Element
 
-##### `isListItem(node: Node) => node is Element` ([source](src/lib/isListItem.ts))
+listItemContainsText(editor: Editor, node: Node) => boolean
 
-##### `isListItemText(node: Node) => node is Element` ([source](src/lib/isListItemText.ts))
+moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void
 
-##### `listItemContainsText(editor: Editor, node: Node) => boolean` ([source](src/lib/listItemContainsText.ts))
+moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void
 
-##### `moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void` ([source](src/lib/moveListItemsToAnotherList.ts))
+setListType(editor: Editor, listType: string) => void
 
-##### `moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void` ([source](src/lib/moveListToListItem.ts))
+splitListItem(editor: Editor) => void
 
-##### `setListType(editor: Editor, listType: string) => void` ([source](src/lib/setListType.ts))
+unwrapList(editor: Editor) => void
 
-##### `splitListItem(editor: Editor) => void` ([source](src/lib/splitListItem.ts))
-
-##### `unwrapList(editor: Editor) => void` ([source](src/lib/unwrapList.ts))
-
-##### `wrapInList(editor: Editor, listType: string) => void` ([source](src/lib/wrapInList.ts))
+wrapInList(editor: Editor, listType: string) => void
 
 ### Examples
 
 TODO
+```
