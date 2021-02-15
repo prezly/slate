@@ -99,7 +99,11 @@ const lists = Lists(options);
 The `lists` object has the following methods:
 
 -   [`decreaseDepth(editor: Editor) => void`](src/lib/decreaseDepth.ts)
+    Decrease nesting depth of all "list-items" in the current selection. All "list-items" in the root "list" will become "default" nodes.
+
 -   [`decreaseListItemDepth(editor: Editor, listItemPath: Path) => void`](src/lib/decreaseListItemDepth.ts)
+    Decrease nesting depth of "list-item" at a given Path. If the "list-item" is in the root "list", it will become a "default" node.
+
 -   [`getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListItemsInRange.ts)
 -   [`getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`](src/lib/getListsInRange.ts)
 -   [`getListType(node: Node) => string`](src/lib/getListType.ts)
