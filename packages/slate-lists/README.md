@@ -72,27 +72,39 @@ const options: ListsOptions = {
 
 ### Lists
 
-### `decreaseDepth(editor: Editor) => void`
+The next step is to pass the [ListsOptions](src/types.ts) instance to `Lists` function. It will create an object with utilities and transforms bound to the options you passed to it.
 
--   decreaseListItemDepth
--   getListItemsInRange
--   getListsInRange
--   getListType
--   getNestedList
--   getParentList
--   getParentListItem
--   increaseDepth
--   increaseListItemDepth
--   isList
--   isListItem
--   isListItemText
--   listItemContainsText
--   moveListItemsToAnotherList
--   moveListToListItem
--   setListType
--   splitListItem
--   unwrapList
--   wrapInList
+```tsx
+import { Lists } from '@prezly/slate-lists';
+
+const options: ListsOptions = {
+    /* ... */
+};
+const lists = Lists(options);
+```
+
+Now, the `lists` object has the following methods:
+
+-   `decreaseDepth(editor: Editor) => void`
+-   `decreaseListItemDepth(editor: Editor, listItemPath: Path) => void`
+-   `getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`
+-   `getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]`
+-   `getListType(node: Node) => string`
+-   `getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`
+-   `getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`
+-   `getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null`
+-   `increaseDepth(editor: Editor) => void`
+-   `increaseListItemDepth(editor: Editor, listItemPath: Path) => void`
+-   `isList(node: Node) => node is Element`
+-   `isListItem(node: Node) => node is Element`
+-   `isListItemText(node: Node) => node is Element`
+-   `listItemContainsText(editor: Editor, node: Node) => boolean`
+-   `moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`
+-   `moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void`
+-   `setListType(editor: Editor, listType: string) => void`
+-   `splitListItem(editor: Editor) => void`
+-   `unwrapList(editor: Editor) => void`
+-   `wrapInList(editor: Editor, listType: string) => void`
 
 ### withLists
 
