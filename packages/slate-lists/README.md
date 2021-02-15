@@ -13,7 +13,7 @@ API is based on https://github.com/GitbookIO/slate-edit-list. But it works much 
 
 Only core API is documented although all utility functions are exposed. Should you ever need anything beyond the core API, please have a look at [`src/index.ts`](src/index.ts) to see what's available.
 
--   [`Assumptions`](#Assumptions)
+-   [`Constraints`](#Constraints)
 -   [`Schema`](#Schema)
 -   [`API`](#API)
     -   [`ListsOptions`](#ListsOptions)
@@ -21,7 +21,7 @@ Only core API is documented although all utility functions are exposed. Should y
     -   [`withLists`](#withLists)
     -   [`withListsReact`](#withListsReact)
 
-### Assumptions
+### Constraints
 
 -   all list-related nodes have a `type: string` attribute (you can customize the supported string values via [ListsOptions](src/types.ts))
 -   there is a _default_ node `type` to which this extension can convert list-related nodes to (e.g. during normalization, or unwrapping lists)
@@ -88,7 +88,7 @@ const options: ListsOptions = {
 The next step is to pass the [ListsOptions](src/types.ts) instance to `Lists` function. It will create an object with utilities and transforms bound to the options you passed to it.
 
 ```tsx
-import { Lists } from '@prezly/slate-lists';
+import { Lists, ListsOptions } from '@prezly/slate-lists';
 
 const options: ListsOptions = {
     /* ... */
@@ -121,4 +121,40 @@ Now, the `lists` object has the following methods:
 
 #### withLists
 
+Enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) that enforce [schema](#Schema) constraints and recover from unsupported cases.
+
+```tsx
+import { Lists, ListsOptions, withLists } from '@prezly/slate-lists';
+import { createEditor } from 'slate';
+
+const options: ListsOptions = {
+    /* ... */
+};
+
+const baseEditor = createEditor();
+const editor = withLists(options)(baseEditor);
+```
+
 #### withListsReact
+
+A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. Enables `Range.prototype.cloneContents` monkey patch to improve pasting behavior in some edge cases.
+
+```tsx
+import { Lists, ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
+import React, { useMemo } from 'react';
+import { createEditor } from 'slate';
+import { withReact } from 'slate-react';
+
+const options: ListsOptions = {
+    /* ... */
+};
+
+const MyEditor = (/* ... */) => {
+    const baseEditor = useMemo(() => withReact(createEditor()), []);
+    const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
+
+    /* ... */
+};
+
+export default MyEditor;
+```

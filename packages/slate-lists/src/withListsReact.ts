@@ -4,6 +4,10 @@ import { ReactEditor } from 'slate-react';
 
 import { cloneContentsMonkeyPatch } from './lib';
 
+/**
+ * Enables Range.prototype.cloneContents monkey patch to improve pasting behavior
+ * in few edge cases.
+ */
 const withListsReact = <T extends ReactEditor>(editor: T): T => {
     const { setFragmentData } = editor;
 
