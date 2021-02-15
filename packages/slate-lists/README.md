@@ -85,7 +85,7 @@ const options: ListsOptions = {
 
 #### `withLists<T extends Editor>(editor: T, options: ListsOptions): T` ([source](src/lib/withLists.ts))
 
-A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
+The next step is to use the `withLists` plugin. It's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
 
 ```tsx
 import { Lists, ListsOptions, withLists } from '@prezly/slate-lists';
@@ -101,7 +101,7 @@ const editor = withLists(options)(baseEditor);
 
 #### `withListsReact<T extends ReactEditor>(editor: T): T` ([source](src/lib/withListsReact.ts))
 
-A [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. Enables `Range.prototype.cloneContents` monkey patch to improve pasting behavior in some edge cases.
+You may also want to use `withListsReact` on the client-side - it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. It enables `Range.prototype.cloneContents` monkey patch to improve pasting behavior in some edge cases.
 
 ```tsx
 import { Lists, ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
@@ -125,7 +125,7 @@ export default MyEditor;
 
 #### `Lists`
 
-The next step is to pass the [ListsOptions](src/types.ts) instance to `Lists` function. It will create an object with utilities and transforms bound to the options you passed to it.
+It's time to pass the [ListsOptions](src/types.ts) instance to `Lists` function. It will create an object (`lists`) with utilities and transforms bound to the options you passed to it. Those are the building blocks you're going to use when adding lists support to your editor. Use them to implement UI controls, keyboard shortcuts, etc.
 
 ```tsx
 import { Lists, ListsOptions } from '@prezly/slate-lists';
