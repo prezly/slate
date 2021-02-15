@@ -2,7 +2,7 @@
 
 The best Slate lists extension out there.
 
-API is based on https://github.com/GitbookIO/slate-edit-list.
+API is inspired by https://github.com/GitbookIO/slate-edit-list.
 
 ![Version](https://img.shields.io/npm/v/@prezly/slate-lists)
 ![License](https://img.shields.io/npm/l/@prezly/slate-lists)
