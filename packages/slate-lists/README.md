@@ -86,7 +86,7 @@ import { ListsOptions } from '@prezly/slate-lists';
 const options: ListsOptions = {
     defaultBlockType: 'paragraph',
     listItemTextType: 'list-item-text',
-    listItemType: 'list-item,
+    listItemType: 'list-item',
     listTypes: ['ordered-list', 'unordered-list'],
     wrappableTypes: ['paragraph'],
 };
