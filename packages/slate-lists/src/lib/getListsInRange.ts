@@ -5,6 +5,10 @@ import { ListsOptions } from '../types';
 import getListItemsInRange from './getListItemsInRange';
 import getParentList from './getParentList';
 
+/**
+ * Returns all "lists" in a given Range.
+ * @param at defaults to current selection if not specified
+ */
 const getListsInRange = (
     options: ListsOptions,
     editor: Editor,

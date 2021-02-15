@@ -9,7 +9,6 @@ import increaseListItemDepth from './increaseListItemDepth';
 
 /**
  * Decreases nesting depth of "list-item" at a given Path.
- * If the "list-item" is in the root "list", it will become a "default" node.
  */
 const decreaseListItemDepth = (options: ListsOptions, editor: Editor, listItemPath: Path): void => {
     const parentList = getParentList(options, editor, listItemPath);

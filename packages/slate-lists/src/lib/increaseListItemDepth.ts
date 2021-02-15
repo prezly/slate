@@ -9,6 +9,9 @@ import getListType from './getListType';
 import isList from './isList';
 import isListItem from './isListItem';
 
+/**
+ * Increases nesting depth of "list-item" at a given Path.
+ */
 const increaseListItemDepth = (options: ListsOptions, editor: Editor, listItemPath: Path): void => {
     const previousListItem = EditorCommands.getPreviousSibling(editor, listItemPath);
 

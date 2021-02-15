@@ -155,7 +155,6 @@ decreaseDepth(options: ListsOptions, editor: Editor) => void;
 
 /**
  * Decreases nesting depth of "list-item" at a given Path.
- * If the "list-item" is in the root "list", it will become a "default" node.
  */
 decreaseListItemDepth(options: ListsOptions, editor: Editor, listItemPath: Path) => void;
 
@@ -165,18 +164,44 @@ decreaseListItemDepth(options: ListsOptions, editor: Editor, listItemPath: Path)
  */
 getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]
 
+/**
+ * Returns all "lists" in a given Range.
+ * @param at defaults to current selection if not specified
+ */
 getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]
 
+/**
+ * Returns the "type" of a given list node.
+ */
 getListType(node: Node) => string
 
+/**
+ * Returns "list" node nested in "list-item" at a given path.
+ * Returns null if there is no nested "list".
+ */
 getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
+/**
+ * Returns parent "list" node of "list-item" at a given path.
+ * Returns null if there is no parent "list".
+ */
 getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
+/**
+ * Returns parent "list-item" node of "list-item" at a given path.
+ * Returns null if there is no parent "list-item".
+ */
 getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
+/**
+ * Increases nesting depth of all "list-items" in the current selection.
+ * All nodes matching options.wrappableTypes in the selection will be converted to "list-items" and wrapped in a "list".
+ */
 increaseDepth(editor: Editor) => void
 
+/**
+ * Increases nesting depth of "list-item" at a given Path.
+ */
 increaseListItemDepth(editor: Editor, listItemPath: Path) => void
 
 isList(node: Node) => node is Element
