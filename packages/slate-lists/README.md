@@ -39,7 +39,9 @@ API is inspired by https://github.com/GitbookIO/slate-edit-list.
     -   have no parent node
     -   have a parent **list item** node
 
-### TypeScript interface
+<details>
+<summary>TypeScript interfaces</summary>
+<p>
 
 Sometimes code can be better than words. Here are example TypeScript interfaces that describe the above schema (some schema rules are not expressible in TypeScript, so please treat it just as a quick overview).
 
@@ -61,6 +63,9 @@ interface ListItemTextNode {
     type: 'list-item-text'; // see ListsOptions to customize this
 }
 ```
+
+</p>
+</details>
 
 ## API
 
