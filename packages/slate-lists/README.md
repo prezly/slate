@@ -1,8 +1,8 @@
 # @prezly/slate-lists
 
-The best Slate lists extension out there.
+Demo: https://h9xxi.csb.app/ ([source code](https://codesandbox.io/s/h9xxi)).
 
-See it in action at https://h9xxi.csb.app/ ([source](https://codesandbox.io/s/relaxed-brattain-h9xxi)).
+The best Slate lists extension out there.
 
 API is inspired by https://github.com/GitbookIO/slate-edit-list.
 
@@ -15,7 +15,6 @@ API is inspired by https://github.com/GitbookIO/slate-edit-list.
 -   [Constraints](#Constraints)
 -   [Schema](#Schema)
 -   [API](#API)
--   [Examples](#Examples)
 
 ## Features
 
@@ -73,7 +72,7 @@ interface ListItemTextNode {
 
 Only core API is documented although all utility functions are exposed. Should you ever need anything beyond the core API, please have a look at [`src/index.ts`](src/index.ts) to see what's available.
 
--   [`Example`](#Example)
+-   [Example](#Example)
 -   [`ListsOptions`](#ListsOptions)
 -   [`withLists`](#withLists)
 -   [`withListsReact`](#withListsReact)
@@ -81,7 +80,8 @@ Only core API is documented although all utility functions are exposed. Should y
 
 ### Example
 
-Source code: https://codesandbox.io/s/relaxed-brattain-h9xxi
+Source code: https://codesandbox.io/s/h9xxi
+
 Live: https://h9xxi.csb.app/
 
 ### `ListsOptions` ([source](src/types.ts))
