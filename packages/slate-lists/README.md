@@ -180,12 +180,12 @@ It's time to pass the [ListsOptions](src/types.ts) instance to `Lists` function.
      const baseEditor = useMemo(() => withReact(createEditor()), []);
      const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
 
-+     const handleWrapInBulletedList = () => {
-+         lists.wrapInList(editor, 'bulleted-list');
++     const handleWrapInUnorderedList = () => {
++         lists.wrapInList(editor, 'unordered-list');
 +     };
 +
-+     const handleWrapInNumberedList = () => {
-+         lists.wrapInList(editor, 'numbered-list');
++     const handleWrapInOrderedList = () => {
++         lists.wrapInList(editor, 'ordered-list');
 +     };
 +
 +     const handleUnwrapList = () => {
