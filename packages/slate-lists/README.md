@@ -80,85 +80,120 @@ Only core API is documented although all utility functions are exposed. Should y
 
 ### Example
 
-Source code: https://codesandbox.io/s/h9xxi
-
 Live: https://h9xxi.csb.app/
+
+Source code: https://codesandbox.io/s/h9xxi
 
 ### `ListsOptions` ([source](src/types.ts))
 
 First you're going to want to define options that will be passed to the extension. Just create an instance of [ListsOptions](src/types.ts) somewhere.
 
-```tsx
-import { ListsOptions } from '@prezly/slate-lists';
+```diff
+ import { useMemo } from 'react';
+ import { createEditor } from 'slate';
++import { ListsOptions } from '@prezly/slate-lists';
++
++const options: ListsOptions = {
++    defaultBlockType: 'paragraph',
++    listItemTextType: 'list-item-text',
++    listItemType: 'list-item',
++    listTypes: ['ordered-list', 'unordered-list'],
++    wrappableTypes: ['paragraph'],
++};
 
-const options: ListsOptions = {
-    defaultBlockType: 'paragraph',
-    listItemTextType: 'list-item-text',
-    listItemType: 'list-item',
-    listTypes: ['ordered-list', 'unordered-list'],
-    wrappableTypes: ['paragraph'],
-};
+ const MyComponent = () => {
+     const baseEditor = useMemo(() => createEditor(), []);
+
+     /* ... */
+ };
 ```
 
 ### `withLists<T extends Editor>(editor: T, options: ListsOptions): T` ([source](src/lib/withLists.ts))
 
 The next step is to use the `withLists` plugin. It's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
 
-```tsx
-import { Lists, ListsOptions, withLists } from '@prezly/slate-lists';
-import { createEditor } from 'slate';
+```diff
+ import { useMemo } from 'react';
+ import { createEditor } from 'slate';
+-import { ListsOptions } from '@prezly/slate-lists';
++import { ListsOptions, withLists } from '@prezly/slate-lists';
 
-const options: ListsOptions = {
-    /* ... */
-};
+ const options: ListsOptions = {
+     /* ... */
+ };
 
-const baseEditor = createEditor();
-const editor = withLists(options)(baseEditor);
+ const MyComponent = () => {
+     const baseEditor = useMemo(() => createEditor(), []);
++    const editor = useMemo(() => withLists(options)(baseEditor), [baseEditor]);
+
+     /* ... */
+ };
 ```
 
 ### `withListsReact<T extends ReactEditor>(editor: T): T` ([source](src/lib/withListsReact.ts))
 
 You may also want to use `withListsReact` on the client-side - it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. It enables `Range.prototype.cloneContents` monkey patch to improve copying behavior in some edge cases.
 
-```tsx
-import { Lists, ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
-import React, { useMemo } from 'react';
-import { createEditor } from 'slate';
-import { withReact } from 'slate-react';
+```diff
+ import { useMemo } from 'react';
+ import { createEditor } from 'slate';
+-import { ListsOptions, withLists } from '@prezly/slate-lists';
++import { ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
+ import { createEditor } from 'slate';
++import { withReact } from 'slate-react';
 
-const options: ListsOptions = {
+ const options: ListsOptions = {
+     /* ... */
+ };
+
+ const MyComponent = () => {
+-    const baseEditor = useMemo(() => createEditor(), []);
++    const baseEditor = useMemo(() => withReact(createEditor()), []);
+-    const editor = useMemo(() => withLists(options)(baseEditor), [baseEditor]);
++    const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
+
     /* ... */
-};
-
-const MyEditor = (/* ... */) => {
-    const baseEditor = useMemo(() => withReact(createEditor()), []);
-    const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
-
-    /* ... */
-};
-
-export default MyEditor;
+ };
 ```
 
 ### `Lists`
 
 It's time to pass the [ListsOptions](src/types.ts) instance to `Lists` function. It will create an object (`lists`) with utilities and transforms bound to the options you passed to it. Those are the building blocks you're going to use when adding lists support to your editor. Use them to implement UI controls, keyboard shortcuts, etc.
 
-```tsx
-import { Lists, ListsOptions } from '@prezly/slate-lists';
+```diff
 
-const options: ListsOptions = {
-    /* ... */
-};
-const lists = Lists(options);
+ import { useMemo } from 'react';
+ import { createEditor } from 'slate';
+-import { ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
++import { Lists, ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
+ import { createEditor } from 'slate';
+ import { withReact } from 'slate-react';
 
-const MyComponent = ({ editor }) => (
-    <>
-        <button onClick={() => lists.wrapInList(editor, 'bulleted-list')}>Bulleted list</button>
-        <button onClick={() => lists.wrapInList(editor, 'numbered-list')}>Numbered list</button>
-        <button onClick={() => lists.unwrapList(editor)}>Remove list</button>
-    </>
-);
+
+ const options: ListsOptions = {
+     /* ... */
+ };
+
++const lists = Lists(options);
+
+ const MyComponent = () => {
+     const baseEditor = useMemo(() => withReact(createEditor()), []);
+     const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
+
++     const handleWrapInBulletedList = () => {
++         lists.wrapInList(editor, 'bulleted-list');
++     };
++
++     const handleWrapInNumberedList = () => {
++         lists.wrapInList(editor, 'numbered-list');
++     };
++
++     const handleUnwrapList = () => {
++         lists.unwrapList(editor);
++     };
++
+     /* ... */
+ };
 ```
 
 The `lists` object has the following methods:
