@@ -157,15 +157,20 @@ The `lists` object has the following methods:
 
 ```tsx
 /**
+ * Returns true when editor.deleteBackward() is safe to call (it won't break the structure).
+ */
+canDeleteBackward(editor: Editor) => boolean
+
+/**
  * Decreases nesting depth of all "list-items" in the current selection.
  * All "list-items" in the root "list" will become "default" nodes.
  */
-decreaseDepth(options: ListsOptions, editor: Editor) => void;
+decreaseDepth(editor: Editor) => void
 
 /**
  * Decreases nesting depth of "list-item" at a given Path.
  */
-decreaseListItemDepth(options: ListsOptions, editor: Editor, listItemPath: Path) => void;
+decreaseListItemDepth(editor: Editor, listItemPath: Path) => void
 
 /**
  * Returns all "list-items" in a given Range.
@@ -212,6 +217,16 @@ increaseDepth(editor: Editor) => void
  * Increases nesting depth of "list-item" at a given Path.
  */
 increaseListItemDepth(editor: Editor, listItemPath: Path) => void
+
+/**
+ * Returns true when editor has collapsed selection and the cursor is in an empty "list-item".
+ */
+isCursorInEmptyListItem(editor: Editor) => boolean
+
+/**
+ * Returns true when editor has collapsed selection and the cursor is at the beginning of a "list-item".
+ */
+isCursorAtStartOfListItem(editor: Editor) => boolean
 
 /**
  * Checks whether node.type is an Element matching any of options.listTypes.

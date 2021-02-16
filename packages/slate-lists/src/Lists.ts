@@ -1,4 +1,5 @@
 import {
+    canDeleteBackward,
     decreaseDepth,
     decreaseListItemDepth,
     getListItemsInRange,
@@ -9,6 +10,8 @@ import {
     getParentListItem,
     increaseDepth,
     increaseListItemDepth,
+    isCursorAtStartOfListItem,
+    isCursorInEmptyListItem,
     isList,
     isListItem,
     isListItemText,
@@ -23,6 +26,7 @@ import {
 import { ListsOptions } from './types';
 
 const Lists = (options: ListsOptions) => ({
+    canDeleteBackward: canDeleteBackward.bind(null, options),
     decreaseDepth: decreaseDepth.bind(null, options),
     decreaseListItemDepth: decreaseListItemDepth.bind(null, options),
     getListItemsInRange: getListItemsInRange.bind(null, options),
@@ -33,6 +37,8 @@ const Lists = (options: ListsOptions) => ({
     getParentListItem: getParentListItem.bind(null, options),
     increaseDepth: increaseDepth.bind(null, options),
     increaseListItemDepth: increaseListItemDepth.bind(null, options),
+    isCursorAtStartOfListItem: isCursorAtStartOfListItem.bind(null, options),
+    isCursorInEmptyListItem: isCursorInEmptyListItem.bind(null, options),
     isList: isList.bind(null, options),
     isListItem: isListItem.bind(null, options),
     isListItemText: isListItemText.bind(null, options),

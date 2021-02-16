@@ -1,3 +1,4 @@
+export { default as canDeleteBackward } from './canDeleteBackward';
 export { default as cloneContentsMonkeyPatch } from './cloneContentsMonkeyPatch';
 export { default as createDefaultNode } from './createDefaultNode';
 export { default as createList } from './createList';
@@ -13,6 +14,8 @@ export { default as getParentList } from './getParentList';
 export { default as getParentListItem } from './getParentListItem';
 export { default as increaseDepth } from './increaseDepth';
 export { default as increaseListItemDepth } from './increaseListItemDepth';
+export { default as isCursorAtStartOfListItem } from './isCursorAtStartOfListItem';
+export { default as isCursorInEmptyListItem } from './isCursorInEmptyListItem';
 export { default as isList } from './isList';
 export { default as isListItem } from './isListItem';
 export { default as isListItemText } from './isListItemText';

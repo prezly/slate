@@ -15,7 +15,7 @@ export interface ListsOptions {
     listItemType: string;
 
     /**
-     * Types of nodes representing lists.
+     * Types of nodes representing lists. The first type will be the default type (e.g. when wrapping with lists).
      */
     listTypes: string[];
 
