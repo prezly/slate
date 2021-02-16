@@ -1,4 +1,4 @@
-import { Editor, Node, NodeEntry, Path, Range } from 'slate';
+import { Editor, Element, NodeEntry, Path, Range } from 'slate';
 
 import { ListsOptions } from '../types';
 
@@ -10,7 +10,7 @@ const getListItemsInRange = (
     options: ListsOptions,
     editor: Editor,
     at: Range | null | undefined,
-): NodeEntry<Node>[] => {
+): NodeEntry<Element>[] => {
     if (!at) {
         return [];
     }
@@ -43,7 +43,7 @@ const getListItemsInRange = (
         }
 
         return !rangeStartsAfter;
-    });
+    }) as NodeEntry<Element>[];
 };
 
 export default getListItemsInRange;
