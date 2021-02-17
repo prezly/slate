@@ -25,6 +25,9 @@ import {
 } from './lib';
 import { ListsOptions } from './types';
 
+/**
+ * Creates an API adapter with functions bound to passed options.
+ */
 const Lists = (options: ListsOptions) => ({
     canDeleteBackward: canDeleteBackward.bind(null, options),
     decreaseDepth: decreaseDepth.bind(null, options),

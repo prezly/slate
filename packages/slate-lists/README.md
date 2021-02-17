@@ -1,20 +1,29 @@
 # @prezly/slate-lists
 
-Demo: https://h9xxi.csb.app/ ([source code](https://codesandbox.io/s/h9xxi)).
-
 The best Slate lists extension out there.
 
-API is inspired by https://github.com/GitbookIO/slate-edit-list.
+Demo: https://h9xxi.csb.app/ ([source code](https://codesandbox.io/s/h9xxi)).
+
+API inspired by https://github.com/GitbookIO/slate-edit-list.
 
 ![Version](https://img.shields.io/npm/v/@prezly/slate-lists)
 ![License](https://img.shields.io/npm/l/@prezly/slate-lists)
 
 ## Table of contents
 
+-   [Demo](#demo)
 -   [Features](#Features)
 -   [Constraints](#Constraints)
 -   [Schema](#Schema)
+-   [Installation](#Installation)
+-   [User guide](#User-guide)
 -   [API](#API)
+
+## Demo
+
+Live: https://h9xxi.csb.app/
+
+Source code: https://codesandbox.io/s/h9xxi
 
 ## Features
 
@@ -27,7 +36,7 @@ API is inspired by https://github.com/GitbookIO/slate-edit-list.
 
 ## Constraints
 
--   all list-related nodes have a `type: string` attribute (you can customize the supported string values via [ListsOptions](src/types.ts))
+-   all list-related nodes have a `type: string` attribute (you can customize the supported string values via [`ListsOptions`](src/types.ts))
 -   there is an assumption that a _default_ node `type` to which this extension can convert list-related nodes to exists (e.g. during normalization, or unwrapping lists)
 
 ## Schema
@@ -41,7 +50,7 @@ API is inspired by https://github.com/GitbookIO/slate-edit-list.
     -   have a parent **list item** node
 
 <details>
-<summary>TypeScript interfaces</summary>
+<summary>As TypeScript interfaces...</summary>
 <p>
 
 Sometimes code can be better than words. Here are example TypeScript interfaces that describe the above schema (some schema rules are not expressible in TypeScript, so please treat it just as a quick overview).
@@ -68,135 +77,261 @@ interface ListItemTextNode {
 </p>
 </details>
 
+## Installation
+
+### npm
+
+```Shell
+npm install --save @prezly/slate-lists
+```
+
+### yarn
+
+```Shell
+yarn add @prezly/slate-lists
+```
+
+## User guide
+
+Let's start with a minimal Slate + React example which we will be adding lists support to. Nothing interesting here just yet.
+
+Live example: https://codesandbox.io/s/friendly-archimedes-9gmff?file=/src/MyEditor.tsx
+
+```tsx
+import { useMemo, useState } from 'react';
+import { createEditor, Node } from 'slate';
+import { Editable, Slate, withReact } from 'slate-react';
+
+const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
+
+const MyEditor = () => {
+    const [value, setValue] = useState(initialValue);
+    const editor = useMemo(() => withReact(createEditor()), []);
+
+    return (
+        <Slate editor={editor} value={value} onChange={setValue}>
+            <Editable />
+        </Slate>
+    );
+};
+
+export default MyEditor;
+```
+
+### Define [`ListsOptions`](src/types.ts)
+
+First you're going to want to define options that will be passed to the extension. Just create an object matching the [`ListsOptions`](src/types.ts) interface.
+
+Live example: https://codesandbox.io/s/jolly-jennings-m564b?file=/src/MyEditor.tsx
+
+```diff
+ import { useMemo, useState } from 'react';
+ import { createEditor, Node } from 'slate';
+ import { Editable, Slate, withReact } from 'slate-react';
++import { ListsOptions } from '@prezly/slate-lists';
++
++const options: ListsOptions = {
++  defaultBlockType: 'paragraph',
++  listItemTextType: 'list-item-text',
++  listItemType: 'list-item',
++  listTypes: ['ordered-list', 'unordered-list'],
++  wrappableTypes: ['paragraph']
++};
+
+ const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
+
+ const MyEditor = () => {
+     const [value, setValue] = useState(initialValue);
+     const editor = useMemo(() => withReact(createEditor()), []);
+
+     return (
+         <Slate editor={editor} value={value} onChange={setValue}>
+             <Editable />
+         </Slate>
+     );
+ };
+
+ export default MyEditor;
+```
+
+### Use [`withLists`](src/lib/withLists.ts) plugin
+
+[`withLists`](src/lib/withLists.ts) is a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported structures.
+
+Live example: https://codesandbox.io/s/friendly-haslett-5splt?file=/src/MyEditor.tsx
+
+```diff
+ import { useMemo, useState } from 'react';
+ import { createEditor, Node } from 'slate';
+ import { Editable, Slate, withReact } from 'slate-react';
+-import { ListsOptions } from '@prezly/slate-lists';
++import { ListsOptions, withLists } from '@prezly/slate-lists';
+
+ const options: ListsOptions = {
+     defaultBlockType: 'paragraph',
+     listItemTextType: 'list-item-text',
+     listItemType: 'list-item',
+     listTypes: ['ordered-list', 'unordered-list'],
+     wrappableTypes: ['paragraph'],
+ };
+
+ const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
+
+ const MyEditor = () => {
+     const [value, setValue] = useState(initialValue);
+-    const editor = useMemo(() => withReact(createEditor()), []);
++    const baseEditor = useMemo(() => withReact(createEditor()), []);
++    const editor = useMemo(() => withLists(options)(baseEditor), [baseEditor]);
+
+     return (
+         <Slate editor={editor} value={value} onChange={setValue}>
+             <Editable />
+         </Slate>
+     );
+ };
+
+ export default MyEditor;
+```
+
+### Use [`withListsReact`](src/lib/withListsReact.ts) plugin
+
+[`withListsReact`](src/lib/withListsReact.ts) is useful on the client-side - it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. It enables `Range.prototype.cloneContents` monkey patch to improve copying behavior in some edge cases.
+
+Live example: https://codesandbox.io/s/magical-greider-rgubg?file=/src/MyEditor.tsx
+
+```diff
+ import { useMemo, useState } from 'react';
+ import { createEditor, Node } from 'slate';
+ import { Editable, Slate, withReact } from 'slate-react';
+-import { ListsOptions, withLists } from '@prezly/slate-lists';
++import { ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
+
+ const options: ListsOptions = {
+     defaultBlockType: 'paragraph',
+     listItemTextType: 'list-item-text',
+     listItemType: 'list-item',
+     listTypes: ['ordered-list', 'unordered-list'],
+     wrappableTypes: ['paragraph'],
+ };
+
+ const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
+
+ const MyEditor = () => {
+     const [value, setValue] = useState(initialValue);
+     const baseEditor = useMemo(() => withReact(createEditor()), []);
+-    const editor = useMemo(() => withLists(options)(baseEditor), [baseEditor]);
++    const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
+
+     return (
+         <Slate editor={editor} value={value} onChange={setValue}>
+             <Editable />
+         </Slate>
+     );
+ };
+
+ export default MyEditor;
+```
+
+### Use [`Lists`](src/Lists.ts)
+
+It's time to pass the [`ListsOptions`](src/types.ts) instance to [`Lists`](src/Lists.ts) function. It will create an object (`lists`) with utilities and transforms bound to the options you passed to it. Those are the building blocks you're going to use when adding lists support to your editor. Use them to implement UI controls, keyboard shortcuts, etc.
+
+Live example: https://codesandbox.io/s/focused-galileo-v5fop?file=/src/MyEditor.tsx
+
+```diff
+ import { useMemo, useState } from 'react';
+ import { createEditor, Node } from 'slate';
+ import { Editable, Slate, withReact } from 'slate-react';
+-import { ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
++import { Lists, ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
+
+ const options: ListsOptions = {
+     defaultBlockType: 'paragraph',
+     listItemTextType: 'list-item-text',
+     listItemType: 'list-item',
+     listTypes: ['ordered-list', 'unordered-list'],
+     wrappableTypes: ['paragraph'],
+ };
++
++ const lists = Lists(options);
+
+ const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
+
+ const MyEditor = () => {
+     const [value, setValue] = useState(initialValue);
+     const baseEditor = useMemo(() => withReact(createEditor()), []);
+     const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
+
+     return (
+         <Slate editor={editor} value={value} onChange={setValue}>
+             <Editable />
+         </Slate>
+     );
+ };
+
+ export default MyEditor;
+```
+
+### Good to go
+
+Now you can use the [API exposed on the `lists` instance](#Lists).
+
+Be sure to check the [complete usage example](#Demo).
+
 ## API
+
+There are JSDocs for all core functionality.
 
 Only core API is documented although all utility functions are exposed. Should you ever need anything beyond the core API, please have a look at [`src/index.ts`](src/index.ts) to see what's available.
 
--   [Example](#Example)
 -   [`ListsOptions`](#ListsOptions)
 -   [`withLists`](#withLists)
 -   [`withListsReact`](#withListsReact)
 -   [`Lists`](#Lists)
 
-### Example
+### [`ListsOptions`](src/types.ts)
 
-Live: https://h9xxi.csb.app/
+All options are required.
 
-Source code: https://codesandbox.io/s/h9xxi
+| Name               | Type       | Description                                                                                                 |
+| ------------------ | ---------- | ----------------------------------------------------------------------------------------------------------- |
+| `defaultBlockType` | `string`   | Type of the node that `listItemTextType` will become when it is unwrapped or normalized.                    |
+| `listItemTextType` | `string`   | Type of the node representing list item text.                                                               |
+| `listItemType`     | `string`   | Type of the node representing list item.                                                                    |
+| `listTypes`        | `string[]` | Types of nodes representing lists. The first type will be the default type (e.g. when wrapping with lists). |
+| `wrappableTypes`   | `string[]` | Types of nodes that can be converted into a node representing list item text.                               |
 
-### `ListsOptions` ([source](src/types.ts))
+### [`withLists`](src/lib/withLists.ts)
 
-First you're going to want to define options that will be passed to the extension. Just create an instance of [ListsOptions](src/types.ts) somewhere.
-
-```diff
- import { useMemo } from 'react';
- import { createEditor } from 'slate';
-+import { ListsOptions } from '@prezly/slate-lists';
-+
-+const options: ListsOptions = {
-+    defaultBlockType: 'paragraph',
-+    listItemTextType: 'list-item-text',
-+    listItemType: 'list-item',
-+    listTypes: ['ordered-list', 'unordered-list'],
-+    wrappableTypes: ['paragraph'],
-+};
-
- const MyComponent = () => {
-     const baseEditor = useMemo(() => createEditor(), []);
-
-     /* ... */
- };
+```tsx
+/**
+ * Enables normalizations that enforce schema constraints and recover from unsupported cases.
+ */
+withLists(options: ListsOptions) => (<T extends Editor>(editor: T) => T)
 ```
 
-### `withLists<T extends Editor>(editor: T, options: ListsOptions): T` ([source](src/lib/withLists.ts))
+### [`withListsReact`](src/lib/withListsReact.ts)
 
-The next step is to use the `withLists` plugin. It's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported cases.
-
-```diff
- import { useMemo } from 'react';
- import { createEditor } from 'slate';
--import { ListsOptions } from '@prezly/slate-lists';
-+import { ListsOptions, withLists } from '@prezly/slate-lists';
-
- const options: ListsOptions = {
-     /* ... */
- };
-
- const MyComponent = () => {
-     const baseEditor = useMemo(() => createEditor(), []);
-+    const editor = useMemo(() => withLists(options)(baseEditor), [baseEditor]);
-
-     /* ... */
- };
+```tsx
+/**
+ * Enables Range.prototype.cloneContents monkey patch to improve pasting behavior
+ * in few edge cases.
+ */
+withListsReact<T extends ReactEditor>(editor: T): T
 ```
 
-### `withListsReact<T extends ReactEditor>(editor: T): T` ([source](src/lib/withListsReact.ts))
+### [`Lists`](src/Lists.ts)
 
-You're also going to want to use `withListsReact` on the client-side - it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. It enables `Range.prototype.cloneContents` monkey patch to improve copying behavior in some edge cases.
-
-```diff
- import { useMemo } from 'react';
- import { createEditor } from 'slate';
--import { ListsOptions, withLists } from '@prezly/slate-lists';
-+import { ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
- import { createEditor } from 'slate';
-+import { withReact } from 'slate-react';
-
- const options: ListsOptions = {
-     /* ... */
- };
-
- const MyComponent = () => {
--    const baseEditor = useMemo(() => createEditor(), []);
-+    const baseEditor = useMemo(() => withReact(createEditor()), []);
--    const editor = useMemo(() => withLists(options)(baseEditor), [baseEditor]);
-+    const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
-
-    /* ... */
- };
+```tsx
+/**
+ * Creates an API adapter with functions bound to passed options.
+ */
+Lists(options: ListsOptions) => :ListsApiAdapter:
 ```
 
-### `Lists`
+Note: `:ListsApiAdapter:` is actually an implicit interface (`ReturnType<typeof Lists>`).
 
-It's time to pass the [ListsOptions](src/types.ts) instance to `Lists` function. It will create an object (`lists`) with utilities and transforms bound to the options you passed to it. Those are the building blocks you're going to use when adding lists support to your editor. Use them to implement UI controls, keyboard shortcuts, etc.
-
-```diff
-
- import { useMemo } from 'react';
- import { createEditor } from 'slate';
--import { ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
-+import { Lists, ListsOptions, withLists, withListsReact } from '@prezly/slate-lists';
- import { createEditor } from 'slate';
- import { withReact } from 'slate-react';
-
-
- const options: ListsOptions = {
-     /* ... */
- };
-
-+const lists = Lists(options);
-
- const MyComponent = () => {
-     const baseEditor = useMemo(() => withReact(createEditor()), []);
-     const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
-
-+     const handleWrapInUnorderedList = () => {
-+         lists.wrapInList(editor, 'unordered-list');
-+     };
-+
-+     const handleWrapInOrderedList = () => {
-+         lists.wrapInList(editor, 'ordered-list');
-+     };
-+
-+     const handleUnwrapList = () => {
-+         lists.unwrapList(editor);
-+     };
-+
-     /* ... */
- };
-```
-
-The `lists` object has the following methods:
+Here are its methods:
 
 ```tsx
 /**
