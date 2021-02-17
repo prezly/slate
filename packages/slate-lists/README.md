@@ -2,7 +2,7 @@
 
 The best Slate lists extension out there.
 
-Demo: https://h9xxi.csb.app/ ([source code](https://codesandbox.io/s/h9xxi)).
+Demo: https://h9xxi.csb.app/ ([source code](https://codesandbox.io/s/prezlyslate-lists-demo-complete-example-h9xxi)).
 
 API inspired by https://github.com/GitbookIO/slate-edit-list.
 
@@ -23,7 +23,7 @@ API inspired by https://github.com/GitbookIO/slate-edit-list.
 
 Live: https://h9xxi.csb.app/
 
-Source code: https://codesandbox.io/s/h9xxi
+Source code: https://codesandbox.io/s/prezlyslate-lists-demo-complete-example-h9xxi
 
 ## Features
 
@@ -95,7 +95,7 @@ yarn add @prezly/slate-lists
 
 Let's start with a minimal Slate + React example which we will be adding lists support to. Nothing interesting here just yet.
 
-Live example: https://codesandbox.io/s/friendly-archimedes-9gmff?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-0-initial-state-9gmff?file=/src/MyEditor.tsx
 
 ```tsx
 import { useMemo, useState } from 'react';
@@ -122,7 +122,7 @@ export default MyEditor;
 
 First you're going to want to define options that will be passed to the extension. Just create an object matching the [`ListsOptions`](src/types.ts) interface.
 
-Live example: https://codesandbox.io/s/jolly-jennings-m564b?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-1-define-options-m564b?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
@@ -158,7 +158,7 @@ Live example: https://codesandbox.io/s/jolly-jennings-m564b?file=/src/MyEditor.t
 
 [`withLists`](src/lib/withLists.ts) is a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) which enforce [schema](#Schema) constraints and recover from unsupported structures.
 
-Live example: https://codesandbox.io/s/friendly-haslett-5splt?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-2-use-withlists-plugin-5splt?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
@@ -197,7 +197,7 @@ Live example: https://codesandbox.io/s/friendly-haslett-5splt?file=/src/MyEditor
 
 [`withListsReact`](src/lib/withListsReact.ts) is useful on the client-side - it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) that overrides `editor.setFragmentData`. It enables `Range.prototype.cloneContents` monkey patch to improve copying behavior in some edge cases.
 
-Live example: https://codesandbox.io/s/magical-greider-rgubg?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-3-use-withlistsreact-plugin-rgubg?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
@@ -236,7 +236,7 @@ Live example: https://codesandbox.io/s/magical-greider-rgubg?file=/src/MyEditor.
 
 It's time to pass the [`ListsOptions`](src/types.ts) instance to [`Lists`](src/Lists.ts) function. It will create an object (`lists`) with utilities and transforms bound to the options you passed to it. Those are the building blocks you're going to use when adding lists support to your editor. Use them to implement UI controls, keyboard shortcuts, etc.
 
-Live example: https://codesandbox.io/s/focused-galileo-v5fop?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-4-use-lists-v5fop?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
