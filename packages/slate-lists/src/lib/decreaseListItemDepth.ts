@@ -7,6 +7,9 @@ import getParentList from './getParentList';
 import getParentListItem from './getParentListItem';
 import increaseListItemDepth from './increaseListItemDepth';
 
+/**
+ * Decreases nesting depth of "list-item" at a given Path.
+ */
 const decreaseListItemDepth = (options: ListsOptions, editor: Editor, listItemPath: Path): void => {
     const parentList = getParentList(options, editor, listItemPath);
 

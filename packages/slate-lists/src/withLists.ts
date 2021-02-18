@@ -25,6 +25,9 @@ const normalizers = [
     normalizeSiblingLists,
 ];
 
+/**
+ * Enables normalizations that enforce schema constraints and recover from unsupported cases.
+ */
 const withLists = (options: ListsOptions) => <T extends Editor>(editor: T): T => {
     const { normalizeNode } = editor;
 

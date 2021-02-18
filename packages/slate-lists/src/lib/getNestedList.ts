@@ -5,6 +5,10 @@ import { ListsOptions } from '../types';
 
 import isList from './isList';
 
+/**
+ * Returns "list" node nested in "list-item" at a given path.
+ * Returns null if there is no nested "list".
+ */
 const getNestedList = (
     options: ListsOptions,
     editor: Editor,

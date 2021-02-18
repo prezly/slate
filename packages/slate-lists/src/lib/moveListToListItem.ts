@@ -6,6 +6,9 @@ import { ListsOptions } from '../types';
 import isList from './isList';
 import isListItem from './isListItem';
 
+/**
+ * Nests (moves) given "list" in a given "list-item".
+ */
 const moveListToListItem = (
     options: ListsOptions,
     editor: Editor,

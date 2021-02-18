@@ -1,12 +1,16 @@
-import { Editor, Node, NodeEntry, Path, Range } from 'slate';
+import { Editor, Element, NodeEntry, Path, Range } from 'slate';
 
 import { ListsOptions } from '../types';
 
+/**
+ * Returns all "list-items" in a given Range.
+ * @param at defaults to current selection if not specified
+ */
 const getListItemsInRange = (
     options: ListsOptions,
     editor: Editor,
     at: Range | null | undefined,
-): NodeEntry<Node>[] => {
+): NodeEntry<Element>[] => {
     if (!at) {
         return [];
     }
@@ -39,7 +43,7 @@ const getListItemsInRange = (
         }
 
         return !rangeStartsAfter;
-    });
+    }) as NodeEntry<Element>[];
 };
 
 export default getListItemsInRange;

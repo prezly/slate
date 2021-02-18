@@ -6,6 +6,10 @@ import { ListsOptions } from '../types';
 import createList from './createList';
 import createListItem from './createListItem';
 
+/**
+ * All nodes matching options.wrappableTypes in the current selection
+ * will be converted to "list-items" and wrapped in "lists".
+ */
 const wrapInList = (options: ListsOptions, editor: Editor, listType: string): void => {
     if (!editor.selection) {
         return;

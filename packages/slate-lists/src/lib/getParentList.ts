@@ -4,6 +4,10 @@ import { ListsOptions } from '../types';
 
 import isList from './isList';
 
+/**
+ * Returns parent "list" node of "list-item" at a given path.
+ * Returns null if there is no parent "list".
+ */
 const getParentList = (
     options: ListsOptions,
     editor: Editor,

@@ -2,6 +2,9 @@ import { Node } from 'slate';
 
 import { ListsOptions } from '../types';
 
+/**
+ * Returns the "type" of a given list node.
+ */
 const getListType = (options: ListsOptions, node: Node): string => {
     if (node.type) {
         return node.type as string;

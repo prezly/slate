@@ -1,6 +1,6 @@
 # @prezly/slate-renderer
 
-Render [Slate](https://www.slatejs.org/) documents used at [Prezly](https://www.prezly.com/).
+Render [Slate](https://www.slatejs.org/) documents used at [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate).
 
 ![Version](https://img.shields.io/npm/v/@prezly/slate-renderer)
 ![License](https://img.shields.io/npm/l/@prezly/slate-renderer)
@@ -28,7 +28,9 @@ If you need to support older browsers, you can use this polyfill for `object-fit
 
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/object-fit-images/3.2.4/ofi.min.js"></script>
-<script>objectFitImages();</script>
+<script>
+    objectFitImages();
+</script>
 ```
 
 ## Usage
@@ -65,3 +67,7 @@ const MyComponent = () => (
 
 export default MyComponent;
 ```
+
+----
+
+Brought to you by [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate-renderer).

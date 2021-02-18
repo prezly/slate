@@ -1,10 +1,26 @@
 export interface ListsOptions {
-    defaultBlockType: string;
-    listItemTextType: string;
-    listItemType: string;
-    listTypes: string[];
     /**
-     * List of types of nodes that can be converted into a "list-item-text"
+     * Type of the node that "listItemTextType" will become when it is unwrapped or normalized.
+     */
+    defaultBlockType: string;
+
+    /**
+     * Type of the node representing list item text.
+     */
+    listItemTextType: string;
+
+    /**
+     * Type of the node representing list item.
+     */
+    listItemType: string;
+
+    /**
+     * Types of nodes representing lists. The first type will be the default type (e.g. when wrapping with lists).
+     */
+    listTypes: string[];
+
+    /**
+     * Types of nodes that can be converted into a node representing list item text.
      */
     wrappableTypes: string[];
 }

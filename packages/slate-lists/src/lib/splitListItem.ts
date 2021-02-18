@@ -8,6 +8,11 @@ import createListItem from './createListItem';
 import createListItemText from './createListItemText';
 import getListItemsInRange from './getListItemsInRange';
 
+/**
+ * Collapses the current selection (by removing everything in it) and if the cursor
+ * ends up in a "list-item" node, it will break that "list-item" into 2 nodes, splitting
+ * the text at the cursor location.
+ */
 const splitListItem = (options: ListsOptions, editor: Editor): void => {
     if (!editor.selection) {
         return;
