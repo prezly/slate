@@ -42,7 +42,6 @@ const normalizeSiblingLists = (
         return false;
     }
 
-    Transforms.setNodes(editor, { type: previousSiblingNode.type }, { at: path });
     Transforms.mergeNodes(editor, { at: path });
 
     return true;
