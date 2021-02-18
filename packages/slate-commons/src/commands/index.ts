@@ -5,6 +5,7 @@ export { default as getCurrentNodeEntry } from './getCurrentNodeEntry';
 export { default as getCursorPositionInNode } from './getCursorPositionInNode';
 export { default as getEditorRange } from './getEditorRange';
 export { default as getNodePath } from './getNodePath';
+export { default as getNextSibling } from './getNextSibling';
 export { default as getPreviousSibling } from './getPreviousSibling';
 export { default as getUnreachableAncestors } from './getUnreachableAncestors';
 export { default as insertEmptyParagraph } from './insertEmptyParagraph';
