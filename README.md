@@ -4,7 +4,7 @@
 ![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
 ![Prettier](https://github.com/prezly/slate/workflows/Prettier/badge.svg)
 
-[Prezly](https://www.prezly.com/) software built upon [Slate](http://slatejs.org/).
+[Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate) software built upon [Slate](http://slatejs.org/).
 
 ---
 
