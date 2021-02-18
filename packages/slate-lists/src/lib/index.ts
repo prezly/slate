@@ -20,6 +20,7 @@ export { default as isList } from './isList';
 export { default as isListItem } from './isListItem';
 export { default as isListItemText } from './isListItemText';
 export { default as listItemContainsText } from './listItemContainsText';
+export { default as mergeListWithPreviousSiblingList } from './mergeListWithPreviousSiblingList';
 export { default as moveListItemsToAnotherList } from './moveListItemsToAnotherList';
 export { default as moveListToListItem } from './moveListToListItem';
 export { default as normalizeList } from './normalizeList';
