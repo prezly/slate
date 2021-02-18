@@ -27,3 +27,7 @@ That's why we need a different tag name to represent `text` elements from Slate.
 We chose `h-text` for that tag name (and actually apply `h-` prefix for all other custom tag names). But to make it work we need `createText` function.
 
 See `src/createHyperscript.ts` to see how it's composed.
+
+----
+
+Brought to you by [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate-hyperscript).

@@ -27,10 +27,12 @@ const MyComponent = () => {
         }
     };
 
-    return (
-        <textarea value={value} onPaste={handlePaste} />
-    );
+    return <textarea value={value} onPaste={handlePaste} />;
 };
 
 export default MyComponent;
 ```
+
+----
+
+Brought to you by [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/docx-cleaner).

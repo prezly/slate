@@ -460,3 +460,7 @@ unwrapList(editor: Editor) => void
  */
 wrapInList(editor: Editor, listType: string) => void
 ```
+
+----
+
+Brought to you by [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate-lists).
