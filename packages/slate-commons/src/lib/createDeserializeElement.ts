@@ -2,10 +2,7 @@ import { Element } from 'slate';
 
 type Parse<E extends Element> = (serialized: string) => E | undefined;
 
-const createDeserializeElement = <E extends Element>(
-    parse: Parse<E>,
-    onError: (error: Error) => void,
-) => {
+const createDeserializeElement = <E extends Element>(parse: Parse<E>) => {
     return (element: HTMLElement): E | undefined => {
         const serialized = element.getAttribute('data-slate-value');
 
@@ -13,12 +10,7 @@ const createDeserializeElement = <E extends Element>(
             return undefined;
         }
 
-        try {
-            return parse(serialized);
-        } catch (error) {
-            onError(error);
-            return undefined;
-        }
+        return parse(serialized);
     };
 };
 
