@@ -14,6 +14,8 @@ export { default as ElementNode } from './ElementNode';
 export * from './ElementNode';
 export { default as EmbedNode } from './EmbedNode';
 export * from './EmbedNode';
+export { default as Fragment } from './Fragment';
+export * from './Fragment';
 export { default as GalleryNode } from './GalleryNode';
 export * from './GalleryNode';
 export { default as HeadingNode } from './HeadingNode';
