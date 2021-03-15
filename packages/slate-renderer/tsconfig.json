@@ -1,12 +1,13 @@
 {
     "extends": "../../tsconfig.json",
+
     "compilerOptions": {
         "jsx": "react",
         "outDir": "./build",
         "rootDir": "./src",
         "typeRoots": ["./node_modules/@types", "./src/@types"]
     },
-    "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"],
+    "exclude": ["node_modules", "**/*.test.*"],
     "files": ["./src/@types/scss.d.ts", "./src/@types/svg.d.ts"],
     "include": ["./src"]
 }

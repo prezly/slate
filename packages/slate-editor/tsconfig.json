@@ -2,9 +2,8 @@
     "extends": "../../tsconfig.json",
 
     "compilerOptions": {
-        "outDir": "./build",
-        "rootDir": "./src",
         "jsx": "react",
+        "outDir": "./build",
         "paths": {
             "components": ["./src/components"],
             "icons": ["./src/icons"],
@@ -13,6 +12,7 @@
             "modules/*": ["./src/modules/*"],
             "types": ["./src/types"]
         },
+        "rootDir": "./src",
         "typeRoots": ["./node_modules/@types", "./src/@types"]
     },
     "exclude": ["node_modules", "**/*.test.*"],
