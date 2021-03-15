@@ -5,6 +5,7 @@ import { useIsMouseDown } from 'lib';
 
 import BasePortalV2, { Props as BasePortalV2Props } from './BasePortalV2';
 import { updateCursorPortalRect } from './CursorPortal';
+import './CursorPortalV2.scss';
 
 interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {}
 

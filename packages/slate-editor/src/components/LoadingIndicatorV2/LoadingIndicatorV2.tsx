@@ -3,6 +3,7 @@ import React, { FunctionComponent } from 'react';
 
 import FiniteLoadingIndicator from './FiniteLoadingIndicator';
 import InfiniteLoadingIndicator from './InfiniteLoadingIndicator';
+import './LoadingIndicatorV2.scss';
 
 interface Props {
     className?: string;

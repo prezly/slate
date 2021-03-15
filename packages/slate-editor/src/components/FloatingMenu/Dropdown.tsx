@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { Dropdown as BootstrapDropdown, DropdownProps, MenuItem } from 'react-bootstrap';
 
+import './Dropdown.scss';
 import { Option } from './types';
 
 interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {

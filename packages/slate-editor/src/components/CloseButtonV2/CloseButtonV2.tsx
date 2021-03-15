@@ -5,6 +5,8 @@ import { cross } from 'icons';
 
 import SvgIcon from '../SvgIcon';
 
+import './CloseButtonV2.scss';
+
 interface Props {
     className?: string;
     disabled?: boolean;

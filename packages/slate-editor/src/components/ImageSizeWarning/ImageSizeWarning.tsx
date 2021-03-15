@@ -3,6 +3,8 @@ import React, { FunctionComponent } from 'react';
 
 import TooltipV2 from '../TooltipV2';
 
+import './ImageSizeWarning.scss';
+
 export interface Props {
     className?: string;
 }

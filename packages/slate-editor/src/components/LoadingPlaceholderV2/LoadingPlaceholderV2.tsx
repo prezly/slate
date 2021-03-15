@@ -4,6 +4,7 @@ import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import Description from './Description';
 import Icon from './Icon';
 import { useExtrapolatedProgress } from './lib';
+import './LoadingPlaceholderV2.scss';
 import ProgressBar from './ProgressBar';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

@@ -14,6 +14,7 @@ import {
     DEFAULT_SHOW_DELAY,
 } from './constants';
 import DisabledTriggerOverlay from './DisabledTriggerOverlay';
+import './TooltipV2.scss';
 
 interface ChildrenProps {
     /**

@@ -6,6 +6,7 @@ import { ElementPortalV2 } from '../Portals';
 import Button from './Button';
 import ButtonGroup from './ButtonGroup';
 import Dropdown from './Dropdown';
+import './FloatingMenu.scss';
 import Icon from './Icon';
 import Link from './Link';
 import SpaLink from './SpaLink';

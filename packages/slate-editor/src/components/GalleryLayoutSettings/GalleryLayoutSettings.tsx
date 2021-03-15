@@ -4,6 +4,7 @@ import React from 'react';
 import { CloseButtonV2 } from 'components';
 
 import GalleryLayoutSetting from './GalleryLayoutSetting';
+import './GalleryLayoutSettings.scss';
 
 interface Props<Padding extends string, Size extends string> {
     className?: string;

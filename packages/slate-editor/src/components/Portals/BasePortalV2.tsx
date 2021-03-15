@@ -13,6 +13,8 @@ import { Modifier, usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 import { useMountedState, useRafLoop } from 'react-use';
 
+import './BasePortalV2.scss';
+
 const PREVENT_OVERFLOW_MODIFIER: Modifier<'preventOverflow'> = {
     name: 'preventOverflow',
     options: {
