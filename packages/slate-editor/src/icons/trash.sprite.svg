@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="16px" viewBox="0 0 13 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M3,5 L3,15 C3,15.55 3.45,16 4,16 L13,16 C13.55,16 14,15.55 14,15 L14,5 L3,5 Z M6,14 L5,14 L5,7 L6,7 L6,14 Z M8,14 L7,14 L7,7 L8,7 L8,14 Z M10,14 L9,14 L9,7 L10,7 L10,14 Z M12,14 L11,14 L11,7 L12,7 L12,14 Z M14.25,2 C14.662,2 15,2.337 15,2.75 L15,4 L2,4 L2,2.75 C2,2.337 2.337,2 2.75,2 L6,2 L6,0.75 C6,0.338 6.338,0 6.75,0 L10.25,0 C10.662,0 11,0.338 11,0.75 L11,2 L14.25,2 Z" id="path-1"></path>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/16x16/Trash" transform="translate(-2.000000, 0.000000)">
+            <g id="icon-left-arrow">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="trash-icon" fill="currentcolor" fill-rule="nonzero" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

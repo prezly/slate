@@ -1,0 +1,12 @@
+.image-size-warning {
+    $size: 32px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $size;
+    height: $size;
+    background-color: rgba(black, 0.5);
+    color: $color-orange-400;
+    font-size: 20px;
+}

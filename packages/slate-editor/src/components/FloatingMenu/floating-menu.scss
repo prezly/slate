@@ -1,0 +1,117 @@
+.floating-menu {
+    $font-size: 14px;
+
+    display: flex;
+    background-color: #ffffff;
+    border: 1px solid $color-grey-250;
+    border-radius: $border-radius-base;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11);
+    font-size: 0;
+
+    input {
+        font-size: $font-size;
+    }
+
+    &__link {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 $spacing-1;
+        font-size: $font-size;
+        color: #767676;
+        cursor: pointer;
+        border-right: 1px solid $color-grey-250;
+
+        &:hover {
+            background-color: #f5f5f5;
+            color: #767676;
+            text-decoration: underline;
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &--disabled {
+            color: $color-grey-250;
+            pointer-events: none;
+        }
+    }
+
+    &__button-group {
+        border-right: 1px solid $color-grey-250;
+        // Use inline-flex to prevent the button-group from collapsing
+        // when there is not enough horizontal space.
+        display: inline-flex;
+        padding: 0 $spacing-half;
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &--flex {
+            display: flex;
+            align-items: center;
+            padding: 0 $spacing-1;
+
+            .btn {
+                margin-left: $spacing-half;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    &__button {
+        @include btn-unstyled;
+        max-height: 2 * ($spacing-half + $spacing-1) + 16px;
+        min-width: 32px;
+        padding: $spacing-half + $spacing-1 $spacing-1;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+            color: $color-green-500;
+        }
+
+        &--active {
+            color: $color-green-500;
+
+            &:before {
+                content: "";
+                position: absolute;
+                bottom: -1px;
+                left: $spacing-half;
+                right: $spacing-half;
+                width: $spacing-3;
+                height: $spacing-half;
+                border-radius: $border-radius-base / 2;
+                background-color: $color-green-500;
+            }
+        }
+
+        &--danger {
+            &,
+            &:hover {
+                color: $color-red-500;
+            }
+        }
+
+        .svg-icon {
+            display: block;
+        }
+
+        .icon {
+            font-size: $spacing-2;
+        }
+    }
+
+    &__icon {
+        width: 16px;
+        height: 16px;
+    }
+}

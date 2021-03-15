@@ -1,0 +1,23 @@
+/* eslint-disable no-param-reassign */
+
+import { EditorCommands } from '@prezly/slate-commons';
+import { Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
+
+const withNonEmptyValue = <T extends ReactEditor>(editor: T) => {
+    const { normalizeNode } = editor;
+
+    editor.normalizeNode = ([node, path]) => {
+        if (path.length === 0 && editor.children.length === 0) {
+            EditorCommands.insertEmptyParagraph(editor, [0]);
+            Transforms.select(editor, [0, 0]);
+            return;
+        }
+
+        normalizeNode([node, path]);
+    };
+
+    return editor;
+};
+
+export default withNonEmptyValue;

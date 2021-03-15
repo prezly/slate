@@ -1,0 +1,37 @@
+[
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": "italic subscript",
+                "subscript": true,
+                "italic": true
+            },
+            {
+                "text": "bold italic",
+                "bold": true,
+                "italic": true
+            },
+            {
+                "text": "bold italic underlined",
+                "bold": true,
+                "italic": true,
+                "underlined": true
+            },
+            {
+                "text": "bold italic superscript",
+                "bold": true,
+                "italic": true,
+                "superscript": true
+            }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": ""
+            }
+        ]
+    }
+]

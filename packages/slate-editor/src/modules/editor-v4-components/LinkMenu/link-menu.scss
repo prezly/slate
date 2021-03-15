@@ -1,0 +1,26 @@
+.editor-v4-link-menu {
+    display: flex;
+
+    &__form {
+        display: flex;
+    }
+
+    &__form-content {
+        height: $spacing-5;
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
+        border-right: 1px solid $color-grey-250;
+    }
+
+    &__input {
+        border: 0;
+        padding: 0 $spacing-2;
+        min-width: 264px;
+        font-size: 14px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}

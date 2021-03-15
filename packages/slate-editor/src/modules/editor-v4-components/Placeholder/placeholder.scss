@@ -1,0 +1,11 @@
+.editor-v4-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: $editor-v4-paragraph-font-size;
+    line-height: $editor-v4-paragraph-line-height;
+    color: #949595;
+    pointer-events: none;
+    user-select: none;
+}

@@ -1,0 +1,8 @@
+.gallery-menu {
+    &__gallery-layout-settings {
+        width: 400px;
+        position: absolute !important; // override .gallery-layout-settings setting
+        top: 100%;
+        right: 0;
+    }
+}

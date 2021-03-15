@@ -1,0 +1,49 @@
+.editor-v4-image-element {
+    @mixin animate {
+        transition: all 500ms $ease-in-out-sine;
+        transition-property: width, transform, max-width;
+        transform: translate3d(0, 0, 0);
+    }
+
+    @include editor-v4-block($void: false);
+    @include animate;
+
+    &--active {
+        img {
+            @include editor-v4-block-active;
+        }
+    }
+
+    &__resizable-container {
+        @include animate;
+
+        margin: 0 auto;
+
+        &--resizing {
+            transition: none;
+        }
+    }
+
+    &__image {
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: auto;
+        cursor: default;
+        margin: 0 auto;
+    }
+
+    &__caption {
+        display: none;
+        margin: 0 auto;
+        padding: 12px 0 0;
+        color: #767676;
+        font-style: italic;
+        font-size: $font-size-small;
+        text-align: center;
+
+        &--visible {
+            display: block;
+        }
+    }
+}

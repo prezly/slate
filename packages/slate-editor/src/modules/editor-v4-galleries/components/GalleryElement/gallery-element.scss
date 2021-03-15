@@ -1,0 +1,7 @@
+.editor-v4-gallery-element {
+    @include editor-v4-block($void: false);
+
+    &--active {
+        @include editor-v4-block-active;
+    }
+}

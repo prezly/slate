@@ -1,0 +1,89 @@
+.tooltip-v2 {
+    $background-color: $color-type-primary;
+    $foreground-color: $color-base-white;
+    $arrow-padding: 2px;
+    $arrow-size: 4px;
+    $tooltip-offset: $arrow-padding + $arrow-size;
+
+    position: absolute;
+    z-index: 1050;
+    max-width: 200px;
+    word-break: break-word;
+    text-align: center;
+
+    &__arrow {
+        position: absolute;
+        width: 2 * $arrow-size; // required by popper
+        height: 2 * $arrow-size; // required by popper
+
+        &:after {
+            content: " ";
+            position: absolute;
+            height: 0;
+            width: 0;
+            pointer-events: none;
+            border: $arrow-size solid transparent;
+        }
+    }
+
+    &__content {
+        padding: $spacing-1 $spacing-1-5;
+        background-color: $background-color;
+        border-radius: $border-radius-base;
+        color: $foreground-color;
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    &--top {
+        .tooltip-v2__arrow {
+            bottom: -$arrow-size;
+
+            &:after {
+                left: 0;
+                bottom: 0;
+                border-top-color: $background-color;
+                border-bottom: none;
+            }
+        }
+    }
+
+    &--bottom {
+        .tooltip-v2__arrow {
+            top: -$arrow-size;
+
+            &:after {
+                top: 0;
+                left: 0;
+                border-bottom-color: $background-color;
+                border-top: none;
+            }
+        }
+    }
+
+    &--left {
+        .tooltip-v2__arrow {
+            right: -$arrow-size;
+
+            &:after {
+                right: 0;
+                top: 0;
+                border-left-color: $background-color;
+                border-right: none;
+            }
+        }
+    }
+
+    &--right {
+        .tooltip-v2__arrow {
+            left: -$arrow-size;
+
+            &:after {
+                left: 0;
+                top: 0;
+                border-right-color: $background-color;
+                border-left: none;
+            }
+        }
+    }
+}

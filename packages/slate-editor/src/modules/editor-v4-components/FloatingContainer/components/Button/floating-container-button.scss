@@ -1,0 +1,28 @@
+.editor-v4-floating-container-button {
+    @include button-variant(#767676, $color-grey-250, transparent);
+
+    width: $editor-v4-floating-button-size;
+    height: $editor-v4-floating-button-size;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    font-size: 11px;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0;
+
+    &--variant-green {
+        @include button-variant($white, $color-green-500, transparent);
+    }
+
+    &__icon {
+        transition: transform 0.2s ease-out;
+        width: 16px;
+        height: 16px;
+
+        &--close {
+            transform: rotate(45deg);
+        }
+    }
+}

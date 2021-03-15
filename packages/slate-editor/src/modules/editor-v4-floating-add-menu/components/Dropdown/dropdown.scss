@@ -1,0 +1,33 @@
+.editor-v4-floating-menu-dropdown {
+    &__menu {
+        width: 100%;
+        padding: $spacing-half 0 !important; // override higher specificity of .editor-story ul
+    }
+
+    &__beta-label {
+        margin-left: auto;
+        height: 16px;
+        width: 80px;
+        font-size: 10px;
+        line-height: 13px;
+    }
+
+    &__menu-item {
+        a {
+            display: flex !important; // override higher specificity of .dropdown-menu > .active > a
+            align-items: center;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .icon {
+            margin-right: $spacing-2;
+            font-size: 16px;
+            width: 16px;
+        }
+
+        &.active .icon {
+            color: $white;
+        }
+    }
+}

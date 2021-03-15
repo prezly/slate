@@ -1,0 +1,68 @@
+.loading-placeholder-v2 {
+    $horizontal-padding: $spacing-1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 240px;
+    padding: 0 $horizontal-padding;
+    background: $color-grey-100;
+    border: 1px solid $color-grey-500;
+
+    &__icon {
+        $size: 24px;
+
+        width: $size;
+        height: $size;
+        margin: $spacing-2 0;
+        color: $color-grey-750;
+    }
+
+    &__description {
+        display: flex;
+        justify-content: center;
+        margin: $spacing-2 0;
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    &__message {
+        font-weight: 600;
+        color: $color-type-primary;
+    }
+
+    &__progress {
+        margin-left: $spacing-1-5;
+        width: 34px; // constant width to avoid content jump when number of % digits change
+        text-align: right;
+        font-weight: 600;
+        color: $color-type-secondary;
+    }
+
+    &__progress-bar {
+        max-width: calc(100% - #{2 * $horizontal-padding});
+        width: 220px;
+        height: 2px;
+        margin: $spacing-2 0;
+        background-color: #c3e5d5;
+    }
+
+    &__progress-bar-value {
+        height: 100%;
+        background-color: #2ca859;
+        transition: width 100ms linear;
+    }
+
+    &__icon,
+    &__description,
+    &__progress-bar {
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

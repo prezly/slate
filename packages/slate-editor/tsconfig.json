@@ -3,8 +3,18 @@
 
     "compilerOptions": {
         "outDir": "./build",
-        "rootDir": "./src"
+        "rootDir": "./src",
+        "jsx": "react",
+        "paths": {
+            "components": ["./src/components"],
+            "icons": ["./src/icons"],
+            "lib": ["./src/lib"],
+            "lib/test": ["./src/lib/test"],
+            "modules/*": ["./src/modules/*"],
+            "types": ["./src/types"]
+        },
+        "typeRoots": ["./node_modules/@types", "./src/@types"]
     },
-    "exclude": ["node_modules", "**/*.test.ts"],
+    "exclude": ["node_modules", "**/*.test.*"],
     "include": ["./src"]
 }

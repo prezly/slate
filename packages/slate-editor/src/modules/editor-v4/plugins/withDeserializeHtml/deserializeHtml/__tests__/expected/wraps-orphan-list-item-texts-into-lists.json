@@ -1,0 +1,20 @@
+[
+    {
+        "type": "bulleted-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "type": "list-item-text",
+                        "children": [
+                            {
+                                "text": "Nested Lists A"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,24 @@
+.gallery-tooltip {
+    display: flex;
+    align-items: center;
+    padding: $spacing-1 ($spacing-1 + $spacing-half);
+    font-size: 14px;
+    color: $color-type-primary;
+
+    &__icon {
+        font-size: 18px;
+        color: $color-purple-500;
+        margin-right: $spacing-1;
+    }
+
+    &__button {
+        padding: 0;
+        margin-left: $spacing-half;
+        text-decoration: underline;
+        font-weight: normal;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
