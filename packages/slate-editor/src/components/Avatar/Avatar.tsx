@@ -1,22 +1,28 @@
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
-import { emptyNewsroomIcon } from 'icons';
+import { emptyNewsroom } from 'icons';
 
 import SvgIcon from '../SvgIcon';
 
-const SIZES = {
-    tiny: 16,
-    smaller: 24,
+type Size = 'small' | 'medium' | 'large';
+
+interface Props {
+    className?: string;
+    name?: string;
+    size: Size;
+    square?: boolean;
+    src?: string;
+}
+
+const SIZES: Record<Size, number> = {
     small: 32,
-    40: 40,
-    normal: 48,
+    medium: 48,
     large: 64,
 };
 
-const Avatar = ({ size, className, name, src, square }) => {
-    const computedSize = SIZES[size] || size;
+const Avatar: FunctionComponent<Props> = ({ className, name, size, square, src }) => {
+    const computedSize = SIZES[size];
     const classnames = classNames(className, `avatar-thumb-${computedSize}`, {
         'img-circle': !square,
         rounded: square,
@@ -38,28 +44,11 @@ const Avatar = ({ size, className, name, src, square }) => {
         <SvgIcon
             className={classnames}
             height={SIZES[size]}
-            icon={emptyNewsroomIcon}
+            icon={emptyNewsroom}
             role="presentation"
-            title={name}
             width={SIZES[size]}
         />
     );
-};
-
-Avatar.propTypes = {
-    className: PropTypes.string,
-    name: PropTypes.string,
-    size: PropTypes.oneOf(['tiny', 'small', 'smaller', 'normal', 'large', '40']),
-    square: PropTypes.bool,
-    src: PropTypes.string,
-};
-
-Avatar.defaultProps = {
-    name: '',
-    size: 'normal',
-    src: '',
-    square: false,
-    className: '',
 };
 
 export default Avatar;
