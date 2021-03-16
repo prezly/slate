@@ -3,7 +3,7 @@ import React, { FunctionComponent, RefObject, useState } from 'react';
 import { Path, Range } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
-import uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 
 import { CursorPortalV2, ElementPortalV2, FloatingMenu } from 'components';
 import { LinkMenu } from 'modules/editor-v4-components';

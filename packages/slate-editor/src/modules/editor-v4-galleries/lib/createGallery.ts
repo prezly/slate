@@ -1,4 +1,4 @@
-import uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 
 import { GALLERY_TYPE } from '../constants';
 import { GalleryElementType, GalleryImageSize, GalleryLayout, GalleryPadding } from '../types';
