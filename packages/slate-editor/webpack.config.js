@@ -25,7 +25,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    /*MiniCssExtractPlugin.loader,*/
+                    MiniCssExtractPlugin.loader,
                     { loader: 'css-loader' },
                     { loader: 'postcss-loader', options: postCssConfig },
                     { loader: 'sass-loader' },
@@ -63,9 +63,9 @@ module.exports = {
     },
     plugins: [
         new SpriteLoaderPlugin(),
-        // new MiniCssExtractPlugin({
-        //     filename: 'styles.css',
-        // }),
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+        }),
     ],
     watch: isDev,
 };
