@@ -4,11 +4,11 @@
     max-width: 500px !important; // override .tooltip-v2 setting
 
     &__link {
-        color: $color-base-white;
+        color: #ffffff;
         text-decoration: underline;
 
         &:hover {
-            color: $color-base-white;
+            color: #ffffff;
         }
     }
 }

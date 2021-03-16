@@ -1,0 +1,130 @@
+@import "./variables";
+
+@mixin ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+@mixin btn-unstyled {
+    padding: 0;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    background: none;
+}
+
+@mixin img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+@mixin button-variant($color, $background, $border) {
+    color: $color;
+    background-color: $background;
+    border-color: $border;
+
+    &:focus,
+    &.focus {
+        color: $color;
+        background-color: darken($background, 10%);
+        border-color: darken($border, 25%);
+    }
+    &:hover {
+        color: $color;
+        background-color: darken($background, 10%);
+        border-color: darken($border, 12%);
+    }
+    &:active,
+    &.active {
+        color: $color;
+        background-color: darken($background, 10%);
+        border-color: darken($border, 12%);
+
+        &:hover,
+        &:focus,
+        &.focus {
+            color: $color;
+            background-color: darken($background, 17%);
+            border-color: darken($border, 25%);
+        }
+    }
+    &:active,
+    &.active,
+    &.disabled,
+    &[disabled] {
+        &:hover,
+        &:focus,
+        &.focus {
+            background-color: $background;
+            border-color: $border;
+        }
+    }
+}
+
+@mixin editor-v4-void-element() {
+    /*
+     * Selection in Slate 0.50+ does not work as expected if a void block is selectable.
+     * It could lead to an error when Slate is resolving the node which crashes the editor.
+     *
+     * Also, it's not possible to drag a node when it's selectable.
+     *
+     * see: https://app.clubhouse.io/prezly/story/19824/weird-selection-after-editing-an-attachment-or-image-or-gallery
+     * see: https://app.clubhouse.io/prezly/story/20456/error-cannot-resolve-a-dom-node-from-slate-node-text
+     */
+    user-select: none;
+}
+
+@mixin editor-v4-block($void) {
+    @if $void != true and $void != false {
+        @error "editor-v4-block: $void must be either true or false, got #{$void}.";
+    }
+
+    margin: $editor-v4-block-spacing-vertical 0;
+
+    @if $void == true {
+        @include editor-v4-void-element;
+    }
+}
+
+@mixin editor-v4-block-active {
+    outline: solid 4px #4a90e2;
+}
+
+/**
+ * Do not use this mixin outside of this file
+ */
+@mixin editor-v4-top-elements {
+    [data-slate-editor="true"] > * {
+        @content;
+    }
+}
+
+@mixin editor-v4-width($width) {
+    @include editor-v4-top-elements {
+        max-width: $width;
+    }
+
+    .editor-v4-gallery-element,
+    .editor-v4-image-element {
+        &--expanded {
+            max-width: $width + 140px;
+        }
+
+        &--full-width {
+            max-width: 100%;
+        }
+    }
+
+    .editor-v4-placeholder {
+        max-width: $width;
+        margin: 0 auto;
+    }
+
+    .editor-v4-sizer {
+        max-width: $width;
+    }
+}

@@ -1,3 +1,6 @@
+@import "styles/mixins";
+@import "styles/variables";
+
 .editor-v4-floating-container-button {
     @include button-variant(#767676, $color-grey-250, transparent);
 
@@ -13,7 +16,7 @@
     padding: 0;
 
     &--variant-green {
-        @include button-variant($white, $color-green-500, transparent);
+        @include button-variant(#ffffff, $color-green-500, transparent);
     }
 
     &__icon {

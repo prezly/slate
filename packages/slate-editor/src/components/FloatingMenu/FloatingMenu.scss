@@ -1,3 +1,4 @@
+@import "styles/mixins";
 @import "styles/variables";
 
 .floating-menu {
@@ -69,6 +70,7 @@
 
     &__button {
         @include btn-unstyled;
+
         max-height: 2 * ($spacing-half + $spacing-1) + 16px;
         min-width: 32px;
         padding: $spacing-half + $spacing-1 $spacing-1;

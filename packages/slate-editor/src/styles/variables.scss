@@ -10,8 +10,37 @@ $spacing-6: 6 * $spacing-base;
 $spacing-7: 7 * $spacing-base;
 $spacing-8: 8 * $spacing-base;
 
+$border-radius-base: 4px;
+
+$font-family-sans-serif: "Open Sans", sans-serif;
+
+/* Greens */
+$color-green-500: #02ab5c;
+$color-green-10: rgba(0, 174, 49, 0.06);
+
+/* Greys */
+$color-grey-100: #f4f4f4;
+$color-grey-250: #ececec;
+$color-grey-375: #dcdcdc;
+$color-grey-500: #cccccc;
+$color-grey-750: #afafaf;
+$color-grey-900: #757777;
+
+/* Purples */
+$color-purple-10: rgba(67, 59, 161, 0.06);
+$color-purple-250: #1c165f;
+$color-purple-500: #2c248d;
+$color-purple-900: #433ba1;
+
+/* Text Colors */
 $color-type-primary: #333333;
 $color-type-secondary: #757777;
+
+/* Warnings and Errors */
+$color-orange-400: #ebce31;
+$color-orange-500: #f5c723;
+$color-red-500: #ce1d33;
+$color-red-10: #feeef0;
 
 $slate-floating-button-size: 32px;
 $slate-floating-button-margin: $spacing-2;
@@ -19,3 +48,12 @@ $slate-paragraph-line-height: 26px;
 
 $story-composer-navigation-z-index: 10000;
 $story-composer-sidebar-z-index: $story-composer-navigation-z-index + 1;
+
+$editor-v4-block-spacing-vertical: 44px;
+$editor-v4-paragraph-font-size: 16px;
+$editor-v4-paragraph-line-height: 22px;
+$editor-v4-text-color: $color-type-primary;
+$editor-v4-floating-button-size: 32px;
+$editor-v4-floating-button-margin: $spacing-2;
+$editor-v4-embed-element-overlay-z-index: 2;
+$editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index + 1;
