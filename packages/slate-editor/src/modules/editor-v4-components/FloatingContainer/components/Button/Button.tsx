@@ -4,6 +4,8 @@ import React, { forwardRef, HTMLAttributes, MouseEventHandler, Ref } from 'react
 import { SvgIcon } from 'components';
 import { add } from 'icons';
 
+import './Button.scss';
+
 interface Props extends HTMLAttributes<HTMLButtonElement> {
     onClick: MouseEventHandler<HTMLButtonElement>;
     open?: boolean;

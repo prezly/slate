@@ -7,6 +7,7 @@ import { download } from 'icons';
 
 import { FileAttachmentElementType } from '../../types';
 
+import './FileAttachmentElement.scss';
 import Subtitle from './Subtitle';
 import Title from './Title';
 

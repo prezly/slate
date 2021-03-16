@@ -5,6 +5,8 @@ import { Option } from 'modules/editor-v4-mentions';
 
 import { User } from '../../types';
 
+import './UserMentionsDropdownOption.scss';
+
 interface Props {
     option: Option<User>;
 }

@@ -4,6 +4,8 @@ import React, { Component, createRef, CSSProperties } from 'react';
 
 import { ImageSizeWarning, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from 'components';
 
+import './GalleryImage.scss';
+
 interface Props {
     className?: string;
     height: number;

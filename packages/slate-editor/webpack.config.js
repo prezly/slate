@@ -1,15 +1,20 @@
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+const postcssConfig = require('./postcss.config');
+
+const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+const tsConfig = JSON.parse(fs.readFileSync('./tsconfig.json', 'utf-8'));
 
 const isDev = process.env.NODE_ENV === 'development';
-const packageJson = fs.readFileSync('./package.json', 'utf-8');
-const { peerDependencies } = JSON.parse(packageJson);
 
 module.exports = {
     mode: isDev ? 'development' : 'production',
     entry: './src/index.ts',
-    externals: Object.fromEntries(Object.keys(peerDependencies).map((name) => [name, name])),
+    externals: Object.fromEntries(
+        Object.keys(packageJson.peerDependencies).map((name) => [name, name]),
+    ),
     module: {
         rules: [
             {
@@ -20,26 +25,34 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sassOptions: {
-                                includePaths: [path.resolve(__dirname, 'src')],
-                            },
-                        },
-                    },
+                    /*MiniCssExtractPlugin.loader,*/
+                    { loader: 'css-loader' },
+                    { loader: 'postcss-loader', options: postCssConfig },
+                    { loader: 'sass-loader' },
                 ],
             },
             {
-                test: /\.svg$/,
-                use: '@svgr/webpack',
+                test: /\.sprite\.svg$/,
+                use: [
+                    {
+                        loader: 'svg-sprite-loader',
+                        options: {
+                            spriteFilename: 'icons',
+                        },
+                    },
+                    {
+                        loader: 'svgo-loader',
+                        options: {
+                            plugins: [{ convertColors: { shorthex: true } }, { sortAttrs: true }],
+                        },
+                    },
+                ],
             },
         ],
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.scss', '.svg'],
+        modules: ['node_modules', 'src'],
     },
     output: {
         filename: 'index.js',
@@ -49,9 +62,10 @@ module.exports = {
         publicPath: '/',
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: 'styles.css',
-        }),
+        new SpriteLoaderPlugin(),
+        // new MiniCssExtractPlugin({
+        //     filename: 'styles.css',
+        // }),
     ],
     watch: isDev,
 };

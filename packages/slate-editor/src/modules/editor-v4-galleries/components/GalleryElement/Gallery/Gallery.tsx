@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { Component, createRef, HTMLAttributes } from 'react';
 
 import { IMAGE_PADDING, IMAGE_SIZE } from './constants';
+import './Gallery.scss';
 import GalleryImage from './GalleryImage';
 import { calculateLayout } from './lib';
 

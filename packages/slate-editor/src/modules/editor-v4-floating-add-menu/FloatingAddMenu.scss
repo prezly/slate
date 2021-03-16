@@ -1,0 +1,31 @@
+@import "styles/variables";
+
+.editor-v4-floating-add-menu {
+    pointer-events: none; // allow click through the placeholder to prevent loss of focus in editor
+
+    &__input::placeholder,
+    &__placeholder {
+        color: #949595;
+    }
+
+    &__input,
+    &__placeholder {
+        font-size: $editor-v4-paragraph-font-size;
+        line-height: $editor-v4-paragraph-line-height;
+    }
+
+    &__button {
+        position: absolute;
+        top: ($editor-v4-paragraph-line-height - $editor-v4-floating-button-size) / 2;
+        left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
+    }
+
+    &__dropdown,
+    &__button {
+        pointer-events: all;
+    }
+
+    &__dropdown {
+        margin-top: $spacing-half !important; // override higher specificity of .editor-story ul
+    }
+}

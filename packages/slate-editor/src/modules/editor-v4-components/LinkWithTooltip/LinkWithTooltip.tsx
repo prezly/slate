@@ -2,6 +2,8 @@ import React, { FunctionComponent } from 'react';
 
 import { TooltipV2, TooltipV2Props } from 'components';
 
+import './LinkWithTooltip.scss';
+
 // introduced so that the tooltip does not disappear while
 // user is moving their mouse over from target to the tooltip
 const HIDE_DELAY = 300;

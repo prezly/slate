@@ -8,6 +8,8 @@ import { embed } from 'icons';
 import { injectOembedMarkup } from '../../lib';
 import { EmbedElementType } from '../../types';
 
+import './EmbedElement.scss';
+
 interface Props extends RenderElementProps {
     availableWidth: number;
     element: EmbedElementType;

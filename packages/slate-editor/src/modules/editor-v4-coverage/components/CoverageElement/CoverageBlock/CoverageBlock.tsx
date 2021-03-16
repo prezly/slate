@@ -12,6 +12,8 @@ import {
     hasOnlyFileAttachment,
 } from '../../../lib';
 
+import './CoverageBlock.scss';
+
 const IMAGE_HEIGHT = 160;
 const TITLE_MAX_HEIGHT = 44; // 2 * line-height of 'editor-v4-coverage-block__title'
 const DESCRIPTION_MAX_HEIGHT = 40; // 2 * line-height of 'editor-v4-coverage-block__description'

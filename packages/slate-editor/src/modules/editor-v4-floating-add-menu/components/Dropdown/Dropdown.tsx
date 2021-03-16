@@ -6,6 +6,8 @@ import { Label, MenuItem } from 'react-bootstrap';
 import { betaLastComparator } from '../../lib';
 import { Option } from '../../types';
 
+import './Dropdown.scss';
+
 interface Props {
     className?: string;
     components: Option[];

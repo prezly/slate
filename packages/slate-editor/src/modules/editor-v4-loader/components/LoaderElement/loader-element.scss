@@ -1,7 +1,0 @@
-.editor-v4-loader-element {
-    @include editor-v4-block($void: true);
-
-    &--active {
-        @include editor-v4-block-active;
-    }
-}

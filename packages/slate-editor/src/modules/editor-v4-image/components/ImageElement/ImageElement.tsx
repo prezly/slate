@@ -14,6 +14,8 @@ import { ImageElementType, ImageLayout } from '../../types';
 import ImageMenu from '../ImageMenu';
 import ResizableContainer from '../ResizableContainer';
 
+import './ImageElement.scss';
+
 interface Props extends RenderElementProps {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;

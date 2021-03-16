@@ -4,6 +4,8 @@ import { useEffectOnce } from 'react-use';
 
 import { FloatingContainer } from 'modules/editor-v4-components';
 
+import './FloatingEmbedInput.scss';
+
 interface Props {
     availableWidth: number;
     containerRef: RefObject<HTMLDivElement>;

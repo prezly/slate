@@ -1,0 +1,105 @@
+@import "styles/variables";
+
+$editor-v4-block-spacing-vertical: 44px;
+$editor-v4-paragraph-font-size: 16px;
+$editor-v4-paragraph-line-height: 22px;
+$editor-v4-text-color: $color-type-primary;
+$editor-v4-floating-button-size: 32px;
+$editor-v4-floating-button-margin: $spacing-2;
+$editor-v4-embed-element-overlay-z-index: 2;
+$editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index + 1;
+
+@mixin editor-v4-void-element() {
+    /*
+     * Selection in Slate 0.50+ does not work as expected if a void block is selectable.
+     * It could lead to an error when Slate is resolving the node which crashes the editor.
+     *
+     * Also, it's not possible to drag a node when it's selectable.
+     *
+     * see: https://app.clubhouse.io/prezly/story/19824/weird-selection-after-editing-an-attachment-or-image-or-gallery
+     * see: https://app.clubhouse.io/prezly/story/20456/error-cannot-resolve-a-dom-node-from-slate-node-text
+     */
+    user-select: none;
+}
+
+@mixin editor-v4-block($void) {
+    @if $void != true and $void != false {
+        @error "editor-v4-block: $void must be either true or false, got #{$void}.";
+    }
+
+    margin: $editor-v4-block-spacing-vertical 0;
+
+    @if $void == true {
+        @include editor-v4-void-element;
+    }
+}
+
+@mixin editor-v4-block-active {
+    outline: solid 4px #4a90e2;
+}
+
+/**
+ * Do not use this mixin outside of this file
+ */
+@mixin editor-v4-top-elements {
+    [data-slate-editor="true"] > * {
+        @content;
+    }
+}
+
+@mixin editor-v4-width($width) {
+    @include editor-v4-top-elements {
+        max-width: $width;
+    }
+
+    .editor-v4-gallery-element,
+    .editor-v4-image-element {
+        &--expanded {
+            max-width: $width + 140px;
+        }
+
+        &--full-width {
+            max-width: 100%;
+        }
+    }
+
+    .editor-v4-placeholder {
+        max-width: $width;
+        margin: 0 auto;
+    }
+
+    .editor-v4-sizer {
+        max-width: $width;
+    }
+}
+
+.editor-v4 {
+    position: relative;
+
+    @include editor-v4-top-elements {
+        margin-left: auto;
+        margin-right: auto;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    [data-slate-editor="true"] * {
+        &::selection {
+            background: #c2e5ff;
+        }
+    }
+
+    &__floating-add-menu-icon {
+        $size: 16px;
+
+        width: $size;
+        height: $size;
+        margin-right: $spacing-2;
+    }
+}

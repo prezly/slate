@@ -5,6 +5,8 @@ import { RenderElementProps } from 'slate-react';
 
 import { ParagraphElementType } from '../../types';
 
+import './ParagraphElement.scss';
+
 interface Props extends HTMLAttributes<HTMLParagraphElement> {
     attributes?: RenderElementProps['attributes'];
     element: ParagraphElementType;

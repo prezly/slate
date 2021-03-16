@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, InputHTMLAttributes } from 'react';
 
+import './Input.scss';
+
 interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     onChange: (value: string) => void;
     value: string;

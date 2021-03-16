@@ -3,6 +3,7 @@ import React, { FunctionComponent, useCallback, useEffect, useRef } from 'react'
 import { Portal } from 'react-portal';
 import { useRafLoop } from 'react-use';
 
+import './BasePortal.scss';
 import getUpdatedPosition from './getUpdatedPosition';
 import { PortalProps } from './types';
 

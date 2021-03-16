@@ -18,6 +18,8 @@ import { BlockType, ElementType, MarkType, RichFormattingExtensionParameters } f
 import BlockDropdown from '../BlockDropdown';
 import MenuButton from '../MenuButton';
 
+import './RichFormattingToolbar.scss';
+
 interface Props {
     activeNodeType: BlockType | null;
     onLinkClick: () => void;

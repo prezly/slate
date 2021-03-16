@@ -4,6 +4,8 @@ import { RenderElementProps } from 'slate-react';
 
 import { ElementType, RichTextElementType } from '../../types';
 
+import './BulletedListElement.scss';
+
 interface Props extends HTMLAttributes<HTMLUListElement> {
     attributes?: RenderElementProps['attributes'];
     element: RichTextElementType;

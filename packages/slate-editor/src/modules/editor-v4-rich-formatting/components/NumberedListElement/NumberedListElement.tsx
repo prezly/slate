@@ -4,6 +4,8 @@ import { RenderElementProps } from 'slate-react';
 
 import { ElementType, RichTextElementType } from '../../types';
 
+import './NumberedListElement.scss';
+
 interface Props extends HTMLAttributes<HTMLOListElement> {
     attributes?: RenderElementProps['attributes'];
     element: RichTextElementType;

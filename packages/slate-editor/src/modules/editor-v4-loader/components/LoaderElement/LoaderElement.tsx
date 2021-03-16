@@ -11,6 +11,8 @@ import { useAsyncProgress } from 'lib';
 import { loaderPromiseManager } from '../../lib';
 import { LoaderContentType, LoaderElementType } from '../../types';
 
+import './LoaderElement.scss';
+
 interface Props extends RenderElementProps {
     element: LoaderElementType;
     onMount: () => void;

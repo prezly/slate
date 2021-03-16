@@ -9,6 +9,8 @@ import { ensureChildInView } from 'lib';
 
 import { Option } from '../../types';
 
+import './MentionsDropdown.scss';
+
 interface Props<V> {
     index: number;
     onOptionClick: (option: Option<V>) => void;

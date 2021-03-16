@@ -7,6 +7,7 @@ import { KeyboardKey, TooltipV2 } from 'components';
 import { FloatingContainer } from 'modules/editor-v4-components';
 
 import { Dropdown, Input } from './components';
+import './FloatingAddMenu.scss';
 import { useMenu } from './lib';
 import { FloatingAddMenuParameters } from './types';
 

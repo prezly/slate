@@ -5,6 +5,8 @@ import { LinkWithTooltip } from 'modules/editor-v4-components';
 
 import { LinkElementType } from '../../types';
 
+import './LinkElement.scss';
+
 interface Props extends RenderElementProps {
     element: LinkElementType;
 }

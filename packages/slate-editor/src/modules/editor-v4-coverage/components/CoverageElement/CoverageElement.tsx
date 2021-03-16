@@ -11,6 +11,7 @@ import { Coverage } from 'types';
 import { CoverageElementType } from '../../types';
 
 import CoverageBlock from './CoverageBlock';
+import './CoverageElement.scss';
 import FetchingError from './FetchingError';
 
 // GET /v2/coverage/:id endpoint usually responds in 300-1000 ms

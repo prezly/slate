@@ -4,6 +4,7 @@ import React, { Component, CSSProperties } from 'react';
 import { DraggableCore, DraggableEventHandler } from 'react-draggable';
 
 import { getClampedRatioInPercent, getClampedWidthInPercent, increaseWidth } from './lib';
+import './ResizableContainer.scss';
 
 interface Props {
     className?: string;

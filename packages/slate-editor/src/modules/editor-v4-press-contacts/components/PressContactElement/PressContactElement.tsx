@@ -8,6 +8,7 @@ import { user } from 'icons';
 import { PressContactElementType } from '../../types';
 import JobDescription from '../JobDescription';
 
+import './PressContactElement.scss';
 import SocialFields from './SocialFields';
 
 interface Props extends RenderElementProps {

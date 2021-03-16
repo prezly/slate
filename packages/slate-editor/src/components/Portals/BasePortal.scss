@@ -1,0 +1,12 @@
+@import "styles/variables";
+
+.base-portal {
+    position: absolute;
+    top: -10000px;
+    left: -10000px;
+    opacity: 0;
+
+    &--no-pointer-events {
+        pointer-events: none;
+    }
+}

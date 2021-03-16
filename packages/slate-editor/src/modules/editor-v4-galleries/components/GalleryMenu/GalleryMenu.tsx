@@ -11,6 +11,8 @@ import { removeGallery, updateGallery } from '../../transforms';
 import { GalleryElementType, GalleryImageSize, GalleryPadding } from '../../types';
 import LayoutControls from '../LayoutControls';
 
+import './GalleryMenu.scss';
+
 const PADDING_OPTIONS: { label: string; value: GalleryElementType['padding'] }[] = [
     { label: 'S', value: GalleryPadding.S },
     { label: 'M', value: GalleryPadding.M },

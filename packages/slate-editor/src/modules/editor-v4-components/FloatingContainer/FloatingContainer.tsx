@@ -5,6 +5,7 @@ import { RootCloseWrapper } from 'react-overlays';
 import { ElementPortal, PortalOrigin } from 'components';
 
 import { Button } from './components';
+import './FloatingContainer.scss';
 import useCurrentDomNode from './useCurrentDomNode';
 
 interface Props {

@@ -7,6 +7,8 @@ import { Coverage } from 'types';
 
 import { SearchProps } from '../../types';
 
+import './FloatingCoverageMenu.scss';
+
 interface Props {
     availableWidth: number;
     containerRef: RefObject<HTMLDivElement>;

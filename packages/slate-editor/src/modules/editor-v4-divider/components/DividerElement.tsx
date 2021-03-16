@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
 
+import './DividerElement.scss';
+
 interface Props extends RenderElementProps {}
 
 const DividerElement: FunctionComponent<Props> = ({ attributes, children, element }) => {

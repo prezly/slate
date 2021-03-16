@@ -4,6 +4,8 @@ import { RenderElementProps, useSelected } from 'slate-react';
 
 import { MentionElementType } from '../../types';
 
+import './MentionElement.scss';
+
 interface Props<T extends string> extends RenderElementProps {
     element: MentionElementType<T>;
 }

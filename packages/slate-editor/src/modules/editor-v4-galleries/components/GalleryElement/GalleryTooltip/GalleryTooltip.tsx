@@ -3,6 +3,8 @@ import { Button } from 'react-bootstrap';
 
 import { FloatingMenu } from 'components';
 
+import './GalleryTooltip.scss';
+
 interface Props {
     containerRef: RefObject<HTMLElement>;
     element: HTMLElement;

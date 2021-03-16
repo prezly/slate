@@ -10,6 +10,8 @@ import { PressContact } from 'types';
 
 import { SearchProps } from '../../types';
 
+import './FloatingPressContactsMenu.scss';
+
 interface Props {
     availableWidth: number;
     containerRef: RefObject<HTMLDivElement>;

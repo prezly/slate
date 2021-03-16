@@ -4,6 +4,8 @@ import { RenderElementProps } from 'slate-react';
 
 import { ElementType, RichTextElementType } from '../../types';
 
+import './BlockQuoteElement.scss';
+
 interface Props extends HTMLAttributes<HTMLQuoteElement> {
     attributes?: RenderElementProps['attributes'];
     element: RichTextElementType;

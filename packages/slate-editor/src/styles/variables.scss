@@ -1,0 +1,21 @@
+$spacing-base: 8px;
+$spacing-half: 0.5 * $spacing-base;
+$spacing-1: 1 * $spacing-base;
+$spacing-1-5: 1.5 * $spacing-base;
+$spacing-2: 2 * $spacing-base;
+$spacing-3: 3 * $spacing-base;
+$spacing-4: 4 * $spacing-base;
+$spacing-5: 5 * $spacing-base;
+$spacing-6: 6 * $spacing-base;
+$spacing-7: 7 * $spacing-base;
+$spacing-8: 8 * $spacing-base;
+
+$color-type-primary: #333333;
+$color-type-secondary: #757777;
+
+$slate-floating-button-size: 32px;
+$slate-floating-button-margin: $spacing-2;
+$slate-paragraph-line-height: 26px;
+
+$story-composer-navigation-z-index: 10000;
+$story-composer-sidebar-z-index: $story-composer-navigation-z-index + 1;

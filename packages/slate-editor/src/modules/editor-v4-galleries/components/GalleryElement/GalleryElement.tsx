@@ -8,6 +8,7 @@ import { RenderElementProps, useSelected, useSlate } from 'slate-react';
 import { GalleryElementType, GalleryLayout } from '../../types';
 
 import Gallery from './Gallery';
+import './GalleryElement.scss';
 import GalleryTooltip from './GalleryTooltip';
 
 interface Props extends RenderElementProps {

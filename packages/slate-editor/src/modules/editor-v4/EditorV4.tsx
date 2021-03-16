@@ -32,6 +32,7 @@ import { RichFormattingMenu } from 'modules/editor-v4-rich-formatting';
 import { UploadcareEditor } from 'modules/editor-v4-uploadcare';
 import { UserMentionsDropdown, useUserMentions } from 'modules/editor-v4-user-mentions';
 
+import './EditorV4.scss';
 import getEnabledExtensions from './getEnabledExtensions';
 import {
     createHandleAddGallery,
