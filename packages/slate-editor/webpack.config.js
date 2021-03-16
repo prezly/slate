@@ -51,7 +51,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss', '.svg'],
+        extensions: ['.ts', '.tsx', '.js'],
         modules: ['node_modules', 'src'],
     },
     output: {

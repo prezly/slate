@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
 import { Editor, Node, NodeEntry, Transforms } from 'slate';
 import uploadcare, { FileInfo, FilePromise } from 'uploadcare-widget';
-import isDataURI from 'validator/lib/isDataURI';
+import isDataURI from 'validator/es/lib/isDataURI';
 
 import { dataUriToFile } from 'lib';
 import { EventsEditor } from 'modules/editor-v4-events';

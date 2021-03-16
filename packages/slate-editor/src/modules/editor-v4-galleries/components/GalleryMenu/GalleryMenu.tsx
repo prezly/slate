@@ -1,5 +1,5 @@
 import React, { FunctionComponent, RefObject, useState } from 'react';
-import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
+import { RootCloseWrapper } from 'react-overlays';
 import { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
