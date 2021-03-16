@@ -74,6 +74,7 @@
         "lodash": "^4.17.21",
         "mini-css-extract-plugin": "^0.5.0",
         "moment": "^2.29.1",
+        "postcss-loader": "^5.2.0",
         "rangefix": "^0.2.9",
         "react": "^17.0.1",
         "react-draggable": "^4.4.3",
