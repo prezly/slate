@@ -13,6 +13,12 @@ $spacing-8: 8 * $spacing-base;
 $border-radius-base: 4px;
 
 $font-family-sans-serif: "Open Sans", sans-serif;
+$font-size-x-small: 12px;
+$font-size-small: 14px;
+$font-size-medium: 16px;
+$font-size-large: 18px;
+
+$ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
 /* Greens */
 $color-green-500: #02ab5c;
@@ -41,6 +47,13 @@ $color-orange-400: #ebce31;
 $color-orange-500: #f5c723;
 $color-red-500: #ce1d33;
 $color-red-10: #feeef0;
+
+$alert-danger-bg: #f2dede;
+$alert-danger-border: darken(adjust-hue($alert-danger-bg, -10), 5%) !default;
+$alert-info-bg: #d9edf7;
+$alert-info-border: darken(adjust-hue($alert-info-bg, -10), 7%);
+$alert-info-text: #31708f;
+$color-status-error: #c43a3a;
 
 $slate-floating-button-size: 32px;
 $slate-floating-button-margin: $spacing-2;
