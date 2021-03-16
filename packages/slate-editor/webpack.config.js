@@ -2,7 +2,7 @@ const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
-const postcssConfig = require('./postcss.config');
+const postCssConfig = require('./postcss.config');
 
 const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
 const tsConfig = JSON.parse(fs.readFileSync('./tsconfig.json', 'utf-8'));
