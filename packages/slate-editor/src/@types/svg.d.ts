@@ -10,9 +10,3 @@ declare module '*.sprite.svg' {
     const symbol: BrowserSpriteSymbol;
     export default symbol;
 }
-
-// All SVG files with ".file.svg" extension will be loaded with "file-loader"
-declare module '*.file.svg' {
-    const url: string;
-    export default url;
-}

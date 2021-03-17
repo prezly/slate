@@ -42,7 +42,9 @@ module.exports = {
                     {
                         loader: 'svg-sprite-loader',
                         options: {
-                            spriteFilename: 'icons',
+                            extract: true,
+                            spriteFilename: 'icons.svg',
+                            publicPath: '/',
                         },
                     },
                     {
