@@ -24,9 +24,12 @@ const Media: FunctionComponent<Props> = ({ children, className, image, style }) 
         const video = image.toVideo().bestQuality();
         const sourceWebm = video.format('webm').cdnUrl;
         const sourceMp4 = video.format('mp4').cdnUrl;
+        const poster = image.format('png').cdnUrl;
 
         return (
             <video
+                poster={poster}
+                preload="none"
                 autoPlay
                 className={computedClassName}
                 loop
