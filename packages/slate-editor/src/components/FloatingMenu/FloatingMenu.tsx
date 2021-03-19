@@ -12,7 +12,7 @@ import Link from './Link';
 import SpaLink from './SpaLink';
 import Toolbar from './Toolbar';
 
-interface Props {
+export interface Props {
     className?: string;
     containerRef: RefObject<HTMLElement>;
     element: HTMLElement;

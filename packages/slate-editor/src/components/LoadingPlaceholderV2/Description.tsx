@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-interface Props {
+export interface Props {
     children: string;
     className?: string;
     percent: string;

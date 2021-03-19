@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 
 import SvgIcon from '../SvgIcon';
 
-interface Props {
+export interface Props {
     className?: string;
     icon: BrowserSpriteSymbol;
 }

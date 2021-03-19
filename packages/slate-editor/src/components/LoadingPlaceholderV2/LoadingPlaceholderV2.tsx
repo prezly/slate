@@ -7,7 +7,7 @@ import { useExtrapolatedProgress } from './lib';
 import './LoadingPlaceholderV2.scss';
 import ProgressBar from './ProgressBar';
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
     children: (props: { percent: string }) => ReactNode;
     className?: string;
     estimatedDuration: number;

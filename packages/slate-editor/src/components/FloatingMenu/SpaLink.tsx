@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 
-interface Props extends Partial<LinkProps> {
+export interface Props extends Partial<LinkProps> {
     className?: string;
     disabled?: boolean;
     href: string;

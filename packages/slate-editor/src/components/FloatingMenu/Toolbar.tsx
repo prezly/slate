@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-interface Props {
+export interface Props {
     className?: string;
 }
+
 const Toolbar: FunctionComponent<Props> = ({ children, className }) => (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
@@ -13,4 +14,5 @@ const Toolbar: FunctionComponent<Props> = ({ children, className }) => (
         {children}
     </div>
 );
+
 export default Toolbar;

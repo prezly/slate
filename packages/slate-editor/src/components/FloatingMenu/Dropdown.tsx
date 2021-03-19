@@ -5,7 +5,7 @@ import { Dropdown as BootstrapDropdown, DropdownProps, MenuItem } from 'react-bo
 import './Dropdown.scss';
 import { Option } from './types';
 
-interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {
+export interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {
     onChange: (value: Value) => void;
     options: Option<Value>[];
     richTextFormattingOptions?: boolean;

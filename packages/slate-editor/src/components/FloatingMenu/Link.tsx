@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { AnchorHTMLAttributes, FunctionComponent } from 'react';
 
-interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
     className?: string;
     disabled?: boolean;
 }
