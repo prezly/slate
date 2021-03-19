@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 
 import './DisabledTriggerOverlay.scss';
 
-interface Props {
+export interface Props {
     className?: string;
     onHide: () => void;
     onShow: () => void;
