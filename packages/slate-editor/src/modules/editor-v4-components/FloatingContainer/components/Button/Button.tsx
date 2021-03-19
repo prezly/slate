@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef, HTMLAttributes, MouseEventHandler, Ref } from 'react';
 
-import { SvgIcon } from 'components';
-import { add } from 'icons';
+import { Add } from 'icons';
 
 import './Button.scss';
 
@@ -30,11 +29,10 @@ const Button = forwardRef<HTMLButtonElement, Props>(
             tabIndex={-1}
             type="button"
         >
-            <SvgIcon
+            <Add
                 className={classNames('editor-v4-floating-container-button__icon', {
                     'editor-v4-floating-container-button__icon--close': open,
                 })}
-                icon={add}
             />
         </button>
     ),

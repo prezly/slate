@@ -1,11 +1,11 @@
 import ProgressPromise from '@prezly/progress-promise';
 import classNames from 'classnames';
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, HTMLAttributes, useCallback } from 'react';
 import { useMount, useUnmount } from 'react-use';
 import { RenderElementProps, useSelected } from 'slate-react';
 
 import { LoadingPlaceholderV2 } from 'components';
-import { attachment, embed, gallery, image, video } from 'icons';
+import { Attachment, Embed, Gallery, Image, Video } from 'icons';
 import { useAsyncProgress } from 'lib';
 
 import { loaderPromiseManager } from '../../lib';
@@ -19,12 +19,12 @@ interface Props extends RenderElementProps {
     onUnmount: () => void;
 }
 
-const ICONS: Record<LoaderContentType, BrowserSpriteSymbol> = {
-    attachment,
-    embed,
-    gallery,
-    image,
-    video,
+const ICONS: Record<LoaderContentType, FunctionComponent<HTMLAttributes<SVGElement>>> = {
+    attachment: Attachment,
+    embed: Embed,
+    gallery: Gallery,
+    image: Image,
+    video: Video,
 };
 
 const ESTIMATED_DURATIONS: Record<LoaderContentType, number> = {

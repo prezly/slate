@@ -4,7 +4,7 @@ import { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu, GalleryLayoutSettings } from 'components';
-import { cogwheel, dice, edit, trash } from 'icons';
+import { Cogwheel, Dice, Edit, Trash } from 'icons';
 
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
@@ -72,12 +72,12 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
                     onMouseDown={handleLayoutMenuToggle}
                     title="Layout settings"
                 >
-                    <FloatingMenu.Icon icon={cogwheel} />
+                    <FloatingMenu.Icon icon={Cogwheel} />
                 </FloatingMenu.Button>
 
                 {gallery.images.length > 1 && (
                     <FloatingMenu.Button onMouseDown={handleShuffle} title="Shuffle images">
-                        <FloatingMenu.Icon icon={dice} />
+                        <FloatingMenu.Icon icon={Dice} />
                     </FloatingMenu.Button>
                 )}
 
@@ -102,7 +102,7 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
 
             <FloatingMenu.ButtonGroup>
                 <FloatingMenu.Button onMouseDown={handleEdit} title="Edit gallery">
-                    <FloatingMenu.Icon icon={edit} />
+                    <FloatingMenu.Icon icon={Edit} />
                 </FloatingMenu.Button>
             </FloatingMenu.ButtonGroup>
 
@@ -112,7 +112,7 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
                     title="Delete gallery"
                     variant="danger"
                 >
-                    <FloatingMenu.Icon icon={trash} />
+                    <FloatingMenu.Icon icon={Trash} />
                 </FloatingMenu.Button>
             </FloatingMenu.ButtonGroup>
         </FloatingMenu>

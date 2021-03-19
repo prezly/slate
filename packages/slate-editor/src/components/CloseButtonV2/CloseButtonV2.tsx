@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { cross } from 'icons';
-
-import SvgIcon from '../SvgIcon';
+import { Cross } from 'icons';
 
 import './CloseButtonV2.scss';
 
@@ -22,7 +20,7 @@ const CloseButtonV2: FunctionComponent<Props> = ({ className, disabled, onClick,
         title={title}
         type="button"
     >
-        <SvgIcon height={16} icon={cross} width={16} />
+        <Cross height={16} width={16} />
     </button>
 );
 

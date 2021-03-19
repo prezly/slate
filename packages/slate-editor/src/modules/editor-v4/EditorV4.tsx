@@ -12,8 +12,7 @@ import React, {
 } from 'react';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { SvgIcon } from 'components';
-import { coverage, dotsThreeHorizontal, filesEmpty2, link, user } from 'icons';
+import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from 'icons';
 import { Placeholder } from 'modules/editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from 'modules/editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from 'modules/editor-v4-embed';
@@ -211,7 +210,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
         if (withEmbeds?.menuOptions.link) {
             yield {
                 beta: true,
-                icon: <SvgIcon className="editor-v4__floating-add-menu-icon" icon={link} />,
+                icon: <Link className="editor-v4__floating-add-menu-icon" />,
                 onClick: () =>
                     openFloatingEmbedInput('Add link', {
                         contentType: LoaderContentType.EMBED,
@@ -236,23 +235,21 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
 
         if (withAttachments && UploadcareEditor.isUploadcareEditor(editor)) {
             yield {
-                icon: <SvgIcon className="editor-v4__floating-add-menu-icon" icon={filesEmpty2} />,
+                icon: <FilesEmpty2 className="editor-v4__floating-add-menu-icon" />,
                 onClick: handleAddAttachment,
                 text: 'Add attachment',
             };
         }
 
         yield {
-            icon: (
-                <SvgIcon className="editor-v4__floating-add-menu-icon" icon={dotsThreeHorizontal} />
-            ),
+            icon: <DotsThreeHorizontal className="editor-v4__floating-add-menu-icon" />,
             onClick: insertDivider,
             text: 'Add divider',
         };
 
         if (withPressContacts) {
             yield {
-                icon: <SvgIcon className="editor-v4__floating-add-menu-icon" icon={user} />,
+                icon: <User className="editor-v4__floating-add-menu-icon" />,
                 onClick: openFloatingPressContactsMenu,
                 text: 'Add contact',
             };
@@ -260,7 +257,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
 
         if (withCoverage) {
             yield {
-                icon: <SvgIcon className="editor-v4__floating-add-menu-icon" icon={coverage} />,
+                icon: <Coverage className="editor-v4__floating-add-menu-icon" />,
                 onClick: openFloatingCoverageMenu,
                 text: 'Add coverage',
             };

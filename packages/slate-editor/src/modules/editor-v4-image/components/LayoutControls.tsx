@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
-import { FloatingMenu, SvgIcon } from 'components';
-import { contained, expanded, fullWidth } from 'icons';
+import { FloatingMenu } from 'components';
+import { Contained, Expanded, FullWidth } from 'icons';
 
 import { ImageLayout } from '../types';
 
@@ -17,21 +17,21 @@ const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
             onMouseDown={() => onChange(ImageLayout.FULL_WIDTH)}
             title="Full width image"
         >
-            <SvgIcon icon={fullWidth} />
+            <FullWidth />
         </FloatingMenu.Button>
         <FloatingMenu.Button
             active={layout === ImageLayout.EXPANDED}
             onMouseDown={() => onChange(ImageLayout.EXPANDED)}
             title="Expanded image"
         >
-            <SvgIcon icon={expanded} />
+            <Expanded />
         </FloatingMenu.Button>
         <FloatingMenu.Button
             active={layout === ImageLayout.CONTAINED}
             onMouseDown={() => onChange(ImageLayout.CONTAINED)}
             title="Contained image"
         >
-            <SvgIcon icon={contained} />
+            <Contained />
         </FloatingMenu.Button>
     </FloatingMenu.ButtonGroup>
 );

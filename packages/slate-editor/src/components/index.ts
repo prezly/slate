@@ -15,6 +15,4 @@ export {
     ElementPortalV2,
     PortalOrigin,
 } from './Portals';
-export { default as Svg } from './Svg';
-export { default as SvgIcon } from './SvgIcon';
 export { default as TooltipV2, Props as TooltipV2Props } from './TooltipV2';

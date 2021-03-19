@@ -2,7 +2,6 @@ const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
 const tsConfig = JSON.parse(fs.readFileSync('./tsconfig.json', 'utf-8'));
@@ -37,23 +36,8 @@ module.exports = {
                 ],
             },
             {
-                test: /\.sprite\.svg$/,
-                use: [
-                    {
-                        loader: 'svg-sprite-loader',
-                        options: {
-                            extract: true,
-                            spriteFilename: 'icons.svg',
-                            publicPath: '/',
-                        },
-                    },
-                    {
-                        loader: 'svgo-loader',
-                        options: {
-                            plugins: [{ convertColors: { shorthex: true } }, { sortAttrs: true }],
-                        },
-                    },
-                ],
+                test: /\.svg$/,
+                use: '@svgr/webpack',
             },
         ],
     },
@@ -69,7 +53,6 @@ module.exports = {
         publicPath: '/',
     },
     plugins: [
-        new SpriteLoaderPlugin(),
         new MiniCssExtractPlugin({
             filename: 'styles.css',
         }),

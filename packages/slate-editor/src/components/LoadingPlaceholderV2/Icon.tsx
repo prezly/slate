@@ -1,15 +1,13 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
-
-import SvgIcon from '../SvgIcon';
+import React, { FunctionComponent, HTMLAttributes } from 'react';
 
 export interface Props {
     className?: string;
-    icon: BrowserSpriteSymbol;
+    icon: FunctionComponent<HTMLAttributes<SVGElement>>;
 }
 
-const Icon: FunctionComponent<Props> = ({ className, icon }) => (
-    <SvgIcon className={classNames('loading-placeholder-v2__icon', className)} icon={icon} />
+const Icon: FunctionComponent<Props> = ({ className, icon: IconComponent }) => (
+    <IconComponent className={classNames('loading-placeholder-v2__icon', className)} />
 );
 
 export default Icon;

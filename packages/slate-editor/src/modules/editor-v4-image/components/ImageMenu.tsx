@@ -3,7 +3,7 @@ import { Editor, Range, Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu } from 'components';
-import { edit, link, trash } from 'icons';
+import { Edit, Link, Trash } from 'icons';
 import { LinkMenu } from 'modules/editor-v4-components';
 
 import { removeImage, setImageHref, setLayout } from '../transforms';
@@ -113,7 +113,7 @@ const ImageMenu: FunctionComponent<Props> = ({
 
             <FloatingMenu.ButtonGroup>
                 <MenuButton onClick={onEdit} title="Edit image">
-                    <FloatingMenu.Icon icon={edit} />
+                    <FloatingMenu.Icon icon={Edit} />
                 </MenuButton>
 
                 <MenuButton
@@ -121,13 +121,13 @@ const ImageMenu: FunctionComponent<Props> = ({
                     onClick={handleOpenLinkMenu}
                     title={`${isLinked ? 'Edit' : 'Add'} link`}
                 >
-                    <FloatingMenu.Icon icon={link} />
+                    <FloatingMenu.Icon icon={Link} />
                 </MenuButton>
             </FloatingMenu.ButtonGroup>
 
             <FloatingMenu.ButtonGroup>
                 <MenuButton onClick={handleRemove} title="Delete image" variant="danger">
-                    <FloatingMenu.Icon icon={trash} />
+                    <FloatingMenu.Icon icon={Trash} />
                 </MenuButton>
             </FloatingMenu.ButtonGroup>
         </FloatingMenu>

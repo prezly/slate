@@ -2,7 +2,7 @@ import React, { FunctionComponent, RefObject } from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu } from 'components';
-import { trash } from 'icons';
+import { Trash } from 'icons';
 import { EventsEditor } from 'modules/editor-v4-events';
 
 import { removePressContact } from '../lib';
@@ -38,7 +38,7 @@ const PressContactMenu: FunctionComponent<Props> = ({ element, containerRef }) =
                     title="Delete contact"
                     variant="danger"
                 >
-                    <FloatingMenu.Icon icon={trash} />
+                    <FloatingMenu.Icon icon={Trash} />
                 </FloatingMenu.Button>
             </FloatingMenu.ButtonGroup>
         </FloatingMenu>

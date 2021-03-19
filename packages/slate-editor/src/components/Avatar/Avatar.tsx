@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { emptyNewsroom } from 'icons';
-
-import SvgIcon from '../SvgIcon';
+import { EmptyNewsroom } from 'icons';
 
 type Size = 'small' | 'medium' | 'large';
 
@@ -41,10 +39,9 @@ const Avatar: FunctionComponent<Props> = ({ className, name, size, square, src }
             title={name}
         />
     ) : (
-        <SvgIcon
+        <EmptyNewsroom
             className={classnames}
             height={SIZES[size]}
-            icon={emptyNewsroom}
             role="presentation"
             width={SIZES[size]}
         />

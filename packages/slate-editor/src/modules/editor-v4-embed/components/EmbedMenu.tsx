@@ -2,7 +2,7 @@ import React, { FunctionComponent, RefObject } from 'react';
 import { useEditor, useSelected } from 'slate-react';
 
 import { FloatingMenu } from 'components';
-import { trash } from 'icons';
+import { Trash } from 'icons';
 import { EventsEditor } from 'modules/editor-v4-events';
 
 import { removeEmbed } from '../transforms';
@@ -36,7 +36,7 @@ const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
                     title="Delete embed"
                     variant="danger"
                 >
-                    <FloatingMenu.Icon icon={trash} />
+                    <FloatingMenu.Icon icon={Trash} />
                 </FloatingMenu.Button>
             </FloatingMenu.ButtonGroup>
         </FloatingMenu>

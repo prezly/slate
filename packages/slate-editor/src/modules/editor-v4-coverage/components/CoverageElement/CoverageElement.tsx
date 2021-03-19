@@ -4,7 +4,7 @@ import { useAsyncFn } from 'react-use';
 import { RenderElementProps, useSelected } from 'slate-react';
 
 import { LoadingPlaceholderV2 } from 'components';
-import { coverage as coverageIcon } from 'icons';
+import { Coverage as CoverageIcon } from 'icons';
 import { ApiError } from 'modules/api';
 import { Coverage } from 'types';
 
@@ -70,7 +70,7 @@ const CoverageElement: FunctionComponent<Props> = ({
                     >
                         {({ percent }) => (
                             <>
-                                <LoadingPlaceholderV2.Icon icon={coverageIcon} />
+                                <LoadingPlaceholderV2.Icon icon={CoverageIcon} />
                                 <LoadingPlaceholderV2.Description percent={percent}>
                                     Loading Coverage
                                 </LoadingPlaceholderV2.Description>

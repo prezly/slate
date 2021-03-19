@@ -2,7 +2,7 @@ import React, { FunctionComponent, RefObject } from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu } from 'components';
-import { trash } from 'icons';
+import { Trash } from 'icons';
 
 import { removeDivider } from '../transforms';
 
@@ -27,7 +27,7 @@ const DividerMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
                     title="Delete divider"
                     variant="danger"
                 >
-                    <FloatingMenu.Icon icon={trash} />
+                    <FloatingMenu.Icon icon={Trash} />
                 </FloatingMenu.Button>
             </FloatingMenu.ButtonGroup>
         </FloatingMenu>

@@ -2,8 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
 
-import { SvgIcon } from 'components';
-import { download } from 'icons';
+import { Download } from 'icons';
 
 import { FileAttachmentElementType } from '../../types';
 
@@ -37,10 +36,7 @@ const FileAttachmentElement: FunctionComponent<Props> = ({
             <div className="editor-v4-file-attachment-element__content" contentEditable={false}>
                 {styled && (
                     <div className="editor-v4-file-attachment-element__icon-container">
-                        <SvgIcon
-                            className="editor-v4-file-attachment-element__icon"
-                            icon={download}
-                        />
+                        <Download className="editor-v4-file-attachment-element__icon" />
                     </div>
                 )}
 

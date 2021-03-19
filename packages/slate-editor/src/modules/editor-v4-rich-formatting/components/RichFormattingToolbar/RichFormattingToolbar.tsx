@@ -2,15 +2,15 @@ import { EditorCommands } from '@prezly/slate-commons';
 import React, { FunctionComponent } from 'react';
 import { useSlate } from 'slate-react';
 
-import { FloatingMenu, SvgIcon } from 'components';
+import { FloatingMenu } from 'components';
 import {
-    bold,
-    italic,
-    link,
-    textStyleDefault,
-    textStyleSubscript,
-    textStyleSuperscript,
-    underline,
+    Bold,
+    Italic,
+    Link,
+    TextStyleDefault,
+    TextStyleSubscript,
+    TextStyleSuperscript,
+    Underline,
 } from 'icons';
 
 import { toggleBlock } from '../../lib';
@@ -62,21 +62,21 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.BOLD)}
                     type={MarkType.BOLD}
                 >
-                    <SvgIcon className="editor-v4-rich-formatting-toolbar__icon" icon={bold} />
+                    <Bold className="editor-v4-rich-formatting-toolbar__icon" />
                 </MenuButton>
                 <MenuButton
                     isActive={EditorCommands.isMarkActive(editor, MarkType.UNDERLINED)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.UNDERLINED)}
                     type={MarkType.UNDERLINED}
                 >
-                    <SvgIcon className="editor-v4-rich-formatting-toolbar__icon" icon={underline} />
+                    <Underline className="editor-v4-rich-formatting-toolbar__icon" />
                 </MenuButton>
                 <MenuButton
                     isActive={EditorCommands.isMarkActive(editor, MarkType.ITALIC)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.ITALIC)}
                     type={MarkType.ITALIC}
                 >
-                    <SvgIcon className="editor-v4-rich-formatting-toolbar__icon" icon={italic} />
+                    <Italic className="editor-v4-rich-formatting-toolbar__icon" />
                 </MenuButton>
 
                 <FloatingMenu.Button
@@ -84,22 +84,13 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     onMouseDown={handleSubSupClick}
                 >
                     {isSubScriptActive && (
-                        <SvgIcon
-                            className="editor-v4-rich-formatting-toolbar__icon"
-                            icon={textStyleSubscript}
-                        />
+                        <TextStyleSubscript className="editor-v4-rich-formatting-toolbar__icon" />
                     )}
                     {isSuperScriptActive && (
-                        <SvgIcon
-                            className="editor-v4-rich-formatting-toolbar__icon"
-                            icon={textStyleSuperscript}
-                        />
+                        <TextStyleSuperscript className="editor-v4-rich-formatting-toolbar__icon" />
                     )}
                     {!(isSuperScriptActive || isSubScriptActive) && (
-                        <SvgIcon
-                            className="editor-v4-rich-formatting-toolbar__icon"
-                            icon={textStyleDefault}
-                        />
+                        <TextStyleDefault className="editor-v4-rich-formatting-toolbar__icon" />
                     )}
                 </FloatingMenu.Button>
             </FloatingMenu.ButtonGroup>
@@ -111,7 +102,7 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                         onClick={onLinkClick}
                         type={ElementType.LINK}
                     >
-                        <SvgIcon className="editor-v4-rich-formatting-toolbar__icon" icon={link} />
+                        <Link className="editor-v4-rich-formatting-toolbar__icon" />
                     </MenuButton>
                 </FloatingMenu.ButtonGroup>
             )}

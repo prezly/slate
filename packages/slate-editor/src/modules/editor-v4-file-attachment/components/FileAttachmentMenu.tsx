@@ -3,7 +3,7 @@ import { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu } from 'components';
-import { edit, trash } from 'icons';
+import { Edit, Trash } from 'icons';
 
 import { removeFileAttachment } from '../transforms';
 import { FileAttachmentElementType } from '../types';
@@ -40,7 +40,7 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
         <FloatingMenu containerRef={containerRef} element={element}>
             <FloatingMenu.ButtonGroup>
                 <FloatingMenu.Button onMouseDown={() => onEdit(editor)} title="Edit attachment">
-                    <FloatingMenu.Icon icon={edit} />
+                    <FloatingMenu.Icon icon={Edit} />
                 </FloatingMenu.Button>
             </FloatingMenu.ButtonGroup>
             <FloatingMenu.ButtonGroup>
@@ -49,7 +49,7 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
                     title="Delete attachment"
                     variant="danger"
                 >
-                    <FloatingMenu.Icon icon={trash} />
+                    <FloatingMenu.Icon icon={Trash} />
                 </FloatingMenu.Button>
             </FloatingMenu.ButtonGroup>
         </FloatingMenu>

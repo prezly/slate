@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
 
-import { Avatar, SvgIcon } from 'components';
-import { user } from 'icons';
+import { Avatar } from 'components';
+import { User } from 'icons';
 
 import { PressContactElementType } from '../../types';
 import JobDescription from '../JobDescription';
@@ -40,10 +40,7 @@ const PressContactElement: FunctionComponent<Props> = ({ attributes, children, e
 
                 {!element.contact.avatar_url && (
                     <div className="editor-v4-press-contact-element__avatar">
-                        <SvgIcon
-                            className="editor-v4-press-contact-element__placeholder"
-                            icon={user}
-                        />
+                        <User className="editor-v4-press-contact-element__placeholder" />
                     </div>
                 )}
 

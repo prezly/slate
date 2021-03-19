@@ -3,7 +3,7 @@ import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
 
 import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from 'components';
-import { embed } from 'icons';
+import { Embed } from 'icons';
 
 import { injectOembedMarkup } from '../../lib';
 import { EmbedElementType } from '../../types';
@@ -56,7 +56,7 @@ const EmbedElement: FunctionComponent<Props> = ({
                         className="editor-v4-embed-element__loading-placeholder"
                         renderLoadingState={({ percent }) => (
                             <>
-                                <LoadingPlaceholderV2.Icon icon={embed} />
+                                <LoadingPlaceholderV2.Icon icon={Embed} />
                                 <LoadingPlaceholderV2.Description percent={percent}>
                                     Loading Embed
                                 </LoadingPlaceholderV2.Description>
