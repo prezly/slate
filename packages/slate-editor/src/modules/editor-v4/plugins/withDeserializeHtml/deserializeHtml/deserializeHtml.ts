@@ -25,7 +25,7 @@ const normalizers = [
 const deserializeHtml = (
     extensions: Extension[],
     html: string,
-    onError: (error: Error) => void,
+    onError: (error: Error) => void = () => undefined,
 ): Descendant[] => {
     const document = domParser.parseFromString(html, 'text/html');
     const normalizedDocument = normalizers.reduce(
