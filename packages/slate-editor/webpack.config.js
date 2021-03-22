@@ -37,7 +37,17 @@ module.exports = {
             },
             {
                 test: /\.svg$/,
-                use: '@svgr/webpack',
+                use: [
+                    {
+                        loader: '@svgr/webpack',
+                        options: {
+                            svgoConfig: {
+                                removeViewBox: false,
+                            },
+                            typescript: true,
+                        },
+                    },
+                ],
             },
         ],
     },
