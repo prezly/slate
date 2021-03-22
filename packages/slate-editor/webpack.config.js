@@ -44,7 +44,6 @@ module.exports = {
                             svgoConfig: {
                                 removeViewBox: false,
                             },
-                            typescript: true,
                         },
                     },
                 ],
