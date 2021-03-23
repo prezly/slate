@@ -11,7 +11,7 @@
             "icons": ["./src/icons"],
             "lib": ["./src/lib"],
             "lib/test": ["./src/lib/test"],
-            "modules/*": ["./src/modules"],
+            "modules/*": ["./src/modules/*"],
             "types": ["./src/types"]
         },
         "rootDir": "./src",
