@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { CloseButtonV2 } from 'components';
+import CloseButtonV2 from '../CloseButtonV2';
 
 import GalleryLayoutSetting from './GalleryLayoutSetting';
 import './GalleryLayoutSettings.scss';
