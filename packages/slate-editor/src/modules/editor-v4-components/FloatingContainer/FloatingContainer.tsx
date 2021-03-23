@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, RefObject } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 
-import { ElementPortal, PortalOrigin } from 'components';
+import { ElementPortal, PortalOrigin } from '../../../components';
 
 import { Button } from './components';
 import './FloatingContainer.scss';

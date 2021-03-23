@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
-import { Avatar } from 'components';
-import { Option } from 'modules/editor-v4-mentions';
-
+import { Avatar } from '../../../../components';
+import { Option } from '../../../../modules/editor-v4-mentions';
 import { User } from '../../types';
 
 import './UserMentionsDropdownOption.scss';

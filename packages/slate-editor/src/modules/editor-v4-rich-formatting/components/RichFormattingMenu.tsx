@@ -5,9 +5,8 @@ import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
 import { v4 as uuidV4 } from 'uuid';
 
-import { CursorPortalV2, ElementPortalV2, FloatingMenu } from 'components';
-import { LinkMenu } from 'modules/editor-v4-components';
-
+import { CursorPortalV2, ElementPortalV2, FloatingMenu } from '../../../components';
+import { LinkMenu } from '../../../modules/editor-v4-components';
 import {
     findLinkCandidatePath,
     findSelectedLinkPath,

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, MouseEvent, RefObject } from 'react';
 import { Button } from 'react-bootstrap';
 
-import { FloatingMenu } from 'components';
+import { FloatingMenu } from '../../../../../components';
 
 import './GalleryTooltip.scss';
 

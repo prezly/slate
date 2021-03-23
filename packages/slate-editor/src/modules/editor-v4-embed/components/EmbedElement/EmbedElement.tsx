@@ -2,9 +2,8 @@ import classNames from 'classnames';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
 
-import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from 'components';
-import { Embed } from 'icons';
-
+import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';
+import { Embed } from '../../../../icons';
 import { injectOembedMarkup } from '../../lib';
 import { EmbedElementType } from '../../types';
 

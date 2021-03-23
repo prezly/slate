@@ -1,6 +1,6 @@
 import React, { FunctionComponent, MouseEventHandler } from 'react';
 
-import { FloatingMenu } from 'components';
+import { FloatingMenu } from '../../../components';
 
 interface Props {
     isActive?: boolean;

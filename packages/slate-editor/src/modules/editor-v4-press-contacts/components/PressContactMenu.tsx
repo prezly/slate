@@ -1,10 +1,9 @@
 import React, { FunctionComponent, RefObject } from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu } from 'components';
-import { Trash } from 'icons';
-import { EventsEditor } from 'modules/editor-v4-events';
-
+import { FloatingMenu } from '../../../components';
+import { Trash } from '../../../icons';
+import { EventsEditor } from '../../../modules/editor-v4-events';
 import { removePressContact } from '../lib';
 
 interface Props {

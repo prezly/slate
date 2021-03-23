@@ -2,7 +2,11 @@ import { isUploadcareImageSizeValid, UploadcareImage } from '@prezly/uploadcare'
 import classNames from 'classnames';
 import React, { Component, createRef, CSSProperties } from 'react';
 
-import { ImageSizeWarning, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from 'components';
+import {
+    ImageSizeWarning,
+    ImageWithLoadingPlaceholderV2,
+    LoadingPlaceholderV2,
+} from '../../../../components';
 
 import './GalleryImage.scss';
 
