@@ -6,7 +6,7 @@ import {
     ImageSizeWarning,
     ImageWithLoadingPlaceholderV2,
     LoadingPlaceholderV2,
-} from '../../../../components';
+} from '../../../../../../components';
 
 import './GalleryImage.scss';
 
