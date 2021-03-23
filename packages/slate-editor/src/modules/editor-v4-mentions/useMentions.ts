@@ -11,7 +11,7 @@ interface Parameters<T extends string, V> {
     trigger: string;
 }
 
-interface Mentions<V> {
+export interface Mentions<V> {
     index: number;
     onAdd: (editor: Editor, option: Option<V>) => void;
     onChange: (editor: Editor) => void;
