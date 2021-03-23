@@ -1,2 +1,2 @@
 plugins:
-    - removeViewBox: false # keep disabled
+    - removeViewBox: false
