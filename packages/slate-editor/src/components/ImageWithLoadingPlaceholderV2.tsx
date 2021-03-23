@@ -8,7 +8,7 @@ import React, {
     useEffect,
 } from 'react';
 
-import { useImage } from 'lib';
+import { useImage } from '../lib';
 
 import LoadingPlaceholderV2 from './LoadingPlaceholderV2';
 

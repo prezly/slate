@@ -4,8 +4,7 @@ import { useLayoutEffect, useMemo } from 'react';
 import { Editor, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { ensureElementInView, ensureRangeInView } from 'lib';
-
+import { ensureElementInView, ensureRangeInView } from '../../../lib';
 import { EditorV4Props } from '../types';
 
 const useMemoizedWithCursorInView = (

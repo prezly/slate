@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, useState } from 'react';
 
-import { useIsMouseDown } from 'lib';
+import { useIsMouseDown } from '../../lib';
 
 import BasePortalV2, { Props as BasePortalV2Props } from './BasePortalV2';
 import { updateCursorPortalRect } from './CursorPortal';

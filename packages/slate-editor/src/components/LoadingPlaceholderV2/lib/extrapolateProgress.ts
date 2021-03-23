@@ -1,5 +1,4 @@
-import { estimateProgress } from 'lib';
-
+import { estimateProgress } from '../../../lib';
 import { ChangeEvent } from '../types';
 
 const OPTIMISM = 0.9;
