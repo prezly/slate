@@ -1,4 +1,4 @@
-import { ElementType } from 'modules/editor-v4-rich-formatting';
+import { ElementType } from '../../../../../modules/editor-v4-rich-formatting';
 
 const isListItemText = (element: Element): boolean =>
     element instanceof HTMLElement && element.dataset.slateType === ElementType.LIST_ITEM_TEXT;

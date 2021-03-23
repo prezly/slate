@@ -2,18 +2,18 @@ import { Extension } from '@prezly/slate-commons';
 import { noop } from 'lodash';
 import { RefObject } from 'react';
 
-import { CoverageExtension } from 'modules/editor-v4-coverage';
-import { DividerExtension } from 'modules/editor-v4-divider';
-import { EmbedExtension } from 'modules/editor-v4-embed';
-import { FileAttachmentExtension } from 'modules/editor-v4-file-attachment';
-import { GalleriesExtension } from 'modules/editor-v4-galleries';
-import { ImageExtension } from 'modules/editor-v4-image';
-import { LoaderExtension } from 'modules/editor-v4-loader';
-import { ParagraphsExtension } from 'modules/editor-v4-paragraphs';
-import { PlaceholderMentionsExtension } from 'modules/editor-v4-placeholder-mentions';
-import { PressContactsExtension } from 'modules/editor-v4-press-contacts';
-import { RichFormattingExtension } from 'modules/editor-v4-rich-formatting';
-import { UserMentionsExtension } from 'modules/editor-v4-user-mentions';
+import { CoverageExtension } from '../../modules/editor-v4-coverage';
+import { DividerExtension } from '../../modules/editor-v4-divider';
+import { EmbedExtension } from '../../modules/editor-v4-embed';
+import { FileAttachmentExtension } from '../../modules/editor-v4-file-attachment';
+import { GalleriesExtension } from '../../modules/editor-v4-galleries';
+import { ImageExtension } from '../../modules/editor-v4-image';
+import { LoaderExtension } from '../../modules/editor-v4-loader';
+import { ParagraphsExtension } from '../../modules/editor-v4-paragraphs';
+import { PlaceholderMentionsExtension } from '../../modules/editor-v4-placeholder-mentions';
+import { PressContactsExtension } from '../../modules/editor-v4-press-contacts';
+import { RichFormattingExtension } from '../../modules/editor-v4-rich-formatting';
+import { UserMentionsExtension } from '../../modules/editor-v4-user-mentions';
 
 import {
     createHandleEditGallery,

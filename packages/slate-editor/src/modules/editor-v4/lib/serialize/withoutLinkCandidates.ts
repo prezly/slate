@@ -1,4 +1,4 @@
-import { unwrapLinkCandidates } from 'modules/editor-v4-rich-formatting';
+import { unwrapLinkCandidates } from '../../../../modules/editor-v4-rich-formatting';
 
 import { Transform } from './types';
 

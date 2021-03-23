@@ -2,13 +2,13 @@ import Events from '@prezly/events';
 import { createRef } from 'react';
 import { Editor } from 'slate';
 
-import { EditorEventMap, withEvents } from 'modules/editor-v4-events';
+import { EditorEventMap, withEvents } from '../../modules/editor-v4-events';
 import {
     campaignPlaceholders,
     salutationPlaceholder,
     storyPlaceholders,
-} from 'modules/placeholders';
-import { coverage, createDelayedResolve, oembedInfo } from 'modules/tests';
+} from '../../modules/placeholders';
+import { coverage, createDelayedResolve, oembedInfo } from '../../modules/tests';
 
 import createEditorV4 from './createEditorV4';
 import getEnabledExtensions from './getEnabledExtensions';

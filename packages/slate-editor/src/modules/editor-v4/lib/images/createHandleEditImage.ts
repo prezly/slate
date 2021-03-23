@@ -7,16 +7,15 @@ import {
 } from '@prezly/uploadcare';
 import { Editor } from 'slate';
 
-import { EventsEditor } from 'modules/editor-v4-events';
+import { EventsEditor } from '../../../../modules/editor-v4-events';
 import {
     createImage,
     getCurrentImageNodeEntry,
     ImageExtensionParameters,
     removeImage,
-} from 'modules/editor-v4-image';
-import { LoaderContentType } from 'modules/editor-v4-loader';
-import { UploadcareEditor } from 'modules/editor-v4-uploadcare';
-
+} from '../../../../modules/editor-v4-image';
+import { LoaderContentType } from '../../../../modules/editor-v4-loader';
+import { UploadcareEditor } from '../../../../modules/editor-v4-uploadcare';
 import insertUploadingFile from '../insertUploadingFile';
 
 import getMediaGalleryParameters from './getMediaGalleryParameters';

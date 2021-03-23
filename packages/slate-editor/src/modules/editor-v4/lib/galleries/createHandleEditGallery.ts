@@ -7,17 +7,16 @@ import {
 } from '@prezly/uploadcare';
 import { Editor } from 'slate';
 
-import { EventsEditor } from 'modules/editor-v4-events';
+import { EventsEditor } from '../../../../modules/editor-v4-events';
 import {
     createGallery,
     GalleriesExtensionParameters,
     getCurrentGalleryNodeEntry,
     removeGallery,
-} from 'modules/editor-v4-galleries';
-import { LoaderContentType } from 'modules/editor-v4-loader';
-import { UploadcareEditor } from 'modules/editor-v4-uploadcare';
-import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from 'modules/uploadcare';
-
+} from '../../../../modules/editor-v4-galleries';
+import { LoaderContentType } from '../../../../modules/editor-v4-loader';
+import { UploadcareEditor } from '../../../../modules/editor-v4-uploadcare';
+import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '../../../../modules/uploadcare';
 import insertUploadingFile from '../insertUploadingFile';
 
 import getMediaGalleryParameters from './getMediaGalleryParameters';
