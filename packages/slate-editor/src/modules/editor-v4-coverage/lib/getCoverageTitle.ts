@@ -1,4 +1,4 @@
-import { Coverage } from 'types';
+import { Coverage } from '../../../types';
 
 const getCoverageTitle = (coverage: Coverage): string => {
     if (coverage.attachment_oembed && coverage.attachment_oembed.title) {

@@ -2,7 +2,7 @@ import { UploadcareImageStoragePayload } from '@prezly/uploadcare';
 import { RefObject } from 'react';
 import { Editor, Element } from 'slate';
 
-import { NewsroomRef } from 'types';
+import { NewsroomRef } from '../../types';
 
 import { GALLERY_TYPE } from './constants';
 

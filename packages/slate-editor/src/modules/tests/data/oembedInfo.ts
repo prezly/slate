@@ -1,4 +1,4 @@
-import { OEmbedInfo, OEmbedInfoType } from 'types';
+import { OEmbedInfo, OEmbedInfoType } from '../../../types';
 
 const oembedInfo: OEmbedInfo = {
     url: 'https://www.prezly.com',

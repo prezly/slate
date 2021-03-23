@@ -1,4 +1,4 @@
-import { Coverage } from 'types';
+import { Coverage } from '../../../types';
 
 import oembedInfo from './oembedInfo';
 

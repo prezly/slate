@@ -4,7 +4,7 @@ import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
 import { createHyperscript } from '@prezly/slate-hyperscript';
 import { ReactNode } from 'react';
 
-import { Coverage } from 'types';
+import { Coverage } from '../../types';
 
 import { COVERAGE_TYPE } from './constants';
 
