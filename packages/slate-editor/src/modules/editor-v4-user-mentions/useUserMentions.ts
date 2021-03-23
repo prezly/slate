@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Option, useMentions } from 'modules/editor-v4-mentions';
+import { Option, useMentions } from '../../modules/editor-v4-mentions';
 
 import { createUserMention } from './lib';
 import { User, UserMentionsExtensionParameters, UserMentionType } from './types';

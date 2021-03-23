@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Range } from 'slate';
 
-import { MentionsDropdown, Option } from 'modules/editor-v4-mentions';
-
+import { MentionsDropdown, Option } from '../../../../modules/editor-v4-mentions';
 import { Placeholder } from '../../types';
 import PlaceholderMentionsDropdownOption from '../PlaceholderMentionsDropdownOption';
 
