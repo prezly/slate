@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { EmptyNewsroom } from 'icons';
+import { EmptyNewsroom } from '../../icons';
 
 type Size = 'small' | 'medium' | 'large';
 

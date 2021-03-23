@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { Cross } from 'icons';
+import { Cross } from '../../icons';
 
 import './CloseButtonV2.scss';
 
