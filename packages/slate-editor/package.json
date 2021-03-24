@@ -42,7 +42,7 @@
         "react-router-dom": "=5.1.2",
         "react-use": "*",
         "shave": "*",
-        "slate": "*",
+        "slate": ">=0.50.0",
         "slate-history": "*",
         "slate-react": "*",
         "uploadcare-widget": "=3.7.7",
