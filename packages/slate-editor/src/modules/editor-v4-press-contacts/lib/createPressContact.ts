@@ -1,4 +1,4 @@
-import { PressContact } from 'types';
+import { PressContact } from '../../../types';
 
 import { PRESS_CONTACT_TYPE } from '../constants';
 import { PressContactElementType } from '../types';

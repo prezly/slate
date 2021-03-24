@@ -1,4 +1,4 @@
-import { OEmbedInfo } from 'types';
+import { OEmbedInfo } from '../../../types';
 
 interface Parameters {
     oembed: OEmbedInfo;

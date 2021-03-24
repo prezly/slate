@@ -2,7 +2,7 @@ import React, { ChangeEvent, FunctionComponent, RefObject, useRef, useState } fr
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import { useEffectOnce } from 'react-use';
 
-import { FloatingContainer } from 'modules/editor-v4-components';
+import { FloatingContainer } from '../../../../modules/editor-v4-components';
 
 import './FloatingEmbedInput.scss';
 

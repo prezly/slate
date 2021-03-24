@@ -4,8 +4,8 @@ import { Editor, Node, NodeEntry, Transforms } from 'slate';
 import uploadcare, { FileInfo, FilePromise } from 'uploadcare-widget';
 import isDataURI from 'validator/lib/isDataURI';
 
-import { dataUriToFile } from 'lib';
-import { EventsEditor } from 'modules/editor-v4-events';
+import { dataUriToFile } from '../../../lib';
+import { EventsEditor } from '../../../modules/editor-v4-events';
 import {
     createLoader,
     findLoaderPath,
@@ -14,9 +14,8 @@ import {
     loaderPromiseManager,
     removeLoader,
     replaceLoader,
-} from 'modules/editor-v4-loader';
-import { UPLOAD_SINGLE_IMAGE_ERROR_MESSAGE } from 'modules/uploadcare';
-
+} from '../../../modules/editor-v4-loader';
+import { UPLOAD_SINGLE_IMAGE_ERROR_MESSAGE } from '../../../modules/uploadcare';
 import { ImageCandidateElementType } from '../types';
 
 import createImage from './createImage';

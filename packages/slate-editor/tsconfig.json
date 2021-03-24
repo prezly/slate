@@ -2,19 +2,11 @@
     "extends": "../../tsconfig.json",
 
     "compilerOptions": {
+        "baseUrl": ".",
         "jsx": "react",
         "lib": ["dom", "dom.iterable", "esnext"],
         "moduleResolution": "node",
         "outDir": "./build",
-        "baseUrl": ".",
-        "paths": {
-            "components": ["./src/components"],
-            "icons": ["./src/icons"],
-            "lib": ["./src/lib"],
-            "lib/test": ["./src/lib/test"],
-            "modules/*": ["./src/modules/*"],
-            "types": ["./src/types"]
-        },
         "rootDir": "./src",
         "typeRoots": ["./node_modules/@types", "./src/@types"],
         "types": ["node"]

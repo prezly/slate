@@ -2,7 +2,7 @@ import { Extension } from '@prezly/slate-commons';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
-import { MentionElement, MentionsExtension } from 'modules/editor-v4-mentions';
+import { MentionElement, MentionsExtension } from '../../modules/editor-v4-mentions';
 
 import { USER_MENTION_TYPE, USER_MENTIONS_EXTENSION_ID } from './constants';
 import {

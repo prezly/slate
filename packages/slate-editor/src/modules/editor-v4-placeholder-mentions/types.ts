@@ -1,4 +1,4 @@
-import { MentionElementType } from 'modules/editor-v4-mentions';
+import { MentionElementType } from '../../modules/editor-v4-mentions';
 
 import { PLACEHOLDER_MENTION_TYPE } from './constants';
 

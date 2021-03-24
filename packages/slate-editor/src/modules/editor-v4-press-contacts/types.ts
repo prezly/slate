@@ -1,7 +1,7 @@
 import { ReactNode, RefObject } from 'react';
 import { Element } from 'slate';
 
-import { PressContact } from 'types';
+import { PressContact } from '../../types';
 
 import { PRESS_CONTACT_TYPE } from './constants';
 

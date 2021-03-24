@@ -2,7 +2,7 @@ import ProgressPromise from '@prezly/progress-promise';
 import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, Element } from 'slate';
 
-import { EventsEditor } from 'modules/editor-v4-events';
+import { EventsEditor } from '../../../modules/editor-v4-events';
 import {
     createLoader,
     findLoaderPath,
@@ -10,8 +10,8 @@ import {
     loaderPromiseManager,
     removeLoader,
     replaceLoader,
-} from 'modules/editor-v4-loader';
-import { UPLOAD_SINGLE_FILE_ERROR_MESSAGE } from 'modules/uploadcare';
+} from '../../../modules/editor-v4-loader';
+import { UPLOAD_SINGLE_FILE_ERROR_MESSAGE } from '../../../modules/uploadcare';
 
 interface Parameters<T> {
     createElement: (file: T) => Element;

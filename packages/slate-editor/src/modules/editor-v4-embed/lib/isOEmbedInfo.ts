@@ -1,4 +1,4 @@
-import { OEmbedInfo, OEmbedInfoType } from 'types';
+import { OEmbedInfo, OEmbedInfoType } from '../../../types';
 
 const isOEmbedInfo = (oembed: any): oembed is OEmbedInfo =>
     typeof oembed === 'object' &&

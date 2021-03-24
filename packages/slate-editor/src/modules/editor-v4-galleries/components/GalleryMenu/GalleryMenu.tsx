@@ -3,9 +3,8 @@ import { RootCloseWrapper } from 'react-overlays';
 import { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu, GalleryLayoutSettings } from 'components';
-import { Cogwheel, Dice, Edit, Trash } from 'icons';
-
+import { FloatingMenu, GalleryLayoutSettings } from '../../../../components';
+import { Cogwheel, Dice, Edit, Trash } from '../../../../icons';
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
 import { GalleryElementType, GalleryImageSize, GalleryPadding } from '../../types';

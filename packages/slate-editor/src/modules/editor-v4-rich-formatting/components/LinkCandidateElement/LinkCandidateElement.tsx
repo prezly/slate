@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps } from 'slate-react';
 
-import { LinkCandidateElementType } from 'modules/editor-v4-rich-formatting/types';
+import { LinkCandidateElementType } from '../../../../modules/editor-v4-rich-formatting/types';
 
 import './LinkCandidateElement.scss';
 

@@ -5,7 +5,7 @@ import { createHyperscript } from '@prezly/slate-hyperscript';
 import { UploadcareStoragePayload } from '@prezly/uploadcare';
 import { ReactNode } from 'react';
 
-import { LOADER_TYPE, LoaderElementType } from 'modules/editor-v4-loader';
+import { LOADER_TYPE, LoaderElementType } from '../../modules/editor-v4-loader';
 
 import { IMAGE_CANDIDATE_TYPE, IMAGE_TYPE } from './constants';
 import { ImageLayout } from './types';

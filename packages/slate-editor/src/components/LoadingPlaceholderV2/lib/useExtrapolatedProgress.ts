@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRafLoop } from 'react-use';
 
-import { useElapsed } from 'lib';
-
+import { useElapsed } from '../../../lib';
 import { ChangeEvent } from '../types';
 
 import extrapolateProgress from './extrapolateProgress';

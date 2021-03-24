@@ -2,9 +2,8 @@ import React, { FunctionComponent, RefObject } from 'react';
 import { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu } from 'components';
-import { Edit, Trash } from 'icons';
-
+import { FloatingMenu } from '../../../components';
+import { Edit, Trash } from '../../../icons';
 import { removeFileAttachment } from '../transforms';
 import { FileAttachmentElementType } from '../types';
 

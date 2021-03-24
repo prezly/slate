@@ -4,8 +4,7 @@ import { cleanDocx } from '@prezly/docx-cleaner';
 import { EditorCommands, Extension } from '@prezly/slate-commons';
 import { ReactEditor } from 'slate-react';
 
-import { EventsEditor } from 'modules/editor-v4-events';
-
+import { EventsEditor } from '../../../../modules/editor-v4-events';
 import { createDataTransfer } from '../../lib';
 
 import deserializeHtml from './deserializeHtml';

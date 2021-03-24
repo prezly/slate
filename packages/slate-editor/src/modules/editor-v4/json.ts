@@ -1,6 +1,6 @@
 import { UploadcareImageStoragePayload, UploadcareStoragePayload } from '@prezly/uploadcare';
 
-import { Coverage, OEmbedInfo, PressContact } from 'types';
+import { Coverage, OEmbedInfo, PressContact } from '../../types';
 
 /**
  * Document nodes

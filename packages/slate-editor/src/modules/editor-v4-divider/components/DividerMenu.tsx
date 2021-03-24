@@ -1,9 +1,8 @@
 import React, { FunctionComponent, RefObject } from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu } from 'components';
-import { Trash } from 'icons';
-
+import { FloatingMenu } from '../../../components';
+import { Trash } from '../../../icons';
 import { removeDivider } from '../transforms';
 
 interface Props {

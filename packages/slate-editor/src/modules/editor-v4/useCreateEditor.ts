@@ -6,7 +6,7 @@ import { createEditor } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor } from 'slate-react';
 
-import { EditorEventMap, withEvents } from 'modules/editor-v4-events';
+import { EditorEventMap, withEvents } from '../../modules/editor-v4-events';
 
 import createEditorV4 from './createEditorV4';
 

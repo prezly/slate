@@ -1,4 +1,4 @@
-import { ElementType } from 'modules/editor-v4-rich-formatting';
+import { ElementType } from '../../../../../modules/editor-v4-rich-formatting';
 
 const isListItem = (element: Element): boolean => {
     if (element.nodeName === 'LI') {

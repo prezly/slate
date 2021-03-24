@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { formatBytes } from 'lib';
-
+import { formatBytes } from '../../../../lib';
 import { isUsingCustomTitle } from '../../lib';
 import { FileAttachmentElementType } from '../../types';
 

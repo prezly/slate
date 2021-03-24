@@ -1,5 +1,5 @@
-import { ImageExtensionParameters } from 'modules/editor-v4-image';
-import { MediaGalleryOptions } from 'modules/editor-v4-uploadcare';
+import { ImageExtensionParameters } from '../../../../modules/editor-v4-image';
+import { MediaGalleryOptions } from '../../../../modules/editor-v4-uploadcare';
 
 const getMediaGalleryParameters = (
     withImages: ImageExtensionParameters,

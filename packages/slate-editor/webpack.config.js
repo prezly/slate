@@ -1,4 +1,5 @@
 const autoprefixer = require('autoprefixer');
+const CopyPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
@@ -55,6 +56,9 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: 'styles.css',
+        }),
+        new CopyPlugin({
+            patterns: [{ from: 'src/styles', to: 'styles' }],
         }),
     ],
     watch: isDev,

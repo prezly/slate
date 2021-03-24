@@ -2,7 +2,7 @@ import { UPLOADCARE_FILE_DATA_KEY } from '@prezly/uploadcare';
 import { Editor } from 'slate';
 import { FilePromise } from 'uploadcare-widget';
 
-import { NewsroomRef } from 'types';
+import { NewsroomRef } from '../../types';
 
 interface File {
     [UPLOADCARE_FILE_DATA_KEY]?: {

@@ -2,8 +2,8 @@ import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
 import { ReactEditor } from 'slate-react';
 
-import { EventsEditor } from 'modules/editor-v4-events';
-import { PressContact } from 'types';
+import { EventsEditor } from '../../../modules/editor-v4-events';
+import { PressContact } from '../../../types';
 
 import createPressContact from './createPressContact';
 

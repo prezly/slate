@@ -4,10 +4,9 @@ import React, { FunctionComponent, HTMLAttributes, useCallback } from 'react';
 import { useMount, useUnmount } from 'react-use';
 import { RenderElementProps, useSelected } from 'slate-react';
 
-import { LoadingPlaceholderV2 } from 'components';
-import { Attachment, Embed, Gallery, Image, Video } from 'icons';
-import { useAsyncProgress } from 'lib';
-
+import { LoadingPlaceholderV2 } from '../../../../components';
+import { Attachment, Embed, Gallery, Image, Video } from '../../../../icons';
+import { useAsyncProgress } from '../../../../lib';
 import { loaderPromiseManager } from '../../lib';
 import { LoaderContentType, LoaderElementType } from '../../types';
 

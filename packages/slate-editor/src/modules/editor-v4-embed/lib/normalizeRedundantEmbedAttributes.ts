@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, NodeEntry } from 'slate';
 
-import { OEmbedInfoType } from 'types';
+import { OEmbedInfoType } from '../../../types';
 
 import createEmbed from './createEmbed';
 import isEmbedElement from './isEmbedElement';

@@ -1,4 +1,4 @@
-import { PressContact } from 'types';
+import { PressContact } from '../../../types';
 
 const isPressContact = (contact: any): contact is PressContact =>
     (typeof contact.avatar_url === 'string' || contact.avatar_url === null) &&

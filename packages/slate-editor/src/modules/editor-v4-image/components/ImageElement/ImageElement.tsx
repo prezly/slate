@@ -5,10 +5,9 @@ import React, { FunctionComponent, RefObject, useState } from 'react';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor, RenderElementProps, useSelected, useSlate } from 'slate-react';
 
-import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from 'components';
-import { Image as ImageIcon } from 'icons';
-import { LinkWithTooltip } from 'modules/editor-v4-components';
-
+import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';
+import { Image as ImageIcon } from '../../../../icons';
+import { LinkWithTooltip } from '../../../../modules/editor-v4-components';
 import { isImageElement } from '../../lib';
 import { ImageElementType, ImageLayout } from '../../types';
 import ImageMenu from '../ImageMenu';

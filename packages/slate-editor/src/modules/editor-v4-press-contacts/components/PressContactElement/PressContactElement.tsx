@@ -2,9 +2,8 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
 
-import { Avatar } from 'components';
-import { User } from 'icons';
-
+import { Avatar } from '../../../../components';
+import { User } from '../../../../icons';
 import { PressContactElementType } from '../../types';
 import JobDescription from '../JobDescription';
 

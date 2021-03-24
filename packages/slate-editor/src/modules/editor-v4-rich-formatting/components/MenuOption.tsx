@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { ParagraphElement } from 'modules/editor-v4-paragraphs';
-
+import { ParagraphElement } from '../../../modules/editor-v4-paragraphs';
 import { BlockType, ElementType, RichTextElementType } from '../types';
 
 import RichTextElement from './RichTextElement';

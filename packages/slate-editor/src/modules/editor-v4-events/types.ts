@@ -1,7 +1,7 @@
 import { Listener } from '@prezly/events';
 import { ReactNode } from 'react';
 
-import { Coverage, PressContact } from 'types';
+import { Coverage, PressContact } from '../../types';
 
 export type EditorEventMap = {
     'attachment-add-clicked': never;

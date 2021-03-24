@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
 
-import { isLoaderElement } from 'modules/editor-v4-loader';
+import { isLoaderElement } from '../../../../modules/editor-v4-loader';
 
 import { Transform } from './types';
 

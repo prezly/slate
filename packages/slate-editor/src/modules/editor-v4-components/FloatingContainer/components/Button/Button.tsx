@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef, HTMLAttributes, MouseEventHandler, Ref } from 'react';
 
-import { Add } from 'icons';
+import { Add } from '../../../../../icons';
 
 import './Button.scss';
 

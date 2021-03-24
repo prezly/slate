@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { Editor } from 'slate';
 
-import { Coverage } from 'types';
+import { Coverage } from '../../../types';
 
 import createCoverage from './createCoverage';
 

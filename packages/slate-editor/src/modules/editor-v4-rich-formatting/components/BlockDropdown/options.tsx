@@ -3,8 +3,7 @@ import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
 import React from 'react';
 
 // eslint-disable-next-line import/named
-import { FloatingMenuOption } from 'components';
-
+import { FloatingMenuOption } from '../../../../components';
 import { BlockType, ElementType } from '../../types';
 import MenuOption from '../MenuOption';
 

@@ -4,7 +4,7 @@ import { EditorCommands, encodeSlateFragment } from '@prezly/slate-commons';
 import { Editor, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { convertToHtml } from 'lib';
+import { convertToHtml } from '../../lib';
 
 import { isImageElement } from './lib';
 

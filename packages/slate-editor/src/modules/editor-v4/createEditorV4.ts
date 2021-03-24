@@ -11,9 +11,9 @@ import { Editor } from 'slate';
 import { withHistory } from 'slate-history';
 import { ReactEditor, withReact } from 'slate-react';
 
-import { withImages } from 'modules/editor-v4-image';
-import { withLoaders } from 'modules/editor-v4-loader';
-import { withRichFormatting } from 'modules/editor-v4-rich-formatting';
+import { withImages } from '../../modules/editor-v4-image';
+import { withLoaders } from '../../modules/editor-v4-loader';
+import { withRichFormatting } from '../../modules/editor-v4-rich-formatting';
 
 import {
     withDeserializeHtml,

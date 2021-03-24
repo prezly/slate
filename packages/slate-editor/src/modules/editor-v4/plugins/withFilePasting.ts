@@ -11,14 +11,13 @@ import {
 import { ReactEditor } from 'slate-react';
 import uploadcare from 'uploadcare-widget';
 
-import { EventsEditor } from 'modules/editor-v4-events';
+import { EventsEditor } from '../../../modules/editor-v4-events';
 import {
     createFileAttachment,
     FILE_ATTACHMENT_EXTENSION_ID,
-} from 'modules/editor-v4-file-attachment';
-import { createImage, IMAGE_EXTENSION_ID } from 'modules/editor-v4-image';
-import { LOADER_EXTENSION_ID, LoaderContentType } from 'modules/editor-v4-loader';
-
+} from '../../../modules/editor-v4-file-attachment';
+import { createImage, IMAGE_EXTENSION_ID } from '../../../modules/editor-v4-image';
+import { LOADER_EXTENSION_ID, LoaderContentType } from '../../../modules/editor-v4-loader';
 import { insertUploadingFile } from '../lib';
 
 const IMAGE_TYPES = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'];

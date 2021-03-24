@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
-import { FloatingMenu } from 'components';
-import { Contained, Expanded, FullWidth } from 'icons';
-
+import { FloatingMenu } from '../../../components';
+import { Contained, Expanded, FullWidth } from '../../../icons';
 import { GalleryLayout } from '../types';
 
 interface Props {

@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import React, { FunctionComponent } from 'react';
 import { useSlate } from 'slate-react';
 
-import { FloatingMenu } from 'components';
+import { FloatingMenu } from '../../../../components';
 import {
     Bold,
     Italic,
@@ -11,8 +11,7 @@ import {
     TextStyleSubscript,
     TextStyleSuperscript,
     Underline,
-} from 'icons';
-
+} from '../../../../icons';
 import { toggleBlock } from '../../lib';
 import { BlockType, ElementType, MarkType, RichFormattingExtensionParameters } from '../../types';
 import BlockDropdown from '../BlockDropdown';

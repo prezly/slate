@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
 
-import { isImageCandidateElement } from 'modules/editor-v4-image';
+import { isImageCandidateElement } from '../../../../modules/editor-v4-image';
 
 import { Transform } from './types';
 

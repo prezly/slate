@@ -12,24 +12,24 @@ import React, {
 } from 'react';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from 'icons';
-import { Placeholder } from 'modules/editor-v4-components';
-import { FloatingCoverageMenu, useFloatingCoverageMenu } from 'modules/editor-v4-coverage';
-import { FloatingEmbedInput, useFloatingEmbedInput } from 'modules/editor-v4-embed';
-import { EditorEventMap } from 'modules/editor-v4-events';
-import { FloatingAddMenu, FloatingAddMenuOption } from 'modules/editor-v4-floating-add-menu';
-import { LoaderContentType } from 'modules/editor-v4-loader';
+import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '../../icons';
+import { Placeholder } from '../../modules/editor-v4-components';
+import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../../modules/editor-v4-coverage';
+import { FloatingEmbedInput, useFloatingEmbedInput } from '../../modules/editor-v4-embed';
+import { EditorEventMap } from '../../modules/editor-v4-events';
+import { FloatingAddMenu, FloatingAddMenuOption } from '../../modules/editor-v4-floating-add-menu';
+import { LoaderContentType } from '../../modules/editor-v4-loader';
 import {
     PlaceholderMentionsDropdown,
     usePlaceholderMentions,
-} from 'modules/editor-v4-placeholder-mentions';
+} from '../../modules/editor-v4-placeholder-mentions';
 import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
-} from 'modules/editor-v4-press-contacts';
-import { RichFormattingMenu } from 'modules/editor-v4-rich-formatting';
-import { UploadcareEditor } from 'modules/editor-v4-uploadcare';
-import { UserMentionsDropdown, useUserMentions } from 'modules/editor-v4-user-mentions';
+} from '../../modules/editor-v4-press-contacts';
+import { RichFormattingMenu } from '../../modules/editor-v4-rich-formatting';
+import { UploadcareEditor } from '../../modules/editor-v4-uploadcare';
+import { UserMentionsDropdown, useUserMentions } from '../../modules/editor-v4-user-mentions';
 
 import './EditorV4.scss';
 import getEnabledExtensions from './getEnabledExtensions';
