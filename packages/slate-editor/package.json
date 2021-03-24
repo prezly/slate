@@ -16,7 +16,7 @@
     "scripts": {
         "build": "NODE_ENV=production webpack",
         "build:watch": "NODE_ENV=development webpack",
-        "clean": "rimraf build/"
+        "clean": "rimraf build/ node_modules/"
     },
     "peerDependencies": {
         "@popperjs/core": "*",
@@ -52,7 +52,7 @@
     "devDependencies": {
         "@popperjs/core": "^2.6.0",
         "@prezly/docx-cleaner": "^0.1.0-alpha.39",
-        "@prezly/events": "^1.0.0",
+        "@prezly/events": "^1.0.2",
         "@prezly/linear-partition": "^1.0.0",
         "@prezly/progress-promise": "^1.0.0",
         "@prezly/slate-commons": "^0.1.0-alpha.39",
@@ -62,6 +62,7 @@
         "@prezly/uploadcare": "^1.0.0",
         "@svgr/webpack": "^5.5.0",
         "@types/classnames": "^2.2.11",
+        "@types/jest": "^26.0.20",
         "@types/json-stable-stringify": "^1.0.32",
         "@types/lodash": "^4.14.167",
         "@types/react": "^16.14.2",
@@ -74,6 +75,7 @@
         "autoprefixer": "^9.6.1",
         "copy-webpack-plugin": "^6.4.1",
         "css-loader": "^3.6.0",
+        "jest-canvas-mock": "^2.3.1",
         "json-stable-stringify": "^1.0.1",
         "lodash": "^4.17.21",
         "mini-css-extract-plugin": "^0.5.0",
@@ -82,7 +84,7 @@
         "rangefix": "^0.2.9",
         "react": "^16.14.0",
         "react-bootstrap": "=0.32.4",
-        "react-draggable": "^4.4.3",
+        "react-draggable": "^3.3.2",
         "react-overlays": "^0.8.3",
         "react-popper": "^2.2.4",
         "react-portal": "^4.2.1",
@@ -91,9 +93,7 @@
         "sass": "^1.32.8",
         "sass-loader": "^10.1.0",
         "shave": "^2.5.10",
-        "slate": "^0.59.0",
         "slate-history": "^0.59.0",
-        "slate-react": "^0.59.0",
         "ts-loader": "^8.0.18",
         "uploadcare-widget": "=3.7.7",
         "uuid": "^8.3.2",

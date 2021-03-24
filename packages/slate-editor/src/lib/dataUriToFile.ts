@@ -1,4 +1,4 @@
-import isDataURI from 'validator/es/lib/isDataURI';
+import isDataURI from 'validator/lib/isDataURI';
 
 /**
  * @param dataUri A string matching the following pattern:

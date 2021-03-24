@@ -21,7 +21,7 @@ describe('getCurrentHref', () => {
             </editor>
         ) as unknown) as Editor;
 
-        expect(getCurrentHref(editor, editor.selection)).toBeNull();
+        expect(getCurrentHref(editor, editor.selection!)).toBeNull();
     });
 
     it('Returns "href" of the selected link', () => {
@@ -39,6 +39,6 @@ describe('getCurrentHref', () => {
             </editor>
         ) as unknown) as Editor;
 
-        expect(getCurrentHref(editor, editor.selection)).toBe('http://example.com');
+        expect(getCurrentHref(editor, editor.selection!)).toBe('http://example.com');
     });
 });

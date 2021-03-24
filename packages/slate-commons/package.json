@@ -19,7 +19,7 @@
 	"homepage": "https://github.com/prezly/slate#readme",
 	"scripts": {
 		"build": "tsc --project .",
-		"clean": "rimraf build/"
+		"clean": "rimraf build/ node_modules/"
 	},
 	"peerDependencies": {
 		"react": "*",
