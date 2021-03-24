@@ -9,7 +9,7 @@ module.exports = {
         '\\.(scss|svg)$': '<rootDir>/../../universalMock',
     },
     preset: 'ts-jest',
-    setupFiles: ['<rootDir>/../../setupTests.js'],
+    setupFiles: ['<rootDir>/../../setupTests.js', 'jest-canvas-mock'],
     testEnvironment: 'jsdom',
     testPathIgnorePatterns: ['/node_modules/', '/build/'],
 };
