@@ -12,5 +12,5 @@ module.exports = {
     setupFiles: ['<rootDir>/setupTests.js'],
     testEnvironment: 'jsdom',
     testPathIgnorePatterns: ['/node_modules/', '/build/', '<rootDir>/packages/examples/'],
-    projects: ['<rootDir>/packages/slate-editor'],
+    projects: ['<rootDir>', '<rootDir>/packages/slate-editor'],
 };
