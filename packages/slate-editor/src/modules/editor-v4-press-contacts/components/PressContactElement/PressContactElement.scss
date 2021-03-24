@@ -1,0 +1,81 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.editor-v4-press-contact-element {
+    $avatar-size: 64px;
+
+    @include editor-v4-block($void: false);
+
+    border: 1px solid $color-grey-250;
+    border-radius: $border-radius-base;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11);
+    color: $color-type-primary;
+
+    &--active {
+        @include editor-v4-block-active;
+    }
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: $avatar-size 1fr;
+        grid-column-gap: 24px;
+        padding: $spacing-3;
+    }
+
+    &__name {
+        margin: 0;
+        font-size: 24px;
+        line-height: 34px;
+    }
+
+    &__job-description {
+        margin-bottom: $spacing-2;
+    }
+
+    &__avatar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: $avatar-size;
+        border-radius: $border-radius-base;
+        border: 1px solid $color-grey-250;
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    &__placeholder {
+        $size: 24px;
+
+        width: $size;
+        height: $size;
+    }
+
+    &__content {
+        @include ellipsis;
+
+        grid-row: 1;
+        grid-column: 2;
+    }
+
+    &__social-fields {
+        margin: 0;
+        padding: 0;
+        columns: 2;
+    }
+
+    &__social-field {
+        @include ellipsis;
+
+        margin: 0;
+        margin-bottom: $spacing-1;
+        padding: 0;
+        line-height: 26px;
+        list-style: none;
+        cursor: default; // Text selection doesn't work, use default cursor.
+    }
+
+    &__social-icon {
+        margin-right: $spacing-1;
+    }
+}

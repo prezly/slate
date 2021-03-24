@@ -1,0 +1,224 @@
+[
+    {
+        "type": "bulleted-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "type": "list-item-text",
+                        "children": [
+                            {
+                                "text": "Nested Lists A"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "bulleted-list",
+                        "children": [
+                            {
+                                "type": "list-item",
+                                "children": [
+                                    {
+                                        "type": "list-item-text",
+                                        "children": [
+                                            {
+                                                "text": "Nested Lists A1"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "numbered-list",
+                                        "children": [
+                                            {
+                                                "type": "list-item",
+                                                "children": [
+                                                    {
+                                                        "type": "list-item-text",
+                                                        "children": [
+                                                            {
+                                                                "text": "Nested Lists A1a"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "list-item",
+                                                "children": [
+                                                    {
+                                                        "type": "list-item-text",
+                                                        "children": [
+                                                            {
+                                                                "text": "Nested Lists A1b"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "list-item",
+                                "children": [
+                                    {
+                                        "type": "list-item-text",
+                                        "children": [
+                                            {
+                                                "text": "Nested Lists A2"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "bulleted-list",
+                                        "children": [
+                                            {
+                                                "type": "list-item",
+                                                "children": [
+                                                    {
+                                                        "type": "list-item-text",
+                                                        "children": [
+                                                            {
+                                                                "text": "Nested Lists A2a"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "list-item",
+                                                "children": [
+                                                    {
+                                                        "type": "list-item-text",
+                                                        "children": [
+                                                            {
+                                                                "text": "Nested Lists A2b"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "list-item",
+                                "children": [
+                                    {
+                                        "type": "list-item-text",
+                                        "children": [
+                                            {
+                                                "text": "Nested Lists A3"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "bulleted-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "type": "list-item-text",
+                        "children": [
+                            {
+                                "text": "Nested Lists B"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "numbered-list",
+                        "children": [
+                            {
+                                "type": "list-item",
+                                "children": [
+                                    {
+                                        "type": "list-item-text",
+                                        "children": [
+                                            {
+                                                "text": "Nested Lists B1"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "bulleted-list",
+                                        "children": [
+                                            {
+                                                "type": "list-item",
+                                                "children": [
+                                                    {
+                                                        "type": "list-item-text",
+                                                        "children": [
+                                                            {
+                                                                "text": "Nested Lists B1a"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "list-item",
+                                                "children": [
+                                                    {
+                                                        "type": "list-item-text",
+                                                        "children": [
+                                                            {
+                                                                "text": "Nested Lists B1b"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "list-item",
+                                "children": [
+                                    {
+                                        "type": "list-item-text",
+                                        "children": [
+                                            {
+                                                "text": "Nested Lists B2"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "bulleted-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "type": "list-item-text",
+                        "children": [
+                            {
+                                "text": "Nested Lists C"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

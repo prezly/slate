@@ -1,0 +1,44 @@
+[
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": "lorem"
+            }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": "ipsum"
+            }
+        ]
+    },
+    {
+        "type": "bulleted-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "type": "list-item-text",
+                        "children": [
+                            {
+                                "text": "1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": "dolor"
+            }
+        ]
+    }
+]

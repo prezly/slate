@@ -1,6 +1,6 @@
 {
 	"name": "@prezly/slate-lists",
-	"version": "0.1.0-alpha.27",
+	"version": "0.1.0-alpha.39",
 	"description": "The best Slate lists extension out there",
 	"license": "MIT",
 	"main": "build/index.js",
@@ -19,7 +19,7 @@
 	"homepage": "https://github.com/prezly/slate#readme",
 	"scripts": {
 		"build": "tsc --project .",
-		"clean": "rimraf build/"
+		"clean": "rimraf build/ node_modules/"
 	},
 	"peerDependencies": {
 		"react": "*",
@@ -27,8 +27,8 @@
 		"slate-react": ">=0.50.0"
 	},
 	"dependencies": {
-		"@prezly/slate-commons": "^0.1.0-alpha.27",
-		"@prezly/slate-hyperscript": "^0.1.0-alpha.27",
+		"@prezly/slate-commons": "^0.1.0-alpha.39",
+		"@prezly/slate-hyperscript": "^0.1.0-alpha.39",
 		"uuid": "^8.3.2"
 	},
 	"devDependencies": {

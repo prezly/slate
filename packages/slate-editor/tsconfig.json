@@ -1,0 +1,17 @@
+{
+    "extends": "../../tsconfig.json",
+
+    "compilerOptions": {
+        "baseUrl": ".",
+        "jsx": "react",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "moduleResolution": "node",
+        "outDir": "./build",
+        "rootDir": "./src",
+        "typeRoots": ["./node_modules/@types", "./src/@types"],
+        "types": ["node"]
+    },
+    "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
+    "files": ["./src/@types/svg.d.ts"],
+    "include": ["./src"]
+}

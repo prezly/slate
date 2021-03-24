@@ -1,6 +1,6 @@
 {
 	"name": "@prezly/slate-commons",
-	"version": "0.1.0-alpha.27",
+	"version": "0.1.0-alpha.39",
 	"description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
 	"license": "MIT",
 	"main": "build/index.js",
@@ -19,7 +19,7 @@
 	"homepage": "https://github.com/prezly/slate#readme",
 	"scripts": {
 		"build": "tsc --project .",
-		"clean": "rimraf build/"
+		"clean": "rimraf build/ node_modules/"
 	},
 	"peerDependencies": {
 		"react": "*",
@@ -30,7 +30,7 @@
 		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
-		"@prezly/slate-hyperscript": "^0.1.0-alpha.27",
+		"@prezly/slate-hyperscript": "^0.1.0-alpha.39",
 		"@types/uuid": "^8.3.0"
 	}
 }

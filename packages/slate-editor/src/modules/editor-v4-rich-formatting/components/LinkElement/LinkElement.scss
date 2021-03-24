@@ -1,0 +1,13 @@
+@import "styles/variables";
+
+.editor-v4-link-element {
+    text-decoration: underline;
+
+    &,
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+        color: #3c91ff;
+    }
+}

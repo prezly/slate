@@ -1,0 +1,89 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.editor-v4-coverage-block {
+    $block-height: 160px;
+    $image-size: $block-height;
+
+    @include editor-v4-void-element();
+
+    display: flex;
+    max-height: $block-height;
+    cursor: default;
+
+    &__image-container {
+        flex: 0 0 $image-size;
+        height: 100%;
+    }
+
+    &__image {
+        width: $image-size;
+        height: $image-size;
+        object-fit: cover;
+    }
+
+    &__content {
+        flex: 1;
+        padding: $spacing-2;
+
+        &:first-child {
+            padding: $spacing-2 $spacing-3;
+        }
+    }
+
+    &__title {
+        margin-bottom: $spacing-1;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 22px;
+        color: $color-type-primary;
+    }
+
+    &__description {
+        margin-bottom: $spacing-1;
+        font-size: 14px;
+        line-height: 20px;
+        color: $color-type-primary;
+
+        &--secondary {
+            color: $color-type-secondary;
+        }
+    }
+
+    &__info {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        line-height: 20px;
+        color: $color-type-secondary;
+    }
+
+    &__outlet {
+        display: flex;
+        align-items: center;
+    }
+
+    &__outlet-image {
+        $size: 20px;
+
+        width: $size;
+        height: $size;
+        object-fit: cover;
+        margin-right: $spacing-1;
+    }
+
+    &__outlet,
+    &__author,
+    &__publication-date {
+        &:after {
+            content: "/";
+            margin: 0 $spacing-1;
+        }
+
+        &:last-child {
+            &:after {
+                content: "";
+            }
+        }
+    }
+}

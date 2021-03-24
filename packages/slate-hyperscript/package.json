@@ -1,6 +1,6 @@
 {
 	"name": "@prezly/slate-hyperscript",
-	"version": "0.1.0-alpha.27",
+	"version": "0.1.0-alpha.39",
 	"description": "Hyperscript helpers for creating Slate documents with JSX",
 	"license": "MIT",
 	"main": "build/index.js",
@@ -19,7 +19,7 @@
 	"homepage": "https://github.com/prezly/slate#readme",
 	"scripts": {
 		"build": "tsc --project .",
-		"clean": "rimraf build/"
+		"clean": "rimraf build/ node_modules/"
 	},
 	"peerDependencies": {
 		"react": "*",

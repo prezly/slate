@@ -1,0 +1,8 @@
+@import "styles/variables";
+
+.editor-v4-list-item-text-element {
+    color: $editor-v4-text-color;
+    font-weight: 500;
+    font-size: $editor-v4-paragraph-font-size;
+    line-height: $editor-v4-paragraph-line-height;
+}

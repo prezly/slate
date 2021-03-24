@@ -1,6 +1,6 @@
 {
 	"name": "@prezly/docx-cleaner",
-	"version": "0.1.0-alpha.27",
+	"version": "0.1.0-alpha.39",
 	"description": "Normalize dirty HTML and DOCX/RTF documents into clean, understandable HTML",
 	"license": "MIT",
 	"main": "build/index.js",
@@ -19,7 +19,7 @@
 	"homepage": "https://github.com/prezly/slate#readme",
 	"scripts": {
 		"build": "tsc --project .",
-		"clean": "rimraf build/"
+		"clean": "rimraf build/ node_modules/"
 	},
 	"dependencies": {
 		"validator": "^13.5.2"

@@ -1,0 +1,34 @@
+[
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": "lorem"
+            }
+        ]
+    },
+    {
+        "type": "block-quote",
+        "children": [
+            {
+                "text": "ipsum"
+            }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": "dolor"
+            }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": ""
+            }
+        ]
+    }
+]

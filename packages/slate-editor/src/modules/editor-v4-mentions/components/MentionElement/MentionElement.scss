@@ -1,0 +1,20 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.editor-v4-mention-element {
+    @include editor-v4-void-element;
+
+    padding: 0 2px;
+    background-color: $alert-info-bg;
+    border: 1px solid $alert-info-border;
+    border-radius: 3px;
+    color: darken($alert-info-text, 5%);
+
+    &:hover {
+        color: #004492;
+    }
+
+    &--selected {
+        border-color: #004492;
+    }
+}

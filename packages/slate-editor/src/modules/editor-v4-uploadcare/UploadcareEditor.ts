@@ -1,0 +1,31 @@
+import { Editor } from 'slate';
+
+import { UPLOADCARE_PROPERTY } from './constants';
+import { ResultPromise, Uploadcare, UploadcareOptions } from './types';
+
+abstract class UploadcareEditor {
+    static upload<
+        Multiple extends boolean,
+        ImagesOnly extends boolean,
+        MediaGallery extends boolean
+    >(
+        editor: Editor,
+        options: UploadcareOptions<Multiple, ImagesOnly, MediaGallery>,
+    ): Promise<ResultPromise<Multiple> | void> {
+        if (UploadcareEditor.isUploadcareEditor(editor)) {
+            return editor[UPLOADCARE_PROPERTY].upload(editor, options);
+        }
+
+        return Promise.resolve();
+    }
+
+    static isUploadcareEditor = (value: unknown): value is UploadcareEditor => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return Editor.isEditor(value) && typeof value[UPLOADCARE_PROPERTY] !== 'undefined';
+    };
+
+    public abstract [UPLOADCARE_PROPERTY]: Uploadcare;
+}
+
+export default UploadcareEditor;

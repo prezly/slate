@@ -11,5 +11,6 @@ module.exports = {
     preset: 'ts-jest',
     setupFiles: ['<rootDir>/setupTests.js'],
     testEnvironment: 'jsdom',
-    testPathIgnorePatterns: ['/node_modules/', '/build/', '/examples/'],
+    testPathIgnorePatterns: ['/node_modules/', '/build/', '<rootDir>/packages/examples/'],
+    projects: ['<rootDir>', '<rootDir>/packages/slate-editor'],
 };

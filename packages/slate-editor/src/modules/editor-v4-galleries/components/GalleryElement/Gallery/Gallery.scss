@@ -1,0 +1,12 @@
+@import "styles/variables";
+
+.gallery {
+    overflow: hidden;
+
+    &__images-row {
+        display: flex;
+        justify-content: center;
+        flex: 1;
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,17 @@
+<svg className="svg-icon" height="16px" width="16px">
+    <g fill="none" fillRule="evenodd" id="Brand" stroke="none" strokeWidth="1">
+        <g id="Artboard" transform="translate(-62.000000, -49.000000)">
+            <g id="Icons/16x16/toolbar/dark-grey/edit" transform="translate(62.000000, 49.000000)">
+                <g>
+                    <rect height="16" id="shape-hold" width="16" x="0" y="0" />
+                    <path
+                        d="M13.5,0 C14.881,0 16,1.119 16,2.5 C16,3.063 15.814,3.582 15.5,4 L14.5,5 L11,1.5 L12,0.5 C12.418,0.186 12.937,0 13.5,0 Z M1,11.5 L0,16 L4.5,15 L13.75,5.75 L10.25,2.25 L1,11.5 Z M11.181,5.681 L4.181,12.681 L3.319,11.819 L10.319,4.819 L11.181,5.681 Z"
+                        fill="currentcolor"
+                        fillRule="nonzero"
+                        id="Shape"
+                    />
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

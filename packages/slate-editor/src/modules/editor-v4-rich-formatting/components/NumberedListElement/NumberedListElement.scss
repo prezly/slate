@@ -1,0 +1,18 @@
+@import "styles/variables";
+
+.editor-v4-numbered-list-element {
+    margin: $spacing-2 0;
+    padding: 0;
+    padding-left: $spacing-4;
+    color: $editor-v4-text-color;
+    font-size: $editor-v4-paragraph-font-size;
+    line-height: $editor-v4-paragraph-line-height;
+    list-style-type: decimal;
+
+    .editor-v4-bulleted-list-element,
+    .editor-v4-numbered-list-element {
+        & {
+            margin: 0;
+        }
+    }
+}

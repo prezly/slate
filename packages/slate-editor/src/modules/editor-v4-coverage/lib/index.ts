@@ -1,0 +1,12 @@
+export { default as createCoverage } from './createCoverage';
+export { default as getCoverageDescription } from './getCoverageDescription';
+export { default as getCoverageImageUrl } from './getCoverageImageUrl';
+export { default as getCoverageTitle } from './getCoverageTitle';
+export { default as getCurrentCoverageElement } from './getCurrentCoverageElement';
+export { default as hasOnlyFileAttachment } from './hasOnlyFileAttachment';
+export { default as insertCoverage } from './insertCoverage';
+export { default as isCoverageElement } from './isCoverageElement';
+export { default as normalizeRedundantCoverageAttributes } from './normalizeRedundantCoverageAttributes';
+export { default as parseSerializedElement } from './parseSerializedElement';
+export { default as removeCoverage } from './removeCoverage';
+export { default as useFloatingCoverageMenu } from './useFloatingCoverageMenu';
