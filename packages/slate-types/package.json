@@ -17,9 +17,6 @@
         "build": "tsc --project .",
         "clean": "rimraf build/ node_modules/"
     },
-    "peerDependencies": {
-        "slate": ">=0.50.0"
-    },
     "dependencies": {
         "@prezly/sdk": "^2.2.1"
     }
