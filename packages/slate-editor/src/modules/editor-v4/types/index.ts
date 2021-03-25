@@ -69,3 +69,5 @@ interface EmbedParameters {
         video?: boolean;
     };
 }
+
+export { default as Fragment, isFragment } from './Fragment';
