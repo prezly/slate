@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
 
 import { decodeSlateFragment } from '@prezly/slate-commons';
-import { isFragment } from '@prezly/slate-types';
 import { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { createDataTransfer } from '../lib';
+import { isFragment } from '../types';
 
 const withoutSlateFragment = (data: DataTransfer): DataTransfer => {
     const types = data.types.filter((type) => type !== 'application/x-slate-fragment');

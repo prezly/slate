@@ -1,29 +1,46 @@
-import { Element, Node } from 'slate';
-
-import AttachmentNode, { isAttachmentNode } from './AttachmentNode';
-import BlockNode, { isBlockNode } from './BlockNode';
-import ContactNode, { isContactNode } from './ContactNode';
-import CoverageNode, { isCoverageNode } from './CoverageNode';
-import DividerNode, { isDividerNode } from './DividerNode';
-import DocumentNode, { isDocumentNode } from './DocumentNode';
-import EmbedNode, { isEmbedNode } from './EmbedNode';
-import GalleryNode, { isGalleryNode } from './GalleryNode';
-import HeadingNode, { isHeadingNode } from './HeadingNode';
-import ImageNode, { isImageNode } from './ImageNode';
-import InlineNode, { isInlineNode } from './InlineNode';
-import LinkNode, { isLinkNode } from './LinkNode';
-import ListNode, {
+import {
+    AttachmentNode,
+    isAttachmentNode,
+    BlockNode,
+    isBlockNode,
+    ContactNode,
+    isContactNode,
+    CoverageNode,
+    isCoverageNode,
+    DividerNode,
+    isDividerNode,
+    DocumentNode,
+    isDocumentNode,
+    EmbedNode,
+    isEmbedNode,
+    GalleryNode,
+    isGalleryNode,
+    HeadingNode,
+    isHeadingNode,
+    ImageNode,
+    isImageNode,
+    InlineNode,
+    isInlineNode,
+    LinkNode,
+    isLinkNode,
+    ListNode,
     isListNode,
     isListItemNode,
     isListItemTextNode,
     ListItemNode,
     ListItemTextNode,
-} from './ListNode';
-import MentionNode, { isMentionNode } from './MentionNode';
-import ParagraphNode, { isParagraphNode } from './ParagraphNode';
-import PlaceholderNode, { isPlaceholderNode } from './PlaceholderNode';
-import QuoteNode, { isQuoteNode } from './QuoteNode';
-import TextNode, { isTextNode } from './TextNode';
+    MentionNode,
+    isMentionNode,
+    ParagraphNode,
+    isParagraphNode,
+    PlaceholderNode,
+    isPlaceholderNode,
+    QuoteNode,
+    isQuoteNode,
+    TextNode,
+    isTextNode,
+} from '@prezly/slate-types';
+import { Element, Node } from 'slate';
 
 const validators = [
     isAttachmentNode,
