@@ -13,9 +13,9 @@ const injectOembedMarkup = ({ oembed, onError, target }: Parameters): void => {
     container.innerHTML = oembed.html || '';
     const embedScripts = Array.from(container.getElementsByTagName('script'));
 
-    const currentScriptSources = Array.from(document.getElementsByTagName('script')).map((script) => (
-        script.getAttribute('src')
-    ));
+    const currentScriptSources = Array.from(document.getElementsByTagName('script')).map((script) =>
+        script.getAttribute('src'),
+    );
 
     embedScripts.forEach((embedScript) => {
         // Prevent same scripts from loading multiple times
@@ -23,7 +23,7 @@ const injectOembedMarkup = ({ oembed, onError, target }: Parameters): void => {
             const script = document.createElement('script');
             copyScriptAttributes(embedScript, script);
             script.addEventListener('error', onError);
-    
+
             document.body.appendChild(script);
         }
 
