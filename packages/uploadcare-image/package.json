@@ -1,0 +1,32 @@
+{
+  "name": "@prezly/uploadcare-image",
+  "version": "0.1.1",
+  "description": "Component to handle images served through Uploadcare or its proxy",
+  "license": "MIT",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prezly/slate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/prezly/slate/issues"
+  },
+  "homepage": "https://github.com/prezly/slate#readme",
+  "scripts": {
+    "copy-styles": "npx cp ./src/styles/styles.css ./build/styles.css",
+    "build-js": "tsc --project .",
+    "build": "npm run build-js && npm run copy-styles"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
