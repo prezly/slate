@@ -1,0 +1,8 @@
+.uploadcare-image__picture {
+    display: block;
+}
+
+.uploadcare-image__layout-fill {
+    width: 100%;
+    height: 100%;
+}
