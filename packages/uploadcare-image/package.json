@@ -1,6 +1,6 @@
 {
   "name": "@prezly/uploadcare-image",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Component to handle images served through Uploadcare or its proxy",
   "license": "MIT",
   "main": "build/index.js",
