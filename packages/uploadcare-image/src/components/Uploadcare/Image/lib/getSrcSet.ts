@@ -5,7 +5,7 @@ import { ImageExtension, Options } from '../../../../types';
 type Parameters = Pick<Options, 'imageDetails' | 'filename' | 'src' | 'effects'> & {
     size: number;
     format: ImageExtension;
-}
+};
 
 const getSrcSet = ({ imageDetails, filename, src, size, format, effects = [] }: Parameters) => {
     const defaultImageUrl = prepareUploadcareUrl({

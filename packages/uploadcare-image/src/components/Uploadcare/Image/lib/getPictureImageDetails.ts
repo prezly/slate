@@ -9,10 +9,10 @@ const getPictureImageDetails = (options: Options) => {
     const { imageDetails, filename, src, defaultFormat, effects = [], width } = options;
 
     const sizes = getSizes(options);
-    
+
     const formats = getFormats(options);
     const format = defaultFormat || formats[0];
-    
+
     return {
         srcSet: getSrcSet({
             imageDetails,

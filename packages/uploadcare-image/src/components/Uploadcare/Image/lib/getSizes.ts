@@ -1,5 +1,5 @@
-import { Options, SizesWithDefault } from "../../../../types";
-import { Breakpoint } from "../../constants";
+import { Options, SizesWithDefault } from '../../../../types';
+import { Breakpoint } from '../../constants';
 
 const DEFAULT_SIZES: SizesWithDefault = {
     mobile: Breakpoint.SM,
@@ -21,14 +21,16 @@ const getSizes = (options: Options): SizesWithDefault => {
     }
 
     if (!sizes!.hasOwnProperty('default')) {
-        const allSizes = Object.values(sizes!).filter((size) => typeof size === 'number') as Array<number>;
+        const allSizes = Object.values(sizes!).filter(
+            (size) => typeof size === 'number',
+        ) as Array<number>;
         return {
             ...sizes,
             default: Math.min(...allSizes),
-        }
+        };
     }
 
     return sizes as SizesWithDefault;
-}
+};
 
 export default getSizes;

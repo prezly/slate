@@ -1,4 +1,4 @@
-import { ImageExtension, Options } from "../../../../types";
+import { ImageExtension, Options } from '../../../../types';
 
 const DEFAULT_FORMATS: ImageExtension[] = ['webp', 'png'];
 

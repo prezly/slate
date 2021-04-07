@@ -1,8 +1,12 @@
-import { UploadcareImageDetails } from "../../../../types";
+import { UploadcareImageDetails } from '../../../../types';
 
 const FALLBACK_SIZE = 5;
 
-const getEffectiveWidth = (width: number | undefined, height: number | undefined, imageDetails?: UploadcareImageDetails) => {
+const getEffectiveWidth = (
+    width: number | undefined,
+    height: number | undefined,
+    imageDetails?: UploadcareImageDetails,
+) => {
     const aspectRatio = imageDetails
         ? imageDetails.original_width / imageDetails.original_height
         : null;
@@ -18,7 +22,11 @@ const getEffectiveWidth = (width: number | undefined, height: number | undefined
     return imageDetails?.original_width || FALLBACK_SIZE;
 };
 
-const getEffectiveHeight = (width: number | undefined, height: number | undefined, imageDetails?: UploadcareImageDetails) => {
+const getEffectiveHeight = (
+    width: number | undefined,
+    height: number | undefined,
+    imageDetails?: UploadcareImageDetails,
+) => {
     const aspectRatio = imageDetails
         ? imageDetails.original_width / imageDetails.original_height
         : null;

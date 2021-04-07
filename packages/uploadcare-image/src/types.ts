@@ -21,16 +21,16 @@ export type Sizes = Partial<{
 
 export type SizesWithDefault = Sizes & {
     default: Width;
-}
+};
 
-export type UploadcareEffectOptions = Pick<Options, 'width' | 'height' | 'imageDetails'>
+export type UploadcareEffectOptions = Pick<Options, 'width' | 'height' | 'imageDetails'>;
 
 export type UploadcareEffect = string | ((options: UploadcareEffectOptions) => string);
 
 export type UploadcareImageDetails = Record<string, any> & {
     original_width: number;
     original_height: number;
-}
+};
 
 type ImageSourceProps =
     | {
