@@ -3,19 +3,18 @@
 
 .prezly-slate {
     &-media {
-        &--image {
+        &--image,
+        &--video {
             display: block;
             max-width: 100%;
             height: auto;
-            margin: 0 auto;
+            margin: 0 auto;   
+        }
 
+        &--image {
             @media print {
                 color-adjust: exact;
             }
-        }
-
-        &--video {
-            max-width: 100%;
         }
     }
 }
