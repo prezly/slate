@@ -3,13 +3,10 @@
 
 .prezly-slate {
     &-media {
-        &--image,
-        &--video {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto;
-        }
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
 
         &--image {
             @media print {
