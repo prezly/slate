@@ -1,5 +1,6 @@
 export { default } from './EditorV4';
 export {
+    createDataTransfer,
     createEditorValueWithCoverageAsString,
     createEmptyEditorValueAsString,
     deserialize,
