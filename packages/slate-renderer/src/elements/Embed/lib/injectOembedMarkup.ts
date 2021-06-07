@@ -1,16 +1,14 @@
-import { OEmbedInfo } from '@prezly/sdk';
-
 import copyScriptAttributes from './copyScriptAttributes';
 
 interface Parameters {
-    oembed: OEmbedInfo;
+    html: string | undefined;
     onError: () => void;
     target: HTMLElement;
 }
 
-const injectOembedMarkup = ({ oembed, onError, target }: Parameters): void => {
+const injectOembedMarkup = ({ html, onError, target }: Parameters): void => {
     const container = document.createElement('div');
-    container.innerHTML = oembed.html || '';
+    container.innerHTML = html || '';
     const embedScripts = Array.from(container.getElementsByTagName('script'));
 
     embedScripts.forEach((embedScript) => {
