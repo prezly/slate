@@ -1,4 +1,4 @@
-import { OEmbedInfo } from '@prezly/slate-types';
+import { OEmbedInfo } from '@prezly/sdk';
 
 import copyScriptAttributes from './copyScriptAttributes';
 
