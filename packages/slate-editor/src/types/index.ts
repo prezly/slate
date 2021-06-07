@@ -11,7 +11,6 @@ export {
 export { default as ContactDuplicateSuggestion } from './ContactDuplicateSuggestion';
 export { default as ContactRef } from './ContactRef';
 export { default as Language } from './Language';
-export { default as NewsroomRef } from './NewsroomRef';
 export { default as OEmbedInfo } from './OEmbedInfo';
 export { default as OEmbedInfoType } from './OEmbedInfoType';
 export { default as PressContact } from './PressContact';
