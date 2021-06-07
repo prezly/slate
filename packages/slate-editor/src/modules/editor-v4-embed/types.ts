@@ -1,7 +1,6 @@
+import { OEmbedInfo } from '@prezly/sdk';
 import { RefObject } from 'react';
 import { Element } from 'slate';
-
-import { OEmbedInfo } from '../../types';
 
 import { EMBED_TYPE } from './constants';
 

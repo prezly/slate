@@ -1,4 +1,5 @@
-import { isOEmbedInfo, OEmbedInfo } from '../sdk';
+import { isOEmbedInfo } from '../sdk';
+import { OEmbedInfo } from '@prezly/sdk';
 
 import ElementNode, { isElementNode } from './ElementNode';
 

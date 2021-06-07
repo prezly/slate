@@ -1,4 +1,4 @@
-import { OEmbedInfo } from '../../../types';
+import { OEmbedInfo } from '@prezly/sdk';
 
 interface Parameters {
     oembed: OEmbedInfo;
