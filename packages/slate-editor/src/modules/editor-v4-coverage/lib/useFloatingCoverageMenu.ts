@@ -1,9 +1,9 @@
+import { Coverage } from '@prezly/sdk';
 import { useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
 import { ReactEditor } from 'slate-react';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
-import { Coverage } from '../../../types';
 
 import insertCoverage from './insertCoverage';
 

@@ -1,7 +1,5 @@
-import { OEmbedInfo } from '../../../types';
-
 interface Parameters {
-    oembed: OEmbedInfo;
+    html: string | undefined;
     onError: () => void;
     target: HTMLElement;
 }
@@ -14,9 +12,9 @@ function copyScriptAttributes(source: HTMLScriptElement, target: HTMLScriptEleme
     target.innerText = source.innerText;
 }
 
-export default function injectOembedMarkup({ oembed, onError, target }: Parameters): void {
+export default function injectOembedMarkup({ html, onError, target }: Parameters): void {
     const container = document.createElement('div');
-    container.innerHTML = oembed.html || '';
+    container.innerHTML = html || '';
     const embedScripts = Array.from(container.getElementsByTagName('script'));
 
     embedScripts.forEach((embedScript) => {

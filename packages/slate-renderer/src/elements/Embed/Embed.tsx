@@ -1,4 +1,4 @@
-import { EmbedNode, OEmbedInfoType } from '@prezly/slate-types';
+import { EmbedNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 
@@ -21,7 +21,7 @@ const Embed: FunctionComponent<Props> = ({ className, node, showAsScreenshot, ..
         ...props,
     };
 
-    if (oembed.type === OEmbedInfoType.LINK) {
+    if (oembed.type === 'link') {
         return <LinkEmbed {...commonProps} node={node} />;
     }
 

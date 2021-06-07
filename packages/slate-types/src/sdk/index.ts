@@ -7,8 +7,7 @@
  */
 
 export { default as EmailPlaceholderKey } from './EmailPlaceholderKey';
-export { default as OEmbedInfo, isOEmbedInfo } from './OEmbedInfo';
-export { default as OEmbedInfoType } from './OEmbedInfoType';
+export { isOEmbedInfo } from './OEmbedInfo';
 export { default as PlaceholderKey } from './PlaceholderKey';
 export { default as PressContact, isPressContact } from './PressContact';
 export { default as StoryPlaceholderKey } from './StoryPlaceholderKey';

@@ -1,7 +1,6 @@
+import { Coverage } from '@prezly/sdk';
 import { ReactNode, RefObject } from 'react';
 import { Element } from 'slate';
-
-import { Coverage } from '../../types';
 
 import { COVERAGE_TYPE } from './constants';
 

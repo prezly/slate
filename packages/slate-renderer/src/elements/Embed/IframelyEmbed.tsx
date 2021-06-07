@@ -17,7 +17,7 @@ const IframelyEmbed: FunctionComponent<Props> = ({ className, node, ...props }) 
     useEffect(() => {
         if (contentRef.current && typeof window !== 'undefined') {
             injectOembedMarkup({
-                oembed,
+                html: oembed.html,
                 onError: () => setIsValid(false),
                 target: contentRef.current,
             });

@@ -30,7 +30,7 @@ const EmbedElement: FunctionComponent<Props> = ({
     useEffect(() => {
         if (!isUsingScreenshots && contentRef.current) {
             injectOembedMarkup({
-                oembed: element.oembed,
+                html: element.oembed.html,
                 onError: () => setIsInvalid(true),
                 target: contentRef.current,
             });

@@ -1,14 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, NodeEntry } from 'slate';
 
-import { OEmbedInfoType } from '../../../types';
-
 import createEmbed from './createEmbed';
 import isEmbedElement from './isEmbedElement';
 
-const ALLOWED_ATTRIBUTES = Object.keys(
-    createEmbed({ type: OEmbedInfoType.LINK, url: '', version: '1.0' }, ''),
-);
+const ALLOWED_ATTRIBUTES = Object.keys(createEmbed({ type: 'link', url: '', version: '1.0' }, ''));
 
 const normalizeRedundantEmbedAttributes = (editor: Editor, [node, path]: NodeEntry): boolean => {
     if (!isEmbedElement(node)) {

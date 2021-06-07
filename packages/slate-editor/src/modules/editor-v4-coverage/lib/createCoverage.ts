@@ -1,6 +1,5 @@
+import { Coverage } from '@prezly/sdk';
 import { v4 as uuidV4 } from 'uuid';
-
-import { Coverage } from '../../../types';
 
 import { COVERAGE_TYPE } from '../constants';
 import { CoverageElementType } from '../types';

@@ -1,3 +1,4 @@
+import { OEmbedInfo } from '@prezly/sdk';
 import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
 import { ReactEditor } from 'slate-react';
@@ -11,7 +12,6 @@ import {
     removeLoader,
     replaceLoader,
 } from '../../../modules/editor-v4-loader';
-import { OEmbedInfo } from '../../../types';
 
 import createEmbed from './createEmbed';
 

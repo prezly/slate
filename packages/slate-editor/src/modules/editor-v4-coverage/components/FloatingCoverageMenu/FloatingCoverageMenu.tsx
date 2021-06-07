@@ -1,9 +1,9 @@
+import { Coverage } from '@prezly/sdk';
 import React, { FunctionComponent, ReactNode, RefObject, useRef } from 'react';
 import { useSlate } from 'slate-react';
 
 import { FloatingContainer } from '../../../../modules/editor-v4-components';
 import { EventsEditor } from '../../../../modules/editor-v4-events';
-import { Coverage } from '../../../../types';
 
 import { SearchProps } from '../../types';
 

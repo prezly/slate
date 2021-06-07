@@ -1,6 +1,5 @@
+import { OEmbedInfo } from '@prezly/sdk';
 import { v4 as uuidV4 } from 'uuid';
-
-import { OEmbedInfo } from '../../../types';
 
 import { EMBED_TYPE } from '../constants';
 import { EmbedElementType } from '../types';
