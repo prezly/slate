@@ -1,5 +1,6 @@
 import { Listener } from '@prezly/events';
 import { Coverage } from '@prezly/sdk';
+import { PressContact } from '@prezly/slate-types';
 import { ReactNode } from 'react';
 
 export type EditorEventMap = {
