@@ -18,6 +18,6 @@
         "clean": "rimraf build/ node_modules/"
     },
     "dependencies": {
-        "@prezly/sdk": "^2.9.1"
+        "@prezly/sdk": "^2.9.2"
     }
 }
