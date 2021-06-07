@@ -1,3 +1,4 @@
+import { Coverage } from '@prezly/sdk';
 import classNames from 'classnames';
 import React, { FunctionComponent, useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -6,7 +7,6 @@ import { RenderElementProps, useSelected } from 'slate-react';
 import { LoadingPlaceholderV2 } from '../../../../components';
 import { Coverage as CoverageIcon } from '../../../../icons';
 import { ApiError } from '../../../../modules/api';
-import { Coverage } from '../../../../types';
 
 import { CoverageElementType } from '../../types';
 
