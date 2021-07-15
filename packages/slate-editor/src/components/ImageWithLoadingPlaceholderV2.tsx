@@ -6,7 +6,9 @@ import React, {
     ReactNode,
     Ref,
     useEffect,
+    useState,
 } from 'react';
+import { useDebounce, useLatest } from 'react-use';
 
 import { useImage } from '../lib';
 
@@ -20,6 +22,13 @@ interface Props extends ImgHTMLAttributes<HTMLImageElement> {
     src: string;
     width?: number;
 }
+
+/**
+ * When image is rendered again the browser will load it from cache.
+ * We don't have to show the loading state as loading from cache is very fast.
+ * But still, it takes some time.
+ */
+const IS_LOADING_CHANGE_DEBOUNCE = 50;
 
 // Image can be of any size, which can increase loading time.
 // 2 seconds seems like a reasonable average.
@@ -65,11 +74,21 @@ const ImageWithLoadingPlaceholderV2 = forwardRef<HTMLElement, Props>(
         },
         ref,
     ) => {
+        const onIsLoadingChangeRef = useLatest(onIsLoadingChange);
+        const [isLoadingDebounced, setIsLoadingDebounced] = useState(false);
         const { loading, progress, url } = useImage(src);
 
         useEffect(() => {
-            onIsLoadingChange(loading);
-        }, [loading, onIsLoadingChange]);
+            setIsLoadingDebounced(loading);
+        }, [loading]);
+
+        useDebounce(
+            () => {
+                onIsLoadingChangeRef.current(isLoadingDebounced);
+            },
+            IS_LOADING_CHANGE_DEBOUNCE,
+            [isLoadingDebounced],
+        );
 
         if (loading) {
             return (
