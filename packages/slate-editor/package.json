@@ -84,7 +84,6 @@
         "moment": "^2.29.1",
         "postcss-loader": "^3.0.0",
         "rangefix": "^0.2.9",
-        "react": "^16.14.0",
         "react-bootstrap": "=0.32.4",
         "react-draggable": "^3.3.2",
         "react-overlays": "^0.8.3",
