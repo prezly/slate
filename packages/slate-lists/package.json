@@ -1,38 +1,39 @@
 {
-	"name": "@prezly/slate-lists",
-	"version": "0.1.8",
-	"description": "The best Slate lists extension out there",
-	"license": "MIT",
-	"main": "build/index.js",
-	"types": "build/index.d.ts",
-	"files": [
-		"build",
-		"src"
-	],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/prezly/slate.git"
-	},
-	"bugs": {
-		"url": "https://github.com/prezly/slate/issues"
-	},
-	"homepage": "https://github.com/prezly/slate#readme",
-	"scripts": {
-		"build": "tsc --project .",
-		"clean": "rimraf build/ node_modules/"
-	},
-	"peerDependencies": {
-		"react": "*",
-		"slate": ">=0.50.0",
-		"slate-react": ">=0.50.0"
-	},
-	"dependencies": {
-		"@prezly/slate-commons": "^0.1.8",
-		"@prezly/slate-hyperscript": "^0.1.8",
-		"uuid": "^8.3.2"
-	},
-	"devDependencies": {
-		"@prezly/slate-hyperscript": "^0.1.0-alpha.18",
-		"@types/uuid": "^8.3.0"
-	}
+    "name": "@prezly/slate-lists",
+    "version": "0.1.8",
+    "description": "The best Slate lists extension out there",
+    "license": "MIT",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
+    "files": [
+        "build",
+        "src"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/prezly/slate.git"
+    },
+    "bugs": {
+        "url": "https://github.com/prezly/slate/issues"
+    },
+    "homepage": "https://github.com/prezly/slate#readme",
+    "scripts": {
+        "build": "tsc --project .",
+        "build:watch": "tsc -w --project .",
+        "clean": "rimraf build/ node_modules/"
+    },
+    "peerDependencies": {
+        "react": "*",
+        "slate": ">=0.50.0",
+        "slate-react": ">=0.50.0"
+    },
+    "dependencies": {
+        "@prezly/slate-commons": "^0.1.8",
+        "@prezly/slate-hyperscript": "^0.1.8",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "@prezly/slate-hyperscript": "^0.1.0-alpha.18",
+        "@types/uuid": "^8.3.0"
+    }
 }
