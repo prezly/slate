@@ -15,6 +15,7 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "build": "tsc --project .",
+        "build:watch": "tsc -w --project .",
         "clean": "rimraf build/ node_modules/"
     },
     "dependencies": {
