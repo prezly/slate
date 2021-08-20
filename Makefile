@@ -1,5 +1,6 @@
 install:
 	sudo apt -y install multitail
+  npm install
 
 dev: install
 	multitail -s 2 \
