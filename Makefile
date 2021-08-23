@@ -1,8 +1,7 @@
 install:
-	sudo apt -y install multitail
-  npm install
+	npm install
 
-dev: install
+dev--linux: install
 	multitail -s 2 \
 		-cT ANSI -wh 15 -t "[slate-renderer] " -l "npm run build:watch --prefix packages/slate-renderer" \
 		-cT ANSI -t "[docx-cleaner] " -l "npm run build:watch --prefix packages/docx-cleaner" \
