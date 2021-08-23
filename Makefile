@@ -3,7 +3,8 @@ install:
 
 dev--linux: install
 	multitail -s 2 \
-		-cT ANSI -wh 15 -t "[slate-renderer] " -l "npm run build:watch --prefix packages/slate-renderer" \
+		-cT ANSI -t "[playground] " -l "npm start --prefix packages/playground" \
+		-cT ANSI -t "[slate-renderer] " -l "npm run build:watch --prefix packages/slate-renderer" \
 		-cT ANSI -t "[docx-cleaner] " -l "npm run build:watch --prefix packages/docx-cleaner" \
 		-cT ANSI -t "[slate-commons] " -l "npm run build:watch --prefix packages/slate-commons" \
 		-cT ANSI -t "[slate-editor] " -l "npm run build:watch --prefix packages/slate-editor" \
