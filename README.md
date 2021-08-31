@@ -29,6 +29,12 @@ Prezly-specific packages mention Prezly in the description. All other packages s
 
 # Development
 
+For local development use [Playground](/packages/playground) project. It is a simple react application with all the sub-packages linked.
+
+In order to start developing, run the playground project and related packages in watch mode.
+
+On Linux systems use `make dev--linux` which builds all the packages in watch mode and provides a handy output management. It requires [multitail](https://linux.die.net/man/1/multitail) to be installed.
+
 ## Setup
 
 ```Shell
