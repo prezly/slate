@@ -1,5 +1,5 @@
 import React, { FunctionComponent, RefObject } from 'react';
-import { useEditor, useSelected } from 'slate-react';
+import { useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu } from '../../../components';
 import { Trash } from '../../../icons';
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
-    const editor = useEditor();
+    const editor = useSlate();
     const isSelected = useSelected();
 
     const handleRemove = () => {
