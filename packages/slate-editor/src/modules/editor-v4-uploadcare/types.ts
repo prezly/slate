@@ -17,7 +17,7 @@ export type ResultPromise<Multiple extends boolean> = Multiple extends true
 export type UploadcareOptions<
     Multiple extends boolean,
     ImagesOnly extends boolean,
-    MediaGallery extends boolean,
+    MediaGallery extends boolean
 > = {
     captions?: boolean;
     crop?: ImagesOnly extends true ? boolean : never;

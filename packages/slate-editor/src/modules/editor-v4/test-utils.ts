@@ -72,4 +72,4 @@ export const getAllExtensions = () =>
     );
 
 export const createEditor = (input: JSX.Element) =>
-    createEditorV4(input as unknown as Editor, getAllExtensions, [withEvents(events)]);
+    createEditorV4((input as unknown) as Editor, getAllExtensions, [withEvents(events)]);

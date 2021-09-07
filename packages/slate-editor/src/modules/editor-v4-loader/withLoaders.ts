@@ -11,48 +11,46 @@ import { LoaderElementType } from './types';
  */
 const isLoaderAllowed = ({ id }: LoaderElementType): boolean => loaderPromiseManager.isPending(id);
 
-const createHistoryHandler =
-    <T extends HistoryEditor>(
-        editor: T,
-        {
-            canPerform,
-            command,
-            revertCommand,
-        }: {
-            canPerform: () => boolean;
-            command: () => void;
-            revertCommand: () => void;
-        },
-    ) =>
-    () => {
-        if (!canPerform()) {
-            return;
-        }
+const createHistoryHandler = <T extends HistoryEditor>(
+    editor: T,
+    {
+        canPerform,
+        command,
+        revertCommand,
+    }: {
+        canPerform: () => boolean;
+        command: () => void;
+        revertCommand: () => void;
+    },
+) => () => {
+    if (!canPerform()) {
+        return;
+    }
 
+    command();
+
+    let commandsCount = 1;
+    let loaders = getLoaders(editor);
+    let disallowedLoaders = loaders.filter(([loaderNode]) => !isLoaderAllowed(loaderNode));
+
+    while (canPerform() && disallowedLoaders.length > 0) {
         command();
+        ++commandsCount;
 
-        let commandsCount = 1;
-        let loaders = getLoaders(editor);
-        let disallowedLoaders = loaders.filter(([loaderNode]) => !isLoaderAllowed(loaderNode));
+        loaders = getLoaders(editor);
+        disallowedLoaders = loaders.filter(([loaderNode]) => !isLoaderAllowed(loaderNode));
+    }
 
-        while (canPerform() && disallowedLoaders.length > 0) {
-            command();
-            ++commandsCount;
-
-            loaders = getLoaders(editor);
-            disallowedLoaders = loaders.filter(([loaderNode]) => !isLoaderAllowed(loaderNode));
+    // If we can no longer perform the command but there still are some disallowed nodes
+    // in the editor we have to revert all our changes (effectively making the whole routine a no-op).
+    // Otherwise, we'd leave the editor in an invalid state (with disallowed nodes).
+    if (disallowedLoaders.length > 0) {
+        while (commandsCount > 0) {
+            revertCommand();
+            --commandsCount;
         }
-
-        // If we can no longer perform the command but there still are some disallowed nodes
-        // in the editor we have to revert all our changes (effectively making the whole routine a no-op).
-        // Otherwise, we'd leave the editor in an invalid state (with disallowed nodes).
-        if (disallowedLoaders.length > 0) {
-            while (commandsCount > 0) {
-                revertCommand();
-                --commandsCount;
-            }
-        }
-    };
+    }
+};
 
 const withLoaders = <T extends HistoryEditor>(editor: T): T => {
     const { redo, undo } = editor;
