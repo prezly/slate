@@ -50,7 +50,7 @@
         "validator": "^13.5.2"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "react-app-rewired start",
         "clean": "rimraf build/ node_modules/"
     },
     "eslintConfig": {
@@ -70,5 +70,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "customize-cra": "^1.0.0",
+        "react-app-rewired": "^2.1.8"
     }
 }
