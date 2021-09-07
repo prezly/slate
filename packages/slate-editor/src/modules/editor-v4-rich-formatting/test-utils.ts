@@ -8,5 +8,5 @@ const getExtensions = () => [RichFormattingExtension({ blocks: true, links: true
 
 export const createRichFormattingEditor = (input: JSX.Element) =>
     withNormalization(getExtensions)(
-        withInlineVoid(getExtensions)(withRichFormatting((input as unknown) as ReactEditor)),
+        withInlineVoid(getExtensions)(withRichFormatting(input as unknown as ReactEditor)),
     );

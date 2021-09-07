@@ -18,49 +18,48 @@ import insertUploadingFile from '../insertUploadingFile';
 
 import getMediaGalleryParameters from './getMediaGalleryParameters';
 
-const createHandleAddGallery = (withGalleries: GalleriesExtensionParameters) => async (
-    editor: Editor,
-) => {
-    const filePromises = await UploadcareEditor.upload(editor, {
-        ...getMediaGalleryParameters(withGalleries),
-        captions: true,
-        imagesOnly: true,
-        multiple: true,
-    });
+const createHandleAddGallery =
+    (withGalleries: GalleriesExtensionParameters) => async (editor: Editor) => {
+        const filePromises = await UploadcareEditor.upload(editor, {
+            ...getMediaGalleryParameters(withGalleries),
+            captions: true,
+            imagesOnly: true,
+            multiple: true,
+        });
 
-    if (!filePromises) {
-        return;
-    }
+        if (!filePromises) {
+            return;
+        }
 
-    await insertUploadingFile<PrezlyFileInfo[]>(editor, {
-        createElement: (fileInfos) => {
-            const images = fileInfos.map((fileInfo) => {
-                const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-                return {
-                    caption: fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
-                    file: image.toPrezlyStoragePayload(),
-                };
-            });
-            return createGallery(images);
-        },
-        ensureEmptyParagraphAfter: true,
-        filePromise: awaitUploads(filePromises).then(({ failedUploads, successfulUploads }) => {
-            failedUploads.forEach((error) => {
-                EventsEditor.dispatchEvent(editor, 'error', error);
-            });
-
-            if (failedUploads.length > 0) {
-                EventsEditor.dispatchEvent(editor, 'notification', {
-                    children: UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE,
-                    type: 'error',
+        await insertUploadingFile<PrezlyFileInfo[]>(editor, {
+            createElement: (fileInfos) => {
+                const images = fileInfos.map((fileInfo) => {
+                    const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+                    return {
+                        caption: fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
+                        file: image.toPrezlyStoragePayload(),
+                    };
                 });
-            }
+                return createGallery(images);
+            },
+            ensureEmptyParagraphAfter: true,
+            filePromise: awaitUploads(filePromises).then(({ failedUploads, successfulUploads }) => {
+                failedUploads.forEach((error) => {
+                    EventsEditor.dispatchEvent(editor, 'error', error);
+                });
 
-            return successfulUploads;
-        }),
-        loaderContentType: LoaderContentType.GALLERY,
-        loaderMessage: 'Uploading Gallery',
-    });
-};
+                if (failedUploads.length > 0) {
+                    EventsEditor.dispatchEvent(editor, 'notification', {
+                        children: UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE,
+                        type: 'error',
+                    });
+                }
+
+                return successfulUploads;
+            }),
+            loaderContentType: LoaderContentType.GALLERY,
+            loaderMessage: 'Uploading Gallery',
+        });
+    };
 
 export default createHandleAddGallery;

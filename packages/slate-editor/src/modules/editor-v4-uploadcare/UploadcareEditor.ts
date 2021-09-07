@@ -7,7 +7,7 @@ abstract class UploadcareEditor {
     static upload<
         Multiple extends boolean,
         ImagesOnly extends boolean,
-        MediaGallery extends boolean
+        MediaGallery extends boolean,
     >(
         editor: Editor,
         options: UploadcareOptions<Multiple, ImagesOnly, MediaGallery>,
