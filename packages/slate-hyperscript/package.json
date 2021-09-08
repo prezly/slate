@@ -1,32 +1,31 @@
 {
-    "name": "@prezly/slate-hyperscript",
-    "version": "0.1.8",
-    "description": "Hyperscript helpers for creating Slate documents with JSX",
-    "license": "MIT",
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
-    "files": [
-        "build",
-        "src"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/prezly/slate.git"
-    },
-    "bugs": {
-        "url": "https://github.com/prezly/slate/issues"
-    },
-    "homepage": "https://github.com/prezly/slate#readme",
-    "scripts": {
-        "build": "tsc --project .",
-        "build:watch": "tsc -w --project .",
-        "clean": "rimraf build/ node_modules/"
-    },
-    "peerDependencies": {
-        "react": "*",
-        "slate": ">=0.50.0"
-    },
-    "dependencies": {
-        "is-plain-object": "^5.0.0"
-    }
+	"name": "@prezly/slate-hyperscript",
+	"version": "0.1.8",
+	"description": "Hyperscript helpers for creating Slate documents with JSX",
+	"license": "MIT",
+	"main": "build/index.js",
+	"types": "build/index.d.ts",
+	"files": [
+		"build",
+		"src"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/prezly/slate.git"
+	},
+	"bugs": {
+		"url": "https://github.com/prezly/slate/issues"
+	},
+	"homepage": "https://github.com/prezly/slate#readme",
+	"scripts": {
+		"build": "tsc --project .",
+		"clean": "rimraf build/ node_modules/"
+	},
+	"peerDependencies": {
+		"react": "*",
+		"slate": ">=0.50.0"
+	},
+	"dependencies": {
+		"is-plain-object": "^5.0.0"
+	}
 }
