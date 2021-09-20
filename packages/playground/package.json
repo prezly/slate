@@ -32,9 +32,9 @@
         "react-router-dom": "=5.1.2",
         "react-use": "^17.2.1",
         "shave": "^2.5.10",
-        "slate": "=0.59.0",
-        "slate-react": "=0.59.0",
-        "slate-history": "0.59.0",
+        "slate": "=0.60.0",
+        "slate-react": "=0.60.0",
+        "slate-history": "=0.60.0",
         "uploadcare-widget": "=3.7.7",
         "uuid": "^8.3.2",
         "validator": "^13.5.2"
