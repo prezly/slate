@@ -24,14 +24,15 @@
     },
     "peerDependencies": {
         "react": "*",
-        "slate": "=0.60.0",
-        "slate-react": "=0.60.0"
+        "slate": "=0.61.3",
+        "slate-react": "=0.61.3"
     },
     "dependencies": {
         "uuid": "^8.3.2"
     },
     "devDependencies": {
         "@prezly/slate-hyperscript": "^0.1.8",
+        "@prezly/slate-types": "^0.1.8",
         "@types/uuid": "^8.3.0"
     }
 }
