@@ -1,3 +1,5 @@
+import '@prezly/slate-types';
+
 import * as EditorCommands from './commands';
 
 export { default as EditableWithExtensions } from './EditableWithExtensions';
