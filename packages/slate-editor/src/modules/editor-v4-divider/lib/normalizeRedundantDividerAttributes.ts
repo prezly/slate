@@ -1,13 +1,13 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isDividerNode } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createDivider from './createDivider';
-import isDividerElement from './isDividerElement';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createDivider());
 
 const normalizeRedundantDividerAttributes = (editor: Editor, [node, path]: NodeEntry): boolean => {
-    if (!isDividerElement(node)) {
+    if (!isDividerNode(node)) {
         return false;
     }
 
