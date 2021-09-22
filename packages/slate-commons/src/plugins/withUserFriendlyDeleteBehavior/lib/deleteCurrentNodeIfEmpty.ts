@@ -36,7 +36,11 @@ const deleteCurrentNodeIfEmpty = (editor: Editor, { reverse, unit }: Parameters)
         currentNode.type !== targetNode.type &&
         isNodeEmpty(editor, currentNode)
     ) {
-        Transforms.removeNodes(editor, { match: (node) => node.type === currentNode.type });
+        Transforms.removeNodes(editor, {
+            match: (node) => {
+                return Element.isElement(node) && node.type === currentNode.type;
+            },
+        });
         return true;
     }
 
