@@ -1,8 +1,8 @@
-import { Editor } from 'slate';
+import { Editor, Text } from 'slate';
 
 import isMarkActive from './isMarkActive';
 
-const toggleMark = (editor: Editor, mark: string): void => {
+const toggleMark = (editor: Editor, mark: keyof Omit<Text, 'text'>): void => {
     if (isMarkActive(editor, mark)) {
         Editor.removeMark(editor, mark);
     } else {
