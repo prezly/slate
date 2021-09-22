@@ -1,10 +1,11 @@
 import ElementNode, { isElementNode } from './ElementNode';
 import InlineNode, { isInlineNode } from './InlineNode';
+import TextNode, { isTextNode } from './TextNode';
 
 export const PARAGRAPH_NODE_TYPE = 'paragraph';
 
 export default interface ParagraphNode extends ElementNode<typeof PARAGRAPH_NODE_TYPE> {
-    children: InlineNode[];
+    children: (InlineNode | TextNode)[];
 }
 
 export const isParagraphNode = (value: any): value is ParagraphNode => {
@@ -12,6 +13,6 @@ export const isParagraphNode = (value: any): value is ParagraphNode => {
         isElementNode(value) &&
         value.type === PARAGRAPH_NODE_TYPE &&
         Array.isArray(value.children) &&
-        value.children.every(isInlineNode)
+        value.children.every((node) => isInlineNode(node) || isTextNode(node))
     );
 };

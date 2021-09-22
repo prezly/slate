@@ -2,6 +2,7 @@ import { isPrezlyStoragePayload, UploadcareImageStoragePayload } from '../sdk';
 
 import ElementNode, { isElementNode } from './ElementNode';
 import InlineNode from './InlineNode';
+import TextNode from './TextNode';
 
 export const IMAGE_NODE_TYPE = 'image-block';
 
@@ -9,7 +10,7 @@ const LAYOUTS = ['contained', 'expanded', 'full-width'];
 
 export default interface ImageNode extends ElementNode<typeof IMAGE_NODE_TYPE> {
     /** caption */
-    children: InlineNode[];
+    children: (InlineNode | TextNode)[];
     file: UploadcareImageStoragePayload;
     /** empty string if no URL */
     href: string;
