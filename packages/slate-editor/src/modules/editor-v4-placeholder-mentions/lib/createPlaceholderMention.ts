@@ -1,4 +1,4 @@
-import { PLACEHOLDER_MENTION_TYPE } from '../constants';
+import { PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import { PlaceholderMentionElementType } from '../types';
 
 const createPlaceholderMention = (
@@ -6,7 +6,7 @@ const createPlaceholderMention = (
 ): PlaceholderMentionElementType => ({
     children: [{ text: '' }],
     key,
-    type: PLACEHOLDER_MENTION_TYPE,
+    type: PLACEHOLDER_NODE_TYPE,
 });
 
 export default createPlaceholderMention;

@@ -1,38 +1,22 @@
 import { withInlineVoid } from '@prezly/slate-commons';
+import { isPlaceholderNode, PlaceholderNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
-import { Editor, Element } from 'slate';
+import { Editor } from 'slate';
 import { RenderElementProps } from 'slate-react';
 
 import { MentionElement } from './components';
 import MentionsExtension from './MentionsExtension';
-import { MentionElementType } from './types';
 
-export interface Example {
-    id: string;
-    information: string;
-}
-
-export const EXAMPLE_MENTION_TYPE = 'example';
-
-type ExampleMentionType = typeof EXAMPLE_MENTION_TYPE;
-
-interface ExampleMentionElementType extends MentionElementType<ExampleMentionType> {
-    example: Example;
-}
-
-const isExampleElement = (element: Element): element is MentionElementType<ExampleMentionType> =>
-    element.type === EXAMPLE_MENTION_TYPE;
-
-const ExampleMentionsExtension = () =>
+const PlaceholderMentionsExtension = () =>
     MentionsExtension({
         id: 'MentionsExtension',
         normalizers: [],
         parseSerializedElement: JSON.parse,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
-            if (isExampleElement(element)) {
+            if (isPlaceholderNode(element)) {
                 return (
-                    <MentionElement<ExampleMentionType> attributes={attributes} element={element}>
-                        {element.information}
+                    <MentionElement attributes={attributes} element={element}>
+                        {`%${element.key}%`}
                         {children}
                     </MentionElement>
                 );
@@ -40,15 +24,15 @@ const ExampleMentionsExtension = () =>
 
             return undefined;
         },
-        type: EXAMPLE_MENTION_TYPE,
+        type: PLACEHOLDER_NODE_TYPE,
     });
 
-const getExtensions = () => [ExampleMentionsExtension()];
+const getExtensions = () => [PlaceholderMentionsExtension()];
 
-export const createExampleMentionElement = (example: Example): ExampleMentionElementType => ({
+export const createPlaceholderMentionElement = (key: PlaceholderNode['key']): PlaceholderNode => ({
     children: [{ text: '' }],
-    example,
-    type: EXAMPLE_MENTION_TYPE,
+    key,
+    type: PLACEHOLDER_NODE_TYPE,
 });
 
 export const createMentionsEditor = (editor: Editor) => withInlineVoid(getExtensions)(editor);

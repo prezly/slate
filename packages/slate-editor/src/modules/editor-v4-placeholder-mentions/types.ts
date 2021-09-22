@@ -1,17 +1,13 @@
-import { MentionElementType } from '../../modules/editor-v4-mentions';
-
-import { PLACEHOLDER_MENTION_TYPE } from './constants';
-
-export type PlaceholderMentionType = typeof PLACEHOLDER_MENTION_TYPE;
+import { PlaceholderNode } from '@prezly/slate-types/node_modules/@prezly/slate-types';
 
 export interface Placeholder {
     key: string;
     text: string;
 }
 
-export interface PlaceholderMentionElementType extends MentionElementType<PlaceholderMentionType> {
+export type PlaceholderMentionElementType = PlaceholderNode & {
     key: Placeholder['key'];
-}
+};
 
 export interface PlaceholderMentionsExtensionParameters {
     placeholders: Placeholder[];

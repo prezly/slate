@@ -2,19 +2,15 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
 
-import { MentionElementType } from '../../types';
+import { MentionElementType } from '../..';
 
 import './MentionElement.scss';
 
-interface Props<T extends string> extends RenderElementProps {
-    element: MentionElementType<T>;
+interface Props extends RenderElementProps {
+    element: MentionElementType;
 }
 
-const MentionElement = <T extends string>({
-    attributes,
-    children,
-    element,
-}: Props<T>): ReturnType<FunctionComponent<Props<T>>> => {
+const MentionElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
     const selected = useSelected();
 
     return (

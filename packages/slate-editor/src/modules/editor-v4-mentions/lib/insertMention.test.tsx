@@ -1,17 +1,15 @@
 /** @jsx jsx */
 
+import { PlaceholderNode } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import jsx from '../jsx';
-import { createExampleMentionElement, createMentionsEditor, Example } from '../test-utils';
+import { createPlaceholderMentionElement, createMentionsEditor } from '../test-utils';
 
 import insertMention from './insertMention';
 
 describe('insertMention', () => {
-    const example: Example = {
-        id: '1',
-        information: 'lorem ipsum',
-    };
+    const placeholderKey: PlaceholderNode['key'] = 'contact.firstname';
 
     it('Inserts a mention after the cursor at the end of paragraph', () => {
         const editor = createMentionsEditor(
@@ -29,9 +27,9 @@ describe('insertMention', () => {
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
-                    <h-example-mention example={example}>
+                    <h-placeholder-mention key={placeholderKey}>
                         <h-text />
-                    </h-example-mention>
+                    </h-placeholder-mention>
                     <h-text>
                         <cursor />
                     </h-text>
@@ -39,7 +37,7 @@ describe('insertMention', () => {
             </editor>
         ) as unknown) as Editor;
 
-        insertMention(editor, createExampleMentionElement(example));
+        insertMention(editor, createPlaceholderMentionElement(placeholderKey));
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -62,9 +60,9 @@ describe('insertMention', () => {
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
-                    <h-example-mention example={example}>
+                    <h-placeholder-mention key={placeholderKey}>
                         <h-text />
-                    </h-example-mention>
+                    </h-placeholder-mention>
                     <h-text>
                         <cursor />
                         dolor sit amet
@@ -73,7 +71,7 @@ describe('insertMention', () => {
             </editor>
         ) as unknown) as Editor;
 
-        insertMention(editor, createExampleMentionElement(example));
+        insertMention(editor, createPlaceholderMentionElement(placeholderKey));
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
