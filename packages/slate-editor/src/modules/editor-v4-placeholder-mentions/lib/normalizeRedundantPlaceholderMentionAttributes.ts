@@ -1,10 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isPlaceholderNode } from '@prezly/slate-types';
+import { isPlaceholderNode, PlaceholderKey } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createPlaceholderMention from './createPlaceholderMention';
 
-const ALLOWED_ATTRIBUTES = Object.keys(createPlaceholderMention(''));
+const ALLOWED_ATTRIBUTES = Object.keys(createPlaceholderMention('' as PlaceholderKey));
 
 const normalizeRedundantPlaceholderMentionAttributes = (
     editor: Editor,
