@@ -1,3 +1,4 @@
+import { isAttachmentNode } from '@prezly/slate-types';
 import { createDeserializeElement, Extension } from '@prezly/slate-commons';
 import { noop } from 'lodash';
 import React from 'react';
@@ -5,11 +6,7 @@ import { RenderElementProps } from 'slate-react';
 
 import { FileAttachmentElement, FileAttachmentMenu } from './components';
 import { FILE_ATTACHMENT_EXTENSION_ID, FILE_ATTACHMENT_TYPE } from './constants';
-import {
-    isFileAttachmentElement,
-    normalizeRedundantFileAttachmentAttributes,
-    parseSerializedElement,
-} from './lib';
+import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
 import { FileAttachmentParameters } from './types';
 
 const FileAttachmentExtension = ({
@@ -26,7 +23,7 @@ const FileAttachmentExtension = ({
     id: FILE_ATTACHMENT_EXTENSION_ID,
     normalizers: [normalizeRedundantFileAttachmentAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (isFileAttachmentElement(element)) {
+        if (isAttachmentNode(element)) {
             return (
                 <>
                     {attributes.ref.current && (
