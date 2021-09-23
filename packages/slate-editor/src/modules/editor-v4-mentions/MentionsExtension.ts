@@ -5,7 +5,7 @@ import { MentionElementType } from './types';
 interface Options<T extends string> {
     id: Extension['id'];
     normalizers: Extension['normalizers'];
-    parseSerializedElement: (serialized: string) => MentionElementType<T> | undefined;
+    parseSerializedElement: (serialized: string) => MentionElementType | undefined;
     renderElement: Extension['renderElement'];
     type: T;
 }

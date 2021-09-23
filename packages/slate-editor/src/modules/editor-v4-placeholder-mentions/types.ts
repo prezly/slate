@@ -1,7 +1,7 @@
-import { PlaceholderNode } from '@prezly/slate-types/node_modules/@prezly/slate-types';
+import { PlaceholderNode } from '@prezly/slate-types';
 
 export interface Placeholder {
-    key: string;
+    key: PlaceholderNode['key'];
     text: string;
 }
 
