@@ -1,11 +1,10 @@
 /** @jsx jsx */
-
+import { isParagraphNode } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import jsx from '../jsx';
 
 import findDescendants from './findDescendants';
-import isParagraphElement from './isParagraphElement';
 
 describe('findDescendants', () => {
     const editor = ((
@@ -23,7 +22,7 @@ describe('findDescendants', () => {
     ) as unknown) as Editor;
 
     it('Can find all editor node descendants matching the type', () => {
-        const descendants = findDescendants(editor, isParagraphElement);
+        const descendants = findDescendants(editor, isParagraphNode);
 
         expect(descendants).toEqual([
             [
@@ -49,7 +48,7 @@ describe('findDescendants', () => {
     });
 
     it('Can find all child node descendants matching the type', () => {
-        const descendants = findDescendants(editor.children[0], isParagraphElement);
+        const descendants = findDescendants(editor.children[0], isParagraphNode);
 
         expect(descendants).toEqual([
             [
@@ -63,7 +62,7 @@ describe('findDescendants', () => {
     });
 
     it('Can find all editor node descendants not matching the type', () => {
-        const descendants = findDescendants(editor, (node) => !isParagraphElement(node));
+        const descendants = findDescendants(editor, (node) => !isParagraphNode(node));
 
         expect(descendants).toEqual([
             [<h-text>lorem ipsum 1</h-text>, [0, 0]],
@@ -74,10 +73,7 @@ describe('findDescendants', () => {
     });
 
     it('Can find all child node descendants not matching the type', () => {
-        const descendants = findDescendants(
-            editor.children[0],
-            (node) => !isParagraphElement(node),
-        );
+        const descendants = findDescendants(editor.children[0], (node) => !isParagraphNode(node));
 
         expect(descendants).toEqual([
             [<h-text>lorem ipsum 1</h-text>, [0]],

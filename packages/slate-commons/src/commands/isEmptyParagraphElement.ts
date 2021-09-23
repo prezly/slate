@@ -1,10 +1,10 @@
+import { isParagraphNode } from '@prezly/slate-types';
 import { Editor, Node } from 'slate';
 
 import isNodeEmpty from './isNodeEmpty';
-import isParagraphElement from './isParagraphElement';
 
 const isEmptyParagraphElement = (editor: Editor, node?: Node | null): boolean => {
-    if (!isParagraphElement(node)) {
+    if (!isParagraphNode(node)) {
         return false;
     }
 

@@ -16,7 +16,6 @@ export { default as isEmpty } from './isEmpty';
 export { default as isEmptyParagraphElement } from './isEmptyParagraphElement';
 export { default as isMarkActive } from './isMarkActive';
 export { default as isNodeEmpty } from './isNodeEmpty';
-export { default as isParagraphElement } from './isParagraphElement';
 export { default as isSelectionAtBlockEnd } from './isSelectionAtBlockEnd';
 export { default as isSelectionAtBlockStart } from './isSelectionAtBlockStart';
 export { default as isSelectionEmpty } from './isSelectionEmpty';
