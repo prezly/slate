@@ -1,12 +1,10 @@
-import { GalleryElementType } from '../types';
-
+import { GalleryNode, isGalleryNode } from '@prezly/slate-types';
 import createGallery from './createGallery';
-import isGalleryElement from './isGalleryElement';
 
-const parseSerializedElement = (serialized: string): GalleryElementType | undefined => {
+const parseSerializedElement = (serialized: string): GalleryNode | undefined => {
     const parsed = JSON.parse(serialized);
 
-    if (isGalleryElement(parsed)) {
+    if (isGalleryNode(parsed)) {
         return createGallery(parsed.images, {
             layout: parsed.layout,
             padding: parsed.padding,
