@@ -1,3 +1,5 @@
+export { isParagraphNode as isParagraphElement } from '@prezly/slate-types';
+
 export { default as findDescendants } from './findDescendants';
 export { default as focus } from './focus';
 export { default as getCurrentDomNode } from './getCurrentDomNode';
