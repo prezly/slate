@@ -1,15 +1,14 @@
 import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { ParagraphNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 import { RenderElementProps } from 'slate-react';
-
-import { ParagraphElementType } from '../../types';
 
 import './ParagraphElement.scss';
 
 interface Props extends HTMLAttributes<HTMLParagraphElement> {
     attributes?: RenderElementProps['attributes'];
-    element: ParagraphElementType;
+    element: ParagraphNode;
 }
 
 const ParagraphElement: FunctionComponent<Props> = ({

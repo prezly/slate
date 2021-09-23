@@ -1,7 +1,9 @@
-import { ParagraphType } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import { ElementNode } from '@prezly/slate-types';
 import { Element } from 'slate';
 
 type Multiple = 'multiple';
+export type ParagraphType = typeof PARAGRAPH_NODE_TYPE;
 export type BlockType = ParagraphType | ElementType | Multiple;
 
 export enum ElementType {
@@ -24,9 +26,9 @@ export enum MarkType {
     SUPERSCRIPT = 'superscript',
 }
 
-export interface RichTextElementType extends Element {
+export type RichTextElementType = ElementNode & {
     type: ParagraphType | ElementType;
-}
+};
 
 export interface LinkCandidateElementType extends Element {
     id: string;

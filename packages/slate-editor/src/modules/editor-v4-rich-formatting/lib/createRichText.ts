@@ -1,11 +1,10 @@
-import { ParagraphType } from '@prezly/slate-commons';
-import { Node } from 'slate';
+import { InlineNode } from '@prezly/slate-types';
 
-import { ElementType, RichTextElementType } from '../types';
+import { RichTextElementType } from '../types';
 
 const createRichText = (
-    type: ElementType | ParagraphType,
-    children: Node[] = [],
+    type: RichTextElementType['type'],
+    children: InlineNode[] = [],
 ): RichTextElementType => ({
     children,
     type,
