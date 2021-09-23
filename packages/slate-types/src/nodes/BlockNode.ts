@@ -1,3 +1,4 @@
+import { ImageCandidateNode } from '.';
 import AttachmentNode, { isAttachmentNode } from './AttachmentNode';
 import ContactNode, { isContactNode } from './ContactNode';
 import CoverageNode, { isCoverageNode } from './CoverageNode';
@@ -18,6 +19,7 @@ type BlockNode =
     | EmbedNode
     | GalleryNode
     | HeadingNode
+    | ImageCandidateNode
     | ImageNode
     | ListNode
     | ParagraphNode
