@@ -1,5 +1,5 @@
+import { GalleryImage } from '@prezly/slate-types';
 import { NewsroomRef } from '@prezly/sdk';
-import { UploadcareImageStoragePayload } from '@prezly/uploadcare';
 import { RefObject } from 'react';
 import { Editor, Element } from 'slate';
 
@@ -25,12 +25,6 @@ export enum GalleryPadding {
     L = 'L',
     M = 'M',
     S = 'S',
-}
-
-export interface GalleryImage {
-    /** empty string if no caption */
-    caption: string;
-    file: UploadcareImageStoragePayload;
 }
 
 export interface GalleryElementType extends Element {

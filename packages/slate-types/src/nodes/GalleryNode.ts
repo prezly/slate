@@ -22,20 +22,25 @@ export default interface GalleryNode extends ElementNode<typeof GALLERY_NODE_TYP
     uuid: string;
 }
 
+export interface GalleryImage {
+    /** empty string if no caption */
+    caption: string;
+    file: UploadcareImageStoragePayload;
+}
+
+const isGalleryImage = (image: any): image is GalleryImage =>
+    typeof image === 'object' &&
+    image !== null &&
+    typeof image.caption === 'string' &&
+    isPrezlyStoragePayload(image.file);
+
 export const isGalleryNode = (value: any): value is GalleryNode => {
     return (
         isElementNode(value) &&
         value.type === GALLERY_NODE_TYPE &&
         Array.isArray(value.images) &&
         value.images.length > 0 &&
-        value.images.every((image) => {
-            return (
-                typeof image === 'object' &&
-                image !== null &&
-                typeof image.caption === 'string' &&
-                isPrezlyStoragePayload(image.file)
-            );
-        }) &&
+        value.images.every(isGalleryImage) &&
         LAYOUTS.includes(value.layout as any) &&
         PADDINGS.includes(value.padding as any) &&
         THUMBNAIL_SIZES.includes(value.thumbnail_size as any) &&
