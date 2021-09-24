@@ -8,10 +8,14 @@ import { ReactEditor } from 'slate-react';
 
 import { BlockNode, InlineNode, TextNode } from './nodes';
 
+export declare interface AdditionalCustomTypes {
+    [key: string]: unknown;
+}
+
 declare module 'slate' {
-    interface CustomTypes {
+    interface CustomTypes extends AdditionalCustomTypes {
         Editor: BaseEditor & ReactEditor;
-        Element: BlockNode | InlineNode;
-        Text: TextNode;
+        Element: AdditionalCustomTypes['Element'] | BlockNode | InlineNode;
+        Text: AdditionalCustomTypes['Text'] | TextNode;
     }
 }
