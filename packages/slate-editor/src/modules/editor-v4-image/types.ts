@@ -1,4 +1,5 @@
 import { NewsroomRef } from '@prezly/sdk';
+import { ElementNode } from '@prezly/slate-types';
 import { UploadcareImageStoragePayload } from '@prezly/uploadcare';
 import { RefObject } from 'react';
 import { Editor, Element, Text } from 'slate';
@@ -33,12 +34,11 @@ export interface ImageElementType extends Element {
  * (where we have access to <img> elements but we don't have access to editor instance)
  * and normalization (which is responsible for converting these nodes into actual images).
  */
-export interface ImageCandidateElementType extends Element {
+export interface ImageCandidateElementType extends ElementNode<ImageCandidateType> {
     children: Text[];
     /** empty string if no URL */
     href: string;
     src: string;
-    type: ImageCandidateType;
 }
 
 export interface ImageExtensionParameters {
