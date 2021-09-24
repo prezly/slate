@@ -1,5 +1,3 @@
-import '@prezly/slate-types';
-
 export * from './components';
 export * from './lib';
 export { default } from './modules/editor-v4';
