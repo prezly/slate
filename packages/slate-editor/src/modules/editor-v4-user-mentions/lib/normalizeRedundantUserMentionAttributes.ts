@@ -1,8 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isMentionNode } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createUserMention from './createUserMention';
-import isUserMentionElement from './isUserMentionElement';
 
 const ALLOWED_ATTRIBUTES = Object.keys(
     createUserMention({
@@ -16,7 +16,7 @@ const normalizeRedundantUserMentionAttributes = (
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean => {
-    if (!isUserMentionElement(node)) {
+    if (!isMentionNode(node)) {
         return false;
     }
 

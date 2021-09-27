@@ -1,12 +1,13 @@
+import { isMentionNode } from '@prezly/slate-types';
+
 import { UserMentionElementType } from '../types';
 
 import createUserMention from './createUserMention';
-import isUserMentionElement from './isUserMentionElement';
 
 const parseSerializedElement = (serialized: string): UserMentionElementType | undefined => {
     const parsed = JSON.parse(serialized);
 
-    if (isUserMentionElement(parsed)) {
+    if (isMentionNode(parsed)) {
         return createUserMention(parsed.user);
     }
 
