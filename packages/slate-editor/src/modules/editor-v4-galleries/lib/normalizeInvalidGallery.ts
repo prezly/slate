@@ -1,14 +1,12 @@
-import { isGalleryNode, GALLERY_NODE_TYPE } from '@prezly/slate-types';
-import { Editor, Element, Node, NodeEntry, Transforms } from 'slate';
+import { GALLERY_NODE_TYPE, GalleryNode, isElementNode, isGalleryNode } from '@prezly/slate-types';
+import { Editor, Node, NodeEntry, Transforms } from 'slate';
 
-import { GalleryElementType } from '../types';
-
-// We cannot use `isGalleryElement` here, because it checks for `images` array length.
-const isGalleryElementType = (node: any): node is GalleryElementType =>
-    Element.isElement(node) && node.type === GALLERY_NODE_TYPE;
+// We cannot use `isGalleryNode` here, because it checks for `images` array length.
+const isGalleryNodeType = (node: any): node is GalleryNode =>
+    isElementNode(node) && node.type === GALLERY_NODE_TYPE;
 
 const normalizeInvalidGallery = (editor: Editor, [node, path]: NodeEntry<Node>): boolean => {
-    if (!isGalleryElementType(node)) {
+    if (!isGalleryNodeType(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }

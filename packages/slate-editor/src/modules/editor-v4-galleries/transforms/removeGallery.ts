@@ -1,12 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { GalleryNode, isGalleryNode } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-import { isGalleryElement } from '../lib';
-import { GalleryElementType } from '../types';
-
-const removeGallery = (editor: Editor): GalleryElementType | null =>
-    EditorCommands.removeNode<GalleryElementType>(editor, {
-        match: isGalleryElement,
+const removeGallery = (editor: Editor): GalleryNode | null =>
+    EditorCommands.removeNode<GalleryNode>(editor, {
+        match: isGalleryNode,
     });
 
 export default removeGallery;

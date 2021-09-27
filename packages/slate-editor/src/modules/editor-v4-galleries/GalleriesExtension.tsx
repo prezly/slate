@@ -1,11 +1,11 @@
 import { createDeserializeElement, Extension } from '@prezly/slate-commons';
+import { GALLERY_NODE_TYPE, isGalleryNode } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
 import { GalleryElement, GalleryMenu } from './components';
-import { GALLERIES_EXTENSION_ID, GALLERY_TYPE } from './constants';
+import { GALLERIES_EXTENSION_ID } from './constants';
 import {
-    isGalleryElement,
     normalizeInvalidGallery,
     normalizeRedundantGalleryAttributes,
     parseSerializedElement,
@@ -19,13 +19,13 @@ const GalleriesExtension = ({
 }: GalleriesParameters): Extension => ({
     deserialize: {
         element: {
-            [GALLERY_TYPE]: createDeserializeElement(parseSerializedElement),
+            [GALLERY_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
     id: GALLERIES_EXTENSION_ID,
     normalizers: [normalizeInvalidGallery, normalizeRedundantGalleryAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (isGalleryElement(element)) {
+        if (isGalleryNode(element)) {
             return (
                 <>
                     <GalleryElement
@@ -52,8 +52,8 @@ const GalleriesExtension = ({
 
         return undefined;
     },
-    rootTypes: [GALLERY_TYPE],
-    voidTypes: [GALLERY_TYPE],
+    rootTypes: [GALLERY_NODE_TYPE],
+    voidTypes: [GALLERY_NODE_TYPE],
 });
 
 export default GalleriesExtension;
