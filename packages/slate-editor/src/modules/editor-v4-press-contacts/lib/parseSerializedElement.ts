@@ -1,12 +1,11 @@
-import { PressContactElementType } from '../types';
+import { ContactNode, isContactNode } from '@prezly/slate-types';
 
 import createPressContact from './createPressContact';
-import isPressContactElement from './isPressContactElement';
 
-const parseSerializedElement = (serialized: string): PressContactElementType | undefined => {
+const parseSerializedElement = (serialized: string): ContactNode | undefined => {
     const parsed = JSON.parse(serialized);
 
-    if (isPressContactElement(parsed)) {
+    if (isContactNode(parsed)) {
         return createPressContact(parsed.contact);
     }
 

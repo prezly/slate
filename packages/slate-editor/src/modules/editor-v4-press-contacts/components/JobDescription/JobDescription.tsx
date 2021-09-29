@@ -1,7 +1,6 @@
+import { PressContact } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
-
-import { PressContact } from '../../../../types';
 
 import './JobDescription.scss';
 

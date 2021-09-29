@@ -1,12 +1,9 @@
-import { PressContact } from '../../../types';
+import { ContactNode, CONTACT_NODE_TYPE, PressContact } from '@prezly/slate-types';
 
-import { PRESS_CONTACT_TYPE } from '../constants';
-import { PressContactElementType } from '../types';
-
-const createPressContact = (contact: PressContact): PressContactElementType => ({
+const createPressContact = (contact: PressContact & { uuid: string }): ContactNode => ({
     children: [{ text: '' }],
     contact,
-    type: PRESS_CONTACT_TYPE,
+    type: CONTACT_NODE_TYPE,
     uuid: contact.uuid,
 });
 

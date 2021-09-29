@@ -1,8 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isContactNode } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createPressContact from './createPressContact';
-import isPressContactElement from './isPressContactElement';
 
 const ALLOWED_ATTRIBUTES = Object.keys(
     createPressContact({
@@ -25,7 +25,7 @@ const normalizeRedundantPressContactAttributes = (
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean => {
-    if (!isPressContactElement(node)) {
+    if (!isContactNode(node)) {
         return false;
     }
 

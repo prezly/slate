@@ -1,6 +1,5 @@
+import { PressContact } from '@prezly/slate-types';
 import React, { FunctionComponent } from 'react';
-
-import { PressContact } from '../../../../types';
 
 import SocialField from './SocialField';
 

@@ -1,13 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { ContactNode, isContactNode } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-import { PressContactElementType } from '../types';
-
-import isPressContactElement from './isPressContactElement';
-
-const removePressContact = (editor: Editor): PressContactElementType | null =>
-    EditorCommands.removeNode<PressContactElementType>(editor, {
-        match: isPressContactElement,
+const removePressContact = (editor: Editor): ContactNode | null =>
+    EditorCommands.removeNode<ContactNode>(editor, {
+        match: isContactNode,
     });
 
 export default removePressContact;
