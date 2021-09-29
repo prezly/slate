@@ -1,9 +1,8 @@
-import { USER_MENTION_TYPE } from '../constants';
-import { User, UserMentionElementType } from '../types';
+import { MENTION_NODE_TYPE, MentionNode } from '@prezly/slate-types';
 
-const createUserMention = (user: User): UserMentionElementType => ({
+const createUserMention = (user: MentionNode['user']): MentionNode => ({
     children: [{ text: '' }],
-    type: USER_MENTION_TYPE,
+    type: MENTION_NODE_TYPE,
     user,
 });
 
