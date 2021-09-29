@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Transforms } from 'slate';
+import { Editor, Element, Transforms } from 'slate';
 
 import lists from '../lists';
 import { ElementType } from '../types';
@@ -18,7 +18,7 @@ const toggleBlock = (editor: Editor, type: string): void => {
     }
 
     lists.unwrapList(editor);
-    Transforms.setNodes(editor, { type });
+    Transforms.setNodes(editor, { type } as Partial<Element>);
 };
 
 export default toggleBlock;
