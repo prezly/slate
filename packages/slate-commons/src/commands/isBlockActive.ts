@@ -1,9 +1,10 @@
-import { Editor, Element, Location } from 'slate';
+import { isElementNode } from '@prezly/slate-types';
+import { Editor, Location } from 'slate';
 
 const isBlockActive = (editor: Editor, type: string, at?: Location): boolean => {
     const [match] = Array.from(
         Editor.nodes(editor, {
-            match: (node) => Element.isElement(node) && node.type === type,
+            match: (node) => isElementNode(node) && node.type === type,
             at,
         }),
     );
