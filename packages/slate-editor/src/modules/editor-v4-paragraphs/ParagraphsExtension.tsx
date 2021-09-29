@@ -1,4 +1,5 @@
-import { EditorCommands, Extension, PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { Extension, PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { isParagraphNode } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
@@ -20,7 +21,7 @@ const ParagraphsExtension = (): Extension => ({
         normalizeUnknownElement,
     ],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (EditorCommands.isParagraphElement(element)) {
+        if (isParagraphNode(element)) {
             return (
                 <ParagraphElement attributes={attributes} element={element}>
                     {children}

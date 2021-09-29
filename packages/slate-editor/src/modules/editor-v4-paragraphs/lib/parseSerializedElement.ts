@@ -1,12 +1,11 @@
-import { EditorCommands } from '@prezly/slate-commons';
-import { ParagraphNode } from '@prezly/slate-types';
+import { isParagraphNode, ParagraphNode } from '@prezly/slate-types';
 
 import createParagraph from './createParagraph';
 
 const parseSerializedElement = (serialized: string): ParagraphNode | undefined => {
     const parsed = JSON.parse(serialized);
 
-    if (EditorCommands.isParagraphElement(parsed)) {
+    if (isParagraphNode(parsed)) {
         return createParagraph(parsed.children);
     }
 

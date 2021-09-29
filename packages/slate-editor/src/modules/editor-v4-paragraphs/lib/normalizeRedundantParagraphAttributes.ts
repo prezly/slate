@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isParagraphNode } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createParagraph from './createParagraph';
@@ -9,7 +10,7 @@ const normalizeRedundantParagraphAttributes = (
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean => {
-    if (!EditorCommands.isParagraphElement(node)) {
+    if (!isParagraphNode(node)) {
         return false;
     }
 
