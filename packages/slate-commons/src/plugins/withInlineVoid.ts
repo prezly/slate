@@ -7,15 +7,17 @@ const withInlineVoid = (getExtensions: () => Extension[]) => <T extends Editor>(
     const { isInline, isVoid } = editor;
 
     editor.isInline = (element) => {
+        const anyElement: Record<string, unknown> = (element as unknown) as Record<string, unknown>;
         const extensions = getExtensions();
         const inlineTypes = extensions.flatMap((extension) => extension.inlineTypes || []);
-        return inlineTypes.includes(element.type as string) ? true : isInline(element);
+        return inlineTypes.includes(anyElement.type as string) ? true : isInline(element);
     };
 
     editor.isVoid = (element) => {
+        const anyElement: Record<string, unknown> = (element as unknown) as Record<string, unknown>;
         const extensions = getExtensions();
         const voidTypes = extensions.flatMap((extension) => extension.voidTypes || []);
-        return voidTypes.includes(element.type as string) ? true : isVoid(element);
+        return voidTypes.includes(anyElement.type as string) ? true : isVoid(element);
     };
 
     return editor;
