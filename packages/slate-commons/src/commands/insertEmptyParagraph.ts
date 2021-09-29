@@ -1,10 +1,9 @@
-import { Editor, Element, Location, Transforms } from 'slate';
+import { ElementNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import { Editor, Location, Transforms } from 'slate';
 
-import { PARAGRAPH_TYPE } from '../constants';
-
-const createEmptyParagraph = (): Element => ({
+const createEmptyParagraph = (): ElementNode => ({
     children: [{ text: '' }],
-    type: PARAGRAPH_TYPE,
+    type: PARAGRAPH_NODE_TYPE,
 });
 
 const insertEmptyParagraph = (editor: Editor, at?: Location): void => {
