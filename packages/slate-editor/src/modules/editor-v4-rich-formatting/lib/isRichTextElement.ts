@@ -1,9 +1,20 @@
-import { Element } from 'slate';
+import {
+    isHeadingNode,
+    isListItemNode,
+    isListItemTextNode,
+    isListNode,
+    isParagraphNode,
+    isQuoteNode,
+} from '@prezly/slate-types';
 
-import { RICH_TEXT_TYPES } from '../constants';
 import { RichTextElementType } from '../types';
 
 const isRichTextElement = (node: unknown): node is RichTextElementType =>
-    Element.isElement(node) && RICH_TEXT_TYPES.includes(node.type as string);
+    isParagraphNode(node) ||
+    isQuoteNode(node) ||
+    isListNode(node) ||
+    isListItemNode(node) ||
+    isListItemTextNode(node) ||
+    isHeadingNode(node);
 
 export default isRichTextElement;
