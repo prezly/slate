@@ -7,7 +7,6 @@ export { default as findSelectedLinkPath } from './findSelectedLinkPath';
 export { default as getCurrentHref } from './getCurrentHref';
 export { default as getRichFormattingBlockNodeType } from './getRichFormattingBlockNodeType';
 export { default as isLinkCandidateElement } from './isLinkCandidateElement';
-export { default as isLinkElement } from './isLinkElement';
 export { default as isRichTextBlockElement } from './isRichTextBlockElement';
 export { default as isRichTextElement } from './isRichTextElement';
 export { default as isSelectionSupported } from './isSelectionSupported';

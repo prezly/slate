@@ -1,12 +1,11 @@
-import { LinkElementType } from '../types';
+import { isLinkNode, LinkNode } from '@prezly/slate-types';
 
 import createLink from './createLink';
-import isLinkElement from './isLinkElement';
 
-const parseSerializedLinkElement = (serialized: string): LinkElementType | undefined => {
+const parseSerializedLinkElement = (serialized: string): LinkNode | undefined => {
     const parsed = JSON.parse(serialized);
 
-    if (isLinkElement(parsed)) {
+    if (isLinkNode(parsed)) {
         return createLink(parsed.href);
     }
 

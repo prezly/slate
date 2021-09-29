@@ -1,5 +1,4 @@
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { ElementNode } from '@prezly/slate-types';
+import { ElementNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Element } from 'slate';
 
 type Multiple = 'multiple';
@@ -33,11 +32,6 @@ export type RichTextElementType = ElementNode & {
 export interface LinkCandidateElementType extends Element {
     id: string;
     type: ElementType.LINK_CANDIDATE;
-}
-
-export interface LinkElementType extends Element {
-    href: string;
-    type: ElementType.LINK;
 }
 
 export interface RichFormattingExtensionParameters {

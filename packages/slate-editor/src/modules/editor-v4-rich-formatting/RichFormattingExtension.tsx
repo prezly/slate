@@ -1,4 +1,5 @@
 import { Extension, PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { isLinkNode } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps, RenderLeafProps } from 'slate-react';
 
@@ -8,7 +9,6 @@ import createDeserialize from './createDeserialize';
 import createOnKeyDown from './createOnKeyDown';
 import {
     isLinkCandidateElement,
-    isLinkElement,
     isRichTextElement,
     normalizeEmptyLink,
     normalizeNestedLink,
@@ -39,7 +39,7 @@ const RichFormattingExtension = (parameters: RichFormattingExtensionParameters):
             );
         }
 
-        if (parameters.links && isLinkElement(element)) {
+        if (parameters.links && isLinkNode(element)) {
             return (
                 <LinkElement attributes={attributes} element={element}>
                     {children}

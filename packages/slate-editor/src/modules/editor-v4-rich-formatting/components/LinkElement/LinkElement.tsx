@@ -1,13 +1,13 @@
+import { LinkNode } from '@prezly/slate-types';
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps } from 'slate-react';
 
 import { LinkWithTooltip } from '../../../../modules/editor-v4-components';
-import { LinkElementType } from '../../types';
 
 import './LinkElement.scss';
 
 interface Props extends RenderElementProps {
-    element: LinkElementType;
+    element: LinkNode;
 }
 
 const LinkElement: FunctionComponent<Props> = ({ attributes, children, element }) => (
