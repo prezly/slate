@@ -1,4 +1,4 @@
-import { Editor, Node, Path, Transforms } from 'slate';
+import { Editor, Element, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
 import { ListsOptions } from '../types';
@@ -65,7 +65,7 @@ const decreaseListItemDepth = (options: ListsOptions, editor: Editor, listItemPa
             if (Node.has(editor, listItemTextPath)) {
                 Transforms.setNodes(
                     editor,
-                    { type: options.defaultBlockType },
+                    { type: options.defaultBlockType as Element['type'] },
                     { at: listItemTextPath },
                 );
                 Transforms.liftNodes(editor, { at: listItemTextPath });
