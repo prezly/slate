@@ -48,7 +48,11 @@ const normalizeListItemChildren = (
         // is of type `never`, even though we just checked if it's an `Element`.
         if (Element.isElement(childNode) && typeof (childNode as Element).type === 'undefined') {
             // It can happen during pasting that the `type` attribute will be missing.
-            Transforms.setNodes(editor, { type: options.listItemTextType }, { at: childPath });
+            Transforms.setNodes(
+                editor,
+                { type: options.listItemTextType as Element['type'] },
+                { at: childPath },
+            );
             return true;
         }
 
@@ -63,7 +67,11 @@ const normalizeListItemChildren = (
         }
 
         if (!isListItemText(options, childNode) && !isList(options, childNode)) {
-            Transforms.setNodes(editor, { type: options.listItemTextType }, { at: childPath });
+            Transforms.setNodes(
+                editor,
+                { type: options.listItemTextType as Element['type'] },
+                { at: childPath },
+            );
             return true;
         }
     }
