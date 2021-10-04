@@ -1,5 +1,5 @@
 import { nodeIdManager } from '@prezly/slate-commons';
-import { Editor, Transforms } from 'slate';
+import { Editor, Element, Transforms } from 'slate';
 
 import { ListsOptions } from '../types';
 
@@ -20,7 +20,7 @@ const wrapInList = (options: ListsOptions, editor: Editor, listType: string): vo
         Editor.nodes(editor, {
             at: editor.selection,
             match: (node) => {
-                if (typeof node.type !== 'string') {
+                if (!Element.isElement(node)) {
                     return false;
                 }
 
@@ -50,7 +50,7 @@ const wrapInList = (options: ListsOptions, editor: Editor, listType: string): vo
         Editor.withoutNormalizing(editor, () => {
             Transforms.setNodes(
                 editor,
-                { type: options.listItemTextType },
+                { type: options.listItemTextType as Element['type'] },
                 { at: nonListEntryPath },
             );
             Transforms.wrapNodes(editor, createListItem(options), { at: nonListEntryPath });
