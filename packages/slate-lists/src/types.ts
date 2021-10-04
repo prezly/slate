@@ -50,5 +50,6 @@ export interface ListItemTextNode {
 declare module 'slate' {
     interface AdditionalCustomTypes {
         Element: ListNode | ListItemNode | ListItemTextNode;
+        Text: TextNode;
     }
 }
