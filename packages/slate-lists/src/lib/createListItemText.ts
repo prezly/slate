@@ -1,13 +1,14 @@
-import { Descendant, Element } from 'slate';
+import { ListItemTextNode } from '@prezly/slate-types';
+import { Element } from 'slate';
 
 import { ListsOptions } from '../types';
 
 const createListItemText = (
     options: ListsOptions,
-    children: Descendant[] = [{ text: '' }],
+    children: ListItemTextNode['children'] = [{ text: '' }],
 ): Element => ({
     children,
-    type: options.listItemTextType,
+    type: options.listItemTextType as ListItemTextNode['type'],
 });
 
 export default createListItemText;
