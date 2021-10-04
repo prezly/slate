@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import Lists from './Lists';
@@ -17,11 +17,11 @@ export enum ElementType {
 }
 
 export const options: ListsOptions = {
-    defaultBlockType: PARAGRAPH_TYPE,
+    defaultBlockType: PARAGRAPH_NODE_TYPE,
     listItemTextType: ElementType.LIST_ITEM_TEXT,
     listItemType: ElementType.LIST_ITEM,
     listTypes: [ElementType.BULLETED_LIST, ElementType.NUMBERED_LIST],
-    wrappableTypes: [PARAGRAPH_TYPE],
+    wrappableTypes: [PARAGRAPH_NODE_TYPE],
 };
 
 export const lists = Lists(options);
