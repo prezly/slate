@@ -18,7 +18,7 @@ const getListItemsInRange = (
     const rangeStartPoint = Range.start(at);
     const listItemsInSelection = Editor.nodes(editor, {
         at,
-        match: (node) => node.type === options.listItemType,
+        match: (node) => Element.isElement(node) && node.type === options.listItemType,
     });
 
     return Array.from(listItemsInSelection).filter(([, path]) => {
