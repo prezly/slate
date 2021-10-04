@@ -1,4 +1,4 @@
-import { InlineNode, TextNode } from '@prezly/slate-types';
+import { ListItemNode, ListItemTextNode, TextNode } from '@prezly/slate-types';
 
 export interface ListsOptions {
     /**
@@ -27,29 +27,9 @@ export interface ListsOptions {
     wrappableTypes: string[];
 }
 
-export default interface ElementNode<T extends string = string> extends Record<string, unknown> {
-    children: (ElementNode<string> | TextNode)[];
-    type: T;
-}
-
-export interface ListNode {
-    children: ListItemNode[];
-    type: 'bulleted-list' | 'numbered-list';
-}
-
-export interface ListItemNode {
-    children: [ListItemTextNode] | [ListItemTextNode, ListNode];
-    type: 'list-item';
-}
-
-export interface ListItemTextNode {
-    children: (InlineNode | TextNode)[];
-    type: 'list-item-text';
-}
-
 declare module 'slate' {
     interface AdditionalCustomTypes {
-        Element: ListNode | ListItemNode | ListItemTextNode;
+        Element: ListItemNode | ListItemTextNode;
         Text: TextNode;
     }
 }
