@@ -1,4 +1,4 @@
-import { Element, Node } from 'slate';
+import { Element } from 'slate';
 
 import { ListsOptions } from '../types';
 
