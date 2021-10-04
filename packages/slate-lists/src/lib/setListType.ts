@@ -1,5 +1,5 @@
 import { nodeIdManager } from '@prezly/slate-commons';
-import { Editor, Transforms } from 'slate';
+import { Editor, Element, Transforms } from 'slate';
 
 import { ListsOptions } from '../types';
 
@@ -26,7 +26,7 @@ const setListType = (options: ListsOptions, editor: Editor, listType: string): v
         }
 
         const [, listPath] = listEntry;
-        Transforms.setNodes(editor, { type: listType }, { at: listPath });
+        Transforms.setNodes(editor, { type: listType as Element['type'] }, { at: listPath });
     });
 };
 
