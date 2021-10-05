@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { createHyperscript } from '@prezly/slate-hyperscript';
 import { ReactNode } from 'react';
 
@@ -92,7 +92,7 @@ const jsx = createHyperscript({
         'h-li': { type: ElementType.LIST_ITEM },
         'h-li-text': { type: ElementType.LIST_ITEM_TEXT },
         'h-ol': { type: ElementType.NUMBERED_LIST },
-        'h-p': { type: PARAGRAPH_TYPE },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
         'h-ul': { type: ElementType.BULLETED_LIST },
         'h-unwrappable-element': { type: ElementType.UNWRAPPABLE_ELEMENT },
     },
