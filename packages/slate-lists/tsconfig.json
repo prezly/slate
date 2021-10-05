@@ -4,7 +4,8 @@
     "compilerOptions": {
         "jsx": "react",
         "outDir": "./build",
-        "rootDir": "./src"
+        "rootDir": "./src",
+        "typeRoots": ["./src/@types"]
     },
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
     "include": ["./src"]

@@ -1,5 +1,3 @@
-import { ListItemNode, ListItemTextNode, TextNode } from '@prezly/slate-types';
-
 export interface ListsOptions {
     /**
      * Type of the node that "listItemTextType" will become when it is unwrapped or normalized.
@@ -25,11 +23,4 @@ export interface ListsOptions {
      * Types of nodes that can be converted into a node representing list item text.
      */
     wrappableTypes: string[];
-}
-
-declare module 'slate' {
-    interface AdditionalCustomTypes {
-        Element: ListItemNode | ListItemTextNode;
-        Text: TextNode;
-    }
 }
