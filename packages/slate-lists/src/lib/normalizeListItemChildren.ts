@@ -1,3 +1,4 @@
+import { isInlineNode } from '@prezly/slate-types';
 import { Editor, Element, Node, NodeEntry, Text, Transforms } from 'slate';
 
 import { ListsOptions } from '../types';
@@ -26,10 +27,7 @@ const normalizeListItemChildren = (
     for (let childIndex = 0; childIndex < children.length; ++childIndex) {
         const [childNode, childPath] = children[childIndex];
 
-        if (
-            Text.isText(childNode) ||
-            (Element.isElement(childNode) && Editor.isInline(editor, childNode))
-        ) {
+        if (Text.isText(childNode) || isInlineNode(childNode)) {
             const listItemText = createListItemText(options, [childNode]);
             Transforms.wrapNodes(editor, listItemText, { at: childPath });
 
