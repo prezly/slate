@@ -1,8 +1,8 @@
+import { ImageLayout } from '@prezly/slate-types';
 import React, { FunctionComponent } from 'react';
 
 import { FloatingMenu } from '../../../components';
 import { Contained, Expanded, FullWidth } from '../../../icons';
-import { ImageLayout } from '../types';
 
 interface Props {
     layout: ImageLayout;

@@ -1,7 +1,5 @@
-import { ImageNode, IMAGE_NODE_TYPE, InlineNode, TextNode } from '@prezly/slate-types';
+import { ImageLayout, ImageNode, IMAGE_NODE_TYPE, InlineNode, TextNode } from '@prezly/slate-types';
 import { UploadcareImageStoragePayload } from '@prezly/uploadcare';
-
-import { ImageLayout } from '../types';
 
 interface Options {
     children?: (InlineNode | TextNode)[];

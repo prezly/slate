@@ -1,11 +1,11 @@
 /** @jsx jsx */
 
+import { ImageLayout } from '@prezly/slate-types';
 import { UploadcareStoragePayload } from '@prezly/uploadcare';
 import { Editor } from 'slate';
 import { ReactEditor, withReact } from 'slate-react';
 
 import jsx from '../jsx';
-import { ImageLayout } from '../types';
 
 import removeImage from './removeImage';
 

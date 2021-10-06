@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { ImageNode, isImageNode } from '@prezly/slate-types';
+import { ImageLayout, ImageNode, isImageNode } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import React, { FunctionComponent, RefObject, useState } from 'react';
@@ -9,7 +9,6 @@ import { ReactEditor, RenderElementProps, useSelected, useSlate } from 'slate-re
 import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';
 import { Image as ImageIcon } from '../../../../icons';
 import { LinkWithTooltip } from '../../../../modules/editor-v4-components';
-import { ImageLayout } from '../../types';
 import ImageMenu from '../ImageMenu';
 import ResizableContainer from '../ResizableContainer';
 

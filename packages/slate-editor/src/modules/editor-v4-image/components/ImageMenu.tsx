@@ -1,4 +1,4 @@
-import { ImageNode } from '@prezly/slate-types';
+import { ImageNode, ImageLayout } from '@prezly/slate-types';
 import React, { FunctionComponent, RefObject, useState } from 'react';
 import { Editor, Range, Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
@@ -7,7 +7,6 @@ import { FloatingMenu } from '../../../components';
 import { Edit, Link, Trash } from '../../../icons';
 import { LinkMenu } from '../../../modules/editor-v4-components';
 import { removeImage, setImageHref, setLayout } from '../transforms';
-import { ImageLayout } from '../types';
 
 import LayoutControls from './LayoutControls';
 import MenuButton from './MenuButton';

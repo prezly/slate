@@ -7,12 +7,6 @@ import { IMAGE_CANDIDATE_TYPE } from './constants';
 
 export type ImageCandidateType = typeof IMAGE_CANDIDATE_TYPE;
 
-export enum ImageLayout {
-    CONTAINED = 'contained',
-    EXPANDED = 'expanded',
-    FULL_WIDTH = 'full-width',
-}
-
 /**
  * Image Candidate Element is just an ephemeral node which exists inbetween deserialization
  * and updating editor value. It's sole purpose is to glue deserialization
