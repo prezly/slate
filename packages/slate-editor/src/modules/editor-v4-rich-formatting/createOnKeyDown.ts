@@ -13,7 +13,7 @@ const MARK_HOTKEYS: { hotkey: string; mark: MarkType }[] = [
     { hotkey: 'mod+u', mark: MarkType.UNDERLINED },
 ];
 
-const marksOnKeyDown = (event: KeyboardEvent, editor: ReactEditor) => {
+const marksOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
     MARK_HOTKEYS.forEach(({ hotkey, mark }) => {
         if (isHotkey(hotkey, event.nativeEvent)) {
             event.preventDefault();
@@ -59,7 +59,7 @@ const listsOnKeyDown = (event: KeyboardEvent, editor: ReactEditor) => {
     }
 };
 
-const softBreakOnKeyDown = (event: KeyboardEvent, editor: ReactEditor) => {
+const softBreakOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
     if (isHotkey('shift+enter', event.nativeEvent) && !event.isDefaultPrevented()) {
         event.preventDefault();
         Editor.insertText(editor, '\n');
@@ -68,7 +68,7 @@ const softBreakOnKeyDown = (event: KeyboardEvent, editor: ReactEditor) => {
 
 const createOnKeyDown = (parameters: RichFormattingExtensionParameters) => (
     event: KeyboardEvent,
-    editor: ReactEditor,
+    editor: Editor,
 ) => {
     softBreakOnKeyDown(event, editor);
     marksOnKeyDown(event, editor);
