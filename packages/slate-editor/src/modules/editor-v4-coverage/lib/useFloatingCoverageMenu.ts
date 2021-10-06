@@ -1,7 +1,7 @@
 import { Coverage } from '@prezly/sdk';
 import { useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
-import { ReactEditor } from 'slate-react';
+import { Editor } from 'slate';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
 
@@ -18,7 +18,7 @@ interface Actions {
     submit: (coverage: Coverage) => void;
 }
 
-const useFloatingCoverageMenu = (editor: ReactEditor): [State, Actions] => {
+const useFloatingCoverageMenu = (editor: Editor): [State, Actions] => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const savedSelection = useSavedSelection();
 
