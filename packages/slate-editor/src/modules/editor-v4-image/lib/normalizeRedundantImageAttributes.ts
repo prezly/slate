@@ -1,8 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isImageNode } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createImage from './createImage';
-import isImageElement from './isImageElement';
 
 const ALLOWED_ATTRIBUTES = Object.keys(
     createImage({
@@ -18,7 +18,7 @@ const ALLOWED_ATTRIBUTES = Object.keys(
 );
 
 const normalizeRedundantImageAttributes = (editor: Editor, [node, path]: NodeEntry): boolean => {
-    if (!isImageElement(node)) {
+    if (!isImageNode(node)) {
         return false;
     }
 

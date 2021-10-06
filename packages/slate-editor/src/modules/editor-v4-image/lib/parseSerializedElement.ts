@@ -1,12 +1,11 @@
-import { ImageElementType } from '../types';
+import { ImageNode, isImageNode } from '@prezly/slate-types';
 
 import createImage from './createImage';
-import isImageElement from './isImageElement';
 
-const parseSerializedElement = (serialized: string): ImageElementType | undefined => {
+const parseSerializedElement = (serialized: string): ImageNode | undefined => {
     const parsed = JSON.parse(serialized);
 
-    if (isImageElement(parsed)) {
+    if (isImageNode(parsed)) {
         return createImage(parsed.file, {
             children: parsed.children,
             href: parsed.href,

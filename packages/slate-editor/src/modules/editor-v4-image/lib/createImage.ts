@@ -1,11 +1,10 @@
+import { ImageNode, IMAGE_NODE_TYPE, InlineNode, TextNode } from '@prezly/slate-types';
 import { UploadcareImageStoragePayload } from '@prezly/uploadcare';
-import { Node } from 'slate';
 
-import { IMAGE_TYPE } from '../constants';
-import { ImageElementType, ImageLayout } from '../types';
+import { ImageLayout } from '../types';
 
 interface Options {
-    children?: Node[];
+    children?: (InlineNode | TextNode)[];
     href?: string;
     layout?: ImageLayout;
     width_factor?: string;
@@ -21,12 +20,12 @@ const createImage = (
         width = '100%',
         width_factor = '100%',
     }: Options = {},
-): ImageElementType => ({
+): ImageNode => ({
     children,
     file,
     href,
     layout,
-    type: IMAGE_TYPE,
+    type: IMAGE_NODE_TYPE,
     width_factor,
     width,
 });
