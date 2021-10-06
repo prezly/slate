@@ -1,5 +1,4 @@
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
-import { ParagraphNode } from '@prezly/slate-types';
+import { ParagraphNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 import { RenderElementProps } from 'slate-react';
@@ -22,7 +21,7 @@ const ParagraphElement: FunctionComponent<Props> = ({
         {...attributes}
         {...props}
         className={classNames('editor-v4-paragraph-element', className)}
-        data-slate-type={PARAGRAPH_TYPE}
+        data-slate-type={PARAGRAPH_NODE_TYPE}
         data-slate-value={JSON.stringify(element)}
     >
         {children}

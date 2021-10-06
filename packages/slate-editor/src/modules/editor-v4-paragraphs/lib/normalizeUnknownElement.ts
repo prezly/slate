@@ -1,4 +1,4 @@
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor, Element, Node, NodeEntry, Transforms } from 'slate';
 
 /**
@@ -13,7 +13,9 @@ const normalizeUnknownElement = (editor: Editor, [node, path]: NodeEntry<Node>):
     const anyNode: Record<string, unknown> = (node as unknown) as Record<string, unknown>;
 
     if (typeof anyNode.type === 'undefined') {
-        Transforms.setNodes(editor, { type: PARAGRAPH_TYPE } as Partial<Element>, { at: path });
+        Transforms.setNodes(editor, { type: PARAGRAPH_NODE_TYPE } as Partial<Element>, {
+            at: path,
+        });
         return true;
     }
 
