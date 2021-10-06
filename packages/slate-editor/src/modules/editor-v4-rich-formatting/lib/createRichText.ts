@@ -1,10 +1,8 @@
-import { InlineNode } from '@prezly/slate-types';
-
 import { RichTextElementType } from '../types';
 
 const createRichText = (
     type: RichTextElementType['type'],
-    children: InlineNode[] = [],
+    children: RichTextElementType['children'] = [],
 ): RichTextElementType => ({
     children,
     type,
