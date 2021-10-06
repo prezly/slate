@@ -1,5 +1,5 @@
-import { Extension, PARAGRAPH_TYPE } from '@prezly/slate-commons';
-import { isParagraphNode } from '@prezly/slate-types';
+import { Extension } from '@prezly/slate-commons';
+import { isParagraphNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
@@ -31,7 +31,7 @@ const ParagraphsExtension = (): Extension => ({
 
         return undefined;
     },
-    rootTypes: [PARAGRAPH_TYPE],
+    rootTypes: [PARAGRAPH_NODE_TYPE],
 });
 
 export default ParagraphsExtension;
