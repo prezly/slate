@@ -7,7 +7,7 @@ import { ReactEditor } from 'slate-react';
 
 import { convertToHtml } from '../../lib';
 
-const withImages = <T extends ReactEditor>(editor: T): T => {
+const withImages = <T extends Editor>(editor: T): T => {
     const { insertData, setFragmentData } = editor;
 
     editor.setFragmentData = (data): void => {
