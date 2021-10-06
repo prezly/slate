@@ -1,7 +1,11 @@
-import { GalleryNode, GALLERY_NODE_TYPE } from '@prezly/slate-types';
+import {
+    GalleryImageSize,
+    GalleryLayout,
+    GalleryNode,
+    GalleryPadding,
+    GALLERY_NODE_TYPE,
+} from '@prezly/slate-types';
 import { v4 as uuidV4 } from 'uuid';
-
-import { GalleryImageSize, GalleryLayout, GalleryPadding } from '../types';
 
 type Options = Partial<Pick<GalleryNode, 'layout' | 'padding' | 'thumbnail_size'>>;
 
