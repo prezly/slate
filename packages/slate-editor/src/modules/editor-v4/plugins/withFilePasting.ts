@@ -8,7 +8,7 @@ import {
     UploadcareFile,
     UploadcareImage,
 } from '@prezly/uploadcare';
-import { ReactEditor } from 'slate-react';
+import { Editor } from 'slate';
 import uploadcare from 'uploadcare-widget';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
@@ -49,9 +49,7 @@ const canPasteFiles = (extensions: Extension[], data: DataTransfer): boolean => 
     });
 };
 
-const withFilePasting = (getExtensions: () => Extension[]) => <T extends ReactEditor>(
-    editor: T,
-): T => {
+const withFilePasting = (getExtensions: () => Extension[]) => <T extends Editor>(editor: T): T => {
     const { insertData } = editor;
 
     editor.insertData = (data: DataTransfer) => {

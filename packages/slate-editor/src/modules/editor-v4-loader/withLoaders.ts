@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { HistoryEditor } from 'slate-history';
+import { Editor } from 'slate';
 
 import { getLoaders, loaderPromiseManager } from './lib';
 import { LoaderElementType } from './types';
@@ -11,7 +11,7 @@ import { LoaderElementType } from './types';
  */
 const isLoaderAllowed = ({ id }: LoaderElementType): boolean => loaderPromiseManager.isPending(id);
 
-const createHistoryHandler = <T extends HistoryEditor>(
+const createHistoryHandler = <T extends Editor>(
     editor: T,
     {
         canPerform,
@@ -52,7 +52,7 @@ const createHistoryHandler = <T extends HistoryEditor>(
     }
 };
 
-const withLoaders = <T extends HistoryEditor>(editor: T): T => {
+const withLoaders = <T extends Editor>(editor: T): T => {
     const { redo, undo } = editor;
 
     editor.redo = createHistoryHandler(editor, {
