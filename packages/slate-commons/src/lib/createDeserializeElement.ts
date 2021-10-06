@@ -1,8 +1,8 @@
-import { Element } from 'slate';
+import { ElementNode } from '@prezly/slate-types';
 
-type Parse<E extends Element> = (serialized: string) => E | undefined;
+type Parse<E extends ElementNode> = (serialized: string) => E | undefined;
 
-const createDeserializeElement = <E extends Element>(parse: Parse<E>) => {
+const createDeserializeElement = <E extends ElementNode>(parse: Parse<E>) => {
     return (element: HTMLElement): E | undefined => {
         const serialized = element.getAttribute('data-slate-value');
 
