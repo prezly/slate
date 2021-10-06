@@ -1,7 +1,6 @@
 import { Coverage, OEmbedInfo } from '@prezly/sdk';
+import { PressContact } from '@prezly/slate-types';
 import { UploadcareImageStoragePayload, UploadcareStoragePayload } from '@prezly/uploadcare';
-
-import { PressContact } from '../../types';
 
 /**
  * Document nodes
