@@ -1,11 +1,11 @@
 import { Extension } from '@prezly/slate-commons';
-import { isMentionNode } from '@prezly/slate-types';
+import { isMentionNode, MENTION_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
 import { MentionElement, MentionsExtension } from '../../modules/editor-v4-mentions';
 
-import { USER_MENTION_TYPE, USER_MENTIONS_EXTENSION_ID } from './constants';
+import { USER_MENTIONS_EXTENSION_ID } from './constants';
 import { normalizeRedundantUserMentionAttributes, parseSerializedElement } from './lib';
 
 const UserMentionsExtension = (): Extension =>
@@ -25,7 +25,7 @@ const UserMentionsExtension = (): Extension =>
 
             return undefined;
         },
-        type: USER_MENTION_TYPE,
+        type: MENTION_NODE_TYPE,
     });
 
 export default UserMentionsExtension;
