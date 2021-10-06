@@ -1,10 +1,11 @@
-import { createDeserializeElement, DeserializeHtml, PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { createDeserializeElement, DeserializeHtml } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
 import { createParagraph, parseSerializedElement } from './lib';
 
 const deserialize: DeserializeHtml = {
     element: {
-        [PARAGRAPH_TYPE]: createDeserializeElement(parseSerializedElement),
+        [PARAGRAPH_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         BR: () => createParagraph(),
         DIV: () => createParagraph(),
         FONT: () => createParagraph(),
