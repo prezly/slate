@@ -14,8 +14,14 @@ export declare interface AdditionalCustomTypes {
 
 declare module 'slate' {
     interface CustomTypes {
-        Editor: BaseEditor & ReactEditor;
-        Element: AdditionalCustomTypes['Element'] | BlockNode | InlineNode;
-        Text: AdditionalCustomTypes['Text'] | TextNode;
+        Editor: AdditionalCustomTypes['Editor'] extends unknown
+            ? BaseEditor & ReactEditor
+            : BaseEditor & ReactEditor & AdditionalCustomTypes['Editor'];
+        Element: AdditionalCustomTypes['Element'] extends unknown
+            ? BlockNode | InlineNode
+            : BlockNode | InlineNode | AdditionalCustomTypes['Element'];
+        Text: AdditionalCustomTypes['Text'] extends unknown
+            ? TextNode
+            : TextNode | AdditionalCustomTypes['Text'];
     }
 }
