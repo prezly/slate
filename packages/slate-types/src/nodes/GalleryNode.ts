@@ -42,9 +42,9 @@ export default interface GalleryNode extends ElementNode<typeof GALLERY_NODE_TYP
         caption: string;
         file: UploadcareImageStoragePayload;
     }[];
-    layout: 'contained' | 'expanded' | 'full-width';
-    padding: 'S' | 'M' | 'L';
-    thumbnail_size: 'XS' | 'S' | 'M' | 'L' | 'XL';
+    layout: GalleryLayout;
+    padding: GalleryPadding;
+    thumbnail_size: GalleryImageSize;
     uuid: string;
 }
 
