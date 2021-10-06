@@ -1,18 +1,5 @@
 import { Coverage } from '@prezly/sdk';
 import { ReactNode, RefObject } from 'react';
-import { Element } from 'slate';
-
-import { COVERAGE_TYPE } from './constants';
-
-export type CoverageType = typeof COVERAGE_TYPE;
-
-export interface CoverageElementType extends Element {
-    coverage: {
-        id: Coverage['id'];
-    };
-    type: CoverageType;
-    uuid: string;
-}
 
 export interface CoverageExtensionParameters {
     /**

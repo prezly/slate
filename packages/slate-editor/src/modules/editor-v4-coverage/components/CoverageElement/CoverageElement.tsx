@@ -1,4 +1,5 @@
 import { Coverage } from '@prezly/sdk';
+import { CoverageNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -7,8 +8,6 @@ import { RenderElementProps, useSelected } from 'slate-react';
 import { LoadingPlaceholderV2 } from '../../../../components';
 import { Coverage as CoverageIcon } from '../../../../icons';
 import { ApiError } from '../../../../modules/api';
-
-import { CoverageElementType } from '../../types';
 
 import CoverageBlock from './CoverageBlock';
 import './CoverageElement.scss';
@@ -23,7 +22,7 @@ interface Props extends RenderElementProps {
      * Moment.js-compatible format
      */
     dateFormat: string;
-    element: CoverageElementType;
+    element: CoverageNode;
     fetchCoverage: (id: Coverage['id']) => Promise<Coverage>;
 }
 

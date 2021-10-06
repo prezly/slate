@@ -1,9 +1,9 @@
-import { CoverageElementType } from '../types';
+import { CoverageNode } from '@prezly/slate-types';
 
 import createCoverage from './createCoverage';
 import isCoverageElement from './isCoverageElement';
 
-const parseSerializedElement = (serialized: string): CoverageElementType | undefined => {
+const parseSerializedElement = (serialized: string): CoverageNode | undefined => {
     const parsed = JSON.parse(serialized);
 
     if (isCoverageElement(parsed)) {
