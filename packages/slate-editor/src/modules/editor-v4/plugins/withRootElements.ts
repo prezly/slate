@@ -2,7 +2,6 @@
 
 import { EditorCommands, Extension } from '@prezly/slate-commons';
 import { Editor, Element, Node, NodeEntry } from 'slate';
-import { ReactEditor } from 'slate-react';
 
 const normalizeNestedRootElement = (
     editor: Editor,
@@ -27,9 +26,7 @@ const getRootTypes = (getExtensions: () => Extension[]): string[] =>
         return result;
     }, []);
 
-const withRootElements = (getExtensions: () => Extension[]) => <T extends ReactEditor>(
-    editor: T,
-): T => {
+const withRootElements = (getExtensions: () => Extension[]) => <T extends Editor>(editor: T): T => {
     const { normalizeNode } = editor;
 
     editor.normalizeNode = (entry) => {
