@@ -24,9 +24,7 @@ export enum MarkType {
     SUPERSCRIPT = 'superscript',
 }
 
-export type RichTextElementType = ElementNode & {
-    type: ParagraphType | ElementType;
-};
+export type RichTextElementType = ElementNode<ParagraphType | ElementType>;
 
 export interface LinkCandidateElementType extends ElementNode<ElementType.LINK_CANDIDATE> {
     id: string;
