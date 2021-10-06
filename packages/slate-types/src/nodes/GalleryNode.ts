@@ -4,11 +4,37 @@ import ElementNode, { isElementNode } from './ElementNode';
 
 export const GALLERY_NODE_TYPE = 'gallery';
 
-const LAYOUTS = ['contained', 'expanded', 'full-width'];
+export enum GalleryLayout {
+    CONTAINED = 'contained',
+    EXPANDED = 'expanded',
+    FULL_WIDTH = 'full-width',
+}
 
-const PADDINGS = ['S', 'M', 'L'];
+export enum GalleryImageSize {
+    L = 'L',
+    M = 'M',
+    S = 'S',
+    XL = 'XL',
+    XS = 'XS',
+}
 
-const THUMBNAIL_SIZES = ['XS', 'S', 'M', 'L', 'XL'];
+export enum GalleryPadding {
+    L = 'L',
+    M = 'M',
+    S = 'S',
+}
+
+const LAYOUTS = [GalleryLayout.CONTAINED, GalleryLayout.EXPANDED, GalleryLayout.FULL_WIDTH];
+
+const PADDINGS = [GalleryPadding.S, GalleryPadding.M, GalleryPadding.L];
+
+const THUMBNAIL_SIZES = [
+    GalleryImageSize.XS,
+    GalleryImageSize.S,
+    GalleryImageSize.M,
+    GalleryImageSize.L,
+    GalleryImageSize.XL,
+];
 
 export default interface GalleryNode extends ElementNode<typeof GALLERY_NODE_TYPE> {
     images: {
