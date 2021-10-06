@@ -14,13 +14,13 @@ export declare interface AdditionalCustomTypes {
 
 declare module 'slate' {
     interface CustomTypes {
-        Editor: AdditionalCustomTypes['Editor'] extends unknown
+        Editor: unknown extends AdditionalCustomTypes['Editor']
             ? BaseEditor & ReactEditor
             : BaseEditor & ReactEditor & AdditionalCustomTypes['Editor'];
-        Element: AdditionalCustomTypes['Element'] extends unknown
+        Element: unknown extends AdditionalCustomTypes['Element']
             ? BlockNode | InlineNode
             : BlockNode | InlineNode | AdditionalCustomTypes['Element'];
-        Text: AdditionalCustomTypes['Text'] extends unknown
+        Text: unknown extends AdditionalCustomTypes['Text']
             ? TextNode
             : TextNode | AdditionalCustomTypes['Text'];
     }
