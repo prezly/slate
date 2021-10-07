@@ -3,8 +3,8 @@ import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import isHotkey from 'is-hotkey';
 import { noop } from 'lodash';
 import React, { KeyboardEvent } from 'react';
-import { Path, Transforms } from 'slate';
-import { ReactEditor, RenderElementProps } from 'slate-react';
+import { Editor, Path, Transforms } from 'slate';
+import { RenderElementProps } from 'slate-react';
 
 import { ImageElement } from './components';
 import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
@@ -54,7 +54,7 @@ const ImageExtension = ({
         // normalizeImageCandidate needs to be last because it removes the image candidate element
         normalizeImageCandidate,
     ],
-    onKeyDown: (event: KeyboardEvent, editor: ReactEditor) => {
+    onKeyDown: (event: KeyboardEvent, editor: Editor) => {
         if (!captions) {
             return;
         }
