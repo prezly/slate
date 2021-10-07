@@ -1,7 +1,6 @@
 import Events from '@prezly/events';
 import { BlockNode } from '@prezly/slate-types';
 import { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
-import { Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { CoverageExtensionParameters } from '../../../modules/editor-v4-coverage';
