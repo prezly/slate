@@ -1,4 +1,4 @@
-import { GalleryNode } from '@prezly/slate-types';
+import { GalleryImageSize, GalleryNode, GalleryPadding } from '@prezly/slate-types';
 import React, { FunctionComponent, RefObject, useState } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 import { Editor } from 'slate';
@@ -8,12 +8,11 @@ import { FloatingMenu, GalleryLayoutSettings } from '../../../../components';
 import { Cogwheel, Dice, Edit, Trash } from '../../../../icons';
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
-import { GalleryImageSize, GalleryPadding } from '../../types';
 import LayoutControls from '../LayoutControls';
 
 import './GalleryMenu.scss';
 
-const PADDING_OPTIONS: { label: string; value: GalleryNode['padding'] }[] = [
+const PADDING_OPTIONS: { label: string; value: GalleryPadding }[] = [
     { label: 'S', value: GalleryPadding.S },
     { label: 'M', value: GalleryPadding.M },
     { label: 'L', value: GalleryPadding.L },
