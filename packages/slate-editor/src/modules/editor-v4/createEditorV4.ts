@@ -9,7 +9,7 @@ import {
 import { flow } from 'lodash';
 import { Editor } from 'slate';
 import { withHistory } from 'slate-history';
-import { ReactEditor, withReact } from 'slate-react';
+import { withReact } from 'slate-react';
 
 import { withImages } from '../../modules/editor-v4-image';
 import { withLoaders } from '../../modules/editor-v4-loader';
@@ -27,7 +27,7 @@ import {
 const createEditorV4 = (
     baseEditor: Editor,
     getExtensions: () => Extension[],
-    plugins: (<T extends ReactEditor>(editor: T) => T)[],
+    plugins: (<T extends Editor>(editor: T) => T)[],
 ) =>
     flow([
         withReact,

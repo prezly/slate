@@ -2,7 +2,7 @@ import Events from '@prezly/events';
 import { Decorate, Extension, OnKeyDown } from '@prezly/slate-commons';
 import { KeyboardEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { useLatest } from 'react-use';
-import { createEditor } from 'slate';
+import { createEditor, Editor } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor } from 'slate-react';
 
@@ -14,7 +14,7 @@ interface Parameters {
     events: Events<EditorEventMap>;
     extensions: Extension[];
     onKeyDown?: (event: KeyboardEvent) => void;
-    plugins?: (<T extends ReactEditor>(editor: T) => T)[];
+    plugins?: (<T extends Editor>(editor: T) => T)[];
 }
 
 interface State {
