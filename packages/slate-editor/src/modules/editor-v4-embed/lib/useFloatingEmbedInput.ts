@@ -1,7 +1,7 @@
 import { OEmbedInfo } from '@prezly/sdk';
 import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
-import { ReactEditor } from 'slate-react';
+import { Editor } from 'slate';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
 import {
@@ -34,7 +34,7 @@ const defaultFetchOembed = (_url: string): Promise<OEmbedInfo> => {
 };
 
 const useFloatingEmbedInput = (
-    editor: ReactEditor,
+    editor: Editor,
     fetchOembed: (url: string) => Promise<OEmbedInfo> = defaultFetchOembed,
 ): [State, Actions] => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
