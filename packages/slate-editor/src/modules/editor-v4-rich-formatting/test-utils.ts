@@ -1,5 +1,5 @@
 import { withInlineVoid, withNormalization } from '@prezly/slate-commons';
-import { ReactEditor } from 'slate-react';
+import { Editor } from 'slate';
 
 import RichFormattingExtension from './RichFormattingExtension';
 import withRichFormatting from './withRichFormatting';
@@ -8,5 +8,5 @@ const getExtensions = () => [RichFormattingExtension({ blocks: true, links: true
 
 export const createRichFormattingEditor = (input: JSX.Element) =>
     withNormalization(getExtensions)(
-        withInlineVoid(getExtensions)(withRichFormatting((input as unknown) as ReactEditor)),
+        withInlineVoid(getExtensions)(withRichFormatting((input as unknown) as Editor)),
     );
