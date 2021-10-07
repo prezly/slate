@@ -1,3 +1,4 @@
+import { AttachmentNode } from '@prezly/slate-types';
 import React, { FunctionComponent, RefObject } from 'react';
 import { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
@@ -5,13 +6,12 @@ import { useSelected, useSlate } from 'slate-react';
 import { FloatingMenu } from '../../../components';
 import { Edit, Trash } from '../../../icons';
 import { removeFileAttachment } from '../transforms';
-import { FileAttachmentElementType } from '../types';
 
 interface Props {
     containerRef: RefObject<HTMLElement>;
     element: HTMLElement;
     onEdit: (editor: Editor) => void;
-    onRemove: (editor: Editor, element: FileAttachmentElementType) => void;
+    onRemove: (editor: Editor, element: AttachmentNode) => void;
 }
 
 const FileAttachmentMenu: FunctionComponent<Props> = ({
