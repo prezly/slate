@@ -1,5 +1,6 @@
+import { BlockNode } from '@prezly/slate-types';
 import jsonStableStringify from 'json-stable-stringify';
-import { createEditor, Node } from 'slate';
+import { createEditor } from 'slate';
 
 import { Transform } from './types';
 import withoutImageCandidates from './withoutImageCandidates';
@@ -12,7 +13,7 @@ const transforms: Transform[] = [
     withoutLoaderBlocks,
 ];
 
-const serialize = (value: Node[]): string => {
+const serialize = (value: BlockNode[]): string => {
     /**
      * Create an editor instance so we can use it with `Transforms` instead of having to
      * manually implement the traversal and unwrapping code.
