@@ -37,7 +37,7 @@ describe('normalizeOrphanText', () => {
             </editor>
         ) as unknown) as Editor;
 
-        Editor.normalize(editor, { force: true });
+        Editor.normalize(editor as Editor, { force: true });
 
         expect(editor.children).toEqual(expected.children);
     });
