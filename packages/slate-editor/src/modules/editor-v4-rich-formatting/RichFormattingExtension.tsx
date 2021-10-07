@@ -1,5 +1,5 @@
-import { Extension, PARAGRAPH_TYPE } from '@prezly/slate-commons';
-import { isLinkNode } from '@prezly/slate-types';
+import { Extension } from '@prezly/slate-commons';
+import { isLinkNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps, RenderLeafProps } from 'slate-react';
 
@@ -75,7 +75,7 @@ const RichFormattingExtension = (parameters: RichFormattingExtensionParameters):
         return <span {...attributes}>{spanChildren}</span>;
     },
     rootTypes: [
-        PARAGRAPH_TYPE,
+        PARAGRAPH_NODE_TYPE,
         ElementType.BLOCK_QUOTE,
         ElementType.HEADING_ONE,
         ElementType.HEADING_TWO,
