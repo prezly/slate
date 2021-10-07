@@ -2,7 +2,6 @@ import { EditorCommands } from '@prezly/slate-commons';
 import jsonStableStringify from 'json-stable-stringify';
 import { useLayoutEffect, useMemo } from 'react';
 import { Editor, Range } from 'slate';
-import { ReactEditor } from 'slate-react';
 
 import { ensureElementInView, ensureRangeInView } from '../../../lib';
 import { EditorV4Props } from '../types';
@@ -16,7 +15,7 @@ const useMemoizedWithCursorInView = (
 };
 
 const ensureCursorInView = (
-    editor: ReactEditor,
+    editor: Editor,
     withCursorInView: EditorV4Props['withCursorInView'],
 ): void => {
     if (!withCursorInView || !editor.selection) {
@@ -66,7 +65,7 @@ const ensureCursorInView = (
 };
 
 const useCursorInView = (
-    editor: ReactEditor,
+    editor: Editor,
     withCursorInView: EditorV4Props['withCursorInView'],
 ): void => {
     // We have to memoize it - otherwise the useLayoutEffect would kick in too often (e.g. on re-render)
