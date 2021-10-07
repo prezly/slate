@@ -1,7 +1,6 @@
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { Descendant } from 'slate';
+import { ParagraphNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
-const createEmptyValue = (): Descendant[] => [
+const createEmptyValue = (): [ParagraphNode] => [
     {
         children: [{ text: '' }],
         type: PARAGRAPH_NODE_TYPE,
