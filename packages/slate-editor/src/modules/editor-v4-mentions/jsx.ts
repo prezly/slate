@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
 import { createHyperscript } from '@prezly/slate-hyperscript';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { PlaceholderNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import { ReactNode } from 'react';
 
@@ -22,7 +22,7 @@ declare global {
 const jsx = createHyperscript({
     elements: {
         'h-placeholder-mention': { type: PLACEHOLDER_NODE_TYPE },
-        'h-p': { type: PARAGRAPH_TYPE },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
 });
 

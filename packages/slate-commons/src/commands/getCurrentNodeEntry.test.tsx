@@ -1,8 +1,8 @@
 /** @jsx jsx */
 
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-import { PARAGRAPH_TYPE } from '../constants';
 import jsx from '../jsx';
 
 import getCurrentNodeEntry from './getCurrentNodeEntry';
@@ -57,7 +57,7 @@ describe('getCurrentNodeEntry', () => {
 
         expect(currentNode).toEqual({
             children: [{ text: 'lorem ipsum' }],
-            type: PARAGRAPH_TYPE,
+            type: PARAGRAPH_NODE_TYPE,
         });
         expect(currentPath).toEqual([1]);
     });

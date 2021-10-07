@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
 import { createHyperscript } from '@prezly/slate-hyperscript';
+import { MENTION_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { ReactNode } from 'react';
 
-import { USER_MENTION_TYPE } from './constants';
+// import { USER_MENTION_TYPE } from './constants';
 import { User } from './types';
 
 declare global {
@@ -23,8 +23,8 @@ declare global {
 
 const jsx = createHyperscript({
     elements: {
-        'h-p': { type: PARAGRAPH_TYPE },
-        'h-user-mention': { type: USER_MENTION_TYPE },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
+        'h-user-mention': { type: MENTION_NODE_TYPE },
     },
 });
 

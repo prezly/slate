@@ -1,8 +1,8 @@
 /** @jsx jsx */
 
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-import { PARAGRAPH_TYPE } from '../constants';
 import jsx from '../jsx';
 import { createEditor, INLINE_ELEMENT } from '../test-utils';
 
@@ -90,7 +90,7 @@ describe('insertNodes', () => {
         insertNodes(editor, [
             {
                 children: [{ text: 'dolor' }],
-                type: PARAGRAPH_TYPE,
+                type: PARAGRAPH_NODE_TYPE,
             },
         ]);
 
@@ -131,7 +131,7 @@ describe('insertNodes', () => {
             [
                 {
                     children: [{ text: 'dolor' }],
-                    type: PARAGRAPH_TYPE,
+                    type: PARAGRAPH_NODE_TYPE,
                 },
             ],
             { ensureEmptyParagraphAfter: true },
@@ -174,11 +174,11 @@ describe('insertNodes', () => {
             [
                 {
                     children: [{ text: 'dolor' }],
-                    type: PARAGRAPH_TYPE,
+                    type: PARAGRAPH_NODE_TYPE,
                 },
                 {
                     children: [{ text: '' }],
-                    type: PARAGRAPH_TYPE,
+                    type: PARAGRAPH_NODE_TYPE,
                 },
             ],
             { ensureEmptyParagraphAfter: true },
@@ -226,7 +226,7 @@ describe('insertNodes', () => {
             },
             {
                 children: [{ text: 'dolor' }],
-                type: PARAGRAPH_TYPE,
+                type: PARAGRAPH_NODE_TYPE,
             },
             { text: 'zzz' },
         ]);
@@ -260,7 +260,7 @@ describe('insertNodes', () => {
         insertNodes(editor, [
             {
                 children: [{ text: 'dolor' }],
-                type: PARAGRAPH_TYPE,
+                type: PARAGRAPH_NODE_TYPE,
             },
         ]);
 
@@ -306,7 +306,7 @@ describe('insertNodes', () => {
             { text: 'zzz' },
             {
                 children: [{ text: 'dolor' }],
-                type: PARAGRAPH_TYPE,
+                type: PARAGRAPH_NODE_TYPE,
             },
             { text: 'aaa' },
         ]);

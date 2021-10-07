@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
 import { createHyperscript } from '@prezly/slate-hyperscript';
+import { ATTACHMENT_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { UploadcareStoragePayload } from '@prezly/uploadcare';
 import { ReactNode } from 'react';
-
-import { FILE_ATTACHMENT_TYPE } from './constants';
 
 declare global {
     namespace JSX {
@@ -24,8 +22,8 @@ declare global {
 
 const jsx = createHyperscript({
     elements: {
-        'h-file-attachment': { type: FILE_ATTACHMENT_TYPE },
-        'h-p': { type: PARAGRAPH_TYPE },
+        'h-file-attachment': { type: ATTACHMENT_NODE_TYPE },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
 });
 

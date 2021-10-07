@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 import { ReactEditor, withReact } from 'slate-react';
 
@@ -61,7 +61,7 @@ describe('replaceLoader', () => {
             if (loader) {
                 replaceLoader(editor, loader, {
                     children: [{ text: 'lorem' }],
-                    type: PARAGRAPH_TYPE,
+                    type: PARAGRAPH_NODE_TYPE,
                 });
             }
         }
