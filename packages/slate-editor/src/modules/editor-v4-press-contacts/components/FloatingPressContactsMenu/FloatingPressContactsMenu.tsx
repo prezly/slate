@@ -1,4 +1,5 @@
 import Events from '@prezly/events';
+import { PressContact } from '@prezly/slate-types';
 import { once } from 'lodash';
 import React, { FunctionComponent, ReactNode, RefObject, useMemo } from 'react';
 import { Editor } from 'slate';
@@ -6,7 +7,6 @@ import { useSlate } from 'slate-react';
 
 import { FloatingContainer } from '../../../../modules/editor-v4-components';
 import { EditorEventMap, EventsEditor } from '../../../../modules/editor-v4-events';
-import { PressContact } from '../../../../types';
 
 import { SearchProps } from '../../types';
 
