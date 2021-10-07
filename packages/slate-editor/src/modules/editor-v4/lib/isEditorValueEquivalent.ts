@@ -1,11 +1,11 @@
-import { Node } from 'slate';
+import { BlockNode } from '@prezly/slate-types';
 
 import deserialize from './deserialize';
 import serialize from './serialize';
 
-const isEditorValueEquivalent = (a: string | Node[], b: string | Node[]): boolean => {
-    const aContent = Node.isNodeList(a) ? a : deserialize(a);
-    const bContent = Node.isNodeList(b) ? b : deserialize(b);
+const isEditorValueEquivalent = (a: string | BlockNode[], b: string | BlockNode[]): boolean => {
+    const aContent = typeof a === 'string' ? deserialize(a) : a;
+    const bContent = typeof b === 'string' ? deserialize(b) : b;
     return serialize(aContent) === serialize(bContent);
 };
 
