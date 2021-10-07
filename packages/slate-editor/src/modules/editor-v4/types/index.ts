@@ -1,4 +1,5 @@
 import Events from '@prezly/events';
+import { BlockNode } from '@prezly/slate-types';
 import { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 import { Node } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -52,7 +53,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     plugins?: (<T extends ReactEditor>(editor: T) => T)[];
     readOnly?: boolean;
     style?: CSSProperties;
-    value: Node[];
+    value: BlockNode[];
     withCursorInView?: {
         minBottom: number;
         minTop: number;
