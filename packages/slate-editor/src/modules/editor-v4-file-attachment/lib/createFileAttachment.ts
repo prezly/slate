@@ -1,7 +1,5 @@
-import { AttachmentNode } from '@prezly/slate-types';
+import { AttachmentNode, ATTACHMENT_NODE_TYPE } from '@prezly/slate-types';
 import { UploadcareStoragePayload } from '@prezly/uploadcare';
-
-import { FILE_ATTACHMENT_TYPE } from '../constants';
 
 const createFileAttachment = (
     file: UploadcareStoragePayload,
@@ -10,7 +8,7 @@ const createFileAttachment = (
     children: [{ text: '' }],
     description,
     file,
-    type: FILE_ATTACHMENT_TYPE,
+    type: ATTACHMENT_NODE_TYPE,
 });
 
 export default createFileAttachment;
