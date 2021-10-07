@@ -42,7 +42,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     className?: string;
     contentStyle?: CSSProperties;
     editorRef?: RefObject<EditorRef>;
-    onChange: (value: Node[]) => void;
+    onChange: (value: BlockNode[]) => void;
     onIsOperationPendingChange?: (isOperationPending: boolean) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
     placeholder?: ReactNode;
