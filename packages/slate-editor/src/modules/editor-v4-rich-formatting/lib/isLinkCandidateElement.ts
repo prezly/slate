@@ -1,8 +1,9 @@
-import { Element, Node } from 'slate';
+import { isElementNode } from '@prezly/slate-types';
+import { Node } from 'slate';
 
 import { ElementType, LinkCandidateElementType } from '../types';
 
 const isLinkCandidateElement = (node: Node): node is LinkCandidateElementType =>
-    Element.isElement(node) && node.type === ElementType.LINK_CANDIDATE;
+    isElementNode(node) && node.type === ElementType.LINK_CANDIDATE;
 
 export default isLinkCandidateElement;
