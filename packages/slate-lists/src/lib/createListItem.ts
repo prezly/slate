@@ -1,5 +1,5 @@
 import { ListItemNode } from '@prezly/slate-types';
-import { createListItemText } from '.';
+import createListItemText from './createListItemText';
 
 import { ListsOptions } from '../types';
 

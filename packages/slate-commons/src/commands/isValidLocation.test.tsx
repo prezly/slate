@@ -6,7 +6,7 @@ import jsx from '../jsx';
 
 import isValidLocation from './isValidLocation';
 
-import { removeNode } from '.';
+import removeNode from './removeNode';
 
 describe('isValidLocation', () => {
     it('Returns "true" when using the current cursor location', () => {
