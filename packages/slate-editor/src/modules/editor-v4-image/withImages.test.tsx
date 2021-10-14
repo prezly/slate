@@ -5,7 +5,7 @@ import { ImageLayout } from '@prezly/slate-types';
 import { UploadcareStoragePayload } from '@prezly/uploadcare';
 import { createRef } from 'react';
 import { Editor } from 'slate';
-import { ReactEditor, withReact } from 'slate-react';
+import { withReact } from 'slate-react';
 
 import ImageExtension from './ImageExtension';
 import jsx from './jsx';
@@ -28,7 +28,7 @@ const getExtensions = () => [
     }),
 ];
 
-const createEditor = (editor: JSX.Element): ReactEditor =>
+const createEditor = (editor: JSX.Element): Editor =>
     withNormalization(getExtensions)(withImages(withReact((editor as unknown) as Editor)));
 
 describe('withImages - normalizeChildren', () => {
