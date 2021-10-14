@@ -1,10 +1,11 @@
-import { ReactEditor } from 'slate-react';
+import { Editor } from 'slate';
 
 import getCurrentNodeEntry from './getCurrentNodeEntry';
 import toDomNode from './toDomNode';
 
-const getCurrentDomNode = (editor: ReactEditor): HTMLElement | null => {
+const getCurrentDomNode = (editor: Editor): HTMLElement | null => {
     const [currentNode] = getCurrentNodeEntry(editor) || [];
+
     if (!currentNode) {
         return null;
     }
