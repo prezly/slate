@@ -6,20 +6,24 @@ export * from './sdk';
 import { BaseEditor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { BlockNode, InlineNode, TextNode } from './nodes';
+import { BlockNode, InlineNode, ListItemNode, ListItemTextNode, TextNode } from './nodes';
 
 export declare interface AdditionalCustomTypes {
     [key: string]: unknown;
 }
 
 declare module 'slate' {
+    type DefaultEditor = BaseEditor & ReactEditor;
+
+    type DefaultNode = BlockNode | InlineNode | ListItemNode | ListItemTextNode;
+
     interface CustomTypes {
         Editor: unknown extends AdditionalCustomTypes['Editor']
-            ? BaseEditor & ReactEditor
-            : BaseEditor & ReactEditor & AdditionalCustomTypes['Editor'];
+            ? DefaultEditor
+            : DefaultEditor & AdditionalCustomTypes['Editor'];
         Element: unknown extends AdditionalCustomTypes['Element']
-            ? BlockNode | InlineNode
-            : BlockNode | InlineNode | AdditionalCustomTypes['Element'];
+            ? DefaultNode
+            : DefaultNode | AdditionalCustomTypes['Element'];
         Text: unknown extends AdditionalCustomTypes['Text']
             ? TextNode
             : TextNode | AdditionalCustomTypes['Text'];
