@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "styles/mixins";
 @import "styles/variables";
 
@@ -20,7 +21,7 @@
 
     &__hitbox {
         position: absolute;
-        top: -$hitbox-height / 2;
+        top: math.div(-$hitbox-height, 2);
         width: 100%;
         height: $hitbox-height;
     }

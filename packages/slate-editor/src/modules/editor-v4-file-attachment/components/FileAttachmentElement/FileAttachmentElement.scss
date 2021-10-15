@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "styles/mixins";
 @import "styles/variables";
 
@@ -60,7 +61,7 @@
     &__subtitle {
         color: $color-type-secondary;
         font-size: 15px;
-        line-height: (22 / 15);
+        line-height: math.div(22, 15);
         cursor: default;
     }
 

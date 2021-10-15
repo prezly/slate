@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "styles/variables";
 
 .editor-v4-floating-add-menu {
@@ -16,7 +17,7 @@
 
     &__button {
         position: absolute;
-        top: ($editor-v4-paragraph-line-height - $editor-v4-floating-button-size) / 2;
+        top: math.div($editor-v4-paragraph-line-height - $editor-v4-floating-button-size, 2);
         left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
     }
 
