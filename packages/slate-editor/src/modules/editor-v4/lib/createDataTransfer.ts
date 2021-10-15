@@ -15,9 +15,6 @@ const dataTransferItemList: DataTransferItemList = {
     [Symbol.iterator]: iterator,
     add: () => null,
     clear: noop,
-    item: () => {
-        throw new Error('Unimplemented');
-    },
     length: 0,
     remove: noop,
 };
