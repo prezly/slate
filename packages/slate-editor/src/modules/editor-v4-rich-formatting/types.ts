@@ -1,4 +1,13 @@
-import { ElementNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import {
+    HeadingNode,
+    ListNode,
+    ListItemNode,
+    ListItemTextNode,
+    LinkNode,
+    ElementNode,
+    QuoteNode,
+    PARAGRAPH_NODE_TYPE,
+} from '@prezly/slate-types';
 
 type Multiple = 'multiple';
 export type ParagraphType = typeof PARAGRAPH_NODE_TYPE;
@@ -24,7 +33,14 @@ export enum MarkType {
     SUPERSCRIPT = 'superscript',
 }
 
-export type RichTextElementType = ElementNode<ParagraphType | ElementType>;
+export type RichTextElementType =
+    | HeadingNode
+    | LinkNode
+    | LinkCandidateElementType
+    | ListNode
+    | ListItemNode
+    | ListItemTextNode
+    | QuoteNode;
 
 export interface LinkCandidateElementType extends ElementNode<ElementType.LINK_CANDIDATE> {
     id: string;

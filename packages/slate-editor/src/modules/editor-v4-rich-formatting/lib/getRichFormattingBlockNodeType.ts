@@ -38,7 +38,7 @@ const getRichFormattingBlockNodeType = (editor: Editor): BlockType | null => {
         return 'multiple';
     }
 
-    return blockType;
+    return blockType as BlockType | null;
 };
 
 export default getRichFormattingBlockNodeType;
