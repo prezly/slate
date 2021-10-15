@@ -10,7 +10,7 @@ interface Attributes extends Record<string, any> {
     type: string;
 }
 
-const deserializeHtmlToElement = (extensions: Extension[], onError: (error: Error) => void) => (
+const deserializeHtmlToElement = (extensions: Extension[], onError: (error: unknown) => void) => (
     node: HTMLElement,
     children: DeserializeHTMLChildren[],
 ): Element | null => {

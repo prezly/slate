@@ -9,7 +9,7 @@ import { createDataTransfer } from '../../lib';
 
 import deserializeHtml from './deserializeHtml';
 
-const tryCleanDocx = (html: string, rtf: string, onError: (error: Error) => void): string => {
+const tryCleanDocx = (html: string, rtf: string, onError: (error: unknown) => void): string => {
     try {
         return cleanDocx(html, rtf);
     } catch (error) {
@@ -43,7 +43,7 @@ const withDeserializeHtml = (
             });
 
             if (html && !slateFragment) {
-                const handleError = (error: Error) => {
+                const handleError = (error: unknown) => {
                     EventsEditor.dispatchEvent(editor, 'error', error);
                 };
                 const rtf = data.getData('text/rtf');
