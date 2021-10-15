@@ -28,11 +28,11 @@
         "slate-react": "=0.61.3"
     },
     "dependencies": {
+        "@prezly/slate-types": "^0.1.8",
         "uuid": "^8.3.2"
     },
     "devDependencies": {
         "@prezly/slate-hyperscript": "^0.1.8",
-        "@prezly/slate-types": "^0.1.8",
         "@types/uuid": "^8.3.0"
     }
 }
