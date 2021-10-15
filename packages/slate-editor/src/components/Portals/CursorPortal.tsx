@@ -1,10 +1,10 @@
-import RangeFix from 'rangefix';
+import RangeFix, { Rect } from 'rangefix';
 import React, { FunctionComponent } from 'react';
 
 import BasePortal from './BasePortal';
 import { PortalProps } from './types';
 
-export function updateCursorPortalRect() {
+export function updateCursorPortalRect(): ClientRect | Rect | null {
     try {
         const selection = window.getSelection();
 

@@ -1,6 +1,7 @@
 import { Placement, VirtualElement } from '@popperjs/core';
 import classNames from 'classnames';
 import { isEqual } from 'lodash';
+import type { Rect } from 'rangefix';
 import React, {
     FunctionComponent,
     HTMLAttributes,
@@ -32,7 +33,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
     children: ReactNode;
     className?: string;
     containerRef?: RefObject<HTMLElement>;
-    getBoundingClientRect: () => ClientRect | null;
+    getBoundingClientRect: () => ClientRect | Rect | null;
     placement: Placement;
 }
 
@@ -49,7 +50,7 @@ const BasePortalV2: FunctionComponent<Props> = ({
 }) => {
     const isMounted = useMountedState();
     const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
-    const lastRectRef = useRef<ClientRect | null>(getBoundingClientRect());
+    const lastRectRef = useRef<ClientRect | Rect | null>(getBoundingClientRect());
     const [referenceElement, setReferenceElement] = useState<VirtualElement | null>(null);
     const { attributes, styles } = usePopper(referenceElement, popperElement, {
         modifiers: [FLIP_MODIFIER, PREVENT_OVERFLOW_MODIFIER],
@@ -74,8 +75,9 @@ const BasePortalV2: FunctionComponent<Props> = ({
         if (rect === null) {
             setReferenceElement(null);
         } else {
+            const clientRect = { x: 0, y: 0, toJSON: () => null, ...rect };
             setReferenceElement({
-                getBoundingClientRect: () => rect,
+                getBoundingClientRect: () => clientRect,
             });
         }
     });

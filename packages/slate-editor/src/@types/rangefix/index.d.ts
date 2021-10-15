@@ -1,7 +1,7 @@
 // These typings are incomplete
 
 declare module 'rangefix' {
-    interface Rect {
+    export interface Rect {
         bottom: number;
         height: number;
         left: number;
