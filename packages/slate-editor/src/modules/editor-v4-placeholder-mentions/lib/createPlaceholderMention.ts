@@ -1,9 +1,6 @@
-import { PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
-import { PlaceholderMentionElementType } from '../types';
+import { PlaceholderKey, PlaceholderNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 
-const createPlaceholderMention = (
-    key: PlaceholderMentionElementType['key'],
-): PlaceholderMentionElementType => ({
+const createPlaceholderMention = (key: PlaceholderKey): PlaceholderNode => ({
     children: [{ text: '' }],
     key,
     type: PLACEHOLDER_NODE_TYPE,
