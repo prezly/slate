@@ -12,6 +12,7 @@ export { default as insertEmptyParagraph } from './insertEmptyParagraph';
 export { default as insertNodes } from './insertNodes';
 export { default as isBlockActive } from './isBlockActive';
 export { default as isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
+export { default as isElementWithType } from './isElementWithType';
 export { default as isEmpty } from './isEmpty';
 export { default as isEmptyParagraphElement } from './isEmptyParagraphElement';
 export { default as isMarkActive } from './isMarkActive';

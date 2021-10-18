@@ -5,6 +5,7 @@ import { Editor } from 'slate';
 import jsx from '../jsx';
 
 import getNodePath from './getNodePath';
+import isElementWithType from './isElementWithType';
 
 const ELEMENT_TYPE = 'type';
 const OTHER_TYPE = 'other-type';
@@ -29,7 +30,7 @@ describe('getNodePath', () => {
         const nodePath =
             editor.selection &&
             getNodePath(editor, {
-                match: (node) => node.type === OTHER_TYPE,
+                match: (node) => isElementWithType(node) && node.type === OTHER_TYPE,
             });
 
         expect(nodePath).toEqual([1]);
@@ -54,7 +55,7 @@ describe('getNodePath', () => {
         const nodePath =
             editor.selection &&
             getNodePath(editor, {
-                match: (node) => node.type === ELEMENT_TYPE,
+                match: (node) => isElementWithType(node) && node.type === ELEMENT_TYPE,
             });
 
         expect(nodePath).toBeNull();

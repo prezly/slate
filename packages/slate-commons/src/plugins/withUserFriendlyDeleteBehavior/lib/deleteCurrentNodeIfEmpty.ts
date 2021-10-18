@@ -1,7 +1,6 @@
-import { isElementNode } from '@prezly/slate-types';
 import { Editor, Transforms } from 'slate';
 
-import { getCurrentNodeEntry, isNodeEmpty } from '../../../commands';
+import { getCurrentNodeEntry, isElementWithType, isNodeEmpty } from '../../../commands';
 
 import getDeletionTargetNode from './getDeletionTargetNode';
 
@@ -32,14 +31,14 @@ const deleteCurrentNodeIfEmpty = (editor: Editor, { reverse, unit }: Parameters)
      * instead of performing the default `deleteBackward` or `deleteForward`.
      */
     if (
-        isElementNode(currentNode) &&
-        isElementNode(targetNode) &&
+        isElementWithType(currentNode) &&
+        isElementWithType(targetNode) &&
         currentNode.type !== targetNode.type &&
         isNodeEmpty(editor, currentNode)
     ) {
         Transforms.removeNodes(editor, {
             match: (node) => {
-                return isElementNode(node) && node.type === currentNode.type;
+                return isElementWithType(node) && node.type === currentNode.type;
             },
         });
         return true;

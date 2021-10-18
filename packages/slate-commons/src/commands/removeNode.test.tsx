@@ -4,6 +4,7 @@ import { Editor, Element } from 'slate';
 
 import jsx from '../jsx';
 
+import isElementWithType from './isElementWithType';
 import removeNode from './removeNode';
 
 const ELEMENT_TYPE = 'type';
@@ -77,7 +78,9 @@ describe('removeNode', () => {
             </editor>
         ) as unknown) as Editor;
 
-        removeNode(editor, { match: (node) => node.type === ELEMENT_TYPE });
+        removeNode(editor, {
+            match: (node) => isElementWithType(node) && node.type === ELEMENT_TYPE,
+        });
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -114,7 +117,9 @@ describe('removeNode', () => {
             </editor>
         ) as unknown) as Editor;
 
-        removeNode(editor, { match: (node) => node.type === OTHER_TYPE });
+        removeNode(editor, {
+            match: (node) => isElementWithType(node) && node.type === OTHER_TYPE,
+        });
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
