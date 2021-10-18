@@ -1,26 +1,29 @@
 /* eslint-disable no-param-reassign */
 
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import {
+    BULLETED_LIST_NODE_TYPE,
+    DIVIDER_NODE_TYPE,
+    LINK_NODE_TYPE,
+    LIST_ITEM_NODE_TYPE,
+    LIST_ITEM_TEXT_NODE_TYPE,
+    NUMBERED_LIST_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
+} from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import Lists from './Lists';
 import { ListsOptions } from './types';
 import withLists from './withLists';
 
-export enum ElementType {
-    BULLETED_LIST = 'bulleted-list',
-    INLINE_ELEMENT = 'inline-element',
-    LIST_ITEM = 'list-item',
-    LIST_ITEM_TEXT = 'list-item-text',
-    NUMBERED_LIST = 'numbered-list',
-    UNWRAPPABLE_ELEMENT = 'unwrappable-element',
-}
+export const INLINE_ELEMENT = LINK_NODE_TYPE;
+
+export const UNWRAPPABLE_ELEMENT = DIVIDER_NODE_TYPE;
 
 export const options: ListsOptions = {
     defaultBlockType: PARAGRAPH_NODE_TYPE,
-    listItemTextType: ElementType.LIST_ITEM_TEXT,
-    listItemType: ElementType.LIST_ITEM,
-    listTypes: [ElementType.BULLETED_LIST, ElementType.NUMBERED_LIST],
+    listItemTextType: LIST_ITEM_TEXT_NODE_TYPE,
+    listItemType: LIST_ITEM_NODE_TYPE,
+    listTypes: [BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE],
     wrappableTypes: [PARAGRAPH_NODE_TYPE],
 };
 
@@ -29,8 +32,7 @@ export const lists = Lists(options);
 const withInlineElement = <T extends Editor>(editor: T): T => {
     const { isInline } = editor;
 
-    editor.isInline = (element) =>
-        element.type === ElementType.INLINE_ELEMENT ? true : isInline(element);
+    editor.isInline = (element) => (element.type === INLINE_ELEMENT ? true : isInline(element));
 
     return editor;
 };

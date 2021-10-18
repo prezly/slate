@@ -1,9 +1,10 @@
 /** @jsx jsx */
 
+import { NUMBERED_LIST_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import jsx from '../jsx';
-import { createListsEditor, ElementType, lists } from '../test-utils';
+import { createListsEditor, lists } from '../test-utils';
 
 describe('setListType - no selection', () => {
     it('Does nothing when there is no selection', () => {
@@ -31,7 +32,7 @@ describe('setListType - no selection', () => {
             </editor>
         ) as unknown) as Editor;
 
-        lists.setListType(editor, ElementType.NUMBERED_LIST);
+        lists.setListType(editor, NUMBERED_LIST_NODE_TYPE);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -168,7 +169,7 @@ describe('setListType - selection with paragraphs and lists of multiple types', 
             </editor>
         ) as unknown) as Editor;
 
-        lists.setListType(editor, ElementType.NUMBERED_LIST);
+        lists.setListType(editor, NUMBERED_LIST_NODE_TYPE);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
