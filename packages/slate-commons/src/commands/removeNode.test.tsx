@@ -1,37 +1,35 @@
 /** @jsx jsx */
 
-import { Editor, Element } from 'slate';
+import { Editor } from 'slate';
 
 import jsx from '../jsx';
+import { SOME_ELEMENT_1, SOME_ELEMENT_2 } from '../test-utils';
 
 import isElementWithType from './isElementWithType';
 import removeNode from './removeNode';
-
-const ELEMENT_TYPE = 'type';
-const OTHER_TYPE = 'other-type';
 
 describe('removeNode', () => {
     it('Removes the element at current cursor location', () => {
         const editor = ((
             <editor>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
-                </element>
+                </h-some-element-1>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
                     <cursor />
-                </element>
+                </h-some-element-1>
             </editor>
         ) as unknown) as Editor;
 
         const expected = ((
             <editor>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
-                </element>
+                </h-some-element-1>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                     <cursor />
@@ -42,7 +40,7 @@ describe('removeNode', () => {
         if (editor.selection) {
             removeNode(editor, {
                 at: editor.selection,
-                match: (node) => Element.isElement(node),
+                match: (node) => isElementWithType(node),
             });
         }
 
@@ -53,24 +51,24 @@ describe('removeNode', () => {
     it('Removes the matching element at current cursor location', () => {
         const editor = ((
             <editor>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
-                </element>
+                </h-some-element-1>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
                     <cursor />
-                </element>
+                </h-some-element-1>
             </editor>
         ) as unknown) as Editor;
 
         const expected = ((
             <editor>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
-                </element>
+                </h-some-element-1>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                     <cursor />
@@ -79,7 +77,7 @@ describe('removeNode', () => {
         ) as unknown) as Editor;
 
         removeNode(editor, {
-            match: (node) => isElementWithType(node) && node.type === ELEMENT_TYPE,
+            match: (node) => isElementWithType(node) && node.type === SOME_ELEMENT_1,
         });
 
         expect(editor.children).toEqual(expected.children);
@@ -89,36 +87,36 @@ describe('removeNode', () => {
     it('Does nothing when the element does not match', () => {
         const editor = ((
             <editor>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
-                </element>
+                </h-some-element-1>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
                     <cursor />
-                </element>
+                </h-some-element-1>
             </editor>
         ) as unknown) as Editor;
 
         const expected = ((
             <editor>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
-                </element>
+                </h-some-element-1>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
-                <element type={ELEMENT_TYPE}>
+                <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
                     <cursor />
-                </element>
+                </h-some-element-1>
             </editor>
         ) as unknown) as Editor;
 
         removeNode(editor, {
-            match: (node) => isElementWithType(node) && node.type === OTHER_TYPE,
+            match: (node) => isElementWithType(node) && node.type === SOME_ELEMENT_2,
         });
 
         expect(editor.children).toEqual(expected.children);
