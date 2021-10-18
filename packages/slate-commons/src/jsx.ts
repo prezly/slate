@@ -63,9 +63,14 @@ declare global {
                 children?: ReactNode;
                 href: string;
             };
+            // it's a "link" in our tests - because we have to pick something
+            // but it could have been any other inline void element
             'h-inline-void-element': {
                 children?: ReactNode;
+                href: string;
             };
+            // it's a "divider" in our tests - because we have to pick something
+            // but it could have been any other void element
             'h-void-element': {
                 children?: ReactNode;
             };

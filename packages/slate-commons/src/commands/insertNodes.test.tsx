@@ -4,7 +4,7 @@ import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import jsx from '../jsx';
-import { createEditor, INLINE_ELEMENT } from '../test-utils';
+import { createEditor, INLINE_ELEMENT, INLINE_VOID_ELEMENT, VOID_ELEMENT } from '../test-utils';
 
 import insertNodes from './insertNodes';
 
@@ -390,7 +390,7 @@ describe('insertNodes', () => {
         insertNodes(editor, [
             {
                 children: [{ text: '' }],
-                type: 'void-element',
+                type: VOID_ELEMENT,
             },
             {
                 text: 'lorem',
@@ -427,7 +427,7 @@ describe('insertNodes', () => {
                 </h-void-element>
                 <h-p>
                     <h-text>lorem</h-text>
-                    <h-inline-void-element>
+                    <h-inline-void-element href="https://example.com">
                         <h-text>ipsum</h-text>
                     </h-inline-void-element>
                     <h-text bold>
@@ -441,14 +441,15 @@ describe('insertNodes', () => {
         insertNodes(editor, [
             {
                 children: [{ text: '' }],
-                type: 'void-element',
+                type: VOID_ELEMENT,
             },
             {
                 text: 'lorem',
             },
             {
                 children: [{ text: 'ipsum' }],
-                type: 'inline-void-element',
+                href: 'https://example.com',
+                type: INLINE_VOID_ELEMENT,
             },
             {
                 bold: true,

@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
 
-import { LINK_NODE_TYPE } from '@prezly/slate-types';
+import { DIVIDER_NODE_TYPE, LINK_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 export const INLINE_ELEMENT = LINK_NODE_TYPE;
-export const INLINE_VOID_ELEMENT = 'inline-void-element';
-export const VOID_ELEMENT = 'void-element';
+export const INLINE_VOID_ELEMENT = LINK_NODE_TYPE;
+export const VOID_ELEMENT = DIVIDER_NODE_TYPE;
 
 const withGenericTestElements = <T extends Editor>(editor: T): T => {
     const { isInline, isVoid } = editor;
