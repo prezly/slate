@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
 
+import { LINK_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-export const INLINE_ELEMENT = 'inline-element';
+export const INLINE_ELEMENT = LINK_NODE_TYPE;
 export const INLINE_VOID_ELEMENT = 'inline-void-element';
 export const VOID_ELEMENT = 'void-element';
 

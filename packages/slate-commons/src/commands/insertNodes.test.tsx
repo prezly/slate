@@ -204,7 +204,7 @@ describe('insertNodes', () => {
             <editor>
                 <h-p>
                     <h-text>lorem ipsumxxx</h-text>
-                    <h-inline-element>
+                    <h-inline-element href="https://example.com">
                         <h-text>yyy</h-text>
                     </h-inline-element>
                     <h-text />
@@ -222,6 +222,7 @@ describe('insertNodes', () => {
             { text: 'xxx' },
             {
                 children: [{ text: 'yyy' }],
+                href: 'https://example.com',
                 type: INLINE_ELEMENT,
             },
             {
@@ -283,7 +284,7 @@ describe('insertNodes', () => {
             <editor>
                 <h-p>
                     <h-text>xxx</h-text>
-                    <h-inline-element>
+                    <h-inline-element href="https://example.com">
                         <h-text>yyy</h-text>
                     </h-inline-element>
                     <h-text>zzz</h-text>
@@ -301,6 +302,8 @@ describe('insertNodes', () => {
             { text: 'xxx' },
             {
                 children: [{ text: 'yyy' }],
+
+                href: 'https://example.com',
                 type: INLINE_ELEMENT,
             },
             { text: 'zzz' },
@@ -333,7 +336,7 @@ describe('insertNodes', () => {
                 </h-void-element>
                 <h-p>
                     <h-text>xxx</h-text>
-                    <h-inline-element>
+                    <h-inline-element href="https://example.com">
                         <h-text>yyy</h-text>
                     </h-inline-element>
                     <h-text>
@@ -348,6 +351,7 @@ describe('insertNodes', () => {
             { text: 'xxx' },
             {
                 children: [{ text: 'yyy' }],
+                href: 'https://example.com',
                 type: INLINE_ELEMENT,
             },
             { text: 'zzz' },

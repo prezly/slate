@@ -41,7 +41,7 @@ describe('isSelectionAtBlockStart', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
-                    <h-inline-element>
+                    <h-inline-element href="https://example.com">
                         <h-text>
                             <cursor />
                             lorem ipsum
@@ -74,13 +74,13 @@ describe('isSelectionAtBlockStart', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
-                    <h-inline-element>
+                    <h-inline-element href="https://example.com">
                         <h-text>
                             lorem
                             <cursor />
                         </h-text>
                     </h-inline-element>
-                    <h-inline-element>
+                    <h-inline-element href="https://example.com">
                         <h-text>ipsum</h-text>
                     </h-inline-element>
                 </h-p>

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import { LINK_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { ReactNode } from 'react';
 
-import { INLINE_ELEMENT, INLINE_VOID_ELEMENT, VOID_ELEMENT } from './test-utils';
+import { INLINE_VOID_ELEMENT, VOID_ELEMENT } from './test-utils';
 
 declare global {
     namespace JSX {
@@ -57,8 +57,11 @@ declare global {
         }
 
         interface IntrinsicElements {
+            // it's a "link" in our tests - because we have to pick something
+            // but it could have been any other inline element
             'h-inline-element': {
                 children?: ReactNode;
+                href: string;
             };
             'h-inline-void-element': {
                 children?: ReactNode;
@@ -75,7 +78,7 @@ declare global {
 
 const jsx = createHyperscript({
     elements: {
-        'h-inline-element': { type: INLINE_ELEMENT },
+        'h-inline-element': { type: LINK_NODE_TYPE },
         'h-inline-void-element': { type: INLINE_VOID_ELEMENT },
         'h-void-element': { type: VOID_ELEMENT },
         'h-p': { type: PARAGRAPH_NODE_TYPE },
