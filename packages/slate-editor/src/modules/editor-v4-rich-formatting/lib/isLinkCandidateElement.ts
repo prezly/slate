@@ -1,8 +1,8 @@
-import { isElementNode } from '@prezly/slate-types';
+import { EditorCommands } from '@prezly/slate-commons';
 
 import { ElementType, LinkCandidateElementType } from '../types';
 
 const isLinkCandidateElement = (node: unknown): node is LinkCandidateElementType =>
-    isElementNode(node) && node.type === ElementType.LINK_CANDIDATE;
+    EditorCommands.isElementWithType(node) && node.type === ElementType.LINK_CANDIDATE;
 
 export default isLinkCandidateElement;
