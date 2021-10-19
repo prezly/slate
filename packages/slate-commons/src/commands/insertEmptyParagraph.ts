@@ -1,4 +1,4 @@
-import { ParagraphNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import { PARAGRAPH_NODE_TYPE, ParagraphNode } from '@prezly/slate-types';
 import { Editor, Location, Transforms } from 'slate';
 
 const createEmptyParagraph = (): ParagraphNode => ({

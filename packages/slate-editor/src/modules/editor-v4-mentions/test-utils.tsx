@@ -1,5 +1,5 @@
 import { withInlineVoid } from '@prezly/slate-commons';
-import { isPlaceholderNode, PlaceholderNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
+import { isPlaceholderNode, PLACEHOLDER_NODE_TYPE, PlaceholderNode } from '@prezly/slate-types';
 import React from 'react';
 import { Editor } from 'slate';
 import { RenderElementProps } from 'slate-react';

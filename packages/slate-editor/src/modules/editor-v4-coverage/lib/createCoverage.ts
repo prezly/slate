@@ -1,5 +1,5 @@
 import { Coverage } from '@prezly/sdk';
-import { CoverageNode, COVERAGE_NODE_TYPE } from '@prezly/slate-types';
+import { COVERAGE_NODE_TYPE, CoverageNode } from '@prezly/slate-types';
 import { v4 as uuidV4 } from 'uuid';
 
 const createCoverage = (id: Coverage['id']): CoverageNode => ({

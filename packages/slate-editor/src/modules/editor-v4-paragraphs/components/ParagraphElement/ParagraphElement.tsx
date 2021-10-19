@@ -1,4 +1,4 @@
-import { ParagraphNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import { PARAGRAPH_NODE_TYPE, ParagraphNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, HTMLAttributes } from 'react';
 import { RenderElementProps } from 'slate-react';

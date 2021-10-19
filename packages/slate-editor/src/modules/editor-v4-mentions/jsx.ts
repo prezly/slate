@@ -2,7 +2,7 @@
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { PlaceholderNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
+import { PLACEHOLDER_NODE_TYPE, PlaceholderNode } from '@prezly/slate-types';
 import { ReactNode } from 'react';
 
 declare global {

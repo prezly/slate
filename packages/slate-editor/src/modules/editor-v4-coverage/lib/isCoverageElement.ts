@@ -1,4 +1,4 @@
-import { CoverageNode, COVERAGE_NODE_TYPE } from '@prezly/slate-types';
+import { COVERAGE_NODE_TYPE, CoverageNode } from '@prezly/slate-types';
 import { Element, Node } from 'slate';
 
 const isCoverage = (coverage: any): coverage is CoverageNode['coverage'] =>
