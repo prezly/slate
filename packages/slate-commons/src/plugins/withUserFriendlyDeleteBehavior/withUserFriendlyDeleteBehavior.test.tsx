@@ -63,8 +63,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
                     <h-text />
                 </h-void-element>
                 <h-p>
-                    <cursor />
-                    <h-text>paragraph after</h-text>
+                    <h-text><cursor />paragraph after</h-text>
                 </h-p>
             </editor>,
         );
@@ -74,11 +73,10 @@ describe('withUserFriendlyDeleteBehavior', () => {
                 <h-p>
                     <h-text>
                         paragraph before
-                        <cursor />
                     </h-text>
                 </h-p>
                 <h-p>
-                    <h-text>paragraph after</h-text>
+                    <h-text><cursor />paragraph after</h-text>
                 </h-p>
             </editor>
         ) as unknown) as Editor;
