@@ -31,4 +31,4 @@ const withGenericTestElements = <T extends Editor>(editor: T): T => {
 };
 
 export const createEditor = (input: JSX.Element) =>
-    withGenericTestElements((input as unknown) as Editor);
+    withGenericTestElements(input as unknown as Editor);

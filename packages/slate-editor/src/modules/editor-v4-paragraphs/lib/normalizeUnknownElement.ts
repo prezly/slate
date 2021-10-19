@@ -10,7 +10,7 @@ const normalizeUnknownElement = (editor: Editor, [node, path]: NodeEntry<Node>):
         return false;
     }
 
-    const anyNode: Record<string, unknown> = (node as unknown) as Record<string, unknown>;
+    const anyNode: Record<string, unknown> = node as unknown as Record<string, unknown>;
 
     if (typeof anyNode.type === 'undefined') {
         Transforms.setNodes(editor, { type: PARAGRAPH_NODE_TYPE } as Partial<Element>, {

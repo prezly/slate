@@ -1,8 +1,6 @@
 type DeserializeElement = Record<
     string,
-    (
-        element: HTMLElement,
-    ) =>
+    (element: HTMLElement) =>
         | {
               type: string;
               [key: string]: any;

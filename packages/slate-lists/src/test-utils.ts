@@ -42,4 +42,4 @@ const withInlineElement = <T extends Editor>(editor: T): T => {
 };
 
 export const createListsEditor = (input: JSX.Element) =>
-    withInlineElement(withLists(options)((input as unknown) as Editor));
+    withInlineElement(withLists(options)(input as unknown as Editor));

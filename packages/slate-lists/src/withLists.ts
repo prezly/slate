@@ -28,22 +28,24 @@ const normalizers = [
 /**
  * Enables normalizations that enforce schema constraints and recover from unsupported cases.
  */
-const withLists = (options: ListsOptions) => <T extends Editor>(editor: T): T => {
-    const { normalizeNode } = editor;
+const withLists =
+    (options: ListsOptions) =>
+    <T extends Editor>(editor: T): T => {
+        const { normalizeNode } = editor;
 
-    editor.normalizeNode = (entry) => {
-        for (const normalizer of normalizers) {
-            const normalized = normalizer(options, editor, entry);
+        editor.normalizeNode = (entry) => {
+            for (const normalizer of normalizers) {
+                const normalized = normalizer(options, editor, entry);
 
-            if (normalized) {
-                return;
+                if (normalized) {
+                    return;
+                }
             }
-        }
 
-        normalizeNode(entry);
+            normalizeNode(entry);
+        };
+
+        return editor;
     };
-
-    return editor;
-};
 
 export default withLists;
