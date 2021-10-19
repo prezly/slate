@@ -69,6 +69,10 @@ declare global {
                 children?: ReactNode;
                 href: string;
             };
+            'h-link': {
+                children?: ReactNode;
+                href: string;
+            };
             // it's a "divider" in our tests - because we have to pick something
             // but it could have been any other void element
             'h-void-element': {
@@ -92,6 +96,7 @@ const jsx = createHyperscript({
     elements: {
         'h-inline-element': { type: LINK_NODE_TYPE },
         'h-inline-void-element': { type: INLINE_VOID_ELEMENT },
+        'h-link': { type: LINK_NODE_TYPE },
         'h-void-element': { type: VOID_ELEMENT },
         'h-p': { type: PARAGRAPH_NODE_TYPE },
         'h-some-element-1': { type: SOME_ELEMENT_1 },
