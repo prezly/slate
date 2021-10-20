@@ -26,8 +26,9 @@ describe('removeFileAttachment', () => {
                     <h-text>paragraph before</h-text>
                 </h-p>
                 <h-file-attachment description="" file={createFileAttachmentFile()}>
-                    <h-text />
-                    <cursor />
+                    <h-text>
+                        <cursor />
+                    </h-text>
                 </h-file-attachment>
                 <h-p>
                     <h-text>paragraph after</h-text>
@@ -39,10 +40,9 @@ describe('removeFileAttachment', () => {
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
-                    <cursor />
                 </h-p>
                 <h-p>
-                    <h-text>paragraph after</h-text>
+                    <h-text><cursor />paragraph after</h-text>
                 </h-p>
             </editor>
         ) as unknown) as Editor;
@@ -57,8 +57,7 @@ describe('removeFileAttachment', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
-                    <h-text>paragraph before</h-text>
-                    <cursor />
+                    <h-text>paragraph before<cursor /></h-text>
                 </h-p>
                 <h-file-attachment description="" file={createFileAttachmentFile()}>
                     <h-text />
@@ -72,8 +71,8 @@ describe('removeFileAttachment', () => {
         const expected = ((
             <editor>
                 <h-p>
-                    <h-text>paragraph before</h-text>
-                    <cursor />
+                    <h-text>paragraph before<cursor /></h-text>
+
                 </h-p>
                 <h-file-attachment description="" file={createFileAttachmentFile()}>
                     <h-text />
