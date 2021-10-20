@@ -15,8 +15,9 @@ describe('removeDivider', () => {
                     <h-text>paragraph before</h-text>
                 </h-p>
                 <h-divider>
-                    <h-text />
-                    <cursor />
+                    <h-text>
+                        <cursor />
+                    </h-text>
                 </h-divider>
                 <h-p>
                     <h-text>paragraph after</h-text>
@@ -28,10 +29,9 @@ describe('removeDivider', () => {
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
-                    <cursor />
                 </h-p>
                 <h-p>
-                    <h-text>paragraph after</h-text>
+                    <h-text><cursor />paragraph after</h-text>
                 </h-p>
             </editor>
         ) as unknown) as Editor;
@@ -48,13 +48,12 @@ describe('removeDivider', () => {
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
-                    <cursor />
                 </h-p>
                 <h-divider>
                     <h-text />
                 </h-divider>
                 <h-p>
-                    <h-text>paragraph before</h-text>
+                    <h-text><cursor />paragraph before</h-text>
                 </h-p>
             </editor>
         ) as unknown) as Editor;
@@ -63,13 +62,12 @@ describe('removeDivider', () => {
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
-                    <cursor />
                 </h-p>
                 <h-divider>
                     <h-text />
                 </h-divider>
                 <h-p>
-                    <h-text>paragraph before</h-text>
+                    <h-text><cursor />paragraph before</h-text>
                 </h-p>
             </editor>
         ) as unknown) as Editor;
