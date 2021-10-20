@@ -2,14 +2,14 @@
 
 import { cleanDocx } from '@prezly/docx-cleaner';
 import { EditorCommands, Extension } from '@prezly/slate-commons';
-import { ReactEditor } from 'slate-react';
+import { Editor } from 'slate';
 
 import { EventsEditor } from '../../../../modules/editor-v4-events';
 import { createDataTransfer } from '../../lib';
 
 import deserializeHtml from './deserializeHtml';
 
-const tryCleanDocx = (html: string, rtf: string, onError: (error: Error) => void): string => {
+const tryCleanDocx = (html: string, rtf: string, onError: (error: unknown) => void): string => {
     try {
         return cleanDocx(html, rtf);
     } catch (error) {
@@ -28,7 +28,7 @@ const withDeserializeHtml = (
      */
     debugDataOverride?: Parameters<typeof createDataTransfer>[0],
 ) => {
-    return <T extends ReactEditor>(editor: T) => {
+    return <T extends Editor>(editor: T) => {
         const { insertData } = editor;
 
         editor.insertData = (dataTransfer) => {
@@ -43,7 +43,7 @@ const withDeserializeHtml = (
             });
 
             if (html && !slateFragment) {
-                const handleError = (error: Error) => {
+                const handleError = (error: unknown) => {
                     EventsEditor.dispatchEvent(editor, 'error', error);
                 };
                 const rtf = data.getData('text/rtf');

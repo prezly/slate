@@ -1,13 +1,12 @@
 /** @jsx jsx */
-
+import { isParagraphNode } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import jsx from '../jsx';
 
-import isParagraphElement from './isParagraphElement';
 import isValidLocation from './isValidLocation';
 
-import { removeNode } from '.';
+import removeNode from './removeNode';
 
 describe('isValidLocation', () => {
     it('Returns "true" when using the current cursor location', () => {
@@ -74,7 +73,7 @@ describe('isValidLocation', () => {
         const storedSelection = editor.selection!;
         removeNode(editor, {
             at: storedSelection,
-            match: isParagraphElement,
+            match: isParagraphNode,
         });
 
         expect(isValidLocation(editor, storedSelection)).toBe(false);

@@ -1,5 +1,6 @@
 import Events from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
+import { isBlockNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import { noop } from 'lodash';
 import React, {
@@ -272,6 +273,9 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             <Slate
                 editor={editor}
                 onChange={(newValue) => {
+                    if (!newValue.every(isBlockNode)) {
+                        throw new Error("New editor value doesn't match Prezly document format");
+                    }
                     onChange(newValue);
                     placeholders.onChange(editor);
                     userMentions.onChange(editor);

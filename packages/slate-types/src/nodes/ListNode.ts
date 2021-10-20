@@ -1,5 +1,6 @@
 import ElementNode, { isElementNode } from './ElementNode';
 import InlineNode, { isInlineNode } from './InlineNode';
+import TextNode, { isTextNode } from './TextNode';
 
 export const BULLETED_LIST_NODE_TYPE = 'bulleted-list';
 
@@ -19,7 +20,7 @@ export interface ListItemNode extends ElementNode<typeof LIST_ITEM_NODE_TYPE> {
 }
 
 export interface ListItemTextNode extends ElementNode<typeof LIST_ITEM_TEXT_NODE_TYPE> {
-    children: InlineNode[];
+    children: (InlineNode | TextNode)[];
 }
 
 export const isListNode = (value: any): value is ListNode => {
@@ -48,6 +49,6 @@ export const isListItemTextNode = (value: any): value is ListItemTextNode => {
         isElementNode(value) &&
         value.type === LIST_ITEM_TEXT_NODE_TYPE &&
         Array.isArray(value.children) &&
-        value.children.every(isInlineNode)
+        value.children.every((node) => isInlineNode(node) || isTextNode(node))
     );
 };

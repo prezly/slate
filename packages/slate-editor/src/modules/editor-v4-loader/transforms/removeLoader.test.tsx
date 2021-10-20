@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { Editor } from 'slate';
-import { ReactEditor, withReact } from 'slate-react';
+import { withReact } from 'slate-react';
 
 import jsx from '../jsx';
 import { findLoaderPath } from '../lib';
@@ -9,7 +9,7 @@ import { LoaderContentType } from '../types';
 
 import removeLoader from './removeLoader';
 
-const createEditor = (editor: JSX.Element): ReactEditor => withReact((editor as unknown) as Editor);
+const createEditor = (editor: JSX.Element): Editor => withReact((editor as unknown) as Editor);
 
 const LOADER_ID = 'id-1';
 

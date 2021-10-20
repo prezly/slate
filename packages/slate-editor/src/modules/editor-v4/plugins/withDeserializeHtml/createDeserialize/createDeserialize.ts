@@ -8,7 +8,7 @@ import deserializeText from './deserializeText';
 
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
-const deserializeNode = (extensions: Extension[], onError: (error: Error) => void) => {
+const deserializeNode = (extensions: Extension[], onError: (error: unknown) => void) => {
     return (node: HTMLElement | ChildNode): string | Element | DeserializeHTMLChildren[] | null => {
         const children = Array.from(node.childNodes).flatMap(deserializeNode(extensions, onError));
 
@@ -39,7 +39,7 @@ const deserializeNode = (extensions: Extension[], onError: (error: Error) => voi
     };
 };
 
-const createDeserialize = (extensions: Extension[], onError: (error: Error) => void) => {
+const createDeserialize = (extensions: Extension[], onError: (error: unknown) => void) => {
     return (node: HTMLElement): Descendant[] => {
         return deserializeNode(extensions, onError)(node) as Descendant[];
     };

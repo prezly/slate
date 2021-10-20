@@ -1,14 +1,13 @@
 /* eslint-disable no-param-reassign */
 
 import { EditorCommands, encodeSlateFragment } from '@prezly/slate-commons';
+import { isImageNode } from '@prezly/slate-types';
 import { Editor, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { convertToHtml } from '../../lib';
 
-import { isImageElement } from './lib';
-
-const withImages = <T extends ReactEditor>(editor: T): T => {
+const withImages = <T extends Editor>(editor: T): T => {
     const { insertData, setFragmentData } = editor;
 
     editor.setFragmentData = (data): void => {
@@ -18,7 +17,7 @@ const withImages = <T extends ReactEditor>(editor: T): T => {
             // Fix copying sole, captionless image nodes when captions are enabled
             if (
                 currentNode &&
-                isImageElement(currentNode) &&
+                isImageNode(currentNode) &&
                 EditorCommands.isNodeEmpty(editor, currentNode) &&
                 !Editor.isVoid(editor, currentNode)
             ) {

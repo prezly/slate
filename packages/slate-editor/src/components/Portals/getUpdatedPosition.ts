@@ -1,4 +1,5 @@
 import { clamp } from 'lodash';
+import type { Rect } from 'rangefix';
 
 import { PortalOrigin } from './types';
 
@@ -7,7 +8,7 @@ const SCREEN_SAFE_MARGIN = 8;
 interface Parameters {
     container: HTMLElement;
     origin: PortalOrigin;
-    rect: ClientRect;
+    rect: ClientRect | Rect;
     wrapper: HTMLElement;
 }
 

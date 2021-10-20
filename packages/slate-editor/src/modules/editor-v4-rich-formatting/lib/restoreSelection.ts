@@ -1,8 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Path, Range, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
+import { Editor, Path, Range, Transforms } from 'slate';
 
-const restoreSelection = (editor: ReactEditor, selection: Path | Range): void => {
+const restoreSelection = (editor: Editor, selection: Path | Range): void => {
     EditorCommands.focus(editor);
     Transforms.select(editor, selection);
 };

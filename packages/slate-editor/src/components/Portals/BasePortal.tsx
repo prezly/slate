@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import type { Rect } from 'rangefix';
 import React, { FunctionComponent, useCallback, useEffect, useRef } from 'react';
 import { Portal } from 'react-portal';
 import { useRafLoop } from 'react-use';
@@ -8,7 +9,7 @@ import getUpdatedPosition from './getUpdatedPosition';
 import { PortalProps } from './types';
 
 interface Props extends PortalProps {
-    getElementRect: () => ClientRect | null;
+    getElementRect: () => ClientRect | Rect | null;
 }
 
 const BasePortal: FunctionComponent<Props> = ({

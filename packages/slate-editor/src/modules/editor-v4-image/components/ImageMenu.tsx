@@ -1,3 +1,4 @@
+import { ImageNode, ImageLayout } from '@prezly/slate-types';
 import React, { FunctionComponent, RefObject, useState } from 'react';
 import { Editor, Range, Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
@@ -6,7 +7,6 @@ import { FloatingMenu } from '../../../components';
 import { Edit, Link, Trash } from '../../../icons';
 import { LinkMenu } from '../../../modules/editor-v4-components';
 import { removeImage, setImageHref, setLayout } from '../transforms';
-import { ImageElementType, ImageLayout } from '../types';
 
 import LayoutControls from './LayoutControls';
 import MenuButton from './MenuButton';
@@ -19,7 +19,7 @@ interface Props {
     layout: ImageLayout;
     onEdit: () => void;
     onIsLinkMenuOpenChange: (isLinkMenuOpen: boolean) => void;
-    onRemove: (editor: Editor, element: ImageElementType) => void;
+    onRemove: (editor: Editor, element: ImageNode) => void;
     showLayoutControls?: boolean;
 }
 

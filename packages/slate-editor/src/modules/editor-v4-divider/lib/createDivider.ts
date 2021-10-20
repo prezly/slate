@@ -1,7 +1,8 @@
-import { DIVIDER_TYPE } from '../constants';
-import { DividerElementType } from '../types';
+import { DividerNode } from '@prezly/slate-types';
 
-const createDivider = (): DividerElementType => ({
+import { DIVIDER_TYPE } from '../constants';
+
+const createDivider = (): DividerNode => ({
     children: [{ text: '' }],
     type: DIVIDER_TYPE,
 });

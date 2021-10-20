@@ -1,9 +1,9 @@
 import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
+import { PressContact } from '@prezly/slate-types';
 import { useState } from 'react';
-import { ReactEditor } from 'slate-react';
+import { Editor } from 'slate';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
-import { PressContact } from '../../../types';
 
 import createPressContact from './createPressContact';
 
@@ -18,7 +18,7 @@ interface Actions {
     submit: (contact: PressContact) => void;
 }
 
-const useFloatingPressContactsMenu = (editor: ReactEditor): [State, Actions] => {
+const useFloatingPressContactsMenu = (editor: Editor): [State, Actions] => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const savedSelection = useSavedSelection();
 

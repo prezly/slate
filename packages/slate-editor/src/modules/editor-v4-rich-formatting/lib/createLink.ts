@@ -1,8 +1,9 @@
-import { Node } from 'slate';
+import { LinkNode } from '@prezly/slate-types';
+import { Text } from 'slate';
 
-import { ElementType, LinkElementType } from '../types';
+import { ElementType } from '../types';
 
-const createLink = (href: string, children: Node[] = []): LinkElementType => ({
+const createLink = (href: string, children: Text[] = []): LinkNode => ({
     children,
     href,
     type: ElementType.LINK,

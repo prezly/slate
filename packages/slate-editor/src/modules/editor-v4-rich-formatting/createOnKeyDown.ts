@@ -13,7 +13,7 @@ const MARK_HOTKEYS: { hotkey: string; mark: MarkType }[] = [
     { hotkey: 'mod+u', mark: MarkType.UNDERLINED },
 ];
 
-const marksOnKeyDown = (event: KeyboardEvent, editor: ReactEditor) => {
+const marksOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
     MARK_HOTKEYS.forEach(({ hotkey, mark }) => {
         if (isHotkey(hotkey, event.nativeEvent)) {
             event.preventDefault();
@@ -59,29 +59,27 @@ const listsOnKeyDown = (event: KeyboardEvent, editor: ReactEditor) => {
     }
 };
 
-const softBreakOnKeyDown = (event: KeyboardEvent, editor: ReactEditor) => {
+const softBreakOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
     if (isHotkey('shift+enter', event.nativeEvent) && !event.isDefaultPrevented()) {
         event.preventDefault();
         Editor.insertText(editor, '\n');
     }
 };
 
-const createOnKeyDown = (parameters: RichFormattingExtensionParameters) => (
-    event: KeyboardEvent,
-    editor: ReactEditor,
-) => {
-    softBreakOnKeyDown(event, editor);
-    marksOnKeyDown(event, editor);
+const createOnKeyDown =
+    (parameters: RichFormattingExtensionParameters) => (event: KeyboardEvent, editor: Editor) => {
+        softBreakOnKeyDown(event, editor);
+        marksOnKeyDown(event, editor);
 
-    if (parameters.blocks) {
-        listsOnKeyDown(event, editor);
+        if (parameters.blocks) {
+            listsOnKeyDown(event, editor);
 
-        // Slate does not always trigger normalization when one would expect it to.
-        // So we want to force it after we perform lists operations, as it fixes
-        // many unexpected behaviors.
-        // https://github.com/ianstormtaylor/slate/issues/3758
-        Editor.normalize(editor, { force: true });
-    }
-};
+            // Slate does not always trigger normalization when one would expect it to.
+            // So we want to force it after we perform lists operations, as it fixes
+            // many unexpected behaviors.
+            // https://github.com/ianstormtaylor/slate/issues/3758
+            Editor.normalize(editor, { force: true });
+        }
+    };
 
 export default createOnKeyDown;

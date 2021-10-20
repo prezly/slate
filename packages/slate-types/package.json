@@ -18,6 +18,10 @@
         "build:watch": "tsc -w --project .",
         "clean": "rimraf build/ node_modules/"
     },
+    "peerDependencies": {
+        "slate": "=0.61.3",
+        "slate-react": "=0.61.3"
+    },
     "dependencies": {
         "@prezly/sdk": "^2.9.3"
     }

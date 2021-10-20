@@ -1,18 +1,18 @@
 import { createDeserializeElement, EditorCommands, Extension } from '@prezly/slate-commons';
+import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import isHotkey from 'is-hotkey';
 import { noop } from 'lodash';
 import React, { KeyboardEvent } from 'react';
-import { Path, Transforms } from 'slate';
-import { ReactEditor, RenderElementProps } from 'slate-react';
+import { Editor, Path, Transforms } from 'slate';
+import { RenderElementProps } from 'slate-react';
 
 import { ImageElement } from './components';
-import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID, IMAGE_TYPE } from './constants';
+import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
 import {
     createImageCandidate,
     getAncestorAnchor,
     isDeleting,
     isDeletingBackward,
-    isImageElement,
     normalizeChildren,
     normalizeImageCandidate,
     normalizeRedundantImageAttributes,
@@ -34,7 +34,7 @@ const ImageExtension = ({
 }: ImageParameters): Extension => ({
     deserialize: {
         element: {
-            [IMAGE_TYPE]: createDeserializeElement(parseSerializedElement),
+            [IMAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
             IMG: (element: HTMLElement): ImageCandidateElementType | undefined => {
                 const imageElement = element as HTMLImageElement;
                 const anchorElement = getAncestorAnchor(imageElement);
@@ -54,14 +54,14 @@ const ImageExtension = ({
         // normalizeImageCandidate needs to be last because it removes the image candidate element
         normalizeImageCandidate,
     ],
-    onKeyDown: (event: KeyboardEvent, editor: ReactEditor) => {
+    onKeyDown: (event: KeyboardEvent, editor: Editor) => {
         if (!captions) {
             return;
         }
 
         if (isHotkey('enter', event.nativeEvent)) {
             const nodeEntry = EditorCommands.getCurrentNodeEntry(editor);
-            if (nodeEntry && isImageElement(nodeEntry[0])) {
+            if (nodeEntry && isImageNode(nodeEntry[0])) {
                 event.preventDefault();
 
                 const nextPath = Path.next(nodeEntry[1]);
@@ -81,7 +81,7 @@ const ImageExtension = ({
             const isHoldingDelete = now - lastBackspaceTimestamp <= HOLDING_BACKSPACE_THRESHOLD;
             lastBackspaceTimestamp = now;
 
-            if (!nodeEntry || !isImageElement(nodeEntry[0])) {
+            if (!nodeEntry || !isImageNode(nodeEntry[0])) {
                 return;
             }
 
@@ -89,7 +89,7 @@ const ImageExtension = ({
                 if (!isHoldingDelete) {
                     EditorCommands.removeNode(editor, {
                         at: nodeEntry[1],
-                        match: isImageElement,
+                        match: isImageNode,
                     });
                 }
 
@@ -101,7 +101,7 @@ const ImageExtension = ({
             if (isDeletingBackward(event) && EditorCommands.isSelectionAtBlockStart(editor)) {
                 EditorCommands.removeNode(editor, {
                     at: nodeEntry[1],
-                    match: isImageElement,
+                    match: isImageNode,
                 });
                 event.preventDefault();
                 event.stopPropagation();
@@ -109,7 +109,7 @@ const ImageExtension = ({
         }
     },
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (isImageElement(element)) {
+        if (isImageNode(element)) {
             return (
                 <ImageElement
                     attributes={attributes}
@@ -127,8 +127,8 @@ const ImageExtension = ({
 
         return undefined;
     },
-    rootTypes: [IMAGE_CANDIDATE_TYPE, IMAGE_TYPE],
-    voidTypes: captions ? [IMAGE_CANDIDATE_TYPE] : [IMAGE_CANDIDATE_TYPE, IMAGE_TYPE],
+    rootTypes: [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
+    voidTypes: captions ? [IMAGE_CANDIDATE_TYPE] : [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
 });
 
 export default ImageExtension;

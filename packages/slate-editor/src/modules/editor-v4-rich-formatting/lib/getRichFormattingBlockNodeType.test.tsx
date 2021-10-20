@@ -29,10 +29,12 @@ describe('getRichFormattingBlockNodeType', () => {
             <editor>
                 <h-ul>
                     <h-li>
-                        <h-text>
-                            text
-                            <cursor />
-                        </h-text>
+                        <h-li-text>
+                            <h-text>
+                                text
+                                <cursor />
+                            </h-text>
+                        </h-li-text>
                     </h-li>
                 </h-ul>
             </editor>,
@@ -42,10 +44,12 @@ describe('getRichFormattingBlockNodeType', () => {
             <editor>
                 <h-ol>
                     <h-li>
-                        <h-text>
-                            text
-                            <cursor />
-                        </h-text>
+                        <h-li-text>
+                            <h-text>
+                                text
+                                <cursor />
+                            </h-text>
+                        </h-li-text>
                     </h-li>
                 </h-ol>
             </editor>,
@@ -60,15 +64,19 @@ describe('getRichFormattingBlockNodeType', () => {
             <editor>
                 <h-ol>
                     <h-li>
-                        <h-text>numbered list item</h-text>
+                        <h-li-text>
+                            <h-text>numbered list item</h-text>
+                        </h-li-text>
                     </h-li>
                     <h-li>
                         <h-ul>
                             <h-li>
-                                <h-text>
-                                    bulleted list item
-                                    <cursor />
-                                </h-text>
+                                <h-li-text>
+                                    <h-text>
+                                        bulleted list item
+                                        <cursor />
+                                    </h-text>
+                                </h-li-text>
                             </h-li>
                         </h-ul>
                     </h-li>
@@ -83,21 +91,29 @@ describe('getRichFormattingBlockNodeType', () => {
         const editor = createRichFormattingEditor(
             <editor>
                 <h-ol>
-                    <anchor />
                     <h-li>
-                        <h-text>numbered list item</h-text>
+                        <h-li-text>
+                            <h-text>
+                                <anchor />
+                                numbered list item
+                            </h-text>
+                        </h-li-text>
                     </h-li>
                     <h-li>
+                        <h-li-text>
+                            <h-text />
+                        </h-li-text>
                         <h-ul>
                             <h-li>
-                                <h-text>
-                                    bulleted list item
-                                    <cursor />
-                                </h-text>
+                                <h-li-text>
+                                    <h-text>
+                                        bulleted list item
+                                        <focus />
+                                    </h-text>
+                                </h-li-text>
                             </h-li>
                         </h-ul>
                     </h-li>
-                    <focus />
                 </h-ol>
             </editor>,
         );

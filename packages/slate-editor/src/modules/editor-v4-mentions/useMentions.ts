@@ -5,8 +5,8 @@ import { Editor, Range, Transforms } from 'slate';
 import { getWordAfterTrigger, insertMention, isPointAtWordEnd } from './lib';
 import { MentionElementType, Option } from './types';
 
-interface Parameters<T extends string, V> {
-    createMentionElement: (option: Option<V>) => MentionElementType<T>;
+interface Parameters<V> {
+    createMentionElement: (option: Option<V>) => MentionElementType;
     options: Option<V>[];
     trigger: string;
 }
@@ -21,11 +21,7 @@ export interface Mentions<V> {
     target: Range | null;
 }
 
-const useMentions = <T extends string, V>({
-    createMentionElement,
-    options,
-    trigger,
-}: Parameters<T, V>): Mentions<V> => {
+const useMentions = <V>({ createMentionElement, options, trigger }: Parameters<V>): Mentions<V> => {
     const [index, setIndex] = useState<number>(0);
     const [query, setQuery] = useState<string>('');
     const [target, setTarget] = useState<Range | null>(null);

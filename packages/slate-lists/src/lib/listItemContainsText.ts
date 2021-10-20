@@ -1,4 +1,4 @@
-import { Editor, Node } from 'slate';
+import { Editor } from 'slate';
 
 import { ListsOptions } from '../types';
 
@@ -8,7 +8,7 @@ import isListItemText from './isListItemText';
 /**
  * Returns true if given "list-item" node contains a non-empty "list-item-text" node.
  */
-const listItemContainsText = (options: ListsOptions, editor: Editor, node: Node): boolean => {
+const listItemContainsText = (options: ListsOptions, editor: Editor, node: unknown): boolean => {
     if (!isListItem(options, node)) {
         return false;
     }

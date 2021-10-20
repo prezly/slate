@@ -1,8 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isAttachmentNode } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createFileAttachment from './createFileAttachment';
-import isFileAttachmentElement from './isFileAttachmentElement';
 
 const ALLOWED_ATTRIBUTES = Object.keys(
     createFileAttachment(
@@ -21,7 +21,7 @@ const normalizeRedundantFileAttachmentAttributes = (
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean => {
-    if (!isFileAttachmentElement(node)) {
+    if (!isAttachmentNode(node)) {
         return false;
     }
 

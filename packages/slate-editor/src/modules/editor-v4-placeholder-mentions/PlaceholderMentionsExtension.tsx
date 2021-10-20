@@ -1,16 +1,12 @@
 import { Extension } from '@prezly/slate-commons';
+import { isPlaceholderNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
 import { MentionElement, MentionsExtension } from '../../modules/editor-v4-mentions';
 
-import { PLACEHOLDER_MENTION_TYPE, PLACEHOLDER_MENTIONS_EXTENSION_ID } from './constants';
-import {
-    isPlaceholderMentionElement,
-    normalizeRedundantPlaceholderMentionAttributes,
-    parseSerializedElement,
-} from './lib';
-import { PlaceholderMentionType } from './types';
+import { PLACEHOLDER_MENTIONS_EXTENSION_ID } from './constants';
+import { normalizeRedundantPlaceholderMentionAttributes, parseSerializedElement } from './lib';
 
 const PlaceholderMentionsExtension = (): Extension =>
     MentionsExtension({
@@ -18,12 +14,9 @@ const PlaceholderMentionsExtension = (): Extension =>
         normalizers: [normalizeRedundantPlaceholderMentionAttributes],
         parseSerializedElement,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
-            if (isPlaceholderMentionElement(element)) {
+            if (isPlaceholderNode(element)) {
                 return (
-                    <MentionElement<PlaceholderMentionType>
-                        attributes={attributes}
-                        element={element}
-                    >
+                    <MentionElement attributes={attributes} element={element}>
                         {`%${element.key}%`}
                         {children}
                     </MentionElement>
@@ -32,7 +25,7 @@ const PlaceholderMentionsExtension = (): Extension =>
 
             return undefined;
         },
-        type: PLACEHOLDER_MENTION_TYPE,
+        type: PLACEHOLDER_NODE_TYPE,
     });
 
 export default PlaceholderMentionsExtension;

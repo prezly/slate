@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
 import { createHyperscript } from '@prezly/slate-hyperscript';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import { PLACEHOLDER_NODE_TYPE, PlaceholderNode } from '@prezly/slate-types';
 import { ReactNode } from 'react';
-
-import { Example, EXAMPLE_MENTION_TYPE } from './test-utils';
 
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            'h-example-mention': {
+            'h-placeholder-mention': {
                 children?: ReactNode;
-                example: Example;
+                key: PlaceholderNode['key'];
             };
             'h-p': {
                 children?: ReactNode;
@@ -22,8 +21,8 @@ declare global {
 
 const jsx = createHyperscript({
     elements: {
-        'h-example-mention': { type: EXAMPLE_MENTION_TYPE },
-        'h-p': { type: PARAGRAPH_TYPE },
+        'h-placeholder-mention': { type: PLACEHOLDER_NODE_TYPE },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
 });
 

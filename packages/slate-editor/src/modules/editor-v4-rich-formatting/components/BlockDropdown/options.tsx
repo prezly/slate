@@ -1,5 +1,5 @@
 /* eslint-disable filenames/match-exported */
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 
 // eslint-disable-next-line import/named
@@ -11,7 +11,7 @@ const OPTIONS: FloatingMenuOption<BlockType>[] = [
     { hidden: true, label: 'Multiple', value: 'multiple' },
     {
         label: 'Default Paragraph',
-        value: PARAGRAPH_TYPE,
+        value: PARAGRAPH_NODE_TYPE,
         render: (option) => (
             <MenuOption
                 className="floating-menu-dropdown__menu-option--paragraph"

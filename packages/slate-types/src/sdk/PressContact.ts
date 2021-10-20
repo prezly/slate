@@ -1,14 +1,19 @@
 export default interface PressContact {
     avatar_url: string | null;
     company: string | null;
+    // TODO: cultures
     description: string | null;
     email: string | null;
     facebook: string | null;
     id: number;
+    // TODO: is_visible_in_room
     mobile: string | null;
     name: string;
+    // TODO: order
     phone: string | null;
+    // TODO: stories
     twitter: string | null;
+    uuid: string;
     website: string | null;
 }
 
@@ -24,6 +29,7 @@ export const isPressContact = (value: any): value is PressContact => {
         typeof value.name === 'string' &&
         (typeof value.phone === 'string' || value.phone === null) &&
         (typeof value.twitter === 'string' || value.twitter === null) &&
+        typeof value.uuid === 'string' &&
         (typeof value.website === 'string' || value.website === null)
     );
 };

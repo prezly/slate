@@ -15,11 +15,11 @@ const getParentListItem = (
 ): NodeEntry<Element> | null => {
     const parentListItem = Editor.above(editor, {
         at: listItemPath,
-        match: (node) => node.type === options.listItemType,
+        match: (node) => Element.isElement(node) && node.type === options.listItemType,
     });
 
     if (parentListItem && isListItem(options, parentListItem[0])) {
-        return parentListItem;
+        return parentListItem as NodeEntry<Element>;
     }
 
     return null;

@@ -2,14 +2,15 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { ParagraphElement } from '../../../modules/editor-v4-paragraphs';
-import { BlockType, ElementType, RichTextElementType } from '../types';
+import { BlockType, RichTextElementType } from '../types';
 
 import RichTextElement from './RichTextElement';
 
-const createMockElement = (type: ElementType): RichTextElementType => ({
-    children: [],
-    type,
-});
+const createMockElement = (type: BlockType): RichTextElementType =>
+    (({
+        children: [],
+        type,
+    } as unknown) as RichTextElementType);
 
 interface Props {
     className?: string;

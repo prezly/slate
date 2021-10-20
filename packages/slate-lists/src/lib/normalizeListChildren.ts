@@ -77,7 +77,11 @@ const normalizeListChildren = (
         }
 
         if (!isListItem(options, childNode)) {
-            Transforms.setNodes(editor, { type: options.listItemTextType }, { at: childPath });
+            Transforms.setNodes(
+                editor,
+                { type: options.listItemTextType as Element['type'] },
+                { at: childPath },
+            );
             Transforms.wrapNodes(editor, createListItem(options), { at: childPath });
             normalized = true;
         }

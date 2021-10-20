@@ -1,17 +1,17 @@
+import { ContactNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
 
 import { Avatar } from '../../../../components';
 import { User } from '../../../../icons';
-import { PressContactElementType } from '../../types';
 import JobDescription from '../JobDescription';
 
 import './PressContactElement.scss';
 import SocialFields from './SocialFields';
 
 interface Props extends RenderElementProps {
-    element: PressContactElementType;
+    element: ContactNode;
 }
 
 const PressContactElement: FunctionComponent<Props> = ({ attributes, children, element }) => {

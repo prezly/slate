@@ -1,7 +1,16 @@
-import { ParagraphType } from '@prezly/slate-commons';
-import { Element } from 'slate';
+import {
+    HeadingNode,
+    ListNode,
+    ListItemNode,
+    ListItemTextNode,
+    LinkNode,
+    ElementNode,
+    QuoteNode,
+    PARAGRAPH_NODE_TYPE,
+} from '@prezly/slate-types';
 
 type Multiple = 'multiple';
+export type ParagraphType = typeof PARAGRAPH_NODE_TYPE;
 export type BlockType = ParagraphType | ElementType | Multiple;
 
 export enum ElementType {
@@ -24,18 +33,17 @@ export enum MarkType {
     SUPERSCRIPT = 'superscript',
 }
 
-export interface RichTextElementType extends Element {
-    type: ParagraphType | ElementType;
-}
+export type RichTextElementType =
+    | HeadingNode
+    | LinkNode
+    | LinkCandidateElementType
+    | ListNode
+    | ListItemNode
+    | ListItemTextNode
+    | QuoteNode;
 
-export interface LinkCandidateElementType extends Element {
+export interface LinkCandidateElementType extends ElementNode<ElementType.LINK_CANDIDATE> {
     id: string;
-    type: ElementType.LINK_CANDIDATE;
-}
-
-export interface LinkElementType extends Element {
-    href: string;
-    type: ElementType.LINK;
 }
 
 export interface RichFormattingExtensionParameters {

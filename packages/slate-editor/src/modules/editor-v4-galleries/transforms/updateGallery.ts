@@ -1,17 +1,15 @@
+import { GalleryNode, isGalleryNode } from '@prezly/slate-types';
 import { pick } from 'lodash';
 import { Editor, Transforms } from 'slate';
 
-import { isGalleryElement } from '../lib';
-import { GalleryElementType } from '../types';
-
 const updateGallery = (
     editor: Editor,
-    changes: Partial<Pick<GalleryElementType, 'images' | 'layout' | 'padding' | 'thumbnail_size'>>,
+    changes: Partial<Pick<GalleryNode, 'images' | 'layout' | 'padding' | 'thumbnail_size'>>,
 ) => {
     const changedAtrributes = pick(changes, ['images', 'layout', 'padding', 'thumbnail_size']);
 
-    Transforms.setNodes(editor, changedAtrributes, {
-        match: isGalleryElement,
+    Transforms.setNodes<GalleryNode>(editor, changedAtrributes, {
+        match: isGalleryNode,
     });
 };
 

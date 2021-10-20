@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "styles/variables";
 
 .editor-v4-mentions-dropdown {
@@ -14,7 +15,7 @@
         // override ".editor-email-campaign ul li" styling
         margin: 0 !important;
         font-size: 1em !important;
-        line-height: (20 / 14) !important;
+        line-height: math.div(20, 14) !important;
 
         a {
             &,

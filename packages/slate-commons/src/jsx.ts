@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
+import { LINK_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { ReactNode } from 'react';
 
-import { PARAGRAPH_TYPE } from './constants';
-import { INLINE_ELEMENT, INLINE_VOID_ELEMENT, VOID_ELEMENT } from './test-utils';
+import { INLINE_VOID_ELEMENT, SOME_ELEMENT_1, SOME_ELEMENT_2, VOID_ELEMENT } from './test-utils';
 
 declare global {
     namespace JSX {
@@ -57,16 +57,35 @@ declare global {
         }
 
         interface IntrinsicElements {
+            // it's a "link" in our tests - because we have to pick something
+            // but it could have been any other inline element
             'h-inline-element': {
                 children?: ReactNode;
+                href: string;
             };
+            // it's a "link" in our tests - because we have to pick something
+            // but it could have been any other inline void element
             'h-inline-void-element': {
                 children?: ReactNode;
+                href: string;
             };
+            'h-link': {
+                children?: ReactNode;
+                href: string;
+            };
+            // it's a "divider" in our tests - because we have to pick something
+            // but it could have been any other void element
             'h-void-element': {
                 children?: ReactNode;
             };
             'h-p': {
+                children?: ReactNode;
+            };
+            // it could have been any other block element
+            'h-some-element-1': {
+                children?: ReactNode;
+            };
+            'h-some-element-2': {
                 children?: ReactNode;
             };
         }
@@ -75,10 +94,13 @@ declare global {
 
 const jsx = createHyperscript({
     elements: {
-        'h-inline-element': { type: INLINE_ELEMENT },
+        'h-inline-element': { type: LINK_NODE_TYPE },
         'h-inline-void-element': { type: INLINE_VOID_ELEMENT },
+        'h-link': { type: LINK_NODE_TYPE },
         'h-void-element': { type: VOID_ELEMENT },
-        'h-p': { type: PARAGRAPH_TYPE },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
+        'h-some-element-1': { type: SOME_ELEMENT_1 },
+        'h-some-element-2': { type: SOME_ELEMENT_2 },
     },
 });
 

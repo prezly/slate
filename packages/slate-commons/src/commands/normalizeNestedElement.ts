@@ -1,5 +1,7 @@
-import { Editor, Element, ElementEntry, Transforms } from 'slate';
+import { ElementNode } from '@prezly/slate-types';
+import { Editor, ElementEntry, Transforms } from 'slate';
 
+import isElementWithType from './isElementWithType';
 import makeDirty from './makeDirty';
 
 type Options =
@@ -30,10 +32,7 @@ const normalizeNestedElement = (
 
     const [ancestorNode, ancestorPath] = ancestor;
 
-    if (
-        !Element.isElement(ancestorNode) ||
-        isParentTypeAllowed(options, ancestorNode.type as string)
-    ) {
+    if (!isElementWithType(ancestorNode) || isParentTypeAllowed(options, ancestorNode.type)) {
         return false;
     }
 
@@ -42,7 +41,7 @@ const normalizeNestedElement = (
     if (
         Editor.isInline(editor, element) ||
         Editor.isVoid(editor, element) ||
-        ancestorNode.type === (element as Element).type
+        ancestorNode.type === (element as ElementNode).type
     ) {
         if (ancestorNode.children.length === 1) {
             Transforms.unwrapNodes(editor, { at: ancestorPath, voids: true });

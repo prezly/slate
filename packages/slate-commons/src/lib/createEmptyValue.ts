@@ -1,11 +1,9 @@
-import { Node } from 'slate';
+import { PARAGRAPH_NODE_TYPE, ParagraphNode } from '@prezly/slate-types';
 
-import { PARAGRAPH_TYPE } from '../constants';
-
-const createEmptyValue = (): Node[] => [
+const createEmptyValue = (): [ParagraphNode] => [
     {
         children: [{ text: '' }],
-        type: PARAGRAPH_TYPE,
+        type: PARAGRAPH_NODE_TYPE,
     },
 ];
 

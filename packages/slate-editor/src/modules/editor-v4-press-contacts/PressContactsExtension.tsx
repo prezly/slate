@@ -1,26 +1,23 @@
 import { createDeserializeElement, Extension } from '@prezly/slate-commons';
+import { CONTACT_NODE_TYPE, isContactNode } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
 import { PressContactElement, PressContactMenu } from './components';
-import { PRESS_CONTACT_TYPE, PRESS_CONTACTS_EXTENSION_ID } from './constants';
-import {
-    isPressContactElement,
-    normalizeRedundantPressContactAttributes,
-    parseSerializedElement,
-} from './lib';
+import { PRESS_CONTACTS_EXTENSION_ID } from './constants';
+import { normalizeRedundantPressContactAttributes, parseSerializedElement } from './lib';
 import { PressContactsParameters } from './types';
 
 const PressContactsExtension = ({ containerRef }: PressContactsParameters): Extension => ({
     deserialize: {
         element: {
-            [PRESS_CONTACT_TYPE]: createDeserializeElement(parseSerializedElement),
+            [CONTACT_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
     id: PRESS_CONTACTS_EXTENSION_ID,
     normalizers: [normalizeRedundantPressContactAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (isPressContactElement(element)) {
+        if (isContactNode(element)) {
             return (
                 <>
                     {attributes.ref.current && (
@@ -38,8 +35,8 @@ const PressContactsExtension = ({ containerRef }: PressContactsParameters): Exte
 
         return undefined;
     },
-    rootTypes: [PRESS_CONTACT_TYPE],
-    voidTypes: [PRESS_CONTACT_TYPE],
+    rootTypes: [CONTACT_NODE_TYPE],
+    voidTypes: [CONTACT_NODE_TYPE],
 });
 
 export default PressContactsExtension;

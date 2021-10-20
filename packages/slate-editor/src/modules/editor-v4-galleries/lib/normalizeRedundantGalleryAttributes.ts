@@ -1,13 +1,13 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isGalleryNode } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createGallery from './createGallery';
-import isGalleryElement from './isGalleryElement';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createGallery([]));
 
 const normalizeRedundantGalleryAttributes = (editor: Editor, [node, path]: NodeEntry): boolean => {
-    if (!isGalleryElement(node)) {
+    if (!isGalleryNode(node)) {
         return false;
     }
 

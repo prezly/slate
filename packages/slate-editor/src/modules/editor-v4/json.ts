@@ -1,7 +1,6 @@
 import { Coverage, OEmbedInfo } from '@prezly/sdk';
+import { PressContact } from '@prezly/slate-types';
 import { UploadcareImageStoragePayload, UploadcareStoragePayload } from '@prezly/uploadcare';
-
-import { PressContact } from '../../types';
 
 /**
  * Document nodes
@@ -78,13 +77,13 @@ export interface GalleryNode {
 }
 
 export interface HeadingNode {
-    children: InlineNode[];
+    children: (InlineNode | TextNode)[];
     type: 'heading-one' | 'heading-two' | 'heading-three' | 'heading-four';
 }
 
 export interface ImageNode {
     /** caption */
-    children: InlineNode[];
+    children: (InlineNode | TextNode)[];
     file: UploadcareImageStoragePayload;
     /** empty string if no URL */
     href: string;
@@ -107,17 +106,17 @@ export interface ListItemNode {
 }
 
 export interface ListItemTextNode {
-    children: InlineNode[];
+    children: (InlineNode | TextNode)[];
     type: 'list-item-text';
 }
 
 export interface ParagraphNode {
-    children: InlineNode[];
+    children: (InlineNode | TextNode)[];
     type: 'paragraph';
 }
 
 export interface QuoteNode {
-    children: InlineNode[];
+    children: (InlineNode | TextNode)[];
     type: 'block-quote';
 }
 
@@ -125,7 +124,7 @@ export interface QuoteNode {
  * Inline nodes
  */
 
-export type InlineNode = LinkNode | MentionNode | PlaceholderNode | TextNode;
+export type InlineNode = LinkNode | MentionNode | PlaceholderNode;
 
 export interface LinkNode {
     children: TextNode[];

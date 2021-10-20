@@ -1,13 +1,13 @@
+import { AttachmentNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { formatBytes } from '../../../../lib';
 import { isUsingCustomTitle } from '../../lib';
-import { FileAttachmentElementType } from '../../types';
 
 interface Props {
     className?: string;
-    element: FileAttachmentElementType;
+    element: AttachmentNode;
 }
 
 const Subtitle: FunctionComponent<Props> = ({ className, element }) => (

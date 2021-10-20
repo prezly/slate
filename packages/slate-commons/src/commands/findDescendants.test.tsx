@@ -1,11 +1,10 @@
 /** @jsx jsx */
-
+import { isLinkNode, isParagraphNode } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import jsx from '../jsx';
 
 import findDescendants from './findDescendants';
-import isParagraphElement from './isParagraphElement';
 
 describe('findDescendants', () => {
     const editor = ((
@@ -14,56 +13,44 @@ describe('findDescendants', () => {
                 <h-text>lorem ipsum 1</h-text>
                 <h-text>lorem ipsum 2</h-text>
 
-                <h-p>
+                <h-link href="https://example.com">
                     <h-text>lorem ipsum 3</h-text>
                     <h-text>lorem ipsum 4</h-text>
-                </h-p>
+                </h-link>
             </h-p>
         </editor>
     ) as unknown) as Editor;
 
     it('Can find all editor node descendants matching the type', () => {
-        const descendants = findDescendants(editor, isParagraphElement);
+        const descendants = findDescendants(editor, isLinkNode);
 
         expect(descendants).toEqual([
             [
-                <h-p>
-                    <h-text>lorem ipsum 1</h-text>
-                    <h-text>lorem ipsum 2</h-text>
-
-                    <h-p>
-                        <h-text>lorem ipsum 3</h-text>
-                        <h-text>lorem ipsum 4</h-text>
-                    </h-p>
-                </h-p>,
-                [0],
-            ],
-            [
-                <h-p>
+                <h-link href="https://example.com">
                     <h-text>lorem ipsum 3</h-text>
                     <h-text>lorem ipsum 4</h-text>
-                </h-p>,
+                </h-link>,
                 [0, 2],
             ],
         ]);
     });
 
-    it('Can find all child node descendants matching the type', () => {
-        const descendants = findDescendants(editor.children[0], isParagraphElement);
+    it('Can find all node descendants matching the type', () => {
+        const descendants = findDescendants(editor.children[0], isLinkNode);
 
         expect(descendants).toEqual([
             [
-                <h-p>
+                <h-link href="https://example.com">
                     <h-text>lorem ipsum 3</h-text>
                     <h-text>lorem ipsum 4</h-text>
-                </h-p>,
+                </h-link>,
                 [2],
             ],
         ]);
     });
 
     it('Can find all editor node descendants not matching the type', () => {
-        const descendants = findDescendants(editor, (node) => !isParagraphElement(node));
+        const descendants = findDescendants(editor, (node) => !isParagraphNode(node) && !isLinkNode(node));
 
         expect(descendants).toEqual([
             [<h-text>lorem ipsum 1</h-text>, [0, 0]],
@@ -74,10 +61,7 @@ describe('findDescendants', () => {
     });
 
     it('Can find all child node descendants not matching the type', () => {
-        const descendants = findDescendants(
-            editor.children[0],
-            (node) => !isParagraphElement(node),
-        );
+        const descendants = findDescendants(editor.children[0], (node) => !isParagraphNode(node) && !isLinkNode(node));
 
         expect(descendants).toEqual([
             [<h-text>lorem ipsum 1</h-text>, [0]],

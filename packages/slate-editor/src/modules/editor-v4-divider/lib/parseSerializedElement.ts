@@ -1,12 +1,10 @@
-import { DividerElementType } from '../types';
-
+import { DividerNode, isDividerNode } from '@prezly/slate-types';
 import createDivider from './createDivider';
-import isDividerElement from './isDividerElement';
 
-const parseSerializedElement = (serialized: string): DividerElementType | undefined => {
+const parseSerializedElement = (serialized: string): DividerNode | undefined => {
     const parsed = JSON.parse(serialized);
 
-    if (isDividerElement(parsed)) {
+    if (isDividerNode(parsed)) {
         return createDivider();
     }
 

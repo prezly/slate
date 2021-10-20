@@ -2,7 +2,7 @@ import { Coverage } from '@prezly/sdk';
 
 import oembedInfo from './oembedInfo';
 
-const coverage = ({
+const coverage = {
     id: 111111,
     uuid: '8474b48f-9999-ffff-ffff-48e47a0f05aa',
     display_name: 'This is a coverage headline',
@@ -243,6 +243,6 @@ const coverage = ({
     created_at: '2021-02-04T18:15:05+00:00',
     updated_at: '2021-02-04T18:15:24+00:00',
     edited_at: '2021-02-04T18:15:24+00:00',
-} as unknown) as Coverage;
+} as unknown as Coverage;
 
 export default coverage;

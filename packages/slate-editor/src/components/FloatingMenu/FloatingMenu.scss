@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "styles/mixins";
 @import "styles/variables";
 
@@ -93,7 +94,7 @@
                 right: $spacing-half;
                 width: $spacing-3;
                 height: $spacing-half;
-                border-radius: $border-radius-base / 2;
+                border-radius: math.div($border-radius-base, 2);
                 background-color: $color-green-500;
             }
         }

@@ -1,9 +1,11 @@
 import { Editor, Location } from 'slate';
 
+import isElementWithType from './isElementWithType';
+
 const isBlockActive = (editor: Editor, type: string, at?: Location): boolean => {
     const [match] = Array.from(
         Editor.nodes(editor, {
-            match: (node) => node.type === type,
+            match: (node) => isElementWithType(node) && node.type === type,
             at,
         }),
     );

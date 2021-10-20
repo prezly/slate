@@ -241,7 +241,7 @@ describe('withLists - normalizeListItemChildren', () => {
             <editor>
                 <h-ul>
                     <h-li>
-                        <h-inline-element>
+                        <h-inline-element href="https://example.com">
                             <h-text>lorem ipsum</h-text>
                         </h-inline-element>
                     </h-li>
@@ -255,7 +255,7 @@ describe('withLists - normalizeListItemChildren', () => {
                     <h-li>
                         <h-li-text>
                             <h-text />
-                            <h-inline-element>
+                            <h-inline-element href="https://example.com">
                                 <h-text>lorem ipsum</h-text>
                             </h-inline-element>
                             <h-text />
@@ -276,7 +276,7 @@ describe('withLists - normalizeListItemChildren', () => {
                 <h-ul>
                     <h-li>
                         <h-text>lorem</h-text>
-                        <h-inline-element>
+                        <h-inline-element href="https://example.com">
                             <h-text>ipsum</h-text>
                         </h-inline-element>
                         <h-text>dolor</h-text>
@@ -291,7 +291,7 @@ describe('withLists - normalizeListItemChildren', () => {
                     <h-li>
                         <h-li-text>
                             <h-text>lorem</h-text>
-                            <h-inline-element>
+                            <h-inline-element href="https://example.com">
                                 <h-text>ipsum</h-text>
                             </h-inline-element>
                             <h-text>dolor</h-text>

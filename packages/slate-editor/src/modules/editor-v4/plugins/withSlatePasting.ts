@@ -2,7 +2,6 @@
 
 import { decodeSlateFragment } from '@prezly/slate-commons';
 import { Editor } from 'slate';
-import { ReactEditor } from 'slate-react';
 
 import { createDataTransfer } from '../lib';
 import { isFragment } from '../types';
@@ -13,7 +12,7 @@ const withoutSlateFragment = (data: DataTransfer): DataTransfer => {
     return createDataTransfer(dataMap);
 };
 
-const withSlatePasting = <T extends ReactEditor>(editor: T) => {
+const withSlatePasting = <T extends Editor>(editor: T) => {
     const { insertData } = editor;
 
     editor.insertData = (data) => {

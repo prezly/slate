@@ -46,7 +46,7 @@ export type EditorEventMap = {
     'embed-removed': {
         uuid: string;
     };
-    error: Error;
+    error: unknown;
     'files-pasted': {
         filesCount: number;
         imagesCount: number;

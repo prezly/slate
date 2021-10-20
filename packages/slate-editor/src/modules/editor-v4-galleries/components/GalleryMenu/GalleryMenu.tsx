@@ -1,3 +1,4 @@
+import { GalleryImageSize, GalleryNode, GalleryPadding } from '@prezly/slate-types';
 import React, { FunctionComponent, RefObject, useState } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 import { Editor } from 'slate';
@@ -7,18 +8,17 @@ import { FloatingMenu, GalleryLayoutSettings } from '../../../../components';
 import { Cogwheel, Dice, Edit, Trash } from '../../../../icons';
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
-import { GalleryElementType, GalleryImageSize, GalleryPadding } from '../../types';
 import LayoutControls from '../LayoutControls';
 
 import './GalleryMenu.scss';
 
-const PADDING_OPTIONS: { label: string; value: GalleryElementType['padding'] }[] = [
+const PADDING_OPTIONS: { label: string; value: GalleryPadding }[] = [
     { label: 'S', value: GalleryPadding.S },
     { label: 'M', value: GalleryPadding.M },
     { label: 'L', value: GalleryPadding.L },
 ];
 
-const SIZE_OPTIONS: { label: string; value: GalleryElementType['thumbnail_size'] }[] = [
+const SIZE_OPTIONS: { label: string; value: GalleryNode['thumbnail_size'] }[] = [
     { label: 'XS', value: GalleryImageSize.XS },
     { label: 'S', value: GalleryImageSize.S },
     { label: 'M', value: GalleryImageSize.M },
@@ -29,7 +29,7 @@ const SIZE_OPTIONS: { label: string; value: GalleryElementType['thumbnail_size']
 interface Props {
     containerRef: RefObject<HTMLElement>;
     element: HTMLElement;
-    gallery: GalleryElementType;
+    gallery: GalleryNode;
     onEdit: (editor: Editor) => void;
 }
 
@@ -44,15 +44,14 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
 
     const handleLayoutMenuClose = () => setShowLayoutMenu(false);
 
-    const handleLayoutChange = (layout: GalleryElementType['layout']) =>
-        updateGallery(editor, { layout });
+    const handleLayoutChange = (layout: GalleryNode['layout']) => updateGallery(editor, { layout });
 
-    const handlePaddingChange = (padding: GalleryElementType['padding']) =>
+    const handlePaddingChange = (padding: GalleryNode['padding']) =>
         updateGallery(editor, { padding });
 
     const handleRemove = () => removeGallery(editor);
 
-    const handleSizeChange = (size: GalleryElementType['thumbnail_size']) =>
+    const handleSizeChange = (size: GalleryNode['thumbnail_size']) =>
         updateGallery(editor, { thumbnail_size: size });
 
     const handleShuffle = () => updateGallery(editor, { images: shuffleImages(gallery.images) });
@@ -83,8 +82,8 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
                 {showLayoutMenu && (
                     <RootCloseWrapper event="mousedown" onRootClose={handleLayoutMenuClose}>
                         <GalleryLayoutSettings<
-                            GalleryElementType['padding'],
-                            GalleryElementType['thumbnail_size']
+                            GalleryNode['padding'],
+                            GalleryNode['thumbnail_size']
                         >
                             className="gallery-menu__gallery-layout-settings"
                             onClose={handleLayoutMenuClose}

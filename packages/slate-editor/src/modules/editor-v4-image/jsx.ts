@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
 import { createHyperscript } from '@prezly/slate-hyperscript';
+import { ImageLayout, IMAGE_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { UploadcareStoragePayload } from '@prezly/uploadcare';
 import { ReactNode } from 'react';
 
 import { LOADER_TYPE, LoaderElementType } from '../../modules/editor-v4-loader';
 
-import { IMAGE_CANDIDATE_TYPE, IMAGE_TYPE } from './constants';
-import { ImageLayout } from './types';
+import { IMAGE_CANDIDATE_TYPE } from './constants';
 
 declare global {
     namespace JSX {
@@ -41,10 +40,10 @@ declare global {
 
 const jsx = createHyperscript({
     elements: {
-        'h-image': { type: IMAGE_TYPE },
+        'h-image': { type: IMAGE_NODE_TYPE },
         'h-image-candidate': { type: IMAGE_CANDIDATE_TYPE },
         'h-loader': { type: LOADER_TYPE },
-        'h-p': { type: PARAGRAPH_TYPE },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
 });
 

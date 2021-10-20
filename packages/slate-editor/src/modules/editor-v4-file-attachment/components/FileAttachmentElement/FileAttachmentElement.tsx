@@ -1,16 +1,16 @@
+import { AttachmentNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
 
 import { Download } from '../../../../icons';
-import { FileAttachmentElementType } from '../../types';
 
 import './FileAttachmentElement.scss';
 import Subtitle from './Subtitle';
 import Title from './Title';
 
 interface Props extends RenderElementProps {
-    element: FileAttachmentElementType;
+    element: AttachmentNode;
     styled: boolean;
 }
 

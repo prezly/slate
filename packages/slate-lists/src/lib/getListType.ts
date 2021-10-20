@@ -1,13 +1,13 @@
-import { Node } from 'slate';
+import { Element } from 'slate';
 
 import { ListsOptions } from '../types';
 
 /**
  * Returns the "type" of a given list node.
  */
-const getListType = (options: ListsOptions, node: Node): string => {
-    if (node.type) {
-        return node.type as string;
+const getListType = (options: ListsOptions, node: unknown): string => {
+    if (Element.isElement(node)) {
+        return node.type;
     }
 
     // It should never happen.

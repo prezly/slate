@@ -1,9 +1,10 @@
 /** @jsx jsx */
 
+import { BULLETED_LIST_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import jsx from '../jsx';
-import { createListsEditor, ElementType, lists } from '../test-utils';
+import { createListsEditor, lists } from '../test-utils';
 
 describe('wrapInList - no selection', () => {
     it('Does nothing when there is no selection', () => {
@@ -43,7 +44,7 @@ describe('wrapInList - no selection', () => {
             </editor>
         ) as unknown) as Editor;
 
-        lists.wrapInList(editor, ElementType.BULLETED_LIST);
+        lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -80,7 +81,7 @@ describe('wrapInList - selection with wrappable nodes', () => {
             </editor>
         ) as unknown) as Editor;
 
-        lists.wrapInList(editor, ElementType.BULLETED_LIST);
+        lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -141,7 +142,7 @@ describe('wrapInList - selection with lists and wrappable nodes', () => {
             </editor>
         ) as unknown) as Editor;
 
-        lists.wrapInList(editor, ElementType.BULLETED_LIST);
+        lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -196,7 +197,7 @@ describe('wrapInList - selection with lists, wrappable & unwrappable nodes', () 
             </editor>
         ) as unknown) as Editor;
 
-        lists.wrapInList(editor, ElementType.BULLETED_LIST);
+        lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

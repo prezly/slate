@@ -1,4 +1,5 @@
-import { EditorCommands, PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor, Element, Node, NodeEntry, Text, Transforms } from 'slate';
 
 /**
@@ -29,7 +30,7 @@ const normalizeOrphanText = (editor: Editor, [node, path]: NodeEntry<Node>): boo
     }
 
     Editor.withoutNormalizing(editor, () => {
-        Transforms.wrapNodes(editor, { type: PARAGRAPH_TYPE, children: [] }, { at: path });
+        Transforms.wrapNodes(editor, { type: PARAGRAPH_NODE_TYPE, children: [] }, { at: path });
 
         let nextMergePath = path;
         let previousSibling = EditorCommands.getPreviousSibling(editor, nextMergePath);
@@ -37,7 +38,7 @@ const normalizeOrphanText = (editor: Editor, [node, path]: NodeEntry<Node>): boo
         while (previousSibling && Text.isText(previousSibling[0])) {
             Transforms.wrapNodes(
                 editor,
-                { type: PARAGRAPH_TYPE, children: [] },
+                { type: PARAGRAPH_NODE_TYPE, children: [] },
                 { at: previousSibling[1] },
             );
             Transforms.mergeNodes(editor, { at: nextMergePath });

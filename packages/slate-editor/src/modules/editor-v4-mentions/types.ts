@@ -1,8 +1,6 @@
-import { Element } from 'slate';
+import { MentionNode, PlaceholderNode } from '@prezly/slate-types';
 
-export interface MentionElementType<T extends string> extends Element {
-    type: T;
-}
+export type MentionElementType = MentionNode | PlaceholderNode;
 
 export interface Option<V> {
     id: string | number;

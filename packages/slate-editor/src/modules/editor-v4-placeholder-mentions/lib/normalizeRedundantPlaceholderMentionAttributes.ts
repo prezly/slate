@@ -1,16 +1,16 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isPlaceholderNode, PlaceholderKey } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createPlaceholderMention from './createPlaceholderMention';
-import isPlaceholderMentionElement from './isPlaceholderMentionElement';
 
-const ALLOWED_ATTRIBUTES = Object.keys(createPlaceholderMention(''));
+const ALLOWED_ATTRIBUTES = Object.keys(createPlaceholderMention('' as PlaceholderKey));
 
 const normalizeRedundantPlaceholderMentionAttributes = (
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean => {
-    if (!isPlaceholderMentionElement(node)) {
+    if (!isPlaceholderNode(node)) {
         return false;
     }
 

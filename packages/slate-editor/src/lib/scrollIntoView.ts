@@ -1,3 +1,5 @@
+import type { Rect } from 'rangefix';
+
 import scrollTo from './scrollTo';
 
 export interface Options {
@@ -22,7 +24,7 @@ export interface Options {
  */
 const scrollIntoView = (
     parent: HTMLElement,
-    rect: ClientRect,
+    rect: ClientRect | Rect,
     { minBottom, minTop, skipWhenDoesNotFitView = false }: Options,
 ) => {
     const { height: parentHeight } = parent.getBoundingClientRect();

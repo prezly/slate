@@ -1,4 +1,5 @@
-import { createDeserializeElement, DeserializeHtml, PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { createDeserializeElement, DeserializeHtml } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
 import { detectMarks, parseSerializedElement, parseSerializedLinkElement } from './lib';
 import { ElementType, RichFormattingExtensionParameters } from './types';
@@ -6,25 +7,25 @@ import { ElementType, RichFormattingExtensionParameters } from './types';
 const createDeserialize = (parameters: RichFormattingExtensionParameters): DeserializeHtml => {
     const deserialize: DeserializeHtml = {
         element: {
-            [ElementType.BLOCK_QUOTE]: () => ({ type: PARAGRAPH_TYPE }),
-            [ElementType.BULLETED_LIST]: () => ({ type: PARAGRAPH_TYPE }),
-            [ElementType.HEADING_ONE]: () => ({ type: PARAGRAPH_TYPE }),
-            [ElementType.HEADING_TWO]: () => ({ type: PARAGRAPH_TYPE }),
-            [ElementType.LINK]: () => ({ type: PARAGRAPH_TYPE }),
-            [ElementType.LIST_ITEM]: () => ({ type: PARAGRAPH_TYPE }),
-            [ElementType.LIST_ITEM_TEXT]: () => ({ type: PARAGRAPH_TYPE }),
-            [ElementType.NUMBERED_LIST]: () => ({ type: PARAGRAPH_TYPE }),
-            BLOCKQUOTE: () => ({ type: PARAGRAPH_TYPE }),
-            BR: () => ({ type: PARAGRAPH_TYPE }),
-            H1: () => ({ type: PARAGRAPH_TYPE }),
-            H2: () => ({ type: PARAGRAPH_TYPE }),
-            H3: () => ({ type: PARAGRAPH_TYPE }),
-            H4: () => ({ type: PARAGRAPH_TYPE }),
-            H5: () => ({ type: PARAGRAPH_TYPE }),
-            H6: () => ({ type: PARAGRAPH_TYPE }),
-            LI: () => ({ type: PARAGRAPH_TYPE }),
-            OL: () => ({ type: PARAGRAPH_TYPE }),
-            UL: () => ({ type: PARAGRAPH_TYPE }),
+            [ElementType.BLOCK_QUOTE]: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            [ElementType.BULLETED_LIST]: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            [ElementType.HEADING_ONE]: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            [ElementType.HEADING_TWO]: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            [ElementType.LINK]: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            [ElementType.LIST_ITEM]: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            [ElementType.LIST_ITEM_TEXT]: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            [ElementType.NUMBERED_LIST]: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            BLOCKQUOTE: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            BR: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            H1: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            H2: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            H3: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            H4: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            H5: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            H6: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            LI: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            OL: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            UL: () => ({ type: PARAGRAPH_NODE_TYPE }),
         },
         leaf: {
             ABBR: detectMarks,
@@ -99,7 +100,7 @@ const createDeserialize = (parameters: RichFormattingExtensionParameters): Deser
                     return { type: ElementType.LIST_ITEM_TEXT };
                 }
 
-                return { type: PARAGRAPH_TYPE };
+                return { type: PARAGRAPH_NODE_TYPE };
             },
             H1: () => ({ type: ElementType.HEADING_ONE }),
             H2: () => ({ type: ElementType.HEADING_TWO }),
@@ -114,7 +115,7 @@ const createDeserialize = (parameters: RichFormattingExtensionParameters): Deser
                     return { type: ElementType.LIST_ITEM_TEXT };
                 }
 
-                return { type: PARAGRAPH_TYPE };
+                return { type: PARAGRAPH_NODE_TYPE };
             },
             UL: () => ({ type: ElementType.BULLETED_LIST }),
         });

@@ -1,11 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { CoverageNode } from '@prezly/slate-types';
 import { Editor } from 'slate';
-
-import { CoverageElementType } from '../types';
 
 import isCoverageElement from './isCoverageElement';
 
-const getCurrentCoverageElement = (editor: Editor): CoverageElementType | null => {
+const getCurrentCoverageElement = (editor: Editor): CoverageNode | null => {
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (currentNode && isCoverageElement(currentNode)) {

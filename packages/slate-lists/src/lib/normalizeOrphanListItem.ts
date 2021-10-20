@@ -1,4 +1,4 @@
-import { Editor, Node, NodeEntry, Transforms } from 'slate';
+import { Editor, Element, Node, NodeEntry, Transforms } from 'slate';
 
 import { ListsOptions } from '../types';
 
@@ -32,7 +32,11 @@ const normalizeOrphanListItem = (
 
     Editor.withoutNormalizing(editor, () => {
         Transforms.unwrapNodes(editor, { at: path });
-        Transforms.setNodes(editor, { type: options.defaultBlockType }, { at: path });
+        Transforms.setNodes(
+            editor,
+            { type: options.defaultBlockType as Element['type'] },
+            { at: path },
+        );
     });
 
     return true;

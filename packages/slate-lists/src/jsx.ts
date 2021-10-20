@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import {
+    BULLETED_LIST_NODE_TYPE,
+    LIST_ITEM_NODE_TYPE,
+    LIST_ITEM_TEXT_NODE_TYPE,
+    NUMBERED_LIST_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
+} from '@prezly/slate-types';
 import { createHyperscript } from '@prezly/slate-hyperscript';
 import { ReactNode } from 'react';
 
-import { ElementType } from './test-utils';
+import { INLINE_ELEMENT, UNWRAPPABLE_ELEMENT } from './test-utils';
 
 declare global {
     namespace JSX {
@@ -60,8 +66,11 @@ declare global {
             'h-element-with-no-type': {
                 children?: ReactNode;
             };
+            // it's a "link" in our tests - because we have to pick something
+            // but it could have been any other inline element
             'h-inline-element': {
                 children?: ReactNode;
+                href: string;
             };
             'h-li': {
                 children?: ReactNode;
@@ -88,13 +97,13 @@ declare global {
 const jsx = createHyperscript({
     elements: {
         'h-element-with-no-type': {},
-        'h-inline-element': { type: ElementType.INLINE_ELEMENT },
-        'h-li': { type: ElementType.LIST_ITEM },
-        'h-li-text': { type: ElementType.LIST_ITEM_TEXT },
-        'h-ol': { type: ElementType.NUMBERED_LIST },
-        'h-p': { type: PARAGRAPH_TYPE },
-        'h-ul': { type: ElementType.BULLETED_LIST },
-        'h-unwrappable-element': { type: ElementType.UNWRAPPABLE_ELEMENT },
+        'h-inline-element': { type: INLINE_ELEMENT },
+        'h-li': { type: LIST_ITEM_NODE_TYPE },
+        'h-li-text': { type: LIST_ITEM_TEXT_NODE_TYPE },
+        'h-ol': { type: NUMBERED_LIST_NODE_TYPE },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
+        'h-ul': { type: BULLETED_LIST_NODE_TYPE },
+        'h-unwrappable-element': { type: UNWRAPPABLE_ELEMENT },
     },
 });
 

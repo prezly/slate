@@ -1,11 +1,10 @@
+import { GalleryLayout, GalleryNode } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import React, { FunctionComponent, RefObject } from 'react';
 import { useSize } from 'react-use';
 import { Editor } from 'slate';
 import { RenderElementProps, useSelected, useSlate } from 'slate-react';
-
-import { GalleryElementType, GalleryLayout } from '../../types';
 
 import Gallery from './Gallery';
 import './GalleryElement.scss';
@@ -14,7 +13,7 @@ import GalleryTooltip from './GalleryTooltip';
 interface Props extends RenderElementProps {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
-    element: GalleryElementType;
+    element: GalleryNode;
     onEdit: (editor: Editor) => void;
 }
 

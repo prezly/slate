@@ -1,8 +1,9 @@
+import { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import moveCursorToEndOfDocument from './moveCursorToEndOfDocument';
 
-const focus = (editor: ReactEditor): void => {
+const focus = (editor: Editor): void => {
     ReactEditor.focus(editor);
     moveCursorToEndOfDocument(editor);
 };

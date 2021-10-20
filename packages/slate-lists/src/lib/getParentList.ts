@@ -15,11 +15,11 @@ const getParentList = (
 ): NodeEntry<Element> | null => {
     const parentList = Editor.above(editor, {
         at: listItemPath,
-        match: (node) => options.listTypes.includes(node.type as string),
+        match: (node) => Element.isElement(node) && options.listTypes.includes(node.type as string),
     });
 
     if (parentList && isList(options, parentList[0])) {
-        return parentList;
+        return parentList as NodeEntry<Element>;
     }
 
     return null;

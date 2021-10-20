@@ -2,18 +2,25 @@ import { isPrezlyStoragePayload, UploadcareImageStoragePayload } from '../sdk';
 
 import ElementNode, { isElementNode } from './ElementNode';
 import InlineNode from './InlineNode';
+import TextNode from './TextNode';
 
 export const IMAGE_NODE_TYPE = 'image-block';
 
-const LAYOUTS = ['contained', 'expanded', 'full-width'];
+export enum ImageLayout {
+    CONTAINED = 'contained',
+    EXPANDED = 'expanded',
+    FULL_WIDTH = 'full-width',
+}
+
+const LAYOUTS = [ImageLayout.CONTAINED, ImageLayout.EXPANDED, ImageLayout.FULL_WIDTH];
 
 export default interface ImageNode extends ElementNode<typeof IMAGE_NODE_TYPE> {
     /** caption */
-    children: InlineNode[];
+    children: (InlineNode | TextNode)[];
     file: UploadcareImageStoragePayload;
     /** empty string if no URL */
     href: string;
-    layout: 'contained' | 'expanded' | 'full-width';
+    layout: ImageLayout;
     /** matches this regexp: /^\d+(\.\d+)?%$/ */
     width: string;
     /** matches this regexp: /^\d+(\.\d+)?%$/ */

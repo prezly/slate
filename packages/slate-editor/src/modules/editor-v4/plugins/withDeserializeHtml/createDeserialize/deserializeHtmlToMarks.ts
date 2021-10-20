@@ -6,39 +6,38 @@ import getLeafDeserializers from './getLeafDeserializers';
 
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
-const deserializeHtmlToMarks = (extensions: Extension[]) => (
-    node: HTMLElement,
-    children: DeserializeHTMLChildren[],
-): Descendant[] | null => {
-    const type = node.getAttribute('data-slate-type') || node.nodeName;
-    const deserializers = getLeafDeserializers(extensions);
+const deserializeHtmlToMarks =
+    (extensions: Extension[]) =>
+    (node: HTMLElement, children: DeserializeHTMLChildren[]): Descendant[] | null => {
+        const type = node.getAttribute('data-slate-type') || node.nodeName;
+        const deserializers = getLeafDeserializers(extensions);
 
-    if (deserializers[type]) {
-        const props = deserializers[type].reduce((result, tag) => {
-            const attributes = tag(node);
-            if (attributes) {
-                return { ...result, ...attributes };
-            }
+        if (deserializers[type]) {
+            const props = deserializers[type].reduce((result, tag) => {
+                const attributes = tag(node);
+                if (attributes) {
+                    return { ...result, ...attributes };
+                }
 
-            return result;
-        }, {});
+                return result;
+            }, {});
 
-        return children.reduce<Descendant[]>((array, child) => {
-            if (!child) {
+            return children.reduce<Descendant[]>((array, child) => {
+                if (!child) {
+                    return array;
+                }
+
+                if (Element.isElement(child)) {
+                    array.push(child);
+                } else {
+                    array.push(jsx('text', props, child));
+                }
+
                 return array;
-            }
+            }, []);
+        }
 
-            if (Element.isElement(child)) {
-                array.push(child);
-            } else {
-                array.push(jsx('text', props, child));
-            }
-
-            return array;
-        }, []);
-    }
-
-    return null;
-};
+        return null;
+    };
 
 export default deserializeHtmlToMarks;

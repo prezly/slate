@@ -2,7 +2,7 @@ export * from './components';
 export * from './lib';
 export { default } from './modules/editor-v4';
 export * from './modules/editor-v4';
-export { COVERAGE_TYPE, SearchProps as CoverageSearchProps } from './modules/editor-v4-coverage';
+export { SearchProps as CoverageSearchProps } from './modules/editor-v4-coverage';
 export { createEmbed } from './modules/editor-v4-embed';
 export {
     JobDescription,

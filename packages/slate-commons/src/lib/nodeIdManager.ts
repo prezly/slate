@@ -24,7 +24,10 @@ const nodeIdManager = {
         const matchingNodes = Array.from(
             Editor.nodes(editor, {
                 at,
-                match: (node) => node[NODE_ID_MANAGER_ID_PROPERTY_NAME] === id,
+                match: (node) => {
+                    const anyNode = node as unknown as Record<string, unknown>;
+                    return anyNode[NODE_ID_MANAGER_ID_PROPERTY_NAME] === id;
+                },
                 voids: true,
             }),
         );

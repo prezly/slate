@@ -2,7 +2,7 @@ import { Editor, Transforms } from 'slate';
 
 import { MentionElementType } from '../types';
 
-const insertMention = <T extends string>(editor: Editor, element: MentionElementType<T>) => {
+const insertMention = (editor: Editor, element: MentionElementType) => {
     Transforms.insertNodes(editor, element);
     Transforms.move(editor);
 };

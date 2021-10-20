@@ -1,1 +1,1 @@
-export { default as PressContact } from './PressContact';
+export * from './custom-slate-types';

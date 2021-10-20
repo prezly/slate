@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 import { Coverage } from '@prezly/sdk';
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
 import { createHyperscript } from '@prezly/slate-hyperscript';
+import { COVERAGE_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { ReactNode } from 'react';
-
-import { COVERAGE_TYPE } from './constants';
 
 declare global {
     namespace JSX {
@@ -26,8 +24,8 @@ declare global {
 
 const jsx = createHyperscript({
     elements: {
-        'h-coverage': { type: COVERAGE_TYPE },
-        'h-p': { type: PARAGRAPH_TYPE },
+        'h-coverage': { type: COVERAGE_NODE_TYPE },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
 });
 

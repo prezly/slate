@@ -1,3 +1,4 @@
+import { isInlineNode } from '@prezly/slate-types';
 import { Editor, Element, Node, NodeEntry, Text, Transforms } from 'slate';
 
 import { ListsOptions } from '../types';
@@ -26,10 +27,7 @@ const normalizeListItemChildren = (
     for (let childIndex = 0; childIndex < children.length; ++childIndex) {
         const [childNode, childPath] = children[childIndex];
 
-        if (
-            Text.isText(childNode) ||
-            (Element.isElement(childNode) && Editor.isInline(editor, childNode))
-        ) {
+        if (Text.isText(childNode) || isInlineNode(childNode)) {
             const listItemText = createListItemText(options, [childNode]);
             Transforms.wrapNodes(editor, listItemText, { at: childPath });
 
@@ -48,7 +46,11 @@ const normalizeListItemChildren = (
         // is of type `never`, even though we just checked if it's an `Element`.
         if (Element.isElement(childNode) && typeof (childNode as Element).type === 'undefined') {
             // It can happen during pasting that the `type` attribute will be missing.
-            Transforms.setNodes(editor, { type: options.listItemTextType }, { at: childPath });
+            Transforms.setNodes(
+                editor,
+                { type: options.listItemTextType as Element['type'] },
+                { at: childPath },
+            );
             return true;
         }
 
@@ -63,7 +65,11 @@ const normalizeListItemChildren = (
         }
 
         if (!isListItemText(options, childNode) && !isList(options, childNode)) {
-            Transforms.setNodes(editor, { type: options.listItemTextType }, { at: childPath });
+            Transforms.setNodes(
+                editor,
+                { type: options.listItemTextType as Element['type'] },
+                { at: childPath },
+            );
             return true;
         }
     }

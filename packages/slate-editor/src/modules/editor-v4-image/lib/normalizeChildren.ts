@@ -1,6 +1,5 @@
+import { isImageNode } from '@prezly/slate-types';
 import { Editor, Node, NodeEntry, Text, Transforms } from 'slate';
-
-import isImageElement from './isImageElement';
 
 /**
  * When pasting an image copied from the editor, `children` gets messed up for some reason,
@@ -8,7 +7,7 @@ import isImageElement from './isImageElement';
  * When unwrapped, those Text objects are merged into one.
  */
 const normalizeChildren = (editor: Editor, [node, path]: NodeEntry<Node>): boolean => {
-    if (!isImageElement(node)) {
+    if (!isImageNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }

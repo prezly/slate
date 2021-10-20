@@ -1,8 +1,8 @@
 /** @jsx jsx */
 
-import { PARAGRAPH_TYPE } from '@prezly/slate-commons';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
-import { ReactEditor, withReact } from 'slate-react';
+import { withReact } from 'slate-react';
 
 import jsx from '../jsx';
 import { findLoaderPath, isLoaderElement } from '../lib';
@@ -10,7 +10,7 @@ import { LoaderContentType, LoaderElementType } from '../types';
 
 import replaceLoader from './replaceLoader';
 
-const createEditor = (editor: JSX.Element): ReactEditor => withReact((editor as unknown) as Editor);
+const createEditor = (editor: JSX.Element): Editor => withReact((editor as unknown) as Editor);
 
 const LOADER_ID = 'id-1';
 
@@ -61,7 +61,7 @@ describe('replaceLoader', () => {
             if (loader) {
                 replaceLoader(editor, loader, {
                     children: [{ text: 'lorem' }],
-                    type: PARAGRAPH_TYPE,
+                    type: PARAGRAPH_NODE_TYPE,
                 });
             }
         }
