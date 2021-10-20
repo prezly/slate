@@ -14,7 +14,7 @@ const createEditor = (editor: JSX.Element): Editor => withReact((editor as unkno
 const LOADER_ID = 'id-1';
 
 describe('removeLoader', () => {
-    it('should remove currently focused loader and focus the paragraph before it', () => {
+    it('should remove currently focused loader and focus the adjacent paragraph', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
@@ -25,8 +25,9 @@ describe('removeLoader', () => {
                     id={LOADER_ID}
                     message="Caption"
                 >
-                    <h-text />
-                    <cursor />
+                    <h-text>
+                        <cursor />
+                    </h-text>
                 </h-loader>
                 <h-p>
                     <h-text>paragraph after</h-text>
@@ -38,10 +39,9 @@ describe('removeLoader', () => {
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
-                    <cursor />
                 </h-p>
                 <h-p>
-                    <h-text>paragraph after</h-text>
+                    <h-text><cursor />paragraph after</h-text>
                 </h-p>
             </editor>
         ) as unknown) as Editor;
@@ -56,8 +56,7 @@ describe('removeLoader', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
-                    <h-text>paragraph before</h-text>
-                    <cursor />
+                    <h-text>paragraph before<cursor /></h-text>
                 </h-p>
                 <h-loader
                     contentType={LoaderContentType.ATTACHMENT}
@@ -75,8 +74,7 @@ describe('removeLoader', () => {
         const expected = ((
             <editor>
                 <h-p>
-                    <h-text>paragraph before</h-text>
-                    <cursor />
+                    <h-text>paragraph before<cursor /></h-text>
                 </h-p>
                 <h-loader
                     contentType={LoaderContentType.ATTACHMENT}
@@ -101,8 +99,7 @@ describe('removeLoader', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
-                    <h-text>paragraph before</h-text>
-                    <cursor />
+                    <h-text>paragraph before<cursor /></h-text>
                 </h-p>
                 <h-loader
                     contentType={LoaderContentType.ATTACHMENT}
@@ -120,8 +117,7 @@ describe('removeLoader', () => {
         const expected = ((
             <editor>
                 <h-p>
-                    <h-text>paragraph before</h-text>
-                    <cursor />
+                    <h-text>paragraph before<cursor /></h-text>
                 </h-p>
                 <h-p>
                     <h-text>paragraph after</h-text>
@@ -130,9 +126,11 @@ describe('removeLoader', () => {
         ) as unknown) as Editor;
 
         const loaderPath = findLoaderPath(editor, LOADER_ID);
-        if (loaderPath) {
-            removeLoader(editor, loaderPath);
+        if (!loaderPath) {
+            throw new Error('Loader node was not found, but expected.');
         }
+
+        removeLoader(editor, loaderPath);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
