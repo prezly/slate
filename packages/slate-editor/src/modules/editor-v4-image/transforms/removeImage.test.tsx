@@ -23,7 +23,7 @@ const createImageFile = (): UploadcareStoragePayload => ({
 });
 
 describe('removeImage', () => {
-    it('should remove currently focused image and focus the paragraph before it', () => {
+    it('should remove currently focused image and focus the adjacent paragraph', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
@@ -36,8 +36,9 @@ describe('removeImage', () => {
                     width="100%"
                     width_factor="100%"
                 >
-                    <h-text />
-                    <cursor />
+                    <h-text>
+                        <cursor />
+                    </h-text>
                 </h-image>
                 <h-p>
                     <h-text>paragraph after</h-text>
@@ -49,10 +50,9 @@ describe('removeImage', () => {
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
-                    <cursor />
                 </h-p>
                 <h-p>
-                    <h-text>paragraph after</h-text>
+                    <h-text><cursor />paragraph after</h-text>
                 </h-p>
             </editor>
         ) as unknown) as Editor;

@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-types",
-    "version": "0.1.8",
+    "version": "0.2.0-alpha.3",
     "description": "TypeScript definitions for Slate document structure used at Prezly",
     "license": "MIT",
     "main": "build/index.js",
@@ -19,8 +19,8 @@
         "clean": "rimraf build/ node_modules/"
     },
     "peerDependencies": {
-        "slate": "~0.62.0",
-        "slate-react": "~0.62.0"
+        "slate": "~0.66.0",
+        "slate-react": "~0.66.0"
     },
     "dependencies": {
         "@prezly/sdk": "^2.9.3"

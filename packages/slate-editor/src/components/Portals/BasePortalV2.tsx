@@ -1,6 +1,6 @@
 import { Placement, VirtualElement } from '@popperjs/core';
 import classNames from 'classnames';
-import { isEqual } from 'lodash';
+import { isEqual, noop } from 'lodash';
 import type { Rect } from 'rangefix';
 import React, {
     FunctionComponent,
@@ -75,7 +75,22 @@ const BasePortalV2: FunctionComponent<Props> = ({
         if (rect === null) {
             setReferenceElement(null);
         } else {
-            const clientRect = { x: 0, y: 0, toJSON: () => null, ...rect };
+            /**
+             * We have to manually re-create a ClientRect-shape object instead of `...rect`,
+             * as `DOMRect` object properties are not enumerable.
+             * @see https://github.com/microsoft/TypeScript/issues/9726
+             */
+            const clientRect: ClientRect = {
+                x: 'x' in rect ? rect.x : rect.left,
+                y: 'y' in rect ? rect.y : rect.top,
+                left: rect.left,
+                right: rect.right,
+                top: rect.top,
+                bottom: rect.bottom,
+                width: rect.width,
+                height: rect.height,
+                toJSON: noop,
+            };
             setReferenceElement({
                 getBoundingClientRect: () => clientRect,
             });
