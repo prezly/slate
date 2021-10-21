@@ -1,6 +1,6 @@
 {
     "name": "@prezly/docx-cleaner",
-    "version": "0.2.0-alpha.2",
+    "version": "0.2.0-alpha.3",
     "description": "Normalize dirty HTML and DOCX/RTF documents into clean, understandable HTML",
     "license": "MIT",
     "main": "build/index.js",
