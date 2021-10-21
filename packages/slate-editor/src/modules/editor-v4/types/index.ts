@@ -1,7 +1,7 @@
+import { Editor } from 'slate';
 import Events from '@prezly/events';
 import { BlockNode } from '@prezly/slate-types';
 import { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
-import { ReactEditor } from 'slate-react';
 
 import { CoverageExtensionParameters } from '../../../modules/editor-v4-coverage';
 import { EmbedExtensionParameters } from '../../../modules/editor-v4-embed/types';
@@ -49,7 +49,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
      * [WARNING] this prop is read by EditorV4 only once, when mounting.
      * Any changes to it will be ignored.
      */
-    plugins?: (<T extends ReactEditor>(editor: T) => T)[];
+    plugins?: (<T extends Editor>(editor: T) => T)[];
     readOnly?: boolean;
     style?: CSSProperties;
     value: BlockNode[];
