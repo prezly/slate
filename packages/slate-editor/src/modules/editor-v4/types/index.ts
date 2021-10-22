@@ -1,6 +1,6 @@
-import { Editor } from 'slate';
+import { Descendant, Editor } from 'slate';
 import Events from '@prezly/events';
-import { BlockNode } from '@prezly/slate-types';
+import { BlockNode, isBlockNode } from '@prezly/slate-types';
 import { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 
 import { CoverageExtensionParameters } from '../../../modules/editor-v4-coverage';
@@ -9,11 +9,20 @@ import { EditorEventMap } from '../../../modules/editor-v4-events';
 import { FileAttachmentExtensionParameters } from '../../../modules/editor-v4-file-attachment';
 import { FloatingAddMenuExtensionParameters } from '../../../modules/editor-v4-floating-add-menu';
 import { GalleriesExtensionParameters } from '../../../modules/editor-v4-galleries';
-import { ImageExtensionParameters } from '../../../modules/editor-v4-image';
+import {
+    ImageExtensionParameters,
+    isImageCandidateElement,
+} from '../../../modules/editor-v4-image';
 import { PlaceholderMentionsExtensionParameters } from '../../../modules/editor-v4-placeholder-mentions';
 import { PressContactsExtensionParameters } from '../../../modules/editor-v4-press-contacts';
-import { RichFormattingExtensionParameters } from '../../../modules/editor-v4-rich-formatting';
+import {
+    isLinkCandidateElement,
+    RichFormattingExtensionParameters,
+} from '../../../modules/editor-v4-rich-formatting';
 import { UserMentionsExtensionParameters } from '../../../modules/editor-v4-user-mentions';
+import { LinkCandidateElementType } from '../../editor-v4-rich-formatting/types';
+import { isLoaderElement, LoaderElementType } from '../../editor-v4-loader';
+import { ImageCandidateElementType } from '../../editor-v4-image/types';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
@@ -36,12 +45,29 @@ export interface EditorV4ExtensionsProps {
     withUserMentions?: UserMentionsExtensionParameters;
 }
 
+export type Value = (
+    | BlockNode
+    | LinkCandidateElementType
+    | ImageCandidateElementType
+    | LoaderElementType
+)[];
+
+export function isValue(value: Descendant[]): value is Value {
+    return value.every(
+        (node) =>
+            isBlockNode(node) ||
+            isLinkCandidateElement(node) ||
+            isImageCandidateElement(node) ||
+            isLoaderElement(node),
+    );
+}
+
 export interface EditorV4Props extends EditorV4ExtensionsProps {
     autoFocus?: boolean;
     className?: string;
     contentStyle?: CSSProperties;
     editorRef?: RefObject<EditorRef>;
-    onChange: (value: BlockNode[]) => void;
+    onChange: (value: Value) => void;
     onIsOperationPendingChange?: (isOperationPending: boolean) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
     placeholder?: ReactNode;
@@ -52,7 +78,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     plugins?: (<T extends Editor>(editor: T) => T)[];
     readOnly?: boolean;
     style?: CSSProperties;
-    value: BlockNode[];
+    value: Value;
     withCursorInView?: {
         minBottom: number;
         minTop: number;
