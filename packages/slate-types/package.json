@@ -23,6 +23,6 @@
         "slate-react": "~0.66.0"
     },
     "dependencies": {
-        "@prezly/sdk": "^2.9.3"
+        "@prezly/sdk": "^3.0"
     }
 }
