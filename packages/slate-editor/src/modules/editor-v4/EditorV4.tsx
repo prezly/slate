@@ -1,6 +1,5 @@
 import Events from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
-import { isBlockNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import { noop } from 'lodash';
 import React, {
@@ -43,7 +42,7 @@ import {
     isEditorValueEquivalent,
     useCursorInView,
 } from './lib';
-import { EditorRef, EditorV4Props } from './types';
+import { EditorRef, EditorV4Props, isValue } from './types';
 import useCreateEditor from './useCreateEditor';
 import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';
@@ -273,7 +272,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             <Slate
                 editor={editor}
                 onChange={(newValue) => {
-                    if (!newValue.every(isBlockNode)) {
+                    if (!isValue(newValue)) {
                         throw new Error("New editor value doesn't match Prezly document format");
                     }
                     onChange(newValue);
