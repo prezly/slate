@@ -34,6 +34,4 @@ export const isImageNode = (value: any): value is ImageNode =>
     typeof value.href === 'string' &&
     LAYOUTS.includes(value.layout as any) &&
     typeof value.width === 'string' &&
-    value.width.length > 1 &&
-    typeof value.width_factor === 'string' &&
-    value.width_factor.length > 1;
+    typeof value.width_factor === 'string';

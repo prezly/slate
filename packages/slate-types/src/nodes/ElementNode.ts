@@ -11,7 +11,6 @@ export const isElementNode = (value: any): value is ElementNode => {
     return (
         isObject(value) &&
         typeof value.type === 'string' &&
-        value.type.length > 0 &&
         Array.isArray(value.children)
     );
 };

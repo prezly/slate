@@ -65,12 +65,10 @@ export const isGalleryNode = (value: any): value is GalleryNode => {
         isElementNode(value) &&
         value.type === GALLERY_NODE_TYPE &&
         Array.isArray(value.images) &&
-        value.images.length > 0 &&
         value.images.every(isGalleryImage) &&
         LAYOUTS.includes(value.layout as any) &&
         PADDINGS.includes(value.padding as any) &&
         THUMBNAIL_SIZES.includes(value.thumbnail_size as any) &&
-        typeof value.uuid === 'string' &&
-        value.uuid.length > 0
+        typeof value.uuid === 'string'
     );
 };

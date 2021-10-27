@@ -14,7 +14,6 @@ export const isContactNode = (value: any): value is ContactNode => {
         isElementNode(value) &&
         value.type === CONTACT_NODE_TYPE &&
         isPressContact(value.contact) &&
-        typeof value.uuid === 'string' &&
-        value.uuid.length > 0
+        typeof value.uuid === 'string'
     );
 };

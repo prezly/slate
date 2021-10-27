@@ -17,8 +17,6 @@ export const isEmbedNode = (value: any): value is ElementNode => {
         value.type === EMBED_NODE_TYPE &&
         isOEmbedInfo(value.oembed) &&
         typeof value.url === 'string' &&
-        value.url.length > 0 &&
-        typeof value.uuid === 'string' &&
-        value.uuid.length > 0
+        typeof value.uuid === 'string'
     );
 };
