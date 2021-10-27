@@ -12,7 +12,6 @@ export const isLinkNode = (value: any): value is LinkNode => {
     return (
         isElementNode(value) &&
         value.type === LINK_NODE_TYPE &&
-        typeof value.href === 'string' &&
-        Array.isArray(value.children)
+        typeof value.href === 'string'
     );
 };
