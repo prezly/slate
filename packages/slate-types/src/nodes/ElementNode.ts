@@ -8,9 +8,5 @@ export default interface ElementNode<T extends string = string> extends Record<s
 }
 
 export const isElementNode = (value: any): value is ElementNode => {
-    return (
-        isObject(value) &&
-        typeof value.type === 'string' &&
-        Array.isArray(value.children)
-    );
+    return isObject(value) && typeof value.type === 'string' && Array.isArray(value.children);
 };

@@ -9,9 +9,5 @@ export default interface LinkNode extends ElementNode<typeof LINK_NODE_TYPE> {
 }
 
 export const isLinkNode = (value: any): value is LinkNode => {
-    return (
-        isElementNode(value) &&
-        value.type === LINK_NODE_TYPE &&
-        typeof value.href === 'string'
-    );
+    return isElementNode(value) && value.type === LINK_NODE_TYPE && typeof value.href === 'string';
 };
