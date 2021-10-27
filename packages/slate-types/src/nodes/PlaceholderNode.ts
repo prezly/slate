@@ -1,7 +1,7 @@
 import { PlaceholderKey } from '../sdk';
 
 import ElementNode, { isElementNode } from './ElementNode';
-import TextNode, { isTextNode } from './TextNode';
+import TextNode from './TextNode';
 
 export const PLACEHOLDER_NODE_TYPE = 'placeholder';
 
@@ -17,9 +17,6 @@ export const isPlaceholderNode = <Key extends string>(
     return (
         isElementNode(value) &&
         value.type === PLACEHOLDER_NODE_TYPE &&
-        typeof value.key === 'string' &&
-        value.key.length > 0 &&
-        Array.isArray(value.children) &&
-        value.children.every(isTextNode)
+        typeof value.key === 'string'
     );
 };
