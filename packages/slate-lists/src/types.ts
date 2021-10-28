@@ -1,26 +1,28 @@
+import { Element } from 'slate';
+
 export interface ListsOptions {
     /**
      * Type of the node that "listItemTextType" will become when it is unwrapped or normalized.
      */
-    defaultBlockType: string;
+    defaultBlockType: Element['type'];
 
     /**
      * Type of the node representing list item text.
      */
-    listItemTextType: string;
+    listItemTextType: Element['type'];
 
     /**
      * Type of the node representing list item.
      */
-    listItemType: string;
+    listItemType: Element['type'];
 
     /**
      * Types of nodes representing lists. The first type will be the default type (e.g. when wrapping with lists).
      */
-    listTypes: string[];
+    listTypes: Element['type'][];
 
     /**
      * Types of nodes that can be converted into a node representing list item text.
      */
-    wrappableTypes: string[];
+    wrappableTypes: Element['type'][];
 }

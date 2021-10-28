@@ -1,8 +1,6 @@
-import { ElementNode } from '@prezly/slate-types';
+import { Element } from 'slate';
 
 import { LOADER_TYPE } from './constants';
-
-export type LoaderType = typeof LOADER_TYPE;
 
 export enum LoaderContentType {
     ATTACHMENT = 'attachment',
@@ -12,7 +10,8 @@ export enum LoaderContentType {
     VIDEO = 'video',
 }
 
-export interface LoaderElementType extends ElementNode<LoaderType> {
+export interface LoaderElementType extends Element {
+    type: typeof LOADER_TYPE;
     contentType: LoaderContentType;
     id: string;
     message: string;

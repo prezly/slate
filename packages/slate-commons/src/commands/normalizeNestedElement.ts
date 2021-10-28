@@ -1,4 +1,3 @@
-import { ElementNode } from '@prezly/slate-types';
 import { Editor, Element, ElementEntry, Transforms } from 'slate';
 
 import makeDirty from './makeDirty';
@@ -40,7 +39,7 @@ const normalizeNestedElement = (
     if (
         Editor.isInline(editor, element) ||
         Editor.isVoid(editor, element) ||
-        ancestorNode.type === (element as ElementNode).type
+        Element.isElementType(ancestorNode, (element as Element).type)
     ) {
         if (ancestorNode.children.length === 1) {
             Transforms.unwrapNodes(editor, { at: ancestorPath, voids: true });

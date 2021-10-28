@@ -1,12 +1,10 @@
 import { OEmbedInfo } from '@prezly/sdk';
-import { ElementNode } from '@prezly/slate-types';
 import { RefObject } from 'react';
 
 import { EMBED_TYPE } from './constants';
 
-export type EmbedType = typeof EMBED_TYPE;
-
-export interface EmbedElementType extends ElementNode<EmbedType> {
+export interface EmbedElementType extends Element {
+    type: typeof EMBED_TYPE;
     oembed: OEmbedInfo;
     url: string;
     uuid: string;

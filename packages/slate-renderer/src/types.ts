@@ -25,7 +25,6 @@ import {
     DividerNode,
     DocumentNode,
     EmbedNode,
-    ElementNode,
     GalleryNode,
     HeadingNode,
     ImageNode,
@@ -41,10 +40,11 @@ import {
     TextNode,
 } from '@prezly/slate-types';
 import { FunctionComponent } from 'react';
+import { Element } from 'slate';
 
 export type Node = BlockNode | InlineNode | TextNode;
 
-export type NodeRenderer<T extends ElementNode> = FunctionComponent<{ node: T }>;
+export type NodeRenderer<T extends Element> = FunctionComponent<{ node: T }>;
 
 export type TextRenderer = FunctionComponent<TextNode & { children?: never }>;
 

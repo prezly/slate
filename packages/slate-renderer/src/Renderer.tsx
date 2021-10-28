@@ -1,13 +1,11 @@
-import { ElementNode, isElementNode, isTextNode, TextNode } from '@prezly/slate-types';
 import React, { Fragment, FunctionComponent } from 'react';
+import { Descendant, Element, Text } from 'slate';
 
 import defaultOptions from './defaultOptions';
 import { Options } from './types';
 
-type Node = ElementNode | TextNode;
-
 interface Props {
-    nodes: Node | Node[];
+    nodes: Descendant | Descendant[];
     options?: Options;
 }
 
@@ -18,12 +16,12 @@ const Renderer: FunctionComponent<Props> = ({ nodes, options: userOptions = {} }
     return (
         <>
             {nodesArray.map((node, index) => {
-                if (isTextNode(node)) {
+                if (Text.isText(node)) {
                     const TextRenderer = options.text;
                     return <TextRenderer key={index} {...node} />;
                 }
 
-                if (isElementNode(node)) {
+                if (Element.isElement(node)) {
                     const { children, type } = node;
                     const NodeRenderer = options[type as keyof Options];
 

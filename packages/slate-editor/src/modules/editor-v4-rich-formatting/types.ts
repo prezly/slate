@@ -4,10 +4,10 @@ import {
     ListItemNode,
     ListItemTextNode,
     LinkNode,
-    ElementNode,
     QuoteNode,
     PARAGRAPH_NODE_TYPE,
 } from '@prezly/slate-types';
+import { Element } from 'slate';
 
 type Multiple = 'multiple';
 export type ParagraphType = typeof PARAGRAPH_NODE_TYPE;
@@ -42,7 +42,8 @@ export type RichTextElementType =
     | ListItemTextNode
     | QuoteNode;
 
-export interface LinkCandidateElementType extends ElementNode<ElementType.LINK_CANDIDATE> {
+export interface LinkCandidateElementType extends Element {
+    type: ElementType.LINK_CANDIDATE;
     id: string;
 }
 
