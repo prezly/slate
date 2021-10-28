@@ -1,12 +1,11 @@
 /** @jsx jsx */
 
-import { Editor } from 'slate';
+import { Editor, Element } from 'slate';
 
 import jsx from '../jsx';
 import { SOME_ELEMENT_1, SOME_ELEMENT_2 } from '../test-utils';
 
 import getNodePath from './getNodePath';
-import isElementWithType from './isElementWithType';
 
 describe('getNodePath', () => {
     it('Returns the path of matching element', () => {
@@ -28,7 +27,7 @@ describe('getNodePath', () => {
         const nodePath =
             editor.selection &&
             getNodePath(editor, {
-                match: (node) => isElementWithType(node) && node.type === SOME_ELEMENT_2,
+                match: (node) => Element.isElementType(node, SOME_ELEMENT_2),
             });
 
         expect(nodePath).toEqual([1]);
@@ -53,7 +52,7 @@ describe('getNodePath', () => {
         const nodePath =
             editor.selection &&
             getNodePath(editor, {
-                match: (node) => isElementWithType(node) && node.type === SOME_ELEMENT_1,
+                match: (node) => Element.isElementType(node, SOME_ELEMENT_1),
             });
 
         expect(nodePath).toBeNull();

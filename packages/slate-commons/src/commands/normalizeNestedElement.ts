@@ -1,18 +1,17 @@
 import { ElementNode } from '@prezly/slate-types';
-import { Editor, ElementEntry, Transforms } from 'slate';
+import { Editor, Element, ElementEntry, Transforms } from 'slate';
 
-import isElementWithType from './isElementWithType';
 import makeDirty from './makeDirty';
 
 type Options =
     | {
-          allowedParentTypes: string[];
+          allowedParentTypes: Element['type'][];
       }
     | {
-          disallowedParentTypes: string[];
+          disallowedParentTypes: Element['type'][];
       };
 
-const isParentTypeAllowed = (options: Options, parentType: string): boolean => {
+const isParentTypeAllowed = (options: Options, parentType: Element['type']): boolean => {
     if ('allowedParentTypes' in options) {
         return options.allowedParentTypes.includes(parentType);
     }
@@ -32,7 +31,7 @@ const normalizeNestedElement = (
 
     const [ancestorNode, ancestorPath] = ancestor;
 
-    if (!isElementWithType(ancestorNode) || isParentTypeAllowed(options, ancestorNode.type)) {
+    if (!Element.isElement(ancestorNode) || isParentTypeAllowed(options, ancestorNode.type)) {
         return false;
     }
 
