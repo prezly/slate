@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-renderer",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "Render Slate documents used at Prezly",
     "license": "MIT",
     "main": "build/index.js",
@@ -28,7 +28,7 @@
     },
     "dependencies": {
         "@prezly/linear-partition": "^1.0.0",
-        "@prezly/slate-types": "^0.2.1",
+        "@prezly/slate-types": "^0.2.2",
         "classnames": "^2.2.6",
         "react-modal": "^3.12.1",
         "react-use": "^15.3.8",
