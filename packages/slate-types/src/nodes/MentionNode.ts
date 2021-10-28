@@ -1,7 +1,7 @@
 import { isObject } from '../lib';
 
 import ElementNode, { isElementNode } from './ElementNode';
-import TextNode, { isTextNode } from './TextNode';
+import TextNode from './TextNode';
 
 export const MENTION_NODE_TYPE = 'mention';
 
@@ -21,8 +21,6 @@ export const isMentionNode = (value: any): value is MentionNode => {
         isObject(value.user) &&
         typeof value.user.avatar_url === 'string' &&
         typeof value.user.id === 'number' &&
-        typeof value.user.name === 'string' &&
-        Array.isArray(value.children) &&
-        value.children.every(isTextNode)
+        typeof value.user.name === 'string'
     );
 };

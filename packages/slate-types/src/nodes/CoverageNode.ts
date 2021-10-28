@@ -16,8 +16,7 @@ export const isCoverageNode = (value: any): value is CoverageNode => {
         isElementNode(value) &&
         value.type === COVERAGE_NODE_TYPE &&
         isCoverage(value.coverage) &&
-        typeof value.uuid === 'string' &&
-        value.uuid.length > 0
+        typeof value.uuid === 'string'
     );
 };
 

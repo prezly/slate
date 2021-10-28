@@ -13,7 +13,6 @@ export const isDocumentNode = (value: any): value is DocumentNode => {
     return (
         isElementNode(value) &&
         value.type === DOCUMENT_NODE_TYPE &&
-        typeof value.version === 'string' &&
-        value.version.length > 0
+        typeof value.version === 'string'
     );
 };
