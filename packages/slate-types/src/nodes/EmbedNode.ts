@@ -1,22 +1,14 @@
-import { isOEmbedInfo } from '../sdk';
 import { OEmbedInfo } from '@prezly/sdk';
-
-import ElementNode, { isElementNode } from './ElementNode';
+import { Element } from 'slate';
 
 export const EMBED_NODE_TYPE = 'embed';
 
-export default interface EmbedNode extends ElementNode<typeof EMBED_NODE_TYPE> {
+export default interface EmbedNode extends Element {
+    type: typeof EMBED_NODE_TYPE;
     oembed: OEmbedInfo;
     url: string;
     uuid: string;
 }
 
-export const isEmbedNode = (value: any): value is ElementNode => {
-    return (
-        isElementNode(value) &&
-        value.type === EMBED_NODE_TYPE &&
-        isOEmbedInfo(value.oembed) &&
-        typeof value.url === 'string' &&
-        typeof value.uuid === 'string'
-    );
-};
+export const isEmbedNode = (value: any): value is EmbedNode =>
+    Element.isElementType(value, EMBED_NODE_TYPE);

@@ -1,13 +1,10 @@
-import ElementNode, { isElementNode } from './ElementNode';
-import InlineNode from './InlineNode';
-import TextNode from './TextNode';
+import { Element } from 'slate';
 
 export const PARAGRAPH_NODE_TYPE = 'paragraph';
 
-export default interface ParagraphNode extends ElementNode<typeof PARAGRAPH_NODE_TYPE> {
-    children: (InlineNode | TextNode)[];
+export default interface ParagraphNode extends Element {
+    type: typeof PARAGRAPH_NODE_TYPE;
 }
 
-export const isParagraphNode = (value: any): value is ParagraphNode => {
-    return isElementNode(value) && value.type === PARAGRAPH_NODE_TYPE;
-};
+export const isParagraphNode = (value: any): value is ParagraphNode =>
+    Element.isElementType(value, PARAGRAPH_NODE_TYPE);

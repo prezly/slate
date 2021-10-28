@@ -1,22 +1,11 @@
-import { PlaceholderKey } from '../sdk';
-
-import ElementNode, { isElementNode } from './ElementNode';
-import TextNode from './TextNode';
+import { Element } from 'slate';
 
 export const PLACEHOLDER_NODE_TYPE = 'placeholder';
 
-export default interface PlaceholderNode<Key extends string = PlaceholderKey>
-    extends ElementNode<typeof PLACEHOLDER_NODE_TYPE> {
-    children: TextNode[];
-    key: Key;
+export default interface PlaceholderNode extends Element {
+    type: typeof PLACEHOLDER_NODE_TYPE;
+    key: string;
 }
 
-export const isPlaceholderNode = <Key extends string>(
-    value: any,
-): value is PlaceholderNode<Key> => {
-    return (
-        isElementNode(value) &&
-        value.type === PLACEHOLDER_NODE_TYPE &&
-        typeof value.key === 'string'
-    );
-};
+export const isPlaceholderNode = (value: any): value is PlaceholderNode =>
+    Element.isElementType(value, PLACEHOLDER_NODE_TYPE);

@@ -1,25 +1,15 @@
+import { Element } from 'slate';
 import { Coverage } from '@prezly/sdk';
-
-import ElementNode, { isElementNode } from './ElementNode';
 
 export const COVERAGE_NODE_TYPE = 'coverage';
 
-export default interface CoverageNode extends ElementNode<typeof COVERAGE_NODE_TYPE> {
+export default interface CoverageNode extends Element {
+    type: typeof COVERAGE_NODE_TYPE;
     coverage: {
         id: Coverage['id'];
     };
     uuid: string;
 }
 
-export const isCoverageNode = (value: any): value is CoverageNode => {
-    return (
-        isElementNode(value) &&
-        value.type === COVERAGE_NODE_TYPE &&
-        isCoverage(value.coverage) &&
-        typeof value.uuid === 'string'
-    );
-};
-
-const isCoverage = (value: any): value is CoverageNode['coverage'] => {
-    return typeof value === 'object' && value !== null && typeof value.id === 'number';
-};
+export const isCoverageNode = (value: any): value is CoverageNode =>
+    Element.isElementType(value, COVERAGE_NODE_TYPE);

@@ -3,29 +3,32 @@ export * from './lib';
 export * from './nodes';
 export * from './sdk';
 
-import { BaseEditor } from 'slate';
+import { BaseEditor, Descendant } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { BlockNode, InlineNode, ListItemNode, ListItemTextNode, TextNode } from './nodes';
+import { TextNode } from './nodes';
 
 export declare interface AdditionalCustomTypes {
     [key: string]: unknown;
 }
 
+interface ElementNode {
+    type: string;
+    children: Descendant[];
+}
+
 declare module 'slate' {
     type DefaultEditor = BaseEditor & ReactEditor;
-
-    type DefaultNode = BlockNode | InlineNode | ListItemNode | ListItemTextNode;
 
     interface CustomTypes {
         Editor: unknown extends AdditionalCustomTypes['Editor']
             ? DefaultEditor
             : DefaultEditor & AdditionalCustomTypes['Editor'];
         Element: unknown extends AdditionalCustomTypes['Element']
-            ? DefaultNode
-            : DefaultNode | AdditionalCustomTypes['Element'];
+            ? ElementNode
+            : ElementNode & AdditionalCustomTypes['Element'];
         Text: unknown extends AdditionalCustomTypes['Text']
             ? TextNode
-            : TextNode | AdditionalCustomTypes['Text'];
+            : TextNode & AdditionalCustomTypes['Text'];
     }
 }

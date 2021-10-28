@@ -1,19 +1,14 @@
-import { isPressContact, PressContact } from '../sdk';
+import { Element } from 'slate';
 
-import ElementNode, { isElementNode } from './ElementNode';
+import { PressContact } from '../sdk';
 
 export const CONTACT_NODE_TYPE = 'contact';
 
-export default interface ContactNode extends ElementNode<typeof CONTACT_NODE_TYPE> {
+export default interface ContactNode extends Element {
+    type: typeof CONTACT_NODE_TYPE;
     contact: PressContact;
     uuid: string;
 }
 
-export const isContactNode = (value: any): value is ContactNode => {
-    return (
-        isElementNode(value) &&
-        value.type === CONTACT_NODE_TYPE &&
-        isPressContact(value.contact) &&
-        typeof value.uuid === 'string'
-    );
-};
+export const isContactNode = (value: any): value is ContactNode =>
+    Element.isElementType(value, CONTACT_NODE_TYPE);
