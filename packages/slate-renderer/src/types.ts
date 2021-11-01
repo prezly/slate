@@ -19,7 +19,6 @@ import {
     PLACEHOLDER_NODE_TYPE,
     QUOTE_NODE_TYPE,
     AttachmentNode,
-    BlockNode,
     ContactNode,
     CoverageNode,
     DividerNode,
@@ -28,7 +27,6 @@ import {
     GalleryNode,
     HeadingNode,
     ImageNode,
-    InlineNode,
     LinkNode,
     ListItemNode,
     ListItemTextNode,
@@ -41,8 +39,6 @@ import {
 } from '@prezly/slate-types';
 import { FunctionComponent } from 'react';
 import { Element } from 'slate';
-
-export type Node = BlockNode | InlineNode | TextNode;
 
 export type NodeRenderer<T extends Element> = FunctionComponent<{ node: T }>;
 

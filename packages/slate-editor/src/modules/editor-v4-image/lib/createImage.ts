@@ -1,13 +1,5 @@
-import { ImageLayout, ImageNode, IMAGE_NODE_TYPE, InlineNode, TextNode } from '@prezly/slate-types';
+import { ImageLayout, ImageNode, IMAGE_NODE_TYPE } from '@prezly/slate-types';
 import { UploadcareImageStoragePayload } from '@prezly/uploadcare';
-
-interface Options {
-    children?: (InlineNode | TextNode)[];
-    href?: string;
-    layout?: ImageLayout;
-    width_factor?: string;
-    width?: string;
-}
 
 const createImage = (
     file: UploadcareImageStoragePayload,
@@ -17,13 +9,13 @@ const createImage = (
         layout = ImageLayout.CONTAINED,
         width = '100%',
         width_factor = '100%',
-    }: Options = {},
+    }: Partial<Omit<ImageNode, 'file' | 'type'>>,
 ): ImageNode => ({
+    type: IMAGE_NODE_TYPE,
     children,
     file,
     href,
     layout,
-    type: IMAGE_NODE_TYPE,
     width_factor,
     width,
 });

@@ -19,8 +19,6 @@ import {
     isHeadingNode,
     ImageNode,
     isImageNode,
-    InlineNode,
-    isInlineNode,
     LinkNode,
     isLinkNode,
     ListNode,
@@ -53,7 +51,6 @@ const validators = [
     isGalleryNode,
     isHeadingNode,
     isImageNode,
-    isInlineNode,
     isLinkNode,
     isListNode,
     isListItemNode,
@@ -76,7 +73,6 @@ type KnownNode =
     | GalleryNode
     | HeadingNode
     | ImageNode
-    | InlineNode
     | LinkNode
     | ListNode
     | ListItemNode
