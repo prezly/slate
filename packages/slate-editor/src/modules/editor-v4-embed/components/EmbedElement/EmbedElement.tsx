@@ -1,3 +1,4 @@
+import { EmbedNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { RenderElementProps, useSelected } from 'slate-react';
@@ -5,13 +6,12 @@ import { RenderElementProps, useSelected } from 'slate-react';
 import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';
 import { Embed } from '../../../../icons';
 import { injectOembedMarkup } from '../../lib';
-import { EmbedElementType } from '../../types';
 
 import './EmbedElement.scss';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
-    element: EmbedElementType;
+    element: EmbedNode;
     showAsScreenshot: boolean;
 }
 
