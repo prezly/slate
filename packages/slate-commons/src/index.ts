@@ -1,4 +1,13 @@
 import '@prezly/slate-types';
+import type { BaseEditor } from 'slate';
+import type { ReactEditor } from 'slate-react';
+import type { HistoryEditor } from 'slate-history';
+
+declare module 'slate' {
+    interface CustomTypes {
+        Editor: BaseEditor & ReactEditor & HistoryEditor;
+    }
+}
 
 import * as EditorCommands from './commands';
 
@@ -17,3 +26,4 @@ export {
 export * from './constants';
 export * from './plugins';
 export * from './types';
+
