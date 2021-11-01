@@ -1,10 +1,11 @@
 import { createDeserializeElement, Extension } from '@prezly/slate-commons';
+import { isEmbedNode } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
 import { EmbedElement, EmbedMenu } from './components';
 import { EMBED_EXTENSION_ID, EMBED_TYPE } from './constants';
-import { isEmbedElement, normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
+import { normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
 import { EmbedParameters } from './types';
 
 const EmbedExtension = ({
@@ -20,7 +21,7 @@ const EmbedExtension = ({
     id: EMBED_EXTENSION_ID,
     normalizers: [normalizeRedundantEmbedAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (isEmbedElement(element)) {
+        if (isEmbedNode(element)) {
             return (
                 <>
                     {attributes.ref.current && (
