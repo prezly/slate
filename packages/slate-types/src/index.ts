@@ -3,14 +3,10 @@ export * from './lib';
 export * from './nodes';
 export * from './sdk';
 
-import { BaseEditor, BaseElement } from 'slate';
+import { BaseEditor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { TextNode } from './nodes';
-
-export interface ElementNode extends BaseElement {
-    type: string;
-}
+import { ElementNode, TextNode } from './nodes';
 
 declare module 'slate' {
     interface CustomTypes {

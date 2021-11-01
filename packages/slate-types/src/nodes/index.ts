@@ -10,6 +10,8 @@ export { default as DividerNode } from './DividerNode';
 export * from './DividerNode';
 export { default as DocumentNode } from './DocumentNode';
 export * from './DocumentNode';
+export { default as ElementNode } from './ElementNode';
+export * from './ElementNode';
 export { default as EmbedNode } from './EmbedNode';
 export * from './EmbedNode';
 export { default as GalleryNode } from './GalleryNode';
