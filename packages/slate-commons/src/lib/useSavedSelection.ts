@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { BaseEditor, Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { saveSelection } from '../commands';
@@ -6,14 +7,14 @@ import { saveSelection } from '../commands';
 type SavedSelection = ReturnType<typeof saveSelection>;
 
 interface Actions {
-    restore: (editor: ReactEditor, options?: { focus?: boolean }) => void;
-    save: (editor: ReactEditor) => void;
+    restore: (editor: ReactEditor & Editor, options?: { focus?: boolean }) => void;
+    save: (editor: Editor) => void;
 }
 
 const useSavedSelection = (): Actions => {
     const [savedSelection, setSavedSelection] = useState<SavedSelection | null>(null);
 
-    const restore = (editor: ReactEditor, { focus = false } = {}) => {
+    const restore = (editor: ReactEditor & Editor, { focus = false } = {}) => {
         if (focus) {
             ReactEditor.focus(editor);
         }
@@ -24,7 +25,7 @@ const useSavedSelection = (): Actions => {
         }
     };
 
-    const save = (editor: ReactEditor) => {
+    const save = (editor: BaseEditor) => {
         setSavedSelection(saveSelection(editor));
     };
 

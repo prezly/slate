@@ -1,4 +1,4 @@
-import { Editor, Location, Range, Transforms } from 'slate';
+import { BaseEditor, Editor, Location, Range, Transforms } from 'slate';
 
 import findLeafLocation from './findLeafLocation';
 import isValidLocation from './isValidLocation';
@@ -30,7 +30,7 @@ const createRestore = (location: Location | null): Actions['restore'] => {
 };
 
 const saveSelection = (
-    editor: Editor,
+    editor: BaseEditor,
     transformLocation: (selection: Range) => Location = (selection) => selection,
 ): Actions => {
     const savedSelection = editor.selection && transformLocation(editor.selection);

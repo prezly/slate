@@ -34,9 +34,8 @@ import {
     QuoteNode,
     isQuoteNode,
     TextNode,
-    isTextNode,
 } from '@prezly/slate-types';
-import { Element, Node } from 'slate';
+import { Element, Node, Text } from 'slate';
 
 const validators = [
     isAttachmentNode,
@@ -56,7 +55,7 @@ const validators = [
     isParagraphNode,
     isPlaceholderNode,
     isQuoteNode,
-    isTextNode,
+    Text.isText,
 ];
 
 type KnownNode =
