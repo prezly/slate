@@ -8,14 +8,10 @@ import { EditorEventMap } from '../../../modules/editor-v4-events';
 import { FileAttachmentExtensionParameters } from '../../../modules/editor-v4-file-attachment';
 import { FloatingAddMenuExtensionParameters } from '../../../modules/editor-v4-floating-add-menu';
 import { GalleriesExtensionParameters } from '../../../modules/editor-v4-galleries';
-import {
-    ImageExtensionParameters,
-} from '../../../modules/editor-v4-image';
+import { ImageExtensionParameters } from '../../../modules/editor-v4-image';
 import { PlaceholderMentionsExtensionParameters } from '../../../modules/editor-v4-placeholder-mentions';
 import { PressContactsExtensionParameters } from '../../../modules/editor-v4-press-contacts';
-import {
-    RichFormattingExtensionParameters,
-} from '../../../modules/editor-v4-rich-formatting';
+import { RichFormattingExtensionParameters } from '../../../modules/editor-v4-rich-formatting';
 import { UserMentionsExtensionParameters } from '../../../modules/editor-v4-user-mentions';
 
 export interface EditorRef {
