@@ -1,7 +1,5 @@
 export { default as AttachmentNode } from './AttachmentNode';
 export * from './AttachmentNode';
-export { default as BlockNode } from './BlockNode';
-export * from './BlockNode';
 export { default as ContactNode } from './ContactNode';
 export * from './ContactNode';
 export { default as CoverageNode } from './CoverageNode';

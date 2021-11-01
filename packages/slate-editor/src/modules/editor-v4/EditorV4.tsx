@@ -10,6 +10,7 @@ import React, {
     useRef,
     useState,
 } from 'react';
+import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
 import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '../../icons';
@@ -42,7 +43,7 @@ import {
     isEditorValueEquivalent,
     useCursorInView,
 } from './lib';
-import { EditorRef, EditorV4Props, isValue } from './types';
+import { EditorRef, EditorV4Props } from './types';
 import useCreateEditor from './useCreateEditor';
 import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';
@@ -272,10 +273,15 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             <Slate
                 editor={editor}
                 onChange={(newValue) => {
-                    if (!isValue(newValue)) {
-                        throw new Error("New editor value doesn't match Prezly document format");
-                    }
-                    onChange(newValue);
+                    /**
+                     * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
+                     *
+                     * The top-level editor node can only contain block nodes. If any of the top-level
+                     * children are inline or text nodes they will be removed. This ensures that there
+                     * are always block nodes in the editor so that behaviors like "splitting a block
+                     * in two" work as expected.
+                     */
+                    onChange(newValue as Element[]);
                     placeholders.onChange(editor);
                     userMentions.onChange(editor);
                 }}

@@ -1,8 +1,7 @@
 import { createEmptyValue } from '@prezly/slate-commons';
-import { BlockNode } from '@prezly/slate-types';
-import { Node } from 'slate';
+import { Element, Node } from 'slate';
 
-const deserialize = (value: string): BlockNode[] => {
+const deserialize = (value: string): Element[] => {
     if (!value) {
         return createEmptyValue();
     }

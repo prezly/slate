@@ -1,8 +1,6 @@
 import {
     AttachmentNode,
     isAttachmentNode,
-    BlockNode,
-    isBlockNode,
     ContactNode,
     isContactNode,
     CoverageNode,
@@ -42,7 +40,6 @@ import { Element, Node } from 'slate';
 
 const validators = [
     isAttachmentNode,
-    isBlockNode,
     isContactNode,
     isCoverageNode,
     isDividerNode,
@@ -64,7 +61,6 @@ const validators = [
 
 type KnownNode =
     | AttachmentNode
-    | BlockNode
     | ContactNode
     | CoverageNode
     | DividerNode
