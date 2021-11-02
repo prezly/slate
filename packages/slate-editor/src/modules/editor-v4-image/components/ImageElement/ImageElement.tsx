@@ -3,7 +3,7 @@ import { ImageLayout, ImageNode, isImageNode } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import React, { FunctionComponent, RefObject, useState } from 'react';
-import { Editor, Transforms } from 'slate';
+import { Editor, Node, Transforms } from 'slate';
 import { ReactEditor, RenderElementProps, useSelected, useSlate } from 'slate-react';
 
 import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';
@@ -78,12 +78,18 @@ const ImageElement: FunctionComponent<Props> = ({
     };
 
     const handleResize = (widthPercent: string, widthFactor: string) => {
+        /**
+         * The `Partial<Node>` type-cast is a temporary solution until `Transforms.setNodes()` spec is fixed.
+         * @see https://github.com/ianstormtaylor/slate/pull/4638
+         * TODO: Remove the type-cast once the patch is released with the next Slate update.
+         */
+        const update = {
+            width: widthPercent,
+            width_factor: widthFactor,
+        } as Partial<Node>;
         Transforms.setNodes(
             editor,
-            {
-                width: widthPercent,
-                width_factor: widthFactor,
-            },
+            update,
             { match: isImageNode },
         );
     };
