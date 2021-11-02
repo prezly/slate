@@ -6,9 +6,9 @@ const updateGallery = (
     editor: Editor,
     changes: Partial<Pick<GalleryNode, 'images' | 'layout' | 'padding' | 'thumbnail_size'>>,
 ) => {
-    const changedAtrributes = pick(changes, ['images', 'layout', 'padding', 'thumbnail_size']);
+    const changedAttributes = pick(changes, ['images', 'layout', 'padding', 'thumbnail_size']);
 
-    Transforms.setNodes<GalleryNode>(editor, changedAtrributes, {
+    Transforms.setNodes<GalleryNode>(editor, changedAttributes, {
         match: isGalleryNode,
     });
 };
