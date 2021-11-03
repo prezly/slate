@@ -1,8 +1,10 @@
 import { Element } from 'slate';
 
+import ElementNode from './ElementNode';
+
 export const MENTION_NODE_TYPE = 'mention';
 
-export default interface MentionNode extends Element {
+export default interface MentionNode extends ElementNode {
     type: typeof MENTION_NODE_TYPE;
     user: {
         avatar_url: string;

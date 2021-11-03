@@ -1,8 +1,10 @@
 import { Element } from 'slate';
 
+import ElementNode from './ElementNode';
+
 export const DIVIDER_NODE_TYPE = 'divider';
 
-export default interface DividerNode extends Element {
+export default interface DividerNode extends ElementNode {
     type: typeof DIVIDER_NODE_TYPE;
 }
 

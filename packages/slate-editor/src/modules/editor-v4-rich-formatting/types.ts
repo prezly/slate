@@ -6,8 +6,8 @@ import {
     LinkNode,
     QuoteNode,
     PARAGRAPH_NODE_TYPE,
+    ElementNode,
 } from '@prezly/slate-types';
-import { Element } from 'slate';
 
 type Multiple = 'multiple';
 export type ParagraphType = typeof PARAGRAPH_NODE_TYPE;
@@ -42,7 +42,7 @@ export type RichTextElementType =
     | ListItemTextNode
     | QuoteNode;
 
-export interface LinkCandidateElementType extends Element {
+export interface LinkCandidateElementType extends ElementNode {
     type: ElementType.LINK_CANDIDATE;
     id: string;
 }

@@ -1,8 +1,10 @@
 import { Element } from 'slate';
 
+import ElementNode from './ElementNode';
+
 export const DOCUMENT_NODE_TYPE = 'document';
 
-export default interface DocumentNode extends Element {
+export default interface DocumentNode extends ElementNode {
     type: typeof DOCUMENT_NODE_TYPE;
     version: string;
 }

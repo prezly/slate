@@ -1,8 +1,10 @@
 import { Element } from 'slate';
 
+import ElementNode from './ElementNode';
+
 export const PLACEHOLDER_NODE_TYPE = 'placeholder';
 
-export default interface PlaceholderNode extends Element {
+export default interface PlaceholderNode extends ElementNode {
     type: typeof PLACEHOLDER_NODE_TYPE;
     key: string;
 }

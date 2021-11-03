@@ -2,6 +2,8 @@ import { Element } from 'slate';
 
 import { UploadcareImageStoragePayload } from '../sdk';
 
+import ElementNode from './ElementNode';
+
 export const GALLERY_NODE_TYPE = 'gallery';
 
 export enum GalleryLayout {
@@ -24,7 +26,7 @@ export enum GalleryPadding {
     S = 'S',
 }
 
-export default interface GalleryNode extends Element {
+export default interface GalleryNode extends ElementNode {
     type: typeof GALLERY_NODE_TYPE;
     images: {
         /** empty string if no caption */
