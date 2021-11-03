@@ -18,7 +18,7 @@ const updateGallery = (
         'thumbnail_size',
     ]) as Partial<Node>;
 
-    Transforms.setNodes<GalleryNode>(editor, changedAttributes as Partial<Node>, {
+    Transforms.setNodes<GalleryNode>(editor, changedAttributes, {
         match: isGalleryNode,
     });
 };
