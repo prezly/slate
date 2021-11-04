@@ -4,7 +4,7 @@ import React, { RefObject } from 'react';
 import { RenderElementProps } from 'slate-react';
 
 import { DividerElement, DividerMenu } from './components';
-import { DIVIDER_EXTENSION_ID, DIVIDER_TYPE } from './constants';
+import { DIVIDER_EXTENSION_ID } from './constants';
 import { createDivider, normalizeRedundantDividerAttributes, parseSerializedElement } from './lib';
 
 const DividerExtension = ({
@@ -36,8 +36,8 @@ const DividerExtension = ({
 
         return undefined;
     },
-    rootTypes: [DIVIDER_TYPE],
-    voidTypes: [DIVIDER_TYPE],
+    rootTypes: [DIVIDER_NODE_TYPE],
+    voidTypes: [DIVIDER_NODE_TYPE],
 });
 
 export default DividerExtension;
