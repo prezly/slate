@@ -1,6 +1,6 @@
-import { ElementType, LinkCandidateElementType } from '../types';
+import { ElementType, LinkCandidateNode } from '../types';
 
-const createLinkCandidate = (id: string): LinkCandidateElementType => ({
+const createLinkCandidate = (id: string): LinkCandidateNode => ({
     children: [],
     id,
     type: ElementType.LINK_CANDIDATE,

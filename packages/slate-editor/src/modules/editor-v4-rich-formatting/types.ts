@@ -36,13 +36,13 @@ export enum MarkType {
 export type RichTextElementType =
     | HeadingNode
     | LinkNode
-    | LinkCandidateElementType
+    | LinkCandidateNode
     | ListNode
     | ListItemNode
     | ListItemTextNode
     | QuoteNode;
 
-export interface LinkCandidateElementType extends ElementNode {
+export interface LinkCandidateNode extends ElementNode {
     type: ElementType.LINK_CANDIDATE;
     id: string;
 }
