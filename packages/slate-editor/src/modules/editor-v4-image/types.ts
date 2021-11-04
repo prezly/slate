@@ -11,7 +11,7 @@ import { IMAGE_CANDIDATE_TYPE } from './constants';
  * (where we have access to <img> elements but we don't have access to editor instance)
  * and normalization (which is responsible for converting these nodes into actual images).
  */
-export interface ImageCandidateElementType extends ElementNode {
+export interface ImageCandidateNode extends ElementNode {
     type: typeof IMAGE_CANDIDATE_TYPE;
     children: Text[];
     /** empty string if no URL */
