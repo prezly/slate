@@ -1,6 +1,4 @@
-import { Element } from 'slate';
-
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 import TextNode from './TextNode';
 
 export const LINK_NODE_TYPE = 'link';
@@ -12,4 +10,4 @@ export default interface LinkNode extends ElementNode {
 }
 
 export const isLinkNode = (value: any): value is LinkNode =>
-    Element.isElementType(value, LINK_NODE_TYPE);
+    isElementNode<LinkNode>(value, LINK_NODE_TYPE);

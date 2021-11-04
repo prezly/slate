@@ -1,6 +1,4 @@
-import { Element } from 'slate';
-
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const DOCUMENT_NODE_TYPE = 'document';
 
@@ -10,4 +8,4 @@ export default interface DocumentNode extends ElementNode {
 }
 
 export const isDocumentNode = (value: any): value is DocumentNode =>
-    Element.isElementType(value, DOCUMENT_NODE_TYPE);
+    isElementNode<DocumentNode>(value, DOCUMENT_NODE_TYPE);

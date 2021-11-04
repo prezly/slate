@@ -1,6 +1,4 @@
-import { Element } from 'slate';
-
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const PARAGRAPH_NODE_TYPE = 'paragraph';
 
@@ -9,4 +7,4 @@ export default interface ParagraphNode extends ElementNode {
 }
 
 export const isParagraphNode = (value: any): value is ParagraphNode =>
-    Element.isElementType(value, PARAGRAPH_NODE_TYPE);
+    isElementNode<ParagraphNode>(value, PARAGRAPH_NODE_TYPE);

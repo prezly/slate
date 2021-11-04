@@ -1,7 +1,6 @@
-import { Element } from 'slate';
 import { Coverage } from '@prezly/sdk';
 
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const COVERAGE_NODE_TYPE = 'coverage';
 
@@ -14,4 +13,4 @@ export default interface CoverageNode extends ElementNode {
 }
 
 export const isCoverageNode = (value: any): value is CoverageNode =>
-    Element.isElementType(value, COVERAGE_NODE_TYPE);
+    isElementNode<CoverageNode>(value, COVERAGE_NODE_TYPE);

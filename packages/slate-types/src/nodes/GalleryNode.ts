@@ -1,8 +1,6 @@
-import { Element } from 'slate';
-
 import { UploadcareImageStoragePayload } from '../sdk';
 
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const GALLERY_NODE_TYPE = 'gallery';
 
@@ -46,4 +44,4 @@ export interface GalleryImage {
 }
 
 export const isGalleryNode = (value: any): value is GalleryNode =>
-    Element.isElementType(value, GALLERY_NODE_TYPE);
+    isElementNode<GalleryNode>(value, GALLERY_NODE_TYPE);

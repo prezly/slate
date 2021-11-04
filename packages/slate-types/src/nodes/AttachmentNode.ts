@@ -1,8 +1,6 @@
-import { Element } from 'slate';
-
 import { UploadcareStoragePayload } from '../sdk';
 
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const ATTACHMENT_NODE_TYPE = 'attachment';
 
@@ -13,4 +11,4 @@ export default interface AttachmentNode extends ElementNode {
 }
 
 export const isAttachmentNode = (value: any): value is AttachmentNode =>
-    Element.isElementType(value, ATTACHMENT_NODE_TYPE);
+    isElementNode<AttachmentNode>(value, ATTACHMENT_NODE_TYPE);

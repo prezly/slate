@@ -1,6 +1,4 @@
-import { Element } from 'slate';
-
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const QUOTE_NODE_TYPE = 'block-quote';
 
@@ -9,4 +7,4 @@ export default interface QuoteNode extends ElementNode {
 }
 
 export const isQuoteNode = (value: any): value is QuoteNode =>
-    Element.isElementType(value, QUOTE_NODE_TYPE);
+    isElementNode<QuoteNode>(value, QUOTE_NODE_TYPE);

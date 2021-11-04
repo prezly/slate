@@ -1,6 +1,4 @@
-import { Element } from 'slate';
-
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const DIVIDER_NODE_TYPE = 'divider';
 
@@ -9,4 +7,4 @@ export default interface DividerNode extends ElementNode {
 }
 
 export const isDividerNode = (value: any): value is DividerNode =>
-    Element.isElementType<DividerNode>(value, DIVIDER_NODE_TYPE);
+    isElementNode<DividerNode>(value, DIVIDER_NODE_TYPE);

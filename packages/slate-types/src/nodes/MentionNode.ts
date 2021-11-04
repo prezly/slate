@@ -1,6 +1,4 @@
-import { Element } from 'slate';
-
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const MENTION_NODE_TYPE = 'mention';
 
@@ -14,4 +12,4 @@ export default interface MentionNode extends ElementNode {
 }
 
 export const isMentionNode = (value: any): value is MentionNode =>
-    Element.isElementType(value, MENTION_NODE_TYPE);
+    isElementNode<MentionNode>(value, MENTION_NODE_TYPE);

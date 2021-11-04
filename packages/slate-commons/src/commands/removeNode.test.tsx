@@ -1,5 +1,5 @@
 /** @jsx jsx */
-
+import { isElementNode } from '@prezly/slate-types';
 import { Editor, Element } from 'slate';
 
 import jsx from '../jsx';
@@ -76,7 +76,7 @@ describe('removeNode', () => {
         ) as unknown) as Editor;
 
         removeNode(editor, {
-            match: (node) => Element.isElementType(node, SOME_ELEMENT_1),
+            match: (node) => isElementNode(node, SOME_ELEMENT_1),
         });
 
         expect(editor.children).toEqual(expected.children);
@@ -115,7 +115,7 @@ describe('removeNode', () => {
         ) as unknown) as Editor;
 
         removeNode(editor, {
-            match: (node) => Element.isElementType(node, SOME_ELEMENT_2),
+            match: (node) => isElementNode(node, SOME_ELEMENT_2),
         });
 
         expect(editor.children).toEqual(expected.children);

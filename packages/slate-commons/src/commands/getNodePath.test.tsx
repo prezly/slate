@@ -1,6 +1,7 @@
 /** @jsx jsx */
 
-import { Editor, Element } from 'slate';
+import { isElementNode } from '@prezly/slate-types';
+import { Editor } from 'slate';
 
 import jsx from '../jsx';
 import { SOME_ELEMENT_1, SOME_ELEMENT_2 } from '../test-utils';
@@ -27,7 +28,7 @@ describe('getNodePath', () => {
         const nodePath =
             editor.selection &&
             getNodePath(editor, {
-                match: (node) => Element.isElementType(node, SOME_ELEMENT_2),
+                match: (node) => isElementNode(node, SOME_ELEMENT_2),
             });
 
         expect(nodePath).toEqual([1]);
@@ -52,7 +53,7 @@ describe('getNodePath', () => {
         const nodePath =
             editor.selection &&
             getNodePath(editor, {
-                match: (node) => Element.isElementType(node, SOME_ELEMENT_1),
+                match: (node) => isElementNode(node, SOME_ELEMENT_1),
             });
 
         expect(nodePath).toBeNull();

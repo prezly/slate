@@ -1,6 +1,4 @@
-import { Element } from 'slate';
-
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const PLACEHOLDER_NODE_TYPE = 'placeholder';
 
@@ -10,4 +8,4 @@ export default interface PlaceholderNode extends ElementNode {
 }
 
 export const isPlaceholderNode = (value: any): value is PlaceholderNode =>
-    Element.isElementType(value, PLACEHOLDER_NODE_TYPE);
+    isElementNode<PlaceholderNode>(value, PLACEHOLDER_NODE_TYPE);

@@ -1,8 +1,6 @@
-import { Element } from 'slate';
-
 import { UploadcareImageStoragePayload } from '../sdk';
 
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const IMAGE_NODE_TYPE = 'image-block';
 
@@ -26,4 +24,4 @@ export default interface ImageNode extends ElementNode {
 }
 
 export const isImageNode = (value: any): value is ImageNode =>
-    Element.isElementType(value, IMAGE_NODE_TYPE);
+    isElementNode<ImageNode>(value, IMAGE_NODE_TYPE);

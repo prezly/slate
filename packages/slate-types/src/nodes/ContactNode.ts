@@ -1,8 +1,6 @@
-import { Element } from 'slate';
-
 import { PressContact } from '../sdk';
 
-import ElementNode from './ElementNode';
+import ElementNode, { isElementNode } from './ElementNode';
 
 export const CONTACT_NODE_TYPE = 'contact';
 
@@ -13,4 +11,4 @@ export default interface ContactNode extends ElementNode {
 }
 
 export const isContactNode = (value: any): value is ContactNode =>
-    Element.isElementType(value, CONTACT_NODE_TYPE);
+    isElementNode<ContactNode>(value, CONTACT_NODE_TYPE);
