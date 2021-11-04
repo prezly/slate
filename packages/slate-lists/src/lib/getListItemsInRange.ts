@@ -2,6 +2,8 @@ import { Editor, Element, NodeEntry, Path, Range } from 'slate';
 
 import { ListsOptions } from '../types';
 
+import isListItem from './isListItem';
+
 /**
  * Returns all "list-items" in a given Range.
  * @param at defaults to current selection if not specified
@@ -18,7 +20,7 @@ const getListItemsInRange = (
     const rangeStartPoint = Range.start(at);
     const listItemsInSelection = Editor.nodes(editor, {
         at,
-        match: (node) => Element.isElement(node) && node.type === options.listItemType,
+        match: (node) => isListItem(options, node),
     });
 
     return Array.from(listItemsInSelection).filter(([, path]) => {

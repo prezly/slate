@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isElementNode } from '@prezly/slate-types';
 import { Editor, Element, Node, NodeEntry, Transforms } from 'slate';
 
 import { ListsOptions } from '../types';
@@ -27,9 +28,13 @@ const normalizeList = (
 
     const [ancestorNode, ancestorPath] = ancestor;
 
+    if (!Element.isElement(ancestorNode)) {
+        return false;
+    }
+
     if (
-        !Element.isElement(ancestorNode) ||
-        [options.listItemType, ...options.listTypes].includes(ancestorNode.type as string)
+        isElementNode(ancestorNode) &&
+        [...options.listTypes, options.listItemType].includes(ancestorNode.type)
     ) {
         return false;
     }
