@@ -5,7 +5,6 @@ import { DIVIDER_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { ReactNode } from 'react';
 
 import { ElementType } from '../../modules/editor-v4-rich-formatting';
-import { DIVIDER_NODE_TYPE } from '../../../../slate-types/src';
 
 declare global {
     namespace JSX {
