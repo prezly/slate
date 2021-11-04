@@ -5,16 +5,16 @@ import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { ReactNode } from 'react';
 
 import { LOADER_TYPE } from './constants';
-import { LoaderElementType } from './types';
+import { LoaderNode } from './types';
 
 declare global {
     namespace JSX {
         interface IntrinsicElements {
             'h-loader': {
                 children?: ReactNode;
-                contentType: LoaderElementType['contentType'];
-                id: LoaderElementType['id'];
-                message: LoaderElementType['message'];
+                contentType: LoaderNode['contentType'];
+                id: LoaderNode['id'];
+                message: LoaderNode['message'];
             };
             'h-p': {
                 children?: ReactNode;

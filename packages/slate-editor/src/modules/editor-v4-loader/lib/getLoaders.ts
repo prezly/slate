@@ -1,11 +1,11 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, NodeEntry } from 'slate';
 
-import { LoaderElementType } from '../types';
+import { LoaderNode } from '../types';
 
 import isLoaderElement from './isLoaderElement';
 
-const getLoaders = (editor: Editor): NodeEntry<LoaderElementType>[] => {
+const getLoaders = (editor: Editor): NodeEntry<LoaderNode>[] => {
     const at = EditorCommands.getEditorRange(editor);
 
     if (!at) {

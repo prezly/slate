@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from 'uuid';
 
 import { LOADER_TYPE } from '../constants';
-import { LoaderContentType, LoaderElementType } from '../types';
+import { LoaderContentType, LoaderNode } from '../types';
 
 interface Parameters {
     contentType: LoaderContentType;
@@ -9,7 +9,7 @@ interface Parameters {
     message: string;
 }
 
-const createLoader = ({ contentType, id = uuidV4(), message }: Parameters): LoaderElementType => ({
+const createLoader = ({ contentType, id = uuidV4(), message }: Parameters): LoaderNode => ({
     children: [{ text: '' }],
     contentType,
     id,

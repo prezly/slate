@@ -10,7 +10,7 @@ import {
     createLoader,
     findLoaderPath,
     LoaderContentType,
-    LoaderElementType,
+    LoaderNode,
     loaderPromiseManager,
     removeLoader,
     replaceLoader,
@@ -51,7 +51,7 @@ const getFilePromise = (src: string): FilePromise | null => {
 
 const scheduleLoaderReplacement = async (
     editor: Editor,
-    loaderElement: LoaderElementType,
+    loaderElement: LoaderNode,
     { href, src }: ImageCandidateElementType,
 ) => {
     const loaderPath = findLoaderPath(editor, loaderElement.id);

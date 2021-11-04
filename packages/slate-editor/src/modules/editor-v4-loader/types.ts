@@ -10,7 +10,7 @@ export enum LoaderContentType {
     VIDEO = 'video',
 }
 
-export interface LoaderElementType extends ElementNode {
+export interface LoaderNode extends ElementNode {
     type: typeof LOADER_TYPE;
     contentType: LoaderContentType;
     id: string;

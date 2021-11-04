@@ -1,9 +1,9 @@
 import { Editor, Element, Transforms } from 'slate';
 
 import { findLoaderPath, isLoaderElement } from '../lib';
-import { LoaderElementType } from '../types';
+import { LoaderNode } from '../types';
 
-const replaceLoader = (editor: Editor, loader: LoaderElementType, element: Element): void => {
+const replaceLoader = (editor: Editor, loader: LoaderNode, element: Element): void => {
     const loaderPath = findLoaderPath(editor, loader.id);
 
     if (!loaderPath) {
