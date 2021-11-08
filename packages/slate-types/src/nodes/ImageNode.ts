@@ -1,6 +1,6 @@
 import { UploadcareImageStoragePayload } from '../sdk';
 
-import ElementNode, { isElementNode } from './ElementNode';
+import { ElementNode, isElementNode } from './ElementNode';
 
 export const IMAGE_NODE_TYPE = 'image-block';
 
@@ -10,7 +10,7 @@ export enum ImageLayout {
     FULL_WIDTH = 'full-width',
 }
 
-export default interface ImageNode extends ElementNode {
+export interface ImageNode extends ElementNode {
     type: typeof IMAGE_NODE_TYPE;
     /** caption */
     file: UploadcareImageStoragePayload;

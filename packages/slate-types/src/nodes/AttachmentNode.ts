@@ -1,10 +1,10 @@
 import { UploadcareStoragePayload } from '../sdk';
 
-import ElementNode, { isElementNode } from './ElementNode';
+import { ElementNode, isElementNode } from './ElementNode';
 
 export const ATTACHMENT_NODE_TYPE = 'attachment';
 
-export default interface AttachmentNode extends ElementNode {
+export interface AttachmentNode extends ElementNode {
     type: typeof ATTACHMENT_NODE_TYPE;
     description: string;
     file: UploadcareStoragePayload;

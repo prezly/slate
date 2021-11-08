@@ -2,7 +2,7 @@ import type { BaseElement } from 'slate';
 
 import { isObject } from '../lib';
 
-export default interface ElementNode extends BaseElement {
+export interface ElementNode extends BaseElement {
     type: string;
 }
 

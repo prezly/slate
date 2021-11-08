@@ -1,8 +1,8 @@
-import ElementNode, { isElementNode } from './ElementNode';
+import { ElementNode, isElementNode } from './ElementNode';
 
 export const QUOTE_NODE_TYPE = 'block-quote';
 
-export default interface QuoteNode extends ElementNode {
+export interface QuoteNode extends ElementNode {
     type: typeof QUOTE_NODE_TYPE;
 }
 

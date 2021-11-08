@@ -1,8 +1,8 @@
-import ElementNode, { isElementNode } from './ElementNode';
+import { ElementNode, isElementNode } from './ElementNode';
 
 export const PLACEHOLDER_NODE_TYPE = 'placeholder';
 
-export default interface PlaceholderNode extends ElementNode {
+export interface PlaceholderNode extends ElementNode {
     type: typeof PLACEHOLDER_NODE_TYPE;
     key: string;
 }

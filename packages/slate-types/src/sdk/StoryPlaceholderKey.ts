@@ -1,3 +1,1 @@
-type StoryPlaceholderKey = 'publication.date';
-
-export default StoryPlaceholderKey;
+export type StoryPlaceholderKey = 'publication.date';

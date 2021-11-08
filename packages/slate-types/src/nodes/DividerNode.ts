@@ -1,8 +1,8 @@
-import ElementNode, { isElementNode } from './ElementNode';
+import { ElementNode, isElementNode } from './ElementNode';
 
 export const DIVIDER_NODE_TYPE = 'divider';
 
-export default interface DividerNode extends ElementNode {
+export interface DividerNode extends ElementNode {
     type: typeof DIVIDER_NODE_TYPE;
 }
 

@@ -1,10 +1,10 @@
 import { OEmbedInfo } from '@prezly/sdk';
 
-import ElementNode, { isElementNode } from './ElementNode';
+import { ElementNode, isElementNode } from './ElementNode';
 
 export const EMBED_NODE_TYPE = 'embed';
 
-export default interface EmbedNode extends ElementNode {
+export interface EmbedNode extends ElementNode {
     type: typeof EMBED_NODE_TYPE;
     oembed: OEmbedInfo;
     url: string;
