@@ -1,9 +1,9 @@
 import { isObject } from '../lib';
 
-import UploadcareFileStoragePayload from './UploadcareFileStoragePayload';
-import UploadcareImageStoragePayload from './UploadcareImageStoragePayload';
+import { UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
+import { UploadcareImageStoragePayload } from './UploadcareImageStoragePayload';
 
-type UploadcareStoragePayload = UploadcareFileStoragePayload | UploadcareImageStoragePayload;
+export type UploadcareStoragePayload = UploadcareFileStoragePayload | UploadcareImageStoragePayload;
 
 export const isPrezlyStoragePayload = (value: any): value is UploadcareFileStoragePayload => {
     return (
@@ -14,5 +14,3 @@ export const isPrezlyStoragePayload = (value: any): value is UploadcareFileStora
         typeof value.uuid === 'string'
     );
 };
-
-export default UploadcareStoragePayload;

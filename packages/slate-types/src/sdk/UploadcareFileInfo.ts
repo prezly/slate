@@ -1,7 +1,7 @@
 /**
  * @see https://uploadcare.com/docs/api_reference/javascript/files_uploads/#file-info
  */
-export default interface UploadcareFileInfo {
+export interface UploadcareFileInfo {
     uuid: string;
     name: string;
     size: number;

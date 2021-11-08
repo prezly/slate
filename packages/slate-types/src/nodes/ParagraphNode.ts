@@ -1,8 +1,8 @@
-import ElementNode, { isElementNode } from './ElementNode';
+import { ElementNode, isElementNode } from './ElementNode';
 
 export const PARAGRAPH_NODE_TYPE = 'paragraph';
 
-export default interface ParagraphNode extends ElementNode {
+export interface ParagraphNode extends ElementNode {
     type: typeof PARAGRAPH_NODE_TYPE;
 }
 

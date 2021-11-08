@@ -1,4 +1,4 @@
-type EmailPlaceholderKey =
+export type EmailPlaceholderKey =
     | 'contact.firstname'
     | 'contact.lastname'
     | 'contact.fullname'
@@ -6,5 +6,3 @@ type EmailPlaceholderKey =
     | 'contact.salutation'
     | 'release.url'
     | 'release.shorturl';
-
-export default EmailPlaceholderKey;

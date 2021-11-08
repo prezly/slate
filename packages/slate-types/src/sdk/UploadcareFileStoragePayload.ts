@@ -1,4 +1,4 @@
-export default interface UploadcareFileStoragePayload {
+export interface UploadcareFileStoragePayload {
     filename: string;
     mime_type: string;
     size: number;

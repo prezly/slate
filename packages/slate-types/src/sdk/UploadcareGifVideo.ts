@@ -1,12 +1,12 @@
 import { UPLOADCARE_CDN_URL } from '../constants';
 
-import UploadcareImage from './UploadcareImage';
+import { UploadcareImage } from './UploadcareImage';
 
 type Quality = 'lightest' | 'lighter' | 'normal' | 'better' | 'best';
 
 type VideoFormat = 'mp4' | 'webm';
 
-class UploadcareGifVideo {
+export class UploadcareGifVideo {
     public static createFromUploadcareImage(image: UploadcareImage): UploadcareGifVideo {
         // The `gif2video` transformation is supported only for gifs,
         // otherwise the server responds with "400 Bad Request".
@@ -94,5 +94,3 @@ class UploadcareGifVideo {
         return `${cdnUrl}${encodeURIComponent(this.filename)}`;
     }
 }
-
-export default UploadcareGifVideo;

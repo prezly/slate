@@ -1,15 +1,15 @@
 import { UPLOADCARE_CDN_URL, UPLOADCARE_FILE_DATA_KEY } from '../constants';
 
-import UploadcareFile from './UploadcareFile';
-import UploadcareFileInfo from './UploadcareFileInfo';
-import UploadcareGifVideo from './UploadcareGifVideo';
-import UploadcareImageStoragePayload from './UploadcareImageStoragePayload';
+import { UploadcareFile } from './UploadcareFile';
+import { UploadcareFileInfo } from './UploadcareFileInfo';
+import { UploadcareGifVideo } from './UploadcareGifVideo';
+import { UploadcareImageStoragePayload } from './UploadcareImageStoragePayload';
 
 type ImageFormat = 'auto' | 'jpeg' | 'png' | 'web';
 
 const MAX_PREVIEW_SIZE = 2000;
 
-class UploadcareImage {
+export class UploadcareImage {
     public static createFromUploadcareWidgetPayload = (
         fileInfo: UploadcareFileInfo,
     ): UploadcareImage => {
@@ -259,5 +259,3 @@ class UploadcareImage {
         });
     };
 }
-
-export default UploadcareImage;

@@ -1,4 +1,4 @@
-export default interface TextNode {
+export interface TextNode {
     bold?: boolean;
     italic?: boolean;
     subscript?: boolean;

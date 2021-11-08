@@ -1,4 +1,4 @@
-export default interface PressContact {
+export interface PressContact {
     avatar_url: string | null;
     company: string | null;
     // TODO: cultures

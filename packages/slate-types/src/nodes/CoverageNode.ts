@@ -1,10 +1,10 @@
 import { Coverage } from '@prezly/sdk';
 
-import ElementNode, { isElementNode } from './ElementNode';
+import { ElementNode, isElementNode } from './ElementNode';
 
 export const COVERAGE_NODE_TYPE = 'coverage';
 
-export default interface CoverageNode extends ElementNode {
+export interface CoverageNode extends ElementNode {
     type: typeof COVERAGE_NODE_TYPE;
     coverage: {
         id: Coverage['id'];
