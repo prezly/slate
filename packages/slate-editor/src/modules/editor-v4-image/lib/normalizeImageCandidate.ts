@@ -10,13 +10,13 @@ import {
     createLoader,
     findLoaderPath,
     LoaderContentType,
-    LoaderElementType,
+    LoaderNode,
     loaderPromiseManager,
     removeLoader,
     replaceLoader,
 } from '../../../modules/editor-v4-loader';
 import { UPLOAD_SINGLE_IMAGE_ERROR_MESSAGE } from '../../../modules/uploadcare';
-import { ImageCandidateElementType } from '../types';
+import { ImageCandidateNode } from '../types';
 
 import createImage from './createImage';
 import isImageCandidateElement from './isImageCandidateElement';
@@ -51,8 +51,8 @@ const getFilePromise = (src: string): FilePromise | null => {
 
 const scheduleLoaderReplacement = async (
     editor: Editor,
-    loaderElement: LoaderElementType,
-    { href, src }: ImageCandidateElementType,
+    loaderElement: LoaderNode,
+    { href, src }: ImageCandidateNode,
 ) => {
     const loaderPath = findLoaderPath(editor, loaderElement.id);
     const filePromise = getFilePromise(src);

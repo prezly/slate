@@ -1,9 +1,10 @@
-import { Element, Node } from 'slate';
+import { isElementNode } from '@prezly/slate-types';
+import { Node } from 'slate';
 
 import { LOADER_TYPE } from '../constants';
-import { LoaderElementType } from '../types';
+import { LoaderNode } from '../types';
 
-const isLoaderElement = (node: Node): node is LoaderElementType =>
-    Element.isElement(node) && node.type === LOADER_TYPE;
+const isLoaderElement = (node: Node): node is LoaderNode =>
+    isElementNode<LoaderNode>(node, LOADER_TYPE);
 
 export default isLoaderElement;

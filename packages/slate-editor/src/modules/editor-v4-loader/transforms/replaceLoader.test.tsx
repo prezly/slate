@@ -6,7 +6,7 @@ import { withReact } from 'slate-react';
 
 import jsx from '../jsx';
 import { findLoaderPath, isLoaderElement } from '../lib';
-import { LoaderContentType, LoaderElementType } from '../types';
+import { LoaderContentType, LoaderNode } from '../types';
 
 import replaceLoader from './replaceLoader';
 
@@ -52,7 +52,7 @@ describe('replaceLoader', () => {
 
         if (loaderPath) {
             const [[loader]] = Array.from(
-                Editor.nodes<LoaderElementType>(editor, {
+                Editor.nodes<LoaderNode>(editor, {
                     at: loaderPath,
                     match: isLoaderElement,
                 }),

@@ -5,10 +5,10 @@ import { Editor, Element, Node, NodeEntry } from 'slate';
 
 const normalizeNestedRootElement = (
     editor: Editor,
-    rootTypes: string[],
+    rootTypes: Element['type'][],
     [node, path]: NodeEntry<Node>,
 ): boolean => {
-    if (!Element.isElement(node) || !rootTypes.includes(node.type as string)) {
+    if (!Element.isElement(node) || !rootTypes.includes(node.type)) {
         // This function does not know how to normalize other nodes.
         return false;
     }

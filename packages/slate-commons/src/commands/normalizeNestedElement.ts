@@ -1,18 +1,17 @@
-import { ElementNode } from '@prezly/slate-types';
+import { ElementNode, isElementNode } from '@prezly/slate-types';
 import { Editor, ElementEntry, Transforms } from 'slate';
 
-import isElementWithType from './isElementWithType';
 import makeDirty from './makeDirty';
 
 type Options =
     | {
-          allowedParentTypes: string[];
+          allowedParentTypes: ElementNode['type'][];
       }
     | {
-          disallowedParentTypes: string[];
+          disallowedParentTypes: ElementNode['type'][];
       };
 
-const isParentTypeAllowed = (options: Options, parentType: string): boolean => {
+const isParentTypeAllowed = (options: Options, parentType: ElementNode['type']): boolean => {
     if ('allowedParentTypes' in options) {
         return options.allowedParentTypes.includes(parentType);
     }
@@ -32,7 +31,11 @@ const normalizeNestedElement = (
 
     const [ancestorNode, ancestorPath] = ancestor;
 
-    if (!isElementWithType(ancestorNode) || isParentTypeAllowed(options, ancestorNode.type)) {
+    if (!isElementNode(ancestorNode)) {
+        return false;
+    }
+
+    if (isParentTypeAllowed(options, ancestorNode.type)) {
         return false;
     }
 
@@ -41,7 +44,7 @@ const normalizeNestedElement = (
     if (
         Editor.isInline(editor, element) ||
         Editor.isVoid(editor, element) ||
-        ancestorNode.type === (element as ElementNode).type
+        isElementNode(ancestorNode, (element as ElementNode).type)
     ) {
         if (ancestorNode.children.length === 1) {
             Transforms.unwrapNodes(editor, { at: ancestorPath, voids: true });

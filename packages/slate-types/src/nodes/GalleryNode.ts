@@ -1,4 +1,4 @@
-import { UploadcareImageStoragePayload, isPrezlyStoragePayload } from '../sdk';
+import { UploadcareImageStoragePayload } from '../sdk';
 
 import ElementNode, { isElementNode } from './ElementNode';
 
@@ -24,19 +24,8 @@ export enum GalleryPadding {
     S = 'S',
 }
 
-const LAYOUTS = [GalleryLayout.CONTAINED, GalleryLayout.EXPANDED, GalleryLayout.FULL_WIDTH];
-
-const PADDINGS = [GalleryPadding.S, GalleryPadding.M, GalleryPadding.L];
-
-const THUMBNAIL_SIZES = [
-    GalleryImageSize.XS,
-    GalleryImageSize.S,
-    GalleryImageSize.M,
-    GalleryImageSize.L,
-    GalleryImageSize.XL,
-];
-
-export default interface GalleryNode extends ElementNode<typeof GALLERY_NODE_TYPE> {
+export default interface GalleryNode extends ElementNode {
+    type: typeof GALLERY_NODE_TYPE;
     images: {
         /** empty string if no caption */
         caption: string;
@@ -54,21 +43,5 @@ export interface GalleryImage {
     file: UploadcareImageStoragePayload;
 }
 
-const isGalleryImage = (image: any): image is GalleryImage =>
-    typeof image === 'object' &&
-    image !== null &&
-    typeof image.caption === 'string' &&
-    isPrezlyStoragePayload(image.file);
-
-export const isGalleryNode = (value: any): value is GalleryNode => {
-    return (
-        isElementNode(value) &&
-        value.type === GALLERY_NODE_TYPE &&
-        Array.isArray(value.images) &&
-        value.images.every(isGalleryImage) &&
-        LAYOUTS.includes(value.layout as any) &&
-        PADDINGS.includes(value.padding as any) &&
-        THUMBNAIL_SIZES.includes(value.thumbnail_size as any) &&
-        typeof value.uuid === 'string'
-    );
-};
+export const isGalleryNode = (value: any): value is GalleryNode =>
+    isElementNode<GalleryNode>(value, GALLERY_NODE_TYPE);

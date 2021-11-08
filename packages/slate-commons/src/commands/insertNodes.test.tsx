@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import { LinkNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import jsx from '../jsx';
@@ -221,13 +221,13 @@ describe('insertNodes', () => {
         insertNodes(editor, [
             { text: 'xxx' },
             {
+                type: INLINE_ELEMENT,
                 children: [{ text: 'yyy' }],
                 href: 'https://example.com',
-                type: INLINE_ELEMENT,
-            },
+            } as LinkNode,
             {
-                children: [{ text: 'dolor' }],
                 type: PARAGRAPH_NODE_TYPE,
+                children: [{ text: 'dolor' }],
             },
             { text: 'zzz' },
         ]);
@@ -260,8 +260,8 @@ describe('insertNodes', () => {
 
         insertNodes(editor, [
             {
-                children: [{ text: 'dolor' }],
                 type: PARAGRAPH_NODE_TYPE,
+                children: [{ text: 'dolor' }],
             },
         ]);
 
@@ -301,11 +301,10 @@ describe('insertNodes', () => {
         insertNodes(editor, [
             { text: 'xxx' },
             {
-                children: [{ text: 'yyy' }],
-
-                href: 'https://example.com',
                 type: INLINE_ELEMENT,
-            },
+                children: [{ text: 'yyy' }],
+                href: 'https://example.com',
+            } as LinkNode,
             { text: 'zzz' },
             {
                 children: [{ text: 'dolor' }],
@@ -350,10 +349,10 @@ describe('insertNodes', () => {
         insertNodes(editor, [
             { text: 'xxx' },
             {
+                type: INLINE_ELEMENT,
                 children: [{ text: 'yyy' }],
                 href: 'https://example.com',
-                type: INLINE_ELEMENT,
-            },
+            } as LinkNode,
             { text: 'zzz' },
         ]);
 
@@ -447,10 +446,10 @@ describe('insertNodes', () => {
                 text: 'lorem',
             },
             {
-                children: [{ text: 'ipsum' }],
-                href: 'https://example.com',
                 type: INLINE_VOID_ELEMENT,
-            },
+                href: 'https://example.com',
+                children: [{ text: 'ipsum' }],
+            } as LinkNode,
             {
                 bold: true,
                 text: ' ',

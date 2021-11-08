@@ -1,10 +1,11 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Element, Transforms } from 'slate';
+import { ElementNode } from '@prezly/slate-types';
 
+import { Editor, Element, Transforms } from 'slate';
 import lists from '../lists';
 import { ElementType } from '../types';
 
-const toggleBlock = (editor: Editor, type: string): void => {
+const toggleBlock = (editor: Editor, type: ElementNode['type']): void => {
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (!currentNode) {

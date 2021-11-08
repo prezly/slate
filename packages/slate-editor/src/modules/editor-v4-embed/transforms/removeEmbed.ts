@@ -1,12 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { EmbedNode, isEmbedNode } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-import { isEmbedElement } from '../lib';
-import { EmbedElementType } from '../types';
-
-const removeEmbed = (editor: Editor): EmbedElementType | null =>
-    EditorCommands.removeNode<EmbedElementType>(editor, {
-        match: isEmbedElement,
+const removeEmbed = (editor: Editor): EmbedNode | null =>
+    EditorCommands.removeNode<EmbedNode>(editor, {
+        match: isEmbedNode,
     });
 
 export default removeEmbed;

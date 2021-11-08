@@ -1,13 +1,13 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isCoverageNode } from '@prezly/slate-types';
 import { Editor, NodeEntry } from 'slate';
 
 import createCoverage from './createCoverage';
-import isCoverageElement from './isCoverageElement';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createCoverage(0));
 
 const normalizeRedundantCoverageAttributes = (editor: Editor, [node, path]: NodeEntry): boolean => {
-    if (!isCoverageElement(node)) {
+    if (!isCoverageNode(node)) {
         return false;
     }
 

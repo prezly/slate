@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import { DIVIDER_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { ReactNode } from 'react';
 
-import { DIVIDER_TYPE } from '../../modules/editor-v4-divider';
 import { ElementType } from '../../modules/editor-v4-rich-formatting';
 
 declare global {
@@ -34,7 +33,7 @@ declare global {
 
 const jsx = createHyperscript({
     elements: {
-        'h-divider': { type: DIVIDER_TYPE },
+        'h-divider': { type: DIVIDER_NODE_TYPE },
         'h-li': { type: ElementType.LIST_ITEM },
         'h-li-text': { type: ElementType.LIST_ITEM_TEXT },
         'h-ol': { type: ElementType.NUMBERED_LIST },

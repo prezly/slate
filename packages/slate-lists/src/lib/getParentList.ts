@@ -1,7 +1,7 @@
-import { Editor, Element, NodeEntry, Path } from 'slate';
+import { ElementNode } from '@prezly/slate-types';
+import { Editor, NodeEntry, Path } from 'slate';
 
 import { ListsOptions } from '../types';
-
 import isList from './isList';
 
 /**
@@ -12,14 +12,14 @@ const getParentList = (
     options: ListsOptions,
     editor: Editor,
     listItemPath: Path,
-): NodeEntry<Element> | null => {
-    const parentList = Editor.above(editor, {
+): NodeEntry<ElementNode> | null => {
+    const parentList = Editor.above<ElementNode>(editor, {
         at: listItemPath,
-        match: (node) => Element.isElement(node) && options.listTypes.includes(node.type as string),
+        match: (node) => isList(options, node),
     });
 
     if (parentList && isList(options, parentList[0])) {
-        return parentList as NodeEntry<Element>;
+        return parentList;
     }
 
     return null;

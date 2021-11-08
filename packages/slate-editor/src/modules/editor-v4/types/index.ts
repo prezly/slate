@@ -1,6 +1,5 @@
-import { Descendant, Editor } from 'slate';
+import type { Editor, Element } from 'slate';
 import Events from '@prezly/events';
-import { BlockNode, isBlockNode } from '@prezly/slate-types';
 import { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 
 import { CoverageExtensionParameters } from '../../../modules/editor-v4-coverage';
@@ -9,20 +8,11 @@ import { EditorEventMap } from '../../../modules/editor-v4-events';
 import { FileAttachmentExtensionParameters } from '../../../modules/editor-v4-file-attachment';
 import { FloatingAddMenuExtensionParameters } from '../../../modules/editor-v4-floating-add-menu';
 import { GalleriesExtensionParameters } from '../../../modules/editor-v4-galleries';
-import {
-    ImageExtensionParameters,
-    isImageCandidateElement,
-} from '../../../modules/editor-v4-image';
+import { ImageExtensionParameters } from '../../../modules/editor-v4-image';
 import { PlaceholderMentionsExtensionParameters } from '../../../modules/editor-v4-placeholder-mentions';
 import { PressContactsExtensionParameters } from '../../../modules/editor-v4-press-contacts';
-import {
-    isLinkCandidateElement,
-    RichFormattingExtensionParameters,
-} from '../../../modules/editor-v4-rich-formatting';
+import { RichFormattingExtensionParameters } from '../../../modules/editor-v4-rich-formatting';
 import { UserMentionsExtensionParameters } from '../../../modules/editor-v4-user-mentions';
-import { LinkCandidateElementType } from '../../editor-v4-rich-formatting/types';
-import { isLoaderElement, LoaderElementType } from '../../editor-v4-loader';
-import { ImageCandidateElementType } from '../../editor-v4-image/types';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
@@ -45,22 +35,7 @@ export interface EditorV4ExtensionsProps {
     withUserMentions?: UserMentionsExtensionParameters;
 }
 
-export type Value = (
-    | BlockNode
-    | LinkCandidateElementType
-    | ImageCandidateElementType
-    | LoaderElementType
-)[];
-
-export function isValue(value: Descendant[]): value is Value {
-    return value.every(
-        (node) =>
-            isBlockNode(node) ||
-            isLinkCandidateElement(node) ||
-            isImageCandidateElement(node) ||
-            isLoaderElement(node),
-    );
-}
+export type Value = Element[];
 
 export interface EditorV4Props extends EditorV4ExtensionsProps {
     autoFocus?: boolean;

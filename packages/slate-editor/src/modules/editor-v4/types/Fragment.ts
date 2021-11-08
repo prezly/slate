@@ -1,8 +1,6 @@
 import {
     AttachmentNode,
     isAttachmentNode,
-    BlockNode,
-    isBlockNode,
     ContactNode,
     isContactNode,
     CoverageNode,
@@ -19,8 +17,6 @@ import {
     isHeadingNode,
     ImageNode,
     isImageNode,
-    InlineNode,
-    isInlineNode,
     LinkNode,
     isLinkNode,
     ListNode,
@@ -38,13 +34,11 @@ import {
     QuoteNode,
     isQuoteNode,
     TextNode,
-    isTextNode,
 } from '@prezly/slate-types';
-import { Element, Node } from 'slate';
+import { Element, Node, Text } from 'slate';
 
 const validators = [
     isAttachmentNode,
-    isBlockNode,
     isContactNode,
     isCoverageNode,
     isDividerNode,
@@ -53,7 +47,6 @@ const validators = [
     isGalleryNode,
     isHeadingNode,
     isImageNode,
-    isInlineNode,
     isLinkNode,
     isListNode,
     isListItemNode,
@@ -62,12 +55,11 @@ const validators = [
     isParagraphNode,
     isPlaceholderNode,
     isQuoteNode,
-    isTextNode,
+    Text.isText,
 ];
 
 type KnownNode =
     | AttachmentNode
-    | BlockNode
     | ContactNode
     | CoverageNode
     | DividerNode
@@ -76,7 +68,6 @@ type KnownNode =
     | GalleryNode
     | HeadingNode
     | ImageNode
-    | InlineNode
     | LinkNode
     | ListNode
     | ListItemNode

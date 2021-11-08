@@ -8,12 +8,12 @@ import { LoadingPlaceholderV2 } from '../../../../components';
 import { Attachment, Embed, Gallery, Image, Video } from '../../../../icons';
 import { useAsyncProgress } from '../../../../lib';
 import { loaderPromiseManager } from '../../lib';
-import { LoaderContentType, LoaderElementType } from '../../types';
+import { LoaderContentType, LoaderNode } from '../../types';
 
 import './LoaderElement.scss';
 
 interface Props extends RenderElementProps {
-    element: LoaderElementType;
+    element: LoaderNode;
     onMount: () => void;
     onUnmount: () => void;
 }

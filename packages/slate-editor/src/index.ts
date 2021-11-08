@@ -11,4 +11,3 @@ export {
 export { ElementType as RichElementType } from './modules/editor-v4-rich-formatting';
 export { ResultPromise, UploadcareOptions, withUploadcare } from './modules/editor-v4-uploadcare';
 export { User } from './modules/editor-v4-user-mentions';
-export * from './types';

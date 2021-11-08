@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { RenderElementProps } from 'slate-react';
 
-import { LinkCandidateElementType } from '../../../../modules/editor-v4-rich-formatting/types';
+import { LinkCandidateNode } from '../../../../modules/editor-v4-rich-formatting/types';
 
 import './LinkCandidateElement.scss';
 
 interface Props extends RenderElementProps {
-    element: LinkCandidateElementType;
+    element: LinkCandidateNode;
 }
 
 const LinkCandidateElement: FunctionComponent<Props> = ({ attributes, children, element }) => (

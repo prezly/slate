@@ -1,10 +1,10 @@
 import { KeyboardEvent } from 'react';
-import { ReactEditor } from 'slate-react';
+import type { Editor } from 'slate';
 
-import { Extension, OnKeyDown } from '../types';
+import type { Extension, OnKeyDown } from '../types';
 
 const onKeyDownExtensions =
-    (editor: ReactEditor, extensions: Extension[], onKeyDownList: OnKeyDown[]) =>
+    (editor: Editor, extensions: Extension[], onKeyDownList: OnKeyDown[]) =>
     (event: KeyboardEvent) => {
         onKeyDownList.forEach((onKeyDown) => {
             onKeyDown(event, editor);

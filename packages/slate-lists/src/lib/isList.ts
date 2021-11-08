@@ -1,12 +1,12 @@
-import { Element } from 'slate';
+import { ElementNode, isElementNode } from '@prezly/slate-types';
 
 import { ListsOptions } from '../types';
 
 /**
  * Checks whether node.type is an Element matching any of options.listTypes.
  */
-const isList = (options: ListsOptions, node: unknown): node is Element => {
-    return Element.isElement(node) && options.listTypes.includes(node.type as string);
-};
+function isList(options: ListsOptions, node: unknown): node is ElementNode {
+    return isElementNode(node, options.listTypes);
+}
 
 export default isList;

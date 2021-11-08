@@ -1,9 +1,9 @@
-import { EditorCommands } from '@prezly/slate-commons';
+import { isElementNode } from '@prezly/slate-types';
 
 import { IMAGE_CANDIDATE_TYPE } from '../constants';
-import { ImageCandidateElementType } from '../types';
+import { ImageCandidateNode } from '../types';
 
-const isImageCandidateElement = (node: unknown): node is ImageCandidateElementType =>
-    EditorCommands.isElementWithType(node) && node.type === IMAGE_CANDIDATE_TYPE;
+const isImageCandidateElement = (node: unknown): node is ImageCandidateNode =>
+    isElementNode<ImageCandidateNode>(node, IMAGE_CANDIDATE_TYPE);
 
 export default isImageCandidateElement;

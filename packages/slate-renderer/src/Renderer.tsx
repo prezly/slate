@@ -1,13 +1,13 @@
-import { ElementNode, isElementNode, isTextNode, TextNode } from '@prezly/slate-types';
+import { isElementNode } from '@prezly/slate-types';
 import React, { Fragment, FunctionComponent } from 'react';
+import { Descendant, Text } from 'slate';
 
 import defaultOptions from './defaultOptions';
+import { stringifyNode } from './lib';
 import { Options } from './types';
 
-type Node = ElementNode | TextNode;
-
 interface Props {
-    nodes: Node | Node[];
+    nodes: Descendant | Descendant[];
     options?: Options;
 }
 
@@ -18,7 +18,7 @@ const Renderer: FunctionComponent<Props> = ({ nodes, options: userOptions = {} }
     return (
         <>
             {nodesArray.map((node, index) => {
-                if (isTextNode(node)) {
+                if (Text.isText(node)) {
                     const TextRenderer = options.text;
                     return <TextRenderer key={index} {...node} />;
                 }
@@ -40,7 +40,7 @@ const Renderer: FunctionComponent<Props> = ({ nodes, options: userOptions = {} }
 
                 if (process.env.NODE_ENV === 'development') {
                     console.warn(
-                        `[@prezly/slate-renderer] Unknown node type encountered: ${node.type}`,
+                        `[@prezly/slate-renderer] Unknown node type encountered: ${stringifyNode(node)}`,
                     );
                 }
 

@@ -1,12 +1,11 @@
 import { createDeserializeElement, Extension } from '@prezly/slate-commons';
-import { COVERAGE_NODE_TYPE } from '@prezly/slate-types';
+import { COVERAGE_NODE_TYPE, isCoverageNode } from '@prezly/slate-types';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
 import { CoverageElement, CoverageMenu } from './components';
 import { COVERAGE_EXTENSION_ID } from './constants';
 import {
-    isCoverageElement,
     normalizeRedundantCoverageAttributes,
     parseSerializedElement,
 } from './lib';
@@ -25,7 +24,7 @@ const CoverageExtension = ({
     id: COVERAGE_EXTENSION_ID,
     normalizers: [normalizeRedundantCoverageAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (isCoverageElement(element)) {
+        if (isCoverageNode(element)) {
             return (
                 <>
                     {attributes.ref.current && (

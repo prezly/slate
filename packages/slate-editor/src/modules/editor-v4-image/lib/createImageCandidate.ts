@@ -1,7 +1,7 @@
 import { IMAGE_CANDIDATE_TYPE } from '../constants';
-import { ImageCandidateElementType } from '../types';
+import { ImageCandidateNode } from '../types';
 
-const createImageCandidate = (src: string, href = ''): ImageCandidateElementType => ({
+const createImageCandidate = (src: string, href = ''): ImageCandidateNode => ({
     children: [{ text: '' }],
     href,
     src,

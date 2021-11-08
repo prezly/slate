@@ -1,11 +1,10 @@
 /** @jsx jsx */
-
-import { Editor } from 'slate';
+import { isElementNode } from '@prezly/slate-types';
+import { Editor, Element } from 'slate';
 
 import jsx from '../jsx';
 import { SOME_ELEMENT_1, SOME_ELEMENT_2 } from '../test-utils';
 
-import isElementWithType from './isElementWithType';
 import removeNode from './removeNode';
 
 describe('removeNode', () => {
@@ -40,7 +39,7 @@ describe('removeNode', () => {
         if (editor.selection) {
             removeNode(editor, {
                 at: editor.selection,
-                match: (node) => isElementWithType(node),
+                match: (node) => Element.isElement(node),
             });
         }
 
@@ -77,7 +76,7 @@ describe('removeNode', () => {
         ) as unknown) as Editor;
 
         removeNode(editor, {
-            match: (node) => isElementWithType(node) && node.type === SOME_ELEMENT_1,
+            match: (node) => isElementNode(node, SOME_ELEMENT_1),
         });
 
         expect(editor.children).toEqual(expected.children);
@@ -116,7 +115,7 @@ describe('removeNode', () => {
         ) as unknown) as Editor;
 
         removeNode(editor, {
-            match: (node) => isElementWithType(node) && node.type === SOME_ELEMENT_2,
+            match: (node) => isElementNode(node, SOME_ELEMENT_2),
         });
 
         expect(editor.children).toEqual(expected.children);

@@ -1,12 +1,38 @@
+import type { BaseElement } from 'slate';
+
 import { isObject } from '../lib';
 
-import TextNode from './TextNode';
-
-export default interface ElementNode<T extends string = string> extends Record<string, unknown> {
-    children: (ElementNode<string> | TextNode)[];
-    type: T;
+export default interface ElementNode extends BaseElement {
+    type: string;
 }
 
-export const isElementNode = (value: any): value is ElementNode => {
-    return isObject(value) && typeof value.type === 'string' && Array.isArray(value.children);
-};
+/**
+ * Check if the value is having an `ElementNode` shape: `{ children: array, type: string }`.
+ */
+export function isElementNode(value: unknown): value is ElementNode;
+
+/**
+ * Check if the value is an `ElementNode` of the given type.
+ */
+export function isElementNode<T extends ElementNode>(value: unknown, type: T['type']): value is T;
+
+/**
+ * Check if the value is an `ElementNode` of one of the given types.
+ */
+export function isElementNode<T extends ElementNode>(value: unknown, type: T['type'][]): value is T;
+
+export function isElementNode(value: unknown, type?: string | string[]): boolean {
+    return (
+        isObject(value) &&
+        Array.isArray(value.children) &&
+        typeof value.type === 'string' &&
+        (type === undefined || isElementType(value.type, type))
+    );
+}
+
+function isElementType(elementType: string, checkType: string | string[]): boolean {
+    return (
+        (typeof checkType === 'string' && elementType === checkType) ||
+        (Array.isArray(checkType) && checkType.includes(elementType))
+    );
+}

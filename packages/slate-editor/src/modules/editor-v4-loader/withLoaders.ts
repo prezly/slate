@@ -2,14 +2,14 @@
 import { Editor } from 'slate';
 
 import { getLoaders, loaderPromiseManager } from './lib';
-import { LoaderElementType } from './types';
+import { LoaderNode } from './types';
 
 /*
  * Only loaders that have unresolved promises scheduled to dispose of them are allowed
  * in the editor. Other nodes will never be automatically replaced so it's our job to
  * prevent them from re-appearing in the editor.
  */
-const isLoaderAllowed = ({ id }: LoaderElementType): boolean => loaderPromiseManager.isPending(id);
+const isLoaderAllowed = ({ id }: LoaderNode): boolean => loaderPromiseManager.isPending(id);
 
 const createHistoryHandler =
     <T extends Editor>(

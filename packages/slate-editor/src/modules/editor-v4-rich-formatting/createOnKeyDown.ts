@@ -22,7 +22,7 @@ const marksOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
     });
 };
 
-const listsOnKeyDown = (event: KeyboardEvent, editor: ReactEditor) => {
+const listsOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
     const listItemsInSelection = lists.getListItemsInRange(editor, editor.selection);
 
     // Since we're overriding the default Tab key behavior

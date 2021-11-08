@@ -18,7 +18,7 @@ import {
     normalizeRedundantImageAttributes,
     parseSerializedElement,
 } from './lib';
-import { ImageCandidateElementType, ImageParameters } from './types';
+import { ImageCandidateNode, ImageParameters } from './types';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
 
@@ -35,7 +35,7 @@ const ImageExtension = ({
     deserialize: {
         element: {
             [IMAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-            IMG: (element: HTMLElement): ImageCandidateElementType | undefined => {
+            IMG: (element: HTMLElement): ImageCandidateNode | undefined => {
                 const imageElement = element as HTMLImageElement;
                 const anchorElement = getAncestorAnchor(imageElement);
 

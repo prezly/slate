@@ -5,15 +5,14 @@ import { Editor, Text } from 'slate';
 
 import { IMAGE_CANDIDATE_TYPE } from './constants';
 
-export type ImageCandidateType = typeof IMAGE_CANDIDATE_TYPE;
-
 /**
  * Image Candidate Element is just an ephemeral node which exists inbetween deserialization
  * and updating editor value. It's sole purpose is to glue deserialization
  * (where we have access to <img> elements but we don't have access to editor instance)
  * and normalization (which is responsible for converting these nodes into actual images).
  */
-export interface ImageCandidateElementType extends ElementNode<ImageCandidateType> {
+export interface ImageCandidateNode extends ElementNode {
+    type: typeof IMAGE_CANDIDATE_TYPE;
     children: Text[];
     /** empty string if no URL */
     href: string;

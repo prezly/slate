@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 
-import { EditorCommands } from '@prezly/slate-commons';
 import {
     BULLETED_LIST_NODE_TYPE,
     DIVIDER_NODE_TYPE,
@@ -9,6 +8,7 @@ import {
     LIST_ITEM_TEXT_NODE_TYPE,
     NUMBERED_LIST_NODE_TYPE,
     PARAGRAPH_NODE_TYPE,
+    isElementNode,
 } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
@@ -33,10 +33,12 @@ export const lists = Lists(options);
 const withInlineElement = <T extends Editor>(editor: T): T => {
     const { isInline } = editor;
 
-    editor.isInline = (element) =>
-        EditorCommands.isElementWithType(element) && element.type === INLINE_ELEMENT
-            ? true
-            : isInline(element);
+    editor.isInline = (element) => {
+        if (isElementNode(element, INLINE_ELEMENT)) {
+            return true;
+        }
+        return isInline(element);
+    };
 
     return editor;
 };

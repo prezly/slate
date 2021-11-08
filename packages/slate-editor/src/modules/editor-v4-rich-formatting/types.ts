@@ -4,9 +4,9 @@ import {
     ListItemNode,
     ListItemTextNode,
     LinkNode,
-    ElementNode,
     QuoteNode,
     PARAGRAPH_NODE_TYPE,
+    ElementNode,
 } from '@prezly/slate-types';
 
 type Multiple = 'multiple';
@@ -36,13 +36,14 @@ export enum MarkType {
 export type RichTextElementType =
     | HeadingNode
     | LinkNode
-    | LinkCandidateElementType
+    | LinkCandidateNode
     | ListNode
     | ListItemNode
     | ListItemTextNode
     | QuoteNode;
 
-export interface LinkCandidateElementType extends ElementNode<ElementType.LINK_CANDIDATE> {
+export interface LinkCandidateNode extends ElementNode {
+    type: ElementType.LINK_CANDIDATE;
     id: string;
 }
 

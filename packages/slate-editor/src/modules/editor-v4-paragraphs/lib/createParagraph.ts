@@ -1,8 +1,8 @@
-import { InlineNode, ParagraphNode, PARAGRAPH_NODE_TYPE, TextNode } from '@prezly/slate-types';
+import { ParagraphNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
-const createParagraph = (children: (InlineNode | TextNode)[] = [{ text: '' }]): ParagraphNode => ({
-    children,
+const createParagraph = (children: ParagraphNode['children'] = [{ text: '' }]): ParagraphNode => ({
     type: PARAGRAPH_NODE_TYPE,
+    children,
 });
 
 export default createParagraph;
