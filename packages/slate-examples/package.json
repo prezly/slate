@@ -1,7 +1,7 @@
 {
     "name": "@prezly/slate-examples",
     "private": true,
-    "version": "0.2.2",
+    "version": "0.3.0",
     "engines": {
         "node": ">=12.4.0"
     },
@@ -9,7 +9,7 @@
         "dev": "next dev"
     },
     "dependencies": {
-        "@prezly/slate-renderer": "^0.2.2",
+        "@prezly/slate-renderer": "^0.3.0",
         "next": "^10.0.3",
         "normalize.css": "^8.0.1"
     },
