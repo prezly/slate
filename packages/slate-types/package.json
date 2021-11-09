@@ -22,7 +22,7 @@
         "slate": "~0.66.0"
     },
     "dependencies": {
-        "@prezly/sdk": "^4.0",
+        "@prezly/sdk": "^5.0",
         "is-plain-object": "^5.0.0"
     }
 }
