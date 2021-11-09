@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
-        "@prezly/docx-cleaner": "^0.3.0",
+        "@prezly/docx-cleaner": "^0.4.0",
         "@prezly/events": "^1.0.2",
         "@prezly/linear-partition": "^1.0.0",
         "@prezly/progress-promise": "^1.0.0",
