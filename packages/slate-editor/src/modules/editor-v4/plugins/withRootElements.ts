@@ -3,32 +3,32 @@
 import { EditorCommands, Extension } from '@prezly/slate-commons';
 import { Editor, Element, Node, NodeEntry } from 'slate';
 
-const normalizeNestedRootElement = (
+const disallowAnyParent = () => false;
+
+function normalizeNestedRootElement(
     editor: Editor,
     rootTypes: Element['type'][],
     [node, path]: NodeEntry<Node>,
-): boolean => {
+): boolean {
     if (!Element.isElement(node) || !rootTypes.includes(node.type)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
 
-    return EditorCommands.normalizeNestedElement(editor, [node, path], {
-        allowedParentTypes: [],
-    });
-};
+    return EditorCommands.normalizeNestedElement(editor, [node, path], disallowAnyParent);
+}
 
-const getRootTypes = (getExtensions: () => Extension[]): string[] =>
-    getExtensions().reduce<string[]>((result, extension) => {
+function getRootTypes(getExtensions: () => Extension[]): string[] {
+    return getExtensions().reduce<string[]>((result, extension) => {
         if (Array.isArray(extension.rootTypes)) {
             return [...result, ...extension.rootTypes];
         }
         return result;
     }, []);
+}
 
-const withRootElements =
-    (getExtensions: () => Extension[]) =>
-    <T extends Editor>(editor: T): T => {
+export function withRootElements(getExtensions: () => Extension[]) {
+    return <T extends Editor>(editor: T): T => {
         const { normalizeNode } = editor;
 
         editor.normalizeNode = (entry) => {
@@ -47,5 +47,4 @@ const withRootElements =
 
         return editor;
     };
-
-export default withRootElements;
+}

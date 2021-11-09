@@ -11,7 +11,7 @@ export { default as isRichTextBlockElement } from './isRichTextBlockElement';
 export { default as isRichTextElement } from './isRichTextElement';
 export { default as isSelectionSupported } from './isSelectionSupported';
 export { default as normalizeEmptyLink } from './normalizeEmptyLink';
-export { default as normalizeNestedLink } from './normalizeNestedLink';
+export { normalizeNestedLink } from './normalizeNestedLink';
 export { default as normalizeRedundantRichTextAttributes } from './normalizeRedundantRichTextAttributes';
 export { default as parseSerializedElement } from './parseSerializedElement';
 export { default as parseSerializedLinkElement } from './parseSerializedLinkElement';

@@ -24,7 +24,7 @@ export { default as isValidLocation } from './isValidLocation';
 export { default as makeDirty } from './makeDirty';
 export { default as moveCursorToEndOfDocument } from './moveCursorToEndOfDocument';
 export { default as moveCursorToNextBlock } from './moveCursorToNextBlock';
-export { default as normalizeNestedElement } from './normalizeNestedElement';
+export { normalizeNestedElement } from './normalizeNestedElement';
 export { default as normalizeRedundantAttributes } from './normalizeRedundantAttributes';
 export { default as removeChildren } from './removeChildren';
 export { default as removeNode } from './removeNode';
