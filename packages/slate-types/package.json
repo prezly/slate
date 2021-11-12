@@ -19,7 +19,7 @@
         "clean": "rimraf build/ node_modules/"
     },
     "peerDependencies": {
-        "slate": "~0.70"
+        "slate": "~0.70.0"
     },
     "dependencies": {
         "@prezly/sdk": "^5.0",

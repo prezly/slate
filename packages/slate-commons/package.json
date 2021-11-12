@@ -24,9 +24,9 @@
     },
     "peerDependencies": {
         "react": "*",
-        "slate": "~0.70",
+        "slate": "~0.70.0",
         "slate-history": "~0.66.0",
-        "slate-react": "~0.70"
+        "slate-react": "~0.70.0"
     },
     "dependencies": {
         "@prezly/slate-types": "^0.3.0",
