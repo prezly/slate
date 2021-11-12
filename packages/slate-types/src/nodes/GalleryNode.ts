@@ -46,18 +46,22 @@ export function isGalleryNode(value: any): value is GalleryNode {
 }
 
 function validateGalleryImage(image: Partial<GalleryImage> | undefined): image is GalleryImage {
-    return isPlainObject(image) &&
+    return (
+        isPlainObject(image) &&
         typeof image.caption === 'string' &&
-        validateUploadedImage(image.file);
+        validateUploadedImage(image.file)
+    );
 }
 
 export function validateGalleryNode(node: Partial<GalleryNode> | undefined): node is GalleryNode {
-    return node !== undefined &&
+    return (
+        node !== undefined &&
         isPlainObject(node) &&
         node.type === GALLERY_NODE_TYPE &&
         isUuid(node.uuid) &&
         isEnum(node.layout, GalleryLayout) &&
         isEnum(node.padding, GalleryPadding) &&
         isEnum(node.thumbnail_size, GalleryImageSize) &&
-        isArrayOf(node.images, validateGalleryImage);
+        isArrayOf(node.images, validateGalleryImage)
+    );
 }

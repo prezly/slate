@@ -9,4 +9,4 @@ export const uploadedImage: UploadedImage = {
     original_width: 1024,
     original_height: 768,
     effects: [],
-}
+};

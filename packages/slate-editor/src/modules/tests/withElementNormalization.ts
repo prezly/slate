@@ -1,6 +1,9 @@
 import { Editor, Element, ElementEntry, NodeEntry } from 'slate';
 
-export function withElementNormalization(editor: Editor, normalization: (entry: ElementEntry) => boolean) {
+export function withElementNormalization(
+    editor: Editor,
+    normalization: (entry: ElementEntry) => boolean,
+) {
     const { normalizeNode } = editor;
 
     editor.normalizeNode = (entry: NodeEntry) => {

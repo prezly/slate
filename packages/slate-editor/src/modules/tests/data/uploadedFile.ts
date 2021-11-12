@@ -6,4 +6,4 @@ export const uploadedFile: UploadedFile = {
     filename: 'Annual Report.pdf',
     mime_type: 'application/pdf',
     size: 812904,
-}
+};

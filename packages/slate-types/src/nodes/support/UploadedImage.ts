@@ -7,7 +7,9 @@ export interface UploadedImage extends UploadedFile {
     original_width: number;
 }
 
-export function validateUploadedImage(file: Partial<UploadedImage> | undefined): file is UploadedImage {
+export function validateUploadedImage(
+    file: Partial<UploadedImage> | undefined,
+): file is UploadedImage {
     return (
         file !== undefined &&
         validateUploadedFile(file) &&
