@@ -1,6 +1,8 @@
-import { UploadcareImageStoragePayload } from '../sdk';
+import { isPlainObject } from 'is-plain-object';
 
 import { ElementNode, isElementNode } from './ElementNode';
+import { UploadedImage, validateUploadedImage } from './support';
+import { isArrayOf, isEnum, isUuid } from './validation';
 
 export const GALLERY_NODE_TYPE = 'gallery';
 
@@ -26,11 +28,7 @@ export enum GalleryPadding {
 
 export interface GalleryNode extends ElementNode {
     type: typeof GALLERY_NODE_TYPE;
-    images: {
-        /** empty string if no caption */
-        caption: string;
-        file: UploadcareImageStoragePayload;
-    }[];
+    images: GalleryImage[];
     layout: GalleryLayout;
     padding: GalleryPadding;
     thumbnail_size: GalleryImageSize;
@@ -40,8 +38,26 @@ export interface GalleryNode extends ElementNode {
 export interface GalleryImage {
     /** empty string if no caption */
     caption: string;
-    file: UploadcareImageStoragePayload;
+    file: UploadedImage;
 }
 
-export const isGalleryNode = (value: any): value is GalleryNode =>
-    isElementNode<GalleryNode>(value, GALLERY_NODE_TYPE);
+export function isGalleryNode(value: any): value is GalleryNode {
+    return isElementNode<GalleryNode>(value, GALLERY_NODE_TYPE);
+}
+
+function validateGalleryImage(image: Partial<GalleryImage> | undefined): image is GalleryImage {
+    return isPlainObject(image) &&
+        typeof image.caption === 'string' &&
+        validateUploadedImage(image.file);
+}
+
+export function validateGalleryNode(node: Partial<GalleryNode> | undefined): node is GalleryNode {
+    return node !== undefined &&
+        isPlainObject(node) &&
+        node.type === GALLERY_NODE_TYPE &&
+        isUuid(node.uuid) &&
+        isEnum(node.layout, GalleryLayout) &&
+        isEnum(node.padding, GalleryPadding) &&
+        isEnum(node.thumbnail_size, GalleryImageSize) &&
+        isArrayOf(node.images, validateGalleryImage);
+}

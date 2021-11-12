@@ -1,3 +1,5 @@
+export * from './support';
+
 export * from './AttachmentNode';
 export * from './ContactNode';
 export * from './CoverageNode';
