@@ -14,7 +14,7 @@ import { omit } from 'lodash';
 
 import { createEditorWithChildren, uploadedImage, withNormalization } from '../../tests';
 
-import normalizeInvalidGallery from './normalizeInvalidGallery';
+import { normalizeInvalidGallery } from './normalizeInvalidGallery';
 
 const EMPTY_TEXT = { text: '' };
 
