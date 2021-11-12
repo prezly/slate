@@ -46,9 +46,9 @@
         "react-router-dom": "=5.1.2",
         "react-use": "*",
         "shave": "*",
-        "slate": "~0.66.0",
+        "slate": "~0.70",
         "slate-history": "~0.66.0",
-        "slate-react": "~0.66.0",
+        "slate-react": "~0.70",
         "uploadcare-widget": "=3.7.7",
         "uuid": "*",
         "validator": "*"

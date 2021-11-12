@@ -35,9 +35,9 @@
         "react": "^16.14.0",
         "react-dom": "^16.9.0",
         "rimraf": "^3.0.2",
-        "slate": "~0.66.0",
+        "slate": "~0.70",
         "slate-history": "~0.66.0",
-        "slate-react": "~0.66.0",
+        "slate-react": "~0.70",
         "ts-jest": "^26.4.4",
         "typescript": "^4.4.4"
     }
