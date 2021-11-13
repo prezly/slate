@@ -1,6 +1,7 @@
 coverage/
 **/examples/**
 **/node_modules/**
+**/tests/**
 *.eslintcache
 *.db
 *.log
