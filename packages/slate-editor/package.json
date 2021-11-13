@@ -29,7 +29,6 @@
         "@prezly/progress-promise": "*",
         "@prezly/sdk": "^6.0",
         "@prezly/slate-commons": "*",
-        "@prezly/slate-hyperscript": "*",
         "@prezly/slate-lists": "*",
         "@prezly/slate-types": "*",
         "@prezly/uploadcare": "*",
