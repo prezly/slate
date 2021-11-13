@@ -1,5 +1,5 @@
 import 'normalize.css/normalize.css';
-import '@prezly/slate-renderer/build/styles.css';
+import '@prezly/content-renderer-react-js/build/styles.css';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import React from 'react';

@@ -9,7 +9,7 @@
         "dev": "next dev"
     },
     "dependencies": {
-        "@prezly/slate-renderer": "*",
+        "@prezly/content-renderer-react-js": "^0.4.0",
         "next": "^10.0.3",
         "normalize.css": "^8.0.1"
     },
