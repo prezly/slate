@@ -1,5 +1,7 @@
 import { ElementNode, TextNode } from './nodes';
 
+export * from '@prezly/uploads';
+
 export * from './constants';
 export * from './lib';
 export * from './nodes';
