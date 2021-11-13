@@ -1,6 +1,6 @@
 import { OEmbedInfo } from '@prezly/sdk';
 
-const oembedInfo: OEmbedInfo = {
+export const oembedInfo: OEmbedInfo = {
     url: 'https://www.prezly.com',
     type: 'rich',
     version: '1.0',
@@ -14,5 +14,3 @@ const oembedInfo: OEmbedInfo = {
     cache_age: 86400,
     html: '<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 50.0611%; padding-top: 120px;"><a href="https://www.prezly.com" data-iframely-url="//cdn.iframe.ly/api/iframe?url=http%3A%2F%2Fprezly.com&amp;key=8fe6cdec03482ac31f27a6ae8ea2fb3f"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>',
 };
-
-export default oembedInfo;

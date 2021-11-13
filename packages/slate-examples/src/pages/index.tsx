@@ -1,4 +1,4 @@
-import { Renderer } from '@prezly/slate-renderer';
+import { Renderer } from '@prezly/content-renderer-react-js';
 import React from 'react';
 
 import story from './story.json';

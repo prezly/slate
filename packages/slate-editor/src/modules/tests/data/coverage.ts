@@ -1,8 +1,8 @@
 import { Coverage } from '@prezly/sdk';
 
-import oembedInfo from './oembedInfo';
+import { oembedInfo } from './oembedInfo';
 
-const coverage = {
+export const coverage = {
     id: 111111,
     uuid: '8474b48f-9999-ffff-ffff-48e47a0f05aa',
     display_name: 'This is a coverage headline',

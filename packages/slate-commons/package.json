@@ -24,16 +24,16 @@
     },
     "peerDependencies": {
         "react": "*",
-        "slate": "~0.66.0",
+        "slate": "~0.70.0",
         "slate-history": "~0.66.0",
-        "slate-react": "~0.66.0"
+        "slate-react": "~0.70.0"
     },
     "dependencies": {
-        "@prezly/slate-types": "^0.3.0",
+        "@prezly/slate-types": "*",
         "uuid": "^8.3.2"
     },
     "devDependencies": {
-        "@prezly/slate-hyperscript": "^0.3.0",
+        "@prezly/slate-hyperscript": "*",
         "@types/uuid": "^8.3.0",
         "typescript": "^4.4.4"
     }
