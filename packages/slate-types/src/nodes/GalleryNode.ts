@@ -1,7 +1,7 @@
+import { UploadedImage, isUploadedImage } from '@prezly/uploads';
 import { isPlainObject } from 'is-plain-object';
 
 import { ElementNode, isElementNode } from './ElementNode';
-import { UploadedImage, validateUploadedImage } from './support';
 import { isArrayOf, isEnum, isUuid } from './validation';
 
 export const GALLERY_NODE_TYPE = 'gallery';
@@ -46,11 +46,7 @@ export function isGalleryNode(value: any): value is GalleryNode {
 }
 
 function validateGalleryImage(image: Partial<GalleryImage> | undefined): image is GalleryImage {
-    return (
-        isPlainObject(image) &&
-        typeof image.caption === 'string' &&
-        validateUploadedImage(image.file)
-    );
+    return isPlainObject(image) && typeof image.caption === 'string' && isUploadedImage(image.file);
 }
 
 export function validateGalleryNode(node: Partial<GalleryNode> | undefined): node is GalleryNode {
