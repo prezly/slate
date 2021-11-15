@@ -5,6 +5,7 @@ dist/
 coverage/
 node_modules/
 *.eslintcache
+*.tsbuildinfo
 *.db
 *.log
 *.zip
