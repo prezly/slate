@@ -55,6 +55,7 @@
         "customize-cra": "^1.0.0",
         "react-app-rewired": "^2.1.8",
         "react-scripts": "^4.0.3",
+        "rimraf": "^3.0.2",
         "typescript": "^4.4.4"
     },
     "eslintConfig": {

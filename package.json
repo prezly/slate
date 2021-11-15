@@ -11,10 +11,10 @@
     },
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
-        "bootstrap": "lerna bootstrap",
-        "build": "lerna run build",
+        "bootstrap": "npm install",
+        "build": "npm run build --workspaces",
         "check": "npm run prettier && npm run test",
-        "clean": "lerna clean --yes && lerna run clean && rimraf node_modules/",
+        "clean": "npm run clean --workspaces && rimraf node_modules/",
         "prettier": "prettier --check './**/*.(js|ts|scss)'",
         "prettier:fix": "npm run prettier -- --write --no-list-different",
         "release": "npm run release:prepare && npm run release:publish",
@@ -29,6 +29,7 @@
         "node": ">= 16.13.0",
         "npm": ">= 7.7.0"
     },
+    "workspaces": ["packages/*"],
     "dependencies": {
         "react": "^16.14.0",
         "react-dom": "^16.9.0",

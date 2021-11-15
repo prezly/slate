@@ -6,5 +6,9 @@
         "rootDir": "./src"
     },
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
-    "include": ["./src"]
+    "include": ["./src"],
+    "references": [
+        {"path": "../slate-types"},
+        {"path": "../slate-hyperscript"}
+    ]
 }

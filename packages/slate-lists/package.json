@@ -35,6 +35,7 @@
     "devDependencies": {
         "@prezly/slate-hyperscript": "^0.4.1",
         "@types/uuid": "^8.3.0",
+        "rimraf": "^3.0.2",
         "typescript": "^4.4.4"
     }
 }

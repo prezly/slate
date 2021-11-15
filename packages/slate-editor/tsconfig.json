@@ -12,5 +12,11 @@
     },
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
     "files": ["./src/@types/svg.d.ts"],
-    "include": ["./src"]
+    "include": ["./src"],
+    "references": [
+        {"path": "../slate-types"},
+        {"path": "../slate-commons"},
+        {"path": "../slate-hyperscript"},
+        {"path": "../slate-lists"}
+    ]
 }
