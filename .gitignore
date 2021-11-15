@@ -1,4 +1,5 @@
 .next/
+.idea/
 build/
 dist/
 coverage/
