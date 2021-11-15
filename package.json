@@ -25,6 +25,10 @@
         "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
         "test:watch": "jest --no-cache --watch"
     },
+    "devEngines": {
+        "node": ">= 16.13.0",
+        "npm": ">= 7.7.0"
+    },
     "dependencies": {
         "react": "^16.14.0",
         "react-dom": "^16.9.0",
