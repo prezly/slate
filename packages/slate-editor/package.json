@@ -17,7 +17,7 @@
         "build": "NODE_ENV=production webpack",
         "build:dev": "NODE_ENV=development webpack",
         "build:watch": "NODE_ENV=development webpack",
-        "clean": "rimraf build/ node_modules/"
+        "clean": "rimraf build/ node_modules/ *.tsbuildinfo"
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",

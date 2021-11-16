@@ -14,7 +14,7 @@
         "bootstrap": "npm install",
         "build": "tsc --build .",
         "check": "npm run prettier && npm run test",
-        "clean": "npm run clean --workspaces && rimraf node_modules/",
+        "clean": "npm run clean --workspaces && rimraf node_modules/ *.tsbuildinfo",
         "prettier": "prettier --check './**/*.(js|ts|scss)'",
         "prettier:fix": "npm run prettier -- --write --no-list-different",
         "release": "npm run release:prepare && npm run release:publish",

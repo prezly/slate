@@ -16,7 +16,7 @@
     "scripts": {
         "build": "tsc --project .",
         "build:watch": "tsc -w --project .",
-        "clean": "rimraf build/ node_modules/"
+        "clean": "rimraf build/ node_modules/ *.tsbuildinfo"
     },
     "peerDependencies": {
         "slate": "~0.70.0"
