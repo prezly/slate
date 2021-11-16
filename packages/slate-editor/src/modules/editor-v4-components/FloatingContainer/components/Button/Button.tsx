@@ -5,7 +5,7 @@ import { Add } from '../../../../../icons';
 
 import './Button.scss';
 
-interface Props extends HTMLAttributes<HTMLButtonElement> {
+export interface Props extends HTMLAttributes<HTMLButtonElement> {
     onClick: MouseEventHandler<HTMLButtonElement>;
     open?: boolean;
     variant?: 'default' | 'green';
