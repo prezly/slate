@@ -23,7 +23,7 @@
         "clean": "rimraf build/ node_modules/ *.tsbuildinfo"
     },
     "peerDependencies": {
-        "react": "*",
+        "react": "^16.9.0",
         "slate": "~0.70.0"
     },
     "dependencies": {

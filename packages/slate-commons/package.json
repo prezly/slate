@@ -23,14 +23,14 @@
         "clean": "rimraf build/ node_modules/ *.tsbuildinfo"
     },
     "peerDependencies": {
-        "react": "*",
+        "react": "^16.9.0",
         "slate": "~0.70.0",
         "slate-history": "~0.66.0",
         "slate-react": "~0.70.0"
     },
     "dependencies": {
         "@prezly/slate-types": "^0.4.1",
-        "uuid": "^8.3.2"
+        "uuid": "^8.3.0"
     },
     "devDependencies": {
         "@prezly/slate-hyperscript": "^0.4.1",
