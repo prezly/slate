@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "@prezly/content-renderer-react-js": "^0.4.0",
-        "next": "^10.0.3",
+        "next": "^12.0.4",
         "normalize.css": "^8.0.1"
     },
     "devDependencies": {
