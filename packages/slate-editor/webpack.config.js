@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
-const tsConfig = JSON.parse(fs.readFileSync('./tsconfig.base.json', 'utf-8'));
+const tsConfig = JSON.parse(fs.readFileSync('./tsconfig.json', 'utf-8'));
 
 const isDev = process.env.NODE_ENV === 'development';
 

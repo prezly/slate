@@ -18,8 +18,8 @@
     },
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
-        "build": "tsc --project .",
-        "build:watch": "tsc -w --project .",
+        "build": "tsc --build .",
+        "build:watch": "tsc -w --build .",
         "clean": "rimraf build/ node_modules/ *.tsbuildinfo"
     },
     "peerDependencies": {

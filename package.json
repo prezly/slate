@@ -12,7 +12,7 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "bootstrap": "npm install",
-        "build": "tsc --build .",
+        "build": "tsc --build . && npm run build --workspace=packages/slate-editor",
         "check": "npm run prettier && npm run test",
         "clean": "npm run clean --workspaces && rimraf node_modules/ *.tsbuildinfo",
         "prettier": "prettier --check './**/*.(js|ts|scss)'",
