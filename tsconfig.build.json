@@ -8,7 +8,6 @@
         { "path": "packages/slate-hyperscript" },
         { "path": "packages/slate-commons" },
         { "path": "packages/slate-lists" },
-        { "path": "packages/slate-editor" },
-        { "path": "packages/playground" }
+        { "path": "packages/slate-editor" }
     ]
 }

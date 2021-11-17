@@ -27,7 +27,7 @@ Prezly-specific packages mention Prezly in the description. All other packages s
 
 # Development
 
-For local development use [Playground](/packages/playground) project. It is a simple react application with all the sub-packages linked.
+For local development use [Playground](/playground). It is a simple react application with all the sub-packages linked.
 
 In order to start developing, run the playground project and related packages in watch mode.
 
