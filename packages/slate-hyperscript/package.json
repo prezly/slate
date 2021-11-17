@@ -24,7 +24,7 @@
     },
     "peerDependencies": {
         "react": "^16.9.0",
-        "slate": "~0.70.0"
+        "slate": "^0.70.0"
     },
     "dependencies": {
         "is-plain-object": "^5.0.0"
