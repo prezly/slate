@@ -11,7 +11,7 @@
     },
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
-        "bootstrap": "npm install",
+        "bootstrap": "npm ci --legacy-peer-deps",
         "build": "tsc --build ./tsconfig.build.json && npm run build --workspace=packages/slate-editor",
         "build:watch": "concurrently --kill-others 'tsc --build ./tsconfig.build.json --watch' 'npm run build:watch --workspace=packages/slate-editor' ",
         "check": "npm run prettier && npm run test",
@@ -19,7 +19,7 @@
         "prettier": "prettier --check './**/*.(js|ts|scss)'",
         "prettier:fix": "npm run prettier -- --write --no-list-different",
         "release": "npm run release:prepare && npm run release:publish",
-        "release:build": "npm run clean && npm ci && npm run bootstrap && npm run build",
+        "release:build": "npm run clean && npm run bootstrap && npm run build",
         "release:prepare": "npm run release:build && npm run check",
         "release:publish": "lerna publish --force-publish",
         "test": "jest --no-cache --coverage && npm run test --workspace=packages/slate-editor",

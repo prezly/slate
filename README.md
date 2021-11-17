@@ -36,8 +36,7 @@ On Linux systems use `make dev--linux` which builds all the packages in watch mo
 ## Setup
 
 ```Shell
-npm install         # install dependencies
-npm run bootstrap   # bootstrap packages with lerna
+npm run bootstrap   # install dependencies
 npm run build       # build all packages
 ```
 
