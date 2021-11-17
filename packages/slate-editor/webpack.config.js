@@ -6,7 +6,7 @@ const path = require('path');
 
 const packageJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, './package.json'), 'utf-8'));
 const tsConfig = JSON.parse(fs.readFileSync(path.resolve(__dirname, './tsconfig.json'), 'utf-8'));
-const dependencies = Object.keys({ ...packageJson.peerDependencies, ...packageJson.dependencies });
+const dependencies = Object.keys(packageJson.peerDependencies);
 
 const isDev = process.env.NODE_ENV === 'development';
 
