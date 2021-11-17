@@ -27,8 +27,5 @@
         "@prezly/sdk": "^6.0",
         "@prezly/uploads": "^0.2.1",
         "is-plain-object": "^5.0.0"
-    },
-    "devDependencies": {
-        "typescript": "^4.4.4"
     }
 }
