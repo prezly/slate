@@ -1,8 +1,8 @@
 ![alt Prezly ❤️ Slate](https://cdn.uc.assets.prezly.com/b9c8de97-cc75-4780-baa0-c9d9ac4c7c09/prezly-slate.png)
 
-![Build](https://github.com/kamilmielnik/scrabble-solver/workflows/Build/badge.svg)
-![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
-![Prettier](https://github.com/prezly/slate/workflows/Prettier/badge.svg)
+[![Build](https://github.com/prezly/slate/actions/workflows/build.yml/badge.svg)](https://github.com/prezly/slate/actions/workflows/build.yml)
+[![Test](https://github.com/prezly/slate/actions/workflows/test.yml/badge.svg)](https://github.com/prezly/slate/actions/workflows/test.yml)
+[![Prettier](https://github.com/prezly/slate/actions/workflows/prettier.yml/badge.svg)](https://github.com/prezly/slate/actions/workflows/prettier.yml)
 
 [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate) software built upon [Slate](http://slatejs.org/).
 
