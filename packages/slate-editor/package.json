@@ -41,7 +41,6 @@
         "lodash": "^4.17.21",
         "moment": "^2.29.1",
         "rangefix": "^0.2.9",
-        "react-bootstrap": "=0.32.4",
         "react-draggable": "^3.3.2",
         "react-overlays": "^0.8.3",
         "react-popper": "^2.2.4",
@@ -55,6 +54,7 @@
     },
     "peerDependencies": {
         "react": "^16.9.0",
+        "react-bootstrap": "=0.32.4",
         "slate": "^0.70.0",
         "slate-history": "^0.66.0",
         "slate-react": "^0.70.0"

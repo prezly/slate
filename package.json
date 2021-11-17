@@ -37,6 +37,7 @@
     ],
     "dependencies": {
         "react": "^16.9.0",
+        "react-bootstrap": "=0.32.4",
         "react-dom": "^16.9.0",
         "slate": "^0.70.0",
         "slate-history": "^0.66.0",
