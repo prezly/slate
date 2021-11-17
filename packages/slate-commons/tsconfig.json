@@ -3,9 +3,9 @@
     "compilerOptions": {
         "jsx": "react",
         "outDir": "./build",
+        "declarationDir": "./build",
         "rootDir": "./src"
     },
-    "files": ["./src/slate-types.d.ts"],
     "include": ["./src"],
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
     "references": [{ "path": "../slate-types" }, { "path": "../slate-hyperscript" }]

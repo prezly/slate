@@ -3,10 +3,10 @@
     "compilerOptions": {
         "jsx": "react",
         "outDir": "./build",
+        "declarationDir": "./build",
         "rootDir": "./src",
         "typeRoots": ["./src/@types"]
     },
-    "files": ["./src/slate-types.d.ts"],
     "include": ["./src"],
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
     "references": [
