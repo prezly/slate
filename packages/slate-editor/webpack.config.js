@@ -4,17 +4,16 @@ const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
-const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
-const tsConfig = JSON.parse(fs.readFileSync('./tsconfig.json', 'utf-8'));
+const packageJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, './package.json'), 'utf-8'));
+const tsConfig = JSON.parse(fs.readFileSync(path.resolve(__dirname, './tsconfig.json'), 'utf-8'));
+const dependencies = Object.keys({ ...packageJson.peerDependencies, ...packageJson.dependencies });
 
 const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
     mode: isDev ? 'development' : 'production',
     entry: './src/index.ts',
-    externals: Object.fromEntries(
-        Object.keys(packageJson.peerDependencies).map((name) => [name, name]),
-    ),
+    externals: Object.fromEntries(dependencies.map((name) => [name, name])),
     module: {
         rules: [
             {
