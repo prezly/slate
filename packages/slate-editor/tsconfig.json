@@ -1,5 +1,5 @@
 {
-    "extends": "../../tsconfig.json",
+    "extends": "../../tsconfig.base.json",
     "compilerOptions": {
         "baseUrl": ".",
         "jsx": "react",
@@ -7,10 +7,16 @@
         "moduleResolution": "node",
         "outDir": "./build",
         "rootDir": "./src",
-        "typeRoots": ["./node_modules/@types", "./src/@types"],
+        "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./src/@types"],
         "types": ["node"]
     },
+    "files": ["./src/slate-types.d.ts", "./src/@types/svg.d.ts"],
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
-    "files": ["./src/@types/svg.d.ts"],
-    "include": ["./src"]
+    "include": ["./src"],
+    "references": [
+        { "path": "../slate-types" },
+        { "path": "../slate-commons" },
+        { "path": "../slate-hyperscript" },
+        { "path": "../slate-lists" }
+    ]
 }

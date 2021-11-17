@@ -2,7 +2,7 @@ module.exports = {
     coveragePathIgnorePatterns: ['/node_modules/', '/build/'],
     globals: {
         'ts-jest': {
-            tsconfig: '<rootDir>/tsconfig.jest.json',
+            tsconfig: `${__dirname}/tsconfig.jest.json`,
         },
     },
     moduleNameMapper: {

@@ -18,18 +18,19 @@
     },
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
-        "build": "tsc --project .",
-        "build:watch": "tsc -w --project .",
-        "clean": "rimraf build/ node_modules/"
+        "build": "tsc --build .",
+        "build:watch": "tsc -w --build .",
+        "clean": "rimraf build/ node_modules/ *.tsbuildinfo"
     },
     "peerDependencies": {
-        "react": "*",
+        "react": "^16.9.0",
         "slate": "~0.70.0"
     },
     "dependencies": {
         "is-plain-object": "^5.0.0"
     },
     "devDependencies": {
+        "rimraf": "^3.0.2",
         "typescript": "^4.4.4"
     }
 }

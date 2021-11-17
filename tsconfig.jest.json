@@ -1,8 +1,8 @@
 {
-    "extends": "./tsconfig.json",
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
         "jsx": "react",
         "types": ["node", "jest"]
     },
-    "exclude": ["node_modules", "packages/playground"]
+    "exclude": ["node_modules", "packages/playground", "packages/slate-editor"]
 }

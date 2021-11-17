@@ -15,7 +15,7 @@ module.exports = {
         '/node_modules/',
         '/build/',
         '<rootDir>/packages/playground/',
-        '<rootDir>/packages/examples/',
+        '<rootDir>/packages/slate-editor/',
     ],
     projects: ['<rootDir>', '<rootDir>/packages/slate-editor'],
 };

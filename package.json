@@ -11,22 +11,30 @@
     },
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
-        "bootstrap": "lerna bootstrap",
-        "build": "lerna run build",
+        "bootstrap": "npm install",
+        "build": "tsc --build ./tsconfig.build.json && npm run build --workspace=packages/slate-editor",
+        "build:watch": "concurrently --kill-others 'tsc --build ./tsconfig.build.json --watch' 'npm run build:watch --workspace=packages/slate-editor' ",
         "check": "npm run prettier && npm run test",
-        "clean": "lerna clean --yes && lerna run clean && rimraf node_modules/",
+        "clean": "npm run clean --workspaces && rimraf node_modules/ *.tsbuildinfo",
         "prettier": "prettier --check './**/*.(js|ts|scss)'",
         "prettier:fix": "npm run prettier -- --write --no-list-different",
         "release": "npm run release:prepare && npm run release:publish",
         "release:build": "npm run clean && npm install && npm run bootstrap && npm run build",
         "release:prepare": "npm run release:build && npm run check",
         "release:publish": "lerna publish --force-publish",
-        "test": "jest --no-cache --coverage",
+        "test": "jest --no-cache --coverage && npm run test --workspace=packages/slate-editor",
         "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
         "test:watch": "jest --no-cache --watch"
     },
+    "devEngines": {
+        "node": ">= 16.13.0",
+        "npm": ">= 7.7.0"
+    },
+    "workspaces": [
+        "packages/*"
+    ],
     "dependencies": {
-        "react": "^16.14.0",
+        "react": "^16.9.0",
         "react-dom": "^16.9.0",
         "slate": "~0.70.0",
         "slate-history": "~0.66.0",
@@ -35,7 +43,8 @@
     "devDependencies": {
         "@types/jest": "^26.0.20",
         "@types/react": "^16.14.2",
-        "@types/react-dom": "^16.8.5",
+        "@types/react-dom": "^16.9.0",
+        "concurrently": "^6.4.0",
         "jest": "^26.6.3",
         "lerna": "^3.22.1",
         "prettier": "^2.2.1",

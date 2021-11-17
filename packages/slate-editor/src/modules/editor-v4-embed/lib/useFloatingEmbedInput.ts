@@ -27,7 +27,7 @@ interface Actions {
     submit: (url: string) => Promise<void>;
 }
 
-const defaultFetchOembed = (_url: string): Promise<OEmbedInfo> => {
+const defaultFetchOembed = (): Promise<OEmbedInfo> => {
     // It should never happen, we just want useFloatingEmbedInput to be a no-op
     // when fetchOembed is not provided (which implies that embeds are not enabled).
     return Promise.reject(new Error('Embeds are not enabled'));

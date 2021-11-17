@@ -1,4 +1,3 @@
-/* eslint-disable filenames/match-exported */
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 

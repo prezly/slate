@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
+        "composite": true,
         "declaration": true,
         "downlevelIteration": true,
         "esModuleInterop": true,
@@ -12,6 +13,12 @@
         "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
+        /**
+         * I have to disable lib check as `react-use` codebase is incompatible with the latest Typescript.
+         * And the library author doesn't seem to be spending time on accepting PRs.
+         * @see https://github.com/streamich/react-use/issues/2092
+         */
+        "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
         "target": "es5"
