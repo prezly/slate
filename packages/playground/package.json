@@ -6,6 +6,13 @@
         "start": "react-app-rewired start",
         "clean": "rimraf build/ node_modules/ *.tsbuildinfo"
     },
+    "peerDependencies": {
+        "react": "^16.9.0",
+        "react-dom": "^16.9.0",
+        "slate": "~0.70.0",
+        "slate-history": "~0.66.0",
+        "slate-react": "~0.70.0"
+    },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
         "@prezly/docx-cleaner": "^0.4.0",
@@ -22,9 +29,7 @@
         "lodash": "^4.17.21",
         "moment": "^2.29.1",
         "rangefix": "^0.2.9",
-        "react": "^16.9.0",
         "react-bootstrap": "=0.32.4",
-        "react-dom": "^16.9.0",
         "react-draggable": "^3.3.2",
         "react-overlays": "^0.8.3",
         "react-popper": "^2.2.4",
@@ -32,9 +37,6 @@
         "react-router-dom": "=5.1.2",
         "react-use": "^17.2.1",
         "shave": "^2.5.10",
-        "slate": "~0.70.0",
-        "slate-history": "~0.66.0",
-        "slate-react": "~0.70.0",
         "uploadcare-widget": "=3.7.7",
         "uuid": "^8.3.0",
         "validator": "^13.5.2"
