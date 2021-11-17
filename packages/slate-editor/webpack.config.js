@@ -60,5 +60,4 @@ module.exports = {
             patterns: [{ from: 'src/styles', to: 'styles' }],
         }),
     ],
-    watch: isDev,
 };

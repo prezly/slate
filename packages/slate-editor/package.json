@@ -16,7 +16,8 @@
     "scripts": {
         "build": "NODE_ENV=production webpack",
         "build:dev": "NODE_ENV=development webpack",
-        "build:watch": "NODE_ENV=development webpack",
+        "build:watch": "NODE_ENV=development webpack --watch",
+        "build:profile": "NODE_ENV=development webpack --json webpack.profile.json",
         "clean": "rimraf build/ node_modules/ *.tsbuildinfo",
         "test": "jest --no-cache"
     },
