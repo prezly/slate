@@ -18,7 +18,9 @@
         "build:dev": "NODE_ENV=development webpack",
         "build:watch": "NODE_ENV=development webpack --watch",
         "build:profile": "NODE_ENV=development webpack --json webpack.profile.json",
-        "clean": "rimraf build/ node_modules/ *.tsbuildinfo",
+        "clean": "npm run clean:build && npm run clean:node_modules",
+        "clean:node_modules": "rimraf node_modules/",
+        "clean:build": "rimraf build/ *.tsbuildinfo",
         "test": "jest --no-cache"
     },
     "dependencies": {

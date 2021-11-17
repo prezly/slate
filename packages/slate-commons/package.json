@@ -20,7 +20,9 @@
     "scripts": {
         "build": "tsc --build .",
         "build:watch": "tsc -w --build .",
-        "clean": "rimraf build/ node_modules/ *.tsbuildinfo"
+        "clean": "npm run clean:build && npm run clean:node_modules",
+        "clean:node_modules": "rimraf node_modules/",
+        "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {
         "react": "^16.9.0",
