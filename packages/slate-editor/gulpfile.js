@@ -30,17 +30,14 @@ function compileComponents(done) {
         .pipe(concat('styles.css'))
         .pipe(tap(bubbleImportsUp))
         .pipe(sass({ includePaths: 'src/' }))
-        .pipe(postcss([
-            autoprefixer({ grid: true }),
-        ]))
+        .pipe(postcss([autoprefixer({ grid: true })]))
         .pipe(dest('build/'));
 
     done();
 }
 
 function copyDeclarations(done) {
-    src(SASS_DECLARATIONS)
-        .pipe(dest('build/styles'));
+    src(SASS_DECLARATIONS).pipe(dest('build/styles'));
 
     done();
 }
