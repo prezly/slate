@@ -13,7 +13,7 @@
     "scripts": {
         "bootstrap": "npm ci --legacy-peer-deps",
         "build": "tsc --build ./tsconfig.build.json && npm run build --workspace=packages/slate-editor",
-        "watch": "concurrently --kill-others 'tsc --build ./tsconfig.build.json --watch' 'npm run watch --workspace=packages/slate-editor' ",
+        "watch": "concurrently --kill-others --names rest,editor 'tsc --build ./tsconfig.build.json --watch' 'npm run watch --workspace=packages/slate-editor' ",
         "check": "npm run prettier && npm run test",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:build": "npm run clean:build --workspaces && rimraf *.tsbuildinfo",
