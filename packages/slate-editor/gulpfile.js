@@ -1,12 +1,139 @@
-const { task, series, src, dest, watch } = require('gulp');
-const concat = require('gulp-concat');
-const tap = require('gulp-tap');
-const sass = require('gulp-sass')(require('sass'));
-const postcss = require('gulp-postcss');
+// General imports
+import autoprefixer from 'autoprefixer';
+import branch from 'branch-pipe';
+import fs from 'fs';
+import gulp from 'gulp';
+import path from 'path';
+import sassBackend from 'sass';
+import { Transform } from 'stream';
+import through from 'through2';
+import Vinyl from 'vinyl';
 
-const autoprefixer = require('autoprefixer');
+// Processors
+import babel from 'gulp-babel';
+import concat from 'gulp-concat';
+import filter from 'gulp-filter';
+import postcss from 'gulp-postcss';
+import rename from 'gulp-rename';
+import createSassProcessor from 'gulp-sass';
+import tap from 'gulp-tap';
+import typescript from 'gulp-typescript';
 
-function bubbleImportsUp(file) {
+const sass = createSassProcessor(sassBackend);
+
+const SOURCES = [
+    'src/**/*.{ts,tsx,scss,svg}',
+    '!src/**/*.test.*',
+    '!**/jsx.ts',
+];
+const TYPESCRIPT_MODULES = '**/*.{ts,tsx}';
+const SVG_ICONS = '**/*.svg';
+const SASS_DECLARATIONS = 'src/styles/**/*.scss';
+
+/*
+ * TASKS
+ */
+
+export function build() {
+    return gulp.src(SOURCES)
+        .pipe(branch.obj((src) => [
+            compileTypescriptModules(src),
+            copySassDeclarations(src),
+            compileComponentsStylesheets(src),
+        ]))
+        .pipe(gulp.dest('build/'));
+}
+
+export const watch = gulp.watch(SOURCES, build);
+
+/*
+ * INTERNAL
+ */
+
+/**
+ * @param {Transform} stream
+ * @returns {Transform}
+ */
+function compileTypescriptModules(stream) {
+    const compile = typescript.createProject('tsconfig.json');
+    const extensions = {
+        svg: 'svg.js',
+        ts: 'js',
+    }
+
+    return stream
+        .pipe(filter([TYPESCRIPT_MODULES, SVG_ICONS]))
+        .pipe(branch.obj((src) => [
+            // TS type-checks without saving files.
+            src.pipe(filter(TYPESCRIPT_MODULES))
+                .pipe(compile())
+                .pipe(filter('**/*.d.ts')),
+
+            // Babel TS tcompilation
+            src.pipe(filter(TYPESCRIPT_MODULES))
+                .pipe(branch.obj((src) => [rewriteJsImports(src, /\.svg$/, (path) => `${path}.js`)]))
+                .pipe(branch.obj((src) => [removeJsImports(src, /\.scss$/)]))
+                .pipe(babel()),
+
+            // Babel SVG compilation
+            src.pipe(filter(SVG_ICONS))
+                .pipe(babel())
+                .pipe(rename((file) => file.extname = '.svg.js')),
+        ]))
+}
+
+/**
+ * @param {Transform} stream
+ * @returns {Transform}
+ */
+function copySassDeclarations(stream) {
+    return stream
+        .pipe(filter(SASS_DECLARATIONS));
+}
+
+/**
+ * @param {Transform} stream
+ * @returns {Transform}
+ */
+function compileComponentsStylesheets(stream) {
+    /**
+     * @param {Vinyl} file
+     * @param {Function} callback
+     */
+    function extractReferencedScssStylesheets(file, enc, callback) {
+        const matches = findJsImports(file.contents.toString(), /\.scss$/);
+
+        for (const [importLine, importPath] of matches) {
+            const stylesheetPath = path.resolve(path.dirname(file.path), importPath);
+            const stylesheet = new Vinyl({
+                cwd: file.cwd,
+                base: file.base,
+                path: stylesheetPath,
+                contents: fs.readFileSync(stylesheetPath),
+            });
+            this.push(stylesheet);
+        }
+        callback();
+    }
+
+    return stream
+        .pipe(filter(TYPESCRIPT_MODULES))
+        .pipe(through.obj(extractReferencedScssStylesheets))
+        .pipe(concat('styles.css'))
+        .pipe(tap((file) => {
+            file.contents = Buffer.from(bubbleSassImportsUp(file.contents.toString()));
+        }))
+        .pipe(sass({ importPath: 'src/' }))
+        .pipe(postcss([
+            autoprefixer({ grid: true }),
+        ]));
+}
+
+/**
+ * @param {string} contents
+ * @returns {string}
+ */
+function bubbleSassImportsUp(contents) {
     function isUse(line) {
         return line.startsWith('@use ');
     }
@@ -14,39 +141,78 @@ function bubbleImportsUp(file) {
         return line.startsWith('@import ');
     }
 
-    const lines = file.contents.toString().split(/\n/g);
+    const lines = contents.split(/\n/g);
     const uses = new Set(lines.filter(isUse));
     const imports = new Set(lines.filter(isImport));
     const rest = lines.filter((line) => !isUse(line) && !isImport(line));
 
-    file.contents = Buffer.from([...uses, ...imports, ...rest].join('\n'));
+    return [...uses, ...imports, ...rest].join('\n');
 }
 
-const SASS_DECLARATIONS = ['src/styles/*.scss'];
-const SASS_COMPONENTS = ['src/**/*.scss', '!src/styles/*.scss'];
-
-function compileComponents(done) {
-    src(SASS_COMPONENTS)
-        .pipe(concat('styles.css'))
-        .pipe(tap(bubbleImportsUp))
-        .pipe(sass({ includePaths: 'src/' }))
-        .pipe(postcss([autoprefixer({ grid: true })]))
-        .pipe(dest('build/'));
-
-    done();
+/**
+ * @param {string} contents
+ * @param {RegExp} regex
+ * @returns {string[][]}
+ */
+function findJsImports(contents, regex) {
+    return contents.split('\n')
+        .map((line) => [line, line.match(/^(?:import|export) (?:[^']+ from )?'([^']+)';/)])
+        .filter(([line, match]) => Boolean(match))
+        .map(([line, match]) => [line, match[1]])
+        .filter(([line, importPath]) => regex.test(importPath));
 }
 
-function copyDeclarations(done) {
-    src(SASS_DECLARATIONS).pipe(dest('build/styles'));
+/**
+ * @param {Transform} stream
+ * @param {RegExp} regex
+ * @returns {Transform}
+ */
+function removeJsImports(stream, regex) {
+    return stream.pipe(through.obj((file, enc, callback) => {
+        const matches = findJsImports(file.contents.toString(), regex);
+        if (matches.length === 0) {
+            return callback(null, file);
+        }
 
-    done();
+        const lines = matches.map(([line]) => line);
+        const filtered = file.contents.toString()
+            .split('\n')
+            .filter((line) => !lines.includes(line))
+            .join('\n');
+
+        const copy = file.clone();
+        copy.contents = Buffer.from(filtered);
+
+        callback(null, copy);
+    }));
 }
 
-task('build:scss', series(compileComponents, copyDeclarations));
+/**
+ * @param {Transform} stream
+ * @param {RegExp} regex
+ * @param {Function} rewrite
+ * @returns {Transform}
+ */
+function rewriteJsImports(stream, regex, rewrite) {
+    return stream.pipe(through.obj((file, enc, callback) => {
+        const matches = findJsImports(file.contents.toString(), regex);
 
-task('watch:scss', function (done) {
-    watch(SASS_COMPONENTS, compileComponents);
-    watch(SASS_DECLARATIONS, copyDeclarations);
+        if (matches.length === 0) {
+            return callback(null, file);
+        }
 
-    done();
-});
+        const replacements = Object.fromEntries(
+            matches.map(([line, importPath]) => [line, line.replace(importPath, rewrite(importPath))]),
+        );
+        const rewritten = file.contents.toString()
+            .split('\n')
+            .map((line) => replacements[line] ?? line)
+            .join('\n');
+
+        const copy = file.clone();
+        copy.contents = Buffer.from(rewritten);
+
+        callback(null, copy);
+    }));
+}
+

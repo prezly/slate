@@ -5,6 +5,7 @@
     "license": "MIT",
     "main": "build/index.js",
     "types": "build/index.d.ts",
+    "type": "module",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/prezly/slate.git"
@@ -14,19 +15,12 @@
     },
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
-        "build": "npm run clean:build && NODE_ENV=production npm run build:compile",
-        "build:dev": "npm run clean:build && NODE_ENV=development npm run build:compile",
-        "build:compile": "npm run build:ts && npm run build:svg && npm run build:scss",
-        "build:ts": "tsc --build .",
-        "build:svg": "babel src --out-dir build --extensions '.svg' --keep-file-extension",
-        "build:scss": "gulp build:scss",
-        "watch": "concurrently --kill-others 'npm run watch:ts' 'npm run watch:svg' 'npm run watch:scss'",
-        "watch:ts": "tsc --build . --watch",
-        "watch:svg": "npm run build:svg -- --watch",
-        "watch:scss": "gulp watch:scss",
+        "build": "NODE_ENV=production gulp build",
+        "build:dev": "NODE_ENV=development gulp build",
+        "watch": "NODE_ENV=development gulp watch",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
-        "clean:build": "rimraf build/ *.tsbuildinfo",
+        "clean:build": "rimraf build/* *.tsbuildinfo",
         "test": "jest --no-cache"
     },
     "dependencies": {
@@ -87,6 +81,7 @@
         "@typescript-eslint/parser": "^5.4.0",
         "autoprefixer": "^9.6.1",
         "babel-plugin-transform-remove-imports": "^1.7.0",
+        "branch-pipe": "^1.0.1",
         "concurrently": "^6.4.0",
         "eslint": "^7.32.0",
         "eslint-plugin-import": "^2.25.3",
@@ -94,12 +89,17 @@
         "eslint-plugin-react": "^7.27.0",
         "eslint-plugin-react-hooks": "^4.3.0",
         "gulp": "^4.0.2",
+        "gulp-babel": "^8.0.0",
         "gulp-concat": "^2.6.1",
+        "gulp-filter": "^7.0.0",
         "gulp-postcss": "^9.0.1",
+        "gulp-rename": "^2.0.0",
         "gulp-sass": "^5.0.0",
         "gulp-tap": "^2.0.0",
+        "gulp-typescript": "^6.0.0-alpha.1",
         "jest-canvas-mock": "^2.3.1",
         "sass": "^1.32.8",
-        "uploadcare-widget": "=3.7.7"
+        "uploadcare-widget": "=3.7.7",
+        "vinyl": "^2.2.1"
     }
 }
