@@ -1,4 +1,4 @@
-const gulp = require('gulp');
+const { task, series, src, dest, watch } = require('gulp');
 const concat = require('gulp-concat');
 const tap = require('gulp-tap');
 const sass = require('gulp-sass')(require('sass'));
@@ -22,24 +22,34 @@ function bubbleImportsUp(file) {
     file.contents = Buffer.from([...uses, ...imports, ...rest].join('\n'));
 }
 
-gulp.task('build:scss', function (done) {
-    gulp.src(['src/**/*.scss', '!src/styles/*.scss'])
+const SASS_DECLARATIONS = ['src/styles/*.scss'];
+const SASS_COMPONENTS = ['src/**/*.scss', '!src/styles/*.scss'];
+
+function compileComponents(done) {
+    src(SASS_COMPONENTS)
         .pipe(concat('styles.css'))
         .pipe(tap(bubbleImportsUp))
         .pipe(sass({ includePaths: 'src/' }))
         .pipe(postcss([
             autoprefixer({ grid: true }),
         ]))
-        .pipe(gulp.dest('build/'));
+        .pipe(dest('build/'));
 
-    gulp.src('src/styles/*.scss')
-        .pipe(gulp.dest('build/styles'));
-
-    done();
-})
-
-function defaultTask(done) {
     done();
 }
 
-module.exports = defaultTask;
+function copyDeclarations(done) {
+    src(SASS_DECLARATIONS)
+        .pipe(dest('build/styles'));
+
+    done();
+}
+
+task('build:scss', series(compileComponents, copyDeclarations));
+
+task('watch:scss', function (done) {
+    watch(SASS_COMPONENTS, compileComponents);
+    watch(SASS_DECLARATIONS, copyDeclarations);
+
+    done();
+});
