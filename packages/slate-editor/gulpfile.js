@@ -21,15 +21,9 @@ import typescript from 'gulp-typescript';
 
 const sass = createSassProcessor(sassBackend);
 
-const SOURCES = [
-    'src/**/*.{ts,tsx,scss,svg}',
-    '!src/**/*.test.*',
-    '!**/jsx.ts',
-];
+const SOURCES = ['src/**/*.{ts,tsx,scss,svg}', '!src/**/*.test.*', '!**/jsx.ts'];
 
-const SIBLING_PACKAGES_SOURCES = [
-    '../{slate-types,slate-commons,slate-lists}/build/**/*.{js,ts}',
-];
+const SIBLING_PACKAGES_SOURCES = ['../{slate-types,slate-commons,slate-lists}/build/**/*.{js,ts}'];
 
 const TYPESCRIPT_MODULES = '**/*.{ts,tsx}';
 const SVG_ICONS = '**/*.svg';
@@ -40,17 +34,21 @@ const SASS_DECLARATIONS = 'src/styles/**/*.scss';
  */
 
 export function build() {
-    return gulp.src(SOURCES)
-        .pipe(branch.obj((src) => [
-            compileTypescriptModules(src),
-            copySassDeclarations(src),
-            compileComponentsStylesheets(src),
-        ]))
+    return gulp
+        .src(SOURCES)
+        .pipe(
+            branch.obj((src) => [
+                compileTypescriptModules(src),
+                copySassDeclarations(src),
+                compileComponentsStylesheets(src),
+            ]),
+        )
         .pipe(gulp.dest('build/'));
 }
 
 export function watch() {
-    return gulp.watch([...SOURCES, ...SIBLING_PACKAGES_SOURCES], build)
+    return gulp
+        .watch([...SOURCES, ...SIBLING_PACKAGES_SOURCES], build)
         .on('ready', () => console.log('Watching files'))
         .on('all', (event, path) => console.log(`[${event}] ${path}`));
 }
@@ -68,27 +66,29 @@ function compileTypescriptModules(stream) {
     const extensions = {
         svg: 'svg.js',
         ts: 'js',
-    }
+    };
 
-    return stream
-        .pipe(filter([TYPESCRIPT_MODULES, SVG_ICONS]))
-        .pipe(branch.obj((src) => [
+    return stream.pipe(filter([TYPESCRIPT_MODULES, SVG_ICONS])).pipe(
+        branch.obj((src) => [
             // TS type-checks without saving files.
-            src.pipe(filter(TYPESCRIPT_MODULES))
-                .pipe(compile())
-                .pipe(filter('**/*.d.ts')),
+            src.pipe(filter(TYPESCRIPT_MODULES)).pipe(compile()).pipe(filter('**/*.d.ts')),
 
             // Babel TS tcompilation
-            src.pipe(filter(TYPESCRIPT_MODULES))
-                .pipe(branch.obj((src) => [rewriteJsImports(src, /\.svg$/, (path) => `${path}.js`)]))
+            src
+                .pipe(filter(TYPESCRIPT_MODULES))
+                .pipe(
+                    branch.obj((src) => [rewriteJsImports(src, /\.svg$/, (path) => `${path}.js`)]),
+                )
                 .pipe(branch.obj((src) => [removeJsImports(src, /\.scss$/)]))
                 .pipe(babel()),
 
             // Babel SVG compilation
-            src.pipe(filter(SVG_ICONS))
+            src
+                .pipe(filter(SVG_ICONS))
                 .pipe(babel())
-                .pipe(rename((file) => file.extname = '.svg.js')),
-        ]))
+                .pipe(rename((file) => (file.extname = '.svg.js'))),
+        ]),
+    );
 }
 
 /**
@@ -96,8 +96,7 @@ function compileTypescriptModules(stream) {
  * @returns {Transform}
  */
 function copySassDeclarations(stream) {
-    return stream
-        .pipe(filter(SASS_DECLARATIONS));
+    return stream.pipe(filter(SASS_DECLARATIONS));
 }
 
 /**
@@ -129,13 +128,13 @@ function compileComponentsStylesheets(stream) {
         .pipe(filter(TYPESCRIPT_MODULES))
         .pipe(through.obj(extractReferencedScssStylesheets))
         .pipe(concat('styles.css'))
-        .pipe(tap((file) => {
-            file.contents = Buffer.from(bubbleSassImportsUp(file.contents.toString()));
-        }))
+        .pipe(
+            tap((file) => {
+                file.contents = Buffer.from(bubbleSassImportsUp(file.contents.toString()));
+            }),
+        )
         .pipe(sass({ importPath: 'src/' }))
-        .pipe(postcss([
-            autoprefixer({ grid: true }),
-        ]));
+        .pipe(postcss([autoprefixer({ grid: true })]));
 }
 
 /**
@@ -164,7 +163,8 @@ function bubbleSassImportsUp(contents) {
  * @returns {string[][]}
  */
 function findJsImports(contents, regex) {
-    return contents.split('\n')
+    return contents
+        .split('\n')
         .map((line) => [line, line.match(/^(?:import|export) (?:[^']+ from )?'([^']+)';/)])
         .filter(([line, match]) => Boolean(match))
         .map(([line, match]) => [line, match[1]])
@@ -177,23 +177,26 @@ function findJsImports(contents, regex) {
  * @returns {Transform}
  */
 function removeJsImports(stream, regex) {
-    return stream.pipe(through.obj((file, enc, callback) => {
-        const matches = findJsImports(file.contents.toString(), regex);
-        if (matches.length === 0) {
-            return callback(null, file);
-        }
+    return stream.pipe(
+        through.obj((file, enc, callback) => {
+            const matches = findJsImports(file.contents.toString(), regex);
+            if (matches.length === 0) {
+                return callback(null, file);
+            }
 
-        const lines = matches.map(([line]) => line);
-        const filtered = file.contents.toString()
-            .split('\n')
-            .filter((line) => !lines.includes(line))
-            .join('\n');
+            const lines = matches.map(([line]) => line);
+            const filtered = file.contents
+                .toString()
+                .split('\n')
+                .filter((line) => !lines.includes(line))
+                .join('\n');
 
-        const copy = file.clone();
-        copy.contents = Buffer.from(filtered);
+            const copy = file.clone();
+            copy.contents = Buffer.from(filtered);
 
-        callback(null, copy);
-    }));
+            callback(null, copy);
+        }),
+    );
 }
 
 /**
@@ -203,25 +206,30 @@ function removeJsImports(stream, regex) {
  * @returns {Transform}
  */
 function rewriteJsImports(stream, regex, rewrite) {
-    return stream.pipe(through.obj((file, enc, callback) => {
-        const matches = findJsImports(file.contents.toString(), regex);
+    return stream.pipe(
+        through.obj((file, enc, callback) => {
+            const matches = findJsImports(file.contents.toString(), regex);
 
-        if (matches.length === 0) {
-            return callback(null, file);
-        }
+            if (matches.length === 0) {
+                return callback(null, file);
+            }
 
-        const replacements = Object.fromEntries(
-            matches.map(([line, importPath]) => [line, line.replace(importPath, rewrite(importPath))]),
-        );
-        const rewritten = file.contents.toString()
-            .split('\n')
-            .map((line) => replacements[line] ?? line)
-            .join('\n');
+            const replacements = Object.fromEntries(
+                matches.map(([line, importPath]) => [
+                    line,
+                    line.replace(importPath, rewrite(importPath)),
+                ]),
+            );
+            const rewritten = file.contents
+                .toString()
+                .split('\n')
+                .map((line) => replacements[line] ?? line)
+                .join('\n');
 
-        const copy = file.clone();
-        copy.contents = Buffer.from(rewritten);
+            const copy = file.clone();
+            copy.contents = Buffer.from(rewritten);
 
-        callback(null, copy);
-    }));
+            callback(null, copy);
+        }),
+    );
 }
-
