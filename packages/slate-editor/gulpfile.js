@@ -26,6 +26,11 @@ const SOURCES = [
     '!src/**/*.test.*',
     '!**/jsx.ts',
 ];
+
+const SIBLING_PACKAGES_SOURCES = [
+    '../{slate-types,slate-commons,slate-lists}/build/**/*.{js,ts}',
+];
+
 const TYPESCRIPT_MODULES = '**/*.{ts,tsx}';
 const SVG_ICONS = '**/*.svg';
 const SASS_DECLARATIONS = 'src/styles/**/*.scss';
@@ -44,7 +49,11 @@ export function build() {
         .pipe(gulp.dest('build/'));
 }
 
-export const watch = gulp.watch(SOURCES, build);
+export function watch() {
+    return gulp.watch([...SOURCES, ...SIBLING_PACKAGES_SOURCES], build)
+        .on('ready', () => console.log('Watching files'))
+        .on('all', (event, path) => console.log(`[${event}] ${path}`));
+}
 
 /*
  * INTERNAL
