@@ -70,17 +70,14 @@ function compileTypescriptModules(stream) {
 
     return stream.pipe(filter([TYPESCRIPT_MODULES, SVG_ICONS])).pipe(
         branch.obj((src) => [
-            // TS type-checks without saving files.
-            src.pipe(filter(TYPESCRIPT_MODULES)).pipe(compile()).pipe(filter('**/*.d.ts')),
-
-            // Babel TS tcompilation
+            // TS compilation + fixing non-ts imports.
             src
                 .pipe(filter(TYPESCRIPT_MODULES))
+                .pipe(compile())
                 .pipe(
                     branch.obj((src) => [rewriteJsImports(src, /\.svg$/, (path) => `${path}.js`)]),
                 )
-                .pipe(branch.obj((src) => [removeJsImports(src, /\.scss$/)]))
-                .pipe(babel()),
+                .pipe(branch.obj((src) => [removeJsImports(src, /\.scss$/)])),
 
             // Babel SVG compilation
             src
@@ -145,6 +142,7 @@ function bubbleSassImportsUp(contents) {
     function isUse(line) {
         return line.startsWith('@use ');
     }
+
     function isImport(line) {
         return line.startsWith('@import ');
     }
