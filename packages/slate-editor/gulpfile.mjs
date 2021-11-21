@@ -17,7 +17,6 @@ import postcss from 'gulp-postcss';
 import rename from 'gulp-rename';
 import createSassProcessor from 'gulp-sass';
 import tap from 'gulp-tap';
-import typescript from 'gulp-typescript';
 
 const sass = createSassProcessor(sassBackend);
 
@@ -62,30 +61,21 @@ export function watch() {
  * @returns {Transform}
  */
 function compileTypescriptModules(stream) {
-    const compile = typescript.createProject('tsconfig.json');
     const extensions = {
-        svg: 'svg.js',
-        ts: 'js',
+        '.svg': '.svg.js',
+        '.ts': '.js',
     };
 
-    return stream.pipe(filter([TYPESCRIPT_MODULES, SVG_ICONS])).pipe(
-        branch.obj((src) => [
-            // TS compilation + fixing non-ts imports.
-            src
-                .pipe(filter(TYPESCRIPT_MODULES))
-                .pipe(compile())
-                .pipe(
-                    branch.obj((src) => [rewriteJsImports(src, /\.svg$/, (path) => `${path}.js`)]),
-                )
-                .pipe(branch.obj((src) => [removeJsImports(src, /\.scss$/)])),
-
-            // Babel SVG compilation
-            src
-                .pipe(filter(SVG_ICONS))
-                .pipe(babel())
-                .pipe(rename((file) => (file.extname = '.svg.js'))),
-        ]),
-    );
+    return stream
+        .pipe(filter([TYPESCRIPT_MODULES, SVG_ICONS]))
+        .pipe(babel())
+        .pipe(
+            branch.obj((src) => [
+                rewriteJsImports(src, /\.svg$/, (path) => `${path}.js`),
+            ]),
+        )
+        .pipe(branch.obj((src) => [removeJsImports(src, /\.scss$/)]))
+        .pipe(rename((file) => (file.extname = extensions[file.extname] ?? file.extname)));
 }
 
 /**
@@ -103,9 +93,10 @@ function copySassDeclarations(stream) {
 function compileComponentsStylesheets(stream) {
     /**
      * @param {Vinyl} file
+     * @param {BufferEncoding} _enc
      * @param {Function} callback
      */
-    function extractReferencedScssStylesheets(file, enc, callback) {
+    function extractReferencedScssStylesheets(file, _enc, callback) {
         const matches = findJsImports(file.contents.toString(), /\.scss$/);
 
         for (const [importLine, importPath] of matches) {
@@ -176,7 +167,7 @@ function findJsImports(contents, regex) {
  */
 function removeJsImports(stream, regex) {
     return stream.pipe(
-        through.obj((file, enc, callback) => {
+        through.obj((file, _enc, callback) => {
             const matches = findJsImports(file.contents.toString(), regex);
             if (matches.length === 0) {
                 return callback(null, file);
@@ -205,7 +196,7 @@ function removeJsImports(stream, regex) {
  */
 function rewriteJsImports(stream, regex, rewrite) {
     return stream.pipe(
-        through.obj((file, enc, callback) => {
+        through.obj((file, _enc, callback) => {
             const matches = findJsImports(file.contents.toString(), regex);
 
             if (matches.length === 0) {

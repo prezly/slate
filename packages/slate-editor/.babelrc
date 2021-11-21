@@ -1,9 +1,8 @@
 {
+    "extends": "../../.babelrc",
     "presets": [
         "@babel/react",
-        "@babel/typescript",
-        "@dr.pogodin/babel-preset-svgr",
-        ["@babel/env", {"corejs": 3, "modules": false, "useBuiltIns": "entry"}]
+        "@dr.pogodin/babel-preset-svgr"
     ],
     "plugins": [
         ["babel-plugin-transform-remove-imports", {"test": "\\.scss$"}]

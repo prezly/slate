@@ -4,10 +4,11 @@
         "composite": true,
         "declaration": true,
         "downlevelIteration": true,
+        "emitDeclarationOnly": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "lib": ["dom", "dom.iterable", "esnext"],
-        "module": "esnext",
+        "module": "es6",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitReturns": true,
@@ -21,6 +22,6 @@
         "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
-        "target": "es5"
+        "target": "es6"
     }
 }

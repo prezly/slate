@@ -15,8 +15,9 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
-        "build": "tsc --build .",
-        "build:watch": "tsc -w --build .",
+        "check": "tsc --build .",
+        "check:watch": "tsc --build .",
+        "build": "npm run check && babel --config-file ../../.babelrc src/ --out-dir=build/ --extensions=.ts",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"

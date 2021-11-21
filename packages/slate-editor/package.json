@@ -15,6 +15,7 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
+        "check": "tsc --build .",
         "build": "NODE_ENV=production gulp build",
         "build:dev": "NODE_ENV=development gulp build",
         "watch": "NODE_ENV=development gulp watch",
