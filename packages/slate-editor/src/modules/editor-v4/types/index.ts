@@ -71,4 +71,4 @@ interface EmbedParameters {
     };
 }
 
-export { default as Fragment, isFragment } from './Fragment';
+export * from './Fragment';

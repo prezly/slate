@@ -1,2 +1,2 @@
-export { default } from './FloatingMenu';
-export { Option } from './types';
+export type { Option as FloatingMenuOption } from './types';
+export { default as FloatingMenu } from './FloatingMenu';

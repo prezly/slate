@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import TooltipV2 from '../TooltipV2';
+import { TooltipV2 } from '../TooltipV2';
 
 import './ImageSizeWarning.scss';
 
