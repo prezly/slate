@@ -1,0 +1,9 @@
+{
+    "extends": "./babel.config.json",
+    "targets": {
+        "esmodules": true
+    },
+    "presets": [
+        ["@babel/env", { "useBuiltIns": false, "modules": false }]
+    ]
+}
