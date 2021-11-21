@@ -1,7 +1,9 @@
-import { GalleryImageSize, GalleryNode, GalleryPadding } from '@prezly/slate-types';
-import React, { FunctionComponent, RefObject, useState } from 'react';
+import type { GalleryNode} from '@prezly/slate-types';
+import { GalleryImageSize, GalleryPadding } from '@prezly/slate-types';
+import type { FunctionComponent, RefObject} from 'react';
+import React, { useState } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu, GalleryLayoutSettings } from '../../../../components';

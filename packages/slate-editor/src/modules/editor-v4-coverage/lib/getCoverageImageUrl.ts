@@ -1,4 +1,4 @@
-import { Coverage } from '@prezly/sdk';
+import type { Coverage } from '@prezly/sdk';
 import { UploadcareImage } from '@prezly/uploadcare';
 
 const getCoverageImageUrl = (coverage: Coverage, imageHeight: number): string | null => {

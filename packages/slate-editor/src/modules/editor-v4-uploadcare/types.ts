@@ -1,7 +1,7 @@
-import { NewsroomRef } from '@prezly/sdk';
-import { UPLOADCARE_FILE_DATA_KEY } from '@prezly/uploadcare';
-import { Editor } from 'slate';
-import { FilePromise } from 'uploadcare-widget';
+import type { NewsroomRef } from '@prezly/sdk';
+import type { UPLOADCARE_FILE_DATA_KEY } from '@prezly/uploadcare';
+import type { Editor } from 'slate';
+import type { FilePromise } from 'uploadcare-widget';
 
 interface File {
     [UPLOADCARE_FILE_DATA_KEY]?: {

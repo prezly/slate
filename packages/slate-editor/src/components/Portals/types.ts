@@ -1,4 +1,4 @@
-import { ReactNode, RefObject } from 'react';
+import type { ReactNode, RefObject } from 'react';
 
 /**
  * Ideally in the future:

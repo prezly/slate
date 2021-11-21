@@ -1,4 +1,5 @@
-import { EmbedNode, isEmbedNode } from '@prezly/slate-types';
+import type { EmbedNode } from '@prezly/slate-types';
+import { isEmbedNode } from '@prezly/slate-types';
 
 import createEmbed from './createEmbed';
 

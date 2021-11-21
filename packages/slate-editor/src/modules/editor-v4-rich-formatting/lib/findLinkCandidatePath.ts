@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Path } from 'slate';
+import type { Editor, Path } from 'slate';
 
 import isLinkCandidateElement from './isLinkCandidateElement';
 

@@ -1,4 +1,4 @@
-import { Value } from '../types';
+import type { Value } from '../types';
 
 import deserialize from './deserialize';
 import serialize from './serialize';

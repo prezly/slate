@@ -1,4 +1,4 @@
-import { NodeEntry, Range } from 'slate';
+import type { NodeEntry, Range } from 'slate';
 
 /**
  * Decorations are another type of text-level formatting.

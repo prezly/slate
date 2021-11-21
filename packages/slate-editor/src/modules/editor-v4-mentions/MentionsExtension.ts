@@ -1,6 +1,7 @@
-import { createDeserializeElement, Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
+import { createDeserializeElement } from '@prezly/slate-commons';
 
-import { MentionElementType } from './types';
+import type { MentionElementType } from './types';
 
 interface Options<T extends string> {
     id: Extension['id'];

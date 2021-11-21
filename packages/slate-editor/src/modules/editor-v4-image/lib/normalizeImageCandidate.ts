@@ -1,22 +1,24 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
-import { Editor, Node, NodeEntry, Transforms } from 'slate';
-import uploadcare, { FileInfo, FilePromise } from 'uploadcare-widget';
+import type { Editor, Node, NodeEntry } from 'slate';
+import { Transforms } from 'slate';
+import type { FileInfo, FilePromise } from 'uploadcare-widget';
+import uploadcare from 'uploadcare-widget';
 import isDataURI from 'validator/lib/isDataURI';
 
 import { dataUriToFile } from '../../../lib';
 import { EventsEditor } from '../../../modules/editor-v4-events';
+import type { LoaderNode } from '../../../modules/editor-v4-loader';
 import {
     createLoader,
     findLoaderPath,
     LoaderContentType,
-    LoaderNode,
     loaderPromiseManager,
     removeLoader,
     replaceLoader,
 } from '../../../modules/editor-v4-loader';
 import { UPLOAD_SINGLE_IMAGE_ERROR_MESSAGE } from '../../../modules/uploadcare';
-import { ImageCandidateNode } from '../types';
+import type { ImageCandidateNode } from '../types';
 
 import createImage from './createImage';
 import isImageCandidateElement from './isImageCandidateElement';

@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Transforms } from 'slate';
+import type { Editor } from 'slate';
+import { Transforms } from 'slate';
 
 const withNonEmptyValue = <T extends Editor>(editor: T) => {
     const { normalizeNode } = editor;

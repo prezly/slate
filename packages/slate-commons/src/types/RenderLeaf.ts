@@ -1,4 +1,4 @@
-import { RenderLeafProps } from 'slate-react';
+import type { RenderLeafProps } from 'slate-react';
 
 /**
  * To customize the rendering of each leaf.

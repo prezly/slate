@@ -1,9 +1,11 @@
 import isHotkey from 'is-hotkey';
-import { KeyboardEvent, useCallback, useMemo, useState } from 'react';
-import { Editor, Range, Transforms } from 'slate';
+import type { KeyboardEvent } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import type { Editor } from 'slate';
+import { Range, Transforms } from 'slate';
 
 import { getWordAfterTrigger, insertMention, isPointAtWordEnd } from './lib';
-import { MentionElementType, Option } from './types';
+import type { MentionElementType, Option } from './types';
 
 interface Parameters<V> {
     createMentionElement: (option: Option<V>) => MentionElementType;

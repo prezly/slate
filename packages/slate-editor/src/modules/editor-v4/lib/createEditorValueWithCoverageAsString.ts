@@ -1,4 +1,4 @@
-import { Coverage } from '@prezly/sdk';
+import type { Coverage } from '@prezly/sdk';
 import { createEmptyValue } from '@prezly/slate-commons';
 
 import { createCoverage } from '../../../modules/editor-v4-coverage';

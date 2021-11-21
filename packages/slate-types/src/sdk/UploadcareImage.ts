@@ -1,9 +1,9 @@
 import { UPLOADCARE_CDN_URL, UPLOADCARE_FILE_DATA_KEY } from '../constants';
 
 import { UploadcareFile } from './UploadcareFile';
-import { UploadcareFileInfo } from './UploadcareFileInfo';
+import type { UploadcareFileInfo } from './UploadcareFileInfo';
 import { UploadcareGifVideo } from './UploadcareGifVideo';
-import { UploadcareImageStoragePayload } from './UploadcareImageStoragePayload';
+import type { UploadcareImageStoragePayload } from './UploadcareImageStoragePayload';
 
 type ImageFormat = 'auto' | 'jpeg' | 'png' | 'web';
 
@@ -168,7 +168,7 @@ export class UploadcareImage {
         return this.mimeType === 'image/gif';
     };
 
-    getSrcSet(width: number = 1200) {
+    getSrcSet(width = 1200) {
         if (this.originalWidth < width * 2) {
             return '';
         }

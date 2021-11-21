@@ -1,4 +1,5 @@
-import { PARAGRAPH_NODE_TYPE, ParagraphNode } from '@prezly/slate-types';
+import type { ParagraphNode } from '@prezly/slate-types';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
 const createEmptyValue = (): [ParagraphNode] => [
     {

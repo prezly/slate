@@ -1,7 +1,7 @@
 import { Editor } from 'slate';
 
 import { UPLOADCARE_PROPERTY } from './constants';
-import { ResultPromise, Uploadcare, UploadcareOptions } from './types';
+import type { ResultPromise, Uploadcare, UploadcareOptions } from './types';
 
 abstract class UploadcareEditor {
     static upload<

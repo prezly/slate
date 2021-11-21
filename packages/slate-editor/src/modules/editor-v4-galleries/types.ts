@@ -1,6 +1,6 @@
-import { NewsroomRef } from '@prezly/sdk';
-import { RefObject } from 'react';
-import { Editor } from 'slate';
+import type { NewsroomRef } from '@prezly/sdk';
+import type { RefObject } from 'react';
+import type { Editor } from 'slate';
 
 export interface GalleriesExtensionParameters {
     mediaGalleryTab?: {

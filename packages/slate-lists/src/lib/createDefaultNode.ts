@@ -1,6 +1,6 @@
-import { Element } from 'slate';
+import type { Element } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 const createDefaultNode = (options: ListsOptions): Element => ({
     children: [],

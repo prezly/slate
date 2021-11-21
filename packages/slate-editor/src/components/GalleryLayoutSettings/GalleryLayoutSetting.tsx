@@ -1,5 +1,6 @@
 /* eslint jsx-a11y/label-has-associated-control: "warn" */
-import React, { MouseEvent, ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
+import React from 'react';
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 
 interface Props<Size extends string> {

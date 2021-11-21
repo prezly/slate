@@ -1,18 +1,18 @@
 import type { Editor, Element } from 'slate';
-import Events from '@prezly/events';
-import { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
+import type Events from '@prezly/events';
+import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 
-import { CoverageExtensionParameters } from '../../../modules/editor-v4-coverage';
-import { EmbedExtensionParameters } from '../../../modules/editor-v4-embed/types';
-import { EditorEventMap } from '../../../modules/editor-v4-events';
-import { FileAttachmentExtensionParameters } from '../../../modules/editor-v4-file-attachment';
-import { FloatingAddMenuExtensionParameters } from '../../../modules/editor-v4-floating-add-menu';
-import { GalleriesExtensionParameters } from '../../../modules/editor-v4-galleries';
-import { ImageExtensionParameters } from '../../../modules/editor-v4-image';
-import { PlaceholderMentionsExtensionParameters } from '../../../modules/editor-v4-placeholder-mentions';
-import { PressContactsExtensionParameters } from '../../../modules/editor-v4-press-contacts';
-import { RichFormattingExtensionParameters } from '../../../modules/editor-v4-rich-formatting';
-import { UserMentionsExtensionParameters } from '../../../modules/editor-v4-user-mentions';
+import type { CoverageExtensionParameters } from '../../../modules/editor-v4-coverage';
+import type { EmbedExtensionParameters } from '../../../modules/editor-v4-embed/types';
+import type { EditorEventMap } from '../../../modules/editor-v4-events';
+import type { FileAttachmentExtensionParameters } from '../../../modules/editor-v4-file-attachment';
+import type { FloatingAddMenuExtensionParameters } from '../../../modules/editor-v4-floating-add-menu';
+import type { GalleriesExtensionParameters } from '../../../modules/editor-v4-galleries';
+import type { ImageExtensionParameters } from '../../../modules/editor-v4-image';
+import type { PlaceholderMentionsExtensionParameters } from '../../../modules/editor-v4-placeholder-mentions';
+import type { PressContactsExtensionParameters } from '../../../modules/editor-v4-press-contacts';
+import type { RichFormattingExtensionParameters } from '../../../modules/editor-v4-rich-formatting';
+import type { UserMentionsExtensionParameters } from '../../../modules/editor-v4-user-mentions';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;

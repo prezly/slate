@@ -1,12 +1,13 @@
-import { createDeserializeElement, Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
+import { createDeserializeElement } from '@prezly/slate-commons';
 import { isEmbedNode } from '@prezly/slate-types';
 import React from 'react';
-import { RenderElementProps } from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 
 import { EmbedElement, EmbedMenu } from './components';
 import { EMBED_EXTENSION_ID, EMBED_TYPE } from './constants';
 import { normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
-import { EmbedParameters } from './types';
+import type { EmbedParameters } from './types';
 
 const EmbedExtension = ({
     availableWidth,

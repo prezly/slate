@@ -1,14 +1,15 @@
 /* eslint-disable no-param-reassign */
 
-import { EditorCommands, Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
+import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import {
-    PrezlyFileInfo,
     toProgressPromise,
     UPLOADCARE_FILE_DATA_KEY,
     UploadcareFile,
     UploadcareImage,
 } from '@prezly/uploadcare';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 import uploadcare from 'uploadcare-widget';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';

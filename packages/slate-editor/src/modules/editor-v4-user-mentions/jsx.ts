@@ -2,9 +2,9 @@
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
 import { MENTION_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { User } from './types';
+import type { User } from './types';
 
 declare global {
     namespace JSX {

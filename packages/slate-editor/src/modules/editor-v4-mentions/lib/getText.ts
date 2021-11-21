@@ -1,4 +1,5 @@
-import { Editor, Location } from 'slate';
+import type { Location } from 'slate';
+import { Editor } from 'slate';
 
 /**
  * See {@link Editor.string}.

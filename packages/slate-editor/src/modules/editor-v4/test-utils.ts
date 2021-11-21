@@ -1,8 +1,9 @@
 import Events from '@prezly/events';
 import { createRef } from 'react';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
-import { EditorEventMap, withEvents } from '../../modules/editor-v4-events';
+import type { EditorEventMap } from '../../modules/editor-v4-events';
+import { withEvents } from '../../modules/editor-v4-events';
 import {
     campaignPlaceholders,
     salutationPlaceholder,

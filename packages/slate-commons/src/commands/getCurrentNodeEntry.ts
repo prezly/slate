@@ -1,4 +1,5 @@
-import { Editor, NodeEntry } from 'slate';
+import type { NodeEntry } from 'slate';
+import { Editor } from 'slate';
 
 import isSelectionValid from './isSelectionValid';
 

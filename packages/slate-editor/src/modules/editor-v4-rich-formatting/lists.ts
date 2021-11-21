@@ -1,5 +1,6 @@
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { Lists, ListsOptions } from '@prezly/slate-lists';
+import type { ListsOptions } from '@prezly/slate-lists';
+import { Lists } from '@prezly/slate-lists';
 
 import { ElementType } from './types';
 

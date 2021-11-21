@@ -1,7 +1,9 @@
-import { ContactNode } from '@prezly/slate-types';
+import type { ContactNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
-import { RenderElementProps, useSelected } from 'slate-react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { RenderElementProps} from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { Avatar } from '../../../../components';
 import { User } from '../../../../icons';

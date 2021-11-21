@@ -1,7 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Range } from 'slate';
+import type { Editor } from 'slate';
+import { Range } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import getListItemsInRange from './getListItemsInRange';
 

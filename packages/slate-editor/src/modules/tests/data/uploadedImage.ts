@@ -1,4 +1,4 @@
-import { UploadedImage } from '@prezly/slate-types';
+import type { UploadedImage } from '@prezly/slate-types';
 
 export const uploadedImage: UploadedImage = {
     version: 2,

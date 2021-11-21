@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import React, { FunctionComponent, RefObject, useState } from 'react';
-import { Path, Range } from 'slate';
+import type { FunctionComponent, RefObject} from 'react';
+import React, { useState } from 'react';
+import type { Path, Range } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
 import { v4 as uuidV4 } from 'uuid';
@@ -21,7 +22,8 @@ import {
     wrapInLink,
     wrapInLinkCandidate,
 } from '../lib';
-import { ElementType, RichFormattingExtensionParameters } from '../types';
+import type { RichFormattingExtensionParameters } from '../types';
+import { ElementType } from '../types';
 
 import RichFormattingToolbar from './RichFormattingToolbar';
 

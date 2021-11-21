@@ -1,4 +1,4 @@
-import { ElementNode, TextNode } from './nodes';
+import type { ElementNode, TextNode } from './nodes';
 
 export * from '@prezly/uploads';
 

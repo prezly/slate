@@ -1,5 +1,5 @@
-import { ImageNode } from '@prezly/slate-types';
-import { Editor } from 'slate';
+import type { ImageNode } from '@prezly/slate-types';
+import type { Editor } from 'slate';
 
 import { EventsEditor } from '../../../../modules/editor-v4-events';
 

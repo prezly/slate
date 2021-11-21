@@ -6,6 +6,8 @@
         "downlevelIteration": true,
         "emitDeclarationOnly": true,
         "esModuleInterop": true,
+        "isolatedModules": true,
+        "importsNotUsedAsValues": "error",
         "forceConsistentCasingInFileNames": true,
         "lib": ["dom", "dom.iterable", "esnext"],
         "module": "es6",

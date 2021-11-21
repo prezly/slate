@@ -1,6 +1,7 @@
-import { ElementNode, isElementNode } from '@prezly/slate-types';
+import type { ElementNode } from '@prezly/slate-types';
+import { isElementNode } from '@prezly/slate-types';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 /**
  * Checks whether node.type is an Element matching options.listItemTextType.

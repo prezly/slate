@@ -1,7 +1,7 @@
-import { Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
 import { isParagraphNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
-import { RenderElementProps } from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 
 import { ParagraphElement } from './components';
 import { PARAGRAPHS_EXTENSION_ID } from './constants';

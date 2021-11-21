@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { RenderLeafProps } from 'slate-react';
+import type { RenderLeafProps } from 'slate-react';
 
-import { Extension, RenderLeaf } from '../types';
+import type { Extension, RenderLeaf } from '../types';
 
 const renderLeafExtensions = (extensions: Extension[], renderLeafList: RenderLeaf[]) => (
     leafProps: RenderLeafProps,

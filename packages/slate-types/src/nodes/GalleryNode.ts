@@ -1,6 +1,8 @@
-import { UploadedImage, isUploadedImage } from '@prezly/uploads';
+import type { UploadedImage } from '@prezly/uploads';
+import { isUploadedImage } from '@prezly/uploads';
 
-import { ElementNode, isElementNode } from './ElementNode';
+import type { ElementNode } from './ElementNode';
+import { isElementNode } from './ElementNode';
 import { isArrayOf, isEnum, isObject, isUuid } from './validation';
 
 export const GALLERY_NODE_TYPE = 'gallery';

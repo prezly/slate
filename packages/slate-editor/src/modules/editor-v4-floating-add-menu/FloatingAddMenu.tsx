@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import React, { FunctionComponent, RefObject } from 'react';
-import { Modifier } from 'react-popper';
+import type { FunctionComponent, RefObject } from 'react';
+import React from 'react';
+import type { Modifier } from 'react-popper';
 import { useSlate } from 'slate-react';
 
 import { KeyboardKey, TooltipV2 } from '../../components';
@@ -9,7 +10,7 @@ import { FloatingContainer } from '../../modules/editor-v4-components';
 import { Dropdown, Input } from './components';
 import './FloatingAddMenu.scss';
 import { useMenu } from './lib';
-import { FloatingAddMenuParameters } from './types';
+import type { FloatingAddMenuParameters } from './types';
 
 interface Props {
     availableWidth: number;

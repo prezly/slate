@@ -1,5 +1,6 @@
 import { isElementNode } from '@prezly/slate-types';
-import { Editor, Transforms } from 'slate';
+import type { Editor } from 'slate';
+import { Transforms } from 'slate';
 
 import { getCurrentNodeEntry, isNodeEmpty } from '../../../commands';
 

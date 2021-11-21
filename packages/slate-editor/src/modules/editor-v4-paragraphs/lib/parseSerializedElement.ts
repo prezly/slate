@@ -1,4 +1,5 @@
-import { isParagraphNode, ParagraphNode } from '@prezly/slate-types';
+import type { ParagraphNode } from '@prezly/slate-types';
+import { isParagraphNode } from '@prezly/slate-types';
 
 import createParagraph from './createParagraph';
 

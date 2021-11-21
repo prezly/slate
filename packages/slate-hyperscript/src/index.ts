@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 declare global {
     namespace JSX {

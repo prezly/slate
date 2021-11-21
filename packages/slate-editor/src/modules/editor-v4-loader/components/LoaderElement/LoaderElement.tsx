@@ -1,14 +1,16 @@
 import ProgressPromise from '@prezly/progress-promise';
 import classNames from 'classnames';
-import React, { FunctionComponent, HTMLAttributes, useCallback } from 'react';
+import type { FunctionComponent, HTMLAttributes} from 'react';
+import React, { useCallback } from 'react';
 import { useMount, useUnmount } from 'react-use';
-import { RenderElementProps, useSelected } from 'slate-react';
+import type { RenderElementProps} from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { LoadingPlaceholderV2 } from '../../../../components';
 import { Attachment, Embed, Gallery, Image, Video } from '../../../../icons';
 import { useAsyncProgress } from '../../../../lib';
 import { loaderPromiseManager } from '../../lib';
-import { LoaderContentType, LoaderNode } from '../../types';
+import type { LoaderContentType, LoaderNode } from '../../types';
 
 import './LoaderElement.scss';
 

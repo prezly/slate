@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isDividerNode } from '@prezly/slate-types';
-import { Editor, NodeEntry } from 'slate';
+import type { Editor, NodeEntry } from 'slate';
 
 import createDivider from './createDivider';
 

@@ -1,9 +1,9 @@
 import jsonStableStringify from 'json-stable-stringify';
 import { createEditor } from 'slate';
 
-import { Value } from '../../types';
+import type { Value } from '../../types';
 
-import { Transform } from './types';
+import type { Transform } from './types';
 import withoutImageCandidates from './withoutImageCandidates';
 import withoutLinkCandidates from './withoutLinkCandidates';
 import withoutLoaderBlocks from './withoutLoaderBlocks';

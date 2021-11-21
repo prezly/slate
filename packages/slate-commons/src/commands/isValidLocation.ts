@@ -1,4 +1,5 @@
-import { Editor, Location, Node } from 'slate';
+import type { Location } from 'slate';
+import { Editor, Node } from 'slate';
 
 const isValidLocation = (editor: Editor, location: Location): boolean => {
     try {

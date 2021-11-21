@@ -1,4 +1,5 @@
-import { Descendant, Node, NodeEntry, Path } from 'slate';
+import type { Descendant, NodeEntry, Path } from 'slate';
+import { Node } from 'slate';
 
 const findDescendants = <N extends Node>(
     node: N,

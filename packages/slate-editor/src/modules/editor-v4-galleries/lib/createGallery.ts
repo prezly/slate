@@ -1,7 +1,7 @@
+import type { GalleryNode } from '@prezly/slate-types';
 import {
     GalleryImageSize,
     GalleryLayout,
-    GalleryNode,
     GalleryPadding,
     GALLERY_NODE_TYPE,
 } from '@prezly/slate-types';

@@ -2,7 +2,7 @@
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { ElementType } from './types';
 

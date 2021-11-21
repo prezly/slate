@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isLinkNode } from '@prezly/slate-types';
-import { Editor, Node, NodeEntry, Transforms } from 'slate';
+import type { Editor, Node, NodeEntry } from 'slate';
+import { Transforms } from 'slate';
 
 const normalizeEmptyLink = (editor: Editor, [node, path]: NodeEntry<Node>): boolean => {
     if (!isLinkNode(node)) {

@@ -1,4 +1,5 @@
-import { Editor, Location, Path, Point } from 'slate';
+import type { Editor, Location } from 'slate';
+import { Path, Point } from 'slate';
 
 import findLeafPath from './findLeafPath';
 import findLeafPoint from './findLeafPoint';

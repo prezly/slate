@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import { getLoaders, loaderPromiseManager } from './lib';
-import { LoaderNode } from './types';
+import type { LoaderNode } from './types';
 
 /*
  * Only loaders that have unresolved promises scheduled to dispose of them are allowed

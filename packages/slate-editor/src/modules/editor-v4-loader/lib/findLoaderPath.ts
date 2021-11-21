@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Path } from 'slate';
+import type { Editor, Path } from 'slate';
 
-import { LoaderNode } from '../types';
+import type { LoaderNode } from '../types';
 
 import isLoaderElement from './isLoaderElement';
 

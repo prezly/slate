@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from 'uuid';
 
 import { LOADER_TYPE } from '../constants';
-import { LoaderContentType, LoaderNode } from '../types';
+import type { LoaderContentType, LoaderNode } from '../types';
 
 interface Parameters {
     contentType: LoaderContentType;

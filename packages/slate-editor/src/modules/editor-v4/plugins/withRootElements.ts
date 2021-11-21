@@ -1,7 +1,9 @@
 /* eslint-disable no-param-reassign */
 
-import { EditorCommands, Extension } from '@prezly/slate-commons';
-import { Editor, Element, Node, NodeEntry } from 'slate';
+import type { Extension } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
+import type { Editor, Node, NodeEntry } from 'slate';
+import { Element } from 'slate';
 
 const disallowAnyParent = () => false;
 

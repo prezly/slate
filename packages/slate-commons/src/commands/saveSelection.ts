@@ -1,4 +1,5 @@
-import { BaseEditor, Editor, Location, Range, Transforms } from 'slate';
+import type { BaseEditor, Editor, Location, Range } from 'slate';
+import { Transforms } from 'slate';
 
 import findLeafLocation from './findLeafLocation';
 import isValidLocation from './isValidLocation';

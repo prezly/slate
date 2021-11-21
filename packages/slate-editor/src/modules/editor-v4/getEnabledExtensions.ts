@@ -1,6 +1,6 @@
-import { Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
 import { noop } from 'lodash';
-import { RefObject } from 'react';
+import type { RefObject } from 'react';
 
 import { CoverageExtension } from '../../modules/editor-v4-coverage';
 import { DividerExtension } from '../../modules/editor-v4-divider';
@@ -22,7 +22,7 @@ import {
     handleRemoveAttachment,
     handleRemoveImage,
 } from './lib';
-import { EditorV4ExtensionsProps } from './types';
+import type { EditorV4ExtensionsProps } from './types';
 
 interface Parameters extends EditorV4ExtensionsProps {
     containerRef: RefObject<HTMLElement>;

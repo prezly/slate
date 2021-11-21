@@ -1,8 +1,5 @@
-import {
-    createHyperscript as createSlateHyperscript,
-    HyperscriptCreators,
-    HyperscriptShorthands,
-} from './slate-hyperscript';
+import type { HyperscriptCreators, HyperscriptShorthands } from './slate-hyperscript';
+import { createHyperscript as createSlateHyperscript } from './slate-hyperscript';
 import { createText } from './slate-hyperscript/creators';
 
 const createHyperscript = (

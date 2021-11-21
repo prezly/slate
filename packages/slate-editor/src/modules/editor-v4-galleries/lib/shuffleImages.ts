@@ -1,4 +1,4 @@
-import { GalleryNode } from '@prezly/slate-types';
+import type { GalleryNode } from '@prezly/slate-types';
 import { isEqual, shuffle } from 'lodash';
 
 const shuffleImages = (images: GalleryNode['images']): GalleryNode['images'] => {

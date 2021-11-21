@@ -1,4 +1,4 @@
-import { EmailPlaceholderKey } from './EmailPlaceholderKey';
-import { StoryPlaceholderKey } from './StoryPlaceholderKey';
+import type { EmailPlaceholderKey } from './EmailPlaceholderKey';
+import type { StoryPlaceholderKey } from './StoryPlaceholderKey';
 
 export type PlaceholderKey = EmailPlaceholderKey | StoryPlaceholderKey;

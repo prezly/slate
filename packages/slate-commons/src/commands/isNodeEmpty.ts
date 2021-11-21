@@ -1,4 +1,5 @@
-import { Editor, Node, Text } from 'slate';
+import type { Node } from 'slate';
+import { Editor, Text } from 'slate';
 
 const isNodeEmpty = (editor: Editor, node: Node): boolean => {
     if (Text.isText(node)) {

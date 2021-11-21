@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isLinkNode } from '@prezly/slate-types';
-import { Editor, Element, Node, NodeEntry } from 'slate';
+import type { Editor, Element, Node, NodeEntry } from 'slate';
 
 const disallowParentLink = (parent: Element) => !isLinkNode(parent);
 

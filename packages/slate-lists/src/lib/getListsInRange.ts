@@ -1,6 +1,6 @@
-import { Editor, Element, NodeEntry, Range } from 'slate';
+import type { Editor, Element, NodeEntry, Range } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import getListItemsInRange from './getListItemsInRange';
 import getParentList from './getParentList';

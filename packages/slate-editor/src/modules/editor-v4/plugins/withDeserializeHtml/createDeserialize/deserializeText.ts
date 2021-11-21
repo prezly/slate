@@ -1,5 +1,5 @@
-import { Extension } from '@prezly/slate-commons';
-import { Descendant } from 'slate';
+import type { Extension } from '@prezly/slate-commons';
+import type { Descendant } from 'slate';
 
 import deserializeHtmlToMarks from './deserializeHtmlToMarks';
 import replaceCarriageReturnWithLineFeed from './replaceCarriageReturnWithLineFeed';

@@ -1,4 +1,4 @@
-import { Node } from 'slate';
+import type { Node } from 'slate';
 
 const decodeSlateFragment = (fragment: string): Node[] => {
     const decoded = JSON.parse(decodeURIComponent(window.atob(fragment)));

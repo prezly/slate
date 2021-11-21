@@ -1,4 +1,4 @@
-import { DeserializeElement, Extension } from '@prezly/slate-commons';
+import type { DeserializeElement, Extension } from '@prezly/slate-commons';
 
 const getElementDeserializers = (extensions: Extension[]): DeserializeElement =>
     extensions.reduce<DeserializeElement>(

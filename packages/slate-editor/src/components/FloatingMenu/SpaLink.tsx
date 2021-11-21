@@ -1,6 +1,8 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
-import { Link, LinkProps } from 'react-router-dom';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { LinkProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export interface Props extends Partial<LinkProps> {
     className?: string;

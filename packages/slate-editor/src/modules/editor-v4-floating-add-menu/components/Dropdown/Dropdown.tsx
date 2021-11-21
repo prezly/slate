@@ -1,10 +1,11 @@
 import classNames from 'classnames';
 import { noop } from 'lodash';
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import { Label, MenuItem } from 'react-bootstrap';
 
 import { betaLastComparator } from '../../lib';
-import { Option } from '../../types';
+import type { Option } from '../../types';
 
 import './Dropdown.scss';
 

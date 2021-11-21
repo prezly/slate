@@ -1,4 +1,5 @@
-import { ElementNode, isElementNode } from './ElementNode';
+import type { ElementNode } from './ElementNode';
+import { isElementNode } from './ElementNode';
 
 export const HEADING_1_NODE_TYPE = 'heading-one';
 export const HEADING_2_NODE_TYPE = 'heading-two';

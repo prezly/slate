@@ -1,4 +1,5 @@
-import { Editor, Path, Point } from 'slate';
+import type { Path } from 'slate';
+import { Editor, Point } from 'slate';
 
 const getCursorPositionInNode = (editor: Editor, cursorLocation: Point, nodePath: Path) => {
     const nodeStartPoint = Editor.start(editor, nodePath);

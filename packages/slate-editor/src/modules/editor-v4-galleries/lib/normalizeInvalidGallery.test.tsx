@@ -1,13 +1,14 @@
 /** @jsx jsx */
 
+import type {
+    GalleryNode,
+    ParagraphNode} from '@prezly/slate-types';
 import {
     GALLERY_NODE_TYPE,
     GalleryImageSize,
     GalleryLayout,
-    GalleryNode,
     GalleryPadding,
-    PARAGRAPH_NODE_TYPE,
-    ParagraphNode,
+    PARAGRAPH_NODE_TYPE
 } from '@prezly/slate-types';
 import { Editor } from 'slate';
 import { omit } from 'lodash';

@@ -1,4 +1,4 @@
-import { ReactEditor } from 'slate-react';
+import type { ReactEditor } from 'slate-react';
 
 type OnDOMBeforeInput = (event: Event, editor: ReactEditor) => void;
 

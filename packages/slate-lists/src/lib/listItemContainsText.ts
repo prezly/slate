@@ -1,6 +1,6 @@
 import { Editor } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import isListItem from './isListItem';
 import isListItemText from './isListItemText';

@@ -1,8 +1,10 @@
-import RangeFix, { Rect } from 'rangefix';
-import React, { FunctionComponent } from 'react';
+import type { Rect } from 'rangefix';
+import RangeFix from 'rangefix';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 
 import BasePortal from './BasePortal';
-import { PortalProps } from './types';
+import type { PortalProps } from './types';
 
 export function updateCursorPortalRect(): ClientRect | Rect | null {
     try {

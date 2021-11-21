@@ -1,12 +1,13 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import RangeFix from 'rangefix';
-import React, { FunctionComponent, ReactNode, useEffect, useRef } from 'react';
+import type { FunctionComponent, ReactNode} from 'react';
+import React, { useEffect, useRef } from 'react';
 import { MenuItem } from 'react-bootstrap';
-import { Range } from 'slate';
+import type { Range } from 'slate';
 import { useSlate } from 'slate-react';
 
 import { ensureChildInView } from '../../../../lib';
-import { Option } from '../../types';
+import type { Option } from '../../types';
 
 import './MentionsDropdown.scss';
 

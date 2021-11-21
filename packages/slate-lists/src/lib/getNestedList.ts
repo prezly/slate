@@ -1,7 +1,8 @@
-import { Editor, Element, Node, NodeEntry, Path } from 'slate';
+import type { Editor, Element, NodeEntry, Path } from 'slate';
+import { Node } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import isList from './isList';
 

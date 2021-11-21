@@ -1,6 +1,6 @@
 import { UPLOADCARE_CDN_URL } from '../constants';
 
-import { UploadcareImage } from './UploadcareImage';
+import type { UploadcareImage } from './UploadcareImage';
 
 type Quality = 'lightest' | 'lighter' | 'normal' | 'better' | 'best';
 

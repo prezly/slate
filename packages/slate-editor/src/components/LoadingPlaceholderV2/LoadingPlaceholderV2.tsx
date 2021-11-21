@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
+import React, { forwardRef } from 'react';
 
 import Description from './Description';
 import Icon from './Icon';

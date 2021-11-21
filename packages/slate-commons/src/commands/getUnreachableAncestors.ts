@@ -1,4 +1,5 @@
-import { Node, NodeEntry, Path } from 'slate';
+import type { Node, NodeEntry } from 'slate';
+import { Path } from 'slate';
 
 /**
  * Will return nodes that are not "reachable" (graph-wise) from any other node,

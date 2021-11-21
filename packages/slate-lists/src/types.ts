@@ -1,4 +1,4 @@
-import { ElementNode } from '@prezly/slate-types';
+import type { ElementNode } from '@prezly/slate-types';
 
 export interface ListsOptions {
     /**

@@ -1,4 +1,5 @@
-import { isPlaceholderNode, PlaceholderKey, PlaceholderNode } from '@prezly/slate-types';
+import type { PlaceholderKey, PlaceholderNode } from '@prezly/slate-types';
+import { isPlaceholderNode } from '@prezly/slate-types';
 
 import createPlaceholderMention from './createPlaceholderMention';
 

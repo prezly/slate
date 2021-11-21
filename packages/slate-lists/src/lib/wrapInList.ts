@@ -1,7 +1,7 @@
 import { nodeIdManager } from '@prezly/slate-commons';
 import { Editor, Element, Transforms } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import createList from './createList';
 import createListItem from './createListItem';

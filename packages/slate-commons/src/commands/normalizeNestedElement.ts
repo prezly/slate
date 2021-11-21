@@ -1,5 +1,7 @@
-import { ElementNode, isElementNode } from '@prezly/slate-types';
-import { Editor, Element, ElementEntry, Transforms } from 'slate';
+import type { ElementNode } from '@prezly/slate-types';
+import { isElementNode } from '@prezly/slate-types';
+import type { ElementEntry } from 'slate';
+import { Editor, Element, Transforms } from 'slate';
 
 import makeDirty from './makeDirty';
 

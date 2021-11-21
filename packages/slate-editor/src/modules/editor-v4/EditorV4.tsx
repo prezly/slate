@@ -2,8 +2,9 @@ import Events from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import { noop } from 'lodash';
+import type {
+    FunctionComponent} from 'react';
 import React, {
-    FunctionComponent,
     useEffect,
     useImperativeHandle,
     useMemo,
@@ -17,8 +18,9 @@ import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '../../ic
 import { Placeholder } from '../../modules/editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../../modules/editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '../../modules/editor-v4-embed';
-import { EditorEventMap } from '../../modules/editor-v4-events';
-import { FloatingAddMenu, FloatingAddMenuOption } from '../../modules/editor-v4-floating-add-menu';
+import type { EditorEventMap } from '../../modules/editor-v4-events';
+import type { FloatingAddMenuOption } from '../../modules/editor-v4-floating-add-menu';
+import { FloatingAddMenu } from '../../modules/editor-v4-floating-add-menu';
 import { LoaderContentType } from '../../modules/editor-v4-loader';
 import {
     PlaceholderMentionsDropdown,
@@ -43,7 +45,7 @@ import {
     isEditorValueEquivalent,
     useCursorInView,
 } from './lib';
-import { EditorRef, EditorV4Props } from './types';
+import type { EditorRef, EditorV4Props } from './types';
 import useCreateEditor from './useCreateEditor';
 import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';

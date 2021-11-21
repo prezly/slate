@@ -1,4 +1,5 @@
-import { Editor, Path, Range, Transforms } from 'slate';
+import type { Editor, Path, Range } from 'slate';
+import { Transforms } from 'slate';
 
 import createLinkCandidate from './createLinkCandidate';
 

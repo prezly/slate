@@ -1,4 +1,4 @@
-import { Editor, Range } from 'slate';
+import type { Editor, Range } from 'slate';
 
 import findLeafPoint from './findLeafPoint';
 

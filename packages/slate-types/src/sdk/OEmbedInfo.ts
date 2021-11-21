@@ -1,4 +1,4 @@
-import { OEmbedInfo } from '@prezly/sdk';
+import type { OEmbedInfo } from '@prezly/sdk';
 
 export const isOEmbedInfo = (value: any): value is OEmbedInfo => {
     return (

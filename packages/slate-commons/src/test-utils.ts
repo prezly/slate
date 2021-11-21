@@ -6,7 +6,7 @@ import {
     HEADING_2_NODE_TYPE,
     LINK_NODE_TYPE,
 } from '@prezly/slate-types';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 export const INLINE_ELEMENT = LINK_NODE_TYPE;
 export const INLINE_VOID_ELEMENT = LINK_NODE_TYPE;

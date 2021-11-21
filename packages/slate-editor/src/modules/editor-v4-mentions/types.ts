@@ -1,4 +1,4 @@
-import { MentionNode, PlaceholderNode } from '@prezly/slate-types';
+import type { MentionNode, PlaceholderNode } from '@prezly/slate-types';
 
 export type MentionElementType = MentionNode | PlaceholderNode;
 

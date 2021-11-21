@@ -1,5 +1,5 @@
-import { Coverage } from '@prezly/sdk';
-import { ReactNode, RefObject } from 'react';
+import type { Coverage } from '@prezly/sdk';
+import type { ReactNode, RefObject } from 'react';
 
 export interface CoverageExtensionParameters {
     /**

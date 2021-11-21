@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import { clamp, noop } from 'lodash';
-import React, { Component, CSSProperties } from 'react';
-import { DraggableCore, DraggableEventHandler } from 'react-draggable';
+import type { CSSProperties } from 'react';
+import React, { Component } from 'react';
+import type { DraggableEventHandler } from 'react-draggable';
+import { DraggableCore } from 'react-draggable';
 
 import { getClampedRatioInPercent, getClampedWidthInPercent, increaseWidth } from './lib';
 import './ResizableContainer.scss';

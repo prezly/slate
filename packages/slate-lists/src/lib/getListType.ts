@@ -1,6 +1,6 @@
 import { Element } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 /**
  * Returns the "type" of a given list node.

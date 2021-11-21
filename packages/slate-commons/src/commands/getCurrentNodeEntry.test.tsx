@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import jsx from '../jsx';
 

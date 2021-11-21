@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FunctionComponent, useCallback } from 'react';
+import type { FunctionComponent} from 'react';
+import React, { useCallback } from 'react';
 import { Editable, useSlate } from 'slate-react';
 
 import {
@@ -9,7 +10,7 @@ import {
     renderElementExtensions,
     renderLeafExtensions,
 } from './lib';
-import {
+import type {
     Decorate,
     Extension,
     OnDOMBeforeInput,

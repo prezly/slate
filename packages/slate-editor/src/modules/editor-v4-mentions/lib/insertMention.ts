@@ -1,6 +1,7 @@
-import { Editor, Transforms } from 'slate';
+import type { Editor } from 'slate';
+import { Transforms } from 'slate';
 
-import { MentionElementType } from '../types';
+import type { MentionElementType } from '../types';
 
 const insertMention = (editor: Editor, element: MentionElementType) => {
     Transforms.insertNodes(editor, element);

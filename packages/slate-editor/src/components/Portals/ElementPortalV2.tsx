@@ -1,6 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 
-import BasePortalV2, { Props as BasePortalV2Props } from './BasePortalV2';
+import type { Props as BasePortalV2Props } from './BasePortalV2';
+import BasePortalV2 from './BasePortalV2';
 
 interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {
     element: HTMLElement | undefined | null;

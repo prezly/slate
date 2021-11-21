@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import { DeserializeLeafValue, Extension } from '@prezly/slate-commons';
+import type { DeserializeLeafValue, Extension } from '@prezly/slate-commons';
 
 const getLeafDeserializers = (extensions: Extension[]): Record<string, DeserializeLeafValue[]> =>
     extensions.reduce<Record<string, DeserializeLeafValue[]>>((deserializers, extension) => {

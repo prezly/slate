@@ -1,8 +1,10 @@
-import { createDeserializeElement, DeserializeHtml } from '@prezly/slate-commons';
+import type { DeserializeHtml } from '@prezly/slate-commons';
+import { createDeserializeElement } from '@prezly/slate-commons';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
 import { detectMarks, parseSerializedElement, parseSerializedLinkElement } from './lib';
-import { ElementType, RichFormattingExtensionParameters } from './types';
+import type { RichFormattingExtensionParameters } from './types';
+import { ElementType } from './types';
 
 const createDeserialize = (parameters: RichFormattingExtensionParameters): DeserializeHtml => {
     const deserialize: DeserializeHtml = {

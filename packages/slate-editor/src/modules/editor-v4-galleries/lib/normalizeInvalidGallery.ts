@@ -1,5 +1,6 @@
 import { isGalleryNode, validateGalleryNode } from '@prezly/slate-types';
-import { Editor, Node, NodeEntry, Transforms } from 'slate';
+import type { Editor, Node, NodeEntry } from 'slate';
+import { Transforms } from 'slate';
 
 export function normalizeInvalidGallery(editor: Editor, [node, path]: NodeEntry<Node>): boolean {
     if (isGalleryNode(node) && !validateGalleryNode(node)) {

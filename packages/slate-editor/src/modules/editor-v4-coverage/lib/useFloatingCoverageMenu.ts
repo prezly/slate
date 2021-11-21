@@ -1,7 +1,7 @@
-import { Coverage } from '@prezly/sdk';
+import type { Coverage } from '@prezly/sdk';
 import { useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
 

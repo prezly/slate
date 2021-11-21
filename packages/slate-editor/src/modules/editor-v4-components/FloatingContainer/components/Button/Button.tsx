@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { forwardRef, HTMLAttributes, MouseEventHandler, Ref } from 'react';
+import type { HTMLAttributes, MouseEventHandler, Ref } from 'react';
+import React, { forwardRef } from 'react';
 
 import { Add } from '../../../../../icons';
 

@@ -1,6 +1,7 @@
-import { PressContact } from '../sdk';
+import type { PressContact } from '../sdk';
 
-import { ElementNode, isElementNode } from './ElementNode';
+import type { ElementNode } from './ElementNode';
+import { isElementNode } from './ElementNode';
 
 export const CONTACT_NODE_TYPE = 'contact';
 

@@ -8,7 +8,7 @@ import {
     PARAGRAPH_NODE_TYPE,
 } from '@prezly/slate-types';
 import { createHyperscript } from '@prezly/slate-hyperscript';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { INLINE_ELEMENT, UNWRAPPABLE_ELEMENT } from './test-utils';
 

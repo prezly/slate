@@ -1,7 +1,7 @@
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import { UPLOADCARE_PROPERTY } from './constants';
-import { Uploadcare } from './types';
+import type { Uploadcare } from './types';
 
 const withUploadcare = (uploads: Uploadcare) => {
     return <T extends Editor>(editor: T): T => {

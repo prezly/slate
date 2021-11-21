@@ -1,16 +1,12 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import {
-    awaitUploads,
-    PrezlyFileInfo,
-    UPLOADCARE_FILE_DATA_KEY,
-    UploadcareImage,
-} from '@prezly/uploadcare';
-import { Editor } from 'slate';
+import type { PrezlyFileInfo } from '@prezly/uploadcare';
+import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
+import type { Editor } from 'slate';
 
 import { EventsEditor } from '../../../../modules/editor-v4-events';
+import type { GalleriesExtensionParameters } from '../../../../modules/editor-v4-galleries';
 import {
     createGallery,
-    GalleriesExtensionParameters,
     getCurrentGalleryNodeEntry,
     removeGallery,
 } from '../../../../modules/editor-v4-galleries';

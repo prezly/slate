@@ -1,17 +1,13 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import {
-    PrezlyFileInfo,
-    toProgressPromise,
-    UPLOADCARE_FILE_DATA_KEY,
-    UploadcareImage,
-} from '@prezly/uploadcare';
+import type { PrezlyFileInfo } from '@prezly/uploadcare';
+import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import { Editor } from 'slate';
 
 import { EventsEditor } from '../../../../modules/editor-v4-events';
+import type { ImageExtensionParameters } from '../../../../modules/editor-v4-image';
 import {
     createImage,
     getCurrentImageNodeEntry,
-    ImageExtensionParameters,
     removeImage,
 } from '../../../../modules/editor-v4-image';
 import { LoaderContentType } from '../../../../modules/editor-v4-loader';

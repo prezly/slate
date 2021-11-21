@@ -1,7 +1,9 @@
-import { createDeserializeElement, Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
+import { createDeserializeElement } from '@prezly/slate-commons';
 import { DIVIDER_NODE_TYPE, isDividerNode } from '@prezly/slate-types';
-import React, { RefObject } from 'react';
-import { RenderElementProps } from 'slate-react';
+import type { RefObject } from 'react';
+import React from 'react';
+import type { RenderElementProps } from 'slate-react';
 
 import { DividerElement, DividerMenu } from './components';
 import { DIVIDER_EXTENSION_ID } from './constants';

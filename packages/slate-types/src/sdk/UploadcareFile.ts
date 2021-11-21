@@ -1,7 +1,7 @@
 import { UPLOADCARE_CDN_URL } from '../constants';
 
-import { UploadcareFileInfo } from './UploadcareFileInfo';
-import { UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
+import type { UploadcareFileInfo } from './UploadcareFileInfo';
+import type { UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
 
 interface UploadcareFileParameters {
     filename: UploadcareFileStoragePayload['filename'];

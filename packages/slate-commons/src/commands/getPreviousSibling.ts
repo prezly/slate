@@ -1,4 +1,5 @@
-import { Editor, Node, NodeEntry, Path } from 'slate';
+import type { Editor, NodeEntry } from 'slate';
+import { Node, Path } from 'slate';
 
 const getPreviousSibling = (editor: Editor, path: Path): NodeEntry<Node> | null => {
     let previousSiblingPath: Path;

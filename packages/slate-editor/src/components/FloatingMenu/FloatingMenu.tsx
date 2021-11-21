@@ -1,5 +1,6 @@
-import { Placement } from '@popperjs/core';
-import React, { FunctionComponent, RefObject } from 'react';
+import type { Placement } from '@popperjs/core';
+import type { FunctionComponent, RefObject } from 'react';
+import React from 'react';
 
 import { ElementPortalV2 } from '../Portals';
 

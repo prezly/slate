@@ -1,4 +1,4 @@
-import { UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
+import type { UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
 
 export interface UploadcareImageStoragePayload extends UploadcareFileStoragePayload {
     effects: string[];

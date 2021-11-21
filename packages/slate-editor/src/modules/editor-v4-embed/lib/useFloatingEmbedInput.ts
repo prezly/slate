@@ -1,7 +1,7 @@
-import { OEmbedInfo } from '@prezly/sdk';
+import type { OEmbedInfo } from '@prezly/sdk';
 import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
 import {

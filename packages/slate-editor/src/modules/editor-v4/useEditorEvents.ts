@@ -1,9 +1,10 @@
-import { Listener } from '@prezly/events';
-import { RefObject, useEffect } from 'react';
+import type { Listener } from '@prezly/events';
+import type { RefObject } from 'react';
+import { useEffect } from 'react';
 
-import { EditorEventHandlers, EditorEventMap } from '../../modules/editor-v4-events';
+import type { EditorEventHandlers, EditorEventMap } from '../../modules/editor-v4-events';
 
-import { EditorRef } from './types';
+import type { EditorRef } from './types';
 
 const useEditorEvents = (
     editorRef: RefObject<EditorRef> | undefined,

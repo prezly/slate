@@ -1,4 +1,5 @@
-import { Editor, Range } from 'slate';
+import type { Range } from 'slate';
+import { Editor } from 'slate';
 
 const getEditorRange = (editor: Editor): Range | undefined => {
     // editor.children can sometimes be undefined, even though TypeScript says otherwise

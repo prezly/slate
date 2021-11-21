@@ -1,4 +1,5 @@
-import { ElementNode, isElementNode } from './ElementNode';
+import type { ElementNode } from './ElementNode';
+import { isElementNode } from './ElementNode';
 
 export const PLACEHOLDER_NODE_TYPE = 'placeholder';
 

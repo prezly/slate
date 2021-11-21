@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
-import { PlaceholderNode } from '@prezly/slate-types';
-import { Editor } from 'slate';
+import type { PlaceholderNode } from '@prezly/slate-types';
+import type { Editor } from 'slate';
 
 import jsx from '../jsx';
 import { createPlaceholderMentionElement, createMentionsEditor } from '../test-utils';

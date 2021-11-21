@@ -1,4 +1,5 @@
-import { Editor, Range } from 'slate';
+import type { Editor } from 'slate';
+import { Range } from 'slate';
 
 import getEditorRange from './getEditorRange';
 

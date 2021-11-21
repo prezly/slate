@@ -1,8 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isElementNode } from '@prezly/slate-types';
-import { Editor, Element, Node, NodeEntry, Transforms } from 'slate';
+import type { Node, NodeEntry } from 'slate';
+import { Editor, Element, Transforms } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import isList from './isList';
 

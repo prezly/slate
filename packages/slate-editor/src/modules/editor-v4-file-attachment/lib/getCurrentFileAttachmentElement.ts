@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { AttachmentNode, isAttachmentNode } from '@prezly/slate-types';
-import { Editor } from 'slate';
+import type { AttachmentNode } from '@prezly/slate-types';
+import { isAttachmentNode } from '@prezly/slate-types';
+import type { Editor } from 'slate';
 
 const getCurrentFileAttachmentElement = (editor: Editor): AttachmentNode | null => {
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];

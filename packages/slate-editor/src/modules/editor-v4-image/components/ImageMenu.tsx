@@ -1,6 +1,8 @@
-import { ImageNode, ImageLayout } from '@prezly/slate-types';
-import React, { FunctionComponent, RefObject, useState } from 'react';
-import { Editor, Range, Transforms } from 'slate';
+import type { ImageNode, ImageLayout } from '@prezly/slate-types';
+import type { FunctionComponent, RefObject} from 'react';
+import React, { useState } from 'react';
+import type { Editor, Range} from 'slate';
+import { Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu } from '../../../components';

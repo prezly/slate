@@ -1,4 +1,5 @@
-import { Editor, Path } from 'slate';
+import type { Path } from 'slate';
+import { Editor } from 'slate';
 
 const getNodePath = (
     editor: Editor,

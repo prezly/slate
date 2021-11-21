@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { ImageNode, isImageNode } from '@prezly/slate-types';
-import { Editor, NodeEntry } from 'slate';
+import type { ImageNode } from '@prezly/slate-types';
+import { isImageNode } from '@prezly/slate-types';
+import type { Editor, NodeEntry } from 'slate';
 
 type Keys<T> = {
     [P in keyof T]: true;

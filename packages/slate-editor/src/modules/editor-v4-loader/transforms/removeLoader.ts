@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Location } from 'slate';
+import type { Editor, Location } from 'slate';
 
 import { isLoaderElement } from '../lib';
 

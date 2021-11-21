@@ -1,5 +1,5 @@
+import type { Extension } from '@prezly/slate-commons';
 import {
-    Extension,
     withBreaksOnExpandedSelection,
     withBreaksOnVoidNodes,
     withInlineVoid,
@@ -7,7 +7,7 @@ import {
     withUserFriendlyDeleteBehavior,
 } from '@prezly/slate-commons';
 import { flow } from 'lodash';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
 

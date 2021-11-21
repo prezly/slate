@@ -1,7 +1,8 @@
 import RangeFix from 'rangefix';
 
 import getScrollParent from './getScrollParent';
-import scrollIntoView, { Options } from './scrollIntoView';
+import type { Options } from './scrollIntoView';
+import scrollIntoView from './scrollIntoView';
 
 const ensureRangeInView = (range: Range | null, options: Options): void => {
     if (!range) {

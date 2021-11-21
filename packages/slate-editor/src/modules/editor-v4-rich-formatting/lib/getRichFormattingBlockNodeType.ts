@@ -1,8 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { uniq } from 'lodash';
-import { Editor, Node, Path } from 'slate';
+import type { Node } from 'slate';
+import { Editor, Path } from 'slate';
 
-import { BlockType, RichTextElementType } from '../types';
+import type { BlockType, RichTextElementType } from '../types';
 
 import isRichTextBlockElement from './isRichTextBlockElement';
 
