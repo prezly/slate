@@ -15,6 +15,7 @@
         "build": "tsc --build ./tsconfig.build.json && npm run build --workspace=packages/slate-editor",
         "watch": "concurrently --kill-others --names rest,editor 'tsc --build ./tsconfig.build.json --watch' 'npm run watch --workspace=packages/slate-editor' ",
         "check": "npm run prettier && npm run test",
+        "lint": "npm run lint --workspaces",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:build": "npm run clean:build --workspaces && rimraf *.tsbuildinfo",
         "clean:node_modules": "npm run clean:node_modules --workspaces && rimraf node_modules/",

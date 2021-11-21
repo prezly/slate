@@ -4,7 +4,6 @@
         "baseUrl": ".",
         "jsx": "react",
         "lib": ["dom", "dom.iterable", "esnext"],
-        "moduleResolution": "node",
         "outDir": "./build",
         "declarationDir": "./build",
         "rootDir": "./src",
