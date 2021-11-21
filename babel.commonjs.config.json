@@ -2,5 +2,8 @@
     "extends": "./babel.config.json",
     "presets": [
         ["@babel/env", { "useBuiltIns": false, "modules": "commonjs" }]
+    ],
+    "plugins": [
+        ["babel-plugin-add-import-extension", { "extension": "cjs" }]
     ]
 }

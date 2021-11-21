@@ -60,6 +60,7 @@
         "@types/vinyl": "^2.0.6",
         "@typescript-eslint/eslint-plugin": "^5.4.0",
         "@typescript-eslint/parser": "^5.4.0",
+        "babel-plugin-add-import-extension": "^1.6.0",
         "babel-plugin-transform-remove-imports": "^1.7.0",
         "branch-pipe": "^1.0.1",
         "concurrently": "^6.4.0",
