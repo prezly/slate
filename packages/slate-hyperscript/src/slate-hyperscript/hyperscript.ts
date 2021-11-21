@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { isPlainObject } from 'is-plain-object';
-import { Element } from 'slate';
+import type { Element } from 'slate';
 import {
     createAnchor,
     createCursor,
@@ -129,4 +129,5 @@ const normalizeElements = (elements: HyperscriptShorthands) => {
     return creators;
 };
 
-export { createHyperscript, HyperscriptCreators, HyperscriptShorthands };
+export type { HyperscriptCreators, HyperscriptShorthands };
+export { createHyperscript };
