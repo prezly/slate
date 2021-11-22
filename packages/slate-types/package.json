@@ -25,7 +25,7 @@
         "lint": "eslint ./src --ext=.ts,.tsx",
         "build": "npm run type-check && NODE_ENV=production npm run build:transpile",
         "build:dev": "npm run type-check && NODE_ENV=development npm run build:transpile",
-        "build:transpile": "npm run clean:build && npm run build:esm && npm run build:commonjs && npm run build:types",
+        "build:transpile": "npm run build:esm && npm run build:commonjs && npm run build:types",
         "build:types": "tsc --build ./tsconfig.json",
         "build:commonjs": "babel --config-file ../../babel.commonjs.config.json src/ --out-dir=build/commonjs/ --extensions=.ts --out-file-extension=.cjs",
         "build:esm": "babel --config-file ../../babel.esm.config.json src/ --out-dir=build/esm/ --extensions=.ts --out-file-extension=.mjs",

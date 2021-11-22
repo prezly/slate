@@ -36,7 +36,7 @@
         "type-check": "tsc --build .",
         "build": "npm run type-check && NODE_ENV=production npm run build:transpile",
         "build:dev": "npm run type-check && NODE_ENV=development npm run build:transpile",
-        "build:transpile": "npm run clean:build && npm run build:commonjs && npm run build:esm && npm run build:types",
+        "build:transpile": "npm run build:commonjs && npm run build:esm && npm run build:types && npm run build:sass",
         "build:types": "tsc --build ./tsconfig.json",
         "build:commonjs": "npm run build:code:commonjs && npm run build:svg:commonjs",
         "build:esm": "npm run build:code:esm && npm run build:svg:esm",
