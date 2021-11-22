@@ -12,7 +12,7 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "bootstrap": "npm ci --legacy-peer-deps",
-        "build": "tsc --build ./tsconfig.build.json && npm run build --workspace=packages/slate-editor",
+        "build": "tsc --build ./tsconfig.build.json && npm run build --workspaces",
         "watch": "concurrently --kill-others --names rest,editor 'tsc --build ./tsconfig.build.json --watch' 'npm run watch --workspace=packages/slate-editor' ",
         "check": "npm run prettier && npm run test",
         "lint": "npm run lint --workspaces",
