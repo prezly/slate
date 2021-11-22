@@ -14,13 +14,13 @@
         },
         "./styles.css": "./build/styles/styles.css",
         "./styles/mixins": {
-            "sass": "./build/styles/mixins"
+            "sass": "./build/styles/mixins.scss"
         },
         "./styles/shared": {
-            "sass": "./build/styles/shared"
+            "sass": "./build/styles/shared.scss"
         },
         "./styles/variables": {
-            "sass": "./build/styles/variables"
+            "sass": "./build/styles/variables.scss"
         }
     },
     "repository": {
