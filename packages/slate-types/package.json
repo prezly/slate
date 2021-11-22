@@ -8,9 +8,9 @@
     "types": "build/types/index.d.ts",
     "exports": {
         ".": {
-            "types": "build/types/index.d.ts",
-            "require": "build/commonjs/index.cjs",
-            "import": "build/esm/index.mjs"
+            "types": "./build/types/index.d.ts",
+            "require": "./build/commonjs/index.cjs",
+            "import": "./build/esm/index.mjs"
         }
     },
     "repository": {

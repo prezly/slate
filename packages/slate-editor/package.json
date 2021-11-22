@@ -8,18 +8,18 @@
     "types": "build/types/index.d.ts",
     "exports": {
         ".": {
-            "types": "build/types/index.d.ts",
-            "require": "build/commonjs/index.cjs",
-            "import": "build/esm/index.mjs"
+            "types": "./build/types/index.d.ts",
+            "require": "./build/commonjs/index.cjs",
+            "import": "./build/esm/index.mjs"
         },
-        "styles.css": "./build/styles/styles.css",
-        "styles/mixins": {
+        "./styles.css": "./build/styles/styles.css",
+        "./styles/mixins": {
             "sass": "./build/styles/mixins"
         },
-        "styles/shared": {
+        "./styles/shared": {
             "sass": "./build/styles/shared"
         },
-        "styles/variables": {
+        "./styles/variables": {
             "sass": "./build/styles/variables"
         }
     },
