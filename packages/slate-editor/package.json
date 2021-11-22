@@ -3,8 +3,26 @@
     "version": "0.5.2",
     "description": "The Prezly Slate Editor",
     "license": "MIT",
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
+    "main": "build/commonjs/index.cjs",
+    "module": "build/esm/index.mjs",
+    "types": "build/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "build/types/index.d.ts",
+            "require": "build/commonjs/index.cjs",
+            "import": "build/esm/index.mjs"
+        },
+        "styles.css": "./build/styles/styles.css",
+        "styles/mixins": {
+            "sass": "./build/styles/mixins"
+        },
+        "styles/shared": {
+            "sass": "./build/styles/shared"
+        },
+        "styles/variables": {
+            "sass": "./build/styles/variables"
+        }
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/prezly/slate.git"
