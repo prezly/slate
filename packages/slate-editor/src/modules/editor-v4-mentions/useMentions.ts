@@ -23,7 +23,11 @@ export interface Mentions<V> {
     target: Range | null;
 }
 
-export function useMentions<V>({ createMentionElement, options, trigger }: Parameters<V>): Mentions<V> {
+export function useMentions<V>({
+    createMentionElement,
+    options,
+    trigger,
+}: Parameters<V>): Mentions<V> {
     const [index, setIndex] = useState<number>(0);
     const [query, setQuery] = useState<string>('');
     const [target, setTarget] = useState<Range | null>(null);
