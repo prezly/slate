@@ -17,5 +17,7 @@ module.exports = {
         '<rootDir>/playground/',
         '<rootDir>/packages/slate-editor/',
     ],
-    projects: ['<rootDir>', '<rootDir>/packages/slate-editor'],
+    transform: {
+        '^.+\\.(mjs|js|jsx|ts|tsx)$': ['babel-jest'],
+    },
 };
