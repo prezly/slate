@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import isHotkey from 'is-hotkey';
+import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 import { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';

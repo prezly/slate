@@ -1,4 +1,4 @@
-import isHotkey from 'is-hotkey';
+import { isHotkey } from 'is-hotkey';
 import type { KeyboardEventHandler, MouseEvent } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Range } from 'slate';
