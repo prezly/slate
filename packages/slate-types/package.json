@@ -27,11 +27,11 @@
         "build:dev": "npm run type-check && NODE_ENV=development npm run build:transpile",
         "build:transpile": "npm run build:code && npm run build:types",
         "build:types": "tsc --build ./tsconfig.json",
-        "build:code": "babel --config-file ../../babel.config.js src/ --out-dir=build/esm/ --extensions=.ts --out-file-extension=.mjs",
+        "build:code": "gulp build:code",
         "type-check": "tsc --build .",
         "watch": "concurrently --kill-others --names 'd.ts,mjs ' 'npm run watch:types' 'npm run watch:code'",
         "watch:types": "npm run type-check -- --watch",
-        "watch:code": "npm run build:code -- --watch",
+        "watch:code": "gulp watch:code",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"

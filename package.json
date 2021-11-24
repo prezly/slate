@@ -72,6 +72,7 @@
         "eslint-plugin-react": "^7.27.0",
         "eslint-plugin-react-hooks": "^4.3.0",
         "gulp": "^4.0.2",
+        "gulp-babel": "^8.0.0",
         "gulp-concat": "^2.6.1",
         "gulp-filter": "^7.0.0",
         "gulp-map": "^0.0.2",
