@@ -19,8 +19,8 @@ module.exports = (api) => {
             ],
         ],
         plugins: [
-            !isTest && ['babel-plugin-add-import-extension', { extension: 'mjs' }],
             ['babel-plugin-transform-remove-imports', { test: '\\.scss$' }],
+            !isTest && ['babel-plugin-add-import-extension', { extension: 'mjs' }],
         ].filter(Boolean),
     };
 };
