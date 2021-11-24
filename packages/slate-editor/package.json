@@ -33,11 +33,11 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
-        "type-check": "tsc --build .",
+        "type-check": "tsc-fancy --preserveConsoleOutput --build .",
         "build": "npm run type-check && NODE_ENV=production npm run build:transpile",
         "build:dev": "npm run type-check && NODE_ENV=development npm run build:transpile",
         "build:transpile": "npm run build:code && npm run build:svg && npm run build:types && npm run build:sass",
-        "build:types": "tsc --build ./tsconfig.json",
+        "build:types": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.json",
         "build:code": "gulp build:code",
         "build:svg": "gulp build:svg",
         "build:sass": "gulp build:sass",
