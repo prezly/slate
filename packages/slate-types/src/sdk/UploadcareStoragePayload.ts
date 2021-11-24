@@ -1,4 +1,4 @@
-import { isObject } from '../lib';
+import { isObject } from '../nodes/validation';
 
 import type { UploadcareFileStoragePayload } from './UploadcareFileStoragePayload';
 import type { UploadcareImageStoragePayload } from './UploadcareImageStoragePayload';
