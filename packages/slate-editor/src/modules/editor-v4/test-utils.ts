@@ -1,4 +1,4 @@
-import Events from '@prezly/events';
+import { Events } from '@prezly/events';
 import { createRef } from 'react';
 import type { Editor } from 'slate';
 
