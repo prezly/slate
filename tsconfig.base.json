@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
+        "allowSyntheticDefaultImports": false,
         "composite": true,
         "declaration": true,
         "downlevelIteration": true,
-        "esModuleInterop": true,
+        "esModuleInterop": false,
         "isolatedModules": true,
         "importsNotUsedAsValues": "error",
         "jsx": "react",
