@@ -10,10 +10,13 @@ module.exports = (api) => {
             '@babel/typescript',
             '@babel/react',
             '@dr.pogodin/babel-preset-svgr',
-            ['@babel/env', {
-                useBuiltIns: false,
-                modules: isTest ? 'commonjs' : false,
-            }],
+            [
+                '@babel/env',
+                {
+                    useBuiltIns: false,
+                    modules: isTest ? 'commonjs' : false,
+                },
+            ],
         ],
         plugins: [
             !isTest && ['babel-plugin-add-import-extension', { extension: 'mjs' }],
