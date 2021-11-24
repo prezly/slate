@@ -12,7 +12,7 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "bootstrap": "npm ci --legacy-peer-deps",
-        "build": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.build.json && npm run build --workspaces",
+        "build": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.build.json --pretty && npm run build --workspaces",
         "check": "npm run prettier && npm run test",
         "watch": "concurrently --kill-others --names 'types  ,commons,hyper  ,lists  ,editor ' 'npm run watch -w packages/slate-types' 'npm run watch -w packages/slate-commons' 'npm run watch -w packages/slate-hyperscript' 'npm run watch -w packages/slate-lists' 'npm run watch --workspace=packages/slate-editor'",
         "lint": "npm run lint --workspaces",
