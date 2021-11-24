@@ -3,14 +3,14 @@
     "version": "0.5.2",
     "description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
     "license": "MIT",
-    "main": "build/commonjs/index.cjs",
+    "main": "build/esm/index.mjs",
     "module": "build/esm/index.mjs",
     "types": "build/types/index.d.ts",
     "exports": {
         ".": {
             "types": "./build/types/index.d.ts",
-            "require": "./build/commonjs/index.cjs",
-            "import": "./build/esm/index.mjs"
+            "import": "./build/esm/index.mjs",
+            "default": "./build/esm/index.mjs"
         }
     },
     "files": [
@@ -29,10 +29,9 @@
         "lint": "eslint ./src --ext=.ts,.tsx",
         "build": "npm run type-check && NODE_ENV=production npm run build:transpile",
         "build:dev": "npm run type-check && NODE_ENV=development npm run build:transpile",
-        "build:transpile": "npm run build:esm && npm run build:commonjs && npm run build:types",
+        "build:transpile": "npm run build:code && npm run build:types",
         "build:types": "tsc --build ./tsconfig.json",
-        "build:commonjs": "babel --config-file ../../babel.commonjs.config.json src/ --out-dir=build/commonjs/ --extensions=.ts,.tsx --out-file-extension=.cjs",
-        "build:esm": "babel --config-file ../../babel.esm.config.json src/ --out-dir=build/esm/ --extensions=.ts,.tsx --out-file-extension=.mjs",
+        "build:code": "babel --config-file ../../babel.config.json src/ --out-dir=build/esm/ --extensions=.ts,.tsx --out-file-extension=.mjs",
         "type-check": "tsc --build .",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
