@@ -31,12 +31,12 @@ gulp.task('build:code', function () {
         .pipe(gulp.dest('build/esm/'));
 });
 
-gulp.task('watch:code', function () {
+gulp.task('watch:code', gulp.series('build:code', function () {
     return gulp
         .watch([TYPESCRIPT_SOURCES, DEPENDENCIES_SOURCES], gulp.series('build:code'))
         .on('ready', () => console.log('Watching files'))
         .on('all', (event, path) => console.log(`[${event}] ${path}`));
-});
+}));
 
 gulp.task('build:svg', function () {
     return gulp
@@ -46,12 +46,12 @@ gulp.task('build:svg', function () {
         .pipe(gulp.dest('build/esm/'));
 });
 
-gulp.task('watch:svg', function () {
+gulp.task('watch:svg', gulp.series('build:svg', function () {
     return gulp
         .watch(TYPESCRIPT_SOURCES, gulp.series('build:svg'))
         .on('ready', () => console.log('Watching files'))
         .on('all', (event, path) => console.log(`[${event}] ${path}`));
-});
+}));
 
 gulp.task('build:sass', function () {
     return gulp
@@ -65,12 +65,12 @@ gulp.task('build:sass', function () {
         .pipe(gulp.dest('build/'));
 });
 
-gulp.task('watch:sass', function () {
+gulp.task('watch:sass', gulp.series('build:sass', function () {
     return gulp
         .watch(SASS_SOURCES, gulp.series('build:sass'))
         .on('ready', () => console.log('Watching files'))
         .on('all', (event, path) => console.log(`[${event}] ${path}`));
-});
+}));
 
 /**
  * @param {Transform} stream
