@@ -37,7 +37,7 @@ gulp.task('build:sass', function () {
 
 gulp.task('watch:sass', function () {
     return gulp
-        .watch(SASS_SOURCES, 'build:sass')
+        .watch(SASS_SOURCES, gulp.series('build:sass'))
         .on('ready', () => console.log('Watching files'))
         .on('all', (event, path) => console.log(`[${event}] ${path}`));
 });
