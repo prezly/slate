@@ -4,7 +4,7 @@ import type { Editor, Node, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
 import type { FileInfo, FilePromise } from 'uploadcare-widget';
 import uploadcare from 'uploadcare-widget';
-import isDataURI from 'validator/lib/isDataURI';
+import isDataURI from 'validator/lib/isDataURI.js';
 
 import { dataUriToFile } from '../../../lib';
 import { EventsEditor } from '../../../modules/editor-v4-events';
