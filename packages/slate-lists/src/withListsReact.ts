@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import { ReactEditor } from 'slate-react';
+import type { ReactEditor } from 'slate-react';
 
 import { cloneContentsMonkeyPatch } from './lib';
 

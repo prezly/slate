@@ -1,4 +1,5 @@
-import { Editor, Element, NodeEntry, Text, Transforms } from 'slate';
+import type { NodeEntry } from 'slate';
+import { Editor, Element, Text, Transforms } from 'slate';
 
 /**
  * Ensures given element has a single, empty `Text` child.

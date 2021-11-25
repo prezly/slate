@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
-import { ImageLayout, IMAGE_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { UploadcareStoragePayload } from '@prezly/uploadcare';
-import { ReactNode } from 'react';
+import type { ImageLayout } from '@prezly/slate-types';
+import { IMAGE_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import type { UploadcareStoragePayload } from '@prezly/uploadcare';
+import type { ReactNode } from 'react';
 
-import { LOADER_TYPE, LoaderNode } from '../../modules/editor-v4-loader';
+import type { LoaderNode } from '../../modules/editor-v4-loader';
+import { LOADER_TYPE } from '../../modules/editor-v4-loader';
 
 import { IMAGE_CANDIDATE_TYPE } from './constants';
 

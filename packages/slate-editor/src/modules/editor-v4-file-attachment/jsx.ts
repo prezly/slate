@@ -2,8 +2,8 @@
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
 import { ATTACHMENT_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { UploadcareStoragePayload } from '@prezly/uploadcare';
-import { ReactNode } from 'react';
+import type { UploadcareStoragePayload } from '@prezly/uploadcare';
+import type { ReactNode } from 'react';
 
 declare global {
     namespace JSX {

@@ -1,6 +1,6 @@
 import type { ReactEditor } from 'slate-react';
 
-import { Extension, OnDOMBeforeInput } from '../types';
+import type { Extension, OnDOMBeforeInput } from '../types';
 
 const onDOMBeforeInputExtensions =
     (editor: ReactEditor, extensions: Extension[], onDOMBeforeInputList: OnDOMBeforeInput[]) =>

@@ -1,4 +1,5 @@
-import { Editor, Element, Node } from 'slate';
+import type { Node } from 'slate';
+import { Editor, Element } from 'slate';
 
 const getDeletionTargetNode = (
     editor: Editor,

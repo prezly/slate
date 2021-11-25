@@ -1,4 +1,4 @@
-import DeserializeLeafValue from './DeserializeLeafValue';
+import type DeserializeLeafValue from './DeserializeLeafValue';
 
 type DeserializeLeaf = Record<string, DeserializeLeafValue>;
 

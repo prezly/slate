@@ -1,6 +1,6 @@
-import { AttachmentNode } from '@prezly/slate-types';
-import { RefObject } from 'react';
-import { Editor } from 'slate';
+import type { AttachmentNode } from '@prezly/slate-types';
+import type { RefObject } from 'react';
+import type { Editor } from 'slate';
 
 export interface FileAttachmentExtensionParameters {
     styled: boolean;

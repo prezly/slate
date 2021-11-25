@@ -1,6 +1,7 @@
-import { UploadcareImageStoragePayload } from '../sdk';
+import type { UploadcareImageStoragePayload } from '../sdk';
 
-import { ElementNode, isElementNode } from './ElementNode';
+import type { ElementNode } from './ElementNode';
+import { isElementNode } from './ElementNode';
 
 export const IMAGE_NODE_TYPE = 'image-block';
 

@@ -7,7 +7,7 @@ import {
     isQuoteNode,
 } from '@prezly/slate-types';
 
-import { RichTextElementType } from '../types';
+import type { RichTextElementType } from '../types';
 
 const isRichTextElement = (node: unknown): node is RichTextElementType =>
     isParagraphNode(node) ||

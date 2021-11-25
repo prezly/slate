@@ -1,8 +1,9 @@
 import { withInlineVoid } from '@prezly/slate-commons';
-import { isPlaceholderNode, PLACEHOLDER_NODE_TYPE, PlaceholderNode } from '@prezly/slate-types';
+import type { PlaceholderNode } from '@prezly/slate-types';
+import { isPlaceholderNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
-import { Editor } from 'slate';
-import { RenderElementProps } from 'slate-react';
+import type { Editor } from 'slate';
+import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement } from './components';
 import MentionsExtension from './MentionsExtension';

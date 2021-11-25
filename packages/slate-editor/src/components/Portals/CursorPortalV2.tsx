@@ -1,9 +1,11 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, useState } from 'react';
+import type { FunctionComponent} from 'react';
+import React, { useState } from 'react';
 
 import { useIsMouseDown } from '../../lib';
 
-import BasePortalV2, { Props as BasePortalV2Props } from './BasePortalV2';
+import type { Props as BasePortalV2Props } from './BasePortalV2';
+import BasePortalV2 from './BasePortalV2';
 import { updateCursorPortalRect } from './CursorPortal';
 import './CursorPortalV2.scss';
 

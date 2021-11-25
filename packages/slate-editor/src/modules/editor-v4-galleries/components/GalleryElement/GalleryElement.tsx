@@ -1,10 +1,13 @@
-import { GalleryLayout, GalleryNode } from '@prezly/slate-types';
+import type { GalleryNode } from '@prezly/slate-types';
+import { GalleryLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
-import React, { FunctionComponent, RefObject } from 'react';
+import type { FunctionComponent, RefObject } from 'react';
+import React from 'react';
 import { useSize } from 'react-use';
-import { Editor } from 'slate';
-import { RenderElementProps, useSelected, useSlate } from 'slate-react';
+import type { Editor } from 'slate';
+import type { RenderElementProps} from 'slate-react';
+import { useSelected, useSlate } from 'slate-react';
 
 import Gallery from './Gallery';
 import './GalleryElement.scss';

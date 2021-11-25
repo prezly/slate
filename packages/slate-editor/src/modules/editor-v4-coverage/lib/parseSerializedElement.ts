@@ -1,4 +1,5 @@
-import { CoverageNode, isCoverageNode } from '@prezly/slate-types';
+import type { CoverageNode } from '@prezly/slate-types';
+import { isCoverageNode } from '@prezly/slate-types';
 
 import createCoverage from './createCoverage';
 

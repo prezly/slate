@@ -1,7 +1,7 @@
 import { EditorCommands, nodeIdManager } from '@prezly/slate-commons';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import decreaseListItemDepth from './decreaseListItemDepth';
 import getListItemsInRange from './getListItemsInRange';

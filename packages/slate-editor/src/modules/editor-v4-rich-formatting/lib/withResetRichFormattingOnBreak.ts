@@ -2,7 +2,7 @@
 
 import { EditorCommands } from '@prezly/slate-commons';
 import { isList } from '@prezly/slate-lists';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import { options } from '../lists';
 

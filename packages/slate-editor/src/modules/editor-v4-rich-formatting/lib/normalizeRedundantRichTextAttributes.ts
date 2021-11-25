@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, NodeEntry } from 'slate';
+import type { Editor, NodeEntry } from 'slate';
 
 import { ElementType } from '../types';
 

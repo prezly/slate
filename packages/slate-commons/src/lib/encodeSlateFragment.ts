@@ -1,4 +1,4 @@
-import { Node } from 'slate';
+import type { Node } from 'slate';
 
 const encodeSlateFragment = (fragment: Node[]): string => {
     return window.btoa(encodeURIComponent(JSON.stringify(fragment)));

@@ -1,7 +1,7 @@
-import { Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
 import { isLinkNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
-import { RenderElementProps, RenderLeafProps } from 'slate-react';
+import type { RenderElementProps, RenderLeafProps } from 'slate-react';
 
 import { LinkCandidateElement, LinkElement, RichTextElement } from './components';
 import { RICH_FORMATTING_EXTENSION_ID } from './constants';
@@ -14,7 +14,8 @@ import {
     normalizeNestedLink,
     normalizeRedundantRichTextAttributes,
 } from './lib';
-import { ElementType, MarkType, RichFormattingExtensionParameters } from './types';
+import type { RichFormattingExtensionParameters } from './types';
+import { ElementType, MarkType } from './types';
 
 const RichFormattingExtension = (parameters: RichFormattingExtensionParameters): Extension => ({
     deserialize: createDeserialize(parameters),

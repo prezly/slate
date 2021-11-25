@@ -1,5 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import React, { FunctionComponent, ReactNode } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
+import React from 'react';
 import { useSlate } from 'slate-react';
 
 import './Placeholder.scss';

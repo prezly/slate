@@ -1,4 +1,5 @@
-import { Editor, Element, ElementEntry, NodeEntry } from 'slate';
+import type { Editor, ElementEntry, NodeEntry } from 'slate';
+import { Element } from 'slate';
 
 export function withElementNormalization(
     editor: Editor,

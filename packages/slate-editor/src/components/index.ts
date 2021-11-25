@@ -1,6 +1,6 @@
 export { default as Avatar } from './Avatar';
 export { default as CloseButtonV2 } from './CloseButtonV2';
-export { default as FloatingMenu, Option as FloatingMenuOption } from './FloatingMenu';
+export * from './FloatingMenu';
 export { default as GalleryLayoutSettings } from './GalleryLayoutSettings';
 export { default as ImageSizeWarning } from './ImageSizeWarning';
 export { default as ImageWithLoadingPlaceholderV2 } from './ImageWithLoadingPlaceholderV2';
@@ -15,4 +15,4 @@ export {
     ElementPortalV2,
     PortalOrigin,
 } from './Portals';
-export { default as TooltipV2, Props as TooltipV2Props } from './TooltipV2';
+export * from './TooltipV2';

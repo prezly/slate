@@ -1,8 +1,10 @@
-import React, { FunctionComponent } from 'react';
-import { Range } from 'slate';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { Range } from 'slate';
 
-import { MentionsDropdown, Option } from '../../../../modules/editor-v4-mentions';
-import { Placeholder } from '../../types';
+import type { Option } from '../../../../modules/editor-v4-mentions';
+import { MentionsDropdown } from '../../../../modules/editor-v4-mentions';
+import type { Placeholder } from '../../types';
 import PlaceholderMentionsDropdownOption from '../PlaceholderMentionsDropdownOption';
 
 interface Props {

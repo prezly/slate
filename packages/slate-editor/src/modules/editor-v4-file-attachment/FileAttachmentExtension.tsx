@@ -1,13 +1,14 @@
 import { ATTACHMENT_NODE_TYPE, isAttachmentNode } from '@prezly/slate-types';
-import { createDeserializeElement, Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
+import { createDeserializeElement } from '@prezly/slate-commons';
 import { noop } from 'lodash';
 import React from 'react';
-import { RenderElementProps } from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 
 import { FileAttachmentElement, FileAttachmentMenu } from './components';
 import { FILE_ATTACHMENT_EXTENSION_ID } from './constants';
 import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
-import { FileAttachmentParameters } from './types';
+import type { FileAttachmentParameters } from './types';
 
 const FileAttachmentExtension = ({
     containerRef,

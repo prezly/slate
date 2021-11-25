@@ -7,5 +7,5 @@ export {
     isEditorValueEquivalent,
     serialize,
 } from './lib';
-export { EditorRef, EditorV4Props } from './types';
+export type { EditorRef, EditorV4Props } from './types';
 export { default as useEditorEvents } from './useEditorEvents';

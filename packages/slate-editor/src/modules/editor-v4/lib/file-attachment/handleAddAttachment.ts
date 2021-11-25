@@ -1,10 +1,6 @@
-import {
-    PrezlyFileInfo,
-    toProgressPromise,
-    UPLOADCARE_FILE_DATA_KEY,
-    UploadcareFile,
-} from '@prezly/uploadcare';
-import { Editor } from 'slate';
+import type { PrezlyFileInfo } from '@prezly/uploadcare';
+import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareFile } from '@prezly/uploadcare';
+import type { Editor } from 'slate';
 
 import { EventsEditor } from '../../../../modules/editor-v4-events';
 import { createFileAttachment } from '../../../../modules/editor-v4-file-attachment';

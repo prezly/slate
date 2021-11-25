@@ -2,8 +2,9 @@ import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 
 // eslint-disable-next-line import/named
-import { FloatingMenuOption } from '../../../../components';
-import { BlockType, ElementType } from '../../types';
+import type { FloatingMenuOption } from '../../../../components';
+import type { BlockType} from '../../types';
+import { ElementType } from '../../types';
 import MenuOption from '../MenuOption';
 
 const OPTIONS: FloatingMenuOption<BlockType>[] = [

@@ -1,7 +1,8 @@
-import React, { FunctionComponent } from 'react';
-import { RenderElementProps } from 'slate-react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { RenderElementProps } from 'slate-react';
 
-import { LinkCandidateNode } from '../../../../modules/editor-v4-rich-formatting/types';
+import type { LinkCandidateNode } from '../../../../modules/editor-v4-rich-formatting/types';
 
 import './LinkCandidateElement.scss';
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
-import { Extension } from '../types';
+import type { Extension } from '../types';
 
 const withNormalization =
     (getExtensions: () => Extension[]) =>

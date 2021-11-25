@@ -1,6 +1,6 @@
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import decreaseDepth from './decreaseDepth';
 import getListItemsInRange from './getListItemsInRange';

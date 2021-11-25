@@ -1,9 +1,9 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "jsx": "react",
-        "outDir": "./build",
-        "declarationDir": "./build",
+        "noEmit": false,
+        "emitDeclarationOnly": true,
+        "declarationDir": "./build/types",
         "rootDir": "./src",
         "typeRoots": ["./src/@types"]
     },

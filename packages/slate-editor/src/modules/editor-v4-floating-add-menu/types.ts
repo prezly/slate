@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { Editor } from 'slate';
+import type { ReactNode } from 'react';
+import type { Editor } from 'slate';
 
 export interface Option {
     beta?: boolean;

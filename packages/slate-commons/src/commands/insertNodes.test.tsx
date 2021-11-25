@@ -1,7 +1,8 @@
 /** @jsx jsx */
 
-import { LinkNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { Editor } from 'slate';
+import type { LinkNode} from '@prezly/slate-types';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import type { Editor } from 'slate';
 
 import jsx from '../jsx';
 import { createEditor, INLINE_ELEMENT, INLINE_VOID_ELEMENT, VOID_ELEMENT } from '../test-utils';

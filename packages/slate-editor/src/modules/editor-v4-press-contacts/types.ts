@@ -1,5 +1,5 @@
-import { PressContact } from '@prezly/slate-types';
-import { ReactNode, RefObject } from 'react';
+import type { PressContact } from '@prezly/slate-types';
+import type { ReactNode, RefObject } from 'react';
 
 export interface PressContactsParameters {
     containerRef: RefObject<HTMLElement>;

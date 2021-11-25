@@ -1,5 +1,6 @@
-import { ElementNode, isElementNode } from './ElementNode';
-import { TextNode } from './TextNode';
+import type { ElementNode } from './ElementNode';
+import { isElementNode } from './ElementNode';
+import type { TextNode } from './TextNode';
 
 export const LINK_NODE_TYPE = 'link';
 

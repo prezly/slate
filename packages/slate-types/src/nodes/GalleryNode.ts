@@ -1,8 +1,9 @@
-import { UploadedImage, isUploadedImage } from '@prezly/uploads';
-import { isPlainObject } from 'is-plain-object';
+import type { UploadedImage } from '@prezly/uploads';
+import { isUploadedImage } from '@prezly/uploads';
 
-import { ElementNode, isElementNode } from './ElementNode';
-import { isArrayOf, isEnum, isUuid } from './validation';
+import type { ElementNode } from './ElementNode';
+import { isElementNode } from './ElementNode';
+import { isArrayOf, isEnum, isObject, isUuid } from './validation';
 
 export const GALLERY_NODE_TYPE = 'gallery';
 
@@ -46,13 +47,13 @@ export function isGalleryNode(value: any): value is GalleryNode {
 }
 
 function validateGalleryImage(image: Partial<GalleryImage> | undefined): image is GalleryImage {
-    return isPlainObject(image) && typeof image.caption === 'string' && isUploadedImage(image.file);
+    return isObject(image) && typeof image.caption === 'string' && isUploadedImage(image.file);
 }
 
 export function validateGalleryNode(node: Partial<GalleryNode> | undefined): node is GalleryNode {
     return (
         node !== undefined &&
-        isPlainObject(node) &&
+        isObject(node) &&
         node.type === GALLERY_NODE_TYPE &&
         isUuid(node.uuid) &&
         isEnum(node.layout, GalleryLayout) &&

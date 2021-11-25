@@ -1,9 +1,11 @@
-import isHotkey from 'is-hotkey';
-import { KeyboardEvent, useCallback, useMemo, useState } from 'react';
-import { Editor, Range, Transforms } from 'slate';
+import { isHotkey } from 'is-hotkey';
+import type { KeyboardEvent } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import type { Editor } from 'slate';
+import { Range, Transforms } from 'slate';
 
 import { getWordAfterTrigger, insertMention, isPointAtWordEnd } from './lib';
-import { MentionElementType, Option } from './types';
+import type { MentionElementType, Option } from './types';
 
 interface Parameters<V> {
     createMentionElement: (option: Option<V>) => MentionElementType;
@@ -21,7 +23,11 @@ export interface Mentions<V> {
     target: Range | null;
 }
 
-const useMentions = <V>({ createMentionElement, options, trigger }: Parameters<V>): Mentions<V> => {
+export function useMentions<V>({
+    createMentionElement,
+    options,
+    trigger,
+}: Parameters<V>): Mentions<V> {
     const [index, setIndex] = useState<number>(0);
     const [query, setQuery] = useState<string>('');
     const [target, setTarget] = useState<Range | null>(null);
@@ -104,6 +110,4 @@ const useMentions = <V>({ createMentionElement, options, trigger }: Parameters<V
         query,
         target,
     };
-};
-
-export default useMentions;
+}

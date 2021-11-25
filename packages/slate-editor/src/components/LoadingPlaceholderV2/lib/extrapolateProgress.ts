@@ -1,5 +1,5 @@
 import { estimateProgress } from '../../../lib';
-import { ChangeEvent } from '../types';
+import type { ChangeEvent } from '../types';
 
 const OPTIMISM = 0.9;
 const SMOOTHING = 3;

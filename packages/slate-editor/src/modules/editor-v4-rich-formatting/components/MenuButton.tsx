@@ -1,7 +1,8 @@
-import React, { FunctionComponent, MouseEventHandler } from 'react';
+import type { FunctionComponent, MouseEventHandler } from 'react';
+import React from 'react';
 
 import { FloatingMenu } from '../../../components';
-import { ElementType, MarkType } from '../types';
+import type { ElementType, MarkType } from '../types';
 
 interface Props {
     isActive?: boolean;

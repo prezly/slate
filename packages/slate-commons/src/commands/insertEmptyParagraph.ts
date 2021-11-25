@@ -1,5 +1,7 @@
-import { PARAGRAPH_NODE_TYPE, ParagraphNode } from '@prezly/slate-types';
-import { Editor, Location, Transforms } from 'slate';
+import type { ParagraphNode } from '@prezly/slate-types';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import type { Editor, Location } from 'slate';
+import { Transforms } from 'slate';
 
 const createEmptyParagraph = (): ParagraphNode => ({
     children: [{ text: '' }],

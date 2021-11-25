@@ -1,14 +1,16 @@
-import Events from '@prezly/events';
-import { PressContact } from '@prezly/slate-types';
+import type Events from '@prezly/events';
+import type { PressContact } from '@prezly/slate-types';
 import { once } from 'lodash';
-import React, { FunctionComponent, ReactNode, RefObject, useMemo } from 'react';
-import { Editor } from 'slate';
+import type { FunctionComponent, ReactNode, RefObject} from 'react';
+import React, { useMemo } from 'react';
+import type { Editor } from 'slate';
 import { useSlate } from 'slate-react';
 
 import { FloatingContainer } from '../../../../modules/editor-v4-components';
-import { EditorEventMap, EventsEditor } from '../../../../modules/editor-v4-events';
+import type { EditorEventMap} from '../../../../modules/editor-v4-events';
+import { EventsEditor } from '../../../../modules/editor-v4-events';
 
-import { SearchProps } from '../../types';
+import type { SearchProps } from '../../types';
 
 import './FloatingPressContactsMenu.scss';
 

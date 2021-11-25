@@ -1,5 +1,6 @@
 import { isImageNode } from '@prezly/slate-types';
-import { Editor, Node, NodeEntry, Text, Transforms } from 'slate';
+import type { Editor, NodeEntry } from 'slate';
+import { Node, Text, Transforms } from 'slate';
 
 /**
  * When pasting an image copied from the editor, `children` gets messed up for some reason,

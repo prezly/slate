@@ -1,8 +1,8 @@
-import Events from '@prezly/events';
-import { Editor } from 'slate';
+import type Events from '@prezly/events';
+import type { Editor } from 'slate';
 
 import { EVENTS_PROPERTY } from './constants';
-import { EditorEventMap } from './types';
+import type { EditorEventMap } from './types';
 
 const withEvents = (events: Events<EditorEventMap>) => {
     return <T extends Editor>(editor: T): T => {

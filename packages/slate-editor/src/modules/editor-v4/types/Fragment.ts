@@ -1,39 +1,41 @@
-import {
+import type {
     AttachmentNode,
-    isAttachmentNode,
     ContactNode,
-    isContactNode,
     CoverageNode,
-    isCoverageNode,
     DividerNode,
-    isDividerNode,
     DocumentNode,
-    isDocumentNode,
     EmbedNode,
-    isEmbedNode,
     GalleryNode,
-    isGalleryNode,
     HeadingNode,
-    isHeadingNode,
     ImageNode,
-    isImageNode,
     LinkNode,
-    isLinkNode,
     ListNode,
-    isListNode,
-    isListItemNode,
-    isListItemTextNode,
     ListItemNode,
     ListItemTextNode,
     MentionNode,
-    isMentionNode,
     ParagraphNode,
-    isParagraphNode,
     PlaceholderNode,
-    isPlaceholderNode,
     QuoteNode,
-    isQuoteNode,
     TextNode,
+} from '@prezly/slate-types';
+import {
+    isAttachmentNode,
+    isContactNode,
+    isCoverageNode,
+    isDividerNode,
+    isDocumentNode,
+    isEmbedNode,
+    isGalleryNode,
+    isHeadingNode,
+    isImageNode,
+    isLinkNode,
+    isListNode,
+    isListItemNode,
+    isListItemTextNode,
+    isMentionNode,
+    isParagraphNode,
+    isPlaceholderNode,
+    isQuoteNode,
 } from '@prezly/slate-types';
 import { Element, Node, Text } from 'slate';
 
@@ -78,7 +80,7 @@ type KnownNode =
     | QuoteNode
     | TextNode;
 
-type Fragment = KnownNode[];
+export type Fragment = KnownNode[];
 
 const isKnownNode = (node: unknown): node is KnownNode => {
     return validators.some((validator) => {
@@ -103,5 +105,3 @@ export const isFragment = (value: unknown): value is Fragment => {
 
     return value.length > 0 && value.every(isKnownNode);
 };
-
-export default Fragment;

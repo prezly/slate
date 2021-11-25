@@ -1,5 +1,5 @@
-import isHotkey from 'is-hotkey';
-import { KeyboardEvent } from 'react';
+import { isHotkey } from 'is-hotkey';
+import type { KeyboardEvent } from 'react';
 
 const isDeletingBackward = (event: KeyboardEvent): boolean =>
     isHotkey('backspace', event.nativeEvent) ||

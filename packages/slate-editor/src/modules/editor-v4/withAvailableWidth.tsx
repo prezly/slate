@@ -1,7 +1,8 @@
-import React, { ComponentType } from 'react';
+import type { ComponentType } from 'react';
+import React from 'react';
 import { useSize } from 'react-use';
 
-import { EditorV4Props } from './types';
+import type { EditorV4Props } from './types';
 
 const withAvailableWidth = (EditorV4Component: ComponentType<EditorV4Props>) => {
     const WithAvailableWidth = ({

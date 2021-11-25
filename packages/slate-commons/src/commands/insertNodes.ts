@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
-import { Editor, Node, Text, Transforms } from 'slate';
+import type { Node } from 'slate';
+import { Editor, Text, Transforms } from 'slate';
 
 import getCurrentNodeEntry from './getCurrentNodeEntry';
 import insertEmptyParagraph from './insertEmptyParagraph';

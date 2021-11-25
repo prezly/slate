@@ -1,16 +1,18 @@
-import { Placement, VirtualElement } from '@popperjs/core';
+import type { Placement, VirtualElement } from '@popperjs/core';
 import classNames from 'classnames';
 import { isEqual, noop } from 'lodash';
 import type { Rect } from 'rangefix';
-import React, {
+import type {
     FunctionComponent,
     HTMLAttributes,
     ReactNode,
-    RefObject,
+    RefObject} from 'react';
+import React, {
     useRef,
     useState,
 } from 'react';
-import { Modifier, usePopper } from 'react-popper';
+import type { Modifier} from 'react-popper';
+import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 import { useMountedState, useRafLoop } from 'react-use';
 

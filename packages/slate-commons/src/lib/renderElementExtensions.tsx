@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { RenderElementProps } from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 
-import { Extension, RenderElement } from '../types';
+import type { Extension, RenderElement } from '../types';
 
 const renderElementExtensions = (extensions: Extension[], renderElementList: RenderElement[]) => (
     elementProps: RenderElementProps,

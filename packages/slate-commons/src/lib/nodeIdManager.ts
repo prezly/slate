@@ -1,4 +1,5 @@
-import { Editor, Node, NodeEntry, Transforms } from 'slate';
+import type { Node, NodeEntry } from 'slate';
+import { Editor, Transforms } from 'slate';
 import { v4 as uuidV4 } from 'uuid';
 
 import { getEditorRange } from '../commands';

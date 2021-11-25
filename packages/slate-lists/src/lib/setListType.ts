@@ -1,7 +1,8 @@
 import { nodeIdManager } from '@prezly/slate-commons';
-import { Editor, Element, Transforms } from 'slate';
+import type { Editor, Element } from 'slate';
+import { Transforms } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import getListsInRange from './getListsInRange';
 

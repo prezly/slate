@@ -1,10 +1,11 @@
 import { noop } from 'lodash';
-import React, {
+import type {
     CSSProperties,
-    forwardRef,
     ImgHTMLAttributes,
     ReactNode,
-    Ref,
+    Ref} from 'react';
+import React, {
+    forwardRef,
     useEffect,
     useState,
 } from 'react';

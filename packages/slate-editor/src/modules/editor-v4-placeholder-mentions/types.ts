@@ -1,4 +1,4 @@
-import { PlaceholderKey } from '@prezly/slate-types';
+import type { PlaceholderKey } from '@prezly/slate-types';
 
 export interface Placeholder {
     key: PlaceholderKey;

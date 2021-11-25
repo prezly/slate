@@ -1,10 +1,13 @@
-import { createDeserializeElement, EditorCommands, Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
+import { createDeserializeElement, EditorCommands } from '@prezly/slate-commons';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
-import isHotkey from 'is-hotkey';
+import { isHotkey } from 'is-hotkey';
 import { noop } from 'lodash';
-import React, { KeyboardEvent } from 'react';
-import { Editor, Path, Transforms } from 'slate';
-import { RenderElementProps } from 'slate-react';
+import type { KeyboardEvent } from 'react';
+import React from 'react';
+import type { Editor} from 'slate';
+import { Path, Transforms } from 'slate';
+import type { RenderElementProps } from 'slate-react';
 
 import { ImageElement } from './components';
 import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
@@ -18,7 +21,7 @@ import {
     normalizeRedundantImageAttributes,
     parseSerializedElement,
 } from './lib';
-import { ImageCandidateNode, ImageParameters } from './types';
+import type { ImageCandidateNode, ImageParameters } from './types';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
 

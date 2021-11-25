@@ -1,4 +1,4 @@
-import { RichTextElementType } from '../types';
+import type { RichTextElementType } from '../types';
 
 import createRichText from './createRichText';
 import isRichTextElement from './isRichTextElement';

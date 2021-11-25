@@ -1,5 +1,6 @@
 import { isLinkNode } from '@prezly/slate-types';
-import { Editor, Path } from 'slate';
+import type { Path } from 'slate';
+import { Editor } from 'slate';
 
 const findSelectedLinkPath = (editor: Editor): Path | null => {
     if (!editor.selection) {

@@ -1,4 +1,4 @@
-import { Option } from '../types';
+import type { Option } from '../types';
 
 /**
  * A comparator which, when used with `Array.prototype.sort`, will sort the

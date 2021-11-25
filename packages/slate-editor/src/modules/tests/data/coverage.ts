@@ -1,4 +1,4 @@
-import { Coverage } from '@prezly/sdk';
+import type { Coverage } from '@prezly/sdk';
 
 import { oembedInfo } from './oembedInfo';
 

@@ -1,4 +1,4 @@
-import { User } from '../types';
+import type { User } from '../types';
 
 const isUser = (user: any): user is User =>
     typeof user === 'object' &&

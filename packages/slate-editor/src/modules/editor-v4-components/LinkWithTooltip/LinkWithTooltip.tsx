@@ -1,6 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 
-import { TooltipV2, TooltipV2Props } from '../../../components';
+import type { TooltipV2Props } from '../../../components';
+import { TooltipV2 } from '../../../components';
 
 import './LinkWithTooltip.scss';
 

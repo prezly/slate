@@ -1,4 +1,5 @@
-import { Editor, Point } from 'slate';
+import type { Point } from 'slate';
+import { Editor } from 'slate';
 
 import getText from './getText';
 

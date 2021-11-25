@@ -1,5 +1,6 @@
 import { createEmptyValue } from '@prezly/slate-commons';
-import { Element, Node } from 'slate';
+import type { Element } from 'slate';
+import { Node } from 'slate';
 
 const deserialize = (value: string): Element[] => {
     if (!value) {

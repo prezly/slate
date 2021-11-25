@@ -1,4 +1,4 @@
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import moveCursorToEndOfDocument from './moveCursorToEndOfDocument';

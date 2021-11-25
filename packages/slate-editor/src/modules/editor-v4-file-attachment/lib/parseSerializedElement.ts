@@ -1,4 +1,5 @@
-import { AttachmentNode, isAttachmentNode } from '@prezly/slate-types';
+import type { AttachmentNode } from '@prezly/slate-types';
+import { isAttachmentNode } from '@prezly/slate-types';
 
 import createFileAttachment from './createFileAttachment';
 

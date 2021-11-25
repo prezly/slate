@@ -1,7 +1,8 @@
-import { ElementNode } from '@prezly/slate-types';
-import { Editor, NodeEntry, Path } from 'slate';
+import type { ElementNode } from '@prezly/slate-types';
+import type { NodeEntry, Path } from 'slate';
+import { Editor } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 import isList from './isList';
 
 /**

@@ -1,4 +1,4 @@
-import { Editor, NodeEntry } from 'slate';
+import type { Editor, NodeEntry } from 'slate';
 
 type Normalize = (editor: Editor, entry: NodeEntry) => boolean;
 

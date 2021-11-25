@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 
 export interface Props {
     flex?: boolean;

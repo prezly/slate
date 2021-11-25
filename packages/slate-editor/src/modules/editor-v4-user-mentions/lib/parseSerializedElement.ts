@@ -1,4 +1,5 @@
-import { isMentionNode, MentionNode } from '@prezly/slate-types';
+import type { MentionNode } from '@prezly/slate-types';
+import { isMentionNode } from '@prezly/slate-types';
 
 import createUserMention from './createUserMention';
 

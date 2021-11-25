@@ -1,6 +1,6 @@
-import { Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
 import { jsx } from '@prezly/slate-hyperscript';
-import { Descendant, Element } from 'slate';
+import type { Descendant, Element } from 'slate';
 
 import getElementDeserializers from './getElementDeserializers';
 

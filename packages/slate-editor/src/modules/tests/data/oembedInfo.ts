@@ -1,4 +1,4 @@
-import { OEmbedInfo } from '@prezly/sdk';
+import type { OEmbedInfo } from '@prezly/sdk';
 
 export const oembedInfo: OEmbedInfo = {
     url: 'https://www.prezly.com',

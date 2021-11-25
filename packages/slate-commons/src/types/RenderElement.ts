@@ -1,4 +1,4 @@
-import { RenderElementProps } from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 
 /**
  * To customize the rendering of each element components.

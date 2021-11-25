@@ -1,4 +1,5 @@
-import { ImageNode, isImageNode } from '@prezly/slate-types';
+import type { ImageNode } from '@prezly/slate-types';
+import { isImageNode } from '@prezly/slate-types';
 
 import createImage from './createImage';
 

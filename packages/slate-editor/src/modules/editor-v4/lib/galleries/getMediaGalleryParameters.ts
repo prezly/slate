@@ -1,5 +1,5 @@
-import { GalleriesExtensionParameters } from '../../../../modules/editor-v4-galleries';
-import { MediaGalleryOptions } from '../../../../modules/editor-v4-uploadcare';
+import type { GalleriesExtensionParameters } from '../../../../modules/editor-v4-galleries';
+import type { MediaGalleryOptions } from '../../../../modules/editor-v4-uploadcare';
 
 const getMediaGalleryParameters = (
     withGalleries: GalleriesExtensionParameters,

@@ -1,5 +1,6 @@
 import getScrollParent from './getScrollParent';
-import scrollIntoView, { Options } from './scrollIntoView';
+import type { Options } from './scrollIntoView';
+import scrollIntoView from './scrollIntoView';
 
 const ensureElementInView = (element: HTMLElement | null, options: Options): void => {
     if (!element) {

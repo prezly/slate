@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import BasePortal from './BasePortal';
-import { PortalProps } from './types';
+import type { PortalProps } from './types';
 
 interface Props extends PortalProps {
     element: HTMLElement;

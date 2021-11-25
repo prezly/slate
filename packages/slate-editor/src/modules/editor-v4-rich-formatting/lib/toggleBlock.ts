@@ -1,7 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { ElementNode } from '@prezly/slate-types';
+import type { ElementNode } from '@prezly/slate-types';
 
-import { Editor, Element, Transforms } from 'slate';
+import type { Editor, Element } from 'slate';
+import { Transforms } from 'slate';
 import lists from '../lists';
 import { ElementType } from '../types';
 

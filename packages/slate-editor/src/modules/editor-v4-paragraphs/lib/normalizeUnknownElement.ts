@@ -1,5 +1,6 @@
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { Editor, Element, Node, NodeEntry, Transforms } from 'slate';
+import type { Editor, Node, NodeEntry } from 'slate';
+import { Element, Transforms } from 'slate';
 
 /**
  * If there's an Element node without a `type` attribute - mark it as paragraph.

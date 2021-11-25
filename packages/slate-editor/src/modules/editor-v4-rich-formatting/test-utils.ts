@@ -1,5 +1,5 @@
 import { withInlineVoid, withNormalization } from '@prezly/slate-commons';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import RichFormattingExtension from './RichFormattingExtension';
 import withRichFormatting from './withRichFormatting';

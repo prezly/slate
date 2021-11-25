@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 
-import { Option, useMentions } from '../../modules/editor-v4-mentions';
+import type { Option } from '../../modules/editor-v4-mentions';
+import { useMentions } from '../../modules/editor-v4-mentions';
 
 import { createPlaceholderMention } from './lib';
-import { Placeholder, PlaceholderMentionsExtensionParameters } from './types';
+import type { Placeholder, PlaceholderMentionsExtensionParameters } from './types';
 
 const placeholderToOption = (placeholder: Placeholder): Option<Placeholder> => ({
     id: placeholder.key,

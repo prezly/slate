@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { Editor, Element, Node, NodeEntry, Text, Transforms } from 'slate';
+import type { Node, NodeEntry } from 'slate';
+import { Editor, Element, Text, Transforms } from 'slate';
 
 /**
  * If there's a Text node at the root of the document, we have to wrap it in a paragraph.

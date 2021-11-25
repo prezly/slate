@@ -1,6 +1,7 @@
-import { Editor, Element, Node, NodeEntry, Text, Transforms } from 'slate';
+import type { Editor, NodeEntry } from 'slate';
+import { Element, Node, Text, Transforms } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import createListItem from './createListItem';
 import createListItemText from './createListItemText';

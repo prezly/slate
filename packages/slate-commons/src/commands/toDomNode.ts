@@ -1,4 +1,4 @@
-import { Node } from 'slate';
+import type { Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 /**

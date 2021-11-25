@@ -1,6 +1,7 @@
-import { OEmbedInfo } from '@prezly/sdk';
+import type { OEmbedInfo } from '@prezly/sdk';
 
-import { ElementNode, isElementNode } from './ElementNode';
+import type { ElementNode } from './ElementNode';
+import { isElementNode } from './ElementNode';
 
 export const EMBED_NODE_TYPE = 'embed';
 

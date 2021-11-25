@@ -1,5 +1,5 @@
 import { isParagraphNode } from '@prezly/slate-types';
-import { Editor, Node } from 'slate';
+import type { Editor, Node } from 'slate';
 
 import isNodeEmpty from './isNodeEmpty';
 

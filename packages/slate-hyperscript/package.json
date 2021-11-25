@@ -3,8 +3,16 @@
     "version": "0.5.2",
     "description": "Hyperscript helpers for creating Slate documents with JSX",
     "license": "MIT",
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
+    "main": "./build/esm/index.mjs",
+    "module": "build/esm/index.mjs",
+    "types": "build/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./build/types/index.d.ts",
+            "import": "./build/esm/index.mjs",
+            "default": "./build/esm/index.mjs"
+        }
+    },
     "files": [
         "build",
         "src"
@@ -18,8 +26,16 @@
     },
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
-        "build": "tsc --build .",
-        "build:watch": "tsc -w --build .",
+        "lint": "eslint ./src --ext=.ts,.tsx",
+        "build": "npm run type-check && NODE_ENV=production npm run build:transpile",
+        "build:dev": "npm run type-check && NODE_ENV=development npm run build:transpile",
+        "build:transpile": "npm run build:code && npm run build:types",
+        "build:types": "tsc-fancy --preserveConsoleOutput --build .",
+        "build:code": "gulp build:code",
+        "type-check": "tsc-fancy --preserveConsoleOutput --build .",
+        "watch": "concurrently --kill-others --names 'd.ts,mjs ' 'npm run watch:types' 'npm run watch:code'",
+        "watch:types": "npm run type-check -- --watch --pretty",
+        "watch:code": "gulp watch:code",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"

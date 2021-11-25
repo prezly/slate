@@ -1,4 +1,4 @@
-import { RichTextElementType } from '../types';
+import type { RichTextElementType } from '../types';
 
 const createRichText = (
     type: RichTextElementType['type'],

@@ -1,4 +1,5 @@
-import { MENTION_NODE_TYPE, MentionNode } from '@prezly/slate-types';
+import type { MentionNode } from '@prezly/slate-types';
+import { MENTION_NODE_TYPE } from '@prezly/slate-types';
 
 const createUserMention = (user: MentionNode['user']): MentionNode => ({
     children: [{ text: '' }],

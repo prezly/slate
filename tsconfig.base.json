@@ -1,14 +1,18 @@
 {
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
+        "allowSyntheticDefaultImports": false,
         "composite": true,
         "declaration": true,
         "downlevelIteration": true,
-        "esModuleInterop": true,
+        "esModuleInterop": false,
+        "isolatedModules": true,
+        "importsNotUsedAsValues": "error",
+        "jsx": "react",
         "forceConsistentCasingInFileNames": true,
         "lib": ["dom", "dom.iterable", "esnext"],
-        "module": "commonjs",
+        "module": "es6",
         "moduleResolution": "node",
+        "noEmit": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
@@ -21,6 +25,6 @@
         "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
-        "target": "es5"
+        "target": "es6"
     }
 }

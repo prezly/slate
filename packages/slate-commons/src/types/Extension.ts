@@ -1,10 +1,10 @@
-import Decorate from './Decorate';
-import DeserializeHtml from './DeserializeHtml';
-import Normalize from './Normalize';
-import OnDOMBeforeInput from './OnDOMBeforeInput';
-import OnKeyDown from './OnKeyDown';
-import RenderElement from './RenderElement';
-import RenderLeaf from './RenderLeaf';
+import type Decorate from './Decorate';
+import type DeserializeHtml from './DeserializeHtml';
+import type Normalize from './Normalize';
+import type OnDOMBeforeInput from './OnDOMBeforeInput';
+import type OnKeyDown from './OnKeyDown';
+import type RenderElement from './RenderElement';
+import type RenderLeaf from './RenderLeaf';
 
 export default interface Extension {
     decorate?: Decorate;

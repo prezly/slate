@@ -1,5 +1,5 @@
-import { LinkNode } from '@prezly/slate-types';
-import { Text } from 'slate';
+import type { LinkNode } from '@prezly/slate-types';
+import type { Text } from 'slate';
 
 import { ElementType } from '../types';
 

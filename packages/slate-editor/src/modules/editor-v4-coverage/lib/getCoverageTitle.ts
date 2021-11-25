@@ -1,4 +1,4 @@
-import { Coverage } from '@prezly/sdk';
+import type { Coverage } from '@prezly/sdk';
 
 const getCoverageTitle = (coverage: Coverage): string => {
     if (coverage.attachment_oembed && coverage.attachment_oembed.title) {

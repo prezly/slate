@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { isLinkNode, isParagraphNode } from '@prezly/slate-types';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import jsx from '../jsx';
 

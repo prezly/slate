@@ -1,5 +1,5 @@
-import DeserializeElement from './DeserializeElement';
-import DeserializeLeaf from './DeserializeLeaf';
+import type DeserializeElement from './DeserializeElement';
+import type DeserializeLeaf from './DeserializeLeaf';
 
 export default interface DeserializeHtml {
     element?: DeserializeElement;

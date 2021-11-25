@@ -1,6 +1,6 @@
 import type { BaseElement } from 'slate';
 
-import { isObject } from '../lib';
+import { isObject } from './validation';
 
 export interface ElementNode extends BaseElement {
     type: string;

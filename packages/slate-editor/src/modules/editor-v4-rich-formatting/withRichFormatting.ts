@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import { withLists, withListsReact } from '@prezly/slate-lists';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import { withResetRichFormattingOnBreak } from './lib';
 import { options } from './lists';

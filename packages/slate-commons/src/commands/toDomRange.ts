@@ -1,4 +1,4 @@
-import { Range } from 'slate';
+import type { Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 /**

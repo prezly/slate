@@ -1,4 +1,4 @@
-import { ListNode } from '@prezly/slate-types';
+import type { ListNode } from '@prezly/slate-types';
 
 const createList = (type: string, children: ListNode['children'] = []): ListNode => ({
     children,

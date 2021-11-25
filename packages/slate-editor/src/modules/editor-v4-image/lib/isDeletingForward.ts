@@ -1,5 +1,5 @@
-import isHotkey from 'is-hotkey';
-import { KeyboardEvent } from 'react';
+import { isHotkey } from 'is-hotkey';
+import type { KeyboardEvent } from 'react';
 
 const isDeletingForward = (event: KeyboardEvent): boolean =>
     isHotkey('delete', event.nativeEvent) ||

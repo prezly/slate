@@ -1,9 +1,11 @@
-import isHotkey from 'is-hotkey';
-import { KeyboardEventHandler, MouseEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { Range, Transforms } from 'slate';
+import { isHotkey } from 'is-hotkey';
+import type { KeyboardEventHandler, MouseEvent } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { Range } from 'slate';
+import { Transforms } from 'slate';
 import { ReactEditor, useSlate } from 'slate-react';
 
-import { FloatingAddMenuParameters } from '../types';
+import type { FloatingAddMenuParameters } from '../types';
 
 const isEnter = isHotkey('enter');
 const isArrowUp = isHotkey('up');

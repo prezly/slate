@@ -1,4 +1,5 @@
-import { Editor, Text } from 'slate';
+import type { Text } from 'slate';
+import { Editor } from 'slate';
 
 import isMarkActive from './isMarkActive';
 

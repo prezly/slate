@@ -4,6 +4,7 @@
         "es2021": true
     },
     "extends": [
+        "prettier",
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended"
@@ -32,15 +33,19 @@
         "react/display-name": "warn",
         "react/prop-types": "off",
         "import/no-extraneous-dependencies": "error",
+        "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-empty-interface": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-inferrable-types": "warn"
     },
     "overrides": [
         {
-            "files": ["src/**/*.test.*"],
+            "files": ["packages/**/*.test.*"],
             "rules": {
                 "@typescript-eslint/no-empty-function": "off",
-                "@typescript-eslint/no-non-null-assertion": "off"
+                "@typescript-eslint/no-non-null-assertion": "off",
+                "react/display-name": "off",
+                "react/jsx-key": "off"
             }
         }
     ]

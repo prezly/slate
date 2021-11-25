@@ -1,4 +1,5 @@
-import { ContactNode, isContactNode } from '@prezly/slate-types';
+import type { ContactNode } from '@prezly/slate-types';
+import { isContactNode } from '@prezly/slate-types';
 
 import createPressContact from './createPressContact';
 

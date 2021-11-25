@@ -1,6 +1,7 @@
 /** @jsx jsx */
 
-import { Editor, Range } from 'slate';
+import type { Editor} from 'slate';
+import { Range } from 'slate';
 
 import jsx from '../jsx';
 

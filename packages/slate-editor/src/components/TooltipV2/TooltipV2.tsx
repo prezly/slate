@@ -1,6 +1,8 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactNode, useState } from 'react';
-import { Modifier, usePopper } from 'react-popper';
+import type { FunctionComponent, ReactNode} from 'react';
+import React, { useState } from 'react';
+import type { Modifier} from 'react-popper';
+import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 import { useMountedState, useRafLoop } from 'react-use';
 

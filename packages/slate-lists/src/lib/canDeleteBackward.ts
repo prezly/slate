@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import isCursorAtStartOfListItem from './isCursorAtStartOfListItem';
 import getListItemsInRange from './getListItemsInRange';

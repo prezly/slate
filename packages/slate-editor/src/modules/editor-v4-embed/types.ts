@@ -1,5 +1,5 @@
-import { OEmbedInfo } from '@prezly/sdk';
-import { RefObject } from 'react';
+import type { OEmbedInfo } from '@prezly/sdk';
+import type { RefObject } from 'react';
 
 export interface EmbedExtensionParameters {
     fetchOembed: (url: OEmbedInfo['url']) => Promise<OEmbedInfo>;

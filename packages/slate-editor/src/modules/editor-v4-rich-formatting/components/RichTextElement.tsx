@@ -1,7 +1,9 @@
-import React, { FunctionComponent, HTMLAttributes } from 'react';
-import { RenderElementProps } from 'slate-react';
+import type { FunctionComponent, HTMLAttributes } from 'react';
+import React from 'react';
+import type { RenderElementProps } from 'slate-react';
 
-import { ElementType, RichTextElementType } from '../types';
+import type { RichTextElementType } from '../types';
+import { ElementType } from '../types';
 
 import BlockQuoteElement from './BlockQuoteElement';
 import BulletedListElement from './BulletedListElement';

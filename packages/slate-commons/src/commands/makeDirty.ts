@@ -1,4 +1,5 @@
-import { Editor, Path, Transforms } from 'slate';
+import type { Editor, Path } from 'slate';
+import { Transforms } from 'slate';
 import { v4 as uuidV4 } from 'uuid';
 
 const DIRTY_PROPERTY_NAME = uuidV4();

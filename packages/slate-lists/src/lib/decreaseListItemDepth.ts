@@ -1,7 +1,8 @@
-import { Editor, Element, Node, Path, Transforms } from 'slate';
+import type { Element } from 'slate';
+import { Editor, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import getParentList from './getParentList';
 import getParentListItem from './getParentListItem';

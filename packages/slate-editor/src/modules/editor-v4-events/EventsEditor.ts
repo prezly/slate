@@ -1,8 +1,8 @@
-import Events from '@prezly/events';
+import { Events } from '@prezly/events';
 import { Editor } from 'slate';
 
 import { EVENTS_PROPERTY } from './constants';
-import { EditorEventMap } from './types';
+import type { EditorEventMap } from './types';
 
 abstract class EventsEditor {
     static dispatchEvent<Event extends keyof EditorEventMap>(

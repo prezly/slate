@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import {
     normalizeList,
@@ -12,7 +12,7 @@ import {
     normalizeOrphanNestedList,
     normalizeSiblingLists,
 } from './lib';
-import { ListsOptions } from './types';
+import type { ListsOptions } from './types';
 
 const normalizers = [
     normalizeList,

@@ -1,5 +1,5 @@
 import { withNormalization } from '@prezly/slate-commons';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import ParagraphsExtension from './ParagraphsExtension';
 

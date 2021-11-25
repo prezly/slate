@@ -1,4 +1,5 @@
-import { isLinkNode, LinkNode } from '@prezly/slate-types';
+import type { LinkNode } from '@prezly/slate-types';
+import { isLinkNode } from '@prezly/slate-types';
 
 import createLink from './createLink';
 

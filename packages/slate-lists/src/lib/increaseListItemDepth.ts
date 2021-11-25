@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
-import { ListsOptions } from '../types';
+import type { ListsOptions } from '../types';
 
 import createList from './createList';
 import getListType from './getListType';

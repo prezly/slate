@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, HTMLAttributes } from 'react';
+import type { FunctionComponent, HTMLAttributes } from 'react';
+import React from 'react';
 
 export interface Props {
     className?: string;

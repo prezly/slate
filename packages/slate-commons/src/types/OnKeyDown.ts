@@ -1,5 +1,5 @@
-import { KeyboardEvent } from 'react';
-import { Editor } from 'slate';
+import type { KeyboardEvent } from 'react';
+import type { Editor } from 'slate';
 
 type OnKeyDown = (event: KeyboardEvent, editor: Editor, options?: any) => void;
 

@@ -11,5 +11,7 @@ module.exports = {
     preset: 'ts-jest',
     setupFiles: ['<rootDir>/../../setupTests.js', 'jest-canvas-mock'],
     testEnvironment: 'jsdom',
-    testPathIgnorePatterns: ['/node_modules/', '/build/'],
+    transform: {
+        '^.+\\.(mjs|js|jsx|ts|tsx)$': ['babel-jest', { rootMode: 'upward' }],
+    },
 };

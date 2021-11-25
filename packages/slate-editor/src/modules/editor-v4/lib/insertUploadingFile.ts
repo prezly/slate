@@ -1,12 +1,12 @@
-import ProgressPromise from '@prezly/progress-promise';
+import type ProgressPromise from '@prezly/progress-promise';
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Element } from 'slate';
+import type { Editor, Element } from 'slate';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
+import type { LoaderContentType } from '../../../modules/editor-v4-loader';
 import {
     createLoader,
     findLoaderPath,
-    LoaderContentType,
     loaderPromiseManager,
     removeLoader,
     replaceLoader,

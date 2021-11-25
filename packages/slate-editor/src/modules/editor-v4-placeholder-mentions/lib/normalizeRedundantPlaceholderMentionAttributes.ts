@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isPlaceholderNode, PlaceholderKey } from '@prezly/slate-types';
-import { Editor, NodeEntry } from 'slate';
+import type { PlaceholderKey } from '@prezly/slate-types';
+import { isPlaceholderNode } from '@prezly/slate-types';
+import type { Editor, NodeEntry } from 'slate';
 
 import createPlaceholderMention from './createPlaceholderMention';
 

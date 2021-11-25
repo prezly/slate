@@ -1,4 +1,4 @@
-import { KeyboardEvent } from 'react';
+import type { KeyboardEvent } from 'react';
 import type { Editor } from 'slate';
 
 import type { Extension, OnKeyDown } from '../types';

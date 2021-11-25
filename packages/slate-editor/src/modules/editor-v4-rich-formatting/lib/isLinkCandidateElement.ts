@@ -1,4 +1,5 @@
-import { ElementType, LinkCandidateNode } from '../types';
+import type { LinkCandidateNode } from '../types';
+import { ElementType } from '../types';
 import { isElementNode } from '@prezly/slate-types';
 
 const isLinkCandidateElement = (node: unknown): node is LinkCandidateNode =>

@@ -1,5 +1,6 @@
-import { ImageLayout, ImageNode, IMAGE_NODE_TYPE } from '@prezly/slate-types';
-import { UploadcareImageStoragePayload } from '@prezly/uploadcare';
+import type { ImageNode } from '@prezly/slate-types';
+import { ImageLayout, IMAGE_NODE_TYPE } from '@prezly/slate-types';
+import type { UploadcareImageStoragePayload } from '@prezly/uploadcare';
 
 const createImage = (
     file: UploadcareImageStoragePayload,

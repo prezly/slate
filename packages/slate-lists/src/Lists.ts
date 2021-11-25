@@ -23,7 +23,7 @@ import {
     unwrapList,
     wrapInList,
 } from './lib';
-import { ListsOptions } from './types';
+import type { ListsOptions } from './types';
 
 /**
  * Creates an API adapter with functions bound to passed options.

@@ -1,8 +1,9 @@
 import { debounce } from 'lodash';
-import React, { Component, ComponentType } from 'react';
+import type { ComponentType } from 'react';
+import React, { Component } from 'react';
 
 import { serialize } from './lib';
-import { EditorV4Props } from './types';
+import type { EditorV4Props } from './types';
 
 interface Props extends EditorV4Props {
     EditorV4Component: ComponentType<EditorV4Props>;

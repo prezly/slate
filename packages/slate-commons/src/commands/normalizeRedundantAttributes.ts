@@ -1,4 +1,5 @@
-import { Editor, ElementEntry, Transforms } from 'slate';
+import type { Editor, ElementEntry } from 'slate';
+import { Transforms } from 'slate';
 
 import { NODE_ID_MANAGER_ID_PROPERTY_NAME } from '../constants';
 

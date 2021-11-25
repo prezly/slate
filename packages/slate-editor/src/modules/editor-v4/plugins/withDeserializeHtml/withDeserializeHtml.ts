@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
 
 import { cleanDocx } from '@prezly/docx-cleaner';
-import { EditorCommands, Extension } from '@prezly/slate-commons';
-import { Editor } from 'slate';
+import type { Extension } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
+import type { Editor } from 'slate';
 
 import { EventsEditor } from '../../../../modules/editor-v4-events';
 import { createDataTransfer } from '../../lib';

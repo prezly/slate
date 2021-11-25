@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { GalleryNode, isGalleryNode } from '@prezly/slate-types';
-import { Editor, NodeEntry } from 'slate';
+import type { GalleryNode } from '@prezly/slate-types';
+import { isGalleryNode } from '@prezly/slate-types';
+import type { Editor, NodeEntry } from 'slate';
 
 const getCurrentGalleryNodeEntry = (editor: Editor): NodeEntry<GalleryNode> | null => {
     const currentNodeEntry = EditorCommands.getCurrentNodeEntry(editor);

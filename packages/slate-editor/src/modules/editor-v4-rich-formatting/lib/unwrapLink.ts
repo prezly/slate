@@ -1,5 +1,6 @@
 import { isLinkNode } from '@prezly/slate-types';
-import { Editor, Path, Range, Transforms } from 'slate';
+import type { Editor, Path, Range } from 'slate';
+import { Transforms } from 'slate';
 
 const unwrapLink = (editor: Editor, selection: Path | Range): void => {
     Transforms.unwrapNodes(editor, {

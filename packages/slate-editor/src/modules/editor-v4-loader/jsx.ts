@@ -2,10 +2,10 @@
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { LOADER_TYPE } from './constants';
-import { LoaderNode } from './types';
+import type { LoaderNode } from './types';
 
 declare global {
     namespace JSX {

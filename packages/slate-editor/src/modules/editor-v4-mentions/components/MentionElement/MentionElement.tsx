@@ -1,8 +1,10 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
-import { RenderElementProps, useSelected } from 'slate-react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { RenderElementProps} from 'slate-react';
+import { useSelected } from 'slate-react';
 
-import { MentionElementType } from '../..';
+import type { MentionElementType } from '../..';
 
 import './MentionElement.scss';
 

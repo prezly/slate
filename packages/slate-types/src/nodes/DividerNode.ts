@@ -1,4 +1,5 @@
-import { ElementNode, isElementNode } from './ElementNode';
+import type { ElementNode } from './ElementNode';
+import { isElementNode } from './ElementNode';
 
 export const DIVIDER_NODE_TYPE = 'divider';
 

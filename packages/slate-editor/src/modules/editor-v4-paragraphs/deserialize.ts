@@ -1,4 +1,5 @@
-import { createDeserializeElement, DeserializeHtml } from '@prezly/slate-commons';
+import type { DeserializeHtml } from '@prezly/slate-commons';
+import { createDeserializeElement } from '@prezly/slate-commons';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
 import { createParagraph, parseSerializedElement } from './lib';

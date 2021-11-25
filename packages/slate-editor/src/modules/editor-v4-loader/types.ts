@@ -1,6 +1,6 @@
-import { ElementNode } from '@prezly/slate-types';
+import type { ElementNode } from '@prezly/slate-types';
 
-import { LOADER_TYPE } from './constants';
+import type { LOADER_TYPE } from './constants';
 
 export enum LoaderContentType {
     ATTACHMENT = 'attachment',

@@ -1,4 +1,5 @@
-import React, { FunctionComponent, MouseEvent, RefObject } from 'react';
+import type { FunctionComponent, MouseEvent, RefObject } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
 
 import { FloatingMenu } from '../../../../../components';

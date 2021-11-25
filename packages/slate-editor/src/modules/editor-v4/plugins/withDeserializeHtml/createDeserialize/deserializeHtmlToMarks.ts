@@ -1,6 +1,7 @@
-import { Extension } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
 import { jsx } from '@prezly/slate-hyperscript';
-import { Descendant, Element } from 'slate';
+import type { Descendant } from 'slate';
+import { Element } from 'slate';
 
 import getLeafDeserializers from './getLeafDeserializers';
 

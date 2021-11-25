@@ -1,7 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 
 import { FloatingMenu } from '../../../../components';
-import { BlockType } from '../../types';
+import type { BlockType } from '../../types';
 
 import OPTIONS from './options';
 

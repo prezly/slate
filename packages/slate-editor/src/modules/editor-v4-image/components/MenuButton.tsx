@@ -1,4 +1,5 @@
-import React, { FunctionComponent, MouseEventHandler } from 'react';
+import type { FunctionComponent, MouseEventHandler } from 'react';
+import React from 'react';
 
 import { FloatingMenu } from '../../../components';
 

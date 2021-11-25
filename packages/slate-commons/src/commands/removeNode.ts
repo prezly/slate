@@ -1,4 +1,5 @@
-import { Editor, Node, Transforms } from 'slate';
+import type { Node } from 'slate';
+import { Editor, Transforms } from 'slate';
 
 const removeNode = <N extends Node>(
     editor: Editor,

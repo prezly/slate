@@ -1,4 +1,4 @@
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
 import getCurrentNodeEntry from './getCurrentNodeEntry';
 import toDomNode from './toDomNode';

@@ -1,4 +1,5 @@
-import React, { CSSProperties, FunctionComponent } from 'react';
+import type { CSSProperties, FunctionComponent } from 'react';
+import React from 'react';
 
 interface Props {
     className?: string;

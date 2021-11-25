@@ -1,5 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import { useSlate } from 'slate-react';
 
 import { FloatingMenu } from '../../../../components';
@@ -13,7 +14,8 @@ import {
     Underline,
 } from '../../../../icons';
 import { toggleBlock } from '../../lib';
-import { BlockType, ElementType, MarkType, RichFormattingExtensionParameters } from '../../types';
+import type { BlockType, RichFormattingExtensionParameters } from '../../types';
+import { ElementType, MarkType } from '../../types';
 import BlockDropdown from '../BlockDropdown';
 import MenuButton from '../MenuButton';
 

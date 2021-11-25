@@ -1,6 +1,6 @@
-import { NodeEntry, Range } from 'slate';
+import type { NodeEntry, Range } from 'slate';
 
-import { Decorate, Extension } from '../types';
+import type { Decorate, Extension } from '../types';
 
 const decorateExtensions =
     (extensions: Extension[], decorateList: Decorate[]) => (entry: NodeEntry) => {
