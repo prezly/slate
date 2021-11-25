@@ -1,4 +1,4 @@
-import * as RangeFix from 'rangefix';
+import RangeFix from 'rangefix';
 
 import getScrollParent from './getScrollParent';
 import type { Options } from './scrollIntoView';

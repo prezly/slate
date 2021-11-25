@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import * as RangeFix from 'rangefix';
+import RangeFix from 'rangefix';
 import type { FunctionComponent, ReactNode} from 'react';
 import * as React from 'react';
 import { useEffect, useRef } from 'react';

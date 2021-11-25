@@ -1,4 +1,4 @@
-import * as jsonStableStringify from 'json-stable-stringify';
+import jsonStableStringify from 'json-stable-stringify';
 import { createEditor } from 'slate';
 
 import type { Value } from '../../types';

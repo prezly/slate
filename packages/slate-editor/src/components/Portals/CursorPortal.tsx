@@ -1,5 +1,5 @@
 import type { Rect } from 'rangefix';
-import * as RangeFix from 'rangefix';
+import RangeFix from 'rangefix';
 import type { FunctionComponent } from 'react';
 import * as React from 'react';
 

@@ -1,6 +1,6 @@
 import type { Coverage } from '@prezly/sdk';
 import classNames from 'classnames';
-import * as moment from 'moment';
+import moment from 'moment';
 import type { FunctionComponent } from 'react';
 import * as React from 'react';
 
