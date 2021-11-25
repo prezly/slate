@@ -1,5 +1,5 @@
 import type { FunctionComponent } from 'react';
-import * as React from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
 
 import type { ApiError} from '../../../../modules/api';

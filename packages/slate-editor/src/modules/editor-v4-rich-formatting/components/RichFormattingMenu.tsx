@@ -1,7 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { FunctionComponent, RefObject} from 'react';
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import type { Path, Range } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';

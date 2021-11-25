@@ -3,7 +3,7 @@ import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import { noop } from 'lodash';
 import type { FunctionComponent} from 'react';
-import * as React from 'react';
+import React from 'react';
 import {
     useEffect,
     useImperativeHandle,

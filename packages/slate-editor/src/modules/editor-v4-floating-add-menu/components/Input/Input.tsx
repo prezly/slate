@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { FunctionComponent, InputHTMLAttributes } from 'react';
-import * as React from 'react';
+import React from 'react';
 
 import './Input.scss';
 

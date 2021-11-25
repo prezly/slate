@@ -4,7 +4,7 @@ import type {
     ImgHTMLAttributes,
     ReactNode,
     Ref} from 'react';
-import * as React from 'react';
+import React from 'react';
 import {
     forwardRef,
     useEffect,

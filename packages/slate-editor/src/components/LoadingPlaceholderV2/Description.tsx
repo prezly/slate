@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import * as React from 'react';
+import React from 'react';
 
 export interface Props {
     children: string;

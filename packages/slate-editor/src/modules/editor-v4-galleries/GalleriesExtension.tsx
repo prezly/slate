@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { GALLERY_NODE_TYPE, isGalleryNode } from '@prezly/slate-types';
-import * as React from 'react';
+import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { GalleryElement, GalleryMenu } from './components';

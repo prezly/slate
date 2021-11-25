@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import * as React from 'react';
+import React from 'react';
 import { useSize } from 'react-use';
 
 import type { EditorV4Props } from './types';

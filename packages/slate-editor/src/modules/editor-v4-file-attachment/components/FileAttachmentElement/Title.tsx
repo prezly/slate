@@ -1,7 +1,7 @@
 import type { AttachmentNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import * as React from 'react';
+import React from 'react';
 
 import { isUsingCustomTitle } from '../../lib';
 

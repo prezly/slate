@@ -1,6 +1,6 @@
 import { GalleryLayout } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
-import * as React from 'react';
+import React from 'react';
 
 import { FloatingMenu } from '../../../components';
 import { Contained, Expanded, FullWidth } from '../../../icons';

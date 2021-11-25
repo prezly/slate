@@ -1,6 +1,5 @@
 import type { FunctionComponent} from 'react';
-import * as React from 'react';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { RootCloseWrapper } from 'react-overlays';
 import { useEffectOnce } from 'react-use';

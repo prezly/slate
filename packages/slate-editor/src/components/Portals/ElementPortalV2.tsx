@@ -1,5 +1,5 @@
 import type { FunctionComponent } from 'react';
-import * as React from 'react';
+import React from 'react';
 
 import type { Props as BasePortalV2Props } from './BasePortalV2';
 import BasePortalV2 from './BasePortalV2';

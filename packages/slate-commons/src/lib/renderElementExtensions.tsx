@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import type { Extension, RenderElement } from '../types';

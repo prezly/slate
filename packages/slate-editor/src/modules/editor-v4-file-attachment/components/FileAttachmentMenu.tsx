@@ -1,6 +1,6 @@
 import type { AttachmentNode } from '@prezly/slate-types';
 import type { FunctionComponent, RefObject } from 'react';
-import * as React from 'react';
+import React from 'react';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 

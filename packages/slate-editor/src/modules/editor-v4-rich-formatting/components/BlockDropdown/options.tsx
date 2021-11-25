@@ -1,5 +1,5 @@
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import * as React from 'react';
+import React from 'react';
 
 // eslint-disable-next-line import/named
 import type { FloatingMenuOption } from '../../../../components';

@@ -1,5 +1,5 @@
 import type { FunctionComponent, RefObject } from 'react';
-import * as React from 'react';
+import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu } from '../../../components';

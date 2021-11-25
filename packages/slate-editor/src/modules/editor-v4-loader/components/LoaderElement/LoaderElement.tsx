@@ -1,8 +1,7 @@
 import { ProgressPromise } from '@prezly/progress-promise';
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes} from 'react';
-import * as React from 'react';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useMount, useUnmount } from 'react-use';
 import type { RenderElementProps} from 'slate-react';
 import { useSelected } from 'slate-react';

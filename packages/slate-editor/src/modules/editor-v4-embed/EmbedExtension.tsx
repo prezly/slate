@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { isEmbedNode } from '@prezly/slate-types';
-import * as React from 'react';
+import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { EmbedElement, EmbedMenu } from './components';

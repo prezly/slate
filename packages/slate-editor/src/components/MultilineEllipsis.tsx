@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component, createRef, memo } from 'react';
+import React, { Component, createRef, memo } from 'react';
 import shave from 'shave';
 
 interface Props {

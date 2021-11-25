@@ -2,8 +2,7 @@ import type { UploadcareImage } from '@prezly/uploadcare';
 import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { CSSProperties } from 'react';
-import * as React from 'react';
-import { Component, createRef } from 'react';
+import React, { Component, createRef } from 'react';
 
 import {
     ImageSizeWarning,

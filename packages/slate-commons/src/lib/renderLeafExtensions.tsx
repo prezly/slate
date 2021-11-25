@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import type { RenderLeafProps } from 'slate-react';
 
 import type { Extension, RenderLeaf } from '../types';

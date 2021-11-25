@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { FunctionComponent, RefObject } from 'react';
-import * as React from 'react';
+import React from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 
 import { ElementPortal, PortalOrigin } from '../../../components';
