@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { LinkProps } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { FunctionComponent, RefObject } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { Modifier } from 'react-popper';
 import { useSlate } from 'slate-react';
 

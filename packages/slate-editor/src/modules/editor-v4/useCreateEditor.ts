@@ -1,4 +1,4 @@
-import type Events from '@prezly/events';
+import type { Events } from '@prezly/events';
 import type { Decorate, Extension, OnKeyDown } from '@prezly/slate-commons';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';

@@ -1,5 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-import React from 'react';
+import * as React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { LoaderElement } from './components';

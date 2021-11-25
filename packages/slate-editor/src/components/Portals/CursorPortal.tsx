@@ -1,7 +1,7 @@
 import type { Rect } from 'rangefix';
-import RangeFix from 'rangefix';
+import * as RangeFix from 'rangefix';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 import BasePortal from './BasePortal';
 import type { PortalProps } from './types';

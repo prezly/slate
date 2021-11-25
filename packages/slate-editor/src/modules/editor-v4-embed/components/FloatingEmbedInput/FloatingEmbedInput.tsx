@@ -1,5 +1,6 @@
 import type { ChangeEvent, FunctionComponent, RefObject} from 'react';
-import React, { useRef, useState } from 'react';
+import * as React from 'react';
+import { useRef, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import { useEffectOnce } from 'react-use';
 

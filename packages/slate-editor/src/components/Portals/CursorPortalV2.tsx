@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import type { FunctionComponent} from 'react';
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 
 import { useIsMouseDown } from '../../lib';
 

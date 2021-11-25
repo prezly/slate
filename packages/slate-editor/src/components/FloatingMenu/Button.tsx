@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { ButtonHTMLAttributes, FunctionComponent } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     active?: boolean;

@@ -2,7 +2,7 @@ import { ATTACHMENT_NODE_TYPE, isAttachmentNode } from '@prezly/slate-types';
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { noop } from 'lodash';
-import React from 'react';
+import * as React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { FileAttachmentElement, FileAttachmentMenu } from './components';

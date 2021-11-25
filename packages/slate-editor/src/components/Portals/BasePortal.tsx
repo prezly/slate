@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import type { Rect } from 'rangefix';
 import type { FunctionComponent} from 'react';
-import React, { useCallback, useEffect, useRef } from 'react';
+import * as React from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Portal } from 'react-portal';
 import { useRafLoop } from 'react-use';
 

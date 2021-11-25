@@ -1,5 +1,5 @@
 import type { Editor, Element } from 'slate';
-import type Events from '@prezly/events';
+import type { Events } from '@prezly/events';
 import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 
 import type { CoverageExtensionParameters } from '../../../modules/editor-v4-coverage';

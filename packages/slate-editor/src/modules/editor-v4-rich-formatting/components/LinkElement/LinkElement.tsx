@@ -1,6 +1,6 @@
 import type { LinkNode } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { LinkWithTooltip } from '../../../../modules/editor-v4-components';

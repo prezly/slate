@@ -3,7 +3,7 @@ import { GalleryLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { FunctionComponent, RefObject } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { useSize } from 'react-use';
 import type { Editor } from 'slate';
 import type { RenderElementProps} from 'slate-react';

@@ -1,4 +1,4 @@
-import type Events from '@prezly/events';
+import type { Events } from '@prezly/events';
 import type { Editor } from 'slate';
 
 import { EVENTS_PROPERTY } from './constants';

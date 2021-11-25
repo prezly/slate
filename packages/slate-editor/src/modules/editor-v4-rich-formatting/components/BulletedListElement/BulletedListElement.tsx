@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import type { RichTextElementType } from '../../types';

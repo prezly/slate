@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import type { FunctionComponent, ReactNode} from 'react';
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import type { Modifier} from 'react-popper';
 import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';

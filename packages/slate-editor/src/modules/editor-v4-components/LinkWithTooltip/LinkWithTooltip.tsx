@@ -1,5 +1,5 @@
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 import type { TooltipV2Props } from '../../../components';
 import { TooltipV2 } from '../../../components';

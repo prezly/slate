@@ -1,8 +1,8 @@
 import type { Coverage } from '@prezly/sdk';
 import classNames from 'classnames';
-import moment from 'moment';
+import * as moment from 'moment';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 import { MultilineEllipsis } from '../../../../../components';
 

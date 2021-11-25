@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { AnchorHTMLAttributes, FunctionComponent } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 export interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
     className?: string;

@@ -1,7 +1,8 @@
 import type { EmbedNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent} from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { RenderElementProps} from 'slate-react';
 import { useSelected } from 'slate-react';
 

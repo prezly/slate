@@ -2,9 +2,9 @@ import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import { noop } from 'lodash';
-import type {
-    FunctionComponent} from 'react';
-import React, {
+import type { FunctionComponent} from 'react';
+import * as React from 'react';
+import {
     useEffect,
     useImperativeHandle,
     useMemo,

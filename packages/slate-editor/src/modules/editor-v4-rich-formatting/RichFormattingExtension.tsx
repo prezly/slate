@@ -1,6 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { isLinkNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import React from 'react';
+import * as React from 'react';
 import type { RenderElementProps, RenderLeafProps } from 'slate-react';
 
 import { LinkCandidateElement, LinkElement, RichTextElement } from './components';

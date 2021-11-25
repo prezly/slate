@@ -1,6 +1,7 @@
 import type { ImageNode, ImageLayout } from '@prezly/slate-types';
 import type { FunctionComponent, RefObject} from 'react';
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import type { Editor, Range} from 'slate';
 import { Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';

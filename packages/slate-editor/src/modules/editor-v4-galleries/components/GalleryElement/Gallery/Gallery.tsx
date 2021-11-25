@@ -1,7 +1,8 @@
 import type { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
-import React, { Component, createRef } from 'react';
+import * as React from 'react';
+import { Component, createRef } from 'react';
 
 import { IMAGE_PADDING, IMAGE_SIZE } from './constants';
 import './Gallery.scss';

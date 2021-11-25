@@ -1,7 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import RangeFix from 'rangefix';
+import * as RangeFix from 'rangefix';
 import type { FunctionComponent, ReactNode} from 'react';
-import React, { useEffect, useRef } from 'react';
+import * as React from 'react';
+import { useEffect, useRef } from 'react';
 import { MenuItem } from 'react-bootstrap';
 import type { Range } from 'slate';
 import { useSlate } from 'slate-react';

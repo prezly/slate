@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import jsonStableStringify from 'json-stable-stringify';
+import * as jsonStableStringify from 'json-stable-stringify';
 import { useLayoutEffect, useMemo } from 'react';
 import { Editor, Range } from 'slate';
 

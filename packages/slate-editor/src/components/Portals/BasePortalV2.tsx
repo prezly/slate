@@ -7,7 +7,8 @@ import type {
     HTMLAttributes,
     ReactNode,
     RefObject} from 'react';
-import React, {
+import * as React from 'react';
+import {
     useRef,
     useState,
 } from 'react';

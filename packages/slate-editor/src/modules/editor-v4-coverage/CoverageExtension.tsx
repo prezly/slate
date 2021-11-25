@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { COVERAGE_NODE_TYPE, isCoverageNode } from '@prezly/slate-types';
-import React from 'react';
+import * as React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { CoverageElement, CoverageMenu } from './components';

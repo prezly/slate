@@ -1,6 +1,7 @@
 import type { Coverage } from '@prezly/sdk';
 import type { FunctionComponent, ReactNode, RefObject} from 'react';
-import React, { useRef } from 'react';
+import * as React from 'react';
+import { useRef } from 'react';
 import { useSlate } from 'slate-react';
 
 import { FloatingContainer } from '../../../../modules/editor-v4-components';
