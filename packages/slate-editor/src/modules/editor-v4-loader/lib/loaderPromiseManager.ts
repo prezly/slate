@@ -1,4 +1,4 @@
-import ProgressPromise from '@prezly/progress-promise';
+import { ProgressPromise } from '@prezly/progress-promise';
 
 type LoaderPromise = PromiseLike<any> | ProgressPromise<any>;
 

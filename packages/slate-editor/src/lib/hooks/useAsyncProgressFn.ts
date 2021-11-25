@@ -1,4 +1,4 @@
-import ProgressPromise from '@prezly/progress-promise';
+import { ProgressPromise } from '@prezly/progress-promise';
 import { useCallback, useState } from 'react';
 import { useMountedState } from 'react-use';
 

@@ -1,4 +1,4 @@
-import type ProgressPromise from '@prezly/progress-promise';
+import type { ProgressPromise } from '@prezly/progress-promise';
 import { useEffect } from 'react';
 
 import type { AsyncProgressState } from './useAsyncProgressFn';

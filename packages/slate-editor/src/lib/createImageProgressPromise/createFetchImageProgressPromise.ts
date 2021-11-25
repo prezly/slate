@@ -1,4 +1,4 @@
-import ProgressPromise from '@prezly/progress-promise';
+import { ProgressPromise } from '@prezly/progress-promise';
 
 const createReadableStream = (response: Response, onProgress: (progress: number) => void) => {
     // to access headers, server must send CORS header "Access-Control-Expose-Headers: content-encoding, content-length x-file-size"

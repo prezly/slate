@@ -1,4 +1,4 @@
-import ProgressPromise from '@prezly/progress-promise';
+import { ProgressPromise } from '@prezly/progress-promise';
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes} from 'react';
 import * as React from 'react';
