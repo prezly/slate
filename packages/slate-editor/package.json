@@ -55,7 +55,7 @@
         "@popperjs/core": "^2.6.0",
         "@prezly/docx-cleaner": "^0.4.0",
         "@prezly/events": "^2.0.3",
-        "@prezly/linear-partition": "^1.0.0",
+        "@prezly/linear-partition": "^1.0.2",
         "@prezly/progress-promise": "^1.0.1",
         "@prezly/sdk": "^6.0",
         "@prezly/slate-commons": "^0.6.3",

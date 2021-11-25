@@ -1,4 +1,4 @@
-import linearPartition from '@prezly/linear-partition';
+import { linearPartition } from '@prezly/linear-partition';
 
 interface BaseImage {
     aspectRatio: number;
