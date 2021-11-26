@@ -2,6 +2,8 @@ import type { OEmbedInfo } from '@prezly/sdk';
 
 import type { ElementNode } from './ElementNode';
 import { isElementNode } from './ElementNode';
+import { isBoolean, isEnum, isNonEmptyString, isObject, isUuid } from './validation';
+import { isOEmbedInfo } from '../sdk';
 
 export const BOOKMARK_NODE_TYPE = 'bookmark';
 
@@ -24,3 +26,15 @@ export function isBookmarkNode(value: any): value is BookmarkNode {
     return isElementNode<ElementNode>(value, BOOKMARK_NODE_TYPE);
 }
 
+export function validateBookmarkNode(node: Partial<BookmarkNode> | undefined): node is BookmarkNode {
+    return (
+        isObject(node) &&
+        node.type === BOOKMARK_NODE_TYPE &&
+        isUuid(node.uuid) &&
+        isNonEmptyString(node.href) &&
+        isOEmbedInfo(node.oembed) &&
+        isBoolean(node.show_thumbnail) &&
+        isBoolean(node.new_tab) &&
+        isEnum(node.layout, BookmarkCardLayout)
+    );
+}
