@@ -1,0 +1,26 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.editor-v4-web-bookmark-element {
+    @include editor-v4-block($void: false);
+
+    position: relative;
+    white-space: normal;
+
+    &--active {
+        @include editor-v4-block-active;
+    }
+
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: $editor-v4-embed-element-overlay-z-index;
+
+        &--hidden {
+            display: none;
+        }
+    }
+}
