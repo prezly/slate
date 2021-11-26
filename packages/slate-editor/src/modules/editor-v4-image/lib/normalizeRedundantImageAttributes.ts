@@ -3,11 +3,7 @@ import type { ImageNode } from '@prezly/slate-types';
 import { isImageNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-type Keys<T> = {
-    [P in keyof T]: true;
-};
-
-const shape: Keys<ImageNode> = {
+const shape: { [P in keyof ImageNode]: true } = {
     type: true,
     file: true,
     href: true,
