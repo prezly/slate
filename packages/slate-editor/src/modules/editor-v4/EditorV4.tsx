@@ -15,24 +15,24 @@ import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
 import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '../../icons';
-import { Placeholder } from '../../modules/editor-v4-components';
-import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../../modules/editor-v4-coverage';
-import { FloatingEmbedInput, useFloatingEmbedInput } from '../../modules/editor-v4-embed';
-import type { EditorEventMap } from '../../modules/editor-v4-events';
-import type { FloatingAddMenuOption } from '../../modules/editor-v4-floating-add-menu';
-import { FloatingAddMenu } from '../../modules/editor-v4-floating-add-menu';
-import { LoaderContentType } from '../../modules/editor-v4-loader';
+import { Placeholder } from '../editor-v4-components';
+import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
+import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
+import type { EditorEventMap } from '../editor-v4-events';
+import type { FloatingAddMenuOption } from '../editor-v4-floating-add-menu';
+import { FloatingAddMenu } from '../editor-v4-floating-add-menu';
+import { LoaderContentType } from '../editor-v4-loader';
 import {
     PlaceholderMentionsDropdown,
     usePlaceholderMentions,
-} from '../../modules/editor-v4-placeholder-mentions';
+} from '../editor-v4-placeholder-mentions';
 import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
-} from '../../modules/editor-v4-press-contacts';
-import { RichFormattingMenu } from '../../modules/editor-v4-rich-formatting';
-import { UploadcareEditor } from '../../modules/editor-v4-uploadcare';
-import { UserMentionsDropdown, useUserMentions } from '../../modules/editor-v4-user-mentions';
+} from '../editor-v4-press-contacts';
+import { RichFormattingMenu } from '../editor-v4-rich-formatting';
+import { UploadcareEditor } from '../editor-v4-uploadcare';
+import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
 
 import './EditorV4.scss';
 import getEnabledExtensions from './getEnabledExtensions';
@@ -50,6 +50,7 @@ import useCreateEditor from './useCreateEditor';
 import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';
 import withDebounce from './withDebounce';
+import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
 
 const EditorV4: FunctionComponent<EditorV4Props> = ({
     availableWidth,
@@ -76,6 +77,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     withPressContacts,
     withRichFormatting,
     withUserMentions,
+    withWebBookmarks,
 }) => {
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -89,6 +91,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             onOperationEnd,
             onOperationStart,
             withAttachments,
+            withWebBookmarks,
             withCoverage,
             withEmbeds,
             withGalleries,
@@ -132,6 +135,15 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
 
     const placeholders = usePlaceholderMentions(withPlaceholders);
     const userMentions = useUserMentions(withUserMentions);
+    const [
+        { isOpen: isFloatingWebBookmarkInputOpen, submitButtonLabel: webBookmarkSubmitButtonLabel },
+        {
+            close: closeFloatingWebBookmarkInput,
+            open: openFloatingWebBookmarkInput,
+            rootClose: rootCloseFloatingWebBookmarkInput,
+            submit: submitFloatingWebBookmarkInput,
+        },
+    ] = useFloatingWebBookmarkInput(editor);
     const [
         { isOpen: isFloatingCoverageMenuOpen },
         {
@@ -182,6 +194,19 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                 icon: <i className="icon icon-images2" />,
                 onClick: createHandleAddGallery(withGalleries),
                 text: 'Add gallery',
+            };
+        }
+
+        if (withWebBookmarks) {
+            yield {
+                beta: true,
+                icon: <Link className="editor-v4__floating-add-menu-icon" />,
+                onClick: () =>
+                    openFloatingWebBookmarkInput('Add web bookmark', {
+                        contentType: LoaderContentType.BOOKMARK,
+                        message: 'Adding web bookmark',
+                    }),
+                text: 'Add web bookmark',
             };
         }
 
@@ -346,6 +371,17 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                     <RichFormattingMenu
                         containerRef={containerRef}
                         parameters={withRichFormatting}
+                    />
+                )}
+
+                {withWebBookmarks && isFloatingWebBookmarkInputOpen && (
+                    <FloatingWebBookmarkInput
+                        availableWidth={availableWidth}
+                        containerRef={containerRef}
+                        onClose={closeFloatingWebBookmarkInput}
+                        onRootClose={rootCloseFloatingWebBookmarkInput}
+                        onSubmit={submitFloatingWebBookmarkInput}
+                        submitButtonLabel={webBookmarkSubmitButtonLabel}
                     />
                 )}
 

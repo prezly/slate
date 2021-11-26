@@ -8,8 +8,8 @@ import { createEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
-import type { EditorEventMap } from '../../modules/editor-v4-events';
-import { withEvents } from '../../modules/editor-v4-events';
+import type { EditorEventMap } from '../editor-v4-events';
+import { withEvents } from '../editor-v4-events';
 
 import createEditorV4 from './createEditorV4';
 
@@ -17,7 +17,7 @@ interface Parameters {
     events: Events<EditorEventMap>;
     extensions: Extension[];
     onKeyDown?: (event: KeyboardEvent) => void;
-    plugins?: (<T extends Editor>(editor: T) => T)[];
+    plugins?: (<T extends Editor>(editor: T) => T)[] | undefined;
 }
 
 interface State {

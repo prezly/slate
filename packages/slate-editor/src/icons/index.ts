@@ -1,6 +1,7 @@
 export { default as Add } from './Add.svg';
 export { default as Attachment } from './Attachment.svg';
 export { default as Bold } from './Bold.svg';
+export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
 export { default as Cogwheel } from './Cogwheel.svg';
 export { default as Contained } from './Contained.svg';
 export { default as Coverage } from './Coverage.svg';

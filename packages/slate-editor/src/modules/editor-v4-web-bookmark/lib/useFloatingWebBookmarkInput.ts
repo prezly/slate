@@ -74,8 +74,8 @@ export function useFloatingWebBookmarkInput(
 
         const loader = createLoader(
             loaderParameters || {
-                contentType: LoaderContentType.EMBED,
-                message: 'Embedding',
+                contentType: LoaderContentType.BOOKMARK,
+                message: 'Loading bookmark',
             },
         );
         EditorCommands.insertNodes(editor, [loader], {
