@@ -200,7 +200,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
         if (withWebBookmarks) {
             yield {
                 beta: true,
-                icon: <Link className="editor-v4__floating-add-menu-icon" />,
+                icon: <i className={classNames('icon', 'icon-news')} />,
                 onClick: () =>
                     openFloatingWebBookmarkInput('Add web bookmark', {
                         contentType: LoaderContentType.BOOKMARK,
