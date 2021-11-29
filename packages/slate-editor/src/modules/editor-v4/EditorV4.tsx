@@ -143,7 +143,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             rootClose: rootCloseFloatingWebBookmarkInput,
             submit: submitFloatingWebBookmarkInput,
         },
-    ] = useFloatingWebBookmarkInput(editor);
+    ] = useFloatingWebBookmarkInput(editor, withWebBookmarks?.fetchOembed);
     const [
         { isOpen: isFloatingCoverageMenuOpen },
         {
