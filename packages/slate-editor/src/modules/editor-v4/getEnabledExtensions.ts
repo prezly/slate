@@ -23,6 +23,7 @@ import {
     handleRemoveImage,
 } from './lib';
 import type { EditorV4ExtensionsProps } from './types';
+import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
 
 interface Parameters extends EditorV4ExtensionsProps {
     containerRef: RefObject<HTMLElement>;
@@ -44,6 +45,7 @@ function* getEnabledExtensions({
     withPressContacts,
     withRichFormatting,
     withUserMentions,
+    withWebBookmarks,
 }: Parameters): Generator<Extension> {
     yield ParagraphsExtension();
 
@@ -99,6 +101,14 @@ function* getEnabledExtensions({
     if (withEmbeds) {
         yield EmbedExtension({
             ...withEmbeds,
+            availableWidth,
+            containerRef,
+        });
+    }
+
+    if (withWebBookmarks) {
+        yield WebBookmarkExtension({
+            ...withWebBookmarks,
             availableWidth,
             containerRef,
         });

@@ -91,7 +91,6 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             onOperationEnd,
             onOperationStart,
             withAttachments,
-            withWebBookmarks,
             withCoverage,
             withEmbeds,
             withGalleries,
@@ -100,6 +99,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             withPressContacts,
             withRichFormatting,
             withUserMentions,
+            withWebBookmarks,
         }),
     );
 
