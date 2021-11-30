@@ -4,7 +4,7 @@ import { useSelected, useSlate } from 'slate-react';
 
 import { FloatingMenu } from '../../../components';
 import { Trash } from '../../../icons';
-import { EventsEditor } from '../../../modules/editor-v4-events';
+import { EventsEditor } from '../../editor-v4-events';
 import { removeWebBookmark } from '../transforms';
 
 interface Props {
