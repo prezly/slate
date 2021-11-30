@@ -83,9 +83,9 @@
     },
     "peerDependencies": {
         "react": "^16.9.0",
-        "slate": "^0.70.0",
+        "slate": "^0.71.0",
         "slate-history": "^0.66.0",
-        "slate-react": "^0.70.0"
+        "slate-react": "^0.71.0"
     },
     "devDependencies": {
         "@types/classnames": "^2.2.11",
