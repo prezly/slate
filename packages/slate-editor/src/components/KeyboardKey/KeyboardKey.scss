@@ -8,9 +8,9 @@
     height: $size;
     padding: $spacing-half;
     background-color: #f5f5f5;
-    border: $border-width solid $color-grey-500;
+    border: $border-width solid $legacy-color-grey-500;
     border-radius: 3px;
-    box-shadow: 0 1px 0 0 $color-grey-500;
+    box-shadow: 0 1px 0 0 $legacy-color-grey-500;
     line-height: $size - 2 * ($spacing-half + $border-width);
     text-align: center;
     white-space: nowrap;

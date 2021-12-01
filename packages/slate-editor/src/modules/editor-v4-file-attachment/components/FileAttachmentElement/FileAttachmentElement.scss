@@ -5,7 +5,7 @@
 .editor-v4-file-attachment-element {
     @include editor-v4-block($void: false);
 
-    border: 1px solid $color-grey-250;
+    border: 1px solid $legacy-color-grey-250;
     border-radius: 2px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
 
@@ -30,7 +30,7 @@
         width: $size;
         height: $size;
         color: #000000;
-        border: 1px solid $color-grey-250;
+        border: 1px solid $legacy-color-grey-250;
         border-radius: 2.67px;
         margin-left: $spacing-3;
         display: flex;
@@ -51,7 +51,7 @@
     }
 
     &__title {
-        color: $color-type-primary;
+        color: $legacy-color-type-primary;
         font-size: 24px;
         line-height: 1;
         font-weight: bold;
@@ -59,7 +59,7 @@
     }
 
     &__subtitle {
-        color: $color-type-secondary;
+        color: $legacy-color-type-secondary;
         font-size: 15px;
         line-height: math.div(22, 15);
         cursor: default;

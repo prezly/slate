@@ -1,4 +1,6 @@
 @import "./shared";
+@import "./colors";
+@import "./legacy-colors";
 
 $spacing-base: 8px;
 $spacing-half: 0.5 * $spacing-base;
@@ -21,41 +23,6 @@ $font-size-medium: 16px;
 $font-size-large: 18px;
 
 $ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-
-/* Greens */
-$color-green-500: #02ab5c;
-$color-green-10: rgba(0, 174, 49, 0.06);
-
-/* Greys */
-$color-grey-100: #f4f4f4;
-$color-grey-250: #ececec;
-$color-grey-375: #dcdcdc;
-$color-grey-500: #cccccc;
-$color-grey-750: #afafaf;
-$color-grey-900: #757777;
-
-/* Purples */
-$color-purple-10: rgba(67, 59, 161, 0.06);
-$color-purple-250: #1c165f;
-$color-purple-500: #2c248d;
-$color-purple-900: #433ba1;
-
-/* Text Colors */
-$color-type-primary: #333333;
-$color-type-secondary: #757777;
-
-/* Warnings and Errors */
-$color-orange-400: #ebce31;
-$color-orange-500: #f5c723;
-$color-red-500: #ce1d33;
-$color-red-10: #feeef0;
-
-$alert-danger-bg: #f2dede;
-$alert-danger-border: darken(adjust-hue($alert-danger-bg, -10), 5%) !default;
-$alert-info-bg: #d9edf7;
-$alert-info-border: darken(adjust-hue($alert-info-bg, -10), 7%);
-$alert-info-text: #31708f;
-$color-status-error: #c43a3a;
 
 $slate-floating-button-size: 32px;
 $slate-floating-button-margin: $spacing-2;

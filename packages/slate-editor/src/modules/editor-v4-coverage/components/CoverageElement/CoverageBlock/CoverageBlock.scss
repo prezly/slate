@@ -36,17 +36,17 @@
         font-weight: bold;
         font-size: 16px;
         line-height: 22px;
-        color: $color-type-primary;
+        color: $legacy-color-type-primary;
     }
 
     &__description {
         margin-bottom: $spacing-1;
         font-size: 14px;
         line-height: 20px;
-        color: $color-type-primary;
+        color: $legacy-color-type-primary;
 
         &--secondary {
-            color: $color-type-secondary;
+            color: $legacy-color-type-secondary;
         }
     }
 
@@ -55,7 +55,7 @@
         align-items: center;
         font-size: 14px;
         line-height: 20px;
-        color: $color-type-secondary;
+        color: $legacy-color-type-secondary;
     }
 
     &__outlet {

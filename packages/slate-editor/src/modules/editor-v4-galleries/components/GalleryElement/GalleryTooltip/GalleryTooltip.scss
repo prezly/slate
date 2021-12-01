@@ -5,11 +5,11 @@
     align-items: center;
     padding: $spacing-1 ($spacing-1 + $spacing-half);
     font-size: 14px;
-    color: $color-type-primary;
+    color: $legacy-color-type-primary;
 
     &__icon {
         font-size: 18px;
-        color: $color-purple-500;
+        color: $legacy-color-purple-500;
         margin-right: $spacing-1;
     }
 
