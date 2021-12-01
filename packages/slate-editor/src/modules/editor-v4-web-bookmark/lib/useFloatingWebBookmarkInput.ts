@@ -79,7 +79,7 @@ export function useFloatingWebBookmarkInput(
             },
         );
         EditorCommands.insertNodes(editor, [loader], {
-            ensureEmptyParagraphAfter: true
+            ensureEmptyParagraphAfter: true,
         });
 
         try {

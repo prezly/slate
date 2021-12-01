@@ -82,7 +82,8 @@
         line-height: 1.6;
         margin: $spacing-base 0;
 
-        &, &:hover {
+        &,
+        &:hover {
             color: $grey-700;
             text-decoration: none;
         }
@@ -111,17 +112,20 @@
     &__read-more {
         white-space: nowrap;
 
-        &, &:hover {
+        &,
+        &:hover {
             color: $grey-700;
         }
 
         .editor-v4-web-bookmark-element--vertical & {
-            &, &:hover {
+            &,
+            &:hover {
                 text-decoration: none;
             }
         }
         .editor-v4-web-bookmark-element--horizontal & {
-            &, &:hover {
+            &,
+            &:hover {
                 text-decoration: underline;
             }
         }

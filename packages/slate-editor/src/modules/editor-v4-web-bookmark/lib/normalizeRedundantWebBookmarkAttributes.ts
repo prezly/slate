@@ -16,7 +16,10 @@ const shape: { [P in keyof BookmarkNode]: true } = {
 
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
-export function normalizeRedundantWebBookmarkAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantWebBookmarkAttributes(
+    editor: Editor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isBookmarkNode(node)) {
         return false;
     }

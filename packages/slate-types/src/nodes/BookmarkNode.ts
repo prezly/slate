@@ -26,7 +26,9 @@ export function isBookmarkNode(value: any): value is BookmarkNode {
     return isElementNode<ElementNode>(value, BOOKMARK_NODE_TYPE);
 }
 
-export function validateBookmarkNode(node: Partial<BookmarkNode> | undefined): node is BookmarkNode {
+export function validateBookmarkNode(
+    node: Partial<BookmarkNode> | undefined,
+): node is BookmarkNode {
     return (
         isObject(node) &&
         node.type === BOOKMARK_NODE_TYPE &&
