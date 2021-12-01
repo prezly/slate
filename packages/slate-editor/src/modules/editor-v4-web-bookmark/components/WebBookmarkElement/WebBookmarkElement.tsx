@@ -19,7 +19,7 @@ function hostname(url: string): string {
 }
 
 function isEmptyText(text: string | null | undefined): boolean {
-    return Boolean(
+    return !Boolean(
         text && text.replace(/\s+/g, '')
     );
 }
