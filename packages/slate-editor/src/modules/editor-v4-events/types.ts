@@ -88,7 +88,7 @@ export type EditorEventMap = {
     'web-bookmark-dialog-opened': {
         selectedItemText: string;
     };
-    'web-bookmark-submitted': {
+    'web-bookmark-dialog-submitted': {
         selectedItemText: string;
         href: string;
     };

@@ -64,7 +64,7 @@ export function useFloatingWebBookmarkInput(
     }
 
     async function submit(href: string) {
-        EventsEditor.dispatchEvent(editor, 'web-bookmark-submitted', {
+        EventsEditor.dispatchEvent(editor, 'web-bookmark-dialog-submitted', {
             href,
             selectedItemText: submitButtonLabel,
         });
