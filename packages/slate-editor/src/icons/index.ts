@@ -13,6 +13,7 @@ export { default as Edit } from './Edit.svg';
 export { default as Embed } from './Embed.svg';
 export { default as EmptyNewsroom } from './EmptyNewsroomIcon.svg';
 export { default as Expanded } from './Expanded.svg';
+export { default as ExternalLink } from './ExternalLink.svg';
 export { default as FilesEmpty2 } from './FilesEmpty2.svg';
 export { default as FullWidth } from './FullWidth.svg';
 export { default as Gallery } from './Gallery.svg';

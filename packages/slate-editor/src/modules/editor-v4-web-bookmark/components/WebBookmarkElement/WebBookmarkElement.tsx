@@ -1,4 +1,5 @@
 import type { BookmarkNode } from '@prezly/slate-types';
+import { BookmarkCardLayout } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
@@ -6,7 +7,7 @@ import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
 import './WebBookmarkElement.scss';
-import { BookmarkCardLayout } from '@prezly/slate-types';
+import { ExternalLink } from '../../../../icons';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -51,6 +52,7 @@ const Provider: FunctionComponent<{ name: string | null | undefined, url: string
             <div className="editor-v4-web-bookmark-element__provider-name">
                 {provider}
             </div>
+            <ExternalLink className="editor-v4-web-bookmark-element__provider-external-link" />
         </div>
     )
 };
@@ -58,16 +60,21 @@ const Provider: FunctionComponent<{ name: string | null | undefined, url: string
 export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
     const isSelected = useSelected();
     const { href, oembed, layout, new_tab } = element;
-    const showThumbnail = element.show_thumbnail;
+    const showThumbnail = element.show_thumbnail && oembed.thumbnail_url;
     const target = new_tab ? 'target' : undefined;
+    const isEmpty = !showThumbnail
+        && isEmptyText(oembed.title)
+        && isEmptyText(oembed.description);
+    const actualLayout = showThumbnail ? layout : BookmarkCardLayout.HORIZONTAL;
 
     return (
         <div
             {...attributes}
             className={classNames('editor-v4-web-bookmark-element', {
                 'editor-v4-web-bookmark-element--active': isSelected,
-                'editor-v4-web-bookmark-element--vertical': layout === BookmarkCardLayout.VERTICAL,
-                'editor-v4-web-bookmark-element--horizontal': layout === BookmarkCardLayout.HORIZONTAL,
+                'editor-v4-web-bookmark-element--minimal': isEmpty,
+                'editor-v4-web-bookmark-element--vertical': actualLayout === BookmarkCardLayout.VERTICAL,
+                'editor-v4-web-bookmark-element--horizontal': actualLayout === BookmarkCardLayout.HORIZONTAL,
                 'editor-v4-web-bookmark-element--video': element.oembed.type === 'video',
             })}
             data-slate-type={element.type}
@@ -88,14 +95,16 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                         />
                     )}
                     <div className="editor-v4-web-bookmark-element__content">
-                        <a
-                            className="editor-v4-web-bookmark-element__title"
-                            href={href}
-                            rel="noopener noreferrer"
-                            target={target}
-                        >
-                            {oembed.title}
-                        </a>
+                        {!isEmptyText(oembed.title) && (
+                            <a
+                                className="editor-v4-web-bookmark-element__title"
+                                href={href}
+                                rel="noopener noreferrer"
+                                target={target}
+                            >
+                                {oembed.title}
+                            </a>
+                        )}
                         {!isEmptyText(oembed.description) && (
                             <div className="editor-v4-web-bookmark-element__description">
                               {oembed.description}

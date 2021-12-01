@@ -25,7 +25,12 @@
     }
 
     &__card {
+        color: $grey-700;
         display: flex;
+        border: 1px solid $grey-200;
+        border-radius: $border-radius-base;
+        justify-content: stretch;
+
         .editor-v4-web-bookmark-element--vertical & {
             flex-flow: column;
         }
@@ -36,11 +41,13 @@
 
     &__content {
         padding: 20px 24px;
+        flex-grow: 1;
     }
 
     &__thumbnail {
         background-position: center center;
         background-size: cover;
+        flex-grow: 0;
 
         .editor-v4-web-bookmark-element--vertical & {
             padding-bottom: 50%; // aspect-ratio: 2:1
@@ -48,10 +55,9 @@
             position: relative;
         }
         .editor-v4-web-bookmark-element--horizontal & {
-            width: 180px;
-            height: 180px;
+            min-width: 180px;
+            min-height: 180px;
             max-width: 180px;
-            max-height: 180px;
         }
     }
 
@@ -78,6 +84,7 @@
         margin: 8px 0;
 
         &, &:hover {
+            color: $grey-700;
             text-decoration: none;
         }
 
@@ -90,7 +97,7 @@
     }
 
     &__description {
-        color: $legacy-color-grey-900;
+        color: $grey-500;
         margin: 8px 0;
         line-height: 1.4;
 
@@ -104,6 +111,10 @@
 
     &__read-more {
         white-space: nowrap;
+
+        &, &:hover {
+            color: $grey-700;
+        }
 
         .editor-v4-web-bookmark-element--vertical & {
             &, &:hover {
@@ -119,6 +130,7 @@
 
     &__provider {
         display: flex;
+        align-items: center;
 
         .editor-v4-web-bookmark-element--vertical & {
             margin-top: 13px;
@@ -126,15 +138,34 @@
         .editor-v4-web-bookmark-element--horizontal & {
             margin-top: 16px;
         }
+
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
     &__provider-icon {
         width: 18px;
         height: 18px;
         margin-right: 8px;
+
+        .editor-v4-web-bookmark-element--minimal & {
+            width: 14px;
+            height: 14px;
+        }
     }
 
     &__provider-name {
+        flex-grow: 1;
+    }
 
+    &__provider-external-link {
+        display: none;
+        width: 14px;
+        height: 14px;
+
+        .editor-v4-web-bookmark-element--minimal & {
+            display: block;
+        }
     }
 }
