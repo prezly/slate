@@ -7,7 +7,6 @@ import { isOEmbedInfo } from '../sdk';
 
 export const VIDEO_NODE_TYPE = 'video';
 
-
 export interface VideoNode extends ElementNode {
     type: typeof VIDEO_NODE_TYPE;
     uuid: string;
@@ -19,9 +18,7 @@ export function isVideoNode(value: any): value is VideoNode {
     return isElementNode<ElementNode>(value, VIDEO_NODE_TYPE);
 }
 
-export function validateVideoNode(
-    node: Partial<VideoNode> | undefined,
-): node is VideoNode {
+export function validateVideoNode(node: Partial<VideoNode> | undefined): node is VideoNode {
     return (
         isObject(node) &&
         node.type === VIDEO_NODE_TYPE &&

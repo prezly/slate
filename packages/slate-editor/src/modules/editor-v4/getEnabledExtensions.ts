@@ -26,7 +26,6 @@ import {
 } from './lib';
 import type { EditorV4ExtensionsProps } from './types';
 
-
 interface Parameters extends EditorV4ExtensionsProps {
     containerRef: RefObject<HTMLElement>;
     onOperationEnd?: () => void;
@@ -114,7 +113,7 @@ function* getEnabledExtensions({
             ...withVideos,
             availableWidth,
             containerRef,
-        })
+        });
     }
 
     if (withWebBookmarks) {

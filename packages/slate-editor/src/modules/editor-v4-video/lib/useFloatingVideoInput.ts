@@ -94,9 +94,8 @@ export function useFloatingVideoInput(
                 replaceLoader(editor, loader, element);
                 success = true;
             }
-
         } finally {
-            if (! success) {
+            if (!success) {
                 EventsEditor.dispatchEvent(editor, 'notification', {
                     children: 'Provided URL does not exist or is not supported.',
                     type: 'error',
