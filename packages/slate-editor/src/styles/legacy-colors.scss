@@ -1,34 +1,39 @@
+/**
+ * TODO: Replace all usages of these colors with updated values in colors.scss
+ * @see colors.scss
+ */
+
 /* Greens */
-$color-green-500: #02ab5c;
-$color-green-10: rgba(0, 174, 49, 0.06);
+$legacy-color-green-500: #02ab5c;
+$legacy-color-green-10: rgba(0, 174, 49, 0.06);
 
 /* Greys */
-$color-grey-100: #f4f4f4;
-$color-grey-250: #ececec;
-$color-grey-375: #dcdcdc;
-$color-grey-500: #cccccc;
-$color-grey-750: #afafaf;
-$color-grey-900: #757777;
+$legacy-color-grey-100: #f4f4f4;
+$legacy-color-grey-250: #ececec;
+$legacy-color-grey-375: #dcdcdc;
+$legacy-color-grey-500: #cccccc;
+$legacy-color-grey-750: #afafaf;
+$legacy-color-grey-900: #757777;
 
 /* Purples */
-$color-purple-10: rgba(67, 59, 161, 0.06);
-$color-purple-250: #1c165f;
-$color-purple-500: #2c248d;
-$color-purple-900: #433ba1;
+$legacy-color-purple-10: rgba(67, 59, 161, 0.06);
+$legacy-color-purple-250: #1c165f;
+$legacy-color-purple-500: #2c248d;
+$legacy-color-purple-900: #433ba1;
 
 /* Text Colors */
-$color-type-primary: #333333;
-$color-type-secondary: #757777;
+$legacy-color-type-primary: #333333;
+$legacy-color-type-secondary: #757777;
 
 /* Warnings and Errors */
-$color-orange-400: #ebce31;
-$color-orange-500: #f5c723;
-$color-red-500: #ce1d33;
-$color-red-10: #feeef0;
+$legacy-color-orange-400: #ebce31;
+$legacy-color-orange-500: #f5c723;
+$legacy-color-red-500: #ce1d33;
+$legacy-color-red-10: #feeef0;
 
-$alert-danger-bg: #f2dede;
-$alert-danger-border: darken(adjust-hue($alert-danger-bg, -10), 5%) !default;
-$alert-info-bg: #d9edf7;
-$alert-info-border: darken(adjust-hue($alert-info-bg, -10), 7%);
-$alert-info-text: #31708f;
-$color-status-error: #c43a3a;
+$legacy-alert-danger-bg: #f2dede;
+$legacy-alert-danger-border: darken(adjust-hue($legacy-alert-danger-bg, -10), 5%) !default;
+$legacy-alert-info-bg: #d9edf7;
+$legacy-alert-info-border: darken(adjust-hue($legacy-alert-info-bg, -10), 7%);
+$legacy-alert-info-text: #31708f;
+$legacy-color-status-error: #c43a3a;

@@ -2,7 +2,7 @@
 @import "styles/variables";
 
 .editor-v4-floating-container-button {
-    @include button-variant(#767676, $color-grey-250, transparent);
+    @include button-variant(#767676, $legacy-color-grey-250, transparent);
 
     width: $editor-v4-floating-button-size;
     height: $editor-v4-floating-button-size;
@@ -16,7 +16,7 @@
     padding: 0;
 
     &--variant-green {
-        @include button-variant(#ffffff, $color-green-500, transparent);
+        @include button-variant(#ffffff, $legacy-color-green-500, transparent);
     }
 
     &__icon {

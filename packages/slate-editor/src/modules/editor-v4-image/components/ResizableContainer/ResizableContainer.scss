@@ -24,7 +24,7 @@
     &__button {
         $size: 24px;
 
-        @include button-variant(#767676, $color-grey-250, transparent);
+        @include button-variant(#767676, $legacy-color-grey-250, transparent);
 
         width: $size;
         height: $size;
@@ -38,7 +38,7 @@
         padding: 0;
 
         &:hover {
-            color: $color-green-500;
+            color: $legacy-color-green-500;
         }
 
         &:active {
