@@ -1,0 +1,106 @@
+/* Greys */
+$grey-900: #111827;
+$grey-800: #1f2937;
+$grey-700: #374151;
+$grey-600: #4b5563;
+$grey-500: #6b7280;
+$grey-400: #9ca3af;
+$grey-300: #d1d5db;
+$grey-200: #e5e7eb;
+$grey-100: #f3f4f6;
+$grey-50: #f9fafb;
+$white: #ffffff;
+
+/* Indigo */
+$indigo-50: #eef2ff;
+$indigo-100: #e0e7ff;
+$indigo-200: #c7d2fe;
+$indigo-300: #a5b4fc;
+$indigo-400: #818cf8;
+$indigo-500: #6366f1;
+$indigo-600: #4f46e5;
+$indigo-700: #4338ca;
+$indigo-800: #3730a3;
+$indigo-900: #312e81;
+
+/* Jean */
+$jean-50: #edf0f2;
+$jean-100: #dce2e4;
+$jean-200: #b9c5ca;
+$jean-300: #95a7af;
+$jean-400: #728a95;
+$jean-500: #4f6d7a;
+$jean-600: #405964;
+$jean-700: #29434e;
+$jean-800: #202c31;
+$jean-800: #101618;
+
+/* Greens */
+$green-50: #e8faf2;
+$green-100: #cceede;
+$green-200: #99dcbd;
+$green-300: #67cb9b;
+$green-400: #34b97a;
+$green-500: #01a859;
+$green-600: #018647;
+$green-700: #016535;
+$green-800: #004324;
+$green-900: #002212;
+
+/* Yellows */
+$yellow-50: #fff6e8;
+$yellow-100: #fdedd3;
+$yellow-200: #fbdba7;
+$yellow-300: #f9ca7b;
+$yellow-400: #f7b84f;
+$yellow-500: #f5a623;
+$yellow-600: #d88a09;
+$yellow-700: #936415;
+$yellow-800: #62420e;
+$yellow-900: #312107;
+
+/* Reds */
+$red-50: #fff1f2;
+$red-100: #ffe4e6;
+$red-200: #fecdd3;
+$red-300: #fda4af;
+$red-400: #fb7185;
+$red-500: #f43f5e;
+$red-600: #e11d48;
+$red-700: #9f1239;
+$red-800: #74102f;
+$red-900: #3a0818;
+
+/* Misc. */
+$misc-red: $red-500;
+$misc-orange: #f27615;
+$misc-yellow: $yellow-500;
+$misc-green: $green-500;
+$misc-blue: #2fa4f9;
+$misc-purple: $indigo-500;
+
+/* Focus */
+$focus-light: $indigo-200;
+$focus-dark: $yellow-200;
+
+/* Social */
+$dodger-blue: #1da1f2;
+$chambray: #3b5998;
+$deep-cerulean: #0077b5;
+
+// color aliases - use this variables in other places
+$color-brand-primary: $green-600;
+$color-brand-alternative: $jean-500;
+
+$color-status-error: $red-600;
+$color-status-error-lighter: $red-500;
+$color-status-error-darker: $red-700;
+
+$color-status-warning: $yellow-700;
+
+$color-status-warning-text: $yellow-700;
+$color-status-warning-bg: $yellow-500;
+
+$color-twitter: $dodger-blue;
+$color-facebook: $chambray;
+$color-linked-in: $deep-cerulean;
