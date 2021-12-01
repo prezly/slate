@@ -12,8 +12,8 @@
     }
 
     &--invalid {
-        color: $color-status-error;
-        border: 1px solid $color-status-error;
+        color: $legacy-color-status-error;
+        border: 1px solid $legacy-color-status-error;
         border-radius: $border-radius-base;
     }
 

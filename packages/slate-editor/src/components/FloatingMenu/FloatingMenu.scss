@@ -7,7 +7,7 @@
 
     display: flex;
     background-color: #ffffff;
-    border: 1px solid $color-grey-250;
+    border: 1px solid $legacy-color-grey-250;
     border-radius: $border-radius-base;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11);
     font-size: 0;
@@ -25,7 +25,7 @@
         font-size: $font-size;
         color: #767676;
         cursor: pointer;
-        border-right: 1px solid $color-grey-250;
+        border-right: 1px solid $legacy-color-grey-250;
 
         &:hover {
             background-color: #f5f5f5;
@@ -38,13 +38,13 @@
         }
 
         &--disabled {
-            color: $color-grey-250;
+            color: $legacy-color-grey-250;
             pointer-events: none;
         }
     }
 
     &__button-group {
-        border-right: 1px solid $color-grey-250;
+        border-right: 1px solid $legacy-color-grey-250;
         // Use inline-flex to prevent the button-group from collapsing
         // when there is not enough horizontal space.
         display: inline-flex;
@@ -80,11 +80,11 @@
         overflow: hidden;
 
         &:hover {
-            color: $color-green-500;
+            color: $legacy-color-green-500;
         }
 
         &--active {
-            color: $color-green-500;
+            color: $legacy-color-green-500;
 
             &:before {
                 content: "";
@@ -95,14 +95,14 @@
                 width: $spacing-3;
                 height: $spacing-half;
                 border-radius: math.div($border-radius-base, 2);
-                background-color: $color-green-500;
+                background-color: $legacy-color-green-500;
             }
         }
 
         &--danger {
             &,
             &:hover {
-                color: $color-red-500;
+                color: $legacy-color-red-500;
             }
         }
 

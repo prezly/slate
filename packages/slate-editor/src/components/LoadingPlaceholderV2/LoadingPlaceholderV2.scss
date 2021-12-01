@@ -9,8 +9,8 @@
     justify-content: center;
     height: 240px;
     padding: 0 $horizontal-padding;
-    background: $color-grey-100;
-    border: 1px solid $color-grey-500;
+    background: $legacy-color-grey-100;
+    border: 1px solid $legacy-color-grey-500;
 
     &__icon {
         $size: 24px;
@@ -18,7 +18,7 @@
         width: $size;
         height: $size;
         margin: $spacing-2 0;
-        color: $color-grey-750;
+        color: $legacy-color-grey-750;
     }
 
     &__description {
@@ -31,7 +31,7 @@
 
     &__message {
         font-weight: 600;
-        color: $color-type-primary;
+        color: $legacy-color-type-primary;
     }
 
     &__progress {
@@ -39,7 +39,7 @@
         width: 34px; // constant width to avoid content jump when number of % digits change
         text-align: right;
         font-weight: 600;
-        color: $color-type-secondary;
+        color: $legacy-color-type-secondary;
     }
 
     &__progress-bar {

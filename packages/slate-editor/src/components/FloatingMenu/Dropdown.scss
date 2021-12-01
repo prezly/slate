@@ -4,7 +4,7 @@
     display: inline-block;
     width: 180px;
     vertical-align: top;
-    border-right: 1px solid $color-grey-250;
+    border-right: 1px solid $legacy-color-grey-250;
 
     &:last-child {
         border-right: none;
@@ -47,7 +47,7 @@
         margin: -2px 0 0 -1px;
         padding: 0;
         border-top: 0;
-        border-color: $color-grey-250;
+        border-color: $legacy-color-grey-250;
         border-radius: 0 0 4px 4px;
         box-shadow: none;
         overflow: auto;
@@ -59,7 +59,7 @@
 
     &--rich-text-formatting-options {
         .floating-menu-dropdown__menu-item {
-            border-top: 1px solid $color-grey-250;
+            border-top: 1px solid $legacy-color-grey-250;
             margin-bottom: 0;
             min-height: 34px;
             // Workaround to center the text inside a fixed-height container.
