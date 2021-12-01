@@ -4,6 +4,7 @@ import type { LOADER_TYPE } from './constants';
 
 export enum LoaderContentType {
     ATTACHMENT = 'attachment',
+    BOOKMARK = 'bookmark',
     EMBED = 'embed',
     GALLERY = 'gallery',
     IMAGE = 'image',

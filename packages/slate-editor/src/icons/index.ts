@@ -1,6 +1,7 @@
 export { default as Add } from './Add.svg';
 export { default as Attachment } from './Attachment.svg';
 export { default as Bold } from './Bold.svg';
+export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
 export { default as Cogwheel } from './Cogwheel.svg';
 export { default as Contained } from './Contained.svg';
 export { default as Coverage } from './Coverage.svg';
@@ -12,6 +13,7 @@ export { default as Edit } from './Edit.svg';
 export { default as Embed } from './Embed.svg';
 export { default as EmptyNewsroom } from './EmptyNewsroomIcon.svg';
 export { default as Expanded } from './Expanded.svg';
+export { default as ExternalLink } from './ExternalLink.svg';
 export { default as FilesEmpty2 } from './FilesEmpty2.svg';
 export { default as FullWidth } from './FullWidth.svg';
 export { default as Gallery } from './Gallery.svg';

@@ -1,0 +1,174 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.editor-v4-web-bookmark-element {
+    @include editor-v4-block($void: false);
+
+    position: relative;
+    white-space: normal;
+
+    &--active {
+        @include editor-v4-block-active;
+    }
+
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: $editor-v4-embed-element-overlay-z-index;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__card {
+        color: $grey-700;
+        display: flex;
+        border: 1px solid $grey-200;
+        border-radius: $border-radius-base;
+        justify-content: stretch;
+
+        .editor-v4-web-bookmark-element--vertical & {
+            flex-flow: column;
+        }
+        .editor-v4-web-bookmark-element--horizontal & {
+            flex-flow: row;
+        }
+    }
+
+    &__content {
+        padding: (2.5 * $spacing-base) (3 * $spacing-base);
+        flex-grow: 1;
+    }
+
+    &__thumbnail {
+        background-position: center center;
+        background-size: cover;
+        flex-grow: 0;
+
+        .editor-v4-web-bookmark-element--vertical & {
+            padding-bottom: 50%; // aspect-ratio: 2:1
+            height: 0;
+            position: relative;
+        }
+        .editor-v4-web-bookmark-element--horizontal & {
+            min-width: 180px;
+            min-height: 180px;
+            max-width: 180px;
+        }
+    }
+
+    &__thumbnail-image {
+        visibility: hidden;
+
+        .editor-v4-web-bookmark-element--vertical & {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .editor-v4-web-bookmark-element--horizontal & {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__title {
+        font-weight: 500;
+        line-height: 1.6;
+        margin: $spacing-base 0;
+
+        &,
+        &:hover {
+            color: $grey-700;
+            text-decoration: none;
+        }
+
+        .editor-v4-web-bookmark-element--vertical & {
+            font-size: 22px;
+        }
+        .editor-v4-web-bookmark-element--horizontal & {
+            font-size: $font-size-large;
+        }
+    }
+
+    &__description {
+        color: $grey-500;
+        margin: $spacing-base 0;
+        line-height: 1.4;
+
+        .editor-v4-web-bookmark-element--vertical & {
+            font-size: $font-size-medium;
+        }
+        .editor-v4-web-bookmark-element--horizontal & {
+            font-size: $font-size-small;
+        }
+    }
+
+    &__read-more {
+        white-space: nowrap;
+
+        &,
+        &:hover {
+            color: $grey-700;
+        }
+
+        .editor-v4-web-bookmark-element--vertical & {
+            &,
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        .editor-v4-web-bookmark-element--horizontal & {
+            &,
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__provider {
+        display: flex;
+        align-items: center;
+
+        .editor-v4-web-bookmark-element--vertical & {
+            margin-top: 13px;
+        }
+        .editor-v4-web-bookmark-element--horizontal & {
+            margin-top: 16px;
+        }
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    &__provider-icon {
+        width: $font-size-large;
+        height: $font-size-large;
+        margin-right: $spacing-base;
+
+        .editor-v4-web-bookmark-element--minimal & {
+            width: $font-size-small;
+            height: $font-size-small;
+        }
+    }
+
+    &__provider-name {
+        flex-grow: 1;
+    }
+
+    &__provider-external-link {
+        display: none;
+        width: $font-size-small;
+        height: $font-size-small;
+
+        .editor-v4-web-bookmark-element--minimal & {
+            display: block;
+        }
+    }
+}

@@ -1,4 +1,5 @@
 export * from './AttachmentNode';
+export * from './BookmarkNode';
 export * from './ContactNode';
 export * from './CoverageNode';
 export * from './DividerNode';
