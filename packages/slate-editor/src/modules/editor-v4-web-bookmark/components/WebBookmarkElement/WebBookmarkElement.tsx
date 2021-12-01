@@ -25,16 +25,14 @@ function isEmptyText(text: string | null | undefined): boolean {
 }
 
 const Thumbnail: FunctionComponent<{ src: string, width?: number, height?: number }> = ({ src, width, height }) => (
-    <div className="editor-v4-web-bookmark-element__thumbnail-container">
-        <div className="editor-v4-web-bookmark-element__thumbnail">
-            <img
-                className="editor-v4-web-bookmark-element__thumbnail-image"
-                src={src}
-                width={width}
-                height={height}
-                alt="Website preview"
-            />
-        </div>
+    <div className="editor-v4-web-bookmark-element__thumbnail" style={{ backgroundImage: `url("${src}")` }}>
+        <img
+            className="editor-v4-web-bookmark-element__thumbnail-image"
+            src={src}
+            width={width}
+            height={height}
+            alt="Website preview"
+        />
     </div>
 );
 
