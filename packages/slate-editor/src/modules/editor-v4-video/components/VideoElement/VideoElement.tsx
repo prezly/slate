@@ -1,9 +1,11 @@
 import type { VideoNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
+
+import { PlayButton } from '../../../../icons';
 
 import './VideoElement.scss';
 
@@ -12,22 +14,33 @@ interface Props extends RenderElementProps {
     element: VideoNode;
 }
 
-function isEmptyText(text: string | null | undefined): boolean {
-    return !Boolean(
-        text && text.replace(/\s+/g, '')
+const Thumbnail: FunctionComponent<{ src: string, width?: number, height?: number }> = ({ src, width, height }) => {
+    const paddingBottom = width && height ? `${Math.round(100 * height / width)}%` : undefined;
+    return (
+        <div className="editor-v4-video-element__thumbnail" style={{ paddingBottom }}>
+            <img
+                className="editor-v4-video-element__thumbnail-image"
+                src={src}
+                alt="Website preview"
+            />
+        </div>
     );
-}
+};
 
-const Thumbnail: FunctionComponent<{ src: string, width?: number, height?: number }> = ({ src, width, height }) => (
-    <div className="editor-v4-video-element__thumbnail" style={{ backgroundImage: `url("${src}")` }}>
-        <img
-            className="editor-v4-video-element__thumbnail-image"
-            src={src}
-            width={width}
-            height={height}
-            alt="Website preview"
-        />
-    </div>
+const ExternalLink: FunctionComponent<{ href: string, className?: string, children?: ReactNode }> = ({ href, children, className }) => (
+    <a className={className} href={href} rel="noopener noreferer" target="blank">
+        {children}
+    </a>
+)
+
+const ThumbnailPlaceholder: FunctionComponent = () => (
+    <div className="editor-v4-video-element__thumbnail-placeholder" />
+);
+
+const PlayButtonOverlay: FunctionComponent<{ href: string }> = ({ href }) => (
+    <ExternalLink href={href} className="editor-v4-video-element__play-button-overlay">
+        <PlayButton className="editor-v4-video-element__play-button-icon" />
+    </ExternalLink>
 );
 
 export const VideoElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
@@ -50,12 +63,20 @@ export const VideoElement: FunctionComponent<Props> = ({ attributes, children, e
                     })}
                 />
                 <div className="editor-v4-video-element__card">
-                    {oembed.thumbnail_url && (
-                        <Thumbnail
-                            src={oembed.thumbnail_url}
-                            width={oembed.thumbnail_width}
-                            height={oembed.thumbnail_height}
-                        />
+                    {oembed.thumbnail_url ? (
+                        <>
+                            <Thumbnail
+                                src={oembed.thumbnail_url}
+                                width={oembed.thumbnail_width}
+                                height={oembed.thumbnail_height}
+                            />
+                            <PlayButtonOverlay href={href} />
+                        </>
+                    ) : (
+                        <>
+                            <ThumbnailPlaceholder />
+                            <PlayButtonOverlay href={href}/>
+                        </>
                     )}
                 </div>
             </div>

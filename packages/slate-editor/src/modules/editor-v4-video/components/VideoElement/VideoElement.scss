@@ -1,7 +1,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.editor-v4-web-bookmark-element {
+.editor-v4-video-element {
     @include editor-v4-block($void: false);
 
     position: relative;
@@ -25,9 +25,43 @@
     }
 
     &__card {
+    }
+
+    &__thumbnail {
+        height: 0;
+        position: relative;;
+    }
+
+    &__thumbnail-image {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        object-fit: cover;
+        max-width: 100%;
+    }
+
+    &__thumbnail-placeholder {
+        max-width: 100%;
+        height: 0;
+        background: $grey-500;
+        padding-bottom: 56%; // 16:9
+    }
+
+    &__play-button-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
         display: flex;
-        border: 1px solid $grey-200;
-        border-radius: $border-radius-base;
-        justify-content: stretch;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__play-button-icon {
+        width: 80px;
+        height: 80px;
     }
 }

@@ -20,6 +20,7 @@ export { default as Gallery } from './Gallery.svg';
 export { default as Image } from './Image.svg';
 export { default as Italic } from './Italic.svg';
 export { default as Link } from './Link.svg';
+export { default as PlayButton } from './PlayButton.svg';
 export { default as TextStyleDefault } from './TextStyleDefault.svg';
 export { default as TextStyleSubscript } from './TextStyleSubscript.svg';
 export { default as TextStyleSuperscript } from './TextStyleSuperscript.svg';
