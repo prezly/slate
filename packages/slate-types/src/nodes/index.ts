@@ -16,3 +16,4 @@ export * from './ParagraphNode';
 export * from './PlaceholderNode';
 export * from './QuoteNode';
 export * from './TextNode';
+export * from './VideoNode';
