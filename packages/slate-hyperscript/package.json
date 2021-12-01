@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-hyperscript",
-    "version": "0.6.4",
+    "version": "0.6.5",
     "description": "Hyperscript helpers for creating Slate documents with JSX",
     "license": "MIT",
     "main": "./build/esm/index.mjs",
@@ -42,7 +42,7 @@
     },
     "peerDependencies": {
         "react": "^16.9.0",
-        "slate": "^0.70.0"
+        "slate": "^0.71.0"
     },
     "dependencies": {
         "is-plain-object": "^5.0.0"
