@@ -14,6 +14,7 @@ import type { PressContactsExtensionParameters } from '../../editor-v4-press-con
 import type { RichFormattingExtensionParameters } from '../../editor-v4-rich-formatting';
 import type { UserMentionsExtensionParameters } from '../../editor-v4-user-mentions';
 import type { WebBookmarkExtensionParameters } from '../../editor-v4-web-bookmark/types';
+import type { VideoExtensionParameters } from '../../editor-v4-video/types';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
@@ -34,6 +35,7 @@ export interface EditorV4ExtensionsProps {
     withPressContacts?: PressContactsExtensionParameters;
     withRichFormatting?: RichFormattingExtensionParameters;
     withUserMentions?: UserMentionsExtensionParameters;
+    withVideos?: VideoExtensionParameters;
     withWebBookmarks?: WebBookmarkExtensionParameters;
 }
 

@@ -51,6 +51,7 @@ import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';
 import withDebounce from './withDebounce';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
+import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
 
 const EditorV4: FunctionComponent<EditorV4Props> = ({
     availableWidth,
@@ -77,6 +78,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     withPressContacts,
     withRichFormatting,
     withUserMentions,
+    withVideos,
     withWebBookmarks,
 }) => {
     const events = useMemo(() => new Events<EditorEventMap>(), []);
@@ -99,6 +101,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             withPressContacts,
             withRichFormatting,
             withUserMentions,
+            withVideos,
             withWebBookmarks,
         }),
     );
@@ -144,6 +147,15 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             submit: submitFloatingWebBookmarkInput,
         },
     ] = useFloatingWebBookmarkInput(editor, withWebBookmarks?.fetchOembed);
+    const [
+        { isOpen: isFloatingVideoInputOpen, submitButtonLabel: videoSubmitButtonLabel },
+        {
+            close: closeFloatingVideoInput,
+            open: openFloatingVideoInput,
+            rootClose: rootCloseFloatingVideoInput,
+            submit: submitFloatingVideoInput,
+        },
+    ] = useFloatingVideoInput(editor, withVideos?.fetchOembed);
     const [
         { isOpen: isFloatingCoverageMenuOpen },
         {
@@ -210,7 +222,20 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             };
         }
 
-        if (withEmbeds?.menuOptions.video) {
+        if (withVideos) {
+            yield {
+                beta: true,
+                icon: <i className={classNames('icon', 'icon-play2')} />,
+                onClick: () =>
+                    openFloatingVideoInput('Add video', {
+                        contentType: LoaderContentType.VIDEO,
+                        message: 'Adding video',
+                    }),
+                text: 'Add video',
+            };
+        }
+
+        if (!withVideos && withEmbeds?.menuOptions.video) {
             yield {
                 icon: <i className={classNames('icon', 'icon-play2')} />,
                 onClick: () =>
@@ -371,6 +396,17 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                     <RichFormattingMenu
                         containerRef={containerRef}
                         parameters={withRichFormatting}
+                    />
+                )}
+
+                {withVideos && isFloatingVideoInputOpen && (
+                    <FloatingVideoInput
+                        availableWidth={availableWidth}
+                        containerRef={containerRef}
+                        onClose={closeFloatingVideoInput}
+                        onRootClose={rootCloseFloatingVideoInput}
+                        onSubmit={submitFloatingVideoInput}
+                        submitButtonLabel={videoSubmitButtonLabel}
                     />
                 )}
 
