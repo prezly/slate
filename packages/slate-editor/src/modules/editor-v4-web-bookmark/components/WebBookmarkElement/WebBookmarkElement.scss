@@ -40,7 +40,7 @@
     }
 
     &__content {
-        padding: 20px 24px;
+        padding: (2.5 * $spacing-base) (3 * $spacing-base);
         flex-grow: 1;
     }
 
@@ -72,7 +72,6 @@
             height: 100%;
         }
         .editor-v4-web-bookmark-element--horizontal & {
-            //
             width: 100%;
             height: 100%;
         }
@@ -81,7 +80,7 @@
     &__title {
         font-weight: 500;
         line-height: 1.6;
-        margin: 8px 0;
+        margin: $spacing-base 0;
 
         &, &:hover {
             color: $grey-700;
@@ -92,20 +91,20 @@
             font-size: 22px;
         }
         .editor-v4-web-bookmark-element--horizontal & {
-            font-size: 18px;
+            font-size: $font-size-large;
         }
     }
 
     &__description {
         color: $grey-500;
-        margin: 8px 0;
+        margin: $spacing-base 0;
         line-height: 1.4;
 
         .editor-v4-web-bookmark-element--vertical & {
-            font-size: 16px;
+            font-size: $font-size-medium;
         }
         .editor-v4-web-bookmark-element--horizontal & {
-            font-size: 14px;
+            font-size: $font-size-small;
         }
     }
 
@@ -145,13 +144,13 @@
     }
 
     &__provider-icon {
-        width: 18px;
-        height: 18px;
-        margin-right: 8px;
+        width: $font-size-large;
+        height: $font-size-large;
+        margin-right: $spacing-base;
 
         .editor-v4-web-bookmark-element--minimal & {
-            width: 14px;
-            height: 14px;
+            width: $font-size-small;
+            height: $font-size-small;
         }
     }
 
@@ -161,8 +160,8 @@
 
     &__provider-external-link {
         display: none;
-        width: 14px;
-        height: 14px;
+        width: $font-size-small;
+        height: $font-size-small;
 
         .editor-v4-web-bookmark-element--minimal & {
             display: block;
