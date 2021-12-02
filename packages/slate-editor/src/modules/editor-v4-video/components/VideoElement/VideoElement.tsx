@@ -17,7 +17,7 @@ interface Props extends RenderElementProps {
 
 export const VideoElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
     const isSelected = useSelected();
-    const { href, oembed } = element;
+    const { url, oembed } = element;
     const [isHtmlEmbeddedWithErrors, setHtmlEmbeddedWithErrors] = useState<boolean>(false);
 
     return (
@@ -45,7 +45,7 @@ export const VideoElement: FunctionComponent<Props> = ({ attributes, children, e
                                 width={oembed.thumbnail_width}
                                 height={oembed.thumbnail_height}
                             />
-                            <PlayButtonOverlay href={href} />
+                            <PlayButtonOverlay href={url} />
                         </>
                     )}
                 </div>

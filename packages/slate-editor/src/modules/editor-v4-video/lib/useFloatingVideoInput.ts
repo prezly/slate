@@ -63,9 +63,9 @@ export function useFloatingVideoInput(
         savedSelection.save(editor);
     }
 
-    async function submit(href: string) {
+    async function submit(url: string) {
         EventsEditor.dispatchEvent(editor, 'video-dialog-submitted', {
-            href,
+            url,
             selectedItemText: submitButtonLabel,
         });
 
@@ -85,12 +85,12 @@ export function useFloatingVideoInput(
         let success = false;
 
         try {
-            const oembedPromise = fetchOembed(href);
+            const oembedPromise = fetchOembed(url);
             loaderPromiseManager.track(loader.id, oembedPromise);
             const oembed = await oembedPromise;
 
             if (oembed.type === 'video') {
-                const element = createVideoBookmark({ oembed, href });
+                const element = createVideoBookmark({ oembed, url });
                 replaceLoader(editor, loader, element);
                 success = true;
             }

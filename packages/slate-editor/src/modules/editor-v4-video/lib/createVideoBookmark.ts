@@ -4,14 +4,14 @@ import { v4 as uuidV4 } from 'uuid';
 
 const EMPTY_TEXT = { text: '' };
 
-type RequiredProps = Pick<VideoNode, 'href' | 'oembed'>;
+type RequiredProps = Pick<VideoNode, 'url' | 'oembed'>;
 
 function withoutExtraAttributes<T extends VideoNode>(node: T): VideoNode {
-    const { type, uuid, href, oembed, children, ...extra } = node;
+    const { type, uuid, url, oembed, children, ...extra } = node;
     if (Object.keys(extra).length === 0) {
         return node;
     }
-    return { type, uuid, href, oembed, children };
+    return { type, uuid, url, oembed, children };
 }
 
 export function createVideoBookmark(props: RequiredProps): VideoNode {

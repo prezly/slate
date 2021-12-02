@@ -90,7 +90,7 @@ export type EditorEventMap = {
     };
     'video-dialog-submitted': {
         selectedItemText: string;
-        href: string;
+        url: string;
     };
     'video-removed': {
         uuid: string;

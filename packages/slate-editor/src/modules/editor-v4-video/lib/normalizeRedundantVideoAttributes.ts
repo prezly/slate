@@ -6,7 +6,7 @@ import type { Editor, NodeEntry } from 'slate';
 const shape: { [P in keyof VideoNode]: true } = {
     type: true,
     uuid: true,
-    href: true,
+    url: true,
     oembed: true,
     children: true,
 };

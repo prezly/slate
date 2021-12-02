@@ -10,7 +10,7 @@ export const VIDEO_NODE_TYPE = 'video';
 export interface VideoNode extends ElementNode {
     type: typeof VIDEO_NODE_TYPE;
     uuid: string;
-    href: string;
+    url: string;
     oembed: OEmbedInfo;
 }
 
@@ -23,7 +23,7 @@ export function validateVideoNode(node: Partial<VideoNode> | undefined): node is
         isObject(node) &&
         node.type === VIDEO_NODE_TYPE &&
         isUuid(node.uuid) &&
-        isNonEmptyString(node.href) &&
+        isNonEmptyString(node.url) &&
         isOEmbedInfo(node.oembed)
     );
 }
