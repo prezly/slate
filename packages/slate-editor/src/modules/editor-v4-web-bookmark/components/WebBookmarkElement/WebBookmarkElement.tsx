@@ -37,9 +37,9 @@ const Thumbnail: FunctionComponent<{ src: string, width?: number, height?: numbe
     </div>
 );
 
-const Provider: FunctionComponent<{ name: string | null | undefined, url: string | null | undefined }> = ({ name, url }) => {
+const Provider: FunctionComponent<{ name: string | null | undefined, url: string | null | undefined, showUrl: boolean }> = ({ name, url , showUrl }) => {
     const favicon = `https://avatars-cdn.prezly.com/favicon/fetch?url=${url}`;
-    const provider = name || (url && hostname(url)) || '';
+    const provider = showUrl && url || name || (url && hostname(url)) || '';
 
     return (
         <div className="editor-v4-web-bookmark-element__provider">
@@ -121,6 +121,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                         <Provider
                             name={oembed.provider_name}
                             url={oembed.provider_url || oembed.url || url}
+                            showUrl={isEmpty}
                         />
                     </div>
                 </div>
