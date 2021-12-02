@@ -4,15 +4,15 @@ import { v4 as uuidV4 } from 'uuid';
 
 const EMPTY_TEXT = { text: '' };
 
-type RequiredProps = Pick<BookmarkNode, 'href' | 'oembed'>;
-type OptionalProps = Omit<BookmarkNode, 'type' | 'href' | 'oembed'>;
+type RequiredProps = Pick<BookmarkNode, 'url' | 'oembed'>;
+type OptionalProps = Omit<BookmarkNode, 'type' | 'url' | 'oembed'>;
 
 function withoutExtraAttributes<T extends BookmarkNode>(node: T): BookmarkNode {
-    const { type, uuid, href, oembed, show_thumbnail, layout, new_tab, children, ...extra } = node;
+    const { type, uuid, url, oembed, show_thumbnail, layout, new_tab, children, ...extra } = node;
     if (Object.keys(extra).length === 0) {
         return node;
     }
-    return { type, uuid, href, oembed, show_thumbnail, layout, new_tab, children };
+    return { type, uuid, url, oembed, show_thumbnail, layout, new_tab, children };
 }
 
 export function createWebBookmark(props: RequiredProps & Partial<OptionalProps>): BookmarkNode {
