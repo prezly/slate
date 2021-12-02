@@ -59,9 +59,8 @@ const Provider: FunctionComponent<{ name: string | null | undefined, url: string
 
 export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
     const isSelected = useSelected();
-    const { url, oembed, layout, new_tab } = element;
+    const { url, oembed, layout } = element;
     const showThumbnail = element.show_thumbnail && oembed.thumbnail_url;
-    const target = new_tab ? 'target' : undefined;
     const isEmpty = !showThumbnail
         && isEmptyText(oembed.title)
         && isEmptyText(oembed.description);
@@ -100,7 +99,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                                 className="editor-v4-web-bookmark-element__title"
                                 href={url}
                                 rel="noopener noreferrer"
-                                target={target}
+                                target="_blank"
                             >
                                 {oembed.title}
                             </a>
@@ -113,7 +112,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                                   className="editor-v4-web-bookmark-element__read-more"
                                   href={url}
                                   rel="noopener noreferrer"
-                                  target={target}
+                                  target="_blank"
                               >
                                   Read more
                               </a>
