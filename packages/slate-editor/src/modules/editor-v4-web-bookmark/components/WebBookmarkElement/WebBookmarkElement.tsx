@@ -93,7 +93,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                             height={oembed.thumbnail_height}
                         />
                     )}
-                    <div className="editor-v4-web-bookmark-element__content">
+                    <div className="editor-v4-web-bookmark-element__details">
                         {!isEmptyText(oembed.title) && (
                             <a
                                 className="editor-v4-web-bookmark-element__title"
