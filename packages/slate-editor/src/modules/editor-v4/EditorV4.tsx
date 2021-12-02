@@ -235,7 +235,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             };
         }
 
-        if (withEmbeds?.menuOptions.link) {
+        if (!withWebBookmarks && withEmbeds?.menuOptions.link) {
             yield {
                 beta: true,
                 icon: <Link className="editor-v4__floating-add-menu-icon" />,
