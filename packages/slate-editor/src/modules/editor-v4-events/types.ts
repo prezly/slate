@@ -90,7 +90,7 @@ export type EditorEventMap = {
     };
     'web-bookmark-dialog-submitted': {
         selectedItemText: string;
-        href: string;
+        url: string;
     };
     'web-bookmark-removed': {
         uuid: string;

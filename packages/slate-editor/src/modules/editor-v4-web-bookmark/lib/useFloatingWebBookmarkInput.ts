@@ -63,9 +63,9 @@ export function useFloatingWebBookmarkInput(
         savedSelection.save(editor);
     }
 
-    async function submit(href: string) {
+    async function submit(url: string) {
         EventsEditor.dispatchEvent(editor, 'web-bookmark-dialog-submitted', {
-            href,
+            url,
             selectedItemText: submitButtonLabel,
         });
 
@@ -83,10 +83,10 @@ export function useFloatingWebBookmarkInput(
         });
 
         try {
-            const oembedPromise = fetchOembed(href);
+            const oembedPromise = fetchOembed(url);
             loaderPromiseManager.track(loader.id, oembedPromise);
             const oembed = await oembedPromise;
-            const element = createWebBookmark({ oembed, href });
+            const element = createWebBookmark({ oembed, url });
             replaceLoader(editor, loader, element);
         } catch (error) {
             EventsEditor.dispatchEvent(editor, 'notification', {

@@ -15,7 +15,7 @@ export enum BookmarkCardLayout {
 export interface BookmarkNode extends ElementNode {
     type: typeof BOOKMARK_NODE_TYPE;
     uuid: string;
-    href: string;
+    url: string;
     oembed: OEmbedInfo;
     show_thumbnail: boolean;
     layout: BookmarkCardLayout;
@@ -33,7 +33,7 @@ export function validateBookmarkNode(
         isObject(node) &&
         node.type === BOOKMARK_NODE_TYPE &&
         isUuid(node.uuid) &&
-        isNonEmptyString(node.href) &&
+        isNonEmptyString(node.url) &&
         isOEmbedInfo(node.oembed) &&
         isBoolean(node.show_thumbnail) &&
         isBoolean(node.new_tab) &&
