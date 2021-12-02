@@ -99,4 +99,4 @@ export type EditorEventMap = {
 
 export type EditorEventHandlers = {
     [key in keyof EditorEventMap]: Listener<EditorEventMap[key]>;
-}
+};
