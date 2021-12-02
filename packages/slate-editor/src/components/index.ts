@@ -2,6 +2,7 @@ export { default as Avatar } from './Avatar';
 export { default as CloseButtonV2 } from './CloseButtonV2';
 export * from './FloatingMenu';
 export { default as GalleryLayoutSettings } from './GalleryLayoutSettings';
+export { HtmlInjection } from './HtmlInjection';
 export { default as ImageSizeWarning } from './ImageSizeWarning';
 export { default as ImageWithLoadingPlaceholderV2 } from './ImageWithLoadingPlaceholderV2';
 export { default as KeyboardKey } from './KeyboardKey';

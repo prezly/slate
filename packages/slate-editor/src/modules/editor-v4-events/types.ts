@@ -85,6 +85,16 @@ export type EditorEventMap = {
         pastedLength: number;
         slateVersion: string | undefined;
     };
+    'video-dialog-opened': {
+        selectedItemText: string;
+    };
+    'video-dialog-submitted': {
+        selectedItemText: string;
+        url: string;
+    };
+    'video-removed': {
+        uuid: string;
+    };
     'web-bookmark-dialog-opened': {
         selectedItemText: string;
     };
