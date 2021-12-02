@@ -97,9 +97,6 @@ export type EditorEventMap = {
     };
 };
 
-/**
- * TODO: automatically generate this interface based on EditorEventMap
- */
 export type EditorEventHandlers = {
     [key in keyof EditorEventMap]: Listener<EditorEventMap[key]>;
 }
