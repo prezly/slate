@@ -136,14 +136,9 @@
     }
 
     &__provider-icon {
-        width: $font-size-large;
-        height: $font-size-large;
+        width: $spacing-base * 2;
+        height: $spacing-base * 2;
         margin-right: $spacing-base;
-
-        .editor-v4-web-bookmark-element--minimal & {
-            width: $font-size-small;
-            height: $font-size-small;
-        }
     }
 
     &__provider-name {
