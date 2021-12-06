@@ -27,11 +27,28 @@ Prezly-specific packages mention Prezly in the description. All other packages s
 
 # Development
 
-For local development use [Playground](/playground). It is a simple react application with all the sub-packages linked.
+In order to try changes made to the packages with the main application, 
+link these packages to global npm prefix by running `npm link` in every of the sub-package folders:
 
-In order to start developing, run the playground project and related packages in watch mode.
+```sh
+ls packages | xargs -I{} sh -c 'cd packages/{} && npm link'
+```
 
-On Linux systems use `make dev--linux` which builds all the packages in watch mode and provides a handy output management. It requires [multitail](https://linux.die.net/man/1/multitail) to be installed.
+Then link these packages to the main app with `npm link PACKAGE_NAME`:
+
+```sh
+npm link @prezly/slate-types \
+         @prezly/slate-hyperscript \
+         @prezly/slate-commons \
+         @prezly/slate-lists \
+         @prezly/slate-editor
+```
+
+There's an `npm` task configured in our main application to simplify this routine:
+
+```sh
+npm run link-slate-packages
+```
 
 ## Setup
 

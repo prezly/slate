@@ -14,7 +14,6 @@ module.exports = {
     testPathIgnorePatterns: [
         '/node_modules/',
         '/build/',
-        '<rootDir>/playground/',
         '<rootDir>/packages/slate-editor/',
     ],
     transform: {

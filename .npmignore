@@ -1,5 +1,4 @@
 coverage/
-playground/
 **/examples/**
 **/node_modules/**
 **/tests/**
