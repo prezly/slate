@@ -14,7 +14,7 @@ const transforms: Transform[] = [
     withoutLoaderBlocks,
 ];
 
-const serialize = (value: Value): string => {
+export function serialize(value: Value): string {
     /**
      * Create an editor instance so we can use it with `Transforms` instead of having to
      * manually implement the traversal and unwrapping code.
@@ -31,6 +31,4 @@ const serialize = (value: Value): string => {
         type: 'document',
         version: process.env.SLATE_VERSION,
     });
-};
-
-export default serialize;
+}

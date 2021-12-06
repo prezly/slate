@@ -18,7 +18,6 @@ export { default as EditableWithExtensions } from './EditableWithExtensions';
 export { EditorCommands };
 export {
     createDeserializeElement,
-    createEmptyValue,
     decodeSlateFragment,
     encodeSlateFragment,
     isGoogleDocsWrapper,

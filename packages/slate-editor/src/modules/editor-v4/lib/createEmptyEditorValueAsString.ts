@@ -1,7 +1,6 @@
-import { createEmptyValue } from '@prezly/slate-commons';
+import { createEmptyValue } from './createEmptyValue';
+import { serialize } from './serialize';
 
-import serialize from './serialize';
-
-const createEmptyEditorValueAsString = (): string => serialize(createEmptyValue());
-
-export default createEmptyEditorValueAsString;
+export function createEmptyEditorValueAsString(): string {
+    return serialize(createEmptyValue());
+}
