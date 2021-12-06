@@ -11,11 +11,7 @@ module.exports = {
     preset: 'ts-jest',
     setupFiles: ['<rootDir>/setupTests.js'],
     testEnvironment: 'jsdom',
-    testPathIgnorePatterns: [
-        '/node_modules/',
-        '/build/',
-        '<rootDir>/packages/slate-editor/',
-    ],
+    testPathIgnorePatterns: ['/node_modules/', '/build/', '<rootDir>/packages/slate-editor/'],
     transform: {
         '^.+\\.(mjs|js|jsx|ts|tsx)$': ['babel-jest'],
     },
