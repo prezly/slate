@@ -115,19 +115,7 @@
         &,
         &:hover {
             color: $grey-700;
-        }
-
-        .editor-v4-web-bookmark-element--vertical & {
-            &,
-            &:hover {
-                text-decoration: none;
-            }
-        }
-        .editor-v4-web-bookmark-element--horizontal & {
-            &,
-            &:hover {
-                text-decoration: underline;
-            }
+            text-decoration: underline;
         }
     }
 
