@@ -161,14 +161,4 @@
     &__provider-name {
         flex-grow: 1;
     }
-
-    &__provider-external-link {
-        display: none;
-        width: $font-size-small;
-        height: $font-size-small;
-
-        .editor-v4-web-bookmark-element--minimal & {
-            display: block;
-        }
-    }
 }
