@@ -218,7 +218,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                         contentType: LoaderContentType.BOOKMARK,
                         message: 'Adding web bookmark',
                     }),
-                text: 'Add web bookmark',
+                text: 'Add web bookmark (new)',
             };
         }
 
@@ -231,11 +231,11 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                         contentType: LoaderContentType.VIDEO,
                         message: 'Adding video',
                     }),
-                text: 'Add video',
+                text: 'Add video (new)',
             };
         }
 
-        if (!withVideos && withEmbeds?.menuOptions.video) {
+        if (withEmbeds?.menuOptions.video) {
             yield {
                 icon: <i className={classNames('icon', 'icon-play2')} />,
                 onClick: () =>
@@ -260,7 +260,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             };
         }
 
-        if (!withWebBookmarks && withEmbeds?.menuOptions.link) {
+        if (withEmbeds?.menuOptions.link) {
             yield {
                 beta: true,
                 icon: <Link className="editor-v4__floating-add-menu-icon" />,
