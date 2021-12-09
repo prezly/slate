@@ -84,6 +84,8 @@
 
         color: $grey-700;
 
+        @include multi-line-ellipsis(2);
+
         &,
         &:hover {
             text-decoration: none;
@@ -105,6 +107,8 @@
         color: $grey-500;
         margin: $spacing-base 0;
         line-height: 1.4;
+
+        @include multi-line-ellipsis(2);
 
         .editor-v4-web-bookmark-element--vertical & {
             font-size: $font-size-medium;
