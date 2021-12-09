@@ -10,7 +10,7 @@ const EXAMPLE_MARK_1 = 'bold';
 
 describe('toggleMark', () => {
     it('Adds the mark when it is inactive', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -20,9 +20,9 @@ describe('toggleMark', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text {...{ [EXAMPLE_MARK_1]: true }}>
@@ -32,7 +32,7 @@ describe('toggleMark', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         toggleMark(editor, EXAMPLE_MARK_1);
 
@@ -40,7 +40,7 @@ describe('toggleMark', () => {
     });
 
     it('Removes the mark when it is active', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text {...{ [EXAMPLE_MARK_1]: true }}>
@@ -50,9 +50,9 @@ describe('toggleMark', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>
@@ -62,7 +62,7 @@ describe('toggleMark', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         toggleMark(editor, EXAMPLE_MARK_1);
 

@@ -8,10 +8,10 @@ import type { BlockType, RichTextElementType } from '../types';
 import RichTextElement from './RichTextElement';
 
 const createMockElement = (type: BlockType): RichTextElementType =>
-    (({
+    ({
         children: [],
         type,
-    } as unknown) as RichTextElementType);
+    } as unknown as RichTextElementType);
 
 interface Props {
     className?: string;

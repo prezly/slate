@@ -26,7 +26,7 @@ describe('wrapInList - no selection', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>aaa</h-text>
@@ -42,7 +42,7 @@ describe('wrapInList - no selection', () => {
                     <h-text>bbb</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
 
@@ -65,7 +65,7 @@ describe('wrapInList - selection with wrappable nodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -79,7 +79,7 @@ describe('wrapInList - selection with wrappable nodes', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
 
@@ -114,7 +114,7 @@ describe('wrapInList - selection with lists and wrappable nodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -140,7 +140,7 @@ describe('wrapInList - selection with lists and wrappable nodes', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
 
@@ -171,7 +171,7 @@ describe('wrapInList - selection with lists, wrappable & unwrappable nodes', () 
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -195,7 +195,7 @@ describe('wrapInList - selection with lists, wrappable & unwrappable nodes', () 
                     </h-text>
                 </h-unwrappable-element>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
 

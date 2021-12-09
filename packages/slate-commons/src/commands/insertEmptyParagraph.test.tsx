@@ -8,15 +8,18 @@ import insertEmptyParagraph from './insertEmptyParagraph';
 
 describe('insertEmptyParagraph', () => {
     it('should insert an empty paragraph after the cursor', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
-                    <h-text>lorem ipsum<cursor /></h-text>
+                    <h-text>
+                        lorem ipsum
+                        <cursor />
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -27,7 +30,7 @@ describe('insertEmptyParagraph', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertEmptyParagraph(editor);
 
@@ -36,15 +39,19 @@ describe('insertEmptyParagraph', () => {
     });
 
     it('should insert an empty paragraph at the cursor, splitting the text in the block', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
-                    <h-text>lorem<cursor />ipsum</h-text>
+                    <h-text>
+                        lorem
+                        <cursor />
+                        ipsum
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem</h-text>
@@ -58,7 +65,7 @@ describe('insertEmptyParagraph', () => {
                     <h-text>ipsum</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertEmptyParagraph(editor);
 
@@ -71,18 +78,21 @@ describe('insertEmptyParagraph', () => {
      * @see createHandleEditImage()
      */
     it('should insert an empty paragraph after the current one, if the cursor is at the end', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
-                    <h-text>lorem ipsum<cursor /></h-text>
+                    <h-text>
+                        lorem ipsum
+                        <cursor />
+                    </h-text>
                 </h-p>
                 <h-p>
                     <h-text>dolor</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -96,7 +106,7 @@ describe('insertEmptyParagraph', () => {
                     <h-text>dolor</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertEmptyParagraph(editor);
 
@@ -109,18 +119,21 @@ describe('insertEmptyParagraph', () => {
      * @see createHandleEditImage()
      */
     it('should insert an empty paragraph before the current one, if the cursor is at the beginning', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />dolor</h-text>
+                    <h-text>
+                        <cursor />
+                        dolor
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -134,7 +147,7 @@ describe('insertEmptyParagraph', () => {
                     <h-text>dolor</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertEmptyParagraph(editor);
 
@@ -143,18 +156,21 @@ describe('insertEmptyParagraph', () => {
     });
 
     it('should insert an empty paragraph at a given location', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>first block</h-text>
                 </h-p>
                 <h-p>
-                    <h-text>second block<cursor /></h-text>
+                    <h-text>
+                        second block
+                        <cursor />
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>first block</h-text>
@@ -163,10 +179,13 @@ describe('insertEmptyParagraph', () => {
                     <h-text />
                 </h-p>
                 <h-p>
-                    <h-text>second block<cursor /></h-text>
+                    <h-text>
+                        second block
+                        <cursor />
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertEmptyParagraph(editor, [1]);
 

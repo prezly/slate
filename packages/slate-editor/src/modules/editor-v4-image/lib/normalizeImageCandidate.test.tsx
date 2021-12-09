@@ -9,7 +9,7 @@ import jsx from '../jsx';
 import isImageCandidateElement from './isImageCandidateElement';
 import normalizeImageCandidate from './normalizeImageCandidate';
 
-const createEditor = (editor: JSX.Element): Editor => withReact((editor as unknown) as Editor);
+const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 
 describe('normalizeImageCandidate', () => {
     const URL = 'https://example.com/image.jpg';
@@ -28,7 +28,7 @@ describe('normalizeImageCandidate', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -43,7 +43,7 @@ describe('normalizeImageCandidate', () => {
                     </h-text>
                 </h-loader>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         const nodes = Editor.nodes(editor, { at: [], match: isImageCandidateElement });
 

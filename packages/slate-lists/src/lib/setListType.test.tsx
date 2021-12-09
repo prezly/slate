@@ -20,7 +20,7 @@ describe('setListType - no selection', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -30,7 +30,7 @@ describe('setListType - no selection', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.setListType(editor, NUMBERED_LIST_NODE_TYPE);
 
@@ -105,7 +105,7 @@ describe('setListType - selection with paragraphs and lists of multiple types', 
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -167,7 +167,7 @@ describe('setListType - selection with paragraphs and lists of multiple types', 
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.setListType(editor, NUMBERED_LIST_NODE_TYPE);
 

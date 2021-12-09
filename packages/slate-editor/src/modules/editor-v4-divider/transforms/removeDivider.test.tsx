@@ -9,7 +9,7 @@ import removeDivider from './removeDivider';
 
 describe('removeDivider', () => {
     it('should remove currently focused divider and focus the paragraph before it', () => {
-        const input = ((
+        const input = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -23,18 +23,21 @@ describe('removeDivider', () => {
                     <h-text>paragraph after</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />paragraph after</h-text>
+                    <h-text>
+                        <cursor />
+                        paragraph after
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         const editor = withReact(input);
         removeDivider(editor);
@@ -44,7 +47,7 @@ describe('removeDivider', () => {
     });
 
     it('should do nothing when not focusing a divider node', () => {
-        const input = ((
+        const input = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -53,12 +56,15 @@ describe('removeDivider', () => {
                     <h-text />
                 </h-divider>
                 <h-p>
-                    <h-text><cursor />paragraph before</h-text>
+                    <h-text>
+                        <cursor />
+                        paragraph before
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -67,10 +73,13 @@ describe('removeDivider', () => {
                     <h-text />
                 </h-divider>
                 <h-p>
-                    <h-text><cursor />paragraph before</h-text>
+                    <h-text>
+                        <cursor />
+                        paragraph before
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         const editor = withReact(input);
         removeDivider(editor);

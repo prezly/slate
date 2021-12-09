@@ -6,7 +6,7 @@ import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
 import { useSize } from 'react-use';
 import type { Editor } from 'slate';
-import type { RenderElementProps} from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlate } from 'slate-react';
 
 import Gallery from './Gallery';

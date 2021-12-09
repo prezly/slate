@@ -35,7 +35,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -45,7 +45,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
                     <cursor />
                 </h-void-element>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         simulateBackspace(editor);
 
@@ -63,23 +63,27 @@ describe('withUserFriendlyDeleteBehavior', () => {
                     <h-text />
                 </h-void-element>
                 <h-p>
-                    <h-text><cursor />paragraph after</h-text>
+                    <h-text>
+                        <cursor />
+                        paragraph after
+                    </h-text>
                 </h-p>
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
-                    <h-text>
-                        paragraph before
-                    </h-text>
+                    <h-text>paragraph before</h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />paragraph after</h-text>
+                    <h-text>
+                        <cursor />
+                        paragraph after
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         simulateBackspace(editor);
 
@@ -103,7 +107,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -115,7 +119,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         simulateDelete(editor);
 
@@ -143,7 +147,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -157,7 +161,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
                     <h-text>paragraph after</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         simulateDelete(editor);
 

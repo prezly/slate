@@ -7,7 +7,7 @@ import jsx from '../jsx';
 import findDescendants from './findDescendants';
 
 describe('findDescendants', () => {
-    const editor = ((
+    const editor = (
         <editor>
             <h-p>
                 <h-text>lorem ipsum 1</h-text>
@@ -19,7 +19,7 @@ describe('findDescendants', () => {
                 </h-link>
             </h-p>
         </editor>
-    ) as unknown) as Editor;
+    ) as unknown as Editor;
 
     it('Can find all editor node descendants matching the type', () => {
         const descendants = findDescendants(editor, isLinkNode);
@@ -50,7 +50,10 @@ describe('findDescendants', () => {
     });
 
     it('Can find all editor node descendants not matching the type', () => {
-        const descendants = findDescendants(editor, (node) => !isParagraphNode(node) && !isLinkNode(node));
+        const descendants = findDescendants(
+            editor,
+            (node) => !isParagraphNode(node) && !isLinkNode(node),
+        );
 
         expect(descendants).toEqual([
             [<h-text>lorem ipsum 1</h-text>, [0, 0]],
@@ -61,7 +64,10 @@ describe('findDescendants', () => {
     });
 
     it('Can find all child node descendants not matching the type', () => {
-        const descendants = findDescendants(editor.children[0], (node) => !isParagraphNode(node) && !isLinkNode(node));
+        const descendants = findDescendants(
+            editor.children[0],
+            (node) => !isParagraphNode(node) && !isLinkNode(node),
+        );
 
         expect(descendants).toEqual([
             [<h-text>lorem ipsum 1</h-text>, [0]],

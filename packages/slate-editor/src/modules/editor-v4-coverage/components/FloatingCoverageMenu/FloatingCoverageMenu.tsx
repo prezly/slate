@@ -1,5 +1,5 @@
 import type { Coverage } from '@prezly/sdk';
-import type { FunctionComponent, ReactNode, RefObject} from 'react';
+import type { FunctionComponent, ReactNode, RefObject } from 'react';
 import React, { useRef } from 'react';
 import { useSlate } from 'slate-react';
 

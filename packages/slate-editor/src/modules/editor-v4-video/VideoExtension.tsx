@@ -9,10 +9,7 @@ import { VideoElement, VideoMenu } from './components';
 import { VIDEO_EXTENSION_ID } from './constants';
 import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib';
 
-export const VideoExtension = ({
-    availableWidth,
-    containerRef,
-}: VideoParameters): Extension => ({
+export const VideoExtension = ({ availableWidth, containerRef }: VideoParameters): Extension => ({
     deserialize: {
         element: {
             [VIDEO_NODE_TYPE]: createDeserializeElement(parseSerializedElement),

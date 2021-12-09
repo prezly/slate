@@ -11,7 +11,7 @@ import { LoaderContentType } from '../types';
 
 import replaceLoader from './replaceLoader';
 
-const createEditor = (editor: JSX.Element): Editor => withReact((editor as unknown) as Editor);
+const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 
 const LOADER_ID = 'id-1';
 
@@ -35,7 +35,7 @@ describe('replaceLoader', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -47,7 +47,7 @@ describe('replaceLoader', () => {
                     <h-text>paragraph after</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         const loaderPath = findLoaderPath(editor, LOADER_ID);
 

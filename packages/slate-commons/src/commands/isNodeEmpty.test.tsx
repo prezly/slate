@@ -7,7 +7,7 @@ import jsx from '../jsx';
 import isNodeEmpty from './isNodeEmpty';
 
 describe('isNodeEmpty', () => {
-    const editor = ((
+    const editor = (
         <editor>
             <h-p>
                 <h-text>lorem ipsum</h-text>
@@ -20,7 +20,7 @@ describe('isNodeEmpty', () => {
             </h-p>
             <h-text> </h-text>
         </editor>
-    ) as unknown) as Editor;
+    ) as unknown as Editor;
 
     it('Considers paragraph node with text node with text to not be empty', () => {
         expect(isNodeEmpty(editor, editor.children[0])).toBe(false);

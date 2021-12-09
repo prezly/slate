@@ -8,7 +8,7 @@ import jsx from '../jsx';
 
 import removeFileAttachment from './removeFileAttachment';
 
-const createEditor = (editor: JSX.Element): Editor => withReact((editor as unknown) as Editor);
+const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 
 const createFileAttachmentFile = (): UploadcareStoragePayload => ({
     filename: 'example.pdf',
@@ -36,16 +36,19 @@ describe('removeFileAttachment', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />paragraph after</h-text>
+                    <h-text>
+                        <cursor />
+                        paragraph after
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         removeFileAttachment(editor);
 
@@ -57,7 +60,10 @@ describe('removeFileAttachment', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
-                    <h-text>paragraph before<cursor /></h-text>
+                    <h-text>
+                        paragraph before
+                        <cursor />
+                    </h-text>
                 </h-p>
                 <h-file-attachment description="" file={createFileAttachmentFile()}>
                     <h-text />
@@ -68,11 +74,13 @@ describe('removeFileAttachment', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
-                    <h-text>paragraph before<cursor /></h-text>
-
+                    <h-text>
+                        paragraph before
+                        <cursor />
+                    </h-text>
                 </h-p>
                 <h-file-attachment description="" file={createFileAttachmentFile()}>
                     <h-text />
@@ -81,7 +89,7 @@ describe('removeFileAttachment', () => {
                     <h-text>paragraph before</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         removeFileAttachment(editor);
 

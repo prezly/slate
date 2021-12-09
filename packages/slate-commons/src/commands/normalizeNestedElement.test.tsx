@@ -23,15 +23,20 @@ function withElementNormalization(editor: Editor, normalization: (entry: Element
 
 describe('normalizeNestedElement', () => {
     it('should lift element nodes that are only allowed on top level', function () {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-p>
-                        <h-text>Contrary to popular belief, Lorem Ipsum is not simply random text.</h-text>
+                        <h-text>
+                            Contrary to popular belief, Lorem Ipsum is not simply random text.
+                        </h-text>
                     </h-p>
                     <h-p>
                         <h-p>
-                            <h-text><cursor />It has roots in a piece of classical Latin literature from 45 BC,</h-text>
+                            <h-text>
+                                <cursor />
+                                It has roots in a piece of classical Latin literature from 45 BC,
+                            </h-text>
                         </h-p>
                     </h-p>
                 </h-p>
@@ -39,25 +44,30 @@ describe('normalizeNestedElement', () => {
                     <h-text>making it over 2000 years old.</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
-                    <h-text>Contrary to popular belief, Lorem Ipsum is not simply random text.</h-text>
+                    <h-text>
+                        Contrary to popular belief, Lorem Ipsum is not simply random text.
+                    </h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />It has roots in a piece of classical Latin literature from 45 BC,</h-text>
+                    <h-text>
+                        <cursor />
+                        It has roots in a piece of classical Latin literature from 45 BC,
+                    </h-text>
                 </h-p>
                 <h-p>
                     <h-text>making it over 2000 years old.</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        withElementNormalization(editor, (entry) => (
-            normalizeNestedElement(editor, entry, () => false)
-        ));
+        withElementNormalization(editor, (entry) =>
+            normalizeNestedElement(editor, entry, () => false),
+        );
 
         Editor.normalize(editor, { force: true });
 
@@ -66,15 +76,20 @@ describe('normalizeNestedElement', () => {
     });
 
     it('should lift element nodes that are not allowed to nest', function () {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-p>
-                        <h-text>Contrary to popular belief, Lorem Ipsum is not simply random text.</h-text>
+                        <h-text>
+                            Contrary to popular belief, Lorem Ipsum is not simply random text.
+                        </h-text>
                     </h-p>
                     <h-p>
                         <h-p>
-                            <h-text><cursor />It has roots in a piece of classical Latin literature from 45 BC,</h-text>
+                            <h-text>
+                                <cursor />
+                                It has roots in a piece of classical Latin literature from 45 BC,
+                            </h-text>
                         </h-p>
                     </h-p>
                 </h-p>
@@ -82,25 +97,34 @@ describe('normalizeNestedElement', () => {
                     <h-text>making it over 2000 years old.</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
-                    <h-text>Contrary to popular belief, Lorem Ipsum is not simply random text.</h-text>
+                    <h-text>
+                        Contrary to popular belief, Lorem Ipsum is not simply random text.
+                    </h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />It has roots in a piece of classical Latin literature from 45 BC,</h-text>
+                    <h-text>
+                        <cursor />
+                        It has roots in a piece of classical Latin literature from 45 BC,
+                    </h-text>
                 </h-p>
                 <h-p>
                     <h-text>making it over 2000 years old.</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        withElementNormalization(editor, (entry) => (
-            normalizeNestedElement(editor, entry, (node) => !isElementNode(node, PARAGRAPH_NODE_TYPE))
-        ));
+        withElementNormalization(editor, (entry) =>
+            normalizeNestedElement(
+                editor,
+                entry,
+                (node) => !isElementNode(node, PARAGRAPH_NODE_TYPE),
+            ),
+        );
 
         Editor.normalize(editor, { force: true });
 

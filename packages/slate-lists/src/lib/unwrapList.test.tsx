@@ -19,7 +19,7 @@ describe('unwrapList - no selection', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -29,7 +29,7 @@ describe('unwrapList - no selection', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.unwrapList(editor);
 
@@ -55,7 +55,7 @@ describe('unwrapList - selection within item', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>
@@ -64,7 +64,7 @@ describe('unwrapList - selection within item', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.unwrapList(editor);
 
@@ -98,7 +98,7 @@ describe('unwrapList - selection within item', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -121,7 +121,7 @@ describe('unwrapList - selection within item', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.unwrapList(editor);
 
@@ -172,7 +172,7 @@ describe('unwrapList - selection within item', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -212,7 +212,7 @@ describe('unwrapList - selection within item', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.unwrapList(editor);
 

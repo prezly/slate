@@ -8,7 +8,7 @@ import getText from './getText';
 
 describe('getText', () => {
     it('Returns an empty string when "at" is "null"', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -17,13 +17,13 @@ describe('getText', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         expect(getText(editor, null)).toEqual('');
     });
 
     it('Returns selected text', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -34,7 +34,7 @@ describe('getText', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         expect(getText(editor, editor.selection)).toEqual('ipsum');
     });

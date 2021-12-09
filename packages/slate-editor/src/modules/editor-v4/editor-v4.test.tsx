@@ -33,7 +33,7 @@ describe('editor-v4 - deleteForward - selection maintenance', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -46,7 +46,7 @@ describe('editor-v4 - deleteForward - selection maintenance', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         editor.deleteForward('character'); // equivalent to pressing delete (fn+backspace on macs)
 
@@ -83,7 +83,7 @@ describe('editor-v4 - inserting block nodes after lists', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -101,7 +101,7 @@ describe('editor-v4 - inserting block nodes after lists', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertDivider(editor);
 
@@ -360,7 +360,7 @@ describe('editor-v4 - withRootElements', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>text before</h-text>
@@ -378,7 +378,7 @@ describe('editor-v4 - withRootElements', () => {
                     <h-text>text after</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 

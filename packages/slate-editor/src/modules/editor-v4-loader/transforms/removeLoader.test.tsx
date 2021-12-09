@@ -9,7 +9,7 @@ import { LoaderContentType } from '../types';
 
 import removeLoader from './removeLoader';
 
-const createEditor = (editor: JSX.Element): Editor => withReact((editor as unknown) as Editor);
+const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 
 const LOADER_ID = 'id-1';
 
@@ -35,16 +35,19 @@ describe('removeLoader', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />paragraph after</h-text>
+                    <h-text>
+                        <cursor />
+                        paragraph after
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         removeLoader(editor);
 
@@ -56,7 +59,10 @@ describe('removeLoader', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
-                    <h-text>paragraph before<cursor /></h-text>
+                    <h-text>
+                        paragraph before
+                        <cursor />
+                    </h-text>
                 </h-p>
                 <h-loader
                     contentType={LoaderContentType.ATTACHMENT}
@@ -71,10 +77,13 @@ describe('removeLoader', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
-                    <h-text>paragraph before<cursor /></h-text>
+                    <h-text>
+                        paragraph before
+                        <cursor />
+                    </h-text>
                 </h-p>
                 <h-loader
                     contentType={LoaderContentType.ATTACHMENT}
@@ -87,7 +96,7 @@ describe('removeLoader', () => {
                     <h-text>paragraph after</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         removeLoader(editor);
 
@@ -99,7 +108,10 @@ describe('removeLoader', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
-                    <h-text>paragraph before<cursor /></h-text>
+                    <h-text>
+                        paragraph before
+                        <cursor />
+                    </h-text>
                 </h-p>
                 <h-loader
                     contentType={LoaderContentType.ATTACHMENT}
@@ -114,16 +126,19 @@ describe('removeLoader', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
-                    <h-text>paragraph before<cursor /></h-text>
+                    <h-text>
+                        paragraph before
+                        <cursor />
+                    </h-text>
                 </h-p>
                 <h-p>
                     <h-text>paragraph after</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         const loaderPath = findLoaderPath(editor, LOADER_ID);
         if (!loaderPath) {

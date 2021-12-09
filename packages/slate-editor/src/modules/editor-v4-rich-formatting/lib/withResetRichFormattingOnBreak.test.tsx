@@ -18,7 +18,7 @@ describe('withResetRichFormattingOnBreak', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-h1>
                     <h-text>lorem ipsum</h-text>
@@ -29,7 +29,7 @@ describe('withResetRichFormattingOnBreak', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.insertBreak(editor);
 
@@ -49,7 +49,7 @@ describe('withResetRichFormattingOnBreak', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -60,7 +60,7 @@ describe('withResetRichFormattingOnBreak', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.insertBreak(editor);
 
@@ -84,7 +84,7 @@ describe('withResetRichFormattingOnBreak', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -101,7 +101,7 @@ describe('withResetRichFormattingOnBreak', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.insertBreak(editor);
 
@@ -122,7 +122,7 @@ describe('withResetRichFormattingOnBreak', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-h1>
                     <h-text>lorem </h-text>
@@ -133,7 +133,7 @@ describe('withResetRichFormattingOnBreak', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.insertBreak(editor);
 

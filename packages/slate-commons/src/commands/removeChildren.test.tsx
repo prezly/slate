@@ -21,7 +21,7 @@ describe('removeChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>aaa</h-text>
@@ -31,7 +31,7 @@ describe('removeChildren', () => {
                     <h-text>bbb</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         removeChildren(editor, Editor.node(editor, [0, 1]));
 

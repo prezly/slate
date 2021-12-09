@@ -29,7 +29,7 @@ const getExtensions = () => [
 ];
 
 const createEditor = (editor: JSX.Element): Editor =>
-    withNormalization(getExtensions)(withImages(withReact((editor as unknown) as Editor)));
+    withNormalization(getExtensions)(withImages(withReact(editor as unknown as Editor)));
 
 describe('withImages - normalizeChildren', () => {
     it('unwraps deeply nested text objects', () => {

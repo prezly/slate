@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import type { LinkNode} from '@prezly/slate-types';
+import type { LinkNode } from '@prezly/slate-types';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
@@ -19,13 +19,13 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(editor, [{ text: 'dolor' }]);
 
@@ -45,7 +45,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>
@@ -54,7 +54,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(editor, [], { ensureEmptyParagraphAfter: true });
 
@@ -74,7 +74,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -86,7 +86,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(editor, [
             {
@@ -111,7 +111,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -125,7 +125,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(
             editor,
@@ -154,7 +154,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -168,7 +168,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(
             editor,
@@ -201,7 +201,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsumxxx</h-text>
@@ -217,7 +217,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(editor, [
             { text: 'xxx' },
@@ -248,7 +248,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>
@@ -257,7 +257,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(editor, [
             {
@@ -281,7 +281,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>xxx</h-text>
@@ -297,7 +297,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(editor, [
             { text: 'xxx' },
@@ -329,7 +329,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-void-element>
                     <h-text />
@@ -345,7 +345,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(editor, [
             { text: 'xxx' },
@@ -372,7 +372,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-void-element>
                     <h-text />
@@ -385,7 +385,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(editor, [
             {
@@ -420,7 +420,7 @@ describe('insertNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-void-element>
                     <h-text />
@@ -436,7 +436,7 @@ describe('insertNodes', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertNodes(editor, [
             {

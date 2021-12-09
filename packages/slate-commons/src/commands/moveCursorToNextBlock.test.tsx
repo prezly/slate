@@ -8,7 +8,7 @@ import moveCursorToNextBlock from './moveCursorToNextBlock';
 
 describe('moveCursorToNextBlock', () => {
     it('Moves the cursor to the next block', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -18,9 +18,9 @@ describe('moveCursorToNextBlock', () => {
                     <h-text>second block</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -32,7 +32,7 @@ describe('moveCursorToNextBlock', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         moveCursorToNextBlock(editor);
 
@@ -41,7 +41,7 @@ describe('moveCursorToNextBlock', () => {
     });
 
     it('Moves the cursor to the end of document if at the last block', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -53,9 +53,9 @@ describe('moveCursorToNextBlock', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -67,7 +67,7 @@ describe('moveCursorToNextBlock', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         moveCursorToNextBlock(editor);
 

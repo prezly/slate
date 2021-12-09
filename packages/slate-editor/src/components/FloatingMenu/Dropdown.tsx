@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
-import type { DropdownProps} from 'react-bootstrap';
+import type { DropdownProps } from 'react-bootstrap';
 import { Dropdown as BootstrapDropdown, MenuItem } from 'react-bootstrap';
 
 import './Dropdown.scss';

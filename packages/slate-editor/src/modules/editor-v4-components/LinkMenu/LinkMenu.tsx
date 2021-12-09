@@ -1,4 +1,4 @@
-import type { FunctionComponent} from 'react';
+import type { FunctionComponent } from 'react';
 import React, { useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { RootCloseWrapper } from 'react-overlays';

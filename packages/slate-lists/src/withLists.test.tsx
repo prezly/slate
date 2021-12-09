@@ -22,7 +22,7 @@ describe('withLists - normalizeListChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -37,7 +37,7 @@ describe('withLists - normalizeListChildren', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -64,7 +64,7 @@ describe('withLists - normalizeListChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -81,7 +81,7 @@ describe('withLists - normalizeListChildren', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -116,7 +116,7 @@ describe('withLists - normalizeListItemChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -141,7 +141,7 @@ describe('withLists - normalizeListItemChildren', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -168,7 +168,7 @@ describe('withLists - normalizeListItemChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -183,7 +183,7 @@ describe('withLists - normalizeListItemChildren', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -209,7 +209,7 @@ describe('withLists - normalizeListItemChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -229,7 +229,7 @@ describe('withLists - normalizeListItemChildren', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -249,7 +249,7 @@ describe('withLists - normalizeListItemChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -263,7 +263,7 @@ describe('withLists - normalizeListItemChildren', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -285,7 +285,7 @@ describe('withLists - normalizeListItemChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -299,7 +299,7 @@ describe('withLists - normalizeListItemChildren', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -319,7 +319,7 @@ describe('withLists - normalizeListItemChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -329,7 +329,7 @@ describe('withLists - normalizeListItemChildren', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -362,7 +362,7 @@ describe('withLists - normalizeListItemTextChildren', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -377,7 +377,7 @@ describe('withLists - normalizeListItemTextChildren', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -402,7 +402,7 @@ describe('withLists - normalizeOrphanListItem', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -411,7 +411,7 @@ describe('withLists - normalizeOrphanListItem', () => {
                     <h-text>dolor sit</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -432,7 +432,7 @@ describe('withLists - normalizeOrphanListItemText', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -441,7 +441,7 @@ describe('withLists - normalizeOrphanListItemText', () => {
                     <h-text>dolor sit</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -467,7 +467,7 @@ describe('withLists - normalizeOrphanNestedList', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -477,7 +477,7 @@ describe('withLists - normalizeOrphanNestedList', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -518,7 +518,7 @@ describe('withLists - normalizeOrphanNestedList', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -545,7 +545,7 @@ describe('withLists - normalizeOrphanNestedList', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -574,7 +574,7 @@ describe('withLists - normalizeOrphanNestedList', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -591,7 +591,7 @@ describe('withLists - normalizeOrphanNestedList', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -623,7 +623,7 @@ describe('withLists - normalizeSiblingLists', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem</h-text>
@@ -641,7 +641,7 @@ describe('withLists - normalizeSiblingLists', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 
@@ -675,7 +675,7 @@ describe('withLists - normalizeSiblingLists', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -697,7 +697,7 @@ describe('withLists - normalizeSiblingLists', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 

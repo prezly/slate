@@ -26,7 +26,7 @@ describe('editor-v4 - withVoids', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>text before</h-text>
@@ -38,7 +38,7 @@ describe('editor-v4 - withVoids', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         editor.deleteFragment();
 
@@ -66,7 +66,7 @@ describe('editor-v4 - withVoids', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>
@@ -77,7 +77,7 @@ describe('editor-v4 - withVoids', () => {
                     <h-text>text after</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         editor.deleteFragment();
 
@@ -107,18 +107,19 @@ describe('editor-v4 - withVoids', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
-                    <h-text>
-                        text before
-                    </h-text>
+                    <h-text>text before</h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />text after</h-text>
+                    <h-text>
+                        <cursor />
+                        text after
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         editor.deleteFragment();
 
@@ -151,7 +152,7 @@ describe('editor-v4 - withVoids', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>text before 1</h-text>
@@ -160,10 +161,13 @@ describe('editor-v4 - withVoids', () => {
                     <h-text>text before 2</h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />text after</h-text>
+                    <h-text>
+                        <cursor />
+                        text after
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         editor.deleteFragment();
 
@@ -199,16 +203,19 @@ describe('editor-v4 - withVoids', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>text before</h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />text after</h-text>
+                    <h-text>
+                        <cursor />
+                        text after
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         editor.deleteFragment();
 

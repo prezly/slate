@@ -1,14 +1,12 @@
 /** @jsx jsx */
 
-import type {
-    GalleryNode,
-    ParagraphNode} from '@prezly/slate-types';
+import type { GalleryNode, ParagraphNode } from '@prezly/slate-types';
 import {
     GALLERY_NODE_TYPE,
     GalleryImageSize,
     GalleryLayout,
     GalleryPadding,
-    PARAGRAPH_NODE_TYPE
+    PARAGRAPH_NODE_TYPE,
 } from '@prezly/slate-types';
 import { Editor } from 'slate';
 import { omit } from 'lodash';
@@ -65,9 +63,7 @@ describe('normalizeInvalidGallery', () => {
                 layout: GalleryLayout.CONTAINED,
                 padding: '?', // <-- invalid
                 thumbnail_size: GalleryImageSize.M,
-                images: [
-                    { caption: 'World', file: uploadedImage },
-                ],
+                images: [{ caption: 'World', file: uploadedImage }],
                 children: [EMPTY_TEXT],
             } as any as GalleryNode,
         ];

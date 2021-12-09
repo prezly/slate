@@ -27,7 +27,7 @@ describe('withBreaksOnVoidNodes', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -43,7 +43,7 @@ describe('withBreaksOnVoidNodes', () => {
                     <h-text>paragraph after</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.insertBreak(editor);
 

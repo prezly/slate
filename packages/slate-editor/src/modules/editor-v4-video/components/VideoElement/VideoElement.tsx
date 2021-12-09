@@ -37,7 +37,10 @@ export const VideoElement: FunctionComponent<Props> = ({ attributes, children, e
                 />
                 <div className="editor-v4-video-element__card">
                     {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
-                        <HtmlInjection html={oembed.html} onError={() => setHtmlEmbeddedWithErrors(true)} />
+                        <HtmlInjection
+                            html={oembed.html}
+                            onError={() => setHtmlEmbeddedWithErrors(true)}
+                        />
                     ) : (
                         <>
                             <Thumbnail
@@ -57,12 +60,16 @@ export const VideoElement: FunctionComponent<Props> = ({ attributes, children, e
     );
 };
 
-const Thumbnail: FunctionComponent<{ src?: string, width?: number, height?: number }> = ({ src, width, height }) => {
+const Thumbnail: FunctionComponent<{ src?: string; width?: number; height?: number }> = ({
+    src,
+    width,
+    height,
+}) => {
     if (!src) {
         return <ThumbnailPlaceholder />;
     }
 
-    const paddingBottom = width && height ? `${Math.round(100 * height / width)}%` : undefined;
+    const paddingBottom = width && height ? `${Math.round((100 * height) / width)}%` : undefined;
     return (
         <div className="editor-v4-video-element__thumbnail" style={{ paddingBottom }}>
             <img
@@ -78,11 +85,12 @@ const ThumbnailPlaceholder: FunctionComponent = () => (
     <div className="editor-v4-video-element__thumbnail-placeholder" />
 );
 
-const ExternalLink: FunctionComponent<{ href: string, className?: string, children?: ReactNode }> = ({ href, children, className }) => (
-    <a className={className} href={href} rel="noopener noreferer" target="blank">
-        {children}
-    </a>
-);
+const ExternalLink: FunctionComponent<{ href: string; className?: string; children?: ReactNode }> =
+    ({ href, children, className }) => (
+        <a className={className} href={href} rel="noopener noreferer" target="blank">
+            {children}
+        </a>
+    );
 
 const PlayButtonOverlay: FunctionComponent<{ href: string }> = ({ href }) => (
     <ExternalLink href={href} className="editor-v4-video-element__play-button-overlay">

@@ -21,7 +21,7 @@ describe('normalizeNestedLink', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text />
@@ -39,7 +39,7 @@ describe('normalizeNestedLink', () => {
                     <h-text />
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 

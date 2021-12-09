@@ -23,7 +23,5 @@ export const HtmlInjection: FunctionComponent<Props> = (props) => {
         }
     }, [html]);
 
-    return (
-        <div className={className} ref={ref} />
-    );
+    return <div className={className} ref={ref} />;
 };

@@ -13,17 +13,17 @@ describe('insertMention', () => {
 
     it('Inserts a mention after the cursor at the end of paragraph', () => {
         const editor = createMentionsEditor(
-            ((
+            (
                 <editor>
                     <h-p>
                         <h-text>lorem ipsum</h-text>
                         <cursor />
                     </h-p>
                 </editor>
-            ) as unknown) as Editor,
+            ) as unknown as Editor,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -35,7 +35,7 @@ describe('insertMention', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertMention(editor, createPlaceholderMentionElement(placeholderKey));
 
@@ -45,7 +45,7 @@ describe('insertMention', () => {
 
     it('Inserts a mention after the cursor in the middle of a paragraph', () => {
         const editor = createMentionsEditor(
-            ((
+            (
                 <editor>
                     <h-p>
                         <h-text>lorem ipsum</h-text>
@@ -53,10 +53,10 @@ describe('insertMention', () => {
                         <h-text>dolor sit amet</h-text>
                     </h-p>
                 </editor>
-            ) as unknown) as Editor,
+            ) as unknown as Editor,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -69,7 +69,7 @@ describe('insertMention', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         insertMention(editor, createPlaceholderMentionElement(placeholderKey));
 

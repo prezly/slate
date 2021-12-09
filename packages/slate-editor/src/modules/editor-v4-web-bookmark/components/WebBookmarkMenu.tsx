@@ -20,7 +20,9 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ containerRef, elemen
         const removedElement = removeWebBookmark(editor);
 
         if (removedElement) {
-            EventsEditor.dispatchEvent(editor, 'web-bookmark-removed', { uuid: removedElement.uuid });
+            EventsEditor.dispatchEvent(editor, 'web-bookmark-removed', {
+                uuid: removedElement.uuid,
+            });
         }
     };
 

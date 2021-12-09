@@ -19,7 +19,7 @@ describe('splitListItem - no selected items', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -29,7 +29,7 @@ describe('splitListItem - no selected items', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 
@@ -56,7 +56,7 @@ describe('splitListItem - no selected items', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>
@@ -72,7 +72,7 @@ describe('splitListItem - no selected items', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 
@@ -98,7 +98,7 @@ describe('splitListItem - collapsed selection', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -115,7 +115,7 @@ describe('splitListItem - collapsed selection', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 
@@ -139,7 +139,7 @@ describe('splitListItem - collapsed selection', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -157,7 +157,7 @@ describe('splitListItem - collapsed selection', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 
@@ -182,7 +182,7 @@ describe('splitListItem - collapsed selection', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -200,7 +200,7 @@ describe('splitListItem - collapsed selection', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 
@@ -238,7 +238,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -267,7 +267,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 
@@ -303,7 +303,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -333,7 +333,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 
@@ -370,7 +370,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -400,7 +400,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 
@@ -445,7 +445,7 @@ describe('splitListItem - collapsed selection - deeply nested lists', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -481,7 +481,7 @@ describe('splitListItem - collapsed selection - deeply nested lists', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 
@@ -536,7 +536,7 @@ describe('splitListItem - expanded selection - deeply nested lists', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -572,7 +572,7 @@ describe('splitListItem - expanded selection - deeply nested lists', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.splitListItem(editor);
 

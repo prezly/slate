@@ -8,16 +8,16 @@ import moveCursorToEndOfDocument from './moveCursorToEndOfDocument';
 
 describe('moveCursorToEndOfDocument', () => {
     it('Puts cursor at the end of document when there is no cursor', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -25,7 +25,7 @@ describe('moveCursorToEndOfDocument', () => {
                     <cursor />
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         moveCursorToEndOfDocument(editor);
 
@@ -34,7 +34,7 @@ describe('moveCursorToEndOfDocument', () => {
     });
 
     it('Moves cursor at the end of document', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -42,9 +42,9 @@ describe('moveCursorToEndOfDocument', () => {
                     <h-text>lorem ipsum</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -52,7 +52,7 @@ describe('moveCursorToEndOfDocument', () => {
                     <cursor />
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         moveCursorToEndOfDocument(editor);
 
@@ -61,7 +61,7 @@ describe('moveCursorToEndOfDocument', () => {
     });
 
     it('Puts cursor at the end of document when there is selection', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -71,9 +71,9 @@ describe('moveCursorToEndOfDocument', () => {
                     <h-text>lorem ipsum</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -82,7 +82,7 @@ describe('moveCursorToEndOfDocument', () => {
                     <cursor />
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         moveCursorToEndOfDocument(editor);
 
@@ -91,7 +91,7 @@ describe('moveCursorToEndOfDocument', () => {
     });
 
     it('Does nothing when cursor is already at the end of document', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -99,9 +99,9 @@ describe('moveCursorToEndOfDocument', () => {
                     <cursor />
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -109,7 +109,7 @@ describe('moveCursorToEndOfDocument', () => {
                     <cursor />
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         moveCursorToEndOfDocument(editor);
 

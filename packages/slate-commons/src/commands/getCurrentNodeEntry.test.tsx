@@ -9,7 +9,7 @@ import getCurrentNodeEntry from './getCurrentNodeEntry';
 
 describe('getCurrentNodeEntry', () => {
     it('Returns "null" when editor has no cursor in it', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -21,14 +21,14 @@ describe('getCurrentNodeEntry', () => {
                     <h-text>lorem ipsum</h-text>
                 </h-some-element-1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         const currentNodeEntry = getCurrentNodeEntry(editor);
         expect(currentNodeEntry).toBeNull();
     });
 
     it('Returns the node and path tuple where cursor is placed in', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -41,7 +41,7 @@ describe('getCurrentNodeEntry', () => {
                     <h-text>lorem ipsum</h-text>
                 </h-some-element-1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         const nodeEntry = getCurrentNodeEntry(editor);
 

@@ -9,7 +9,7 @@ import jsx from '../jsx';
 
 import removeImage from './removeImage';
 
-const createEditor = (editor: JSX.Element): Editor => withReact((editor as unknown) as Editor);
+const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 
 const createImageFile = (): UploadcareStoragePayload => ({
     effects: [],
@@ -46,16 +46,19 @@ describe('removeImage', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
                 <h-p>
-                    <h-text><cursor />paragraph after</h-text>
+                    <h-text>
+                        <cursor />
+                        paragraph after
+                    </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         removeImage(editor);
 
@@ -85,7 +88,7 @@ describe('removeImage', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>paragraph before</h-text>
@@ -104,7 +107,7 @@ describe('removeImage', () => {
                     <h-text>paragraph before</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         removeImage(editor);
 

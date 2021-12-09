@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { isElementNode } from '@prezly/slate-types';
-import type { Editor} from 'slate';
+import type { Editor } from 'slate';
 import { Element } from 'slate';
 
 import jsx from '../jsx';
@@ -10,7 +10,7 @@ import removeNode from './removeNode';
 
 describe('removeNode', () => {
     it('Removes the element at current cursor location', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -23,9 +23,9 @@ describe('removeNode', () => {
                     <cursor />
                 </h-some-element-1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -35,7 +35,7 @@ describe('removeNode', () => {
                     <cursor />
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         if (editor.selection) {
             removeNode(editor, {
@@ -49,7 +49,7 @@ describe('removeNode', () => {
     });
 
     it('Removes the matching element at current cursor location', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -62,9 +62,9 @@ describe('removeNode', () => {
                     <cursor />
                 </h-some-element-1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -74,7 +74,7 @@ describe('removeNode', () => {
                     <cursor />
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         removeNode(editor, {
             match: (node) => isElementNode(node, SOME_ELEMENT_1),
@@ -85,7 +85,7 @@ describe('removeNode', () => {
     });
 
     it('Does nothing when the element does not match', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -98,9 +98,9 @@ describe('removeNode', () => {
                     <cursor />
                 </h-some-element-1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -113,7 +113,7 @@ describe('removeNode', () => {
                     <cursor />
                 </h-some-element-1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         removeNode(editor, {
             match: (node) => isElementNode(node, SOME_ELEMENT_2),

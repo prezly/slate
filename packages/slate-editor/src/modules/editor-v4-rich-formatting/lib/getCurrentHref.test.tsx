@@ -8,7 +8,7 @@ import getCurrentHref from './getCurrentHref';
 
 describe('getCurrentHref', () => {
     it('Returns "null" when link is not selected', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -19,13 +19,13 @@ describe('getCurrentHref', () => {
                     </h-a>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         expect(getCurrentHref(editor, editor.selection!)).toBeNull();
     });
 
     it('Returns "href" of the selected link', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -37,7 +37,7 @@ describe('getCurrentHref', () => {
                     <h-text>lorem ipsum</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         expect(getCurrentHref(editor, editor.selection!)).toBe('http://example.com');
     });

@@ -1,10 +1,10 @@
 import type { Coverage } from '@prezly/sdk';
 import type { CoverageNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { FunctionComponent} from 'react';
+import type { FunctionComponent } from 'react';
 import React, { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
-import type { RenderElementProps} from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
 import { LoadingPlaceholderV2 } from '../../../../components';

@@ -19,7 +19,7 @@ describe('decreaseDepth - no selected items', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -29,7 +29,7 @@ describe('decreaseDepth - no selected items', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.decreaseDepth(editor);
 
@@ -55,7 +55,7 @@ describe('decreaseDepth - single item selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>
@@ -64,7 +64,7 @@ describe('decreaseDepth - single item selected', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.decreaseDepth(editor);
 
@@ -100,7 +100,7 @@ describe('decreaseDepth - single item selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -125,7 +125,7 @@ describe('decreaseDepth - single item selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.decreaseDepth(editor);
 
@@ -156,7 +156,7 @@ describe('decreaseDepth - single item selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -174,7 +174,7 @@ describe('decreaseDepth - single item selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.decreaseDepth(editor);
 
@@ -220,7 +220,7 @@ describe('decreaseDepth - single item selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -257,7 +257,7 @@ describe('decreaseDepth - single item selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.decreaseDepth(editor);
 
@@ -303,7 +303,7 @@ describe('decreaseDepth - single item selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -338,7 +338,7 @@ describe('decreaseDepth - single item selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.decreaseDepth(editor);
 
@@ -442,7 +442,7 @@ describe('decreaseDepth - multiple items selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -531,7 +531,7 @@ describe('decreaseDepth - multiple items selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.decreaseDepth(editor);
 

@@ -6,10 +6,7 @@ import type { RenderElementProps } from 'slate-react';
 
 import { CoverageElement, CoverageMenu } from './components';
 import { COVERAGE_EXTENSION_ID } from './constants';
-import {
-    normalizeRedundantCoverageAttributes,
-    parseSerializedElement,
-} from './lib';
+import { normalizeRedundantCoverageAttributes, parseSerializedElement } from './lib';
 import type { CoverageParameters } from './types';
 
 const CoverageExtension = ({

@@ -10,7 +10,7 @@ import getNodePath from './getNodePath';
 
 describe('getNodePath', () => {
     it('Returns the path of matching element', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -23,7 +23,7 @@ describe('getNodePath', () => {
                     <h-text>lorem ipsum</h-text>
                 </h-some-element-1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         const nodePath =
             editor.selection &&
@@ -35,7 +35,7 @@ describe('getNodePath', () => {
     });
 
     it('Returns null if no element matches', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-some-element-1>
                     <h-text>lorem ipsum</h-text>
@@ -48,7 +48,7 @@ describe('getNodePath', () => {
                     <h-text>lorem ipsum</h-text>
                 </h-some-element-1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         const nodePath =
             editor.selection &&

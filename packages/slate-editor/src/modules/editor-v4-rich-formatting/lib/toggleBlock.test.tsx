@@ -9,7 +9,7 @@ import toggleBlock from './toggleBlock';
 
 describe('toggleBlock', () => {
     it('Toggles h1 into h2', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-h1>
                     <h-text>first heading</h-text>
@@ -19,9 +19,9 @@ describe('toggleBlock', () => {
                     <h-text>second heading</h-text>
                 </h-h1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-h2>
                     <h-text>first heading</h-text>
@@ -31,7 +31,7 @@ describe('toggleBlock', () => {
                     <h-text>second heading</h-text>
                 </h-h1>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         toggleBlock(editor, ElementType.HEADING_TWO);
 

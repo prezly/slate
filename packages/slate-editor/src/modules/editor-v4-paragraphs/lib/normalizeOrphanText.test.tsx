@@ -21,7 +21,7 @@ describe('normalizeOrphanText', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
@@ -35,7 +35,7 @@ describe('normalizeOrphanText', () => {
                     <h-text>lorem ipsum</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         Editor.normalize(editor, { force: true });
 

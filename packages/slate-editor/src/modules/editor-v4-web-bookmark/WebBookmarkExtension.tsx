@@ -25,7 +25,10 @@ export const WebBookmarkExtension = ({
             return (
                 <>
                     {attributes.ref.current && (
-                        <WebBookmarkMenu containerRef={containerRef} element={attributes.ref.current} />
+                        <WebBookmarkMenu
+                            containerRef={containerRef}
+                            element={attributes.ref.current}
+                        />
                     )}
                     <WebBookmarkElement
                         attributes={attributes}

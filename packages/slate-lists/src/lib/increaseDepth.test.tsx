@@ -19,7 +19,7 @@ describe('increaseDepth - no selected items', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -29,7 +29,7 @@ describe('increaseDepth - no selected items', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.increaseDepth(editor);
 
@@ -55,7 +55,7 @@ describe('increaseDepth - single item selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -68,7 +68,7 @@ describe('increaseDepth - single item selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.increaseDepth(editor);
 
@@ -104,7 +104,7 @@ describe('increaseDepth - single item selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -129,7 +129,7 @@ describe('increaseDepth - single item selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.increaseDepth(editor);
 
@@ -158,7 +158,7 @@ describe('increaseDepth - single item selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -178,7 +178,7 @@ describe('increaseDepth - single item selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.increaseDepth(editor);
 
@@ -207,7 +207,7 @@ describe('increaseDepth - single item selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ol>
                     <h-li>
@@ -227,7 +227,7 @@ describe('increaseDepth - single item selected', () => {
                     </h-li>
                 </h-ol>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.increaseDepth(editor);
 
@@ -266,7 +266,7 @@ describe('increaseDepth - multiple items selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -294,7 +294,7 @@ describe('increaseDepth - multiple items selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.increaseDepth(editor);
 
@@ -396,7 +396,7 @@ describe('increaseDepth - multiple items selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -487,7 +487,7 @@ describe('increaseDepth - multiple items selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.increaseDepth(editor);
 
@@ -532,7 +532,7 @@ describe('increaseDepth - multiple items and paragraphs selected', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-ul>
                     <h-li>
@@ -570,7 +570,7 @@ describe('increaseDepth - multiple items and paragraphs selected', () => {
                     </h-li>
                 </h-ul>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         lists.increaseDepth(editor);
 

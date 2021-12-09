@@ -48,9 +48,8 @@ const CoverageBlock: FunctionComponent<Props> = ({ coverage, dateFormat }) => {
                 {description && (
                     <div
                         className={classNames('editor-v4-coverage-block__description', {
-                            'editor-v4-coverage-block__description--secondary': hasOnlyFileAttachment(
-                                coverage,
-                            ),
+                            'editor-v4-coverage-block__description--secondary':
+                                hasOnlyFileAttachment(coverage),
                         })}
                     >
                         <MultilineEllipsis maxHeight={DESCRIPTION_MAX_HEIGHT}>

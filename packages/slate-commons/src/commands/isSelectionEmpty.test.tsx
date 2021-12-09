@@ -8,19 +8,19 @@ import isSelectionEmpty from './isSelectionEmpty';
 
 describe('isSelectionEmpty', () => {
     it('Returns "true" when no text is selected', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         expect(isSelectionEmpty(editor)).toBe(true);
     });
 
     it('Returns "false" when just whitespaces are selected', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -30,13 +30,13 @@ describe('isSelectionEmpty', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         expect(isSelectionEmpty(editor)).toBe(false);
     });
 
     it('Returns "true" when no text is selected', () => {
-        const editor = ((
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -45,7 +45,7 @@ describe('isSelectionEmpty', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         expect(isSelectionEmpty(editor)).toBe(true);
     });

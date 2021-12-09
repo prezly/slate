@@ -1,12 +1,12 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { ImageNode} from '@prezly/slate-types';
+import type { ImageNode } from '@prezly/slate-types';
 import { ImageLayout, isImageNode } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
-import type { FunctionComponent, RefObject} from 'react';
+import type { FunctionComponent, RefObject } from 'react';
 import React, { useState } from 'react';
 import { Editor, Transforms } from 'slate';
-import type { RenderElementProps} from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
 import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';

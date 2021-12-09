@@ -21,7 +21,7 @@ describe('normalizeEmptyLink', () => {
             </editor>,
         );
 
-        const expected = ((
+        const expected = (
             <editor>
                 <h-p>
                     <h-text>
@@ -29,7 +29,7 @@ describe('normalizeEmptyLink', () => {
                     </h-text>
                 </h-p>
             </editor>
-        ) as unknown) as Editor;
+        ) as unknown as Editor;
 
         // `Editor.deleteFragment` is equivalent to pressing Backspace or Delete key
         // when selection is expanded.

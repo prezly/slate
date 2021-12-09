@@ -3,7 +3,7 @@ import React from 'react';
 
 // eslint-disable-next-line import/named
 import type { FloatingMenuOption } from '../../../../components';
-import type { BlockType} from '../../types';
+import type { BlockType } from '../../types';
 import { ElementType } from '../../types';
 import MenuOption from '../MenuOption';
 

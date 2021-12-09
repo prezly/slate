@@ -1,8 +1,8 @@
 import type { EmbedNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { FunctionComponent} from 'react';
+import type { FunctionComponent } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
-import type { RenderElementProps} from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
 import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';

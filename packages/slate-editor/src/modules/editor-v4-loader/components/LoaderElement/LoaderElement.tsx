@@ -1,9 +1,9 @@
 import { ProgressPromise } from '@prezly/progress-promise';
 import classNames from 'classnames';
-import type { FunctionComponent, HTMLAttributes} from 'react';
+import type { FunctionComponent, HTMLAttributes } from 'react';
 import React, { useCallback } from 'react';
 import { useMount, useUnmount } from 'react-use';
-import type { RenderElementProps} from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
 import { LoadingPlaceholderV2 } from '../../../../components';
