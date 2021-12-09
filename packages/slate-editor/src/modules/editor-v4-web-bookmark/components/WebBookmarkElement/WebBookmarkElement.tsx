@@ -36,22 +36,30 @@ const Thumbnail: FunctionComponent<{ src: string, width?: number, height?: numbe
     </div>
 );
 
-const Provider: FunctionComponent<{ name: string | null | undefined, url: string | null | undefined, showUrl: boolean }> = ({ name, url , showUrl }) => {
+const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed'], showUrl: boolean }> = ({ oembed, showUrl }) => {
+    const { url } = oembed;
     const favicon = `https://avatars-cdn.prezly.com/favicon/fetch?url=${url}`;
-    const provider = showUrl && url || name || (url && hostname(url)) || '';
+    const providerUrl = showUrl ? url : (oembed.provider_url || url);
+    const provider = showUrl ? url : (
+        oembed.provider_name || hostname(oembed.provider_url || url)
+    );
 
     return (
-        <div className="editor-v4-web-bookmark-element__provider">
+        <a className="editor-v4-web-bookmark-element__provider"
+           rel="noopener noreferrer"
+           target="_blank"
+           href={providerUrl}
+        >
             <img
                 className="editor-v4-web-bookmark-element__provider-icon"
                 src={favicon}
                 alt={`${provider} favicon`}
                 aria-hidden="true"
             />
-            <div className="editor-v4-web-bookmark-element__provider-name">
+            <span className="editor-v4-web-bookmark-element__provider-name">
                 {provider}
-            </div>
-        </div>
+            </span>
+        </a>
     )
 };
 
@@ -107,11 +115,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                               {oembed.description}
                             </div>
                         )}
-                        <Provider
-                            name={oembed.provider_name}
-                            url={oembed.provider_url || oembed.url || url}
-                            showUrl={isEmpty}
-                        />
+                        <Provider oembed={oembed} showUrl={isEmpty} />
                     </div>
                 </div>
             </div>
