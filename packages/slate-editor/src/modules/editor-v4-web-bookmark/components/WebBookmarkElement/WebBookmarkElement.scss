@@ -82,10 +82,15 @@
         line-height: 1.6;
         margin: $spacing-base 0;
 
+        color: $grey-700;
+
         &,
         &:hover {
-            color: $grey-700;
             text-decoration: none;
+        }
+
+        &:hover {
+            color: $grey-800;
         }
 
         .editor-v4-web-bookmark-element--vertical & {
