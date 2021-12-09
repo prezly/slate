@@ -24,36 +24,41 @@ function homepage(url: string): string {
 }
 
 function isEmptyText(text: string | null | undefined): boolean {
-    return !Boolean(
-        text && text.replace(/\s+/g, '')
-    );
+    return !Boolean(text && text.replace(/\s+/g, ''));
 }
 
-const Thumbnail: FunctionComponent<{ href: string, src: string, width?: number, height?: number }> = ({ href, src, width, height }) => (
-    <a href={href} className="editor-v4-web-bookmark-element__thumbnail" style={{ backgroundImage: `url("${src}")` }}>
-        <img
-            className="editor-v4-web-bookmark-element__thumbnail-image"
-            src={src}
-            width={width}
-            height={height}
-            alt="Website preview"
-        />
-    </a>
-);
+const Thumbnail: FunctionComponent<{ href: string; src: string; width?: number; height?: number }> =
+    ({ href, src, width, height }) => (
+        <a
+            href={href}
+            className="editor-v4-web-bookmark-element__thumbnail"
+            style={{ backgroundImage: `url("${src}")` }}
+        >
+            <img
+                className="editor-v4-web-bookmark-element__thumbnail-image"
+                src={src}
+                width={width}
+                height={height}
+                alt="Website preview"
+            />
+        </a>
+    );
 
-const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed'], showUrl: boolean }> = ({ oembed, showUrl }) => {
+const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed']; showUrl: boolean }> = ({
+    oembed,
+    showUrl,
+}) => {
     const { url } = oembed;
     const favicon = `https://avatars-cdn.prezly.com/favicon?url=${url}?ideal_height=32`;
     const providerUrl = showUrl ? url : homepage(oembed.provider_url || url);
-    const provider = showUrl ? url : (
-        oembed.provider_name || hostname(oembed.provider_url || url)
-    );
+    const provider = showUrl ? url : oembed.provider_name || hostname(oembed.provider_url || url);
 
     return (
-        <a className="editor-v4-web-bookmark-element__provider"
-           rel="noopener noreferrer"
-           target="_blank"
-           href={providerUrl}
+        <a
+            className="editor-v4-web-bookmark-element__provider"
+            rel="noopener noreferrer"
+            target="_blank"
+            href={providerUrl}
         >
             <img
                 className="editor-v4-web-bookmark-element__provider-icon"
@@ -61,20 +66,16 @@ const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed'], showUrl: boo
                 alt={`${provider} favicon`}
                 aria-hidden="true"
             />
-            <span className="editor-v4-web-bookmark-element__provider-name">
-                {provider}
-            </span>
+            <span className="editor-v4-web-bookmark-element__provider-name">{provider}</span>
         </a>
-    )
+    );
 };
 
 export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
     const isSelected = useSelected();
     const { url, oembed, layout } = element;
     const showThumbnail = element.show_thumbnail && oembed.thumbnail_url;
-    const isEmpty = !showThumbnail
-        && isEmptyText(oembed.title)
-        && isEmptyText(oembed.description);
+    const isEmpty = !showThumbnail && isEmptyText(oembed.title) && isEmptyText(oembed.description);
     const actualLayout = showThumbnail ? layout : BookmarkCardLayout.HORIZONTAL;
 
     return (
@@ -83,8 +84,10 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             className={classNames('editor-v4-web-bookmark-element', {
                 'editor-v4-web-bookmark-element--active': isSelected,
                 'editor-v4-web-bookmark-element--minimal': isEmpty,
-                'editor-v4-web-bookmark-element--vertical': actualLayout === BookmarkCardLayout.VERTICAL,
-                'editor-v4-web-bookmark-element--horizontal': actualLayout === BookmarkCardLayout.HORIZONTAL,
+                'editor-v4-web-bookmark-element--vertical':
+                    actualLayout === BookmarkCardLayout.VERTICAL,
+                'editor-v4-web-bookmark-element--horizontal':
+                    actualLayout === BookmarkCardLayout.HORIZONTAL,
                 'editor-v4-web-bookmark-element--video': element.oembed.type === 'video',
             })}
             data-slate-type={element.type}
@@ -118,7 +121,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                         )}
                         {!isEmptyText(oembed.description) && (
                             <div className="editor-v4-web-bookmark-element__description">
-                              {oembed.description}
+                                {oembed.description}
                             </div>
                         )}
                         <Provider oembed={oembed} showUrl={isEmpty} />

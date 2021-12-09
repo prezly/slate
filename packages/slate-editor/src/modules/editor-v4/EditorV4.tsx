@@ -2,15 +2,9 @@ import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import { noop } from 'lodash';
-import type { FunctionComponent} from 'react';
+import type { FunctionComponent } from 'react';
 import React from 'react';
-import {
-    useEffect,
-    useImperativeHandle,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
