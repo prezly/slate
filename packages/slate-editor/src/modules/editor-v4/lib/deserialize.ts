@@ -1,8 +1,9 @@
-import { createEmptyValue } from '@prezly/slate-commons';
 import type { Element } from 'slate';
 import { Node } from 'slate';
 
-const deserialize = (value: string): Element[] => {
+import { createEmptyValue } from './createEmptyValue';
+
+export function deserialize(value: string): Element[] {
     if (!value) {
         return createEmptyValue();
     }
@@ -16,6 +17,4 @@ const deserialize = (value: string): Element[] => {
     } catch (error) {
         return createEmptyValue();
     }
-};
-
-export default deserialize;
+}

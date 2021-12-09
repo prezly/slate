@@ -1,5 +1,4 @@
 export { default as createDeserializeElement } from './createDeserializeElement';
-export { default as createEmptyValue } from './createEmptyValue';
 export { default as decodeSlateFragment } from './decodeSlateFragment';
 export { default as decorateExtensions } from './decorateExtensions';
 export { default as encodeSlateFragment } from './encodeSlateFragment';

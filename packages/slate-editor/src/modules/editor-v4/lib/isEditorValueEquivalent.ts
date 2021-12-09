@@ -1,7 +1,7 @@
 import type { Value } from '../types';
 
-import deserialize from './deserialize';
-import serialize from './serialize';
+import { deserialize } from './deserialize';
+import { serialize } from './serialize';
 
 const isEditorValueEquivalent = (a: string | Value, b: string | Value): boolean => {
     const aContent = typeof a === 'string' ? deserialize(a) : a;
