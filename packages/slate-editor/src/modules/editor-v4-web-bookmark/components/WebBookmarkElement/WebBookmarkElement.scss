@@ -80,7 +80,7 @@
     &__title {
         font-weight: 800;
         line-height: 1.6;
-        margin: $spacing-base 0;
+        margin: 0 0 $spacing-base 0;
 
         color: $grey-700;
 
@@ -121,6 +121,8 @@
     &__provider {
         display: flex;
         align-items: center;
+        color: $grey-700;
+        font-weight: 600;
 
         .editor-v4-web-bookmark-element--vertical & {
             margin-top: 13px;
@@ -131,6 +133,15 @@
 
         &:first-child {
             margin-top: 0;
+        }
+
+        &,
+        &:hover {
+            text-decoration: none;
+        }
+
+        &:hover {
+            color: $grey-800;
         }
     }
 

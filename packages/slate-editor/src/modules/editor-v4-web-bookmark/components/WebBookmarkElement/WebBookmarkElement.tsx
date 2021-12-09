@@ -18,14 +18,19 @@ function hostname(url: string): string {
     return host;
 }
 
+function homepage(url: string): string {
+    const { origin } = new URL(url);
+    return origin;
+}
+
 function isEmptyText(text: string | null | undefined): boolean {
     return !Boolean(
         text && text.replace(/\s+/g, '')
     );
 }
 
-const Thumbnail: FunctionComponent<{ src: string, width?: number, height?: number }> = ({ src, width, height }) => (
-    <div className="editor-v4-web-bookmark-element__thumbnail" style={{ backgroundImage: `url("${src}")` }}>
+const Thumbnail: FunctionComponent<{ href: string, src: string, width?: number, height?: number }> = ({ href, src, width, height }) => (
+    <a href={href} className="editor-v4-web-bookmark-element__thumbnail" style={{ backgroundImage: `url("${src}")` }}>
         <img
             className="editor-v4-web-bookmark-element__thumbnail-image"
             src={src}
@@ -33,25 +38,33 @@ const Thumbnail: FunctionComponent<{ src: string, width?: number, height?: numbe
             height={height}
             alt="Website preview"
         />
-    </div>
+    </a>
 );
 
-const Provider: FunctionComponent<{ name: string | null | undefined, url: string | null | undefined, showUrl: boolean }> = ({ name, url , showUrl }) => {
-    const favicon = `https://avatars-cdn.prezly.com/favicon/fetch?url=${url}`;
-    const provider = showUrl && url || name || (url && hostname(url)) || '';
+const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed'], showUrl: boolean }> = ({ oembed, showUrl }) => {
+    const { url } = oembed;
+    const favicon = `https://avatars-cdn.prezly.com/favicon?url=${url}?ideal_height=32`;
+    const providerUrl = showUrl ? url : homepage(oembed.provider_url || url);
+    const provider = showUrl ? url : (
+        oembed.provider_name || hostname(oembed.provider_url || url)
+    );
 
     return (
-        <div className="editor-v4-web-bookmark-element__provider">
+        <a className="editor-v4-web-bookmark-element__provider"
+           rel="noopener noreferrer"
+           target="_blank"
+           href={providerUrl}
+        >
             <img
                 className="editor-v4-web-bookmark-element__provider-icon"
                 src={favicon}
                 alt={`${provider} favicon`}
                 aria-hidden="true"
             />
-            <div className="editor-v4-web-bookmark-element__provider-name">
+            <span className="editor-v4-web-bookmark-element__provider-name">
                 {provider}
-            </div>
-        </div>
+            </span>
+        </a>
     )
 };
 
@@ -86,6 +99,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                 <div className="editor-v4-web-bookmark-element__card">
                     {showThumbnail && oembed.thumbnail_url && (
                         <Thumbnail
+                            href={url}
                             src={oembed.thumbnail_url}
                             width={oembed.thumbnail_width}
                             height={oembed.thumbnail_height}
@@ -107,11 +121,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                               {oembed.description}
                             </div>
                         )}
-                        <Provider
-                            name={oembed.provider_name}
-                            url={oembed.provider_url || oembed.url || url}
-                            showUrl={isEmpty}
-                        />
+                        <Provider oembed={oembed} showUrl={isEmpty} />
                     </div>
                 </div>
             </div>
