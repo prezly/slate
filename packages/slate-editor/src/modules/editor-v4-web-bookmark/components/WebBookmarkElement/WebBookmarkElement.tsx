@@ -24,8 +24,8 @@ function isEmptyText(text: string | null | undefined): boolean {
     );
 }
 
-const Thumbnail: FunctionComponent<{ src: string, width?: number, height?: number }> = ({ src, width, height }) => (
-    <div className="editor-v4-web-bookmark-element__thumbnail" style={{ backgroundImage: `url("${src}")` }}>
+const Thumbnail: FunctionComponent<{ href: string, src: string, width?: number, height?: number }> = ({ href, src, width, height }) => (
+    <a href={href} className="editor-v4-web-bookmark-element__thumbnail" style={{ backgroundImage: `url("${src}")` }}>
         <img
             className="editor-v4-web-bookmark-element__thumbnail-image"
             src={src}
@@ -33,7 +33,7 @@ const Thumbnail: FunctionComponent<{ src: string, width?: number, height?: numbe
             height={height}
             alt="Website preview"
         />
-    </div>
+    </a>
 );
 
 const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed'], showUrl: boolean }> = ({ oembed, showUrl }) => {
@@ -94,6 +94,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                 <div className="editor-v4-web-bookmark-element__card">
                     {showThumbnail && oembed.thumbnail_url && (
                         <Thumbnail
+                            href={url}
                             src={oembed.thumbnail_url}
                             width={oembed.thumbnail_width}
                             height={oembed.thumbnail_height}
