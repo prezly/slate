@@ -18,6 +18,11 @@ function hostname(url: string): string {
     return host;
 }
 
+function homepage(url: string): string {
+    const { origin } = new URL(url);
+    return origin;
+}
+
 function isEmptyText(text: string | null | undefined): boolean {
     return !Boolean(
         text && text.replace(/\s+/g, '')
@@ -39,7 +44,7 @@ const Thumbnail: FunctionComponent<{ href: string, src: string, width?: number, 
 const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed'], showUrl: boolean }> = ({ oembed, showUrl }) => {
     const { url } = oembed;
     const favicon = `https://avatars-cdn.prezly.com/favicon/fetch?url=${url}`;
-    const providerUrl = showUrl ? url : (oembed.provider_url || url);
+    const providerUrl = showUrl ? url : homepage(oembed.provider_url || url);
     const provider = showUrl ? url : (
         oembed.provider_name || hostname(oembed.provider_url || url)
     );
