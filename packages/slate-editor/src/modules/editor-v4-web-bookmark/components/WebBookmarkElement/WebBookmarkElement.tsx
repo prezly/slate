@@ -7,7 +7,6 @@ import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
 import './WebBookmarkElement.scss';
-import { ExternalLink } from '../../../../icons';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -52,7 +51,6 @@ const Provider: FunctionComponent<{ name: string | null | undefined, url: string
             <div className="editor-v4-web-bookmark-element__provider-name">
                 {provider}
             </div>
-            <ExternalLink className="editor-v4-web-bookmark-element__provider-external-link" />
         </div>
     )
 };
@@ -107,15 +105,6 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                         {!isEmptyText(oembed.description) && (
                             <div className="editor-v4-web-bookmark-element__description">
                               {oembed.description}
-                              {' '}
-                              <a
-                                  className="editor-v4-web-bookmark-element__read-more"
-                                  href={url}
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                              >
-                                  Read more
-                              </a>
                             </div>
                         )}
                         <Provider
