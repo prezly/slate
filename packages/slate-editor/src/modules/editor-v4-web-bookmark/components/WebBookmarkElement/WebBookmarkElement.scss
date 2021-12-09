@@ -114,16 +114,6 @@
         }
     }
 
-    &__read-more {
-        white-space: nowrap;
-
-        &,
-        &:hover {
-            color: $grey-700;
-            text-decoration: underline;
-        }
-    }
-
     &__provider {
         display: flex;
         align-items: center;

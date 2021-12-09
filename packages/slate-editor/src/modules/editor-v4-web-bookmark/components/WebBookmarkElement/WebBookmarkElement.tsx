@@ -105,15 +105,6 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                         {!isEmptyText(oembed.description) && (
                             <div className="editor-v4-web-bookmark-element__description">
                               {oembed.description}
-                              {' '}
-                              <a
-                                  className="editor-v4-web-bookmark-element__read-more"
-                                  href={url}
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                              >
-                                  Read more
-                              </a>
                             </div>
                         )}
                         <Provider
