@@ -13,9 +13,7 @@ export const VoidExtension = (): Extension => ({
             return;
         }
 
-        const isVoid = currentNode && Editor.isVoid(editor, currentNode);
-
-        if (!isVoid) {
+        if (!Editor.isVoid(editor, currentNode)) {
             return;
         }
 
