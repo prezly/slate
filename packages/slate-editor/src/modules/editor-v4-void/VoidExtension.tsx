@@ -7,24 +7,26 @@ import { VOID_EXTENSION_ID } from './constants';
 export const VoidExtension = (): Extension => ({
     id: VOID_EXTENSION_ID,
     onKeyDown: (event, editor) => {
-        const [currentElement] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
+        const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
 
-        if (!currentElement) {
+        if (!currentNode || !editor.selection) {
             return;
         }
 
-        const isVoid = currentElement && Editor.isVoid(editor, currentElement);
+        const isVoid = currentNode && Editor.isVoid(editor, currentNode);
 
         if (!isVoid) {
             return;
         }
 
+        event.preventDefault();
+
         if (isHotkey('up')(event)) {
-            event.preventDefault();
             EditorCommands.moveCursorToPreviousBlock(editor);
-        } else if (isHotkey('down')(event) || isHotkey('enter')(event)) {
-            event.preventDefault();
+        } else if (isHotkey('down')(event)) {
             EditorCommands.moveCursorToNextBlock(editor);
+        } else if (isHotkey('enter')(event)) {
+            EditorCommands.insertEmptyParagraph(editor);
         }
     },
 });
