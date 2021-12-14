@@ -16,6 +16,7 @@ import { RichFormattingExtension } from '../../modules/editor-v4-rich-formatting
 import { UserMentionsExtension } from '../../modules/editor-v4-user-mentions';
 import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
 import { VideoExtension } from '../editor-v4-video';
+import { VoidExtension } from '../editor-v4-void';
 
 import {
     createHandleEditGallery,
@@ -127,6 +128,8 @@ function* getEnabledExtensions({
     yield DividerExtension({ containerRef });
 
     yield LoaderExtension({ onOperationEnd, onOperationStart });
+
+    yield VoidExtension();
 }
 
 export default getEnabledExtensions;
