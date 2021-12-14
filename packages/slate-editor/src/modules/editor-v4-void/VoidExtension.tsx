@@ -9,21 +9,17 @@ export const VoidExtension = (): Extension => ({
     onKeyDown: (event, editor) => {
         const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
 
-        if (!currentNode || !editor.selection) {
-            return;
-        }
-
-        if (!Editor.isVoid(editor, currentNode)) {
+        if (!currentNode || !editor.selection || !Editor.isVoid(editor, currentNode)) {
             return;
         }
 
         event.preventDefault();
 
-        if (isHotkey('up')(event)) {
+        if (isHotkey('up', event)) {
             EditorCommands.moveCursorToPreviousBlock(editor);
-        } else if (isHotkey('down')(event)) {
+        } else if (isHotkey('down', event)) {
             EditorCommands.moveCursorToNextBlock(editor);
-        } else if (isHotkey('enter')(event)) {
+        } else if (isHotkey('enter', event)) {
             EditorCommands.insertEmptyParagraph(editor);
         }
     },
