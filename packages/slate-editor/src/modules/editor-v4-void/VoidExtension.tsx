@@ -13,14 +13,21 @@ export const VoidExtension = (): Extension => ({
             return;
         }
 
-        event.preventDefault();
+        let hasBeenHandled = false;
 
         if (isHotkey('up', event)) {
+            hasBeenHandled = true;
             EditorCommands.moveCursorToPreviousBlock(editor);
         } else if (isHotkey('down', event)) {
+            hasBeenHandled = true;
             EditorCommands.moveCursorToNextBlock(editor);
         } else if (isHotkey('enter', event)) {
+            hasBeenHandled = true;
             EditorCommands.insertEmptyParagraph(editor);
+        }
+
+        if (hasBeenHandled) {
+            event.preventDefault();
         }
     },
 });
