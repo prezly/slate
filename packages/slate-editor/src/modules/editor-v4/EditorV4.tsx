@@ -3,8 +3,7 @@ import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import { noop } from 'lodash';
 import type { FunctionComponent } from 'react';
-import React from 'react';
-import { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
@@ -40,6 +39,7 @@ import {
     useCursorInView,
 } from './lib';
 import type { EditorRef, EditorV4Props } from './types';
+import { Theme } from './types';
 import useCreateEditor from './useCreateEditor';
 import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';
@@ -60,6 +60,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     plugins,
     readOnly,
     style,
+    toolbarsTheme = Theme.CLASSIC,
     value,
     withAttachments,
     withCoverage,
@@ -315,7 +316,15 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isCustomPlaceholderShown);
 
     return (
-        <div className={classNames('editor-v4', className)} ref={containerRef} style={style}>
+        <div
+            className={classNames('editor-v4', className, {
+                'editor-v4--classic-toolbars': toolbarsTheme === Theme.CLASSIC,
+                'editor-v4--light-toolbars': toolbarsTheme === Theme.LIGHT,
+                'editor-v4--dark-toolbars': toolbarsTheme === Theme.DARK,
+            })}
+            ref={containerRef}
+            style={style}
+        >
             <Slate
                 editor={editor}
                 onChange={(newValue) => {

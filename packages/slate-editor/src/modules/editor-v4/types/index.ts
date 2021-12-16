@@ -41,6 +41,12 @@ export interface EditorV4ExtensionsProps {
 
 export type Value = Element[];
 
+export enum Theme {
+    CLASSIC = 'classic',
+    LIGHT = 'light',
+    DARK = 'dark',
+}
+
 export interface EditorV4Props extends EditorV4ExtensionsProps {
     autoFocus?: boolean;
     className?: string;
@@ -57,6 +63,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     plugins?: (<T extends Editor>(editor: T) => T)[];
     readOnly?: boolean;
     style?: CSSProperties;
+    toolbarsTheme?: Theme;
     value: Value;
     withCursorInView?: {
         minBottom: number;
