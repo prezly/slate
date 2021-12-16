@@ -15,6 +15,7 @@ import {
     createImageCandidate,
     getAncestorAnchor,
     isDeleting,
+    isDeletingBackward,
     normalizeChildren,
     normalizeImageCandidate,
     normalizeRedundantImageAttributes,
@@ -98,6 +99,19 @@ const ImageExtension = ({
                 event.preventDefault();
                 event.stopPropagation();
                 return;
+            }
+
+            if (
+                isDeletingBackward(event) &&
+                EditorCommands.isSelectionAtBlockStart(editor) &&
+                EditorCommands.isSelectionEmpty(editor)
+            ) {
+                EditorCommands.removeNode(editor, {
+                    at: nodeEntry[1],
+                    match: isImageNode,
+                });
+                event.preventDefault();
+                event.stopPropagation();
             }
         }
     },
