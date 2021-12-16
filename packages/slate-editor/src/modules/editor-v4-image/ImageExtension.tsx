@@ -101,7 +101,11 @@ const ImageExtension = ({
                 return;
             }
 
-            if (isDeletingBackward(event) && EditorCommands.isSelectionAtBlockStart(editor)) {
+            if (
+                isDeletingBackward(event) &&
+                EditorCommands.isSelectionAtBlockStart(editor) &&
+                EditorCommands.isSelectionEmpty(editor)
+            ) {
                 EditorCommands.removeNode(editor, {
                     at: nodeEntry[1],
                     match: isImageNode,
