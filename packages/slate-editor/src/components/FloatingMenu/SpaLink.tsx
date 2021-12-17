@@ -12,8 +12,8 @@ export interface Props extends Partial<LinkProps> {
 
 const SpaLink: FunctionComponent<Props> = ({ children, className, disabled, href, ...props }) => (
     <Link
-        className={classNames('floating-menu__link', className, {
-            'floating-menu__link--disabled': disabled,
+        className={classNames('editor-floating-menu__link', className, {
+            'editor-floating-menu__link--disabled': disabled,
         })}
         to={href}
         {...props}

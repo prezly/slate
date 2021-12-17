@@ -1,6 +1,6 @@
 @import "styles/variables";
 
-.floating-menu-dropdown {
+.editor-floating-menu-dropdown {
     display: inline-block;
     width: 180px;
     vertical-align: top;
@@ -58,7 +58,7 @@
     }
 
     &--rich-text-formatting-options {
-        .floating-menu-dropdown__menu-item {
+        .editor-floating-menu-dropdown__menu-item {
             border-top: 1px solid $legacy-color-grey-250;
             margin-bottom: 0;
             min-height: 34px;
@@ -75,7 +75,7 @@
             }
         }
 
-        .floating-menu-dropdown__menu-option {
+        .editor-floating-menu-dropdown__menu-option {
             margin: 0;
 
             &--paragraph {

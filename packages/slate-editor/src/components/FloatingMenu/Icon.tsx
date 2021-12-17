@@ -8,7 +8,7 @@ export interface Props {
 }
 
 const Icon: FunctionComponent<Props> = ({ className, icon: IconComponent }) => (
-    <IconComponent className={classNames('floating-menu__icon', className)} />
+    <IconComponent className={classNames('editor-floating-menu__icon', className)} />
 );
 
 export default Icon;
