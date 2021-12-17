@@ -1,7 +1,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.editor-floating-menu-dropdown {
+.editor-menu-dropdown {
     display: inline-block;
     width: 180px;
     vertical-align: top;
@@ -163,7 +163,7 @@
     }
 
     &--rich-text-formatting-options {
-        .editor-floating-menu-dropdown__menu-item {
+        .editor-menu-dropdown__menu-item {
             margin-bottom: 0;
             min-height: 34px;
             // Workaround to center the text inside a fixed-height container.
@@ -246,7 +246,7 @@
             }
         }
 
-        .editor-floating-menu-dropdown__menu-option {
+        .editor-menu-dropdown__menu-option {
             margin: 0;
             font-size: 13px;
 
@@ -285,7 +285,7 @@
             }
         }
 
-        .editor-floating-menu-dropdown__menu-item--selected .editor-floating-menu-dropdown__menu-option {
+        .editor-menu-dropdown__menu-item--selected .editor-menu-dropdown__menu-option {
             @include dark {
                 color: $toolbar-dark-theme-icon-active-color;
             }

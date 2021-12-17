@@ -6,7 +6,7 @@ import { RootCloseWrapper } from 'react-overlays';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu, GalleryLayoutSettings, Menu } from '../../../../components';
+import { GalleryLayoutSettings, Menu } from '../../../../components';
 import { Cogwheel, Dice, Edit, Trash } from '../../../../icons';
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
@@ -63,7 +63,7 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
     }
 
     return (
-        <FloatingMenu containerRef={containerRef} element={element}>
+        <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <LayoutControls layout={gallery.layout} onChange={handleLayoutChange} />
 
             <Menu.ButtonGroup>
@@ -115,7 +115,7 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>
-        </FloatingMenu>
+        </Menu.FloatingMenu>
     );
 };
 

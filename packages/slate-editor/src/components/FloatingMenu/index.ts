@@ -1,1 +1,0 @@
-export { FloatingMenu } from './FloatingMenu';

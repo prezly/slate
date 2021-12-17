@@ -8,8 +8,8 @@ export interface Props {
 
 export const ButtonGroup: FunctionComponent<Props> = ({ children, flex }) => (
     <div
-        className={classNames('editor-floating-menu__button-group', {
-            'editor-floating-menu__button-group--flex': flex,
+        className={classNames('editor-menu__button-group', {
+            'editor-menu__button-group--flex': flex,
         })}
     >
         {children}

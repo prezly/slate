@@ -10,8 +10,8 @@ export interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
 export const Link: FunctionComponent<Props> = ({ children, className, disabled, ...props }) => (
     <a
         {...props}
-        className={classNames('editor-floating-menu__link', className, {
-            'editor-floating-menu__link--disabled': disabled,
+        className={classNames('editor-menu__link', className, {
+            'editor-menu__link--disabled': disabled,
         })}
     >
         {children}

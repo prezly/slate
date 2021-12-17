@@ -15,9 +15,9 @@ export const Button: FunctionComponent<Props> = ({
     ...props
 }) => (
     <button
-        className={classNames('editor-floating-menu__button', className, {
-            'editor-floating-menu__button--danger': variant === 'danger',
-            'editor-floating-menu__button--active': active,
+        className={classNames('editor-menu__button', className, {
+            'editor-menu__button--danger': variant === 'danger',
+            'editor-menu__button--active': active,
         })}
         // eslint-disable-next-line react/button-has-type
         type={type}

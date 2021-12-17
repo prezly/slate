@@ -2,7 +2,7 @@ import type { FunctionComponent, MouseEvent, RefObject } from 'react';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-import { FloatingMenu } from '../../../../../components';
+import { Menu } from '../../../../../components';
 
 import './GalleryTooltip.scss';
 
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const GalleryTooltip: FunctionComponent<Props> = ({ containerRef, element, onClick }) => (
-    <FloatingMenu
+    <Menu.FloatingMenu
         className="gallery-tooltip"
         containerRef={containerRef}
         element={element}
@@ -25,7 +25,7 @@ const GalleryTooltip: FunctionComponent<Props> = ({ containerRef, element, onCli
             preview
         </Button>
         .
-    </FloatingMenu>
+    </Menu.FloatingMenu>
 );
 
 export default GalleryTooltip;

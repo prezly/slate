@@ -2,7 +2,7 @@ import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu, Menu } from '../../../components';
+import { Menu } from '../../../components';
 import { Trash } from '../../../icons';
 import { removeDivider } from '../transforms';
 
@@ -20,7 +20,7 @@ const DividerMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
     }
 
     return (
-        <FloatingMenu containerRef={containerRef} element={element}>
+        <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
                 <Menu.Button
                     onMouseDown={() => removeDivider(editor)}
@@ -30,7 +30,7 @@ const DividerMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>
-        </FloatingMenu>
+        </Menu.FloatingMenu>
     );
 };
 

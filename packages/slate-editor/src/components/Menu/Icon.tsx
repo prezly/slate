@@ -8,5 +8,5 @@ export interface Props {
 }
 
 export const Icon: FunctionComponent<Props> = ({ className, icon: IconComponent }) => (
-    <IconComponent className={classNames('editor-floating-menu__icon', className)} />
+    <IconComponent className={classNames('editor-menu__icon', className)} />
 );

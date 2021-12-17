@@ -2,7 +2,7 @@ import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu, Menu } from '../../../components';
+import { Menu } from '../../../components';
 import { Trash } from '../../../icons';
 import { EventsEditor } from '../../../modules/editor-v4-events';
 import { removeCoverage } from '../lib';
@@ -29,7 +29,7 @@ const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
     };
 
     return (
-        <FloatingMenu containerRef={containerRef} element={element}>
+        <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
                 <Menu.Button
                     onMouseDown={handleRemove}
@@ -39,7 +39,7 @@ const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>
-        </FloatingMenu>
+        </Menu.FloatingMenu>
     );
 };
 

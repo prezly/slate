@@ -9,7 +9,7 @@ export interface Props {
 export const Toolbar: FunctionComponent<Props> = ({ children, className }) => (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
-        className={classNames('editor-floating-menu', className)}
+        className={classNames('editor-menu', className)}
         onMouseDown={(event) => event.preventDefault()}
     >
         {children}

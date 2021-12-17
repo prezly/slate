@@ -4,7 +4,7 @@ import React from 'react';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu, Menu } from '../../../components';
+import { Menu } from '../../../components';
 import { Edit, Trash } from '../../../icons';
 import { removeFileAttachment } from '../transforms';
 
@@ -37,7 +37,7 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
     };
 
     return (
-        <FloatingMenu containerRef={containerRef} element={element}>
+        <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
                 <Menu.Button onMouseDown={() => onEdit(editor)} title="Edit attachment">
                     <Menu.Icon icon={Edit} />
@@ -52,7 +52,7 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>
-        </FloatingMenu>
+        </Menu.FloatingMenu>
     );
 };
 
