@@ -10,7 +10,7 @@ import MenuOption from '../MenuOption';
 const OPTIONS: FloatingMenuOption<BlockType>[] = [
     { hidden: true, label: 'Multiple', value: 'multiple' },
     {
-        label: 'Default Paragraph',
+        label: 'Paragraph',
         value: PARAGRAPH_NODE_TYPE,
         render: (option) => (
             <MenuOption
