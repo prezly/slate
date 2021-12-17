@@ -1,3 +1,4 @@
+@import "styles/mixins";
 @import "styles/variables";
 
 .editor-v4-link-menu {
@@ -12,14 +13,28 @@
         display: flex;
         align-items: stretch;
         justify-content: stretch;
-        border-right: 1px solid $legacy-color-grey-250;
+        border-right: 1px solid;
+
+        @include classic {
+            border-color: $toolbar-classic-theme-border-color;
+        }
+        @include light {
+            border-color: $toolbar-light-theme-border-color;
+        }
+        @include dark {
+            border-color: $toolbar-dark-theme-border-color;
+        }
     }
 
     &__input {
         border: 0;
-        padding: 0 $spacing-2;
+        padding: 0 $spacing-1;
+        margin: $spacing-1;
+        border-radius: $border-radius-base;
         min-width: 264px;
         font-size: 14px;
+
+        color: $black;
 
         &:focus {
             outline: none;

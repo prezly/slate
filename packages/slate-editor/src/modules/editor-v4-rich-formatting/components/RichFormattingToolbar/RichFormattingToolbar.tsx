@@ -66,18 +66,18 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     <FormatBold className="editor-v4-rich-formatting-toolbar__icon" />
                 </MenuButton>
                 <MenuButton
-                    isActive={EditorCommands.isMarkActive(editor, MarkType.UNDERLINED)}
-                    onClick={() => EditorCommands.toggleMark(editor, MarkType.UNDERLINED)}
-                    type={MarkType.UNDERLINED}
-                >
-                    <FormatUnderline className="editor-v4-rich-formatting-toolbar__icon" />
-                </MenuButton>
-                <MenuButton
                     isActive={EditorCommands.isMarkActive(editor, MarkType.ITALIC)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.ITALIC)}
                     type={MarkType.ITALIC}
                 >
                     <FormatItalic className="editor-v4-rich-formatting-toolbar__icon" />
+                </MenuButton>
+                <MenuButton
+                    isActive={EditorCommands.isMarkActive(editor, MarkType.UNDERLINED)}
+                    onClick={() => EditorCommands.toggleMark(editor, MarkType.UNDERLINED)}
+                    type={MarkType.UNDERLINED}
+                >
+                    <FormatUnderline className="editor-v4-rich-formatting-toolbar__icon" />
                 </MenuButton>
 
                 <FloatingMenu.Button
