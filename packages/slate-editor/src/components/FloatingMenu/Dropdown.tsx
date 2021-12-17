@@ -37,7 +37,8 @@ const Dropdown = <Value extends string = string>({
         <BootstrapDropdown
             {...props}
             className={classNames('editor-floating-menu-dropdown', className, {
-                'editor-floating-menu-dropdown--rich-text-formatting-options': richTextFormattingOptions,
+                'editor-floating-menu-dropdown--rich-text-formatting-options':
+                    richTextFormattingOptions,
             })}
             onSelect={handleSelect}
         >
@@ -45,7 +46,10 @@ const Dropdown = <Value extends string = string>({
             <BootstrapDropdown.Menu>
                 {visibleOptions.map((option) => (
                     <MenuItem
-                        className="editor-floating-menu-dropdown__menu-item"
+                        className={classNames('editor-floating-menu-dropdown__menu-item', {
+                            'editor-floating-menu-dropdown__menu-item--selected':
+                                option.value === value,
+                        })}
                         eventKey={option.value}
                         key={option.value}
                     >

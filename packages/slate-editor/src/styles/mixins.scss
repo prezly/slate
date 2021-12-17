@@ -71,3 +71,21 @@
         }
     }
 }
+
+@mixin classic {
+    .editor-v4--classic-toolbars & {
+        @content;
+    }
+}
+
+@mixin light {
+    .editor-v4--light-toolbars & {
+        @content;
+    }
+}
+
+@mixin dark {
+    .editor-v4--dark-toolbars & {
+        @content;
+    }
+}

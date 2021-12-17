@@ -14,7 +14,7 @@ $spacing-6: 6 * $spacing-base;
 $spacing-7: 7 * $spacing-base;
 $spacing-8: 8 * $spacing-base;
 
-$border-radius-base: 4px;
+$border-radius-base: 6px;
 
 $font-family-sans-serif: "Open Sans", sans-serif;
 $font-size-x-small: 12px;
@@ -30,3 +30,32 @@ $slate-paragraph-line-height: 26px;
 
 $story-composer-navigation-z-index: 10000;
 $story-composer-sidebar-z-index: $story-composer-navigation-z-index + 1;
+
+$toolbar-classic-theme-bg: #fff;
+$toolbar-classic-theme-border-color: $legacy-color-grey-250;
+$toolbar-classic-theme-text-color: #000;
+$toolbar-classic-theme-text-hover-color: #000;
+$toolbar-classic-theme-icon-color: #000;
+$toolbar-classic-theme-icon-active-color: $legacy-color-green-500;
+$toolbar-classic-theme-icon-hover-color: $toolbar-classic-theme-icon-active-color;
+$toolbar-classic-theme-danger-color: $legacy-color-red-500;
+
+$toolbar-light-theme-bg: #fff;
+$toolbar-light-theme-border-color: rgba(#000, 0.12);
+$toolbar-light-theme-text-color: #000;
+$toolbar-light-theme-text-hover-color: #000;
+$toolbar-light-theme-icon-color: rgba(#000, 0.6);
+$toolbar-light-theme-icon-active-color: $legacy-color-green-500;
+$toolbar-light-theme-danger-color: $legacy-color-red-500;
+$toolbar-light-theme-hover-bg: rgba(#000, 0.12);
+$toolbar-light-theme-focus-outline: #c7d2fe;
+
+$toolbar-dark-theme-bg: #292942;
+$toolbar-dark-theme-border-color: rgba(#fff, 0.12);
+$toolbar-dark-theme-text-color: #fff;
+$toolbar-dark-theme-text-hover-color: #fff;
+$toolbar-dark-theme-icon-color: rgba(#fff, 0.6);
+$toolbar-dark-theme-icon-active-color: #F9CA7B;
+$toolbar-dark-theme-danger-color: $legacy-color-red-500;
+$toolbar-dark-theme-hover-bg: rgba(#fff, 0.12);
+$toolbar-dark-theme-focus-outline: #c7d2fe;

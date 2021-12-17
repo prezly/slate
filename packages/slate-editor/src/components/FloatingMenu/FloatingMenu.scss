@@ -6,9 +6,24 @@
     $font-size: 14px;
 
     display: flex;
-    background-color: #ffffff;
-    border: 1px solid $legacy-color-grey-250;
-    border-radius: $border-radius-base;
+    border-radius: $border-radius-base * 2;
+
+    @include classic {
+        border-radius: 4px;
+        color: $black;
+        background-color: $toolbar-classic-theme-bg;
+        border: 1px solid $toolbar-classic-theme-border-color;
+    }
+    @include light {
+        color: $black;
+        background-color: $toolbar-light-theme-bg;
+        border: 1px solid $toolbar-light-theme-border-color;
+    }
+    @include dark {
+        color: $toolbar-dark-theme-text-color;
+        background-color: $toolbar-dark-theme-bg;
+    }
+
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11);
     font-size: 0;
 
@@ -44,11 +59,22 @@
     }
 
     &__button-group {
-        border-right: 1px solid $legacy-color-grey-250;
+        border-right: 1px solid;
+
+        @include classic {
+            border-color: $toolbar-classic-theme-border-color
+        }
+        @include light {
+            border-color: $toolbar-light-theme-border-color
+        }
+        @include dark {
+            border-color: $toolbar-dark-theme-border-color;
+        }
+
         // Use inline-flex to prevent the button-group from collapsing
         // when there is not enough horizontal space.
         display: inline-flex;
-        padding: 0 $spacing-half;
+        padding: 0 $spacing-base;
 
         &:last-child {
             border-right: none;
@@ -72,21 +98,70 @@
     &__button {
         @include btn-unstyled;
 
-        max-height: 2 * ($spacing-half + $spacing-1) + 16px;
-        min-width: 32px;
-        padding: $spacing-half + $spacing-1 $spacing-1;
+        max-height: $spacing-base * 5;
+        min-width: $spacing-base * 3;
+        padding: $spacing-base $spacing-half;
         border: 0;
         position: relative;
         overflow: hidden;
 
+        margin-right: 1px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        @include classic {
+            color: $toolbar-classic-theme-icon-color;
+        }
+        @include light {
+            color: $toolbar-light-theme-icon-color;
+        }
+        @include dark {
+            color: $toolbar-dark-theme-icon-color;
+        }
+
         &:hover {
-            color: $legacy-color-green-500;
+            @include classic {
+                color: $toolbar-classic-theme-icon-hover-color;
+            }
+
+            &::before {
+                // Trick to display smaller hover background square,
+                // while keeping the button area as big as possible (for a11y)
+                content: "";
+                display: block;
+                border-radius: $border-radius-base;
+                position: absolute;
+                left: 0;
+                top: $spacing-base;
+                bottom: $spacing-base;
+                right: 0;
+
+                @include classic {
+                    display: none;
+                }
+                @include light {
+                    background-color: $toolbar-light-theme-hover-bg;
+                }
+                @include dark {
+                    background-color: $toolbar-dark-theme-hover-bg;
+                }
+            }
         }
 
         &--active {
-            color: $legacy-color-green-500;
+            @include classic {
+                color: $toolbar-light-theme-icon-active-color;
+            }
+            @include light {
+                color: $toolbar-light-theme-icon-active-color;
+            }
+            @include dark {
+                color: $toolbar-dark-theme-icon-active-color;
+            }
 
-            &:before {
+            &::after {
                 content: "";
                 position: absolute;
                 bottom: -1px;
@@ -94,15 +169,34 @@
                 right: $spacing-half;
                 width: $spacing-3;
                 height: $spacing-half;
-                border-radius: math.div($border-radius-base, 2);
-                background-color: $legacy-color-green-500;
+                border-radius: $border-radius-base * 0.5;
+
+                @include classic {
+                    background-color: $toolbar-classic-theme-icon-active-color;
+                }
+                @include light {
+                    display: none;
+                }
+                @include dark {
+                    display: none;
+                }
             }
         }
 
         &--danger {
             &,
             &:hover {
-                color: $legacy-color-red-500;
+                @include classic {
+                    color: $toolbar-light-theme-danger-color;
+                }
+
+                @include light {
+                    color: $toolbar-light-theme-danger-color;
+                }
+
+                @include dark {
+                    color: $toolbar-dark-theme-danger-color;
+                }
             }
         }
 
