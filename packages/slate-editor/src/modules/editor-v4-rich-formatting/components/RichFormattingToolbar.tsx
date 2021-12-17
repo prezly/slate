@@ -96,13 +96,12 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
 
             {parameters.links && (
                 <Menu.ButtonGroup>
-                    <MenuButton
-                        isActive={EditorCommands.isBlockActive(editor, ElementType.LINK)}
+                    <Menu.Button
+                        active={EditorCommands.isBlockActive(editor, ElementType.LINK)}
                         onClick={onLinkClick}
-                        type={ElementType.LINK}
                     >
-                        <Link className="editor-v4-rich-formatting-toolbar__icon" />
-                    </MenuButton>
+                        <Menu.Icon icon={Link} />
+                    </Menu.Button>
                 </Menu.ButtonGroup>
             )}
 
