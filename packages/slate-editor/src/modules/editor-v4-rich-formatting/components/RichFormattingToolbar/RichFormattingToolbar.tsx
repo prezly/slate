@@ -5,13 +5,13 @@ import { useSlate } from 'slate-react';
 
 import { FloatingMenu } from '../../../../components';
 import {
-    Bold,
-    Italic,
+    FormatBold,
+    FormatItalic,
     Link,
-    TextStyleDefault,
-    TextStyleSubscript,
-    TextStyleSuperscript,
-    Underline,
+    FormatStyleNormal,
+    FormatStyleSubscript,
+    FormatStyleSuperscript,
+    FormatUnderline,
 } from '../../../../icons';
 import { toggleBlock } from '../../lib';
 import type { BlockType, RichFormattingExtensionParameters } from '../../types';
@@ -63,21 +63,21 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.BOLD)}
                     type={MarkType.BOLD}
                 >
-                    <Bold className="editor-v4-rich-formatting-toolbar__icon" />
+                    <FormatBold className="editor-v4-rich-formatting-toolbar__icon" />
                 </MenuButton>
                 <MenuButton
                     isActive={EditorCommands.isMarkActive(editor, MarkType.UNDERLINED)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.UNDERLINED)}
                     type={MarkType.UNDERLINED}
                 >
-                    <Underline className="editor-v4-rich-formatting-toolbar__icon" />
+                    <FormatUnderline className="editor-v4-rich-formatting-toolbar__icon" />
                 </MenuButton>
                 <MenuButton
                     isActive={EditorCommands.isMarkActive(editor, MarkType.ITALIC)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.ITALIC)}
                     type={MarkType.ITALIC}
                 >
-                    <Italic className="editor-v4-rich-formatting-toolbar__icon" />
+                    <FormatItalic className="editor-v4-rich-formatting-toolbar__icon" />
                 </MenuButton>
 
                 <FloatingMenu.Button
@@ -85,13 +85,13 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     onMouseDown={handleSubSupClick}
                 >
                     {isSubScriptActive && (
-                        <TextStyleSubscript className="editor-v4-rich-formatting-toolbar__icon" />
+                        <FormatStyleSubscript className="editor-v4-rich-formatting-toolbar__icon" />
                     )}
                     {isSuperScriptActive && (
-                        <TextStyleSuperscript className="editor-v4-rich-formatting-toolbar__icon" />
+                        <FormatStyleSuperscript className="editor-v4-rich-formatting-toolbar__icon" />
                     )}
                     {!(isSuperScriptActive || isSubScriptActive) && (
-                        <TextStyleDefault className="editor-v4-rich-formatting-toolbar__icon" />
+                        <FormatStyleNormal className="editor-v4-rich-formatting-toolbar__icon" />
                     )}
                 </FloatingMenu.Button>
             </FloatingMenu.ButtonGroup>
