@@ -5,7 +5,7 @@ import type { Editor, Range } from 'slate';
 import { Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu } from '../../../components';
+import { FloatingMenu, Menu } from '../../../components';
 import { Edit, Link, Trash } from '../../../icons';
 import { LinkMenu } from '../../../modules/editor-v4-components';
 import { removeImage, setImageHref, setLayout } from '../transforms';
@@ -112,9 +112,9 @@ const ImageMenu: FunctionComponent<Props> = ({
         <FloatingMenu containerRef={containerRef} element={element}>
             {showLayoutControls && <LayoutControls layout={layout} onChange={handleLayoutChange} />}
 
-            <FloatingMenu.ButtonGroup>
+            <Menu.ButtonGroup>
                 <MenuButton onClick={onEdit} title="Edit image">
-                    <FloatingMenu.Icon icon={Edit} />
+                    <Menu.Icon icon={Edit} />
                 </MenuButton>
 
                 <MenuButton
@@ -122,15 +122,15 @@ const ImageMenu: FunctionComponent<Props> = ({
                     onClick={handleOpenLinkMenu}
                     title={`${isLinked ? 'Edit' : 'Add'} link`}
                 >
-                    <FloatingMenu.Icon icon={Link} />
+                    <Menu.Icon icon={Link} />
                 </MenuButton>
-            </FloatingMenu.ButtonGroup>
+            </Menu.ButtonGroup>
 
-            <FloatingMenu.ButtonGroup>
+            <Menu.ButtonGroup>
                 <MenuButton onClick={handleRemove} title="Delete image" variant="danger">
-                    <FloatingMenu.Icon icon={Trash} />
+                    <Menu.Icon icon={Trash} />
                 </MenuButton>
-            </FloatingMenu.ButtonGroup>
+            </Menu.ButtonGroup>
         </FloatingMenu>
     );
 };

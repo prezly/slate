@@ -1,11 +1,17 @@
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import type { DropdownProps } from 'react-bootstrap';
 import { Dropdown as BootstrapDropdown, MenuItem } from 'react-bootstrap';
 
 import './Dropdown.scss';
-import type { Option } from './types';
+
+export interface Option<Value extends string> {
+    hidden?: boolean;
+    label: string;
+    render?: (option: Option<Value>) => ReactNode;
+    value: Value;
+}
 
 export interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {
     onChange: (value: Value) => void;
@@ -14,7 +20,7 @@ export interface Props<Value extends string> extends Omit<DropdownProps, 'onChan
     value?: Value;
 }
 
-const Dropdown = <Value extends string = string>({
+export const Dropdown = <Value extends string = string>({
     className,
     onChange,
     options,
@@ -60,5 +66,3 @@ const Dropdown = <Value extends string = string>({
         </BootstrapDropdown>
     );
 };
-
-export default Dropdown;

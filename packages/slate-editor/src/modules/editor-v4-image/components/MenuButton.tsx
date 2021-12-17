@@ -1,7 +1,7 @@
 import type { FunctionComponent, MouseEventHandler } from 'react';
 import React from 'react';
 
-import { FloatingMenu } from '../../../components';
+import { Menu } from '../../../components';
 
 interface Props {
     isActive?: boolean;
@@ -17,14 +17,14 @@ const MenuButton: FunctionComponent<Props> = ({ children, isActive, onClick, tit
     };
 
     return (
-        <FloatingMenu.Button
+        <Menu.Button
             active={isActive}
             onMouseDown={handleClick}
             title={title}
             variant={variant}
         >
             {children}
-        </FloatingMenu.Button>
+        </Menu.Button>
     );
 };
 

@@ -3,7 +3,7 @@ import type { FunctionComponent } from 'react';
 import React from 'react';
 import { useSlate } from 'slate-react';
 
-import { FloatingMenu } from '../../../../components';
+import { Menu } from '../../../../components';
 import {
     FormatBold,
     FormatItalic,
@@ -57,7 +57,7 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
 
     return (
         <>
-            <FloatingMenu.ButtonGroup>
+            <Menu.ButtonGroup>
                 <MenuButton
                     isActive={EditorCommands.isMarkActive(editor, MarkType.BOLD)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.BOLD)}
@@ -80,7 +80,7 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     <FormatUnderline className="editor-v4-rich-formatting-toolbar__icon" />
                 </MenuButton>
 
-                <FloatingMenu.Button
+                <Menu.Button
                     active={isSuperScriptActive || isSubScriptActive}
                     onMouseDown={handleSubSupClick}
                 >
@@ -93,11 +93,11 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     {!(isSuperScriptActive || isSubScriptActive) && (
                         <FormatStyleNormal className="editor-v4-rich-formatting-toolbar__icon" />
                     )}
-                </FloatingMenu.Button>
-            </FloatingMenu.ButtonGroup>
+                </Menu.Button>
+            </Menu.ButtonGroup>
 
             {parameters.links && (
-                <FloatingMenu.ButtonGroup>
+                <Menu.ButtonGroup>
                     <MenuButton
                         isActive={EditorCommands.isBlockActive(editor, ElementType.LINK)}
                         onClick={onLinkClick}
@@ -105,7 +105,7 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     >
                         <Link className="editor-v4-rich-formatting-toolbar__icon" />
                     </MenuButton>
-                </FloatingMenu.ButtonGroup>
+                </Menu.ButtonGroup>
             )}
 
             {parameters.blocks && (

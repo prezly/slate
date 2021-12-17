@@ -1,6 +1,7 @@
 export { default as Avatar } from './Avatar';
 export { default as CloseButtonV2 } from './CloseButtonV2';
-export * from './FloatingMenu';
+export { FloatingMenu } from './FloatingMenu';
+export * as Menu from './Menu';
 export { default as GalleryLayoutSettings } from './GalleryLayoutSettings';
 export { HtmlInjection } from './HtmlInjection';
 export { default as ImageSizeWarning } from './ImageSizeWarning';

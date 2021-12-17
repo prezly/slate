@@ -6,7 +6,7 @@ import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
 import { v4 as uuidV4 } from 'uuid';
 
-import { CursorPortalV2, ElementPortalV2, FloatingMenu } from '../../../components';
+import { CursorPortalV2, ElementPortalV2, Menu } from '../../../components';
 import { LinkMenu } from '../../../modules/editor-v4-components';
 import {
     findLinkCandidatePath,
@@ -147,7 +147,7 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
                 element={linkCandidateElement}
                 placement="top"
             >
-                <FloatingMenu.Toolbar>
+                <Menu.Toolbar>
                     <LinkMenu
                         canUnlink={isExistingLink}
                         onChange={setHref}
@@ -156,7 +156,7 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
                         onRemove={handleRemoveLink}
                         value={href}
                     />
-                </FloatingMenu.Toolbar>
+                </Menu.Toolbar>
             </ElementPortalV2>
         );
     }
@@ -167,13 +167,13 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
 
     return (
         <CursorPortalV2 containerRef={containerRef} placement="top">
-            <FloatingMenu.Toolbar>
+            <Menu.Toolbar>
                 <RichFormattingToolbar
                     activeNodeType={activeNodeType}
                     onLinkClick={handleLinkButtonClick}
                     parameters={parameters}
                 />
-            </FloatingMenu.Toolbar>
+            </Menu.Toolbar>
         </CursorPortalV2>
     );
 };

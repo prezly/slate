@@ -10,7 +10,7 @@ export interface Props extends Partial<LinkProps> {
     href: string;
 }
 
-const SpaLink: FunctionComponent<Props> = ({ children, className, disabled, href, ...props }) => (
+export const SpaLink: FunctionComponent<Props> = ({ children, className, disabled, href, ...props }) => (
     <Link
         className={classNames('editor-floating-menu__link', className, {
             'editor-floating-menu__link--disabled': disabled,
@@ -21,5 +21,3 @@ const SpaLink: FunctionComponent<Props> = ({ children, className, disabled, href
         {children}
     </Link>
 );
-
-export default SpaLink;

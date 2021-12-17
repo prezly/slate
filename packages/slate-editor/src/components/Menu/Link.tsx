@@ -7,7 +7,7 @@ export interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
     disabled?: boolean;
 }
 
-const Link: FunctionComponent<Props> = ({ children, className, disabled, ...props }) => (
+export const Link: FunctionComponent<Props> = ({ children, className, disabled, ...props }) => (
     <a
         {...props}
         className={classNames('editor-floating-menu__link', className, {
@@ -17,5 +17,3 @@ const Link: FunctionComponent<Props> = ({ children, className, disabled, ...prop
         {children}
     </a>
 );
-
-export default Link;

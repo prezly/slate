@@ -2,7 +2,7 @@ import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu } from '../../../components';
+import { FloatingMenu, Menu } from '../../../components';
 import { Trash } from '../../../icons';
 import { EventsEditor } from '../../editor-v4-events';
 import { removeWebBookmark } from '../transforms';
@@ -32,15 +32,15 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ containerRef, elemen
 
     return (
         <FloatingMenu containerRef={containerRef} element={element}>
-            <FloatingMenu.ButtonGroup>
-                <FloatingMenu.Button
+            <Menu.ButtonGroup>
+                <Menu.Button
                     onMouseDown={handleRemove}
                     title="Delete bookmark"
                     variant="danger"
                 >
-                    <FloatingMenu.Icon icon={Trash} />
-                </FloatingMenu.Button>
-            </FloatingMenu.ButtonGroup>
+                    <Menu.Icon icon={Trash} />
+                </Menu.Button>
+            </Menu.ButtonGroup>
         </FloatingMenu>
     );
 };

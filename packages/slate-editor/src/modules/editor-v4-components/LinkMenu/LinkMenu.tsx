@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { RootCloseWrapper } from 'react-overlays';
 import { useEffectOnce } from 'react-use';
 
-import { FloatingMenu } from '../../../components';
+import { Menu } from '../../../components';
 
 import { STRING_URL_PATTERN } from './constants';
 import './LinkMenu.scss';
@@ -42,11 +42,11 @@ const LinkMenu: FunctionComponent<Props> = ({
     return (
         <RootCloseWrapper onRootClose={onClose}>
             <div className="editor-v4-link-menu">
-                <FloatingMenu.ButtonGroup>
-                    <FloatingMenu.Button onClick={onClose}>
+                <Menu.ButtonGroup>
+                    <Menu.Button onClick={onClose}>
                         <i className="icon icon-cross2" />
-                    </FloatingMenu.Button>
-                </FloatingMenu.ButtonGroup>
+                    </Menu.Button>
+                </Menu.ButtonGroup>
                 <form
                     className="editor-v4-link-menu__form"
                     onSubmit={(event) => {
@@ -79,14 +79,14 @@ const LinkMenu: FunctionComponent<Props> = ({
                             value={value}
                         />
                     </div>
-                    <FloatingMenu.ButtonGroup flex>
+                    <Menu.ButtonGroup flex>
                         <Button bsSize="xs" bsStyle="success" disabled={!value} type="submit">
                             Link
                         </Button>
                         <Button bsSize="xs" disabled={!canUnlink} onClick={onRemove} type="button">
                             Unlink
                         </Button>
-                    </FloatingMenu.ButtonGroup>
+                    </Menu.ButtonGroup>
                 </form>
             </div>
         </RootCloseWrapper>

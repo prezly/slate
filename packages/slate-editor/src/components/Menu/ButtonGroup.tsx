@@ -6,7 +6,7 @@ export interface Props {
     flex?: boolean;
 }
 
-const ButtonGroup: FunctionComponent<Props> = ({ children, flex }) => (
+export const ButtonGroup: FunctionComponent<Props> = ({ children, flex }) => (
     <div
         className={classNames('editor-floating-menu__button-group', {
             'editor-floating-menu__button-group--flex': flex,
@@ -15,5 +15,3 @@ const ButtonGroup: FunctionComponent<Props> = ({ children, flex }) => (
         {children}
     </div>
 );
-
-export default ButtonGroup;

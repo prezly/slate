@@ -2,7 +2,7 @@ import { ImageLayout } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { FloatingMenu } from '../../../components';
+import { Menu } from '../../../components';
 import { Contained, Expanded, FullWidth } from '../../../icons';
 
 interface Props {
@@ -11,29 +11,29 @@ interface Props {
 }
 
 const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
-    <FloatingMenu.ButtonGroup>
-        <FloatingMenu.Button
+    <Menu.ButtonGroup>
+        <Menu.Button
             active={layout === ImageLayout.FULL_WIDTH}
             onMouseDown={() => onChange(ImageLayout.FULL_WIDTH)}
             title="Full width image"
         >
             <FullWidth />
-        </FloatingMenu.Button>
-        <FloatingMenu.Button
+        </Menu.Button>
+        <Menu.Button
             active={layout === ImageLayout.EXPANDED}
             onMouseDown={() => onChange(ImageLayout.EXPANDED)}
             title="Expanded image"
         >
             <Expanded />
-        </FloatingMenu.Button>
-        <FloatingMenu.Button
+        </Menu.Button>
+        <Menu.Button
             active={layout === ImageLayout.CONTAINED}
             onMouseDown={() => onChange(ImageLayout.CONTAINED)}
             title="Contained image"
         >
             <Contained />
-        </FloatingMenu.Button>
-    </FloatingMenu.ButtonGroup>
+        </Menu.Button>
+    </Menu.ButtonGroup>
 );
 
 export default LayoutControls;

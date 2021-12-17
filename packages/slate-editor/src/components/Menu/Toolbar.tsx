@@ -6,7 +6,7 @@ export interface Props {
     className?: string;
 }
 
-const Toolbar: FunctionComponent<Props> = ({ children, className }) => (
+export const Toolbar: FunctionComponent<Props> = ({ children, className }) => (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
         className={classNames('editor-floating-menu', className)}
@@ -15,5 +15,3 @@ const Toolbar: FunctionComponent<Props> = ({ children, className }) => (
         {children}
     </div>
 );
-
-export default Toolbar;

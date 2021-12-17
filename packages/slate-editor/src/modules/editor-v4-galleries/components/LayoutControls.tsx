@@ -2,7 +2,7 @@ import { GalleryLayout } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { FloatingMenu } from '../../../components';
+import { Menu } from '../../../components';
 import { Contained, Expanded, FullWidth } from '../../../icons';
 
 interface Props {
@@ -11,29 +11,29 @@ interface Props {
 }
 
 const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
-    <FloatingMenu.ButtonGroup>
-        <FloatingMenu.Button
+    <Menu.ButtonGroup>
+        <Menu.Button
             active={layout === GalleryLayout.FULL_WIDTH}
             onMouseDown={() => onChange(GalleryLayout.FULL_WIDTH)}
             title="Full width gallery"
         >
             <FullWidth />
-        </FloatingMenu.Button>
-        <FloatingMenu.Button
+        </Menu.Button>
+        <Menu.Button
             active={layout === GalleryLayout.EXPANDED}
             onMouseDown={() => onChange(GalleryLayout.EXPANDED)}
             title="Expanded gallery"
         >
             <Expanded />
-        </FloatingMenu.Button>
-        <FloatingMenu.Button
+        </Menu.Button>
+        <Menu.Button
             active={layout === GalleryLayout.CONTAINED}
             onMouseDown={() => onChange(GalleryLayout.CONTAINED)}
             title="Contained gallery"
         >
             <Contained />
-        </FloatingMenu.Button>
-    </FloatingMenu.ButtonGroup>
+        </Menu.Button>
+    </Menu.ButtonGroup>
 );
 
 export default LayoutControls;

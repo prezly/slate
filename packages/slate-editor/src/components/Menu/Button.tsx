@@ -6,7 +6,8 @@ export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     active?: boolean;
     variant?: 'default' | 'danger';
 }
-const Button: FunctionComponent<Props> = ({
+
+export const Button: FunctionComponent<Props> = ({
     active,
     className,
     type = 'button',
@@ -23,4 +24,3 @@ const Button: FunctionComponent<Props> = ({
         {...props}
     />
 );
-export default Button;
