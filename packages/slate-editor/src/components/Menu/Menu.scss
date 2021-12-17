@@ -98,9 +98,9 @@
     &__button {
         @include btn-unstyled;
 
-        max-height: $spacing-base * 5;
+        height: $spacing-base * 5;
         min-width: $spacing-base * 3;
-        padding: $spacing-base $spacing-half;
+        padding: $spacing-base;
         border: 0;
         position: relative;
         overflow: hidden;
@@ -232,7 +232,14 @@
     }
 
     &__icon {
-        width: 14px;
-        height: 14px;
+        width: $spacing-2;
+        height: $spacing-2;
+
+        &:first-child {
+            margin-left: -$spacing-half;
+        }
+        &:last-child {
+            margin-right: -$spacing-half;
+        }
     }
 }
