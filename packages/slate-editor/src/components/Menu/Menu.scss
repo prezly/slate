@@ -121,6 +121,23 @@
             color: $toolbar-dark-theme-icon-color;
         }
 
+        &.disabled,
+        &[disabled] {
+            pointer-events: none;
+
+            &, &:hover, &:focus, &:active {
+                @include classic {
+                    color: $toolbar-classic-theme-icon-color;
+                }
+                @include light {
+                    color: transparentize($toolbar-light-theme-icon-color, 0.3);
+                }
+                @include dark {
+                    color: transparentize($toolbar-dark-theme-icon-color, 0.3);
+                }
+            }
+        }
+
         &:hover {
             @include classic {
                 color: $toolbar-classic-theme-icon-hover-color;
@@ -147,6 +164,11 @@
                 @include dark {
                     background-color: $toolbar-dark-theme-hover-bg;
                 }
+            }
+
+            &.disabled::before,
+            &[disabled]::before {
+                background-color: transparent;
             }
         }
 
