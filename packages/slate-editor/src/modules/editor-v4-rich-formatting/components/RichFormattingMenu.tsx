@@ -25,7 +25,7 @@ import {
 import type { RichFormattingExtensionParameters } from '../types';
 import { ElementType } from '../types';
 
-import RichFormattingToolbar from './RichFormattingToolbar';
+import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
     containerRef: RefObject<HTMLElement>;

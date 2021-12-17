@@ -3,7 +3,7 @@ import type { FunctionComponent } from 'react';
 import React from 'react';
 import { useSlate } from 'slate-react';
 
-import { Menu } from '../../../../components';
+import { Menu } from '../../../components';
 import {
     FormatBold,
     FormatItalic,
@@ -12,14 +12,12 @@ import {
     FormatStyleSubscript,
     FormatStyleSuperscript,
     FormatUnderline,
-} from '../../../../icons';
-import { toggleBlock } from '../../lib';
-import type { BlockType, RichFormattingExtensionParameters } from '../../types';
-import { ElementType, MarkType } from '../../types';
-import BlockDropdown from '../BlockDropdown';
-import MenuButton from '../MenuButton';
-
-import './RichFormattingToolbar.scss';
+} from '../../../icons';
+import { toggleBlock } from '../lib';
+import type { BlockType, RichFormattingExtensionParameters } from '../types';
+import { ElementType, MarkType } from '../types';
+import BlockDropdown from './BlockDropdown';
+import MenuButton from './MenuButton';
 
 interface Props {
     activeNodeType: BlockType | null;
@@ -27,7 +25,7 @@ interface Props {
     parameters: RichFormattingExtensionParameters;
 }
 
-const RichFormattingToolbar: FunctionComponent<Props> = ({
+export const RichFormattingToolbar: FunctionComponent<Props> = ({
     activeNodeType,
     onLinkClick,
     parameters,
@@ -63,21 +61,21 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.BOLD)}
                     type={MarkType.BOLD}
                 >
-                    <FormatBold className="editor-v4-rich-formatting-toolbar__icon" />
+                    <Menu.Icon icon={FormatBold} />
                 </MenuButton>
                 <MenuButton
                     isActive={EditorCommands.isMarkActive(editor, MarkType.ITALIC)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.ITALIC)}
                     type={MarkType.ITALIC}
                 >
-                    <FormatItalic className="editor-v4-rich-formatting-toolbar__icon" />
+                    <Menu.Icon icon={FormatItalic} />
                 </MenuButton>
                 <MenuButton
                     isActive={EditorCommands.isMarkActive(editor, MarkType.UNDERLINED)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.UNDERLINED)}
                     type={MarkType.UNDERLINED}
                 >
-                    <FormatUnderline className="editor-v4-rich-formatting-toolbar__icon" />
+                    <Menu.Icon icon={FormatUnderline} />
                 </MenuButton>
 
                 <Menu.Button
@@ -85,13 +83,13 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
                     onMouseDown={handleSubSupClick}
                 >
                     {isSubScriptActive && (
-                        <FormatStyleSubscript className="editor-v4-rich-formatting-toolbar__icon" />
+                        <Menu.Icon icon={FormatStyleSubscript} />
                     )}
                     {isSuperScriptActive && (
-                        <FormatStyleSuperscript className="editor-v4-rich-formatting-toolbar__icon" />
+                        <Menu.Icon icon={FormatStyleSuperscript} />
                     )}
                     {!(isSuperScriptActive || isSubScriptActive) && (
-                        <FormatStyleNormal className="editor-v4-rich-formatting-toolbar__icon" />
+                        <Menu.Icon icon={FormatStyleNormal} />
                     )}
                 </Menu.Button>
             </Menu.ButtonGroup>
@@ -114,5 +112,3 @@ const RichFormattingToolbar: FunctionComponent<Props> = ({
         </>
     );
 };
-
-export default RichFormattingToolbar;
