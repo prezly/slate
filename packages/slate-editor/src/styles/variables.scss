@@ -31,6 +31,7 @@ $slate-paragraph-line-height: 26px;
 $story-composer-navigation-z-index: 10000;
 $story-composer-sidebar-z-index: $story-composer-navigation-z-index + 1;
 
+
 $toolbar-classic-theme-bg: #fff;
 $toolbar-classic-theme-border-color: $legacy-color-grey-250;
 $toolbar-classic-theme-text-color: #000;
@@ -50,7 +51,7 @@ $toolbar-light-theme-danger-color: $legacy-color-red-500;
 $toolbar-light-theme-hover-bg: rgba(#000, 0.12);
 $toolbar-light-theme-focus-outline: #c7d2fe;
 
-$toolbar-dark-theme-bg: #292942;
+$toolbar-dark-theme-bg: rgba(#292942, 0.96);
 $toolbar-dark-theme-border-color: rgba(#fff, 0.12);
 $toolbar-dark-theme-text-color: #fff;
 $toolbar-dark-theme-text-hover-color: #fff;
