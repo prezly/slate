@@ -48,7 +48,7 @@ gulp.task('build:svg', function () {
 
 gulp.task('watch:svg', gulp.series('build:svg', function () {
     return gulp
-        .watch(TYPESCRIPT_SOURCES, gulp.series('build:svg'))
+        .watch(SVG_ICONS, gulp.series('build:svg'))
         .on('ready', () => console.log('Watching files'))
         .on('all', (event, path) => console.log(`[${event}] ${path}`));
 }));
