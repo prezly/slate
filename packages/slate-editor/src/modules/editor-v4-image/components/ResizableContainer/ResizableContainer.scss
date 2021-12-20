@@ -27,7 +27,7 @@
         @include classic {
             @include button-variant(#767676, $legacy-color-grey-250, transparent);
             padding: 0;
-            border-radius: $border-radius-base;
+            border-radius: 4px;
 
             &:hover {
                 color: $legacy-color-green-500;
@@ -58,5 +58,10 @@
     &__button-icon {
         width: 16px;
         height: 16px;
+
+        @include classic {
+            width: 14px;
+            height: 14px;
+        }
     }
 }

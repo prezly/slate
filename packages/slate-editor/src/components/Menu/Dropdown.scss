@@ -24,7 +24,9 @@
             &,
             &:hover,
             &:focus {
-                color: #1f1f1f;
+                @include classic {
+                    color: #1f1f1f;
+                }
                 background: none;
                 box-shadow: none;
             }
@@ -59,7 +61,7 @@
 
         @include classic {
             font-size: 14px;
-            color: $toolbar-classic-theme-text-color;
+            color: #767676;
             &:hover {
                 color: $toolbar-classic-theme-text-hover-color;
             }
@@ -120,7 +122,7 @@
         margin: 0 0 0 -1px;
         padding: 0;
         overflow: auto;
-        box-shadow: none;
+        box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.05);
 
         @include classic {
             border-color: $toolbar-classic-theme-border-color;
@@ -133,7 +135,8 @@
             border: none;
             background-color: $toolbar-dark-theme-bg;
             border-radius: 0 0 $border-radius-base * 2 $border-radius-base * 2;
-            box-shadow: inset 0 1px 0 $toolbar-dark-theme-border-color;
+            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11),
+                        inset 0 1px 0 $toolbar-dark-theme-border-color;
         }
 
         a {

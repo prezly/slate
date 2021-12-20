@@ -83,7 +83,7 @@ const LinkMenu: FunctionComponent<Props> = ({
                         <Menu.Button variant="success" disabled={!value} type="submit">
                             Link
                         </Menu.Button>
-                        <Menu.Button variant="danger" disabled={!canUnlink} onClick={onRemove} type="button">
+                        <Menu.Button variant="primary" disabled={!canUnlink} onClick={onRemove} type="button">
                             Unlink
                         </Menu.Button>
                     </Menu.ButtonGroup>
