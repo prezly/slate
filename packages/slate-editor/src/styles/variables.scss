@@ -34,9 +34,9 @@ $story-composer-sidebar-z-index: $story-composer-navigation-z-index + 1;
 
 $toolbar-classic-theme-bg: #fff;
 $toolbar-classic-theme-border-color: $legacy-color-grey-250;
-$toolbar-classic-theme-text-color: #000;
-$toolbar-classic-theme-text-hover-color: #000;
-$toolbar-classic-theme-icon-color: #000;
+$toolbar-classic-theme-text-color: $grey-700;
+$toolbar-classic-theme-text-hover-color: $grey-700;
+$toolbar-classic-theme-icon-color: $grey-700;
 $toolbar-classic-theme-icon-active-color: $legacy-color-green-500;
 $toolbar-classic-theme-icon-hover-color: $toolbar-classic-theme-icon-active-color;
 $toolbar-classic-theme-danger-color: $legacy-color-red-500;
