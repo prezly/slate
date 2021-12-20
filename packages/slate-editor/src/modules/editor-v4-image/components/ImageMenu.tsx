@@ -11,7 +11,6 @@ import { LinkMenu } from '../../../modules/editor-v4-components';
 import { removeImage, setImageHref, setLayout } from '../transforms';
 
 import LayoutControls from './LayoutControls';
-import MenuButton from './MenuButton';
 
 interface Props {
     containerRef: RefObject<HTMLElement>;
@@ -113,23 +112,23 @@ const ImageMenu: FunctionComponent<Props> = ({
             {showLayoutControls && <LayoutControls layout={layout} onChange={handleLayoutChange} />}
 
             <Menu.ButtonGroup>
-                <MenuButton onClick={onEdit} title="Edit image">
+                <Menu.Button onClick={onEdit} title="Edit image">
                     <Menu.Icon icon={Edit} />
-                </MenuButton>
+                </Menu.Button>
 
-                <MenuButton
-                    isActive={isLinked}
+                <Menu.Button
+                    active={isLinked}
                     onClick={handleOpenLinkMenu}
                     title={`${isLinked ? 'Edit' : 'Add'} link`}
                 >
                     <Menu.Icon icon={Link} />
-                </MenuButton>
+                </Menu.Button>
             </Menu.ButtonGroup>
 
             <Menu.ButtonGroup>
-                <MenuButton onClick={handleRemove} title="Delete image" variant="danger">
+                <Menu.Button onClick={handleRemove} title="Delete image" variant="danger">
                     <Menu.Icon icon={Trash} />
-                </MenuButton>
+                </Menu.Button>
             </Menu.ButtonGroup>
         </Menu.FloatingMenu>
     );
