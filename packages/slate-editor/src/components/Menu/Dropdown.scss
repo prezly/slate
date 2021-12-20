@@ -5,7 +5,10 @@
     display: inline-block;
     width: 180px;
     vertical-align: top;
-    border-right: 1px solid $toolbar-light-theme-border-color;
+
+    @include classic {
+        border-right: 1px solid $toolbar-classic-theme-border-color;
+    }
 
     @include dark {
         border-color: $toolbar-dark-theme-border-color;

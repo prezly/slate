@@ -67,6 +67,8 @@
         // when there is not enough horizontal space.
         display: inline-flex;
         padding: 0 $spacing-base;
+        font-size: 13px;
+        line-height: 1.0;
 
         &:last-child {
             border-right: none;
@@ -107,7 +109,7 @@
             color: $toolbar-classic-theme-icon-color;
         }
         @include dark {
-            color: $toolbar-dark-theme-icon-color;
+            color: $toolbar-dark-theme-text-color;
         }
 
         &.disabled,
@@ -157,7 +159,7 @@
 
         &--active {
             @include classic {
-                color: $toolbar-light-theme-icon-active-color;
+                color: $toolbar-classic-theme-icon-active-color;
             }
             @include dark {
                 color: $toolbar-dark-theme-icon-active-color;
@@ -186,11 +188,11 @@
             &,
             &:hover {
                 @include classic {
-                    color: $toolbar-light-theme-danger-color;
+                    color: $toolbar-classic-theme-danger-color;
                 }
 
                 @include dark {
-                    color: $toolbar-dark-theme-danger-color;
+                    color: $toolbar-dark-theme-text-color;
                 }
             }
         }

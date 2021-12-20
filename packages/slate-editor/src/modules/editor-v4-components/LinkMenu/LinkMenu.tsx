@@ -1,9 +1,9 @@
 import type { FunctionComponent } from 'react';
 import React, { useRef } from 'react';
-import { Button } from 'react-bootstrap';
 import { RootCloseWrapper } from 'react-overlays';
 import { useEffectOnce } from 'react-use';
 
+import { Cross } from '../../../icons';
 import { Menu } from '../../../components';
 
 import { STRING_URL_PATTERN } from './constants';
@@ -44,7 +44,7 @@ const LinkMenu: FunctionComponent<Props> = ({
             <div className="editor-v4-link-menu">
                 <Menu.ButtonGroup>
                     <Menu.Button onClick={onClose}>
-                        <i className="icon icon-cross2" />
+                        <Menu.Icon icon={Cross} />
                     </Menu.Button>
                 </Menu.ButtonGroup>
                 <form
@@ -80,12 +80,12 @@ const LinkMenu: FunctionComponent<Props> = ({
                         />
                     </div>
                     <Menu.ButtonGroup flex>
-                        <Button bsSize="xs" bsStyle="success" disabled={!value} type="submit">
+                        <Menu.Button variant="success" disabled={!value} type="submit">
                             Link
-                        </Button>
-                        <Button bsSize="xs" disabled={!canUnlink} onClick={onRemove} type="button">
+                        </Menu.Button>
+                        <Menu.Button variant="danger" disabled={!canUnlink} onClick={onRemove} type="button">
                             Unlink
-                        </Button>
+                        </Menu.Button>
                     </Menu.ButtonGroup>
                 </form>
             </div>
