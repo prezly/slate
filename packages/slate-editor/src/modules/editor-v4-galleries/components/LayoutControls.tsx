@@ -23,21 +23,21 @@ const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
         <Menu.ButtonGroup theme={Theme.DARK}>
             <Menu.Button
                 active={layout === GalleryLayout.CONTAINED}
-                onMouseDown={() => onChange(GalleryLayout.CONTAINED)}
+                onClick={() => onChange(GalleryLayout.CONTAINED)}
                 title="Contained gallery"
             >
                 <Menu.Icon icon={LayoutContained} />
             </Menu.Button>
             <Menu.Button
                 active={layout === GalleryLayout.EXPANDED}
-                onMouseDown={() => onChange(GalleryLayout.EXPANDED)}
+                onClick={() => onChange(GalleryLayout.EXPANDED)}
                 title="Expanded gallery"
             >
                 <Menu.Icon icon={LayoutExpanded} />
             </Menu.Button>
             <Menu.Button
                 active={layout === GalleryLayout.FULL_WIDTH}
-                onMouseDown={() => onChange(GalleryLayout.FULL_WIDTH)}
+                onClick={() => onChange(GalleryLayout.FULL_WIDTH)}
                 title="Full width gallery"
             >
                 <Menu.Icon icon={LayoutFullWidth} />
@@ -47,21 +47,21 @@ const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
         <Menu.ButtonGroup theme={Theme.CLASSIC}>
             <Menu.Button
                 active={layout === GalleryLayout.CONTAINED}
-                onMouseDown={() => onChange(GalleryLayout.CONTAINED)}
+                onClick={() => onChange(GalleryLayout.CONTAINED)}
                 title="Contained gallery"
             >
                 <Menu.Icon icon={LayoutClassicContained} />
             </Menu.Button>
             <Menu.Button
                 active={layout === GalleryLayout.EXPANDED}
-                onMouseDown={() => onChange(GalleryLayout.EXPANDED)}
+                onClick={() => onChange(GalleryLayout.EXPANDED)}
                 title="Expanded gallery"
             >
                 <Menu.Icon icon={LayoutClassicExpanded} />
             </Menu.Button>
             <Menu.Button
                 active={layout === GalleryLayout.FULL_WIDTH}
-                onMouseDown={() => onChange(GalleryLayout.FULL_WIDTH)}
+                onClick={() => onChange(GalleryLayout.FULL_WIDTH)}
                 title="Full width gallery"
             >
                 <Menu.Icon icon={LayoutClassicFullWidth} />

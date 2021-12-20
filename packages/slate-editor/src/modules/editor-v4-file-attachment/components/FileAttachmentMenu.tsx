@@ -39,12 +39,12 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
-                <Menu.Button onMouseDown={() => onEdit(editor)} title="Edit attachment">
+                <Menu.Button onClick={() => onEdit(editor)} title="Edit attachment">
                     <Menu.Icon icon={Edit} />
                 </Menu.Button>
             </Menu.ButtonGroup>
             <Menu.ButtonGroup>
-                <Menu.Button onMouseDown={handleRemove} title="Delete attachment" variant="danger">
+                <Menu.Button onClick={handleRemove} title="Delete attachment" variant="danger">
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>

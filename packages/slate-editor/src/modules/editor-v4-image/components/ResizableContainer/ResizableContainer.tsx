@@ -128,7 +128,7 @@ class ResizableContainer extends Component<Props, State> {
                         <div className="editor-v4-image-resizable-container__handle">
                             <button
                                 className="editor-v4-image-resizable-container__button"
-                                onMouseDown={(event) => event.preventDefault()}
+                                onClick={(event) => event.preventDefault()}
                                 type="button"
                             >
                                 <Resize className="editor-v4-image-resizable-container__button-icon" />
