@@ -95,6 +95,18 @@
                 }
             }
         }
+
+        &--classic {
+            @include dark {
+                display: none;
+            }
+        }
+
+        &--dark {
+            @include classic {
+                display: none;
+            }
+        }
     }
 
     &__button {
