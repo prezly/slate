@@ -17,7 +17,6 @@ import { toggleBlock } from '../lib';
 import type { BlockType, RichFormattingExtensionParameters } from '../types';
 import { ElementType, MarkType } from '../types';
 import BlockDropdown from './BlockDropdown';
-import MenuButton from './MenuButton';
 
 interface Props {
     activeNodeType: BlockType | null;
@@ -56,27 +55,24 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
     return (
         <>
             <Menu.ButtonGroup>
-                <MenuButton
-                    isActive={EditorCommands.isMarkActive(editor, MarkType.BOLD)}
+                <Menu.Button
+                    active={EditorCommands.isMarkActive(editor, MarkType.BOLD)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.BOLD)}
-                    type={MarkType.BOLD}
                 >
                     <Menu.Icon icon={FormatBold} />
-                </MenuButton>
-                <MenuButton
-                    isActive={EditorCommands.isMarkActive(editor, MarkType.ITALIC)}
+                </Menu.Button>
+                <Menu.Button
+                    active={EditorCommands.isMarkActive(editor, MarkType.ITALIC)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.ITALIC)}
-                    type={MarkType.ITALIC}
                 >
                     <Menu.Icon icon={FormatItalic} />
-                </MenuButton>
-                <MenuButton
-                    isActive={EditorCommands.isMarkActive(editor, MarkType.UNDERLINED)}
+                </Menu.Button>
+                <Menu.Button
+                    active={EditorCommands.isMarkActive(editor, MarkType.UNDERLINED)}
                     onClick={() => EditorCommands.toggleMark(editor, MarkType.UNDERLINED)}
-                    type={MarkType.UNDERLINED}
                 >
                     <Menu.Icon icon={FormatUnderline} />
-                </MenuButton>
+                </Menu.Button>
 
                 <Menu.Button
                     active={isSuperScriptActive || isSubScriptActive}
