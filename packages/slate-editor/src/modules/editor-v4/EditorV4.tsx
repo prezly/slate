@@ -319,7 +319,6 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
         <div
             className={classNames('editor-v4', className, {
                 'editor-v4--classic-toolbars': toolbarsTheme === Theme.CLASSIC,
-                'editor-v4--light-toolbars': toolbarsTheme === Theme.LIGHT,
                 'editor-v4--dark-toolbars': toolbarsTheme === Theme.DARK,
             })}
             ref={containerRef}

@@ -41,11 +41,6 @@
                 display: none;
             }
 
-            @include light {
-                display: block;
-                background-color: $toolbar-light-theme-bg;
-            }
-
             @include dark {
                 display: block;
                 background-color: $toolbar-dark-theme-bg;
@@ -64,13 +59,6 @@
             color: $toolbar-classic-theme-text-color;
             &:hover {
                 color: $toolbar-classic-theme-text-hover-color;
-            }
-        }
-
-        @include light {
-            color: $toolbar-light-theme-text-color;
-            &:hover {
-                color: $toolbar-light-theme-text-hover-color;
             }
         }
 
@@ -97,9 +85,6 @@
                 @include classic {
                     display: none;
                 }
-                @include light {
-                    background-color: $toolbar-light-theme-hover-bg;
-                }
                 @include dark {
                     background-color: $toolbar-dark-theme-hover-bg;
                 }
@@ -121,9 +106,6 @@
             @include classic {
                 color: $toolbar-classic-theme-icon-color;
             }
-            @include light {
-                color: $toolbar-light-theme-icon-color;
-            }
             @include dark {
                 color: $toolbar-dark-theme-icon-color;
             }
@@ -141,12 +123,6 @@
             border-color: $toolbar-classic-theme-border-color;
             border-radius: 0 0 4px 4px;
             border-top: none;
-        }
-
-        @include light {
-            padding: $spacing-1 0;
-            border-radius: 0 0 $border-radius-base * 2 $border-radius-base * 2;
-            border-top: 1px solid $toolbar-light-theme-border-color;
         }
 
         @include dark {
@@ -198,10 +174,6 @@
                     @include classic {
                         display: none;
                     }
-                    @include light {
-                        display: block;
-                        background-color: $toolbar-light-theme-hover-bg;
-                    }
                     @include dark {
                         display: block;
                         background-color: $toolbar-dark-theme-hover-bg;
@@ -214,10 +186,6 @@
                     left: $spacing-base;
                     right: $spacing-base;
 
-                    @include light {
-                        display: block;
-                        outline: $spacing-half solid $toolbar-light-theme-focus-outline;
-                    }
                     @include dark {
                         display: block;
                         outline: $spacing-half solid $toolbar-dark-theme-focus-outline;
@@ -226,14 +194,6 @@
 
                 @include classic {
                     padding: $spacing-half $spacing-2;
-                }
-
-                @include light {
-                    padding: 0 $spacing-2;
-                    border-top: 1px solid transparent;
-                    &, &:hover {
-                        background-color: transparent;
-                    }
                 }
 
                 @include dark {

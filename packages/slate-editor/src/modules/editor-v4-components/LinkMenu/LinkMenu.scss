@@ -18,9 +18,6 @@
         @include classic {
             border-color: $toolbar-classic-theme-border-color;
         }
-        @include light {
-            border-color: $toolbar-light-theme-border-color;
-        }
         @include dark {
             border-color: $toolbar-dark-theme-border-color;
         }

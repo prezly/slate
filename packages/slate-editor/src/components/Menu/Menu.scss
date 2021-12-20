@@ -14,11 +14,6 @@
         background-color: $toolbar-classic-theme-bg;
         border: 1px solid $toolbar-classic-theme-border-color;
     }
-    @include light {
-        color: $black;
-        background-color: $toolbar-light-theme-bg;
-        border: 1px solid $toolbar-light-theme-border-color;
-    }
     @include dark {
         color: $toolbar-dark-theme-text-color;
         background-color: $toolbar-dark-theme-bg;
@@ -63,9 +58,6 @@
 
         @include classic {
             border-color: $toolbar-classic-theme-border-color
-        }
-        @include light {
-            border-color: $toolbar-light-theme-border-color
         }
         @include dark {
             border-color: $toolbar-dark-theme-border-color;
@@ -114,9 +106,6 @@
         @include classic {
             color: $toolbar-classic-theme-icon-color;
         }
-        @include light {
-            color: $toolbar-light-theme-icon-color;
-        }
         @include dark {
             color: $toolbar-dark-theme-icon-color;
         }
@@ -128,9 +117,6 @@
             &, &:hover, &:focus, &:active {
                 @include classic {
                     color: $toolbar-classic-theme-icon-color;
-                }
-                @include light {
-                    color: transparentize($toolbar-light-theme-icon-color, 0.3);
                 }
                 @include dark {
                     color: transparentize($toolbar-dark-theme-icon-color, 0.3);
@@ -158,9 +144,6 @@
                 @include classic {
                     display: none;
                 }
-                @include light {
-                    background-color: $toolbar-light-theme-hover-bg;
-                }
                 @include dark {
                     background-color: $toolbar-dark-theme-hover-bg;
                 }
@@ -174,9 +157,6 @@
 
         &--active {
             @include classic {
-                color: $toolbar-light-theme-icon-active-color;
-            }
-            @include light {
                 color: $toolbar-light-theme-icon-active-color;
             }
             @include dark {
@@ -196,9 +176,6 @@
                 @include classic {
                     background-color: $toolbar-classic-theme-icon-active-color;
                 }
-                @include light {
-                    display: none;
-                }
                 @include dark {
                     display: none;
                 }
@@ -209,10 +186,6 @@
             &,
             &:hover {
                 @include classic {
-                    color: $toolbar-light-theme-danger-color;
-                }
-
-                @include light {
                     color: $toolbar-light-theme-danger-color;
                 }
 
@@ -234,6 +207,14 @@
     &__icon {
         width: $spacing-2;
         height: $spacing-2;
+
+        @include classic {
+            color: $toolbar-classic-theme-icon-color;
+        }
+
+        @include dark {
+            color: $toolbar-dark-theme-icon-color;
+        }
 
         &:first-child {
             margin-left: -$spacing-half;

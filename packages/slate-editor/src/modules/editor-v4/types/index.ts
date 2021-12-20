@@ -43,7 +43,6 @@ export type Value = Element[];
 
 export enum Theme {
     CLASSIC = 'classic',
-    LIGHT = 'light',
     DARK = 'dark',
 }
 
