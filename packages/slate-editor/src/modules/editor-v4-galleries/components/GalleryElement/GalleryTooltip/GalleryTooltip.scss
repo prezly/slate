@@ -1,3 +1,4 @@
+@import "styles/mixins";
 @import "styles/variables";
 
 .gallery-tooltip {
@@ -5,12 +6,28 @@
     align-items: center;
     padding: $spacing-1 ($spacing-1 + $spacing-half);
     font-size: 14px;
-    color: $legacy-color-type-primary;
+
+    @include classic {
+        color: $toolbar-classic-theme-text-color;
+    }
+
+    @include dark {
+        color: $toolbar-dark-theme-icon-color;
+    }
 
     &__icon {
-        font-size: 18px;
-        color: $legacy-color-purple-500;
         margin-right: $spacing-1;
+        width: 16px;
+        height: 16px;
+
+        @include classic {
+            color: $legacy-color-purple-500;
+        }
+
+        @include dark {
+
+            color: $toolbar-dark-theme-icon-color;
+        }
     }
 
     &__button {

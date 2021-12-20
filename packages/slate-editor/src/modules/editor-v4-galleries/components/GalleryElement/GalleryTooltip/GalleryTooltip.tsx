@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 import { Menu } from '../../../../../components';
+import { Info } from '../../../../../icons';
 
 import './GalleryTooltip.scss';
 
@@ -19,7 +20,7 @@ const GalleryTooltip: FunctionComponent<Props> = ({ containerRef, element, onCli
         element={element}
         placement="bottom-end"
     >
-        <i className="icon icon-help gallery-tooltip__icon" />
+        <Info className="gallery-tooltip__icon" />
         You can reorder and crop your gallery images in the{' '}
         <Button bsStyle="unstyled" className="gallery-tooltip__button" onClick={onClick}>
             preview

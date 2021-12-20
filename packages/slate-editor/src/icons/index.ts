@@ -20,6 +20,7 @@ export { default as FormatStyleSubscript } from './Format-Style-Sub.svg';
 export { default as FormatStyleSuperscript } from './Format-Style-Sup.svg';
 export { default as Gallery } from './Gallery.svg';
 export { default as Image } from './Image.svg';
+export { default as Info } from './Info.svg';
 export { default as LayoutClassicContained } from './Contained.svg';
 export { default as LayoutClassicExpanded } from './Expanded.svg';
 export { default as LayoutClassicFullWidth } from './FullWidth.svg';
