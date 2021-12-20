@@ -3,7 +3,7 @@ import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import { Menu } from '../../../components';
-import { Contained, Expanded, FullWidth } from '../../../icons';
+import { LayoutContained, LayoutExpanded, LayoutFullWidth } from '../../../icons';
 
 interface Props {
     layout: GalleryLayout;
@@ -13,25 +13,25 @@ interface Props {
 const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
     <Menu.ButtonGroup>
         <Menu.Button
-            active={layout === GalleryLayout.FULL_WIDTH}
-            onMouseDown={() => onChange(GalleryLayout.FULL_WIDTH)}
-            title="Full width gallery"
+            active={layout === GalleryLayout.CONTAINED}
+            onMouseDown={() => onChange(GalleryLayout.CONTAINED)}
+            title="Contained gallery"
         >
-            <FullWidth />
+            <Menu.Icon icon={LayoutContained} />
         </Menu.Button>
         <Menu.Button
             active={layout === GalleryLayout.EXPANDED}
             onMouseDown={() => onChange(GalleryLayout.EXPANDED)}
             title="Expanded gallery"
         >
-            <Expanded />
+            <Menu.Icon icon={LayoutExpanded} />
         </Menu.Button>
         <Menu.Button
-            active={layout === GalleryLayout.CONTAINED}
-            onMouseDown={() => onChange(GalleryLayout.CONTAINED)}
-            title="Contained gallery"
+            active={layout === GalleryLayout.FULL_WIDTH}
+            onMouseDown={() => onChange(GalleryLayout.FULL_WIDTH)}
+            title="Full width gallery"
         >
-            <Contained />
+            <Menu.Icon icon={LayoutFullWidth} />
         </Menu.Button>
     </Menu.ButtonGroup>
 );
