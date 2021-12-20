@@ -33,11 +33,7 @@ const PressContactMenu: FunctionComponent<Props> = ({ element, containerRef }) =
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
-                <Menu.Button
-                    onMouseDown={handleRemove}
-                    title="Delete contact"
-                    variant="danger"
-                >
+                <Menu.Button onMouseDown={handleRemove} title="Delete contact" variant="danger">
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>

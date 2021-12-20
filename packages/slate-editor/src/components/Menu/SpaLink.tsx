@@ -10,7 +10,13 @@ export interface Props extends Partial<LinkProps> {
     href: string;
 }
 
-export const SpaLink: FunctionComponent<Props> = ({ children, className, disabled, href, ...props }) => (
+export const SpaLink: FunctionComponent<Props> = ({
+    children,
+    className,
+    disabled,
+    href,
+    ...props
+}) => (
     <Link
         className={classNames('editor-menu__link', className, {
             'editor-menu__link--disabled': disabled,

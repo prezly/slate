@@ -31,11 +31,7 @@ const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
-                <Menu.Button
-                    onMouseDown={handleRemove}
-                    title="Delete coverage"
-                    variant="danger"
-                >
+                <Menu.Button onMouseDown={handleRemove} title="Delete coverage" variant="danger">
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>

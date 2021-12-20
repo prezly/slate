@@ -31,11 +31,7 @@ export const VideoMenu: FunctionComponent<Props> = ({ containerRef, element }) =
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
-                <Menu.Button
-                    onMouseDown={handleRemove}
-                    title="Delete video"
-                    variant="danger"
-                >
+                <Menu.Button onMouseDown={handleRemove} title="Delete video" variant="danger">
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>

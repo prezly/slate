@@ -56,7 +56,7 @@
         border-right: 1px solid;
 
         @include classic {
-            border-color: $toolbar-classic-theme-border-color
+            border-color: $toolbar-classic-theme-border-color;
         }
         @include dark {
             border-color: $toolbar-dark-theme-border-color;
@@ -66,7 +66,7 @@
         // when there is not enough horizontal space.
         display: inline-flex;
         font-size: 13px;
-        line-height: 1.0;
+        line-height: 1;
 
         padding: 0 $spacing-base;
 
@@ -187,7 +187,10 @@
         &[disabled] {
             pointer-events: none;
 
-            &, &:hover, &:focus, &:active {
+            &,
+            &:hover,
+            &:focus,
+            &:active {
                 @include classic {
                     color: $toolbar-classic-theme-icon-color;
                 }
@@ -210,7 +213,9 @@
                 line-height: 12px;
                 font-weight: 600;
 
-                &:hover, &:active, &:focus {
+                &:hover,
+                &:active,
+                &:focus {
                     background-color: #d6d9e0;
                     border-color: #afb6c0;
                     color: #4f6d7a;
@@ -247,7 +252,9 @@
                 line-height: 12px;
                 font-weight: 600;
 
-                &:hover, &:active, &:focus {
+                &:hover,
+                &:active,
+                &:focus {
                     background-color: #01532c;
                     color: $white;
                 }

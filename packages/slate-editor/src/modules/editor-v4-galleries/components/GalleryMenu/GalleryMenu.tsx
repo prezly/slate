@@ -107,11 +107,7 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
             </Menu.ButtonGroup>
 
             <Menu.ButtonGroup>
-                <Menu.Button
-                    onMouseDown={handleRemove}
-                    title="Delete gallery"
-                    variant="danger"
-                >
+                <Menu.Button onMouseDown={handleRemove} title="Delete gallery" variant="danger">
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>

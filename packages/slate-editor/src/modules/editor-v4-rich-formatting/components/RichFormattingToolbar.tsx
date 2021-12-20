@@ -82,12 +82,8 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
                     active={isSuperScriptActive || isSubScriptActive}
                     onMouseDown={handleSubSupClick}
                 >
-                    {isSubScriptActive && (
-                        <Menu.Icon icon={FormatStyleSubscript} />
-                    )}
-                    {isSuperScriptActive && (
-                        <Menu.Icon icon={FormatStyleSuperscript} />
-                    )}
+                    {isSubScriptActive && <Menu.Icon icon={FormatStyleSubscript} />}
+                    {isSuperScriptActive && <Menu.Icon icon={FormatStyleSuperscript} />}
                     {!(isSuperScriptActive || isSubScriptActive) && (
                         <Menu.Icon icon={FormatStyleNormal} />
                     )}

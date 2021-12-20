@@ -44,11 +44,7 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
                 </Menu.Button>
             </Menu.ButtonGroup>
             <Menu.ButtonGroup>
-                <Menu.Button
-                    onMouseDown={handleRemove}
-                    title="Delete attachment"
-                    variant="danger"
-                >
+                <Menu.Button onMouseDown={handleRemove} title="Delete attachment" variant="danger">
                     <Menu.Icon icon={Trash} />
                 </Menu.Button>
             </Menu.ButtonGroup>

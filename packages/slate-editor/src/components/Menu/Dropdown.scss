@@ -35,7 +35,7 @@
 
     &.open {
         &:after {
-            content: '';
+            content: "";
             position: absolute;
             width: $border-radius-base * 2 + 2px;
             height: $border-radius-base * 2 + 2px;
@@ -136,7 +136,7 @@
             background-color: $toolbar-dark-theme-bg;
             border-radius: 0 0 $border-radius-base * 2 $border-radius-base * 2;
             box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11),
-                        inset 0 1px 0 $toolbar-dark-theme-border-color;
+                inset 0 1px 0 $toolbar-dark-theme-border-color;
         }
 
         a {
@@ -205,7 +205,8 @@
                 @include dark {
                     padding: 0 $spacing-2;
                     border-top: 1px solid transparent;
-                    &, &:hover {
+                    &,
+                    &:hover {
                         background-color: transparent;
                     }
                 }
