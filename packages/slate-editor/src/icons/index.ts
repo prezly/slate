@@ -25,6 +25,7 @@ export { default as Gallery } from './Gallery.svg';
 export { default as Image } from './Image.svg';
 export { default as Link } from './Link.svg';
 export { default as PlayButton } from './PlayButton.svg';
+export { default as Resize } from './Resize.svg';
 export { default as Trash } from './Trash.svg';
 export { default as User } from './User.svg';
 export { default as Video } from './Video.svg';

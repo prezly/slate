@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
 import { DraggableCore } from 'react-draggable';
 
+import { Resize } from '../../../../icons';
+
 import { getClampedRatioInPercent, getClampedWidthInPercent, increaseWidth } from './lib';
 import './ResizableContainer.scss';
 
@@ -129,7 +131,7 @@ class ResizableContainer extends Component<Props, State> {
                                 onMouseDown={(event) => event.preventDefault()}
                                 type="button"
                             >
-                                <i className="icon icon-arrow-resize6" />
+                                <Resize className="editor-v4-image-resizable-container__button-icon" />
                             </button>
                         </div>
                     </DraggableCore>

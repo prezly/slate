@@ -24,7 +24,22 @@
     &__button {
         $size: 24px;
 
-        @include button-variant(#767676, $legacy-color-grey-250, transparent);
+        @include classic {
+            @include button-variant(#767676, $legacy-color-grey-250, transparent);
+            padding: 0;
+            border-radius: $border-radius-base;
+
+            &:hover {
+                color: $legacy-color-green-500;
+            }
+        }
+
+        @include dark {
+            padding: $spacing-half;
+            border-radius: 4px;
+
+            @include button-variant(rgba(#1B1B36, 0.96), rgba(#FFF, 0.88), transparent);
+        }
 
         width: $size;
         height: $size;
@@ -34,15 +49,14 @@
         line-height: 20px;
         font-size: 11px;
         text-align: center;
-        border-radius: $border-radius-base;
-        padding: 0;
-
-        &:hover {
-            color: $legacy-color-green-500;
-        }
 
         &:active {
             box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.11);
         }
+    }
+
+    &__button-icon {
+        width: 16px;
+        height: 16px;
     }
 }
