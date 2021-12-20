@@ -217,6 +217,14 @@
                 }
             }
 
+            @include dark {
+                color: $toolbar-dark-theme-text-color;
+
+                .editor-menu__icon {
+                    color: $toolbar-dark-theme-icon-color;
+                }
+            }
+
             &.disabled,
             &[disabled] {
                 @include classic {
@@ -245,6 +253,14 @@
                 }
             }
 
+            @include dark {
+                color: $toolbar-dark-theme-text-color;
+
+                .editor-menu__icon {
+                    color: $toolbar-dark-theme-icon-color;
+                }
+            }
+
             &.disabled,
             &[disabled] {
                 @include classic {
@@ -266,6 +282,10 @@
                 &,
                 &:hover {
                     color: $toolbar-dark-theme-text-color;
+
+                    .editor-menu__icon {
+                        color: $toolbar-dark-theme-icon-color;
+                    }
                 }
             }
         }
