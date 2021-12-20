@@ -321,6 +321,7 @@
     &__icon {
         width: $spacing-2;
         height: $spacing-2;
+        overflow: visible; // fix for Firefox SVG resizing cutting off bottom 1px
 
         @include dark {
             &:first-child:last-child {
