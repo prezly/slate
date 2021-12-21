@@ -16,7 +16,6 @@ const BlockDropdown: FunctionComponent<Props> = ({ value, onChange }) => (
         id="prezly-editor-toolbar-dropdown"
         onChange={onChange}
         options={OPTIONS}
-        richTextFormattingOptions
         value={value || undefined}
     />
 );

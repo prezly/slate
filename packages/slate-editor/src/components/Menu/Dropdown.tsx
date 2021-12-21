@@ -16,7 +16,6 @@ export interface Option<Value extends string> {
 export interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {
     onChange: (value: Value) => void;
     options: Option<Value>[];
-    richTextFormattingOptions?: boolean;
     value?: Value;
 }
 
@@ -24,7 +23,6 @@ export const Dropdown = <Value extends string = string>({
     className,
     onChange,
     options,
-    richTextFormattingOptions,
     value,
     ...props
 }: Props<Value>): ReturnType<FunctionComponent<Props<Value>>> => {
@@ -42,9 +40,7 @@ export const Dropdown = <Value extends string = string>({
     return (
         <BootstrapDropdown
             {...props}
-            className={classNames('editor-menu-dropdown', className, {
-                'editor-menu-dropdown--rich-text-formatting-options': richTextFormattingOptions,
-            })}
+            className={classNames('editor-menu-dropdown', className)}
             onSelect={handleSelect}
         >
             <BootstrapDropdown.Toggle>{selectedOption?.label}</BootstrapDropdown.Toggle>

@@ -146,118 +146,124 @@
         }
     }
 
-    &--rich-text-formatting-options {
-        .editor-menu-dropdown__menu-item {
-            margin-bottom: 0;
-            min-height: 34px;
-            // Workaround to center the text inside a fixed-height container.
-            // Using `flex` doesn't work because it breaks the hover highlight,
-            // which is set on the child `a`.
-            display: table;
-            width: 100%;
+    .editor-menu-dropdown__menu-item {
+        margin-bottom: 0;
+        min-height: 34px;
+        // Workaround to center the text inside a fixed-height container.
+        // Using `flex` doesn't work because it breaks the hover highlight,
+        // which is set on the child `a`.
+        display: table;
+        width: 100%;
 
-            @include classic-toolbar {
-                border-top: 1px solid $toolbar-classic-theme-border-color;
-            }
-
-            > a {
-                display: table-cell;
-                vertical-align: middle;
-                position: relative;
-
-                &::before {
-                    // Trick to display smaller hover background square,
-                    // while keeping the button area as big as possible (for a11y)
-                    content: "";
-                    display: none;
-                    border-radius: $border-radius-base;
-                    position: absolute;
-                    top: $spacing-half * 0.5;
-                    bottom: $spacing-half * 0.5;
-                    left: $spacing-base;
-                    right: $spacing-base;
-                }
-
-                &:hover::before {
-                    @include classic-toolbar {
-                        display: none;
-                    }
-                    @include dark-toolbar  {
-                        display: block;
-                        background-color: $toolbar-dark-theme-hover-bg;
-                    }
-                }
-
-                &:focus::before {
-                    top: $spacing-half;
-                    bottom: $spacing-half;
-                    left: $spacing-base;
-                    right: $spacing-base;
-
-                    @include dark-toolbar  {
-                        display: block;
-                        outline: $spacing-half solid $toolbar-dark-theme-focus-outline;
-                    }
-                }
-
-                @include classic-toolbar {
-                    padding: $spacing-half $spacing-2;
-                }
-
-                @include dark-toolbar {
-                    padding: 0 $spacing-2;
-                    border-top: 1px solid transparent;
-                    &,
-                    &:hover {
-                        background-color: transparent;
-                    }
-                }
-            }
+        @include classic-toolbar {
+            border-top: 1px solid $toolbar-classic-theme-border-color;
         }
 
-        .editor-menu-dropdown__menu-option {
-            margin: 0;
-            font-size: 13px;
+        > a {
+            display: table-cell;
+            vertical-align: middle;
+            position: relative;
 
-            &--paragraph {
-                // Override margin set on `.editor-story p`.
-                margin-bottom: 0 !important;
+            &::before {
+                // Trick to display smaller hover background square,
+                // while keeping the button area as big as possible (for a11y)
+                content: "";
+                display: none;
+                border-radius: $border-radius-base;
+                position: absolute;
+                top: $spacing-half * 0.5;
+                bottom: $spacing-half * 0.5;
+                left: $spacing-base;
+                right: $spacing-base;
             }
 
-            &--heading-1 {
-                font-size: 17px;
-                font-weight: 700;
+            &:hover::before {
+                @include classic-toolbar {
+                    display: none;
+                }
+                @include dark-toolbar  {
+                    display: block;
+                    background-color: $toolbar-dark-theme-hover-bg;
+                }
             }
 
-            &--heading-2 {
-                font-size: 15px;
-                font-weight: 700;
+            &:focus::before {
+                top: $spacing-half;
+                bottom: $spacing-half;
+                left: $spacing-base;
+                right: $spacing-base;
+
+                @include dark-toolbar  {
+                    display: block;
+                    outline: $spacing-half solid $toolbar-dark-theme-focus-outline;
+                }
             }
 
-            &--unordered-list,
-            &--ordered-list {
-                padding-left: $spacing-2;
-            }
-
-            &--unordered-list {
-                // Fix broken list style. Breaks because this list
-                // is nested in another list (menu items).
-                list-style-type: disc;
-            }
-
-            &--blockquote {
-                padding: 0 $spacing-1;
+            @include classic-toolbar {
+                padding: $spacing-half $spacing-2;
             }
 
             @include dark-toolbar {
+                padding: 0 $spacing-2;
                 color: $toolbar-dark-theme-icon-color;
+                border-top: 1px solid transparent;
+
+                &,
+                &:hover {
+                    background-color: transparent;
+                }
             }
         }
 
-        .editor-menu-dropdown__menu-item--selected .editor-menu-dropdown__menu-option {
+        &--selected > a {
             @include dark-toolbar {
                 color: $toolbar-dark-theme-icon-active-color;
             }
+        }
+    }
+
+    .editor-menu-dropdown__menu-option {
+        margin: 0;
+        font-size: 13px;
+
+        &--paragraph {
+            // Override margin set on `.editor-story p`.
+            margin-bottom: 0 !important;
+        }
+
+        &--heading-1 {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        &--heading-2 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        &--unordered-list,
+        &--ordered-list {
+            padding-left: $spacing-2;
+        }
+
+        &--unordered-list {
+            // Fix broken list style. Breaks because this list
+            // is nested in another list (menu items).
+            list-style-type: disc;
+        }
+
+        &--blockquote {
+            padding: 0 $spacing-1;
+        }
+
+        @include dark-toolbar {
+            color: $toolbar-dark-theme-icon-color;
+        }
+    }
+
+    .editor-menu-dropdown__menu-item--selected .editor-menu-dropdown__menu-option {
+        @include dark-toolbar {
+            color: $toolbar-dark-theme-icon-active-color;
         }
     }
 }
