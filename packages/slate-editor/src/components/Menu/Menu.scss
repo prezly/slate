@@ -3,17 +3,19 @@
 @import "styles/variables";
 
 .editor-menu {
+    @import "./mixins";
+
     $font-size: 14px;
 
     display: flex;
     border-radius: $border-radius-base * 2;
 
-    @include classic {
+    &--classic-theme {
         border-radius: 4px;
         color: $black;
         background-color: $toolbar-classic-theme-bg;
     }
-    @include dark {
+    &--dark-theme {
         color: $toolbar-dark-theme-text-color;
         backdrop-filter: blur(6px);
         background-color: $toolbar-dark-theme-bg;
@@ -56,10 +58,10 @@
     &__button-group {
         border-right: 1px solid;
 
-        @include classic {
+        @include classic-toolbar {
             border-color: $toolbar-classic-theme-border-color;
         }
-        @include dark {
+        @include dark-toolbar {
             border-color: $toolbar-dark-theme-border-color;
         }
 
@@ -71,7 +73,7 @@
 
         padding: 0 $spacing-base;
 
-        @include classic {
+        @include classic-toolbar {
             padding: 0 $spacing-half;
         }
 
@@ -84,7 +86,7 @@
             align-items: center;
             padding: 0 $spacing-1;
 
-            @include classic {
+            @include classic-toolbar {
                 padding: 0 $spacing-half;
             }
 
@@ -97,14 +99,14 @@
             }
         }
 
-        &--classic {
-            @include dark {
+        &[data-theme-visibility=classic] {
+            @include dark-toolbar {
                 display: none;
             }
         }
 
-        &--dark {
-            @include classic {
+        &[data-theme-visibility=dark] {
+            @include classic-toolbar {
                 display: none;
             }
         }
@@ -126,17 +128,17 @@
             margin-right: 0;
         }
 
-        @include classic {
+        @include classic-toolbar {
             color: $toolbar-classic-theme-icon-color;
         }
 
-        @include dark {
+        @include dark-toolbar {
             fill: rgba(#fff, 0.2);
             color: $toolbar-dark-theme-icon-color;
         }
 
         &:hover {
-            @include classic {
+            @include classic-toolbar {
                 fill: $toolbar-classic-theme-icon-hover-color;
                 color: $toolbar-classic-theme-icon-hover-color;
             }
@@ -153,10 +155,10 @@
                 bottom: $spacing-base;
                 right: 0;
 
-                @include classic {
+                @include classic-toolbar {
                     display: none;
                 }
-                @include dark {
+                @include dark-toolbar {
                     background-color: $toolbar-dark-theme-hover-bg;
                 }
             }
@@ -168,11 +170,11 @@
         }
 
         &--active {
-            @include classic {
+            @include classic-toolbar {
                 fill: $toolbar-classic-theme-icon-active-color;
                 color: $toolbar-classic-theme-icon-active-color;
             }
-            @include dark {
+            @include dark-toolbar {
                 fill: $toolbar-dark-theme-icon-color;
                 color: $toolbar-dark-theme-icon-active-color;
             }
@@ -187,10 +189,10 @@
                 height: $spacing-half;
                 border-radius: $border-radius-base * 0.5;
 
-                @include classic {
+                @include classic-toolbar {
                     background-color: $toolbar-classic-theme-icon-active-color;
                 }
-                @include dark {
+                @include dark-toolbar {
                     display: none;
                 }
             }
@@ -204,17 +206,17 @@
             &:hover,
             &:focus,
             &:active {
-                @include classic {
+                @include classic-toolbar {
                     color: $toolbar-classic-theme-icon-color;
                 }
-                @include dark {
+                @include dark-toolbar {
                     color: transparentize($toolbar-dark-theme-icon-color, 0.3);
                 }
             }
         }
 
         &--primary {
-            @include classic {
+            @include classic-toolbar {
                 background-color: #f3f4f6;
                 border: 1px solid #d1d5db;
                 color: #4f6d7a;
@@ -235,7 +237,7 @@
                 }
             }
 
-            @include dark {
+            @include dark-toolbar {
                 color: $toolbar-dark-theme-text-color;
 
                 .editor-menu__icon {
@@ -245,7 +247,7 @@
 
             &.disabled,
             &[disabled] {
-                @include classic {
+                @include classic-toolbar {
                     background-color: #d6d9e0;
                     color: #4f6d7a;
                     opacity: 0.4;
@@ -254,7 +256,7 @@
         }
 
         &--success {
-            @include classic {
+            @include classic-toolbar {
                 background-color: $color-brand-primary;
                 color: $white;
                 border-radius: 4px;
@@ -273,7 +275,7 @@
                 }
             }
 
-            @include dark {
+            @include dark-toolbar {
                 color: $toolbar-dark-theme-text-color;
 
                 .editor-menu__icon {
@@ -283,7 +285,7 @@
 
             &.disabled,
             &[disabled] {
-                @include classic {
+                @include classic-toolbar {
                     color: $white;
                     opacity: 0.4;
                 }
@@ -291,14 +293,14 @@
         }
 
         &--danger {
-            @include classic {
+            @include classic-toolbar {
                 &,
                 &:hover {
                     color: $toolbar-classic-theme-danger-color;
                 }
             }
 
-            @include dark {
+            @include dark-toolbar {
                 &,
                 &:hover {
                     color: $toolbar-dark-theme-text-color;
@@ -324,7 +326,7 @@
         height: $spacing-2;
         overflow: visible; // fix for Firefox SVG resizing cutting off bottom 1px
 
-        @include dark {
+        @include dark-toolbar {
             &:first-child:last-child {
                 margin-left: -$spacing-half;
                 margin-right: -$spacing-half;

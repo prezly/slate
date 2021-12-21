@@ -9,5 +9,4 @@ export {
     isEditorValueEquivalent,
 } from './lib';
 export type { EditorRef, EditorV4Props } from './types';
-export { Theme } from './types';
 export { default as useEditorEvents } from './useEditorEvents';

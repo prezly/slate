@@ -2,6 +2,8 @@ import { ImageLayout } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
+import { Theme } from '#modules/themes';
+
 import { Menu } from '../../../components';
 import {
     LayoutClassicContained,
@@ -12,8 +14,6 @@ import {
     LayoutFullWidth,
 } from '../../../icons';
 
-import { Theme } from '../../editor-v4';
-
 interface Props {
     layout: ImageLayout;
     onChange: (layout: ImageLayout) => void;
@@ -21,7 +21,7 @@ interface Props {
 
 const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
     <>
-        <Menu.ButtonGroup theme={Theme.DARK}>
+        <Menu.ButtonGroup visibility={Theme.DARK}>
             <Menu.Button
                 active={layout === ImageLayout.CONTAINED}
                 onClick={() => onChange(ImageLayout.CONTAINED)}
@@ -45,7 +45,7 @@ const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
             </Menu.Button>
         </Menu.ButtonGroup>
 
-        <Menu.ButtonGroup theme={Theme.CLASSIC}>
+        <Menu.ButtonGroup visibility={Theme.CLASSIC}>
             <Menu.Button
                 active={layout === ImageLayout.CONTAINED}
                 onClick={() => onChange(ImageLayout.CONTAINED)}

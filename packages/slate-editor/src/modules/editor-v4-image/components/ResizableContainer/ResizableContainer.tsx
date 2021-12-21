@@ -9,6 +9,7 @@ import { Resize } from '../../../../icons';
 
 import { getClampedRatioInPercent, getClampedWidthInPercent, increaseWidth } from './lib';
 import './ResizableContainer.scss';
+import { Theme } from '#modules/themes';
 
 interface Props {
     className?: string;
@@ -19,6 +20,7 @@ interface Props {
     onResizeStop?: () => void;
     resizingClassName?: string;
     style?: CSSProperties | null;
+    theme: Theme;
     width: number;
     widthFactor: string;
     widthPercent: string;
@@ -98,7 +100,7 @@ class ResizableContainer extends Component<Props, State> {
     };
 
     render() {
-        const { children, className, enabled, resizingClassName, style } = this.props;
+        const { children, className, enabled, resizingClassName, style, theme } = this.props;
         const { isResizing, widthPercent } = this.state;
 
         return (
@@ -108,6 +110,8 @@ class ResizableContainer extends Component<Props, State> {
                     className,
                     isResizing && resizingClassName,
                     {
+                        'editor-v4-image-resizable-container--classic-theme': theme === Theme.CLASSIC,
+                        'editor-v4-image-resizable-container--dark-theme': theme === Theme.DARK,
                         'editor-v4-image-resizable-container--resizing': isResizing,
                     },
                 )}

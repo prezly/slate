@@ -1,20 +1,20 @@
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
-import { Theme } from '../../modules/editor-v4';
+
+import type { Theme } from '#modules/themes';
 
 export interface Props {
     flex?: boolean;
-    theme?: Theme;
+    visibility?: Theme;
 }
 
-export const ButtonGroup: FunctionComponent<Props> = ({ children, flex, theme }) => (
+export const ButtonGroup: FunctionComponent<Props> = ({ children, flex, visibility }) => (
     <div
         className={classNames('editor-menu__button-group', {
             'editor-menu__button-group--flex': flex,
-            'editor-menu__button-group--classic': theme === Theme.CLASSIC,
-            'editor-menu__button-group--dark': theme === Theme.DARK,
         })}
+        data-theme-visibility={visibility}
     >
         {children}
     </div>

@@ -7,11 +7,11 @@
     padding: $spacing-1 ($spacing-1 + $spacing-half);
     font-size: 14px;
 
-    @include classic {
+    &--classic-theme {
         color: $toolbar-classic-theme-text-color;
     }
 
-    @include dark {
+    &--dark-theme {
         color: $toolbar-dark-theme-icon-color;
     }
 
@@ -20,12 +20,11 @@
         width: 16px;
         height: 16px;
 
-        @include classic {
+        .gallery-tooltip--classic-theme & {
             color: $legacy-color-purple-500;
         }
 
-        @include dark {
-
+        .gallery-tooltip--dark-theme & {
             color: $toolbar-dark-theme-icon-color;
         }
     }

@@ -16,6 +16,7 @@ import ImageMenu from '../ImageMenu';
 import ResizableContainer from '../ResizableContainer';
 
 import './ImageElement.scss';
+import { useToolbarsTheme } from '#modules/themes';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -52,6 +53,7 @@ const ImageElement: FunctionComponent<Props> = ({
     onRemove,
     showLayoutControls,
 }) => {
+    const theme = useToolbarsTheme();
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview(
         availableWidth * 2, // Using 2x for retina.
     );
@@ -136,6 +138,7 @@ const ImageElement: FunctionComponent<Props> = ({
                     onResizeStop={handleResizeStop}
                     resizingClassName="editor-v4-image-element__resizable-container--resizing"
                     style={isContainedLayout ? null : { width: '100%' }}
+                    theme={theme}
                     width={imageWidth}
                     widthFactor={imageWidthFactor}
                     widthPercent={imageWidthPercent}

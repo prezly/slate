@@ -1,1 +1,1 @@
-export { default } from './GalleryLayoutSettings';
+export { GalleryLayoutSettings } from './GalleryLayoutSettings';

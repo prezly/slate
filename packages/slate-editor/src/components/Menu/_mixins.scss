@@ -1,0 +1,11 @@
+@mixin classic-toolbar {
+    .editor-menu--classic-theme & {
+        @content;
+    }
+}
+
+@mixin dark-toolbar {
+    .editor-menu--dark-theme & {
+        @content;
+    }
+}

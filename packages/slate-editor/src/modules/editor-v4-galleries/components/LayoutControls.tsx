@@ -2,7 +2,7 @@ import { GalleryLayout } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { Menu } from '../../../components';
+import { Menu } from '#components';
 import {
     LayoutClassicContained,
     LayoutClassicExpanded,
@@ -10,8 +10,8 @@ import {
     LayoutContained,
     LayoutExpanded,
     LayoutFullWidth,
-} from '../../../icons';
-import { Theme } from '../../editor-v4';
+} from '#icons';
+import { Theme } from '#modules/themes';
 
 interface Props {
     layout: GalleryLayout;
@@ -20,7 +20,7 @@ interface Props {
 
 const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
     <>
-        <Menu.ButtonGroup theme={Theme.DARK}>
+        <Menu.ButtonGroup visibility={Theme.DARK}>
             <Menu.Button
                 active={layout === GalleryLayout.CONTAINED}
                 onClick={() => onChange(GalleryLayout.CONTAINED)}
@@ -44,7 +44,7 @@ const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
             </Menu.Button>
         </Menu.ButtonGroup>
 
-        <Menu.ButtonGroup theme={Theme.CLASSIC}>
+        <Menu.ButtonGroup visibility={Theme.CLASSIC}>
             <Menu.Button
                 active={layout === GalleryLayout.CONTAINED}
                 onClick={() => onChange(GalleryLayout.CONTAINED)}

@@ -1,4 +1,3 @@
-@import "styles/mixins";
 @import "styles/variables";
 
 .editor-v4-link-menu {
@@ -15,10 +14,10 @@
         justify-content: stretch;
         border-right: 1px solid;
 
-        @include classic {
+        .editor-v4-link-menu--classic-theme & {
             border-color: $toolbar-classic-theme-border-color;
         }
-        @include dark {
+        .editor-v4-link-menu--dark-theme & {
             border-color: $toolbar-dark-theme-border-color;
         }
     }

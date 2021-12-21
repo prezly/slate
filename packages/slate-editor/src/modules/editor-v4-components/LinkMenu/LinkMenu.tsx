@@ -8,6 +8,8 @@ import { Menu } from '../../../components';
 
 import { STRING_URL_PATTERN } from './constants';
 import './LinkMenu.scss';
+import { Theme, useToolbarsTheme } from '#modules/themes';
+import classNames from 'classnames';
 
 interface Props {
     canUnlink: boolean;
@@ -26,6 +28,7 @@ const LinkMenu: FunctionComponent<Props> = ({
     onRemove,
     value,
 }) => {
+    const theme = useToolbarsTheme();
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffectOnce(() => {
@@ -41,7 +44,10 @@ const LinkMenu: FunctionComponent<Props> = ({
 
     return (
         <RootCloseWrapper onRootClose={onClose}>
-            <div className="editor-v4-link-menu">
+            <div className={classNames('editor-v4-link-menu', {
+                'editor-v4-link-menu--classic-theme': theme === Theme.CLASSIC,
+                'editor-v4-link-menu--dark-theme': theme === Theme.DARK,
+            })}>
                 <Menu.ButtonGroup>
                     <Menu.Button onClick={onClose}>
                         <Menu.Icon icon={Cross} />

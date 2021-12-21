@@ -1,7 +1,7 @@
 export { default as Avatar } from './Avatar';
 export { default as CloseButtonV2 } from './CloseButtonV2';
 export * as Menu from './Menu';
-export { default as GalleryLayoutSettings } from './GalleryLayoutSettings';
+export { GalleryLayoutSettings } from './GalleryLayoutSettings';
 export { HtmlInjection } from './HtmlInjection';
 export { default as ImageSizeWarning } from './ImageSizeWarning';
 export { default as ImageWithLoadingPlaceholderV2 } from './ImageWithLoadingPlaceholderV2';

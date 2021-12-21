@@ -7,7 +7,9 @@ import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '../../icons';
+import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '#icons';
+import { Theme, withToolbarsThemeContext } from '#modules/themes';
+
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
@@ -39,7 +41,6 @@ import {
     useCursorInView,
 } from './lib';
 import type { EditorRef, EditorV4Props } from './types';
-import { Theme } from './types';
 import useCreateEditor from './useCreateEditor';
 import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';
@@ -315,12 +316,9 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isCustomPlaceholderShown);
 
-    return (
+    return withToolbarsThemeContext(toolbarsTheme, (
         <div
-            className={classNames('editor-v4', className, {
-                'editor-v4--classic-toolbars': toolbarsTheme === Theme.CLASSIC,
-                'editor-v4--dark-toolbars': toolbarsTheme === Theme.DARK,
-            })}
+            className={classNames('editor-v4', className)}
             ref={containerRef}
             style={style}
         >
@@ -459,7 +457,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                 )}
             </Slate>
         </div>
-    );
+    ));
 };
 
 export default withAvailableWidth(withDebounce(EditorV4));
