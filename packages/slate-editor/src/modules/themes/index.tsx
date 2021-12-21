@@ -18,3 +18,6 @@ export function withToolbarsThemeContext(theme: Theme, children: ReactNode): Rea
         </ToolbarsTheme.Provider>
     );
 }
+
+export const CLASSIC = Theme.CLASSIC;
+export const DARK = Theme.DARK;
