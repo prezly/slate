@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
 import { Menu } from '../../../components';
-import { Trash } from '../../../icons';
+import { Delete } from '../../../icons';
 import { EventsEditor } from '../../editor-v4-events';
 import { removeVideo } from '../transforms';
 
@@ -32,7 +32,7 @@ export const VideoMenu: FunctionComponent<Props> = ({ containerRef, element }) =
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
                 <Menu.Button onClick={handleRemove} title="Delete video" variant="danger">
-                    <Menu.Icon icon={Trash} />
+                    <Menu.Icon icon={Delete} />
                 </Menu.Button>
             </Menu.ButtonGroup>
         </Menu.FloatingMenu>

@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
 import { Menu } from '../../../components';
-import { Trash } from '../../../icons';
+import { Delete } from '../../../icons';
 import { EventsEditor } from '../../../modules/editor-v4-events';
 import { removeEmbed } from '../transforms';
 
@@ -32,7 +32,7 @@ const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
                 <Menu.Button onClick={handleRemove} title="Delete embed" variant="danger">
-                    <Menu.Icon icon={Trash} />
+                    <Menu.Icon icon={Delete} />
                 </Menu.Button>
             </Menu.ButtonGroup>
         </Menu.FloatingMenu>

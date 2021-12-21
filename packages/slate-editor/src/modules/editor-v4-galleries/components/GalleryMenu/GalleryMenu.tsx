@@ -7,7 +7,7 @@ import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
 import { GalleryLayoutSettings, Menu } from '../../../../components';
-import { Cogwheel, Dice, Edit, Trash } from '../../../../icons';
+import { Cogwheel, Delete, Dice, Edit } from '../../../../icons';
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
 import LayoutControls from '../LayoutControls';
@@ -108,7 +108,7 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
 
             <Menu.ButtonGroup>
                 <Menu.Button onClick={handleRemove} title="Delete gallery" variant="danger">
-                    <Menu.Icon icon={Trash} />
+                    <Menu.Icon icon={Delete} />
                 </Menu.Button>
             </Menu.ButtonGroup>
         </Menu.FloatingMenu>

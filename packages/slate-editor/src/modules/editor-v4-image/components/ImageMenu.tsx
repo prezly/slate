@@ -6,7 +6,7 @@ import { Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
 import { Menu } from '../../../components';
-import { Edit, Link, Trash } from '../../../icons';
+import { Delete, Edit, Link } from '../../../icons';
 import { LinkMenu } from '../../../modules/editor-v4-components';
 import { removeImage, setImageHref, setLayout } from '../transforms';
 
@@ -127,7 +127,7 @@ const ImageMenu: FunctionComponent<Props> = ({
 
             <Menu.ButtonGroup>
                 <Menu.Button onClick={handleRemove} title="Delete image" variant="danger">
-                    <Menu.Icon icon={Trash} />
+                    <Menu.Icon icon={Delete} />
                 </Menu.Button>
             </Menu.ButtonGroup>
         </Menu.FloatingMenu>

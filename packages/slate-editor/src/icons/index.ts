@@ -4,6 +4,7 @@ export { default as Bookmark } from './Embed.svg'; // this will be reworked in s
 export { default as Cogwheel } from './Cogwheel.svg';
 export { default as Coverage } from './Coverage.svg';
 export { default as Cross } from './Cross.svg';
+export { default as Delete } from './Delete.svg';
 export { default as Dice } from './Dice.svg';
 export { default as DotsThreeHorizontal } from './DotsThreeHorizontal.svg';
 export { default as Download } from './Download.svg';
@@ -30,6 +31,5 @@ export { default as LayoutFullWidth } from './Layout-FullWidth.svg';
 export { default as Link } from './Link.svg';
 export { default as PlayButton } from './PlayButton.svg';
 export { default as Resize } from './Resize.svg';
-export { default as Trash } from './Trash.svg';
 export { default as User } from './User.svg';
 export { default as Video } from './Video.svg';

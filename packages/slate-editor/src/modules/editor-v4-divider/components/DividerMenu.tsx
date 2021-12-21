@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
 import { Menu } from '../../../components';
-import { Trash } from '../../../icons';
+import { Delete } from '../../../icons';
 import { removeDivider } from '../transforms';
 
 interface Props {
@@ -27,7 +27,7 @@ const DividerMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
                     title="Delete divider"
                     variant="danger"
                 >
-                    <Menu.Icon icon={Trash} />
+                    <Menu.Icon icon={Delete} />
                 </Menu.Button>
             </Menu.ButtonGroup>
         </Menu.FloatingMenu>

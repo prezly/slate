@@ -5,7 +5,7 @@ import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
 import { Menu } from '../../../components';
-import { Edit, Trash } from '../../../icons';
+import { Delete, Edit } from '../../../icons';
 import { removeFileAttachment } from '../transforms';
 
 interface Props {
@@ -45,7 +45,7 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
             </Menu.ButtonGroup>
             <Menu.ButtonGroup>
                 <Menu.Button onClick={handleRemove} title="Delete attachment" variant="danger">
-                    <Menu.Icon icon={Trash} />
+                    <Menu.Icon icon={Delete} />
                 </Menu.Button>
             </Menu.ButtonGroup>
         </Menu.FloatingMenu>
