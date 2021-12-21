@@ -7,14 +7,14 @@
     text-align: left;
     font-size: 14px;
 
-    .gallery-layout-settings--classic-theme & {
+    &.gallery-layout-settings--classic-theme {
         background-color: white;
         border: 1px solid $legacy-color-grey-250;
         color: $grey-600;
         border-radius: $border-radius-base;
     }
 
-    .gallery-layout-settings--dark-theme & {
+    &.gallery-layout-settings--dark-theme {
         background-color: $toolbar-dark-theme-bg;
         backdrop-filter: blur(6px);
         border: none;
