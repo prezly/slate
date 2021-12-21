@@ -5,6 +5,13 @@
         "emitDeclarationOnly": true,
         "declarationDir": "./build/types",
         "rootDir": "./src",
+        "baseUrl": "./src",
+        "paths": {
+            "#components": ["components"],
+            "#icons": ["icons"],
+            "#lib": ["lib"],
+            "#modules/*": ["modules/*"]
+        },
         "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./src/@types"]
     },
     "files": ["./src/@types/svg.d.ts"],

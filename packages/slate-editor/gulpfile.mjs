@@ -26,7 +26,7 @@ const DEPENDENCIES_SOURCES = '../{slate-types,slate-hyperscript,slate-commons,sl
 gulp.task('build:code', function () {
     return gulp
         .src(TYPESCRIPT_SOURCES)
-        .pipe(babel({ extends: '../../babel.config.js' }))
+        .pipe(babel({ extends: './babel.config.js' }))
         .pipe(rename((file) => file.extname = '.mjs'))
         .pipe(gulp.dest('build/esm/'));
 });
