@@ -32,10 +32,12 @@ export const GalleryLayoutSettings = <Padding extends string, Size extends strin
     const theme = useToolbarsTheme();
 
     return (
-        <div className={classNames('gallery-layout-settings', className, {
-            'gallery-layout-settings--classic-theme': theme === Theme.CLASSIC,
-            'gallery-layout-settings--dark-theme': theme === Theme.DARK,
-        })}>
+        <div
+            className={classNames('gallery-layout-settings', className, {
+                'gallery-layout-settings--classic-theme': theme === Theme.CLASSIC,
+                'gallery-layout-settings--dark-theme': theme === Theme.DARK,
+            })}
+        >
             <div className="gallery-layout-settings__header">
                 <h4 className="gallery-layout-settings__title">Layout settings</h4>
 
@@ -70,4 +72,4 @@ export const GalleryLayoutSettings = <Padding extends string, Size extends strin
             </div>
         </div>
     );
-}
+};

@@ -316,12 +316,9 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isCustomPlaceholderShown);
 
-    return withToolbarsThemeContext(toolbarsTheme, (
-        <div
-            className={classNames('editor-v4', className)}
-            ref={containerRef}
-            style={style}
-        >
+    return withToolbarsThemeContext(
+        toolbarsTheme,
+        <div className={classNames('editor-v4', className)} ref={containerRef} style={style}>
             <Slate
                 editor={editor}
                 onChange={(newValue) => {
@@ -456,8 +453,8 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                     />
                 )}
             </Slate>
-        </div>
-    ));
+        </div>,
+    );
 };
 
 export default withAvailableWidth(withDebounce(EditorV4));

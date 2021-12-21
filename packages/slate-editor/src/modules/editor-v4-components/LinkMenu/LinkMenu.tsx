@@ -44,10 +44,12 @@ const LinkMenu: FunctionComponent<Props> = ({
 
     return (
         <RootCloseWrapper onRootClose={onClose}>
-            <div className={classNames('editor-v4-link-menu', {
-                'editor-v4-link-menu--classic-theme': theme === Theme.CLASSIC,
-                'editor-v4-link-menu--dark-theme': theme === Theme.DARK,
-            })}>
+            <div
+                className={classNames('editor-v4-link-menu', {
+                    'editor-v4-link-menu--classic-theme': theme === Theme.CLASSIC,
+                    'editor-v4-link-menu--dark-theme': theme === Theme.DARK,
+                })}
+            >
                 <Menu.ButtonGroup>
                     <Menu.Button onClick={onClose}>
                         <Menu.Icon icon={Cross} />

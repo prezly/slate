@@ -12,11 +12,7 @@ export function useToolbarsTheme(): Theme {
 }
 
 export function withToolbarsThemeContext(theme: Theme, children: ReactNode): ReactElement {
-    return (
-        <ToolbarsTheme.Provider value={theme}>
-            {children}
-        </ToolbarsTheme.Provider>
-    );
+    return <ToolbarsTheme.Provider value={theme}>{children}</ToolbarsTheme.Provider>;
 }
 
 export const CLASSIC = Theme.CLASSIC;

@@ -64,7 +64,7 @@
             }
 
             &:hover:before {
-                content: '';
+                content: "";
                 display: block;
                 position: absolute;
                 left: $spacing-1;
@@ -130,13 +130,13 @@
             }
         }
 
-        &[data-theme-visibility=classic] {
+        &[data-theme-visibility="classic"] {
             @include dark-toolbar {
                 display: none;
             }
         }
 
-        &[data-theme-visibility=dark] {
+        &[data-theme-visibility="dark"] {
             @include classic-toolbar {
                 display: none;
             }

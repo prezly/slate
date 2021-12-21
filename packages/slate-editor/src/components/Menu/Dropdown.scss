@@ -69,7 +69,7 @@
             }
         }
 
-        @include dark-toolbar  {
+        @include dark-toolbar {
             color: $toolbar-dark-theme-text-color;
             &:hover {
                 color: $toolbar-dark-theme-text-hover-color;
@@ -92,7 +92,7 @@
                 @include classic-toolbar {
                     display: none;
                 }
-                @include dark-toolbar  {
+                @include dark-toolbar {
                     background-color: $toolbar-dark-theme-hover-bg;
                 }
             }
@@ -113,7 +113,7 @@
             @include classic-toolbar {
                 color: $toolbar-classic-theme-icon-color;
             }
-            @include dark-toolbar  {
+            @include dark-toolbar {
                 color: $toolbar-dark-theme-icon-color;
             }
         }
@@ -181,7 +181,7 @@
                 @include classic-toolbar {
                     display: none;
                 }
-                @include dark-toolbar  {
+                @include dark-toolbar {
                     display: block;
                     background-color: $toolbar-dark-theme-hover-bg;
                 }
@@ -193,7 +193,7 @@
                 left: $spacing-base;
                 right: $spacing-base;
 
-                @include dark-toolbar  {
+                @include dark-toolbar {
                     display: block;
                     outline: $spacing-half solid $toolbar-dark-theme-focus-outline;
                 }

@@ -23,4 +23,4 @@ export const Toolbar: FunctionComponent<Props> = ({ children, className }) => {
             {children}
         </div>
     );
-}
+};

@@ -110,7 +110,8 @@ class ResizableContainer extends Component<Props, State> {
                     className,
                     isResizing && resizingClassName,
                     {
-                        'editor-v4-image-resizable-container--classic-theme': theme === Theme.CLASSIC,
+                        'editor-v4-image-resizable-container--classic-theme':
+                            theme === Theme.CLASSIC,
                         'editor-v4-image-resizable-container--dark-theme': theme === Theme.DARK,
                         'editor-v4-image-resizable-container--resizing': isResizing,
                     },
