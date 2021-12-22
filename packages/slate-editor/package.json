@@ -63,6 +63,7 @@
         "@prezly/slate-lists": "^0.9.2",
         "@prezly/slate-types": "^0.9.2",
         "@prezly/uploadcare": "^1.0.0",
+        "@udecode/plate-core": "^9.0.0",
         "classnames": "^2.3.1",
         "is-hotkey": "^0.2.0",
         "json-stable-stringify": "^1.0.1",

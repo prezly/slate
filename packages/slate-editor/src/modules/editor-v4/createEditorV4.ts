@@ -12,6 +12,7 @@ import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
 
 import { withImages } from '../../modules/editor-v4-image';
+import { withAutoformat } from '../../modules/editor-v4-autoformat';
 import { withLoaders } from '../../modules/editor-v4-loader';
 import { withRichFormatting } from '../../modules/editor-v4-rich-formatting';
 
@@ -47,6 +48,7 @@ const createEditorV4 = (
         withSlatePasting,
         withRichFormatting,
         withImages,
+        withAutoformat,
         withFilePasting(getExtensions),
         ...plugins,
     ])(baseEditor);
