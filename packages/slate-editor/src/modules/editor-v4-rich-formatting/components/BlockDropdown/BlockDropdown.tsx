@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { FloatingMenu } from '../../../../components';
+import { Menu } from '../../../../components';
 import type { BlockType } from '../../types';
 
 import OPTIONS from './options';
@@ -12,11 +12,10 @@ interface Props {
 }
 
 const BlockDropdown: FunctionComponent<Props> = ({ value, onChange }) => (
-    <FloatingMenu.Dropdown<BlockType>
+    <Menu.Dropdown<BlockType>
         id="prezly-editor-toolbar-dropdown"
         onChange={onChange}
         options={OPTIONS}
-        richTextFormattingOptions
         value={value || undefined}
     />
 );

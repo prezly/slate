@@ -3,12 +3,13 @@ import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import { noop } from 'lodash';
 import type { FunctionComponent } from 'react';
-import React from 'react';
-import { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '../../icons';
+import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '#icons';
+import { Theme, withToolbarsThemeContext } from '#modules/themes';
+
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
@@ -60,6 +61,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     plugins,
     readOnly,
     style,
+    toolbarsTheme = Theme.CLASSIC,
     value,
     withAttachments,
     withCoverage,
@@ -314,7 +316,8 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isCustomPlaceholderShown);
 
-    return (
+    return withToolbarsThemeContext(
+        toolbarsTheme,
         <div className={classNames('editor-v4', className)} ref={containerRef} style={style}>
             <Slate
                 editor={editor}
@@ -450,7 +453,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                     />
                 )}
             </Slate>
-        </div>
+        </div>,
     );
 };
 

@@ -14,7 +14,7 @@ $spacing-6: 6 * $spacing-base;
 $spacing-7: 7 * $spacing-base;
 $spacing-8: 8 * $spacing-base;
 
-$border-radius-base: 4px;
+$border-radius-base: 6px;
 
 $font-family-sans-serif: "Open Sans", sans-serif;
 $font-size-x-small: 12px;
@@ -30,3 +30,21 @@ $slate-paragraph-line-height: 26px;
 
 $story-composer-navigation-z-index: 10000;
 $story-composer-sidebar-z-index: $story-composer-navigation-z-index + 1;
+
+$toolbar-classic-theme-bg: #fff;
+$toolbar-classic-theme-border-color: $legacy-color-grey-250;
+$toolbar-classic-theme-text-color: $grey-700;
+$toolbar-classic-theme-text-hover-color: $grey-700;
+$toolbar-classic-theme-icon-color: $grey-700;
+$toolbar-classic-theme-icon-active-color: $legacy-color-green-500;
+$toolbar-classic-theme-icon-hover-color: $toolbar-classic-theme-icon-active-color;
+$toolbar-classic-theme-danger-color: $legacy-color-red-500;
+
+$toolbar-dark-theme-bg: rgba(#292942, 0.96);
+$toolbar-dark-theme-border-color: rgba(#fff, 0.12);
+$toolbar-dark-theme-text-color: #fff;
+$toolbar-dark-theme-text-hover-color: #fff;
+$toolbar-dark-theme-icon-color: rgba(#fff, 0.6);
+$toolbar-dark-theme-icon-active-color: $color-dark-ui-accent;
+$toolbar-dark-theme-hover-bg: rgba(#fff, 0.12);
+$toolbar-dark-theme-focus-outline: $indigo-200;

@@ -21,7 +21,7 @@ interface Props {
 const MenuOption: FunctionComponent<Props> = ({ children, className, type }) => {
     if (type === 'multiple') {
         return (
-            <div className={classNames('floating-menu-dropdown__menu-option', className)}>
+            <div className={classNames('editor-menu-dropdown__menu-option', className)}>
                 {children}
             </div>
         );
@@ -31,7 +31,7 @@ const MenuOption: FunctionComponent<Props> = ({ children, className, type }) => 
         const mockParagraphElement = { children: [], type };
         return (
             <ParagraphElement
-                className={classNames('floating-menu-dropdown__menu-option', className)}
+                className={classNames('editor-menu-dropdown__menu-option', className)}
                 element={mockParagraphElement}
             >
                 {children}
@@ -41,7 +41,7 @@ const MenuOption: FunctionComponent<Props> = ({ children, className, type }) => 
 
     return (
         <RichTextElement
-            className={classNames('floating-menu-dropdown__menu-option', className)}
+            className={classNames('editor-menu-dropdown__menu-option', className)}
             element={createMockElement(type)}
         >
             {children}

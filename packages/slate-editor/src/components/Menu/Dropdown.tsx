@@ -1,24 +1,28 @@
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import type { DropdownProps } from 'react-bootstrap';
 import { Dropdown as BootstrapDropdown, MenuItem } from 'react-bootstrap';
 
 import './Dropdown.scss';
-import type { Option } from './types';
+
+export interface Option<Value extends string> {
+    hidden?: boolean;
+    label: string;
+    render?: (option: Option<Value>) => ReactNode;
+    value: Value;
+}
 
 export interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {
     onChange: (value: Value) => void;
     options: Option<Value>[];
-    richTextFormattingOptions?: boolean;
     value?: Value;
 }
 
-const Dropdown = <Value extends string = string>({
+export const Dropdown = <Value extends string = string>({
     className,
     onChange,
     options,
-    richTextFormattingOptions,
     value,
     ...props
 }: Props<Value>): ReturnType<FunctionComponent<Props<Value>>> => {
@@ -36,16 +40,16 @@ const Dropdown = <Value extends string = string>({
     return (
         <BootstrapDropdown
             {...props}
-            className={classNames('floating-menu-dropdown', className, {
-                'floating-menu-dropdown--rich-text-formatting-options': richTextFormattingOptions,
-            })}
+            className={classNames('editor-menu-dropdown', className)}
             onSelect={handleSelect}
         >
             <BootstrapDropdown.Toggle>{selectedOption?.label}</BootstrapDropdown.Toggle>
             <BootstrapDropdown.Menu>
                 {visibleOptions.map((option) => (
                     <MenuItem
-                        className="floating-menu-dropdown__menu-item"
+                        className={classNames('editor-menu-dropdown__menu-item', {
+                            'editor-menu-dropdown__menu-item--selected': option.value === value,
+                        })}
                         eventKey={option.value}
                         key={option.value}
                     >
@@ -56,5 +60,3 @@ const Dropdown = <Value extends string = string>({
         </BootstrapDropdown>
     );
 };
-
-export default Dropdown;

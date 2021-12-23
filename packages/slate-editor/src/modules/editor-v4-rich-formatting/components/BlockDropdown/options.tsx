@@ -2,19 +2,19 @@ import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 
 // eslint-disable-next-line import/named
-import type { FloatingMenuOption } from '../../../../components';
+import type { Menu } from '../../../../components';
 import type { BlockType } from '../../types';
 import { ElementType } from '../../types';
 import MenuOption from '../MenuOption';
 
-const OPTIONS: FloatingMenuOption<BlockType>[] = [
+const OPTIONS: Menu.DropdownOption<BlockType>[] = [
     { hidden: true, label: 'Multiple', value: 'multiple' },
     {
-        label: 'Default Paragraph',
+        label: 'Paragraph',
         value: PARAGRAPH_NODE_TYPE,
         render: (option) => (
             <MenuOption
-                className="floating-menu-dropdown__menu-option--paragraph"
+                className="editor-menu-dropdown__menu-option--paragraph"
                 type={option.value}
             >
                 {option.label}
@@ -26,7 +26,7 @@ const OPTIONS: FloatingMenuOption<BlockType>[] = [
         value: ElementType.HEADING_ONE,
         render: (option) => (
             <MenuOption
-                className="floating-menu-dropdown__menu-option--heading-1"
+                className="editor-menu-dropdown__menu-option--heading-1"
                 type={option.value}
             >
                 {option.label}
@@ -38,7 +38,7 @@ const OPTIONS: FloatingMenuOption<BlockType>[] = [
         value: ElementType.HEADING_TWO,
         render: (option) => (
             <MenuOption
-                className="floating-menu-dropdown__menu-option--heading-2"
+                className="editor-menu-dropdown__menu-option--heading-2"
                 type={option.value}
             >
                 {option.label}
@@ -50,7 +50,7 @@ const OPTIONS: FloatingMenuOption<BlockType>[] = [
         value: ElementType.BULLETED_LIST,
         render: (option) => (
             <MenuOption
-                className="floating-menu-dropdown__menu-option--unordered-list"
+                className="editor-menu-dropdown__menu-option--unordered-list"
                 type={option.value}
             >
                 <li>{option.label}</li>
@@ -62,7 +62,7 @@ const OPTIONS: FloatingMenuOption<BlockType>[] = [
         value: ElementType.NUMBERED_LIST,
         render: (option) => (
             <MenuOption
-                className="floating-menu-dropdown__menu-option--ordered-list"
+                className="editor-menu-dropdown__menu-option--ordered-list"
                 type={option.value}
             >
                 <li>{option.label}</li>
@@ -74,7 +74,7 @@ const OPTIONS: FloatingMenuOption<BlockType>[] = [
         value: ElementType.BLOCK_QUOTE,
         render: (option) => (
             <MenuOption
-                className="floating-menu-dropdown__menu-option--blockquote"
+                className="editor-menu-dropdown__menu-option--blockquote"
                 type={option.value}
             >
                 {option.label}

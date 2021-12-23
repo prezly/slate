@@ -62,7 +62,7 @@ const MentionsDropdown = <V extends object>({
     return (
         <ul
             className="editor-v4-mentions-dropdown dropdown-menu"
-            onMouseDown={(event) => event.preventDefault()}
+            onClick={(event) => event.preventDefault()}
             ref={suggestionsPanelRef}
             role="menu"
         >

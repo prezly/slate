@@ -26,7 +26,7 @@ const DEPENDENCIES_SOURCES = '../{slate-types,slate-hyperscript,slate-commons,sl
 gulp.task('build:code', function () {
     return gulp
         .src(TYPESCRIPT_SOURCES)
-        .pipe(babel({ extends: '../../babel.config.js' }))
+        .pipe(babel({ extends: './babel.config.js' }))
         .pipe(rename((file) => file.extname = '.mjs'))
         .pipe(gulp.dest('build/esm/'));
 });
@@ -48,7 +48,7 @@ gulp.task('build:svg', function () {
 
 gulp.task('watch:svg', gulp.series('build:svg', function () {
     return gulp
-        .watch(TYPESCRIPT_SOURCES, gulp.series('build:svg'))
+        .watch(SVG_ICONS, gulp.series('build:svg'))
         .on('ready', () => console.log('Watching files'))
         .on('all', (event, path) => console.log(`[${event}] ${path}`));
 }));

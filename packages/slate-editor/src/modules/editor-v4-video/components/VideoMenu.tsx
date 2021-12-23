@@ -2,8 +2,8 @@ import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu } from '../../../components';
-import { Trash } from '../../../icons';
+import { Menu } from '../../../components';
+import { Delete } from '../../../icons';
 import { EventsEditor } from '../../editor-v4-events';
 import { removeVideo } from '../transforms';
 
@@ -29,16 +29,12 @@ export const VideoMenu: FunctionComponent<Props> = ({ containerRef, element }) =
     }
 
     return (
-        <FloatingMenu containerRef={containerRef} element={element}>
-            <FloatingMenu.ButtonGroup>
-                <FloatingMenu.Button
-                    onMouseDown={handleRemove}
-                    title="Delete video"
-                    variant="danger"
-                >
-                    <FloatingMenu.Icon icon={Trash} />
-                </FloatingMenu.Button>
-            </FloatingMenu.ButtonGroup>
-        </FloatingMenu>
+        <Menu.FloatingMenu containerRef={containerRef} element={element}>
+            <Menu.ButtonGroup>
+                <Menu.Button onClick={handleRemove} title="Delete video" variant="danger">
+                    <Menu.Icon icon={Delete} />
+                </Menu.Button>
+            </Menu.ButtonGroup>
+        </Menu.FloatingMenu>
     );
 };
