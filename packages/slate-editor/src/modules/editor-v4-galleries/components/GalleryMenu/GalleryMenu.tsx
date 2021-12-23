@@ -69,14 +69,14 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
             <Menu.ButtonGroup>
                 <Menu.Button
                     active={showLayoutMenu}
-                    onClick={handleLayoutMenuToggle}
+                    onMouseDown={handleLayoutMenuToggle}
                     title="Layout settings"
                 >
                     <Menu.Icon icon={Cogwheel} />
                 </Menu.Button>
 
                 {gallery.images.length > 1 && (
-                    <Menu.Button onClick={handleShuffle} title="Shuffle images">
+                    <Menu.Button onMouseDown={handleShuffle} title="Shuffle images">
                         <Menu.Icon icon={Dice} />
                     </Menu.Button>
                 )}
@@ -101,13 +101,13 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
             </Menu.ButtonGroup>
 
             <Menu.ButtonGroup>
-                <Menu.Button onClick={handleEdit} title="Edit gallery">
+                <Menu.Button onMouseDown={handleEdit} title="Edit gallery">
                     <Menu.Icon icon={Edit} />
                 </Menu.Button>
             </Menu.ButtonGroup>
 
             <Menu.ButtonGroup>
-                <Menu.Button onClick={handleRemove} title="Delete gallery" variant="danger">
+                <Menu.Button onMouseDown={handleRemove} title="Delete gallery" variant="danger">
                     <Menu.Icon icon={Delete} />
                 </Menu.Button>
             </Menu.ButtonGroup>

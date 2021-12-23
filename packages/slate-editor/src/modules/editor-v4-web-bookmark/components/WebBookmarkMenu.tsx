@@ -33,7 +33,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ containerRef, elemen
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
-                <Menu.Button onClick={handleRemove} title="Delete bookmark" variant="danger">
+                <Menu.Button onMouseDown={handleRemove} title="Delete bookmark" variant="danger">
                     <Menu.Icon icon={Delete} />
                 </Menu.Button>
             </Menu.ButtonGroup>

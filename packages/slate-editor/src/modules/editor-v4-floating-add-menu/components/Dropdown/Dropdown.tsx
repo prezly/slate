@@ -32,7 +32,7 @@ const Dropdown: FunctionComponent<Props> = ({
                 'editor-v4-floating-menu-dropdown__menu',
                 className,
             )}
-            onClick={(event) => event.preventDefault()}
+            onMouseDown={(event) => event.preventDefault()}
         >
             {components.length === 0 && (
                 <MenuItem
@@ -49,7 +49,8 @@ const Dropdown: FunctionComponent<Props> = ({
                     active={index === currentIndex}
                     className="editor-v4-floating-menu-dropdown__menu-item"
                     key={text}
-                    onClick={(event) => {
+                    onClick={(event) => event.preventDefault()}
+                    onMouseDown={(event) => {
                         event.preventDefault();
                         onItemClick(index);
                     }}

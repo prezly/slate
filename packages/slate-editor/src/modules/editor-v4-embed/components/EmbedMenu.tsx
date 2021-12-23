@@ -31,7 +31,7 @@ const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <Menu.ButtonGroup>
-                <Menu.Button onClick={handleRemove} title="Delete embed" variant="danger">
+                <Menu.Button onMouseDown={handleRemove} title="Delete embed" variant="danger">
                     <Menu.Icon icon={Delete} />
                 </Menu.Button>
             </Menu.ButtonGroup>
