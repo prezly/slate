@@ -1,7 +1,7 @@
 import type { TEditor } from '@udecode/plate-core';
 import { getText, removeMark } from '@udecode/plate-core';
 import { castArray } from 'lodash';
-import type { Point, Range} from 'slate';
+import type { Point, Range } from 'slate';
 import { Transforms } from 'slate';
 import type { AutoformatMarkRule } from '../types';
 import { getMatchPoints } from '../utils/getMatchPoints';
@@ -57,9 +57,7 @@ export const autoformatMark = (
 
         // add mark to the text between the matches
         Transforms.select(editor, matchRange as Range);
-        marks.forEach((mark) => {
-            editor.addMark(mark, true);
-        });
+
         Transforms.collapse(editor, { edge: 'end' });
         removeMark(editor, { key: marks, shouldChange: false });
 
