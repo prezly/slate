@@ -15,6 +15,7 @@ import type { RichFormattingExtensionParameters } from '../../editor-v4-rich-for
 import type { UserMentionsExtensionParameters } from '../../editor-v4-user-mentions';
 import type { WebBookmarkExtensionParameters } from '../../editor-v4-web-bookmark/types';
 import type { VideoExtensionParameters } from '../../editor-v4-video/types';
+import type { AutoformatParameters } from '../../editor-v4-autoformat/types';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
@@ -37,6 +38,7 @@ export interface EditorV4ExtensionsProps {
     withUserMentions?: UserMentionsExtensionParameters;
     withVideos?: VideoExtensionParameters;
     withWebBookmarks?: WebBookmarkExtensionParameters;
+    withAutoformat?: AutoformatParameters;
 }
 
 export type Value = Element[];

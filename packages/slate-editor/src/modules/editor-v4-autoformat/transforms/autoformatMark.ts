@@ -58,6 +58,10 @@ export const autoformatMark = (
         // add mark to the text between the matches
         Transforms.select(editor, matchRange as Range);
 
+        marks.forEach((mark) => {
+            editor.addMark(mark, true);
+        });
+
         Transforms.collapse(editor, { edge: 'end' });
         removeMark(editor, { key: marks, shouldChange: false });
 

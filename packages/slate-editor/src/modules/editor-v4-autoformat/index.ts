@@ -1,1 +1,1 @@
-export * from './withAutoformat';
+export * from './AutoformatExtension';

@@ -48,7 +48,11 @@ const useCreateEditor = ({
     const [userPlugins] = useState(plugins);
     const finalPlugins = useMemo(() => [withEvents(events), ...userPlugins], [userPlugins, events]);
     const editor = useMemo(() => {
-        return createEditorV4(createEditor(), getExtensions, finalPlugins);
+        const editor = createEditor();
+
+        getExtensions().forEach((ext) => ext.withOverrides?.(editor));
+
+        return createEditorV4(editor, getExtensions, finalPlugins);
     }, [getExtensions, finalPlugins]);
 
     useEffect(() => {

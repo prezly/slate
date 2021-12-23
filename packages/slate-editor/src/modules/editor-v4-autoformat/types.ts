@@ -112,9 +112,9 @@ export interface AutoformatTextRule extends AutoformatCommonRule {
 
 export type AutoformatRule = AutoformatBlockRule | AutoformatMarkRule | AutoformatTextRule;
 
-export interface AutoformatPlugin {
+export interface AutoformatParameters {
     /**
      * A list of triggering rules.
      */
-    rules?: AutoformatRule[];
+    rules: AutoformatRule[];
 }

@@ -16,7 +16,9 @@ import { RichFormattingExtension } from '../../modules/editor-v4-rich-formatting
 import { UserMentionsExtension } from '../../modules/editor-v4-user-mentions';
 import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
 import { VideoExtension } from '../editor-v4-video';
+import { AutoformatExtension } from '../editor-v4-autoformat';
 import { VoidExtension } from '../editor-v4-void';
+import { formatRules } from './formatRules';
 
 import {
     createHandleEditGallery,
@@ -49,6 +51,7 @@ function* getEnabledExtensions({
     withUserMentions,
     withVideos,
     withWebBookmarks,
+    withAutoformat,
 }: Parameters): Generator<Extension> {
     yield ParagraphsExtension();
 
@@ -123,6 +126,10 @@ function* getEnabledExtensions({
             availableWidth,
             containerRef,
         });
+    }
+
+    if (withAutoformat) {
+        yield AutoformatExtension({ rules: formatRules.concat(withAutoformat.rules) });
     }
 
     yield DividerExtension({ containerRef });

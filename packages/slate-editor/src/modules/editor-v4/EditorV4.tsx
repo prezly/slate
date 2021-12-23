@@ -74,6 +74,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     withUserMentions,
     withVideos,
     withWebBookmarks,
+    withAutoformat = { rules: [] }, // TODO: Remove default value before merge
 }) => {
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -97,6 +98,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             withUserMentions,
             withVideos,
             withWebBookmarks,
+            withAutoformat,
         }),
     );
 

@@ -5,6 +5,7 @@ import type OnDOMBeforeInput from './OnDOMBeforeInput';
 import type OnKeyDown from './OnKeyDown';
 import type RenderElement from './RenderElement';
 import type RenderLeaf from './RenderLeaf';
+import type { WithOverrides } from './WithOverrides';
 
 export default interface Extension {
     decorate?: Decorate;
@@ -16,6 +17,8 @@ export default interface Extension {
     onKeyDown?: OnKeyDown | null;
     renderElement?: RenderElement;
     renderLeaf?: RenderLeaf;
+    withOverrides?: WithOverrides;
+
     /**
      * Array of types of elements that can appear ONLY at the root of the editor value.
      * If they appear somewhere deeper, nested (e.g. when pasting content from various sources)
