@@ -22,6 +22,8 @@ export const withAutoformat = <T extends BaseEditor & ReactEditor & HistoryEdito
         if (!EditorCommands.isSelectionEmpty(editor)) return insertText(text);
 
         if (text.endsWith(' ')) {
+            insertText(' ');
+
             for (const rule of rules) {
                 const { mode = 'text', query } = rule;
 
@@ -45,7 +47,8 @@ export const withAutoformat = <T extends BaseEditor & ReactEditor & HistoryEdito
                     const str = Node.string(wordNode);
 
                     const formatter = autoformatters[mode];
-                    const text = str.slice(-1);
+
+                    const text = str.slice(-2, -1);
 
                     const formatResult = formatter?.(editor, {
                         ...(rule as any),
@@ -53,9 +56,11 @@ export const withAutoformat = <T extends BaseEditor & ReactEditor & HistoryEdito
                     });
 
                     if (formatResult) {
-                        HistoryEditor.withoutSaving(editor, () => {
-                            insertText(' ');
-                        });
+                        if (mode === 'mark' || mode == 'text') {
+                            HistoryEditor.withoutSaving(editor, () => {
+                                insertText(' ');
+                            });
+                        }
 
                         return;
                     }

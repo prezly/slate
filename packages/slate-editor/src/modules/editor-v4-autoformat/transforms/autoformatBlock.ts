@@ -7,6 +7,7 @@ import {
     setNodes,
     someNode,
 } from '@udecode/plate-core';
+import { HistoryEditor } from 'slate-history';
 import { castArray } from 'lodash';
 import type { Range } from 'slate';
 import { Editor, Transforms } from 'slate';
@@ -54,7 +55,7 @@ export const autoformatBlock = (
 
             const textFromBlockStart = getText(editor, matchRange);
 
-            if (end !== textFromBlockStart) continue;
+            if (end + ' ' !== textFromBlockStart) continue;
         } else {
             matchRange = getRangeBefore(editor, editor.selection as Range, {
                 matchString: end,
@@ -68,9 +69,13 @@ export const autoformatBlock = (
             if (isBelowSameBlockType) continue;
         }
 
-        Transforms.delete(editor, { at: matchRange });
+        HistoryEditor.withoutMerging(editor, () => {
+            Transforms.delete(editor, { at: matchRange });
+        });
 
-        preFormat?.(editor);
+        HistoryEditor.withoutSaving(editor, () => {
+            preFormat?.(editor);
+        });
 
         if (!format) {
             setNodes<TElement>(
