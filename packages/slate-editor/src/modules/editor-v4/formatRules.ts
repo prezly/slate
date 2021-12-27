@@ -1,4 +1,3 @@
-
 import { DIVIDER_NODE_TYPE, QUOTE_NODE_TYPE } from '@prezly/slate-types';
 import { ElementType } from '../editor-v4-rich-formatting';
 import { toggleBlock } from '../editor-v4-rich-formatting/lib';
@@ -24,7 +23,7 @@ export const formatRules: AutoformatRule[] = [
     {
         mode: 'block',
         type: ElementType.NUMBERED_LIST,
-        match: '1. ',
+        match: '1.',
         format: (editor) => {
             return toggleBlock(editor, ElementType.NUMBERED_LIST);
         },
@@ -32,7 +31,7 @@ export const formatRules: AutoformatRule[] = [
     {
         mode: 'block',
         type: ElementType.BULLETED_LIST,
-        match: ['- ', '* '],
+        match: ['-', '*'],
         format: (editor) => {
             return toggleBlock(editor, ElementType.BULLETED_LIST);
         },
@@ -40,7 +39,7 @@ export const formatRules: AutoformatRule[] = [
     {
         mode: 'block',
         type: ElementType.HEADING_ONE,
-        match: '# ',
+        match: '#',
         format: (editor) => {
             return toggleBlock(editor, ElementType.HEADING_ONE);
         },
@@ -48,7 +47,7 @@ export const formatRules: AutoformatRule[] = [
     {
         mode: 'block',
         type: ElementType.HEADING_TWO,
-        match: '## ',
+        match: '##',
         format: (editor) => {
             return toggleBlock(editor, ElementType.HEADING_TWO);
         },
@@ -56,7 +55,7 @@ export const formatRules: AutoformatRule[] = [
     {
         mode: 'block',
         type: QUOTE_NODE_TYPE,
-        match: '> ',
+        match: '>',
         format: (editor) => {
             return toggleBlock(editor, QUOTE_NODE_TYPE);
         },

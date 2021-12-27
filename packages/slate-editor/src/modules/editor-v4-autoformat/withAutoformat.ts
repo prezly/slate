@@ -1,5 +1,6 @@
 import type { BaseEditor } from 'slate';
-import type { HistoryEditor } from 'slate-history';
+import { Editor, Node } from 'slate';
+import { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { AutoformatRule } from './types';
@@ -20,16 +21,45 @@ export const withAutoformat = <T extends BaseEditor & ReactEditor & HistoryEdito
     editor.insertText = (text) => {
         if (!EditorCommands.isSelectionEmpty(editor)) return insertText(text);
 
-        for (const rule of rules) {
-            const { mode = 'text', insertTrigger, query } = rule;
+        if (text.endsWith(' ')) {
+            for (const rule of rules) {
+                const { mode = 'text', query } = rule;
 
-            if (query && !query(editor, { ...rule, text })) continue;
+                if (query && !query(editor, { ...rule, text })) continue;
 
-            const formatter = autoformatters[mode];
-            const formatResult = formatter?.(editor, { ...(rule as any), text });
+                if (editor.selection) {
+                    const wordBeforeSpace = Editor.before(editor, editor.selection, {
+                        unit: 'character',
+                        distance: 1,
+                    });
 
-            if (formatResult) {
-                return insertTrigger && insertText(text);
+                    if (!wordBeforeSpace) {
+                        return;
+                    }
+
+                    const [wordNode] = Editor.node(editor, wordBeforeSpace, {
+                        depth: 1,
+                        edge: 'end',
+                    });
+
+                    const str = Node.string(wordNode);
+
+                    const formatter = autoformatters[mode];
+                    const text = str.slice(-1);
+
+                    const formatResult = formatter?.(editor, {
+                        ...(rule as any),
+                        text,
+                    });
+
+                    if (formatResult) {
+                        HistoryEditor.withoutSaving(editor, () => {
+                            insertText(' ');
+                        });
+
+                        return;
+                    }
+                }
             }
         }
 

@@ -21,8 +21,6 @@ export const getMatchRange = ({
 
     const triggers: string[] = trigger ? castArray(trigger) : [end.slice(-1)];
 
-    end = trigger ? end : end.slice(0, -1);
-
     return {
         start,
         end,
