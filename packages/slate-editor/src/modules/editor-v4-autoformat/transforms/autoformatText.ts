@@ -1,17 +1,16 @@
-import type { TEditor } from '@udecode/plate-core';
 import { castArray } from 'lodash';
-import type { Point, Range } from 'slate';
+import type { Editor, Point, Range } from 'slate';
 import { Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import type { AutoformatTextRule } from '../types';
 import { getMatchPoints } from '../utils/getMatchPoints';
 import { getMatchRange } from '../utils/getMatchRange';
+import type { AutoformatTextRule } from '../types';
 
 export interface AutoformatTextOptions extends AutoformatTextRule {
     text: string;
 }
 
-export const autoformatText = (editor: TEditor, options: AutoformatTextOptions) => {
+export const autoformatText = (editor: Editor, options: AutoformatTextOptions) => {
     const selection = editor.selection as Range;
     const matches = castArray(options.match);
 

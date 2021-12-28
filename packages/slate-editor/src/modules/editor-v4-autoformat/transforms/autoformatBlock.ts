@@ -1,4 +1,7 @@
-import type { TEditor, TElement } from '@udecode/plate-core';
+import { castArray } from 'lodash';
+import type { Range } from 'slate';
+import { Editor, Transforms } from 'slate';
+import { HistoryEditor } from 'slate-history';
 import {
     ELEMENT_DEFAULT,
     getRangeBefore,
@@ -7,19 +10,15 @@ import {
     setNodes,
     someNode,
 } from '@udecode/plate-core';
-import { HistoryEditor } from 'slate-history';
-import { castArray } from 'lodash';
-import type { Range } from 'slate';
-import { Editor, Transforms } from 'slate';
-import type { AutoformatBlockRule } from '../types';
 import { getMatchRange } from '../utils/getMatchRange';
+import type { AutoformatBlockRule } from '../types';
 
 export interface AutoformatBlockOptions extends AutoformatBlockRule {
     text: string;
 }
 
 export const autoformatBlock = (
-    editor: TEditor,
+    editor: Editor,
     {
         text,
         trigger,
@@ -78,7 +77,7 @@ export const autoformatBlock = (
         });
 
         if (!format) {
-            setNodes<TElement>(
+            setNodes(
                 editor,
                 { type },
                 {

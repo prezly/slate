@@ -1,19 +1,18 @@
-import type { TEditor } from '@udecode/plate-core';
-import { getText, removeMark } from '@udecode/plate-core';
 import { castArray } from 'lodash';
-import type { Point, Range } from 'slate';
+import type { Editor, Point, Range } from 'slate';
 import { Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import type { AutoformatMarkRule } from '../types';
+import { getText, removeMark } from '@udecode/plate-core';
 import { getMatchPoints } from '../utils/getMatchPoints';
 import { getMatchRange } from '../utils/getMatchRange';
+import type { AutoformatMarkRule } from '../types';
 
 export interface AutoformatMarkOptions extends AutoformatMarkRule {
     text: string;
 }
 
 export const autoformatMark = (
-    editor: TEditor,
+    editor: Editor,
     { type, text, trigger, match: _match, ignoreTrim }: AutoformatMarkOptions,
 ) => {
     if (!type) return false;
