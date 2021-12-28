@@ -2,8 +2,8 @@ import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu } from '../../../components';
-import { Trash } from '../../../icons';
+import { Menu } from '../../../components';
+import { Delete } from '../../../icons';
 import { EventsEditor } from '../../../modules/editor-v4-events';
 import { removePressContact } from '../lib';
 
@@ -31,17 +31,13 @@ const PressContactMenu: FunctionComponent<Props> = ({ element, containerRef }) =
     };
 
     return (
-        <FloatingMenu containerRef={containerRef} element={element}>
-            <FloatingMenu.ButtonGroup>
-                <FloatingMenu.Button
-                    onMouseDown={handleRemove}
-                    title="Delete contact"
-                    variant="danger"
-                >
-                    <FloatingMenu.Icon icon={Trash} />
-                </FloatingMenu.Button>
-            </FloatingMenu.ButtonGroup>
-        </FloatingMenu>
+        <Menu.FloatingMenu containerRef={containerRef} element={element}>
+            <Menu.ButtonGroup>
+                <Menu.Button onMouseDown={handleRemove} title="Delete contact" variant="danger">
+                    <Menu.Icon icon={Delete} />
+                </Menu.Button>
+            </Menu.ButtonGroup>
+        </Menu.FloatingMenu>
     );
 };
 

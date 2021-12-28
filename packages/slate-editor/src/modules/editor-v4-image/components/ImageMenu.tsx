@@ -5,13 +5,12 @@ import type { Editor, Range } from 'slate';
 import { Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu } from '../../../components';
-import { Edit, Link, Trash } from '../../../icons';
+import { Menu } from '../../../components';
+import { Delete, Edit, Link } from '../../../icons';
 import { LinkMenu } from '../../../modules/editor-v4-components';
 import { removeImage, setImageHref, setLayout } from '../transforms';
 
 import LayoutControls from './LayoutControls';
-import MenuButton from './MenuButton';
 
 interface Props {
     containerRef: RefObject<HTMLElement>;
@@ -91,7 +90,7 @@ const ImageMenu: FunctionComponent<Props> = ({
 
     if (isLinkMenuOpen) {
         return (
-            <FloatingMenu containerRef={containerRef} element={element}>
+            <Menu.FloatingMenu containerRef={containerRef} element={element}>
                 <LinkMenu
                     canUnlink={href !== ''}
                     onChange={setLinkValue}
@@ -100,7 +99,7 @@ const ImageMenu: FunctionComponent<Props> = ({
                     onRemove={handleLinkRemove}
                     value={linkValue}
                 />
-            </FloatingMenu>
+            </Menu.FloatingMenu>
         );
     }
 
@@ -109,29 +108,29 @@ const ImageMenu: FunctionComponent<Props> = ({
     }
 
     return (
-        <FloatingMenu containerRef={containerRef} element={element}>
+        <Menu.FloatingMenu containerRef={containerRef} element={element}>
             {showLayoutControls && <LayoutControls layout={layout} onChange={handleLayoutChange} />}
 
-            <FloatingMenu.ButtonGroup>
-                <MenuButton onClick={onEdit} title="Edit image">
-                    <FloatingMenu.Icon icon={Edit} />
-                </MenuButton>
+            <Menu.ButtonGroup>
+                <Menu.Button onClick={onEdit} title="Edit image">
+                    <Menu.Icon icon={Edit} />
+                </Menu.Button>
 
-                <MenuButton
-                    isActive={isLinked}
+                <Menu.Button
+                    active={isLinked}
                     onClick={handleOpenLinkMenu}
                     title={`${isLinked ? 'Edit' : 'Add'} link`}
                 >
-                    <FloatingMenu.Icon icon={Link} />
-                </MenuButton>
-            </FloatingMenu.ButtonGroup>
+                    <Menu.Icon icon={Link} />
+                </Menu.Button>
+            </Menu.ButtonGroup>
 
-            <FloatingMenu.ButtonGroup>
-                <MenuButton onClick={handleRemove} title="Delete image" variant="danger">
-                    <FloatingMenu.Icon icon={Trash} />
-                </MenuButton>
-            </FloatingMenu.ButtonGroup>
-        </FloatingMenu>
+            <Menu.ButtonGroup>
+                <Menu.Button onClick={handleRemove} title="Delete image" variant="danger">
+                    <Menu.Icon icon={Delete} />
+                </Menu.Button>
+            </Menu.ButtonGroup>
+        </Menu.FloatingMenu>
     );
 };
 

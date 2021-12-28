@@ -2,6 +2,8 @@ import type { Editor, Element } from 'slate';
 import type { Events } from '@prezly/events';
 import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 
+import type { Theme } from '#modules/themes';
+
 import type { CoverageExtensionParameters } from '../../editor-v4-coverage';
 import type { EmbedExtensionParameters } from '../../editor-v4-embed/types';
 import type { EditorEventMap } from '../../editor-v4-events';
@@ -59,6 +61,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     plugins?: (<T extends Editor>(editor: T) => T)[];
     readOnly?: boolean;
     style?: CSSProperties;
+    toolbarsTheme?: Theme;
     value: Value;
     withCursorInView?: {
         minBottom: number;

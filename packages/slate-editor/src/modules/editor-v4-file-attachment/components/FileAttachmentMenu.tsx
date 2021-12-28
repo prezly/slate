@@ -4,8 +4,8 @@ import React from 'react';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu } from '../../../components';
-import { Edit, Trash } from '../../../icons';
+import { Menu } from '../../../components';
+import { Delete, Edit } from '../../../icons';
 import { removeFileAttachment } from '../transforms';
 
 interface Props {
@@ -37,22 +37,18 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
     };
 
     return (
-        <FloatingMenu containerRef={containerRef} element={element}>
-            <FloatingMenu.ButtonGroup>
-                <FloatingMenu.Button onMouseDown={() => onEdit(editor)} title="Edit attachment">
-                    <FloatingMenu.Icon icon={Edit} />
-                </FloatingMenu.Button>
-            </FloatingMenu.ButtonGroup>
-            <FloatingMenu.ButtonGroup>
-                <FloatingMenu.Button
-                    onMouseDown={handleRemove}
-                    title="Delete attachment"
-                    variant="danger"
-                >
-                    <FloatingMenu.Icon icon={Trash} />
-                </FloatingMenu.Button>
-            </FloatingMenu.ButtonGroup>
-        </FloatingMenu>
+        <Menu.FloatingMenu containerRef={containerRef} element={element}>
+            <Menu.ButtonGroup>
+                <Menu.Button onMouseDown={() => onEdit(editor)} title="Edit attachment">
+                    <Menu.Icon icon={Edit} />
+                </Menu.Button>
+            </Menu.ButtonGroup>
+            <Menu.ButtonGroup>
+                <Menu.Button onMouseDown={handleRemove} title="Delete attachment" variant="danger">
+                    <Menu.Icon icon={Delete} />
+                </Menu.Button>
+            </Menu.ButtonGroup>
+        </Menu.FloatingMenu>
     );
 };
 

@@ -11,7 +11,7 @@ interface Props<Size extends string> {
     value: Size;
 }
 
-const GalleryLayoutSetting = <Size extends string>({
+export const GalleryLayoutSetting = <Size extends string>({
     label,
     name,
     onChange,
@@ -47,5 +47,3 @@ const GalleryLayoutSetting = <Size extends string>({
         </ToggleButtonGroup>
     </div>
 );
-
-export default GalleryLayoutSetting;

@@ -62,6 +62,7 @@
         "@typescript-eslint/parser": "^5.4.0",
         "autoprefixer": "^10.4.0",
         "babel-plugin-add-import-extension": "^1.6.0",
+        "babel-plugin-module-resolver": "^4.1.0",
         "babel-plugin-transform-remove-imports": "^1.7.0",
         "branch-pipe": "^1.0.1",
         "concurrently": "^6.4.0",

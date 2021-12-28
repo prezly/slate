@@ -1,13 +1,15 @@
 import type { FunctionComponent } from 'react';
 import React, { useRef } from 'react';
-import { Button } from 'react-bootstrap';
 import { RootCloseWrapper } from 'react-overlays';
 import { useEffectOnce } from 'react-use';
 
-import { FloatingMenu } from '../../../components';
+import { Cross } from '../../../icons';
+import { Menu } from '../../../components';
 
 import { STRING_URL_PATTERN } from './constants';
 import './LinkMenu.scss';
+import { Theme, useToolbarsTheme } from '#modules/themes';
+import classNames from 'classnames';
 
 interface Props {
     canUnlink: boolean;
@@ -26,6 +28,7 @@ const LinkMenu: FunctionComponent<Props> = ({
     onRemove,
     value,
 }) => {
+    const theme = useToolbarsTheme();
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffectOnce(() => {
@@ -41,12 +44,17 @@ const LinkMenu: FunctionComponent<Props> = ({
 
     return (
         <RootCloseWrapper onRootClose={onClose}>
-            <div className="editor-v4-link-menu">
-                <FloatingMenu.ButtonGroup>
-                    <FloatingMenu.Button onClick={onClose}>
-                        <i className="icon icon-cross2" />
-                    </FloatingMenu.Button>
-                </FloatingMenu.ButtonGroup>
+            <div
+                className={classNames('editor-v4-link-menu', {
+                    'editor-v4-link-menu--classic-theme': theme === Theme.CLASSIC,
+                    'editor-v4-link-menu--dark-theme': theme === Theme.DARK,
+                })}
+            >
+                <Menu.ButtonGroup>
+                    <Menu.Button onClick={onClose}>
+                        <Menu.Icon icon={Cross} />
+                    </Menu.Button>
+                </Menu.ButtonGroup>
                 <form
                     className="editor-v4-link-menu__form"
                     onSubmit={(event) => {
@@ -79,14 +87,19 @@ const LinkMenu: FunctionComponent<Props> = ({
                             value={value}
                         />
                     </div>
-                    <FloatingMenu.ButtonGroup flex>
-                        <Button bsSize="xs" bsStyle="success" disabled={!value} type="submit">
+                    <Menu.ButtonGroup flex>
+                        <Menu.Button variant="success" disabled={!value} type="submit">
                             Link
-                        </Button>
-                        <Button bsSize="xs" disabled={!canUnlink} onClick={onRemove} type="button">
+                        </Menu.Button>
+                        <Menu.Button
+                            variant="primary"
+                            disabled={!canUnlink}
+                            onClick={onRemove}
+                            type="button"
+                        >
                             Unlink
-                        </Button>
-                    </FloatingMenu.ButtonGroup>
+                        </Menu.Button>
+                    </Menu.ButtonGroup>
                 </form>
             </div>
         </RootCloseWrapper>

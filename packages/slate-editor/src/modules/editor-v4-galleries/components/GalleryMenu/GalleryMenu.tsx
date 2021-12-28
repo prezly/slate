@@ -6,8 +6,8 @@ import { RootCloseWrapper } from 'react-overlays';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
-import { FloatingMenu, GalleryLayoutSettings } from '../../../../components';
-import { Cogwheel, Dice, Edit, Trash } from '../../../../icons';
+import { GalleryLayoutSettings, Menu } from '../../../../components';
+import { Cogwheel, Delete, Dice, Edit } from '../../../../icons';
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
 import LayoutControls from '../LayoutControls';
@@ -63,22 +63,22 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
     }
 
     return (
-        <FloatingMenu containerRef={containerRef} element={element}>
+        <Menu.FloatingMenu containerRef={containerRef} element={element}>
             <LayoutControls layout={gallery.layout} onChange={handleLayoutChange} />
 
-            <FloatingMenu.ButtonGroup>
-                <FloatingMenu.Button
+            <Menu.ButtonGroup>
+                <Menu.Button
                     active={showLayoutMenu}
                     onMouseDown={handleLayoutMenuToggle}
                     title="Layout settings"
                 >
-                    <FloatingMenu.Icon icon={Cogwheel} />
-                </FloatingMenu.Button>
+                    <Menu.Icon icon={Cogwheel} />
+                </Menu.Button>
 
                 {gallery.images.length > 1 && (
-                    <FloatingMenu.Button onMouseDown={handleShuffle} title="Shuffle images">
-                        <FloatingMenu.Icon icon={Dice} />
-                    </FloatingMenu.Button>
+                    <Menu.Button onMouseDown={handleShuffle} title="Shuffle images">
+                        <Menu.Icon icon={Dice} />
+                    </Menu.Button>
                 )}
 
                 {showLayoutMenu && (
@@ -98,24 +98,20 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
                         />
                     </RootCloseWrapper>
                 )}
-            </FloatingMenu.ButtonGroup>
+            </Menu.ButtonGroup>
 
-            <FloatingMenu.ButtonGroup>
-                <FloatingMenu.Button onMouseDown={handleEdit} title="Edit gallery">
-                    <FloatingMenu.Icon icon={Edit} />
-                </FloatingMenu.Button>
-            </FloatingMenu.ButtonGroup>
+            <Menu.ButtonGroup>
+                <Menu.Button onMouseDown={handleEdit} title="Edit gallery">
+                    <Menu.Icon icon={Edit} />
+                </Menu.Button>
+            </Menu.ButtonGroup>
 
-            <FloatingMenu.ButtonGroup>
-                <FloatingMenu.Button
-                    onMouseDown={handleRemove}
-                    title="Delete gallery"
-                    variant="danger"
-                >
-                    <FloatingMenu.Icon icon={Trash} />
-                </FloatingMenu.Button>
-            </FloatingMenu.ButtonGroup>
-        </FloatingMenu>
+            <Menu.ButtonGroup>
+                <Menu.Button onMouseDown={handleRemove} title="Delete gallery" variant="danger">
+                    <Menu.Icon icon={Delete} />
+                </Menu.Button>
+            </Menu.ButtonGroup>
+        </Menu.FloatingMenu>
     );
 };
 

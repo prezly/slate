@@ -13,8 +13,10 @@ declare module 'slate' {
 
 export * from './components';
 export * from './lib';
+export * as Icons from './icons';
 export { default } from './modules/editor-v4';
 export * from './modules/editor-v4';
+export * as Themes from './modules/themes';
 export type { SearchProps as CoverageSearchProps } from './modules/editor-v4-coverage';
 export { createEmbed } from './modules/editor-v4-embed';
 export type { SearchProps as PressContactsSearchProps } from './modules/editor-v4-press-contacts';
