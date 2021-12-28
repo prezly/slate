@@ -2,6 +2,7 @@ import type { TEditor } from '@udecode/plate-core';
 import { castArray } from 'lodash';
 import type { Point, Range } from 'slate';
 import { Transforms } from 'slate';
+import { HistoryEditor } from 'slate-history';
 import type { AutoformatTextRule } from '../types';
 import { getMatchPoints } from '../utils/getMatchPoints';
 import { getMatchRange } from '../utils/getMatchRange';
@@ -36,11 +37,16 @@ export const autoformatText = (editor: TEditor, options: AutoformatTextOptions) 
         const { afterStartMatchPoint, beforeEndMatchPoint, beforeStartMatchPoint } = matched;
 
         if (end) {
-            Transforms.delete(editor, {
-                at: {
-                    anchor: beforeEndMatchPoint,
-                    focus: selection.anchor,
-                },
+            HistoryEditor.withoutMerging(editor, () => {
+                Transforms.delete(editor, {
+                    at: {
+                        anchor: beforeEndMatchPoint,
+                        focus: {
+                            offset: selection.anchor.offset,
+                            path: selection.anchor.path,
+                        },
+                    },
+                });
             });
         }
 
@@ -48,7 +54,7 @@ export const autoformatText = (editor: TEditor, options: AutoformatTextOptions) 
             options.format(editor, matched);
         } else {
             const formatEnd = Array.isArray(options.format) ? options.format[1] : options.format;
-            editor.insertText(formatEnd);
+            editor.insertText(formatEnd + ' ');
 
             if (beforeStartMatchPoint) {
                 const formatStart = Array.isArray(options.format)
@@ -62,7 +68,7 @@ export const autoformatText = (editor: TEditor, options: AutoformatTextOptions) 
                     },
                 });
 
-                Transforms.insertText(editor, formatStart, {
+                Transforms.insertText(editor, formatStart + ' ', {
                     at: beforeStartMatchPoint,
                 });
             }
