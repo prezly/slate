@@ -8,7 +8,6 @@ import type { AutoformatMarkRule } from '../types';
 import { getMatchPoints } from '../utils/getMatchPoints';
 import { getMatchRange } from '../utils/getMatchRange';
 
-(window as any).Transforms = Transforms;
 export interface AutoformatMarkOptions extends AutoformatMarkRule {
     text: string;
 }
