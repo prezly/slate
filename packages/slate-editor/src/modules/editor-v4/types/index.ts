@@ -40,7 +40,7 @@ export interface EditorV4ExtensionsProps {
     withUserMentions?: UserMentionsExtensionParameters;
     withVideos?: VideoExtensionParameters;
     withWebBookmarks?: WebBookmarkExtensionParameters;
-    withAutoformat?: AutoformatParameters;
+    withAutoformat?: boolean | AutoformatParameters;
 }
 
 export type Value = Element[];
