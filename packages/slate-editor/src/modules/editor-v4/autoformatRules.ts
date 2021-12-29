@@ -19,6 +19,16 @@ export const textStyleRules: AutoformatRule[] = [
         type: MarkType.BOLD,
         match: '**',
     },
+    {
+        mode: 'mark',
+        type: MarkType.ITALIC,
+        match: '*',
+    },
+    {
+        mode: 'mark',
+        type: MarkType.UNDERLINED,
+        match: '_',
+    },
 ];
 
 export const blockRules: AutoformatRule[] = [
