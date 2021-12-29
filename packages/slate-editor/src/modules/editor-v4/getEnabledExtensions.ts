@@ -21,7 +21,7 @@ import { VideoExtension } from '../editor-v4-video';
 import { VoidExtension } from '../editor-v4-void';
 import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
 
-import { formatRules } from './formatRules';
+import { compositeCharactersRules, textStyleRules, blockRules } from './autoformatRules';
 import {
     createHandleEditGallery,
     createHandleEditImage,
@@ -131,7 +131,13 @@ export function* getEnabledExtensions({
     }
 
     if (withAutoformat) {
-        yield AutoformatExtension({ rules: formatRules.concat(withAutoformat.rules) });
+        const additionalRules = withAutoformat === true ? [] : withAutoformat.rules;
+        yield AutoformatExtension({ rules: [
+            ...compositeCharactersRules,
+            ...(withRichFormatting ? textStyleRules : []),
+            ...(withRichFormatting?.blocks ? blockRules : []),
+            ...additionalRules,
+        ]});
     }
 
     yield DividerExtension({ containerRef });

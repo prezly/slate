@@ -5,12 +5,15 @@ import { ElementType } from '../editor-v4-rich-formatting';
 import { toggleBlock } from '../editor-v4-rich-formatting/lib';
 import { MarkType } from '../editor-v4-rich-formatting/types';
 
-export const formatRules: AutoformatRule[] = [
+export const compositeCharactersRules: AutoformatRule[] = [
     {
         mode: 'text',
         match: ['(tm)', '(TM)'],
         format: '™',
     },
+];
+
+export const textStyleRules: AutoformatRule[] = [
     {
         mode: 'mark',
         type: MarkType.BOLD,
@@ -21,6 +24,9 @@ export const formatRules: AutoformatRule[] = [
         type: DIVIDER_NODE_TYPE,
         match: '---',
     },
+];
+
+export const blockRules: AutoformatRule[] = [
     {
         mode: 'block',
         type: ElementType.NUMBERED_LIST,
