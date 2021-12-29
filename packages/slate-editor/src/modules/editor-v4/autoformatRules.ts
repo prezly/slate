@@ -19,14 +19,14 @@ export const textStyleRules: AutoformatRule[] = [
         type: MarkType.BOLD,
         match: '**',
     },
+];
+
+export const blockRules: AutoformatRule[] = [
     {
         mode: 'block',
         type: DIVIDER_NODE_TYPE,
         match: '---',
     },
-];
-
-export const blockRules: AutoformatRule[] = [
     {
         mode: 'block',
         type: ElementType.NUMBERED_LIST,
