@@ -78,7 +78,7 @@ function buildCommonjs(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
 
 function buildSass() {
     return gulp
-        .src(SASS_SOURCES, { base: BASE_DIR })
+        .src(SASS_SOURCES)
         .pipe(branch.obj((src) => [copySassDeclarations(src), compileComponentsStylesheets(src)]))
         .pipe(gulp.dest('build/'));
 }

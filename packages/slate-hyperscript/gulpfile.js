@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import babel from 'gulp-babel';
 import rename from 'gulp-rename';
 
+const BASE_DIR = './src';
 const TYPESCRIPT_SOURCES = 'src/**/*.{ts,tsx}';
 
 gulp.task('build:esm', () => buildEsm());
@@ -11,7 +12,7 @@ gulp.task('watch:cjs', watch(TYPESCRIPT_SOURCES, 'build:cjs', buildCommonjs));
 
 function buildEsm(files = TYPESCRIPT_SOURCES) {
     return gulp
-        .src(files)
+        .src(files, { base: BASE_DIR })
         .pipe(babel({ extends: '../../babel.esm.config.json' }))
         .pipe(rename((file) => (file.extname = '.mjs')))
         .pipe(gulp.dest('build/esm/'));
@@ -19,7 +20,7 @@ function buildEsm(files = TYPESCRIPT_SOURCES) {
 
 function buildCommonjs(files = TYPESCRIPT_SOURCES) {
     return gulp
-        .src(files)
+        .src(files, { base: BASE_DIR })
         .pipe(babel({ extends: '../../babel.cjs.config.json' }))
         .pipe(rename((file) => (file.extname = '.cjs')))
         .pipe(gulp.dest('build/cjs/'));
