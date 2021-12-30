@@ -66,7 +66,7 @@
         "@prezly/slate-hyperscript": "^0.10.1",
         "@prezly/slate-lists": "^0.10.1",
         "@prezly/slate-types": "^0.10.1",
-        "@prezly/uploadcare": "^1.0.0",
+        "@prezly/uploadcare": "^1.1.1",
         "classnames": "^2.3.1",
         "is-hotkey": "^0.2.0",
         "json-stable-stringify": "^1.0.1",
