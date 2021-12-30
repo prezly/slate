@@ -49,7 +49,11 @@
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/* *.tsbuildinfo",
-        "test": "jest --no-cache --coverage"
+        "test": "npm run test:unit && npm run test:build",
+        "test:unit": "jest --no-cache --coverage",
+        "test:build": "npm run test:esm && npm run test:cjs",
+        "test:esm": "node build/esm/index.mjs",
+        "test:cjs": "node build/cjs/index.cjs"
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
