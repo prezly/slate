@@ -17,6 +17,7 @@ import babel from 'gulp-babel';
 
 const sass = createSassProcessor(sassBackend);
 
+const BASE_DIR = './src';
 const SASS_SOURCES = 'src/**/*.scss';
 const SASS_DECLARATIONS = 'src/styles/**/*.scss';
 const SASS_MODULES_STYLESHEETS = ['src/**/*.scss', '!src/styles/**/*.scss'];
@@ -37,7 +38,7 @@ gulp.task('watch:sass', watch(SASS_SOURCES, 'build:sass', buildSass));
 
 function buildEsm(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
     return gulp
-        .src(files)
+        .src(files, { base: BASE_DIR })
         .pipe(
             branch.obj((src) => [
                 src.pipe(filter(TYPESCRIPT_SOURCES))
@@ -55,7 +56,7 @@ function buildEsm(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
 
 function buildCommonjs(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
     return gulp
-        .src(files)
+        .src(files, { base: BASE_DIR })
         .pipe(
             branch.obj((src) => [
                 src.pipe(filter(TYPESCRIPT_SOURCES))
@@ -73,7 +74,7 @@ function buildCommonjs(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
 
 function buildSass() {
     return gulp
-        .src(SASS_SOURCES)
+        .src(SASS_SOURCES, { base: BASE_DIR })
         .pipe(
             branch.obj((src) => [
                 copySassDeclarations(src),
