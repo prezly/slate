@@ -4,14 +4,14 @@
     "description": "The best Slate lists extension out there",
     "license": "MIT",
     "type": "module",
-    "main": "build/esm/index.mjs",
+    "main": "build/cjs/index.cjs",
     "module": "build/esm/index.mjs",
     "types": "build/types/index.d.ts",
     "exports": {
         ".": {
             "types": "./build/types/index.d.ts",
             "import": "./build/esm/index.mjs",
-            "default": "./build/esm/index.mjs"
+            "default": "./build/cjs/index.cjs"
         }
     },
     "files": [

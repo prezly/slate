@@ -4,14 +4,14 @@
     "description": "The Prezly Slate Editor",
     "license": "MIT",
     "type": "module",
-    "main": "build/esm/index.mjs",
+    "main": "build/cjs/index.cjs",
     "module": "build/esm/index.mjs",
     "types": "build/types/index.d.ts",
     "exports": {
         ".": {
             "types": "./build/types/index.d.ts",
             "import": "./build/esm/index.mjs",
-            "default": "./build/esm/index.mjs"
+            "default": "./build/cjs/index.cjs"
         },
         "./styles.css": "./build/styles/styles.css",
         "./styles/mixins": {
