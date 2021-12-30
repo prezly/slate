@@ -39,10 +39,10 @@
         "watch:esm": "npm run watch:esm",
         "watch:cjs": "npm run watch:cjs",
         "test": "npm run test:unit && npm run test:build",
-        "test:unit": "jest --no-cache --coverage",
+        "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.cjs --rootDir ./ --no-cache --coverage",
         "test:build": "npm run test:esm && npm run test:cjs",
-        "test:esm": "node build/esm/index.mjs",
-        "test:cjs": "node build/cjs/index.cjs",
+        "test:esm": "node ../../mockRange.js build/esm/index.mjs",
+        "test:cjs": "node ../../mockRange.js build/cjs/index.cjs",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
