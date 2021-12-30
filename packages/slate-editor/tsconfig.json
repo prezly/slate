@@ -15,7 +15,7 @@
         "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./src/@types"]
     },
     "files": ["./src/@types/svg.d.ts"],
-    "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
+    "exclude": ["node_modules"],
     "include": ["./src"],
     "references": [
         { "path": "../slate-types" },
