@@ -9,7 +9,7 @@ import {
     PARAGRAPH_NODE_TYPE,
 } from '@prezly/slate-types';
 import { Editor } from 'slate';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 
 import { createEditorWithChildren, uploadedImage, withNormalization } from '../../tests';
 

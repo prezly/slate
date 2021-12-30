@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { clamp, noop } from 'lodash';
+import { clamp, noop } from 'lodash-es';
 import type { CSSProperties } from 'react';
 import React, { Component } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';

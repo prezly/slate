@@ -1,5 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import type { RefObject } from 'react';
 
 import { CoverageExtension } from '../../modules/editor-v4-coverage';

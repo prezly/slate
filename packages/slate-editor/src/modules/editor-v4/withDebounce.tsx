@@ -1,4 +1,4 @@
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import type { ComponentType } from 'react';
 import React, { Component } from 'react';
 

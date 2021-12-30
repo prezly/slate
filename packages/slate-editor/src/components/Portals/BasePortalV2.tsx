@@ -1,6 +1,6 @@
 import type { Placement, VirtualElement } from '@popperjs/core';
 import classNames from 'classnames';
-import { isEqual, noop } from 'lodash';
+import { isEqual, noop } from 'lodash-es';
 import type { Rect } from 'rangefix';
 import type { FunctionComponent, HTMLAttributes, ReactNode, RefObject } from 'react';
 import React from 'react';
