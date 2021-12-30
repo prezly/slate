@@ -3,6 +3,7 @@
     "version": "0.10.1",
     "description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
     "license": "MIT",
+    "type": "module",
     "main": "build/esm/index.mjs",
     "module": "build/esm/index.mjs",
     "types": "build/types/index.d.ts",

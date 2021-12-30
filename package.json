@@ -10,6 +10,7 @@
         "url": "https://github.com/prezly/slate/issues"
     },
     "homepage": "https://github.com/prezly/slate#readme",
+    "type": "module",
     "scripts": {
         "bootstrap": "npm ci --legacy-peer-deps",
         "build": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.build.json --pretty && npm run build --workspaces",

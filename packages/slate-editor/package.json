@@ -3,6 +3,7 @@
     "version": "0.10.1",
     "description": "The Prezly Slate Editor",
     "license": "MIT",
+    "type": "module",
     "main": "build/esm/index.mjs",
     "module": "build/esm/index.mjs",
     "types": "build/types/index.d.ts",
