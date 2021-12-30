@@ -13,7 +13,7 @@ function buildEsm(files = TYPESCRIPT_SOURCES) {
     return gulp
         .src(files)
         .pipe(babel({ extends: '../../babel.esm.config.json' }))
-        .pipe(rename((file) => file.extname = '.mjs'))
+        .pipe(rename((file) => (file.extname = '.mjs')))
         .pipe(gulp.dest('build/esm/'));
 }
 
@@ -21,7 +21,7 @@ function buildCommonjs(files = TYPESCRIPT_SOURCES) {
     return gulp
         .src(TYPESCRIPT_SOURCES)
         .pipe(babel({ extends: '../../babel.cjs.config.json' }))
-        .pipe(rename((file) => file.extname = '.cjs'))
+        .pipe(rename((file) => (file.extname = '.cjs')))
         .pipe(gulp.dest('build/cjs/'));
 }
 
@@ -32,6 +32,6 @@ function watch(files, build, incremental) {
             .on('ready', () => console.log('Watching files'))
             .on('all', (event, path) => console.log(`[${event}] ${path}`))
             .on('add', (path) => incremental(path))
-            .on('change', (path) => incremental(path))
+            .on('change', (path) => incremental(path));
     });
 }

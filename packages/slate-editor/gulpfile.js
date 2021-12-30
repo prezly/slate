@@ -41,13 +41,15 @@ function buildEsm(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
         .src(files, { base: BASE_DIR })
         .pipe(
             branch.obj((src) => [
-                src.pipe(filter(TYPESCRIPT_SOURCES))
+                src
+                    .pipe(filter(TYPESCRIPT_SOURCES))
                     .pipe(babel(babelEsmConfig))
-                    .pipe(rename((file) => file.extname = '.cjs')),
+                    .pipe(rename((file) => (file.extname = '.cjs'))),
 
-                src.pipe(filter(SVG_ICONS))
+                src
+                    .pipe(filter(SVG_ICONS))
                     .pipe(babel(babelEsmConfig))
-                    .pipe(rename((file) => file.extname = '.svg.cjs')),
+                    .pipe(rename((file) => (file.extname = '.svg.cjs'))),
             ]),
         )
         .pipe(rename((file) => (file.extname = '.mjs')))
@@ -59,13 +61,15 @@ function buildCommonjs(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
         .src(files, { base: BASE_DIR })
         .pipe(
             branch.obj((src) => [
-                src.pipe(filter(TYPESCRIPT_SOURCES))
+                src
+                    .pipe(filter(TYPESCRIPT_SOURCES))
                     .pipe(babel(babelCommonjsConfig))
-                    .pipe(rename((file) => file.extname = '.cjs')),
+                    .pipe(rename((file) => (file.extname = '.cjs'))),
 
-                src.pipe(filter(SVG_ICONS))
+                src
+                    .pipe(filter(SVG_ICONS))
                     .pipe(babel(babelCommonjsConfig))
-                    .pipe(rename((file) => file.extname = '.svg.cjs')),
+                    .pipe(rename((file) => (file.extname = '.svg.cjs'))),
             ]),
         )
         .pipe(rename((file) => (file.extname = '.cjs')))
@@ -75,12 +79,7 @@ function buildCommonjs(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
 function buildSass() {
     return gulp
         .src(SASS_SOURCES, { base: BASE_DIR })
-        .pipe(
-            branch.obj((src) => [
-                copySassDeclarations(src),
-                compileComponentsStylesheets(src),
-            ]),
-        )
+        .pipe(branch.obj((src) => [copySassDeclarations(src), compileComponentsStylesheets(src)]))
         .pipe(gulp.dest('build/'));
 }
 
@@ -130,6 +129,6 @@ function watch(files, build, incremental) {
             .on('ready', () => console.log('Watching files'))
             .on('all', (event, path) => console.log(`[${event}] ${path}`))
             .on('add', (path) => incremental(path))
-            .on('change', (path) => incremental(path))
+            .on('change', (path) => incremental(path));
     });
 }
