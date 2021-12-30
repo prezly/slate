@@ -1,17 +1,17 @@
 module.exports = {
     coveragePathIgnorePatterns: ['/node_modules/', '/build/'],
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
     globals: {
         'ts-jest': {
+            useESM: true,
             tsconfig: `${__dirname}/tsconfig.jest.json`,
         },
     },
     moduleNameMapper: {
-        '\\.(scss|svg)$': '<rootDir>/../../universalMock',
+        '\\.(scss|svg)$': `${__dirname}/../../universalMock.js`,
     },
     preset: 'ts-jest',
-    setupFiles: ['<rootDir>/../../setupTests.js', 'jest-canvas-mock'],
+    setupFiles: [`${__dirname}/../../mockRange.js`, 'jest-canvas-mock'],
     testEnvironment: 'jsdom',
-    transform: {
-        '^.+\\.(mjs|js|jsx|ts|tsx)$': ['babel-jest', { rootMode: 'upward' }],
-    },
+    testPathIgnorePatterns: ['/node_modules/', '/build/'],
 };

@@ -50,7 +50,7 @@
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/* *.tsbuildinfo",
         "test": "npm run test:unit && npm run test:build",
-        "test:unit": "jest --no-cache --coverage",
+        "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage",
         "test:build": "npm run test:esm && npm run test:cjs",
         "test:esm": "node build/esm/index.mjs",
         "test:cjs": "node build/cjs/index.cjs"
