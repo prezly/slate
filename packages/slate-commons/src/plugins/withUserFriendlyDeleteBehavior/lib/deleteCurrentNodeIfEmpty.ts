@@ -11,7 +11,7 @@ interface Parameters {
     unit: 'character' | 'word' | 'line' | 'block';
 }
 
-const deleteCurrentNodeIfEmpty = (editor: Editor, { reverse, unit }: Parameters): boolean => {
+function deleteCurrentNodeIfEmpty(editor: Editor, { reverse, unit }: Parameters): boolean {
     const [currentNode] = getCurrentNodeEntry(editor) || [];
     const targetNode = getDeletionTargetNode(editor, { reverse, unit });
 
@@ -47,6 +47,6 @@ const deleteCurrentNodeIfEmpty = (editor: Editor, { reverse, unit }: Parameters)
     }
 
     return false;
-};
+}
 
 export default deleteCurrentNodeIfEmpty;

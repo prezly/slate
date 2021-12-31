@@ -10,32 +10,38 @@ interface UploadcareFileParameters {
     uuid: UploadcareFileStoragePayload['uuid'];
 }
 
-const fromStoragePayload = ({
+function fromStoragePayload({
     filename,
     mime_type: mimeType,
     size,
     uuid,
-}: UploadcareFileStoragePayload) => ({
-    filename,
-    mimeType,
-    size,
-    uuid,
-});
+}: UploadcareFileStoragePayload) {
+    return {
+        filename,
+        mimeType,
+        size,
+        uuid,
+    };
+}
 
-const toStoragePayload = ({ uuid, filename, size, mimeType }: UploadcareFileParameters) => ({
-    filename,
-    mime_type: mimeType,
-    size,
-    uuid,
-    version: 2,
-});
+function toStoragePayload({ uuid, filename, size, mimeType }: UploadcareFileParameters) {
+    return {
+        filename,
+        mime_type: mimeType,
+        size,
+        uuid,
+        version: 2,
+    };
+}
 
-const fromWidgetPayload = ({ uuid, name: filename, size, mimeType }: UploadcareFileInfo) => ({
-    filename,
-    mimeType,
-    size,
-    uuid,
-});
+function fromWidgetPayload({ uuid, name: filename, size, mimeType }: UploadcareFileInfo) {
+    return {
+        filename,
+        mimeType,
+        size,
+        uuid,
+    };
+}
 
 export class UploadcareFile {
     static createFromPrezlyStoragePayload = (

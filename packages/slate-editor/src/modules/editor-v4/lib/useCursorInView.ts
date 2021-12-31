@@ -6,18 +6,18 @@ import { Editor, Range } from 'slate';
 import { ensureElementInView, ensureRangeInView } from '../../../lib';
 import type { EditorV4Props } from '../types';
 
-const useMemoizedWithCursorInView = (
+function useMemoizedWithCursorInView(
     withCursorInView: EditorV4Props['withCursorInView'],
-): EditorV4Props['withCursorInView'] => {
+): EditorV4Props['withCursorInView'] {
     // I know what I'm doing:
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return useMemo(() => withCursorInView, [jsonStableStringify(withCursorInView)]);
-};
+}
 
-const ensureCursorInView = (
+function ensureCursorInView(
     editor: Editor,
     withCursorInView: EditorV4Props['withCursorInView'],
-): void => {
+): void {
     if (!withCursorInView || !editor.selection) {
         return;
     }
@@ -62,12 +62,12 @@ const ensureCursorInView = (
         minTop: withCursorInView.minTop,
         skipWhenDoesNotFitView: true,
     });
-};
+}
 
-const useCursorInView = (
+function useCursorInView(
     editor: Editor,
     withCursorInView: EditorV4Props['withCursorInView'],
-): void => {
+): void {
     // We have to memoize it - otherwise the useLayoutEffect would kick in too often (e.g. on re-render)
     const memoizedWithCursorInView = useMemoizedWithCursorInView(withCursorInView);
 
@@ -78,6 +78,6 @@ const useCursorInView = (
             // Ignore all cursor-related errors. They sometimes come from Slate.
         }
     }, [editor, editor.selection, memoizedWithCursorInView]);
-};
+}
 
 export default useCursorInView;

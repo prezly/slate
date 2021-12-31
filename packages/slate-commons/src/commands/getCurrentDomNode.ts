@@ -3,7 +3,7 @@ import type { Editor } from 'slate';
 import getCurrentNodeEntry from './getCurrentNodeEntry';
 import toDomNode from './toDomNode';
 
-const getCurrentDomNode = (editor: Editor): HTMLElement | null => {
+function getCurrentDomNode(editor: Editor): HTMLElement | null {
     const [currentNode] = getCurrentNodeEntry(editor) || [];
 
     if (!currentNode) {
@@ -11,6 +11,6 @@ const getCurrentDomNode = (editor: Editor): HTMLElement | null => {
     }
 
     return toDomNode(editor, currentNode);
-};
+}
 
 export default getCurrentDomNode;

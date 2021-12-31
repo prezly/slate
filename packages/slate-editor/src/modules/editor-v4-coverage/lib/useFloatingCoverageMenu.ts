@@ -18,35 +18,35 @@ interface Actions {
     submit: (coverage: Coverage) => void;
 }
 
-const useFloatingCoverageMenu = (editor: Editor): [State, Actions] => {
+function useFloatingCoverageMenu(editor: Editor): [State, Actions] {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const savedSelection = useSavedSelection();
 
-    const close = () => {
+    function close() {
         savedSelection.restore(editor, { focus: true });
         setIsOpen(false);
-    };
+    }
 
-    const rootClose = () => {
+    function rootClose() {
         setIsOpen(false);
-    };
+    }
 
-    const open = () => {
+    function open() {
         EventsEditor.dispatchEvent(editor, 'coverage-dialog-opened');
         setIsOpen(true);
         savedSelection.save(editor);
-    };
+    }
 
-    const submit = (coverage: Coverage) => {
+    function submit(coverage: Coverage) {
         EventsEditor.dispatchEvent(editor, 'coverage-dialog-submitted', {
             coverage_id: coverage.id,
         });
         close();
         savedSelection.restore(editor, { focus: true });
         insertCoverage(editor, coverage.id);
-    };
+    }
 
     return [{ isOpen }, { close, open, rootClose, submit }];
-};
+}
 
 export default useFloatingCoverageMenu;

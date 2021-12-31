@@ -8,5 +8,6 @@ export interface PlaceholderNode extends ElementNode {
     key: string;
 }
 
-export const isPlaceholderNode = (value: any): value is PlaceholderNode =>
-    isElementNode<PlaceholderNode>(value, PLACEHOLDER_NODE_TYPE);
+export function isPlaceholderNode(value: any): value is PlaceholderNode {
+    return isElementNode<PlaceholderNode>(value, PLACEHOLDER_NODE_TYPE);
+}

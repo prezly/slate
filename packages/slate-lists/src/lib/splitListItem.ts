@@ -13,7 +13,7 @@ import getListItemsInRange from './getListItemsInRange';
  * ends up in a "list-item" node, it will break that "list-item" into 2 nodes, splitting
  * the text at the cursor location.
  */
-const splitListItem = (options: ListsOptions, editor: Editor): void => {
+function splitListItem(options: ListsOptions, editor: Editor): void {
     if (!editor.selection) {
         return;
     }
@@ -79,6 +79,6 @@ const splitListItem = (options: ListsOptions, editor: Editor): void => {
             });
         }
     });
-};
+}
 
 export default splitListItem;

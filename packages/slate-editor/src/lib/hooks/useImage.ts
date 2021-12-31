@@ -11,10 +11,10 @@ interface State {
     url?: string;
 }
 
-const useImage = (src: string): State => {
+function useImage(src: string): State {
     const getPromise = useCallback(() => createImageProgressPromise(src), [src]);
     const { error, loading, progress, value } = useAsyncProgress(getPromise);
     return { error, loading, progress, url: value };
-};
+}
 
 export default useImage;

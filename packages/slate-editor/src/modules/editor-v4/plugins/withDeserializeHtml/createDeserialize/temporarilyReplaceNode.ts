@@ -1,4 +1,4 @@
-const temporarilyReplaceNode = (node: Node, replacement: Node): { restore: () => void } => {
+function temporarilyReplaceNode(node: Node, replacement: Node): { restore: () => void } {
     if (node.parentNode) {
         node.parentNode.replaceChild(replacement, node);
     }
@@ -10,6 +10,6 @@ const temporarilyReplaceNode = (node: Node, replacement: Node): { restore: () =>
             }
         },
     };
-};
+}
 
 export default temporarilyReplaceNode;

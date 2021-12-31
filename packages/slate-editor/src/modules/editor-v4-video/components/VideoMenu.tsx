@@ -16,13 +16,13 @@ export const VideoMenu: FunctionComponent<Props> = ({ containerRef, element }) =
     const editor = useSlate();
     const isSelected = useSelected();
 
-    const handleRemove = () => {
+    function handleRemove() {
         const removedElement = removeVideo(editor);
 
         if (removedElement) {
             EventsEditor.dispatchEvent(editor, 'video-removed', { uuid: removedElement.uuid });
         }
-    };
+    }
 
     if (!isSelected) {
         return null;

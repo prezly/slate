@@ -4,7 +4,7 @@ import { Transforms } from 'slate';
 
 import isLinkCandidateElement from './isLinkCandidateElement';
 
-const unwrapLinkCandidates = (editor: Editor): void => {
+function unwrapLinkCandidates(editor: Editor): void {
     const at = EditorCommands.getEditorRange(editor);
 
     if (!at) {
@@ -16,6 +16,6 @@ const unwrapLinkCandidates = (editor: Editor): void => {
         match: isLinkCandidateElement,
         split: true,
     });
-};
+}
 
 export default unwrapLinkCandidates;

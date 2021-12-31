@@ -3,7 +3,7 @@ import { isMentionNode } from '@prezly/slate-types';
 
 import createUserMention from './createUserMention';
 
-const parseSerializedElement = (serialized: string): MentionNode | undefined => {
+function parseSerializedElement(serialized: string): MentionNode | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isMentionNode(parsed)) {
@@ -11,6 +11,6 @@ const parseSerializedElement = (serialized: string): MentionNode | undefined => 
     }
 
     return undefined;
-};
+}
 
 export default parseSerializedElement;

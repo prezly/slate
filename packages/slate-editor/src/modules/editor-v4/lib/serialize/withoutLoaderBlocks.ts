@@ -1,14 +1,13 @@
 import { Transforms } from 'slate';
+import type { Editor } from 'slate';
 
-import { isLoaderElement } from '../../../../modules/editor-v4-loader';
+import { isLoaderElement } from '#modules/editor-v4-loader';
 
-import type { Transform } from './types';
-
-const withoutLoaderBlocks: Transform = (editor): void => {
+function withoutLoaderBlocks(editor: Editor): void {
     Transforms.removeNodes(editor, {
         at: [],
         match: isLoaderElement,
     });
-};
+}
 
 export default withoutLoaderBlocks;

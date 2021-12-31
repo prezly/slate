@@ -1,4 +1,4 @@
-const getAncestorAnchor = (element: HTMLElement): HTMLAnchorElement | null => {
+function getAncestorAnchor(element: HTMLElement): HTMLAnchorElement | null {
     if (element.parentElement === null) {
         return null;
     }
@@ -8,6 +8,6 @@ const getAncestorAnchor = (element: HTMLElement): HTMLAnchorElement | null => {
     }
 
     return getAncestorAnchor(element.parentElement);
-};
+}
 
 export default getAncestorAnchor;

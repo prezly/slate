@@ -18,7 +18,7 @@ interface Result {
     top: number;
 }
 
-const getUpdatedPosition = ({ container, origin, rect, wrapper }: Parameters): Result => {
+function getUpdatedPosition({ container, origin, rect, wrapper }: Parameters): Result {
     const containerRect = container.getBoundingClientRect();
     const wrapperRect = wrapper.getBoundingClientRect();
 
@@ -75,6 +75,6 @@ const getUpdatedPosition = ({ container, origin, rect, wrapper }: Parameters): R
         default:
             throw new Error('Origin has not been provided.');
     }
-};
+}
 
 export default getUpdatedPosition;

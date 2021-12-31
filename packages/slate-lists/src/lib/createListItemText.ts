@@ -2,12 +2,14 @@ import type { ListItemTextNode } from '@prezly/slate-types';
 
 import type { ListsOptions } from '../types';
 
-const createListItemText = (
+function createListItemText(
     options: ListsOptions,
     children: ListItemTextNode['children'] = [{ text: '' }],
-): ListItemTextNode => ({
-    children,
-    type: options.listItemTextType as ListItemTextNode['type'],
-});
+): ListItemTextNode {
+    return {
+        children,
+        type: options.listItemTextType as ListItemTextNode['type'],
+    };
+}
 
 export default createListItemText;

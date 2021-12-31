@@ -29,12 +29,12 @@ interface State {
 
 const DEFAULT_PLUGINS: Parameters['plugins'] = [];
 
-const useCreateEditor = ({
+function useCreateEditor({
     events,
     extensions,
     onKeyDown,
     plugins = DEFAULT_PLUGINS,
-}: Parameters): State => {
+}: Parameters): State {
     const decorateList: Decorate[] = [];
     const onKeyDownList: OnKeyDown[] = [];
 
@@ -65,6 +65,6 @@ const useCreateEditor = ({
         editor,
         onKeyDownList,
     };
-};
+}
 
 export default useCreateEditor;

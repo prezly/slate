@@ -8,7 +8,7 @@ import { options } from '../lists';
 
 import isRichTextBlockElement from './isRichTextBlockElement';
 
-const withResetRichFormattingOnBreak = <T extends Editor>(editor: T): T => {
+function withResetRichFormattingOnBreak<T extends Editor>(editor: T): T {
     const { insertBreak } = editor;
 
     editor.insertBreak = () => {
@@ -32,6 +32,6 @@ const withResetRichFormattingOnBreak = <T extends Editor>(editor: T): T => {
     };
 
     return editor;
-};
+}
 
 export default withResetRichFormattingOnBreak;

@@ -20,13 +20,13 @@ const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
         return null;
     }
 
-    const handleRemove = () => {
+    function handleRemove() {
         const removedElement = removeCoverage(editor);
 
         if (removedElement) {
             EventsEditor.dispatchEvent(editor, 'coverage-removed');
         }
-    };
+    }
 
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>

@@ -28,13 +28,13 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
         return null;
     }
 
-    const handleRemove = () => {
+    function handleRemove() {
         const removedElement = removeFileAttachment(editor);
 
         if (removedElement) {
             onRemove(editor, removedElement);
         }
-    };
+    }
 
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>

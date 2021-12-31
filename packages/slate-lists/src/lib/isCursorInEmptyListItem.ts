@@ -9,7 +9,7 @@ import listItemContainsText from './listItemContainsText';
 /**
  * Returns true when editor has collapsed selection and the cursor is in an empty "list-item".
  */
-const isCursorInEmptyListItem = (options: ListsOptions, editor: Editor): boolean => {
+function isCursorInEmptyListItem(options: ListsOptions, editor: Editor): boolean {
     if (!editor.selection || Range.isExpanded(editor.selection)) {
         return false;
     }
@@ -23,6 +23,6 @@ const isCursorInEmptyListItem = (options: ListsOptions, editor: Editor): boolean
     const [[listItemNode]] = listItemsInSelection;
 
     return !listItemContainsText(options, editor, listItemNode);
-};
+}
 
 export default isCursorInEmptyListItem;

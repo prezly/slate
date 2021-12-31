@@ -21,15 +21,15 @@ const ALLOWED_ATTRIBUTES = Object.keys(
     }),
 );
 
-const normalizeRedundantPressContactAttributes = (
+function normalizeRedundantPressContactAttributes(
     editor: Editor,
     [node, path]: NodeEntry,
-): boolean => {
+): boolean {
     if (!isContactNode(node)) {
         return false;
     }
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
-};
+}
 
 export default normalizeRedundantPressContactAttributes;

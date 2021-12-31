@@ -6,13 +6,13 @@ import { Editor } from 'slate';
 import { createDataTransfer } from '../lib';
 import { isFragment } from '../types';
 
-const withoutSlateFragment = (data: DataTransfer): DataTransfer => {
+function withoutSlateFragment(data: DataTransfer): DataTransfer {
     const types = data.types.filter((type) => type !== 'application/x-slate-fragment');
     const dataMap = Object.fromEntries(types.map((type) => [type, data.getData(type)]));
     return createDataTransfer(dataMap);
-};
+}
 
-const withSlatePasting = <T extends Editor>(editor: T) => {
+function withSlatePasting<T extends Editor>(editor: T) {
     const { insertData } = editor;
 
     editor.insertData = (data) => {
@@ -35,6 +35,6 @@ const withSlatePasting = <T extends Editor>(editor: T) => {
     };
 
     return editor;
-};
+}
 
 export default withSlatePasting;

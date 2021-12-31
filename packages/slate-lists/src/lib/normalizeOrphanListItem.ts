@@ -14,11 +14,11 @@ import isListItem from './isListItem';
  * the expected behavior. The only case where it would be expected is during
  * pasting, so we have a separate rule for that in `deserializeHtml`.
  */
-const normalizeOrphanListItem = (
+function normalizeOrphanListItem(
     options: ListsOptions,
     editor: Editor,
     [node, path]: NodeEntry<Node>,
-): boolean => {
+): boolean {
     if (!isListItem(options, node)) {
         // This function does not know how to normalize other nodes.
         return false;
@@ -41,6 +41,6 @@ const normalizeOrphanListItem = (
     });
 
     return true;
-};
+}
 
 export default normalizeOrphanListItem;

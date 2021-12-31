@@ -1,22 +1,22 @@
 const originalCloneContents = Range.prototype.cloneContents;
 
-const wrapInFragment = (nodes: (string | Node)[]): DocumentFragment => {
+function wrapInFragment(nodes: (string | Node)[]): DocumentFragment {
     const fragment = document.createDocumentFragment();
     fragment.append(...nodes);
     return fragment;
-};
+}
 
-const wrapInList = (nodes: (string | Node)[], nodeName: 'OL' | 'UL'): HTMLElement => {
+function wrapInList(nodes: (string | Node)[], nodeName: 'OL' | 'UL'): HTMLElement {
     const listElement = document.createElement(nodeName);
     listElement.append(...nodes);
     return listElement;
-};
+}
 
-const wrapInLi = (nodes: (string | Node)[]): HTMLElement => {
+function wrapInLi(nodes: (string | Node)[]): HTMLElement {
     const listItemElement = document.createElement('li');
     listItemElement.append(...nodes);
     return listItemElement;
-};
+}
 
 const cloneContentsMonkeyPatch = {
     /**

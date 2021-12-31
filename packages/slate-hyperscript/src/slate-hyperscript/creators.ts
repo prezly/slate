@@ -18,10 +18,10 @@ import {
 
 const STRINGS: WeakSet<Text> = new WeakSet();
 
-const resolveDescendants = (children: any[]): Descendant[] => {
+function resolveDescendants(children: any[]): Descendant[] {
     const nodes: Node[] = [];
 
-    const addChild = (child: Node | Token): void => {
+    function addChild(child: Node | Token): void {
         if (child == null) {
             return;
         }
@@ -65,14 +65,14 @@ const resolveDescendants = (children: any[]): Descendant[] => {
         } else {
             throw new Error(`Unexpected hyperscript child object: ${child}`);
         }
-    };
+    }
 
     for (const child of children.flat(Infinity)) {
         addChild(child);
     }
 
     return nodes;
-};
+}
 
 /**
  * Create an anchor token.

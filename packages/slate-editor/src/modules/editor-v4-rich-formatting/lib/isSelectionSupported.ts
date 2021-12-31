@@ -4,7 +4,7 @@ import { Editor, Element } from 'slate';
 
 import isRichTextElement from './isRichTextElement';
 
-const isSelectionSupported = (editor: Editor): boolean => {
+function isSelectionSupported(editor: Editor): boolean {
     if (EditorCommands.isSelectionEmpty(editor)) {
         return false;
     }
@@ -16,6 +16,6 @@ const isSelectionSupported = (editor: Editor): boolean => {
     );
 
     return nodeEntries.every(([node]) => isRichTextElement(node) || isLinkNode(node));
-};
+}
 
 export default isSelectionSupported;

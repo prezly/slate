@@ -1,10 +1,10 @@
 import type { Node } from 'slate';
 import { Editor, Element } from 'slate';
 
-const getDeletionTargetNode = (
+function getDeletionTargetNode(
     editor: Editor,
     { reverse, ...options }: Parameters<typeof Editor.before>[2] & { reverse: boolean },
-): Node | null => {
+): Node | null {
     if (!editor.selection) {
         return null;
     }
@@ -22,6 +22,6 @@ const getDeletionTargetNode = (
         : [];
 
     return targetNode || null;
-};
+}
 
 export default getDeletionTargetNode;

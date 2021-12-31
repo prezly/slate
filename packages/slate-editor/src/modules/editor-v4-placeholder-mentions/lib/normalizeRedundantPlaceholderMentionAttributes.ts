@@ -7,15 +7,15 @@ import createPlaceholderMention from './createPlaceholderMention';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createPlaceholderMention('' as PlaceholderKey));
 
-const normalizeRedundantPlaceholderMentionAttributes = (
+function normalizeRedundantPlaceholderMentionAttributes(
     editor: Editor,
     [node, path]: NodeEntry,
-): boolean => {
+): boolean {
     if (!isPlaceholderNode(node)) {
         return false;
     }
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
-};
+}
 
 export default normalizeRedundantPlaceholderMentionAttributes;

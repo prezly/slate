@@ -15,7 +15,7 @@ const isReadableStreamSupported = (() => {
     }
 })();
 
-const createImageProgressPromise = (src: string): ProgressPromise<string, number> => {
+function createImageProgressPromise(src: string): ProgressPromise<string, number> {
     const { origin } = new URL(src);
 
     // There are at least 2 ways of tracking loading progress:
@@ -48,6 +48,6 @@ const createImageProgressPromise = (src: string): ProgressPromise<string, number
             reject(new Error(`Failed to load image: ${src}`));
         });
     });
-};
+}
 
 export default createImageProgressPromise;

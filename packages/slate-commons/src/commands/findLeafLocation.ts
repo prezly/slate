@@ -5,7 +5,7 @@ import findLeafPath from './findLeafPath';
 import findLeafPoint from './findLeafPoint';
 import findLeafRange from './findLeafRange';
 
-const findLeafLocation = (editor: Editor, location: Location): Location | null => {
+function findLeafLocation(editor: Editor, location: Location): Location | null {
     if (Path.isPath(location)) {
         return findLeafPath(editor, location);
     }
@@ -15,6 +15,6 @@ const findLeafLocation = (editor: Editor, location: Location): Location | null =
     }
 
     return findLeafRange(editor, location);
-};
+}
 
 export default findLeafLocation;

@@ -13,7 +13,7 @@ function readTestFile(filepath: string): string {
     return fs.readFileSync(absoluteFilepath, 'utf-8');
 }
 
-const handleError = () => {};
+function handleError() { }
 
 describe('deserializeHtml', () => {
     it('Wraps orphan "list-items" into "lists"', () => {

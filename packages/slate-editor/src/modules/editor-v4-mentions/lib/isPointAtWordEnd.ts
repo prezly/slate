@@ -9,7 +9,7 @@ const AFTER_MATCH_REGEX = /^(\s|$)/;
 /**
  * Is a point at the end of a word
  */
-const isPointAtWordEnd = (editor: Editor, { at }: { at: Point }): boolean => {
+function isPointAtWordEnd(editor: Editor, { at }: { at: Point }): boolean {
     // Point after at
     const after = Editor.after(editor, at);
 
@@ -19,6 +19,6 @@ const isPointAtWordEnd = (editor: Editor, { at }: { at: Point }): boolean => {
 
     // Match regex on after text
     return AFTER_MATCH_REGEX.test(afterText);
-};
+}
 
 export default isPointAtWordEnd;

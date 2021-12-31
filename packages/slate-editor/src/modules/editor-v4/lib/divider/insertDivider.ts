@@ -3,8 +3,10 @@ import type { Editor } from 'slate';
 
 import { createDivider } from '../../../../modules/editor-v4-divider';
 
-const insertDivider = (editor: Editor): void => {
-    EditorCommands.insertNodes(editor, [createDivider()], { ensureEmptyParagraphAfter: true });
-};
+function insertDivider(editor: Editor): void {
+    return EditorCommands.insertNodes(editor, [createDivider()], {
+        ensureEmptyParagraphAfter: true,
+    });
+}
 
 export default insertDivider;

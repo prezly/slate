@@ -22,11 +22,11 @@ export interface Options {
  * `Element.prototype.scrollIntoView` works in X axis as well. Support for that can
  * be added too though, in case we need it in the future.
  */
-const scrollIntoView = (
+function scrollIntoView(
     parent: HTMLElement,
     rect: ClientRect | Rect,
     { minBottom, minTop, skipWhenDoesNotFitView = false }: Options,
-) => {
+) {
     const { height: parentHeight } = parent.getBoundingClientRect();
     const { height: elementHeight, top: elementTop } = rect;
     const isChildAboveVisibleArea = elementTop < minTop;
@@ -51,6 +51,6 @@ const scrollIntoView = (
         const y = parent.scrollTop + elementTop + elementHeight - parentHeight + minBottom;
         scrollTo(parent, parent.scrollLeft, y);
     }
-};
+}
 
 export default scrollIntoView;

@@ -3,14 +3,16 @@ import { Editor } from 'slate';
 
 import getText from './getText';
 
-const escapeRegExp = (text: string) => text.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&');
+function escapeRegExp(text: string) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&');
+}
 
 interface Result {
     range: Range;
     text: string;
 }
 
-const getStartOfTriggerLocation = (editor: Editor, at: Point, trigger: string): Point => {
+function getStartOfTriggerLocation(editor: Editor, at: Point, trigger: string): Point {
     /**
      * We need the part of `trigger.length` characters before because the `Editor.before` with
      * unit=word ignores punctuation, and the `trigger` will most likely be a punctuation character.
@@ -31,12 +33,12 @@ const getStartOfTriggerLocation = (editor: Editor, at: Point, trigger: string): 
      * So we can use start of the editor as the fallback point.
      */
     return pointOfTrigger || Editor.start(editor, []);
-};
+}
 
-const getMatchingTextRange = (
+function getMatchingTextRange(
     editor: Editor,
     { at, text, trigger }: { at: Point; text: string; trigger: string },
-): Range => {
+): Range {
     const distance = text.length + trigger.length;
     /**
      * `Editor.before` returns undefined if there is no destination location.
@@ -56,12 +58,12 @@ const getMatchingTextRange = (
      * For example: <anchor />@mention<focus />
      */
     return Editor.range(editor, triggerPoint, at);
-};
+}
 
-const getWordAfterTrigger = (
+function getWordAfterTrigger(
     editor: Editor,
     { at, trigger }: { at: Point; trigger: string },
-): Result | null => {
+): Result | null {
     /**
      * Range from `at` to start of the word, including the `trigger`. But because `Editor.before`
      * ignores punctuation, the matched range may be wider.
@@ -101,6 +103,6 @@ const getWordAfterTrigger = (
         range: getMatchingTextRange(editor, { at, text, trigger }),
         text,
     };
-};
+}
 
 export default getWordAfterTrigger;

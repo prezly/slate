@@ -10,5 +10,6 @@ export interface LinkNode extends ElementNode {
     href: string;
 }
 
-export const isLinkNode = (value: any): value is LinkNode =>
-    isElementNode<LinkNode>(value, LINK_NODE_TYPE);
+export function isLinkNode(value: any): value is LinkNode {
+    return isElementNode<LinkNode>(value, LINK_NODE_TYPE);
+}

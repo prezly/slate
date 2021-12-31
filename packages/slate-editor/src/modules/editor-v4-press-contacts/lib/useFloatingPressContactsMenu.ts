@@ -18,35 +18,37 @@ interface Actions {
     submit: (contact: PressContact) => void;
 }
 
-const useFloatingPressContactsMenu = (editor: Editor): [State, Actions] => {
+function useFloatingPressContactsMenu(editor: Editor): [State, Actions] {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const savedSelection = useSavedSelection();
 
-    const close = () => {
+    function close() {
         savedSelection.restore(editor, { focus: true });
         setIsOpen(false);
-    };
+    }
 
-    const rootClose = () => {
+    function rootClose() {
         setIsOpen(false);
-    };
+    }
 
-    const open = () => {
+    function open() {
         EventsEditor.dispatchEvent(editor, 'contact-dialog-opened');
         setIsOpen(true);
         savedSelection.save(editor);
-    };
+    }
 
-    const submit = (contact: PressContact) => {
-        EventsEditor.dispatchEvent(editor, 'contact-dialog-submitted', { contact_id: contact.id });
+    function submit(contact: PressContact) {
+        EventsEditor.dispatchEvent(editor, 'contact-dialog-submitted', {
+            contact_id: contact.id,
+        });
         close();
         savedSelection.restore(editor, { focus: true });
         EditorCommands.insertNodes(editor, [createPressContact(contact)], {
             ensureEmptyParagraphAfter: true,
         });
-    };
+    }
 
     return [{ isOpen }, { close, open, rootClose, submit }];
-};
+}
 
 export default useFloatingPressContactsMenu;

@@ -9,11 +9,11 @@ import mergeListWithPreviousSiblingList from './mergeListWithPreviousSiblingList
  * If there are 2 "lists" of the same type next to each other, merge them together.
  * If there are 2 nested "lists" next to each other, merge them together.
  */
-const normalizeSiblingLists = (
+function normalizeSiblingLists(
     options: ListsOptions,
     editor: Editor,
     entry: NodeEntry<Node>,
-): boolean => {
+): boolean {
     const normalized = mergeListWithPreviousSiblingList(options, editor, entry);
 
     if (normalized) {
@@ -28,6 +28,6 @@ const normalizeSiblingLists = (
     }
 
     return mergeListWithPreviousSiblingList(options, editor, nextSibling);
-};
+}
 
 export default normalizeSiblingLists;

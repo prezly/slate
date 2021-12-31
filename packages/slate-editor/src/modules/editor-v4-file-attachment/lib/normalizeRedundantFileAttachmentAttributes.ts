@@ -17,15 +17,15 @@ const ALLOWED_ATTRIBUTES = Object.keys(
     ),
 );
 
-const normalizeRedundantFileAttachmentAttributes = (
+function normalizeRedundantFileAttachmentAttributes(
     editor: Editor,
     [node, path]: NodeEntry,
-): boolean => {
+): boolean {
     if (!isAttachmentNode(node)) {
         return false;
     }
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
-};
+}
 
 export default normalizeRedundantFileAttachmentAttributes;

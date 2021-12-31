@@ -8,14 +8,14 @@ import isList from './isList';
 /**
  * Moves all "list-items" from one "list" to the end of another "list".
  */
-const moveListItemsToAnotherList = (
+function moveListItemsToAnotherList(
     options: ListsOptions,
     editor: Editor,
     parameters: {
         at: NodeEntry<Node>;
         to: NodeEntry<Node>;
     },
-): void => {
+): void {
     const [sourceListNode, sourceListPath] = parameters.at;
     const [targetListNode, targetListPath] = parameters.to;
 
@@ -30,6 +30,6 @@ const moveListItemsToAnotherList = (
             to: [...targetListPath, targetListNode.children.length + i],
         });
     }
-};
+}
 
 export default moveListItemsToAnotherList;

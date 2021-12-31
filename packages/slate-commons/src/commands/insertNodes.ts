@@ -20,7 +20,7 @@ interface Options {
     mode?: 'highest' | 'lowest';
 }
 
-const insertNodes = (editor: Editor, nodes: Node[], options: Options = {}): void => {
+function insertNodes(editor: Editor, nodes: Node[], options: Options = {}): void {
     if (!editor.selection || nodes.length === 0) {
         return;
     }
@@ -78,6 +78,6 @@ const insertNodes = (editor: Editor, nodes: Node[], options: Options = {}): void
     // to force one more loop of normalizations. This happens e.g. when fixing hierarchy
     // when pasting lists.
     Editor.normalize(editor, { force: true });
-};
+}
 
 export default insertNodes;

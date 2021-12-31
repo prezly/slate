@@ -29,13 +29,13 @@ export const Dropdown = <Value extends string = string>({
     const selectedOption = options.find((option) => option.value === value);
     const visibleOptions = options.filter(({ hidden }) => !hidden);
 
-    const handleSelect = (newValue: any) => {
+    function handleSelect(newValue: any) {
         if (value !== newValue) {
             // if current value is equal to selected one, do nothing,
             // this saves us a little work in the callback
             onChange(newValue as Value);
         }
-    };
+    }
 
     return (
         <BootstrapDropdown

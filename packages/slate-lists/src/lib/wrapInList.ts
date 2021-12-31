@@ -10,7 +10,7 @@ import createListItem from './createListItem';
  * All nodes matching options.wrappableTypes in the current selection
  * will be converted to "list-items" and wrapped in "lists".
  */
-const wrapInList = (options: ListsOptions, editor: Editor, listType: string): void => {
+function wrapInList(options: ListsOptions, editor: Editor, listType: string): void {
     if (!editor.selection) {
         return;
     }
@@ -57,6 +57,6 @@ const wrapInList = (options: ListsOptions, editor: Editor, listType: string): vo
             Transforms.wrapNodes(editor, createList(listType), { at: nonListEntryPath });
         });
     });
-};
+}
 
 export default wrapInList;

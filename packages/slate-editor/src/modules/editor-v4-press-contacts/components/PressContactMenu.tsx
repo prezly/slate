@@ -20,7 +20,7 @@ const PressContactMenu: FunctionComponent<Props> = ({ element, containerRef }) =
         return null;
     }
 
-    const handleRemove = () => {
+    function handleRemove() {
         const removedElement = removePressContact(editor);
 
         if (removedElement) {
@@ -28,7 +28,7 @@ const PressContactMenu: FunctionComponent<Props> = ({ element, containerRef }) =
                 contact_id: removedElement.contact.id,
             });
         }
-    };
+    }
 
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>

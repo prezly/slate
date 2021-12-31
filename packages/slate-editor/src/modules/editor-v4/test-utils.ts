@@ -18,8 +18,8 @@ const containerRef = createRef<HTMLElement>();
 
 const events = new Events<EditorEventMap>();
 
-export const getAllExtensions = () =>
-    Array.from(
+export function getAllExtensions() {
+    return Array.from(
         getEnabledExtensions({
             availableWidth: 1000,
             containerRef,
@@ -71,6 +71,8 @@ export const getAllExtensions = () =>
             },
         }),
     );
+}
 
-export const createEditor = (input: JSX.Element) =>
-    createEditorV4(input as unknown as Editor, getAllExtensions, [withEvents(events)]);
+export function createEditor(input: JSX.Element) {
+    return createEditorV4(input as unknown as Editor, getAllExtensions, [withEvents(events)]);
+}

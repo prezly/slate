@@ -3,9 +3,8 @@ import type { Editor } from 'slate';
 
 import type { Extension } from '../types';
 
-const withInlineVoid =
-    (getExtensions: () => Extension[]) =>
-    <T extends Editor>(editor: T) => {
+function withInlineVoid(getExtensions: () => Extension[]) {
+    return function <T extends Editor>(editor: T) {
         const { isInline, isVoid } = editor;
 
         editor.isInline = (element) => {
@@ -30,5 +29,6 @@ const withInlineVoid =
 
         return editor;
     };
+}
 
 export default withInlineVoid;

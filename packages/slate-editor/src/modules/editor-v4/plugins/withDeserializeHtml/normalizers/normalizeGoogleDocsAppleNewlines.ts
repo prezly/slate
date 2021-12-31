@@ -4,7 +4,7 @@ import { isGoogleDocsWrapper } from '@prezly/slate-commons';
  * Google Docs adds an extra <br class="Apple-interchange-newline"> at the end of HTML
  * in clipboard. We don't want to covert it to an empty paragraph/line, so we remove it.
  */
-const normalizeGoogleDocsAppleNewline = (document: Document): boolean => {
+function normalizeGoogleDocsAppleNewline(document: Document): boolean {
     const br = document.querySelector('br.Apple-interchange-newline');
 
     if (!br) {
@@ -13,9 +13,9 @@ const normalizeGoogleDocsAppleNewline = (document: Document): boolean => {
 
     br.remove();
     return true;
-};
+}
 
-const normalizeGoogleDocsAppleNewlines = (document: Document): Document => {
+function normalizeGoogleDocsAppleNewlines(document: Document): Document {
     const [firstChild] = document.body.childNodes;
 
     if (!firstChild || !(firstChild instanceof HTMLElement) || !isGoogleDocsWrapper(firstChild)) {
@@ -24,6 +24,6 @@ const normalizeGoogleDocsAppleNewlines = (document: Document): Document => {
 
     while (normalizeGoogleDocsAppleNewline(document));
     return document;
-};
+}
 
 export default normalizeGoogleDocsAppleNewlines;

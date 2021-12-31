@@ -33,7 +33,7 @@ async function resolveFile(filePromise: FilePromise): Promise<FileInfo | null> {
     return fileInfo;
 }
 
-const getFilePromise = (src: string): FilePromise | null => {
+function getFilePromise(src: string): FilePromise | null {
     if (src.startsWith('file://')) {
         // We don't know how to deal with this data
         return null;
@@ -49,13 +49,13 @@ const getFilePromise = (src: string): FilePromise | null => {
     }
 
     return uploadcare.fileFrom('url', src);
-};
+}
 
-const scheduleLoaderReplacement = async (
+async function scheduleLoaderReplacement(
     editor: Editor,
     loaderElement: LoaderNode,
     { href, src }: ImageCandidateNode,
-) => {
+) {
     const loaderPath = findLoaderPath(editor, loaderElement.id);
     const filePromise = getFilePromise(src);
 
@@ -108,13 +108,13 @@ const scheduleLoaderReplacement = async (
         size: fileInfo.size,
         uuid: fileInfo.uuid,
     });
-};
+}
 
 /**
  * We don't want to have image-candidate nodes in the editor - we want to convert
  * them into actual images.
  */
-const normalizeImageCandidate = (editor: Editor, [node, path]: NodeEntry<Node>): boolean => {
+function normalizeImageCandidate(editor: Editor, [node, path]: NodeEntry<Node>): boolean {
     if (!isImageCandidateElement(node)) {
         // This function does not know how to normalize other nodes.
         return false;
@@ -131,6 +131,6 @@ const normalizeImageCandidate = (editor: Editor, [node, path]: NodeEntry<Node>):
     scheduleLoaderReplacement(editor, loader, node);
 
     return true;
-};
+}
 
 export default normalizeImageCandidate;

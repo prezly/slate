@@ -6,10 +6,10 @@ import type { EditorEventHandlers, EditorEventMap } from '../../modules/editor-v
 
 import type { EditorRef } from './types';
 
-const useEditorEvents = (
+function useEditorEvents(
     editorRef: RefObject<EditorRef> | undefined,
     handlers: Partial<EditorEventHandlers>,
-): void => {
+): void {
     const events = editorRef?.current?.events;
 
     useEffect(() => {
@@ -29,6 +29,6 @@ const useEditorEvents = (
             });
         };
     }, [events, handlers]);
-};
+}
 
 export default useEditorEvents;

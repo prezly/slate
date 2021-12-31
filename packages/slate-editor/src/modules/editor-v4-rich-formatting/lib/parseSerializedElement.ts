@@ -3,7 +3,7 @@ import type { RichTextElementType } from '../types';
 import createRichText from './createRichText';
 import isRichTextElement from './isRichTextElement';
 
-const parseSerializedElement = (serialized: string): RichTextElementType | undefined => {
+function parseSerializedElement(serialized: string): RichTextElementType | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isRichTextElement(parsed)) {
@@ -11,6 +11,6 @@ const parseSerializedElement = (serialized: string): RichTextElementType | undef
     }
 
     return undefined;
-};
+}
 
 export default parseSerializedElement;

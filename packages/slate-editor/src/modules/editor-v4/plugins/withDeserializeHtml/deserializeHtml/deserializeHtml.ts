@@ -22,11 +22,11 @@ const normalizers = [
     normalizeZeroWidthSpaces,
 ];
 
-const deserializeHtml = (
+function deserializeHtml(
     extensions: Extension[],
     html: string,
     onError: (error: unknown) => void,
-): Descendant[] => {
+): Descendant[] {
     const document = domParser.parseFromString(html, 'text/html');
     const normalizedDocument = normalizers.reduce(
         (result, normalize) => normalize(result),
@@ -35,6 +35,6 @@ const deserializeHtml = (
     const deserialize = createDeserialize(extensions, onError);
     const nodes = deserialize(normalizedDocument.body);
     return nodes;
-};
+}
 
 export default deserializeHtml;

@@ -23,9 +23,9 @@ const loaderPromiseManager = {
     track: (id: string, promise: LoaderPromise): void => {
         activePromises[id] = promise;
 
-        const forget = () => {
-            activePromises[id] = undefined;
-        };
+        function forget() {
+            return (activePromises[id] = undefined);
+        }
 
         ProgressPromise.resolve(promise).then(forget, forget);
     },

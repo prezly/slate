@@ -9,7 +9,7 @@ import getListsInRange from './getListsInRange';
 /**
  * Sets "type" of all "list" nodes in the current selection.
  */
-const setListType = (options: ListsOptions, editor: Editor, listType: string): void => {
+function setListType(options: ListsOptions, editor: Editor, listType: string): void {
     if (!editor.selection) {
         return;
     }
@@ -29,6 +29,6 @@ const setListType = (options: ListsOptions, editor: Editor, listType: string): v
         const [, listPath] = listEntry;
         Transforms.setNodes(editor, { type: listType as Element['type'] }, { at: listPath });
     });
-};
+}
 
 export default setListType;

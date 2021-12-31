@@ -7,8 +7,9 @@ import { createEditor as createCommonEditor } from '../../test-utils';
 
 import withBreaksOnVoidNodes from './withBreaksOnVoidNodes';
 
-export const createEditor = (input: JSX.Element) =>
-    withBreaksOnVoidNodes(createCommonEditor(input));
+export function createEditor(input: JSX.Element) {
+    return withBreaksOnVoidNodes(createCommonEditor(input));
+}
 
 describe('withBreaksOnVoidNodes', () => {
     it('should insert an empty paragraph after the void element when requesting a break', () => {

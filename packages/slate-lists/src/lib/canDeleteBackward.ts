@@ -10,7 +10,7 @@ import isCursorAtStartOfListItem from './isCursorAtStartOfListItem';
 /**
  * Returns true when editor.deleteBackward() is safe to call (it won't break the structure).
  */
-const canDeleteBackward = (options: ListsOptions, editor: Editor): boolean => {
+function canDeleteBackward(options: ListsOptions, editor: Editor): boolean {
     const listItemsInSelection = getListItemsInRange(options, editor, editor.selection);
 
     if (listItemsInSelection.length === 0) {
@@ -21,6 +21,6 @@ const canDeleteBackward = (options: ListsOptions, editor: Editor): boolean => {
     const isInNestedList = getParentListItem(options, editor, listItemPath) !== null;
     const isFirstListItem = EditorCommands.getPreviousSibling(editor, listItemPath) === null;
     return isInNestedList || !isFirstListItem || !isCursorAtStartOfListItem(options, editor);
-};
+}
 
 export default canDeleteBackward;

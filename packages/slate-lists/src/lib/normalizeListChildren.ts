@@ -14,11 +14,11 @@ import isListItemText from './isListItemText';
  * this will not be true, so we have to convert all non-"list-item" children of a "list"
  * into "list-items".
  */
-const normalizeListChildren = (
+function normalizeListChildren(
     options: ListsOptions,
     editor: Editor,
     [node, path]: NodeEntry<Node>,
-): boolean => {
+): boolean {
     if (!isList(options, node)) {
         // This function does not know how to normalize other nodes.
         return false;
@@ -89,6 +89,6 @@ const normalizeListChildren = (
     });
 
     return normalized;
-};
+}
 
 export default normalizeListChildren;

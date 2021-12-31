@@ -1,4 +1,4 @@
-const isUnderline = (element: HTMLElement): boolean => {
+function isUnderline(element: HTMLElement): boolean {
     const textDecoration = element.style.getPropertyValue('text-decoration');
 
     if (textDecoration) {
@@ -6,6 +6,6 @@ const isUnderline = (element: HTMLElement): boolean => {
     }
 
     return element.tagName === 'U';
-};
+}
 
 export default isUnderline;

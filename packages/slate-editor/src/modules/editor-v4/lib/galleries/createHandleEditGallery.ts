@@ -17,8 +17,8 @@ import insertUploadingFile from '../insertUploadingFile';
 
 import getMediaGalleryParameters from './getMediaGalleryParameters';
 
-const createHandleEditGallery =
-    (withGalleries: GalleriesExtensionParameters) => async (editor: Editor) => {
+function createHandleEditGallery(withGalleries: GalleriesExtensionParameters) {
+    return async function (editor: Editor) {
         const galleryNodeEntry = getCurrentGalleryNodeEntry(editor);
 
         if (!galleryNodeEntry) {
@@ -77,5 +77,6 @@ const createHandleEditGallery =
             loaderMessage: 'Uploading Gallery',
         });
     };
+}
 
 export default createHandleEditGallery;

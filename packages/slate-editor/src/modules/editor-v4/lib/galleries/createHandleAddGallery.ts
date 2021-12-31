@@ -12,8 +12,8 @@ import insertUploadingFile from '../insertUploadingFile';
 
 import getMediaGalleryParameters from './getMediaGalleryParameters';
 
-const createHandleAddGallery =
-    (withGalleries: GalleriesExtensionParameters) => async (editor: Editor) => {
+function createHandleAddGallery(withGalleries: GalleriesExtensionParameters) {
+    return async function(editor: Editor) {
         const filePromises = await UploadcareEditor.upload(editor, {
             ...getMediaGalleryParameters(withGalleries),
             captions: true,
@@ -55,5 +55,6 @@ const createHandleAddGallery =
             loaderMessage: 'Uploading Gallery',
         });
     };
+}
 
 export default createHandleAddGallery;

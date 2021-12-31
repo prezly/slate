@@ -6,7 +6,7 @@ import { detectMarks, parseSerializedElement, parseSerializedLinkElement } from 
 import type { RichFormattingExtensionParameters } from './types';
 import { ElementType } from './types';
 
-const createDeserialize = (parameters: RichFormattingExtensionParameters): DeserializeHtml => {
+function createDeserialize(parameters: RichFormattingExtensionParameters): DeserializeHtml {
     const deserialize: DeserializeHtml = {
         element: {
             [ElementType.BLOCK_QUOTE]: () => ({ type: PARAGRAPH_NODE_TYPE }),
@@ -144,6 +144,6 @@ const createDeserialize = (parameters: RichFormattingExtensionParameters): Deser
     }
 
     return deserialize;
-};
+}
 
 export default createDeserialize;

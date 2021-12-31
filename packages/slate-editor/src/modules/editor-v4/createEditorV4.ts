@@ -25,12 +25,12 @@ import {
     withVoids,
 } from './plugins';
 
-const createEditorV4 = (
+function createEditorV4(
     baseEditor: Editor,
     getExtensions: () => Extension[],
     plugins: (<T extends Editor>(editor: T) => T)[],
-) =>
-    flow([
+) {
+    return flow([
         withReact,
         withHistory,
         withNonEmptyValue,
@@ -51,5 +51,6 @@ const createEditorV4 = (
         withFilePasting(getExtensions),
         ...plugins,
     ])(baseEditor);
+}
 
 export default createEditorV4;

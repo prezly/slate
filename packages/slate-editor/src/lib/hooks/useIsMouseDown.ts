@@ -12,7 +12,7 @@ document.addEventListener('mouseup', () => {
     isMouseDownObservable.value = false;
 });
 
-const useIsMouseDown = (): boolean => {
+function useIsMouseDown(): boolean {
     const [isMouseDown, setIsMouseDown] = useState<boolean>(isMouseDownObservable.value);
 
     useEffect(() => {
@@ -22,6 +22,6 @@ const useIsMouseDown = (): boolean => {
     }, []);
 
     return isMouseDown;
-};
+}
 
 export default useIsMouseDown;

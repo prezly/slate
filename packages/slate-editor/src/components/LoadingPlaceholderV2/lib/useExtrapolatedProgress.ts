@@ -10,7 +10,7 @@ import extrapolateProgress from './extrapolateProgress';
  * @param progress 0 ≤ progress ≤ 1
  * @param estimatedDuration How long is the action expected to take (ms)
  */
-const useExtrapolatedProgress = (progress: number, estimatedDuration: number): number => {
+function useExtrapolatedProgress(progress: number, estimatedDuration: number): number {
     const elapsed = useElapsed();
     const [extrapolatedProgress, setExtrapolatedProgress] = useState<number>(progress);
     const changeEventsRef = useRef<ChangeEvent[]>([]);
@@ -35,6 +35,6 @@ const useExtrapolatedProgress = (progress: number, estimatedDuration: number): n
     });
 
     return extrapolatedProgress;
-};
+}
 
 export default useExtrapolatedProgress;

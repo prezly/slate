@@ -3,7 +3,7 @@ import { isParagraphNode } from '@prezly/slate-types';
 
 import createParagraph from './createParagraph';
 
-const parseSerializedElement = (serialized: string): ParagraphNode | undefined => {
+function parseSerializedElement(serialized: string): ParagraphNode | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isParagraphNode(parsed)) {
@@ -11,6 +11,6 @@ const parseSerializedElement = (serialized: string): ParagraphNode | undefined =
     }
 
     return undefined;
-};
+}
 
 export default parseSerializedElement;

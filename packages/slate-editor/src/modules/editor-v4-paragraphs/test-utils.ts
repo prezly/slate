@@ -3,7 +3,10 @@ import type { Editor } from 'slate';
 
 import ParagraphsExtension from './ParagraphsExtension';
 
-const getExtensions = () => [ParagraphsExtension()];
+function getExtensions() {
+    return [ParagraphsExtension()];
+}
 
-export const createParagraphsEditor = (input: JSX.Element) =>
-    withNormalization(getExtensions)(input as unknown as Editor);
+export function createParagraphsEditor(input: JSX.Element) {
+    return withNormalization(getExtensions)(input as unknown as Editor);
+}

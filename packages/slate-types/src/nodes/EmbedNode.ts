@@ -12,5 +12,6 @@ export interface EmbedNode extends ElementNode {
     uuid: string;
 }
 
-export const isEmbedNode = (value: any): value is EmbedNode =>
-    isElementNode<ElementNode>(value, EMBED_NODE_TYPE);
+export function isEmbedNode(value: any): value is EmbedNode {
+    return isElementNode<ElementNode>(value, EMBED_NODE_TYPE);
+}

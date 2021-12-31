@@ -1,4 +1,4 @@
-const isItalic = (element: HTMLElement): boolean => {
+function isItalic(element: HTMLElement): boolean {
     const fontStyle = element.style.getPropertyValue('font-style');
 
     if (fontStyle) {
@@ -6,6 +6,6 @@ const isItalic = (element: HTMLElement): boolean => {
     }
 
     return ['EM', 'I'].includes(element.tagName);
-};
+}
 
 export default isItalic;

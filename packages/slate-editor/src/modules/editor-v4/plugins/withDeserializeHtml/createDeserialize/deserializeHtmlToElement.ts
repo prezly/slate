@@ -10,9 +10,8 @@ interface Attributes extends Record<string, any> {
     type: string;
 }
 
-const deserializeHtmlToElement =
-    (extensions: Extension[], onError: (error: unknown) => void) =>
-    (node: HTMLElement, children: DeserializeHTMLChildren[]): Element | null => {
+function deserializeHtmlToElement(extensions: Extension[], onError: (error: unknown) => void) {
+    return function (node: HTMLElement, children: DeserializeHTMLChildren[]): Element | null {
         const type = node.getAttribute('data-slate-type') || node.nodeName;
         const elementDeserializers = getElementDeserializers(extensions);
 
@@ -48,5 +47,6 @@ const deserializeHtmlToElement =
 
         return null;
     };
+}
 
 export default deserializeHtmlToElement;

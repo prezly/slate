@@ -1,4 +1,4 @@
-const isSuperscript = (element: HTMLElement): boolean => {
+function isSuperscript(element: HTMLElement): boolean {
     const verticalAlign = element.style.getPropertyValue('vertical-align');
 
     if (verticalAlign) {
@@ -6,6 +6,6 @@ const isSuperscript = (element: HTMLElement): boolean => {
     }
 
     return element.tagName === 'SUP';
-};
+}
 
 export default isSuperscript;

@@ -7,5 +7,6 @@ export interface ParagraphNode extends ElementNode {
     type: typeof PARAGRAPH_NODE_TYPE;
 }
 
-export const isParagraphNode = (value: any): value is ParagraphNode =>
-    isElementNode<ParagraphNode>(value, PARAGRAPH_NODE_TYPE);
+export function isParagraphNode(value: any): value is ParagraphNode {
+    return isElementNode<ParagraphNode>(value, PARAGRAPH_NODE_TYPE);
+}

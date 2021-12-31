@@ -14,16 +14,16 @@ const MARK_HOTKEYS: { hotkey: string; mark: MarkType }[] = [
     { hotkey: 'mod+u', mark: MarkType.UNDERLINED },
 ];
 
-const marksOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
-    MARK_HOTKEYS.forEach(({ hotkey, mark }) => {
+function marksOnKeyDown(event: KeyboardEvent, editor: Editor) {
+    return MARK_HOTKEYS.forEach(({ hotkey, mark }) => {
         if (isHotkey(hotkey, event.nativeEvent)) {
             event.preventDefault();
             EditorCommands.toggleMark(editor, mark);
         }
     });
-};
+}
 
-const listsOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
+function listsOnKeyDown(event: KeyboardEvent, editor: Editor) {
     const listItemsInSelection = lists.getListItemsInRange(editor, editor.selection);
 
     // Since we're overriding the default Tab key behavior
@@ -58,17 +58,17 @@ const listsOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
             lists.splitListItem(editor);
         }
     }
-};
+}
 
-const softBreakOnKeyDown = (event: KeyboardEvent, editor: Editor) => {
+function softBreakOnKeyDown(event: KeyboardEvent, editor: Editor) {
     if (isHotkey('shift+enter', event.nativeEvent) && !event.isDefaultPrevented()) {
         event.preventDefault();
         Editor.insertText(editor, '\n');
     }
-};
+}
 
-const createOnKeyDown =
-    (parameters: RichFormattingExtensionParameters) => (event: KeyboardEvent, editor: Editor) => {
+function createOnKeyDown(parameters: RichFormattingExtensionParameters) {
+    return (event: KeyboardEvent, editor: Editor) => {
         softBreakOnKeyDown(event, editor);
         marksOnKeyDown(event, editor);
 
@@ -82,5 +82,6 @@ const createOnKeyDown =
             Editor.normalize(editor, { force: true });
         }
     };
+}
 
 export default createOnKeyDown;

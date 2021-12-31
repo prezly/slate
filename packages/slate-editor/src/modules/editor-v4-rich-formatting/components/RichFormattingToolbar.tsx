@@ -34,7 +34,7 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
     const isSuperScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUPERSCRIPT);
     const isSubScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUBSCRIPT);
 
-    const handleSubSupClick = () => {
+    function handleSubSupClick() {
         if (isSuperScriptActive) {
             EditorCommands.toggleMark(editor, MarkType.SUPERSCRIPT);
             EditorCommands.toggleMark(editor, MarkType.SUBSCRIPT);
@@ -43,15 +43,15 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
         } else {
             EditorCommands.toggleMark(editor, MarkType.SUPERSCRIPT);
         }
-    };
+    }
 
-    const handleBlockChange = (type: BlockType) => {
+    function handleBlockChange(type: BlockType) {
         if (type === 'multiple') {
             return;
         }
 
         toggleBlock(editor, type);
-    };
+    }
 
     return (
         <>

@@ -10,11 +10,11 @@ import isListItem from './isListItem';
  * Returns parent "list-item" node of "list-item" at a given path.
  * Returns null if there is no parent "list-item".
  */
-const getParentListItem = (
+function getParentListItem(
     options: ListsOptions,
     editor: Editor,
     listItemPath: Path,
-): NodeEntry<ElementNode> | null => {
+): NodeEntry<ElementNode> | null {
     const parentListItem = Editor.above<ElementNode>(editor, {
         at: listItemPath,
         match: (node) => isListItem(options, node),
@@ -25,6 +25,6 @@ const getParentListItem = (
     }
 
     return null;
-};
+}
 
 export default getParentListItem;

@@ -7,7 +7,7 @@ import { ReactEditor } from 'slate-react';
 
 import { convertToHtml } from '../../lib';
 
-const withImages = <T extends Editor>(editor: T): T => {
+function withImages<T extends Editor>(editor: T): T {
     const { insertData, setFragmentData } = editor;
 
     editor.setFragmentData = (data): void => {
@@ -45,6 +45,6 @@ const withImages = <T extends Editor>(editor: T): T => {
     };
 
     return editor;
-};
+}
 
 export default withImages;

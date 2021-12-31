@@ -1,6 +1,6 @@
 import { Editor, Range } from 'slate';
 
-const isSelectionAtBlockEnd = (editor: Editor): boolean => {
+function isSelectionAtBlockEnd(editor: Editor): boolean {
     if (!editor.selection) {
         // Cannot determine the location if there is no selection.
         return false;
@@ -16,6 +16,6 @@ const isSelectionAtBlockEnd = (editor: Editor): boolean => {
     const [, endOfBlock] = blockAbove;
 
     return Editor.isEnd(editor, endOfSelection, endOfBlock);
-};
+}
 
 export default isSelectionAtBlockEnd;

@@ -3,7 +3,7 @@ import { isLinkNode } from '@prezly/slate-types';
 
 import createLink from './createLink';
 
-const parseSerializedLinkElement = (serialized: string): LinkNode | undefined => {
+function parseSerializedLinkElement(serialized: string): LinkNode | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isLinkNode(parsed)) {
@@ -11,6 +11,6 @@ const parseSerializedLinkElement = (serialized: string): LinkNode | undefined =>
     }
 
     return undefined;
-};
+}
 
 export default parseSerializedLinkElement;

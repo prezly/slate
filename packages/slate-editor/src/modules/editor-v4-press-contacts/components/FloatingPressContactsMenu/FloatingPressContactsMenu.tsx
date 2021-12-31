@@ -25,9 +25,9 @@ interface Props {
     onSubmit: (contact: PressContact) => void;
 }
 
-const trackSearchUsed = (editor: Editor) => {
-    EventsEditor.dispatchEvent(editor, 'contact-dialog-search-used');
-};
+function trackSearchUsed(editor: Editor) {
+    return EventsEditor.dispatchEvent(editor, 'contact-dialog-search-used');
+}
 
 const FloatingPressContactsMenu: FunctionComponent<Props> = ({
     availableWidth,
@@ -42,11 +42,11 @@ const FloatingPressContactsMenu: FunctionComponent<Props> = ({
 
     const trackSearchUsedOnce = useMemo(() => once(trackSearchUsed), []);
 
-    const handleInputChange = (query: string) => {
+    function handleInputChange(query: string) {
         if (query) {
             trackSearchUsedOnce(editor);
         }
-    };
+    }
 
     return (
         <FloatingContainer

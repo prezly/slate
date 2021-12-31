@@ -77,12 +77,12 @@ const ImageElement: FunctionComponent<Props> = ({
         (isSelected || isLinkMenuOpen || !EditorCommands.isNodeEmpty(editor, element));
     const isContainedLayout = activeLayout === ImageLayout.CONTAINED;
 
-    const focusCurrentElement = () => {
+    function focusCurrentElement() {
         const path = ReactEditor.findPath(editor, element);
         Transforms.select(editor, path);
-    };
+    }
 
-    const handleResize = (widthPercent: string, widthFactor: string) => {
+    function handleResize(widthPercent: string, widthFactor: string) {
         Transforms.setNodes(
             editor,
             {
@@ -91,18 +91,18 @@ const ImageElement: FunctionComponent<Props> = ({
             },
             { match: isImageNode },
         );
-    };
+    }
 
-    const handleResizeStop = () => {
+    function handleResizeStop() {
         // We have to use `setTimeout` because something happens right after the resize stop
         // which causes the current image element to lose focus.
         setTimeout(focusCurrentElement);
-    };
+    }
 
-    const handleEdit = () => {
+    function handleEdit() {
         focusCurrentElement();
         onEdit(editor);
-    };
+    }
 
     return (
         <>

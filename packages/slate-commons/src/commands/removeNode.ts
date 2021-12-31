@@ -1,10 +1,10 @@
 import type { Node } from 'slate';
 import { Editor, Transforms } from 'slate';
 
-const removeNode = <N extends Node>(
+function removeNode<N extends Node>(
     editor: Editor,
     options: NonNullable<Parameters<typeof Editor.nodes>[1]>,
-): N | null => {
+): N | null {
     const [nodeEntry] = Editor.nodes<N>(editor, options);
     if (nodeEntry) {
         const [node, nodePath] = nodeEntry;
@@ -12,6 +12,6 @@ const removeNode = <N extends Node>(
         return node;
     }
     return null;
-};
+}
 
 export default removeNode;

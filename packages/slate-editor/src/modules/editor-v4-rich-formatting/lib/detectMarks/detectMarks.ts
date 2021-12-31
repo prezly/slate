@@ -7,7 +7,7 @@ import isSubscript from './isSubscript';
 import isSuperscript from './isSuperscript';
 import isUnderline from './isUnderline';
 
-const detectMarks = (element: HTMLElement): Partial<Record<MarkType, true>> => {
+function detectMarks(element: HTMLElement): Partial<Record<MarkType, true>> {
     // Make sure to add only relevant marks to avoid creating a huge JSON
     // with lots of `false` attributes.
     const marks: Partial<Record<MarkType, true>> = {};
@@ -33,6 +33,6 @@ const detectMarks = (element: HTMLElement): Partial<Record<MarkType, true>> => {
     }
 
     return marks;
-};
+}
 
 export default detectMarks;

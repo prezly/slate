@@ -4,7 +4,7 @@ import { Transforms } from 'slate';
 import { findLoaderPath, isLoaderElement } from '../lib';
 import type { LoaderNode } from '../types';
 
-const replaceLoader = (editor: Editor, loader: LoaderNode, element: Element): void => {
+function replaceLoader(editor: Editor, loader: LoaderNode, element: Element): void {
     const loaderPath = findLoaderPath(editor, loader.id);
 
     if (!loaderPath) {
@@ -20,6 +20,6 @@ const replaceLoader = (editor: Editor, loader: LoaderNode, element: Element): vo
         at: loaderPath,
         mode: 'highest',
     });
-};
+}
 
 export default replaceLoader;

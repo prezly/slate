@@ -5,30 +5,32 @@ import { Editor } from 'slate';
 
 import { VOID_EXTENSION_ID } from './constants';
 
-export const VoidExtension = (): Extension => ({
-    id: VOID_EXTENSION_ID,
-    onKeyDown: (event, editor) => {
-        const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
+export function VoidExtension(): Extension {
+    return {
+        id: VOID_EXTENSION_ID,
+        onKeyDown: (event, editor) => {
+            const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
 
-        if (!currentNode || !editor.selection || !Editor.isVoid(editor, currentNode)) {
-            return;
-        }
+            if (!currentNode || !editor.selection || !Editor.isVoid(editor, currentNode)) {
+                return;
+            }
 
-        let hasBeenHandled = false;
+            let hasBeenHandled = false;
 
-        if (isHotkey('up', event)) {
-            hasBeenHandled = true;
-            EditorCommands.moveCursorToPreviousBlock(editor);
-        } else if (isHotkey('down', event)) {
-            hasBeenHandled = true;
-            EditorCommands.moveCursorToNextBlock(editor);
-        } else if (isHotkey('enter', event)) {
-            hasBeenHandled = true;
-            EditorCommands.insertEmptyParagraph(editor);
-        }
+            if (isHotkey('up', event)) {
+                hasBeenHandled = true;
+                EditorCommands.moveCursorToPreviousBlock(editor);
+            } else if (isHotkey('down', event)) {
+                hasBeenHandled = true;
+                EditorCommands.moveCursorToNextBlock(editor);
+            } else if (isHotkey('enter', event)) {
+                hasBeenHandled = true;
+                EditorCommands.insertEmptyParagraph(editor);
+            }
 
-        if (hasBeenHandled) {
-            event.preventDefault();
-        }
-    },
-});
+            if (hasBeenHandled) {
+                event.preventDefault();
+            }
+        },
+    };
+}
