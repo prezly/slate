@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState } from 'react';
-import { useMountedState } from 'react-use';
+
+import { useMountedState } from './react-use';
 
 const useElapsed = (): number => {
     const [elapsed, setElapsed] = useState<number>(0);

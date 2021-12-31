@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import React, { useRef } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
-import { useEffectOnce } from 'react-use';
+import { useEffectOnce } from '#lib';
 
 import { Cross } from '../../../icons';
 import { Menu } from '../../../components';

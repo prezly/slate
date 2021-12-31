@@ -8,7 +8,8 @@ import { useRef, useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
-import { useMountedState, useRafLoop } from 'react-use';
+
+import { useMountedState, useRafLoop } from '#lib';
 
 import './BasePortalV2.scss';
 
