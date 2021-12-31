@@ -11,7 +11,7 @@ module.exports = {
         '\\.(scss|svg)$': `${__dirname}/universalMock.js`,
     },
     preset: 'ts-jest',
-    setupFiles: [`${__dirname}/mockRange.js`],
+    setupFiles: [`${__dirname}/mockGlobals.cjs`],
     testEnvironment: 'jsdom',
     testPathIgnorePatterns: ['/node_modules/', '/build/', `${__dirname}/packages/slate-editor/`],
 };

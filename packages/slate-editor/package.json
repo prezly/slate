@@ -52,12 +52,12 @@
         "test": "npm run test:unit && npm run test:build",
         "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage",
         "test:build": "npm run test:esm && npm run test:cjs",
-        "test:esm": "node build/esm/index.mjs",
-        "test:cjs": "node build/cjs/index.cjs"
+        "test:esm": "node --input-type module -e \" import '../../mockGlobals.cjs'; import './build/esm/index.mjs'; \" ",
+        "test:cjs": "node -e \" require('../../mockGlobals.cjs'); require('./build/cjs/index.cjs'); \" "
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
-        "@prezly/docx-cleaner": "^0.4.0",
+        "@prezly/docx-cleaner": "^0.5.1",
         "@prezly/events": "^2.0.3",
         "@prezly/linear-partition": "^1.0.2",
         "@prezly/progress-promise": "^1.0.1",
