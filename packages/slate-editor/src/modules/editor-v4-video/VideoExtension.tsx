@@ -4,10 +4,10 @@ import { isVideoNode, VIDEO_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import type { VideoParameters } from './types';
 import { VideoElement, VideoMenu } from './components';
 import { VIDEO_EXTENSION_ID } from './constants';
 import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib';
+import type { VideoParameters } from './types';
 
 export const VideoExtension = ({ availableWidth, containerRef }: VideoParameters): Extension => ({
     deserialize: {

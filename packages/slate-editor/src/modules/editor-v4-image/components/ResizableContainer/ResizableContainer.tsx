@@ -1,13 +1,15 @@
 import classNames from 'classnames';
-import { clamp, noop } from '#lodash';
 import type { CSSProperties } from 'react';
 import React, { Component } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
 import * as Draggable from 'react-draggable';
 
+import { clamp, noop } from '#lodash';
+
 import { Resize } from '../../../../icons';
 
 import { getClampedRatioInPercent, getClampedWidthInPercent, increaseWidth } from './lib';
+
 import './ResizableContainer.scss';
 import { Theme } from '#modules/themes';
 

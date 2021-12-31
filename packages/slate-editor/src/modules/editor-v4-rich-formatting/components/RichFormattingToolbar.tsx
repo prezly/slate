@@ -16,6 +16,7 @@ import {
 import { toggleBlock } from '../lib';
 import type { BlockType, RichFormattingExtensionParameters } from '../types';
 import { ElementType, MarkType } from '../types';
+
 import BlockDropdown from './BlockDropdown';
 
 interface Props {

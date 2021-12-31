@@ -1,8 +1,6 @@
-import type { Editor, Element } from 'slate';
 import type { Events } from '@prezly/events';
 import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
-
-import type { Theme } from '#modules/themes';
+import type { Editor, Element } from 'slate';
 
 import type { CoverageExtensionParameters } from '../../editor-v4-coverage';
 import type { EmbedExtensionParameters } from '../../editor-v4-embed/types';
@@ -15,8 +13,10 @@ import type { PlaceholderMentionsExtensionParameters } from '../../editor-v4-pla
 import type { PressContactsExtensionParameters } from '../../editor-v4-press-contacts';
 import type { RichFormattingExtensionParameters } from '../../editor-v4-rich-formatting';
 import type { UserMentionsExtensionParameters } from '../../editor-v4-user-mentions';
-import type { WebBookmarkExtensionParameters } from '../../editor-v4-web-bookmark/types';
 import type { VideoExtensionParameters } from '../../editor-v4-video/types';
+import type { WebBookmarkExtensionParameters } from '../../editor-v4-web-bookmark/types';
+
+import type { Theme } from '#modules/themes';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;

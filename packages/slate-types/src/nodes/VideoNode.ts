@@ -1,9 +1,10 @@
 import type { OEmbedInfo } from '@prezly/sdk';
 
+import { isOEmbedInfo } from '../sdk';
+
 import type { ElementNode } from './ElementNode';
 import { isElementNode } from './ElementNode';
 import { isNonEmptyString, isObject, isUuid } from './validation';
-import { isOEmbedInfo } from '../sdk';
 
 export const VIDEO_NODE_TYPE = 'video';
 

@@ -1,6 +1,7 @@
-import { debounce } from '#lodash';
 import type { ComponentType } from 'react';
 import React, { Component } from 'react';
+
+import { debounce } from '#lodash';
 
 import { serialize } from './lib';
 import type { EditorV4Props } from './types';

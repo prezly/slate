@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 import React from 'react';
+
 import { useSize } from '#lib';
 
 import type { EditorV4Props } from './types';

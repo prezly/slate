@@ -1,8 +1,9 @@
 import type { GalleryNode } from '@prezly/slate-types';
 import { isGalleryNode } from '@prezly/slate-types';
-import { pick } from '#lodash';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
+
+import { pick } from '#lodash';
 
 const updateGallery = (
     editor: Editor,

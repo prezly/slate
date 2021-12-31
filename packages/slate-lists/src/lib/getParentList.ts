@@ -3,6 +3,7 @@ import type { NodeEntry, Path } from 'slate';
 import { Editor } from 'slate';
 
 import type { ListsOptions } from '../types';
+
 import isList from './isList';
 
 /**

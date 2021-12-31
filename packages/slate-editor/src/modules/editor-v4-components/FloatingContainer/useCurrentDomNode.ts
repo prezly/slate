@@ -1,7 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { useEffect, useRef } from 'react';
-import { useUpdate } from '#lib';
 import { useSlate } from 'slate-react';
+
+import { useUpdate } from '#lib';
 
 interface Parameters {
     withFallbackToLastExistingNode: boolean;

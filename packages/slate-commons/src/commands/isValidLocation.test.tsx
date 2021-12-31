@@ -5,7 +5,6 @@ import type { Editor } from 'slate';
 import jsx from '../jsx';
 
 import isValidLocation from './isValidLocation';
-
 import removeNode from './removeNode';
 
 describe('isValidLocation', () => {

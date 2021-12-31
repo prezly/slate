@@ -1,7 +1,7 @@
-import type { BaseEditor } from 'slate';
-import type { ReactEditor } from 'slate-react';
-import type { HistoryEditor } from 'slate-history';
 import type { ElementNode, TextNode } from '@prezly/slate-types';
+import type { BaseEditor } from 'slate';
+import type { HistoryEditor } from 'slate-history';
+import type { ReactEditor } from 'slate-react';
 
 declare module 'slate' {
     interface CustomTypes {

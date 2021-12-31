@@ -1,7 +1,8 @@
-import { isHotkey } from 'is-hotkey';
-import { Editor } from 'slate';
 import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
+import { isHotkey } from 'is-hotkey';
+import { Editor } from 'slate';
+
 import { VOID_EXTENSION_ID } from './constants';
 
 export const VoidExtension = (): Extension => ({

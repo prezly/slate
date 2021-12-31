@@ -1,12 +1,13 @@
 import type { Events } from '@prezly/events';
 import type { Decorate, Extension, OnKeyDown } from '@prezly/slate-commons';
-import { useLatest } from '#lib';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Editor } from 'slate';
 import { createEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
+
+import { useLatest } from '#lib';
 
 import type { EditorEventMap } from '../editor-v4-events';
 import { withEvents } from '../editor-v4-events';

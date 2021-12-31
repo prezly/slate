@@ -3,9 +3,10 @@ import type { CoverageNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React, { useEffect } from 'react';
-import { useAsyncFn } from '#lib';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
+
+import { useAsyncFn } from '#lib';
 
 import { LoadingPlaceholderV2 } from '../../../../components';
 import { Coverage as CoverageIcon } from '../../../../icons';

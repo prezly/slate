@@ -4,10 +4,11 @@ import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
-import { useSize } from '#lib';
 import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlate } from 'slate-react';
+
+import { useSize } from '#lib';
 
 import Gallery from './Gallery';
 import './GalleryElement.scss';

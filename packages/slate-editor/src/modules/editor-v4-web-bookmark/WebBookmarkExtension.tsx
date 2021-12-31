@@ -4,10 +4,10 @@ import { BOOKMARK_NODE_TYPE, isBookmarkNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import type { WebBookmarkParameters } from './types';
 import { WebBookmarkElement, WebBookmarkMenu } from './components';
 import { WEB_BOOKMARK_EXTENSION_ID } from './constants';
 import { normalizeRedundantWebBookmarkAttributes, parseSerializedElement } from './lib';
+import type { WebBookmarkParameters } from './types';
 
 export const WebBookmarkExtension = ({
     availableWidth,

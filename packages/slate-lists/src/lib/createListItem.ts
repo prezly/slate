@@ -1,7 +1,8 @@
 import type { ListItemNode } from '@prezly/slate-types';
-import createListItemText from './createListItemText';
 
 import type { ListsOptions } from '../types';
+
+import createListItemText from './createListItemText';
 
 const createListItem = (
     options: ListsOptions,

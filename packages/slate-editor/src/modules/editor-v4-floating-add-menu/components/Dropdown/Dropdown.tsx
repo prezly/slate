@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import { noop } from '#lodash';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 import { Label, MenuItem } from 'react-bootstrap';
+
+import { noop } from '#lodash';
 
 import { betaLastComparator } from '../../lib';
 import type { Option } from '../../types';

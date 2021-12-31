@@ -1,5 +1,6 @@
-import { clamp } from '#lodash';
 import type { Rect } from 'rangefix';
+
+import { clamp } from '#lodash';
 
 import { PortalOrigin } from './types';
 

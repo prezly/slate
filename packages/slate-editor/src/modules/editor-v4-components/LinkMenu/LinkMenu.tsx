@@ -1,14 +1,17 @@
 import type { FunctionComponent } from 'react';
 import React, { useRef } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
+
 import { useEffectOnce } from '#lib';
 
-import { Cross } from '../../../icons';
 import { Menu } from '../../../components';
+import { Cross } from '../../../icons';
 
 import { STRING_URL_PATTERN } from './constants';
+
 import './LinkMenu.scss';
 import { Theme, useToolbarsTheme } from '#modules/themes';
+
 import classNames from 'classnames';
 
 interface Props {

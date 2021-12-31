@@ -33,15 +33,18 @@
         "react/display-name": "warn",
         "react/prop-types": "off",
         "import/no-extraneous-dependencies": "error",
-        "import/order": ["error", {
-            "alphabetize": {
-                "order": "asc",
-                "caseInsensitive": true
-            },
-            "groups": [["builtin", "external"], "internal", "parent", "sibling", "index"],
-            "newlines-between": "always",
-            "pathGroups": [{ "pattern": "#**", "group": "external", "position": "after" }]
-        }],
+        "import/order": [
+            "error",
+            {
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                },
+                "groups": [["builtin", "external"], "internal", "parent", "sibling", "index"],
+                "newlines-between": "always",
+                "pathGroups": [{ "pattern": "#**", "group": "external", "position": "after" }]
+            }
+        ],
         "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-explicit-any": "off",

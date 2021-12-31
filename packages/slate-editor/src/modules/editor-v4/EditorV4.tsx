@@ -1,14 +1,13 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
-import { noop } from '#lodash';
 import type { FunctionComponent } from 'react';
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
 import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '#icons';
-import { Theme, withToolbarsThemeContext } from '#modules/themes';
+import { noop } from '#lodash';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
@@ -30,6 +29,9 @@ import { UploadcareEditor } from '../editor-v4-uploadcare';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
 
 import './EditorV4.scss';
+import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
+import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
+
 import getEnabledExtensions from './getEnabledExtensions';
 import {
     createHandleAddGallery,
@@ -45,8 +47,8 @@ import useCreateEditor from './useCreateEditor';
 import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';
 import withDebounce from './withDebounce';
-import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
-import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
+
+import { Theme, withToolbarsThemeContext } from '#modules/themes';
 
 const EditorV4: FunctionComponent<EditorV4Props> = ({
     availableWidth,

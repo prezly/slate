@@ -1,9 +1,9 @@
-import { noop } from '#lodash';
 import type { CSSProperties, ImgHTMLAttributes, ReactNode, Ref } from 'react';
 import React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 
 import { useDebounce, useImage, useLatest } from '#lib';
+import { noop } from '#lodash';
 
 import LoadingPlaceholderV2 from './LoadingPlaceholderV2';
 

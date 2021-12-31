@@ -5,7 +5,6 @@ import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import { MultilineEllipsis } from '../../../../../components';
-
 import {
     getCoverageDescription,
     getCoverageImageUrl,

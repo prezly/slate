@@ -1,5 +1,6 @@
 import type { DividerNode } from '@prezly/slate-types';
 import { isDividerNode } from '@prezly/slate-types';
+
 import createDivider from './createDivider';
 
 const parseSerializedElement = (serialized: string): DividerNode | undefined => {

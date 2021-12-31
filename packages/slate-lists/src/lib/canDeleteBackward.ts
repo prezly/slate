@@ -3,9 +3,9 @@ import type { Editor } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import isCursorAtStartOfListItem from './isCursorAtStartOfListItem';
 import getListItemsInRange from './getListItemsInRange';
 import getParentListItem from './getParentListItem';
+import isCursorAtStartOfListItem from './isCursorAtStartOfListItem';
 
 /**
  * Returns true when editor.deleteBackward() is safe to call (it won't break the structure).

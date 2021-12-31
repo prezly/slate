@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 import { createHyperscript } from '@prezly/slate-hyperscript';
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { PlaceholderNode } from '@prezly/slate-types';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 

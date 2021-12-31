@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
+import { createHyperscript } from '@prezly/slate-hyperscript';
 import {
     BULLETED_LIST_NODE_TYPE,
     LIST_ITEM_NODE_TYPE,
@@ -7,7 +8,6 @@ import {
     NUMBERED_LIST_NODE_TYPE,
     PARAGRAPH_NODE_TYPE,
 } from '@prezly/slate-types';
-import { createHyperscript } from '@prezly/slate-hyperscript';
 import type { ReactNode } from 'react';
 
 import { INLINE_ELEMENT, UNWRAPPABLE_ELEMENT } from './test-utils';
