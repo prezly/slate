@@ -33,6 +33,7 @@
         "react/display-name": "warn",
         "react/prop-types": "off",
         "import/no-extraneous-dependencies": "error",
+        "func-style": ["error", "declaration"],
         "import/order": [
             "error",
             {
@@ -51,6 +52,12 @@
         "@typescript-eslint/no-inferrable-types": "warn"
     },
     "overrides": [
+        {
+            "files": ["packages/*/src/**/*.tsx"],
+            "rules": {
+                "func-style": "off"
+            }
+        },
         {
             "files": ["packages/**/*.test.*"],
             "rules": {
