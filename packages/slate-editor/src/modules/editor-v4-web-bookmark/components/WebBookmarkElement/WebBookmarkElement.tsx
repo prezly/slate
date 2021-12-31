@@ -24,7 +24,7 @@ function homepage(url: string): string {
 }
 
 function isEmptyText(text: string | null | undefined): boolean {
-    return !Boolean(text && text.replace(/\s+/g, ''));
+    return !(text && text.replace(/\s+/g, ''));
 }
 
 const Thumbnail: FunctionComponent<{ href: string; src: string; width?: number; height?: number }> =
