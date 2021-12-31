@@ -19,9 +19,9 @@
     "exclude": ["node_modules"],
     "include": ["./src"],
     "references": [
-        { "path": "../slate-types" },
-        { "path": "../slate-commons" },
-        { "path": "../slate-hyperscript" },
-        { "path": "../slate-lists" }
+        { "path": "../slate-types/tsconfig.json" },
+        { "path": "../slate-commons/tsconfig.build.json" },
+        { "path": "../slate-hyperscript/tsconfig.build.json" },
+        { "path": "../slate-lists/tsconfig.build.json" }
     ]
 }

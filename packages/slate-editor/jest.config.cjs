@@ -8,10 +8,15 @@ module.exports = {
         },
     },
     moduleNameMapper: {
+        '#lodash': 'lodash-es',
+        '#components': `${__dirname}/src/components`,
+        '#icons': `${__dirname}/src/icons`,
+        '#lib': `${__dirname}/src/lib`,
+        '#modules/(.*)': `${__dirname}/src/modules/$1`,
         '\\.(scss|svg)$': `${__dirname}/../../universalMock.js`,
     },
     preset: 'ts-jest',
-    setupFiles: [`${__dirname}/../../mockGlobals.cjs`, 'jest-canvas-mock'],
+    setupFiles: [`${__dirname}/../../mockRange.cjs`, 'jest-canvas-mock'],
     testEnvironment: 'jsdom',
     testPathIgnorePatterns: ['/node_modules/', '/build/'],
 };

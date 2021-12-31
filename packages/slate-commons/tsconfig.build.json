@@ -1,4 +1,12 @@
 {
     "extends": "./tsconfig.json",
-    "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"]
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es6"
+    },
+    "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
+    "references": [
+        { "path": "../slate-types/tsconfig.json" },
+        { "path": "../slate-hyperscript/tsconfig.build.json" }
+    ]
 }
