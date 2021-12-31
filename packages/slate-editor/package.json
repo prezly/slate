@@ -24,6 +24,12 @@
             "sass": "./build/styles/variables.scss"
         }
     },
+    "imports": {
+        "#lodash": {
+            "import": "lodash-es",
+            "default": "lodash"
+        }
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/prezly/slate.git"
@@ -70,6 +76,7 @@
         "classnames": "^2.3.1",
         "is-hotkey": "^0.2.0",
         "json-stable-stringify": "^1.0.1",
+        "lodash": "^4.17.21",
         "lodash-es": "^4.17.21",
         "moment": "^2.29.1",
         "rangefix": "^0.2.9",
@@ -95,6 +102,7 @@
         "@types/classnames": "^2.2.11",
         "@types/is-hotkey": "^0.1.6",
         "@types/json-stable-stringify": "^1.0.32",
+        "@types/lodash": "^4.14.178",
         "@types/lodash-es": "^4.17.5",
         "@types/react": "^16.14.2",
         "@types/react-bootstrap": "^0.32.19",

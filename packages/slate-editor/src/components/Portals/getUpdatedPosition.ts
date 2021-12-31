@@ -1,4 +1,4 @@
-import { clamp } from 'lodash-es';
+import { clamp } from '#lodash';
 import type { Rect } from 'rangefix';
 
 import { PortalOrigin } from './types';

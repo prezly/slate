@@ -1,4 +1,4 @@
-import { noop } from 'lodash-es';
+import { noop } from '#lodash';
 
 type DataType = 'text/html' | 'text/plain' | 'text/rtf' | 'application/x-slate-fragment';
 

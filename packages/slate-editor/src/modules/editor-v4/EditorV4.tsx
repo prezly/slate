@@ -1,7 +1,7 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
-import { noop } from 'lodash-es';
+import { noop } from '#lodash';
 import type { FunctionComponent } from 'react';
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import type { Element } from 'slate';

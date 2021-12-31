@@ -2,7 +2,7 @@ import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement, EditorCommands } from '@prezly/slate-commons';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
-import { noop } from 'lodash-es';
+import { noop } from '#lodash';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
 import type { Editor } from 'slate';

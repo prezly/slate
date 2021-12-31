@@ -7,6 +7,7 @@
         "rootDir": "./src",
         "baseUrl": "./src",
         "paths": {
+            "#lodash": ["../../../node_modules/@types/lodash-es"],
             "#components": ["components"],
             "#icons": ["icons"],
             "#lib": ["lib"],

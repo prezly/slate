@@ -2,7 +2,7 @@
     "extends": "../../babel.config.json",
     "plugins": [
         [
-            "module-resolver",
+            "babel-plugin-module-resolver",
             {
                 "alias": {
                     "#components": "./src/components",
@@ -10,7 +10,8 @@
                     "#lib": "./src/lib",
                     "#modules": "./src/modules"
                 }
-            }
+            },
+            "local-imports-shortcuts"
         ]
     ]
 }

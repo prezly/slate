@@ -4,6 +4,11 @@
         ["@babel/env", { "useBuiltIns": false, "modules": "commonjs" }]
     ],
     "plugins": [
+        [
+            "babel-plugin-module-resolver",
+            { "alias": { "#lodash": "lodash" } },
+            "lodash-conditional-dependency"
+        ],
         ["babel-plugin-add-import-extension", { "extension": "cjs" }]
     ]
 }

@@ -7,6 +7,11 @@
         ["@babel/env", { "modules": false }]
     ],
     "plugins": [
+        [
+            "babel-plugin-module-resolver",
+            { "alias": { "#lodash": "lodash-es" } },
+            "lodash-conditional-dependency"
+        ],
         ["babel-plugin-add-import-extension", { "extension": "mjs" }]
     ]
 }

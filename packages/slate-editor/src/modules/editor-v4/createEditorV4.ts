@@ -6,7 +6,7 @@ import {
     withNormalization,
     withUserFriendlyDeleteBehavior,
 } from '@prezly/slate-commons';
-import { flow } from 'lodash-es';
+import { flow } from '#lodash';
 import type { Editor } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
