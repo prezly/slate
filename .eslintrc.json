@@ -43,7 +43,11 @@
                 },
                 "groups": [["builtin", "external"], "internal", "parent", "sibling", "index"],
                 "newlines-between": "always",
-                "pathGroups": [{ "pattern": "#**", "group": "external", "position": "after" }]
+                "pathGroups": [
+                    { "pattern": "#*", "group": "external", "position": "after" },
+                    { "pattern": "#*/*", "group": "external", "position": "after" }
+                ],
+                "pathGroupsExcludedImportTypes": ["#*", "#*/*"]
             }
         ],
         "@typescript-eslint/consistent-type-imports": "error",
@@ -53,13 +57,13 @@
     },
     "overrides": [
         {
-            "files": ["packages/*/src/**/*.tsx"],
+            "files": ["**/*.tsx"],
             "rules": {
                 "func-style": "off"
             }
         },
         {
-            "files": ["packages/**/*.test.*"],
+            "files": ["**/*.test.*"],
             "rules": {
                 "@typescript-eslint/no-empty-function": "off",
                 "@typescript-eslint/no-non-null-assertion": "off",

@@ -9,14 +9,16 @@ import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
+import { useToolbarsTheme } from '#modules/themes';
+
 import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';
 import { Image as ImageIcon } from '../../../../icons';
 import { LinkWithTooltip } from '../../../../modules/editor-v4-components';
 import ImageMenu from '../ImageMenu';
 import ResizableContainer from '../ResizableContainer';
 
+
 import './ImageElement.scss';
-import { useToolbarsTheme } from '#modules/themes';
 
 interface Props extends RenderElementProps {
     availableWidth: number;

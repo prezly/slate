@@ -6,12 +6,13 @@ import * as Draggable from 'react-draggable';
 
 import { clamp, noop } from '#lodash';
 
+import { Theme } from '#modules/themes';
+
 import { Resize } from '../../../../icons';
 
 import { getClampedRatioInPercent, getClampedWidthInPercent, increaseWidth } from './lib';
 
 import './ResizableContainer.scss';
-import { Theme } from '#modules/themes';
 
 interface Props {
     className?: string;

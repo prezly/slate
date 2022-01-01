@@ -9,6 +9,8 @@ import { ReactEditor, Slate } from 'slate-react';
 import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '#icons';
 import { noop } from '#lodash';
 
+import { Theme, withToolbarsThemeContext } from '#modules/themes';
+
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
@@ -27,7 +29,6 @@ import {
 import { RichFormattingMenu } from '../editor-v4-rich-formatting';
 import { UploadcareEditor } from '../editor-v4-uploadcare';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
-
 import './EditorV4.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
@@ -48,7 +49,6 @@ import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';
 import withDebounce from './withDebounce';
 
-import { Theme, withToolbarsThemeContext } from '#modules/themes';
 
 const EditorV4: FunctionComponent<EditorV4Props> = ({
     availableWidth,
