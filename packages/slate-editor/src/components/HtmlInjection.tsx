@@ -1,4 +1,4 @@
-import type { FunctionComponent} from 'react';
+import type { FunctionComponent } from 'react';
 import React, { useEffect, useRef } from 'react';
 
 import { useLatest } from '#lib';
