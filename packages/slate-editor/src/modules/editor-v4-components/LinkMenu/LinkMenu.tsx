@@ -12,7 +12,6 @@ import { Cross } from '../../../icons';
 
 import { STRING_URL_PATTERN } from './constants';
 
-
 import './LinkMenu.scss';
 
 interface Props {

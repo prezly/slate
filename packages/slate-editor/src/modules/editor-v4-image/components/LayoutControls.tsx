@@ -14,8 +14,6 @@ import {
     LayoutFullWidth,
 } from '../../../icons';
 
-
-
 interface Props {
     layout: ImageLayout;
     onChange: (layout: ImageLayout) => void;

@@ -18,9 +18,6 @@ import type { UserMentionsExtensionParameters } from '../../editor-v4-user-menti
 import type { VideoExtensionParameters } from '../../editor-v4-video/types';
 import type { WebBookmarkExtensionParameters } from '../../editor-v4-web-bookmark/types';
 
-
-
-
 export interface EditorRef {
     events: Events<EditorEventMap>;
     focus: () => void;

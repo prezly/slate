@@ -49,7 +49,6 @@ import usePendingOperation from './usePendingOperation';
 import withAvailableWidth from './withAvailableWidth';
 import withDebounce from './withDebounce';
 
-
 const EditorV4: FunctionComponent<EditorV4Props> = ({
     availableWidth,
     autoFocus,

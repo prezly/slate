@@ -17,7 +17,6 @@ import { LinkWithTooltip } from '../../../../modules/editor-v4-components';
 import ImageMenu from '../ImageMenu';
 import ResizableContainer from '../ResizableContainer';
 
-
 import './ImageElement.scss';
 
 interface Props extends RenderElementProps {

@@ -29,14 +29,14 @@ function withDeserializeHtml(
      */
     debugDataOverride?: Parameters<typeof createDataTransfer>[0],
 ) {
-    return function<T extends Editor>(editor: T) {
+    return function <T extends Editor>(editor: T) {
         const { insertData } = editor;
 
         function handleError(error: unknown) {
             return EventsEditor.dispatchEvent(editor, 'error', error);
         }
 
-        editor.insertData = function(dataTransfer) {
+        editor.insertData = function (dataTransfer) {
             const data = debugDataOverride ? createDataTransfer(debugDataOverride) : dataTransfer;
             const html = data.getData('text/html');
             const slateFragment = data.getData('application/x-slate-fragment');

@@ -8,7 +8,7 @@ import getLeafDeserializers from './getLeafDeserializers';
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
 function deserializeHtmlToMarks(extensions: Extension[]) {
-    return function(node: HTMLElement, children: DeserializeHTMLChildren[]): Descendant[] | null {
+    return function (node: HTMLElement, children: DeserializeHTMLChildren[]): Descendant[] | null {
         const type = node.getAttribute('data-slate-type') || node.nodeName;
         const deserializers = getLeafDeserializers(extensions);
 

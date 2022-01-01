@@ -1,7 +1,9 @@
 import { ElementType } from '../../../../../modules/editor-v4-rich-formatting';
 
 function isListItemText(element: Element): boolean {
-    return element instanceof HTMLElement && element.dataset.slateType === ElementType.LIST_ITEM_TEXT;
+    return (
+        element instanceof HTMLElement && element.dataset.slateType === ElementType.LIST_ITEM_TEXT
+    );
 }
 
 function normalizeOrphanListItemTexts(document: Document): Document {
