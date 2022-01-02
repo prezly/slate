@@ -16,4 +16,4 @@ export {
     ElementPortalV2,
     PortalOrigin,
 } from './Portals';
-export * from './TooltipV2';
+export * as TooltipV2 from './TooltipV2';

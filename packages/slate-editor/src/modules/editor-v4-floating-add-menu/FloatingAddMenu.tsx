@@ -53,7 +53,7 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
             pointerEvents={false}
             show={show}
         >
-            <TooltipV2
+            <TooltipV2.Tooltip
                 autoUpdatePosition
                 defaultShow={showTooltipByDefault}
                 enabled={parameters.tooltip && !open}
@@ -73,7 +73,7 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
                         variant="green"
                     />
                 )}
-            </TooltipV2>
+            </TooltipV2.Tooltip>
             {!open && (
                 <p className="editor-v4-floating-add-menu__placeholder">
                     Start typing or use <KeyboardKey>+</KeyboardKey> to add content.
