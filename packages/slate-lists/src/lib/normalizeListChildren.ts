@@ -3,11 +3,11 @@ import { Element, Node, Text, Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import { isListItemText } from './isListItemText';
 import { createListItem } from './createListItem';
 import { createListItemText } from './createListItemText';
 import { isList } from './isList';
 import { isListItem } from './isListItem';
+import { isListItemText } from './isListItemText';
 
 /**
  * All children of a "list" have to be "list-items". It can happen (e.g. during pasting) that

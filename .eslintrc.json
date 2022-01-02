@@ -64,6 +64,12 @@
             }
         },
         {
+            "files": ["**/*.d.ts"],
+            "rules": {
+                "import/no-default-export": "off"
+            }
+        },
+        {
             "files": ["**/*.test.*"],
             "rules": {
                 "@typescript-eslint/no-empty-function": "off",
