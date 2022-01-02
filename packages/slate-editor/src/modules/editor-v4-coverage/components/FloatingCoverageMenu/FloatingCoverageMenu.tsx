@@ -38,7 +38,7 @@ export const FloatingCoverageMenu: FunctionComponent<Props> = ({
     }
 
     return (
-        <FloatingContainer
+        <FloatingContainer.Container
             availableWidth={availableWidth}
             className="editor-v4-floating-coverage-menu"
             containerRef={containerRef}
@@ -56,6 +56,6 @@ export const FloatingCoverageMenu: FunctionComponent<Props> = ({
                 onChange: handleChange,
                 onSubmit,
             })}
-        </FloatingContainer>
+        </FloatingContainer.Container>
     );
 };

@@ -44,7 +44,7 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
 
     return (
-        <FloatingContainer
+        <FloatingContainer.Container
             availableWidth={availableWidth}
             className="editor-v4-floating-add-menu"
             containerRef={containerRef}
@@ -100,6 +100,6 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
                     />
                 </>
             )}
-        </FloatingContainer>
+        </FloatingContainer.Container>
     );
 };
