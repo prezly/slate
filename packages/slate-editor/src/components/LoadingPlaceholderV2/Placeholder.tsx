@@ -2,11 +2,7 @@ import classNames from 'classnames';
 import type { HTMLAttributes, ReactNode } from 'react';
 import React, { forwardRef } from 'react';
 
-import { Description } from './Description';
-import { Icon } from './Icon';
 import { useExtrapolatedProgress } from './lib';
-import './LoadingPlaceholderV2.scss';
-import { ProgressBar } from './ProgressBar';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
     children: (props: { percent: string }) => ReactNode;
@@ -18,7 +14,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
     progress?: number;
 }
 
-const LoadingPlaceholderV2 = forwardRef<HTMLDivElement, Props>(
+export const Placeholder = forwardRef<HTMLDivElement, Props>(
     ({ children, className, estimatedDuration, progress = 0, ...props }, ref) => {
         const extrapolatedProgress = useExtrapolatedProgress(progress, estimatedDuration);
         const percent = `${(100 * extrapolatedProgress).toFixed(0)}%`;
@@ -31,11 +27,4 @@ const LoadingPlaceholderV2 = forwardRef<HTMLDivElement, Props>(
     },
 );
 
-LoadingPlaceholderV2.displayName = 'forwardRef(LoadingPlaceholderV2)';
-
-// eslint-disable-next-line import/no-default-export
-export default Object.assign(LoadingPlaceholderV2, {
-    Description,
-    Icon,
-    ProgressBar,
-});
+Placeholder.displayName = 'forwardRef(LoadingPlaceholderV2.Placeholder)';

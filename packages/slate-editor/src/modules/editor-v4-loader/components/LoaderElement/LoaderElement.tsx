@@ -74,7 +74,7 @@ export const LoaderElement: FunctionComponent<Props> = ({
             })}
             data-slate-type={element.type}
         >
-            <LoadingPlaceholderV2
+            <LoadingPlaceholderV2.Placeholder
                 contentEditable={false}
                 estimatedDuration={ESTIMATED_DURATIONS[element.contentType]}
                 progress={progress / 100}
@@ -88,7 +88,7 @@ export const LoaderElement: FunctionComponent<Props> = ({
                         <LoadingPlaceholderV2.ProgressBar percent={percent} />
                     </>
                 )}
-            </LoadingPlaceholderV2>
+            </LoadingPlaceholderV2.Placeholder>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}
             {children}

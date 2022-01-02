@@ -7,7 +7,7 @@ export { ImageSizeWarning } from './ImageSizeWarning';
 export { ImageWithLoadingPlaceholderV2 } from './ImageWithLoadingPlaceholderV2';
 export { KeyboardKey } from './KeyboardKey';
 export { LoadingIndicatorV2 } from './LoadingIndicatorV2';
-export { LoadingPlaceholderV2 } from './LoadingPlaceholderV2';
+export * as LoadingPlaceholderV2 from './LoadingPlaceholderV2';
 export { MultilineEllipsis } from './MultilineEllipsis';
 export {
     CursorPortal,

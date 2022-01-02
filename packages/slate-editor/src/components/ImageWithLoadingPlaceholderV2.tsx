@@ -5,7 +5,7 @@ import { forwardRef, useEffect, useState } from 'react';
 import { useDebounce, useImage, useLatest } from '#lib';
 import { noop } from '#lodash';
 
-import { LoadingPlaceholderV2 } from './LoadingPlaceholderV2';
+import * as LoadingPlaceholderV2 from './LoadingPlaceholderV2';
 
 interface Props extends ImgHTMLAttributes<HTMLImageElement> {
     availableWidth: number;
@@ -85,7 +85,7 @@ export const ImageWithLoadingPlaceholderV2 = forwardRef<HTMLElement, Props>(
 
         if (loading) {
             return (
-                <LoadingPlaceholderV2
+                <LoadingPlaceholderV2.Placeholder
                     className={className}
                     estimatedDuration={ESTIMATED_LOADING_DURATION}
                     progress={progress / 100}
@@ -93,7 +93,7 @@ export const ImageWithLoadingPlaceholderV2 = forwardRef<HTMLElement, Props>(
                     style={getPlaceholderStyle({ availableWidth, height, style, width })}
                 >
                     {renderLoadingState}
-                </LoadingPlaceholderV2>
+                </LoadingPlaceholderV2.Placeholder>
             );
         }
 
