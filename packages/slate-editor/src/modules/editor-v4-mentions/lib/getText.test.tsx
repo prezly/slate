@@ -4,7 +4,7 @@ import type { Editor } from 'slate';
 
 import { jsx } from '../jsx';
 
-import getText from './getText';
+import { getText } from './getText';
 
 describe('getText', () => {
     it('Returns an empty string when "at" is "null"', () => {

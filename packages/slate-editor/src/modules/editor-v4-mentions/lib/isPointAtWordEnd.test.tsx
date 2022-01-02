@@ -5,7 +5,7 @@ import { Range } from 'slate';
 
 import { jsx } from '../jsx';
 
-import isPointAtWordEnd from './isPointAtWordEnd';
+import { isPointAtWordEnd } from './isPointAtWordEnd';
 
 describe('isPointAtWordEnd', () => {
     it('Returns "false" when point is at the beginning of a word', () => {

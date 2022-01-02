@@ -5,7 +5,7 @@ import { Editor } from 'slate';
 import { jsx } from '../../jsx';
 import { createEditor as createCommonEditor } from '../../test-utils';
 
-import withBreaksOnVoidNodes from './withBreaksOnVoidNodes';
+import { withBreaksOnVoidNodes } from './withBreaksOnVoidNodes';
 
 export function createEditor(input: JSX.Element) {
     return withBreaksOnVoidNodes(createCommonEditor(input));

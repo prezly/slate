@@ -5,7 +5,7 @@ import type { Editor } from 'slate';
 import { jsx } from '../jsx';
 import { ElementType } from '../types';
 
-import toggleBlock from './toggleBlock';
+import { toggleBlock } from './toggleBlock';
 
 describe('toggleBlock', () => {
     it('Toggles h1 into h2', () => {

@@ -5,7 +5,7 @@ import { Range } from 'slate';
 
 import { jsx } from '../jsx';
 
-import getWordAfterTrigger from './getWordAfterTrigger';
+import { getWordAfterTrigger } from './getWordAfterTrigger';
 
 describe('getWordAfterTrigger', () => {
     it('Returns word after trigger and range of the matched trigger + word', () => {

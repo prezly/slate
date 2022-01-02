@@ -12,9 +12,9 @@ import {
 } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import Lists from './Lists';
+import { Lists } from './Lists';
 import type { ListsOptions } from './types';
-import withLists from './withLists';
+import { withLists } from './withLists';
 
 export const INLINE_ELEMENT = LINK_NODE_TYPE;
 

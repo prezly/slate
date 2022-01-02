@@ -5,7 +5,7 @@ import { withReact } from 'slate-react';
 
 import { jsx } from '../jsx';
 
-import removeDivider from './removeDivider';
+import { removeDivider } from './removeDivider';
 
 describe('removeDivider', () => {
     it('should remove currently focused divider and focus the paragraph before it', () => {

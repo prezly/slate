@@ -5,7 +5,7 @@ import { Editor } from 'slate';
 import { jsx } from '../../jsx';
 import { createEditor as createCommonEditor } from '../../test-utils';
 
-import withUserFriendlyDeleteBehavior from './withUserFriendlyDeleteBehavior';
+import { withUserFriendlyDeleteBehavior } from './withUserFriendlyDeleteBehavior';
 
 function createEditor(input: JSX.Element) {
     return withUserFriendlyDeleteBehavior(createCommonEditor(input));

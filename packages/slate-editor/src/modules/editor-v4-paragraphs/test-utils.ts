@@ -1,7 +1,7 @@
 import { withNormalization } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
 
-import ParagraphsExtension from './ParagraphsExtension';
+import { ParagraphsExtension } from './ParagraphsExtension';
 
 function getExtensions() {
     return [ParagraphsExtension()];
