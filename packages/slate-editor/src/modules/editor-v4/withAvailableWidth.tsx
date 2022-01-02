@@ -5,7 +5,7 @@ import { useSize } from '#lib';
 
 import type { EditorV4Props } from './types';
 
-function withAvailableWidth(EditorV4Component: ComponentType<EditorV4Props>) {
+export function withAvailableWidth(EditorV4Component: ComponentType<EditorV4Props>) {
     const WithAvailableWidth: FunctionComponent<EditorV4Props> = ({
         availableWidth: declaredAvailableWidth,
         ...props
@@ -29,5 +29,3 @@ function withAvailableWidth(EditorV4Component: ComponentType<EditorV4Props>) {
 
     return WithAvailableWidth;
 }
-
-export default withAvailableWidth;

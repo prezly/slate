@@ -3,7 +3,7 @@ import type { Text } from 'slate';
 
 import { ElementType } from '../types';
 
-function createLink(href: string, children: Text[] = []): LinkNode {
+export function createLink(href: string, children: Text[] = []): LinkNode {
     return {
         children,
         href,
@@ -11,4 +11,3 @@ function createLink(href: string, children: Text[] = []): LinkNode {
     };
 }
 
-export default createLink;

@@ -7,7 +7,7 @@ import { NODE_ID_MANAGER_ID_PROPERTY_NAME } from '../constants';
 
 type Id = string;
 
-const nodeIdManager = {
+export const nodeIdManager = {
     assign: (editor: Editor, nodeEntry: NodeEntry<Node>): Id => {
         const id = uuidV4();
         const [, at] = nodeEntry;
@@ -45,5 +45,3 @@ const nodeIdManager = {
         }
     },
 };
-
-export default nodeIdManager;

@@ -12,7 +12,7 @@ import { useLatest } from '#lib';
 import type { EditorEventMap } from '../editor-v4-events';
 import { withEvents } from '../editor-v4-events';
 
-import createEditorV4 from './createEditorV4';
+import { createEditorV4 } from './createEditorV4';
 
 interface Parameters {
     events: Events<EditorEventMap>;
@@ -29,7 +29,7 @@ interface State {
 
 const DEFAULT_PLUGINS: Parameters['plugins'] = [];
 
-function useCreateEditor({
+export function useCreateEditor({
     events,
     extensions,
     onKeyDown,
@@ -66,5 +66,3 @@ function useCreateEditor({
         onKeyDownList,
     };
 }
-
-export default useCreateEditor;

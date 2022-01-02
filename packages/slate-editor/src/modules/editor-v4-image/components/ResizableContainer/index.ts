@@ -1,1 +1,1 @@
-export { default } from './ResizableContainer';
+export { ResizableContainer } from './ResizableContainer';

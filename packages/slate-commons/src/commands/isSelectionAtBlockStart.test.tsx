@@ -1,9 +1,9 @@
 /** @jsx jsx */
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { createEditor } from '../test-utils';
 
-import isSelectionAtBlockStart from './isSelectionAtBlockStart';
+import { isSelectionAtBlockStart } from './isSelectionAtBlockStart';
 
 describe('isSelectionAtBlockStart', () => {
     it('Returns true when the cursor is at the start of the block', () => {

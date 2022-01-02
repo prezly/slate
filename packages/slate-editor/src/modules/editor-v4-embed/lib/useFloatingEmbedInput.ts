@@ -13,7 +13,7 @@ import {
     replaceLoader,
 } from '../../../modules/editor-v4-loader';
 
-import createEmbed from './createEmbed';
+import { createEmbed } from './createEmbed';
 
 interface State {
     isOpen: boolean;
@@ -33,7 +33,7 @@ function defaultFetchOembed(): Promise<OEmbedInfo> {
     return Promise.reject(new Error('Embeds are not enabled'));
 }
 
-function useFloatingEmbedInput(
+export function useFloatingEmbedInput(
     editor: Editor,
     fetchOembed: (url: string) => Promise<OEmbedInfo> = defaultFetchOembed,
 ): [State, Actions] {
@@ -104,5 +104,3 @@ function useFloatingEmbedInput(
         { close, open, rootClose, submit },
     ];
 }
-
-export default useFloatingEmbedInput;

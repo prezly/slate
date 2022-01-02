@@ -1,6 +1,6 @@
 import type { DeserializeElement, Extension } from '@prezly/slate-commons';
 
-function getElementDeserializers(extensions: Extension[]): DeserializeElement {
+export function getElementDeserializers(extensions: Extension[]): DeserializeElement {
     return extensions.reduce<DeserializeElement>(
         (deserializers, extension) => ({
             ...deserializers,
@@ -10,4 +10,3 @@ function getElementDeserializers(extensions: Extension[]): DeserializeElement {
     );
 }
 
-export default getElementDeserializers;

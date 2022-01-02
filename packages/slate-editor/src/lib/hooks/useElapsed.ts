@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from 'react';
 
 import { useMountedState } from './react-use';
 
-function useElapsed(): number {
+export function useElapsed(): number {
     const [elapsed, setElapsed] = useState<number>(0);
     const isMounted = useMountedState();
 
@@ -28,5 +28,3 @@ function useElapsed(): number {
 
     return elapsed;
 }
-
-export default useElapsed;

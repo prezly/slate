@@ -1,6 +1,6 @@
 import { Editor, Range } from 'slate';
 
-function isSelectionAtBlockEnd(editor: Editor): boolean {
+export function isSelectionAtBlockEnd(editor: Editor): boolean {
     if (!editor.selection) {
         // Cannot determine the location if there is no selection.
         return false;
@@ -17,5 +17,3 @@ function isSelectionAtBlockEnd(editor: Editor): boolean {
 
     return Editor.isEnd(editor, endOfSelection, endOfBlock);
 }
-
-export default isSelectionAtBlockEnd;

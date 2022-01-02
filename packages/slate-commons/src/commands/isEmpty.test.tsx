@@ -2,9 +2,9 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import isEmpty from './isEmpty';
+import { isEmpty } from './isEmpty';
 
 describe('isEmpty', () => {
     it('Considers editor to be empty when there are no nodes inside', () => {

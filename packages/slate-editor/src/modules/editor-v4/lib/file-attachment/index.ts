@@ -1,3 +1,3 @@
-export { default as handleAddAttachment } from './handleAddAttachment';
-export { default as handleEditAttachment } from './handleEditAttachment';
-export { default as handleRemoveAttachment } from './handleRemoveAttachment';
+export { handleAddAttachment } from './handleAddAttachment';
+export { handleEditAttachment } from './handleEditAttachment';
+export { handleRemoveAttachment } from './handleRemoveAttachment';

@@ -8,7 +8,7 @@ interface Actions {
     onOperationStart: () => void;
 }
 
-export default function usePendingOperation(
+export function usePendingOperation(
     onIsOperationPendingChange: (isOperationPending: boolean) => void = noop,
 ): Actions {
     const [operationsSemaphore, setOperationsSemaphore] = useState<number>(0);

@@ -1,1 +1,1 @@
-export { default } from './withUserFriendlyDeleteBehavior';
+export { withUserFriendlyDeleteBehavior } from './withUserFriendlyDeleteBehavior';

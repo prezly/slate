@@ -2,7 +2,7 @@ import type { HyperscriptCreators, HyperscriptShorthands } from './slate-hypersc
 import { createHyperscript as createSlateHyperscript } from './slate-hyperscript';
 import { createText } from './slate-hyperscript/creators';
 
-function createHyperscript(
+export function createHyperscript(
     options: {
         creators?: HyperscriptCreators;
         elements?: HyperscriptShorthands;
@@ -17,4 +17,3 @@ function createHyperscript(
     });
 }
 
-export default createHyperscript;

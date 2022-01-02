@@ -1,7 +1,7 @@
 import type { Node } from 'slate';
 import { Editor, Element } from 'slate';
 
-function getDeletionTargetNode(
+export function getDeletionTargetNode(
     editor: Editor,
     { reverse, ...options }: Parameters<typeof Editor.before>[2] & { reverse: boolean },
 ): Node | null {
@@ -23,5 +23,3 @@ function getDeletionTargetNode(
 
     return targetNode || null;
 }
-
-export default getDeletionTargetNode;

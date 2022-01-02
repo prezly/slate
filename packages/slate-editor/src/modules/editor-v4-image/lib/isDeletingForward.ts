@@ -1,7 +1,7 @@
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 
-function isDeletingForward(event: KeyboardEvent): boolean {
+export function isDeletingForward(event: KeyboardEvent): boolean {
     return (
         isHotkey('delete', event.nativeEvent) ||
         isHotkey('mod+delete', event.nativeEvent) || // CTRL or CMD
@@ -9,5 +9,3 @@ function isDeletingForward(event: KeyboardEvent): boolean {
         isHotkey('shift+delete', event.nativeEvent)
     );
 }
-
-export default isDeletingForward;

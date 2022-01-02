@@ -2,7 +2,7 @@ import { isLinkNode } from '@prezly/slate-types';
 import type { Path } from 'slate';
 import { Editor } from 'slate';
 
-function findSelectedLinkPath(editor: Editor): Path | null {
+export function findSelectedLinkPath(editor: Editor): Path | null {
     if (!editor.selection) {
         return null;
     }
@@ -21,5 +21,3 @@ function findSelectedLinkPath(editor: Editor): Path | null {
     const [, path] = linkEntry;
     return path;
 }
-
-export default findSelectedLinkPath;

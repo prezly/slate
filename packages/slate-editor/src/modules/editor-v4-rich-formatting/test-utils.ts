@@ -1,8 +1,8 @@
 import { withInlineVoid, withNormalization } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
 
-import RichFormattingExtension from './RichFormattingExtension';
-import withRichFormatting from './withRichFormatting';
+import { RichFormattingExtension } from './RichFormattingExtension';
+import { withRichFormatting } from './withRichFormatting';
 
 function getExtensions() {
     return [RichFormattingExtension({ blocks: true, links: true, menu: true })];

@@ -27,7 +27,7 @@ interface Actions {
     onSelectItem: (index: number) => void;
 }
 
-export default function useMenu(
+export function useMenu(
     allOptions: FloatingAddMenuParameters['options'],
     onToggle: (isShown: boolean) => void,
 ): [State, Actions] {

@@ -7,11 +7,11 @@ import type { ImageExtensionParameters } from '../../../../modules/editor-v4-ima
 import { createImage } from '../../../../modules/editor-v4-image';
 import { LoaderContentType } from '../../../../modules/editor-v4-loader';
 import { UploadcareEditor } from '../../../../modules/editor-v4-uploadcare';
-import insertUploadingFile from '../insertUploadingFile';
+import { insertUploadingFile } from '../insertUploadingFile';
 
-import getMediaGalleryParameters from './getMediaGalleryParameters';
+import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-function createHandleAddImage(withImages: ImageExtensionParameters) {
+export function createHandleAddImage(withImages: ImageExtensionParameters) {
     return async function (editor: Editor) {
         EventsEditor.dispatchEvent(editor, 'image-add-clicked');
 
@@ -55,5 +55,3 @@ function createHandleAddImage(withImages: ImageExtensionParameters) {
         });
     };
 }
-
-export default createHandleAddImage;

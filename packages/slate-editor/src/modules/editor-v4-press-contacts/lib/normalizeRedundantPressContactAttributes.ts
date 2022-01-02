@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isContactNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-import createPressContact from './createPressContact';
+import { createPressContact } from './createPressContact';
 
 const ALLOWED_ATTRIBUTES = Object.keys(
     createPressContact({
@@ -21,7 +21,7 @@ const ALLOWED_ATTRIBUTES = Object.keys(
     }),
 );
 
-function normalizeRedundantPressContactAttributes(
+export function normalizeRedundantPressContactAttributes(
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean {
@@ -31,5 +31,3 @@ function normalizeRedundantPressContactAttributes(
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
 }
-
-export default normalizeRedundantPressContactAttributes;

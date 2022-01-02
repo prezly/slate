@@ -25,7 +25,7 @@ import {
     withVoids,
 } from './plugins';
 
-function createEditorV4(
+export function createEditorV4(
     baseEditor: Editor,
     getExtensions: () => Extension[],
     plugins: (<T extends Editor>(editor: T) => T)[],
@@ -52,5 +52,3 @@ function createEditorV4(
         ...plugins,
     ])(baseEditor);
 }
-
-export default createEditorV4;

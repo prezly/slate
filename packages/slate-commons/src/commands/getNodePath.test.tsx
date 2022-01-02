@@ -3,10 +3,10 @@
 import { isElementNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { SOME_ELEMENT_1, SOME_ELEMENT_2 } from '../test-utils';
 
-import getNodePath from './getNodePath';
+import { getNodePath } from './getNodePath';
 
 describe('getNodePath', () => {
     it('Returns the path of matching element', () => {

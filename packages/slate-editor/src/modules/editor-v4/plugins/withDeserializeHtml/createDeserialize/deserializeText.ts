@@ -1,11 +1,11 @@
 import type { Extension } from '@prezly/slate-commons';
 import type { Descendant } from 'slate';
 
-import deserializeHtmlToMarks from './deserializeHtmlToMarks';
-import replaceCarriageReturnWithLineFeed from './replaceCarriageReturnWithLineFeed';
-import temporarilyReplaceNode from './temporarilyReplaceNode';
+import { deserializeHtmlToMarks } from './deserializeHtmlToMarks';
+import { replaceCarriageReturnWithLineFeed } from './replaceCarriageReturnWithLineFeed';
+import { temporarilyReplaceNode } from './temporarilyReplaceNode';
 
-function deserializeText(extensions: Extension[]) {
+export function deserializeText(extensions: Extension[]) {
     return function (node: Text): Descendant[] | null {
         if (!node.textContent) {
             return null;
@@ -28,4 +28,3 @@ function deserializeText(extensions: Extension[]) {
     };
 }
 
-export default deserializeText;

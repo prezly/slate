@@ -33,7 +33,7 @@ import './EditorV4.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
 
-import getEnabledExtensions from './getEnabledExtensions';
+import { getEnabledExtensions } from './getEnabledExtensions';
 import {
     createHandleAddGallery,
     createHandleAddImage,
@@ -44,10 +44,10 @@ import {
     useCursorInView,
 } from './lib';
 import type { EditorRef, EditorV4Props } from './types';
-import useCreateEditor from './useCreateEditor';
-import usePendingOperation from './usePendingOperation';
-import withAvailableWidth from './withAvailableWidth';
-import withDebounce from './withDebounce';
+import { useCreateEditor } from './useCreateEditor';
+import { usePendingOperation } from './usePendingOperation';
+import { withAvailableWidth } from './withAvailableWidth';
+import { withDebounce } from './withDebounce';
 
 const EditorV4: FunctionComponent<EditorV4Props> = ({
     availableWidth,
@@ -458,4 +458,5 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     );
 };
 
+// eslint-disable-next-line import/no-default-export
 export default withAvailableWidth(withDebounce(EditorV4));

@@ -35,7 +35,7 @@ interface State {
     widthPercent: string;
 }
 
-class ResizableContainer extends Component<Props, State> {
+export class ResizableContainer extends Component<Props, State> {
     static defaultProps = {
         minWidth: 100,
         onResizeStop: noop,
@@ -148,5 +148,3 @@ class ResizableContainer extends Component<Props, State> {
         );
     }
 }
-
-export default ResizableContainer;

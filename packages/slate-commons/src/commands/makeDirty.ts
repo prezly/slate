@@ -9,9 +9,7 @@ const DIRTY_PROPERTY_NAME = uuidV4();
  * It is useful when a normalization is applicable on a node multiple times.
  * Without it, Slate will not run subsequent normalization.
  */
-function makeDirty(editor: Editor, at: Path): void {
+export function makeDirty(editor: Editor, at: Path): void {
     Transforms.setNodes(editor, { [DIRTY_PROPERTY_NAME]: uuidV4() }, { at });
     Transforms.setNodes(editor, { [DIRTY_PROPERTY_NAME]: undefined }, { at });
 }
-
-export default makeDirty;

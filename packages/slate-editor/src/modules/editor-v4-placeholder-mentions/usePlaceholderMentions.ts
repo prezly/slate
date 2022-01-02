@@ -16,7 +16,7 @@ function placeholderToOption(placeholder: Placeholder): Option<Placeholder> {
 
 const DEFAULT_PARAMETERS: PlaceholderMentionsExtensionParameters = { placeholders: [] };
 
-function usePlaceholderMentions({
+export function usePlaceholderMentions({
     placeholders,
 }: PlaceholderMentionsExtensionParameters = DEFAULT_PARAMETERS) {
     const options = useMemo(() => placeholders.map(placeholderToOption), [placeholders]);
@@ -28,4 +28,3 @@ function usePlaceholderMentions({
     });
 }
 
-export default usePlaceholderMentions;

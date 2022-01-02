@@ -1,9 +1,9 @@
 import type { ImageNode } from '@prezly/slate-types';
 import { isImageNode } from '@prezly/slate-types';
 
-import createImage from './createImage';
+import { createImage } from './createImage';
 
-function parseSerializedElement(serialized: string): ImageNode | undefined {
+export function parseSerializedElement(serialized: string): ImageNode | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isImageNode(parsed)) {
@@ -18,5 +18,3 @@ function parseSerializedElement(serialized: string): ImageNode | undefined {
 
     return undefined;
 }
-
-export default parseSerializedElement;

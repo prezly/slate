@@ -16,7 +16,7 @@ function userToOption(user: User): Option<User> {
 
 const DEFAULT_PARAMETERS: UserMentionsExtensionParameters = { users: [] };
 
-function useUserMentions({ users }: UserMentionsExtensionParameters = DEFAULT_PARAMETERS) {
+export function useUserMentions({ users }: UserMentionsExtensionParameters = DEFAULT_PARAMETERS) {
     const options = useMemo(() => users.map(userToOption), [users]);
 
     return useMentions<User>({
@@ -25,5 +25,3 @@ function useUserMentions({ users }: UserMentionsExtensionParameters = DEFAULT_PA
         trigger: '@',
     });
 }
-
-export default useUserMentions;

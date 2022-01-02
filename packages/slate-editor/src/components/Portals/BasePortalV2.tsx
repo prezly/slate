@@ -37,7 +37,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 /**
  * Replacement for `BasePortal` using `react-popper` internally.
  */
-const BasePortalV2: FunctionComponent<Props> = ({
+export const BasePortalV2: FunctionComponent<Props> = ({
     children,
     className,
     containerRef,
@@ -110,5 +110,3 @@ const BasePortalV2: FunctionComponent<Props> = ({
         </Portal>
     );
 };
-
-export default BasePortalV2;

@@ -12,7 +12,7 @@ interface Props extends HTMLAttributes<HTMLParagraphElement> {
     element: ParagraphNode;
 }
 
-const ParagraphElement: FunctionComponent<Props> = ({
+export const ParagraphElement: FunctionComponent<Props> = ({
     attributes,
     children,
     className,
@@ -30,4 +30,3 @@ const ParagraphElement: FunctionComponent<Props> = ({
     </p>
 );
 
-export default ParagraphElement;

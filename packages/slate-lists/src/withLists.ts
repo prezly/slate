@@ -28,7 +28,7 @@ const normalizers = [
 /**
  * Enables normalizations that enforce schema constraints and recover from unsupported cases.
  */
-function withLists(options: ListsOptions) {
+export function withLists(options: ListsOptions) {
     return function <T extends Editor>(editor: T): T {
         const { normalizeNode } = editor;
 
@@ -48,4 +48,3 @@ function withLists(options: ListsOptions) {
     };
 }
 
-export default withLists;

@@ -9,7 +9,7 @@ interface Parameters {
     message: string;
 }
 
-function createLoader({ contentType, id = uuidV4(), message }: Parameters): LoaderNode {
+export function createLoader({ contentType, id = uuidV4(), message }: Parameters): LoaderNode {
     return {
         children: [{ text: '' }],
         contentType,
@@ -18,5 +18,3 @@ function createLoader({ contentType, id = uuidV4(), message }: Parameters): Load
         type: LOADER_TYPE,
     };
 }
-
-export default createLoader;

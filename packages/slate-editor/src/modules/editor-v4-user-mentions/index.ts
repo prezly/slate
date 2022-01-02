@@ -1,5 +1,5 @@
 export { UserMentionsDropdown } from './components';
 export { USER_MENTIONS_EXTENSION_ID } from './constants';
 export type { User, UserMentionsExtensionParameters } from './types';
-export { default as UserMentionsExtension } from './UserMentionsExtension';
-export { default as useUserMentions } from './useUserMentions';
+export { UserMentionsExtension } from './UserMentionsExtension';
+export { useUserMentions } from './useUserMentions';

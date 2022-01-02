@@ -1,6 +1,3 @@
-import type DeserializeLeafValue from './DeserializeLeafValue';
+import type { DeserializeLeafValue } from './DeserializeLeafValue';
 
-type DeserializeLeaf = Record<string, DeserializeLeafValue>;
-
-// eslint-disable-next-line no-undef
-export default DeserializeLeaf;
+export type DeserializeLeaf = Record<string, DeserializeLeafValue>;

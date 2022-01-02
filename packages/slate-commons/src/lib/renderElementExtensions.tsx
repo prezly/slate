@@ -3,7 +3,7 @@ import type { RenderElementProps } from 'slate-react';
 
 import type { Extension, RenderElement } from '../types';
 
-function renderElementExtensions(extensions: Extension[], renderElementList: RenderElement[]) {
+export function renderElementExtensions(extensions: Extension[], renderElementList: RenderElement[]) {
     return function (elementProps: RenderElementProps) {
         let element;
 
@@ -28,5 +28,3 @@ function renderElementExtensions(extensions: Extension[], renderElementList: Ren
         return <div {...elementProps.attributes}>{elementProps.children}</div>;
     };
 }
-
-export default renderElementExtensions;

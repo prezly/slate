@@ -3,7 +3,7 @@ import type { Editor } from 'slate';
 
 import type { Extension, OnKeyDown } from '../types';
 
-function onKeyDownExtensions(editor: Editor, extensions: Extension[], onKeyDownList: OnKeyDown[]) {
+export function onKeyDownExtensions(editor: Editor, extensions: Extension[], onKeyDownList: OnKeyDown[]) {
     return function (event: KeyboardEvent) {
         onKeyDownList.forEach((onKeyDown) => {
             onKeyDown(event, editor);
@@ -16,5 +16,3 @@ function onKeyDownExtensions(editor: Editor, extensions: Extension[], onKeyDownL
         });
     };
 }
-
-export default onKeyDownExtensions;

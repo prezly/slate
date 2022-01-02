@@ -3,14 +3,14 @@ import { Editor, Element, Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import createList from './createList';
-import createListItem from './createListItem';
+import { createList } from './createList';
+import { createListItem } from './createListItem';
 
 /**
  * All nodes matching options.wrappableTypes in the current selection
  * will be converted to "list-items" and wrapped in "lists".
  */
-function wrapInList(options: ListsOptions, editor: Editor, listType: string): void {
+export function wrapInList(options: ListsOptions, editor: Editor, listType: string): void {
     if (!editor.selection) {
         return;
     }
@@ -59,4 +59,3 @@ function wrapInList(options: ListsOptions, editor: Editor, listType: string): vo
     });
 }
 
-export default wrapInList;

@@ -4,12 +4,12 @@ import { Range } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import getListItemsInRange from './getListItemsInRange';
+import { getListItemsInRange } from './getListItemsInRange';
 
 /**
  * Returns true when editor has collapsed selection and the cursor is at the beginning of a "list-item".
  */
-function isCursorAtStartOfListItem(options: ListsOptions, editor: Editor): boolean {
+export function isCursorAtStartOfListItem(options: ListsOptions, editor: Editor): boolean {
     if (!editor.selection || Range.isExpanded(editor.selection)) {
         return false;
     }
@@ -30,4 +30,3 @@ function isCursorAtStartOfListItem(options: ListsOptions, editor: Editor): boole
     return isStart;
 }
 
-export default isCursorAtStartOfListItem;

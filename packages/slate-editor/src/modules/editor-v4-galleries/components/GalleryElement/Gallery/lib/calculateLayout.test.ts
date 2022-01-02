@@ -1,4 +1,4 @@
-import calculateLayout from './calculateLayout';
+import { calculateLayout } from './calculateLayout';
 
 describe('calculateLayout', () => {
     const validIdealHeight = 100;

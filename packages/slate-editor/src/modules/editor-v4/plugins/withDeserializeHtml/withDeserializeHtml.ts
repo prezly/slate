@@ -8,7 +8,7 @@ import type { Editor } from 'slate';
 import { EventsEditor } from '../../../../modules/editor-v4-events';
 import { createDataTransfer } from '../../lib';
 
-import deserializeHtml from './deserializeHtml';
+import { deserializeHtml } from './deserializeHtml';
 
 function tryCleanDocx(html: string, rtf: string, onError: (error: unknown) => void): string {
     try {
@@ -19,7 +19,7 @@ function tryCleanDocx(html: string, rtf: string, onError: (error: unknown) => vo
     }
 }
 
-function withDeserializeHtml(
+export function withDeserializeHtml(
     getExtensions: () => Extension[],
     /**
      * This is useful when debugging with https://github.com/prezly/slate-pasting-events-data
@@ -71,4 +71,3 @@ function withDeserializeHtml(
     };
 }
 
-export default withDeserializeHtml;

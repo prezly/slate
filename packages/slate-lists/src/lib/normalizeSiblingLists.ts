@@ -3,13 +3,13 @@ import type { Editor, Node, NodeEntry } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import mergeListWithPreviousSiblingList from './mergeListWithPreviousSiblingList';
+import { mergeListWithPreviousSiblingList } from './mergeListWithPreviousSiblingList';
 
 /**
  * If there are 2 "lists" of the same type next to each other, merge them together.
  * If there are 2 nested "lists" next to each other, merge them together.
  */
-function normalizeSiblingLists(
+export function normalizeSiblingLists(
     options: ListsOptions,
     editor: Editor,
     entry: NodeEntry<Node>,
@@ -30,4 +30,3 @@ function normalizeSiblingLists(
     return mergeListWithPreviousSiblingList(options, editor, nextSibling);
 }
 
-export default normalizeSiblingLists;

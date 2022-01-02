@@ -19,7 +19,7 @@ interface Props {
     href: string;
 }
 
-const LinkWithTooltip: FunctionComponent<Props> = ({ children, enabled = true, href }) => (
+export const LinkWithTooltip: FunctionComponent<Props> = ({ children, enabled = true, href }) => (
     <TooltipV2
         className="editor-v4-link-with-tooltip"
         enabled={enabled}
@@ -40,5 +40,3 @@ const LinkWithTooltip: FunctionComponent<Props> = ({ children, enabled = true, h
         {children}
     </TooltipV2>
 );
-
-export default LinkWithTooltip;

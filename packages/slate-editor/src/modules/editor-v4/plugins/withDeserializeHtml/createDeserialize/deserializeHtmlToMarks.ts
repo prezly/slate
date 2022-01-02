@@ -3,11 +3,11 @@ import { jsx } from '@prezly/slate-hyperscript';
 import type { Descendant } from 'slate';
 import { Element } from 'slate';
 
-import getLeafDeserializers from './getLeafDeserializers';
+import { getLeafDeserializers } from './getLeafDeserializers';
 
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
-function deserializeHtmlToMarks(extensions: Extension[]) {
+export function deserializeHtmlToMarks(extensions: Extension[]) {
     return function (node: HTMLElement, children: DeserializeHTMLChildren[]): Descendant[] | null {
         const type = node.getAttribute('data-slate-type') || node.nodeName;
         const deserializers = getLeafDeserializers(extensions);
@@ -41,4 +41,3 @@ function deserializeHtmlToMarks(extensions: Extension[]) {
     };
 }
 
-export default deserializeHtmlToMarks;

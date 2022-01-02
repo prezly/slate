@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import type { HTMLAttributes, ReactNode } from 'react';
 import React, { forwardRef } from 'react';
 
-import Description from './Description';
-import Icon from './Icon';
+import { Description } from './Description';
+import { Icon } from './Icon';
 import { useExtrapolatedProgress } from './lib';
 import './LoadingPlaceholderV2.scss';
-import ProgressBar from './ProgressBar';
+import { ProgressBar } from './ProgressBar';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
     children: (props: { percent: string }) => ReactNode;
@@ -31,6 +31,9 @@ const LoadingPlaceholderV2 = forwardRef<HTMLDivElement, Props>(
     },
 );
 
+LoadingPlaceholderV2.displayName = 'forwardRef(LoadingPlaceholderV2)';
+
+// eslint-disable-next-line import/no-default-export
 export default Object.assign(LoadingPlaceholderV2, {
     Description,
     Icon,

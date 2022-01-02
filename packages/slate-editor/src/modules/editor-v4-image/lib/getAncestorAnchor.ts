@@ -1,4 +1,4 @@
-function getAncestorAnchor(element: HTMLElement): HTMLAnchorElement | null {
+export function getAncestorAnchor(element: HTMLElement): HTMLAnchorElement | null {
     if (element.parentElement === null) {
         return null;
     }
@@ -9,5 +9,3 @@ function getAncestorAnchor(element: HTMLElement): HTMLAnchorElement | null {
 
     return getAncestorAnchor(element.parentElement);
 }
-
-export default getAncestorAnchor;

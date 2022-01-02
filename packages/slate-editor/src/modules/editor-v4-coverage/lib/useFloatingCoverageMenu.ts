@@ -5,7 +5,7 @@ import type { Editor } from 'slate';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
 
-import insertCoverage from './insertCoverage';
+import { insertCoverage } from './insertCoverage';
 
 interface State {
     isOpen: boolean;
@@ -18,7 +18,7 @@ interface Actions {
     submit: (coverage: Coverage) => void;
 }
 
-function useFloatingCoverageMenu(editor: Editor): [State, Actions] {
+export function useFloatingCoverageMenu(editor: Editor): [State, Actions] {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const savedSelection = useSavedSelection();
 
@@ -48,5 +48,3 @@ function useFloatingCoverageMenu(editor: Editor): [State, Actions] {
 
     return [{ isOpen }, { close, open, rootClose, submit }];
 }
-
-export default useFloatingCoverageMenu;

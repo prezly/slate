@@ -6,7 +6,7 @@ function isListItemText(element: Element): boolean {
     );
 }
 
-function normalizeOrphanListItemTexts(document: Document): Document {
+export function normalizeOrphanListItemTexts(document: Document): Document {
     const { body } = document;
 
     for (const child of body.children) {
@@ -25,4 +25,3 @@ function normalizeOrphanListItemTexts(document: Document): Document {
     return document;
 }
 
-export default normalizeOrphanListItemTexts;

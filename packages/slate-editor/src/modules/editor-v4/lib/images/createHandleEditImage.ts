@@ -12,11 +12,11 @@ import {
 } from '../../../../modules/editor-v4-image';
 import { LoaderContentType } from '../../../../modules/editor-v4-loader';
 import { UploadcareEditor } from '../../../../modules/editor-v4-uploadcare';
-import insertUploadingFile from '../insertUploadingFile';
+import { insertUploadingFile } from '../insertUploadingFile';
 
-import getMediaGalleryParameters from './getMediaGalleryParameters';
+import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-function createHandleEditImage(withImages: ImageExtensionParameters) {
+export function createHandleEditImage(withImages: ImageExtensionParameters) {
     return async function (editor: Editor) {
         const currentNodeEntry = getCurrentImageNodeEntry(editor);
         if (!currentNodeEntry) {
@@ -74,4 +74,3 @@ function createHandleEditImage(withImages: ImageExtensionParameters) {
     };
 }
 
-export default createHandleEditImage;

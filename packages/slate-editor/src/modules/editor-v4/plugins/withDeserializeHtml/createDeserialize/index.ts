@@ -1,1 +1,1 @@
-export { default } from './createDeserialize';
+export { createDeserialize } from './createDeserialize';

@@ -1,1 +1,1 @@
-export { default } from './DisabledTriggerOverlay';
+export { DisabledTriggerOverlay } from './DisabledTriggerOverlay';

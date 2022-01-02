@@ -3,7 +3,7 @@ import RangeFix from 'rangefix';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import BasePortal from './BasePortal';
+import { BasePortal } from './BasePortal';
 import type { PortalProps } from './types';
 
 export function updateCursorPortalRect(): ClientRect | Rect | null {
@@ -28,8 +28,6 @@ export function updateCursorPortalRect(): ClientRect | Rect | null {
 /**
  * @deprecated Please use `CursorPortalV2` instead.
  */
-const CursorPortal: FunctionComponent<PortalProps> = (props) => (
+export const CursorPortal: FunctionComponent<PortalProps> = (props) => (
     <BasePortal {...props} getElementRect={updateCursorPortalRect} />
 );
-
-export default CursorPortal;

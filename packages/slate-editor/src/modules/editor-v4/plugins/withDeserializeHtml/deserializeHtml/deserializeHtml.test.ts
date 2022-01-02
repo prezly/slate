@@ -3,7 +3,7 @@ import path from 'path';
 
 import { getAllExtensions } from '../../../test-utils';
 
-import deserializeHtml from './deserializeHtml';
+import { deserializeHtml } from './deserializeHtml';
 
 const extensions = getAllExtensions();
 

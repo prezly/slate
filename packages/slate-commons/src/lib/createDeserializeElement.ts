@@ -2,7 +2,7 @@ import type { Node } from 'slate';
 
 type Parse<E extends Node> = (serialized: string) => E | undefined;
 
-function createDeserializeElement<E extends Node>(parse: Parse<E>) {
+export function createDeserializeElement<E extends Node>(parse: Parse<E>) {
     return function (element: HTMLElement): E | undefined {
         const serialized = element.getAttribute('data-slate-value');
 
@@ -13,5 +13,3 @@ function createDeserializeElement<E extends Node>(parse: Parse<E>) {
         return parse(serialized);
     };
 }
-
-export default createDeserializeElement;

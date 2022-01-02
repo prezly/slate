@@ -25,7 +25,7 @@ function isValidFile<T>(file: T | null): file is T {
     return Array.isArray(file) ? file.length > 0 : Boolean(file);
 }
 
-export default async function insertUploadingFile<T>(
+export async function insertUploadingFile<T>(
     editor: Editor,
     {
         createElement,

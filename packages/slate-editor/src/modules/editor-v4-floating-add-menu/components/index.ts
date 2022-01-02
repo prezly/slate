@@ -1,2 +1,2 @@
-export { default as Dropdown } from './Dropdown';
-export { default as Input } from './Input';
+export { Dropdown } from './Dropdown';
+export { Input } from './Input';

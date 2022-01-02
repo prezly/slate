@@ -1,8 +1,8 @@
 import type { Editor } from 'slate';
 
-import isNodeEmpty from './isNodeEmpty';
+import { isNodeEmpty } from './isNodeEmpty';
 
-function isEmpty(editor: Editor): boolean {
+export function isEmpty(editor: Editor): boolean {
     if (editor.children.length === 0) {
         return true;
     }
@@ -13,5 +13,3 @@ function isEmpty(editor: Editor): boolean {
 
     return false;
 }
-
-export default isEmpty;

@@ -1,9 +1,9 @@
 import type { RichTextElementType } from '../types';
 
-import createRichText from './createRichText';
-import isRichTextElement from './isRichTextElement';
+import { createRichText } from './createRichText';
+import { isRichTextElement } from './isRichTextElement';
 
-function parseSerializedElement(serialized: string): RichTextElementType | undefined {
+export function parseSerializedElement(serialized: string): RichTextElementType | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isRichTextElement(parsed)) {
@@ -13,4 +13,3 @@ function parseSerializedElement(serialized: string): RichTextElementType | undef
     return undefined;
 }
 
-export default parseSerializedElement;

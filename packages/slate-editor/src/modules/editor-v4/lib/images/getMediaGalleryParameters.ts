@@ -1,7 +1,7 @@
 import type { ImageExtensionParameters } from '../../../../modules/editor-v4-image';
 import type { MediaGalleryOptions } from '../../../../modules/editor-v4-uploadcare';
 
-function getMediaGalleryParameters(
+export function getMediaGalleryParameters(
     withImages: ImageExtensionParameters,
 ): MediaGalleryOptions<true> | MediaGalleryOptions<false> {
     if (withImages.mediaGalleryTab) {
@@ -14,4 +14,3 @@ function getMediaGalleryParameters(
     return { mediaGalleryTab: false };
 }
 
-export default getMediaGalleryParameters;

@@ -5,7 +5,7 @@ import React, { Component, createRef } from 'react';
 
 import { IMAGE_PADDING, IMAGE_SIZE } from './constants';
 import './Gallery.scss';
-import GalleryImage from './GalleryImage';
+import { GalleryImage } from './GalleryImage';
 import { calculateLayout } from './lib';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -17,7 +17,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     width: number;
 }
 
-class Gallery extends Component<Props> {
+export class Gallery extends Component<Props> {
     static defaultProps = {
         className: '',
         maxViewportWidth: 800,
@@ -97,5 +97,3 @@ class Gallery extends Component<Props> {
         );
     }
 }
-
-export default Gallery;

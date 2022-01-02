@@ -3,7 +3,7 @@
 import { EditorCommands, nodeIdManager } from '@prezly/slate-commons';
 import { Editor, Range, Transforms } from 'slate';
 
-function withVoids<T extends Editor>(editor: T) {
+export function withVoids<T extends Editor>(editor: T) {
     const { normalizeNode } = editor;
 
     /*
@@ -69,4 +69,3 @@ function withVoids<T extends Editor>(editor: T) {
     return editor;
 }
 
-export default withVoids;

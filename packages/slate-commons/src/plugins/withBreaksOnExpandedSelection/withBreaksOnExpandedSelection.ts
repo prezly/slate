@@ -3,7 +3,7 @@ import { Editor, Range, Transforms } from 'slate';
 
 import { insertEmptyParagraph } from '../../commands';
 
-function withBreaksOnExpandedSelection<T extends Editor>(editor: T): T {
+export function withBreaksOnExpandedSelection<T extends Editor>(editor: T): T {
     const { insertBreak } = editor;
 
     editor.insertBreak = () => {
@@ -61,5 +61,3 @@ function withBreaksOnExpandedSelection<T extends Editor>(editor: T): T {
 
     return editor;
 }
-
-export default withBreaksOnExpandedSelection;

@@ -12,7 +12,7 @@ interface Props {
     element: HTMLElement;
 }
 
-const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
+export const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
     const editor = useSlate();
     const isSelected = useSelected();
 
@@ -38,5 +38,3 @@ const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
         </Menu.FloatingMenu>
     );
 };
-
-export default EmbedMenu;

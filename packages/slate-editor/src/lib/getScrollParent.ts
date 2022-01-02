@@ -5,7 +5,7 @@
  * It assumes none of the ancestors have `transform`, `perspective`, or `filter` properties.
  * See: https://github.com/prezly/prezly/pull/8416#discussion_r484528404
  */
-function getScrollParent(element: HTMLElement): HTMLElement {
+export function getScrollParent(element: HTMLElement): HTMLElement {
     const elementStyle = window.getComputedStyle(element);
     const excludeStaticParent = elementStyle.position === 'absolute';
 
@@ -35,5 +35,3 @@ function getScrollParent(element: HTMLElement): HTMLElement {
 
     return document.documentElement;
 }
-
-export default getScrollParent;

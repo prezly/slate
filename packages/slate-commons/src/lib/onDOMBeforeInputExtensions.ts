@@ -2,7 +2,7 @@ import type { ReactEditor } from 'slate-react';
 
 import type { Extension, OnDOMBeforeInput } from '../types';
 
-function onDOMBeforeInputExtensions(
+export function onDOMBeforeInputExtensions(
     editor: ReactEditor,
     extensions: Extension[],
     onDOMBeforeInputList: OnDOMBeforeInput[],
@@ -19,5 +19,3 @@ function onDOMBeforeInputExtensions(
         });
     };
 }
-
-export default onDOMBeforeInputExtensions;

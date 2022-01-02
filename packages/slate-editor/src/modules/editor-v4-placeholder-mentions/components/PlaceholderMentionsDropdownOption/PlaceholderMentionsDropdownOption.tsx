@@ -8,8 +8,7 @@ interface Props {
     option: Option<Placeholder>;
 }
 
-const PlaceholderMentionsDropdownOption: FunctionComponent<Props> = ({ option }) => (
+export const PlaceholderMentionsDropdownOption: FunctionComponent<Props> = ({ option }) => (
     <span>{option.value.text}</span>
 );
 
-export default PlaceholderMentionsDropdownOption;

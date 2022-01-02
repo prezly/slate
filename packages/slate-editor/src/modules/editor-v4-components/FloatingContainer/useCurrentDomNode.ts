@@ -8,7 +8,7 @@ interface Parameters {
     withFallbackToLastExistingNode: boolean;
 }
 
-export default function useCurrentDomNode({
+export function useCurrentDomNode({
     withFallbackToLastExistingNode,
 }: Parameters): HTMLElement | null {
     const editor = useSlate();

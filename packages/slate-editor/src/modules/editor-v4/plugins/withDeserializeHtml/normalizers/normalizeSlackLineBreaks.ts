@@ -6,7 +6,7 @@ function isSlackLineBreak(element: Element): boolean {
     );
 }
 
-function normalizeSlackLineBreaks(document: Document): Document {
+export function normalizeSlackLineBreaks(document: Document): Document {
     const { body } = document;
 
     for (const child of body.children) {
@@ -21,4 +21,3 @@ function normalizeSlackLineBreaks(document: Document): Document {
     return document;
 }
 
-export default normalizeSlackLineBreaks;

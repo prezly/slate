@@ -4,7 +4,7 @@ import isDataURI from 'validator/lib/isDataURI.js';
  * @param dataUri A string matching the following pattern:
  *                data:[<mediatype>][;base64],<data>
  */
-function dataUriToFile(dataUri: string, filename = 'Untitled'): File {
+export function dataUriToFile(dataUri: string, filename = 'Untitled'): File {
     if (!isDataURI(dataUri)) {
         throw new Error(`"${dataUri}" is not a valid data URI`);
     }
@@ -26,5 +26,3 @@ function dataUriToFile(dataUri: string, filename = 'Untitled'): File {
 
     return new File([bits], filename, { type: mime });
 }
-
-export default dataUriToFile;

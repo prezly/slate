@@ -1,7 +1,7 @@
 import type { Node } from 'slate';
 import { Editor, Transforms } from 'slate';
 
-function removeNode<N extends Node>(
+export function removeNode<N extends Node>(
     editor: Editor,
     options: NonNullable<Parameters<typeof Editor.nodes>[1]>,
 ): N | null {
@@ -13,5 +13,3 @@ function removeNode<N extends Node>(
     }
     return null;
 }
-
-export default removeNode;

@@ -1,3 +1,3 @@
-export { default as createHandleAddImage } from './createHandleAddImage';
-export { default as createHandleEditImage } from './createHandleEditImage';
-export { default as handleRemoveImage } from './handleRemoveImage';
+export { createHandleAddImage } from './createHandleAddImage';
+export { createHandleEditImage } from './createHandleEditImage';
+export { handleRemoveImage } from './handleRemoveImage';

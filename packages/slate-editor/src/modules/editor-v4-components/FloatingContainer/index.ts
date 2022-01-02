@@ -1,1 +1,1 @@
-export { default } from './FloatingContainer';
+export { default as FloatingContainer } from './FloatingContainer';

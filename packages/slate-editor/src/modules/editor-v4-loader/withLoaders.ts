@@ -56,7 +56,7 @@ function createHistoryHandler<T extends Editor>(
     };
 }
 
-function withLoaders<T extends Editor>(editor: T): T {
+export function withLoaders<T extends Editor>(editor: T): T {
     const { redo, undo } = editor;
 
     editor.redo = createHistoryHandler(editor, {
@@ -73,5 +73,3 @@ function withLoaders<T extends Editor>(editor: T): T {
 
     return editor;
 }
-
-export default withLoaders;

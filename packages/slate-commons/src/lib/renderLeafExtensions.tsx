@@ -3,7 +3,7 @@ import type { RenderLeafProps } from 'slate-react';
 
 import type { Extension, RenderLeaf } from '../types';
 
-function renderLeafExtensions(extensions: Extension[], renderLeafList: RenderLeaf[]) {
+export function renderLeafExtensions(extensions: Extension[], renderLeafList: RenderLeaf[]) {
     return function (leafProps: RenderLeafProps) {
         renderLeafList.forEach((renderLeaf) => {
             // eslint-disable-next-line no-param-reassign
@@ -22,5 +22,3 @@ function renderLeafExtensions(extensions: Extension[], renderLeafList: RenderLea
         return <span {...leafProps.attributes}>{leafProps.children}</span>;
     };
 }
-
-export default renderLeafExtensions;

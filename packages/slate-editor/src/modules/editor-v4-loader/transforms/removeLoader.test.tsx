@@ -3,7 +3,7 @@
 import type { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { findLoaderPath } from '../lib';
 import { LoaderContentType } from '../types';
 

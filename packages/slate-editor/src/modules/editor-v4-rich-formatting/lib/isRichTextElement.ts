@@ -9,7 +9,7 @@ import {
 
 import type { RichTextElementType } from '../types';
 
-function isRichTextElement(node: unknown): node is RichTextElementType {
+export function isRichTextElement(node: unknown): node is RichTextElementType {
     return (
         isParagraphNode(node) ||
         isQuoteNode(node) ||
@@ -20,4 +20,3 @@ function isRichTextElement(node: unknown): node is RichTextElementType {
     );
 }
 
-export default isRichTextElement;

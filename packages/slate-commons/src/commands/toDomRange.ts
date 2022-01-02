@@ -4,7 +4,7 @@ import { ReactEditor } from 'slate-react';
 /**
  * Type-safe wrapper for `ReactEditor.toDOMRange`
  */
-function toDomRange(editor: ReactEditor, range: Range): globalThis.Range | null {
+export function toDomRange(editor: ReactEditor, range: Range): globalThis.Range | null {
     try {
         // "Slate throws exceptions too liberally in relation to selection failures"
         // see: https://app.clubhouse.io/prezly/story/20456/error-cannot-resolve-a-dom-node-from-slate-node-text
@@ -14,5 +14,3 @@ function toDomRange(editor: ReactEditor, range: Range): globalThis.Range | null 
         return null;
     }
 }
-
-export default toDomRange;

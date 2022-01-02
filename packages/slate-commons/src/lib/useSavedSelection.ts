@@ -11,7 +11,7 @@ interface Actions {
     save: (editor: Editor) => void;
 }
 
-function useSavedSelection(): Actions {
+export function useSavedSelection(): Actions {
     const [savedSelection, setSavedSelection] = useState<SavedSelection | null>(null);
 
     function restore(editor: ReactEditor & Editor, { focus = false } = {}) {
@@ -31,5 +31,3 @@ function useSavedSelection(): Actions {
 
     return { restore, save };
 }
-
-export default useSavedSelection;

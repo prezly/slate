@@ -5,7 +5,7 @@ import type { Editor } from 'slate';
 
 import { EventsEditor } from '../../../modules/editor-v4-events';
 
-import createPressContact from './createPressContact';
+import { createPressContact } from './createPressContact';
 
 interface State {
     isOpen: boolean;
@@ -18,7 +18,7 @@ interface Actions {
     submit: (contact: PressContact) => void;
 }
 
-function useFloatingPressContactsMenu(editor: Editor): [State, Actions] {
+export function useFloatingPressContactsMenu(editor: Editor): [State, Actions] {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const savedSelection = useSavedSelection();
 
@@ -51,4 +51,3 @@ function useFloatingPressContactsMenu(editor: Editor): [State, Actions] {
     return [{ isOpen }, { close, open, rootClose, submit }];
 }
 
-export default useFloatingPressContactsMenu;

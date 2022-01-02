@@ -11,9 +11,9 @@ import {
 } from '../../../../modules/editor-v4-file-attachment';
 import { LoaderContentType } from '../../../../modules/editor-v4-loader';
 import { UploadcareEditor } from '../../../../modules/editor-v4-uploadcare';
-import insertUploadingFile from '../insertUploadingFile';
+import { insertUploadingFile } from '../insertUploadingFile';
 
-async function handleEditAttachment(editor: Editor) {
+export async function handleEditAttachment(editor: Editor) {
     const currentFileAttachment = getCurrentFileAttachmentElement(editor);
     if (!currentFileAttachment) {
         return;
@@ -62,5 +62,3 @@ async function handleEditAttachment(editor: Editor) {
         uuid: attachmentFileInfo.uuid,
     });
 }
-
-export default handleEditAttachment;

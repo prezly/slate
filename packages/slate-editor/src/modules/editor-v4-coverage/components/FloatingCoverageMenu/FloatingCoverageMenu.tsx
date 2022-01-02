@@ -18,7 +18,7 @@ interface Props {
     renderSearch: (searchProps: SearchProps) => ReactNode;
 }
 
-const FloatingCoverageMenu: FunctionComponent<Props> = ({
+export const FloatingCoverageMenu: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     onClose,
@@ -59,5 +59,3 @@ const FloatingCoverageMenu: FunctionComponent<Props> = ({
         </FloatingContainer>
     );
 };
-
-export default FloatingCoverageMenu;

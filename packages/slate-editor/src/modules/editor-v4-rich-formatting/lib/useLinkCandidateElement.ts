@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function useLinkCandidateElement(
+export function useLinkCandidateElement(
     linkCandidateId: string | null,
 ): HTMLElement | null {
     const [linkCandidateElement, setLinkCandidateElement] = useState<HTMLElement | null>(null);

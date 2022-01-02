@@ -1,1 +1,1 @@
-export { default as UserMentionsDropdown } from './UserMentionsDropdown';
+export { UserMentionsDropdown } from './UserMentionsDropdown';

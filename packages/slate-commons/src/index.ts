@@ -13,7 +13,7 @@ declare module 'slate' {
 
 import * as EditorCommands from './commands';
 
-export { default as EditableWithExtensions } from './EditableWithExtensions';
+export { EditableWithExtensions } from './EditableWithExtensions';
 
 export { EditorCommands };
 export {

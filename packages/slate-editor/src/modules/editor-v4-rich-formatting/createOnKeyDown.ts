@@ -4,7 +4,7 @@ import type { KeyboardEvent } from 'react';
 import { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import lists from './lists';
+import { lists } from './lists';
 import type { RichFormattingExtensionParameters } from './types';
 import { MarkType } from './types';
 
@@ -67,7 +67,7 @@ function softBreakOnKeyDown(event: KeyboardEvent, editor: Editor) {
     }
 }
 
-function createOnKeyDown(parameters: RichFormattingExtensionParameters) {
+export function createOnKeyDown(parameters: RichFormattingExtensionParameters) {
     return (event: KeyboardEvent, editor: Editor) => {
         softBreakOnKeyDown(event, editor);
         marksOnKeyDown(event, editor);
@@ -84,4 +84,3 @@ function createOnKeyDown(parameters: RichFormattingExtensionParameters) {
     };
 }
 
-export default createOnKeyDown;

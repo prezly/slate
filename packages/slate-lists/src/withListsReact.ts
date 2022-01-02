@@ -8,7 +8,7 @@ import { cloneContentsMonkeyPatch } from './lib';
  * Enables Range.prototype.cloneContents monkey patch to improve pasting behavior
  * in few edge cases.
  */
-function withListsReact<T extends ReactEditor>(editor: T): T {
+export function withListsReact<T extends ReactEditor>(editor: T): T {
     const { setFragmentData } = editor;
 
     editor.setFragmentData = (data: DataTransfer) => {
@@ -20,4 +20,3 @@ function withListsReact<T extends ReactEditor>(editor: T): T {
     return editor;
 }
 
-export default withListsReact;

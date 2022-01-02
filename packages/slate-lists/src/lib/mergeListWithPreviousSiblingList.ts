@@ -4,10 +4,10 @@ import { Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import getParentListItem from './getParentListItem';
-import isList from './isList';
+import { getParentListItem } from './getParentListItem';
+import { isList } from './isList';
 
-function mergeListWithPreviousSiblingList(
+export function mergeListWithPreviousSiblingList(
     options: ListsOptions,
     editor: Editor,
     [node, path]: NodeEntry<Node>,
@@ -44,4 +44,3 @@ function mergeListWithPreviousSiblingList(
     return true;
 }
 
-export default mergeListWithPreviousSiblingList;

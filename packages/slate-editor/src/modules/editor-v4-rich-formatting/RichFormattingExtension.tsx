@@ -5,8 +5,8 @@ import type { RenderElementProps, RenderLeafProps } from 'slate-react';
 
 import { LinkCandidateElement, LinkElement, RichTextElement } from './components';
 import { RICH_FORMATTING_EXTENSION_ID } from './constants';
-import createDeserialize from './createDeserialize';
-import createOnKeyDown from './createOnKeyDown';
+import { createDeserialize } from './createDeserialize';
+import { createOnKeyDown } from './createOnKeyDown';
 import {
     isLinkCandidateElement,
     isRichTextElement,
@@ -17,7 +17,7 @@ import {
 import type { RichFormattingExtensionParameters } from './types';
 import { ElementType, MarkType } from './types';
 
-const RichFormattingExtension = (parameters: RichFormattingExtensionParameters): Extension => ({
+export const RichFormattingExtension = (parameters: RichFormattingExtensionParameters): Extension => ({
     deserialize: createDeserialize(parameters),
     id: RICH_FORMATTING_EXTENSION_ID,
     inlineTypes: parameters.links ? [ElementType.LINK_CANDIDATE, ElementType.LINK] : [],
@@ -83,4 +83,3 @@ const RichFormattingExtension = (parameters: RichFormattingExtensionParameters):
     ],
 });
 
-export default RichFormattingExtension;

@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isAttachmentNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-import createFileAttachment from './createFileAttachment';
+import { createFileAttachment } from './createFileAttachment';
 
 const ALLOWED_ATTRIBUTES = Object.keys(
     createFileAttachment(
@@ -17,7 +17,7 @@ const ALLOWED_ATTRIBUTES = Object.keys(
     ),
 );
 
-function normalizeRedundantFileAttachmentAttributes(
+export function normalizeRedundantFileAttachmentAttributes(
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean {
@@ -27,5 +27,3 @@ function normalizeRedundantFileAttachmentAttributes(
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
 }
-
-export default normalizeRedundantFileAttachmentAttributes;

@@ -3,7 +3,7 @@ import { Editor } from 'slate';
 import { UPLOADCARE_PROPERTY } from './constants';
 import type { ResultPromise, Uploadcare, UploadcareOptions } from './types';
 
-abstract class UploadcareEditor {
+export abstract class UploadcareEditor {
     static upload<
         Multiple extends boolean,
         ImagesOnly extends boolean,
@@ -27,5 +27,3 @@ abstract class UploadcareEditor {
 
     public abstract [UPLOADCARE_PROPERTY]: Uploadcare;
 }
-
-export default UploadcareEditor;

@@ -34,7 +34,7 @@ interface Parameters extends EditorV4ExtensionsProps {
     onOperationStart?: () => void;
 }
 
-function* getEnabledExtensions({
+export function* getEnabledExtensions({
     availableWidth,
     containerRef,
     onOperationEnd = noop,
@@ -132,5 +132,3 @@ function* getEnabledExtensions({
 
     yield VoidExtension();
 }
-
-export default getEnabledExtensions;

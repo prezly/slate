@@ -4,13 +4,13 @@ import { Transforms } from 'slate';
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import type { ListsOptions } from '../types';
 
-import isList from './isList';
-import isListItem from './isListItem';
+import { isList } from './isList';
+import { isListItem } from './isListItem';
 
 /**
  * Nests (moves) given "list" in a given "list-item".
  */
-function moveListToListItem(
+export function moveListToListItem(
     options: ListsOptions,
     editor: Editor,
     parameters: {
@@ -32,4 +32,3 @@ function moveListToListItem(
     });
 }
 
-export default moveListToListItem;

@@ -9,4 +9,4 @@ export {
     isEditorValueEquivalent,
 } from './lib';
 export type { EditorRef, EditorV4Props } from './types';
-export { default as useEditorEvents } from './useEditorEvents';
+export { useEditorEvents } from './useEditorEvents';

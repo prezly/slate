@@ -50,5 +50,5 @@ declare global {
     }
 }
 
-export { default as createHyperscript } from './createHyperscript';
+export { createHyperscript } from './createHyperscript';
 export { jsx } from './slate-hyperscript';

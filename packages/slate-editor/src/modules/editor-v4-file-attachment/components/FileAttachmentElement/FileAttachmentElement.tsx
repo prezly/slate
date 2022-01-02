@@ -8,15 +8,15 @@ import { useSelected } from 'slate-react';
 import { Download } from '../../../../icons';
 
 import './FileAttachmentElement.scss';
-import Subtitle from './Subtitle';
-import Title from './Title';
+import { Subtitle } from './Subtitle';
+import { Title } from './Title';
 
 interface Props extends RenderElementProps {
     element: AttachmentNode;
     styled: boolean;
 }
 
-const FileAttachmentElement: FunctionComponent<Props> = ({
+export const FileAttachmentElement: FunctionComponent<Props> = ({
     attributes,
     children,
     element,
@@ -62,5 +62,3 @@ const FileAttachmentElement: FunctionComponent<Props> = ({
         </div>
     );
 };
-
-export default FileAttachmentElement;

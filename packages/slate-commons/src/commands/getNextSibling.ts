@@ -1,7 +1,7 @@
 import type { Editor, NodeEntry } from 'slate';
 import { Node, Path } from 'slate';
 
-function getNextSibling(editor: Editor, path: Path): NodeEntry<Node> | null {
+export function getNextSibling(editor: Editor, path: Path): NodeEntry<Node> | null {
     let nextSiblingPath: Path;
 
     try {
@@ -17,5 +17,3 @@ function getNextSibling(editor: Editor, path: Path): NodeEntry<Node> | null {
 
     return null;
 }
-
-export default getNextSibling;

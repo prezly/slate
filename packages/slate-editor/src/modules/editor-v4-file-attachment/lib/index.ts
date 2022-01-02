@@ -1,5 +1,5 @@
-export { default as createFileAttachment } from './createFileAttachment';
-export { default as getCurrentFileAttachmentElement } from './getCurrentFileAttachmentElement';
-export { default as isUsingCustomTitle } from './isUsingCustomTitle';
-export { default as normalizeRedundantFileAttachmentAttributes } from './normalizeRedundantFileAttachmentAttributes';
-export { default as parseSerializedElement } from './parseSerializedElement';
+export { createFileAttachment } from './createFileAttachment';
+export { getCurrentFileAttachmentElement } from './getCurrentFileAttachmentElement';
+export { isUsingCustomTitle } from './isUsingCustomTitle';
+export { normalizeRedundantFileAttachmentAttributes } from './normalizeRedundantFileAttachmentAttributes';
+export { parseSerializedElement } from './parseSerializedElement';

@@ -1,9 +1,9 @@
 import type { EmbedNode } from '@prezly/slate-types';
 import { isEmbedNode } from '@prezly/slate-types';
 
-import createEmbed from './createEmbed';
+import { createEmbed } from './createEmbed';
 
-export default function parseSerializedElement(serialized: string): EmbedNode | undefined {
+export function parseSerializedElement(serialized: string): EmbedNode | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isEmbedNode(parsed)) {

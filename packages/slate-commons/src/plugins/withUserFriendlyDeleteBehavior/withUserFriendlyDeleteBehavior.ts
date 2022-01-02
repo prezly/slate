@@ -5,7 +5,7 @@ import { saveSelection } from '../../commands';
 
 import { deleteCurrentNodeIfEmpty } from './lib';
 
-function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
+export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
     const { deleteBackward, deleteForward } = editor;
 
     editor.deleteBackward = (unit) => {
@@ -38,5 +38,3 @@ function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
 
     return editor;
 }
-
-export default withUserFriendlyDeleteBehavior;

@@ -18,7 +18,7 @@ function wrapInLi(nodes: (string | Node)[]): HTMLElement {
     return listItemElement;
 }
 
-const cloneContentsMonkeyPatch = {
+export const cloneContentsMonkeyPatch = {
     /**
      * Activates `Range.prototype.cloneContents` override that ensures in the cloned contents:
      * - there are no <li> children elements without parent <li> element
@@ -63,4 +63,3 @@ const cloneContentsMonkeyPatch = {
     },
 };
 
-export default cloneContentsMonkeyPatch;

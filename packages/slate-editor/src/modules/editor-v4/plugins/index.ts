@@ -1,6 +1,6 @@
-export { default as withDeserializeHtml } from './withDeserializeHtml';
-export { default as withFilePasting } from './withFilePasting';
-export { default as withNonEmptyValue } from './withNonEmptyValue';
+export { withDeserializeHtml } from './withDeserializeHtml';
+export { withFilePasting } from './withFilePasting';
+export { withNonEmptyValue } from './withNonEmptyValue';
 export { withRootElements } from './withRootElements';
-export { default as withSlatePasting } from './withSlatePasting';
-export { default as withVoids } from './withVoids';
+export { withSlatePasting } from './withSlatePasting';
+export { withVoids } from './withVoids';

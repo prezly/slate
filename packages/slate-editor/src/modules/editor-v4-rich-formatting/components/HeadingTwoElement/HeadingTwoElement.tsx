@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLHeadingElement> {
     element: RichTextElementType;
 }
 
-const HeadingTwoElement: FunctionComponent<Props> = ({
+export const HeadingTwoElement: FunctionComponent<Props> = ({
     attributes,
     children,
     className,
@@ -31,4 +31,3 @@ const HeadingTwoElement: FunctionComponent<Props> = ({
     </h4>
 );
 
-export default HeadingTwoElement;

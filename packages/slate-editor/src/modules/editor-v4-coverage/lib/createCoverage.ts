@@ -3,7 +3,7 @@ import type { CoverageNode } from '@prezly/slate-types';
 import { COVERAGE_NODE_TYPE } from '@prezly/slate-types';
 import { v4 as uuidV4 } from 'uuid';
 
-function createCoverage(id: Coverage['id']): CoverageNode {
+export function createCoverage(id: Coverage['id']): CoverageNode {
     return {
         children: [{ text: '' }],
         coverage: { id },
@@ -11,5 +11,3 @@ function createCoverage(id: Coverage['id']): CoverageNode {
         uuid: uuidV4(),
     };
 }
-
-export default createCoverage;

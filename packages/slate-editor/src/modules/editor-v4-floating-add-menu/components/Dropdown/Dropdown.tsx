@@ -18,7 +18,7 @@ interface Props {
     open: boolean;
 }
 
-const Dropdown: FunctionComponent<Props> = ({
+export const Dropdown: FunctionComponent<Props> = ({
     className,
     components,
     currentIndex,
@@ -71,5 +71,3 @@ const Dropdown: FunctionComponent<Props> = ({
         </ul>
     </div>
 );
-
-export default Dropdown;

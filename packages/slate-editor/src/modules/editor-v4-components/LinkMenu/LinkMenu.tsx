@@ -23,7 +23,7 @@ interface Props {
     value: string;
 }
 
-const LinkMenu: FunctionComponent<Props> = ({
+export const LinkMenu: FunctionComponent<Props> = ({
     canUnlink,
     onChange,
     onClose,
@@ -108,5 +108,3 @@ const LinkMenu: FunctionComponent<Props> = ({
         </RootCloseWrapper>
     );
 };
-
-export default LinkMenu;

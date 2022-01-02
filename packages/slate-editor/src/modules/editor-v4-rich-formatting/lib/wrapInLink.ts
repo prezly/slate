@@ -1,10 +1,9 @@
 import type { Editor, Path, Range } from 'slate';
 import { Transforms } from 'slate';
 
-import createLink from './createLink';
+import { createLink } from './createLink';
 
-function wrapInLink(editor: Editor, at: Path | Range, href: string): void {
+export function wrapInLink(editor: Editor, at: Path | Range, href: string): void {
     return Transforms.wrapNodes(editor, createLink(href), { at, split: true });
 }
 
-export default wrapInLink;

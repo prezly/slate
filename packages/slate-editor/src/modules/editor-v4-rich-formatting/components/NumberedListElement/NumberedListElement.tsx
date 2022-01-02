@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLOListElement> {
     element: RichTextElementType;
 }
 
-const NumberedListElement: FunctionComponent<Props> = ({
+export const NumberedListElement: FunctionComponent<Props> = ({
     attributes,
     children,
     className,
@@ -31,4 +31,3 @@ const NumberedListElement: FunctionComponent<Props> = ({
     </ol>
 );
 
-export default NumberedListElement;

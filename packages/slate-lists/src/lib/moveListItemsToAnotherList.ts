@@ -3,12 +3,12 @@ import { Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import isList from './isList';
+import { isList } from './isList';
 
 /**
  * Moves all "list-items" from one "list" to the end of another "list".
  */
-function moveListItemsToAnotherList(
+export function moveListItemsToAnotherList(
     options: ListsOptions,
     editor: Editor,
     parameters: {
@@ -32,4 +32,3 @@ function moveListItemsToAnotherList(
     }
 }
 
-export default moveListItemsToAnotherList;

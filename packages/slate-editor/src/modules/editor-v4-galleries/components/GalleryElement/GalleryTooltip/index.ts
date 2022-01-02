@@ -1,1 +1,1 @@
-export { default } from './GalleryTooltip';
+export { GalleryTooltip } from './GalleryTooltip';

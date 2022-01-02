@@ -4,13 +4,13 @@ import { useElapsed, useRafLoop } from '#lib';
 
 import type { ChangeEvent } from '../types';
 
-import extrapolateProgress from './extrapolateProgress';
+import { extrapolateProgress } from './extrapolateProgress';
 
 /**
  * @param progress 0 ≤ progress ≤ 1
  * @param estimatedDuration How long is the action expected to take (ms)
  */
-function useExtrapolatedProgress(progress: number, estimatedDuration: number): number {
+export function useExtrapolatedProgress(progress: number, estimatedDuration: number): number {
     const elapsed = useElapsed();
     const [extrapolatedProgress, setExtrapolatedProgress] = useState<number>(progress);
     const changeEventsRef = useRef<ChangeEvent[]>([]);
@@ -36,5 +36,3 @@ function useExtrapolatedProgress(progress: number, estimatedDuration: number): n
 
     return extrapolatedProgress;
 }
-
-export default useExtrapolatedProgress;

@@ -5,7 +5,7 @@ import { Transforms } from 'slate';
 
 import { pick } from '#lodash';
 
-function updateGallery(
+export function updateGallery(
     editor: Editor,
     changes: Partial<Pick<GalleryNode, 'images' | 'layout' | 'padding' | 'thumbnail_size'>>,
 ) {
@@ -15,5 +15,3 @@ function updateGallery(
         match: isGalleryNode,
     });
 }
-
-export default updateGallery;

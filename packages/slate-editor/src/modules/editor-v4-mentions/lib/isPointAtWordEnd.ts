@@ -1,7 +1,7 @@
 import type { Point } from 'slate';
 import { Editor } from 'slate';
 
-import getText from './getText';
+import { getText } from './getText';
 
 // Starts with whitespace char or nothing
 const AFTER_MATCH_REGEX = /^(\s|$)/;
@@ -9,7 +9,7 @@ const AFTER_MATCH_REGEX = /^(\s|$)/;
 /**
  * Is a point at the end of a word
  */
-function isPointAtWordEnd(editor: Editor, { at }: { at: Point }): boolean {
+export function isPointAtWordEnd(editor: Editor, { at }: { at: Point }): boolean {
     // Point after at
     const after = Editor.after(editor, at);
 
@@ -21,4 +21,3 @@ function isPointAtWordEnd(editor: Editor, { at }: { at: Point }): boolean {
     return AFTER_MATCH_REGEX.test(afterText);
 }
 
-export default isPointAtWordEnd;

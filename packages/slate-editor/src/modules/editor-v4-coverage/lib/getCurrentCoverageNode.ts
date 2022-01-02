@@ -3,7 +3,7 @@ import type { CoverageNode } from '@prezly/slate-types';
 import { isCoverageNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-function getCurrentCoverageNode(editor: Editor): CoverageNode | null {
+export function getCurrentCoverageNode(editor: Editor): CoverageNode | null {
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (isCoverageNode(currentNode)) {
@@ -12,5 +12,3 @@ function getCurrentCoverageNode(editor: Editor): CoverageNode | null {
 
     return null;
 }
-
-export default getCurrentCoverageNode;

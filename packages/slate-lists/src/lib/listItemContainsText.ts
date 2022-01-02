@@ -2,13 +2,13 @@ import { Editor } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import isListItem from './isListItem';
-import isListItemText from './isListItemText';
+import { isListItem } from './isListItem';
+import { isListItemText } from './isListItemText';
 
 /**
  * Returns true if given "list-item" node contains a non-empty "list-item-text" node.
  */
-function listItemContainsText(options: ListsOptions, editor: Editor, node: unknown): boolean {
+export function listItemContainsText(options: ListsOptions, editor: Editor, node: unknown): boolean {
     if (!isListItem(options, node)) {
         return false;
     }
@@ -22,4 +22,3 @@ function listItemContainsText(options: ListsOptions, editor: Editor, node: unkno
     return !Editor.isEmpty(editor, listItemText);
 }
 
-export default listItemContainsText;

@@ -2,7 +2,7 @@ import type { ImageNode } from '@prezly/slate-types';
 import { ImageLayout, IMAGE_NODE_TYPE } from '@prezly/slate-types';
 import type { UploadcareImageStoragePayload } from '@prezly/uploadcare';
 
-function createImage(
+export function createImage(
     file: UploadcareImageStoragePayload,
     {
         children = [{ text: '' }],
@@ -22,5 +22,3 @@ function createImage(
         width,
     };
 }
-
-export default createImage;

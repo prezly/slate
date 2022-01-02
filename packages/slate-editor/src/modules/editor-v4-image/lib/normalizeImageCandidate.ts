@@ -20,8 +20,8 @@ import {
 import { UPLOAD_SINGLE_IMAGE_ERROR_MESSAGE } from '../../../modules/uploadcare';
 import type { ImageCandidateNode } from '../types';
 
-import createImage from './createImage';
-import isImageCandidateElement from './isImageCandidateElement';
+import { createImage } from './createImage';
+import { isImageCandidateElement } from './isImageCandidateElement';
 
 async function resolveFile(filePromise: FilePromise): Promise<FileInfo | null> {
     const fileInfo = await filePromise;
@@ -114,7 +114,7 @@ async function scheduleLoaderReplacement(
  * We don't want to have image-candidate nodes in the editor - we want to convert
  * them into actual images.
  */
-function normalizeImageCandidate(editor: Editor, [node, path]: NodeEntry<Node>): boolean {
+export function normalizeImageCandidate(editor: Editor, [node, path]: NodeEntry<Node>): boolean {
     if (!isImageCandidateElement(node)) {
         // This function does not know how to normalize other nodes.
         return false;
@@ -132,5 +132,3 @@ function normalizeImageCandidate(editor: Editor, [node, path]: NodeEntry<Node>):
 
     return true;
 }
-
-export default normalizeImageCandidate;

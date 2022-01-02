@@ -4,12 +4,12 @@ import { Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import getListsInRange from './getListsInRange';
+import { getListsInRange } from './getListsInRange';
 
 /**
  * Sets "type" of all "list" nodes in the current selection.
  */
-function setListType(options: ListsOptions, editor: Editor, listType: string): void {
+export function setListType(options: ListsOptions, editor: Editor, listType: string): void {
     if (!editor.selection) {
         return;
     }
@@ -31,4 +31,3 @@ function setListType(options: ListsOptions, editor: Editor, listType: string): v
     });
 }
 
-export default setListType;

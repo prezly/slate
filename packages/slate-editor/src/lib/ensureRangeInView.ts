@@ -1,10 +1,10 @@
 import RangeFix from 'rangefix';
 
-import getScrollParent from './getScrollParent';
+import { getScrollParent } from './getScrollParent';
 import type { Options } from './scrollIntoView';
-import scrollIntoView from './scrollIntoView';
+import { scrollIntoView } from './scrollIntoView';
 
-function ensureRangeInView(range: Range | null, options: Options): void {
+export function ensureRangeInView(range: Range | null, options: Options): void {
     if (!range) {
         return;
     }
@@ -23,5 +23,3 @@ function ensureRangeInView(range: Range | null, options: Options): void {
     const parent = getScrollParent(rangeContainer);
     scrollIntoView(parent, rangeRect, options);
 }
-
-export default ensureRangeInView;

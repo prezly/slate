@@ -2,10 +2,10 @@
 import { isParagraphNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import isValidLocation from './isValidLocation';
-import removeNode from './removeNode';
+import { isValidLocation } from './isValidLocation';
+import { removeNode } from './removeNode';
 
 describe('isValidLocation', () => {
     it('Returns "true" when using the current cursor location', () => {

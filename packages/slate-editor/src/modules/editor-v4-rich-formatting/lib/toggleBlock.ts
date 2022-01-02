@@ -3,10 +3,10 @@ import type { ElementNode } from '@prezly/slate-types';
 import type { Editor, Element } from 'slate';
 import { Transforms } from 'slate';
 
-import lists from '../lists';
+import { lists } from '../lists';
 import { ElementType } from '../types';
 
-function toggleBlock(editor: Editor, type: ElementNode['type']): void {
+export function toggleBlock(editor: Editor, type: ElementNode['type']): void {
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (!currentNode) {
@@ -23,4 +23,3 @@ function toggleBlock(editor: Editor, type: ElementNode['type']): void {
     Transforms.setNodes(editor, { type } as Partial<Element>);
 }
 
-export default toggleBlock;

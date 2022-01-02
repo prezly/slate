@@ -28,7 +28,7 @@ import type { ListsOptions } from './types';
 /**
  * Creates an API adapter with functions bound to passed options.
  */
-function Lists(options: ListsOptions) {
+export function Lists(options: ListsOptions) {
     return {
         canDeleteBackward: canDeleteBackward.bind(null, options),
         decreaseDepth: decreaseDepth.bind(null, options),
@@ -56,4 +56,3 @@ function Lists(options: ListsOptions) {
     };
 }
 
-export default Lists;

@@ -2,14 +2,14 @@ import type { Editor, Element, NodeEntry, Range } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import getListItemsInRange from './getListItemsInRange';
-import getParentList from './getParentList';
+import { getListItemsInRange } from './getListItemsInRange';
+import { getParentList } from './getParentList';
 
 /**
  * Returns all "lists" in a given Range.
  * @param at defaults to current selection if not specified
  */
-function getListsInRange(
+export function getListsInRange(
     options: ListsOptions,
     editor: Editor,
     at: Range | null | undefined,
@@ -22,4 +22,3 @@ function getListsInRange(
     return lists as NodeEntry<Element>[];
 }
 
-export default getListsInRange;

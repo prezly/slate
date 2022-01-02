@@ -1,8 +1,8 @@
-import getScrollParent from './getScrollParent';
+import { getScrollParent } from './getScrollParent';
 import type { Options } from './scrollIntoView';
-import scrollIntoView from './scrollIntoView';
+import { scrollIntoView } from './scrollIntoView';
 
-function ensureElementInView(element: HTMLElement | null, options: Options): void {
+export function ensureElementInView(element: HTMLElement | null, options: Options): void {
     if (!element) {
         return;
     }
@@ -11,5 +11,3 @@ function ensureElementInView(element: HTMLElement | null, options: Options): voi
     const elementRect = element.getBoundingClientRect();
     scrollIntoView(parent, elementRect, options);
 }
-
-export default ensureElementInView;

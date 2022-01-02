@@ -1,1 +1,1 @@
-export { default } from './CoverageBlock';
+export { CoverageBlock } from './CoverageBlock';

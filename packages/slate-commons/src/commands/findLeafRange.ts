@@ -1,8 +1,8 @@
 import type { Editor, Range } from 'slate';
 
-import findLeafPoint from './findLeafPoint';
+import { findLeafPoint } from './findLeafPoint';
 
-function findLeafRange(editor: Editor, range: Range): Range | null {
+export function findLeafRange(editor: Editor, range: Range): Range | null {
     const anchor = findLeafPoint(editor, range.anchor);
     const focus = findLeafPoint(editor, range.focus);
 
@@ -14,5 +14,3 @@ function findLeafRange(editor: Editor, range: Range): Range | null {
 
     return { anchor, focus };
 }
-
-export default findLeafRange;

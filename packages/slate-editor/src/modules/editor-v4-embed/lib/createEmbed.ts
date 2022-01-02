@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 
 import { EMBED_TYPE } from '../constants';
 
-function createEmbed(oembed: OEmbedInfo, url: string): EmbedNode {
+export function createEmbed(oembed: OEmbedInfo, url: string): EmbedNode {
     return {
         type: EMBED_TYPE,
         children: [{ text: '' }],
@@ -13,5 +13,3 @@ function createEmbed(oembed: OEmbedInfo, url: string): EmbedNode {
         uuid: uuidV4(),
     };
 }
-
-export default createEmbed;

@@ -3,10 +3,8 @@ import type { ImageNode } from '@prezly/slate-types';
 import { isImageNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-function removeImage(editor: Editor): ImageNode | null {
+export function removeImage(editor: Editor): ImageNode | null {
     return EditorCommands.removeNode<ImageNode>(editor, {
         match: isImageNode,
     });
 }
-
-export default removeImage;

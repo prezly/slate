@@ -2,7 +2,7 @@ import type { Coverage } from '@prezly/sdk';
 
 import { formatBytes } from '../../../lib';
 
-function getCoverageDescription(coverage: Coverage): string {
+export function getCoverageDescription(coverage: Coverage): string {
     if (coverage.attachment_oembed && coverage.attachment_oembed.description) {
         return coverage.attachment_oembed.description;
     }
@@ -13,5 +13,3 @@ function getCoverageDescription(coverage: Coverage): string {
 
     return '';
 }
-
-export default getCoverageDescription;

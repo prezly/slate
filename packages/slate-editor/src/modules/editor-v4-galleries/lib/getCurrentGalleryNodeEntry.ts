@@ -3,7 +3,7 @@ import type { GalleryNode } from '@prezly/slate-types';
 import { isGalleryNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-function getCurrentGalleryNodeEntry(editor: Editor): NodeEntry<GalleryNode> | null {
+export function getCurrentGalleryNodeEntry(editor: Editor): NodeEntry<GalleryNode> | null {
     const currentNodeEntry = EditorCommands.getCurrentNodeEntry(editor);
     if (currentNodeEntry && isGalleryNode(currentNodeEntry[0])) {
         return currentNodeEntry as NodeEntry<GalleryNode>;
@@ -11,5 +11,3 @@ function getCurrentGalleryNodeEntry(editor: Editor): NodeEntry<GalleryNode> | nu
 
     return null;
 }
-
-export default getCurrentGalleryNodeEntry;

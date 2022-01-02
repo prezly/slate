@@ -1,10 +1,10 @@
 /** @jsx jsx */
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { createRichFormattingEditor } from '../test-utils';
 import { ElementType } from '../types';
 
-import getRichFormattingBlockNodeType from './getRichFormattingBlockNodeType';
+import { getRichFormattingBlockNodeType } from './getRichFormattingBlockNodeType';
 
 describe('getRichFormattingBlockNodeType', () => {
     it('Returns the type of element at the cursor', () => {

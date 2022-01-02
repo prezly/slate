@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import Observable from '../Observable';
+import { Observable } from '../Observable';
 
 const isMouseDownObservable = new Observable<boolean>(false);
 
@@ -12,7 +12,7 @@ document.addEventListener('mouseup', () => {
     isMouseDownObservable.value = false;
 });
 
-function useIsMouseDown(): boolean {
+export function useIsMouseDown(): boolean {
     const [isMouseDown, setIsMouseDown] = useState<boolean>(isMouseDownObservable.value);
 
     useEffect(() => {
@@ -23,5 +23,3 @@ function useIsMouseDown(): boolean {
 
     return isMouseDown;
 }
-
-export default useIsMouseDown;

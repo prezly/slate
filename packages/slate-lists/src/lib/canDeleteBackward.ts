@@ -3,14 +3,14 @@ import type { Editor } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import getListItemsInRange from './getListItemsInRange';
-import getParentListItem from './getParentListItem';
-import isCursorAtStartOfListItem from './isCursorAtStartOfListItem';
+import { getListItemsInRange } from './getListItemsInRange';
+import { getParentListItem } from './getParentListItem';
+import { isCursorAtStartOfListItem } from './isCursorAtStartOfListItem';
 
 /**
  * Returns true when editor.deleteBackward() is safe to call (it won't break the structure).
  */
-function canDeleteBackward(options: ListsOptions, editor: Editor): boolean {
+export function canDeleteBackward(options: ListsOptions, editor: Editor): boolean {
     const listItemsInSelection = getListItemsInRange(options, editor, editor.selection);
 
     if (listItemsInSelection.length === 0) {
@@ -22,5 +22,3 @@ function canDeleteBackward(options: ListsOptions, editor: Editor): boolean {
     const isFirstListItem = EditorCommands.getPreviousSibling(editor, listItemPath) === null;
     return isInNestedList || !isFirstListItem || !isCursorAtStartOfListItem(options, editor);
 }
-
-export default canDeleteBackward;

@@ -2,9 +2,9 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isLinkNode } from '@prezly/slate-types';
 import { Editor, Element } from 'slate';
 
-import isRichTextElement from './isRichTextElement';
+import { isRichTextElement } from './isRichTextElement';
 
-function isSelectionSupported(editor: Editor): boolean {
+export function isSelectionSupported(editor: Editor): boolean {
     if (EditorCommands.isSelectionEmpty(editor)) {
         return false;
     }
@@ -17,5 +17,3 @@ function isSelectionSupported(editor: Editor): boolean {
 
     return nodeEntries.every(([node]) => isRichTextElement(node) || isLinkNode(node));
 }
-
-export default isSelectionSupported;

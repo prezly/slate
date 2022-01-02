@@ -3,8 +3,7 @@ import type { Editor } from 'slate';
 
 import { EventsEditor } from '../../../../modules/editor-v4-events';
 
-function handleRemoveAttachment(editor: Editor, element: AttachmentNode): void {
+export function handleRemoveAttachment(editor: Editor, element: AttachmentNode): void {
     return EventsEditor.dispatchEvent(editor, 'attachment-removed', { uuid: element.file.uuid });
 }
 
-export default handleRemoveAttachment;

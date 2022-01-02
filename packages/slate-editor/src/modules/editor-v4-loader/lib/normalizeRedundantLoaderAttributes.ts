@@ -3,8 +3,8 @@ import type { Editor, NodeEntry } from 'slate';
 
 import { LoaderContentType } from '../types';
 
-import createLoader from './createLoader';
-import isLoaderElement from './isLoaderElement';
+import { createLoader } from './createLoader';
+import { isLoaderElement } from './isLoaderElement';
 
 const ALLOWED_ATTRIBUTES = Object.keys(
     createLoader({
@@ -13,12 +13,10 @@ const ALLOWED_ATTRIBUTES = Object.keys(
     }),
 );
 
-function normalizeRedundantLoaderAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantLoaderAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
     if (!isLoaderElement(node)) {
         return false;
     }
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
 }
-
-export default normalizeRedundantLoaderAttributes;

@@ -12,7 +12,7 @@ function withoutSlateFragment(data: DataTransfer): DataTransfer {
     return createDataTransfer(dataMap);
 }
 
-function withSlatePasting<T extends Editor>(editor: T) {
+export function withSlatePasting<T extends Editor>(editor: T) {
     const { insertData } = editor;
 
     editor.insertData = (data) => {
@@ -36,5 +36,3 @@ function withSlatePasting<T extends Editor>(editor: T) {
 
     return editor;
 }
-
-export default withSlatePasting;

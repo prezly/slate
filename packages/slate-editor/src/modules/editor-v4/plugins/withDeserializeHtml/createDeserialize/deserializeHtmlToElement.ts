@@ -2,7 +2,7 @@ import type { Extension } from '@prezly/slate-commons';
 import { jsx } from '@prezly/slate-hyperscript';
 import type { Descendant, Element } from 'slate';
 
-import getElementDeserializers from './getElementDeserializers';
+import { getElementDeserializers } from './getElementDeserializers';
 
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
@@ -10,7 +10,7 @@ interface Attributes extends Record<string, any> {
     type: string;
 }
 
-function deserializeHtmlToElement(extensions: Extension[], onError: (error: unknown) => void) {
+export function deserializeHtmlToElement(extensions: Extension[], onError: (error: unknown) => void) {
     return function (node: HTMLElement, children: DeserializeHTMLChildren[]): Element | null {
         const type = node.getAttribute('data-slate-type') || node.nodeName;
         const elementDeserializers = getElementDeserializers(extensions);
@@ -49,4 +49,3 @@ function deserializeHtmlToElement(extensions: Extension[], onError: (error: unkn
     };
 }
 
-export default deserializeHtmlToElement;

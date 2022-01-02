@@ -1,6 +1,6 @@
 import type { User } from '../types';
 
-function isUser(user: any): user is User {
+export function isUser(user: any): user is User {
     return (
         typeof user === 'object' &&
         user !== null &&
@@ -10,4 +10,3 @@ function isUser(user: any): user is User {
     );
 }
 
-export default isUser;

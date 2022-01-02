@@ -4,14 +4,14 @@ import { Transforms } from 'slate';
 
 import { getCurrentNodeEntry, isNodeEmpty } from '../../../commands';
 
-import getDeletionTargetNode from './getDeletionTargetNode';
+import { getDeletionTargetNode } from './getDeletionTargetNode';
 
 interface Parameters {
     reverse: boolean;
     unit: 'character' | 'word' | 'line' | 'block';
 }
 
-function deleteCurrentNodeIfEmpty(editor: Editor, { reverse, unit }: Parameters): boolean {
+export function deleteCurrentNodeIfEmpty(editor: Editor, { reverse, unit }: Parameters): boolean {
     const [currentNode] = getCurrentNodeEntry(editor) || [];
     const targetNode = getDeletionTargetNode(editor, { reverse, unit });
 
@@ -48,5 +48,3 @@ function deleteCurrentNodeIfEmpty(editor: Editor, { reverse, unit }: Parameters)
 
     return false;
 }
-
-export default deleteCurrentNodeIfEmpty;

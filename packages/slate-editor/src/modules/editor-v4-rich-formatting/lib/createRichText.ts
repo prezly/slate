@@ -1,6 +1,6 @@
 import type { RichTextElementType } from '../types';
 
-function createRichText(
+export function createRichText(
     type: RichTextElementType['type'],
     children: RichTextElementType['children'] = [],
 ): RichTextElementType {
@@ -10,4 +10,3 @@ function createRichText(
     } as unknown as RichTextElementType;
 }
 
-export default createRichText;

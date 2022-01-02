@@ -28,7 +28,7 @@ const HOLDING_BACKSPACE_THRESHOLD = 100;
 
 let lastBackspaceTimestamp = 0;
 
-const ImageExtension = ({
+export const ImageExtension = ({
     availableWidth,
     captions,
     containerRef,
@@ -138,5 +138,3 @@ const ImageExtension = ({
     rootTypes: [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
     voidTypes: captions ? [IMAGE_CANDIDATE_TYPE] : [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
 });
-
-export default ImageExtension;

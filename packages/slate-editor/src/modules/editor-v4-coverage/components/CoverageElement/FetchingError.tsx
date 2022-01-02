@@ -11,7 +11,7 @@ interface Props {
     onRetry: () => void;
 }
 
-const FetchingError: FunctionComponent<Props> = ({ className, error, onRetry }) => {
+export const FetchingError: FunctionComponent<Props> = ({ className, error, onRetry }) => {
     if (error.status === HttpCodes.NOT_FOUND) {
         return (
             <div className={className}>
@@ -29,5 +29,3 @@ const FetchingError: FunctionComponent<Props> = ({ className, error, onRetry }) 
         </div>
     );
 };
-
-export default FetchingError;

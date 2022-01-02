@@ -15,12 +15,10 @@ const shape: { [P in keyof ImageNode]: true } = {
 
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
-function normalizeRedundantImageAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantImageAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
     if (!isImageNode(node)) {
         return false;
     }
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
 }
-
-export default normalizeRedundantImageAttributes;

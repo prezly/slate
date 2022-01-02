@@ -5,8 +5,6 @@ import { Editor } from 'slate';
  * See {@link Editor.string}.
  * If `at` is `null`, return an empty string.
  */
-function getText(editor: Editor, at: Location | null) {
+export function getText(editor: Editor, at: Location | null) {
     return at ? Editor.string(editor, at) : '';
 }
-
-export default getText;

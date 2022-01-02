@@ -1,1 +1,1 @@
-export { default } from './PressContactElement';
+export { PressContactElement } from './PressContactElement';

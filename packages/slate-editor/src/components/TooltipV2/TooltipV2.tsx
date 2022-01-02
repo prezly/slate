@@ -14,7 +14,7 @@ import {
     DEFAULT_PREVENT_OVERFLOW_MODIFIER,
     DEFAULT_SHOW_DELAY,
 } from './constants';
-import DisabledTriggerOverlay from './DisabledTriggerOverlay';
+import { DisabledTriggerOverlay } from './DisabledTriggerOverlay';
 import './TooltipV2.scss';
 
 interface ChildrenProps {
@@ -156,6 +156,7 @@ const TooltipV2: FunctionComponent<Props> = ({
     );
 };
 
+// eslint-disable-next-line import/no-default-export
 export default Object.assign(TooltipV2, {
     DisabledTriggerOverlay,
 });

@@ -9,7 +9,7 @@ import { v4 as uuidV4 } from 'uuid';
 
 type Options = Partial<Pick<GalleryNode, 'layout' | 'padding' | 'thumbnail_size'>>;
 
-function createGallery(
+export function createGallery(
     images: GalleryNode['images'],
     {
         layout = GalleryLayout.CONTAINED,
@@ -27,5 +27,3 @@ function createGallery(
         uuid: uuidV4(),
     };
 }
-
-export default createGallery;

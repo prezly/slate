@@ -10,7 +10,7 @@ interface Props {
     contact: PressContact;
 }
 
-const JobDescription: FunctionComponent<Props> = ({ className, contact }) => {
+export const JobDescription: FunctionComponent<Props> = ({ className, contact }) => {
     const { description, company } = contact;
     // If there is not text to show, render an empty <div> to keep height consistent.
     const text = [description, company].filter(Boolean).join(', ') || <>&nbsp;</>;
@@ -22,4 +22,3 @@ const JobDescription: FunctionComponent<Props> = ({ className, contact }) => {
     );
 };
 
-export default JobDescription;

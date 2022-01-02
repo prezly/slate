@@ -17,4 +17,4 @@ export const options: ListsOptions = {
     ],
 };
 
-export default Lists(options);
+export const lists = Lists(options);

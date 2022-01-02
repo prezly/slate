@@ -1,7 +1,7 @@
 import type { Editor, Path } from 'slate';
 import { Node, Text } from 'slate';
 
-function findLeafPath(editor: Editor, path: Path): Path | null {
+export function findLeafPath(editor: Editor, path: Path): Path | null {
     if (!Node.has(editor, path)) {
         return null;
     }
@@ -14,5 +14,3 @@ function findLeafPath(editor: Editor, path: Path): Path | null {
 
     return findLeafPath(editor, [...path, 0]);
 }
-
-export default findLeafPath;

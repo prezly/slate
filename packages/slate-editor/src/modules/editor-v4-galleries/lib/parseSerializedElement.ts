@@ -1,9 +1,9 @@
 import type { GalleryNode } from '@prezly/slate-types';
 import { isGalleryNode } from '@prezly/slate-types';
 
-import createGallery from './createGallery';
+import { createGallery } from './createGallery';
 
-function parseSerializedElement(serialized: string): GalleryNode | undefined {
+export function parseSerializedElement(serialized: string): GalleryNode | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isGalleryNode(parsed)) {
@@ -16,5 +16,3 @@ function parseSerializedElement(serialized: string): GalleryNode | undefined {
 
     return undefined;
 }
-
-export default parseSerializedElement;

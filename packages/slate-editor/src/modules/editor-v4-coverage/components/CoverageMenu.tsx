@@ -12,7 +12,7 @@ interface Props {
     element: HTMLElement;
 }
 
-const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
+export const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
     const editor = useSlate();
     const isSelected = useSelected();
 
@@ -38,5 +38,3 @@ const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
         </Menu.FloatingMenu>
     );
 };
-
-export default CoverageMenu;

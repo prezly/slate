@@ -12,7 +12,7 @@ interface Props {
     element: HTMLElement;
 }
 
-const PressContactMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
+export const PressContactMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
     const editor = useSlate();
     const isSelected = useSelected();
 
@@ -41,4 +41,3 @@ const PressContactMenu: FunctionComponent<Props> = ({ element, containerRef }) =
     );
 };
 
-export default PressContactMenu;

@@ -8,7 +8,7 @@ import { MentionElement, MentionsExtension } from '../../modules/editor-v4-menti
 import { PLACEHOLDER_MENTIONS_EXTENSION_ID } from './constants';
 import { normalizeRedundantPlaceholderMentionAttributes, parseSerializedElement } from './lib';
 
-const PlaceholderMentionsExtension = (): Extension =>
+export const PlaceholderMentionsExtension = (): Extension =>
     MentionsExtension({
         id: PLACEHOLDER_MENTIONS_EXTENSION_ID,
         normalizers: [normalizeRedundantPlaceholderMentionAttributes],
@@ -28,4 +28,3 @@ const PlaceholderMentionsExtension = (): Extension =>
         type: PLACEHOLDER_NODE_TYPE,
     });
 
-export default PlaceholderMentionsExtension;

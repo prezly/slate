@@ -6,7 +6,7 @@ import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement } from './components';
-import MentionsExtension from './MentionsExtension';
+import { MentionsExtension } from './MentionsExtension';
 
 const PlaceholderMentionsExtension = () =>
     MentionsExtension({

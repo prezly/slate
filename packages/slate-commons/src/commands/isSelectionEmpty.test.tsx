@@ -2,9 +2,9 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import isSelectionEmpty from './isSelectionEmpty';
+import { isSelectionEmpty } from './isSelectionEmpty';
 
 describe('isSelectionEmpty', () => {
     it('Returns "true" when no text is selected', () => {

@@ -1,8 +1,8 @@
 import { Editor, Path, Point } from 'slate';
 
-import findLeafPath from './findLeafPath';
+import { findLeafPath } from './findLeafPath';
 
-function findLeafPoint(editor: Editor, point: Point): Point | null {
+export function findLeafPoint(editor: Editor, point: Point): Point | null {
     const path = findLeafPath(editor, point.path);
 
     if (!path) {
@@ -26,5 +26,3 @@ function findLeafPoint(editor: Editor, point: Point): Point | null {
         path,
     };
 }
-
-export default findLeafPoint;

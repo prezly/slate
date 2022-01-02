@@ -11,7 +11,7 @@ import { Editor, Element, Text, Transforms } from 'slate';
  * We're going backwards (taking previous siblings) because Slate is running normalization
  * backwards.
  */
-function normalizeOrphanText(editor: Editor, [node, path]: NodeEntry<Node>): boolean {
+export function normalizeOrphanText(editor: Editor, [node, path]: NodeEntry<Node>): boolean {
     if (path.length > 1) {
         // Optimization: if `path` array is longer than 1, then this node is not at the
         // root of the document.
@@ -51,4 +51,3 @@ function normalizeOrphanText(editor: Editor, [node, path]: NodeEntry<Node>): boo
     return true;
 }
 
-export default normalizeOrphanText;

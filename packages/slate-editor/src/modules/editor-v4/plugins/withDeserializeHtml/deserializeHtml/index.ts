@@ -1,1 +1,1 @@
-export { default } from './deserializeHtml';
+export { deserializeHtml } from './deserializeHtml';

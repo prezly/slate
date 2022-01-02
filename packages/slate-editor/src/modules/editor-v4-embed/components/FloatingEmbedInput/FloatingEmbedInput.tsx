@@ -17,7 +17,7 @@ interface Props {
     submitButtonLabel: string;
 }
 
-const FloatingEmbedInput: FunctionComponent<Props> = ({
+export const FloatingEmbedInput: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     onClose,
@@ -95,5 +95,3 @@ const FloatingEmbedInput: FunctionComponent<Props> = ({
         </FloatingContainer>
     );
 };
-
-export default FloatingEmbedInput;

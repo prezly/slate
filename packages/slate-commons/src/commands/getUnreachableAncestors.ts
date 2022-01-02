@@ -6,7 +6,7 @@ import { Path } from 'slate';
  * assuming one-way "parent" -> "child" relationship.
  * See: https://en.wikipedia.org/wiki/Reachability
  */
-function getUnreachableAncestors(nodeEntries: NodeEntry<Node>[]): NodeEntry<Node>[] {
+export function getUnreachableAncestors(nodeEntries: NodeEntry<Node>[]): NodeEntry<Node>[] {
     return nodeEntries.filter(([, nodePath]) => {
         const ancestors = Path.ancestors(nodePath);
 
@@ -15,5 +15,3 @@ function getUnreachableAncestors(nodeEntries: NodeEntry<Node>[]): NodeEntry<Node
         });
     });
 }
-
-export default getUnreachableAncestors;

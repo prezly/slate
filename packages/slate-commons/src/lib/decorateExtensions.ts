@@ -2,7 +2,7 @@ import type { NodeEntry, Range } from 'slate';
 
 import type { Decorate, Extension } from '../types';
 
-function decorateExtensions(extensions: Extension[], decorateList: Decorate[]) {
+export function decorateExtensions(extensions: Extension[], decorateList: Decorate[]) {
     return (entry: NodeEntry) => {
         let ranges: Range[] = [];
 
@@ -25,5 +25,3 @@ function decorateExtensions(extensions: Extension[], decorateList: Decorate[]) {
         return ranges;
     };
 }
-
-export default decorateExtensions;

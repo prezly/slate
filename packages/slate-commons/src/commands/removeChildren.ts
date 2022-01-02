@@ -6,7 +6,7 @@ import { Editor, Element, Text, Transforms } from 'slate';
  * Returns `true` when removal occurred.
  * Returns `false` when nothing changed.
  */
-function removeChildren(editor: Editor, [node, path]: NodeEntry): boolean {
+export function removeChildren(editor: Editor, [node, path]: NodeEntry): boolean {
     if (!Element.isElement(node)) {
         return false;
     }
@@ -30,5 +30,3 @@ function removeChildren(editor: Editor, [node, path]: NodeEntry): boolean {
 
     return true;
 }
-
-export default removeChildren;

@@ -94,7 +94,7 @@ declare global {
     }
 }
 
-const jsx = createHyperscript({
+export const jsx = createHyperscript({
     elements: {
         'h-element-with-no-type': {},
         'h-inline-element': { type: INLINE_ELEMENT },
@@ -107,4 +107,3 @@ const jsx = createHyperscript({
     },
 });
 
-export default jsx;

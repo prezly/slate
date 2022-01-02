@@ -27,7 +27,7 @@ const fileList: FileList = {
     length: 0,
 };
 
-function createDataTransfer(dataMap: Partial<Record<DataType, string>>): DataTransfer {
+export function createDataTransfer(dataMap: Partial<Record<DataType, string>>): DataTransfer {
     return {
         clearData: noop,
         dropEffect: 'none',
@@ -41,4 +41,3 @@ function createDataTransfer(dataMap: Partial<Record<DataType, string>>): DataTra
     };
 }
 
-export default createDataTransfer;

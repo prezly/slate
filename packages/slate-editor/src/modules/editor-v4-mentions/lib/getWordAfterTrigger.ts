@@ -1,7 +1,7 @@
 import type { Point, Range } from 'slate';
 import { Editor } from 'slate';
 
-import getText from './getText';
+import { getText } from './getText';
 
 function escapeRegExp(text: string) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\\s]/g, '\\$&');
@@ -60,7 +60,7 @@ function getMatchingTextRange(
     return Editor.range(editor, triggerPoint, at);
 }
 
-function getWordAfterTrigger(
+export function getWordAfterTrigger(
     editor: Editor,
     { at, trigger }: { at: Point; trigger: string },
 ): Result | null {
@@ -104,5 +104,3 @@ function getWordAfterTrigger(
         text,
     };
 }
-
-export default getWordAfterTrigger;

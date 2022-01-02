@@ -11,7 +11,7 @@ interface Options<T extends string> {
     type: T;
 }
 
-function MentionsExtension<T extends string>({
+export function MentionsExtension<T extends string>({
     id,
     normalizers,
     parseSerializedElement,
@@ -31,5 +31,3 @@ function MentionsExtension<T extends string>({
         voidTypes: [type],
     };
 }
-
-export default MentionsExtension;

@@ -2,7 +2,7 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
 import getCurrentHref from './getCurrentHref';
 

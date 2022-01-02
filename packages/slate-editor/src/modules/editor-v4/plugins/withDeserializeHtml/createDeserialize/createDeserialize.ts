@@ -3,9 +3,9 @@ import { isGoogleDocsWrapper } from '@prezly/slate-commons';
 import { jsx } from '@prezly/slate-hyperscript';
 import type { Descendant, Element } from 'slate';
 
-import deserializeHtmlToElement from './deserializeHtmlToElement';
-import deserializeHtmlToMarks from './deserializeHtmlToMarks';
-import deserializeText from './deserializeText';
+import { deserializeHtmlToElement } from './deserializeHtmlToElement';
+import { deserializeHtmlToMarks } from './deserializeHtmlToMarks';
+import { deserializeText } from './deserializeText';
 
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
@@ -40,10 +40,8 @@ function deserializeNode(extensions: Extension[], onError: (error: unknown) => v
     };
 }
 
-function createDeserialize(extensions: Extension[], onError: (error: unknown) => void) {
+export function createDeserialize(extensions: Extension[], onError: (error: unknown) => void) {
     return (node: HTMLElement): Descendant[] => {
         return deserializeNode(extensions, onError)(node) as Descendant[];
     };
 }
-
-export default createDeserialize;

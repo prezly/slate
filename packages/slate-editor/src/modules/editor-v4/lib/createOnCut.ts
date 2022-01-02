@@ -1,7 +1,7 @@
 import { Editor, Range, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-function createOnCut(editor: Editor) {
+export function createOnCut(editor: Editor) {
     return function (event: React.ClipboardEvent<HTMLDivElement>): void {
         event.preventDefault();
 
@@ -37,4 +37,3 @@ function createOnCut(editor: Editor) {
     };
 }
 
-export default createOnCut;

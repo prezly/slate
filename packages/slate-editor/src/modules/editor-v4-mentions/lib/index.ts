@@ -1,3 +1,3 @@
-export { default as getWordAfterTrigger } from './getWordAfterTrigger';
-export { default as insertMention } from './insertMention';
-export { default as isPointAtWordEnd } from './isPointAtWordEnd';
+export { getWordAfterTrigger } from './getWordAfterTrigger';
+export { insertMention } from './insertMention';
+export { isPointAtWordEnd } from './isPointAtWordEnd';

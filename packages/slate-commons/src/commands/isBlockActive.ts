@@ -3,7 +3,7 @@ import { isElementNode } from '@prezly/slate-types';
 import type { Location } from 'slate';
 import { Editor } from 'slate';
 
-function isBlockActive(editor: Editor, type: ElementNode['type'], at?: Location): boolean {
+export function isBlockActive(editor: Editor, type: ElementNode['type'], at?: Location): boolean {
     const [match] = Array.from(
         Editor.nodes(editor, {
             match: (node) => isElementNode(node, type),
@@ -12,5 +12,3 @@ function isBlockActive(editor: Editor, type: ElementNode['type'], at?: Location)
     );
     return Boolean(match);
 }
-
-export default isBlockActive;

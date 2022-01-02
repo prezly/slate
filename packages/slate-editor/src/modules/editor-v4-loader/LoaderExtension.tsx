@@ -7,7 +7,7 @@ import { LOADER_EXTENSION_ID, LOADER_TYPE } from './constants';
 import { isLoaderElement, normalizeRedundantLoaderAttributes } from './lib';
 import type { LoaderParameters } from './types';
 
-const LoaderExtension = ({ onOperationEnd, onOperationStart }: LoaderParameters): Extension => ({
+export const LoaderExtension = ({ onOperationEnd, onOperationStart }: LoaderParameters): Extension => ({
     id: LOADER_EXTENSION_ID,
     normalizers: [normalizeRedundantLoaderAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
@@ -29,5 +29,3 @@ const LoaderExtension = ({ onOperationEnd, onOperationStart }: LoaderParameters)
     rootTypes: [LOADER_TYPE],
     voidTypes: [LOADER_TYPE],
 });
-
-export default LoaderExtension;

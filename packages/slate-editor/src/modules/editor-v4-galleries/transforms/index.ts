@@ -1,2 +1,2 @@
-export { default as removeGallery } from './removeGallery';
-export { default as updateGallery } from './updateGallery';
+export { removeGallery } from './removeGallery';
+export { updateGallery } from './updateGallery';

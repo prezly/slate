@@ -7,7 +7,7 @@ interface Props {
     icon: string;
 }
 
-const SocialField: FunctionComponent<Props> = ({ children, icon }) => (
+export const SocialField: FunctionComponent<Props> = ({ children, icon }) => (
     <li className="editor-v4-press-contact-element__social-field">
         <i className={classNames('editor-v4-press-contact-element__social-icon', 'icon', icon)} />
 
@@ -15,4 +15,3 @@ const SocialField: FunctionComponent<Props> = ({ children, icon }) => (
     </li>
 );
 
-export default SocialField;

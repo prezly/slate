@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isMentionNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-import createUserMention from './createUserMention';
+import { createUserMention } from './createUserMention';
 
 const ALLOWED_ATTRIBUTES = Object.keys(
     createUserMention({
@@ -12,7 +12,7 @@ const ALLOWED_ATTRIBUTES = Object.keys(
     }),
 );
 
-function normalizeRedundantUserMentionAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantUserMentionAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
     if (!isMentionNode(node)) {
         return false;
     }
@@ -20,4 +20,3 @@ function normalizeRedundantUserMentionAttributes(editor: Editor, [node, path]: N
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
 }
 
-export default normalizeRedundantUserMentionAttributes;

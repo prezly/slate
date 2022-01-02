@@ -18,7 +18,7 @@ interface Cell<Image extends BaseImage> {
 
 type Layout<Image extends BaseImage> = Cell<Image>[][];
 
-function calculateLayout<Image extends BaseImage>({
+export function calculateLayout<Image extends BaseImage>({
     idealHeight,
     images,
     viewportWidth,
@@ -59,5 +59,3 @@ function calculateLayout<Image extends BaseImage>({
 
     return computedRows;
 }
-
-export default calculateLayout;

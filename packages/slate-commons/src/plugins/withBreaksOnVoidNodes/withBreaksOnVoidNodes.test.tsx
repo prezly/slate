@@ -2,7 +2,7 @@
 
 import { Editor } from 'slate';
 
-import jsx from '../../jsx';
+import { jsx } from '../../jsx';
 import { createEditor as createCommonEditor } from '../../test-utils';
 
 import withBreaksOnVoidNodes from './withBreaksOnVoidNodes';

@@ -49,7 +49,7 @@ function createReadableStream(response: Response, onProgress: (progress: number)
 /**
  * Based on https://github.com/AnthumChris/fetch-progress-indicators/blob/3fd300c/fetch-basic/supported-browser.js
  */
-function createFetchImageProgressPromise(src: string): ProgressPromise<string, number> {
+export function createFetchImageProgressPromise(src: string): ProgressPromise<string, number> {
     return new ProgressPromise((resolve, reject, progress) => {
         fetch(src)
             .then((response) => {
@@ -72,5 +72,3 @@ function createFetchImageProgressPromise(src: string): ProgressPromise<string, n
             });
     });
 }
-
-export default createFetchImageProgressPromise;

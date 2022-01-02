@@ -50,7 +50,7 @@ function canPasteFiles(extensions: Extension[], data: DataTransfer): boolean {
     });
 }
 
-function withFilePasting(getExtensions: () => Extension[]) {
+export function withFilePasting(getExtensions: () => Extension[]) {
     return function <T extends Editor>(editor: T): T {
         const { insertData } = editor;
 
@@ -128,5 +128,3 @@ function withFilePasting(getExtensions: () => Extension[]) {
         return editor;
     };
 }
-
-export default withFilePasting;

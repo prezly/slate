@@ -1,7 +1,7 @@
 import type { MentionNode } from '@prezly/slate-types';
 import { MENTION_NODE_TYPE } from '@prezly/slate-types';
 
-function createUserMention(user: MentionNode['user']): MentionNode {
+export function createUserMention(user: MentionNode['user']): MentionNode {
     return {
         children: [{ text: '' }],
         type: MENTION_NODE_TYPE,
@@ -9,4 +9,3 @@ function createUserMention(user: MentionNode['user']): MentionNode {
     };
 }
 
-export default createUserMention;

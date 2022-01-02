@@ -10,9 +10,9 @@ import { useSelected, useSlate } from 'slate-react';
 
 import { useSize } from '#lib';
 
-import Gallery from './Gallery';
+import { Gallery } from './Gallery';
 import './GalleryElement.scss';
-import GalleryTooltip from './GalleryTooltip';
+import { GalleryTooltip } from './GalleryTooltip';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -21,7 +21,7 @@ interface Props extends RenderElementProps {
     onEdit: (editor: Editor) => void;
 }
 
-const GalleryElement: FunctionComponent<Props> = ({
+export const GalleryElement: FunctionComponent<Props> = ({
     attributes,
     availableWidth,
     children,
@@ -74,5 +74,3 @@ const GalleryElement: FunctionComponent<Props> = ({
         </div>
     );
 };
-
-export default GalleryElement;

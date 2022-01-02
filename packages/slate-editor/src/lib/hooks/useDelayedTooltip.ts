@@ -17,7 +17,7 @@ interface Actions {
     onShow: () => void;
 }
 
-function useDelayedTooltip(parameters: Parameters = {}): [State, Actions] {
+export function useDelayedTooltip(parameters: Parameters = {}): [State, Actions] {
     const { defaultShow = false, hideDelay = 0, showDelay = 0 } = parameters;
     const hideTimeoutRef = useRef<number>();
     const showTimeoutRef = useRef<number>();
@@ -51,5 +51,3 @@ function useDelayedTooltip(parameters: Parameters = {}): [State, Actions] {
 
     return [{ show }, { onHide, onShow }];
 }
-
-export default useDelayedTooltip;

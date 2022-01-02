@@ -3,16 +3,16 @@ import { Element, Node, Text, Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import createListItem from './createListItem';
-import createListItemText from './createListItemText';
-import isList from './isList';
-import isListItem from './isListItem';
-import isListItemText from './isListItemText';
+import { createListItem } from './createListItem';
+import { createListItemText } from './createListItemText';
+import { isList } from './isList';
+import { isListItem } from './isListItem';
+import { isListItemText } from './isListItemText';
 
 /**
  * A "list-item" can have a single "list-item-text" and optionally an extra "list" as a child.
  */
-function normalizeListItemChildren(
+export function normalizeListItemChildren(
     options: ListsOptions,
     editor: Editor,
     [node, path]: NodeEntry<Node>,
@@ -77,4 +77,3 @@ function normalizeListItemChildren(
     return false;
 }
 
-export default normalizeListItemChildren;

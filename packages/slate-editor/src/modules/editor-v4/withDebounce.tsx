@@ -76,7 +76,7 @@ class DebouncedEditorV4 extends Component<Props, State> {
     }
 }
 
-function withDebounce(EditorV4Component: ComponentType<EditorV4Props>) {
+export function withDebounce(EditorV4Component: ComponentType<EditorV4Props>) {
     const WithDebounce: FunctionComponent<EditorV4Props> = (props: EditorV4Props) => (
         <DebouncedEditorV4 EditorV4Component={EditorV4Component} {...props} />
     );
@@ -86,5 +86,3 @@ function withDebounce(EditorV4Component: ComponentType<EditorV4Props>) {
 
     return WithDebounce;
 }
-
-export default withDebounce;

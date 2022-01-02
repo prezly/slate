@@ -1,9 +1,9 @@
 /** @jsx jsx */
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { createListsEditor, options } from '../test-utils';
 
-import getListItemsInRange from './getListItemsInRange';
+import { getListItemsInRange } from './getListItemsInRange';
 
 describe('getListItemsInRange', () => {
     it('Returns an empty array when there is no selection', () => {

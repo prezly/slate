@@ -64,7 +64,7 @@ function ensureCursorInView(
     });
 }
 
-function useCursorInView(
+export function useCursorInView(
     editor: Editor,
     withCursorInView: EditorV4Props['withCursorInView'],
 ): void {
@@ -80,4 +80,3 @@ function useCursorInView(
     }, [editor, editor.selection, memoizedWithCursorInView]);
 }
 
-export default useCursorInView;

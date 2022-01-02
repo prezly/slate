@@ -5,20 +5,20 @@ import type { RenderElementProps } from 'slate-react';
 import type { RichTextElementType } from '../types';
 import { ElementType } from '../types';
 
-import BlockQuoteElement from './BlockQuoteElement';
-import BulletedListElement from './BulletedListElement';
-import HeadingOneElement from './HeadingOneElement';
-import HeadingTwoElement from './HeadingTwoElement';
-import ListItemElement from './ListItemElement';
-import ListItemTextElement from './ListItemTextElement';
-import NumberedListElement from './NumberedListElement';
+import { BlockQuoteElement } from './BlockQuoteElement';
+import { BulletedListElement } from './BulletedListElement';
+import { HeadingOneElement } from './HeadingOneElement';
+import { HeadingTwoElement } from './HeadingTwoElement';
+import { ListItemElement } from './ListItemElement';
+import { ListItemTextElement } from './ListItemTextElement';
+import { NumberedListElement } from './NumberedListElement';
 
 interface Props extends HTMLAttributes<HTMLElement> {
     attributes?: RenderElementProps['attributes'];
     element: RichTextElementType;
 }
 
-const RichTextElement: FunctionComponent<Props> = ({ attributes, children, element, ...props }) => {
+export const RichTextElement: FunctionComponent<Props> = ({ attributes, children, element, ...props }) => {
     switch (element.type) {
         case ElementType.BLOCK_QUOTE:
             return (
@@ -67,4 +67,3 @@ const RichTextElement: FunctionComponent<Props> = ({ attributes, children, eleme
     }
 };
 
-export default RichTextElement;

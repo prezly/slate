@@ -6,9 +6,9 @@ import type { Editor } from 'slate';
 
 import { options } from '../lists';
 
-import isRichTextBlockElement from './isRichTextBlockElement';
+import { isRichTextBlockElement } from './isRichTextBlockElement';
 
-function withResetRichFormattingOnBreak<T extends Editor>(editor: T): T {
+export function withResetRichFormattingOnBreak<T extends Editor>(editor: T): T {
     const { insertBreak } = editor;
 
     editor.insertBreak = () => {
@@ -34,4 +34,3 @@ function withResetRichFormattingOnBreak<T extends Editor>(editor: T): T {
     return editor;
 }
 
-export default withResetRichFormattingOnBreak;

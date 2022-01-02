@@ -2,9 +2,9 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import isNodeEmpty from './isNodeEmpty';
+import { isNodeEmpty } from './isNodeEmpty';
 
 describe('isNodeEmpty', () => {
     const editor = (

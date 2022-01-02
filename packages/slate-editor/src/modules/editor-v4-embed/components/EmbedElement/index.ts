@@ -1,1 +1,1 @@
-export { default } from './EmbedElement';
+export { EmbedElement } from './EmbedElement';

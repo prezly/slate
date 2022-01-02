@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLQuoteElement> {
     element: RichTextElementType;
 }
 
-const BlockQuoteElement: FunctionComponent<Props> = ({
+export const BlockQuoteElement: FunctionComponent<Props> = ({
     attributes,
     children,
     className,
@@ -31,4 +31,3 @@ const BlockQuoteElement: FunctionComponent<Props> = ({
     </blockquote>
 );
 
-export default BlockQuoteElement;

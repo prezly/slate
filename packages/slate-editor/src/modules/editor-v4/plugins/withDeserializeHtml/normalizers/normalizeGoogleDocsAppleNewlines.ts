@@ -15,7 +15,7 @@ function normalizeGoogleDocsAppleNewline(document: Document): boolean {
     return true;
 }
 
-function normalizeGoogleDocsAppleNewlines(document: Document): Document {
+export function normalizeGoogleDocsAppleNewlines(document: Document): Document {
     const [firstChild] = document.body.childNodes;
 
     if (!firstChild || !(firstChild instanceof HTMLElement) || !isGoogleDocsWrapper(firstChild)) {
@@ -26,4 +26,3 @@ function normalizeGoogleDocsAppleNewlines(document: Document): Document {
     return document;
 }
 
-export default normalizeGoogleDocsAppleNewlines;

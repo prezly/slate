@@ -29,7 +29,7 @@ function trackSearchUsed(editor: Editor) {
     return EventsEditor.dispatchEvent(editor, 'contact-dialog-search-used');
 }
 
-const FloatingPressContactsMenu: FunctionComponent<Props> = ({
+export const FloatingPressContactsMenu: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     newsroomSettingsUrl,
@@ -72,4 +72,3 @@ const FloatingPressContactsMenu: FunctionComponent<Props> = ({
     );
 };
 
-export default FloatingPressContactsMenu;

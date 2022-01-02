@@ -19,7 +19,7 @@ interface Props {
     onChange: (layout: ImageLayout) => void;
 }
 
-const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
+export const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
     <>
         <Menu.ButtonGroup visibility={Theme.DARK}>
             <Menu.Button
@@ -70,5 +70,3 @@ const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
         </Menu.ButtonGroup>
     </>
 );
-
-export default LayoutControls;

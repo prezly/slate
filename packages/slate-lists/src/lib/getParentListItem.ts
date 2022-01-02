@@ -4,13 +4,13 @@ import { Editor } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import isListItem from './isListItem';
+import { isListItem } from './isListItem';
 
 /**
  * Returns parent "list-item" node of "list-item" at a given path.
  * Returns null if there is no parent "list-item".
  */
-function getParentListItem(
+export function getParentListItem(
     options: ListsOptions,
     editor: Editor,
     listItemPath: Path,
@@ -27,4 +27,3 @@ function getParentListItem(
     return null;
 }
 
-export default getParentListItem;

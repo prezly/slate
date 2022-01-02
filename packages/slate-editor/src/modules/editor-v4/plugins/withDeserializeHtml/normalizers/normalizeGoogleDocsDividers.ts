@@ -29,7 +29,7 @@ function normalizeGoogleDocsDivider(document: Document): boolean {
     return false;
 }
 
-function normalizeGoogleDocsDividers(document: Document): Document {
+export function normalizeGoogleDocsDividers(document: Document): Document {
     const firstChild = document.body.childNodes[0];
 
     if (!firstChild || !(firstChild instanceof HTMLElement) || !isGoogleDocsWrapper(firstChild)) {
@@ -40,4 +40,3 @@ function normalizeGoogleDocsDividers(document: Document): Document {
     return document;
 }
 
-export default normalizeGoogleDocsDividers;

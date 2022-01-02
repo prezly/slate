@@ -11,7 +11,7 @@ interface Parameters {
     history: ChangeEvent[];
 }
 
-function extrapolateProgress({ current, elapsed, estimatedDuration, history }: Parameters): number {
+export function extrapolateProgress({ current, elapsed, estimatedDuration, history }: Parameters): number {
     const progressRemaining = 1 - current.progress;
 
     if (history.length <= 1) {
@@ -35,5 +35,3 @@ function extrapolateProgress({ current, elapsed, estimatedDuration, history }: P
 
     return Math.min(Math.max(extrapolatedProgress, current.progress), 1);
 }
-
-export default extrapolateProgress;

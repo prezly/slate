@@ -10,7 +10,7 @@ import { Delete, Edit, Link } from '../../../icons';
 import { LinkMenu } from '../../../modules/editor-v4-components';
 import { removeImage, setImageHref, setLayout } from '../transforms';
 
-import LayoutControls from './LayoutControls';
+import { LayoutControls } from './LayoutControls';
 
 interface Props {
     containerRef: RefObject<HTMLElement>;
@@ -24,7 +24,7 @@ interface Props {
     showLayoutControls?: boolean;
 }
 
-const ImageMenu: FunctionComponent<Props> = ({
+export const ImageMenu: FunctionComponent<Props> = ({
     containerRef,
     element,
     href,
@@ -133,5 +133,3 @@ const ImageMenu: FunctionComponent<Props> = ({
         </Menu.FloatingMenu>
     );
 };
-
-export default ImageMenu;

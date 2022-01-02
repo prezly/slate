@@ -8,9 +8,7 @@
  Cannot be less than or equal to 0.
  * @returns progress - a value in range [0, 1]
  */
-function estimateProgress(elapsed: number, estimatedDuration: number, smoothing = 1): number {
+export function estimateProgress(elapsed: number, estimatedDuration: number, smoothing = 1): number {
     const halfwayThreshold = estimatedDuration / 2;
     return ((2 / Math.PI) * Math.atan(elapsed / halfwayThreshold)) ** smoothing;
 }
-
-export default estimateProgress;

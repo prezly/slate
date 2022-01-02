@@ -9,7 +9,7 @@ interface Props {
     style?: CSSProperties;
 }
 
-const Head: FunctionComponent<Props> = ({ className, color, height, width, style }) => (
+export const Head: FunctionComponent<Props> = ({ className, color, height, width, style }) => (
     <svg
         className={className}
         height={height}
@@ -21,5 +21,3 @@ const Head: FunctionComponent<Props> = ({ className, color, height, width, style
         <circle cx="16" cy="3" fill={color} r="3" />
     </svg>
 );
-
-export default Head;

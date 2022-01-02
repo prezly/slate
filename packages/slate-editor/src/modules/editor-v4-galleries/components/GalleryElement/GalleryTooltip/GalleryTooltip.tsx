@@ -13,7 +13,7 @@ interface Props {
     onClick: (event: MouseEvent<Button>) => void;
 }
 
-const GalleryTooltip: FunctionComponent<Props> = ({ containerRef, element, onClick }) => (
+export const GalleryTooltip: FunctionComponent<Props> = ({ containerRef, element, onClick }) => (
     <Menu.FloatingMenu
         className="gallery-tooltip"
         containerRef={containerRef}
@@ -28,5 +28,3 @@ const GalleryTooltip: FunctionComponent<Props> = ({ containerRef, element, onCli
         .
     </Menu.FloatingMenu>
 );
-
-export default GalleryTooltip;

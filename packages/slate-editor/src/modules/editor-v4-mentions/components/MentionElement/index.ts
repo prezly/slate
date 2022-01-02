@@ -1,1 +1,1 @@
-export { default } from './MentionElement';
+export { MentionElement } from './MentionElement';

@@ -3,7 +3,7 @@
 import type { Editor } from 'slate';
 import { Range } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
 import isPointAtWordEnd from './isPointAtWordEnd';
 

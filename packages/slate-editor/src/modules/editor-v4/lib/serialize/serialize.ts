@@ -4,9 +4,9 @@ import { createEditor } from 'slate';
 import type { Value } from '../../types';
 
 import type { Transform } from './types';
-import withoutImageCandidates from './withoutImageCandidates';
-import withoutLinkCandidates from './withoutLinkCandidates';
-import withoutLoaderBlocks from './withoutLoaderBlocks';
+import { withoutImageCandidates } from './withoutImageCandidates';
+import { withoutLinkCandidates } from './withoutLinkCandidates';
+import { withoutLoaderBlocks } from './withoutLoaderBlocks';
 
 const transforms: Transform[] = [
     withoutLinkCandidates,

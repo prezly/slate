@@ -1,7 +1,7 @@
 import type { ContactNode, PressContact } from '@prezly/slate-types';
 import { CONTACT_NODE_TYPE } from '@prezly/slate-types';
 
-function createPressContact(contact: PressContact): ContactNode {
+export function createPressContact(contact: PressContact): ContactNode {
     return {
         children: [{ text: '' }],
         contact,
@@ -9,5 +9,3 @@ function createPressContact(contact: PressContact): ContactNode {
         uuid: contact.uuid,
     };
 }
-
-export default createPressContact;

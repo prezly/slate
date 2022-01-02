@@ -1,7 +1,7 @@
 import type { Range } from 'slate';
 import { Editor } from 'slate';
 
-function getEditorRange(editor: Editor): Range | undefined {
+export function getEditorRange(editor: Editor): Range | undefined {
     // editor.children can sometimes be undefined, even though TypeScript says otherwise
     if (!editor.children || editor.children.length === 0) {
         return undefined;
@@ -12,5 +12,3 @@ function getEditorRange(editor: Editor): Range | undefined {
         focus: Editor.end(editor, [editor.children.length - 1]),
     };
 }
-
-export default getEditorRange;

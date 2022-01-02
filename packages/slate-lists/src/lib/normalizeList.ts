@@ -5,13 +5,13 @@ import { Editor, Element, Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import isList from './isList';
+import { isList } from './isList';
 
 /**
  * A "list" can have no parent (be at the root) or have a "list-item" parent (nested list).
  * In any other case we will try to unwrap it, or lift it up.
  */
-function normalizeList(
+export function normalizeList(
     options: ListsOptions,
     editor: Editor,
     [node, path]: NodeEntry<Node>,
@@ -51,4 +51,3 @@ function normalizeList(
     return true;
 }
 
-export default normalizeList;

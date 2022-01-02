@@ -1,2 +1,2 @@
-export { default as createHandleAddGallery } from './createHandleAddGallery';
-export { default as createHandleEditGallery } from './createHandleEditGallery';
+export { createHandleAddGallery } from './createHandleAddGallery';
+export { createHandleEditGallery } from './createHandleEditGallery';

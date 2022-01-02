@@ -3,9 +3,9 @@ import type { Editor, Path } from 'slate';
 
 import type { LoaderNode } from '../types';
 
-import isLoaderElement from './isLoaderElement';
+import { isLoaderElement } from './isLoaderElement';
 
-function findLoaderPath(editor: Editor, loaderId: LoaderNode['id']): Path | null {
+export function findLoaderPath(editor: Editor, loaderId: LoaderNode['id']): Path | null {
     const [nodeEntry] = EditorCommands.findDescendants(
         editor,
         (element) => isLoaderElement(element) && element.id === loaderId,
@@ -13,5 +13,3 @@ function findLoaderPath(editor: Editor, loaderId: LoaderNode['id']): Path | null
 
     return nodeEntry ? nodeEntry[1] : null;
 }
-
-export default findLoaderPath;

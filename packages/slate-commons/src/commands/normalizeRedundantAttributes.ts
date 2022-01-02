@@ -5,7 +5,7 @@ import { NODE_ID_MANAGER_ID_PROPERTY_NAME } from '../constants';
 
 const GLOBALLY_ALLOWED_ATTRIBUTES = [NODE_ID_MANAGER_ID_PROPERTY_NAME];
 
-function normalizeRedundantAttributes(
+export function normalizeRedundantAttributes(
     editor: Editor,
     [element, path]: ElementEntry,
     allowedAttributes: string[],
@@ -31,5 +31,3 @@ function normalizeRedundantAttributes(
 
     return true;
 }
-
-export default normalizeRedundantAttributes;

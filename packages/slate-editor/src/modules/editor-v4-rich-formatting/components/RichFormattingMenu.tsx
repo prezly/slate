@@ -32,7 +32,7 @@ interface Props {
     parameters: RichFormattingExtensionParameters;
 }
 
-const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters }) => {
+export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters }) => {
     const editor = useSlate();
 
     if (!HistoryEditor.isHistoryEditor(editor)) {
@@ -178,4 +178,3 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
     );
 };
 
-export default RichFormattingMenu;

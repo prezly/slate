@@ -47,7 +47,7 @@ const ESTIMATED_DURATIONS: Record<LoaderContentType, number> = {
     video: 500,
 };
 
-const LoaderElement: FunctionComponent<Props> = ({
+export const LoaderElement: FunctionComponent<Props> = ({
     attributes,
     children,
     element,
@@ -95,5 +95,3 @@ const LoaderElement: FunctionComponent<Props> = ({
         </div>
     );
 };
-
-export default LoaderElement;

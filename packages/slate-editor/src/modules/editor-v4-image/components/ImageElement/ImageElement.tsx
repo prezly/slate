@@ -14,8 +14,8 @@ import { useToolbarsTheme } from '#modules/themes';
 import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';
 import { Image as ImageIcon } from '../../../../icons';
 import { LinkWithTooltip } from '../../../../modules/editor-v4-components';
-import ImageMenu from '../ImageMenu';
-import ResizableContainer from '../ResizableContainer';
+import { ImageMenu } from '../ImageMenu';
+import { ResizableContainer } from '../ResizableContainer';
 
 import './ImageElement.scss';
 
@@ -44,7 +44,7 @@ const getImageAvailableWidth = ({
     return availableWidth;
 };
 
-const ImageElement: FunctionComponent<Props> = ({
+export const ImageElement: FunctionComponent<Props> = ({
     attributes,
     availableWidth,
     children,
@@ -194,5 +194,3 @@ const ImageElement: FunctionComponent<Props> = ({
         </>
     );
 };
-
-export default ImageElement;

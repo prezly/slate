@@ -245,4 +245,3 @@ export const coverage = {
     edited_at: '2021-02-04T18:15:24+00:00',
 } as unknown as Coverage;
 
-export default coverage;

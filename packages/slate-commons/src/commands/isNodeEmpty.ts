@@ -1,7 +1,7 @@
 import type { Node } from 'slate';
 import { Editor, Text } from 'slate';
 
-function isNodeEmpty(editor: Editor, node: Node): boolean {
+export function isNodeEmpty(editor: Editor, node: Node): boolean {
     if (Text.isText(node)) {
         return node.text.length === 0;
     }
@@ -14,5 +14,3 @@ function isNodeEmpty(editor: Editor, node: Node): boolean {
 
     return Editor.isEmpty(editor, node);
 }
-
-export default isNodeEmpty;

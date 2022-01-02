@@ -1,5 +1,5 @@
-import isHtmlElement from './isHtmlElement';
-import scrollTo from './scrollTo';
+import { isHtmlElement } from './isHtmlElement';
+import { scrollTo } from './scrollTo';
 
 const DEFAULT_SAFETY_MARGIN = 50;
 
@@ -27,7 +27,7 @@ function ensureInViewByIndex(parent: HTMLElement, childIndex: number, safetyMarg
     ensureInView(parent, child, safetyMargin);
 }
 
-export default function ensureChildInView(
+export function ensureChildInView(
     parent: HTMLElement | null,
     child: HTMLElement | null | number,
     safetyMargin: number = DEFAULT_SAFETY_MARGIN,

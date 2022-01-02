@@ -2,7 +2,7 @@ import type { Element } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-function createDefaultNode(options: ListsOptions): Element {
+export function createDefaultNode(options: ListsOptions): Element {
     return {
         children: [],
         // @prezly/slate-lists package should not assume what default block type is.
@@ -11,4 +11,3 @@ function createDefaultNode(options: ListsOptions): Element {
     };
 }
 
-export default createDefaultNode;

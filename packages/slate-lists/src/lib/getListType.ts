@@ -5,7 +5,7 @@ import type { ListsOptions } from '../types';
 /**
  * Returns the "type" of a given list node.
  */
-function getListType(options: ListsOptions, node: unknown): string {
+export function getListType(options: ListsOptions, node: unknown): string {
     if (Element.isElement(node)) {
         return node.type;
     }
@@ -14,4 +14,3 @@ function getListType(options: ListsOptions, node: unknown): string {
     return options.listTypes[0];
 }
 
-export default getListType;

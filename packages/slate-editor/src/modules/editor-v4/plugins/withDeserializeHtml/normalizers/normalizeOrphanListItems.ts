@@ -8,7 +8,7 @@ function isListItem(element: Element): boolean {
     return element instanceof HTMLElement && element.dataset.slateType === ElementType.LIST_ITEM;
 }
 
-function normalizeOrphanListItems(document: Document): Document {
+export function normalizeOrphanListItems(document: Document): Document {
     const { body } = document;
 
     for (const child of body.children) {
@@ -24,4 +24,3 @@ function normalizeOrphanListItems(document: Document): Document {
     return document;
 }
 
-export default normalizeOrphanListItems;

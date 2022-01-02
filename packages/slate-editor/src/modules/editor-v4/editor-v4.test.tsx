@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { Editor } from 'slate';
 
-import jsx from './jsx';
+import { jsx } from './jsx';
 import { createDataTransfer, insertDivider } from './lib';
 import { createEditor } from './test-utils';
 

@@ -13,11 +13,11 @@ import {
 import { LoaderContentType } from '../../../../modules/editor-v4-loader';
 import { UploadcareEditor } from '../../../../modules/editor-v4-uploadcare';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '../../../../modules/uploadcare';
-import insertUploadingFile from '../insertUploadingFile';
+import { insertUploadingFile } from '../insertUploadingFile';
 
-import getMediaGalleryParameters from './getMediaGalleryParameters';
+import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-function createHandleEditGallery(withGalleries: GalleriesExtensionParameters) {
+export function createHandleEditGallery(withGalleries: GalleriesExtensionParameters) {
     return async function (editor: Editor) {
         const galleryNodeEntry = getCurrentGalleryNodeEntry(editor);
 
@@ -79,4 +79,3 @@ function createHandleEditGallery(withGalleries: GalleriesExtensionParameters) {
     };
 }
 
-export default createHandleEditGallery;

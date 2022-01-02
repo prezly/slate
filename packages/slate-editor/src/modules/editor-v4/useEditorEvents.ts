@@ -6,7 +6,7 @@ import type { EditorEventHandlers, EditorEventMap } from '../../modules/editor-v
 
 import type { EditorRef } from './types';
 
-function useEditorEvents(
+export function useEditorEvents(
     editorRef: RefObject<EditorRef> | undefined,
     handlers: Partial<EditorEventHandlers>,
 ): void {
@@ -30,5 +30,3 @@ function useEditorEvents(
         };
     }, [events, handlers]);
 }
-
-export default useEditorEvents;

@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLUListElement> {
     element: RichTextElementType;
 }
 
-const BulletedListElement: FunctionComponent<Props> = ({
+export const BulletedListElement: FunctionComponent<Props> = ({
     attributes,
     children,
     className,
@@ -31,4 +31,3 @@ const BulletedListElement: FunctionComponent<Props> = ({
     </ul>
 );
 
-export default BulletedListElement;

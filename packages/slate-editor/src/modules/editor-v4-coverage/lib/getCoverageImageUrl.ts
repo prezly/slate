@@ -1,7 +1,7 @@
 import type { Coverage } from '@prezly/sdk';
 import { UploadcareImage } from '@prezly/uploadcare';
 
-function getCoverageImageUrl(coverage: Coverage, imageHeight: number): string | null {
+export function getCoverageImageUrl(coverage: Coverage, imageHeight: number): string | null {
     if (coverage.attachment_oembed && coverage.attachment_oembed.thumbnail_url) {
         return coverage.attachment_oembed.thumbnail_url;
     }
@@ -14,5 +14,3 @@ function getCoverageImageUrl(coverage: Coverage, imageHeight: number): string | 
 
     return null;
 }
-
-export default getCoverageImageUrl;

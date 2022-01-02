@@ -1,6 +1,6 @@
 import type { Rect } from 'rangefix';
 
-import scrollTo from './scrollTo';
+import { scrollTo } from './scrollTo';
 
 export interface Options {
     minBottom: number;
@@ -22,7 +22,7 @@ export interface Options {
  * `Element.prototype.scrollIntoView` works in X axis as well. Support for that can
  * be added too though, in case we need it in the future.
  */
-function scrollIntoView(
+export function scrollIntoView(
     parent: HTMLElement,
     rect: ClientRect | Rect,
     { minBottom, minTop, skipWhenDoesNotFitView = false }: Options,
@@ -52,5 +52,3 @@ function scrollIntoView(
         scrollTo(parent, parent.scrollLeft, y);
     }
 }
-
-export default scrollIntoView;
