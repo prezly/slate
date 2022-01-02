@@ -27,7 +27,9 @@ interface State {
     onKeyDownList: OnKeyDown[];
 }
 
-const DEFAULT_PLUGINS: Parameters['plugins'] = [];
+type NonUndefined<T> = T extends undefined ? never : T;
+
+const DEFAULT_PLUGINS: NonUndefined<Parameters['plugins']> = [];
 
 export function useCreateEditor({
     events,
