@@ -5,4 +5,3 @@ import type { RichTextElementType } from '../types';
 export function isRichTextBlockElement(node: unknown): node is RichTextElementType {
     return isParagraphNode(node) || isQuoteNode(node) || isListNode(node) || isHeadingNode(node);
 }
-

@@ -9,4 +9,3 @@ export function unwrapLink(editor: Editor, selection: Path | Range): void {
         split: true,
     });
 }
-

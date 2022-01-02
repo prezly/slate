@@ -50,4 +50,3 @@ export function useFloatingPressContactsMenu(editor: Editor): [State, Actions] {
 
     return [{ isOpen }, { close, open, rootClose, submit }];
 }
-

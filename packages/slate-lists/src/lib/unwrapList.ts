@@ -14,4 +14,3 @@ export function unwrapList(options: ListsOptions, editor: Editor): void {
         decreaseDepth(options, editor);
     }
 }
-

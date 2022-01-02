@@ -145,4 +145,3 @@ export function createDeserialize(parameters: RichFormattingExtensionParameters)
 
     return deserialize;
 }
-

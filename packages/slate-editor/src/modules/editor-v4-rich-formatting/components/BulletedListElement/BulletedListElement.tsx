@@ -30,4 +30,3 @@ export const BulletedListElement: FunctionComponent<Props> = ({
         {children}
     </ul>
 );
-

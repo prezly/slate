@@ -13,7 +13,12 @@ interface Props {
     title: string;
 }
 
-export const CloseButtonV2: FunctionComponent<Props> = ({ className, disabled, onClick, title }) => (
+export const CloseButtonV2: FunctionComponent<Props> = ({
+    className,
+    disabled,
+    onClick,
+    title,
+}) => (
     <button
         className={classNames('btn', 'btn-default', 'close-button', className)}
         disabled={disabled}

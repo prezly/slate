@@ -10,4 +10,3 @@ export function createDefaultNode(options: ListsOptions): Element {
         type: options.defaultBlockType as any,
     };
 }
-

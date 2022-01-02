@@ -29,4 +29,3 @@ export const ParagraphElement: FunctionComponent<Props> = ({
         {children}
     </p>
 );
-

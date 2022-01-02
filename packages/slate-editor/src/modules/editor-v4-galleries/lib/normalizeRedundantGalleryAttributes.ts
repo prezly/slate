@@ -6,7 +6,10 @@ import { createGallery } from './createGallery';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createGallery([]));
 
-export function normalizeRedundantGalleryAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantGalleryAttributes(
+    editor: Editor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isGalleryNode(node)) {
         return false;
     }

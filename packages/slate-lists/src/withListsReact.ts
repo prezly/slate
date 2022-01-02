@@ -19,4 +19,3 @@ export function withListsReact<T extends ReactEditor>(editor: T): T {
 
     return editor;
 }
-

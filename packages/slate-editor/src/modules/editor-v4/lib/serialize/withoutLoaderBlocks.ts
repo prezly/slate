@@ -9,4 +9,3 @@ export function withoutLoaderBlocks(editor: Editor): void {
         match: isLoaderElement,
     });
 }
-

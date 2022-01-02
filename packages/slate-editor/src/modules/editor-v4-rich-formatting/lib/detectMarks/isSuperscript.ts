@@ -7,4 +7,3 @@ export function isSuperscript(element: HTMLElement): boolean {
 
     return element.tagName === 'SUP';
 }
-

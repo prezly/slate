@@ -8,4 +8,3 @@ export function withUploadcare(uploads: Uploadcare) {
         return Object.defineProperty(editor, UPLOADCARE_PROPERTY, { value: uploads });
     };
 }
-

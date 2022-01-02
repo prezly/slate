@@ -90,4 +90,3 @@ export function normalizeListChildren(
 
     return normalized;
 }
-

@@ -36,4 +36,3 @@ export function createOnCut(editor: Editor) {
         }
     };
 }
-

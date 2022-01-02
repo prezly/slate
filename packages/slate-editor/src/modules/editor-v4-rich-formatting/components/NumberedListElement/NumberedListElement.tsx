@@ -30,4 +30,3 @@ export const NumberedListElement: FunctionComponent<Props> = ({
         {children}
     </ol>
 );
-

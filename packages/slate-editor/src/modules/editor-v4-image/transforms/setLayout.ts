@@ -6,4 +6,3 @@ import { Transforms } from 'slate';
 export function setLayout(editor: Editor, layout: ImageLayout) {
     return Transforms.setNodes(editor, { layout }, { match: isImageNode });
 }
-

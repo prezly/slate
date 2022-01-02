@@ -80,4 +80,3 @@ export function splitListItem(options: ListsOptions, editor: Editor): void {
         }
     });
 }
-

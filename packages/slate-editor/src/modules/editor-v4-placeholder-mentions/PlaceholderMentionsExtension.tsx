@@ -27,4 +27,3 @@ export const PlaceholderMentionsExtension = (): Extension =>
         },
         type: PLACEHOLDER_NODE_TYPE,
     });
-

@@ -7,4 +7,3 @@ export function isUnderline(element: HTMLElement): boolean {
 
     return element.tagName === 'U';
 }
-

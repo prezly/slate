@@ -6,11 +6,13 @@ import { createParagraph } from './createParagraph';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createParagraph());
 
-export function normalizeRedundantParagraphAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantParagraphAttributes(
+    editor: Editor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isParagraphNode(node)) {
         return false;
     }
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
 }
-

@@ -29,4 +29,3 @@ export function normalizeSiblingLists(
 
     return mergeListWithPreviousSiblingList(options, editor, nextSibling);
 }
-

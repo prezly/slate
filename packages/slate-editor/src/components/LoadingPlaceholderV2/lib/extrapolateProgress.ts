@@ -11,7 +11,12 @@ interface Parameters {
     history: ChangeEvent[];
 }
 
-export function extrapolateProgress({ current, elapsed, estimatedDuration, history }: Parameters): number {
+export function extrapolateProgress({
+    current,
+    elapsed,
+    estimatedDuration,
+    history,
+}: Parameters): number {
     const progressRemaining = 1 - current.progress;
 
     if (history.length <= 1) {

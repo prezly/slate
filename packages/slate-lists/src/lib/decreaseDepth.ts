@@ -36,4 +36,3 @@ export function decreaseDepth(options: ListsOptions, editor: Editor): void {
         decreaseListItemDepth(options, editor, listItemEntryPath);
     });
 }
-

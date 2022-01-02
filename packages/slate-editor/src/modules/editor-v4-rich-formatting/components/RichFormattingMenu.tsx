@@ -177,4 +177,3 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, par
         </CursorPortalV2>
     );
 };
-

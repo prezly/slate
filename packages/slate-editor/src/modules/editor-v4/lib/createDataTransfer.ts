@@ -40,4 +40,3 @@ export function createDataTransfer(dataMap: Partial<Record<DataType, string>>): 
         types: Object.keys(dataMap),
     };
 }
-

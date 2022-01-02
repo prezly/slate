@@ -6,7 +6,10 @@ import { createDivider } from './createDivider';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createDivider());
 
-export function normalizeRedundantDividerAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantDividerAttributes(
+    editor: Editor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isDividerNode(node)) {
         return false;
     }

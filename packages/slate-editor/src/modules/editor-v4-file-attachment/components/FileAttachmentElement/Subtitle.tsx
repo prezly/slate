@@ -12,7 +12,6 @@ interface Props {
 }
 
 export const Subtitle: FunctionComponent<Props> = ({ className, element }) => (
-
     <div className={classNames('editor-v4-file-attachment-element__subtitle', className)}>
         {isUsingCustomTitle(element) ? (
             <>

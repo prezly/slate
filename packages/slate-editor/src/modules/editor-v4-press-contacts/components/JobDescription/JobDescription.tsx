@@ -21,4 +21,3 @@ export const JobDescription: FunctionComponent<Props> = ({ className, contact })
         </div>
     );
 };
-

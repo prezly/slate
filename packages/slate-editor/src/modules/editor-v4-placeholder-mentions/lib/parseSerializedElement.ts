@@ -12,4 +12,3 @@ export function parseSerializedElement(serialized: string): PlaceholderNode | un
 
     return undefined;
 }
-

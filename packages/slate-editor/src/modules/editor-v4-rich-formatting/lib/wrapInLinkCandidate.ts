@@ -6,4 +6,3 @@ import { createLinkCandidate } from './createLinkCandidate';
 export function wrapInLinkCandidate(editor: Editor, at: Path | Range, id: string): void {
     return Transforms.wrapNodes(editor, createLinkCandidate(id), { at, split: true });
 }
-

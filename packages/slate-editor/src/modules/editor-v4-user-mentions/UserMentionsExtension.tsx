@@ -27,4 +27,3 @@ export const UserMentionsExtension = (): Extension =>
         },
         type: MENTION_NODE_TYPE,
     });
-

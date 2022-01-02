@@ -70,4 +70,3 @@ export function withDeserializeHtml(
         return editor;
     };
 }
-

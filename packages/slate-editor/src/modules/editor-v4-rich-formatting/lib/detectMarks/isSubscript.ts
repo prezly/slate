@@ -7,4 +7,3 @@ export function isSubscript(element: HTMLElement): boolean {
 
     return element.tagName === 'SUB';
 }
-

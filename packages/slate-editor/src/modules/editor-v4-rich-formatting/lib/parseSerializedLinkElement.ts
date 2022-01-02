@@ -12,4 +12,3 @@ export function parseSerializedLinkElement(serialized: string): LinkNode | undef
 
     return undefined;
 }
-

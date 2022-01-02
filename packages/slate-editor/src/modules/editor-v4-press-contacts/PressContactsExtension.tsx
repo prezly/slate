@@ -39,4 +39,3 @@ export const PressContactsExtension = ({ containerRef }: PressContactsParameters
     rootTypes: [CONTACT_NODE_TYPE],
     voidTypes: [CONTACT_NODE_TYPE],
 });
-

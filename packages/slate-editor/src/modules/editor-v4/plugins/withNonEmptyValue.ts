@@ -19,4 +19,3 @@ export function withNonEmptyValue<T extends Editor>(editor: T) {
 
     return editor;
 }
-

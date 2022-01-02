@@ -16,4 +16,3 @@ export function createHyperscript(
         elements: options.elements,
     });
 }
-

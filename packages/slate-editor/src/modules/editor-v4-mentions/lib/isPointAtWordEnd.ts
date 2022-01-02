@@ -20,4 +20,3 @@ export function isPointAtWordEnd(editor: Editor, { at }: { at: Point }): boolean
     // Match regex on after text
     return AFTER_MATCH_REGEX.test(afterText);
 }
-

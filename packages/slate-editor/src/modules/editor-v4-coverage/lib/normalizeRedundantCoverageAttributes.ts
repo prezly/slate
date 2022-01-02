@@ -6,7 +6,10 @@ import { createCoverage } from './createCoverage';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createCoverage(0));
 
-export function normalizeRedundantCoverageAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantCoverageAttributes(
+    editor: Editor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isCoverageNode(node)) {
         return false;
     }

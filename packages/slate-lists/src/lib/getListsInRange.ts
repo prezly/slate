@@ -21,4 +21,3 @@ export function getListsInRange(
     // TypeScript complains about `null`s even though we filter for them, hence the typecast.
     return lists as NodeEntry<Element>[];
 }
-

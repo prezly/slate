@@ -25,4 +25,3 @@ export function normalizeGoogleDocsAppleNewlines(document: Document): Document {
     while (normalizeGoogleDocsAppleNewline(document));
     return document;
 }
-

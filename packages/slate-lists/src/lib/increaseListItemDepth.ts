@@ -12,7 +12,11 @@ import { isListItem } from './isListItem';
 /**
  * Increases nesting depth of "list-item" at a given Path.
  */
-export function increaseListItemDepth(options: ListsOptions, editor: Editor, listItemPath: Path): void {
+export function increaseListItemDepth(
+    options: ListsOptions,
+    editor: Editor,
+    listItemPath: Path,
+): void {
     const previousListItem = EditorCommands.getPreviousSibling(editor, listItemPath);
 
     if (!previousListItem) {
@@ -54,4 +58,3 @@ export function increaseListItemDepth(options: ListsOptions, editor: Editor, lis
         }
     });
 }
-

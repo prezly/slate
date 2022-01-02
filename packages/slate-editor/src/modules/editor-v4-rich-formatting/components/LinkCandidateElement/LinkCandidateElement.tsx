@@ -10,7 +10,11 @@ interface Props extends RenderElementProps {
     element: LinkCandidateNode;
 }
 
-export const LinkCandidateElement: FunctionComponent<Props> = ({ attributes, children, element }) => (
+export const LinkCandidateElement: FunctionComponent<Props> = ({
+    attributes,
+    children,
+    element,
+}) => (
     <span
         {...attributes}
         className="editor-v4-link-candidate-element"

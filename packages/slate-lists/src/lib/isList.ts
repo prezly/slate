@@ -9,4 +9,3 @@ import type { ListsOptions } from '../types';
 export function isList(options: ListsOptions, node: unknown): node is ElementNode {
     return isElementNode(node, options.listTypes);
 }
-

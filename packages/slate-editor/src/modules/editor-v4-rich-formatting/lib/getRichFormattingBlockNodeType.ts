@@ -42,4 +42,3 @@ export function getRichFormattingBlockNodeType(editor: Editor): BlockType | null
 
     return blockType as BlockType | null;
 }
-

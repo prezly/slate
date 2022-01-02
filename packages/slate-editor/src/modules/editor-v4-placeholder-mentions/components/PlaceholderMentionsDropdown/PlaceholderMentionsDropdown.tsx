@@ -28,4 +28,3 @@ export const PlaceholderMentionsDropdown: FunctionComponent<Props> = ({
         target={target}
     />
 );
-

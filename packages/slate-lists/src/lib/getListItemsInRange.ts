@@ -48,4 +48,3 @@ export function getListItemsInRange(
         return !rangeStartsAfter;
     }) as NodeEntry<Element>[];
 }
-

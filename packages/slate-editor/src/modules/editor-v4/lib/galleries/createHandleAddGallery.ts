@@ -13,7 +13,6 @@ import { insertUploadingFile } from '../insertUploadingFile';
 import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
 export function createHandleAddGallery(withGalleries: GalleriesExtensionParameters) {
-
     return async function (editor: Editor) {
         const filePromises = await UploadcareEditor.upload(editor, {
             ...getMediaGalleryParameters(withGalleries),

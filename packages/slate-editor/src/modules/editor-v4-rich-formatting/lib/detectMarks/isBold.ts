@@ -9,4 +9,3 @@ export function isBold(element: HTMLElement): boolean {
 
     return ['B', 'STRONG'].includes(element.tagName);
 }
-

@@ -10,4 +10,3 @@ export function createLink(href: string, children: Text[] = []): LinkNode {
         type: ElementType.LINK,
     };
 }
-

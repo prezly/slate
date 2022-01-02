@@ -20,4 +20,3 @@ export function normalizeSlackLineBreaks(document: Document): Document {
 
     return document;
 }
-

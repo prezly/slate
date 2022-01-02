@@ -79,4 +79,3 @@ export function useCursorInView(
         }
     }, [editor, editor.selection, memoizedWithCursorInView]);
 }
-

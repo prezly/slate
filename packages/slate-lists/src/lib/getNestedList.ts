@@ -30,4 +30,3 @@ export function getNestedList(
 
     return [nestedList, nestedListPath];
 }
-

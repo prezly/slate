@@ -30,4 +30,3 @@ export const HeadingTwoElement: FunctionComponent<Props> = ({
         {children}
     </h4>
 );
-

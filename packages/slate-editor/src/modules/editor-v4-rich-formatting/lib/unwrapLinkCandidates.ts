@@ -17,4 +17,3 @@ export function unwrapLinkCandidates(editor: Editor): void {
         split: true,
     });
 }
-

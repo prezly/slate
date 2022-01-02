@@ -44,4 +44,3 @@ export function increaseDepth(options: ListsOptions, editor: Editor): void {
         increaseListItemDepth(options, editor, listItemEntryPath);
     });
 }
-

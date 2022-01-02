@@ -27,4 +27,3 @@ export function deserializeText(extensions: Extension[]) {
         return result;
     };
 }
-

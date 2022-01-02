@@ -27,4 +27,3 @@ export function normalizeListItemTextChildren(
 
     return false;
 }
-

@@ -58,4 +58,3 @@ export function wrapInList(options: ListsOptions, editor: Editor, listType: stri
         });
     });
 }
-

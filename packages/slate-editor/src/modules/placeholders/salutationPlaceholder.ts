@@ -4,4 +4,3 @@ export const salutationPlaceholder: Placeholder = {
     key: 'contact.salutation',
     text: 'Salutation',
 };
-

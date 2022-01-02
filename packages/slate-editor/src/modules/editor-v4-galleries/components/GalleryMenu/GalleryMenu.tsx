@@ -35,7 +35,12 @@ interface Props {
     onEdit: (editor: Editor) => void;
 }
 
-export const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery, onEdit }) => {
+export const GalleryMenu: FunctionComponent<Props> = ({
+    containerRef,
+    element,
+    gallery,
+    onEdit,
+}) => {
     const editor = useSlate();
     const isSelected = useSelected();
     const [showLayoutMenu, setShowLayoutMenu] = useState<boolean>(false);

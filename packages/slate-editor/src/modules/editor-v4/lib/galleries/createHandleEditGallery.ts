@@ -78,4 +78,3 @@ export function createHandleEditGallery(withGalleries: GalleriesExtensionParamet
         });
     };
 }
-

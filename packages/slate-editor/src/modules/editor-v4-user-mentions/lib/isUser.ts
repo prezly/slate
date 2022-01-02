@@ -9,4 +9,3 @@ export function isUser(user: any): user is User {
         typeof user.name === 'string'
     );
 }
-

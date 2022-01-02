@@ -13,4 +13,3 @@ export function getMediaGalleryParameters(
 
     return { mediaGalleryTab: false };
 }
-

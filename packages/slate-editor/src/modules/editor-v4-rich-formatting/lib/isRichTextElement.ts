@@ -19,4 +19,3 @@ export function isRichTextElement(node: unknown): node is RichTextElementType {
         isHeadingNode(node)
     );
 }
-

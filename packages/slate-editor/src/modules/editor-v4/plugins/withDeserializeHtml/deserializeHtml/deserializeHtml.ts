@@ -36,4 +36,3 @@ export function deserializeHtml(
     const nodes = deserialize(normalizedDocument.body);
     return nodes;
 }
-

@@ -7,4 +7,3 @@ export function isItalic(element: HTMLElement): boolean {
 
     return ['EM', 'I'].includes(element.tagName);
 }
-

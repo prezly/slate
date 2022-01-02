@@ -13,4 +13,3 @@ export function getListType(options: ListsOptions, node: unknown): string {
     // It should never happen.
     return options.listTypes[0];
 }
-

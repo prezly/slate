@@ -71,4 +71,3 @@ export const FloatingPressContactsMenu: FunctionComponent<Props> = ({
         </FloatingContainer>
     );
 };
-

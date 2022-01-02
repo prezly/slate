@@ -6,4 +6,3 @@ export const storyPlaceholders: Placeholder[] = [
         text: 'Publication date',
     },
 ];
-

@@ -34,4 +34,3 @@ export function detectMarks(element: HTMLElement): Partial<Record<MarkType, true
 
     return marks;
 }
-

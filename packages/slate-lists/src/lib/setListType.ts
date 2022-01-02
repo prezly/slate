@@ -30,4 +30,3 @@ export function setListType(options: ListsOptions, editor: Editor, listType: str
         Transforms.setNodes(editor, { type: listType as Element['type'] }, { at: listPath });
     });
 }
-

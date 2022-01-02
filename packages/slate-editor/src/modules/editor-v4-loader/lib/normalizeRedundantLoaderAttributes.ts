@@ -13,7 +13,10 @@ const ALLOWED_ATTRIBUTES = Object.keys(
     }),
 );
 
-export function normalizeRedundantLoaderAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantLoaderAttributes(
+    editor: Editor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isLoaderElement(node)) {
         return false;
     }

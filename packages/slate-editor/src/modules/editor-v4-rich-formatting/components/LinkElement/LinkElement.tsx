@@ -34,4 +34,3 @@ export const LinkElement: FunctionComponent<Props> = ({ attributes, children, el
         </LinkWithTooltip>
     </span>
 );
-

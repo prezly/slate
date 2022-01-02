@@ -17,7 +17,9 @@ import {
 import type { RichFormattingExtensionParameters } from './types';
 import { ElementType, MarkType } from './types';
 
-export const RichFormattingExtension = (parameters: RichFormattingExtensionParameters): Extension => ({
+export const RichFormattingExtension = (
+    parameters: RichFormattingExtensionParameters,
+): Extension => ({
     deserialize: createDeserialize(parameters),
     id: RICH_FORMATTING_EXTENSION_ID,
     inlineTypes: parameters.links ? [ElementType.LINK_CANDIDATE, ElementType.LINK] : [],
@@ -82,4 +84,3 @@ export const RichFormattingExtension = (parameters: RichFormattingExtensionParam
         ElementType.HEADING_TWO,
     ],
 });
-

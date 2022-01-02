@@ -16,4 +16,3 @@ export function normalizeEmptyLink(editor: Editor, [node, path]: NodeEntry<Node>
 
     return false;
 }
-

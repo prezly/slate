@@ -11,4 +11,3 @@ export function findLinkCandidatePath(editor: Editor, id: string): Path | null {
 
     return nodeEntry ? nodeEntry[1] : null;
 }
-

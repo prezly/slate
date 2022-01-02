@@ -36,7 +36,13 @@ function getClipPoints(clip: number) {
     return `16,16 16,0 32,0 32,32 0,32 0,0 ${x},0`;
 }
 
-export const ClippedRing: FunctionComponent<Props> = ({ className, clip, color, height, width }) => {
+export const ClippedRing: FunctionComponent<Props> = ({
+    className,
+    clip,
+    color,
+    height,
+    width,
+}) => {
     const maskId = useUniqueId('clipped-ring-mask-');
     const points = getClipPoints(clip);
 

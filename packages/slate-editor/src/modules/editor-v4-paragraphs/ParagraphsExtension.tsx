@@ -33,4 +33,3 @@ export const ParagraphsExtension = (): Extension => ({
     },
     rootTypes: [PARAGRAPH_NODE_TYPE],
 });
-

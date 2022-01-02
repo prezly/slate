@@ -16,7 +16,11 @@ interface Props extends RenderElementProps {
     element: ContactNode;
 }
 
-export const PressContactElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
+export const PressContactElement: FunctionComponent<Props> = ({
+    attributes,
+    children,
+    element,
+}) => {
     const isSelected = useSelected();
 
     return (
@@ -64,4 +68,3 @@ export const PressContactElement: FunctionComponent<Props> = ({ attributes, chil
         </div>
     );
 };
-

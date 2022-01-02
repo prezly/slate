@@ -73,4 +73,3 @@ export function createHandleEditImage(withImages: ImageExtensionParameters) {
         });
     };
 }
-

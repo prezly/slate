@@ -1,6 +1,9 @@
 import { isGoogleDocsWrapper } from '@prezly/slate-commons';
 
-export function detectMark(element: HTMLElement, hasMark: (element: HTMLElement) => boolean): boolean {
+export function detectMark(
+    element: HTMLElement,
+    hasMark: (element: HTMLElement) => boolean,
+): boolean {
     if (isGoogleDocsWrapper(element)) {
         return false;
     }

@@ -14,4 +14,3 @@ export const SocialField: FunctionComponent<Props> = ({ children, icon }) => (
         {children}
     </li>
 );
-

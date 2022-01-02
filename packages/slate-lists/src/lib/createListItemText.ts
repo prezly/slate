@@ -11,4 +11,3 @@ export function createListItemText(
         type: options.listItemTextType as ListItemTextNode['type'],
     };
 }
-

@@ -12,4 +12,3 @@ export function parseSerializedElement(serialized: string): ParagraphNode | unde
 
     return undefined;
 }
-

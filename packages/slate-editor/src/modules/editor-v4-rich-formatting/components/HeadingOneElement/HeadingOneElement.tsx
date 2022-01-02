@@ -30,4 +30,3 @@ export const HeadingOneElement: FunctionComponent<Props> = ({
         {children}
     </h3>
 );
-

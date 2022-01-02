@@ -26,4 +26,3 @@ export const campaignPlaceholders: Placeholder[] = [
         text: 'Short link to story',
     },
 ];
-

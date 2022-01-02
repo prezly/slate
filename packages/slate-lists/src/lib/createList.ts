@@ -6,4 +6,3 @@ export function createList(type: string, children: ListNode['children'] = []): L
         type: type as ListNode['type'],
     };
 }
-

@@ -8,4 +8,3 @@ export function isEditorValueEquivalent(a: string | Value, b: string | Value): b
     const bContent = typeof b === 'string' ? deserialize(b) : b;
     return serialize(aContent) === serialize(bContent);
 }
-

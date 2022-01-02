@@ -22,4 +22,3 @@ export const UserMentionsDropdownOption: FunctionComponent<Props> = ({ option })
         <span>{option.value.name}</span>
     </div>
 );
-

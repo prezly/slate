@@ -50,4 +50,3 @@ export function normalizeOrphanText(editor: Editor, [node, path]: NodeEntry<Node
 
     return true;
 }
-

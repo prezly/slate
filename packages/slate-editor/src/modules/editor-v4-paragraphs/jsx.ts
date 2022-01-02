@@ -19,4 +19,3 @@ export const jsx = createHyperscript({
         'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
 });
-

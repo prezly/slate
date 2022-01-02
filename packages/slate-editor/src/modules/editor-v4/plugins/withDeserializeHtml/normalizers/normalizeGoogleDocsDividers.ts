@@ -39,4 +39,3 @@ export function normalizeGoogleDocsDividers(document: Document): Document {
     while (normalizeGoogleDocsDivider(document));
     return document;
 }
-

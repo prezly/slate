@@ -2,7 +2,9 @@
 
 import type { DeserializeLeafValue, Extension } from '@prezly/slate-commons';
 
-export function getLeafDeserializers(extensions: Extension[]): Record<string, DeserializeLeafValue[]> {
+export function getLeafDeserializers(
+    extensions: Extension[],
+): Record<string, DeserializeLeafValue[]> {
     return extensions.reduce<Record<string, DeserializeLeafValue[]>>((deserializers, extension) => {
         const leaf = extension.deserialize?.leaf;
 
@@ -21,4 +23,3 @@ export function getLeafDeserializers(extensions: Extension[]): Record<string, De
         return deserializers;
     }, {});
 }
-

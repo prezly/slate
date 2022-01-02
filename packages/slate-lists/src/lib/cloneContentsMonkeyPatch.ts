@@ -62,4 +62,3 @@ export const cloneContentsMonkeyPatch = {
         Range.prototype.cloneContents = originalCloneContents;
     },
 };
-

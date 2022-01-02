@@ -33,4 +33,3 @@ export function withResetRichFormattingOnBreak<T extends Editor>(editor: T): T {
 
     return editor;
 }
-

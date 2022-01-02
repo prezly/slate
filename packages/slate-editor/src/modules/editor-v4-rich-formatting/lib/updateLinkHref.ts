@@ -5,4 +5,3 @@ import { Transforms } from 'slate';
 export function updateLinkHref(editor: Editor, at: Path, href: string) {
     return Transforms.setNodes<LinkNode>(editor, { href }, { at });
 }
-

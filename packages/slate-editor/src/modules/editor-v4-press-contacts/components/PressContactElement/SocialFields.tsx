@@ -18,4 +18,3 @@ export const SocialFields: FunctionComponent<Props> = ({ contact }) => (
         {contact.website && <SocialField icon="icon-browser">{contact.website}</SocialField>}
     </ul>
 );
-

@@ -24,4 +24,3 @@ export function normalizeOrphanListItemTexts(document: Document): Document {
 
     return document;
 }
-

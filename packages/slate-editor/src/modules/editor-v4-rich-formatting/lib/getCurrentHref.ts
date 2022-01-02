@@ -6,4 +6,3 @@ export function getCurrentHref(editor: Editor, selection: Path | Range): string 
     const [currentNode] = Editor.node(editor, selection);
     return isLinkNode(currentNode) ? currentNode.href : null;
 }
-

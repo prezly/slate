@@ -68,4 +68,3 @@ export function withVoids<T extends Editor>(editor: T) {
 
     return editor;
 }
-

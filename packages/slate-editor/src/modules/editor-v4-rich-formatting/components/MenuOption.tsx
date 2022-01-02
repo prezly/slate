@@ -48,4 +48,3 @@ export const MenuOption: FunctionComponent<Props> = ({ children, className, type
         </RichTextElement>
     );
 };
-

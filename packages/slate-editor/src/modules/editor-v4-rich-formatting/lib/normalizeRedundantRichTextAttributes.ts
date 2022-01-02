@@ -8,11 +8,13 @@ import { isRichTextElement } from './isRichTextElement';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createRichText(ElementType.HEADING_ONE));
 
-export function normalizeRedundantRichTextAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantRichTextAttributes(
+    editor: Editor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isRichTextElement(node)) {
         return false;
     }
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
 }
-

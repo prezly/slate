@@ -8,4 +8,3 @@ export function createUserMention(user: MentionNode['user']): MentionNode {
         user,
     };
 }
-

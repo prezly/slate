@@ -31,4 +31,3 @@ export function moveListToListItem(
         to: [...targetListPath, NESTED_LIST_PATH_INDEX],
     });
 }
-

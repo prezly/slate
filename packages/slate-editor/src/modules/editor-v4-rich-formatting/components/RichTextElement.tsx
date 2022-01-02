@@ -18,7 +18,12 @@ interface Props extends HTMLAttributes<HTMLElement> {
     element: RichTextElementType;
 }
 
-export const RichTextElement: FunctionComponent<Props> = ({ attributes, children, element, ...props }) => {
+export const RichTextElement: FunctionComponent<Props> = ({
+    attributes,
+    children,
+    element,
+    ...props
+}) => {
     switch (element.type) {
         case ElementType.BLOCK_QUOTE:
             return (
@@ -66,4 +71,3 @@ export const RichTextElement: FunctionComponent<Props> = ({ attributes, children
             return null;
     }
 };
-

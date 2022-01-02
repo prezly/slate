@@ -47,4 +47,3 @@ export function withLists(options: ListsOptions) {
         return editor;
     };
 }
-

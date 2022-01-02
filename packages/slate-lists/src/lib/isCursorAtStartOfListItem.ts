@@ -29,4 +29,3 @@ export function isCursorAtStartOfListItem(options: ListsOptions, editor: Editor)
 
     return isStart;
 }
-

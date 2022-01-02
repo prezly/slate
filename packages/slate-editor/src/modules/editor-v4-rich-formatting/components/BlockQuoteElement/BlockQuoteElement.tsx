@@ -30,4 +30,3 @@ export const BlockQuoteElement: FunctionComponent<Props> = ({
         {children}
     </blockquote>
 );
-

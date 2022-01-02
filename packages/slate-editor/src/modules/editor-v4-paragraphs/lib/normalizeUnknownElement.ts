@@ -22,4 +22,3 @@ export function normalizeUnknownElement(editor: Editor, [node, path]: NodeEntry<
 
     return false;
 }
-

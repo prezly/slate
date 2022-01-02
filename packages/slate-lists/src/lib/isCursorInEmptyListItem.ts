@@ -24,4 +24,3 @@ export function isCursorInEmptyListItem(options: ListsOptions, editor: Editor): 
 
     return !listItemContainsText(options, editor, listItemNode);
 }
-

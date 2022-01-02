@@ -26,4 +26,3 @@ export function getParentListItem(
 
     return null;
 }
-

@@ -40,4 +40,3 @@ export const PressContactMenu: FunctionComponent<Props> = ({ element, containerR
         </Menu.FloatingMenu>
     );
 };
-

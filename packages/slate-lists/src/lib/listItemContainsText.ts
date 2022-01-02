@@ -8,7 +8,11 @@ import { isListItemText } from './isListItemText';
 /**
  * Returns true if given "list-item" node contains a non-empty "list-item-text" node.
  */
-export function listItemContainsText(options: ListsOptions, editor: Editor, node: unknown): boolean {
+export function listItemContainsText(
+    options: ListsOptions,
+    editor: Editor,
+    node: unknown,
+): boolean {
     if (!isListItem(options, node)) {
         return false;
     }
@@ -21,4 +25,3 @@ export function listItemContainsText(options: ListsOptions, editor: Editor, node
 
     return !Editor.isEmpty(editor, listItemText);
 }
-

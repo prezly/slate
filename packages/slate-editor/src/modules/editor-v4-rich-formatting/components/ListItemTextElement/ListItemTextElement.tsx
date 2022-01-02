@@ -30,4 +30,3 @@ export const ListItemTextElement: FunctionComponent<Props> = ({
         {children}
     </div>
 );
-

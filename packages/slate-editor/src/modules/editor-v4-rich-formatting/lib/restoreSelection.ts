@@ -6,4 +6,3 @@ export function restoreSelection(editor: Editor, selection: Path | Range): void 
     EditorCommands.focus(editor);
     Transforms.select(editor, selection);
 }
-

@@ -28,4 +28,3 @@ export const UserMentionsDropdown: FunctionComponent<Props> = ({
         target={target}
     />
 );
-

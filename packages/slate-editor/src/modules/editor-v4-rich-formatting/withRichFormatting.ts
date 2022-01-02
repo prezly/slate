@@ -9,4 +9,3 @@ import { options } from './lists';
 export function withRichFormatting<T extends Editor>(editor: T): T {
     return withResetRichFormattingOnBreak(withListsReact(withLists(options)(editor)));
 }
-

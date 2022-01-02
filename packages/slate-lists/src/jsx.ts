@@ -106,4 +106,3 @@ export const jsx = createHyperscript({
         'h-unwrappable-element': { type: UNWRAPPABLE_ELEMENT },
     },
 });
-

@@ -12,11 +12,13 @@ const ALLOWED_ATTRIBUTES = Object.keys(
     }),
 );
 
-export function normalizeRedundantUserMentionAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantUserMentionAttributes(
+    editor: Editor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isMentionNode(node)) {
         return false;
     }
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
 }
-

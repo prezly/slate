@@ -9,4 +9,3 @@ export function createRichText(
         type,
     } as unknown as RichTextElementType;
 }
-

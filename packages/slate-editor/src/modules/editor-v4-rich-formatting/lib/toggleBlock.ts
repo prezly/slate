@@ -22,4 +22,3 @@ export function toggleBlock(editor: Editor, type: ElementNode['type']): void {
     lists.unwrapList(editor);
     Transforms.setNodes(editor, { type } as Partial<Element>);
 }
-

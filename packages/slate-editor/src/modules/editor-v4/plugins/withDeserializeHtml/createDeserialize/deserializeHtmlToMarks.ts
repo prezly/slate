@@ -40,4 +40,3 @@ export function deserializeHtmlToMarks(extensions: Extension[]) {
         return null;
     };
 }
-
