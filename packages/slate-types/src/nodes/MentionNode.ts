@@ -12,5 +12,6 @@ export interface MentionNode extends ElementNode {
     };
 }
 
-export const isMentionNode = (value: any): value is MentionNode =>
-    isElementNode<MentionNode>(value, MENTION_NODE_TYPE);
+export function isMentionNode(value: any): value is MentionNode {
+    return isElementNode<MentionNode>(value, MENTION_NODE_TYPE);
+}

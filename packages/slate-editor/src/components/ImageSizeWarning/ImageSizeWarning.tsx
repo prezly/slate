@@ -13,7 +13,7 @@ export interface Props {
 const WARNING =
     'Your image has higher resolution than recommended and might not be rendered properly or even may not be rendered at all.';
 
-const ImageSizeWarning: FunctionComponent<Props> = ({ className }) => (
+export const ImageSizeWarning: FunctionComponent<Props> = ({ className }) => (
     <TooltipV2 tooltip={WARNING}>
         {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
             <div
@@ -28,5 +28,3 @@ const ImageSizeWarning: FunctionComponent<Props> = ({ className }) => (
         )}
     </TooltipV2>
 );
-
-export default ImageSizeWarning;

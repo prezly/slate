@@ -12,9 +12,9 @@ import {
 } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import Lists from './Lists';
+import { Lists } from './Lists';
 import type { ListsOptions } from './types';
-import withLists from './withLists';
+import { withLists } from './withLists';
 
 export const INLINE_ELEMENT = LINK_NODE_TYPE;
 
@@ -30,7 +30,7 @@ export const options: ListsOptions = {
 
 export const lists = Lists(options);
 
-const withInlineElement = <T extends Editor>(editor: T): T => {
+function withInlineElement<T extends Editor>(editor: T): T {
     const { isInline } = editor;
 
     editor.isInline = (element) => {
@@ -41,7 +41,8 @@ const withInlineElement = <T extends Editor>(editor: T): T => {
     };
 
     return editor;
-};
+}
 
-export const createListsEditor = (input: JSX.Element) =>
-    withInlineElement(withLists(options)(input as unknown as Editor));
+export function createListsEditor(input: JSX.Element) {
+    return withInlineElement(withLists(options)(input as unknown as Editor));
+}

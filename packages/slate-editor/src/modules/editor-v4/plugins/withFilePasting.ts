@@ -23,7 +23,7 @@ import { insertUploadingFile } from '../lib';
 
 const IMAGE_TYPES = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'];
 
-const canPasteFiles = (extensions: Extension[], data: DataTransfer): boolean => {
+function canPasteFiles(extensions: Extension[], data: DataTransfer): boolean {
     const isFilesOnly = data.types.length === 1 && data.types[0] === 'Files';
 
     if (!isFilesOnly) {
@@ -48,11 +48,10 @@ const canPasteFiles = (extensions: Extension[], data: DataTransfer): boolean => 
             ? isImageExtensionEnabled || isFileAttachmentExtensionEnabled
             : isFileAttachmentExtensionEnabled;
     });
-};
+}
 
-const withFilePasting =
-    (getExtensions: () => Extension[]) =>
-    <T extends Editor>(editor: T): T => {
+export function withFilePasting(getExtensions: () => Extension[]) {
+    return function <T extends Editor>(editor: T): T {
         const { insertData } = editor;
 
         editor.insertData = (data: DataTransfer) => {
@@ -128,5 +127,4 @@ const withFilePasting =
 
         return editor;
     };
-
-export default withFilePasting;
+}

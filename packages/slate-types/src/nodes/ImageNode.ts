@@ -24,5 +24,6 @@ export interface ImageNode extends ElementNode {
     width_factor: string;
 }
 
-export const isImageNode = (value: any): value is ImageNode =>
-    isElementNode<ImageNode>(value, IMAGE_NODE_TYPE);
+export function isImageNode(value: any): value is ImageNode {
+    return isElementNode<ImageNode>(value, IMAGE_NODE_TYPE);
+}

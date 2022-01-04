@@ -3,7 +3,7 @@ import { Editor } from 'slate';
 
 import { getCurrentNodeEntry, insertEmptyParagraph } from '../../commands';
 
-const withBreaksOnVoidNodes = <T extends Editor>(editor: T): T => {
+export function withBreaksOnVoidNodes<T extends Editor>(editor: T): T {
     const { insertBreak } = editor;
 
     editor.insertBreak = () => {
@@ -26,6 +26,4 @@ const withBreaksOnVoidNodes = <T extends Editor>(editor: T): T => {
     };
 
     return editor;
-};
-
-export default withBreaksOnVoidNodes;
+}

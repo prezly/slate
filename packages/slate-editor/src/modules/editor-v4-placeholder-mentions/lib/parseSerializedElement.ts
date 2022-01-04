@@ -1,9 +1,9 @@
 import type { PlaceholderKey, PlaceholderNode } from '@prezly/slate-types';
 import { isPlaceholderNode } from '@prezly/slate-types';
 
-import createPlaceholderMention from './createPlaceholderMention';
+import { createPlaceholderMention } from './createPlaceholderMention';
 
-const parseSerializedElement = (serialized: string): PlaceholderNode | undefined => {
+export function parseSerializedElement(serialized: string): PlaceholderNode | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isPlaceholderNode(parsed)) {
@@ -11,6 +11,4 @@ const parseSerializedElement = (serialized: string): PlaceholderNode | undefined
     }
 
     return undefined;
-};
-
-export default parseSerializedElement;
+}

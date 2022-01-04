@@ -3,9 +3,9 @@
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import getCurrentNodeEntry from './getCurrentNodeEntry';
+import { getCurrentNodeEntry } from './getCurrentNodeEntry';
 
 describe('getCurrentNodeEntry', () => {
     it('Returns "null" when editor has no cursor in it', () => {

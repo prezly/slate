@@ -2,9 +2,9 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import moveCursorToEndOfDocument from './moveCursorToEndOfDocument';
+import { moveCursorToEndOfDocument } from './moveCursorToEndOfDocument';
 
 describe('moveCursorToEndOfDocument', () => {
     it('Puts cursor at the end of document when there is no cursor', () => {

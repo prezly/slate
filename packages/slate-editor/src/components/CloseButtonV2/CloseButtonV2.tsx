@@ -13,7 +13,12 @@ interface Props {
     title: string;
 }
 
-const CloseButtonV2: FunctionComponent<Props> = ({ className, disabled, onClick, title }) => (
+export const CloseButtonV2: FunctionComponent<Props> = ({
+    className,
+    disabled,
+    onClick,
+    title,
+}) => (
     <button
         className={classNames('btn', 'btn-default', 'close-button', className)}
         disabled={disabled}
@@ -24,5 +29,3 @@ const CloseButtonV2: FunctionComponent<Props> = ({ className, disabled, onClick,
         <Cross height={16} width={16} />
     </button>
 );
-
-export default CloseButtonV2;

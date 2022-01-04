@@ -7,7 +7,4 @@ import type { RenderLeafProps } from 'slate-react';
  * Text properties are for non-contiguous, character-level formatting.
  * RenderLeaf always returns a JSX element (even if unmodified) to support multiple marks on a node.
  */
-type RenderLeaf = (props: RenderLeafProps) => JSX.Element;
-
-// eslint-disable-next-line no-undef
-export default RenderLeaf;
+export type RenderLeaf = (props: RenderLeafProps) => JSX.Element;

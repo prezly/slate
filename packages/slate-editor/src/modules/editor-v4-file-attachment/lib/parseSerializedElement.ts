@@ -1,9 +1,9 @@
 import type { AttachmentNode } from '@prezly/slate-types';
 import { isAttachmentNode } from '@prezly/slate-types';
 
-import createFileAttachment from './createFileAttachment';
+import { createFileAttachment } from './createFileAttachment';
 
-const parseSerializedElement = (serialized: string): AttachmentNode | undefined => {
+export function parseSerializedElement(serialized: string): AttachmentNode | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isAttachmentNode(parsed)) {
@@ -11,6 +11,4 @@ const parseSerializedElement = (serialized: string): AttachmentNode | undefined 
     }
 
     return undefined;
-};
-
-export default parseSerializedElement;
+}

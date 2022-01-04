@@ -1,1 +1,1 @@
-export { default } from './MentionsDropdown';
+export { MentionsDropdown } from './MentionsDropdown';

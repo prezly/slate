@@ -2,12 +2,13 @@ import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement, EditorCommands } from '@prezly/slate-commons';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
-import { noop } from '#lodash';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
 import type { Editor } from 'slate';
 import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
+
+import { noop } from '#lodash';
 
 import { ImageElement } from './components';
 import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
@@ -27,7 +28,7 @@ const HOLDING_BACKSPACE_THRESHOLD = 100;
 
 let lastBackspaceTimestamp = 0;
 
-const ImageExtension = ({
+export const ImageExtension = ({
     availableWidth,
     captions,
     containerRef,
@@ -137,5 +138,3 @@ const ImageExtension = ({
     rootTypes: [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
     voidTypes: captions ? [IMAGE_CANDIDATE_TYPE] : [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
 });
-
-export default ImageExtension;

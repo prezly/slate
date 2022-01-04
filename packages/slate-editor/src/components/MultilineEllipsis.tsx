@@ -49,4 +49,6 @@ class MultilineEllipsis extends Component<Props> {
     }
 }
 
-export default memo(MultilineEllipsis);
+const MemoMultilineEllipsis = memo(MultilineEllipsis);
+
+export { MemoMultilineEllipsis as MultilineEllipsis };

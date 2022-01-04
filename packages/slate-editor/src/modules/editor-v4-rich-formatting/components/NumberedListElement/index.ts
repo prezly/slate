@@ -1,1 +1,1 @@
-export { default } from './NumberedListElement';
+export { NumberedListElement } from './NumberedListElement';

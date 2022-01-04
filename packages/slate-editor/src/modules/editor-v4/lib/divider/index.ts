@@ -1,1 +1,1 @@
-export { default as insertDivider } from './insertDivider';
+export { insertDivider } from './insertDivider';

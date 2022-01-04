@@ -7,7 +7,7 @@ import { ElementPortal, PortalOrigin } from '../../../components';
 
 import { Button } from './components';
 import './FloatingContainer.scss';
-import useCurrentDomNode from './useCurrentDomNode';
+import { useCurrentDomNode } from './useCurrentDomNode';
 
 interface Props {
     availableWidth: number;
@@ -59,6 +59,7 @@ const FloatingContainer: FunctionComponent<Props> = ({
     );
 };
 
+// eslint-disable-next-line import/no-default-export
 export default Object.assign(FloatingContainer, {
     Button,
 });

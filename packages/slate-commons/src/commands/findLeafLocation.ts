@@ -1,11 +1,11 @@
 import type { Editor, Location } from 'slate';
 import { Path, Point } from 'slate';
 
-import findLeafPath from './findLeafPath';
-import findLeafPoint from './findLeafPoint';
-import findLeafRange from './findLeafRange';
+import { findLeafPath } from './findLeafPath';
+import { findLeafPoint } from './findLeafPoint';
+import { findLeafRange } from './findLeafRange';
 
-const findLeafLocation = (editor: Editor, location: Location): Location | null => {
+export function findLeafLocation(editor: Editor, location: Location): Location | null {
     if (Path.isPath(location)) {
         return findLeafPath(editor, location);
     }
@@ -15,6 +15,4 @@ const findLeafLocation = (editor: Editor, location: Location): Location | null =
     }
 
     return findLeafRange(editor, location);
-};
-
-export default findLeafLocation;
+}

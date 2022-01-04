@@ -66,32 +66,32 @@ export class FocusToken extends Token {
  * Add an anchor token to the end of a text node.
  */
 
-export const addAnchorToken = (text: Text, token: AnchorToken) => {
+export function addAnchorToken(text: Text, token: AnchorToken) {
     const offset = text.text.length;
     ANCHOR.set(text, [offset, token]);
-};
+}
 
 /**
  * Get the offset if a text node has an associated anchor token.
  */
 
-export const getAnchorOffset = (text: Text): [number, AnchorToken] | undefined => {
+export function getAnchorOffset(text: Text): [number, AnchorToken] | undefined {
     return ANCHOR.get(text);
-};
+}
 
 /**
  * Add a focus token to the end of a text node.
  */
 
-export const addFocusToken = (text: Text, token: FocusToken) => {
+export function addFocusToken(text: Text, token: FocusToken) {
     const offset = text.text.length;
     FOCUS.set(text, [offset, token]);
-};
+}
 
 /**
  * Get the offset if a text node has an associated focus token.
  */
 
-export const getFocusOffset = (text: Text): [number, FocusToken] | undefined => {
+export function getFocusOffset(text: Text): [number, FocusToken] | undefined {
     return FOCUS.get(text);
-};
+}

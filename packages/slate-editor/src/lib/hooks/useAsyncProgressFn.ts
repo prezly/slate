@@ -29,7 +29,7 @@ export type AsyncProgressState<T> =
  * that returns a progress promise (or a regular promise).
  * @see https://streamich.github.io/react-use/?path=/story/side-effects-useasyncfn--docs
  */
-export default function useAsyncProgressFn<T>(
+export function useAsyncProgressFn<T>(
     fn: () => PromiseLike<T> | ProgressPromise<T> | T,
     initialState: AsyncProgressState<T> = { loading: false, progress: 0 },
 ): [AsyncProgressState<T>, () => ProgressPromise<T>] {

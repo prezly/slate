@@ -1,1 +1,1 @@
-export { default } from './withBreaksOnExpandedSelection';
+export { withBreaksOnExpandedSelection } from './withBreaksOnExpandedSelection';

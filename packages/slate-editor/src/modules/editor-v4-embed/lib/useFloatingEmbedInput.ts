@@ -13,7 +13,7 @@ import {
     replaceLoader,
 } from '../../../modules/editor-v4-loader';
 
-import createEmbed from './createEmbed';
+import { createEmbed } from './createEmbed';
 
 interface State {
     isOpen: boolean;
@@ -27,33 +27,33 @@ interface Actions {
     submit: (url: string) => Promise<void>;
 }
 
-const defaultFetchOembed = (): Promise<OEmbedInfo> => {
+function defaultFetchOembed(): Promise<OEmbedInfo> {
     // It should never happen, we just want useFloatingEmbedInput to be a no-op
     // when fetchOembed is not provided (which implies that embeds are not enabled).
     return Promise.reject(new Error('Embeds are not enabled'));
-};
+}
 
-const useFloatingEmbedInput = (
+export function useFloatingEmbedInput(
     editor: Editor,
     fetchOembed: (url: string) => Promise<OEmbedInfo> = defaultFetchOembed,
-): [State, Actions] => {
+): [State, Actions] {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [submitButtonLabel, setSubmitButtonLabel] = useState<string>('');
     const [loaderParameters, setLoaderParameters] = useState<Parameters<typeof createLoader>[0]>();
     const savedSelection = useSavedSelection();
 
-    const close = () => {
+    function close() {
         savedSelection.restore(editor, { focus: true });
         setSubmitButtonLabel('');
         setIsOpen(false);
-    };
+    }
 
-    const rootClose = () => {
+    function rootClose() {
         setSubmitButtonLabel('');
         setIsOpen(false);
-    };
+    }
 
-    const open = (buttonLabel: string, newLoaderParameters: Parameters<typeof createLoader>[0]) => {
+    function open(buttonLabel: string, newLoaderParameters: Parameters<typeof createLoader>[0]) {
         EventsEditor.dispatchEvent(editor, 'embed-dialog-opened', {
             selectedItemText: buttonLabel,
         });
@@ -61,9 +61,9 @@ const useFloatingEmbedInput = (
         setLoaderParameters(newLoaderParameters);
         setIsOpen(true);
         savedSelection.save(editor);
-    };
+    }
 
-    const submit = async (url: string) => {
+    async function submit(url: string) {
         EventsEditor.dispatchEvent(editor, 'embed-dialog-submitted', {
             url,
             selectedItemText: submitButtonLabel,
@@ -97,12 +97,10 @@ const useFloatingEmbedInput = (
                 removeLoader(editor, loaderPath);
             }
         }
-    };
+    }
 
     return [
         { isOpen, submitButtonLabel },
         { close, open, rootClose, submit },
     ];
-};
-
-export default useFloatingEmbedInput;
+}

@@ -3,10 +3,10 @@
 import type { PlaceholderNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { createPlaceholderMentionElement, createMentionsEditor } from '../test-utils';
 
-import insertMention from './insertMention';
+import { insertMention } from './insertMention';
 
 describe('insertMention', () => {
     const placeholderKey: PlaceholderNode['key'] = 'contact.firstname';

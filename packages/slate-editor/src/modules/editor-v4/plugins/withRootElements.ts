@@ -5,7 +5,9 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Editor, Node, NodeEntry } from 'slate';
 import { Element } from 'slate';
 
-const disallowAnyParent = () => false;
+function disallowAnyParent() {
+    return false;
+}
 
 function normalizeNestedRootElement(
     editor: Editor,

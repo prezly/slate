@@ -10,7 +10,7 @@ import { Delete, Edit, Link } from '../../../icons';
 import { LinkMenu } from '../../../modules/editor-v4-components';
 import { removeImage, setImageHref, setLayout } from '../transforms';
 
-import LayoutControls from './LayoutControls';
+import { LayoutControls } from './LayoutControls';
 
 interface Props {
     containerRef: RefObject<HTMLElement>;
@@ -24,7 +24,7 @@ interface Props {
     showLayoutControls?: boolean;
 }
 
-const ImageMenu: FunctionComponent<Props> = ({
+export const ImageMenu: FunctionComponent<Props> = ({
     containerRef,
     element,
     href,
@@ -41,52 +41,52 @@ const ImageMenu: FunctionComponent<Props> = ({
     const [savedSelection, setSavedSelection] = useState<Range | null>(null);
     const isLinked = href !== '';
 
-    const handleOpenLinkMenu = () => {
+    function handleOpenLinkMenu() {
         setLinkValue(href);
         setSavedSelection(editor.selection);
         onIsLinkMenuOpenChange(true);
 
         // We have to blur the editor to allow the LinkMenu input focus.
         ReactEditor.blur(editor);
-    };
+    }
 
-    const handleCloseLinkMenu = () => {
+    function handleCloseLinkMenu() {
         onIsLinkMenuOpenChange(false);
 
         if (savedSelection) {
             ReactEditor.focus(editor);
             Transforms.select(editor, savedSelection);
         }
-    };
+    }
 
-    const handleLayoutChange = (newLayout: ImageLayout) => {
+    function handleLayoutChange(newLayout: ImageLayout) {
         setLayout(editor, newLayout);
-    };
+    }
 
-    const handleLinkCreate = () => {
+    function handleLinkCreate() {
         if (savedSelection) {
             setImageHref(editor, savedSelection, linkValue);
         }
 
         handleCloseLinkMenu();
-    };
+    }
 
-    const handleLinkRemove = () => {
+    function handleLinkRemove() {
         if (savedSelection) {
             setImageHref(editor, savedSelection, '');
             setLinkValue('');
         }
 
         handleCloseLinkMenu();
-    };
+    }
 
-    const handleRemove = () => {
+    function handleRemove() {
         const removedElement = removeImage(editor);
 
         if (removedElement) {
             onRemove(editor, removedElement);
         }
-    };
+    }
 
     if (isLinkMenuOpen) {
         return (
@@ -133,5 +133,3 @@ const ImageMenu: FunctionComponent<Props> = ({
         </Menu.FloatingMenu>
     );
 };
-
-export default ImageMenu;

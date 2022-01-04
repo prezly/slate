@@ -1,7 +1,7 @@
 import type { Editor, NodeEntry } from 'slate';
 import { Node, Path } from 'slate';
 
-const getPreviousSibling = (editor: Editor, path: Path): NodeEntry<Node> | null => {
+export function getPreviousSibling(editor: Editor, path: Path): NodeEntry<Node> | null {
     let previousSiblingPath: Path;
 
     try {
@@ -16,6 +16,4 @@ const getPreviousSibling = (editor: Editor, path: Path): NodeEntry<Node> | null 
     }
 
     return null;
-};
-
-export default getPreviousSibling;
+}

@@ -1,1 +1,1 @@
-export { default as removeDivider } from './removeDivider';
+export { removeDivider } from './removeDivider';

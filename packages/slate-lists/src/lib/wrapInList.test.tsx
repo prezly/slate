@@ -3,7 +3,7 @@
 import { BULLETED_LIST_NODE_TYPE } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { createListsEditor, lists } from '../test-utils';
 
 describe('wrapInList - no selection', () => {

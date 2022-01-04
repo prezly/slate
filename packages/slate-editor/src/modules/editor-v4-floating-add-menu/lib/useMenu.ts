@@ -1,5 +1,5 @@
 import { isHotkey } from 'is-hotkey';
-import type { KeyboardEventHandler, MouseEvent } from 'react';
+import type { KeyboardEvent, KeyboardEventHandler, MouseEvent } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Range } from 'slate';
 import { Transforms } from 'slate';
@@ -27,7 +27,7 @@ interface Actions {
     onSelectItem: (index: number) => void;
 }
 
-export default function useMenu(
+export function useMenu(
     allOptions: FloatingAddMenuParameters['options'],
     onToggle: (isShown: boolean) => void,
 ): [State, Actions] {
@@ -44,51 +44,51 @@ export default function useMenu(
         [allOptions, query],
     );
 
-    const handleIndexChange = (nextIndex: number) => {
+    function handleIndexChange(nextIndex: number) {
         if (nextIndex < 0) {
             setCurrentIndex(options.length - 1);
         } else {
             setCurrentIndex(nextIndex % options.length);
         }
-    };
+    }
 
-    const handleOpen = () => {
+    function handleOpen() {
         lastSelectionRef.current = editor.selection;
         setOpen(true);
         onToggle(true);
-    };
+    }
 
-    const handleClose = () => {
+    function handleClose() {
         setOpen(false);
         onToggle(false);
         setCurrentIndex(0);
         setQuery('');
-    };
+    }
 
-    const restoreEditorSelection = () => {
+    function restoreEditorSelection() {
         if (open && !ReactEditor.isFocused(editor) && lastSelectionRef.current) {
             // Restore editor focus because the input captured the focus.
             ReactEditor.focus(editor);
             Transforms.select(editor, lastSelectionRef.current);
             lastSelectionRef.current = null;
         }
-    };
+    }
 
-    const handleMenuClose = () => {
+    function handleMenuClose() {
         restoreEditorSelection();
         handleClose();
-    };
+    }
 
-    const handleSelectItem = (index: number) => {
+    function handleSelectItem(index: number) {
         const option = options[index];
         if (option) {
             // Handle close to restore the editor focus before performing the onClick action.
             handleMenuClose();
             option.onClick(editor);
         }
-    };
+    }
 
-    const handleMenuToggle = (event: MouseEvent) => {
+    function handleMenuToggle(event: MouseEvent) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -104,14 +104,14 @@ export default function useMenu(
         } else {
             handleOpen();
         }
-    };
+    }
 
-    const handleInputBlur = () => {
+    function handleInputBlur() {
         // Close the menu but without restoring the selection.
         handleClose();
-    };
+    }
 
-    const handleInputKeyDown: KeyboardEventHandler = (event) => {
+    function handleInputKeyDown(event: KeyboardEvent): void {
         if (!open) {
             return;
         }
@@ -134,7 +134,7 @@ export default function useMenu(
             event.preventDefault();
             handleSelectItem(currentIndex);
         }
-    };
+    }
 
     useEffect(() => {
         // If options change and currentIndex is out of range, reset the selection.

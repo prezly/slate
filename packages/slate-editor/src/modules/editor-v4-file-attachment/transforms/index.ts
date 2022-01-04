@@ -1,1 +1,1 @@
-export { default as removeFileAttachment } from './removeFileAttachment';
+export { removeFileAttachment } from './removeFileAttachment';

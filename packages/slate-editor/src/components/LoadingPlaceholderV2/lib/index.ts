@@ -1,1 +1,1 @@
-export { default as useExtrapolatedProgress } from './useExtrapolatedProgress';
+export { useExtrapolatedProgress } from './useExtrapolatedProgress';

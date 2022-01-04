@@ -5,7 +5,6 @@ import { useSlate } from 'slate-react';
 
 import { FloatingContainer } from '../../../../modules/editor-v4-components';
 import { EventsEditor } from '../../../../modules/editor-v4-events';
-
 import type { SearchProps } from '../../types';
 
 import './FloatingCoverageMenu.scss';
@@ -19,7 +18,7 @@ interface Props {
     renderSearch: (searchProps: SearchProps) => ReactNode;
 }
 
-const FloatingCoverageMenu: FunctionComponent<Props> = ({
+export const FloatingCoverageMenu: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     onClose,
@@ -30,13 +29,13 @@ const FloatingCoverageMenu: FunctionComponent<Props> = ({
     const editor = useSlate();
     const trackedSearchUsed = useRef<boolean>(false);
 
-    const handleChange = (query: string): void => {
+    function handleChange(query: string): void {
         // Only track `COVERAGE_DIALOG_SEARCH_USED` once per instance to avoid many similar events.
         if (!trackedSearchUsed.current && query.length !== 0) {
             trackedSearchUsed.current = true;
             EventsEditor.dispatchEvent(editor, 'coverage-dialog-search-used');
         }
-    };
+    }
 
     return (
         <FloatingContainer
@@ -60,5 +59,3 @@ const FloatingCoverageMenu: FunctionComponent<Props> = ({
         </FloatingContainer>
     );
 };
-
-export default FloatingCoverageMenu;

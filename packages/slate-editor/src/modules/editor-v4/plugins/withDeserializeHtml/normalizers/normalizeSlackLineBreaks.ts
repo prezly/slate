@@ -1,9 +1,12 @@
-const isSlackLineBreak = (element: Element): boolean =>
-    element instanceof HTMLElement &&
-    element.dataset.stringifyType === 'paragraph-break' &&
-    element.classList.contains('c-mrkdwn__br');
+function isSlackLineBreak(element: Element): boolean {
+    return (
+        element instanceof HTMLElement &&
+        element.dataset.stringifyType === 'paragraph-break' &&
+        element.classList.contains('c-mrkdwn__br')
+    );
+}
 
-const normalizeSlackLineBreaks = (document: Document): Document => {
+export function normalizeSlackLineBreaks(document: Document): Document {
     const { body } = document;
 
     for (const child of body.children) {
@@ -16,6 +19,4 @@ const normalizeSlackLineBreaks = (document: Document): Document => {
     }
 
     return document;
-};
-
-export default normalizeSlackLineBreaks;
+}

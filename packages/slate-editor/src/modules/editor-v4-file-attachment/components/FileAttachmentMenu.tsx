@@ -15,7 +15,7 @@ interface Props {
     onRemove: (editor: Editor, element: AttachmentNode) => void;
 }
 
-const FileAttachmentMenu: FunctionComponent<Props> = ({
+export const FileAttachmentMenu: FunctionComponent<Props> = ({
     element,
     containerRef,
     onEdit,
@@ -28,13 +28,13 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
         return null;
     }
 
-    const handleRemove = () => {
+    function handleRemove() {
         const removedElement = removeFileAttachment(editor);
 
         if (removedElement) {
             onRemove(editor, removedElement);
         }
-    };
+    }
 
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
@@ -51,5 +51,3 @@ const FileAttachmentMenu: FunctionComponent<Props> = ({
         </Menu.FloatingMenu>
     );
 };
-
-export default FileAttachmentMenu;

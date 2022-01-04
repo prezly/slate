@@ -3,15 +3,15 @@ import type { Editor } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import getListItemsInRange from './getListItemsInRange';
-import increaseListItemDepth from './increaseListItemDepth';
-import wrapInList from './wrapInList';
+import { getListItemsInRange } from './getListItemsInRange';
+import { increaseListItemDepth } from './increaseListItemDepth';
+import { wrapInList } from './wrapInList';
 
 /**
  * Increases nesting depth of all "list-items" in the current selection.
  * All nodes matching options.wrappableTypes in the selection will be converted to "list-items" and wrapped in a "list".
  */
-const increaseDepth = (options: ListsOptions, editor: Editor): void => {
+export function increaseDepth(options: ListsOptions, editor: Editor): void {
     if (!editor.selection) {
         return;
     }
@@ -43,6 +43,4 @@ const increaseDepth = (options: ListsOptions, editor: Editor): void => {
         const [, listItemEntryPath] = listItemEntry;
         increaseListItemDepth(options, editor, listItemEntryPath);
     });
-};
-
-export default increaseDepth;
+}

@@ -1,15 +1,18 @@
+import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React, { useRef } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
+
 import { useEffectOnce } from '#lib';
 
-import { Cross } from '../../../icons';
+import { Theme, useToolbarsTheme } from '#modules/themes';
+
 import { Menu } from '../../../components';
+import { Cross } from '../../../icons';
 
 import { STRING_URL_PATTERN } from './constants';
+
 import './LinkMenu.scss';
-import { Theme, useToolbarsTheme } from '#modules/themes';
-import classNames from 'classnames';
 
 interface Props {
     canUnlink: boolean;
@@ -20,7 +23,7 @@ interface Props {
     value: string;
 }
 
-const LinkMenu: FunctionComponent<Props> = ({
+export const LinkMenu: FunctionComponent<Props> = ({
     canUnlink,
     onChange,
     onClose,
@@ -105,5 +108,3 @@ const LinkMenu: FunctionComponent<Props> = ({
         </RootCloseWrapper>
     );
 };
-
-export default LinkMenu;

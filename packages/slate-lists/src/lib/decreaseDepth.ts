@@ -3,14 +3,14 @@ import type { Editor } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import decreaseListItemDepth from './decreaseListItemDepth';
-import getListItemsInRange from './getListItemsInRange';
+import { decreaseListItemDepth } from './decreaseListItemDepth';
+import { getListItemsInRange } from './getListItemsInRange';
 
 /**
  * Decreases nesting depth of all "list-items" in the current selection.
  * All "list-items" in the root "list" will become "default" nodes.
  */
-const decreaseDepth = (options: ListsOptions, editor: Editor): void => {
+export function decreaseDepth(options: ListsOptions, editor: Editor): void {
     if (!editor.selection) {
         return;
     }
@@ -35,6 +35,4 @@ const decreaseDepth = (options: ListsOptions, editor: Editor): void => {
         const [, listItemEntryPath] = listItemEntry;
         decreaseListItemDepth(options, editor, listItemEntryPath);
     });
-};
-
-export default decreaseDepth;
+}

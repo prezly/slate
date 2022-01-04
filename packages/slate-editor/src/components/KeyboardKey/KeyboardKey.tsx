@@ -8,8 +8,6 @@ interface Props {
     className?: string;
 }
 
-const KeyboardKey: FunctionComponent<Props> = ({ children, className }) => (
+export const KeyboardKey: FunctionComponent<Props> = ({ children, className }) => (
     <kbd className={classNames('keyboard-key', className)}>{children}</kbd>
 );
-
-export default KeyboardKey;

@@ -76,7 +76,7 @@ export interface Props {
     style?: React.CSSProperties;
 }
 
-const EditableWithExtensions: FunctionComponent<Props> = ({
+export const EditableWithExtensions: FunctionComponent<Props> = ({
     decorate: decorateList = [],
     decorateDeps = [],
     extensions = [],
@@ -115,5 +115,3 @@ const EditableWithExtensions: FunctionComponent<Props> = ({
         />
     );
 };
-
-export default EditableWithExtensions;

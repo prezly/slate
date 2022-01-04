@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
-import createImageProgressPromise from '../createImageProgressPromise';
+import { createImageProgressPromise } from '../createImageProgressPromise';
 
-import useAsyncProgress from './useAsyncProgress';
+import { useAsyncProgress } from './useAsyncProgress';
 
 interface State {
     error?: Error;
@@ -11,10 +11,8 @@ interface State {
     url?: string;
 }
 
-const useImage = (src: string): State => {
+export function useImage(src: string): State {
     const getPromise = useCallback(() => createImageProgressPromise(src), [src]);
     const { error, loading, progress, value } = useAsyncProgress(getPromise);
     return { error, loading, progress, url: value };
-};
-
-export default useImage;
+}

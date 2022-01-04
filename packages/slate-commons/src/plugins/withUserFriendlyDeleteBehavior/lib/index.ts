@@ -1,1 +1,1 @@
-export { default as deleteCurrentNodeIfEmpty } from './deleteCurrentNodeIfEmpty';
+export { deleteCurrentNodeIfEmpty } from './deleteCurrentNodeIfEmpty';

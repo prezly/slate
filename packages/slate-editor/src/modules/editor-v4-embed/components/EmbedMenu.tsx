@@ -12,17 +12,17 @@ interface Props {
     element: HTMLElement;
 }
 
-const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
+export const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
     const editor = useSlate();
     const isSelected = useSelected();
 
-    const handleRemove = () => {
+    function handleRemove() {
         const removedElement = removeEmbed(editor);
 
         if (removedElement) {
             EventsEditor.dispatchEvent(editor, 'embed-removed', { uuid: removedElement.uuid });
         }
-    };
+    }
 
     if (!isSelected) {
         return null;
@@ -38,5 +38,3 @@ const EmbedMenu: FunctionComponent<Props> = ({ containerRef, element }) => {
         </Menu.FloatingMenu>
     );
 };
-
-export default EmbedMenu;

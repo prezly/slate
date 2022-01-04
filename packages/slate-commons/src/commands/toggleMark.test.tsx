@@ -2,9 +2,9 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import toggleMark from './toggleMark';
+import { toggleMark } from './toggleMark';
 
 const EXAMPLE_MARK_1 = 'bold';
 

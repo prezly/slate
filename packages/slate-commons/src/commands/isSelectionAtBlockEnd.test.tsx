@@ -1,9 +1,9 @@
 /** @jsx jsx */
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { createEditor } from '../test-utils';
 
-import isSelectionAtBlockEnd from './isSelectionAtBlockEnd';
+import { isSelectionAtBlockEnd } from './isSelectionAtBlockEnd';
 
 describe('isSelectionAtBlockEnd', () => {
     it('Returns true when the cursor is at the end of the block', () => {

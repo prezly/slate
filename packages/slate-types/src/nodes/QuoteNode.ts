@@ -7,5 +7,6 @@ export interface QuoteNode extends ElementNode {
     type: typeof QUOTE_NODE_TYPE;
 }
 
-export const isQuoteNode = (value: any): value is QuoteNode =>
-    isElementNode<QuoteNode>(value, QUOTE_NODE_TYPE);
+export function isQuoteNode(value: any): value is QuoteNode {
+    return isElementNode<QuoteNode>(value, QUOTE_NODE_TYPE);
+}

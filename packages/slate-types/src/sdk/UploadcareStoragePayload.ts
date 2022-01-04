@@ -5,7 +5,7 @@ import type { UploadcareImageStoragePayload } from './UploadcareImageStoragePayl
 
 export type UploadcareStoragePayload = UploadcareFileStoragePayload | UploadcareImageStoragePayload;
 
-export const isPrezlyStoragePayload = (value: any): value is UploadcareFileStoragePayload => {
+export function isPrezlyStoragePayload(value: any): value is UploadcareFileStoragePayload {
     return (
         isObject(value) &&
         typeof value.filename === 'string' &&
@@ -13,4 +13,4 @@ export const isPrezlyStoragePayload = (value: any): value is UploadcareFileStora
         typeof value.size === 'number' &&
         typeof value.uuid === 'string'
     );
-};
+}

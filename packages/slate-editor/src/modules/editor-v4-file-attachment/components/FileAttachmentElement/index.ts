@@ -1,1 +1,1 @@
-export { default } from './FileAttachmentElement';
+export { FileAttachmentElement } from './FileAttachmentElement';

@@ -7,7 +7,7 @@ interface State<T> {
     value: T;
 }
 
-class Observable<T> {
+export class Observable<T> {
     private state: State<T>;
 
     constructor(value: T) {
@@ -45,5 +45,3 @@ class Observable<T> {
         };
     };
 }
-
-export default Observable;

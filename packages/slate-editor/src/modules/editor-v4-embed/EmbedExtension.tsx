@@ -9,7 +9,7 @@ import { EMBED_EXTENSION_ID, EMBED_TYPE } from './constants';
 import { normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
 import type { EmbedParameters } from './types';
 
-const EmbedExtension = ({
+export const EmbedExtension = ({
     availableWidth,
     containerRef,
     showAsScreenshot,
@@ -45,5 +45,3 @@ const EmbedExtension = ({
     rootTypes: [EMBED_TYPE],
     voidTypes: [EMBED_TYPE],
 });
-
-export default EmbedExtension;

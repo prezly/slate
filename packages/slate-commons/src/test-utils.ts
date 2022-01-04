@@ -14,7 +14,7 @@ export const VOID_ELEMENT = DIVIDER_NODE_TYPE;
 export const SOME_ELEMENT_1 = HEADING_1_NODE_TYPE; // must be different than SOME_ELEMENT_2
 export const SOME_ELEMENT_2 = HEADING_2_NODE_TYPE; // must be different than SOME_ELEMENT_1
 
-const withGenericTestElements = <T extends Editor>(editor: T): T => {
+function withGenericTestElements<T extends Editor>(editor: T): T {
     const { isInline, isVoid } = editor;
 
     editor.isInline = (element) =>
@@ -28,7 +28,8 @@ const withGenericTestElements = <T extends Editor>(editor: T): T => {
             : isVoid(element);
 
     return editor;
-};
+}
 
-export const createEditor = (input: JSX.Element) =>
-    withGenericTestElements(input as unknown as Editor);
+export function createEditor(input: JSX.Element) {
+    return withGenericTestElements(input as unknown as Editor);
+}

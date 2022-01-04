@@ -3,9 +3,8 @@ import type { Editor } from 'slate';
 
 import type { Extension } from '../types';
 
-const withNormalization =
-    (getExtensions: () => Extension[]) =>
-    <T extends Editor>(editor: T) => {
+export function withNormalization(getExtensions: () => Extension[]) {
+    return function <T extends Editor>(editor: T) {
         const { normalizeNode } = editor;
 
         editor.normalizeNode = (entry) => {
@@ -24,5 +23,4 @@ const withNormalization =
 
         return editor;
     };
-
-export default withNormalization;
+}

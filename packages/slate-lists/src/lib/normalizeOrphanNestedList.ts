@@ -4,21 +4,21 @@ import { Node, Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import getNestedList from './getNestedList';
-import isList from './isList';
-import isListItem from './isListItem';
-import moveListItemsToAnotherList from './moveListItemsToAnotherList';
-import moveListToListItem from './moveListToListItem';
+import { getNestedList } from './getNestedList';
+import { isList } from './isList';
+import { isListItem } from './isListItem';
+import { moveListItemsToAnotherList } from './moveListItemsToAnotherList';
+import { moveListToListItem } from './moveListToListItem';
 
 /**
  * If there is a nested "list" inside a "list-item" without a "list-item-text"
  * unwrap that nested "list" and try to nest it in previous sibling "list-item".
  */
-const normalizeOrphanNestedList = (
+export function normalizeOrphanNestedList(
     options: ListsOptions,
     editor: Editor,
     [node, path]: NodeEntry<Node>,
-): boolean => {
+): boolean {
     if (!isListItem(options, node)) {
         // This function does not know how to normalize other nodes.
         return false;
@@ -64,6 +64,4 @@ const normalizeOrphanNestedList = (
     }
 
     return true;
-};
-
-export default normalizeOrphanNestedList;
+}

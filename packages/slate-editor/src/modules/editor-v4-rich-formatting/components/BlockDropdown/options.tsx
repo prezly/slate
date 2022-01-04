@@ -5,9 +5,9 @@ import React from 'react';
 import type { Menu } from '../../../../components';
 import type { BlockType } from '../../types';
 import { ElementType } from '../../types';
-import MenuOption from '../MenuOption';
+import { MenuOption } from '../MenuOption';
 
-const OPTIONS: Menu.DropdownOption<BlockType>[] = [
+export const OPTIONS: Menu.DropdownOption<BlockType>[] = [
     { hidden: true, label: 'Multiple', value: 'multiple' },
     {
         label: 'Paragraph',
@@ -82,5 +82,3 @@ const OPTIONS: Menu.DropdownOption<BlockType>[] = [
         ),
     },
 ];
-
-export default OPTIONS;

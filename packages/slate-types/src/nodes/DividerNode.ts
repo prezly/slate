@@ -7,5 +7,6 @@ export interface DividerNode extends ElementNode {
     type: typeof DIVIDER_NODE_TYPE;
 }
 
-export const isDividerNode = (value: any): value is DividerNode =>
-    isElementNode<DividerNode>(value, DIVIDER_NODE_TYPE);
+export function isDividerNode(value: any): value is DividerNode {
+    return isElementNode<DividerNode>(value, DIVIDER_NODE_TYPE);
+}

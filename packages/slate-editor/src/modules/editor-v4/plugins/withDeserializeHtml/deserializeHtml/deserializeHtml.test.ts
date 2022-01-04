@@ -3,7 +3,7 @@ import path from 'path';
 
 import { getAllExtensions } from '../../../test-utils';
 
-import deserializeHtml from './deserializeHtml';
+import { deserializeHtml } from './deserializeHtml';
 
 const extensions = getAllExtensions();
 
@@ -13,7 +13,7 @@ function readTestFile(filepath: string): string {
     return fs.readFileSync(absoluteFilepath, 'utf-8');
 }
 
-const handleError = () => {};
+function handleError() {}
 
 describe('deserializeHtml', () => {
     it('Wraps orphan "list-items" into "lists"', () => {

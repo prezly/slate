@@ -3,13 +3,12 @@ import { jsx } from '@prezly/slate-hyperscript';
 import type { Descendant } from 'slate';
 import { Element } from 'slate';
 
-import getLeafDeserializers from './getLeafDeserializers';
+import { getLeafDeserializers } from './getLeafDeserializers';
 
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
-const deserializeHtmlToMarks =
-    (extensions: Extension[]) =>
-    (node: HTMLElement, children: DeserializeHTMLChildren[]): Descendant[] | null => {
+export function deserializeHtmlToMarks(extensions: Extension[]) {
+    return function (node: HTMLElement, children: DeserializeHTMLChildren[]): Descendant[] | null {
         const type = node.getAttribute('data-slate-type') || node.nodeName;
         const deserializers = getLeafDeserializers(extensions);
 
@@ -40,5 +39,4 @@ const deserializeHtmlToMarks =
 
         return null;
     };
-
-export default deserializeHtmlToMarks;
+}

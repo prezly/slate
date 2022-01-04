@@ -4,7 +4,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
-const withNonEmptyValue = <T extends Editor>(editor: T) => {
+export function withNonEmptyValue<T extends Editor>(editor: T) {
     const { normalizeNode } = editor;
 
     editor.normalizeNode = ([node, path]) => {
@@ -18,6 +18,4 @@ const withNonEmptyValue = <T extends Editor>(editor: T) => {
     };
 
     return editor;
-};
-
-export default withNonEmptyValue;
+}

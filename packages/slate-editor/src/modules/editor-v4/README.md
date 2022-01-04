@@ -35,7 +35,7 @@ Extensions can describe several things, e.g.:
 3. Import hyperscript JSX definitions from the module you're writing tests for:
 
 ```tsx
-import jsx from './jsx';
+import { jsx } from './jsx';
 ```
 
 4. Feel free to cast hyperscript JSX `as any` to satisfy TypeScript compiler, e.g.

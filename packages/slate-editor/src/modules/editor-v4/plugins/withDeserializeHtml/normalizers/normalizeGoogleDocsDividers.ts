@@ -5,7 +5,7 @@ import { isGoogleDocsWrapper } from '@prezly/slate-commons';
  * It gets interpreted by DOMParser as <p/><hr/></p>.
  * That's why we have to clean it up. See `google-docs-divider.html`.
  */
-const normalizeGoogleDocsDivider = (document: Document): boolean => {
+function normalizeGoogleDocsDivider(document: Document): boolean {
     const hr = document.querySelector('hr');
 
     if (!hr) {
@@ -27,9 +27,9 @@ const normalizeGoogleDocsDivider = (document: Document): boolean => {
     }
 
     return false;
-};
+}
 
-const normalizeGoogleDocsDividers = (document: Document): Document => {
+export function normalizeGoogleDocsDividers(document: Document): Document {
     const firstChild = document.body.childNodes[0];
 
     if (!firstChild || !(firstChild instanceof HTMLElement) || !isGoogleDocsWrapper(firstChild)) {
@@ -38,6 +38,4 @@ const normalizeGoogleDocsDividers = (document: Document): Document => {
 
     while (normalizeGoogleDocsDivider(document));
     return document;
-};
-
-export default normalizeGoogleDocsDividers;
+}

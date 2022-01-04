@@ -2,18 +2,17 @@ import type { HyperscriptCreators, HyperscriptShorthands } from './slate-hypersc
 import { createHyperscript as createSlateHyperscript } from './slate-hyperscript';
 import { createText } from './slate-hyperscript/creators';
 
-const createHyperscript = (
+export function createHyperscript(
     options: {
         creators?: HyperscriptCreators;
         elements?: HyperscriptShorthands;
     } = {},
-) =>
-    createSlateHyperscript({
+) {
+    return createSlateHyperscript({
         creators: {
             'h-text': createText,
             ...options.creators,
         },
         elements: options.elements,
     });
-
-export default createHyperscript;
+}

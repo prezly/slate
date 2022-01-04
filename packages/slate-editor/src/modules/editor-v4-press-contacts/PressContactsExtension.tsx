@@ -9,7 +9,7 @@ import { PRESS_CONTACTS_EXTENSION_ID } from './constants';
 import { normalizeRedundantPressContactAttributes, parseSerializedElement } from './lib';
 import type { PressContactsParameters } from './types';
 
-const PressContactsExtension = ({ containerRef }: PressContactsParameters): Extension => ({
+export const PressContactsExtension = ({ containerRef }: PressContactsParameters): Extension => ({
     deserialize: {
         element: {
             [CONTACT_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
@@ -39,5 +39,3 @@ const PressContactsExtension = ({ containerRef }: PressContactsParameters): Exte
     rootTypes: [CONTACT_NODE_TYPE],
     voidTypes: [CONTACT_NODE_TYPE],
 });
-
-export default PressContactsExtension;

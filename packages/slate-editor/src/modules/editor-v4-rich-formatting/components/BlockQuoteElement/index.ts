@@ -1,1 +1,1 @@
-export { default } from './BlockQuoteElement';
+export { BlockQuoteElement } from './BlockQuoteElement';

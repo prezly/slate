@@ -8,5 +8,6 @@ export interface DocumentNode extends ElementNode {
     version: string;
 }
 
-export const isDocumentNode = (value: any): value is DocumentNode =>
-    isElementNode<DocumentNode>(value, DOCUMENT_NODE_TYPE);
+export function isDocumentNode(value: any): value is DocumentNode {
+    return isElementNode<DocumentNode>(value, DOCUMENT_NODE_TYPE);
+}

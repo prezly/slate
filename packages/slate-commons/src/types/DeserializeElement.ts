@@ -1,4 +1,4 @@
-type DeserializeElement = Record<
+export type DeserializeElement = Record<
     string,
     (element: HTMLElement) =>
         | {
@@ -7,6 +7,3 @@ type DeserializeElement = Record<
           }
         | undefined
 >;
-
-// eslint-disable-next-line no-undef
-export default DeserializeElement;

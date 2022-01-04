@@ -9,12 +9,12 @@ interface Parameters {
     message: string;
 }
 
-const createLoader = ({ contentType, id = uuidV4(), message }: Parameters): LoaderNode => ({
-    children: [{ text: '' }],
-    contentType,
-    id,
-    message,
-    type: LOADER_TYPE,
-});
-
-export default createLoader;
+export function createLoader({ contentType, id = uuidV4(), message }: Parameters): LoaderNode {
+    return {
+        children: [{ text: '' }],
+        contentType,
+        id,
+        message,
+        type: LOADER_TYPE,
+    };
+}

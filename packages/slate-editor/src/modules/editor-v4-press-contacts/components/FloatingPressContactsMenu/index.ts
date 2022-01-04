@@ -1,1 +1,1 @@
-export { default } from './FloatingPressContactsMenu';
+export { FloatingPressContactsMenu } from './FloatingPressContactsMenu';

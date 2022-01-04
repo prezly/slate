@@ -4,7 +4,7 @@ import { Editor } from 'slate';
 import { EVENTS_PROPERTY } from './constants';
 import type { EditorEventMap } from './types';
 
-abstract class EventsEditor {
+export abstract class EventsEditor {
     static dispatchEvent<Event extends keyof EditorEventMap>(
         editor: Editor,
         event: Event,
@@ -23,5 +23,3 @@ abstract class EventsEditor {
 
     public abstract [EVENTS_PROPERTY]: Events<EditorEventMap>;
 }
-
-export default EventsEditor;

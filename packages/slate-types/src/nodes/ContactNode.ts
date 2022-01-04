@@ -11,5 +11,6 @@ export interface ContactNode extends ElementNode {
     uuid: string;
 }
 
-export const isContactNode = (value: any): value is ContactNode =>
-    isElementNode<ContactNode>(value, CONTACT_NODE_TYPE);
+export function isContactNode(value: any): value is ContactNode {
+    return isElementNode<ContactNode>(value, CONTACT_NODE_TYPE);
+}

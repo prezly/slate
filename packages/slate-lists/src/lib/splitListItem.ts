@@ -4,16 +4,16 @@ import { Editor, Node, Path, Range, Transforms } from 'slate';
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
 import type { ListsOptions } from '../types';
 
-import createListItem from './createListItem';
-import createListItemText from './createListItemText';
-import getListItemsInRange from './getListItemsInRange';
+import { createListItem } from './createListItem';
+import { createListItemText } from './createListItemText';
+import { getListItemsInRange } from './getListItemsInRange';
 
 /**
  * Collapses the current selection (by removing everything in it) and if the cursor
  * ends up in a "list-item" node, it will break that "list-item" into 2 nodes, splitting
  * the text at the cursor location.
  */
-const splitListItem = (options: ListsOptions, editor: Editor): void => {
+export function splitListItem(options: ListsOptions, editor: Editor): void {
     if (!editor.selection) {
         return;
     }
@@ -79,6 +79,4 @@ const splitListItem = (options: ListsOptions, editor: Editor): void => {
             });
         }
     });
-};
-
-export default splitListItem;
+}

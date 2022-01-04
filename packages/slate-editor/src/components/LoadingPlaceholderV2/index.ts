@@ -1,1 +1,1 @@
-export { default } from './LoadingPlaceholderV2';
+export { default as LoadingPlaceholderV2 } from './LoadingPlaceholderV2';

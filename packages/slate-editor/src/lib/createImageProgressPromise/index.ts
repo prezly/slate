@@ -1,1 +1,1 @@
-export { default } from './createImageProgressPromise';
+export { createImageProgressPromise } from './createImageProgressPromise';

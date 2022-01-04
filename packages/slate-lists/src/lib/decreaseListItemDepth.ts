@@ -4,14 +4,18 @@ import { Editor, Node, Path, Transforms } from 'slate';
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
 import type { ListsOptions } from '../types';
 
-import getParentList from './getParentList';
-import getParentListItem from './getParentListItem';
-import increaseListItemDepth from './increaseListItemDepth';
+import { getParentList } from './getParentList';
+import { getParentListItem } from './getParentListItem';
+import { increaseListItemDepth } from './increaseListItemDepth';
 
 /**
  * Decreases nesting depth of "list-item" at a given Path.
  */
-const decreaseListItemDepth = (options: ListsOptions, editor: Editor, listItemPath: Path): void => {
+export function decreaseListItemDepth(
+    options: ListsOptions,
+    editor: Editor,
+    listItemPath: Path,
+): void {
     const parentList = getParentList(options, editor, listItemPath);
 
     if (!parentList) {
@@ -74,6 +78,4 @@ const decreaseListItemDepth = (options: ListsOptions, editor: Editor, listItemPa
             }
         }
     });
-};
-
-export default decreaseListItemDepth;
+}

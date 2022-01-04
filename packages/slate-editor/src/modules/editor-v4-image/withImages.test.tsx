@@ -7,9 +7,9 @@ import { createRef } from 'react';
 import { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
-import ImageExtension from './ImageExtension';
-import jsx from './jsx';
-import withImages from './withImages';
+import { ImageExtension } from './ImageExtension';
+import { jsx } from './jsx';
+import { withImages } from './withImages';
 
 const file: UploadcareStoragePayload = {
     filename: 'lorem.jpg',

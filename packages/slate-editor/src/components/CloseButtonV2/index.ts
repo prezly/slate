@@ -1,1 +1,1 @@
-export { default } from './CloseButtonV2';
+export { CloseButtonV2 } from './CloseButtonV2';

@@ -1,15 +1,16 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { uniq } from '#lodash';
 import type { Node } from 'slate';
 import { Editor, Path } from 'slate';
 
+import { uniq } from '#lodash';
+
 import type { BlockType, RichTextElementType } from '../types';
 
-import isRichTextBlockElement from './isRichTextBlockElement';
+import { isRichTextBlockElement } from './isRichTextBlockElement';
 
 const ROOT_PATH: Path = [];
 
-const findParentBlock = (editor: Editor, node: Node, path: Path): RichTextElementType | null => {
+function findParentBlock(editor: Editor, node: Node, path: Path): RichTextElementType | null {
     if (isRichTextBlockElement(node)) {
         return node;
     }
@@ -20,9 +21,9 @@ const findParentBlock = (editor: Editor, node: Node, path: Path): RichTextElemen
 
     const [ancestor, ancestorPath] = Editor.parent(editor, path);
     return findParentBlock(editor, ancestor, ancestorPath);
-};
+}
 
-const getRichFormattingBlockNodeType = (editor: Editor): BlockType | null => {
+export function getRichFormattingBlockNodeType(editor: Editor): BlockType | null {
     if (!editor.selection || !EditorCommands.isSelectionValid(editor)) {
         return null;
     }
@@ -40,6 +41,4 @@ const getRichFormattingBlockNodeType = (editor: Editor): BlockType | null => {
     }
 
     return blockType as BlockType | null;
-};
-
-export default getRichFormattingBlockNodeType;
+}

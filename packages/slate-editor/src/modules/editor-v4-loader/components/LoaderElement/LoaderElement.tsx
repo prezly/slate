@@ -2,13 +2,14 @@ import { ProgressPromise } from '@prezly/progress-promise';
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes } from 'react';
 import React, { useCallback } from 'react';
-import { useMount, useUnmount } from '#lib';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
+import { useAsyncProgress } from '#lib';
+import { useMount, useUnmount } from '#lib';
+
 import { LoadingPlaceholderV2 } from '../../../../components';
 import { Attachment, Bookmark, Embed, Gallery, Image, Video } from '../../../../icons';
-import { useAsyncProgress } from '#lib';
 import { loaderPromiseManager } from '../../lib';
 import type { LoaderContentType, LoaderNode } from '../../types';
 
@@ -46,7 +47,7 @@ const ESTIMATED_DURATIONS: Record<LoaderContentType, number> = {
     video: 500,
 };
 
-const LoaderElement: FunctionComponent<Props> = ({
+export const LoaderElement: FunctionComponent<Props> = ({
     attributes,
     children,
     element,
@@ -94,5 +95,3 @@ const LoaderElement: FunctionComponent<Props> = ({
         </div>
     );
 };
-
-export default LoaderElement;

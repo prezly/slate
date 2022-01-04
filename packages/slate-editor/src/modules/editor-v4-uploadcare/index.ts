@@ -1,4 +1,4 @@
 export * from './constants';
-export { default as UploadcareEditor } from './UploadcareEditor';
+export { UploadcareEditor } from './UploadcareEditor';
 export * from './types';
-export { default as withUploadcare } from './withUploadcare';
+export { withUploadcare } from './withUploadcare';

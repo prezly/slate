@@ -1,6 +1,7 @@
 import type { ChangeEvent, FunctionComponent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
+
 import { useEffectOnce } from '#lib';
 
 import { FloatingContainer } from '../../../../modules/editor-v4-components';
@@ -16,7 +17,7 @@ interface Props {
     submitButtonLabel: string;
 }
 
-const FloatingEmbedInput: FunctionComponent<Props> = ({
+export const FloatingEmbedInput: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     onClose,
@@ -94,5 +95,3 @@ const FloatingEmbedInput: FunctionComponent<Props> = ({
         </FloatingContainer>
     );
 };
-
-export default FloatingEmbedInput;

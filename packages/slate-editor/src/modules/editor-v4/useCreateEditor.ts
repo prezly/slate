@@ -1,6 +1,5 @@
 import type { Events } from '@prezly/events';
 import type { Decorate, Extension, OnKeyDown } from '@prezly/slate-commons';
-import { useLatest } from '#lib';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Editor } from 'slate';
@@ -8,10 +7,12 @@ import { createEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
+import { useLatest } from '#lib';
+
 import type { EditorEventMap } from '../editor-v4-events';
 import { withEvents } from '../editor-v4-events';
 
-import createEditorV4 from './createEditorV4';
+import { createEditorV4 } from './createEditorV4';
 
 interface Parameters {
     events: Events<EditorEventMap>;
@@ -26,14 +27,16 @@ interface State {
     onKeyDownList: OnKeyDown[];
 }
 
-const DEFAULT_PLUGINS: Parameters['plugins'] = [];
+type NonUndefined<T> = T extends undefined ? never : T;
 
-const useCreateEditor = ({
+const DEFAULT_PLUGINS: NonUndefined<Parameters['plugins']> = [];
+
+export function useCreateEditor({
     events,
     extensions,
     onKeyDown,
     plugins = DEFAULT_PLUGINS,
-}: Parameters): State => {
+}: Parameters): State {
     const decorateList: Decorate[] = [];
     const onKeyDownList: OnKeyDown[] = [];
 
@@ -64,6 +67,4 @@ const useCreateEditor = ({
         editor,
         onKeyDownList,
     };
-};
-
-export default useCreateEditor;
+}

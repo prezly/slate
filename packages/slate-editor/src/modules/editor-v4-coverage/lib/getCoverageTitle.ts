@@ -1,6 +1,6 @@
 import type { Coverage } from '@prezly/sdk';
 
-const getCoverageTitle = (coverage: Coverage): string => {
+export function getCoverageTitle(coverage: Coverage): string {
     if (coverage.attachment_oembed && coverage.attachment_oembed.title) {
         return coverage.attachment_oembed.title;
     }
@@ -10,6 +10,4 @@ const getCoverageTitle = (coverage: Coverage): string => {
     }
 
     return 'Untitled';
-};
-
-export default getCoverageTitle;
+}

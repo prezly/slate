@@ -1,2 +1,2 @@
-export { default as DividerElement } from './DividerElement';
-export { default as DividerMenu } from './DividerMenu';
+export { DividerElement } from './DividerElement';
+export { DividerMenu } from './DividerMenu';

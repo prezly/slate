@@ -2,10 +2,10 @@
 
 import { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { createEditor } from '../test-utils';
 
-import removeChildren from './removeChildren';
+import { removeChildren } from './removeChildren';
 
 describe('removeChildren', () => {
     it('Removes children from any given element leaving just an empty Text node', () => {

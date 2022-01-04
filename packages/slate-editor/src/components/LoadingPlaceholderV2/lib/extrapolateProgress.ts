@@ -11,12 +11,12 @@ interface Parameters {
     history: ChangeEvent[];
 }
 
-const extrapolateProgress = ({
+export function extrapolateProgress({
     current,
     elapsed,
     estimatedDuration,
     history,
-}: Parameters): number => {
+}: Parameters): number {
     const progressRemaining = 1 - current.progress;
 
     if (history.length <= 1) {
@@ -39,6 +39,4 @@ const extrapolateProgress = ({
     const extrapolatedProgress = lastEvent.progress + estimatedGain;
 
     return Math.min(Math.max(extrapolatedProgress, current.progress), 1);
-};
-
-export default extrapolateProgress;
+}

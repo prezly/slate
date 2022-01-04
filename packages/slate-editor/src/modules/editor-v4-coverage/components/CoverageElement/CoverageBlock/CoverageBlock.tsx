@@ -5,7 +5,6 @@ import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import { MultilineEllipsis } from '../../../../../components';
-
 import {
     getCoverageDescription,
     getCoverageImageUrl,
@@ -27,7 +26,7 @@ interface Props {
     dateFormat: string;
 }
 
-const CoverageBlock: FunctionComponent<Props> = ({ coverage, dateFormat }) => {
+export const CoverageBlock: FunctionComponent<Props> = ({ coverage, dateFormat }) => {
     const title = getCoverageTitle(coverage);
     const description = getCoverageDescription(coverage);
     const imageUrl = getCoverageImageUrl(coverage, IMAGE_HEIGHT);
@@ -89,5 +88,3 @@ const CoverageBlock: FunctionComponent<Props> = ({ coverage, dateFormat }) => {
         </div>
     );
 };
-
-export default CoverageBlock;

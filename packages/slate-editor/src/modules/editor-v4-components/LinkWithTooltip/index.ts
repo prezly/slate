@@ -1,1 +1,1 @@
-export { default } from './LinkWithTooltip';
+export { LinkWithTooltip } from './LinkWithTooltip';

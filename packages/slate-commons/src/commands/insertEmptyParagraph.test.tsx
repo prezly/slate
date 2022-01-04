@@ -2,9 +2,9 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import insertEmptyParagraph from './insertEmptyParagraph';
+import { insertEmptyParagraph } from './insertEmptyParagraph';
 
 describe('insertEmptyParagraph', () => {
     it('should insert an empty paragraph after the cursor', () => {

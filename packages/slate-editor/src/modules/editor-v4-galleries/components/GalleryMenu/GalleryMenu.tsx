@@ -10,7 +10,7 @@ import { GalleryLayoutSettings, Menu } from '../../../../components';
 import { Cogwheel, Delete, Dice, Edit } from '../../../../icons';
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
-import LayoutControls from '../LayoutControls';
+import { LayoutControls } from '../LayoutControls';
 
 import './GalleryMenu.scss';
 
@@ -35,7 +35,12 @@ interface Props {
     onEdit: (editor: Editor) => void;
 }
 
-const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery, onEdit }) => {
+export const GalleryMenu: FunctionComponent<Props> = ({
+    containerRef,
+    element,
+    gallery,
+    onEdit,
+}) => {
     const editor = useSlate();
     const isSelected = useSelected();
     const [showLayoutMenu, setShowLayoutMenu] = useState<boolean>(false);
@@ -114,5 +119,3 @@ const GalleryMenu: FunctionComponent<Props> = ({ containerRef, element, gallery,
         </Menu.FloatingMenu>
     );
 };
-
-export default GalleryMenu;

@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import { noop } from '#lodash';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 import { Label, MenuItem } from 'react-bootstrap';
+
+import { noop } from '#lodash';
 
 import { betaLastComparator } from '../../lib';
 import type { Option } from '../../types';
@@ -17,7 +18,7 @@ interface Props {
     open: boolean;
 }
 
-const Dropdown: FunctionComponent<Props> = ({
+export const Dropdown: FunctionComponent<Props> = ({
     className,
     components,
     currentIndex,
@@ -70,5 +71,3 @@ const Dropdown: FunctionComponent<Props> = ({
         </ul>
     </div>
 );
-
-export default Dropdown;

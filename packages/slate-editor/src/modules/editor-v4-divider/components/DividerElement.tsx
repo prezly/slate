@@ -8,7 +8,7 @@ import './DividerElement.scss';
 
 interface Props extends RenderElementProps {}
 
-const DividerElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
+export const DividerElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
     const isSelected = useSelected();
 
     return (
@@ -31,5 +31,3 @@ const DividerElement: FunctionComponent<Props> = ({ attributes, children, elemen
         </div>
     );
 };
-
-export default DividerElement;

@@ -11,7 +11,7 @@ interface Props {
     width: number;
 }
 
-const getClipPoints = (clip: number) => {
+function getClipPoints(clip: number) {
     if (clip <= 0.125) {
         const x = 16 + (16 * clip) / 0.125;
         return `16,16, 16,0 ${x},0`;
@@ -34,9 +34,15 @@ const getClipPoints = (clip: number) => {
 
     const x = (16 * (clip - 0.875)) / 0.125;
     return `16,16 16,0 32,0 32,32 0,32 0,0 ${x},0`;
-};
+}
 
-const ClippedRing: FunctionComponent<Props> = ({ className, clip, color, height, width }) => {
+export const ClippedRing: FunctionComponent<Props> = ({
+    className,
+    clip,
+    color,
+    height,
+    width,
+}) => {
     const maskId = useUniqueId('clipped-ring-mask-');
     const points = getClipPoints(clip);
 
@@ -59,5 +65,3 @@ const ClippedRing: FunctionComponent<Props> = ({ className, clip, color, height,
         </svg>
     );
 };
-
-export default ClippedRing;

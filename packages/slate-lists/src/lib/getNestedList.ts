@@ -4,17 +4,17 @@ import { Node } from 'slate';
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import type { ListsOptions } from '../types';
 
-import isList from './isList';
+import { isList } from './isList';
 
 /**
  * Returns "list" node nested in "list-item" at a given path.
  * Returns null if there is no nested "list".
  */
-const getNestedList = (
+export function getNestedList(
     options: ListsOptions,
     editor: Editor,
     listItemPath: Path,
-): NodeEntry<Element> | null => {
+): NodeEntry<Element> | null {
     const nestedListPath = [...listItemPath, NESTED_LIST_PATH_INDEX];
 
     if (!Node.has(editor, nestedListPath)) {
@@ -29,6 +29,4 @@ const getNestedList = (
     }
 
     return [nestedList, nestedListPath];
-};
-
-export default getNestedList;
+}

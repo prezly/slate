@@ -1,1 +1,1 @@
-export { default } from './BulletedListElement';
+export { BulletedListElement } from './BulletedListElement';

@@ -29,7 +29,7 @@ const TOOLTIP_FLIP_MODIFIER: Modifier<'flip'> = {
     },
 };
 
-const FloatingAddMenu: FunctionComponent<Props> = ({
+export const FloatingAddMenu: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     onToggle,
@@ -103,5 +103,3 @@ const FloatingAddMenu: FunctionComponent<Props> = ({
         </FloatingContainer>
     );
 };
-
-export default FloatingAddMenu;

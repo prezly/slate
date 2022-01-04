@@ -1,9 +1,8 @@
 import { Editor, Range, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-const createOnCut =
-    (editor: Editor) =>
-    (event: React.ClipboardEvent<HTMLDivElement>): void => {
+export function createOnCut(editor: Editor) {
+    return function (event: React.ClipboardEvent<HTMLDivElement>): void {
         event.preventDefault();
 
         ReactEditor.setFragmentData(editor, event.clipboardData);
@@ -36,5 +35,4 @@ const createOnCut =
             Transforms.removeNodes(editor, { at: voidEntryPath, voids: true });
         }
     };
-
-export default createOnCut;
+}

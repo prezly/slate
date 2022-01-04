@@ -3,6 +3,7 @@ import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
 
 import { ElementPortalV2 } from '../Portals';
+
 import { Toolbar } from './Toolbar';
 
 export interface Props {

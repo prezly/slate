@@ -2,9 +2,9 @@
 import { isLinkNode, isParagraphNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import findDescendants from './findDescendants';
+import { findDescendants } from './findDescendants';
 
 describe('findDescendants', () => {
     const editor = (

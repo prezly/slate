@@ -1,15 +1,18 @@
 import classNames from 'classnames';
-import { clamp, noop } from '#lodash';
 import type { CSSProperties } from 'react';
 import React, { Component } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
 import * as Draggable from 'react-draggable';
 
+import { clamp, noop } from '#lodash';
+
+import { Theme } from '#modules/themes';
+
 import { Resize } from '../../../../icons';
 
 import { getClampedRatioInPercent, getClampedWidthInPercent, increaseWidth } from './lib';
+
 import './ResizableContainer.scss';
-import { Theme } from '#modules/themes';
 
 interface Props {
     className?: string;
@@ -32,7 +35,7 @@ interface State {
     widthPercent: string;
 }
 
-class ResizableContainer extends Component<Props, State> {
+export class ResizableContainer extends Component<Props, State> {
     static defaultProps = {
         minWidth: 100,
         onResizeStop: noop,
@@ -145,5 +148,3 @@ class ResizableContainer extends Component<Props, State> {
         );
     }
 }
-
-export default ResizableContainer;

@@ -1,8 +1,8 @@
-export { default as createDataTransfer } from './createDataTransfer';
+export { createDataTransfer } from './createDataTransfer';
 export { createEditorValueWithCoverageAsString } from './createEditorValueWithCoverageAsString';
 export { createEmptyEditorValueAsString } from './createEmptyEditorValueAsString';
 export { createEmptyValue } from './createEmptyValue';
-export { default as createOnCut } from './createOnCut';
+export { createOnCut } from './createOnCut';
 
 export { serialize } from './serialize';
 export { deserialize } from './deserialize';
@@ -16,6 +16,6 @@ export {
 export { createHandleAddGallery, createHandleEditGallery } from './galleries';
 export { createHandleAddImage, createHandleEditImage, handleRemoveImage } from './images';
 
-export { default as insertUploadingFile } from './insertUploadingFile';
-export { default as isEditorValueEquivalent } from './isEditorValueEquivalent';
-export { default as useCursorInView } from './useCursorInView';
+export { insertUploadingFile } from './insertUploadingFile';
+export { isEditorValueEquivalent } from './isEditorValueEquivalent';
+export { useCursorInView } from './useCursorInView';

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Theme, useToolbarsTheme } from '#modules/themes';
 
-import CloseButtonV2 from '../CloseButtonV2';
+import { CloseButtonV2 } from '../CloseButtonV2';
 
 import './GalleryLayoutSettings.scss';
 import { GalleryLayoutSetting } from './GalleryLayoutSetting';

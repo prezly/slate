@@ -17,7 +17,7 @@ export interface PressContact {
     website: string | null;
 }
 
-export const isPressContact = (value: any): value is PressContact => {
+export function isPressContact(value: any): value is PressContact {
     return (
         (typeof value.avatar_url === 'string' || value.avatar_url === null) &&
         (typeof value.company === 'string' || value.company === null) &&
@@ -32,4 +32,4 @@ export const isPressContact = (value: any): value is PressContact => {
         typeof value.uuid === 'string' &&
         (typeof value.website === 'string' || value.website === null)
     );
-};
+}

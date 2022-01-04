@@ -16,12 +16,10 @@ export interface Props {
  * (onMouseOver & onMouseOut events do not fire on disabled elements)
  * It requires parent component to have `position: relative`.
  */
-const DisabledTriggerOverlay: FunctionComponent<Props> = ({ className, onHide, onShow }) => (
+export const DisabledTriggerOverlay: FunctionComponent<Props> = ({ className, onHide, onShow }) => (
     <div
         className={classNames('tooltip-v2-disabled-trigger-overlay', className)}
         onMouseEnter={onShow}
         onMouseLeave={onHide}
     />
 );
-
-export default DisabledTriggerOverlay;

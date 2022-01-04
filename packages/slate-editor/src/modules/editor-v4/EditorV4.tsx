@@ -1,13 +1,14 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
-import { noop } from '#lodash';
 import type { FunctionComponent } from 'react';
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
 import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '#icons';
+import { noop } from '#lodash';
+
 import { Theme, withToolbarsThemeContext } from '#modules/themes';
 
 import { Placeholder } from '../editor-v4-components';
@@ -28,9 +29,11 @@ import {
 import { RichFormattingMenu } from '../editor-v4-rich-formatting';
 import { UploadcareEditor } from '../editor-v4-uploadcare';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
-
 import './EditorV4.scss';
-import getEnabledExtensions from './getEnabledExtensions';
+import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
+import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
+
+import { getEnabledExtensions } from './getEnabledExtensions';
 import {
     createHandleAddGallery,
     createHandleAddImage,
@@ -41,12 +44,10 @@ import {
     useCursorInView,
 } from './lib';
 import type { EditorRef, EditorV4Props } from './types';
-import useCreateEditor from './useCreateEditor';
-import usePendingOperation from './usePendingOperation';
-import withAvailableWidth from './withAvailableWidth';
-import withDebounce from './withDebounce';
-import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
-import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
+import { useCreateEditor } from './useCreateEditor';
+import { usePendingOperation } from './usePendingOperation';
+import { withAvailableWidth } from './withAvailableWidth';
+import { withDebounce } from './withDebounce';
 
 const EditorV4: FunctionComponent<EditorV4Props> = ({
     availableWidth,
@@ -457,4 +458,5 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     );
 };
 
+// eslint-disable-next-line import/no-default-export
 export default withAvailableWidth(withDebounce(EditorV4));

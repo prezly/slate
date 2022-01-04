@@ -1,1 +1,1 @@
-export { default } from './detectMarks';
+export { detectMarks } from './detectMarks';

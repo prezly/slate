@@ -1,4 +1,4 @@
-const isSubscript = (element: HTMLElement): boolean => {
+export function isSubscript(element: HTMLElement): boolean {
     const verticalAlign = element.style.getPropertyValue('vertical-align');
 
     if (verticalAlign) {
@@ -6,6 +6,4 @@ const isSubscript = (element: HTMLElement): boolean => {
     }
 
     return element.tagName === 'SUB';
-};
-
-export default isSubscript;
+}

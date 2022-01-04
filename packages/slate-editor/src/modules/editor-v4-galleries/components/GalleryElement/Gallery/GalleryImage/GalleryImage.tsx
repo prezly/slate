@@ -28,7 +28,7 @@ interface State {
     verticalMargin: number;
 }
 
-class GalleryImage extends Component<Props, State> {
+export class GalleryImage extends Component<Props, State> {
     static defaultProps = {
         className: '',
         style: {},
@@ -106,5 +106,3 @@ class GalleryImage extends Component<Props, State> {
         );
     }
 }
-
-export default GalleryImage;

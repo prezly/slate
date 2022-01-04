@@ -1,1 +1,1 @@
-export { default } from './CoverageElement';
+export { CoverageElement } from './CoverageElement';

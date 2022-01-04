@@ -1,7 +1,7 @@
-import type { BaseEditor } from 'slate';
-import type { ReactEditor } from 'slate-react';
-import type { HistoryEditor } from 'slate-history';
 import type { ElementNode, TextNode } from '@prezly/slate-types';
+import type { BaseEditor } from 'slate';
+import type { HistoryEditor } from 'slate-history';
+import type { ReactEditor } from 'slate-react';
 
 declare module 'slate' {
     interface CustomTypes {
@@ -12,7 +12,7 @@ declare module 'slate' {
 }
 
 export * from './lib';
-export { default as Lists } from './Lists';
+export { Lists } from './Lists';
 export * from './types';
-export { default as withLists } from './withLists';
-export { default as withListsReact } from './withListsReact';
+export { withLists } from './withLists';
+export { withListsReact } from './withListsReact';

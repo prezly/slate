@@ -3,9 +3,9 @@
 import type { Node } from 'slate';
 import { Editor, Text, Transforms } from 'slate';
 
-import getCurrentNodeEntry from './getCurrentNodeEntry';
-import insertEmptyParagraph from './insertEmptyParagraph';
-import isCursorInEmptyParagraph from './isCursorInEmptyParagraph';
+import { getCurrentNodeEntry } from './getCurrentNodeEntry';
+import { insertEmptyParagraph } from './insertEmptyParagraph';
+import { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
 
 interface Options {
     ensureEmptyParagraphAfter?: boolean;
@@ -20,7 +20,7 @@ interface Options {
     mode?: 'highest' | 'lowest';
 }
 
-const insertNodes = (editor: Editor, nodes: Node[], options: Options = {}): void => {
+export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}): void {
     if (!editor.selection || nodes.length === 0) {
         return;
     }
@@ -78,6 +78,4 @@ const insertNodes = (editor: Editor, nodes: Node[], options: Options = {}): void
     // to force one more loop of normalizations. This happens e.g. when fixing hierarchy
     // when pasting lists.
     Editor.normalize(editor, { force: true });
-};
-
-export default insertNodes;
+}

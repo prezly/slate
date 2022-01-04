@@ -6,17 +6,19 @@ import { useMentions } from '../../modules/editor-v4-mentions';
 import { createPlaceholderMention } from './lib';
 import type { Placeholder, PlaceholderMentionsExtensionParameters } from './types';
 
-const placeholderToOption = (placeholder: Placeholder): Option<Placeholder> => ({
-    id: placeholder.key,
-    label: placeholder.text,
-    value: placeholder,
-});
+function placeholderToOption(placeholder: Placeholder): Option<Placeholder> {
+    return {
+        id: placeholder.key,
+        label: placeholder.text,
+        value: placeholder,
+    };
+}
 
 const DEFAULT_PARAMETERS: PlaceholderMentionsExtensionParameters = { placeholders: [] };
 
-const usePlaceholderMentions = ({
+export function usePlaceholderMentions({
     placeholders,
-}: PlaceholderMentionsExtensionParameters = DEFAULT_PARAMETERS) => {
+}: PlaceholderMentionsExtensionParameters = DEFAULT_PARAMETERS) {
     const options = useMemo(() => placeholders.map(placeholderToOption), [placeholders]);
 
     return useMentions<Placeholder>({
@@ -24,6 +26,4 @@ const usePlaceholderMentions = ({
         options,
         trigger: '%',
     });
-};
-
-export default usePlaceholderMentions;
+}

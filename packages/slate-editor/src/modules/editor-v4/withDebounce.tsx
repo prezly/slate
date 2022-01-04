@@ -1,6 +1,7 @@
-import { debounce } from '#lodash';
-import type { ComponentType } from 'react';
+import type { ComponentType, FunctionComponent } from 'react';
 import React, { Component } from 'react';
+
+import { debounce } from '#lodash';
 
 import { serialize } from './lib';
 import type { EditorV4Props } from './types';
@@ -75,8 +76,8 @@ class DebouncedEditorV4 extends Component<Props, State> {
     }
 }
 
-const withDebounce = (EditorV4Component: ComponentType<EditorV4Props>) => {
-    const WithDebounce = (props: EditorV4Props) => (
+export function withDebounce(EditorV4Component: ComponentType<EditorV4Props>) {
+    const WithDebounce: FunctionComponent<EditorV4Props> = (props: EditorV4Props) => (
         <DebouncedEditorV4 EditorV4Component={EditorV4Component} {...props} />
     );
 
@@ -84,6 +85,4 @@ const withDebounce = (EditorV4Component: ComponentType<EditorV4Props>) => {
     WithDebounce.displayName = `withDebounce(${displayName})`;
 
     return WithDebounce;
-};
-
-export default withDebounce;
+}

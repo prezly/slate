@@ -1,6 +1,6 @@
 import type { OEmbedInfo } from '@prezly/sdk';
 
-export const isOEmbedInfo = (value: any): value is OEmbedInfo => {
+export function isOEmbedInfo(value: any): value is OEmbedInfo {
     return (
         typeof value === 'object' &&
         value !== null &&
@@ -10,4 +10,4 @@ export const isOEmbedInfo = (value: any): value is OEmbedInfo => {
         typeof value.version === 'string' &&
         value.version.length > 0
     );
-};
+}

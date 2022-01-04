@@ -4,9 +4,9 @@ import { Editor } from 'slate';
 
 import type { LoaderNode } from '../types';
 
-import isLoaderElement from './isLoaderElement';
+import { isLoaderElement } from './isLoaderElement';
 
-const getLoaders = (editor: Editor): NodeEntry<LoaderNode>[] => {
+export function getLoaders(editor: Editor): NodeEntry<LoaderNode>[] {
     const at = EditorCommands.getEditorRange(editor);
 
     if (!at) {
@@ -16,6 +16,4 @@ const getLoaders = (editor: Editor): NodeEntry<LoaderNode>[] => {
     const loaders = Editor.nodes(editor, { at, match: isLoaderElement });
 
     return Array.from(loaders);
-};
-
-export default getLoaders;
+}

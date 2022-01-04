@@ -3,16 +3,16 @@ import { Editor, Element, Node, Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import isListItemText from './isListItemText';
+import { isListItemText } from './isListItemText';
 
 /**
  * A "list-item-text" can have only inline nodes in it.
  */
-const normalizeListItemTextChildren = (
+export function normalizeListItemTextChildren(
     options: ListsOptions,
     editor: Editor,
     [node, path]: NodeEntry<Node>,
-): boolean => {
+): boolean {
     if (!isListItemText(options, node)) {
         // This function does not know how to normalize other nodes.
         return false;
@@ -26,6 +26,4 @@ const normalizeListItemTextChildren = (
     }
 
     return false;
-};
-
-export default normalizeListItemTextChildren;
+}

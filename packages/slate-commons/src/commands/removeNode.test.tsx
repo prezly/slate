@@ -3,10 +3,10 @@ import { isElementNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Element } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { SOME_ELEMENT_1, SOME_ELEMENT_2 } from '../test-utils';
 
-import removeNode from './removeNode';
+import { removeNode } from './removeNode';
 
 describe('removeNode', () => {
     it('Removes the element at current cursor location', () => {

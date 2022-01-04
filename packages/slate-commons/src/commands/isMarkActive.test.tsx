@@ -2,9 +2,9 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import isMarkActive from './isMarkActive';
+import { isMarkActive } from './isMarkActive';
 
 const EXAMPLE_MARK_1 = 'bold';
 const EXAMPLE_MARK_2 = 'underlined';

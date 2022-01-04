@@ -11,7 +11,7 @@ interface Props {
     option: Option<User>;
 }
 
-const UserMentionsDropdownOption: FunctionComponent<Props> = ({ option }) => (
+export const UserMentionsDropdownOption: FunctionComponent<Props> = ({ option }) => (
     <div className="editor-v4-user-mentions-dropdown-option">
         <Avatar
             className="editor-v4-user-mentions-dropdown-option__avatar"
@@ -22,5 +22,3 @@ const UserMentionsDropdownOption: FunctionComponent<Props> = ({ option }) => (
         <span>{option.value.name}</span>
     </div>
 );
-
-export default UserMentionsDropdownOption;

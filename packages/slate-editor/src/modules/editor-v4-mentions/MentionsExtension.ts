@@ -11,23 +11,23 @@ interface Options<T extends string> {
     type: T;
 }
 
-const MentionsExtension = <T extends string>({
+export function MentionsExtension<T extends string>({
     id,
     normalizers,
     parseSerializedElement,
     renderElement,
     type,
-}: Options<T>): Extension => ({
-    deserialize: {
-        element: {
-            [type]: createDeserializeElement(parseSerializedElement),
+}: Options<T>): Extension {
+    return {
+        deserialize: {
+            element: {
+                [type]: createDeserializeElement(parseSerializedElement),
+            },
         },
-    },
-    id,
-    inlineTypes: [type],
-    normalizers,
-    renderElement,
-    voidTypes: [type],
-});
-
-export default MentionsExtension;
+        id,
+        inlineTypes: [type],
+        normalizers,
+        renderElement,
+        voidTypes: [type],
+    };
+}

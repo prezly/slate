@@ -11,7 +11,7 @@ const activePromises: {
  * to dispose of loader blocks in the editor.
  * It works under assumption that ids are globally unique.
  */
-const loaderPromiseManager = {
+export const loaderPromiseManager = {
     getPromise: (id: string): LoaderPromise | undefined => {
         return activePromises[id];
     },
@@ -23,12 +23,10 @@ const loaderPromiseManager = {
     track: (id: string, promise: LoaderPromise): void => {
         activePromises[id] = promise;
 
-        const forget = () => {
-            activePromises[id] = undefined;
-        };
+        function forget() {
+            return (activePromises[id] = undefined);
+        }
 
         ProgressPromise.resolve(promise).then(forget, forget);
     },
 };
-
-export default loaderPromiseManager;

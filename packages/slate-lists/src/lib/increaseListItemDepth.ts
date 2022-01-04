@@ -4,15 +4,19 @@ import { Editor, Node, Path, Transforms } from 'slate';
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import type { ListsOptions } from '../types';
 
-import createList from './createList';
-import getListType from './getListType';
-import isList from './isList';
-import isListItem from './isListItem';
+import { createList } from './createList';
+import { getListType } from './getListType';
+import { isList } from './isList';
+import { isListItem } from './isListItem';
 
 /**
  * Increases nesting depth of "list-item" at a given Path.
  */
-const increaseListItemDepth = (options: ListsOptions, editor: Editor, listItemPath: Path): void => {
+export function increaseListItemDepth(
+    options: ListsOptions,
+    editor: Editor,
+    listItemPath: Path,
+): void {
     const previousListItem = EditorCommands.getPreviousSibling(editor, listItemPath);
 
     if (!previousListItem) {
@@ -53,6 +57,4 @@ const increaseListItemDepth = (options: ListsOptions, editor: Editor, listItemPa
             });
         }
     });
-};
-
-export default increaseListItemDepth;
+}
