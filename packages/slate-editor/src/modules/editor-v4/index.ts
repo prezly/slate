@@ -1,4 +1,5 @@
-export { default } from './EditorV4';
+export { default as EditorV4 } from './EditorV4';
+
 export {
     createDataTransfer,
     createEmptyValue,
