@@ -1,4 +1,4 @@
-import { uniqueId } from 'lodash';
+import { uniqueId } from '#lodash';
 import { useMemo } from 'react';
 
 const useUniqueId = (prefix?: string) => {

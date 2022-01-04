@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { uniq } from 'lodash';
+import { uniq } from '#lodash';
 import type { Node } from 'slate';
 import { Editor, Path } from 'slate';
 

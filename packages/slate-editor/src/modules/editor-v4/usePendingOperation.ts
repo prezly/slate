@@ -1,6 +1,6 @@
-import { noop } from 'lodash';
+import { noop } from '#lodash';
 import { useCallback, useEffect, useState } from 'react';
-import { useLatest } from 'react-use';
+import { useLatest } from '#lib';
 
 interface Actions {
     onOperationEnd: () => void;

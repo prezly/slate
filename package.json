@@ -10,13 +10,15 @@
         "url": "https://github.com/prezly/slate/issues"
     },
     "homepage": "https://github.com/prezly/slate#readme",
+    "type": "module",
     "scripts": {
         "bootstrap": "npm ci --legacy-peer-deps",
-        "build": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.build.json --pretty && npm run build --workspaces",
+        "build": "npm run build --workspaces",
         "check": "npm run prettier && npm run test",
         "watch": "concurrently --kill-others --names 'types  ,commons,hyper  ,lists  ,editor ' 'npm run watch -w packages/slate-types' 'npm run watch -w packages/slate-commons' 'npm run watch -w packages/slate-hyperscript' 'npm run watch -w packages/slate-lists' 'npm run watch --workspace=packages/slate-editor'",
         "lint": "npm run lint --workspaces",
         "lint:fix": "npm run lint --workspaces -- --fix",
+        "test": "npm run test --workspaces",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:build": "npm run clean:build --workspaces && rimraf *.tsbuildinfo",
         "clean:node_modules": "npm run clean:node_modules --workspaces && rimraf node_modules/",
@@ -25,10 +27,7 @@
         "release": "npm run release:prepare && npm run release:publish",
         "release:build": "npm run clean && npm run bootstrap && npm run build",
         "release:prepare": "npm run release:build && npm run check",
-        "release:publish": "lerna publish --force-publish",
-        "test": "jest --no-cache --coverage && npm run test --workspace=packages/slate-editor",
-        "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
-        "test:watch": "jest --no-cache --watch"
+        "release:publish": "lerna publish --force-publish"
     },
     "devEngines": {
         "node": ">= 16.13.0",

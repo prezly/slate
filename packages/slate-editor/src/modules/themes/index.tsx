@@ -1,4 +1,5 @@
-import React, { createContext, ReactElement, ReactNode, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 export enum Theme {
     CLASSIC = 'classic',

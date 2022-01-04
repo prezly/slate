@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
-import { useMountedState, useUnmount } from 'react-use';
+
+import { useMountedState, useUnmount } from './react-use';
 
 interface Parameters {
     defaultShow?: boolean;

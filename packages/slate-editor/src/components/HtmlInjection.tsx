@@ -1,5 +1,8 @@
-import React, { FunctionComponent, useEffect, useRef } from 'react';
-import { useLatest } from 'react-use';
+import type { FunctionComponent } from 'react';
+import React, { useEffect, useRef } from 'react';
+
+import { useLatest } from '#lib';
+
 import { injectOembedMarkup } from '../modules/editor-v4-embed/lib';
 
 interface Props {

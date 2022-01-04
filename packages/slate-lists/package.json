@@ -3,14 +3,15 @@
     "version": "0.10.1",
     "description": "The best Slate lists extension out there",
     "license": "MIT",
-    "main": "build/esm/index.mjs",
+    "type": "module",
+    "main": "build/cjs/index.cjs",
     "module": "build/esm/index.mjs",
     "types": "build/types/index.d.ts",
     "exports": {
         ".": {
             "types": "./build/types/index.d.ts",
             "import": "./build/esm/index.mjs",
-            "default": "./build/esm/index.mjs"
+            "default": "./build/cjs/index.cjs"
         }
     },
     "files": [
@@ -27,15 +28,21 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
-        "build": "npm run type-check && NODE_ENV=production npm run build:transpile",
-        "build:dev": "npm run type-check && NODE_ENV=development npm run build:transpile",
-        "build:transpile": "npm run build:code && npm run build:types",
-        "build:types": "tsc-fancy --preserveConsoleOutput --build .",
-        "build:code": "babel --config-file ../../babel.config.js src/ --out-dir=build/esm/ --extensions=.ts,.tsx --out-file-extension=.mjs",
-        "watch": "concurrently --kill-others --names 'd.ts,mjs ' 'npm run watch:types' 'npm run watch:code'",
-        "watch:types": "npm run type-check -- --watch --pretty",
-        "watch:code": "npm run build:code -- --watch",
-        "type-check": "tsc-fancy --preserveConsoleOutput --build .",
+        "build": "NODE_ENV=production npm run build:all",
+        "build:dev": "NODE_ENV=development npm run build:all",
+        "build:all": "npm run build:types && npm run build:esm && npm run build:cjs",
+        "build:types": "tsc --build ./tsconfig.build.json",
+        "build:esm": "gulp build:esm",
+        "build:cjs": "gulp build:cjs",
+        "watch": "concurrently --kill-others --names 'd.ts,esm , cjs ' 'npm run watch:types' 'npm run watch:esm' 'npm run watch:cjs'",
+        "watch:types": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.build.json --watch --pretty",
+        "watch:esm": "npm run watch:esm",
+        "watch:cjs": "npm run watch:cjs",
+        "test": "npm run test:unit && npm run test:build",
+        "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.cjs --rootDir ./ --no-cache --coverage",
+        "test:build": "npm run test:esm && npm run test:cjs",
+        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.mjs'; \" ",
+        "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" ",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"

@@ -10,7 +10,7 @@
         "jsx": "react",
         "forceConsistentCasingInFileNames": true,
         "lib": ["dom", "dom.iterable", "esnext"],
-        "module": "es6",
+        "module": "es2020",
         "moduleResolution": "node",
         "noEmit": true,
         "noImplicitAny": true,
@@ -25,6 +25,13 @@
         "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
-        "target": "es6"
-    }
+        "target": "es2020"
+    },
+    "references": [
+        { "path": "packages/slate-types" },
+        { "path": "packages/slate-hyperscript" },
+        { "path": "packages/slate-commons" },
+        { "path": "packages/slate-lists" },
+        { "path": "packages/slate-editor" }
+    ]
 }

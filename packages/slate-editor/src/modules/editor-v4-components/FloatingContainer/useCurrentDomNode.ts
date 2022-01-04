@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { useEffect, useRef } from 'react';
-import { useUpdate } from 'react-use';
+import { useUpdate } from '#lib';
 import { useSlate } from 'slate-react';
 
 interface Parameters {

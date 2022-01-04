@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { clamp, noop } from 'lodash';
+import { clamp, noop } from '#lodash';
 import type { CSSProperties } from 'react';
 import React, { Component } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
-import { DraggableCore } from 'react-draggable';
+import * as Draggable from 'react-draggable';
 
 import { Resize } from '../../../../icons';
 
@@ -125,7 +125,7 @@ class ResizableContainer extends Component<Props, State> {
                 {children}
 
                 {enabled && (
-                    <DraggableCore
+                    <Draggable.DraggableCore
                         onDrag={this.handleResize}
                         onStart={this.handleResizeStart}
                         onStop={this.handleResizeStop}
@@ -139,7 +139,7 @@ class ResizableContainer extends Component<Props, State> {
                                 <Resize className="editor-v4-image-resizable-container__button-icon" />
                             </button>
                         </div>
-                    </DraggableCore>
+                    </Draggable.DraggableCore>
                 )}
             </div>
         );
