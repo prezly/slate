@@ -31,7 +31,7 @@ declare global {
     }
 }
 
-const jsx = createHyperscript({
+export const jsx = createHyperscript({
     elements: {
         'h-divider': { type: DIVIDER_NODE_TYPE },
         'h-li': { type: ElementType.LIST_ITEM },
@@ -41,5 +41,3 @@ const jsx = createHyperscript({
         'h-ul': { type: ElementType.BULLETED_LIST },
     },
 });
-
-export default jsx;

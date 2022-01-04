@@ -1,1 +1,1 @@
-export { default as LoaderElement } from './LoaderElement';
+export { LoaderElement } from './LoaderElement';

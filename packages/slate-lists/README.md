@@ -104,7 +104,7 @@ import { Editable, Slate, withReact } from 'slate-react';
 
 const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
 
-const MyEditor = () => {
+export const MyEditor = () => {
     const [value, setValue] = useState(initialValue);
     const editor = useMemo(() => withReact(createEditor()), []);
 
@@ -114,8 +114,6 @@ const MyEditor = () => {
         </Slate>
     );
 };
-
-export default MyEditor;
 ```
 
 ### Define [`ListsOptions`](src/types.ts)
@@ -177,7 +175,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-2-use-withli
 
  const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
 
- const MyEditor = () => {
+ export const MyEditor = () => {
      const [value, setValue] = useState(initialValue);
 -    const editor = useMemo(() => withReact(createEditor()), []);
 +    const baseEditor = useMemo(() => withReact(createEditor()), []);
@@ -190,7 +188,6 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-2-use-withli
      );
  };
 
- export default MyEditor;
 ```
 
 ### Use [`withListsReact`](src/lib/withListsReact.ts) plugin
@@ -257,7 +254,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-4-use-lists-
 
  const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
 
- const MyEditor = () => {
+ export const MyEditor = () => {
      const [value, setValue] = useState(initialValue);
      const baseEditor = useMemo(() => withReact(createEditor()), []);
      const editor = useMemo(() => withListsReact(withLists(options)(baseEditor)), [baseEditor]);
@@ -268,8 +265,6 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-4-use-lists-
          </Slate>
      );
  };
-
- export default MyEditor;
 ```
 
 ### Good to go

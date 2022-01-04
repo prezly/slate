@@ -11,7 +11,7 @@ interface Props {
     element: HTMLElement;
 }
 
-const DividerMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
+export const DividerMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
     const editor = useSlate();
     const isSelected = useSelected();
 
@@ -33,5 +33,3 @@ const DividerMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
         </Menu.FloatingMenu>
     );
 };
-
-export default DividerMenu;

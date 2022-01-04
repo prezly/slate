@@ -1,1 +1,1 @@
-export { default as ParagraphElement } from './ParagraphElement';
+export { ParagraphElement } from './ParagraphElement';

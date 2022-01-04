@@ -3,17 +3,18 @@ import type { NodeEntry, Path } from 'slate';
 import { Editor } from 'slate';
 
 import type { ListsOptions } from '../types';
-import isList from './isList';
+
+import { isList } from './isList';
 
 /**
  * Returns parent "list" node of "list-item" at a given path.
  * Returns null if there is no parent "list".
  */
-const getParentList = (
+export function getParentList(
     options: ListsOptions,
     editor: Editor,
     listItemPath: Path,
-): NodeEntry<ElementNode> | null => {
+): NodeEntry<ElementNode> | null {
     const parentList = Editor.above<ElementNode>(editor, {
         at: listItemPath,
         match: (node) => isList(options, node),
@@ -24,6 +25,4 @@ const getParentList = (
     }
 
     return null;
-};
-
-export default getParentList;
+}

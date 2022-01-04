@@ -7,16 +7,20 @@ import { useSelected } from 'slate-react';
 
 import { Avatar } from '../../../../components';
 import { User } from '../../../../icons';
-import JobDescription from '../JobDescription';
+import { JobDescription } from '../JobDescription';
 
 import './PressContactElement.scss';
-import SocialFields from './SocialFields';
+import { SocialFields } from './SocialFields';
 
 interface Props extends RenderElementProps {
     element: ContactNode;
 }
 
-const PressContactElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
+export const PressContactElement: FunctionComponent<Props> = ({
+    attributes,
+    children,
+    element,
+}) => {
     const isSelected = useSelected();
 
     return (
@@ -64,5 +68,3 @@ const PressContactElement: FunctionComponent<Props> = ({ attributes, children, e
         </div>
     );
 };
-
-export default PressContactElement;

@@ -1,11 +1,12 @@
+import { getText, removeMark } from '@udecode/plate-core';
 import { castArray } from 'lodash';
 import type { Editor, Point, Range } from 'slate';
 import { Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import { getText, removeMark } from '@udecode/plate-core';
+
+import type { AutoformatMarkRule } from '../types';
 import { getMatchPoints } from '../utils/getMatchPoints';
 import { getMatchRange } from '../utils/getMatchRange';
-import type { AutoformatMarkRule } from '../types';
 
 export interface AutoformatMarkOptions extends AutoformatMarkRule {
     text: string;

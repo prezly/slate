@@ -9,7 +9,7 @@ import { COVERAGE_EXTENSION_ID } from './constants';
 import { normalizeRedundantCoverageAttributes, parseSerializedElement } from './lib';
 import type { CoverageParameters } from './types';
 
-const CoverageExtension = ({
+export const CoverageExtension = ({
     containerRef,
     dateFormat,
     fetchCoverage,
@@ -48,5 +48,3 @@ const CoverageExtension = ({
     rootTypes: [COVERAGE_NODE_TYPE],
     voidTypes: [COVERAGE_NODE_TYPE],
 });
-
-export default CoverageExtension;

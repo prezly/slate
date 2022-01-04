@@ -1,5 +1,5 @@
-import type { Editor, Location } from 'slate';
 import { getRangeBefore, getText } from '@udecode/plate-core';
+import type { Editor, Location } from 'slate';
 
 export const isPreviousCharacterEmpty = (editor: Editor, at: Location) => {
     const range = getRangeBefore(editor, at);

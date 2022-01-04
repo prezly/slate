@@ -4,20 +4,20 @@ import { Transforms } from 'slate';
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import type { ListsOptions } from '../types';
 
-import isList from './isList';
-import isListItem from './isListItem';
+import { isList } from './isList';
+import { isListItem } from './isListItem';
 
 /**
  * Nests (moves) given "list" in a given "list-item".
  */
-const moveListToListItem = (
+export function moveListToListItem(
     options: ListsOptions,
     editor: Editor,
     parameters: {
         at: NodeEntry<Node>;
         to: NodeEntry<Node>;
     },
-): void => {
+): void {
     const [sourceListNode, sourceListPath] = parameters.at;
     const [targetListNode, targetListPath] = parameters.to;
 
@@ -30,6 +30,4 @@ const moveListToListItem = (
         at: sourceListPath,
         to: [...targetListPath, NESTED_LIST_PATH_INDEX],
     });
-};
-
-export default moveListToListItem;
+}

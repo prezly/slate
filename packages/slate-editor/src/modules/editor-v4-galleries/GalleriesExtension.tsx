@@ -13,7 +13,7 @@ import {
 } from './lib';
 import type { GalleriesParameters } from './types';
 
-const GalleriesExtension = ({
+export const GalleriesExtension = ({
     availableWidth,
     containerRef,
     onEdit,
@@ -56,5 +56,3 @@ const GalleriesExtension = ({
     rootTypes: [GALLERY_NODE_TYPE],
     voidTypes: [GALLERY_NODE_TYPE],
 });
-
-export default GalleriesExtension;

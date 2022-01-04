@@ -1,4 +1,5 @@
-export { default } from './EditorV4';
+export { default as EditorV4 } from './EditorV4';
+
 export {
     createDataTransfer,
     createEmptyValue,
@@ -9,4 +10,4 @@ export {
     isEditorValueEquivalent,
 } from './lib';
 export type { EditorRef, EditorV4Props } from './types';
-export { default as useEditorEvents } from './useEditorEvents';
+export { useEditorEvents } from './useEditorEvents';

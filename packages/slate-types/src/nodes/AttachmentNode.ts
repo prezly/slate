@@ -11,5 +11,6 @@ export interface AttachmentNode extends ElementNode {
     file: UploadcareStoragePayload;
 }
 
-export const isAttachmentNode = (value: any): value is AttachmentNode =>
-    isElementNode<AttachmentNode>(value, ATTACHMENT_NODE_TYPE);
+export function isAttachmentNode(value: any): value is AttachmentNode {
+    return isElementNode<AttachmentNode>(value, ATTACHMENT_NODE_TYPE);
+}

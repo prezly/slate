@@ -18,11 +18,11 @@ interface Cell<Image extends BaseImage> {
 
 type Layout<Image extends BaseImage> = Cell<Image>[][];
 
-const calculateLayout = <Image extends BaseImage>({
+export function calculateLayout<Image extends BaseImage>({
     idealHeight,
     images,
     viewportWidth,
-}: Parameters<Image>): Layout<Image> => {
+}: Parameters<Image>): Layout<Image> {
     if (idealHeight <= 0 || viewportWidth <= 0 || images.length === 0) {
         return [];
     }
@@ -58,6 +58,4 @@ const calculateLayout = <Image extends BaseImage>({
     });
 
     return computedRows;
-};
-
-export default calculateLayout;
+}

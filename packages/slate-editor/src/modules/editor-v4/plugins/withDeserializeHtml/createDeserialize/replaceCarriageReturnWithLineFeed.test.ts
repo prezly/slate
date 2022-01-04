@@ -1,4 +1,4 @@
-import replaceCarriageReturnWithLineFeed from './replaceCarriageReturnWithLineFeed';
+import { replaceCarriageReturnWithLineFeed } from './replaceCarriageReturnWithLineFeed';
 
 describe('replaceCarriageReturnWithLineFeed', () => {
     it('should replace CR with LF', () => {

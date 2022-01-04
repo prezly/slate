@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import FiniteLoadingIndicator from './FiniteLoadingIndicator';
-import InfiniteLoadingIndicator from './InfiniteLoadingIndicator';
+import { FiniteLoadingIndicator } from './FiniteLoadingIndicator';
+import { InfiniteLoadingIndicator } from './InfiniteLoadingIndicator';
 import './LoadingIndicatorV2.scss';
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
     width?: number;
 }
 
-const LoadingIndicatorV2: FunctionComponent<Props> = ({
+export const LoadingIndicatorV2: FunctionComponent<Props> = ({
     className,
     height = 24,
     progress,
@@ -30,5 +30,3 @@ const LoadingIndicatorV2: FunctionComponent<Props> = ({
         )}
     </div>
 );
-
-export default LoadingIndicatorV2;

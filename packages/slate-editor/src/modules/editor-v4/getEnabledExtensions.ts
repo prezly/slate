@@ -1,6 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
-import { noop } from 'lodash';
 import type { RefObject } from 'react';
+
+import { noop } from '#lodash';
 
 import { CoverageExtension } from '../../modules/editor-v4-coverage';
 import { DividerExtension } from '../../modules/editor-v4-divider';
@@ -14,12 +15,12 @@ import { PlaceholderMentionsExtension } from '../../modules/editor-v4-placeholde
 import { PressContactsExtension } from '../../modules/editor-v4-press-contacts';
 import { RichFormattingExtension } from '../../modules/editor-v4-rich-formatting';
 import { UserMentionsExtension } from '../../modules/editor-v4-user-mentions';
-import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
-import { VideoExtension } from '../editor-v4-video';
 import { AutoformatExtension } from '../editor-v4-autoformat';
+import { VideoExtension } from '../editor-v4-video';
 import { VoidExtension } from '../editor-v4-void';
-import { formatRules } from './formatRules';
+import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
 
+import { formatRules } from './formatRules';
 import {
     createHandleEditGallery,
     createHandleEditImage,
@@ -35,7 +36,7 @@ interface Parameters extends EditorV4ExtensionsProps {
     onOperationStart?: () => void;
 }
 
-function* getEnabledExtensions({
+export function* getEnabledExtensions({
     availableWidth,
     containerRef,
     onOperationEnd = noop,
@@ -138,5 +139,3 @@ function* getEnabledExtensions({
 
     yield VoidExtension();
 }
-
-export default getEnabledExtensions;

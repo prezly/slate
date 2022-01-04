@@ -1,1 +1,1 @@
-export { default } from './FloatingCoverageMenu';
+export { FloatingCoverageMenu } from './FloatingCoverageMenu';

@@ -4,7 +4,7 @@ import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
 import { createParagraph, parseSerializedElement } from './lib';
 
-const deserialize: DeserializeHtml = {
+export const deserialize: DeserializeHtml = {
     element: {
         [PARAGRAPH_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         BR: () => createParagraph(),
@@ -19,5 +19,3 @@ const deserialize: DeserializeHtml = {
         P: () => createParagraph(),
     },
 };
-
-export default deserialize;

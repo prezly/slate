@@ -1,15 +1,17 @@
-import { noop } from 'lodash';
+import { noop } from '#lodash';
 
 type DataType = 'text/html' | 'text/plain' | 'text/rtf' | 'application/x-slate-fragment';
 
-const iterator = () => ({
-    next: () => {
-        throw new Error('Unimplemented');
-    },
-    [Symbol.iterator]() {
-        return this;
-    },
-});
+function iterator() {
+    return {
+        next: () => {
+            throw new Error('Unimplemented');
+        },
+        [Symbol.iterator]() {
+            return this;
+        },
+    };
+}
 
 const dataTransferItemList: DataTransferItemList = {
     [Symbol.iterator]: iterator,
@@ -25,16 +27,16 @@ const fileList: FileList = {
     length: 0,
 };
 
-const createDataTransfer = (dataMap: Partial<Record<DataType, string>>): DataTransfer => ({
-    clearData: noop,
-    dropEffect: 'none',
-    effectAllowed: 'uninitialized',
-    files: fileList,
-    getData: (type: string) => dataMap[type as DataType] || '',
-    items: dataTransferItemList,
-    setData: noop,
-    setDragImage: noop,
-    types: Object.keys(dataMap),
-});
-
-export default createDataTransfer;
+export function createDataTransfer(dataMap: Partial<Record<DataType, string>>): DataTransfer {
+    return {
+        clearData: noop,
+        dropEffect: 'none',
+        effectAllowed: 'uninitialized',
+        files: fileList,
+        getData: (type: string) => dataMap[type as DataType] || '',
+        items: dataTransferItemList,
+        setData: noop,
+        setDragImage: noop,
+        types: Object.keys(dataMap),
+    };
+}

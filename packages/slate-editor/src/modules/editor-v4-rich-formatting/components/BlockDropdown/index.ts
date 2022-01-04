@@ -1,1 +1,1 @@
-export { default } from './BlockDropdown';
+export { BlockDropdown } from './BlockDropdown';

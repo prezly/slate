@@ -1,7 +1,8 @@
 import type { ChangeEvent, FunctionComponent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
-import { useEffectOnce } from 'react-use';
+
+import { useEffectOnce } from '#lib';
 
 import { FloatingContainer } from '../../../../modules/editor-v4-components';
 
@@ -39,7 +40,7 @@ export const FloatingWebBookmarkInput: FunctionComponent<Props> = ({
     });
 
     return (
-        <FloatingContainer
+        <FloatingContainer.Container
             availableWidth={availableWidth}
             className="editor-v4-floating-web-bookmark-input"
             containerRef={containerRef}
@@ -91,6 +92,6 @@ export const FloatingWebBookmarkInput: FunctionComponent<Props> = ({
                     </InputGroup.Addon>
                 </InputGroup>
             </form>
-        </FloatingContainer>
+        </FloatingContainer.Container>
     );
 };

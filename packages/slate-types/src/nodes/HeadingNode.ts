@@ -8,5 +8,6 @@ export interface HeadingNode extends ElementNode {
     type: typeof HEADING_1_NODE_TYPE | typeof HEADING_2_NODE_TYPE;
 }
 
-export const isHeadingNode = (value: any): value is HeadingNode =>
-    isElementNode<HeadingNode>(value, [HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE]);
+export function isHeadingNode(value: any): value is HeadingNode {
+    return isElementNode<HeadingNode>(value, [HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE]);
+}

@@ -1,7 +1,7 @@
 import { ProgressPromise } from '@prezly/progress-promise';
 
-import createFetchImageProgressPromise from './createFetchImageProgressPromise';
-import createXmlHttpImageProgressPromise from './createXmlHttpImageProgressPromise';
+import { createFetchImageProgressPromise } from './createFetchImageProgressPromise';
+import { createXmlHttpImageProgressPromise } from './createXmlHttpImageProgressPromise';
 
 const CORS_ENABLED_ORIGINS = ['https://cdn.uc.assets.prezly.com'];
 
@@ -15,7 +15,7 @@ const isReadableStreamSupported = (() => {
     }
 })();
 
-const createImageProgressPromise = (src: string): ProgressPromise<string, number> => {
+export function createImageProgressPromise(src: string): ProgressPromise<string, number> {
     const { origin } = new URL(src);
 
     // There are at least 2 ways of tracking loading progress:
@@ -48,6 +48,4 @@ const createImageProgressPromise = (src: string): ProgressPromise<string, number
             reject(new Error(`Failed to load image: ${src}`));
         });
     });
-};
-
-export default createImageProgressPromise;
+}

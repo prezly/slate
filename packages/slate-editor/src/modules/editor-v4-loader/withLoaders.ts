@@ -9,22 +9,23 @@ import type { LoaderNode } from './types';
  * in the editor. Other nodes will never be automatically replaced so it's our job to
  * prevent them from re-appearing in the editor.
  */
-const isLoaderAllowed = ({ id }: LoaderNode): boolean => loaderPromiseManager.isPending(id);
+function isLoaderAllowed({ id }: LoaderNode): boolean {
+    return loaderPromiseManager.isPending(id);
+}
 
-const createHistoryHandler =
-    <T extends Editor>(
-        editor: T,
-        {
-            canPerform,
-            command,
-            revertCommand,
-        }: {
-            canPerform: () => boolean;
-            command: () => void;
-            revertCommand: () => void;
-        },
-    ) =>
-    () => {
+function createHistoryHandler<T extends Editor>(
+    editor: T,
+    {
+        canPerform,
+        command,
+        revertCommand,
+    }: {
+        canPerform: () => boolean;
+        command: () => void;
+        revertCommand: () => void;
+    },
+) {
+    return function () {
         if (!canPerform()) {
             return;
         }
@@ -53,8 +54,9 @@ const createHistoryHandler =
             }
         }
     };
+}
 
-const withLoaders = <T extends Editor>(editor: T): T => {
+export function withLoaders<T extends Editor>(editor: T): T {
     const { redo, undo } = editor;
 
     editor.redo = createHistoryHandler(editor, {
@@ -70,6 +72,4 @@ const withLoaders = <T extends Editor>(editor: T): T => {
     });
 
     return editor;
-};
-
-export default withLoaders;
+}

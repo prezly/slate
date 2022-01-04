@@ -1,1 +1,1 @@
-export { default } from './LinkElement';
+export { LinkElement } from './LinkElement';

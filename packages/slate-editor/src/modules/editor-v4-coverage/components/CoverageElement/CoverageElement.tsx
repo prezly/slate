@@ -3,17 +3,18 @@ import type { CoverageNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React, { useEffect } from 'react';
-import { useAsyncFn } from 'react-use';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
+
+import { useAsyncFn } from '#lib';
 
 import { LoadingPlaceholderV2 } from '../../../../components';
 import { Coverage as CoverageIcon } from '../../../../icons';
 import type { ApiError } from '../../../../modules/api';
 
-import CoverageBlock from './CoverageBlock';
+import { CoverageBlock } from './CoverageBlock';
 import './CoverageElement.scss';
-import FetchingError from './FetchingError';
+import { FetchingError } from './FetchingError';
 
 // GET /v2/coverage/:id endpoint usually responds in 300-1000 ms
 // Depending on whether it has an attachment or URL.
@@ -28,7 +29,7 @@ interface Props extends RenderElementProps {
     fetchCoverage: (id: Coverage['id']) => Promise<Coverage>;
 }
 
-const CoverageElement: FunctionComponent<Props> = ({
+export const CoverageElement: FunctionComponent<Props> = ({
     attributes,
     children,
     dateFormat,
@@ -65,7 +66,7 @@ const CoverageElement: FunctionComponent<Props> = ({
                 )}
 
                 {loading && (
-                    <LoadingPlaceholderV2
+                    <LoadingPlaceholderV2.Placeholder
                         className="editor-v4-coverage-element__loading-placeholder"
                         estimatedDuration={ESTIMATED_LOADING_DURATION}
                     >
@@ -78,7 +79,7 @@ const CoverageElement: FunctionComponent<Props> = ({
                                 <LoadingPlaceholderV2.ProgressBar percent={percent} />
                             </>
                         )}
-                    </LoadingPlaceholderV2>
+                    </LoadingPlaceholderV2.Placeholder>
                 )}
 
                 {coverage && <CoverageBlock coverage={coverage} dateFormat={dateFormat} />}
@@ -89,5 +90,3 @@ const CoverageElement: FunctionComponent<Props> = ({
         </div>
     );
 };
-
-export default CoverageElement;

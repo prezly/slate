@@ -1,1 +1,1 @@
-export { default } from './ImageSizeWarning';
+export { ImageSizeWarning } from './ImageSizeWarning';

@@ -12,7 +12,7 @@ function copyScriptAttributes(source: HTMLScriptElement, target: HTMLScriptEleme
     target.innerText = source.innerText;
 }
 
-export default function injectOembedMarkup({ html, onError, target }: Parameters): void {
+export function injectOembedMarkup({ html, onError, target }: Parameters): void {
     const container = document.createElement('div');
     container.innerHTML = html || '';
     const embedScripts = Array.from(container.getElementsByTagName('script'));

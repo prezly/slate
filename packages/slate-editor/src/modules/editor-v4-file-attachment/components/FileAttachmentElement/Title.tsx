@@ -10,10 +10,8 @@ interface Props {
     element: AttachmentNode;
 }
 
-const Title: FunctionComponent<Props> = ({ className, element }) => (
+export const Title: FunctionComponent<Props> = ({ className, element }) => (
     <div className={classNames('editor-v4-file-attachment-element__title', className)}>
         {isUsingCustomTitle(element) ? element.description : element.file.filename}
     </div>
 );
-
-export default Title;

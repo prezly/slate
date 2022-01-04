@@ -5,11 +5,11 @@ import { NODE_ID_MANAGER_ID_PROPERTY_NAME } from '../constants';
 
 const GLOBALLY_ALLOWED_ATTRIBUTES = [NODE_ID_MANAGER_ID_PROPERTY_NAME];
 
-const normalizeRedundantAttributes = (
+export function normalizeRedundantAttributes(
     editor: Editor,
     [element, path]: ElementEntry,
     allowedAttributes: string[],
-): boolean => {
+): boolean {
     const attributes = Object.keys(element);
     const disallowedAttributes = attributes.filter(
         (attribute) => ![...allowedAttributes, ...GLOBALLY_ALLOWED_ATTRIBUTES].includes(attribute),
@@ -30,6 +30,4 @@ const normalizeRedundantAttributes = (
     Transforms.setNodes(editor, attributesToUnset, { at: path });
 
     return true;
-};
-
-export default normalizeRedundantAttributes;
+}

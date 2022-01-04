@@ -4,14 +4,14 @@ import { Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import getParentListItem from './getParentListItem';
-import isList from './isList';
+import { getParentListItem } from './getParentListItem';
+import { isList } from './isList';
 
-const mergeListWithPreviousSiblingList = (
+export function mergeListWithPreviousSiblingList(
     options: ListsOptions,
     editor: Editor,
     [node, path]: NodeEntry<Node>,
-): boolean => {
+): boolean {
     if (!isList(options, node)) {
         // This function does not know how to normalize other nodes.
         return false;
@@ -42,6 +42,4 @@ const mergeListWithPreviousSiblingList = (
     Transforms.mergeNodes(editor, { at: path });
 
     return true;
-};
-
-export default mergeListWithPreviousSiblingList;
+}

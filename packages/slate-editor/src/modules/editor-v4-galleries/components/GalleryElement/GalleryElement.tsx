@@ -4,14 +4,15 @@ import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
-import { useSize } from 'react-use';
 import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlate } from 'slate-react';
 
-import Gallery from './Gallery';
+import { useSize } from '#lib';
+
+import { Gallery } from './Gallery';
 import './GalleryElement.scss';
-import GalleryTooltip from './GalleryTooltip';
+import { GalleryTooltip } from './GalleryTooltip';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -20,7 +21,7 @@ interface Props extends RenderElementProps {
     onEdit: (editor: Editor) => void;
 }
 
-const GalleryElement: FunctionComponent<Props> = ({
+export const GalleryElement: FunctionComponent<Props> = ({
     attributes,
     availableWidth,
     children,
@@ -73,5 +74,3 @@ const GalleryElement: FunctionComponent<Props> = ({
         </div>
     );
 };
-
-export default GalleryElement;

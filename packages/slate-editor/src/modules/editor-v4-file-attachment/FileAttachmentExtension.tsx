@@ -1,16 +1,17 @@
-import { ATTACHMENT_NODE_TYPE, isAttachmentNode } from '@prezly/slate-types';
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
-import { noop } from 'lodash';
+import { ATTACHMENT_NODE_TYPE, isAttachmentNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
+
+import { noop } from '#lodash';
 
 import { FileAttachmentElement, FileAttachmentMenu } from './components';
 import { FILE_ATTACHMENT_EXTENSION_ID } from './constants';
 import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
 import type { FileAttachmentParameters } from './types';
 
-const FileAttachmentExtension = ({
+export const FileAttachmentExtension = ({
     containerRef,
     onEdit = noop,
     onRemove = noop,
@@ -51,5 +52,3 @@ const FileAttachmentExtension = ({
     rootTypes: [ATTACHMENT_NODE_TYPE],
     voidTypes: [ATTACHMENT_NODE_TYPE],
 });
-
-export default FileAttachmentExtension;

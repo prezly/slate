@@ -17,7 +17,7 @@ interface Props extends RenderElementProps {
     showAsScreenshot: boolean;
 }
 
-const EmbedElement: FunctionComponent<Props> = ({
+export const EmbedElement: FunctionComponent<Props> = ({
     availableWidth,
     attributes,
     children,
@@ -89,5 +89,3 @@ const EmbedElement: FunctionComponent<Props> = ({
         </div>
     );
 };
-
-export default EmbedElement;

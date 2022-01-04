@@ -2,21 +2,22 @@
 
 import { Editor } from 'slate';
 
-import jsx from '../../jsx';
+import { jsx } from '../../jsx';
 import { createEditor as createCommonEditor } from '../../test-utils';
 
-import withUserFriendlyDeleteBehavior from './withUserFriendlyDeleteBehavior';
+import { withUserFriendlyDeleteBehavior } from './withUserFriendlyDeleteBehavior';
 
-export const createEditor = (input: JSX.Element) =>
-    withUserFriendlyDeleteBehavior(createCommonEditor(input));
+function createEditor(input: JSX.Element) {
+    return withUserFriendlyDeleteBehavior(createCommonEditor(input));
+}
 
-const simulateBackspace = (editor: Editor) => {
-    Editor.deleteBackward(editor, { unit: 'character' });
-};
+function simulateBackspace(editor: Editor) {
+    return Editor.deleteBackward(editor, { unit: 'character' });
+}
 
-const simulateDelete = (editor: Editor) => {
-    Editor.deleteForward(editor, { unit: 'character' });
-};
+function simulateDelete(editor: Editor) {
+    return Editor.deleteForward(editor, { unit: 'character' });
+}
 
 describe('withUserFriendlyDeleteBehavior', () => {
     it('should remove only the empty paragraph, not the void element before it', () => {

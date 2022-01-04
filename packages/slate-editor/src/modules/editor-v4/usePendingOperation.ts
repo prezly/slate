@@ -1,13 +1,14 @@
-import { noop } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
-import { useLatest } from 'react-use';
+
+import { useLatest } from '#lib';
+import { noop } from '#lodash';
 
 interface Actions {
     onOperationEnd: () => void;
     onOperationStart: () => void;
 }
 
-export default function usePendingOperation(
+export function usePendingOperation(
     onIsOperationPendingChange: (isOperationPending: boolean) => void = noop,
 ): Actions {
     const [operationsSemaphore, setOperationsSemaphore] = useState<number>(0);

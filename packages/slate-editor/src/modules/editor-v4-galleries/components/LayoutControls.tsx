@@ -11,6 +11,7 @@ import {
     LayoutExpanded,
     LayoutFullWidth,
 } from '#icons';
+
 import { Theme } from '#modules/themes';
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
     onChange: (layout: GalleryLayout) => void;
 }
 
-const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
+export const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
     <>
         <Menu.ButtonGroup visibility={Theme.DARK}>
             <Menu.Button
@@ -69,5 +70,3 @@ const LayoutControls: FunctionComponent<Props> = ({ layout, onChange }) => (
         </Menu.ButtonGroup>
     </>
 );
-
-export default LayoutControls;

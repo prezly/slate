@@ -1,3 +1,3 @@
-const replaceCarriageReturnWithLineFeed = (text: string) => text.replace(/\r+\n?/g, '\n');
-
-export default replaceCarriageReturnWithLineFeed;
+export function replaceCarriageReturnWithLineFeed(text: string): string {
+    return text.replace(/\r+\n?/g, '\n');
+}

@@ -1,2 +1,2 @@
-export { default as MentionsDropdown } from './MentionsDropdown';
-export { default as MentionElement } from './MentionElement';
+export { MentionsDropdown } from './MentionsDropdown';
+export { MentionElement } from './MentionElement';

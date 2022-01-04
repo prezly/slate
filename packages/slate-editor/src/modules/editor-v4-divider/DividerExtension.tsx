@@ -9,7 +9,7 @@ import { DividerElement, DividerMenu } from './components';
 import { DIVIDER_EXTENSION_ID } from './constants';
 import { createDivider, normalizeRedundantDividerAttributes, parseSerializedElement } from './lib';
 
-const DividerExtension = ({
+export const DividerExtension = ({
     containerRef,
 }: {
     containerRef: RefObject<HTMLElement>;
@@ -41,5 +41,3 @@ const DividerExtension = ({
     rootTypes: [DIVIDER_NODE_TYPE],
     voidTypes: [DIVIDER_NODE_TYPE],
 });
-
-export default DividerExtension;

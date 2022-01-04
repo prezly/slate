@@ -4,10 +4,10 @@ import { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
 import { LoaderContentType } from '../../../modules/editor-v4-loader';
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import isImageCandidateElement from './isImageCandidateElement';
-import normalizeImageCandidate from './normalizeImageCandidate';
+import { isImageCandidateElement } from './isImageCandidateElement';
+import { normalizeImageCandidate } from './normalizeImageCandidate';
 
 const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 

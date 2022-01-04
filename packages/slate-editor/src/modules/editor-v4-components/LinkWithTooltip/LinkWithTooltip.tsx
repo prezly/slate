@@ -1,7 +1,6 @@
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import type { TooltipV2Props } from '../../../components';
 import { TooltipV2 } from '../../../components';
 
 import './LinkWithTooltip.scss';
@@ -14,13 +13,13 @@ const HIDE_DELAY = 300;
 const SHOW_DELAY = 150;
 
 interface Props {
-    children: TooltipV2Props['children'];
+    children: TooltipV2.TooltipProps['children'];
     enabled?: boolean;
     href: string;
 }
 
-const LinkWithTooltip: FunctionComponent<Props> = ({ children, enabled = true, href }) => (
-    <TooltipV2
+export const LinkWithTooltip: FunctionComponent<Props> = ({ children, enabled = true, href }) => (
+    <TooltipV2.Tooltip
         className="editor-v4-link-with-tooltip"
         enabled={enabled}
         hideDelay={HIDE_DELAY}
@@ -38,7 +37,5 @@ const LinkWithTooltip: FunctionComponent<Props> = ({ children, enabled = true, h
         }
     >
         {children}
-    </TooltipV2>
+    </TooltipV2.Tooltip>
 );
-
-export default LinkWithTooltip;

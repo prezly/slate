@@ -12,7 +12,7 @@ interface Props {
     element: HTMLElement;
 }
 
-const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
+export const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
     const editor = useSlate();
     const isSelected = useSelected();
 
@@ -20,13 +20,13 @@ const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
         return null;
     }
 
-    const handleRemove = () => {
+    function handleRemove() {
         const removedElement = removeCoverage(editor);
 
         if (removedElement) {
             EventsEditor.dispatchEvent(editor, 'coverage-removed');
         }
-    };
+    }
 
     return (
         <Menu.FloatingMenu containerRef={containerRef} element={element}>
@@ -38,5 +38,3 @@ const CoverageMenu: FunctionComponent<Props> = ({ element, containerRef }) => {
         </Menu.FloatingMenu>
     );
 };
-
-export default CoverageMenu;

@@ -4,12 +4,12 @@ import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { findLoaderPath, isLoaderElement } from '../lib';
 import type { LoaderNode } from '../types';
 import { LoaderContentType } from '../types';
 
-import replaceLoader from './replaceLoader';
+import { replaceLoader } from './replaceLoader';
 
 const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 

@@ -11,15 +11,15 @@ import {
 } from '../../modules/placeholders';
 import { coverage, createDelayedResolve, oembedInfo } from '../../modules/tests';
 
-import createEditorV4 from './createEditorV4';
-import getEnabledExtensions from './getEnabledExtensions';
+import { createEditorV4 } from './createEditorV4';
+import { getEnabledExtensions } from './getEnabledExtensions';
 
 const containerRef = createRef<HTMLElement>();
 
 const events = new Events<EditorEventMap>();
 
-export const getAllExtensions = () =>
-    Array.from(
+export function getAllExtensions() {
+    return Array.from(
         getEnabledExtensions({
             availableWidth: 1000,
             containerRef,
@@ -71,6 +71,8 @@ export const getAllExtensions = () =>
             },
         }),
     );
+}
 
-export const createEditor = (input: JSX.Element) =>
-    createEditorV4(input as unknown as Editor, getAllExtensions, [withEvents(events)]);
+export function createEditor(input: JSX.Element) {
+    return createEditorV4(input as unknown as Editor, getAllExtensions, [withEvents(events)]);
+}

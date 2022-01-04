@@ -2,7 +2,7 @@
 
 import { Editor } from 'slate';
 
-import jsx from './jsx';
+import { jsx } from './jsx';
 import { createListsEditor } from './test-utils';
 
 describe('withLists - normalizeListChildren', () => {

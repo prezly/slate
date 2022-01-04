@@ -1,6 +1,6 @@
 import type { Coverage } from '@prezly/sdk';
 
-const hasOnlyFileAttachment = (coverage: Coverage): boolean => {
+export function hasOnlyFileAttachment(coverage: Coverage): boolean {
     if (coverage.attachment_oembed && coverage.attachment_oembed.description) {
         return false;
     }
@@ -10,6 +10,4 @@ const hasOnlyFileAttachment = (coverage: Coverage): boolean => {
     }
 
     return false;
-};
-
-export default hasOnlyFileAttachment;
+}

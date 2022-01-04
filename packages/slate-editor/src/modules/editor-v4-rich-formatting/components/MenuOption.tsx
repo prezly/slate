@@ -5,7 +5,7 @@ import React from 'react';
 import { ParagraphElement } from '../../../modules/editor-v4-paragraphs';
 import type { BlockType, RichTextElementType } from '../types';
 
-import RichTextElement from './RichTextElement';
+import { RichTextElement } from './RichTextElement';
 
 const createMockElement = (type: BlockType): RichTextElementType =>
     ({
@@ -18,7 +18,7 @@ interface Props {
     type: BlockType;
 }
 
-const MenuOption: FunctionComponent<Props> = ({ children, className, type }) => {
+export const MenuOption: FunctionComponent<Props> = ({ children, className, type }) => {
     if (type === 'multiple') {
         return (
             <div className={classNames('editor-menu-dropdown__menu-option', className)}>
@@ -48,5 +48,3 @@ const MenuOption: FunctionComponent<Props> = ({ children, className, type }) => 
         </RichTextElement>
     );
 };
-
-export default MenuOption;

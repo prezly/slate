@@ -1,10 +1,10 @@
 import type { Editor } from 'slate';
 import { Range } from 'slate';
 
-import getCurrentNodeEntry from './getCurrentNodeEntry';
-import isEmptyParagraphElement from './isEmptyParagraphElement';
+import { getCurrentNodeEntry } from './getCurrentNodeEntry';
+import { isEmptyParagraphElement } from './isEmptyParagraphElement';
 
-const isCursorInEmptyParagraph = (editor: Editor): boolean => {
+export function isCursorInEmptyParagraph(editor: Editor): boolean {
     if (!editor.selection) {
         return false;
     }
@@ -21,6 +21,4 @@ const isCursorInEmptyParagraph = (editor: Editor): boolean => {
 
     const [currentNode] = currentNodeEntry;
     return isEmptyParagraphElement(editor, currentNode);
-};
-
-export default isCursorInEmptyParagraph;
+}

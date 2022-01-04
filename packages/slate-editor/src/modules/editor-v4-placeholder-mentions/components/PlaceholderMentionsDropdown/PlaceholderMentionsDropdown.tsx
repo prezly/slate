@@ -5,7 +5,7 @@ import type { Range } from 'slate';
 import type { Option } from '../../../../modules/editor-v4-mentions';
 import { MentionsDropdown } from '../../../../modules/editor-v4-mentions';
 import type { Placeholder } from '../../types';
-import PlaceholderMentionsDropdownOption from '../PlaceholderMentionsDropdownOption';
+import { PlaceholderMentionsDropdownOption } from '../PlaceholderMentionsDropdownOption';
 
 interface Props {
     index: number;
@@ -14,7 +14,7 @@ interface Props {
     target: Range | null;
 }
 
-const PlaceholderMentionsDropdown: FunctionComponent<Props> = ({
+export const PlaceholderMentionsDropdown: FunctionComponent<Props> = ({
     index,
     onOptionClick,
     options,
@@ -28,5 +28,3 @@ const PlaceholderMentionsDropdown: FunctionComponent<Props> = ({
         target={target}
     />
 );
-
-export default PlaceholderMentionsDropdown;

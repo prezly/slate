@@ -8,12 +8,12 @@ import { createGallery } from '../../../../modules/editor-v4-galleries';
 import { LoaderContentType } from '../../../../modules/editor-v4-loader';
 import { UploadcareEditor } from '../../../../modules/editor-v4-uploadcare';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '../../../../modules/uploadcare';
-import insertUploadingFile from '../insertUploadingFile';
+import { insertUploadingFile } from '../insertUploadingFile';
 
-import getMediaGalleryParameters from './getMediaGalleryParameters';
+import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-const createHandleAddGallery =
-    (withGalleries: GalleriesExtensionParameters) => async (editor: Editor) => {
+export function createHandleAddGallery(withGalleries: GalleriesExtensionParameters) {
+    return async function (editor: Editor) {
         const filePromises = await UploadcareEditor.upload(editor, {
             ...getMediaGalleryParameters(withGalleries),
             captions: true,
@@ -55,5 +55,4 @@ const createHandleAddGallery =
             loaderMessage: 'Uploading Gallery',
         });
     };
-
-export default createHandleAddGallery;
+}

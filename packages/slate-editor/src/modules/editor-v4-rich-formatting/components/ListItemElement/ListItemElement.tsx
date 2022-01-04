@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLLIElement> {
     element: RichTextElementType;
 }
 
-const ListItemElement: FunctionComponent<Props> = ({
+export const ListItemElement: FunctionComponent<Props> = ({
     attributes,
     children,
     className,
@@ -30,5 +30,3 @@ const ListItemElement: FunctionComponent<Props> = ({
         {children}
     </li>
 );
-
-export default ListItemElement;

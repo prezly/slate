@@ -6,7 +6,7 @@ import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement } from './components';
-import MentionsExtension from './MentionsExtension';
+import { MentionsExtension } from './MentionsExtension';
 
 const PlaceholderMentionsExtension = () =>
     MentionsExtension({
@@ -30,10 +30,14 @@ const PlaceholderMentionsExtension = () =>
 
 const getExtensions = () => [PlaceholderMentionsExtension()];
 
-export const createPlaceholderMentionElement = (key: PlaceholderNode['key']): PlaceholderNode => ({
-    children: [{ text: '' }],
-    key,
-    type: PLACEHOLDER_NODE_TYPE,
-});
+export function createPlaceholderMentionElement(key: PlaceholderNode['key']): PlaceholderNode {
+    return {
+        children: [{ text: '' }],
+        key,
+        type: PLACEHOLDER_NODE_TYPE,
+    };
+}
 
-export const createMentionsEditor = (editor: Editor) => withInlineVoid(getExtensions)(editor);
+export function createMentionsEditor(editor: Editor) {
+    return withInlineVoid(getExtensions)(editor);
+}

@@ -1,8 +1,8 @@
 import type { BaseEditor, Editor, Location, Range } from 'slate';
 import { Transforms } from 'slate';
 
-import findLeafLocation from './findLeafLocation';
-import isValidLocation from './isValidLocation';
+import { findLeafLocation } from './findLeafLocation';
+import { isValidLocation } from './isValidLocation';
 
 interface Actions {
     /**
@@ -11,7 +11,7 @@ interface Actions {
     restore: (editor: Editor) => boolean;
 }
 
-const createRestore = (location: Location | null): Actions['restore'] => {
+function createRestore(location: Location | null): Actions['restore'] {
     return (editor: Editor): boolean => {
         /* We have to make sure to set the selection to leaf nodes, otherwise
          * Slate may start throwing errors such as:
@@ -28,17 +28,15 @@ const createRestore = (location: Location | null): Actions['restore'] => {
 
         return false;
     };
-};
+}
 
-const saveSelection = (
+export function saveSelection(
     editor: BaseEditor,
     transformLocation: (selection: Range) => Location = (selection) => selection,
-): Actions => {
+): Actions {
     const savedSelection = editor.selection && transformLocation(editor.selection);
 
     return {
         restore: createRestore(savedSelection),
     };
-};
-
-export default saveSelection;
+}

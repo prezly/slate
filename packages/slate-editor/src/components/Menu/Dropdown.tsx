@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
-import React, { ReactNode } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
+import React from 'react';
 import type { DropdownProps } from 'react-bootstrap';
 import { Dropdown as BootstrapDropdown, MenuItem } from 'react-bootstrap';
 
@@ -29,13 +29,13 @@ export const Dropdown = <Value extends string = string>({
     const selectedOption = options.find((option) => option.value === value);
     const visibleOptions = options.filter(({ hidden }) => !hidden);
 
-    const handleSelect = (newValue: any) => {
+    function handleSelect(newValue: any) {
         if (value !== newValue) {
             // if current value is equal to selected one, do nothing,
             // this saves us a little work in the callback
             onChange(newValue as Value);
         }
-    };
+    }
 
     return (
         <BootstrapDropdown

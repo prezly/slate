@@ -1,1 +1,1 @@
-export { default } from './HeadingTwoElement';
+export { HeadingTwoElement } from './HeadingTwoElement';

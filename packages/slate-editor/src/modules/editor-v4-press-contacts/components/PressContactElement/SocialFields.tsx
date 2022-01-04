@@ -2,13 +2,13 @@ import type { PressContact } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import SocialField from './SocialField';
+import { SocialField } from './SocialField';
 
 interface Props {
     contact: PressContact;
 }
 
-const SocialFields: FunctionComponent<Props> = ({ contact }) => (
+export const SocialFields: FunctionComponent<Props> = ({ contact }) => (
     <ul className="editor-v4-press-contact-element__social-fields">
         {contact.email && <SocialField icon="icon-paper-plane">{contact.email}</SocialField>}
         {contact.phone && <SocialField icon="icon-phone">{contact.phone}</SocialField>}
@@ -18,5 +18,3 @@ const SocialFields: FunctionComponent<Props> = ({ contact }) => (
         {contact.website && <SocialField icon="icon-browser">{contact.website}</SocialField>}
     </ul>
 );
-
-export default SocialFields;

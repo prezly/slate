@@ -9,7 +9,7 @@ interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> 
     value: string;
 }
 
-const Input: FunctionComponent<Props> = ({ className, onChange, value, ...props }) => {
+export const Input: FunctionComponent<Props> = ({ className, onChange, value, ...props }) => {
     return (
         <input
             {...props}
@@ -20,5 +20,3 @@ const Input: FunctionComponent<Props> = ({ className, onChange, value, ...props 
         />
     );
 };
-
-export default Input;

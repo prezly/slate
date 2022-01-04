@@ -105,7 +105,7 @@ const createFactory = <T extends HyperscriptCreators>(creators: T) => {
  * Normalize a dictionary of element shorthands into creator functions.
  */
 
-const normalizeElements = (elements: HyperscriptShorthands) => {
+function normalizeElements(elements: HyperscriptShorthands) {
     const creators: HyperscriptCreators<Element> = {};
 
     for (const tagName in elements) {
@@ -127,7 +127,7 @@ const normalizeElements = (elements: HyperscriptShorthands) => {
     }
 
     return creators;
-};
+}
 
 export type { HyperscriptCreators, HyperscriptShorthands };
 export { createHyperscript };

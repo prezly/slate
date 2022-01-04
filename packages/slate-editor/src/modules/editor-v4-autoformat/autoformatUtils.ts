@@ -1,7 +1,8 @@
-import type { Editor } from 'slate';
 import type { PlateEditor } from '@udecode/plate-core';
 import { getParent, isElement, isType } from '@udecode/plate-core';
 import { unwrapList, toggleList } from '@udecode/plate-list';
+import type { Editor } from 'slate';
+
 import type { AutoformatBlockRule } from './types';
 
 export const clearBlockFormat: AutoformatBlockRule['preFormat'] = (editor) =>

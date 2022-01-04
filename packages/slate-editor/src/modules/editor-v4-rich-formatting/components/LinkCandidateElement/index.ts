@@ -1,1 +1,1 @@
-export { default } from './LinkCandidateElement';
+export { LinkCandidateElement } from './LinkCandidateElement';

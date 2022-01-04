@@ -1,8 +1,8 @@
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import ClippedRing from './ClippedRing';
-import Head from './Head';
+import { ClippedRing } from './ClippedRing';
+import { Head } from './Head';
 
 interface Props {
     height: number;
@@ -13,7 +13,7 @@ interface Props {
     width: number;
 }
 
-const FiniteLoadingIndicator: FunctionComponent<Props> = ({ height, progress, width }) => (
+export const FiniteLoadingIndicator: FunctionComponent<Props> = ({ height, progress, width }) => (
     <>
         <ClippedRing clip={1} color="#B6E7C1" height={height} width={width} />
         <ClippedRing
@@ -40,5 +40,3 @@ const FiniteLoadingIndicator: FunctionComponent<Props> = ({ height, progress, wi
         />
     </>
 );
-
-export default FiniteLoadingIndicator;

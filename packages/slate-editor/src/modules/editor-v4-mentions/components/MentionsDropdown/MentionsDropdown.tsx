@@ -21,7 +21,7 @@ interface Props<V> {
 
 const AUTO_SCROLL_SAFETY_MARGIN = 4;
 
-const MentionsDropdown = <V extends object>({
+export const MentionsDropdown = <V extends object>({
     index,
     onOptionClick,
     options,
@@ -79,5 +79,3 @@ const MentionsDropdown = <V extends object>({
         </ul>
     );
 };
-
-export default MentionsDropdown;

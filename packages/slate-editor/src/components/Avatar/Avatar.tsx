@@ -20,7 +20,7 @@ const SIZES: Record<Size, number> = {
     large: 64,
 };
 
-const Avatar: FunctionComponent<Props> = ({ className, name, size, square, src }) => {
+export const Avatar: FunctionComponent<Props> = ({ className, name, size, square, src }) => {
     const computedSize = SIZES[size];
     const classnames = classNames(className, `avatar-thumb-${computedSize}`, {
         'img-circle': !square,
@@ -48,5 +48,3 @@ const Avatar: FunctionComponent<Props> = ({ className, name, size, square, src }
         />
     );
 };
-
-export default Avatar;

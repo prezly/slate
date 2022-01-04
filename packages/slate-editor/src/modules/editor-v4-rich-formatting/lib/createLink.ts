@@ -3,10 +3,10 @@ import type { Text } from 'slate';
 
 import { ElementType } from '../types';
 
-const createLink = (href: string, children: Text[] = []): LinkNode => ({
-    children,
-    href,
-    type: ElementType.LINK,
-});
-
-export default createLink;
+export function createLink(href: string, children: Text[] = []): LinkNode {
+    return {
+        children,
+        href,
+        type: ElementType.LINK,
+    };
+}

@@ -11,10 +11,10 @@ interface Actions {
     save: (editor: Editor) => void;
 }
 
-const useSavedSelection = (): Actions => {
+export function useSavedSelection(): Actions {
     const [savedSelection, setSavedSelection] = useState<SavedSelection | null>(null);
 
-    const restore = (editor: ReactEditor & Editor, { focus = false } = {}) => {
+    function restore(editor: ReactEditor & Editor, { focus = false } = {}) {
         if (focus) {
             ReactEditor.focus(editor);
         }
@@ -23,13 +23,11 @@ const useSavedSelection = (): Actions => {
             savedSelection.restore(editor);
             setSavedSelection(null);
         }
-    };
+    }
 
-    const save = (editor: BaseEditor) => {
-        setSavedSelection(saveSelection(editor));
-    };
+    function save(editor: BaseEditor) {
+        return setSavedSelection(saveSelection(editor));
+    }
 
     return { restore, save };
-};
-
-export default useSavedSelection;
+}

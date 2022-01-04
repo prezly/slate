@@ -1,1 +1,1 @@
-export { default } from './FloatingEmbedInput';
+export { FloatingEmbedInput } from './FloatingEmbedInput';

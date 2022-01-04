@@ -1,1 +1,1 @@
-export { default } from './withBreaksOnVoidNodes';
+export { withBreaksOnVoidNodes } from './withBreaksOnVoidNodes';

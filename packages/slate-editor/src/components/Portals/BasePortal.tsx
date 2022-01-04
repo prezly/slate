@@ -3,17 +3,18 @@ import type { Rect } from 'rangefix';
 import type { FunctionComponent } from 'react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { Portal } from 'react-portal';
-import { useRafLoop } from 'react-use';
+
+import { useRafLoop } from '#lib';
 
 import './BasePortal.scss';
-import getUpdatedPosition from './getUpdatedPosition';
+import { getUpdatedPosition } from './getUpdatedPosition';
 import type { PortalProps } from './types';
 
 interface Props extends PortalProps {
     getElementRect: () => ClientRect | Rect | null;
 }
 
-const BasePortal: FunctionComponent<Props> = ({
+export const BasePortal: FunctionComponent<Props> = ({
     children,
     className,
     containerRef,
@@ -68,5 +69,3 @@ const BasePortal: FunctionComponent<Props> = ({
         </Portal>
     );
 };
-
-export default BasePortal;

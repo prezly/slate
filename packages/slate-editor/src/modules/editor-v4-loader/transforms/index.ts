@@ -1,2 +1,2 @@
-export { default as removeLoader } from './removeLoader';
-export { default as replaceLoader } from './replaceLoader';
+export { removeLoader } from './removeLoader';
+export { replaceLoader } from './replaceLoader';

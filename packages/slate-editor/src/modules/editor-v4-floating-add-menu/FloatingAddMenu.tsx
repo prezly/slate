@@ -29,7 +29,7 @@ const TOOLTIP_FLIP_MODIFIER: Modifier<'flip'> = {
     },
 };
 
-const FloatingAddMenu: FunctionComponent<Props> = ({
+export const FloatingAddMenu: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     onToggle,
@@ -44,7 +44,7 @@ const FloatingAddMenu: FunctionComponent<Props> = ({
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
 
     return (
-        <FloatingContainer
+        <FloatingContainer.Container
             availableWidth={availableWidth}
             className="editor-v4-floating-add-menu"
             containerRef={containerRef}
@@ -53,7 +53,7 @@ const FloatingAddMenu: FunctionComponent<Props> = ({
             pointerEvents={false}
             show={show}
         >
-            <TooltipV2
+            <TooltipV2.Tooltip
                 autoUpdatePosition
                 defaultShow={showTooltipByDefault}
                 enabled={parameters.tooltip && !open}
@@ -73,7 +73,7 @@ const FloatingAddMenu: FunctionComponent<Props> = ({
                         variant="green"
                     />
                 )}
-            </TooltipV2>
+            </TooltipV2.Tooltip>
             {!open && (
                 <p className="editor-v4-floating-add-menu__placeholder">
                     Start typing or use <KeyboardKey>+</KeyboardKey> to add content.
@@ -100,8 +100,6 @@ const FloatingAddMenu: FunctionComponent<Props> = ({
                     />
                 </>
             )}
-        </FloatingContainer>
+        </FloatingContainer.Container>
     );
 };
-
-export default FloatingAddMenu;

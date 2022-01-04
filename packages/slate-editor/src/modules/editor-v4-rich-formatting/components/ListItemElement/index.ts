@@ -1,1 +1,1 @@
-export { default } from './ListItemElement';
+export { ListItemElement } from './ListItemElement';

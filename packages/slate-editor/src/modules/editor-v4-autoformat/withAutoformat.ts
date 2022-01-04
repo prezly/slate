@@ -1,7 +1,8 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
-import { EditorCommands } from '@prezly/slate-commons';
+
 import { autoformatBlock, autoformatMark, autoformatText } from './transforms';
 import type { AutoformatRule } from './types';
 

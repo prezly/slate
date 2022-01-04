@@ -6,7 +6,7 @@ interface Props {
     width: number;
 }
 
-const InfiniteLoadingIndicator: FunctionComponent<Props> = ({ height, width }) => (
+export const InfiniteLoadingIndicator: FunctionComponent<Props> = ({ height, width }) => (
     <svg height={height} viewBox="0 0 32 32" width={width} xmlns="http://www.w3.org/2000/svg">
         <path
             clipRule="evenodd"
@@ -23,5 +23,3 @@ const InfiniteLoadingIndicator: FunctionComponent<Props> = ({ height, width }) =
         />
     </svg>
 );
-
-export default InfiniteLoadingIndicator;

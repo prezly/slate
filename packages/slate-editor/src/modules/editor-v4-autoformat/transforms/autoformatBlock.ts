@@ -1,7 +1,3 @@
-import { castArray } from 'lodash';
-import type { Range } from 'slate';
-import { Editor, Transforms } from 'slate';
-import { HistoryEditor } from 'slate-history';
 import {
     ELEMENT_DEFAULT,
     getRangeBefore,
@@ -10,8 +6,13 @@ import {
     setNodes,
     someNode,
 } from '@udecode/plate-core';
-import { getMatchRange } from '../utils/getMatchRange';
+import { castArray } from 'lodash';
+import type { Range } from 'slate';
+import { Editor, Transforms } from 'slate';
+import { HistoryEditor } from 'slate-history';
+
 import type { AutoformatBlockRule } from '../types';
+import { getMatchRange } from '../utils/getMatchRange';
 
 export interface AutoformatBlockOptions extends AutoformatBlockRule {
     text: string;

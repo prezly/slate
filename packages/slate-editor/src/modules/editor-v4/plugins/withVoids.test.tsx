@@ -2,7 +2,7 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 import { createEditor } from '../test-utils';
 
 describe('editor-v4 - withVoids', () => {

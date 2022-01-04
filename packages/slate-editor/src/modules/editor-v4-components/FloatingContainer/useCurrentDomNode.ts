@@ -1,13 +1,14 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { useEffect, useRef } from 'react';
-import { useUpdate } from 'react-use';
 import { useSlate } from 'slate-react';
+
+import { useUpdate } from '#lib';
 
 interface Parameters {
     withFallbackToLastExistingNode: boolean;
 }
 
-export default function useCurrentDomNode({
+export function useCurrentDomNode({
     withFallbackToLastExistingNode,
 }: Parameters): HTMLElement | null {
     const editor = useSlate();

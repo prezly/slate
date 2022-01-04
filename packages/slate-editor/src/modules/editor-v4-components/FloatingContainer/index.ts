@@ -1,1 +1,4 @@
-export { default } from './FloatingContainer';
+import './FloatingContainer.scss';
+
+export { Button } from './components';
+export { Container } from './Container';

@@ -12,7 +12,7 @@ export interface Props extends HTMLAttributes<HTMLButtonElement> {
     variant?: 'default' | 'green';
 }
 
-const Button = forwardRef<HTMLButtonElement, Props>(
+export const Button = forwardRef<HTMLButtonElement, Props>(
     ({ className, open, onClick, variant = 'default', ...props }, ref: Ref<HTMLButtonElement>) => (
         <button
             {...props}
@@ -38,5 +38,3 @@ const Button = forwardRef<HTMLButtonElement, Props>(
         </button>
     ),
 );
-
-export default Button;

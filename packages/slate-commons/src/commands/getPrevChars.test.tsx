@@ -1,8 +1,10 @@
 /** @jsx jsx */
 
 import type { Editor } from 'slate';
+
 import jsx from '../jsx';
 import { createEditor } from '../test-utils';
+
 import { getPrevChars } from './getPrevChars';
 
 describe('getPrevChars', () => {

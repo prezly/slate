@@ -2,9 +2,9 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import getCurrentHref from './getCurrentHref';
+import { getCurrentHref } from './getCurrentHref';
 
 describe('getCurrentHref', () => {
     it('Returns "null" when link is not selected', () => {

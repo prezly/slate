@@ -3,7 +3,7 @@ import { isElementNode } from '@prezly/slate-types';
 import type { ElementEntry } from 'slate';
 import { Editor, Element, Transforms } from 'slate';
 
-import makeDirty from './makeDirty';
+import { makeDirty } from './makeDirty';
 
 export function normalizeNestedElement(
     editor: Editor,

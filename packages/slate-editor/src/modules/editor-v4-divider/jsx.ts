@@ -17,11 +17,9 @@ declare global {
     }
 }
 
-const jsx = createHyperscript({
+export const jsx = createHyperscript({
     elements: {
         'h-divider': { type: DIVIDER_NODE_TYPE },
         'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
 });
-
-export default jsx;

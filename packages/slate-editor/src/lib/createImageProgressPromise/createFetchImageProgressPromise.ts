@@ -1,6 +1,6 @@
 import { ProgressPromise } from '@prezly/progress-promise';
 
-const createReadableStream = (response: Response, onProgress: (progress: number) => void) => {
+function createReadableStream(response: Response, onProgress: (progress: number) => void) {
     // to access headers, server must send CORS header "Access-Control-Expose-Headers: content-encoding, content-length x-file-size"
     // server must send custom x-file-size header if gzip or other content-encoding is used
     const contentEncoding = response.headers.get('content-encoding');
@@ -44,12 +44,12 @@ const createReadableStream = (response: Response, onProgress: (progress: number)
             }
         },
     });
-};
+}
 
 /**
  * Based on https://github.com/AnthumChris/fetch-progress-indicators/blob/3fd300c/fetch-basic/supported-browser.js
  */
-const createFetchImageProgressPromise = (src: string): ProgressPromise<string, number> => {
+export function createFetchImageProgressPromise(src: string): ProgressPromise<string, number> {
     return new ProgressPromise((resolve, reject, progress) => {
         fetch(src)
             .then((response) => {
@@ -71,6 +71,4 @@ const createFetchImageProgressPromise = (src: string): ProgressPromise<string, n
                 reject(error);
             });
     });
-};
-
-export default createFetchImageProgressPromise;
+}

@@ -1,5 +1,5 @@
 {
-    "extends": "../../tsconfig.base.json",
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
         "noEmit": false,
         "emitDeclarationOnly": true,
@@ -7,6 +7,7 @@
         "rootDir": "./src",
         "baseUrl": "./src",
         "paths": {
+            "#lodash": ["../../../node_modules/@types/lodash-es"],
             "#components": ["components"],
             "#icons": ["icons"],
             "#lib": ["lib"],
@@ -15,12 +16,12 @@
         "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./src/@types"]
     },
     "files": ["./src/@types/svg.d.ts"],
-    "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
+    "exclude": ["node_modules"],
     "include": ["./src"],
     "references": [
-        { "path": "../slate-types" },
-        { "path": "../slate-commons" },
-        { "path": "../slate-hyperscript" },
-        { "path": "../slate-lists" }
+        { "path": "../slate-types/tsconfig.json" },
+        { "path": "../slate-commons/tsconfig.build.json" },
+        { "path": "../slate-hyperscript/tsconfig.build.json" },
+        { "path": "../slate-lists/tsconfig.build.json" }
     ]
 }

@@ -5,14 +5,15 @@ import fs from 'fs';
 import path from 'path';
 import { Editor } from 'slate';
 
-import jsx from './jsx';
+import { jsx } from './jsx';
 import { createDataTransfer, insertDivider } from './lib';
 import { createEditor } from './test-utils';
 
-const readTestFile = (filepath: string): string => {
-    const absoluteFilepath = path.resolve(__dirname, '__tests__', filepath);
+function readTestFile(filepath: string): string {
+    const url = new URL(`__tests__/${filepath}`, import.meta.url);
+    const absoluteFilepath = path.resolve(url.pathname);
     return fs.readFileSync(absoluteFilepath, 'utf-8');
-};
+}
 
 describe('editor-v4 - deleteForward - selection maintenance', () => {
     it('Should focus the list after the paragraph when using deleteForward (Del key) ', () => {

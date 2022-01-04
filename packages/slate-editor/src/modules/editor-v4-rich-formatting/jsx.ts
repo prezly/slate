@@ -41,7 +41,7 @@ declare global {
     }
 }
 
-const jsx = createHyperscript({
+export const jsx = createHyperscript({
     elements: {
         'h-a': { type: ElementType.LINK },
         'h-blockquote': { type: ElementType.BLOCK_QUOTE },
@@ -54,5 +54,3 @@ const jsx = createHyperscript({
         'h-ul': { type: ElementType.BULLETED_LIST },
     },
 });
-
-export default jsx;

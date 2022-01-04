@@ -4,14 +4,14 @@ import React from 'react';
 import { Menu } from '../../../../components';
 import type { BlockType } from '../../types';
 
-import OPTIONS from './options';
+import { OPTIONS } from './options';
 
 interface Props {
     onChange: (value: BlockType) => void;
     value: BlockType | null;
 }
 
-const BlockDropdown: FunctionComponent<Props> = ({ value, onChange }) => (
+export const BlockDropdown: FunctionComponent<Props> = ({ value, onChange }) => (
     <Menu.Dropdown<BlockType>
         id="prezly-editor-toolbar-dropdown"
         onChange={onChange}
@@ -19,4 +19,3 @@ const BlockDropdown: FunctionComponent<Props> = ({ value, onChange }) => (
         value={value || undefined}
     />
 );
-export default BlockDropdown;

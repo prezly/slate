@@ -1,2 +1,2 @@
-export { default as FileAttachmentElement } from './FileAttachmentElement';
-export { default as FileAttachmentMenu } from './FileAttachmentMenu';
+export { FileAttachmentElement } from './FileAttachmentElement';
+export { FileAttachmentMenu } from './FileAttachmentMenu';

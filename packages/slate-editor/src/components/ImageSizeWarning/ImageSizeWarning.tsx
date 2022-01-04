@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { TooltipV2 } from '../TooltipV2';
+import * as TooltipV2 from '../TooltipV2';
 
 import './ImageSizeWarning.scss';
 
@@ -13,8 +13,8 @@ export interface Props {
 const WARNING =
     'Your image has higher resolution than recommended and might not be rendered properly or even may not be rendered at all.';
 
-const ImageSizeWarning: FunctionComponent<Props> = ({ className }) => (
-    <TooltipV2 tooltip={WARNING}>
+export const ImageSizeWarning: FunctionComponent<Props> = ({ className }) => (
+    <TooltipV2.Tooltip tooltip={WARNING}>
         {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
             <div
                 {...ariaAttributes}
@@ -26,7 +26,5 @@ const ImageSizeWarning: FunctionComponent<Props> = ({ className }) => (
                 <i className="icon icon-warning2" />
             </div>
         )}
-    </TooltipV2>
+    </TooltipV2.Tooltip>
 );
-
-export default ImageSizeWarning;

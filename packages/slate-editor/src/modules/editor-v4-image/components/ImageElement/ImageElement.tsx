@@ -9,14 +9,15 @@ import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
+import { useToolbarsTheme } from '#modules/themes';
+
 import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';
 import { Image as ImageIcon } from '../../../../icons';
 import { LinkWithTooltip } from '../../../../modules/editor-v4-components';
-import ImageMenu from '../ImageMenu';
-import ResizableContainer from '../ResizableContainer';
+import { ImageMenu } from '../ImageMenu';
+import { ResizableContainer } from '../ResizableContainer';
 
 import './ImageElement.scss';
-import { useToolbarsTheme } from '#modules/themes';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -43,7 +44,7 @@ const getImageAvailableWidth = ({
     return availableWidth;
 };
 
-const ImageElement: FunctionComponent<Props> = ({
+export const ImageElement: FunctionComponent<Props> = ({
     attributes,
     availableWidth,
     children,
@@ -77,12 +78,12 @@ const ImageElement: FunctionComponent<Props> = ({
         (isSelected || isLinkMenuOpen || !EditorCommands.isNodeEmpty(editor, element));
     const isContainedLayout = activeLayout === ImageLayout.CONTAINED;
 
-    const focusCurrentElement = () => {
+    function focusCurrentElement() {
         const path = ReactEditor.findPath(editor, element);
         Transforms.select(editor, path);
-    };
+    }
 
-    const handleResize = (widthPercent: string, widthFactor: string) => {
+    function handleResize(widthPercent: string, widthFactor: string) {
         Transforms.setNodes(
             editor,
             {
@@ -91,18 +92,18 @@ const ImageElement: FunctionComponent<Props> = ({
             },
             { match: isImageNode },
         );
-    };
+    }
 
-    const handleResizeStop = () => {
+    function handleResizeStop() {
         // We have to use `setTimeout` because something happens right after the resize stop
         // which causes the current image element to lose focus.
         setTimeout(focusCurrentElement);
-    };
+    }
 
-    const handleEdit = () => {
+    function handleEdit() {
         focusCurrentElement();
         onEdit(editor);
-    };
+    }
 
     return (
         <>
@@ -193,5 +194,3 @@ const ImageElement: FunctionComponent<Props> = ({
         </>
     );
 };
-
-export default ImageElement;

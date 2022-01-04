@@ -3,14 +3,15 @@
     "version": "0.10.1",
     "description": "The Prezly Slate Editor",
     "license": "MIT",
-    "main": "build/esm/index.mjs",
+    "type": "module",
+    "main": "build/cjs/index.cjs",
     "module": "build/esm/index.mjs",
     "types": "build/types/index.d.ts",
     "exports": {
         ".": {
             "types": "./build/types/index.d.ts",
             "import": "./build/esm/index.mjs",
-            "default": "./build/esm/index.mjs"
+            "default": "./build/cjs/index.cjs"
         },
         "./styles.css": "./build/styles/styles.css",
         "./styles/mixins": {
@@ -23,6 +24,12 @@
             "sass": "./build/styles/variables.scss"
         }
     },
+    "imports": {
+        "#lodash": {
+            "import": "lodash-es",
+            "default": "lodash"
+        }
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/prezly/slate.git"
@@ -33,27 +40,30 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
-        "type-check": "tsc-fancy --preserveConsoleOutput --build .",
-        "build": "npm run type-check && NODE_ENV=production npm run build:transpile",
-        "build:dev": "npm run type-check && NODE_ENV=development npm run build:transpile",
-        "build:transpile": "npm run build:code && npm run build:svg && npm run build:types && npm run build:sass",
-        "build:types": "tsc-fancy --preserveConsoleOutput --build .",
-        "build:code": "gulp build:code",
-        "build:svg": "gulp build:svg",
+        "build": "NODE_ENV=production npm run build:all",
+        "build:dev": "NODE_ENV=development npm run build:all",
+        "build:all": "npm run build:types && npm run build:esm && npm run build:cjs && npm run build:sass",
+        "build:types": "tsc --build ./tsconfig.build.json",
+        "build:esm": "gulp build:esm",
+        "build:cjs": "gulp build:cjs",
         "build:sass": "gulp build:sass",
-        "watch": "concurrently --kill-others --names 'd.ts,mjs ,svg ,sass' 'npm run watch:types' 'npm run watch:code' 'npm run watch:svg' 'npm run watch:sass'",
-        "watch:types": "npm run type-check -- --watch --pretty",
-        "watch:code": "gulp watch:code",
-        "watch:svg": "gulp watch:svg",
+        "watch": "concurrently --kill-others --names 'd.ts,esm ,cjs ,sass' 'npm run watch:types' 'npm run watch:esm' 'npm run watch:cjs' 'npm run watch:sass'",
+        "watch:types": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.build.json --watch --pretty",
+        "watch:esm": "gulp watch:esm",
+        "watch:cjs": "gulp watch:cjs",
         "watch:sass": "gulp watch:sass",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/* *.tsbuildinfo",
-        "test": "jest --no-cache --coverage"
+        "test": "npm run test:unit && npm run test:build",
+        "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage",
+        "test:build": "npm run test:esm && npm run test:cjs",
+        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.mjs'; \" ",
+        "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" "
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
-        "@prezly/docx-cleaner": "^0.4.0",
+        "@prezly/docx-cleaner": "^0.5.1",
         "@prezly/events": "^2.0.3",
         "@prezly/linear-partition": "^1.0.2",
         "@prezly/progress-promise": "^1.0.1",
@@ -62,13 +72,14 @@
         "@prezly/slate-hyperscript": "^0.10.1",
         "@prezly/slate-lists": "^0.10.1",
         "@prezly/slate-types": "^0.10.1",
-        "@prezly/uploadcare": "^1.0.0",
+        "@prezly/uploadcare": "^1.1.1",
         "@udecode/plate-core": "^9.0.0",
         "@udecode/plate-list": "^9.0.0",
         "classnames": "^2.3.1",
         "is-hotkey": "^0.2.0",
         "json-stable-stringify": "^1.0.1",
         "lodash": "^4.17.21",
+        "lodash-es": "^4.17.21",
         "moment": "^2.29.1",
         "rangefix": "^0.2.9",
         "react-bootstrap": "=0.32.4",
@@ -93,7 +104,8 @@
         "@types/classnames": "^2.2.11",
         "@types/is-hotkey": "^0.1.6",
         "@types/json-stable-stringify": "^1.0.32",
-        "@types/lodash": "^4.14.167",
+        "@types/lodash": "^4.14.178",
+        "@types/lodash-es": "^4.17.5",
         "@types/react": "^16.14.2",
         "@types/react-bootstrap": "^0.32.19",
         "@types/react-overlays": "^1.1.3",

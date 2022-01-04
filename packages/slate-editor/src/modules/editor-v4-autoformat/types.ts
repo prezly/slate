@@ -1,4 +1,5 @@
 import type { Editor } from 'slate';
+
 import type { GetMatchPointsReturnType } from './utils/getMatchPoints';
 
 export interface MatchRange {

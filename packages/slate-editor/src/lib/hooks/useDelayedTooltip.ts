@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
-import { useMountedState, useUnmount } from 'react-use';
+
+import { useMountedState, useUnmount } from './react-use';
 
 interface Parameters {
     defaultShow?: boolean;
@@ -16,14 +17,14 @@ interface Actions {
     onShow: () => void;
 }
 
-const useDelayedTooltip = (parameters: Parameters = {}): [State, Actions] => {
+export function useDelayedTooltip(parameters: Parameters = {}): [State, Actions] {
     const { defaultShow = false, hideDelay = 0, showDelay = 0 } = parameters;
     const hideTimeoutRef = useRef<number>();
     const showTimeoutRef = useRef<number>();
     const [show, setShow] = useState<boolean>(defaultShow);
     const isMounted = useMountedState();
 
-    const onHide = () => {
+    function onHide() {
         window.clearTimeout(showTimeoutRef.current);
 
         hideTimeoutRef.current = window.setTimeout(() => {
@@ -31,9 +32,9 @@ const useDelayedTooltip = (parameters: Parameters = {}): [State, Actions] => {
                 setShow(false);
             }
         }, hideDelay);
-    };
+    }
 
-    const onShow = () => {
+    function onShow() {
         window.clearTimeout(hideTimeoutRef.current);
 
         showTimeoutRef.current = window.setTimeout(() => {
@@ -41,7 +42,7 @@ const useDelayedTooltip = (parameters: Parameters = {}): [State, Actions] => {
                 setShow(true);
             }
         }, showDelay);
-    };
+    }
 
     useUnmount(() => {
         window.clearTimeout(hideTimeoutRef.current);
@@ -49,6 +50,4 @@ const useDelayedTooltip = (parameters: Parameters = {}): [State, Actions] => {
     });
 
     return [{ show }, { onHide, onShow }];
-};
-
-export default useDelayedTooltip;
+}

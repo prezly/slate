@@ -2,9 +2,9 @@
 
 import type { Editor } from 'slate';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import moveCursorToPreviousBlock from './moveCursorToPreviousBlock';
+import { moveCursorToPreviousBlock } from './moveCursorToPreviousBlock';
 
 describe('moveCursorToPreviousBlock', () => {
     it('Moves the cursor to the previous block', () => {

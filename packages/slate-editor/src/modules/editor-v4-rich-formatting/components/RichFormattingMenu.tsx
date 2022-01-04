@@ -32,7 +32,7 @@ interface Props {
     parameters: RichFormattingExtensionParameters;
 }
 
-const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters }) => {
+export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters }) => {
     const editor = useSlate();
 
     if (!HistoryEditor.isHistoryEditor(editor)) {
@@ -48,15 +48,15 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
     const [savedSelection, setSavedSelection] = useState<Path | Range | null>(null);
     const linkCandidateElement = useLinkCandidateElement(linkCandidateId);
 
-    const resetState = () => {
+    function resetState() {
         setHref('');
         setIsExistingLink(false);
         setLinkCandidateId(null);
         setLinkPath(null);
         setSavedSelection(null);
-    };
+    }
 
-    const handleRemoveLinkCandidate = () => {
+    function handleRemoveLinkCandidate() {
         if (!savedSelection) {
             return;
         }
@@ -67,9 +67,9 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
 
         restoreSelection(editor, savedSelection);
         resetState();
-    };
+    }
 
-    const handleAddLinkCandidate = (selection: Path | Range) => {
+    function handleAddLinkCandidate(selection: Path | Range) {
         const id = uuidV4();
         setSavedSelection(selection);
 
@@ -79,18 +79,18 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
 
         setLinkPath(findLinkCandidatePath(editor, id));
         setLinkCandidateId(id);
-    };
+    }
 
-    const handleRemoveLink = () => {
+    function handleRemoveLink() {
         if (!linkPath) {
             return;
         }
 
         handleRemoveLinkCandidate();
         unwrapLink(editor, linkPath);
-    };
+    }
 
-    const handleCreateLink = () => {
+    function handleCreateLink() {
         if (!savedSelection || !linkPath) {
             return;
         }
@@ -118,9 +118,9 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
         }
 
         resetState();
-    };
+    }
 
-    const handleLinkButtonClick = () => {
+    function handleLinkButtonClick() {
         const selection = findSelectedLinkPath(editor) || editor.selection;
 
         if (!selection) {
@@ -138,7 +138,7 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
 
         // We have to blur the editor to allow the LinkMenu input focus.
         ReactEditor.blur(editor);
-    };
+    }
 
     if (parameters.links && linkCandidateElement) {
         return (
@@ -177,5 +177,3 @@ const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters
         </CursorPortalV2>
     );
 };
-
-export default RichFormattingMenu;

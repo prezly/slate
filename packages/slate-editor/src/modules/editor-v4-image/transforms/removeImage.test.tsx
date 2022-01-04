@@ -5,9 +5,9 @@ import type { UploadcareStoragePayload } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
-import jsx from '../jsx';
+import { jsx } from '../jsx';
 
-import removeImage from './removeImage';
+import { removeImage } from './removeImage';
 
 const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 

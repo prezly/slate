@@ -3,8 +3,8 @@ import { Transforms } from 'slate';
 
 import type { ListsOptions } from '../types';
 
-import getParentListItem from './getParentListItem';
-import isListItemText from './isListItemText';
+import { getParentListItem } from './getParentListItem';
+import { isListItemText } from './isListItemText';
 
 /**
  * If "list-item-text" somehow (e.g. by deleting everything around it) ends up
@@ -14,11 +14,11 @@ import isListItemText from './isListItemText';
  * the expected behavior. The only case where it would be expected is during
  * pasting, so we have a separate rule for that in `deserializeHtml`.
  */
-const normalizeOrphanListItemText = (
+export function normalizeOrphanListItemText(
     options: ListsOptions,
     editor: Editor,
     [node, path]: NodeEntry<Node>,
-): boolean => {
+): boolean {
     if (!isListItemText(options, node)) {
         // This function does not know how to normalize other nodes.
         return false;
@@ -38,6 +38,4 @@ const normalizeOrphanListItemText = (
     );
 
     return true;
-};
-
-export default normalizeOrphanListItemText;
+}

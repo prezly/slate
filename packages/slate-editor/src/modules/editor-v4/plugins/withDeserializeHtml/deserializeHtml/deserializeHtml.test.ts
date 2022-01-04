@@ -3,16 +3,17 @@ import path from 'path';
 
 import { getAllExtensions } from '../../../test-utils';
 
-import deserializeHtml from './deserializeHtml';
+import { deserializeHtml } from './deserializeHtml';
 
 const extensions = getAllExtensions();
 
-const readTestFile = (filepath: string): string => {
-    const absoluteFilepath = path.resolve(__dirname, '__tests__', filepath);
+function readTestFile(filepath: string): string {
+    const url = new URL(`__tests__/${filepath}`, import.meta.url);
+    const absoluteFilepath = path.resolve(url.pathname);
     return fs.readFileSync(absoluteFilepath, 'utf-8');
-};
+}
 
-const handleError = () => {};
+function handleError() {}
 
 describe('deserializeHtml', () => {
     it('Wraps orphan "list-items" into "lists"', () => {

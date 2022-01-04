@@ -5,14 +5,14 @@ import type { RenderElementProps } from 'slate-react';
 
 import { ParagraphElement } from './components';
 import { PARAGRAPHS_EXTENSION_ID } from './constants';
-import deserialize from './deserialize';
+import { deserialize } from './deserialize';
 import {
     normalizeOrphanText,
     normalizeRedundantParagraphAttributes,
     normalizeUnknownElement,
 } from './lib';
 
-const ParagraphsExtension = (): Extension => ({
+export const ParagraphsExtension = (): Extension => ({
     deserialize,
     id: PARAGRAPHS_EXTENSION_ID,
     normalizers: [
@@ -33,5 +33,3 @@ const ParagraphsExtension = (): Extension => ({
     },
     rootTypes: [PARAGRAPH_NODE_TYPE],
 });
-
-export default ParagraphsExtension;

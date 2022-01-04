@@ -1,9 +1,12 @@
 import { ElementType } from '../../../../../modules/editor-v4-rich-formatting';
 
-const isListItemText = (element: Element): boolean =>
-    element instanceof HTMLElement && element.dataset.slateType === ElementType.LIST_ITEM_TEXT;
+function isListItemText(element: Element): boolean {
+    return (
+        element instanceof HTMLElement && element.dataset.slateType === ElementType.LIST_ITEM_TEXT
+    );
+}
 
-const normalizeOrphanListItemTexts = (document: Document): Document => {
+export function normalizeOrphanListItemTexts(document: Document): Document {
     const { body } = document;
 
     for (const child of body.children) {
@@ -20,6 +23,4 @@ const normalizeOrphanListItemTexts = (document: Document): Document => {
     }
 
     return document;
-};
-
-export default normalizeOrphanListItemTexts;
+}

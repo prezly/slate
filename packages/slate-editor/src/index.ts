@@ -1,7 +1,7 @@
-import type { BaseEditor } from 'slate';
-import type { ReactEditor } from 'slate-react';
-import type { HistoryEditor } from 'slate-history';
 import type { ElementNode, TextNode } from '@prezly/slate-types';
+import type { BaseEditor } from 'slate';
+import type { HistoryEditor } from 'slate-history';
+import type { ReactEditor } from 'slate-react';
 
 declare module 'slate' {
     interface CustomTypes {
@@ -14,7 +14,6 @@ declare module 'slate' {
 export * from './components';
 export * from './lib';
 export * as Icons from './icons';
-export { default } from './modules/editor-v4';
 export * from './modules/editor-v4';
 export * as Themes from './modules/themes';
 export type { SearchProps as CoverageSearchProps } from './modules/editor-v4-coverage';

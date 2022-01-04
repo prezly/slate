@@ -9,7 +9,7 @@ interface Props {
     children?: ReactNode;
 }
 
-const Placeholder: FunctionComponent<Props> = ({ children }) => {
+export const Placeholder: FunctionComponent<Props> = ({ children }) => {
     const editor = useSlate();
 
     if (!EditorCommands.isEmpty(editor)) {
@@ -18,5 +18,3 @@ const Placeholder: FunctionComponent<Props> = ({ children }) => {
 
     return <div className="editor-v4-placeholder">{children}</div>;
 };
-
-export default Placeholder;

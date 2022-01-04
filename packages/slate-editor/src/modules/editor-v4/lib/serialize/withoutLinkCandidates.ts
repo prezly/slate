@@ -1,9 +1,7 @@
-import { unwrapLinkCandidates } from '../../../../modules/editor-v4-rich-formatting';
+import type { Editor } from 'slate';
 
-import type { Transform } from './types';
+import { unwrapLinkCandidates } from '#modules/editor-v4-rich-formatting';
 
-const withoutLinkCandidates: Transform = (editor): void => {
+export function withoutLinkCandidates(editor: Editor): void {
     unwrapLinkCandidates(editor);
-};
-
-export default withoutLinkCandidates;
+}

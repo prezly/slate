@@ -10,7 +10,4 @@ import type { NodeEntry, Range } from 'slate';
  * keywords, where changes to the content (or some external data) has the
  * potential to change the formatting.
  */
-type Decorate = (entry: NodeEntry) => Range[];
-
-// eslint-disable-next-line no-undef
-export default Decorate;
+export type Decorate = (entry: NodeEntry) => Range[];

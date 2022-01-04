@@ -1,1 +1,1 @@
-export { default as calculateLayout } from './calculateLayout';
+export { calculateLayout } from './calculateLayout';

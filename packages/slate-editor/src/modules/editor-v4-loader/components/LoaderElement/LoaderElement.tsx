@@ -2,13 +2,14 @@ import { ProgressPromise } from '@prezly/progress-promise';
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes } from 'react';
 import React, { useCallback } from 'react';
-import { useMount, useUnmount } from 'react-use';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
+import { useAsyncProgress } from '#lib';
+import { useMount, useUnmount } from '#lib';
+
 import { LoadingPlaceholderV2 } from '../../../../components';
 import { Attachment, Bookmark, Embed, Gallery, Image, Video } from '../../../../icons';
-import { useAsyncProgress } from '../../../../lib';
 import { loaderPromiseManager } from '../../lib';
 import type { LoaderContentType, LoaderNode } from '../../types';
 
@@ -46,7 +47,7 @@ const ESTIMATED_DURATIONS: Record<LoaderContentType, number> = {
     video: 500,
 };
 
-const LoaderElement: FunctionComponent<Props> = ({
+export const LoaderElement: FunctionComponent<Props> = ({
     attributes,
     children,
     element,
@@ -73,7 +74,7 @@ const LoaderElement: FunctionComponent<Props> = ({
             })}
             data-slate-type={element.type}
         >
-            <LoadingPlaceholderV2
+            <LoadingPlaceholderV2.Placeholder
                 contentEditable={false}
                 estimatedDuration={ESTIMATED_DURATIONS[element.contentType]}
                 progress={progress / 100}
@@ -87,12 +88,10 @@ const LoaderElement: FunctionComponent<Props> = ({
                         <LoadingPlaceholderV2.ProgressBar percent={percent} />
                     </>
                 )}
-            </LoadingPlaceholderV2>
+            </LoadingPlaceholderV2.Placeholder>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}
             {children}
         </div>
     );
 };
-
-export default LoaderElement;

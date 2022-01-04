@@ -14,10 +14,8 @@ declare global {
     }
 }
 
-const jsx = createHyperscript({
+export const jsx = createHyperscript({
     elements: {
         'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
 });
-
-export default jsx;

@@ -4,7 +4,7 @@ import type { Placeholder } from '../editor-v4-placeholder-mentions';
  * Available placeholders for "computed values" in campaign-like editors (campaign and pitch editors
  * for now).
  */
-const campaignPlaceholders: Placeholder[] = [
+export const campaignPlaceholders: Placeholder[] = [
     {
         key: 'contact.firstname',
         text: 'First name',
@@ -26,5 +26,3 @@ const campaignPlaceholders: Placeholder[] = [
         text: 'Short link to story',
     },
 ];
-
-export default campaignPlaceholders;

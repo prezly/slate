@@ -82,7 +82,7 @@ type KnownNode =
 
 export type Fragment = KnownNode[];
 
-const isKnownNode = (node: unknown): node is KnownNode => {
+function isKnownNode(node: unknown): node is KnownNode {
     return validators.some((validator) => {
         const isKnown = validator(node);
 
@@ -92,16 +92,16 @@ const isKnownNode = (node: unknown): node is KnownNode => {
 
         return isKnown;
     });
-};
+}
 
 /**
  * Checks recurively whether all nodes in the fragment (Node[]) are "known" nodes.
  * It does not validate schema/hierarchy.
  */
-export const isFragment = (value: unknown): value is Fragment => {
+export function isFragment(value: unknown): value is Fragment {
     if (!Node.isNodeList(value)) {
         return false;
     }
 
     return value.length > 0 && value.every(isKnownNode);
-};
+}

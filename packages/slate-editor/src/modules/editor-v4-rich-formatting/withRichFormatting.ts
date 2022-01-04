@@ -6,7 +6,6 @@ import type { Editor } from 'slate';
 import { withResetRichFormattingOnBreak } from './lib';
 import { options } from './lists';
 
-const withRichFormatting = <T extends Editor>(editor: T): T =>
-    withResetRichFormattingOnBreak(withListsReact(withLists(options)(editor)));
-
-export default withRichFormatting;
+export function withRichFormatting<T extends Editor>(editor: T): T {
+    return withResetRichFormattingOnBreak(withListsReact(withLists(options)(editor)));
+}

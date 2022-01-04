@@ -1,2 +1,2 @@
-export { default as ImageElement } from './ImageElement';
-export { default as ImageMenu } from './ImageMenu';
+export { ImageElement } from './ImageElement';
+export { ImageMenu } from './ImageMenu';

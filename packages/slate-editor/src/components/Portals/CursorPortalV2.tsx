@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useIsMouseDown } from '../../lib';
 
 import type { Props as BasePortalV2Props } from './BasePortalV2';
-import BasePortalV2 from './BasePortalV2';
+import { BasePortalV2 } from './BasePortalV2';
 import { updateCursorPortalRect } from './CursorPortal';
 import './CursorPortalV2.scss';
 
@@ -14,7 +14,7 @@ interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {}
 /**
  * Replacement for `CursorPortal` using `react-popper` internally.
  */
-const CursorPortalV2: FunctionComponent<Props> = ({ className, ...props }) => {
+export const CursorPortalV2: FunctionComponent<Props> = ({ className, ...props }) => {
     // When making a selection with mouse, it's possible that mouse will be moved so quickly that
     // it will hover over the `children` of the `BasePortalV2` and it will interfere with the
     // selection that is being made. To make sure, we disable `pointer-events` when selection
@@ -34,5 +34,3 @@ const CursorPortalV2: FunctionComponent<Props> = ({ className, ...props }) => {
         />
     );
 };
-
-export default CursorPortalV2;

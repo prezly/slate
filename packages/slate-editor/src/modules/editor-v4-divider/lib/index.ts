@@ -1,3 +1,3 @@
-export { default as createDivider } from './createDivider';
-export { default as normalizeRedundantDividerAttributes } from './normalizeRedundantDividerAttributes';
-export { default as parseSerializedElement } from './parseSerializedElement';
+export { createDivider } from './createDivider';
+export { normalizeRedundantDividerAttributes } from './normalizeRedundantDividerAttributes';
+export { parseSerializedElement } from './parseSerializedElement';

@@ -1,3 +1,3 @@
-export { default as removeImage } from './removeImage';
-export { default as setLayout } from './setLayout';
-export { default as setImageHref } from './setImageHref';
+export { removeImage } from './removeImage';
+export { setLayout } from './setLayout';
+export { setImageHref } from './setImageHref';

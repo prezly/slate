@@ -32,7 +32,25 @@
     "rules": {
         "react/display-name": "warn",
         "react/prop-types": "off",
+        "import/no-default-export": "error",
         "import/no-extraneous-dependencies": "error",
+        "func-style": ["error", "declaration"],
+        "import/order": [
+            "error",
+            {
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                },
+                "groups": [["builtin", "external"], "internal", "parent", "sibling", "index"],
+                "newlines-between": "always",
+                "pathGroups": [
+                    { "pattern": "#*", "group": "external", "position": "after" },
+                    { "pattern": "#*/*", "group": "external", "position": "after" }
+                ],
+                "pathGroupsExcludedImportTypes": ["#*", "#*/*"]
+            }
+        ],
         "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-explicit-any": "off",
@@ -40,7 +58,19 @@
     },
     "overrides": [
         {
-            "files": ["packages/**/*.test.*"],
+            "files": ["**/*.tsx"],
+            "rules": {
+                "func-style": "off"
+            }
+        },
+        {
+            "files": ["**/*.d.ts"],
+            "rules": {
+                "import/no-default-export": "off"
+            }
+        },
+        {
+            "files": ["**/*.test.*"],
             "rules": {
                 "@typescript-eslint/no-empty-function": "off",
                 "@typescript-eslint/no-non-null-assertion": "off",

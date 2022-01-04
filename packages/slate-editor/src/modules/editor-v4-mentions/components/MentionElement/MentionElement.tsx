@@ -12,7 +12,7 @@ interface Props extends RenderElementProps {
     element: MentionElementType;
 }
 
-const MentionElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
+export const MentionElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
     const selected = useSelected();
 
     return (
@@ -29,5 +29,3 @@ const MentionElement: FunctionComponent<Props> = ({ attributes, children, elemen
         </span>
     );
 };
-
-export default MentionElement;

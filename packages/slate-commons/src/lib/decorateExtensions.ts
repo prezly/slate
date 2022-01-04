@@ -2,15 +2,15 @@ import type { NodeEntry, Range } from 'slate';
 
 import type { Decorate, Extension } from '../types';
 
-const decorateExtensions =
-    (extensions: Extension[], decorateList: Decorate[]) => (entry: NodeEntry) => {
+export function decorateExtensions(extensions: Extension[], decorateList: Decorate[]) {
+    return (entry: NodeEntry) => {
         let ranges: Range[] = [];
 
-        const addRanges = (newRanges: Range[]) => {
+        function addRanges(newRanges: Range[]) {
             if (newRanges.length) {
                 ranges = [...ranges, ...newRanges];
             }
-        };
+        }
 
         decorateList.forEach((decorate) => {
             addRanges(decorate(entry));
@@ -24,5 +24,4 @@ const decorateExtensions =
 
         return ranges;
     };
-
-export default decorateExtensions;
+}

@@ -1,5 +1,5 @@
 {
-    "extends": "../../tsconfig.base.json",
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
         "noEmit": false,
         "emitDeclarationOnly": true,
@@ -8,10 +8,10 @@
         "typeRoots": ["./src/@types"]
     },
     "include": ["./src"],
-    "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
+    "exclude": ["node_modules"],
     "references": [
-        { "path": "../slate-types" },
-        { "path": "../slate-commons" },
-        { "path": "../slate-hyperscript" }
+        { "path": "../slate-types/tsconfig.json" },
+        { "path": "../slate-commons/tsconfig.build.json" },
+        { "path": "../slate-hyperscript/tsconfig.build.json" }
     ]
 }

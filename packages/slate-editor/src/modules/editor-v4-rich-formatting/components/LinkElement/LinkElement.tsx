@@ -11,7 +11,7 @@ interface Props extends RenderElementProps {
     element: LinkNode;
 }
 
-const LinkElement: FunctionComponent<Props> = ({ attributes, children, element }) => (
+export const LinkElement: FunctionComponent<Props> = ({ attributes, children, element }) => (
     // Using a wrapping `span` to avoid a rare Slate bug which occurs as
     // a failed `ReactEditor.toSlateNode` in Slate's Editable onClick handler.
     // For more details, see https://github.com/prezly/prezly/pull/8016#discussion_r454190469
@@ -34,5 +34,3 @@ const LinkElement: FunctionComponent<Props> = ({ attributes, children, element }
         </LinkWithTooltip>
     </span>
 );
-
-export default LinkElement;

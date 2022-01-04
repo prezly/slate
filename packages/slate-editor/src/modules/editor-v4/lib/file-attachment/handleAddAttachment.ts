@@ -6,10 +6,9 @@ import { EventsEditor } from '../../../../modules/editor-v4-events';
 import { createFileAttachment } from '../../../../modules/editor-v4-file-attachment';
 import { LoaderContentType } from '../../../../modules/editor-v4-loader';
 import { UploadcareEditor } from '../../../../modules/editor-v4-uploadcare';
+import { insertUploadingFile } from '../insertUploadingFile';
 
-import insertUploadingFile from '../insertUploadingFile';
-
-const handleAddAttachment = async (editor: Editor) => {
+export async function handleAddAttachment(editor: Editor) {
     EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
 
     const filePromises = await UploadcareEditor.upload(editor, {
@@ -46,6 +45,4 @@ const handleAddAttachment = async (editor: Editor) => {
             uuid: attachmentFileInfo.uuid,
         });
     });
-};
-
-export default handleAddAttachment;
+}

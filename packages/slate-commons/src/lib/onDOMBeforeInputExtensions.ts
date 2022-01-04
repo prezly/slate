@@ -2,9 +2,12 @@ import type { ReactEditor } from 'slate-react';
 
 import type { Extension, OnDOMBeforeInput } from '../types';
 
-const onDOMBeforeInputExtensions =
-    (editor: ReactEditor, extensions: Extension[], onDOMBeforeInputList: OnDOMBeforeInput[]) =>
-    (event: Event) => {
+export function onDOMBeforeInputExtensions(
+    editor: ReactEditor,
+    extensions: Extension[],
+    onDOMBeforeInputList: OnDOMBeforeInput[],
+) {
+    return function (event: Event) {
         onDOMBeforeInputList.forEach((onDOMBeforeInput) => {
             onDOMBeforeInput(event, editor);
         });
@@ -15,5 +18,4 @@ const onDOMBeforeInputExtensions =
             }
         });
     };
-
-export default onDOMBeforeInputExtensions;
+}

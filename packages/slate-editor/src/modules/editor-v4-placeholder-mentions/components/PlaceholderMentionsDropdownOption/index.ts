@@ -1,1 +1,1 @@
-export { default } from './PlaceholderMentionsDropdownOption';
+export { PlaceholderMentionsDropdownOption } from './PlaceholderMentionsDropdownOption';

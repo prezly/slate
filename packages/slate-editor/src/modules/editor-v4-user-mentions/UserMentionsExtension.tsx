@@ -8,7 +8,7 @@ import { MentionElement, MentionsExtension } from '../../modules/editor-v4-menti
 import { USER_MENTIONS_EXTENSION_ID } from './constants';
 import { normalizeRedundantUserMentionAttributes, parseSerializedElement } from './lib';
 
-const UserMentionsExtension = (): Extension =>
+export const UserMentionsExtension = (): Extension =>
     MentionsExtension({
         id: USER_MENTIONS_EXTENSION_ID,
         normalizers: [normalizeRedundantUserMentionAttributes],
@@ -27,5 +27,3 @@ const UserMentionsExtension = (): Extension =>
         },
         type: MENTION_NODE_TYPE,
     });
-
-export default UserMentionsExtension;

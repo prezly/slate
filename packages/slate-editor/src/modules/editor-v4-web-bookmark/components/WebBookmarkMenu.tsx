@@ -16,7 +16,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ containerRef, elemen
     const editor = useSlate();
     const isSelected = useSelected();
 
-    const handleRemove = () => {
+    function handleRemove() {
         const removedElement = removeWebBookmark(editor);
 
         if (removedElement) {
@@ -24,7 +24,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ containerRef, elemen
                 uuid: removedElement.uuid,
             });
         }
-    };
+    }
 
     if (!isSelected) {
         return null;
