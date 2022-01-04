@@ -40,7 +40,7 @@ export const FloatingVideoInput: FunctionComponent<Props> = ({
     });
 
     return (
-        <FloatingContainer
+        <FloatingContainer.Container
             availableWidth={availableWidth}
             className="editor-v4-floating-video-input"
             containerRef={containerRef}
@@ -92,6 +92,6 @@ export const FloatingVideoInput: FunctionComponent<Props> = ({
                     </InputGroup.Addon>
                 </InputGroup>
             </form>
-        </FloatingContainer>
+        </FloatingContainer.Container>
     );
 };

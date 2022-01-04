@@ -40,7 +40,7 @@ export const FloatingWebBookmarkInput: FunctionComponent<Props> = ({
     });
 
     return (
-        <FloatingContainer
+        <FloatingContainer.Container
             availableWidth={availableWidth}
             className="editor-v4-floating-web-bookmark-input"
             containerRef={containerRef}
@@ -92,6 +92,6 @@ export const FloatingWebBookmarkInput: FunctionComponent<Props> = ({
                     </InputGroup.Addon>
                 </InputGroup>
             </form>
-        </FloatingContainer>
+        </FloatingContainer.Container>
     );
 };

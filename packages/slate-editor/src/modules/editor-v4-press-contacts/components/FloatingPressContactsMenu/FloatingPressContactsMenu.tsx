@@ -49,7 +49,7 @@ export const FloatingPressContactsMenu: FunctionComponent<Props> = ({
     }
 
     return (
-        <FloatingContainer
+        <FloatingContainer.Container
             availableWidth={availableWidth}
             className="editor-v4-floating-press-contacts-menu"
             containerRef={containerRef}
@@ -68,6 +68,6 @@ export const FloatingPressContactsMenu: FunctionComponent<Props> = ({
                 onChange: handleInputChange,
                 onSubmit,
             })}
-        </FloatingContainer>
+        </FloatingContainer.Container>
     );
 };

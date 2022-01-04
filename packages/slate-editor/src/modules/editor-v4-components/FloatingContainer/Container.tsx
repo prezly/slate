@@ -5,8 +5,6 @@ import { RootCloseWrapper } from 'react-overlays';
 
 import { ElementPortal, PortalOrigin } from '../../../components';
 
-import { Button } from './components';
-import './FloatingContainer.scss';
 import { useCurrentDomNode } from './useCurrentDomNode';
 
 interface Props {
@@ -19,7 +17,7 @@ interface Props {
     show: boolean;
 }
 
-const FloatingContainer: FunctionComponent<Props> = ({
+export const Container: FunctionComponent<Props> = ({
     availableWidth,
     children,
     className,
@@ -58,8 +56,3 @@ const FloatingContainer: FunctionComponent<Props> = ({
         </ElementPortal>
     );
 };
-
-// eslint-disable-next-line import/no-default-export
-export default Object.assign(FloatingContainer, {
-    Button,
-});

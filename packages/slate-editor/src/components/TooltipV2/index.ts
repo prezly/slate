@@ -1,2 +1,5 @@
-export type { Props as TooltipV2Props } from './TooltipV2';
-export { default as TooltipV2 } from './TooltipV2';
+import './TooltipV2.scss';
+
+export { DisabledTriggerOverlay } from './DisabledTriggerOverlay';
+export type { Props as TooltipProps } from './Tooltip';
+export { Tooltip } from './Tooltip';

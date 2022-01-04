@@ -66,7 +66,7 @@ export const CoverageElement: FunctionComponent<Props> = ({
                 )}
 
                 {loading && (
-                    <LoadingPlaceholderV2
+                    <LoadingPlaceholderV2.Placeholder
                         className="editor-v4-coverage-element__loading-placeholder"
                         estimatedDuration={ESTIMATED_LOADING_DURATION}
                     >
@@ -79,7 +79,7 @@ export const CoverageElement: FunctionComponent<Props> = ({
                                 <LoadingPlaceholderV2.ProgressBar percent={percent} />
                             </>
                         )}
-                    </LoadingPlaceholderV2>
+                    </LoadingPlaceholderV2.Placeholder>
                 )}
 
                 {coverage && <CoverageBlock coverage={coverage} dateFormat={dateFormat} />}

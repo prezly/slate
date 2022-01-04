@@ -40,7 +40,7 @@ export const FloatingEmbedInput: FunctionComponent<Props> = ({
     });
 
     return (
-        <FloatingContainer
+        <FloatingContainer.Container
             availableWidth={availableWidth}
             className="editor-v4-floating-embed-input"
             containerRef={containerRef}
@@ -92,6 +92,6 @@ export const FloatingEmbedInput: FunctionComponent<Props> = ({
                     </InputGroup.Addon>
                 </InputGroup>
             </form>
-        </FloatingContainer>
+        </FloatingContainer.Container>
     );
 };

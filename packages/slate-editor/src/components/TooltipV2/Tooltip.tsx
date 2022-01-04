@@ -14,8 +14,6 @@ import {
     DEFAULT_PREVENT_OVERFLOW_MODIFIER,
     DEFAULT_SHOW_DELAY,
 } from './constants';
-import { DisabledTriggerOverlay } from './DisabledTriggerOverlay';
-import './TooltipV2.scss';
 
 interface ChildrenProps {
     /**
@@ -55,7 +53,7 @@ export interface Props {
     tooltip?: ReactNode;
 }
 
-const TooltipV2: FunctionComponent<Props> = ({
+export const Tooltip: FunctionComponent<Props> = ({
     autoUpdatePosition = false,
     children,
     className,
@@ -155,8 +153,3 @@ const TooltipV2: FunctionComponent<Props> = ({
         </>
     );
 };
-
-// eslint-disable-next-line import/no-default-export
-export default Object.assign(TooltipV2, {
-    DisabledTriggerOverlay,
-});
