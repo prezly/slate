@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { formatBytes } from '../../../../lib';
+import { formatBytes } from '#lib';
+
 import { isUsingCustomTitle } from '../../lib';
 
 interface Props {

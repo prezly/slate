@@ -5,8 +5,9 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
-import { Avatar } from '../../../../components';
-import { User } from '../../../../icons';
+import { Avatar } from '#components';
+import { User } from '#icons';
+
 import { JobDescription } from '../JobDescription';
 
 import './PressContactElement.scss';

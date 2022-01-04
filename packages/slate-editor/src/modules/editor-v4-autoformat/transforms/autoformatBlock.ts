@@ -18,7 +18,7 @@ export interface AutoformatBlockOptions extends AutoformatBlockRule {
     text: string;
 }
 
-export const autoformatBlock = (
+export function autoformatBlock(
     editor: Editor,
     {
         text,
@@ -30,7 +30,7 @@ export const autoformatBlock = (
         format,
         triggerAtBlockStart = true,
     }: AutoformatBlockOptions,
-) => {
+) {
     const matches = castArray(_match as string | string[]);
 
     for (const match of matches) {
@@ -93,4 +93,4 @@ export const autoformatBlock = (
     }
 
     return false;
-};
+}

@@ -4,7 +4,7 @@ import { Button, FormControl, InputGroup } from 'react-bootstrap';
 
 import { useEffectOnce } from '#lib';
 
-import { FloatingContainer } from '../../../../modules/editor-v4-components';
+import { FloatingContainer } from '#modules/editor-v4-components';
 
 import './FloatingVideoInput.scss';
 

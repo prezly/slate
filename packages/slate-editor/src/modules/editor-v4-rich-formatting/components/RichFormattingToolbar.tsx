@@ -3,7 +3,7 @@ import type { FunctionComponent } from 'react';
 import React from 'react';
 import { useSlate } from 'slate-react';
 
-import { Menu } from '../../../components';
+import { Menu } from '#components';
 import {
     FormatBold,
     FormatItalic,
@@ -12,7 +12,8 @@ import {
     FormatStyleSubscript,
     FormatStyleSuperscript,
     FormatUnderline,
-} from '../../../icons';
+} from '#icons';
+
 import { toggleBlock } from '../lib';
 import type { BlockType, RichFormattingExtensionParameters } from '../types';
 import { ElementType, MarkType } from '../types';

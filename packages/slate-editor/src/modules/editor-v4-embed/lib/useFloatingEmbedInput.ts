@@ -3,7 +3,7 @@ import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
 import type { Editor } from 'slate';
 
-import { EventsEditor } from '../../../modules/editor-v4-events';
+import { EventsEditor } from '#modules/editor-v4-events';
 import {
     createLoader,
     findLoaderPath,
@@ -11,7 +11,7 @@ import {
     loaderPromiseManager,
     removeLoader,
     replaceLoader,
-} from '../../../modules/editor-v4-loader';
+} from '#modules/editor-v4-loader';
 
 import { createEmbed } from './createEmbed';
 

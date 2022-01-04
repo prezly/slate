@@ -1,3 +1,3 @@
-export * from './getMatchPoints';
-export * from './getMatchRange';
-export * from './isPreviousCharacterEmpty';
+export { getMatchPoints } from './getMatchPoints';
+export { getMatchRange } from './getMatchRange';
+export { isPreviousCharacterEmpty } from './isPreviousCharacterEmpty';

@@ -3,7 +3,7 @@ import type { FunctionComponent } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import { LinkWithTooltip } from '../../../../modules/editor-v4-components';
+import { LinkWithTooltip } from '#modules/editor-v4-components';
 
 import './LinkElement.scss';
 

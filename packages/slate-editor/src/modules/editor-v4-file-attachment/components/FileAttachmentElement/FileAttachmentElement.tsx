@@ -5,7 +5,7 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
-import { Download } from '../../../../icons';
+import { Download } from '#icons';
 
 import './FileAttachmentElement.scss';
 import { Subtitle } from './Subtitle';

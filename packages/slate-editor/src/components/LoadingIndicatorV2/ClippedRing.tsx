@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { useUniqueId } from '../../lib';
+import { useUniqueId } from '#lib';
 
 interface Props {
     className?: string;

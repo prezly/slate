@@ -6,15 +6,16 @@ import type { MatchRange } from '../types';
 
 import { isPreviousCharacterEmpty } from './isPreviousCharacterEmpty';
 
-export type GetMatchPointsReturnType =
-    | undefined
-    | {
-          beforeStartMatchPoint: Point | undefined;
-          afterStartMatchPoint: Point | undefined;
-          beforeEndMatchPoint: Point;
-      };
+type MatchPoints = {
+    beforeStartMatchPoint: Point | undefined;
+    afterStartMatchPoint: Point | undefined;
+    beforeEndMatchPoint: Point;
+};
 
-export const getMatchPoints = (editor: TEditor, { start, end }: MatchRange) => {
+export function getMatchPoints(
+    editor: TEditor,
+    { start, end }: MatchRange,
+): MatchPoints | undefined {
     const selection = editor.selection as Range;
 
     let beforeEndMatchPoint = selection.anchor;
@@ -51,4 +52,4 @@ export const getMatchPoints = (editor: TEditor, { start, end }: MatchRange) => {
         beforeStartMatchPoint,
         beforeEndMatchPoint,
     };
-};
+}

@@ -3,7 +3,7 @@ import type { PressContact } from '@prezly/slate-types';
 import { useState } from 'react';
 import type { Editor } from 'slate';
 
-import { EventsEditor } from '../../../modules/editor-v4-events';
+import { EventsEditor } from '#modules/editor-v4-events';
 
 import { createPressContact } from './createPressContact';
 

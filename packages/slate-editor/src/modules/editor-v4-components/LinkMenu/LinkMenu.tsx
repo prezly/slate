@@ -3,12 +3,11 @@ import type { FunctionComponent } from 'react';
 import React, { useRef } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 
+import { Menu } from '#components';
+import { Cross } from '#icons';
 import { useEffectOnce } from '#lib';
 
 import { Theme, useToolbarsTheme } from '#modules/themes';
-
-import { Menu } from '../../../components';
-import { Cross } from '../../../icons';
 
 import { STRING_URL_PATTERN } from './constants';
 

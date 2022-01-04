@@ -5,11 +5,10 @@ import React, { useCallback } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
-import { useAsyncProgress } from '#lib';
-import { useMount, useUnmount } from '#lib';
+import { LoadingPlaceholderV2 } from '#components';
+import { Attachment, Bookmark, Embed, Gallery, Image, Video } from '#icons';
+import { useAsyncProgress, useMount, useUnmount } from '#lib';
 
-import { LoadingPlaceholderV2 } from '../../../../components';
-import { Attachment, Bookmark, Embed, Gallery, Image, Video } from '../../../../icons';
 import { loaderPromiseManager } from '../../lib';
 import type { LoaderContentType, LoaderNode } from '../../types';
 

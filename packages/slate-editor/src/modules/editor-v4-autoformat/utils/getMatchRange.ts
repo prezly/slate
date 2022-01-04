@@ -2,13 +2,13 @@ import { castArray } from 'lodash';
 
 import type { AutoformatRule, MatchRange } from '../types';
 
-export const getMatchRange = ({
+export function getMatchRange({
     match,
     trigger,
 }: {
     match: string | MatchRange;
     trigger: AutoformatRule['trigger'];
-}) => {
+}) {
     let start: string;
     let end: string;
 
@@ -27,4 +27,4 @@ export const getMatchRange = ({
         end,
         triggers,
     };
-};
+}

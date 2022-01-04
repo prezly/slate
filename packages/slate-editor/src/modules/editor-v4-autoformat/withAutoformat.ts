@@ -6,10 +6,10 @@ import type { ReactEditor } from 'slate-react';
 import { autoformatBlock, autoformatMark, autoformatText } from './transforms';
 import type { AutoformatRule } from './types';
 
-export const withAutoformat = <T extends BaseEditor & ReactEditor & HistoryEditor>(
+export function withAutoformat<T extends BaseEditor & ReactEditor & HistoryEditor>(
     editor: T,
     rules: AutoformatRule[],
-): T => {
+): T {
     const { insertText } = editor;
 
     const autoformatters = {
@@ -48,4 +48,4 @@ export const withAutoformat = <T extends BaseEditor & ReactEditor & HistoryEdito
     };
 
     return editor;
-};
+}

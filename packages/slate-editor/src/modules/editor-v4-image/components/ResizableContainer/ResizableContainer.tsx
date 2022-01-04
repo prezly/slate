@@ -4,11 +4,10 @@ import React, { Component } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
 import * as Draggable from 'react-draggable';
 
+import { Resize } from '#icons';
 import { clamp, noop } from '#lodash';
 
 import { Theme } from '#modules/themes';
-
-import { Resize } from '../../../../icons';
 
 import { getClampedRatioInPercent, getClampedWidthInPercent, increaseWidth } from './lib';
 

@@ -11,7 +11,7 @@ export interface AutoformatTextOptions extends AutoformatTextRule {
     text: string;
 }
 
-export const autoformatText = (editor: Editor, options: AutoformatTextOptions) => {
+export function autoformatText(editor: Editor, options: AutoformatTextOptions) {
     const selection = editor.selection as Range;
     const matches = castArray(options.match);
 
@@ -78,4 +78,4 @@ export const autoformatText = (editor: Editor, options: AutoformatTextOptions) =
     }
 
     return false;
-};
+}

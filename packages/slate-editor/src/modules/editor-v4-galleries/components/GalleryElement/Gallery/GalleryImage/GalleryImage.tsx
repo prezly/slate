@@ -4,11 +4,7 @@ import classNames from 'classnames';
 import type { CSSProperties } from 'react';
 import React, { Component, createRef } from 'react';
 
-import {
-    ImageSizeWarning,
-    ImageWithLoadingPlaceholderV2,
-    LoadingPlaceholderV2,
-} from '../../../../../../components';
+import { ImageSizeWarning, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components';
 
 import './GalleryImage.scss';
 

@@ -6,9 +6,10 @@ import type { FileInfo, FilePromise } from 'uploadcare-widget';
 import uploadcare from 'uploadcare-widget';
 import isDataURI from 'validator/lib/isDataURI.js';
 
-import { dataUriToFile } from '../../../lib';
-import { EventsEditor } from '../../../modules/editor-v4-events';
-import type { LoaderNode } from '../../../modules/editor-v4-loader';
+import { dataUriToFile } from '#lib';
+
+import { EventsEditor } from '#modules/editor-v4-events';
+import type { LoaderNode } from '#modules/editor-v4-loader';
 import {
     createLoader,
     findLoaderPath,
@@ -16,8 +17,9 @@ import {
     loaderPromiseManager,
     removeLoader,
     replaceLoader,
-} from '../../../modules/editor-v4-loader';
-import { UPLOAD_SINGLE_IMAGE_ERROR_MESSAGE } from '../../../modules/uploadcare';
+} from '#modules/editor-v4-loader';
+import { UPLOAD_SINGLE_IMAGE_ERROR_MESSAGE } from '#modules/uploadcare';
+
 import type { ImageCandidateNode } from '../types';
 
 import { createImage } from './createImage';

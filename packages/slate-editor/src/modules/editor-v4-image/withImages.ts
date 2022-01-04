@@ -5,7 +5,7 @@ import { isImageNode } from '@prezly/slate-types';
 import { Editor, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { convertToHtml } from '../../lib';
+import { convertToHtml } from '#lib';
 
 export function withImages<T extends Editor>(editor: T): T {
     const { insertData, setFragmentData } = editor;

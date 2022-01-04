@@ -6,8 +6,8 @@ import { IMAGE_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { UploadcareStoragePayload } from '@prezly/uploadcare';
 import type { ReactNode } from 'react';
 
-import type { LoaderNode } from '../../modules/editor-v4-loader';
-import { LOADER_TYPE } from '../../modules/editor-v4-loader';
+import type { LoaderNode } from '#modules/editor-v4-loader';
+import { LOADER_TYPE } from '#modules/editor-v4-loader';
 
 import { IMAGE_CANDIDATE_TYPE } from './constants';
 

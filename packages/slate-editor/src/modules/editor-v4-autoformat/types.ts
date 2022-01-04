@@ -1,6 +1,6 @@
 import type { Editor } from 'slate';
 
-import type { GetMatchPointsReturnType } from './utils/getMatchPoints';
+import type { getMatchPoints } from './utils';
 
 export interface MatchRange {
     start: string;
@@ -108,7 +108,10 @@ export interface AutoformatTextRule extends AutoformatCommonRule {
      * string[]: the matched texts are replaced by these strings.
      * function: called when there is a match.
      */
-    format: string | string[] | ((editor: Editor, options: GetMatchPointsReturnType) => void);
+    format:
+        | string
+        | string[]
+        | ((editor: Editor, options?: ReturnType<typeof getMatchPoints>) => void);
 }
 
 export type AutoformatRule = AutoformatBlockRule | AutoformatMarkRule | AutoformatTextRule;

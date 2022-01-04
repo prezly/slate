@@ -1,6 +1,6 @@
 import type { Coverage } from '@prezly/sdk';
 
-import { formatBytes } from '../../../lib';
+import { formatBytes } from '#lib';
 
 export function getCoverageDescription(coverage: Coverage): string {
     if (coverage.attachment_oembed && coverage.attachment_oembed.description) {

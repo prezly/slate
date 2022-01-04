@@ -12,10 +12,10 @@ export interface AutoformatMarkOptions extends AutoformatMarkRule {
     text: string;
 }
 
-export const autoformatMark = (
+export function autoformatMark(
     editor: Editor,
     { type, text, trigger, match: _match, ignoreTrim }: AutoformatMarkOptions,
-) => {
+) {
     if (!type) return false;
 
     const selection = editor.selection as Range;
@@ -84,4 +84,4 @@ export const autoformatMark = (
     }
 
     return false;
-};
+}

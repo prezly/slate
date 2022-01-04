@@ -1,7 +1,8 @@
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { Menu } from '../../../../components';
+import { Menu } from '#components';
+
 import type { BlockType } from '../../types';
 
 import { OPTIONS } from './options';

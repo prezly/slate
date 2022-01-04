@@ -1,4 +1,4 @@
-import { ElementType } from '../../../../../modules/editor-v4-rich-formatting';
+import { ElementType } from '#modules/editor-v4-rich-formatting';
 
 function isListItemText(element: Element): boolean {
     return (

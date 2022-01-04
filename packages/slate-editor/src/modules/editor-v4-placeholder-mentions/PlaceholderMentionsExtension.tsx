@@ -3,7 +3,7 @@ import { isPlaceholderNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import { MentionElement, MentionsExtension } from '../../modules/editor-v4-mentions';
+import { MentionElement, MentionsExtension } from '#modules/editor-v4-mentions';
 
 import { PLACEHOLDER_MENTIONS_EXTENSION_ID } from './constants';
 import { normalizeRedundantPlaceholderMentionAttributes, parseSerializedElement } from './lib';

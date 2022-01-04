@@ -2,7 +2,7 @@ import type { Listener } from '@prezly/events';
 import type { RefObject } from 'react';
 import { useEffect } from 'react';
 
-import type { EditorEventHandlers, EditorEventMap } from '../../modules/editor-v4-events';
+import type { EditorEventHandlers, EditorEventMap } from '#modules/editor-v4-events';
 
 import type { EditorRef } from './types';
 

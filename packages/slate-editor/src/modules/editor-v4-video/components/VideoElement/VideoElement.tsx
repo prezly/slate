@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
-import { HtmlInjection } from '../../../../components';
-import { PlayButton } from '../../../../icons';
+import { HtmlInjection } from '#components';
+import { PlayButton } from '#icons';
 
 import './VideoElement.scss';
 

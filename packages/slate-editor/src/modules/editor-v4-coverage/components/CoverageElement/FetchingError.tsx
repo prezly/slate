@@ -2,8 +2,8 @@ import type { FunctionComponent } from 'react';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-import type { ApiError } from '../../../../modules/api';
-import { HttpCodes } from '../../../../modules/api';
+import type { ApiError } from '#modules/api';
+import { HttpCodes } from '#modules/api';
 
 interface Props {
     className?: string;

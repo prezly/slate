@@ -2,14 +2,14 @@ import { Events } from '@prezly/events';
 import { createRef } from 'react';
 import type { Editor } from 'slate';
 
-import type { EditorEventMap } from '../../modules/editor-v4-events';
-import { withEvents } from '../../modules/editor-v4-events';
+import type { EditorEventMap } from '#modules/editor-v4-events';
+import { withEvents } from '#modules/editor-v4-events';
 import {
     campaignPlaceholders,
     salutationPlaceholder,
     storyPlaceholders,
-} from '../../modules/placeholders';
-import { coverage, createDelayedResolve, oembedInfo } from '../../modules/tests';
+} from '#modules/placeholders';
+import { coverage, createDelayedResolve, oembedInfo } from '#modules/tests';
 
 import { createEditorV4 } from './createEditorV4';
 import { getEnabledExtensions } from './getEnabledExtensions';

@@ -3,7 +3,8 @@
 import { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
-import { LoaderContentType } from '../../../modules/editor-v4-loader';
+import { LoaderContentType } from '#modules/editor-v4-loader';
+
 import { jsx } from '../jsx';
 
 import { isImageCandidateElement } from './isImageCandidateElement';

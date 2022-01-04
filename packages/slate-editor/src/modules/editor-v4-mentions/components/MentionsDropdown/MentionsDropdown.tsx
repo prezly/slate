@@ -6,7 +6,8 @@ import { MenuItem } from 'react-bootstrap';
 import type { Range } from 'slate';
 import { useSlate } from 'slate-react';
 
-import { ensureChildInView } from '../../../../lib';
+import { ensureChildInView } from '#lib';
+
 import type { Option } from '../../types';
 
 import './MentionsDropdown.scss';
