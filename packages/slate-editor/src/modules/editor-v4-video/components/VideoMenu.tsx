@@ -2,8 +2,9 @@ import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
-import { Menu } from '../../../components';
-import { Delete } from '../../../icons';
+import { Menu } from '#components';
+import { Delete } from '#icons';
+
 import { EventsEditor } from '../../editor-v4-events';
 import { removeVideo } from '../transforms';
 

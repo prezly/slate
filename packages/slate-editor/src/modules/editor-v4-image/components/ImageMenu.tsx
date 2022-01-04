@@ -5,9 +5,11 @@ import type { Editor, Range } from 'slate';
 import { Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
-import { Menu } from '../../../components';
-import { Delete, Edit, Link } from '../../../icons';
-import { LinkMenu } from '../../../modules/editor-v4-components';
+import { Menu } from '#components';
+import { Delete, Edit, Link } from '#icons';
+
+import { LinkMenu } from '#modules/editor-v4-components';
+
 import { removeImage, setImageHref, setLayout } from '../transforms';
 
 import { LayoutControls } from './LayoutControls';

@@ -6,8 +6,9 @@ import { RootCloseWrapper } from 'react-overlays';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
-import { GalleryLayoutSettings, Menu } from '../../../../components';
-import { Cogwheel, Delete, Dice, Edit } from '../../../../icons';
+import { GalleryLayoutSettings, Menu } from '#components';
+import { Cogwheel, Delete, Dice, Edit } from '#icons';
+
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
 import { LayoutControls } from '../LayoutControls';

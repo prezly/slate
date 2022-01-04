@@ -5,7 +5,8 @@ import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
 
-import { EventsEditor } from '../../../../modules/editor-v4-events';
+import { EventsEditor } from '#modules/editor-v4-events';
+
 import { createDataTransfer } from '../../lib';
 
 import { deserializeHtml } from './deserializeHtml';

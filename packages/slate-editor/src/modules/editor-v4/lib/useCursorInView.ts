@@ -3,7 +3,8 @@ import jsonStableStringify from 'json-stable-stringify';
 import { useLayoutEffect, useMemo } from 'react';
 import { Editor, Range } from 'slate';
 
-import { ensureElementInView, ensureRangeInView } from '../../../lib';
+import { ensureElementInView, ensureRangeInView } from '#lib';
+
 import type { EditorV4Props } from '../types';
 
 function useMemoizedWithCursorInView(

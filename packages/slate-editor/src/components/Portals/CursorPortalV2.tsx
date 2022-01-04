@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React, { useState } from 'react';
 
-import { useIsMouseDown } from '../../lib';
+import { useIsMouseDown } from '#lib';
 
 import type { Props as BasePortalV2Props } from './BasePortalV2';
 import { BasePortalV2 } from './BasePortalV2';

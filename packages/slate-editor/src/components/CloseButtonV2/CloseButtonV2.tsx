@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { Cross } from '../../icons';
+import { Cross } from '#icons';
 
 import './CloseButtonV2.scss';
 

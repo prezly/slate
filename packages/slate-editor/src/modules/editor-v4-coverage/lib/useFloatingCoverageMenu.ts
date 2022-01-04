@@ -3,7 +3,7 @@ import { useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
 import type { Editor } from 'slate';
 
-import { EventsEditor } from '../../../modules/editor-v4-events';
+import { EventsEditor } from '#modules/editor-v4-events';
 
 import { insertCoverage } from './insertCoverage';
 

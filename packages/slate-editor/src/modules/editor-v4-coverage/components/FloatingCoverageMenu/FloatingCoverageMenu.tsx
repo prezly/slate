@@ -3,8 +3,9 @@ import type { FunctionComponent, ReactNode, RefObject } from 'react';
 import React, { useRef } from 'react';
 import { useSlate } from 'slate-react';
 
-import { FloatingContainer } from '../../../../modules/editor-v4-components';
-import { EventsEditor } from '../../../../modules/editor-v4-events';
+import { FloatingContainer } from '#modules/editor-v4-components';
+import { EventsEditor } from '#modules/editor-v4-events';
+
 import type { SearchProps } from '../../types';
 
 import './FloatingCoverageMenu.scss';

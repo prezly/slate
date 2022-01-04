@@ -2,9 +2,7 @@ import { ImageLayout } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { Theme } from '#modules/themes';
-
-import { Menu } from '../../../components';
+import { Menu } from '#components';
 import {
     LayoutClassicContained,
     LayoutClassicExpanded,
@@ -12,7 +10,9 @@ import {
     LayoutContained,
     LayoutExpanded,
     LayoutFullWidth,
-} from '../../../icons';
+} from '#icons';
+
+import { Theme } from '#modules/themes';
 
 interface Props {
     layout: ImageLayout;

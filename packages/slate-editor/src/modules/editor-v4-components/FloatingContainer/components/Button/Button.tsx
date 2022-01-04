@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { HTMLAttributes, MouseEventHandler, Ref } from 'react';
 import React, { forwardRef } from 'react';
 
-import { Add } from '../../../../../icons';
+import { Add } from '#icons';
 
 import './Button.scss';
 

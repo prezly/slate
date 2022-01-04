@@ -2,10 +2,11 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareFile } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 
-import { EventsEditor } from '../../../../modules/editor-v4-events';
-import { createFileAttachment } from '../../../../modules/editor-v4-file-attachment';
-import { LoaderContentType } from '../../../../modules/editor-v4-loader';
-import { UploadcareEditor } from '../../../../modules/editor-v4-uploadcare';
+import { EventsEditor } from '#modules/editor-v4-events';
+import { createFileAttachment } from '#modules/editor-v4-file-attachment';
+import { LoaderContentType } from '#modules/editor-v4-loader';
+import { UploadcareEditor } from '#modules/editor-v4-uploadcare';
+
 import { insertUploadingFile } from '../insertUploadingFile';
 
 export async function handleAddAttachment(editor: Editor) {

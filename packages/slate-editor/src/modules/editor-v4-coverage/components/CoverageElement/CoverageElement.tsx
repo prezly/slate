@@ -6,11 +6,11 @@ import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
+import { LoadingPlaceholderV2 } from '#components';
+import { Coverage as CoverageIcon } from '#icons';
 import { useAsyncFn } from '#lib';
 
-import { LoadingPlaceholderV2 } from '../../../../components';
-import { Coverage as CoverageIcon } from '../../../../icons';
-import type { ApiError } from '../../../../modules/api';
+import type { ApiError } from '#modules/api';
 
 import { CoverageBlock } from './CoverageBlock';
 import './CoverageElement.scss';

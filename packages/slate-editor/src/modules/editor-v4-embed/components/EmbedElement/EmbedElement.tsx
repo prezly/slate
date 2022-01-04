@@ -5,8 +5,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
-import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '../../../../components';
-import { Embed } from '../../../../icons';
+import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components';
+import { Embed } from '#icons';
+
 import { injectOembedMarkup } from '../../lib';
 
 import './EmbedElement.scss';

@@ -2,8 +2,8 @@ import type { FunctionComponent, MouseEvent, RefObject } from 'react';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-import { Menu } from '../../../../../components';
-import { Info } from '../../../../../icons';
+import { Menu } from '#components';
+import { Info } from '#icons';
 
 import './GalleryTooltip.scss';
 

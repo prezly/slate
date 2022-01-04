@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { TooltipV2 } from '../../../components';
+import { TooltipV2 } from '#components';
 
 import './LinkWithTooltip.scss';
 

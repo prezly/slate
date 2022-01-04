@@ -4,8 +4,9 @@ import React from 'react';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
-import { Menu } from '../../../components';
-import { Delete, Edit } from '../../../icons';
+import { Menu } from '#components';
+import { Delete, Edit } from '#icons';
+
 import { removeFileAttachment } from '../transforms';
 
 interface Props {
