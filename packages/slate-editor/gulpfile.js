@@ -4,7 +4,6 @@ import branch from 'branch-pipe';
 import gulp from 'gulp';
 import fs from 'fs';
 import sassBackend from 'sass';
-import { Transform } from 'stream';
 
 // Processors
 import concat from 'gulp-concat';
@@ -84,16 +83,16 @@ function buildSass() {
 }
 
 /**
- * @param {Transform} stream
- * @returns {Transform}
+ * @param {stream:Transform} stream
+ * @returns {stream:Transform}
  */
 function copySassDeclarations(stream) {
     return stream.pipe(filter(SASS_DECLARATIONS));
 }
 
 /**
- * @param {Transform} stream
- * @returns {Transform}
+ * @param {stream:Transform} stream
+ * @returns {stream:Transform}
  */
 function compileComponentsStylesheets(stream) {
     /**
