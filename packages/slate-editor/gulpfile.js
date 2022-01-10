@@ -1,18 +1,15 @@
-// General imports
 import autoprefixer from 'autoprefixer';
 import branch from 'branch-pipe';
-import gulp from 'gulp';
 import fs from 'fs';
-import sassBackend from 'sass';
-
-// Processors
+import gulp from 'gulp';
+import babel from 'gulp-babel';
 import concat from 'gulp-concat';
 import filter from 'gulp-filter';
 import map from 'gulp-map';
-import rename from 'gulp-rename';
 import postcss from 'gulp-postcss';
+import rename from 'gulp-rename';
 import createSassProcessor from 'gulp-sass';
-import babel from 'gulp-babel';
+import sassBackend from 'sass';
 
 const sass = createSassProcessor(sassBackend);
 
