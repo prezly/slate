@@ -7,13 +7,44 @@
  *
  * This adapter re-exports individual hooks as ES-friendly named exports.
  */
-export { default as useAsyncFn } from 'react-use/lib/useAsyncFn.js';
-export { default as useDebounce } from 'react-use/lib/useDebounce.js';
-export { default as useEffectOnce } from 'react-use/lib/useEffectOnce.js';
-export { default as useLatest } from 'react-use/lib/useLatest.js';
-export { default as useMount } from 'react-use/lib/useMount.js';
-export { default as useMountedState } from 'react-use/lib/useMountedState.js';
-export { default as useRafLoop } from 'react-use/lib/useRafLoop.js';
-export { default as useSize } from 'react-use/lib/useSize.js';
-export { default as useUnmount } from 'react-use/lib/useUnmount.js';
-export { default as useUpdate } from 'react-use/lib/useUpdate.js';
+import _useAsyncFn from 'react-use/lib/useAsyncFn.js';
+import _useDebounce from 'react-use/lib/useDebounce.js';
+import _useEffectOnce from 'react-use/lib/useEffectOnce.js';
+import _useLatest from 'react-use/lib/useLatest.js';
+import _useMount from 'react-use/lib/useMount.js';
+import _useMountedState from 'react-use/lib/useMountedState.js';
+import _useRafLoop from 'react-use/lib/useRafLoop.js';
+import _useSize from 'react-use/lib/useSize.js';
+import _useUnmount from 'react-use/lib/useUnmount.js';
+import _useUpdate from 'react-use/lib/useUpdate.js';
+
+function unwrap<T>(module: T | { __esModule: boolean; default: T }): T {
+    if (typeof module === 'object' && '__esModule' in module && 'default' in module) {
+        return module.default;
+    }
+    return module;
+}
+
+const useAsyncFn = unwrap(_useAsyncFn);
+const useDebounce = unwrap(_useDebounce);
+const useEffectOnce = unwrap(_useEffectOnce);
+const useLatest = unwrap(_useLatest);
+const useMount = unwrap(_useMount);
+const useMountedState = unwrap(_useMountedState);
+const useRafLoop = unwrap(_useRafLoop);
+const useSize = unwrap(_useSize);
+const useUnmount = unwrap(_useUnmount);
+const useUpdate = unwrap(_useUpdate);
+
+export {
+    useAsyncFn,
+    useDebounce,
+    useEffectOnce,
+    useLatest,
+    useMount,
+    useMountedState,
+    useRafLoop,
+    useSize,
+    useUnmount,
+    useUpdate,
+};
