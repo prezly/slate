@@ -68,7 +68,7 @@
         "@prezly/events": "^2.0.3",
         "@prezly/linear-partition": "^1.0.2",
         "@prezly/progress-promise": "^1.0.1",
-        "@prezly/sdk": "^6.3.1",
+        "@prezly/sdk": "^6.12.1",
         "@prezly/slate-commons": "^0.11.0",
         "@prezly/slate-hyperscript": "^0.11.0",
         "@prezly/slate-lists": "^0.11.0",
