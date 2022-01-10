@@ -43,7 +43,7 @@
         "test:build": "npm run test:esm && npm run test:cjs && npm run test:types",
         "test:esm": "node build/esm/index.mjs",
         "test:cjs": "node build/cjs/index.cjs",
-        "test:types": "tsc --noEmit build/types/index.d.ts",
+        "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
