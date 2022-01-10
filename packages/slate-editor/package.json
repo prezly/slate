@@ -57,7 +57,8 @@
         "clean:build": "rimraf build/* *.tsbuildinfo",
         "test": "npm run test:unit && npm run test:build",
         "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage",
-        "test:build": "npm run test:esm && npm run test:cjs",
+        "test:build": "npm run test:esm && npm run test:cjs && npm run test:types",
+        "test:types": "tsc --noEmit build/types/index.d.ts",
         "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.mjs'; \" ",
         "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" "
     },
