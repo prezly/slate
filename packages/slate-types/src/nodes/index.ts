@@ -8,6 +8,7 @@ export * from './ElementNode';
 export * from './EmbedNode';
 export * from './GalleryNode';
 export * from './HeadingNode';
+export * from './HtmlNode';
 export * from './ImageNode';
 export * from './LinkNode';
 export * from './ListNode';
