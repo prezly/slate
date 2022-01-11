@@ -100,7 +100,6 @@
         "slate-react": "^0.71.0"
     },
     "devDependencies": {
-        "@types/classnames": "^2.2.11",
         "@types/is-hotkey": "^0.1.6",
         "@types/json-stable-stringify": "^1.0.32",
         "@types/lodash": "^4.14.178",
