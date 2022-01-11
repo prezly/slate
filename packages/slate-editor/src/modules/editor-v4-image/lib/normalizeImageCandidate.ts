@@ -1,9 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
+import type { FileInfo, FilePromise } from '@prezly/uploadcare-widget';
+import uploadcare from '@prezly/uploadcare-widget';
 import type { Editor, Node, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
-import type { FileInfo, FilePromise } from 'uploadcare-widget';
-import uploadcare from 'uploadcare-widget';
+
 import isDataURI from 'validator/lib/isDataURI.js';
 
 import { dataUriToFile } from '#lib';

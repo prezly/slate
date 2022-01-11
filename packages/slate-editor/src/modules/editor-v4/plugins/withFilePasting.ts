@@ -3,6 +3,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
+import uploadcare from '@prezly/uploadcare-widget';
 import {
     toProgressPromise,
     UPLOADCARE_FILE_DATA_KEY,
@@ -10,7 +11,6 @@ import {
     UploadcareImage,
 } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
-import uploadcare from 'uploadcare-widget';
 
 import { EventsEditor } from '#modules/editor-v4-events';
 import {

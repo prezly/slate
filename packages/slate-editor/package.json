@@ -73,7 +73,8 @@
         "@prezly/slate-hyperscript": "^0.11.2",
         "@prezly/slate-lists": "^0.11.2",
         "@prezly/slate-types": "^0.11.2",
-        "@prezly/uploadcare": "^1.1.1",
+        "@prezly/uploadcare": "^1.1.2",
+        "@prezly/uploadcare-widget": "^3.16.1",
         "classnames": "^2.3.1",
         "is-hotkey": "^0.2.0",
         "json-stable-stringify": "^1.0.1",
@@ -89,7 +90,6 @@
         "react-router-dom": "=5.1.2",
         "react-use": "^17.2.1",
         "shave": "^2.5.10",
-        "uploadcare-widget": "=3.7.7",
         "uuid": "^8.3.0",
         "validator": "^13.5.2"
     },
