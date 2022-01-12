@@ -4,7 +4,6 @@ import type { FileInfo, FilePromise } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
 import type { Editor, Node, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
-
 import isDataURI from 'validator/lib/isDataURI.js';
 
 import { dataUriToFile } from '#lib';
