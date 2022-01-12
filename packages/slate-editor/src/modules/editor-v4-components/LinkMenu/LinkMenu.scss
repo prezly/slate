@@ -28,12 +28,16 @@
         margin: $spacing-1;
         border-radius: $border-radius-base;
         min-width: 264px;
-        font-size: 14px;
 
         color: $black;
 
         &:focus {
             outline: none;
         }
+    }
+
+    input.editor-v4-link-menu__input {
+        // override `.editor-menu input` rule specificity
+        font-size: 13px;
     }
 }
