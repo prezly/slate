@@ -13,7 +13,7 @@
     "type": "module",
     "scripts": {
         "bootstrap": "npm ci --legacy-peer-deps",
-        "build": "npm run build --workspaces",
+        "build": "npm run build -w packages/slate-types -w packages/slate-commons -w packages/slate-hyperscript -w packages/slate-lists -w packages/slate-editor",
         "check": "npm run prettier && npm run test",
         "watch": "concurrently --kill-others --names 'types  ,commons,hyper  ,lists  ,editor ' 'npm run watch -w packages/slate-types' 'npm run watch -w packages/slate-commons' 'npm run watch -w packages/slate-hyperscript' 'npm run watch -w packages/slate-lists' 'npm run watch --workspace=packages/slate-editor'",
         "lint": "npm run lint --workspaces",
@@ -79,6 +79,8 @@
         "gulp-postcss": "^9.0.1",
         "gulp-rename": "^2.0.0",
         "gulp-sass": "^5.0.0",
+        "gulp-tap": "^2.0.0",
+        "gulp-typescript": "^6.0.0-alpha.1",
         "jest": "^27.3.1",
         "jest-canvas-mock": "^2.3.1",
         "lerna": "^3.22.1",

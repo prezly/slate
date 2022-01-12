@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-types",
-    "version": "0.11.0",
+    "version": "0.11.3",
     "description": "TypeScript definitions for Slate document structure used at Prezly",
     "license": "MIT",
     "type": "module",
@@ -35,9 +35,10 @@
         "watch:esm": "gulp watch:esm",
         "watch:cjs": "gulp watch:cjs",
         "test": "npm run test:build",
-        "test:build": "npm run test:esm && npm run test:cjs",
+        "test:build": "npm run test:esm && npm run test:cjs && npm run test:types",
         "test:esm": "node build/esm/index.mjs",
         "test:cjs": "node build/cjs/index.cjs",
+        "test:types": "tsc --noEmit build/types/index.d.ts",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
@@ -46,7 +47,7 @@
         "slate": "~0.70.0"
     },
     "dependencies": {
-        "@prezly/sdk": "^6.3.1",
+        "@prezly/sdk": "^6.12.1",
         "@prezly/uploads": "^0.2.1",
         "is-plain-object": "^5.0.0"
     }

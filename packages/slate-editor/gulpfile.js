@@ -1,19 +1,18 @@
-// General imports
 import autoprefixer from 'autoprefixer';
 import branch from 'branch-pipe';
-import gulp from 'gulp';
 import fs from 'fs';
-import sassBackend from 'sass';
-import { Transform } from 'stream';
-
-// Processors
+import gulp from 'gulp';
+import babel from 'gulp-babel';
 import concat from 'gulp-concat';
 import filter from 'gulp-filter';
 import map from 'gulp-map';
-import rename from 'gulp-rename';
 import postcss from 'gulp-postcss';
+import rename from 'gulp-rename';
 import createSassProcessor from 'gulp-sass';
-import babel from 'gulp-babel';
+import tap from 'gulp-tap';
+import typescript from 'gulp-typescript';
+import path from 'path';
+import sassBackend from 'sass';
 
 const sass = createSassProcessor(sassBackend);
 
@@ -21,7 +20,14 @@ const BASE_DIR = './src';
 const SASS_SOURCES = 'src/**/*.scss';
 const SASS_DECLARATIONS = 'src/styles/**/*.scss';
 const SASS_MODULES_STYLESHEETS = ['src/**/*.scss', '!src/styles/**/*.scss'];
-const TYPESCRIPT_SOURCES = 'src/**/*.{ts,tsx}';
+const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/*.test.*', '!**/jsx.ts'];
+const TYPESCRIPT_ALIASES = {
+    '#lodash': 'lodash-es',
+    '#components': './src/components',
+    '#icons': './src/icons',
+    '#lib': './src/lib',
+    '#modules': './src/modules',
+};
 const SVG_ICONS = 'src/**/*.svg';
 
 const babelConfig = JSON.parse(fs.readFileSync('./babel.config.json', { encoding: 'utf-8' }));
@@ -31,12 +37,13 @@ const babelEsmConfig = { ...babelConfig, extends: '../../babel.esm.config.json' 
 gulp.task('build:esm', () => buildEsm());
 gulp.task('build:cjs', () => buildCommonjs());
 gulp.task('build:sass', () => buildSass());
+gulp.task('build:types', () => buildTypes());
 
-gulp.task('watch:esm', watch([TYPESCRIPT_SOURCES, SVG_ICONS], 'build:esm', buildEsm));
-gulp.task('watch:cjs', watch([TYPESCRIPT_SOURCES, SVG_ICONS], 'build:cjs', buildCommonjs));
+gulp.task('watch:esm', watch([...TYPESCRIPT_SOURCES, SVG_ICONS], 'build:esm', buildEsm));
+gulp.task('watch:cjs', watch([...TYPESCRIPT_SOURCES, SVG_ICONS], 'build:cjs', buildCommonjs));
 gulp.task('watch:sass', watch(SASS_SOURCES, 'build:sass', buildSass));
 
-function buildEsm(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
+function buildEsm(files = [...TYPESCRIPT_SOURCES, SVG_ICONS]) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
@@ -56,7 +63,7 @@ function buildEsm(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
         .pipe(gulp.dest('build/esm/'));
 }
 
-function buildCommonjs(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
+function buildCommonjs(files = [...TYPESCRIPT_SOURCES, SVG_ICONS]) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
@@ -76,6 +83,32 @@ function buildCommonjs(files = [TYPESCRIPT_SOURCES, SVG_ICONS]) {
         .pipe(gulp.dest('build/cjs/'));
 }
 
+function buildTypes(files = TYPESCRIPT_SOURCES) {
+    const compile = typescript.createProject(path.resolve('./tsconfig.build.json'), {
+        isolatedModules: false, // otherwise, `gulp-typescript` disables generation of declaration files
+        noEmit: false,
+    });
+
+    const output = gulp.src(files, { base: BASE_DIR }).pipe(compile());
+
+    return output.dts
+        .pipe(
+            tap((file) => {
+                const updatedContents = Object.entries(TYPESCRIPT_ALIASES).reduce(
+                    (contents, [alias, real]) => {
+                        const relative = path.relative(path.dirname(file.path), path.resolve(real));
+                        return contents
+                            .replace(`from '${alias}`, `from '${relative}`)
+                            .replace(`import("${alias}`, `import("${relative}`);
+                    },
+                    file.contents.toString('utf-8'),
+                );
+                file.contents = Buffer.from(updatedContents, 'utf-8');
+            }),
+        )
+        .pipe(gulp.dest('build/types'));
+}
+
 function buildSass() {
     return gulp
         .src(SASS_SOURCES)
@@ -84,16 +117,16 @@ function buildSass() {
 }
 
 /**
- * @param {Transform} stream
- * @returns {Transform}
+ * @param {stream:Transform} stream
+ * @returns {stream:Transform}
  */
 function copySassDeclarations(stream) {
     return stream.pipe(filter(SASS_DECLARATIONS));
 }
 
 /**
- * @param {Transform} stream
- * @returns {Transform}
+ * @param {stream:Transform} stream
+ * @returns {stream:Transform}
  */
 function compileComponentsStylesheets(stream) {
     /**

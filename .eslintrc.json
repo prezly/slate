@@ -33,7 +33,14 @@
         "react/display-name": "warn",
         "react/prop-types": "off",
         "import/no-default-export": "error",
-        "import/no-extraneous-dependencies": "error",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true,
+                // @see https://github.com/import-js/eslint-plugin-import/issues/458
+                "packageDir": ["."]
+            }
+        ],
         "func-style": ["error", "declaration"],
         "import/order": [
             "error",

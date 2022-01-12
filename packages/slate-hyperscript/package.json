@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-hyperscript",
-    "version": "0.11.0",
+    "version": "0.11.3",
     "description": "Hyperscript helpers for creating Slate documents with JSX",
     "license": "MIT",
     "type": "module",
@@ -39,9 +39,10 @@
         "watch:esm": "gulp watch:esm",
         "watch:cjs": "gulp watch:cjs",
         "test": "npm run test:build",
-        "test:build": "npm run test:esm && npm run test:cjs",
+        "test:build": "npm run test:esm && npm run test:cjs && npm run test:types",
         "test:esm": "node build/esm/index.mjs",
         "test:cjs": "node build/cjs/index.cjs",
+        "test:types": "tsc --noEmit build/types/index.d.ts",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"

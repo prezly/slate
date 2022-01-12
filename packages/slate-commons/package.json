@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-commons",
-    "version": "0.11.0",
+    "version": "0.11.3",
     "description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
     "license": "MIT",
     "type": "module",
@@ -40,9 +40,10 @@
         "watch:cjs": "gulp watch:cjs",
         "test": "npm run test:unit && npm run test:build",
         "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.cjs --rootDir ./ --no-cache --coverage",
-        "test:build": "npm run test:esm && npm run test:cjs",
+        "test:build": "npm run test:esm && npm run test:cjs && npm run test:types",
         "test:esm": "node build/esm/index.mjs",
         "test:cjs": "node build/cjs/index.cjs",
+        "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
@@ -54,11 +55,11 @@
         "slate-react": "^0.71.0"
     },
     "dependencies": {
-        "@prezly/slate-types": "^0.11.0",
+        "@prezly/slate-types": "^0.11.3",
         "uuid": "^8.3.0"
     },
     "devDependencies": {
-        "@prezly/slate-hyperscript": "^0.11.0",
+        "@prezly/slate-hyperscript": "^0.11.3",
         "@types/uuid": "^8.3.0"
     }
 }

@@ -29,6 +29,5 @@ export function serialize(value: Value): string {
     return jsonStableStringify({
         children: editor.children,
         type: 'document',
-        version: process.env.SLATE_VERSION,
     });
 }
