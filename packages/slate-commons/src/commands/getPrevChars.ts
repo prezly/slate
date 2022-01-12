@@ -1,8 +1,7 @@
-import type { BaseSelection } from 'slate';
 import { Editor, Path, Text } from 'slate';
 
-export function getPrevChars(editor: Editor, length: number, edge?: BaseSelection): string {
-    const selection = edge ?? editor.selection;
+export function getPrevChars(editor: Editor, length: number): string {
+    const selection = editor.selection;
 
     if (!selection) {
         return '';
