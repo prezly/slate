@@ -17,6 +17,7 @@ import {
     getCurrentHref,
     getRichFormattingBlockNodeType,
     isSelectionSupported,
+    keepToolbarInTextColumn,
     restoreSelection,
     unwrapLink,
     unwrapLinkCandidates,
@@ -31,6 +32,7 @@ import { ElementType } from '../types';
 import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
+    availableWidth: number;
     containerRef: RefObject<HTMLElement>;
     parameters: RichFormattingExtensionParameters;
 }
@@ -42,7 +44,11 @@ const OFFSET_MODIFIER: Modifier<'offset'> = {
     },
 };
 
-export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters }) => {
+export const RichFormattingMenu: FunctionComponent<Props> = ({
+    availableWidth,
+    containerRef,
+    parameters,
+}) => {
     const editor = useSlate();
 
     if (!HistoryEditor.isHistoryEditor(editor)) {
@@ -179,7 +185,13 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, par
     return (
         <TextSelectionPortalV2
             containerRef={containerRef}
-            modifiers={[OFFSET_MODIFIER]}
+            modifiers={[
+                OFFSET_MODIFIER,
+                keepToolbarInTextColumn({
+                    editorElement: containerRef.current,
+                    availableWidth,
+                }),
+            ]}
             placement="top-start"
         >
             <Menu.Toolbar className="rich-formatting-menu">

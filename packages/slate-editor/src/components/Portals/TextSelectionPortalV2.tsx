@@ -49,7 +49,6 @@ function updateCursorPortalRect(): ClientRect | Rect | null {
         const [rect] = RangeFix.getClientRects(selection.getRangeAt(0)) || [];
 
         return rect || null;
-
     } catch (error) {
         // Sometimes (for example, when resizing the contained image inside the editor),
         // the `getRangeAt(0)` will fail, because the selection is invalid at that moment:

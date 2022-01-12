@@ -4,7 +4,7 @@ import type { Rect } from 'rangefix';
 import type { FunctionComponent, HTMLAttributes, ReactNode, RefObject } from 'react';
 import React from 'react';
 import { useRef, useState } from 'react';
-import type { Modifier, StrictModifierNames } from 'react-popper';
+import type { Modifier } from 'react-popper';
 import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 
@@ -31,7 +31,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
     className?: string;
     containerRef?: RefObject<HTMLElement>;
     getBoundingClientRect: () => ClientRect | Rect | null;
-    modifiers?: Modifier<StrictModifierNames>[];
+    modifiers?: Modifier<string>[];
     placement: Placement;
 }
 

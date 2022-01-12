@@ -10,6 +10,7 @@ export { isLinkCandidateElement } from './isLinkCandidateElement';
 export { isRichTextBlockElement } from './isRichTextBlockElement';
 export { isRichTextElement } from './isRichTextElement';
 export { isSelectionSupported } from './isSelectionSupported';
+export { keepToolbarInTextColumn } from './keepToolbarInTextColumn';
 export { normalizeEmptyLink } from './normalizeEmptyLink';
 export { normalizeNestedLink } from './normalizeNestedLink';
 export { normalizeRedundantRichTextAttributes } from './normalizeRedundantRichTextAttributes';

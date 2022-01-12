@@ -392,6 +392,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
 
                 {withRichFormatting && withRichFormatting.menu && (
                     <RichFormattingMenu
+                        availableWidth={availableWidth}
                         containerRef={containerRef}
                         parameters={withRichFormatting}
                     />
