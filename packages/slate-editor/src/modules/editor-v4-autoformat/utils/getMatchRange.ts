@@ -1,4 +1,4 @@
-import { castArray } from 'lodash';
+import { castArray } from '#lodash';
 
 import type { AutoformatRule, MatchRange } from '../types';
 
