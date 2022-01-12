@@ -1,5 +1,5 @@
-import type { ElementNode, HeadingNode, ListNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
-import { isHeadingNode, isListNode, isParagraphNode, isQuoteNode } from '@prezly/slate-types';
+import type { ElementNode, HeadingNode, ListNode, ParagraphNode, QuoteNode } from '../nodes';
+import { isHeadingNode, isListNode, isParagraphNode, isQuoteNode } from '../nodes';
 
 export type AlignableNode = HeadingNode | ListNode | QuoteNode | ParagraphNode;
 

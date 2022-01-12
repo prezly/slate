@@ -1,8 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { HeadingNode } from '@prezly/slate-types';
+import { isAlignableElement } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-import { isAlignableElement } from './isAlignableElement';
 import { isRichTextElement } from './isRichTextElement';
 
 const shape: { [P in keyof HeadingNode]: true } = {
