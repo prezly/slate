@@ -76,28 +76,6 @@
             }
         }
 
-        &:hover {
-            &::before {
-                // Trick to display smaller hover background square,
-                // while keeping the button area as big as possible (for a11y)
-                content: "";
-                display: block;
-                border-radius: $border-radius-base;
-                position: absolute;
-                left: $spacing-base;
-                top: $spacing-base;
-                bottom: $spacing-base;
-                right: $spacing-base;
-
-                @include classic-toolbar {
-                    display: none;
-                }
-                @include dark-toolbar {
-                    background-color: $toolbar-dark-theme-hover-bg;
-                }
-            }
-        }
-
         background: none;
         border: 0;
         border-radius: 0;
@@ -111,10 +89,12 @@
             margin-top: -2px;
 
             @include classic-toolbar {
-                color: $toolbar-classic-theme-icon-color;
+                // beat `.btn-default .caret` !important rule specificity
+                color: $toolbar-classic-theme-icon-color !important;
             }
             @include dark-toolbar {
-                color: $toolbar-dark-theme-icon-color;
+                // beat `.btn-default .caret` !important rule specificity
+                color: $toolbar-dark-theme-icon-color !important;
             }
         }
     }
@@ -164,26 +144,13 @@
             vertical-align: middle;
             position: relative;
 
-            &::before {
-                // Trick to display smaller hover background square,
-                // while keeping the button area as big as possible (for a11y)
-                content: "";
-                display: none;
-                border-radius: $border-radius-base;
-                position: absolute;
-                top: $spacing-half * 0.5;
-                bottom: $spacing-half * 0.5;
-                left: $spacing-base;
-                right: $spacing-base;
-            }
-
-            &:hover::before {
+            &:hover {
                 @include classic-toolbar {
-                    display: none;
+                    color: $toolbar-classic-theme-text-hover-color;
                 }
+
                 @include dark-toolbar {
-                    display: block;
-                    background-color: $toolbar-dark-theme-hover-bg;
+                    color: $toolbar-dark-theme-text-hover-color;
                 }
             }
 
@@ -218,6 +185,27 @@
         &--selected > a {
             @include dark-toolbar {
                 color: $toolbar-dark-theme-icon-active-color;
+            }
+
+            &::before {
+                // Trick to display smaller hover background square,
+                // while keeping the button area as big as possible (for a11y)
+                content: "";
+                display: none;
+                border-radius: $border-radius-base;
+                position: absolute;
+                top: $spacing-half * 0.5;
+                bottom: $spacing-half * 0.5;
+                left: $spacing-base;
+                right: $spacing-base;
+
+                @include classic-toolbar {
+                    display: none;
+                }
+                @include dark-toolbar {
+                    display: block;
+                    background-color: $toolbar-dark-theme-hover-bg;
+                }
             }
         }
     }
@@ -257,7 +245,7 @@
         }
 
         @include dark-toolbar {
-            color: $toolbar-dark-theme-icon-color;
+            color: inherit;
         }
     }
 
