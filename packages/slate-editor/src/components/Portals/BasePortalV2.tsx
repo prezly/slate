@@ -4,7 +4,7 @@ import type { Rect } from 'rangefix';
 import type { FunctionComponent, HTMLAttributes, ReactNode, RefObject } from 'react';
 import React from 'react';
 import { useRef, useState } from 'react';
-import type { Modifier } from 'react-popper';
+import type { Modifier, StrictModifierNames } from 'react-popper';
 import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 
@@ -31,6 +31,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
     className?: string;
     containerRef?: RefObject<HTMLElement>;
     getBoundingClientRect: () => ClientRect | Rect | null;
+    modifiers?: Modifier<StrictModifierNames>[];
     placement: Placement;
 }
 
@@ -42,6 +43,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
     className,
     containerRef,
     getBoundingClientRect,
+    modifiers = [],
     placement,
     ...props
 }) => {
@@ -50,7 +52,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
     const lastRectRef = useRef<ClientRect | Rect | null>(getBoundingClientRect());
     const [referenceElement, setReferenceElement] = useState<VirtualElement | null>(null);
     const { attributes, styles } = usePopper(referenceElement, popperElement, {
-        modifiers: [FLIP_MODIFIER, PREVENT_OVERFLOW_MODIFIER],
+        modifiers: [FLIP_MODIFIER, PREVENT_OVERFLOW_MODIFIER, ...modifiers],
         placement,
     });
 

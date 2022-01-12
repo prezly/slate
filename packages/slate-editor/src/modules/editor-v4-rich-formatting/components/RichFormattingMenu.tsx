@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { FunctionComponent, RefObject } from 'react';
 import React, { useState } from 'react';
+import type { Modifier } from 'react-popper';
 import type { Path, Range } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
@@ -33,6 +34,13 @@ interface Props {
     containerRef: RefObject<HTMLElement>;
     parameters: RichFormattingExtensionParameters;
 }
+
+const OFFSET_MODIFIER: Modifier<'offset'> = {
+    name: 'offset',
+    options: {
+        offset: [-12, 4],
+    },
+};
 
 export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters }) => {
     const editor = useSlate();
@@ -147,6 +155,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, par
             <ElementPortalV2
                 containerRef={containerRef}
                 element={linkCandidateElement}
+                modifiers={[OFFSET_MODIFIER]}
                 placement="top"
             >
                 <Menu.Toolbar>
@@ -168,8 +177,12 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, par
     }
 
     return (
-        <TextSelectionPortalV2 containerRef={containerRef} placement="top">
-            <Menu.Toolbar>
+        <TextSelectionPortalV2
+            containerRef={containerRef}
+            modifiers={[OFFSET_MODIFIER]}
+            placement="top-start"
+        >
+            <Menu.Toolbar className="rich-formatting-menu">
                 <RichFormattingToolbar
                     activeNodeType={activeNodeType}
                     onLinkClick={handleLinkButtonClick}
