@@ -21,6 +21,36 @@ export const compositeCharactersRules: AutoformatRule[] = [
         match: ['(c)', '(C)'],
         format: '©',
     },
+    {
+        mode: 'text',
+        match: '--',
+        format: '\u2014',
+    },
+    {
+        mode: 'text',
+        match: '...',
+        format: '…',
+    },
+    {
+        mode: 'text',
+        match: '->',
+        format: '→',
+    },
+    {
+        mode: 'text',
+        match: '<-',
+        format: '←',
+    },
+    {
+        mode: 'text',
+        match: '=>',
+        format: '⇒',
+    },
+    {
+        mode: 'text',
+        match: '<=',
+        format: '⇐',
+    },
 ];
 
 export const textStyleRules: AutoformatRule[] = [
