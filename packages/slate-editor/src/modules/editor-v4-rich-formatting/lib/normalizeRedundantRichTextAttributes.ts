@@ -1,12 +1,18 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import type { HeadingNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-import { ElementType } from '../types';
-
-import { createRichText } from './createRichText';
+import { isAlignableElement } from './isAlignableElement';
 import { isRichTextElement } from './isRichTextElement';
 
-const ALLOWED_ATTRIBUTES = Object.keys(createRichText(ElementType.HEADING_ONE));
+const shape: { [P in keyof HeadingNode]: true } = {
+    type: true,
+    align: true,
+    children: true,
+};
+
+const ALIGNABLE_NODE_ATTRIBUTES = Object.keys(shape);
+const NON_ALIGNABLE_NODE_ATTRIBUTEs = ALIGNABLE_NODE_ATTRIBUTES.filter((attr) => attr !== 'align');
 
 export function normalizeRedundantRichTextAttributes(
     editor: Editor,
@@ -16,5 +22,17 @@ export function normalizeRedundantRichTextAttributes(
         return false;
     }
 
-    return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
+    if (isAlignableElement(node)) {
+        return EditorCommands.normalizeRedundantAttributes(
+            editor,
+            [node, path],
+            ALIGNABLE_NODE_ATTRIBUTES,
+        );
+    }
+
+    return EditorCommands.normalizeRedundantAttributes(
+        editor,
+        [node, path],
+        NON_ALIGNABLE_NODE_ATTRIBUTEs,
+    );
 }

@@ -6,6 +6,7 @@ export { findLinkCandidatePath } from './findLinkCandidatePath';
 export { findSelectedLinkPath } from './findSelectedLinkPath';
 export { getCurrentHref } from './getCurrentHref';
 export { getRichFormattingBlockNodeType } from './getRichFormattingBlockNodeType';
+export { isAlignableElement } from './isAlignableElement';
 export { isLinkCandidateElement } from './isLinkCandidateElement';
 export { isRichTextBlockElement } from './isRichTextBlockElement';
 export { isRichTextElement } from './isRichTextElement';

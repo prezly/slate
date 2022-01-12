@@ -1,10 +1,15 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import type { ParagraphNode } from '@prezly/slate-types';
 import { isParagraphNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-import { createParagraph } from './createParagraph';
+const shape: { [P in keyof ParagraphNode]: true } = {
+    type: true,
+    align: true,
+    children: true,
+};
 
-const ALLOWED_ATTRIBUTES = Object.keys(createParagraph());
+const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
 export function normalizeRedundantParagraphAttributes(
     editor: Editor,

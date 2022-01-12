@@ -30,6 +30,7 @@ export const HeadingElement: FunctionComponent<Props> = ({
             })}
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
+            style={{ textAlign: element.align }}
         >
             {children}
         </Heading>
