@@ -132,9 +132,9 @@ export function* getEnabledExtensions({
 
     if (withAutoformat) {
         const defaultRules = [
-            ...compositeCharactersRules,
-            ...(withRichFormatting ? textStyleRules : []),
             ...(withRichFormatting?.blocks ? blockRules : []),
+            ...(withRichFormatting ? textStyleRules : []),
+            ...compositeCharactersRules,
         ];
         const rules = withAutoformat === true ? defaultRules : withAutoformat.rules;
         yield AutoformatExtension({ rules });
