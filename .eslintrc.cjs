@@ -85,70 +85,29 @@ module.exports = {
                 "react/jsx-key": "off"
             }
         },
-        {
-            "files": ["packages/slate-types/**/*"],
-            "rules": {
-                "import/no-extraneous-dependencies": [
-                    "error",
-                    {
-                        "devDependencies": true,
-                        // @see https://github.com/import-js/eslint-plugin-import/issues/458
-                        "packageDir": [__dirname, `${__dirname}/packages/slate-types`]
-                    }
-                ],
-            }
-        },
-        {
-            "files": ["packages/slate-commons/**/*"],
-            "rules": {
-                "import/no-extraneous-dependencies": [
-                    "error",
-                    {
-                        "devDependencies": true,
-                        // @see https://github.com/import-js/eslint-plugin-import/issues/458
-                        "packageDir": [__dirname, `${__dirname}/packages/slate-commons`]
-                    }
-                ],
-            }
-        },
-        {
-            "files": ["packages/slate-hyperscript/**/*"],
-            "rules": {
-                "import/no-extraneous-dependencies": [
-                    "error",
-                    {
-                        "devDependencies": true,
-                        // @see https://github.com/import-js/eslint-plugin-import/issues/458
-                        "packageDir": [__dirname, `${__dirname}/packages/slate-hyperscript`]
-                    }
-                ],
-            }
-        },
-        {
-            "files": ["packages/slate-lists/**/*"],
-            "rules": {
-                "import/no-extraneous-dependencies": [
-                    "error",
-                    {
-                        "devDependencies": true,
-                        // @see https://github.com/import-js/eslint-plugin-import/issues/458
-                        "packageDir": [__dirname, `${__dirname}/packages/slate-lists`]
-                    }
-                ],
-            }
-        },
-        {
-            "files": ["packages/slate-editor/**/*"],
-            "rules": {
-                "import/no-extraneous-dependencies": [
-                    "error",
-                    {
-                        "devDependencies": true,
-                        // @see https://github.com/import-js/eslint-plugin-import/issues/458
-                        "packageDir": [__dirname, `${__dirname}/packages/slate-editor`]
-                    }
-                ],
-            }
-        },
+        overrideNoExtraneousDependenciesRule('slate-types'),
+        overrideNoExtraneousDependenciesRule('slate-hyperscript'),
+        overrideNoExtraneousDependenciesRule('slate-commons'),
+        overrideNoExtraneousDependenciesRule('slate-lists'),
+        overrideNoExtraneousDependenciesRule('slate-editor'),
     ]
+}
+
+/**
+ * @param {string} packageName
+ */
+function overrideNoExtraneousDependenciesRule(packageName) {
+    return {
+        "files": [`packages/${packageName}/**/*`],
+        "rules": {
+            "import/no-extraneous-dependencies": [
+                "error",
+                {
+                    "devDependencies": true,
+                    // @see https://github.com/import-js/eslint-plugin-import/issues/458
+                    "packageDir": [__dirname, `${__dirname}/packages/${packageName}`]
+                }
+            ],
+        }
+    };
 }
