@@ -6,7 +6,7 @@ import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
 import { v4 as uuidV4 } from 'uuid';
 
-import { CursorPortalV2, ElementPortalV2, Menu } from '#components';
+import { ElementPortalV2, Menu, TextSelectionPortalV2 } from '#components';
 
 import { LinkMenu } from '#modules/editor-v4-components';
 
@@ -168,7 +168,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, par
     }
 
     return (
-        <CursorPortalV2 containerRef={containerRef} placement="top">
+        <TextSelectionPortalV2 containerRef={containerRef} placement="top">
             <Menu.Toolbar>
                 <RichFormattingToolbar
                     activeNodeType={activeNodeType}
@@ -176,6 +176,6 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, par
                     parameters={parameters}
                 />
             </Menu.Toolbar>
-        </CursorPortalV2>
+        </TextSelectionPortalV2>
     );
 };

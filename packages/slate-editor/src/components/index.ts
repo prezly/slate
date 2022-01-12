@@ -15,5 +15,6 @@ export {
     ElementPortal,
     ElementPortalV2,
     PortalOrigin,
+    TextSelectionPortalV2,
 } from './Portals';
 export * as TooltipV2 from './TooltipV2';

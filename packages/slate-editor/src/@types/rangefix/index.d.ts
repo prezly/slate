@@ -11,4 +11,5 @@ declare module 'rangefix' {
     }
 
     export function getBoundingClientRect(range: Range): ClientRect | Rect | null;
+    export function getClientRects(range: Range): ClientRect[] | Rect[] | null;
 }
