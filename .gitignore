@@ -10,3 +10,4 @@ node_modules/
 *.db
 *.log
 *.zip
+packages/**/package-lock.json

@@ -77,6 +77,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     withUserMentions,
     withVideos,
     withWebBookmarks,
+    withAutoformat,
 }) => {
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -100,6 +101,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
             withUserMentions,
             withVideos,
             withWebBookmarks,
+            withAutoformat,
         }),
     );
 

@@ -6,6 +6,7 @@ export { getCursorPositionInNode } from './getCursorPositionInNode';
 export { getEditorRange } from './getEditorRange';
 export { getNodePath } from './getNodePath';
 export { getNextSibling } from './getNextSibling';
+export { getPrevChars } from './getPrevChars';
 export { getPreviousSibling } from './getPreviousSibling';
 export { getUnreachableAncestors } from './getUnreachableAncestors';
 export { insertEmptyParagraph } from './insertEmptyParagraph';
