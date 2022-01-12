@@ -131,13 +131,13 @@ export function* getEnabledExtensions({
     }
 
     if (withAutoformat) {
-        const additionalRules = withAutoformat === true ? [] : withAutoformat.rules;
-        yield AutoformatExtension({ rules: [
+        const defaultRules = [
             ...compositeCharactersRules,
             ...(withRichFormatting ? textStyleRules : []),
             ...(withRichFormatting?.blocks ? blockRules : []),
-            ...additionalRules,
-        ]});
+        ];
+        const rules = withAutoformat === true ? defaultRules : withAutoformat.rules;
+        yield AutoformatExtension({ rules });
     }
 
     yield DividerExtension({ containerRef });
