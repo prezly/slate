@@ -11,6 +11,16 @@ export const compositeCharactersRules: AutoformatRule[] = [
         match: ['(tm)', '(TM)'],
         format: '™',
     },
+    {
+        mode: 'text',
+        match: ['(r)', '(R)'],
+        format: '®',
+    },
+    {
+        mode: 'text',
+        match: ['(c)', '(C)'],
+        format: '©',
+    },
 ];
 
 export const textStyleRules: AutoformatRule[] = [
