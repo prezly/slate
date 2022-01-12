@@ -1,10 +1,14 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { Alignment } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 import { useSlate } from 'slate-react';
 
 import { Menu } from '#components';
 import {
+    AlignCenter,
+    AlignLeft,
+    AlignRight,
     FormatBold,
     FormatItalic,
     Link,
@@ -22,18 +26,25 @@ import { BlockDropdown } from './BlockDropdown';
 
 interface Props {
     activeNodeType: BlockType | null;
+    align: Alignment;
     onLinkClick: () => void;
     parameters: RichFormattingExtensionParameters;
 }
 
 export const RichFormattingToolbar: FunctionComponent<Props> = ({
     activeNodeType,
+    align,
     onLinkClick,
     parameters,
 }) => {
     const editor = useSlate();
     const isSuperScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUPERSCRIPT);
     const isSubScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUBSCRIPT);
+    const alignments = EditorCommands.getAlignments(editor, align);
+
+    const isCenterAlignmentActive = alignments.length === 1 && alignments.includes(Alignment.CENTER);
+    const isLeftAlignmentActive = alignments.length === 1 && alignments.includes(Alignment.LEFT);
+    const isRightAlignmentActive = alignments.length === 1 && alignments.includes(Alignment.RIGHT);
 
     function handleSubSupClick() {
         if (isSuperScriptActive) {
@@ -85,6 +96,18 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
                     {!(isSuperScriptActive || isSubScriptActive) && (
                         <Menu.Icon icon={FormatStyleNormal} />
                     )}
+                </Menu.Button>
+            </Menu.ButtonGroup>
+
+            <Menu.ButtonGroup>
+                <Menu.Button active={isLeftAlignmentActive}>
+                    <Menu.Icon icon={AlignLeft} />
+                </Menu.Button>
+                <Menu.Button active={isCenterAlignmentActive}>
+                    <Menu.Icon icon={AlignCenter} />
+                </Menu.Button>
+                <Menu.Button active={isRightAlignmentActive}>
+                    <Menu.Icon icon={AlignRight} />
                 </Menu.Button>
             </Menu.ButtonGroup>
 

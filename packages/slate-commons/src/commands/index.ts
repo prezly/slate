@@ -1,5 +1,6 @@
 export { findDescendants } from './findDescendants';
 export { focus } from './focus';
+export { getAlignments } from './getAlignments';
 export { getCurrentDomNode } from './getCurrentDomNode';
 export { getCurrentNodeEntry } from './getCurrentNodeEntry';
 export { getCursorPositionInNode } from './getCursorPositionInNode';
