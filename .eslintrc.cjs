@@ -1,4 +1,4 @@
-{
+module.exports = {
     "env": {
         "browser": true,
         "es2021": true
@@ -38,7 +38,7 @@
             {
                 "devDependencies": true,
                 // @see https://github.com/import-js/eslint-plugin-import/issues/458
-                "packageDir": ["."]
+                "packageDir": [__dirname]
             }
         ],
         "func-style": ["error", "declaration"],
@@ -83,6 +83,19 @@
                 "@typescript-eslint/no-non-null-assertion": "off",
                 "react/display-name": "off",
                 "react/jsx-key": "off"
+            }
+        },
+        {
+            "files": ["packages/slate-editor/**/*"],
+            "rules": {
+                "import/no-extraneous-dependencies": [
+                    "error",
+                    {
+                        "devDependencies": true,
+                        // @see https://github.com/import-js/eslint-plugin-import/issues/458
+                        "packageDir": [__dirname, `${__dirname}/packages/slate-editor`]
+                    }
+                ],
             }
         }
     ]
