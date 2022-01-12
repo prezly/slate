@@ -1,9 +1,10 @@
 import type { ElementNode } from './ElementNode';
 import { isElementNode } from './ElementNode';
+import type { Alignable } from './interfaces';
 
 export const PARAGRAPH_NODE_TYPE = 'paragraph';
 
-export interface ParagraphNode extends ElementNode {
+export interface ParagraphNode extends ElementNode, Alignable {
     type: typeof PARAGRAPH_NODE_TYPE;
 }
 

@@ -1,3 +1,4 @@
+export { Alignment } from './interfaces';
 export * from './AttachmentNode';
 export * from './BookmarkNode';
 export * from './ContactNode';
