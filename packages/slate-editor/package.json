@@ -76,7 +76,6 @@
         "@prezly/uploadcare": "^1.1.2",
         "@prezly/uploadcare-widget": "^3.16.1",
         "@udecode/plate-core": "^9.0.0",
-        "@udecode/plate-list": "^9.0.0",
         "classnames": "^2.3.1",
         "is-hotkey": "^0.2.0",
         "json-stable-stringify": "^1.0.1",
