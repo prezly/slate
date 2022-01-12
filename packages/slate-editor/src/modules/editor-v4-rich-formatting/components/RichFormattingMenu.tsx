@@ -31,14 +31,14 @@ import { ElementType } from '../types';
 import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
-    align: Alignment;
     containerRef: RefObject<HTMLElement>;
+    defaultAlignment: Alignment;
     parameters: RichFormattingExtensionParameters;
 }
 
 export const RichFormattingMenu: FunctionComponent<Props> = ({
-    align,
     containerRef,
+    defaultAlignment,
     parameters,
 }) => {
     const editor = useSlate();
@@ -178,7 +178,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
             <Menu.Toolbar>
                 <RichFormattingToolbar
                     activeNodeType={activeNodeType}
-                    align={align}
+                    defaultAlignment={defaultAlignment}
                     onLinkClick={handleLinkButtonClick}
                     parameters={parameters}
                 />

@@ -26,23 +26,24 @@ import { BlockDropdown } from './BlockDropdown';
 
 interface Props {
     activeNodeType: BlockType | null;
-    align: Alignment;
+    defaultAlignment: Alignment;
     onLinkClick: () => void;
     parameters: RichFormattingExtensionParameters;
 }
 
 export const RichFormattingToolbar: FunctionComponent<Props> = ({
     activeNodeType,
-    align,
+    defaultAlignment,
     onLinkClick,
     parameters,
 }) => {
     const editor = useSlate();
     const isSuperScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUPERSCRIPT);
     const isSubScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUBSCRIPT);
-    const alignments = EditorCommands.getAlignments(editor, align);
+    const alignments = EditorCommands.getAlignments(editor, defaultAlignment);
 
-    const isCenterAlignmentActive = alignments.length === 1 && alignments.includes(Alignment.CENTER);
+    const isCenterAlignmentActive =
+        alignments.length === 1 && alignments.includes(Alignment.CENTER);
     const isLeftAlignmentActive = alignments.length === 1 && alignments.includes(Alignment.LEFT);
     const isRightAlignmentActive = alignments.length === 1 && alignments.includes(Alignment.RIGHT);
 
@@ -63,6 +64,10 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
         }
 
         toggleBlock(editor, type);
+    }
+
+    function toggleAlignment(align: Alignment): void {
+        EditorCommands.toggleAlignment(editor, align === defaultAlignment ? undefined : align);
     }
 
     return (
@@ -100,13 +105,22 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
             </Menu.ButtonGroup>
 
             <Menu.ButtonGroup>
-                <Menu.Button active={isLeftAlignmentActive}>
+                <Menu.Button
+                    active={isLeftAlignmentActive}
+                    onClick={() => toggleAlignment(Alignment.LEFT)}
+                >
                     <Menu.Icon icon={AlignLeft} />
                 </Menu.Button>
-                <Menu.Button active={isCenterAlignmentActive}>
+                <Menu.Button
+                    active={isCenterAlignmentActive}
+                    onClick={() => toggleAlignment(Alignment.CENTER)}
+                >
                     <Menu.Icon icon={AlignCenter} />
                 </Menu.Button>
-                <Menu.Button active={isRightAlignmentActive}>
+                <Menu.Button
+                    active={isRightAlignmentActive}
+                    onClick={() => toggleAlignment(Alignment.RIGHT)}
+                >
                     <Menu.Icon icon={AlignRight} />
                 </Menu.Button>
             </Menu.ButtonGroup>

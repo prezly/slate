@@ -34,4 +34,5 @@ export { removeNode } from './removeNode';
 export { saveSelection } from './saveSelection';
 export { toDomNode } from './toDomNode';
 export { toDomRange } from './toDomRange';
+export { toggleAlignment } from './toggleAlignment';
 export { toggleMark } from './toggleMark';
