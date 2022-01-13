@@ -398,6 +398,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                 {withRichFormatting && withRichFormatting.menu && (
                     <RichFormattingMenu
                         alignmentControls={withAlignmentControls}
+                        availableWidth={availableWidth}
                         containerRef={containerRef}
                         defaultAlignment={align || Alignment.LEFT}
                         parameters={withRichFormatting}

@@ -2,12 +2,13 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import type { FunctionComponent, RefObject } from 'react';
 import React, { useState } from 'react';
+import type { Modifier } from 'react-popper';
 import type { Path, Range } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
 import { v4 as uuidV4 } from 'uuid';
 
-import { CursorPortalV2, ElementPortalV2, Menu } from '#components';
+import { ElementPortalV2, Menu, TextSelectionPortalV2 } from '#components';
 
 import { LinkMenu } from '#modules/editor-v4-components';
 
@@ -17,6 +18,7 @@ import {
     getCurrentHref,
     getRichFormattingBlockNodeType,
     isSelectionSupported,
+    keepToolbarInTextColumn,
     restoreSelection,
     unwrapLink,
     unwrapLinkCandidates,
@@ -32,13 +34,22 @@ import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
     alignmentControls: boolean;
+    availableWidth: number;
     containerRef: RefObject<HTMLElement>;
     defaultAlignment: Alignment;
     parameters: RichFormattingExtensionParameters;
 }
 
+const OFFSET_MODIFIER: Modifier<'offset'> = {
+    name: 'offset',
+    options: {
+        offset: [-12, 4],
+    },
+};
+
 export const RichFormattingMenu: FunctionComponent<Props> = ({
     alignmentControls,
+    availableWidth,
     containerRef,
     defaultAlignment,
     parameters,
@@ -155,6 +166,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
             <ElementPortalV2
                 containerRef={containerRef}
                 element={linkCandidateElement}
+                modifiers={[OFFSET_MODIFIER]}
                 placement="top"
             >
                 <Menu.Toolbar>
@@ -176,8 +188,18 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
     }
 
     return (
-        <CursorPortalV2 containerRef={containerRef} placement="top">
-            <Menu.Toolbar>
+        <TextSelectionPortalV2
+            containerRef={containerRef}
+            modifiers={[
+                OFFSET_MODIFIER,
+                keepToolbarInTextColumn({
+                    editorElement: containerRef.current,
+                    availableWidth,
+                }),
+            ]}
+            placement="top-start"
+        >
+            <Menu.Toolbar className="rich-formatting-menu">
                 <RichFormattingToolbar
                     activeNodeType={activeNodeType}
                     alignmentControls={alignmentControls}
@@ -186,6 +208,6 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
                     parameters={parameters}
                 />
             </Menu.Toolbar>
-        </CursorPortalV2>
+        </TextSelectionPortalV2>
     );
 };
