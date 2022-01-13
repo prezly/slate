@@ -1,4 +1,4 @@
-import type { AlignableNode, Alignment} from '@prezly/slate-types';
+import type { AlignableNode, Alignment } from '@prezly/slate-types';
 import { isAlignableElement } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
