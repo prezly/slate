@@ -31,12 +31,14 @@ import { ElementType } from '../types';
 import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
+    alignmentControls: boolean;
     containerRef: RefObject<HTMLElement>;
     defaultAlignment: Alignment;
     parameters: RichFormattingExtensionParameters;
 }
 
 export const RichFormattingMenu: FunctionComponent<Props> = ({
+    alignmentControls,
     containerRef,
     defaultAlignment,
     parameters,
@@ -178,6 +180,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
             <Menu.Toolbar>
                 <RichFormattingToolbar
                     activeNodeType={activeNodeType}
+                    alignmentControls={alignmentControls}
                     defaultAlignment={defaultAlignment}
                     onLinkClick={handleLinkButtonClick}
                     parameters={parameters}

@@ -50,7 +50,6 @@ import { usePendingOperation } from './usePendingOperation';
 import { withAvailableWidth } from './withAvailableWidth';
 import { withDebounce } from './withDebounce';
 
-
 const EditorV4: FunctionComponent<EditorV4Props> = ({
     align,
     availableWidth,
@@ -67,7 +66,9 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     style,
     toolbarsTheme = Theme.CLASSIC,
     value,
+    withAlignmentControls,
     withAttachments,
+    withAutoformat,
     withCoverage,
     withCursorInView,
     withEmbeds,
@@ -80,7 +81,6 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
     withUserMentions,
     withVideos,
     withWebBookmarks,
-    withAutoformat,
 }) => {
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -397,6 +397,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
 
                 {withRichFormatting && withRichFormatting.menu && (
                     <RichFormattingMenu
+                        alignmentControls={withAlignmentControls}
                         containerRef={containerRef}
                         defaultAlignment={align || Alignment.LEFT}
                         parameters={withRichFormatting}

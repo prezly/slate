@@ -65,6 +65,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     style?: CSSProperties;
     toolbarsTheme?: Theme;
     value: Value;
+    withAlignmentControls: boolean;
     withCursorInView?: {
         minBottom: number;
         minTop: number;
