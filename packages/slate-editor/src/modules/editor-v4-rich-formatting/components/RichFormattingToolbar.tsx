@@ -42,11 +42,11 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
     const editor = useSlate();
     const isSuperScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUPERSCRIPT);
     const isSubScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUBSCRIPT);
-    const alignments = EditorCommands.getAlignments(editor, defaultAlignment);
+    const alignment = EditorCommands.getAlignment(editor, defaultAlignment);
 
-    const isCenterAlignmentActive = alignments.includes(Alignment.CENTER);
-    const isLeftAlignmentActive = alignments.includes(Alignment.LEFT);
-    const isRightAlignmentActive = alignments.includes(Alignment.RIGHT);
+    const isCenterAlignmentActive = alignment.includes(Alignment.CENTER);
+    const isLeftAlignmentActive = alignment.includes(Alignment.LEFT);
+    const isRightAlignmentActive = alignment.includes(Alignment.RIGHT);
 
     function handleSubSupClick() {
         if (isSuperScriptActive) {
