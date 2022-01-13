@@ -5,7 +5,7 @@ import type { Editor, NodeEntry } from 'slate';
 
 import { isRichTextElement } from './isRichTextElement';
 
-const shape: { [P in keyof HeadingNode]: true } = {
+const shape: Record<keyof HeadingNode, true> = {
     type: true,
     align: true,
     children: true,

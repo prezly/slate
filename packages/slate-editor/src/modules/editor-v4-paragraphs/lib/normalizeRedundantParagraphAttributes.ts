@@ -3,7 +3,7 @@ import type { ParagraphNode } from '@prezly/slate-types';
 import { isParagraphNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-const shape: { [P in keyof ParagraphNode]: true } = {
+const shape: Record<keyof ParagraphNode, true> = {
     type: true,
     align: true,
     children: true,

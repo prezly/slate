@@ -3,7 +3,7 @@ import type { VideoNode } from '@prezly/slate-types';
 import { isVideoNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-const shape: { [P in keyof VideoNode]: true } = {
+const shape: Record<keyof VideoNode, true> = {
     type: true,
     uuid: true,
     url: true,

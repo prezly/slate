@@ -3,7 +3,7 @@ import type { BookmarkNode } from '@prezly/slate-types';
 import { isBookmarkNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-const shape: { [P in keyof BookmarkNode]: true } = {
+const shape: Record<keyof BookmarkNode, true> = {
     type: true,
     uuid: true,
     url: true,
