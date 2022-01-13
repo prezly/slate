@@ -41,11 +41,6 @@ export const RichTextElement: FunctionComponent<Props> = ({
                 </HeadingTwoElement>
             );
         case ElementType.BULLETED_LIST:
-            return (
-                <ListElement {...props} attributes={attributes} element={element}>
-                    {children}
-                </ListElement>
-            );
         case ElementType.NUMBERED_LIST:
             return (
                 <ListElement {...props} attributes={attributes} element={element}>
