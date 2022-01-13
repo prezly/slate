@@ -1,3 +1,4 @@
+export { getAlignment, toggleAlignment } from './alignment';
 export { findDescendants } from './findDescendants';
 export { focus } from './focus';
 export { getCurrentDomNode } from './getCurrentDomNode';

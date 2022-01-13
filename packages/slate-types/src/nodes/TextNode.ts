@@ -1,12 +1,9 @@
 import { isPlainObject } from 'is-plain-object';
 
-export interface TextNode {
-    bold?: boolean;
-    italic?: boolean;
-    subscript?: boolean;
-    superscript?: boolean;
+import type { Stylable } from './interfaces';
+
+export interface TextNode extends Stylable {
     text: string;
-    underlined?: boolean;
 }
 
 export function isTextNode(node: any): node is TextNode {

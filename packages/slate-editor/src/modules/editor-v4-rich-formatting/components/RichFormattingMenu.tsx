@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import type { Alignment } from '@prezly/slate-types';
 import type { FunctionComponent, RefObject } from 'react';
 import React, { useState } from 'react';
 import type { Path, Range } from 'slate';
@@ -30,11 +31,18 @@ import { ElementType } from '../types';
 import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
+    alignmentControls: boolean;
     containerRef: RefObject<HTMLElement>;
+    defaultAlignment: Alignment;
     parameters: RichFormattingExtensionParameters;
 }
 
-export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, parameters }) => {
+export const RichFormattingMenu: FunctionComponent<Props> = ({
+    alignmentControls,
+    containerRef,
+    defaultAlignment,
+    parameters,
+}) => {
     const editor = useSlate();
 
     if (!HistoryEditor.isHistoryEditor(editor)) {
@@ -172,6 +180,8 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({ containerRef, par
             <Menu.Toolbar>
                 <RichFormattingToolbar
                     activeNodeType={activeNodeType}
+                    alignmentControls={alignmentControls}
+                    defaultAlignment={defaultAlignment}
                     onLinkClick={handleLinkButtonClick}
                     parameters={parameters}
                 />

@@ -1,4 +1,5 @@
 import type { Events } from '@prezly/events';
+import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { Editor, Element } from 'slate';
 
@@ -46,6 +47,7 @@ export interface EditorV4ExtensionsProps {
 export type Value = Element[];
 
 export interface EditorV4Props extends EditorV4ExtensionsProps {
+    align?: Alignment;
     autoFocus?: boolean;
     className?: string;
     contentStyle?: CSSProperties;
@@ -63,6 +65,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     style?: CSSProperties;
     toolbarsTheme?: Theme;
     value: Value;
+    withAlignmentControls: boolean;
     withCursorInView?: {
         minBottom: number;
         minTop: number;

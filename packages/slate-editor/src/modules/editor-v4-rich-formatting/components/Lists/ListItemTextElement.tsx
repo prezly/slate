@@ -18,7 +18,7 @@ export const ListItemTextElement: FunctionComponent<Props> = ({
     element,
     ...props
 }) => (
-    <div
+    <span
         {...attributes}
         {...props}
         className={classNames('editor-v4-list-item-text-element', className)}
@@ -26,5 +26,5 @@ export const ListItemTextElement: FunctionComponent<Props> = ({
         data-slate-value={JSON.stringify(element)}
     >
         {children}
-    </div>
+    </span>
 );
