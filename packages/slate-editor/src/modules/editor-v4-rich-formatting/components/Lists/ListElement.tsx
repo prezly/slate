@@ -1,14 +1,13 @@
+import type { ListNode} from '@prezly/slate-types';
 import { BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import type { RichTextElementType } from '../../types';
-
 interface Props extends HTMLAttributes<HTMLOListElement> {
     attributes?: RenderElementProps['attributes'];
-    element: RichTextElementType;
+    element: ListNode;
 }
 
 export const ListElement: FunctionComponent<Props> = ({
