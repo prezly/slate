@@ -6,8 +6,6 @@ import type { RenderElementProps } from 'slate-react';
 import type { RichTextElementType } from '../../types';
 import { ElementType } from '../../types';
 
-import './ListItemTextElement.scss';
-
 interface Props extends HTMLAttributes<HTMLDivElement> {
     attributes?: RenderElementProps['attributes'];
     element: RichTextElementType;
