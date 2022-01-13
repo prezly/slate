@@ -1,1 +1,0 @@
-export { HeadingOneElement } from './HeadingOneElement';

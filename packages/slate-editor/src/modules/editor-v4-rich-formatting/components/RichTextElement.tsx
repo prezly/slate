@@ -6,8 +6,7 @@ import type { RichTextElementType } from '../types';
 import { ElementType } from '../types';
 
 import { BlockQuoteElement } from './BlockQuoteElement';
-import { HeadingOneElement } from './HeadingOneElement';
-import { HeadingTwoElement } from './HeadingTwoElement';
+import { HeadingElement } from './Headings';
 import { ListElement, ListItemElement, ListItemTextElement } from './Lists';
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -29,16 +28,11 @@ export const RichTextElement: FunctionComponent<Props> = ({
                 </BlockQuoteElement>
             );
         case ElementType.HEADING_ONE:
-            return (
-                <HeadingOneElement {...props} attributes={attributes} element={element}>
-                    {children}
-                </HeadingOneElement>
-            );
         case ElementType.HEADING_TWO:
             return (
-                <HeadingTwoElement {...props} attributes={attributes} element={element}>
+                <HeadingElement {...props} attributes={attributes} element={element}>
                     {children}
-                </HeadingTwoElement>
+                </HeadingElement>
             );
         case ElementType.BULLETED_LIST:
         case ElementType.NUMBERED_LIST:
