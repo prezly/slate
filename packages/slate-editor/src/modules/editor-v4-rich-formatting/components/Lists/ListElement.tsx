@@ -24,9 +24,9 @@ export const ListElement: FunctionComponent<Props> = ({
         <List
             {...attributes}
             {...props}
-            className={classNames(className, {
-                'editor-v4-bulleted-list-element': element.type === BULLETED_LIST_NODE_TYPE,
-                'editor-v4-numbered-list-element': element.type === NUMBERED_LIST_NODE_TYPE,
+            className={classNames(className, 'editor-v4-list-element', {
+                'editor-v4-list-element--bulleted': element.type === BULLETED_LIST_NODE_TYPE,
+                'editor-v4-list-element--numbered': element.type === NUMBERED_LIST_NODE_TYPE,
             })}
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
