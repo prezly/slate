@@ -12,7 +12,7 @@ const shape: { [P in keyof HeadingNode]: true } = {
 };
 
 const ALIGNABLE_NODE_ATTRIBUTES = Object.keys(shape);
-const NON_ALIGNABLE_NODE_ATTRIBUTEs = ALIGNABLE_NODE_ATTRIBUTES.filter((attr) => attr !== 'align');
+const NON_ALIGNABLE_NODE_ATTRIBUTES = ALIGNABLE_NODE_ATTRIBUTES.filter((attr) => attr !== 'align');
 
 export function normalizeRedundantRichTextAttributes(
     editor: Editor,
@@ -33,6 +33,6 @@ export function normalizeRedundantRichTextAttributes(
     return EditorCommands.normalizeRedundantAttributes(
         editor,
         [node, path],
-        NON_ALIGNABLE_NODE_ATTRIBUTEs,
+        NON_ALIGNABLE_NODE_ATTRIBUTES,
     );
 }
