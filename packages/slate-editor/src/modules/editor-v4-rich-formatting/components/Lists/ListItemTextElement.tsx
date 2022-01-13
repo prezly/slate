@@ -1,32 +1,30 @@
+import type { ListItemTextNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import type { RichTextElementType } from '../../types';
 import { ElementType } from '../../types';
 
-import './BulletedListElement.scss';
-
-interface Props extends HTMLAttributes<HTMLUListElement> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
     attributes?: RenderElementProps['attributes'];
-    element: RichTextElementType;
+    element: ListItemTextNode;
 }
 
-export const BulletedListElement: FunctionComponent<Props> = ({
+export const ListItemTextElement: FunctionComponent<Props> = ({
     attributes,
     children,
     className,
     element,
     ...props
 }) => (
-    <ul
+    <div
         {...attributes}
         {...props}
-        className={classNames('editor-v4-bulleted-list-element', className)}
-        data-slate-type={ElementType.BULLETED_LIST}
+        className={classNames('editor-v4-list-item-text-element', className)}
+        data-slate-type={ElementType.LIST_ITEM_TEXT}
         data-slate-value={JSON.stringify(element)}
     >
         {children}
-    </ul>
+    </div>
 );
