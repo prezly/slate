@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import type { Alignment } from '@prezly/slate-types';
 import type { FunctionComponent, RefObject } from 'react';
 import React, { useState } from 'react';
 import type { Modifier } from 'react-popper';
@@ -32,8 +33,10 @@ import { ElementType } from '../types';
 import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
+    alignmentControls: boolean;
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
+    defaultAlignment: Alignment;
     parameters: RichFormattingExtensionParameters;
 }
 
@@ -45,8 +48,10 @@ const OFFSET_MODIFIER: Modifier<'offset'> = {
 };
 
 export const RichFormattingMenu: FunctionComponent<Props> = ({
+    alignmentControls,
     availableWidth,
     containerRef,
+    defaultAlignment,
     parameters,
 }) => {
     const editor = useSlate();
@@ -197,6 +202,8 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
             <Menu.Toolbar className="rich-formatting-menu">
                 <RichFormattingToolbar
                     activeNodeType={activeNodeType}
+                    alignmentControls={alignmentControls}
+                    defaultAlignment={defaultAlignment}
                     onLinkClick={handleLinkButtonClick}
                     parameters={parameters}
                 />

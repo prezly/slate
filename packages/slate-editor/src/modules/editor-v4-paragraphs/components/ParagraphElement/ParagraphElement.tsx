@@ -25,6 +25,7 @@ export const ParagraphElement: FunctionComponent<Props> = ({
         className={classNames('editor-v4-paragraph-element', className)}
         data-slate-type={PARAGRAPH_NODE_TYPE}
         data-slate-value={JSON.stringify(element)}
+        style={{ textAlign: element.align }}
     >
         {children}
     </p>

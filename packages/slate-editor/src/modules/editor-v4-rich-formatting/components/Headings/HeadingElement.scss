@@ -1,0 +1,18 @@
+@import "styles/variables";
+
+.editor-v4-heading-element {
+    color: $editor-v4-text-color;
+    font-weight: bold;
+
+    &--heading-one {
+        margin: $editor-v4-block-spacing-vertical 0 $spacing-3 0;
+        font-size: 28px;
+        line-height: 34px;
+    }
+
+    &--heading-two {
+        margin: $spacing-3 0;
+        font-size: 22px;
+        line-height: 28px;
+    }
+}

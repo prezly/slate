@@ -1,9 +1,11 @@
 import type { Events } from '@prezly/events';
+import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { Editor, Element } from 'slate';
 
 import type { Theme } from '#modules/themes';
 
+import type { AutoformatParameters } from '../../editor-v4-autoformat/types';
 import type { CoverageExtensionParameters } from '../../editor-v4-coverage';
 import type { EmbedExtensionParameters } from '../../editor-v4-embed/types';
 import type { EditorEventMap } from '../../editor-v4-events';
@@ -39,11 +41,13 @@ export interface EditorV4ExtensionsProps {
     withUserMentions?: UserMentionsExtensionParameters;
     withVideos?: VideoExtensionParameters;
     withWebBookmarks?: WebBookmarkExtensionParameters;
+    withAutoformat?: boolean | AutoformatParameters;
 }
 
 export type Value = Element[];
 
 export interface EditorV4Props extends EditorV4ExtensionsProps {
+    align?: Alignment;
     autoFocus?: boolean;
     className?: string;
     contentStyle?: CSSProperties;
@@ -61,6 +65,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     style?: CSSProperties;
     toolbarsTheme?: Theme;
     value: Value;
+    withAlignmentControls: boolean;
     withCursorInView?: {
         minBottom: number;
         minTop: number;

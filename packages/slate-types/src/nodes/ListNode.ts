@@ -1,5 +1,6 @@
 import type { ElementNode } from './ElementNode';
 import { isElementNode } from './ElementNode';
+import type { Alignable } from './interfaces';
 
 export const BULLETED_LIST_NODE_TYPE = 'bulleted-list';
 
@@ -9,7 +10,7 @@ export const LIST_ITEM_NODE_TYPE = 'list-item';
 
 export const LIST_ITEM_TEXT_NODE_TYPE = 'list-item-text';
 
-export interface ListNode extends ElementNode {
+export interface ListNode extends ElementNode, Alignable {
     type: typeof BULLETED_LIST_NODE_TYPE | typeof NUMBERED_LIST_NODE_TYPE;
     children: ListItemNode[];
 }

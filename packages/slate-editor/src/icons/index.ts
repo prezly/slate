@@ -1,4 +1,7 @@
 export { default as Add } from './Add.svg';
+export { default as AlignCenter } from './Align-Center.svg';
+export { default as AlignLeft } from './Align-Left.svg';
+export { default as AlignRight } from './Align-Right.svg';
 export { default as Attachment } from './Attachment.svg';
 export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
 export { default as Cogwheel } from './Cogwheel.svg';

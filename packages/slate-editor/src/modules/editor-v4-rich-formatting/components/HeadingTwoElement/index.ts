@@ -1,1 +1,0 @@
-export { HeadingTwoElement } from './HeadingTwoElement';

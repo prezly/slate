@@ -6,12 +6,8 @@ import type { RichTextElementType } from '../types';
 import { ElementType } from '../types';
 
 import { BlockQuoteElement } from './BlockQuoteElement';
-import { BulletedListElement } from './BulletedListElement';
-import { HeadingOneElement } from './HeadingOneElement';
-import { HeadingTwoElement } from './HeadingTwoElement';
-import { ListItemElement } from './ListItemElement';
-import { ListItemTextElement } from './ListItemTextElement';
-import { NumberedListElement } from './NumberedListElement';
+import { HeadingElement } from './Headings';
+import { ListElement, ListItemElement, ListItemTextElement } from './Lists';
 
 interface Props extends HTMLAttributes<HTMLElement> {
     attributes?: RenderElementProps['attributes'];
@@ -31,23 +27,19 @@ export const RichTextElement: FunctionComponent<Props> = ({
                     {children}
                 </BlockQuoteElement>
             );
-        case ElementType.BULLETED_LIST:
-            return (
-                <BulletedListElement {...props} attributes={attributes} element={element}>
-                    {children}
-                </BulletedListElement>
-            );
         case ElementType.HEADING_ONE:
-            return (
-                <HeadingOneElement {...props} attributes={attributes} element={element}>
-                    {children}
-                </HeadingOneElement>
-            );
         case ElementType.HEADING_TWO:
             return (
-                <HeadingTwoElement {...props} attributes={attributes} element={element}>
+                <HeadingElement {...props} attributes={attributes} element={element}>
                     {children}
-                </HeadingTwoElement>
+                </HeadingElement>
+            );
+        case ElementType.BULLETED_LIST:
+        case ElementType.NUMBERED_LIST:
+            return (
+                <ListElement {...props} attributes={attributes} element={element}>
+                    {children}
+                </ListElement>
             );
         case ElementType.LIST_ITEM:
             return (
@@ -60,12 +52,6 @@ export const RichTextElement: FunctionComponent<Props> = ({
                 <ListItemTextElement {...props} attributes={attributes} element={element}>
                     {children}
                 </ListItemTextElement>
-            );
-        case ElementType.NUMBERED_LIST:
-            return (
-                <NumberedListElement {...props} attributes={attributes} element={element}>
-                    {children}
-                </NumberedListElement>
             );
         default:
             return null;

@@ -3,6 +3,7 @@ import type { RefObject } from 'react';
 
 import { noop } from '#lodash';
 
+import { AutoformatExtension } from '#modules/editor-v4-autoformat';
 import { CoverageExtension } from '#modules/editor-v4-coverage';
 import { DividerExtension } from '#modules/editor-v4-divider';
 import { EmbedExtension } from '#modules/editor-v4-embed';
@@ -20,6 +21,7 @@ import { VideoExtension } from '../editor-v4-video';
 import { VoidExtension } from '../editor-v4-void';
 import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
 
+import { compositeCharactersRules, textStyleRules, blockRules } from './autoformatRules';
 import {
     createHandleEditGallery,
     createHandleEditImage,
@@ -51,6 +53,7 @@ export function* getEnabledExtensions({
     withUserMentions,
     withVideos,
     withWebBookmarks,
+    withAutoformat,
 }: Parameters): Generator<Extension> {
     yield ParagraphsExtension();
 
@@ -125,6 +128,16 @@ export function* getEnabledExtensions({
             availableWidth,
             containerRef,
         });
+    }
+
+    if (withAutoformat) {
+        const defaultRules = [
+            ...(withRichFormatting?.blocks ? blockRules : []),
+            ...(withRichFormatting ? textStyleRules : []),
+            ...compositeCharactersRules,
+        ];
+        const rules = withAutoformat === true ? defaultRules : withAutoformat.rules;
+        yield AutoformatExtension({ rules });
     }
 
     yield DividerExtension({ containerRef });

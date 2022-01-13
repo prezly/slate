@@ -1,0 +1,45 @@
+@import "styles/variables";
+
+.editor-v4-list-element {
+    margin: $spacing-2 0;
+    padding: 0;
+    padding-left: $spacing-4;
+    color: $editor-v4-text-color;
+    font-size: $editor-v4-paragraph-font-size;
+    line-height: $editor-v4-paragraph-line-height;
+
+    &--numbered {
+        list-style-type: decimal;
+    }
+
+    &--align-left,
+    &--align-right,
+    &--align-center {
+        list-style-position: inside;
+    }
+
+    &--align-left {
+        text-align: left;
+    }
+    &--align-center {
+        text-align: center;
+    }
+    &--align-right {
+        text-align: right;
+    }
+
+    .editor-v4-list-element {
+        margin: 0;
+    }
+}
+
+.editor-v4-list-item-element {
+    margin: $spacing-1 0;
+}
+
+.editor-v4-list-item-text-element {
+    color: $editor-v4-text-color;
+    font-weight: 500;
+    font-size: $editor-v4-paragraph-font-size;
+    line-height: $editor-v4-paragraph-line-height;
+}
