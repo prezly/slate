@@ -19,7 +19,7 @@ export function getAlignment(editor: Editor, defaultAlignment: Alignment): Align
 
 export function toggleAlignment(editor: Editor, align: Alignment | undefined): void {
     if (align === undefined) {
-        Transforms.unsetNodes(editor, 'align', { match: isAlignableElement });
+        Transforms.unsetNodes(editor, 'align', { match: isTopLevelAlignableElement });
         return;
     }
 
