@@ -1,4 +1,4 @@
-import type { ListNode} from '@prezly/slate-types';
+import type { ListNode } from '@prezly/slate-types';
 import { BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes } from 'react';
