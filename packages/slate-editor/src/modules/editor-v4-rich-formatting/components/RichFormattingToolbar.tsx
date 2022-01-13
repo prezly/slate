@@ -44,10 +44,9 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
     const isSubScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUBSCRIPT);
     const alignments = EditorCommands.getAlignments(editor, defaultAlignment);
 
-    const isCenterAlignmentActive =
-        alignments.length === 1 && alignments.includes(Alignment.CENTER);
-    const isLeftAlignmentActive = alignments.length === 1 && alignments.includes(Alignment.LEFT);
-    const isRightAlignmentActive = alignments.length === 1 && alignments.includes(Alignment.RIGHT);
+    const isCenterAlignmentActive = alignments.includes(Alignment.CENTER);
+    const isLeftAlignmentActive = alignments.includes(Alignment.LEFT);
+    const isRightAlignmentActive = alignments.includes(Alignment.RIGHT);
 
     function handleSubSupClick() {
         if (isSuperScriptActive) {
