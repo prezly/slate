@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { Rect } from 'rangefix';
 import RangeFix from 'rangefix';
 import type { FunctionComponent } from 'react';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useIsMouseDown } from '#lib';
 
@@ -16,29 +16,42 @@ interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {}
  * TextSelectionPortalV2 is a modification of CursorPortalV2 that uses
  * selection start location as its origin to achieve better UX during editing.
  */
-export const TextSelectionPortalV2: FunctionComponent<Props> = ({ className, ...props }) => {
+export const TextSelectionPortalV2: FunctionComponent<Props> = ({
+    className,
+    containerRef,
+    ...props
+}) => {
     // When making a selection with mouse, it's possible that mouse will be moved so quickly that
     // it will hover over the `children` of the `BasePortalV2` and it will interfere with the
     // selection that is being made. To make sure, we disable `pointer-events` when selection
     // is being made.
     const isMouseDown = useIsMouseDown();
     const [isMouseDownInPortal, setIsMouseDownInPortal] = useState<boolean>(false);
+    const getBoundingClientRect = useCallback(
+        () => updateCursorPortalRect(containerRef?.current),
+        [containerRef],
+    );
 
     return (
         <BasePortalV2
             {...props}
+            containerRef={containerRef}
             className={classNames('text-selection-portal-v2', className, {
                 'text-selection-portal-v2--selecting': isMouseDown && !isMouseDownInPortal,
             })}
-            getBoundingClientRect={updateCursorPortalRect}
+            getBoundingClientRect={getBoundingClientRect}
             onMouseDown={() => setIsMouseDownInPortal(true)}
             onMouseUp={() => setIsMouseDownInPortal(false)}
         />
     );
 };
 
-function updateCursorPortalRect(): ClientRect | Rect | null {
+function updateCursorPortalRect(container?: HTMLElement | null): ClientRect | Rect | null {
     try {
+        if (!container || !container.contains(document.activeElement)) {
+            return null;
+        }
+
         const selection = window.getSelection();
 
         if (selection === null) {
