@@ -1,9 +1,5 @@
 export { createCoverage } from './createCoverage';
-export { getCoverageDescription } from './getCoverageDescription';
-export { getCoverageImageUrl } from './getCoverageImageUrl';
-export { getCoverageTitle } from './getCoverageTitle';
 export { getCurrentCoverageNode } from './getCurrentCoverageNode';
-export { hasOnlyFileAttachment } from './hasOnlyFileAttachment';
 export { insertCoverage } from './insertCoverage';
 export { normalizeRedundantCoverageAttributes } from './normalizeRedundantCoverageAttributes';
 export { parseSerializedElement } from './parseSerializedElement';

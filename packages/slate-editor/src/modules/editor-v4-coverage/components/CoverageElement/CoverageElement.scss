@@ -2,14 +2,12 @@
 @import "styles/variables";
 
 .editor-v4-coverage-element {
-    $block-height: 160px;
+    $block-height: 180px;
 
     @include editor-v4-block($void: false);
 
-    max-height: $block-height;
-    border: 1px solid $legacy-color-grey-250;
+    border: 1px solid $grey-200;
     border-radius: $border-radius-base;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
 
     &--active {
         @include editor-v4-block-active;
