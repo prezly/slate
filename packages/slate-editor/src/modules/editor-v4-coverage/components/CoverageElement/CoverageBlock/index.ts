@@ -1,1 +1,0 @@
-export { CoverageBlock } from './CoverageBlock';

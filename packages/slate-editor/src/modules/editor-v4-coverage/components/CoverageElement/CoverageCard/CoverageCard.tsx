@@ -16,8 +16,8 @@ import {
 import './CoverageBlock.scss';
 
 const IMAGE_HEIGHT = 160;
-const TITLE_MAX_HEIGHT = 44; // 2 * line-height of 'editor-v4-coverage-block__title'
-const DESCRIPTION_MAX_HEIGHT = 40; // 2 * line-height of 'editor-v4-coverage-block__description'
+const TITLE_MAX_HEIGHT = 44; // 2 * line-height of 'editor-v4-coverage-card__title'
+const DESCRIPTION_MAX_HEIGHT = 40; // 2 * line-height of 'editor-v4-coverage-card__description'
 
 interface Props {
     coverage: Coverage;
@@ -27,28 +27,28 @@ interface Props {
     dateFormat: string;
 }
 
-export const CoverageBlock: FunctionComponent<Props> = ({ coverage, dateFormat }) => {
+export const CoverageCard: FunctionComponent<Props> = ({ coverage, dateFormat }) => {
     const title = getCoverageTitle(coverage);
     const description = getCoverageDescription(coverage);
     const imageUrl = getCoverageImageUrl(coverage, IMAGE_HEIGHT);
 
     return (
-        <div className="editor-v4-coverage-block">
+        <div className="editor-v4-coverage-card">
             {imageUrl && (
-                <div className="editor-v4-coverage-block__image-container">
-                    <img alt={title} className="editor-v4-coverage-block__image" src={imageUrl} />
+                <div className="editor-v4-coverage-card__image-container">
+                    <img alt={title} className="editor-v4-coverage-card__image" src={imageUrl} />
                 </div>
             )}
 
-            <div className="editor-v4-coverage-block__content">
-                <div className="editor-v4-coverage-block__title">
+            <div className="editor-v4-coverage-card__content">
+                <div className="editor-v4-coverage-card__title">
                     <MultilineEllipsis maxHeight={TITLE_MAX_HEIGHT}>{title}</MultilineEllipsis>
                 </div>
 
                 {description && (
                     <div
-                        className={classNames('editor-v4-coverage-block__description', {
-                            'editor-v4-coverage-block__description--secondary':
+                        className={classNames('editor-v4-coverage-card__description', {
+                            'editor-v4-coverage-card__description--secondary':
                                 hasOnlyFileAttachment(coverage),
                         })}
                     >
@@ -58,12 +58,12 @@ export const CoverageBlock: FunctionComponent<Props> = ({ coverage, dateFormat }
                     </div>
                 )}
 
-                <div className="editor-v4-coverage-block__info">
+                <div className="editor-v4-coverage-card__info">
                     {coverage.organisation_contact && (
-                        <div className="editor-v4-coverage-block__outlet" title="Outlet">
+                        <div className="editor-v4-coverage-card__outlet" title="Outlet">
                             <img
                                 alt={coverage.organisation_contact.display_name}
-                                className="editor-v4-coverage-block__outlet-image"
+                                className="editor-v4-coverage-card__outlet-image"
                                 src={coverage.organisation_contact.avatar_url}
                             />
                             {coverage.organisation_contact.display_name}
@@ -71,14 +71,14 @@ export const CoverageBlock: FunctionComponent<Props> = ({ coverage, dateFormat }
                     )}
 
                     {coverage.author_contact && (
-                        <div className="editor-v4-coverage-block__author" title="Author">
+                        <div className="editor-v4-coverage-card__author" title="Author">
                             {coverage.author_contact.display_name}
                         </div>
                     )}
 
                     {coverage.published_at && (
                         <div
-                            className="editor-v4-coverage-block__publication-date"
+                            className="editor-v4-coverage-card__publication-date"
                             title="Publication date"
                         >
                             {moment(coverage.published_at).format(dateFormat)}

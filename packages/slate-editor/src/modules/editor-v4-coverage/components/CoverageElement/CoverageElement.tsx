@@ -12,7 +12,7 @@ import { useAsyncFn } from '#lib';
 
 import type { ApiError } from '#modules/api';
 
-import { CoverageBlock } from './CoverageBlock';
+import { CoverageCard } from './CoverageCard';
 import './CoverageElement.scss';
 import { FetchingError } from './FetchingError';
 
@@ -82,7 +82,7 @@ export const CoverageElement: FunctionComponent<Props> = ({
                     </LoadingPlaceholderV2.Placeholder>
                 )}
 
-                {coverage && <CoverageBlock coverage={coverage} dateFormat={dateFormat} />}
+                {coverage && <CoverageCard coverage={coverage} dateFormat={dateFormat} />}
             </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}
