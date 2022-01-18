@@ -17,6 +17,7 @@ interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {}
  * selection start location as its origin to achieve better UX during editing.
  */
 export const TextSelectionPortalV2: FunctionComponent<Props> = ({
+    children,
     className,
     containerRef,
     ...props
@@ -42,7 +43,9 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
             getBoundingClientRect={getBoundingClientRect}
             onMouseDown={() => setIsMouseDownInPortal(true)}
             onMouseUp={() => setIsMouseDownInPortal(false)}
-        />
+        >
+            {children}
+        </BasePortalV2>
     );
 };
 
