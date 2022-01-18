@@ -10,8 +10,6 @@ export { LoadingIndicatorV2 } from './LoadingIndicatorV2';
 export * as LoadingPlaceholderV2 from './LoadingPlaceholderV2';
 export { MultilineEllipsis } from './MultilineEllipsis';
 export {
-    CursorPortal,
-    CursorPortalV2,
     ElementPortal,
     ElementPortalV2,
     PortalOrigin,
