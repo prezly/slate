@@ -1,23 +1,15 @@
-import type { Coverage } from '@prezly/sdk';
-import classNames from 'classnames';
+import type { Contact, Coverage } from '@prezly/sdk';
 import moment from 'moment';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import { MultilineEllipsis } from '#components';
+import { formatBytes } from '#lib';
 
-import {
-    getCoverageDescription,
-    getCoverageImageUrl,
-    getCoverageTitle,
-    hasOnlyFileAttachment,
-} from './lib';
+import { getCoverageImageUrl } from './lib';
 
 import './CoverageBlock.scss';
 
-const IMAGE_HEIGHT = 160;
-const TITLE_MAX_HEIGHT = 44; // 2 * line-height of 'editor-v4-coverage-card__title'
-const DESCRIPTION_MAX_HEIGHT = 40; // 2 * line-height of 'editor-v4-coverage-card__description'
+const IMAGE_HEIGHT = 180;
 
 interface Props {
     coverage: Coverage;
@@ -28,64 +20,116 @@ interface Props {
 }
 
 export const CoverageCard: FunctionComponent<Props> = ({ coverage, dateFormat }) => {
-    const title = getCoverageTitle(coverage);
-    const description = getCoverageDescription(coverage);
     const imageUrl = getCoverageImageUrl(coverage, IMAGE_HEIGHT);
+    const href = coverage.attachment_oembed?.url || coverage.url;
 
     return (
         <div className="editor-v4-coverage-card">
-            {imageUrl && (
-                <div className="editor-v4-coverage-card__image-container">
-                    <img alt={title} className="editor-v4-coverage-card__image" src={imageUrl} />
-                </div>
-            )}
+            {imageUrl && <Thumbnail src={imageUrl} href={href} />}
 
-            <div className="editor-v4-coverage-card__content">
-                <div className="editor-v4-coverage-card__title">
-                    <MultilineEllipsis maxHeight={TITLE_MAX_HEIGHT}>{title}</MultilineEllipsis>
-                </div>
+            <div className="editor-v4-coverage-card__details">
+                <Title coverage={coverage} href={href} />
 
-                {description && (
-                    <div
-                        className={classNames('editor-v4-coverage-card__description', {
-                            'editor-v4-coverage-card__description--secondary':
-                                hasOnlyFileAttachment(coverage),
-                        })}
-                    >
-                        <MultilineEllipsis maxHeight={DESCRIPTION_MAX_HEIGHT}>
-                            {description}
-                        </MultilineEllipsis>
-                    </div>
+                <Description coverage={coverage} />
+
+                {(coverage.author_contact || coverage.published_at) && (
+                    <Meta
+                        author={coverage.author_contact}
+                        date={coverage.published_at}
+                        dateFormat={dateFormat}
+                    />
                 )}
 
-                <div className="editor-v4-coverage-card__info">
-                    {coverage.organisation_contact && (
-                        <div className="editor-v4-coverage-card__outlet" title="Outlet">
-                            <img
-                                alt={coverage.organisation_contact.display_name}
-                                className="editor-v4-coverage-card__outlet-image"
-                                src={coverage.organisation_contact.avatar_url}
-                            />
-                            {coverage.organisation_contact.display_name}
-                        </div>
-                    )}
-
-                    {coverage.author_contact && (
-                        <div className="editor-v4-coverage-card__author" title="Author">
-                            {coverage.author_contact.display_name}
-                        </div>
-                    )}
-
-                    {coverage.published_at && (
-                        <div
-                            className="editor-v4-coverage-card__publication-date"
-                            title="Publication date"
-                        >
-                            {moment(coverage.published_at).format(dateFormat)}
-                        </div>
-                    )}
-                </div>
+                {coverage.organisation_contact && (
+                    <Outlet contact={coverage.organisation_contact} />
+                )}
             </div>
         </div>
     );
 };
+
+function Thumbnail(props: { href: string | null; src: string }) {
+    const { href, src } = props;
+    const Tag = href ? 'a' : 'div';
+
+    return (
+        <Tag
+            href={href || undefined}
+            className="editor-v4-coverage-card__thumbnail"
+            style={{ backgroundImage: `url("${src}")` }}
+        >
+            <img
+                className="editor-v4-coverage-card__thumbnail-image"
+                src={src}
+                alt="Website preview"
+            />
+        </Tag>
+    );
+}
+
+function Title(props: { coverage: Coverage; href: string | null }) {
+    const { coverage, href } = props;
+    const title = coverage.attachment_oembed?.title || coverage.attachment?.filename || 'Untitled';
+    const Tag = href ? 'a' : 'div';
+
+    return (
+        <Tag className="editor-v4-coverage-card__title" href={href || undefined}>
+            {title}
+        </Tag>
+    );
+}
+
+function Description(props: { coverage: Coverage }) {
+    const { coverage } = props;
+
+    const description = coverage.attachment_oembed?.description;
+
+    if (description) {
+        return <div className="editor-v4-coverage-card__description">{description}</div>;
+    }
+
+    if (coverage.attachment) {
+        return (
+            <div className="editor-v4-coverage-card__description editor-v4-coverage-card__description--secondary">
+                {formatBytes(coverage.attachment.size)}
+            </div>
+        );
+    }
+
+    return null;
+}
+
+function Meta(props: { author: Contact | null; date: string | null; dateFormat: string }) {
+    const { author, date, dateFormat } = props;
+
+    return (
+        <div className="editor-v4-coverage-card__meta">
+            {author?.display_name && (
+                <span className="editor-v4-coverage-card__author" title="Author">
+                    {author?.display_name}
+                </span>
+            )}
+            {date && (
+                <span className="editor-v4-coverage-card__publication-date">
+                    {moment(date).format(dateFormat)}
+                </span>
+            )}
+        </div>
+    );
+}
+
+function Outlet(props: { contact: Contact }) {
+    const { contact } = props;
+
+    return (
+        <div className="editor-v4-coverage-card__outlet">
+            <img
+                className="editor-v4-coverage-card__outlet-icon"
+                src={contact.avatar_url}
+                alt={`${contact.display_name} avatar`}
+                aria-hidden="true"
+            />
+            <span className="editor-v4-coverage-card__outlet-name">{contact.display_name}</span>
+        </div>
+    );
+}

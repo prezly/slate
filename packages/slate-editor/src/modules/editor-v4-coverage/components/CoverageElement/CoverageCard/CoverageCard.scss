@@ -2,77 +2,75 @@
 @import "styles/variables";
 
 .editor-v4-coverage-card {
-    $block-height: 160px;
+    $block-height: 180px;
     $image-size: $block-height;
 
     @include editor-v4-void-element();
 
-    display: flex;
     max-height: $block-height;
-    cursor: default;
+    color: $grey-700;
+    display: flex;
+    justify-content: stretch;
+    flex-flow: row;
 
-    &__image-container {
-        flex: 0 0 $image-size;
+    &__details {
+        padding: (2.5 * $spacing-base) (3 * $spacing-base);
+        flex-grow: 1;
+    }
+
+    &__thumbnail {
+        background-position: center center;
+        background-size: cover;
+        flex-grow: 0;
+
+        min-width: $image-size;
+        min-height: $image-size;
+        max-width: $image-size;
+    }
+
+    &__thumbnail-image {
+        visibility: hidden;
+        width: 100%;
         height: 100%;
     }
 
-    &__image {
-        width: $image-size;
-        height: $image-size;
-        object-fit: cover;
-    }
-
-    &__content {
-        flex: 1;
-        padding: $spacing-2;
-
-        &:first-child {
-            padding: $spacing-2 $spacing-3;
-        }
-    }
-
     &__title {
-        margin-bottom: $spacing-1;
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 22px;
-        color: $legacy-color-type-primary;
+        margin: 0 0 $spacing-base 0;
+        font-weight: 800;
+        line-height: 1.6;
+        font-size: $font-size-large;
+        color: $grey-700;
+
+        @include multi-line-ellipsis(1);
+
+        &,
+        &:hover {
+            text-decoration: none;
+        }
+
+        &:hover {
+            color: $grey-800;
+        }
+
+
     }
 
     &__description {
-        margin-bottom: $spacing-1;
-        font-size: 14px;
-        line-height: 20px;
-        color: $legacy-color-type-primary;
+        color: $grey-500;
+        margin: $spacing-base 0;
+        line-height: 1.4;
+        font-size: $font-size-small;
 
-        &--secondary {
-            color: $legacy-color-type-secondary;
-        }
+        @include multi-line-ellipsis(2);
     }
 
-    &__info {
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-        line-height: 20px;
-        color: $legacy-color-type-secondary;
+    &__meta {
+        color: $grey-500;
+        margin: $spacing-base 0;
+        line-height: 1.4;
+        font-size: $font-size-small;
     }
 
-    &__outlet {
-        display: flex;
-        align-items: center;
-    }
-
-    &__outlet-image {
-        $size: 20px;
-
-        width: $size;
-        height: $size;
-        object-fit: cover;
-        margin-right: $spacing-1;
-    }
-
-    &__outlet,
     &__author,
     &__publication-date {
         &:after {
@@ -85,5 +83,36 @@
                 content: "";
             }
         }
+    }
+
+    &__outlet {
+        display: flex;
+        align-items: center;
+        color: $grey-700;
+        font-weight: 600;
+        margin-top: $spacing-2;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &,
+        &:hover {
+            text-decoration: none;
+        }
+
+        &:hover {
+            color: $grey-800;
+        }
+    }
+
+    &__outlet-icon {
+        width: $spacing-base * 2;
+        height: $spacing-base * 2;
+        margin-right: $spacing-base;
+    }
+
+    &__outlet-name {
+        flex-grow: 1;
     }
 }
