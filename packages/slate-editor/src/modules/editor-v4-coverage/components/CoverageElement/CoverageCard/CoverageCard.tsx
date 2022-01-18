@@ -11,7 +11,7 @@ import {
     getCoverageImageUrl,
     getCoverageTitle,
     hasOnlyFileAttachment,
-} from '../../../lib';
+} from './lib';
 
 import './CoverageBlock.scss';
 
