@@ -16,15 +16,16 @@ import {
     useKeyboardNavigation,
     useMenuToggle,
 } from './lib';
-import type { FloatingAddMenuParameters, Option } from './types';
+import type { FloatingAddMenuExtensionParameters, Option } from './types';
 
 import { useEditorSelectionMemory } from '#modules/editor-v4-floating-add-menu/lib/useEditorSelectionMemory';
 
 interface Props {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
+    options: Option[];
     onToggle: (isShown: boolean) => void;
-    parameters: FloatingAddMenuParameters;
+    parameters: FloatingAddMenuExtensionParameters;
     showTooltipByDefault: boolean;
 }
 
@@ -41,6 +42,7 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     onToggle,
+    options,
     parameters,
     showTooltipByDefault,
 }) => {
@@ -49,7 +51,7 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
     const filteredOptions = useKeyboardFiltering(
         query,
-        [...parameters.options].sort(betaLastComparator),
+        [...options].sort(betaLastComparator),
     );
     const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
         filteredOptions,

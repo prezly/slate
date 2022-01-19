@@ -14,7 +14,3 @@ export interface FloatingAddMenuExtensionParameters {
         title: string;
     };
 }
-
-export interface FloatingAddMenuParameters extends FloatingAddMenuExtensionParameters {
-    options: Option[];
-}

@@ -369,10 +369,8 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onToggle={setIsCustomPlaceholderShown}
-                        parameters={{
-                            ...withFloatingAddMenu,
-                            options: Array.from(generateFloatingAddMenuOptions()),
-                        }}
+                        options={Array.from(generateFloatingAddMenuOptions())}
+                        parameters={withFloatingAddMenu}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
                     />
                 )}
