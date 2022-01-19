@@ -5,7 +5,6 @@ import { Label, MenuItem } from 'react-bootstrap';
 
 import { noop } from '#lodash';
 
-import { betaLastComparator } from '../lib';
 import type { Option } from '../types';
 
 import './Dropdown.scss';
@@ -45,7 +44,7 @@ export const Dropdown: FunctionComponent<Props> = ({
                 </MenuItem>
             )}
 
-            {components.sort(betaLastComparator).map(({ beta, icon, text }, index) => (
+            {components.map(({ beta, icon, text }, index) => (
                 <MenuItem
                     active={index === currentIndex}
                     className="editor-v4-floating-menu-dropdown__menu-item"

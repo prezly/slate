@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { FunctionComponent, RefObject } from 'react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { Modifier } from 'react-popper';
 import { useSlate } from 'slate-react';
 
@@ -10,7 +10,7 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 
 import { Dropdown, Input } from './components';
 import './FloatingAddMenu.scss';
-import { useMenu } from './lib';
+import { betaLastComparator, useMenu } from './lib';
 import type { FloatingAddMenuParameters } from './types';
 
 interface Props {
@@ -38,10 +38,14 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
     showTooltipByDefault,
 }) => {
     const editor = useSlate();
+    const sortedOptions = useMemo(
+        () => [...parameters.options].sort(betaLastComparator),
+        [parameters.options],
+    );
     const [
         { currentIndex, open, options, query },
         { onInputBlur, onInputKeyDown, onMenuClose, onMenuToggle, onQueryChange, onSelectItem },
-    ] = useMenu(parameters.options, onToggle);
+    ] = useMenu(sortedOptions, onToggle);
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
 
     return (
