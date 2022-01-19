@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { FunctionComponent, RefObject } from 'react';
-import React, { useMemo } from 'react';
+import React, { useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { useSlate } from 'slate-react';
 
@@ -10,8 +10,15 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 
 import { Dropdown, Input } from './components';
 import './FloatingAddMenu.scss';
-import { betaLastComparator, useMenu } from './lib';
-import type { FloatingAddMenuParameters } from './types';
+import {
+    betaLastComparator,
+    useKeyboardFiltering,
+    useKeyboardNavigation,
+    useMenuToggle,
+} from './lib';
+import type { FloatingAddMenuParameters, Option } from './types';
+
+import { useEditorSelectionMemory } from '#modules/editor-v4-floating-add-menu/lib/useEditorSelectionMemory';
 
 interface Props {
     availableWidth: number;
@@ -38,14 +45,39 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
     showTooltipByDefault,
 }) => {
     const editor = useSlate();
-    const sortedOptions = useMemo(
-        () => [...parameters.options].sort(betaLastComparator),
-        [parameters.options],
+    const [query, setQuery] = useState('');
+    const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
+    const filteredOptions = useKeyboardFiltering(
+        query,
+        [...parameters.options].sort(betaLastComparator),
     );
-    const [
-        { currentIndex, open, options, query },
-        { onInputBlur, onInputKeyDown, onMenuClose, onMenuToggle, onQueryChange, onSelectItem },
-    ] = useMenu(sortedOptions, onToggle);
+    const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
+        filteredOptions,
+        onSelect,
+    );
+    const [open, menu] = useMenuToggle({ onToggle, onOpen, onClose });
+
+    function onOpen() {
+        // If there's only one component, do not bother with the dropdown at all,
+        // just select the first option immediately.
+        if (filteredOptions.length === 1) {
+            onSelect(filteredOptions[0]);
+            return;
+        }
+        rememberEditorSelection();
+    }
+
+    function onClose() {
+        open && restoreEditorSelection();
+        resetSelectedOption();
+        setQuery('');
+    }
+
+    function onSelect(option: Option) {
+        menu.close();
+        option.onClick(editor);
+    }
+
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
 
     return (
@@ -53,7 +85,7 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
             availableWidth={availableWidth}
             className="editor-v4-floating-add-menu"
             containerRef={containerRef}
-            onClose={onMenuClose}
+            onClose={menu.close}
             open={open}
             pointerEvents={false}
             show={show}
@@ -70,7 +102,11 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
                     <FloatingContainer.Button
                         {...ariaAttributes}
                         className="editor-v4-floating-add-menu__button"
-                        onClick={onMenuToggle}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            menu.toggle();
+                        }}
                         onMouseEnter={onShow}
                         onMouseLeave={onHide}
                         open={open}
@@ -89,19 +125,19 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
                     <Input
                         autoFocus
                         className="editor-v4-floating-add-menu__input"
-                        onBlur={onInputBlur}
-                        onChange={onQueryChange}
-                        onKeyDown={onInputKeyDown}
+                        onBlur={menu.close}
+                        onChange={setQuery}
+                        onKeyDown={open ? onKeyDown : undefined}
                         placeholder="Select the type of content you want to add"
                         tabIndex={-1}
                         value={query}
                     />
                     <Dropdown
                         className="editor-v4-floating-add-menu__dropdown"
-                        options={options}
-                        currentIndex={currentIndex}
-                        onItemClick={onSelectItem}
+                        options={filteredOptions}
+                        onItemClick={onSelect}
                         open={open}
+                        selectedOption={selectedOption}
                     />
                 </>
             )}

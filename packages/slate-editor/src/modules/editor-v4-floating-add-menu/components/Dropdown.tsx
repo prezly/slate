@@ -12,17 +12,17 @@ import './Dropdown.scss';
 interface Props {
     className?: string;
     options: Option[];
-    currentIndex: number;
-    onItemClick: (index: number) => void;
+    onItemClick: (option: Option) => void;
     open: boolean;
+    selectedOption: Option;
 }
 
 export const Dropdown: FunctionComponent<Props> = ({
     className,
     options,
-    currentIndex,
     onItemClick,
     open,
+    selectedOption,
 }) => (
     <div className={classNames('dropdown', 'editor-v4-floating-menu-dropdown', { open })}>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
@@ -44,20 +44,20 @@ export const Dropdown: FunctionComponent<Props> = ({
                 </MenuItem>
             )}
 
-            {options.map(({ beta, icon, text }, index) => (
+            {options.map((option) => (
                 <MenuItem
-                    active={index === currentIndex}
+                    active={option === selectedOption}
                     className="editor-v4-floating-menu-dropdown__menu-item"
-                    key={text}
+                    key={option.text}
                     onClick={(event) => event.preventDefault()}
                     onMouseDown={(event) => {
                         event.preventDefault();
-                        onItemClick(index);
+                        onItemClick(option);
                     }}
                 >
-                    {icon}
-                    {text}
-                    {beta && (
+                    {option.icon}
+                    {option.text}
+                    {option.beta && (
                         <Label
                             bsStyle="warning"
                             className="editor-v4-floating-menu-dropdown__beta-label"
