@@ -9,7 +9,7 @@ export interface Option {
 }
 
 export interface Settings {
-    tooltip: {
+    tooltip?: {
         placement: 'top' | 'right' | 'bottom' | 'left';
         title: string;
     };
