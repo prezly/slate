@@ -5,8 +5,8 @@ import { Label, MenuItem } from 'react-bootstrap';
 
 import { noop } from '#lodash';
 
-import { betaLastComparator } from '../../lib';
-import type { Option } from '../../types';
+import { betaLastComparator } from '../lib';
+import type { Option } from '../types';
 
 import './Dropdown.scss';
 
