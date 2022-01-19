@@ -1,2 +1,2 @@
 export { FloatingAddMenu } from './FloatingAddMenu';
-export type { FloatingAddMenuExtensionParameters, Option as FloatingAddMenuOption } from './types';
+export type { Settings, Option } from './types';

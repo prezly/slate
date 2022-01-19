@@ -8,8 +8,8 @@ export interface Option {
     text: string;
 }
 
-export interface FloatingAddMenuExtensionParameters {
-    tooltip?: {
+export interface Settings {
+    tooltip: {
         placement: 'top' | 'right' | 'bottom' | 'left';
         title: string;
     };

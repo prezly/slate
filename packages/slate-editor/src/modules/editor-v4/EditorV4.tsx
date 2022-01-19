@@ -16,7 +16,7 @@ import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
 import type { EditorEventMap } from '../editor-v4-events';
-import type { FloatingAddMenuOption } from '../editor-v4-floating-add-menu';
+import type { Option as FloatingAddMenuOption } from '../editor-v4-floating-add-menu';
 import { FloatingAddMenu } from '../editor-v4-floating-add-menu';
 import { LoaderContentType } from '../editor-v4-loader';
 import {
@@ -366,11 +366,11 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
 
                 {withFloatingAddMenu && (
                     <FloatingAddMenu
+                        {...withFloatingAddMenu}
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onToggle={setIsCustomPlaceholderShown}
                         options={Array.from(generateFloatingAddMenuOptions())}
-                        parameters={withFloatingAddMenu}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
                     />
                 )}

@@ -16,16 +16,15 @@ import {
     useKeyboardNavigation,
     useMenuToggle,
 } from './lib';
-import type { FloatingAddMenuExtensionParameters, Option } from './types';
+import type { Option, Settings } from './types';
 
 import { useEditorSelectionMemory } from '#modules/editor-v4-floating-add-menu/lib/useEditorSelectionMemory';
 
-interface Props {
+interface Props extends Settings {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
     options: Option[];
     onToggle: (isShown: boolean) => void;
-    parameters: FloatingAddMenuExtensionParameters;
     showTooltipByDefault: boolean;
 }
 
@@ -43,16 +42,13 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
     containerRef,
     onToggle,
     options,
-    parameters,
     showTooltipByDefault,
+    tooltip,
 }) => {
     const editor = useSlate();
     const [query, setQuery] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
-    const filteredOptions = useKeyboardFiltering(
-        query,
-        [...options].sort(betaLastComparator),
-    );
+    const filteredOptions = useKeyboardFiltering(query, [...options].sort(betaLastComparator));
     const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
         filteredOptions,
         onSelect,
@@ -95,10 +91,10 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
             <TooltipV2.Tooltip
                 autoUpdatePosition
                 defaultShow={showTooltipByDefault}
-                enabled={parameters.tooltip && !open}
+                enabled={tooltip && !open}
                 flip={TOOLTIP_FLIP_MODIFIER}
-                placement={parameters.tooltip?.placement}
-                tooltip={parameters.tooltip?.title}
+                placement={tooltip?.placement}
+                tooltip={tooltip?.title}
             >
                 {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
                     <FloatingContainer.Button
