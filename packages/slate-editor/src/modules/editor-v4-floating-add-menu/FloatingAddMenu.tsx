@@ -12,13 +12,12 @@ import { Dropdown, Input } from './components';
 import './FloatingAddMenu.scss';
 import {
     betaLastComparator,
+    useEditorSelectionMemory,
     useKeyboardFiltering,
     useKeyboardNavigation,
     useMenuToggle,
 } from './lib';
 import type { Option, Settings } from './types';
-
-import { useEditorSelectionMemory } from '#modules/editor-v4-floating-add-menu/lib/useEditorSelectionMemory';
 
 interface Props extends Settings {
     availableWidth: number;
