@@ -98,7 +98,7 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
                     />
                     <Dropdown
                         className="editor-v4-floating-add-menu__dropdown"
-                        components={options}
+                        options={options}
                         currentIndex={currentIndex}
                         onItemClick={onSelectItem}
                         open={open}

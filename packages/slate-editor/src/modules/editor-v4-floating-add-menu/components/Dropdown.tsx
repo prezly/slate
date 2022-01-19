@@ -11,7 +11,7 @@ import './Dropdown.scss';
 
 interface Props {
     className?: string;
-    components: Option[];
+    options: Option[];
     currentIndex: number;
     onItemClick: (index: number) => void;
     open: boolean;
@@ -19,7 +19,7 @@ interface Props {
 
 export const Dropdown: FunctionComponent<Props> = ({
     className,
-    components,
+    options,
     currentIndex,
     onItemClick,
     open,
@@ -34,7 +34,7 @@ export const Dropdown: FunctionComponent<Props> = ({
             )}
             onMouseDown={(event) => event.preventDefault()}
         >
-            {components.length === 0 && (
+            {options.length === 0 && (
                 <MenuItem
                     className="editor-v4-floating-menu-dropdown__menu-item"
                     disabled
@@ -44,7 +44,7 @@ export const Dropdown: FunctionComponent<Props> = ({
                 </MenuItem>
             )}
 
-            {components.map(({ beta, icon, text }, index) => (
+            {options.map(({ beta, icon, text }, index) => (
                 <MenuItem
                     active={index === currentIndex}
                     className="editor-v4-floating-menu-dropdown__menu-item"
