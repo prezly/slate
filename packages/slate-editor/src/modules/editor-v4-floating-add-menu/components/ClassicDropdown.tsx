@@ -7,7 +7,7 @@ import { noop } from '#lodash';
 
 import type { Option } from '../types';
 
-import './Dropdown.scss';
+import './ClassicDropdown.scss';
 
 interface Props {
     className?: string;
@@ -17,14 +17,14 @@ interface Props {
     selectedOption: Option;
 }
 
-export const Dropdown: FunctionComponent<Props> = ({
+export const ClassicDropdown: FunctionComponent<Props> = ({
     className,
     options,
     onItemClick,
     open,
     selectedOption,
 }) => (
-    <div className={classNames('dropdown', 'editor-v4-floating-menu-dropdown', { open })}>
+    <div className={classNames('dropdown', 'editor-v4-floating-menu-classic-dropdown', { open })}>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
         <ul
             className={classNames(
@@ -36,7 +36,7 @@ export const Dropdown: FunctionComponent<Props> = ({
         >
             {options.length === 0 && (
                 <MenuItem
-                    className="editor-v4-floating-menu-dropdown__menu-item"
+                    className="editor-v4-floating-menu-classic-dropdown__menu-item"
                     disabled
                     onClick={noop}
                 >
@@ -47,7 +47,7 @@ export const Dropdown: FunctionComponent<Props> = ({
             {options.map((option) => (
                 <MenuItem
                     active={option === selectedOption}
-                    className="editor-v4-floating-menu-dropdown__menu-item"
+                    className="editor-v4-floating-menu-classic-dropdown__menu-item"
                     key={option.text}
                     onClick={(event) => event.preventDefault()}
                     onMouseDown={(event) => {
@@ -60,7 +60,7 @@ export const Dropdown: FunctionComponent<Props> = ({
                     {option.beta && (
                         <Label
                             bsStyle="warning"
-                            className="editor-v4-floating-menu-dropdown__beta-label"
+                            className="editor-v4-floating-menu-classic-dropdown__beta-label"
                         >
                             IN TESTING
                         </Label>

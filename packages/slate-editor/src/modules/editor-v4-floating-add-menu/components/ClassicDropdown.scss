@@ -1,6 +1,6 @@
 @import "styles/variables";
 
-.editor-v4-floating-menu-dropdown {
+.editor-v4-floating-menu-classic-dropdown {
     &__menu {
         width: 100%;
         padding: $spacing-half 0 !important; // override higher specificity of .editor-story ul

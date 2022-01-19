@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import classNames from 'classnames';
 import type { FunctionComponent, RefObject } from 'react';
 import React, { useState } from 'react';
 import type { Modifier } from 'react-popper';
@@ -8,7 +9,7 @@ import { KeyboardKey, TooltipV2 } from '#components';
 
 import { FloatingContainer } from '#modules/editor-v4-components';
 
-import { Dropdown, Input } from './components';
+import { ClassicDropdown, Input, ModernDropdown } from './components';
 import './FloatingAddMenu.scss';
 import {
     betaLastComparator,
@@ -18,6 +19,7 @@ import {
     useMenuToggle,
 } from './lib';
 import type { Option, Settings } from './types';
+import { Variant } from './types';
 
 interface Props extends Settings {
     availableWidth: number;
@@ -43,6 +45,7 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
     options,
     showTooltipByDefault,
     tooltip,
+    variant,
 }) => {
     const editor = useSlate();
     const [query, setQuery] = useState('');
@@ -76,11 +79,15 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
     }
 
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
+    const Dropdown = variant === Variant.CLASSIC ? ClassicDropdown : ModernDropdown;
 
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className="editor-v4-floating-add-menu"
+            className={classNames('editor-v4-floating-add-menu', {
+                'editor-v4-floating-add-menu--classic': variant === Variant.CLASSIC,
+                'editor-v4-floating-add-menu--modern': variant === Variant.MODERN,
+            })}
             containerRef={containerRef}
             onClose={menu.close}
             open={open}
