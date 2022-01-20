@@ -12,12 +12,7 @@
         border: 1px solid $grey-200;
         border-radius: $border-radius-base;
         box-shadow: none;
-
-        // override higher specificity of .editor-story ul
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        padding-top: 0;
-        padding-bottom: 0;
+        padding: 0 0 $spacing-half;
     }
 
     .editor-v4-floating-menu-dropdown__menu-group {
