@@ -1,3 +1,4 @@
+export { groupOptions } from './groupOptions';
 export { sortBetaOptionsLast } from './sortBetaOptionsLast';
 export { useEditorSelectionMemory } from './useEditorSelectionMemory';
 export { useKeyboardFiltering } from './useKeyboardFiltering';

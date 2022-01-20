@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { MenuItem } from 'react-bootstrap';
 
 import { noop } from '#lodash';
 
+import { groupOptions } from '../lib';
 import type { Option } from '../types';
 
 import './ModernDropdown.scss';
@@ -23,6 +24,7 @@ export function ModernDropdown<Action>({
     open,
     selectedOption,
 }: Props<Action>) {
+    const groups = useMemo(() => groupOptions(options), options);
     return (
         <div
             className={classNames(
@@ -51,23 +53,36 @@ export function ModernDropdown<Action>({
                     </MenuItem>
                 )}
 
-                {options.map((option) => (
-                    <MenuItem
-                        active={option === selectedOption}
-                        className="editor-v4-floating-menu-dropdown__menu-item"
-                        key={option.text}
-                        onClick={(event) => event.preventDefault()}
-                        onMouseDown={(event) => {
-                            event.preventDefault();
-                            onItemClick(option);
-                        }}
-                    >
-                        <div className="editor-v4-floating-menu-dropdown__menu-item-icon">{option.icon}</div>
-                        <div className="editor-v4-floating-menu-dropdown__menu-item-text">
-                            <div className="editor-v4-floating-menu-dropdown__menu-item-title">{option.text}</div>
-                            <div className="editor-v4-floating-menu-dropdown__menu-item-description">{option.description}</div>
-                        </div>
-                    </MenuItem>
+                {groups.map(({ group, options }) => (
+                    <>
+                        <MenuItem className="editor-v4-floating-menu-dropdown__menu-group" header>
+                            {group}
+                        </MenuItem>
+                        {options.map((option) => (
+                            <MenuItem
+                                active={option === selectedOption}
+                                className="editor-v4-floating-menu-dropdown__menu-item"
+                                key={option.text}
+                                onClick={(event) => event.preventDefault()}
+                                onMouseDown={(event) => {
+                                    event.preventDefault();
+                                    onItemClick(option);
+                                }}
+                            >
+                                <div className="editor-v4-floating-menu-dropdown__menu-item-icon">
+                                    {option.icon}
+                                </div>
+                                <div className="editor-v4-floating-menu-dropdown__menu-item-text">
+                                    <div className="editor-v4-floating-menu-dropdown__menu-item-title">
+                                        {option.text}
+                                    </div>
+                                    <div className="editor-v4-floating-menu-dropdown__menu-item-description">
+                                        {option.description}
+                                    </div>
+                                </div>
+                            </MenuItem>
+                        ))}
+                    </>
                 ))}
             </ul>
         </div>

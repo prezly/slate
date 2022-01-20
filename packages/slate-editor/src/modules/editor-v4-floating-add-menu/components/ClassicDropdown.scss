@@ -3,6 +3,7 @@
 .editor-v4-floating-menu-dropdown--classic {
     .editor-v4-floating-menu-dropdown__menu {
         width: 100%;
+        margin-top: $spacing-half !important; // override higher specificity of .editor-story ul
         padding: $spacing-half 0 !important; // override higher specificity of .editor-story ul
     }
 
