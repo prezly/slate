@@ -66,6 +66,7 @@ export function ModernDropdown<Action>({
                 {groups.map(({ group, options }) => (
                     <>
                         <MenuItem
+                            key={`group:${group}`}
                             className="editor-v4-floating-menu-modern-dropdown__menu-group"
                             header
                         >
@@ -75,7 +76,7 @@ export function ModernDropdown<Action>({
                             <MenuItem
                                 active={option === selectedOption}
                                 className="editor-v4-floating-menu-modern-dropdown__menu-item"
-                                key={option.text}
+                                key={`option:${option.text}`}
                                 onClick={(event) => event.preventDefault()}
                                 onMouseDown={(event) => {
                                     event.preventDefault();
@@ -132,7 +133,7 @@ function Highlight({ children: text, search }: { children: string; search?: stri
                 nodes.push(text.substr(offset, substring.length));
                 offset += substring.length;
             } else {
-                nodes.push(<em>{text.substr(offset, search.length)}</em>);
+                nodes.push(<em key={offset}>{text.substr(offset, search.length)}</em>);
                 nodes.push(text.substr(offset + search.length, substring.length));
                 offset += search.length + substring.length;
             }
