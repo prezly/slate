@@ -16,7 +16,7 @@ import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
 import type { EditorEventMap } from '../editor-v4-events';
-import { FloatingAddMenu } from '../editor-v4-floating-add-menu';
+import { FloatingAddMenu, Variant as FloatingAddMenuVariant } from '../editor-v4-floating-add-menu';
 import {
     PlaceholderMentionsDropdown,
     usePlaceholderMentions,
@@ -194,7 +194,11 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         onKeyDownList.push(userMentions.onKeyDown);
     }
 
-    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props));
+    const menuVariant =
+        withFloatingAddMenu?.variant === FloatingAddMenuVariant.MODERN
+            ? FloatingAddMenuVariant.MODERN
+            : FloatingAddMenuVariant.CLASSIC;
+    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props, menuVariant));
     const handleMenuAction = (action: MenuAction) => {
         if (action === MenuAction.ADD_ATTACHMENT) {
             return handleAddAttachment(editor);

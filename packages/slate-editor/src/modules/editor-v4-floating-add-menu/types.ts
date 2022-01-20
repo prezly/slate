@@ -10,6 +10,8 @@ export interface Option<Action> {
     beta?: boolean;
     icon: ReactNode;
     text: string;
+    group?: string;
+    description?: string;
 }
 
 export interface Settings {
