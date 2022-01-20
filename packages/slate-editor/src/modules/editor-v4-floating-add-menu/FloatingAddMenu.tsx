@@ -85,6 +85,8 @@ export function FloatingAddMenu<Action>({
 
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
     const Dropdown = variant === Variant.CLASSIC ? ClassicDropdown : ModernDropdown;
+    const prompt =
+        variant === Variant.CLASSIC ? 'Select the type of content you want to add' : 'Search';
 
     return (
         <FloatingContainer.Container
@@ -137,7 +139,7 @@ export function FloatingAddMenu<Action>({
                         onBlur={menu.close}
                         onChange={setQuery}
                         onKeyDown={open ? onKeyDown : undefined}
-                        placeholder="Select the type of content you want to add"
+                        placeholder={prompt}
                         tabIndex={-1}
                         value={query}
                     />
