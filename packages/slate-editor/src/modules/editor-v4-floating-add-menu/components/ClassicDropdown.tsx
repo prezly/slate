@@ -4,6 +4,7 @@ import { Label, MenuItem } from 'react-bootstrap';
 
 import { noop } from '#lodash';
 
+import { isComponent } from '../lib';
 import type { Option } from '../types';
 
 import './ClassicDropdown.scss';
@@ -60,7 +61,7 @@ export function ClassicDropdown<Action>({
                             onItemClick(option);
                         }}
                     >
-                        {option.icon}
+                        {isComponent(option.icon) ? <option.icon /> : option.icon}
                         {option.text}
                         {option.beta && (
                             <Label

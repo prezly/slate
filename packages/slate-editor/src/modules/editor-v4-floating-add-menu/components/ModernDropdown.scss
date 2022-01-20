@@ -43,9 +43,11 @@
         width: $spacing-5;
         height: $spacing-5;
         margin-right: $horizontal-spacing;
-
         border: 1px solid $grey-300;
         border-radius: $border-radius-base;
+        background-color: $white;
+        color: $grey-600;
+        fill: $grey-300;
     }
 
     &__menu-item-text {

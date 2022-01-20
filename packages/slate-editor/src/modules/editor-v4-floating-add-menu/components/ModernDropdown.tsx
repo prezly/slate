@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import React, { useMemo } from 'react';
 import { MenuItem } from 'react-bootstrap';
 
 import { noop } from '#lodash';
 
-import { groupOptions } from '../lib';
+import { groupOptions, isComponent } from '../lib';
 import type { Option } from '../types';
 
 import './ModernDropdown.scss';
@@ -71,7 +71,7 @@ export function ModernDropdown<Action>({
                                 }}
                             >
                                 <div className="editor-v4-floating-menu-modern-dropdown__menu-item-icon">
-                                    {option.icon}
+                                    {isComponent(option.icon) ? <option.icon /> : option.icon}
                                 </div>
                                 <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
                                     <div className="editor-v4-floating-menu-modern-dropdown__menu-item-title">

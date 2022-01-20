@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 export enum Variant {
     CLASSIC = 'classic',
@@ -8,7 +8,7 @@ export enum Variant {
 export interface Option<Action> {
     action: Action;
     beta?: boolean;
-    icon: ReactNode;
+    icon: ReactNode | ComponentType;
     text: string;
     group?: string;
     description?: string;
