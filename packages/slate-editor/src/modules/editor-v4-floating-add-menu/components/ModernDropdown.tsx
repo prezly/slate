@@ -91,9 +91,7 @@ export function ModernDropdown<Action>({
                                         <Highlight search={highlight}>{option.text}</Highlight>
                                     </div>
                                     <div className="editor-v4-floating-menu-modern-dropdown__menu-item-description">
-                                        <Highlight search={highlight}>
-                                            {option.description || ''}
-                                        </Highlight>
+                                        {option.description || ' '}
                                     </div>
                                 </div>
                             </MenuItem>

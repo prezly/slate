@@ -10,11 +10,7 @@ export function useKeyboardFiltering<T extends Option>(query: string, options: T
         function () {
             if (!query) return options;
 
-            return options.filter(
-                ({ text, description = '' }) =>
-                    text.toLowerCase().includes(query.toLowerCase()) ||
-                    description.toLowerCase().includes(query.toLowerCase()),
-            );
+            return options.filter(({ text }) => text.toLowerCase().includes(query.toLowerCase()));
         },
         [query, ...options],
     );
