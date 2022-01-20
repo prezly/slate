@@ -62,10 +62,11 @@ export function ModernDropdown<Action>({
                             onItemClick(option);
                         }}
                     >
-                        {option.icon}
-                        {option.group}
-                        {option.text}
-                        {option.description}
+                        <div className="editor-v4-floating-menu-dropdown__menu-item-icon">{option.icon}</div>
+                        <div className="editor-v4-floating-menu-dropdown__menu-item-text">
+                            <div className="editor-v4-floating-menu-dropdown__menu-item-title">{option.text}</div>
+                            <div className="editor-v4-floating-menu-dropdown__menu-item-description">{option.description}</div>
+                        </div>
                     </MenuItem>
                 ))}
             </ul>

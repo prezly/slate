@@ -1,5 +1,60 @@
 @import "styles/variables";
 
 .editor-v4-floating-menu-dropdown--modern {
-    // TODO: Implement this
+    $vertical-spacing: $spacing-1;
+    $horizontal-spacing: 1.5 * $spacing-1;
+
+    // Apparently, these font-sizes are non-standard. We normally use 14px and 12px.
+    $font-size-medium: 13px;
+    $font-size-small: 11px;
+
+    .editor-v4-floating-menu-dropdown__menu {
+        border: 1px solid $grey-200;
+        border-radius: $border-radius-base;
+        box-shadow: none;
+    }
+
+    .editor-v4-floating-menu-dropdown__menu-item {
+        > a {
+            padding: $vertical-spacing $horizontal-spacing;
+            display: flex;
+            flex-direction: row;
+        }
+
+        &.active > a {
+            background-color: $grey-100;
+        }
+    }
+
+    .editor-v4-floating-menu-dropdown__menu-item-icon {
+        flex-shrink: 0;
+        flex-grow: 0;
+        width: $spacing-5;
+        height: $spacing-5;
+        margin-right: $horizontal-spacing;
+
+        border: 1px solid $grey-300;
+        border-radius: $border-radius-base;
+    }
+
+    .editor-v4-floating-menu-dropdown__menu-item-text {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .editor-v4-floating-menu-dropdown__menu-item-title {
+        color: $grey-700;
+        margin-bottom: $spacing-half;
+        font-size: $font-size-medium;
+        line-height: 1.4;
+        font-weight: 600;
+    }
+
+    .editor-v4-floating-menu-dropdown__menu-item-description {
+        color: $grey-500;
+        font-size: $font-size-small;
+        line-height: 1.2;
+    }
 }

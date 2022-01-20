@@ -1,12 +1,12 @@
 @import "styles/variables";
 
 .editor-v4-floating-menu-dropdown--classic {
-    &__menu {
+    .editor-v4-floating-menu-dropdown__menu {
         width: 100%;
         padding: $spacing-half 0 !important; // override higher specificity of .editor-story ul
     }
 
-    &__beta-label {
+    .editor-v4-floating-menu-dropdown__beta-label {
         margin-left: auto;
         height: 16px;
         width: 80px;
@@ -14,7 +14,7 @@
         line-height: 13px;
     }
 
-    &__menu-item {
+    .editor-v4-floating-menu-dropdown__menu-item {
         a {
             display: flex !important; // override higher specificity of .dropdown-menu > .active > a
             align-items: center;
