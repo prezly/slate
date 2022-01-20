@@ -1,13 +1,13 @@
 @import "styles/variables";
 
-.editor-v4-floating-menu-dropdown--classic {
-    .editor-v4-floating-menu-dropdown__menu {
+.editor-v4-floating-menu-classic-dropdown {
+    &__menu {
         width: 100%;
         margin-top: $spacing-half;
         padding: $spacing-half 0;
     }
 
-    .editor-v4-floating-menu-dropdown__beta-label {
+    &__beta-label {
         margin-left: auto;
         height: 16px;
         width: 80px;
@@ -15,7 +15,8 @@
         line-height: 13px;
     }
 
-    .editor-v4-floating-menu-dropdown__menu-item {
+    // Override specificity of Bootstrap default .dropdown-menu > li > a style
+    .editor-v4-floating-menu-classic-dropdown__menu-item {
         a {
             display: flex !important; // override higher specificity of .dropdown-menu > .active > a
             align-items: center;

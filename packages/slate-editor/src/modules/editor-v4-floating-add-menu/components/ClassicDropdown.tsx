@@ -28,20 +28,20 @@ export function ClassicDropdown<Action>({
 }: Props<Action>) {
     return (
         <div
-            className={classNames('dropdown', 'editor-v4-floating-menu-dropdown', 'editor-v4-floating-menu-dropdown--classic', { open })}
+            className={classNames('dropdown', 'editor-v4-floating-menu-classic-dropdown', { open })}
         >
             {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
             <ul
                 className={classNames(
                     'dropdown-menu',
-                    'editor-v4-floating-menu-dropdown__menu',
+                    'editor-v4-floating-menu-classic-dropdown__menu',
                     className,
                 )}
                 onMouseDown={(event) => event.preventDefault()}
             >
                 {options.length === 0 && (
                     <MenuItem
-                        className="editor-v4-floating-menu-dropdown__menu-item"
+                        className="editor-v4-floating-menu-classic-dropdown__menu-item"
                         disabled
                         onClick={noop}
                     >
@@ -52,7 +52,7 @@ export function ClassicDropdown<Action>({
                 {options.map((option) => (
                     <MenuItem
                         active={option === selectedOption}
-                        className="editor-v4-floating-menu-dropdown__menu-item"
+                        className="editor-v4-floating-menu-classic-dropdown__menu-item"
                         key={option.text}
                         onClick={(event) => event.preventDefault()}
                         onMouseDown={(event) => {
@@ -65,7 +65,7 @@ export function ClassicDropdown<Action>({
                         {option.beta && (
                             <Label
                                 bsStyle="warning"
-                                className="editor-v4-floating-menu-dropdown__beta-label"
+                                className="editor-v4-floating-menu-classic-dropdown__beta-label"
                             >
                                 IN TESTING
                             </Label>

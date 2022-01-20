@@ -29,25 +29,20 @@ export function ModernDropdown<Action>({
     const groups = useMemo(() => groupOptions(options), [options.length, ...options]);
     return (
         <div
-            className={classNames(
-                'dropdown',
-                'editor-v4-floating-menu-dropdown',
-                'editor-v4-floating-menu-dropdown--modern',
-                { open },
-            )}
+            className={classNames('dropdown', 'editor-v4-floating-menu-modern-dropdown', { open })}
         >
             {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
             <ul
                 className={classNames(
                     'dropdown-menu',
-                    'editor-v4-floating-menu-dropdown__menu',
+                    'editor-v4-floating-menu-modern-dropdown__menu',
                     className,
                 )}
                 onMouseDown={(event) => event.preventDefault()}
             >
                 {options.length === 0 && (
                     <MenuItem
-                        className="editor-v4-floating-menu-dropdown__menu-item"
+                        className="editor-v4-floating-menu-modern-dropdown__menu-item"
                         disabled
                         onClick={noop}
                     >
@@ -57,13 +52,16 @@ export function ModernDropdown<Action>({
 
                 {groups.map(({ group, options }) => (
                     <>
-                        <MenuItem className="editor-v4-floating-menu-dropdown__menu-group" header>
+                        <MenuItem
+                            className="editor-v4-floating-menu-modern-dropdown__menu-group"
+                            header
+                        >
                             {group}
                         </MenuItem>
                         {options.map((option) => (
                             <MenuItem
                                 active={option === selectedOption}
-                                className="editor-v4-floating-menu-dropdown__menu-item"
+                                className="editor-v4-floating-menu-modern-dropdown__menu-item"
                                 key={option.text}
                                 onClick={(event) => event.preventDefault()}
                                 onMouseDown={(event) => {
@@ -71,14 +69,14 @@ export function ModernDropdown<Action>({
                                     onItemClick(option);
                                 }}
                             >
-                                <div className="editor-v4-floating-menu-dropdown__menu-item-icon">
+                                <div className="editor-v4-floating-menu-modern-dropdown__menu-item-icon">
                                     {option.icon}
                                 </div>
-                                <div className="editor-v4-floating-menu-dropdown__menu-item-text">
-                                    <div className="editor-v4-floating-menu-dropdown__menu-item-title">
+                                <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
+                                    <div className="editor-v4-floating-menu-modern-dropdown__menu-item-title">
                                         <Highlight search={highlight}>{option.text}</Highlight>
                                     </div>
-                                    <div className="editor-v4-floating-menu-dropdown__menu-item-description">
+                                    <div className="editor-v4-floating-menu-modern-dropdown__menu-item-description">
                                         <Highlight search={highlight}>
                                             {option.description || ''}
                                         </Highlight>
