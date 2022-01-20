@@ -12,7 +12,7 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 import { ClassicDropdown, Input, ModernDropdown } from './components';
 import './FloatingAddMenu.scss';
 import {
-    betaLastComparator,
+    sortBetaOptionsLast,
     useEditorSelectionMemory,
     useKeyboardFiltering,
     useKeyboardNavigation,
@@ -52,7 +52,10 @@ export function FloatingAddMenu<Action>({
     const editor = useSlate();
     const [query, setQuery] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
-    const filteredOptions = useKeyboardFiltering(query, [...options].sort(betaLastComparator));
+    const filteredOptions = useKeyboardFiltering(
+        query,
+        variant === Variant.CLASSIC ? sortBetaOptionsLast(options) : options,
+    );
     const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
         filteredOptions,
         onSelect,
