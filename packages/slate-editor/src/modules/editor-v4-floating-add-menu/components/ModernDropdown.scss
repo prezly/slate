@@ -52,6 +52,13 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        em {
+            font-style: normal;
+            background-color: $yellow-200;
+            border-radius: 2px;
+            outline: 1px solid $yellow-200;
+        }
     }
 
     .editor-v4-floating-menu-dropdown__menu-item-title {

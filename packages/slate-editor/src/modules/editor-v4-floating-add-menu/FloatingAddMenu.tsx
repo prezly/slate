@@ -143,6 +143,7 @@ export function FloatingAddMenu<Action>({
                     />
                     <Dropdown
                         className="editor-v4-floating-add-menu__dropdown"
+                        highlight={query}
                         options={filteredOptions}
                         onItemClick={onSelect}
                         open={open}

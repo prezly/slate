@@ -11,6 +11,7 @@ import './ModernDropdown.scss';
 
 interface Props<Action> {
     className?: string;
+    highlight?: string;
     options: Option<Action>[];
     onItemClick: (option: Option<Action>) => void;
     open: boolean;
@@ -19,12 +20,13 @@ interface Props<Action> {
 
 export function ModernDropdown<Action>({
     className,
+    highlight,
     options,
     onItemClick,
     open,
     selectedOption,
 }: Props<Action>) {
-    const groups = useMemo(() => groupOptions(options), options);
+    const groups = useMemo(() => groupOptions(options), [options.length, ...options]);
     return (
         <div
             className={classNames(
@@ -74,10 +76,12 @@ export function ModernDropdown<Action>({
                                 </div>
                                 <div className="editor-v4-floating-menu-dropdown__menu-item-text">
                                     <div className="editor-v4-floating-menu-dropdown__menu-item-title">
-                                        {option.text}
+                                        <Highlight search={highlight}>{option.text}</Highlight>
                                     </div>
                                     <div className="editor-v4-floating-menu-dropdown__menu-item-description">
-                                        {option.description}
+                                        <Highlight search={highlight}>
+                                            {option.description || ''}
+                                        </Highlight>
                                     </div>
                                 </div>
                             </MenuItem>
@@ -87,4 +91,18 @@ export function ModernDropdown<Action>({
             </ul>
         </div>
     );
+}
+
+function Highlight({ children: text, search }: { children: string; search?: string }) {
+    if (!text || !search) {
+        return <>{text}</>;
+    }
+
+    const nodes = text
+        .split(search)
+        .flatMap((substring, index) =>
+            index === 0 ? [substring] : [<em key={index}>{search}</em>, substring],
+        );
+
+    return <>{nodes}</>;
 }
