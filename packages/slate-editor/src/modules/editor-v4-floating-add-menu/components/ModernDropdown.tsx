@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import React, { useMemo } from 'react';
 import { MenuItem } from 'react-bootstrap';
 
+import { BatsIllustration, WarningCircle } from '#icons';
 import { noop } from '#lodash';
 
 import { groupOptions, isComponent } from '../lib';
@@ -30,7 +31,10 @@ export function ModernDropdown<Action>({
     const groups = useMemo(() => groupOptions(options), [options.length, ...options]);
     return (
         <div
-            className={classNames('dropdown', 'editor-v4-floating-menu-modern-dropdown', { open })}
+            className={classNames('dropdown', 'editor-v4-floating-menu-modern-dropdown', {
+                'editor-v4-floating-menu-modern-dropdown--no-results': options.length === 0,
+                open,
+            })}
         >
             {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
             <ul
@@ -43,11 +47,17 @@ export function ModernDropdown<Action>({
             >
                 {options.length === 0 && (
                     <MenuItem
-                        className="editor-v4-floating-menu-modern-dropdown__menu-item"
+                        className="editor-v4-floating-menu-modern-dropdown__menu-item editor-v4-floating-menu-modern-dropdown__menu-item--no-results"
                         disabled
                         onClick={noop}
                     >
-                        Nothing found.
+                        <div className="editor-v4-floating-menu-modern-dropdown__menu-item-icon">
+                            <WarningCircle />
+                        </div>
+                        <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
+                            No results
+                        </div>
+                        <BatsIllustration className="editor-v4-floating-menu-modern-dropdown__menu-item-decoration" />
                     </MenuItem>
                 )}
 
@@ -70,7 +80,10 @@ export function ModernDropdown<Action>({
                                     onItemClick(option);
                                 }}
                             >
-                                <div className="editor-v4-floating-menu-modern-dropdown__menu-item-icon" data-action={option.action}>
+                                <div
+                                    className="editor-v4-floating-menu-modern-dropdown__menu-item-icon"
+                                    data-action={option.action}
+                                >
                                     {isComponent(option.icon) ? <option.icon /> : option.icon}
                                 </div>
                                 <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
@@ -107,7 +120,7 @@ function Highlight({ children: text, search }: { children: string; search?: stri
                 nodes.push(text.substr(offset, substring.length));
                 offset += substring.length;
             } else {
-                nodes.push(<em>{text.substr(offset, search.length)}</em>)
+                nodes.push(<em>{text.substr(offset, search.length)}</em>);
                 nodes.push(text.substr(offset + search.length, substring.length));
                 offset += search.length + substring.length;
             }

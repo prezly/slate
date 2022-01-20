@@ -3,6 +3,7 @@ export { default as AlignCenter } from './Align-Center.svg';
 export { default as AlignLeft } from './Align-Left.svg';
 export { default as AlignRight } from './Align-Right.svg';
 export { default as Attachment } from './Attachment.svg';
+export { default as BatsIllustration } from './Bats-Illustration.svg';
 export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
 export { default as Cogwheel } from './Cogwheel.svg';
 export { default as Coverage } from './Coverage.svg';
@@ -48,3 +49,4 @@ export { default as PlayButton } from './PlayButton.svg';
 export { default as Resize } from './Resize.svg';
 export { default as User } from './User.svg';
 export { default as Video } from './Video.svg';
+export { default as WarningCircle } from './Warning-Circle.svg';

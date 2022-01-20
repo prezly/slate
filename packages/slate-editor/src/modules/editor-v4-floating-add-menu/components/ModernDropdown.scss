@@ -1,8 +1,11 @@
 @import "styles/variables";
 
 .editor-v4-floating-menu-modern-dropdown {
+    $min-width: 242px;
     $vertical-spacing: $spacing-1;
     $horizontal-spacing: 1.5 * $spacing-1;
+
+    $no-results-decoration-height: 50px;
 
     // Apparently, these font-sizes are non-standard. We normally use 14px and 12px.
     $font-size-medium: 13px;
@@ -13,6 +16,7 @@
         border-radius: $border-radius-base;
         box-shadow: none;
         padding: 0 0 $spacing-half;
+        min-width: $min-width;
     }
 
     &__menu-group {
@@ -62,6 +66,7 @@
 
         > svg {
             margin: -1px; // compensate border width
+            display: block;
         }
     }
 
@@ -91,5 +96,44 @@
         color: $grey-500;
         font-size: $font-size-small;
         line-height: 1.2;
+    }
+
+    &--no-results {
+        .editor-v4-floating-menu-modern-dropdown__menu {
+            padding-bottom: 0;
+        }
+
+        .editor-v4-floating-menu-modern-dropdown__menu-item > a {
+            padding: $spacing-2;
+            align-items: center;
+            min-height: $no-results-decoration-height;
+        }
+
+        .editor-v4-floating-menu-modern-dropdown__menu-item-icon {
+            border: none;
+            color: $red-600;
+            margin-right: $spacing-1;
+            width: 14px;
+            height: 14px;
+
+            > svg {
+                margin: 0;
+            }
+        }
+
+        .editor-v4-floating-menu-modern-dropdown__menu-item-text {
+            color: $green-800;
+            font-size: $font-size-medium;
+            line-height: 1.4;
+            height: 18px;
+        }
+
+        .editor-v4-floating-menu-modern-dropdown__menu-item-decoration {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+        }
     }
 }
