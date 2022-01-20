@@ -47,7 +47,22 @@
         border-radius: $border-radius-base;
         background-color: $white;
         color: $grey-600;
+
+        // Trick to support full styling of two-colored SVGs
         fill: $grey-300;
+
+        &[data-action="add_image"],
+        &[data-action="add_gallery"],
+        &[data-action="add_video"],
+        &[data-action="add_attachment"],
+        &[data-action="add_embed_social"],
+        &[data-action="add_web_bookmark"] {
+            fill: $grey-100;
+        }
+
+        > svg {
+            margin: -1px; // compensate border width
+        }
     }
 
     &__menu-item-text {

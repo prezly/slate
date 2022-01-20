@@ -70,7 +70,7 @@ export function ModernDropdown<Action>({
                                     onItemClick(option);
                                 }}
                             >
-                                <div className="editor-v4-floating-menu-modern-dropdown__menu-item-icon">
+                                <div className="editor-v4-floating-menu-modern-dropdown__menu-item-icon" data-action={option.action}>
                                     {isComponent(option.icon) ? <option.icon /> : option.icon}
                                 </div>
                                 <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">

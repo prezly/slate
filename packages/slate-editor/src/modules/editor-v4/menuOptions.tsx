@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import type { Editor } from 'slate';
 
-import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '#icons';
+import * as Icons from '#icons';
 
 import type { Option } from '#modules/editor-v4-floating-add-menu';
 import { Variant } from '#modules/editor-v4-floating-add-menu';
@@ -26,10 +26,10 @@ export enum MenuAction {
     ADD_EMBED_VIDEO = 'add_embed_video',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
-    ADD_HEADING_1 = 'ADD_HEADING_1',
-    ADD_HEADING_2 = 'ADD_HEADING_2',
+    ADD_HEADING_1 = 'add_heading_1',
+    ADD_HEADING_2 = 'add_heading_2',
     ADD_IMAGE = 'add_image',
-    ADD_PARAGRAPH = 'ADD_PARAGRAPH',
+    ADD_PARAGRAPH = 'add_paragraph',
     ADD_VIDEO = 'add_video',
     ADD_WEB_BOOKMARK = 'add_web_bookmark',
 }
@@ -80,14 +80,14 @@ function* generateModernMenuOptions(
 ): Generator<Option<MenuAction>> {
     if (withRichFormatting && withRichFormatting.blocks) {
         yield {
-            icon: <i />,
+            icon: Icons.ComponentH1,
             action: MenuAction.ADD_HEADING_1,
             group: Group.BASICS,
             text: 'Heading 1',
             description: 'Big section heading',
         };
         yield {
-            icon: <i />,
+            icon: Icons.ComponentH2,
             action: MenuAction.ADD_HEADING_2,
             group: Group.BASICS,
             text: 'Heading 2',
@@ -96,7 +96,7 @@ function* generateModernMenuOptions(
     }
 
     yield {
-        icon: <i />,
+        icon: Icons.ComponentText,
         action: MenuAction.ADD_PARAGRAPH,
         group: Group.BASICS,
         text: 'Text',
@@ -104,7 +104,7 @@ function* generateModernMenuOptions(
     };
 
     yield {
-        icon: <i />,
+        icon: Icons.ComponentDivider,
         action: MenuAction.ADD_DIVIDER,
         group: Group.BASICS,
         text: 'Divider',
@@ -114,7 +114,7 @@ function* generateModernMenuOptions(
     if (withImages && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
             action: MenuAction.ADD_IMAGE,
-            icon: <i />,
+            icon: Icons.ComponentImage,
             group: Group.MEDIA_CONTENT,
             text: 'Image',
             description: 'Place an image',
@@ -124,7 +124,7 @@ function* generateModernMenuOptions(
     if (withGalleries && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
             action: MenuAction.ADD_GALLERY,
-            icon: <i />,
+            icon: Icons.ComponentGallery,
             group: Group.MEDIA_CONTENT,
             text: 'Gallery',
             description: 'Create an image composition',
@@ -134,7 +134,7 @@ function* generateModernMenuOptions(
     if (withVideos) {
         yield {
             action: MenuAction.ADD_VIDEO,
-            icon: <i />,
+            icon: Icons.ComponentVideo,
             group: Group.MEDIA_CONTENT,
             text: 'Video',
             description: 'Place a video from a URL',
@@ -144,7 +144,7 @@ function* generateModernMenuOptions(
     if (withEmbeds?.menuOptions.socialPost) {
         yield {
             action: MenuAction.ADD_EMBED_SOCIAL,
-            icon: <i />,
+            icon: Icons.ComponentSocialPost,
             group: Group.MEDIA_CONTENT,
             text: 'Add social post',
             description: 'Insert a social media URL',
@@ -155,7 +155,7 @@ function* generateModernMenuOptions(
     if (withAttachments && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
             action: MenuAction.ADD_ATTACHMENT,
-            icon: <i />,
+            icon: Icons.ComponentAttachment,
             group: Group.MEDIA_CONTENT,
             text: 'Attachment',
             description: 'Insert an attachment',
@@ -165,8 +165,8 @@ function* generateModernMenuOptions(
 
     if (withWebBookmarks) {
         yield {
-            action: MenuAction.ADD_ATTACHMENT,
-            icon: <i />,
+            action: MenuAction.ADD_WEB_BOOKMARK,
+            icon: Icons.ComponentWebBookmark,
             group: Group.MEDIA_CONTENT,
             text: 'Website bookmark',
             description: 'Insert a website bookmark',
@@ -176,7 +176,7 @@ function* generateModernMenuOptions(
     if (withCoverage) {
         yield {
             action: MenuAction.ADD_COVERAGE,
-            icon: <i />,
+            icon: Icons.ComponentCoverage,
             group: Group.PREZLY_CONTENT,
             text: 'Coverage',
             description: 'Add a link to a Prezly Coverage',
@@ -186,7 +186,7 @@ function* generateModernMenuOptions(
     if (withPressContacts) {
         yield {
             action: MenuAction.ADD_CONTACT,
-            icon: <i />,
+            icon: Icons.ComponentContact,
             group: Group.PREZLY_CONTENT,
             text: 'Contact',
             description: 'Add your newsroom contacts',
@@ -269,7 +269,7 @@ function* generateClassicMenuOptions(
         yield {
             action: MenuAction.ADD_EMBED_LINK,
             beta: true,
-            icon: <Link className="editor-v4__floating-add-menu-icon" />,
+            icon: <Icons.Link className="editor-v4__floating-add-menu-icon" />,
             text: 'Add link',
         };
     }
@@ -286,21 +286,21 @@ function* generateClassicMenuOptions(
     if (withAttachments && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
             action: MenuAction.ADD_ATTACHMENT,
-            icon: <FilesEmpty2 className="editor-v4__floating-add-menu-icon" />,
+            icon: <Icons.FilesEmpty2 className="editor-v4__floating-add-menu-icon" />,
             text: 'Add attachment',
         };
     }
 
     yield {
         action: MenuAction.ADD_DIVIDER,
-        icon: <DotsThreeHorizontal className="editor-v4__floating-add-menu-icon" />,
+        icon: <Icons.DotsThreeHorizontal className="editor-v4__floating-add-menu-icon" />,
         text: 'Add divider',
     };
 
     if (withPressContacts) {
         yield {
             action: MenuAction.ADD_CONTACT,
-            icon: <User className="editor-v4__floating-add-menu-icon" />,
+            icon: <Icons.User className="editor-v4__floating-add-menu-icon" />,
             text: 'Add contact',
         };
     }
@@ -308,7 +308,7 @@ function* generateClassicMenuOptions(
     if (withCoverage) {
         yield {
             action: MenuAction.ADD_COVERAGE,
-            icon: <Coverage className="editor-v4__floating-add-menu-icon" />,
+            icon: <Icons.Coverage className="editor-v4__floating-add-menu-icon" />,
             text: 'Add coverage',
         };
     }
