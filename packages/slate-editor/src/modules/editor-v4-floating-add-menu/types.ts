@@ -1,15 +1,14 @@
 import type { ReactNode } from 'react';
-import type { Editor } from 'slate';
 
 export enum Variant {
     CLASSIC = 'classic',
     MODERN = 'modern',
 }
 
-export interface Option {
+export interface Option<Action> {
+    action: Action;
     beta?: boolean;
     icon: ReactNode;
-    onClick: (editor: Editor) => void;
     text: string;
 }
 

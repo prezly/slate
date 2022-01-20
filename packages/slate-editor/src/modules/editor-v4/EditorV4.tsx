@@ -7,18 +7,16 @@ import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { Coverage, DotsThreeHorizontal, FilesEmpty2, Link, User } from '#icons';
 import { noop } from '#lodash';
 
+import { LoaderContentType } from '#modules/editor-v4-loader';
 import { Theme, withToolbarsThemeContext } from '#modules/themes';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
 import type { EditorEventMap } from '../editor-v4-events';
-import type { Option as FloatingAddMenuOption } from '../editor-v4-floating-add-menu';
 import { FloatingAddMenu } from '../editor-v4-floating-add-menu';
-import { LoaderContentType } from '../editor-v4-loader';
 import {
     PlaceholderMentionsDropdown,
     usePlaceholderMentions,
@@ -28,7 +26,6 @@ import {
     useFloatingPressContactsMenu,
 } from '../editor-v4-press-contacts';
 import { RichFormattingMenu } from '../editor-v4-rich-formatting';
-import { UploadcareEditor } from '../editor-v4-uploadcare';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
 import './EditorV4.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
@@ -44,44 +41,47 @@ import {
     isEditorValueEquivalent,
     useCursorInView,
 } from './lib';
+import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
 import type { EditorRef, EditorV4Props } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { usePendingOperation } from './usePendingOperation';
 import { withAvailableWidth } from './withAvailableWidth';
 import { withDebounce } from './withDebounce';
 
-const EditorV4: FunctionComponent<EditorV4Props> = ({
-    align,
-    availableWidth,
-    autoFocus,
-    className,
-    contentStyle,
-    editorRef,
-    onChange,
-    onIsOperationPendingChange,
-    onKeyDown = noop,
-    placeholder,
-    plugins,
-    readOnly,
-    style,
-    toolbarsTheme = Theme.CLASSIC,
-    value,
-    withAlignmentControls,
-    withAttachments,
-    withAutoformat,
-    withCoverage,
-    withCursorInView,
-    withEmbeds,
-    withFloatingAddMenu,
-    withGalleries,
-    withImages,
-    withPlaceholders,
-    withPressContacts,
-    withRichFormatting,
-    withUserMentions,
-    withVideos,
-    withWebBookmarks,
-}) => {
+
+const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
+    const {
+        align,
+        availableWidth,
+        autoFocus,
+        className,
+        contentStyle,
+        editorRef,
+        onChange,
+        onIsOperationPendingChange,
+        onKeyDown = noop,
+        placeholder,
+        plugins,
+        readOnly,
+        style,
+        toolbarsTheme = Theme.CLASSIC,
+        value,
+        withAlignmentControls,
+        withAttachments,
+        withAutoformat,
+        withCoverage,
+        withCursorInView,
+        withEmbeds,
+        withFloatingAddMenu,
+        withGalleries,
+        withImages,
+        withPlaceholders,
+        withPressContacts,
+        withRichFormatting,
+        withUserMentions,
+        withVideos,
+        withWebBookmarks,
+    } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
     const [isCustomPlaceholderShown, setIsCustomPlaceholderShown] = useState(false);
@@ -194,130 +194,64 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
         onKeyDownList.push(userMentions.onKeyDown);
     }
 
-    function* generateFloatingAddMenuOptions(): Generator<FloatingAddMenuOption> {
-        if (withImages && UploadcareEditor.isUploadcareEditor(editor)) {
-            yield {
-                icon: <i className="icon icon-camera2" />,
-                onClick: createHandleAddImage(withImages),
-                text: 'Add image',
-            };
+    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props));
+    const handleMenuAction = (action: MenuAction) => {
+        if (action === MenuAction.ADD_ATTACHMENT) {
+            return handleAddAttachment(editor);
         }
-
-        if (withGalleries && UploadcareEditor.isUploadcareEditor(editor)) {
-            yield {
-                icon: <i className="icon icon-images2" />,
-                onClick: createHandleAddGallery(withGalleries),
-                text: 'Add gallery',
-            };
+        if (action === MenuAction.ADD_CONTACT) {
+            return openFloatingPressContactsMenu();
         }
-
-        if (withWebBookmarks) {
-            yield {
-                beta: true,
-                icon: <i className={classNames('icon', 'icon-news')} />,
-                onClick: () =>
-                    openFloatingWebBookmarkInput('Add web bookmark', {
-                        contentType: LoaderContentType.BOOKMARK,
-                        message: 'Adding web bookmark',
-                    }),
-                text: 'Add web bookmark (new)',
-            };
+        if (action === MenuAction.ADD_COVERAGE) {
+            return openFloatingCoverageMenu();
         }
-
-        if (withVideos) {
-            yield {
-                beta: true,
-                icon: <i className={classNames('icon', 'icon-play2')} />,
-                onClick: () =>
-                    openFloatingVideoInput('Add video', {
-                        contentType: LoaderContentType.VIDEO,
-                        message: 'Adding video',
-                    }),
-                text: 'Add video (new)',
-            };
+        if (action === MenuAction.ADD_DIVIDER) {
+            return insertDivider(editor);
         }
-
-        if (withEmbeds?.menuOptions.video) {
-            yield {
-                icon: <i className={classNames('icon', 'icon-play2')} />,
-                onClick: () =>
-                    openFloatingEmbedInput('Add video', {
-                        contentType: LoaderContentType.VIDEO,
-                        message: 'Embedding Video',
-                    }),
-                text: 'Add video',
-            };
+        if (action === MenuAction.ADD_EMBED) {
+            return openFloatingEmbedInput('Add embed', {
+                contentType: LoaderContentType.EMBED,
+                message: 'Embedding Content',
+            });
         }
-
-        if (withEmbeds?.menuOptions.socialPost) {
-            yield {
-                beta: true,
-                icon: <i className={classNames('icon', 'icon-chat')} />,
-                onClick: () =>
-                    openFloatingEmbedInput('Add social post', {
-                        contentType: LoaderContentType.EMBED,
-                        message: 'Embedding Social Post',
-                    }),
-                text: 'Add social post',
-            };
+        if (action === MenuAction.ADD_EMBED_LINK) {
+            return openFloatingEmbedInput('Add link', {
+                contentType: LoaderContentType.EMBED,
+                message: 'Embedding Link',
+            });
         }
-
-        if (withEmbeds?.menuOptions.link) {
-            yield {
-                beta: true,
-                icon: <Link className="editor-v4__floating-add-menu-icon" />,
-                onClick: () =>
-                    openFloatingEmbedInput('Add link', {
-                        contentType: LoaderContentType.EMBED,
-                        message: 'Embedding Link',
-                    }),
-                text: 'Add link',
-            };
+        if (action === MenuAction.ADD_EMBED_VIDEO) {
+            return openFloatingEmbedInput('Add video', {
+                contentType: LoaderContentType.VIDEO,
+                message: 'Embedding Video',
+            });
         }
-
-        if (withEmbeds?.menuOptions.embed) {
-            yield {
-                beta: true,
-                icon: <i className={classNames('icon', 'icon-news')} />,
-                onClick: () =>
-                    openFloatingEmbedInput('Add embed', {
-                        contentType: LoaderContentType.EMBED,
-                        message: 'Embedding Content',
-                    }),
-                text: 'Add embed',
-            };
+        if (action === MenuAction.ADD_EMBED_SOCIAL) {
+            return openFloatingEmbedInput('Add social post', {
+                contentType: LoaderContentType.EMBED,
+                message: 'Embedding Social Post',
+            });
         }
-
-        if (withAttachments && UploadcareEditor.isUploadcareEditor(editor)) {
-            yield {
-                icon: <FilesEmpty2 className="editor-v4__floating-add-menu-icon" />,
-                onClick: handleAddAttachment,
-                text: 'Add attachment',
-            };
+        if (action === MenuAction.ADD_GALLERY && withGalleries) {
+            return createHandleAddGallery(withGalleries)(editor);
         }
-
-        yield {
-            icon: <DotsThreeHorizontal className="editor-v4__floating-add-menu-icon" />,
-            onClick: insertDivider,
-            text: 'Add divider',
-        };
-
-        if (withPressContacts) {
-            yield {
-                icon: <User className="editor-v4__floating-add-menu-icon" />,
-                onClick: openFloatingPressContactsMenu,
-                text: 'Add contact',
-            };
+        if (action === MenuAction.ADD_IMAGE && withImages) {
+            return createHandleAddImage(withImages)(editor);
         }
-
-        if (withCoverage) {
-            yield {
-                icon: <Coverage className="editor-v4__floating-add-menu-icon" />,
-                onClick: openFloatingCoverageMenu,
-                text: 'Add coverage',
-            };
+        if (action === MenuAction.ADD_VIDEO) {
+            return openFloatingVideoInput('Add video', {
+                contentType: LoaderContentType.VIDEO,
+                message: 'Adding video',
+            });
         }
-    }
+        if (action === MenuAction.ADD_WEB_BOOKMARK) {
+            return openFloatingWebBookmarkInput('Add web bookmark', {
+                contentType: LoaderContentType.BOOKMARK,
+                message: 'Adding web bookmark',
+            });
+        }
+        return;
+    };
 
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isCustomPlaceholderShown);
@@ -369,8 +303,9 @@ const EditorV4: FunctionComponent<EditorV4Props> = ({
                         {...withFloatingAddMenu}
                         availableWidth={availableWidth}
                         containerRef={containerRef}
+                        onActivate={handleMenuAction}
                         onToggle={setIsCustomPlaceholderShown}
-                        options={Array.from(generateFloatingAddMenuOptions())}
+                        options={menuOptions}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
                     />
                 )}

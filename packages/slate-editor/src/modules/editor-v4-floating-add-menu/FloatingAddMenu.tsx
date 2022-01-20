@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
-import type { FunctionComponent, RefObject } from 'react';
+import type { RefObject } from 'react';
 import React, { useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { useSlate } from 'slate-react';
@@ -21,10 +21,11 @@ import {
 import type { Option, Settings } from './types';
 import { Variant } from './types';
 
-interface Props extends Settings {
+interface Props<Action> extends Settings {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
-    options: Option[];
+    options: Option<Action>[];
+    onActivate: (action: Action) => void;
     onToggle: (isShown: boolean) => void;
     showTooltipByDefault: boolean;
 }
@@ -38,15 +39,16 @@ const TOOLTIP_FLIP_MODIFIER: Modifier<'flip'> = {
     },
 };
 
-export const FloatingAddMenu: FunctionComponent<Props> = ({
+export function FloatingAddMenu<Action>({
     availableWidth,
     containerRef,
+    onActivate,
     onToggle,
     options,
     showTooltipByDefault,
     tooltip,
     variant,
-}) => {
+}: Props<Action>) {
     const editor = useSlate();
     const [query, setQuery] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
@@ -73,9 +75,9 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
         setQuery('');
     }
 
-    function onSelect(option: Option) {
+    function onSelect(option: Option<Action>) {
         menu.close();
-        option.onClick(editor);
+        onActivate(option.action);
     }
 
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
@@ -147,4 +149,4 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
             )}
         </FloatingContainer.Container>
     );
-};
+}
