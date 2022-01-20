@@ -1,6 +1,6 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
-import { Alignment } from '@prezly/slate-types';
+import { Alignment, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
@@ -25,7 +25,7 @@ import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
 } from '../editor-v4-press-contacts';
-import { RichFormattingMenu } from '../editor-v4-rich-formatting';
+import { RichFormattingMenu, toggleBlock } from '../editor-v4-rich-formatting';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
 import './EditorV4.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
@@ -200,6 +200,15 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             : FloatingAddMenuVariant.CLASSIC;
     const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props, menuVariant));
     const handleMenuAction = (action: MenuAction) => {
+        if (action === MenuAction.ADD_PARAGRAPH) {
+            return; // Do nothing. @see MT-4590
+        }
+        if (action === MenuAction.ADD_HEADING_1) {
+            return toggleBlock(editor, HEADING_1_NODE_TYPE);
+        }
+        if (action === MenuAction.ADD_HEADING_2) {
+            return toggleBlock(editor, HEADING_2_NODE_TYPE);
+        }
         if (action === MenuAction.ADD_ATTACHMENT) {
             return handleAddAttachment(editor);
         }
