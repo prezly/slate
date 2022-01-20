@@ -17,6 +17,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
         <button
             {...props}
             className={classNames('editor-v4-floating-container-button', className, {
+                'editor-v4-floating-container-button--open': open,
                 'editor-v4-floating-container-button--variant-green': variant === 'green',
             })}
             onMouseDown={(event) => {
@@ -30,11 +31,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
             tabIndex={-1}
             type="button"
         >
-            <Add
-                className={classNames('editor-v4-floating-container-button__icon', {
-                    'editor-v4-floating-container-button__icon--close': open,
-                })}
-            />
+            <Add className="editor-v4-floating-container-button__icon" />
         </button>
     ),
 );
