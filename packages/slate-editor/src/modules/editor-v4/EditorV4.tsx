@@ -305,6 +305,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 {withFloatingAddMenu && (
                     <FloatingAddMenu
                         {...withFloatingAddMenu}
+                        variant={menuVariant}
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onActivate={handleMenuAction}
