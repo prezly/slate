@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import type { ReactNode} from 'react';
 import React, { useMemo } from 'react';
 import { MenuItem } from 'react-bootstrap';
 
@@ -96,11 +97,21 @@ function Highlight({ children: text, search }: { children: string; search?: stri
         return <>{text}</>;
     }
 
-    const nodes = text
-        .split(search)
-        .flatMap((substring, index) =>
-            index === 0 ? [substring] : [<em key={index}>{search}</em>, substring],
-        );
+    const nodes: ReactNode[] = [];
+    let offset = 0;
+
+    text.toLowerCase()
+        .split(search.toLowerCase())
+        .forEach((substring, index) => {
+            if (index === 0) {
+                nodes.push(text.substr(offset, substring.length));
+                offset += substring.length;
+            } else {
+                nodes.push(<em>{text.substr(offset, search.length)}</em>)
+                nodes.push(text.substr(offset + search.length, substring.length));
+                offset += search.length + substring.length;
+            }
+        });
 
     return <>{nodes}</>;
 }
