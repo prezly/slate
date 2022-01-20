@@ -148,7 +148,7 @@ function* generateModernMenuOptions(
             group: Group.MEDIA_CONTENT,
             text: 'Add social post',
             description: 'Insert a social media URL',
-            beta: true,
+            isBeta: true,
         };
     }
 
@@ -159,7 +159,6 @@ function* generateModernMenuOptions(
             group: Group.MEDIA_CONTENT,
             text: 'Attachment',
             description: 'Insert an attachment',
-            beta: true,
         };
     }
 
@@ -233,18 +232,18 @@ function* generateClassicMenuOptions(
     if (withWebBookmarks) {
         yield {
             action: MenuAction.ADD_WEB_BOOKMARK,
-            beta: true,
             icon: <i className={classNames('icon', 'icon-news')} />,
             text: 'Add web bookmark (new)',
+            isBeta: true,
         };
     }
 
     if (withVideos) {
         yield {
             action: MenuAction.ADD_VIDEO,
-            beta: true,
             icon: <i className={classNames('icon', 'icon-play2')} />,
             text: 'Add video (new)',
+            isBeta: true,
         };
     }
 
@@ -259,25 +258,25 @@ function* generateClassicMenuOptions(
     if (withEmbeds?.menuOptions.socialPost) {
         yield {
             action: MenuAction.ADD_EMBED_SOCIAL,
-            beta: true,
             icon: <i className={classNames('icon', 'icon-chat')} />,
             text: 'Add social post',
+            isBeta: true,
         };
     }
 
     if (withEmbeds?.menuOptions.link) {
         yield {
             action: MenuAction.ADD_EMBED_LINK,
-            beta: true,
             icon: <Icons.Link className="editor-v4__floating-add-menu-icon" />,
             text: 'Add link',
+            isBeta: true,
         };
     }
 
     if (withEmbeds?.menuOptions.embed) {
         yield {
             action: MenuAction.ADD_EMBED,
-            beta: true,
+            isBeta: true,
             icon: <i className={classNames('icon', 'icon-news')} />,
             text: 'Add embed',
         };

@@ -67,12 +67,12 @@ export function ClassicDropdown<Action>({
                             option.icon
                         )}
                         {option.text}
-                        {option.beta && (
+                        {(option.isBeta || option.isNew) && (
                             <Label
-                                bsStyle="warning"
-                                className="editor-v4-floating-menu-classic-dropdown__beta-label"
+                                bsStyle={option.isBeta ? 'warning' : 'success'}
+                                className="editor-v4-floating-menu-classic-dropdown__label"
                             >
-                                IN TESTING
+                                {option.isBeta ? 'IN TESTING' : 'NEW'}
                             </Label>
                         )}
                     </MenuItem>

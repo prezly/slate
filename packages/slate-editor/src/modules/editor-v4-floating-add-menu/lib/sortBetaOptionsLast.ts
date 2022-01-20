@@ -9,11 +9,11 @@ export function sortBetaOptionsLast<Action>(options: Option<Action>[]): Option<A
 }
 
 function betaLastComparator<Action>(a: Option<Action>, b: Option<Action>): -1 | 0 | 1 {
-    if (a.beta && !b.beta) {
+    if (a.isBeta && !b.isBeta) {
         return 1;
     }
 
-    if (!a.beta && b.beta) {
+    if (!a.isBeta && b.isBeta) {
         return -1;
     }
 

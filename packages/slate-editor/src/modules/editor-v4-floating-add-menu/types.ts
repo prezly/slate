@@ -7,11 +7,13 @@ export enum Variant {
 
 export interface Option<Action> {
     action: Action;
-    beta?: boolean;
     icon: ReactNode | ComponentType;
     text: string;
     group?: string;
     description?: string;
+    // labels
+    isBeta?: boolean;
+    isNew?: boolean;
 }
 
 export interface Settings {
