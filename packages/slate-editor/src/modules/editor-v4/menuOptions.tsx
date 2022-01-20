@@ -286,21 +286,21 @@ function* generateClassicMenuOptions(
     if (withAttachments && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
             action: MenuAction.ADD_ATTACHMENT,
-            icon: <Icons.FilesEmpty2 className="editor-v4__floating-add-menu-icon" />,
+            icon: Icons.FilesEmpty2,
             text: 'Add attachment',
         };
     }
 
     yield {
         action: MenuAction.ADD_DIVIDER,
-        icon: <Icons.DotsThreeHorizontal className="editor-v4__floating-add-menu-icon" />,
+        icon: Icons.DotsThreeHorizontal,
         text: 'Add divider',
     };
 
     if (withPressContacts) {
         yield {
             action: MenuAction.ADD_CONTACT,
-            icon: <Icons.User className="editor-v4__floating-add-menu-icon" />,
+            icon: Icons.User,
             text: 'Add contact',
         };
     }
@@ -308,7 +308,7 @@ function* generateClassicMenuOptions(
     if (withCoverage) {
         yield {
             action: MenuAction.ADD_COVERAGE,
-            icon: <Icons.Coverage className="editor-v4__floating-add-menu-icon" />,
+            icon: Icons.Coverage,
             text: 'Add coverage',
         };
     }
