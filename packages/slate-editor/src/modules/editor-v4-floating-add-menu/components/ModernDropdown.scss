@@ -2,6 +2,8 @@
 
 .editor-v4-floating-menu-modern-dropdown {
     $min-width: 242px;
+    $min-width-with-labels: 328px;
+
     $vertical-spacing: $spacing-1;
     $horizontal-spacing: 1.5 * $spacing-1;
 
@@ -17,6 +19,10 @@
         box-shadow: none;
         padding: 0 0 $spacing-half;
         min-width: $min-width;
+
+        .editor-v4-floating-menu-modern-dropdown--with-labels & {
+            min-width: $min-width-with-labels;
+        }
     }
 
     &__menu-group {
@@ -31,9 +37,10 @@
     // Override specificity of Bootstrap default .dropdown-menu > li > a style
     .editor-v4-floating-menu-modern-dropdown__menu-item {
         > a {
-            padding: $vertical-spacing $horizontal-spacing;
+            padding: $vertical-spacing $horizontal-spacing * 2 $vertical-spacing $horizontal-spacing;
             display: flex;
             flex-direction: row;
+            align-items: center;
         }
 
         &.active > a {
@@ -98,6 +105,26 @@
         line-height: 1.2;
     }
 
+    &__menu-item-label {
+        padding: 2px 5px;
+        border-radius: 4px;
+        color: $white;
+        font-size: $font-size-small;
+        font-weight: 600;
+        line-height: 1.3;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-left: $horizontal-spacing * 2;
+
+        &--beta {
+            background-color: $yellow-500;
+        }
+
+        &--new {
+            background-color: $indigo-500;
+        }
+    }
+
     &--no-results {
         .editor-v4-floating-menu-modern-dropdown__menu {
             padding-bottom: 0;
@@ -105,7 +132,6 @@
 
         .editor-v4-floating-menu-modern-dropdown__menu-item > a {
             padding: $spacing-2;
-            align-items: center;
             min-height: $no-results-decoration-height;
         }
 

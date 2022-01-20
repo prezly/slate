@@ -29,9 +29,11 @@ export function ModernDropdown<Action>({
     selectedOption,
 }: Props<Action>) {
     const groups = useMemo(() => groupOptions(options), [options.length, ...options]);
+    const hasLabels = options.some((option) => option.isBeta || option.isNew);
     return (
         <div
             className={classNames('dropdown', 'editor-v4-floating-menu-modern-dropdown', {
+                'editor-v4-floating-menu-modern-dropdown--with-labels': hasLabels,
                 'editor-v4-floating-menu-modern-dropdown--no-results': options.length === 0,
                 open,
             })}
@@ -94,6 +96,18 @@ export function ModernDropdown<Action>({
                                         {option.description || ' '}
                                     </div>
                                 </div>
+                                {(option.isBeta || option.isNew) && (
+                                    <div
+                                        className={classNames(
+                                            'editor-v4-floating-menu-modern-dropdown__menu-item-label',
+                                            option.isBeta
+                                                ? 'editor-v4-floating-menu-modern-dropdown__menu-item-label--beta'
+                                                : 'editor-v4-floating-menu-modern-dropdown__menu-item-label--new',
+                                        )}
+                                    >
+                                        {option.isBeta ? 'testing' : 'new'}
+                                    </div>
+                                )}
                             </MenuItem>
                         ))}
                     </>

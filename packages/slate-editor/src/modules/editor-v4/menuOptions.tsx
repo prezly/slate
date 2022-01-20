@@ -169,6 +169,7 @@ function* generateModernMenuOptions(
             group: Group.MEDIA_CONTENT,
             text: 'Website bookmark',
             description: 'Insert a website bookmark',
+            isNew: true,
         };
     }
 
@@ -233,8 +234,8 @@ function* generateClassicMenuOptions(
         yield {
             action: MenuAction.ADD_WEB_BOOKMARK,
             icon: <i className={classNames('icon', 'icon-news')} />,
-            text: 'Add web bookmark (new)',
-            isBeta: true,
+            text: 'Add web bookmark',
+            isNew: true,
         };
     }
 
@@ -243,7 +244,7 @@ function* generateClassicMenuOptions(
             action: MenuAction.ADD_VIDEO,
             icon: <i className={classNames('icon', 'icon-play2')} />,
             text: 'Add video (new)',
-            isBeta: true,
+            isNew: true,
         };
     }
 
