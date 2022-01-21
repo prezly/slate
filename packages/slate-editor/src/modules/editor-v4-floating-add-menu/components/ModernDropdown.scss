@@ -19,6 +19,7 @@
         box-shadow: none;
         padding: 0 0 $spacing-half;
         min-width: $min-width;
+        top: calc(100% + 7px);
 
         .editor-v4-floating-menu-modern-dropdown--with-labels & {
             min-width: $min-width-with-labels;
