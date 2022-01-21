@@ -10,7 +10,7 @@ import type { CoverageExtensionParameters } from '../../editor-v4-coverage';
 import type { EmbedExtensionParameters } from '../../editor-v4-embed/types';
 import type { EditorEventMap } from '../../editor-v4-events';
 import type { FileAttachmentExtensionParameters } from '../../editor-v4-file-attachment';
-import type { FloatingAddMenuExtensionParameters } from '../../editor-v4-floating-add-menu';
+import type { Settings as FloatingAddMenuExtensionParameters } from '../../editor-v4-floating-add-menu';
 import type { GalleriesExtensionParameters } from '../../editor-v4-galleries';
 import type { ImageExtensionParameters } from '../../editor-v4-image';
 import type { PlaceholderMentionsExtensionParameters } from '../../editor-v4-placeholder-mentions';

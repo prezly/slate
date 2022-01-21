@@ -8,13 +8,9 @@ export interface Option {
     text: string;
 }
 
-export interface FloatingAddMenuExtensionParameters {
+export interface Settings {
     tooltip?: {
         placement: 'top' | 'right' | 'bottom' | 'left';
         title: string;
     };
-}
-
-export interface FloatingAddMenuParameters extends FloatingAddMenuExtensionParameters {
-    options: Option[];
 }

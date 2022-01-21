@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { FunctionComponent, RefObject } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { useSlate } from 'slate-react';
 
@@ -10,14 +10,20 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 
 import { Dropdown, Input } from './components';
 import './FloatingAddMenu.scss';
-import { useMenu } from './lib';
-import type { FloatingAddMenuParameters } from './types';
+import {
+    betaLastComparator,
+    useEditorSelectionMemory,
+    useKeyboardFiltering,
+    useKeyboardNavigation,
+    useMenuToggle,
+} from './lib';
+import type { Option, Settings } from './types';
 
-interface Props {
+interface Props extends Settings {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
+    options: Option[];
     onToggle: (isShown: boolean) => void;
-    parameters: FloatingAddMenuParameters;
     showTooltipByDefault: boolean;
 }
 
@@ -34,14 +40,41 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     onToggle,
-    parameters,
+    options,
     showTooltipByDefault,
+    tooltip,
 }) => {
     const editor = useSlate();
-    const [
-        { currentIndex, open, options, query },
-        { onInputBlur, onInputKeyDown, onMenuClose, onMenuToggle, onQueryChange, onSelectItem },
-    ] = useMenu(parameters.options, onToggle);
+    const [query, setQuery] = useState('');
+    const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
+    const filteredOptions = useKeyboardFiltering(query, [...options].sort(betaLastComparator));
+    const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
+        filteredOptions,
+        onSelect,
+    );
+    const [open, menu] = useMenuToggle({ onToggle, onOpen, onClose });
+
+    function onOpen() {
+        // If there's only one component, do not bother with the dropdown at all,
+        // just select the first option immediately.
+        if (filteredOptions.length === 1) {
+            onSelect(filteredOptions[0]);
+            return;
+        }
+        rememberEditorSelection();
+    }
+
+    function onClose() {
+        open && restoreEditorSelection();
+        resetSelectedOption();
+        setQuery('');
+    }
+
+    function onSelect(option: Option) {
+        menu.close();
+        option.onClick(editor);
+    }
+
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
 
     return (
@@ -49,7 +82,7 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
             availableWidth={availableWidth}
             className="editor-v4-floating-add-menu"
             containerRef={containerRef}
-            onClose={onMenuClose}
+            onClose={menu.close}
             open={open}
             pointerEvents={false}
             show={show}
@@ -57,16 +90,20 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
             <TooltipV2.Tooltip
                 autoUpdatePosition
                 defaultShow={showTooltipByDefault}
-                enabled={parameters.tooltip && !open}
+                enabled={tooltip && !open}
                 flip={TOOLTIP_FLIP_MODIFIER}
-                placement={parameters.tooltip?.placement}
-                tooltip={parameters.tooltip?.title}
+                placement={tooltip?.placement}
+                tooltip={tooltip?.title}
             >
                 {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
                     <FloatingContainer.Button
                         {...ariaAttributes}
                         className="editor-v4-floating-add-menu__button"
-                        onClick={onMenuToggle}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            menu.toggle();
+                        }}
                         onMouseEnter={onShow}
                         onMouseLeave={onHide}
                         open={open}
@@ -85,19 +122,19 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
                     <Input
                         autoFocus
                         className="editor-v4-floating-add-menu__input"
-                        onBlur={onInputBlur}
-                        onChange={onQueryChange}
-                        onKeyDown={onInputKeyDown}
+                        onBlur={menu.close}
+                        onChange={setQuery}
+                        onKeyDown={open ? onKeyDown : undefined}
                         placeholder="Select the type of content you want to add"
                         tabIndex={-1}
                         value={query}
                     />
                     <Dropdown
                         className="editor-v4-floating-add-menu__dropdown"
-                        components={options}
-                        currentIndex={currentIndex}
-                        onItemClick={onSelectItem}
+                        options={filteredOptions}
+                        onItemClick={onSelect}
                         open={open}
+                        selectedOption={selectedOption}
                     />
                 </>
             )}

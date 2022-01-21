@@ -5,25 +5,24 @@ import { Label, MenuItem } from 'react-bootstrap';
 
 import { noop } from '#lodash';
 
-import { betaLastComparator } from '../../lib';
-import type { Option } from '../../types';
+import type { Option } from '../types';
 
 import './Dropdown.scss';
 
 interface Props {
     className?: string;
-    components: Option[];
-    currentIndex: number;
-    onItemClick: (index: number) => void;
+    options: Option[];
+    onItemClick: (option: Option) => void;
     open: boolean;
+    selectedOption: Option;
 }
 
 export const Dropdown: FunctionComponent<Props> = ({
     className,
-    components,
-    currentIndex,
+    options,
     onItemClick,
     open,
+    selectedOption,
 }) => (
     <div className={classNames('dropdown', 'editor-v4-floating-menu-dropdown', { open })}>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
@@ -35,7 +34,7 @@ export const Dropdown: FunctionComponent<Props> = ({
             )}
             onMouseDown={(event) => event.preventDefault()}
         >
-            {components.length === 0 && (
+            {options.length === 0 && (
                 <MenuItem
                     className="editor-v4-floating-menu-dropdown__menu-item"
                     disabled
@@ -45,20 +44,20 @@ export const Dropdown: FunctionComponent<Props> = ({
                 </MenuItem>
             )}
 
-            {components.sort(betaLastComparator).map(({ beta, icon, text }, index) => (
+            {options.map((option) => (
                 <MenuItem
-                    active={index === currentIndex}
+                    active={option === selectedOption}
                     className="editor-v4-floating-menu-dropdown__menu-item"
-                    key={text}
+                    key={option.text}
                     onClick={(event) => event.preventDefault()}
                     onMouseDown={(event) => {
                         event.preventDefault();
-                        onItemClick(index);
+                        onItemClick(option);
                     }}
                 >
-                    {icon}
-                    {text}
-                    {beta && (
+                    {option.icon}
+                    {option.text}
+                    {option.beta && (
                         <Label
                             bsStyle="warning"
                             className="editor-v4-floating-menu-dropdown__beta-label"
