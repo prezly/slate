@@ -13,6 +13,7 @@ import _useEffectOnce from 'react-use/lib/useEffectOnce.js';
 import _useLatest from 'react-use/lib/useLatest.js';
 import _useMount from 'react-use/lib/useMount.js';
 import _useMountedState from 'react-use/lib/useMountedState.js';
+import _usePrevious from 'react-use/lib/usePrevious.js';
 import _useRafLoop from 'react-use/lib/useRafLoop.js';
 import _useSize from 'react-use/lib/useSize.js';
 import _useUnmount from 'react-use/lib/useUnmount.js';
@@ -31,6 +32,7 @@ const useEffectOnce = unwrap(_useEffectOnce);
 const useLatest = unwrap(_useLatest);
 const useMount = unwrap(_useMount);
 const useMountedState = unwrap(_useMountedState);
+const usePrevious = unwrap(_usePrevious);
 const useRafLoop = unwrap(_useRafLoop);
 const useSize = unwrap(_useSize);
 const useUnmount = unwrap(_useUnmount);
@@ -43,6 +45,7 @@ export {
     useLatest,
     useMount,
     useMountedState,
+    usePrevious,
     useRafLoop,
     useSize,
     useUnmount,
