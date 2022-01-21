@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import React, { useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { MenuItem } from 'react-bootstrap';
 
 import { BatsIllustration, WarningCircle } from '#icons';
@@ -64,9 +64,8 @@ export function ModernDropdown<Action>({
                 )}
 
                 {groups.map(({ group, options }) => (
-                    <>
+                    <Fragment key={`group:${group}`}>
                         <MenuItem
-                            key={`group:${group}`}
                             className="editor-v4-floating-menu-modern-dropdown__menu-group"
                             header
                         >
@@ -111,7 +110,7 @@ export function ModernDropdown<Action>({
                                 )}
                             </MenuItem>
                         ))}
-                    </>
+                    </Fragment>
                 ))}
             </ul>
         </div>
