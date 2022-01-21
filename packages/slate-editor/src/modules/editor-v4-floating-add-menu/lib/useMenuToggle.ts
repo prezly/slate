@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { useLatest } from '#lib';
+import { useLatest, usePrevious } from '#lib';
 
 interface Parameters {
     onClose?: () => void;
@@ -18,25 +18,12 @@ export function useMenuToggle(params: Parameters = {}): [boolean, Controls] {
     const freshParams = useLatest(params);
 
     const [isOpen, setOpen] = useState(false);
+    const wasOpen = usePrevious(isOpen);
 
     const toggle = useCallback(
         function (shouldOpen?: boolean) {
             setOpen(function (isNowOpen) {
-                const willOpen = shouldOpen === undefined ? !isNowOpen : shouldOpen;
-
-                if (willOpen === isNowOpen) {
-                    return willOpen;
-                }
-
-                // Notify callbacks
-                if (willOpen) {
-                    freshParams.current.onOpen && freshParams.current.onOpen();
-                } else {
-                    freshParams.current.onClose && freshParams.current.onClose();
-                }
-                freshParams.current.onToggle && freshParams.current.onToggle(willOpen);
-
-                return willOpen;
+                return shouldOpen === undefined ? !isNowOpen : shouldOpen;
             });
         },
         [freshParams],
@@ -44,6 +31,21 @@ export function useMenuToggle(params: Parameters = {}): [boolean, Controls] {
 
     const open = useCallback(() => toggle(true), [toggle]);
     const close = useCallback(() => toggle(false), [toggle]);
+
+    useEffect(
+        function () {
+            if (wasOpen !== isOpen) {
+                // Notify callbacks
+                if (isOpen) {
+                    freshParams.current.onOpen && freshParams.current.onOpen();
+                } else {
+                    freshParams.current.onClose && freshParams.current.onClose();
+                }
+                freshParams.current.onToggle && freshParams.current.onToggle(isOpen);
+            }
+        },
+        [wasOpen, isOpen],
+    );
 
     return [isOpen, { open, close, toggle }];
 }

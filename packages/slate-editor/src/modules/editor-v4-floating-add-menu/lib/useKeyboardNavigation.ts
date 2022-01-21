@@ -50,7 +50,7 @@ export function useKeyboardNavigation<Option>(
                 onSelect(options[currentIndex]);
             }
         },
-        [params],
+        [params, currentIndex],
     );
 
     const resetSelectedOption = useCallback(

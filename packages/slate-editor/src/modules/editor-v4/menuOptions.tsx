@@ -243,12 +243,12 @@ function* generateClassicMenuOptions(
         yield {
             action: MenuAction.ADD_VIDEO,
             icon: <i className={classNames('icon', 'icon-play2')} />,
-            text: 'Add video (new)',
+            text: 'Add video',
             isNew: true,
         };
     }
 
-    if (withEmbeds?.menuOptions.video) {
+    if (!withVideos && withEmbeds?.menuOptions.video) {
         yield {
             action: MenuAction.ADD_EMBED_VIDEO,
             icon: <i className={classNames('icon', 'icon-play2')} />,
@@ -265,7 +265,7 @@ function* generateClassicMenuOptions(
         };
     }
 
-    if (withEmbeds?.menuOptions.link) {
+    if (!withWebBookmarks && withEmbeds?.menuOptions.link) {
         yield {
             action: MenuAction.ADD_EMBED_LINK,
             icon: <Icons.Link className="editor-v4__floating-add-menu-icon" />,
