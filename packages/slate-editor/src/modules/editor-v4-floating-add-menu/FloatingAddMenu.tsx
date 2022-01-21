@@ -129,7 +129,15 @@ export function FloatingAddMenu<Action>({
             </TooltipV2.Tooltip>
             {!open && (
                 <p className="editor-v4-floating-add-menu__placeholder">
-                    Start typing or use <KeyboardKey>+</KeyboardKey> to add content.
+                    {variant === Variant.MODERN ? (
+                        <>
+                            Type or press <KeyboardKey>/</KeyboardKey> to add content.
+                        </>
+                    ) : (
+                        <>
+                            Start typing or use <KeyboardKey>+</KeyboardKey> to add content.
+                        </>
+                    )}
                 </p>
             )}
             {open && (
