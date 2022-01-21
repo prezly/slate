@@ -32,17 +32,20 @@ export function useMenuToggle(params: Parameters = {}): [boolean, Controls] {
     const open = useCallback(() => toggle(true), [toggle]);
     const close = useCallback(() => toggle(false), [toggle]);
 
-    useEffect(function () {
-        if (wasOpen !== isOpen) {
-            // Notify callbacks
-            if (isOpen) {
-                freshParams.current.onOpen && freshParams.current.onOpen();
-            } else {
-                freshParams.current.onClose && freshParams.current.onClose();
+    useEffect(
+        function () {
+            if (wasOpen !== isOpen) {
+                // Notify callbacks
+                if (isOpen) {
+                    freshParams.current.onOpen && freshParams.current.onOpen();
+                } else {
+                    freshParams.current.onClose && freshParams.current.onClose();
+                }
+                freshParams.current.onToggle && freshParams.current.onToggle(isOpen);
             }
-            freshParams.current.onToggle && freshParams.current.onToggle(isOpen);
-        }
-    }, [wasOpen, isOpen])
+        },
+        [wasOpen, isOpen],
+    );
 
     return [isOpen, { open, close, toggle }];
 }
