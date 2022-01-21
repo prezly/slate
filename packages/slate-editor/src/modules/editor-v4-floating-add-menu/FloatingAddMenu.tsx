@@ -24,6 +24,7 @@ import { Variant } from './types';
 interface Props<Action> extends Settings {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
+    open: boolean;
     options: Option<Action>[];
     onActivate: (action: Action) => void;
     onToggle: (isShown: boolean) => void;
@@ -44,6 +45,7 @@ export function FloatingAddMenu<Action>({
     containerRef,
     onActivate,
     onToggle,
+    open,
     options,
     showTooltipByDefault,
     tooltip,
@@ -61,23 +63,22 @@ export function FloatingAddMenu<Action>({
         filteredOptions,
         onSelect,
     );
-    const [open, menu] = useMenuToggle({ onToggle, onOpen, onClose });
-
-    function onOpen() {
-        // If there's only one component, do not bother with the dropdown at all,
-        // just select the first option immediately.
-        if (filteredOptions.length === 1) {
-            onSelect(filteredOptions[0]);
-            return;
-        }
-        rememberEditorSelection();
-    }
-
-    function onClose() {
-        restoreEditorSelection();
-        resetSelectedOption();
-        setQuery('');
-    }
+    const menu = useMenuToggle(open, onToggle, {
+        onOpen() {
+            // If there's only one component, do not bother with the dropdown at all,
+            // just select the first option immediately.
+            if (filteredOptions.length === 1) {
+                onSelect(filteredOptions[0]);
+                return;
+            }
+            rememberEditorSelection();
+        },
+        onClose() {
+            restoreEditorSelection();
+            resetSelectedOption();
+            setQuery('');
+        },
+    });
 
     function onSelect(option: Option<Action>) {
         menu.close();

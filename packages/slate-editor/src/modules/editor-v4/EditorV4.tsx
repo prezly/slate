@@ -84,7 +84,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
-    const [isCustomPlaceholderShown, setIsCustomPlaceholderShown] = useState(false);
+    const [isPlusMenuOpen, togglePlusMenu] = useState(false);
     const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
 
     const extensions = Array.from(
@@ -267,7 +267,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     };
 
     const hasCustomPlaceholder =
-        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isCustomPlaceholderShown);
+        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isPlusMenuOpen);
 
     return withToolbarsThemeContext(
         toolbarsTheme,
@@ -314,10 +314,11 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 {withFloatingAddMenu && (
                     <FloatingAddMenu
                         {...withFloatingAddMenu}
+                        open={isPlusMenuOpen}
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onActivate={handleMenuAction}
-                        onToggle={setIsCustomPlaceholderShown}
+                        onToggle={togglePlusMenu}
                         options={menuOptions}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
                         variant={menuVariant}
