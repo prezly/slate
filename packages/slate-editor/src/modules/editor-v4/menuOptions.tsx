@@ -173,6 +173,17 @@ function* generateModernMenuOptions(
         };
     }
 
+    if (withEmbeds?.menuOptions.embed) {
+        yield {
+            action: MenuAction.ADD_EMBED,
+            icon: Icons.ComponentEmbed,
+            group: Group.MEDIA_CONTENT,
+            text: 'Embed',
+            description: 'Insert embedded content',
+            isBeta: true,
+        };
+    }
+
     if (withCoverage) {
         yield {
             action: MenuAction.ADD_COVERAGE,
@@ -195,7 +206,6 @@ function* generateModernMenuOptions(
 
     /*
      * Intentionally not included:
-     * - MenuAction.ADD_EMBED
      * - MenuAction.ADD_EMBED_VIDEO
      * - MenuAction.ADD_EMBED_LINK
      */
