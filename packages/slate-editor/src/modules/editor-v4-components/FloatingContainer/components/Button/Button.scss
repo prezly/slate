@@ -19,8 +19,7 @@
         border: none;
         color: $white;
         background-color: $green-500;
-        box-shadow: inset 2px 4px 4px rgba(255, 255, 255, 0.16),
-            inset -1px -2px 4px rgba(17, 24, 39, 0.16);
+        box-shadow: inset 2px 4px 4px rgba($white, 0.16), inset -1px -2px 4px rgba($grey-900, 0.16);
 
         &:hover {
             color: $white;
@@ -29,8 +28,8 @@
 
         &.editor-v4-floating-container-button--open {
             background-color: $green-700;
-            box-shadow: inset -1px -2px 3px rgba(255, 255, 255, 0.24),
-                inset 1px 2px 3px rgba(17, 24, 39, 0.16);
+            box-shadow: inset -1px -2px 3px rgba($white, 0.24),
+                inset 1px 2px 3px rgba($grey-900, 0.16);
         }
     }
 
