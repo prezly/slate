@@ -6,7 +6,7 @@ import { MenuItem } from 'react-bootstrap';
 import { BatsIllustration, WarningCircle } from '#icons';
 import { noop } from '#lodash';
 
-import { groupOptions, isComponent } from '../lib';
+import { groupOptions, isComponent, sortBetaOptionsLast } from '../lib';
 import type { Option } from '../types';
 
 import './ModernDropdown.scss';
@@ -71,7 +71,7 @@ export function ModernDropdown<Action>({
                         >
                             {group}
                         </MenuItem>
-                        {options.map((option) => (
+                        {sortBetaOptionsLast(options).map((option) => (
                             <MenuItem
                                 active={option === selectedOption}
                                 className="editor-v4-floating-menu-modern-dropdown__menu-item"
