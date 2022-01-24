@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import maxSize from 'popper-max-size-modifier';
 import type { ReactNode, RefObject } from 'react';
-import React, { Fragment, useMemo, useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 import { MenuItem } from 'react-bootstrap';
 import { usePopper } from 'react-popper';
 
@@ -67,7 +67,7 @@ export function ModernDropdown<Action>({
     selectedOption,
 }: Props<Action>) {
     // data
-    const groups = useMemo(() => groupOptions(options), [options.length, ...options]);
+    const groups = groupOptions(options);
     const hasLabels = options.some((option) => option.isBeta || option.isNew);
 
     const scrollarea = useRef<HTMLDivElement>(null);
