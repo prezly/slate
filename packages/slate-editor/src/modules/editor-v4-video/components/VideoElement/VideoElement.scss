@@ -64,5 +64,13 @@
     &__play-button-icon {
         width: 80px;
         height: 80px;
+        color: $white;
+        fill: rgba($black, 0.4);
+        border: 6px solid rgba($white, 0.4);
+        border-radius: 80px;
+
+        .editor-v4-video-element__play-button-overlay:hover & {
+            fill: $indigo-500;
+        }
     }
 }
