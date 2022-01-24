@@ -31,7 +31,7 @@ export function useCurrentDomNode({
     const element = EditorCommands.getCurrentDomNode(editor);
 
     if (element) {
-        return lastKnownElementRef.current = element;
+        return (lastKnownElementRef.current = element);
     }
 
     if (withFallbackToLastExistingNode) {
