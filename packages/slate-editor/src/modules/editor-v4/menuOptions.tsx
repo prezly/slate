@@ -146,7 +146,7 @@ function* generateModernMenuOptions(
             action: MenuAction.ADD_EMBED_SOCIAL,
             icon: Icons.ComponentSocialPost,
             group: Group.MEDIA_CONTENT,
-            text: 'Add social post',
+            text: 'Social post',
             description: 'Insert a social media URL',
             isBeta: true,
         };
