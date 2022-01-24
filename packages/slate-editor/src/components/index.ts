@@ -9,5 +9,5 @@ export { KeyboardKey } from './KeyboardKey';
 export { LoadingIndicatorV2 } from './LoadingIndicatorV2';
 export * as LoadingPlaceholderV2 from './LoadingPlaceholderV2';
 export { MultilineEllipsis } from './MultilineEllipsis';
-export { ElementPortal, ElementPortalV2, PortalOrigin, TextSelectionPortalV2 } from './Portals';
+export { ElementPortalV2, TextSelectionPortalV2 } from './Portals';
 export * as TooltipV2 from './TooltipV2';
