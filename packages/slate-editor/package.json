@@ -82,6 +82,7 @@
         "lodash": "^4.17.21",
         "lodash-es": "^4.17.21",
         "moment": "^2.29.1",
+        "popper-max-size-modifier": "^0.2.0",
         "rangefix": "^0.2.9",
         "react-bootstrap": "=0.32.4",
         "react-draggable": "^3.3.2",

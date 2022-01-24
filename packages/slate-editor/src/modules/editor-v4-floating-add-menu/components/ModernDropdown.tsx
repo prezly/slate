@@ -1,7 +1,9 @@
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
-import React, { Fragment, useMemo } from 'react';
+import maxSize from 'popper-max-size-modifier';
+import type { ReactNode, RefObject } from 'react';
+import React, { Fragment, useMemo, useRef } from 'react';
 import { MenuItem } from 'react-bootstrap';
+import { usePopper } from 'react-popper';
 
 import { BatsIllustration, WarningCircle } from '#icons';
 import { noop } from '#lodash';
@@ -17,8 +19,43 @@ interface Props<Action> {
     options: Option<Action>[];
     onItemClick: (option: Option<Action>) => void;
     open: boolean;
+    referenceElement: RefObject<HTMLElement>;
     selectedOption: Option<Action>;
 }
+
+const POPPER_CONFIG: Parameters<typeof usePopper>[2] = {
+    placement: 'bottom-start',
+    modifiers: [
+        {
+            name: 'offset',
+            enabled: true,
+            options: {
+                offset: [0, 6],
+            },
+        },
+        {
+            name: 'flip',
+            enabled: false,
+        },
+        maxSize,
+        {
+            name: 'maxSize',
+            options: {
+                padding: 16,
+            },
+        },
+        {
+            name: 'applyMaxSize',
+            enabled: true,
+            phase: 'beforeWrite',
+            requires: ['maxSize'],
+            fn({ state }) {
+                // The `maxSize` modifier provides this data
+                state.styles.popper.maxHeight = `${state.modifiersData.maxSize.height}px`;
+            },
+        },
+    ],
+};
 
 export function ModernDropdown<Action>({
     className,
@@ -26,10 +63,20 @@ export function ModernDropdown<Action>({
     options,
     onItemClick,
     open,
+    referenceElement,
     selectedOption,
 }: Props<Action>) {
+    // data
     const groups = useMemo(() => groupOptions(options), [options.length, ...options]);
     const hasLabels = options.some((option) => option.isBeta || option.isNew);
+
+    const scrollarea = useRef<HTMLDivElement>(null);
+    const { attributes, styles } = usePopper(
+        referenceElement.current,
+        scrollarea.current,
+        POPPER_CONFIG,
+    );
+
     return (
         <div
             className={classNames('dropdown', 'editor-v4-floating-menu-modern-dropdown', {
@@ -38,81 +85,87 @@ export function ModernDropdown<Action>({
                 open,
             })}
         >
-            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-            <ul
-                className={classNames(
-                    'dropdown-menu',
-                    'editor-v4-floating-menu-modern-dropdown__menu',
-                    className,
-                )}
-                onMouseDown={(event) => event.preventDefault()}
+            <div
+                {...attributes.popper}
+                className="editor-v4-floating-menu-modern-dropdown__scroll-area"
+                ref={scrollarea}
+                style={styles.popper}
             >
-                {options.length === 0 && (
-                    <MenuItem
-                        className="editor-v4-floating-menu-modern-dropdown__menu-item editor-v4-floating-menu-modern-dropdown__menu-item--no-results"
-                        disabled
-                        onClick={noop}
-                    >
-                        <div className="editor-v4-floating-menu-modern-dropdown__menu-item-icon">
-                            <WarningCircle />
-                        </div>
-                        <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
-                            No results
-                        </div>
-                        <BatsIllustration className="editor-v4-floating-menu-modern-dropdown__menu-item-decoration" />
-                    </MenuItem>
-                )}
-
-                {groups.map(({ group, options }) => (
-                    <Fragment key={`group:${group}`}>
+                <ul
+                    className={classNames(
+                        'dropdown-menu',
+                        'editor-v4-floating-menu-modern-dropdown__menu',
+                        className,
+                    )}
+                    onMouseDown={(event) => event.preventDefault()}
+                >
+                    {options.length === 0 && (
                         <MenuItem
-                            className="editor-v4-floating-menu-modern-dropdown__menu-group"
-                            header
+                            className="editor-v4-floating-menu-modern-dropdown__menu-item editor-v4-floating-menu-modern-dropdown__menu-item--no-results"
+                            disabled
+                            onClick={noop}
                         >
-                            {group}
+                            <div className="editor-v4-floating-menu-modern-dropdown__menu-item-icon">
+                                <WarningCircle />
+                            </div>
+                            <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
+                                No results
+                            </div>
+                            <BatsIllustration className="editor-v4-floating-menu-modern-dropdown__menu-item-decoration" />
                         </MenuItem>
-                        {sortBetaOptionsLast(options).map((option) => (
+                    )}
+
+                    {groups.map(({ group, options }) => (
+                        <Fragment key={`group:${group}`}>
                             <MenuItem
-                                active={option === selectedOption}
-                                className="editor-v4-floating-menu-modern-dropdown__menu-item"
-                                key={`option:${option.text}`}
-                                onClick={(event) => event.preventDefault()}
-                                onMouseDown={(event) => {
-                                    event.preventDefault();
-                                    onItemClick(option);
-                                }}
+                                className="editor-v4-floating-menu-modern-dropdown__menu-group"
+                                header
                             >
-                                <div
-                                    className="editor-v4-floating-menu-modern-dropdown__menu-item-icon"
-                                    data-action={option.action}
-                                >
-                                    {isComponent(option.icon) ? <option.icon /> : option.icon}
-                                </div>
-                                <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
-                                    <div className="editor-v4-floating-menu-modern-dropdown__menu-item-title">
-                                        <Highlight search={highlight}>{option.text}</Highlight>
-                                    </div>
-                                    <div className="editor-v4-floating-menu-modern-dropdown__menu-item-description">
-                                        {option.description || ' '}
-                                    </div>
-                                </div>
-                                {(option.isBeta || option.isNew) && (
-                                    <div
-                                        className={classNames(
-                                            'editor-v4-floating-menu-modern-dropdown__menu-item-label',
-                                            option.isBeta
-                                                ? 'editor-v4-floating-menu-modern-dropdown__menu-item-label--beta'
-                                                : 'editor-v4-floating-menu-modern-dropdown__menu-item-label--new',
-                                        )}
-                                    >
-                                        {option.isBeta ? 'testing' : 'new'}
-                                    </div>
-                                )}
+                                {group}
                             </MenuItem>
-                        ))}
-                    </Fragment>
-                ))}
-            </ul>
+                            {sortBetaOptionsLast(options).map((option) => (
+                                <MenuItem
+                                    active={option === selectedOption}
+                                    className="editor-v4-floating-menu-modern-dropdown__menu-item"
+                                    key={`option:${option.text}`}
+                                    onClick={(event) => event.preventDefault()}
+                                    onMouseDown={(event) => {
+                                        event.preventDefault();
+                                        onItemClick(option);
+                                    }}
+                                >
+                                    <div
+                                        className="editor-v4-floating-menu-modern-dropdown__menu-item-icon"
+                                        data-action={option.action}
+                                    >
+                                        {isComponent(option.icon) ? <option.icon /> : option.icon}
+                                    </div>
+                                    <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
+                                        <div className="editor-v4-floating-menu-modern-dropdown__menu-item-title">
+                                            <Highlight search={highlight}>{option.text}</Highlight>
+                                        </div>
+                                        <div className="editor-v4-floating-menu-modern-dropdown__menu-item-description">
+                                            {option.description || ' '}
+                                        </div>
+                                    </div>
+                                    {(option.isBeta || option.isNew) && (
+                                        <div
+                                            className={classNames(
+                                                'editor-v4-floating-menu-modern-dropdown__menu-item-label',
+                                                option.isBeta
+                                                    ? 'editor-v4-floating-menu-modern-dropdown__menu-item-label--beta'
+                                                    : 'editor-v4-floating-menu-modern-dropdown__menu-item-label--new',
+                                            )}
+                                        >
+                                            {option.isBeta ? 'testing' : 'new'}
+                                        </div>
+                                    )}
+                                </MenuItem>
+                            ))}
+                        </Fragment>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }

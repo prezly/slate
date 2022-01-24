@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import type { RefObject } from 'react';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { useSlate } from 'slate-react';
 
@@ -50,6 +50,7 @@ export function FloatingAddMenu<Action>({
     variant,
 }: Props<Action>) {
     const editor = useSlate();
+    const input = useRef<HTMLInputElement | null>(null);
     const [query, setQuery] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
     const filteredOptions = useKeyboardFiltering(
@@ -140,6 +141,7 @@ export function FloatingAddMenu<Action>({
                         onChange={setQuery}
                         onKeyDown={open ? onKeyDown : undefined}
                         placeholder={prompt}
+                        ref={input}
                         tabIndex={-1}
                         value={query}
                     />
@@ -149,6 +151,7 @@ export function FloatingAddMenu<Action>({
                         options={filteredOptions}
                         onItemClick={onSelect}
                         open={open}
+                        referenceElement={input}
                         selectedOption={selectedOption}
                     />
                 </>
