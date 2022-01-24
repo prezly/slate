@@ -1,5 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { FunctionComponent, RefObject } from 'react';
+import classNames from 'classnames';
+import type { RefObject } from 'react';
 import React, { useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { useSlate } from 'slate-react';
@@ -8,21 +9,23 @@ import { KeyboardKey, TooltipV2 } from '#components';
 
 import { FloatingContainer } from '#modules/editor-v4-components';
 
-import { Dropdown, Input } from './components';
+import { ClassicDropdown, Input, ModernDropdown } from './components';
 import './FloatingAddMenu.scss';
 import {
-    betaLastComparator,
+    sortBetaOptionsLast,
     useEditorSelectionMemory,
     useKeyboardFiltering,
     useKeyboardNavigation,
     useMenuToggle,
 } from './lib';
 import type { Option, Settings } from './types';
+import { Variant } from './types';
 
-interface Props extends Settings {
+interface Props<Action> extends Settings {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
-    options: Option[];
+    options: Option<Action>[];
+    onActivate: (action: Action) => void;
     onToggle: (isShown: boolean) => void;
     showTooltipByDefault: boolean;
 }
@@ -36,18 +39,23 @@ const TOOLTIP_FLIP_MODIFIER: Modifier<'flip'> = {
     },
 };
 
-export const FloatingAddMenu: FunctionComponent<Props> = ({
+export function FloatingAddMenu<Action>({
     availableWidth,
     containerRef,
+    onActivate,
     onToggle,
     options,
     showTooltipByDefault,
     tooltip,
-}) => {
+    variant,
+}: Props<Action>) {
     const editor = useSlate();
     const [query, setQuery] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
-    const filteredOptions = useKeyboardFiltering(query, [...options].sort(betaLastComparator));
+    const filteredOptions = useKeyboardFiltering(
+        query,
+        variant === Variant.CLASSIC ? sortBetaOptionsLast(options) : options,
+    );
     const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
         filteredOptions,
         onSelect,
@@ -70,17 +78,23 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
         setQuery('');
     }
 
-    function onSelect(option: Option) {
+    function onSelect(option: Option<Action>) {
         menu.close();
-        option.onClick(editor);
+        onActivate(option.action);
     }
 
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
+    const Dropdown = variant === Variant.CLASSIC ? ClassicDropdown : ModernDropdown;
+    const prompt =
+        variant === Variant.CLASSIC ? 'Select the type of content you want to add' : 'Search';
 
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className="editor-v4-floating-add-menu"
+            className={classNames('editor-v4-floating-add-menu', {
+                'editor-v4-floating-add-menu--classic': variant === Variant.CLASSIC,
+                'editor-v4-floating-add-menu--modern': variant === Variant.MODERN,
+            })}
             containerRef={containerRef}
             onClose={menu.close}
             open={open}
@@ -125,12 +139,13 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
                         onBlur={menu.close}
                         onChange={setQuery}
                         onKeyDown={open ? onKeyDown : undefined}
-                        placeholder="Select the type of content you want to add"
+                        placeholder={prompt}
                         tabIndex={-1}
                         value={query}
                     />
                     <Dropdown
                         className="editor-v4-floating-add-menu__dropdown"
+                        highlight={query}
                         options={filteredOptions}
                         onItemClick={onSelect}
                         open={open}
@@ -140,4 +155,4 @@ export const FloatingAddMenu: FunctionComponent<Props> = ({
             )}
         </FloatingContainer.Container>
     );
-};
+}

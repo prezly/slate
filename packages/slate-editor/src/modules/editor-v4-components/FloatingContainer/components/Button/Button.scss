@@ -16,7 +16,21 @@
     padding: 0;
 
     &--variant-green {
-        @include button-variant(#ffffff, $legacy-color-green-500, transparent);
+        border: none;
+        color: $white;
+        background-color: $green-500;
+        box-shadow: inset 2px 4px 4px rgba($white, 0.16), inset -1px -2px 4px rgba($grey-900, 0.16);
+
+        &:hover {
+            color: $white;
+            background-color: $green-600;
+        }
+
+        &.editor-v4-floating-container-button--open {
+            background-color: $green-700;
+            box-shadow: inset -1px -2px 3px rgba($white, 0.24),
+                inset 1px 2px 3px rgba($grey-900, 0.16);
+        }
     }
 
     &__icon {
@@ -24,7 +38,7 @@
         width: 16px;
         height: 16px;
 
-        &--close {
+        .editor-v4-floating-container-button--open & {
             transform: rotate(45deg);
         }
     }
