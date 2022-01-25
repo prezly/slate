@@ -13,7 +13,7 @@ export class ElementPortalV2 extends Component<Props> {
     };
 
     render() {
-        const { children, ...props } = this.props;
+        const { children, element, ...props } = this.props;
         return (
             <BasePortalV2 {...props} getBoundingClientRect={this.getBoundingClientRect}>
                 {children}
