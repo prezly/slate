@@ -1,5 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement, EditorCommands } from '@prezly/slate-commons';
+import type { ImageNode, ParagraphNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
@@ -9,6 +10,8 @@ import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { noop } from '#lodash';
+
+import { createParagraph } from '#modules/editor-v4-paragraphs';
 
 import { ImageElement } from './components';
 import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
@@ -91,7 +94,7 @@ export const ImageExtension = ({
 
             if (EditorCommands.isNodeEmpty(editor, nodeEntry[0])) {
                 if (!isHoldingDelete) {
-                    EditorCommands.removeNode(editor, {
+                    Transforms.setNodes<ImageNode | ParagraphNode>(editor, createParagraph(), {
                         at: nodeEntry[1],
                         match: isImageNode,
                     });
@@ -107,7 +110,7 @@ export const ImageExtension = ({
                 EditorCommands.isSelectionAtBlockStart(editor) &&
                 EditorCommands.isSelectionEmpty(editor)
             ) {
-                EditorCommands.removeNode(editor, {
+                Transforms.setNodes<ImageNode | ParagraphNode>(editor, createParagraph(), {
                     at: nodeEntry[1],
                     match: isImageNode,
                 });
