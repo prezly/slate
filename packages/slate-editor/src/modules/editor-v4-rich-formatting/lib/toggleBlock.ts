@@ -1,24 +1,24 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
-import type { Editor, Element } from 'slate';
+import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
 import { lists } from '../lists';
 import { ElementType } from '../types';
 
-export function toggleBlock(editor: Editor, type: ElementNode['type']): void {
+export function toggleBlock<Block extends ElementNode>(editor: Editor, type: Block['type']): void {
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (!currentNode) {
         return;
     }
 
-    if ([ElementType.BULLETED_LIST as string, ElementType.NUMBERED_LIST as string].includes(type)) {
+    if (type === ElementType.BULLETED_LIST || type === ElementType.NUMBERED_LIST) {
         lists.wrapInList(editor, type);
         lists.setListType(editor, type);
         return;
     }
 
     lists.unwrapList(editor);
-    Transforms.setNodes(editor, { type } as Partial<Element>);
+    Transforms.setNodes(editor, { type } as Partial<Block>);
 }
