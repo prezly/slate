@@ -43,7 +43,7 @@ const POPPER_CONFIG: Parameters<typeof usePopper>[2] = {
             options: {
                 padding: 16,
             },
-        },
+        } as typeof maxSize,
         {
             name: 'applyMaxSize',
             enabled: true,
