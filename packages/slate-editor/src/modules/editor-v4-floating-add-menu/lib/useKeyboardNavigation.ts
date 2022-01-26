@@ -31,19 +31,19 @@ export function useKeyboardNavigation<Option>(
     const handleKeyDown = useCallback(
         function (event: KeyboardEvent): void {
             const { options, onSelect } = params.current;
-            if (isArrowUp(event.nativeEvent)) {
+            if (isArrowUp(event)) {
                 event.stopPropagation();
                 event.preventDefault();
                 setCurrentIndex((currentIndex) => clampIndex(currentIndex - 1, options.length));
             }
 
-            if (isArrowDown(event.nativeEvent)) {
+            if (isArrowDown(event)) {
                 event.stopPropagation();
                 event.preventDefault();
                 setCurrentIndex((currentIndex) => clampIndex(currentIndex + 1, options.length));
             }
 
-            if (isEnter(event.nativeEvent)) {
+            if (isEnter(event)) {
                 // Prevent the event propagation to Slate (inserts a new paragraph).
                 event.stopPropagation();
                 event.preventDefault();

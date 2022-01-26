@@ -53,11 +53,11 @@ export function FloatingAddMenu<Action>({
     variant,
 }: Props<Action>) {
     const editor = useSlate();
-    const input = useRef<HTMLInputElement | null>(null);
-    const [query, setQuery] = useState('');
+    const inputElement = useRef<HTMLInputElement | null>(null);
+    const [input, setInput] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
-    const filteredOptions = useKeyboardFiltering(
-        query,
+    const [query, filteredOptions] = useKeyboardFiltering(
+        input,
         variant === Variant.CLASSIC ? sortBetaOptionsLast(options) : options,
     );
     const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
@@ -77,7 +77,7 @@ export function FloatingAddMenu<Action>({
         onClose() {
             restoreEditorSelection();
             resetSelectedOption();
-            setQuery('');
+            setInput('');
         },
     });
 
@@ -158,12 +158,12 @@ export function FloatingAddMenu<Action>({
                         autoFocus
                         className="editor-v4-floating-add-menu__input"
                         onBlur={menu.close}
-                        onChange={setQuery}
+                        onChange={setInput}
                         onKeyDown={handleKeyDown}
                         placeholder={prompt}
-                        ref={input}
+                        ref={inputElement}
                         tabIndex={-1}
-                        value={query}
+                        value={input}
                     />
                     <Dropdown
                         className="editor-v4-floating-add-menu__dropdown"
@@ -171,7 +171,7 @@ export function FloatingAddMenu<Action>({
                         options={filteredOptions}
                         onItemClick={onSelect}
                         open={open}
-                        referenceElement={input}
+                        referenceElement={inputElement}
                         selectedOption={selectedOption}
                     />
                 </>
