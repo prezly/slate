@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import type { Editor } from 'slate';
+import { Editor } from 'slate';
 
 import { saveSelection } from '../../commands';
 
@@ -9,15 +9,23 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
     const { deleteBackward, deleteForward } = editor;
 
     editor.deleteBackward = (unit) => {
+        const previousBlockSelection = saveSelection(
+            editor,
+            (location) => Editor.before(editor, location) ?? location,
+        );
+
         const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: true, unit });
-        if (!isRemoved) {
+
+        if (isRemoved) {
+            previousBlockSelection.restore(editor);
+        } else {
             // The custom delete could not be applied, fall back to the default editor action.
             deleteBackward(unit);
         }
     };
 
     editor.deleteForward = (unit) => {
-        const selectionBeforeDeleting = saveSelection(editor);
+        const previousBlockSelection = saveSelection(editor);
 
         const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: false, unit });
         if (!isRemoved) {
@@ -33,7 +41,7 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
          * The fix is to store the selection before removing and then restoring it.
          * This will ensure the cursor stays in the same location.
          */
-        selectionBeforeDeleting.restore(editor);
+        previousBlockSelection.restore(editor);
     };
 
     return editor;
