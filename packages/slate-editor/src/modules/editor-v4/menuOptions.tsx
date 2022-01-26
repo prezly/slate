@@ -30,6 +30,7 @@ export enum MenuAction {
     ADD_HEADING_2 = 'add_heading_2',
     ADD_IMAGE = 'add_image',
     ADD_PARAGRAPH = 'add_paragraph',
+    ADD_QUOTE = 'add_quote',
     ADD_VIDEO = 'add_video',
     ADD_WEB_BOOKMARK = 'add_web_bookmark',
 }
@@ -102,6 +103,16 @@ function* generateModernMenuOptions(
         text: 'Text',
         description: 'Start writing plain text',
     };
+
+    if (withRichFormatting?.blocks) {
+        yield {
+            icon: Icons.ComponentQuote,
+            action: MenuAction.ADD_QUOTE,
+            group: Group.BASICS,
+            text: 'Quote',
+            description: 'Highlighted text section',
+        };
+    }
 
     yield {
         icon: Icons.ComponentDivider,

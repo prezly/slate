@@ -1,7 +1,12 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
-import type { HeadingNode } from '@prezly/slate-types';
-import { Alignment, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
+import type { HeadingNode, QuoteNode } from '@prezly/slate-types';
+import {
+    Alignment,
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    QUOTE_NODE_TYPE,
+} from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
@@ -217,6 +222,9 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         }
         if (action === MenuAction.ADD_COVERAGE) {
             return openFloatingCoverageMenu();
+        }
+        if (action === MenuAction.ADD_QUOTE) {
+            return toggleBlock<QuoteNode>(editor, QUOTE_NODE_TYPE);
         }
         if (action === MenuAction.ADD_DIVIDER) {
             return insertDivider(editor);
