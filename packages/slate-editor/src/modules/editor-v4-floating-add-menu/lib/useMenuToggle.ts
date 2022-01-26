@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useLatest } from '#lib';
+import { useLatest, useUpdateEffect } from '#lib';
 
 interface Callbacks {
     onClose?: () => void;
@@ -25,18 +25,20 @@ export function useMenuToggle(isOpen: boolean, onChange: (show: boolean) => void
             }
 
             params.current.onChange(willOpen);
-
-            if (willOpen) {
-                params.current.callbacks.onOpen && params.current.callbacks.onOpen();
-            } else {
-                params.current.callbacks.onClose && params.current.callbacks.onClose();
-            }
         },
         [isOpen],
     );
 
     const open = useCallback(() => toggle(true), [toggle]);
     const close = useCallback(() => toggle(false), [toggle]);
+
+    useUpdateEffect(function onOpen() {
+        if (isOpen) {
+            params.current.callbacks.onOpen && params.current.callbacks.onOpen();
+        } else {
+            params.current.callbacks.onClose && params.current.callbacks.onClose();
+        }
+    }, [isOpen]);
 
     return { open, close, toggle };
 }

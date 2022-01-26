@@ -18,6 +18,7 @@ import _useRafLoop from 'react-use/lib/useRafLoop.js';
 import _useSize from 'react-use/lib/useSize.js';
 import _useUnmount from 'react-use/lib/useUnmount.js';
 import _useUpdate from 'react-use/lib/useUpdate.js';
+import _useUpdateEffect from 'react-use/lib/useUpdateEffect.js';
 
 function unwrap<T>(module: T | { __esModule: boolean; default: T }): T {
     if (typeof module === 'object' && '__esModule' in module && 'default' in module) {
@@ -37,6 +38,7 @@ const useRafLoop = unwrap(_useRafLoop);
 const useSize = unwrap(_useSize);
 const useUnmount = unwrap(_useUnmount);
 const useUpdate = unwrap(_useUpdate);
+const useUpdateEffect = unwrap(_useUpdateEffect);
 
 export {
     useAsyncFn,
@@ -50,4 +52,5 @@ export {
     useSize,
     useUnmount,
     useUpdate,
+    useUpdateEffect,
 };
