@@ -11,8 +11,8 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 
 import { ClassicDropdown, Input, ModernDropdown } from './components';
 import './FloatingAddMenu.scss';
-import { isMenuHotkey } from './FloatingAddMenuExtension';
 import {
+    isMenuHotkey,
     sortBetaOptionsLast,
     useEditorSelectionMemory,
     useKeyboardFiltering,

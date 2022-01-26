@@ -1,9 +1,8 @@
 import type { Extension } from '@prezly/slate-commons';
-import { isHotkey } from 'is-hotkey';
+
+import { isMenuHotkey } from './lib';
 
 const FLOATING_ADD_MENU_EXTENSION_ID = 'FloatingAddMenuExtension';
-
-export const isMenuHotkey = isHotkey('mod+/');
 
 export function FloatingAddMenuExtension(toggleMenu: (open?: boolean) => void): Extension {
     return {
