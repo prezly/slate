@@ -12,12 +12,16 @@ export function useKeyboardFiltering<T extends Option>(input: string, options: T
 
     const filteredOptions = useMemo(
         function () {
-            if (!query) return options;
-
-            return options.filter(({ text }) => text.toLowerCase().includes(query.toLowerCase()));
+            return query ? filter(options, query) : options;
         },
         [query, ...options],
     );
 
     return [query, filteredOptions];
+}
+
+function filter<T extends Option>(options: T[], query: string): T[] {
+    if (!query) return options;
+
+    return options.filter(({ text }) => text.toLowerCase().includes(query.toLowerCase()));
 }
