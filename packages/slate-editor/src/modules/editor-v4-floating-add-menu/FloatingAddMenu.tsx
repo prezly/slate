@@ -1,7 +1,9 @@
 import classNames from 'classnames';
+import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
 import type { Modifier } from 'react-popper';
+import { Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
 import { KeyboardKey, TooltipV2 } from '#components';
@@ -40,6 +42,8 @@ const TOOLTIP_FLIP_MODIFIER: Modifier<'flip'> = {
         rootBoundary: 'document',
     },
 };
+
+const isSpacebar = isHotkey('space');
 
 export function FloatingAddMenu<Action>({
     availableWidth,
@@ -87,11 +91,27 @@ export function FloatingAddMenu<Action>({
     }
 
     function handleKeyDown(event: KeyboardEvent) {
-        if (isMenuHotkey(event.nativeEvent)) {
+        if (isMenuHotkey(event)) {
             event.preventDefault();
             event.stopPropagation();
             menu.close();
             return;
+        }
+
+        /**
+         * An additional whitespace is inserted after the previous query
+         * was already returning no results => close the menu, preserving input.
+         */
+        if (isSpacebar(event)) {
+            if (filteredOptions.length === 0) {
+                event.preventDefault();
+                event.stopPropagation();
+                console.log('inserting text', `${input} `);
+                Transforms.insertText(editor, `${input} `);
+                rememberEditorSelection();
+                menu.close();
+                return;
+            }
         }
 
         onKeyDown(event);
