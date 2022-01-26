@@ -1,6 +1,7 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
-import { Alignment, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE, HeadingNode } from '@prezly/slate-types';
+import type { HeadingNode } from '@prezly/slate-types';
+import { Alignment, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
