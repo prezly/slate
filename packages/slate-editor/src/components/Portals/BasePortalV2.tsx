@@ -33,6 +33,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
     getBoundingClientRect: () => ClientRect | Rect | null;
     modifiers?: Modifier<string>[];
     placement: Placement;
+    pointerEvents?: boolean;
 }
 
 /**
@@ -45,6 +46,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
     getBoundingClientRect,
     modifiers = [],
     placement,
+    pointerEvents = true,
     ...props
 }) => {
     const isMounted = useMountedState();
@@ -103,6 +105,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
                 {...attributes.popper}
                 className={classNames('base-portal-v2', className, {
                     'base-portal-v2--uninitialized': referenceElement === null,
+                    'base-portal-v2--no-pointer-events': pointerEvents === false,
                 })}
                 ref={setPopperElement}
                 style={styles.popper}

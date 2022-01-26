@@ -12,7 +12,7 @@ export function useCurrentDomNode({
     withFallbackToLastExistingNode,
 }: Parameters): HTMLElement | null {
     const editor = useSlate();
-    const lastKnownElementRef = useRef<HTMLElement>();
+    const lastKnownElementRef = useRef<HTMLElement | null>(null);
     const update = useUpdate();
 
     useEffect(() => {
@@ -29,9 +29,14 @@ export function useCurrentDomNode({
     }, [editor.selection, update]);
 
     const element = EditorCommands.getCurrentDomNode(editor);
+
     if (element) {
-        lastKnownElementRef.current = element;
+        return (lastKnownElementRef.current = element);
     }
 
-    return withFallbackToLastExistingNode ? lastKnownElementRef.current || null : element;
+    if (withFallbackToLastExistingNode) {
+        return lastKnownElementRef.current;
+    }
+
+    return null;
 }

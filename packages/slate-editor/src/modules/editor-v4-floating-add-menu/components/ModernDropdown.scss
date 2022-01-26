@@ -13,16 +13,32 @@
     $font-size-medium: 13px;
     $font-size-small: 11px;
 
-    &__menu {
+    // fancy scrollbars support
+    &__scroll-area {
+        position: absolute;
+        background-color: $white;
         border: 1px solid $grey-200;
         border-radius: $border-radius-base;
+        overflow-x: hidden;
+        overflow-y: auto;
+        display: flex;
+
+        @include fancy-scrollbars();
+    }
+
+    &__menu {
+        position: initial !important;
         box-shadow: none;
         padding: 0 0 $spacing-half;
         min-width: $min-width;
-        top: calc(100% + 7px);
+        border: none;
 
-        .editor-v4-floating-menu-modern-dropdown--with-labels & {
-            min-width: $min-width-with-labels;
+        // fancy scrollbars support
+        flex-grow: 1;
+        flex-shrink: 0;
+
+        .editor-v4-floating-menu-modern-dropdown.open & {
+            display: block;
         }
     }
 
@@ -42,6 +58,10 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+        }
+
+        > a:hover {
+            background-color: $grey-100;
         }
 
         &.active > a {
