@@ -9,7 +9,7 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
     const { deleteBackward, deleteForward } = editor;
 
     editor.deleteBackward = (unit) => {
-        const selectionBeforeDeleting = saveSelection(
+        const previousBlockSelection = saveSelection(
             editor,
             (location) => Editor.before(editor, location) ?? location,
         );
@@ -17,7 +17,7 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
         const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: true, unit });
 
         if (isRemoved) {
-            selectionBeforeDeleting.restore(editor);
+            previousBlockSelection.restore(editor);
         } else {
             // The custom delete could not be applied, fall back to the default editor action.
             deleteBackward(unit);
@@ -25,7 +25,7 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
     };
 
     editor.deleteForward = (unit) => {
-        const selectionBeforeDeleting = saveSelection(editor);
+        const previousBlockSelection = saveSelection(editor);
 
         const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: false, unit });
         if (!isRemoved) {
@@ -41,7 +41,7 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
          * The fix is to store the selection before removing and then restoring it.
          * This will ensure the cursor stays in the same location.
          */
-        selectionBeforeDeleting.restore(editor);
+        previousBlockSelection.restore(editor);
     };
 
     return editor;
