@@ -2,8 +2,9 @@ import classNames from 'classnames';
 import type { FunctionComponent, RefObject } from 'react';
 import React from 'react';
 import { RootCloseWrapper } from 'react-overlays';
+import type { Modifier } from 'react-popper';
 
-import { ElementPortal, PortalOrigin } from '#components';
+import { ElementPortalV2 } from '#components';
 
 import { useCurrentDomNode } from './useCurrentDomNode';
 
@@ -16,6 +17,38 @@ interface Props {
     pointerEvents?: boolean;
     show: boolean;
 }
+
+const POSITION_TO_COVER: Modifier<string> = {
+    name: 'positionToCover',
+    enabled: true,
+    phase: 'read',
+    requires: ['popperOffsets'],
+    fn: ({ state }) => {
+        const ref = state.rects.reference;
+        state.modifiersData.popperOffsets = {
+            x: ref.x,
+            y: ref.y,
+        };
+    },
+};
+
+const RESIZE_TO_COVER: Modifier<string> = {
+    name: 'resizeToCover',
+    enabled: true,
+    phase: 'beforeWrite',
+    requires: ['computeStyles'],
+    fn: ({ state }) => {
+        state.styles.popper.width = `${state.rects.reference.width}px`;
+        state.styles.popper.height = `${state.rects.reference.height}px`;
+    },
+    effect: ({ state }) => {
+        const rect = state.elements.reference.getBoundingClientRect();
+        state.elements.popper.style.width = `${rect.width}px`;
+        state.elements.popper.style.height = `${rect.height}px`;
+    },
+};
+
+const MODIFIERS = [POSITION_TO_COVER, RESIZE_TO_COVER];
 
 export const Container: FunctionComponent<Props> = ({
     availableWidth,
@@ -35,12 +68,12 @@ export const Container: FunctionComponent<Props> = ({
     }
 
     return (
-        <ElementPortal
+        <ElementPortalV2
             containerRef={containerRef}
             element={currentDomElement}
-            origin={PortalOrigin.COVER}
+            modifiers={MODIFIERS}
+            placement="top"
             pointerEvents={pointerEvents}
-            preventPositionUpdates={open}
         >
             <RootCloseWrapper onRootClose={onClose}>
                 <div
@@ -53,6 +86,6 @@ export const Container: FunctionComponent<Props> = ({
                     {children}
                 </div>
             </RootCloseWrapper>
-        </ElementPortal>
+        </ElementPortalV2>
     );
 };

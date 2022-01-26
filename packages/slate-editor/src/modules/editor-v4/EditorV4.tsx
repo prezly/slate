@@ -1,9 +1,22 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
-import { Alignment, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
+import type { HeadingNode, QuoteNode } from '@prezly/slate-types';
+import {
+    Alignment,
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    QUOTE_NODE_TYPE,
+} from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, {
+    useCallback,
+    useEffect,
+    useImperativeHandle,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
@@ -83,8 +96,13 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
-    const [isCustomPlaceholderShown, setIsCustomPlaceholderShown] = useState(false);
     const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
+    // [+] menu
+    const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
+    const onFloatingAddMenuToggle = useCallback(
+        (shouldOpen?: boolean) => setFloatingAddMenuOpen((isOpen) => shouldOpen ?? !isOpen),
+        [setFloatingAddMenuOpen],
+    );
 
     const extensions = Array.from(
         getEnabledExtensions({
@@ -92,9 +110,11 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             containerRef,
             onOperationEnd,
             onOperationStart,
+            onFloatingAddMenuToggle,
             withAttachments,
             withCoverage,
             withEmbeds,
+            withFloatingAddMenu,
             withGalleries,
             withImages,
             withPlaceholders,
@@ -203,10 +223,10 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             return; // Do nothing. @see MT-4590
         }
         if (action === MenuAction.ADD_HEADING_1) {
-            return toggleBlock(editor, HEADING_1_NODE_TYPE);
+            return toggleBlock<HeadingNode>(editor, HEADING_1_NODE_TYPE);
         }
         if (action === MenuAction.ADD_HEADING_2) {
-            return toggleBlock(editor, HEADING_2_NODE_TYPE);
+            return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
         }
         if (action === MenuAction.ADD_ATTACHMENT) {
             return handleAddAttachment(editor);
@@ -216,6 +236,9 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         }
         if (action === MenuAction.ADD_COVERAGE) {
             return openFloatingCoverageMenu();
+        }
+        if (action === MenuAction.ADD_QUOTE) {
+            return toggleBlock<QuoteNode>(editor, QUOTE_NODE_TYPE);
         }
         if (action === MenuAction.ADD_DIVIDER) {
             return insertDivider(editor);
@@ -266,7 +289,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     };
 
     const hasCustomPlaceholder =
-        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isCustomPlaceholderShown);
+        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
 
     return withToolbarsThemeContext(
         toolbarsTheme,
@@ -313,13 +336,14 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 {withFloatingAddMenu && (
                     <FloatingAddMenu
                         {...withFloatingAddMenu}
-                        variant={menuVariant}
+                        open={isFloatingAddMenuOpen}
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onActivate={handleMenuAction}
-                        onToggle={setIsCustomPlaceholderShown}
+                        onToggle={onFloatingAddMenuToggle}
                         options={menuOptions}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
+                        variant={menuVariant}
                     />
                 )}
 

@@ -33,6 +33,7 @@ export interface EditorV4ExtensionsProps {
     withAttachments?: FileAttachmentExtensionParameters;
     withCoverage?: CoverageExtensionParameters;
     withEmbeds?: EmbedExtensionParameters;
+    withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
     withGalleries?: GalleriesExtensionParameters;
     withImages?: ImageExtensionParameters;
     withPlaceholders?: PlaceholderMentionsExtensionParameters;
@@ -71,7 +72,6 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
         minTop: number;
     };
     withEmbeds?: EditorV4ExtensionsProps['withEmbeds'] & EmbedParameters;
-    withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
 }
 
 interface EmbedParameters {

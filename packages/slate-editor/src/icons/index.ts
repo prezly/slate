@@ -21,6 +21,7 @@ export { default as ComponentGallery } from './Component-Gallery.svg';
 export { default as ComponentImage } from './Component-Image.svg';
 export { default as ComponentH1 } from './Component-H1.svg';
 export { default as ComponentH2 } from './Component-H2.svg';
+export { default as ComponentQuote } from './Component-Quote.svg';
 export { default as ComponentSocialPost } from './Component-Social-Post.svg';
 export { default as ComponentText } from './Component-Text.svg';
 export { default as ComponentVideo } from './Component-Video.svg';

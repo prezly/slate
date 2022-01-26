@@ -75,7 +75,7 @@ export const FloatingVideoInput: FunctionComponent<Props> = ({
                         onChange={(event: ChangeEvent<FormControl & HTMLInputElement>) =>
                             setUrl(event.target.value)
                         }
-                        placeholder="Enter your URL to insert & press Enter (e.g. https://www.prezly.com/)"
+                        placeholder="Paste video link"
                         required
                         type="url"
                         value={url}
