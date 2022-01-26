@@ -6,19 +6,49 @@
 
     &__input::placeholder,
     &__placeholder {
-        color: #949595;
-    }
-
-    &__input,
-    &__placeholder {
-        font-size: $editor-v4-paragraph-font-size;
-        line-height: $editor-v4-paragraph-line-height;
+        color: $grey-400;
+        opacity: 1;
     }
 
     &__button {
         position: absolute;
-        top: math.div($editor-v4-paragraph-line-height - $editor-v4-floating-button-size, 2);
         left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
+    }
+
+    &--paragraph {
+        .editor-v4-floating-add-menu__input,
+        .editor-v4-floating-add-menu__placeholder {
+            font-size: $editor-v4-paragraph-font-size;
+            line-height: $editor-v4-paragraph-line-height;
+        }
+
+        .editor-v4-floating-add-menu__button {
+            top: math.div($editor-v4-paragraph-line-height - $editor-v4-floating-button-size, 2);
+        }
+    }
+
+    &--heading-one {
+        .editor-v4-floating-add-menu__input,
+        .editor-v4-floating-add-menu__placeholder {
+            font-size: $editor-v4-heading-one-font-size;
+            line-height: $editor-v4-heading-one-line-height;
+        }
+
+        .editor-v4-floating-add-menu__button {
+            top: math.div($editor-v4-heading-one-line-height - $editor-v4-floating-button-size, 2);
+        }
+    }
+
+    &--heading-two {
+        .editor-v4-floating-add-menu__input,
+        .editor-v4-floating-add-menu__placeholder {
+            font-size: $editor-v4-heading-two-font-size;
+            line-height: $editor-v4-heading-two-line-height;
+        }
+
+        .editor-v4-floating-add-menu__button {
+            top: math.div($editor-v4-heading-two-line-height - $editor-v4-floating-button-size, 2);
+        }
     }
 
     &__dropdown,

@@ -1,3 +1,10 @@
+import { EditorCommands } from '@prezly/slate-commons';
+import {
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    isHeadingNode,
+    isParagraphNode,
+} from '@prezly/slate-types';
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
@@ -57,6 +64,7 @@ export function FloatingAddMenu<Action>({
     variant,
 }: Props<Action>) {
     const editor = useSlate();
+    const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
     const inputElement = useRef<HTMLInputElement | null>(null);
     const [input, setInput] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
@@ -121,12 +129,19 @@ export function FloatingAddMenu<Action>({
     const prompt =
         variant === Variant.CLASSIC ? 'Select the type of content you want to add' : 'Search';
 
+    const isParagraph = isParagraphNode(currentNode);
+    const isHeading1 = isHeadingNode(currentNode, HEADING_1_NODE_TYPE);
+    const isHeading2 = isHeadingNode(currentNode, HEADING_2_NODE_TYPE);
+
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
             className={classNames('editor-v4-floating-add-menu', {
                 'editor-v4-floating-add-menu--classic': variant === Variant.CLASSIC,
                 'editor-v4-floating-add-menu--modern': variant === Variant.MODERN,
+                'editor-v4-floating-add-menu--paragraph': isParagraph,
+                'editor-v4-floating-add-menu--heading-one': isHeading1,
+                'editor-v4-floating-add-menu--heading-two': isHeading2,
             })}
             containerRef={containerRef}
             onClose={menu.close}
@@ -163,11 +178,11 @@ export function FloatingAddMenu<Action>({
                 <p className="editor-v4-floating-add-menu__placeholder">
                     {variant === Variant.MODERN ? (
                         <>
-                            Type or press <KeyboardKey>/</KeyboardKey> to add content.
+                            Type or press <KeyboardKey>/</KeyboardKey> to add content
                         </>
                     ) : (
                         <>
-                            Start typing or use <KeyboardKey>+</KeyboardKey> to add content.
+                            Start typing or use <KeyboardKey>+</KeyboardKey> to add content
                         </>
                     )}
                 </p>
