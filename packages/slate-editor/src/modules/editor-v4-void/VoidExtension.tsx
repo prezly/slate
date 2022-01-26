@@ -1,7 +1,11 @@
 import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
-import { Editor } from 'slate';
+import { Editor, Transforms } from 'slate';
+
+import { isDeletingEvent } from '#lib';
+
+import { createParagraph } from '#modules/editor-v4-paragraphs';
 
 import { VOID_EXTENSION_ID } from './constants';
 
@@ -26,6 +30,12 @@ export function VoidExtension(): Extension {
             } else if (isHotkey('enter', event)) {
                 hasBeenHandled = true;
                 EditorCommands.insertEmptyParagraph(editor);
+            } else if (isDeletingEvent(event)) {
+                Transforms.setNodes(editor, createParagraph(), {
+                    match: (node) => node === currentNode,
+                });
+
+                hasBeenHandled = true;
             }
 
             if (hasBeenHandled) {
