@@ -13,7 +13,11 @@ interface Controls {
     toggle: (open?: boolean) => void;
 }
 
-export function useMenuToggle(isOpen: boolean, onChange: (show: boolean) => void, callbacks: Callbacks): Controls {
+export function useMenuToggle(
+    isOpen: boolean,
+    onChange: (show: boolean) => void,
+    callbacks: Callbacks,
+): Controls {
     const params = useLatest({ onChange, callbacks });
 
     const toggle = useCallback(
@@ -32,13 +36,16 @@ export function useMenuToggle(isOpen: boolean, onChange: (show: boolean) => void
     const open = useCallback(() => toggle(true), [toggle]);
     const close = useCallback(() => toggle(false), [toggle]);
 
-    useUpdateEffect(function onOpen() {
-        if (isOpen) {
-            params.current.callbacks.onOpen && params.current.callbacks.onOpen();
-        } else {
-            params.current.callbacks.onClose && params.current.callbacks.onClose();
-        }
-    }, [isOpen]);
+    useUpdateEffect(
+        function onOpen() {
+            if (isOpen) {
+                params.current.callbacks.onOpen && params.current.callbacks.onOpen();
+            } else {
+                params.current.callbacks.onClose && params.current.callbacks.onClose();
+            }
+        },
+        [isOpen],
+    );
 
     return { open, close, toggle };
 }

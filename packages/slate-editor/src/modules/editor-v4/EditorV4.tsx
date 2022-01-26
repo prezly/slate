@@ -4,7 +4,14 @@ import type { HeadingNode } from '@prezly/slate-types';
 import { Alignment, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, {
+    useCallback,
+    useEffect,
+    useImperativeHandle,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 

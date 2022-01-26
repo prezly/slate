@@ -12,7 +12,7 @@ export function shouldShowMenuButton(editor: Editor): boolean {
 
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (! isParagraphNode(currentNode)) {
+    if (!isParagraphNode(currentNode)) {
         return false;
     }
 
