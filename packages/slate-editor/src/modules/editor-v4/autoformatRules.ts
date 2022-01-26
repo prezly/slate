@@ -1,4 +1,12 @@
-import { DIVIDER_NODE_TYPE, QUOTE_NODE_TYPE } from '@prezly/slate-types';
+import type { HeadingNode, ListNode, QuoteNode } from '@prezly/slate-types';
+import {
+    BULLETED_LIST_NODE_TYPE,
+    DIVIDER_NODE_TYPE,
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    NUMBERED_LIST_NODE_TYPE,
+    QUOTE_NODE_TYPE,
+} from '@prezly/slate-types';
 
 import type { AutoformatRule } from '../editor-v4-autoformat/types';
 import { ElementType } from '../editor-v4-rich-formatting';
@@ -82,7 +90,7 @@ export const blockRules: AutoformatRule[] = [
         type: ElementType.NUMBERED_LIST,
         match: '1.',
         format: (editor) => {
-            return toggleBlock(editor, ElementType.NUMBERED_LIST);
+            return toggleBlock<ListNode>(editor, NUMBERED_LIST_NODE_TYPE);
         },
     },
     {
@@ -90,7 +98,7 @@ export const blockRules: AutoformatRule[] = [
         type: ElementType.BULLETED_LIST,
         match: ['-', '*'],
         format: (editor) => {
-            return toggleBlock(editor, ElementType.BULLETED_LIST);
+            return toggleBlock<ListNode>(editor, BULLETED_LIST_NODE_TYPE);
         },
     },
     {
@@ -98,7 +106,7 @@ export const blockRules: AutoformatRule[] = [
         type: ElementType.HEADING_ONE,
         match: '#',
         format: (editor) => {
-            return toggleBlock(editor, ElementType.HEADING_ONE);
+            return toggleBlock<HeadingNode>(editor, HEADING_1_NODE_TYPE);
         },
     },
     {
@@ -106,7 +114,7 @@ export const blockRules: AutoformatRule[] = [
         type: ElementType.HEADING_TWO,
         match: '##',
         format: (editor) => {
-            return toggleBlock(editor, ElementType.HEADING_TWO);
+            return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
         },
     },
     {
@@ -114,7 +122,7 @@ export const blockRules: AutoformatRule[] = [
         type: QUOTE_NODE_TYPE,
         match: '>',
         format: (editor) => {
-            return toggleBlock(editor, QUOTE_NODE_TYPE);
+            return toggleBlock<QuoteNode>(editor, QUOTE_NODE_TYPE);
         },
     },
 ];

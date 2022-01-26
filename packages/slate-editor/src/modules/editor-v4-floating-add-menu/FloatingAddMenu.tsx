@@ -74,7 +74,7 @@ export function FloatingAddMenu<Action>({
     }
 
     function onClose() {
-        open && restoreEditorSelection();
+        restoreEditorSelection();
         resetSelectedOption();
         setQuery('');
     }

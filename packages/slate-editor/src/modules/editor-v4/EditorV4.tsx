@@ -1,5 +1,6 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
+import type { HeadingNode } from '@prezly/slate-types';
 import { Alignment, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
@@ -203,10 +204,10 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             return; // Do nothing. @see MT-4590
         }
         if (action === MenuAction.ADD_HEADING_1) {
-            return toggleBlock(editor, HEADING_1_NODE_TYPE);
+            return toggleBlock<HeadingNode>(editor, HEADING_1_NODE_TYPE);
         }
         if (action === MenuAction.ADD_HEADING_2) {
-            return toggleBlock(editor, HEADING_2_NODE_TYPE);
+            return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
         }
         if (action === MenuAction.ADD_ATTACHMENT) {
             return handleAddAttachment(editor);
