@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
-import type { RefObject } from 'react';
+import type { KeyboardEvent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { useSlate } from 'slate-react';
@@ -11,6 +11,7 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 
 import { ClassicDropdown, Input, ModernDropdown } from './components';
 import './FloatingAddMenu.scss';
+import { isMenuHotkey } from './FloatingAddMenuExtension';
 import {
     sortBetaOptionsLast,
     useEditorSelectionMemory,
@@ -67,8 +68,8 @@ export function FloatingAddMenu<Action>({
         onOpen() {
             // If there's only one component, do not bother with the dropdown at all,
             // just select the first option immediately.
-            if (filteredOptions.length === 1) {
-                onSelect(filteredOptions[0]);
+            if (options.length === 1) {
+                onSelect(options[0]);
                 return;
             }
             rememberEditorSelection();
@@ -83,6 +84,17 @@ export function FloatingAddMenu<Action>({
     function onSelect(option: Option<Action>) {
         menu.close();
         onActivate(option.action);
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+        if (isMenuHotkey(event.nativeEvent)) {
+            event.preventDefault();
+            event.stopPropagation();
+            menu.close();
+            return;
+        }
+
+        onKeyDown(event);
     }
 
     const show = EditorCommands.isCursorInEmptyParagraph(editor);
@@ -148,7 +160,7 @@ export function FloatingAddMenu<Action>({
                         className="editor-v4-floating-add-menu__input"
                         onBlur={menu.close}
                         onChange={setQuery}
-                        onKeyDown={open ? onKeyDown : undefined}
+                        onKeyDown={handleKeyDown}
                         placeholder={prompt}
                         ref={input}
                         tabIndex={-1}

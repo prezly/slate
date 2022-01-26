@@ -4,7 +4,7 @@ import type { HeadingNode } from '@prezly/slate-types';
 import { Alignment, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
@@ -84,8 +84,13 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
-    const [isPlusMenuOpen, togglePlusMenu] = useState(false);
     const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
+    // [+] menu
+    const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
+    const onFloatingAddMenuToggle = useCallback(
+        (shouldOpen?: boolean) => setFloatingAddMenuOpen((isOpen) => shouldOpen ?? !isOpen),
+        [setFloatingAddMenuOpen],
+    );
 
     const extensions = Array.from(
         getEnabledExtensions({
@@ -93,9 +98,11 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             containerRef,
             onOperationEnd,
             onOperationStart,
+            onFloatingAddMenuToggle,
             withAttachments,
             withCoverage,
             withEmbeds,
+            withFloatingAddMenu,
             withGalleries,
             withImages,
             withPlaceholders,
@@ -267,7 +274,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     };
 
     const hasCustomPlaceholder =
-        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isPlusMenuOpen);
+        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
 
     return withToolbarsThemeContext(
         toolbarsTheme,
@@ -314,11 +321,11 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 {withFloatingAddMenu && (
                     <FloatingAddMenu
                         {...withFloatingAddMenu}
-                        open={isPlusMenuOpen}
+                        open={isFloatingAddMenuOpen}
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onActivate={handleMenuAction}
-                        onToggle={togglePlusMenu}
+                        onToggle={onFloatingAddMenuToggle}
                         options={menuOptions}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
                         variant={menuVariant}
