@@ -1,4 +1,3 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
@@ -13,6 +12,7 @@ import { ClassicDropdown, Input, ModernDropdown } from './components';
 import './FloatingAddMenu.scss';
 import {
     isMenuHotkey,
+    shouldShowMenuButton,
     sortBetaOptionsLast,
     useEditorSelectionMemory,
     useKeyboardFiltering,
@@ -97,7 +97,6 @@ export function FloatingAddMenu<Action>({
         onKeyDown(event);
     }
 
-    const show = EditorCommands.isCursorInEmptyParagraph(editor);
     const Dropdown = variant === Variant.CLASSIC ? ClassicDropdown : ModernDropdown;
     const prompt =
         variant === Variant.CLASSIC ? 'Select the type of content you want to add' : 'Search';
@@ -113,7 +112,7 @@ export function FloatingAddMenu<Action>({
             onClose={menu.close}
             open={open}
             pointerEvents={false}
-            show={show}
+            show={shouldShowMenuButton(editor)}
         >
             <TooltipV2.Tooltip
                 autoUpdatePosition
