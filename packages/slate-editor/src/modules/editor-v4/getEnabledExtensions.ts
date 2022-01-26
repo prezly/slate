@@ -8,6 +8,7 @@ import { CoverageExtension } from '#modules/editor-v4-coverage';
 import { DividerExtension } from '#modules/editor-v4-divider';
 import { EmbedExtension } from '#modules/editor-v4-embed';
 import { FileAttachmentExtension } from '#modules/editor-v4-file-attachment';
+import { FloatingAddMenuExtension } from '#modules/editor-v4-floating-add-menu';
 import { GalleriesExtension } from '#modules/editor-v4-galleries';
 import { ImageExtension } from '#modules/editor-v4-image';
 import { LoaderExtension } from '#modules/editor-v4-loader';
@@ -33,6 +34,7 @@ import type { EditorV4ExtensionsProps } from './types';
 
 interface Parameters extends EditorV4ExtensionsProps {
     containerRef: RefObject<HTMLElement>;
+    onFloatingAddMenuToggle: (show?: boolean) => void;
     onOperationEnd?: () => void;
     onOperationStart?: () => void;
 }
@@ -40,11 +42,13 @@ interface Parameters extends EditorV4ExtensionsProps {
 export function* getEnabledExtensions({
     availableWidth,
     containerRef,
+    onFloatingAddMenuToggle,
     onOperationEnd = noop,
     onOperationStart = noop,
     withAttachments,
     withCoverage,
     withEmbeds,
+    withFloatingAddMenu,
     withGalleries,
     withImages,
     withPlaceholders,
@@ -56,6 +60,10 @@ export function* getEnabledExtensions({
     withAutoformat,
 }: Parameters): Generator<Extension> {
     yield ParagraphsExtension();
+
+    if (withFloatingAddMenu) {
+        yield FloatingAddMenuExtension(onFloatingAddMenuToggle);
+    }
 
     if (withPressContacts) {
         yield PressContactsExtension({ containerRef });

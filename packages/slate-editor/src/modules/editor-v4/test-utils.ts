@@ -2,6 +2,8 @@ import { Events } from '@prezly/events';
 import { createRef } from 'react';
 import type { Editor } from 'slate';
 
+import { noop } from '#lodash';
+
 import type { EditorEventMap } from '#modules/editor-v4-events';
 import { withEvents } from '#modules/editor-v4-events';
 import {
@@ -23,6 +25,7 @@ export function getAllExtensions() {
         getEnabledExtensions({
             availableWidth: 1000,
             containerRef,
+            onFloatingAddMenuToggle: noop,
             withAttachments: {
                 styled: true,
             },

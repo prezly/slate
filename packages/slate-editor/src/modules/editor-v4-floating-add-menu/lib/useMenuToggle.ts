@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
-import { useLatest, usePrevious } from '#lib';
+import { useLatest, useUpdateEffect } from '#lib';
 
-interface Parameters {
+interface Callbacks {
     onClose?: () => void;
     onOpen?: () => void;
-    onToggle?: (isShown: boolean) => void;
 }
 
 interface Controls {
@@ -14,38 +13,39 @@ interface Controls {
     toggle: (open?: boolean) => void;
 }
 
-export function useMenuToggle(params: Parameters = {}): [boolean, Controls] {
-    const freshParams = useLatest(params);
-
-    const [isOpen, setOpen] = useState(false);
-    const wasOpen = usePrevious(isOpen);
+export function useMenuToggle(
+    isOpen: boolean,
+    onChange: (show: boolean) => void,
+    callbacks: Callbacks,
+): Controls {
+    const params = useLatest({ onChange, callbacks });
 
     const toggle = useCallback(
         function (shouldOpen?: boolean) {
-            setOpen(function (isNowOpen) {
-                return shouldOpen === undefined ? !isNowOpen : shouldOpen;
-            });
+            const willOpen = shouldOpen !== undefined ? shouldOpen : !isOpen;
+
+            if (willOpen === isOpen) {
+                return;
+            }
+
+            params.current.onChange(willOpen);
         },
-        [freshParams],
+        [isOpen],
     );
 
     const open = useCallback(() => toggle(true), [toggle]);
     const close = useCallback(() => toggle(false), [toggle]);
 
-    useEffect(
-        function () {
-            if (wasOpen !== isOpen) {
-                // Notify callbacks
-                if (isOpen) {
-                    freshParams.current.onOpen && freshParams.current.onOpen();
-                } else {
-                    freshParams.current.onClose && freshParams.current.onClose();
-                }
-                freshParams.current.onToggle && freshParams.current.onToggle(isOpen);
+    useUpdateEffect(
+        function onOpen() {
+            if (isOpen) {
+                params.current.callbacks.onOpen && params.current.callbacks.onOpen();
+            } else {
+                params.current.callbacks.onClose && params.current.callbacks.onClose();
             }
         },
-        [wasOpen, isOpen],
+        [isOpen],
     );
 
-    return [isOpen, { open, close, toggle }];
+    return { open, close, toggle };
 }

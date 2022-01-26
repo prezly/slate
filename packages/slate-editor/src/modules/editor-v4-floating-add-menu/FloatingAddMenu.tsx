@@ -1,8 +1,9 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
-import type { RefObject } from 'react';
+import { isHotkey } from 'is-hotkey';
+import type { KeyboardEvent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
 import type { Modifier } from 'react-popper';
+import { Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
 import { KeyboardKey, TooltipV2 } from '#components';
@@ -12,6 +13,8 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 import { ClassicDropdown, Input, ModernDropdown } from './components';
 import './FloatingAddMenu.scss';
 import {
+    isMenuHotkey,
+    shouldShowMenuButton,
     sortBetaOptionsLast,
     useEditorSelectionMemory,
     useKeyboardFiltering,
@@ -24,6 +27,7 @@ import { Variant } from './types';
 interface Props<Action> extends Settings {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
+    open: boolean;
     options: Option<Action>[];
     onActivate: (action: Action) => void;
     onToggle: (isShown: boolean) => void;
@@ -39,52 +43,80 @@ const TOOLTIP_FLIP_MODIFIER: Modifier<'flip'> = {
     },
 };
 
+const isSpacebar = isHotkey('space');
+
 export function FloatingAddMenu<Action>({
     availableWidth,
     containerRef,
     onActivate,
     onToggle,
+    open,
     options,
     showTooltipByDefault,
     tooltip,
     variant,
 }: Props<Action>) {
     const editor = useSlate();
-    const input = useRef<HTMLInputElement | null>(null);
-    const [query, setQuery] = useState('');
+    const inputElement = useRef<HTMLInputElement | null>(null);
+    const [input, setInput] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
-    const filteredOptions = useKeyboardFiltering(
-        query,
+    const [query, filteredOptions] = useKeyboardFiltering(
+        input,
         variant === Variant.CLASSIC ? sortBetaOptionsLast(options) : options,
     );
     const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
         filteredOptions,
         onSelect,
     );
-    const [open, menu] = useMenuToggle({ onToggle, onOpen, onClose });
-
-    function onOpen() {
-        // If there's only one component, do not bother with the dropdown at all,
-        // just select the first option immediately.
-        if (filteredOptions.length === 1) {
-            onSelect(filteredOptions[0]);
-            return;
-        }
-        rememberEditorSelection();
-    }
-
-    function onClose() {
-        restoreEditorSelection();
-        resetSelectedOption();
-        setQuery('');
-    }
+    const menu = useMenuToggle(open, onToggle, {
+        onOpen() {
+            // If there's only one component, do not bother with the dropdown at all,
+            // just select the first option immediately.
+            if (options.length === 1) {
+                onSelect(options[0]);
+                return;
+            }
+            rememberEditorSelection();
+        },
+        onClose() {
+            restoreEditorSelection();
+            resetSelectedOption();
+            setInput('');
+        },
+    });
 
     function onSelect(option: Option<Action>) {
         menu.close();
         onActivate(option.action);
     }
 
-    const show = EditorCommands.isCursorInEmptyParagraph(editor);
+    function handleKeyDown(event: KeyboardEvent) {
+        if (isMenuHotkey(event)) {
+            event.preventDefault();
+            event.stopPropagation();
+            menu.close();
+            return;
+        }
+
+        /**
+         * An additional whitespace is inserted after the previous query
+         * was already returning no results => close the menu, preserving input.
+         */
+        if (isSpacebar(event)) {
+            if (filteredOptions.length === 0) {
+                event.preventDefault();
+                event.stopPropagation();
+                console.log('inserting text', `${input} `);
+                Transforms.insertText(editor, `${input} `);
+                rememberEditorSelection();
+                menu.close();
+                return;
+            }
+        }
+
+        onKeyDown(event);
+    }
+
     const Dropdown = variant === Variant.CLASSIC ? ClassicDropdown : ModernDropdown;
     const prompt =
         variant === Variant.CLASSIC ? 'Select the type of content you want to add' : 'Search';
@@ -100,7 +132,7 @@ export function FloatingAddMenu<Action>({
             onClose={menu.close}
             open={open}
             pointerEvents={false}
-            show={show}
+            show={shouldShowMenuButton(editor)}
         >
             <TooltipV2.Tooltip
                 autoUpdatePosition
@@ -129,7 +161,15 @@ export function FloatingAddMenu<Action>({
             </TooltipV2.Tooltip>
             {!open && (
                 <p className="editor-v4-floating-add-menu__placeholder">
-                    Start typing or use <KeyboardKey>+</KeyboardKey> to add content.
+                    {variant === Variant.MODERN ? (
+                        <>
+                            Type or press <KeyboardKey>/</KeyboardKey> to add content.
+                        </>
+                    ) : (
+                        <>
+                            Start typing or use <KeyboardKey>+</KeyboardKey> to add content.
+                        </>
+                    )}
                 </p>
             )}
             {open && (
@@ -138,12 +178,12 @@ export function FloatingAddMenu<Action>({
                         autoFocus
                         className="editor-v4-floating-add-menu__input"
                         onBlur={menu.close}
-                        onChange={setQuery}
-                        onKeyDown={open ? onKeyDown : undefined}
+                        onChange={setInput}
+                        onKeyDown={handleKeyDown}
                         placeholder={prompt}
-                        ref={input}
+                        ref={inputElement}
                         tabIndex={-1}
-                        value={query}
+                        value={input}
                     />
                     <Dropdown
                         className="editor-v4-floating-add-menu__dropdown"
@@ -151,7 +191,7 @@ export function FloatingAddMenu<Action>({
                         options={filteredOptions}
                         onItemClick={onSelect}
                         open={open}
-                        referenceElement={input}
+                        referenceElement={inputElement}
                         selectedOption={selectedOption}
                     />
                 </>
