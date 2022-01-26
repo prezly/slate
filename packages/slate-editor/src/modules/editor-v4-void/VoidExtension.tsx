@@ -3,11 +3,11 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
 import { Editor, Transforms } from 'slate';
 
+import { isDeletingEvent } from '#lib';
+
 import { createParagraph } from '#modules/editor-v4-paragraphs';
 
 import { VOID_EXTENSION_ID } from './constants';
-
-import { isDeleting } from '#modules/editor-v4-image/lib';
 
 export function VoidExtension(): Extension {
     return {
@@ -30,7 +30,7 @@ export function VoidExtension(): Extension {
             } else if (isHotkey('enter', event)) {
                 hasBeenHandled = true;
                 EditorCommands.insertEmptyParagraph(editor);
-            } else if (isDeleting(event)) {
+            } else if (isDeletingEvent(event)) {
                 Transforms.setNodes(editor, createParagraph(), {
                     match: (node) => node === currentNode,
                 });

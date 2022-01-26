@@ -9,6 +9,7 @@ import type { Editor } from 'slate';
 import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
+import { isDeletingEvent, isDeletingEventBackward } from '#lib';
 import { noop } from '#lodash';
 
 import { createParagraph } from '#modules/editor-v4-paragraphs';
@@ -18,8 +19,6 @@ import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
 import {
     createImageCandidate,
     getAncestorAnchor,
-    isDeleting,
-    isDeletingBackward,
     normalizeChildren,
     normalizeImageCandidate,
     normalizeRedundantImageAttributes,
@@ -82,7 +81,7 @@ export const ImageExtension = ({
             Transforms.insertText(editor, '\n');
         }
 
-        if (isDeleting(event)) {
+        if (isDeletingEvent(event)) {
             const nodeEntry = EditorCommands.getCurrentNodeEntry(editor);
             const now = Date.now();
             const isHoldingDelete = now - lastBackspaceTimestamp <= HOLDING_BACKSPACE_THRESHOLD;
@@ -106,7 +105,7 @@ export const ImageExtension = ({
             }
 
             if (
-                isDeletingBackward(event) &&
+                isDeletingEventBackward(event) &&
                 EditorCommands.isSelectionAtBlockStart(editor) &&
                 EditorCommands.isSelectionEmpty(editor)
             ) {
