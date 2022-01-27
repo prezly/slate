@@ -18,10 +18,6 @@
         width: 100%;
         height: 100%;
         z-index: $editor-v4-embed-element-overlay-z-index;
-
-        &--hidden {
-            display: none;
-        }
     }
 
     &__card {
