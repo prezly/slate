@@ -25,7 +25,7 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
     };
 
     editor.deleteForward = (unit) => {
-        const previousBlockSelection = saveSelection(editor);
+        const selectionBeforeDeleting = saveSelection(editor);
 
         const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: false, unit });
         if (!isRemoved) {
@@ -41,7 +41,7 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
          * The fix is to store the selection before removing and then restoring it.
          * This will ensure the cursor stays in the same location.
          */
-        previousBlockSelection.restore(editor);
+        selectionBeforeDeleting.restore(editor);
     };
 
     return editor;
