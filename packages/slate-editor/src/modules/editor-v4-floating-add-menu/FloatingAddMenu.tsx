@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { Transforms } from 'slate';
 import { useSlate } from 'slate-react';
@@ -57,7 +57,7 @@ export function FloatingAddMenu<Action>({
     variant,
 }: Props<Action>) {
     const editor = useSlate();
-    const inputElement = useRef<HTMLInputElement | null>(null);
+    const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
     const [input, setInput] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
     const [query, filteredOptions] = useKeyboardFiltering(
@@ -181,7 +181,7 @@ export function FloatingAddMenu<Action>({
                         onChange={setInput}
                         onKeyDown={handleKeyDown}
                         placeholder={prompt}
-                        ref={inputElement}
+                        ref={setInputElement}
                         tabIndex={-1}
                         value={input}
                     />

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import maxSize from 'popper-max-size-modifier';
-import type { ReactNode, RefObject } from 'react';
+import type { ReactNode } from 'react';
 import React, { Fragment, useRef } from 'react';
 import { MenuItem } from 'react-bootstrap';
 import { usePopper } from 'react-popper';
@@ -19,7 +19,7 @@ interface Props<Action> {
     options: Option<Action>[];
     onItemClick: (option: Option<Action>) => void;
     open: boolean;
-    referenceElement: RefObject<HTMLElement>;
+    referenceElement: HTMLElement | null;
     selectedOption: Option<Action>;
 }
 
@@ -72,7 +72,7 @@ export function ModernDropdown<Action>({
 
     const scrollarea = useRef<HTMLDivElement>(null);
     const { attributes, styles } = usePopper(
-        referenceElement.current,
+        referenceElement,
         scrollarea.current,
         POPPER_CONFIG,
     );
