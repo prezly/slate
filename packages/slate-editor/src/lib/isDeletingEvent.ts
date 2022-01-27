@@ -1,4 +1,4 @@
-import isHotkey from 'is-hotkey';
+import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 
 export function isDeletingEventBackward(event: KeyboardEvent): boolean {
