@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export function useResizeObserver(
-    element: HTMLElement | null,
-    callback: ResizeObserverCallback,
-) {
+export function useResizeObserver(element: HTMLElement | null, callback: ResizeObserverCallback) {
     const observer = useRef<ResizeObserver | null>(null);
 
     useEffect(
