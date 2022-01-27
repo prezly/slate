@@ -2,11 +2,15 @@ import type { BookmarkNode } from '@prezly/slate-types';
 import { BookmarkCardLayout } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
+import { useRef, useState } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
 import './WebBookmarkElement.scss';
+import { useResizeObserver } from '#lib';
+
+const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -73,10 +77,24 @@ const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed']; showUrl: boo
 
 export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
     const isSelected = useSelected();
+    const ref = useRef<HTMLDivElement | null>(null);
+    const [isSmallViewport, setSmallViewport] = useState(false);
+
     const { url, oembed, layout } = element;
     const showThumbnail = element.show_thumbnail && oembed.thumbnail_url;
     const isEmpty = !showThumbnail && isEmptyText(oembed.title) && isEmptyText(oembed.description);
-    const actualLayout = showThumbnail ? layout : BookmarkCardLayout.HORIZONTAL;
+
+    const actualLayout = !showThumbnail
+        ? BookmarkCardLayout.HORIZONTAL
+        : isSmallViewport
+        ? BookmarkCardLayout.VERTICAL
+        : layout;
+
+    useResizeObserver(ref.current, function (entries) {
+        entries.forEach(function (entry) {
+            setSmallViewport(entry.contentRect.width < HORIZONTAL_LAYOUT_MIN_WIDTH);
+        });
+    });
 
     return (
         <div
@@ -92,6 +110,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             })}
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
+            ref={ref}
         >
             <div contentEditable={false}>
                 <div
