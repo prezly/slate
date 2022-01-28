@@ -37,7 +37,7 @@ export function useMenuToggle(
     const close = useCallback(() => toggle(false), [toggle]);
 
     useUpdateEffect(
-        function onOpen() {
+        function triggerCallbacks() {
             if (isOpen) {
                 params.current.callbacks.onOpen && params.current.callbacks.onOpen();
             } else {
