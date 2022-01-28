@@ -19,11 +19,13 @@ export function useEditorSelectionMemory(): [RememberFn, RestoreFn] {
 
     const restore = useCallback(
         function () {
-            if (!ReactEditor.isFocused(editor) && lastSelectionRef.current) {
+            if (!ReactEditor.isFocused(editor)) {
                 // Restore editor focus because the input captured the focus.
                 ReactEditor.focus(editor);
-                Transforms.select(editor, lastSelectionRef.current);
-                lastSelectionRef.current = null;
+                if (lastSelectionRef.current) {
+                    Transforms.select(editor, lastSelectionRef.current);
+                    lastSelectionRef.current = null;
+                }
             }
         },
         [editor, lastSelectionRef],
