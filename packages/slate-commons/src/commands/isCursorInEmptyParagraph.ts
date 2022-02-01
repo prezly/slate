@@ -5,7 +5,7 @@ import { getCurrentNodeEntry } from './getCurrentNodeEntry';
 import { isEmptyParagraphElement } from './isEmptyParagraphElement';
 
 interface Options {
-    shouldTrim?: boolean;
+    ignoreWhitespace?: boolean;
 }
 
 export function isCursorInEmptyParagraph(editor: Editor, options?: Options): boolean {
@@ -24,5 +24,7 @@ export function isCursorInEmptyParagraph(editor: Editor, options?: Options): boo
     }
 
     const [currentNode] = currentNodeEntry;
-    return isEmptyParagraphElement(editor, currentNode, options);
+    return isEmptyParagraphElement(editor, currentNode, {
+        ignoreWhitespace: options?.ignoreWhitespace,
+    });
 }

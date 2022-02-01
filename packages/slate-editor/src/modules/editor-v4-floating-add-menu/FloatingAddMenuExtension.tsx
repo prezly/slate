@@ -24,7 +24,7 @@ export function FloatingAddMenuExtension(toggleMenu: (open?: boolean) => void): 
 
             if (
                 isTriggerInput(event) &&
-                EditorCommands.isCursorInEmptyParagraph(editor, { shouldTrim: true })
+                EditorCommands.isCursorInEmptyParagraph(editor, { ignoreWhitespace: true })
             ) {
                 toggleMenu();
                 return;

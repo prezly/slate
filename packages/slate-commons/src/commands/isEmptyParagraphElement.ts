@@ -5,7 +5,7 @@ import type { Editor } from 'slate';
 import { isNodeEmpty } from './isNodeEmpty';
 
 interface Options {
-    shouldTrim?: boolean;
+    ignoreWhitespace?: boolean;
 }
 
 export function isEmptyParagraphElement(
@@ -19,7 +19,7 @@ export function isEmptyParagraphElement(
 
     let nodeEmpty = isNodeEmpty(editor, node);
 
-    if (options?.shouldTrim && nodeEmpty === false) {
+    if (options?.ignoreWhitespace && nodeEmpty === false) {
         const str = Node.string(node);
         nodeEmpty = nodeEmpty || Boolean(str.length && str.trim() === '');
     }
