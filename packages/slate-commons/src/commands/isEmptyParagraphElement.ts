@@ -2,7 +2,7 @@ import { isParagraphNode } from '@prezly/slate-types';
 import { Node } from 'slate';
 
 interface Options {
-    ignoreWhitespace?: boolean;
+    trim?: boolean;
 }
 
 export function isEmptyParagraphElement(node?: Node | null, options?: Options): boolean {
@@ -10,7 +10,7 @@ export function isEmptyParagraphElement(node?: Node | null, options?: Options): 
         return false;
     }
 
-    if (options?.ignoreWhitespace) {
+    if (options?.trim) {
         return Node.string(node).trim() === '';
     }
 

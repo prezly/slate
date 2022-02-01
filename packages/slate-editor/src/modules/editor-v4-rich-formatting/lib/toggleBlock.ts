@@ -21,7 +21,7 @@ export function toggleBlock<Block extends ElementNode>(editor: Editor, type: Blo
 
     lists.unwrapList(editor);
 
-    if (path && EditorCommands.isCursorInEmptyParagraph(editor, { ignoreWhitespace: true })) {
+    if (path && EditorCommands.isCursorInEmptyParagraph(editor, { trim: true })) {
         EditorCommands.removeChildren(editor, [currentNode, path]);
     }
 

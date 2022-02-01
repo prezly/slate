@@ -39,14 +39,10 @@ describe('isNodeEmpty', () => {
     });
 
     it('Considers paragraph node with whitespace only to be empty when whitespace is ignored', () => {
-        expect(
-            isEmptyParagraphElement(editor.children[2], { ignoreWhitespace: true }),
-        ).toBe(true);
+        expect(isEmptyParagraphElement(editor.children[2], { trim: true })).toBe(true);
     });
 
     it('Considers text node with whitespace only to be empty when whitespace is ignored', () => {
-        expect(
-            isEmptyParagraphElement(editor.children[3], { ignoreWhitespace: true }),
-        ).toBe(true);
+        expect(isEmptyParagraphElement(editor.children[3], { trim: true })).toBe(true);
     });
 });
