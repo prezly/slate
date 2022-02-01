@@ -34,7 +34,7 @@ export const LinkMenu: FunctionComponent<Props> = ({
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffectOnce(() => {
-        inputRef.current?.focus();
+        inputRef.current?.select();
     });
 
     return (
