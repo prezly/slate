@@ -37,12 +37,4 @@ describe('isNodeEmpty', () => {
     it('Considers text node with whitespace to not be empty', () => {
         expect(isNodeEmpty(editor, editor.children[3])).toBe(false);
     });
-
-    it('Considers paragraph node with text node with whitespace to be empty when trim is enabled', () => {
-        expect(isNodeEmpty(editor, editor.children[2], { shouldTrim: true })).toBe(true);
-    });
-
-    it('Considers text node with whitespace to be empty when trim is enabled', () => {
-        expect(isNodeEmpty(editor, editor.children[3], { shouldTrim: true })).toBe(true);
-    });
 });
