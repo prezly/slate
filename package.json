@@ -2,6 +2,7 @@
     "name": "prezly-slate",
     "description": "Prezly software built upon Slate",
     "license": "MIT",
+    "private": true,
     "repository": {
         "type": "git",
         "url": "git+https://github.com/prezly/slate.git"

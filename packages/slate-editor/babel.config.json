@@ -12,6 +12,7 @@
                 }
             },
             "local-imports-shortcuts"
-        ]
+        ],
+        "babel-plugin-styled-components"
     ]
 }
