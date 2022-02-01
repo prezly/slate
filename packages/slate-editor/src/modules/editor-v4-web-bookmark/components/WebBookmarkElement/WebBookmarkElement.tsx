@@ -77,7 +77,7 @@ const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed']; showUrl: boo
 
 export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
     const isSelected = useSelected();
-    const ref = useRef<HTMLDivElement | null>(null);
+    const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);
 
     const { url, oembed, layout } = element;
@@ -90,7 +90,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
         ? BookmarkCardLayout.VERTICAL
         : layout;
 
-    useResizeObserver(ref.current, function (entries) {
+    useResizeObserver(card.current, function (entries) {
         entries.forEach(function (entry) {
             setSmallViewport(entry.contentRect.width < HORIZONTAL_LAYOUT_MIN_WIDTH);
         });
@@ -110,11 +110,11 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             })}
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
-            ref={ref}
+            ref={attributes.ref}
         >
             <div contentEditable={false}>
                 <div className="editor-v4-web-bookmark-element__overlay" />
-                <div className="editor-v4-web-bookmark-element__card">
+                <div className="editor-v4-web-bookmark-element__card" ref={card}>
                     {showThumbnail && oembed.thumbnail_url && (
                         <Thumbnail
                             href={url}
