@@ -24,7 +24,7 @@ export function isCursorInEmptyParagraph(editor: Editor, options?: Options): boo
     }
 
     const [currentNode] = currentNodeEntry;
-    return isEmptyParagraphElement(editor, currentNode, {
+    return isEmptyParagraphElement(currentNode, {
         ignoreWhitespace: options?.ignoreWhitespace,
     });
 }
