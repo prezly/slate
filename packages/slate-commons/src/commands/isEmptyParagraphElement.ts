@@ -4,14 +4,14 @@ import type { Editor } from 'slate';
 
 import { isNodeEmpty } from './isNodeEmpty';
 
-export interface IsEmptyParagraphElementOptions {
+interface Options {
     shouldTrim?: boolean;
 }
 
 export function isEmptyParagraphElement(
     editor: Editor,
     node?: Node | null,
-    options?: IsEmptyParagraphElementOptions,
+    options?: Options,
 ): boolean {
     if (!isParagraphNode(node) || !node) {
         return false;
