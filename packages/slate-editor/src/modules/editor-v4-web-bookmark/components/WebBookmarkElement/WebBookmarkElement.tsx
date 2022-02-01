@@ -113,11 +113,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             ref={ref}
         >
             <div contentEditable={false}>
-                <div
-                    className={classNames('editor-v4-web-bookmark-element__overlay', {
-                        'editor-v4-web-bookmark-element__overlay--hidden': isSelected,
-                    })}
-                />
+                <div className="editor-v4-web-bookmark-element__overlay" />
                 <div className="editor-v4-web-bookmark-element__card">
                     {showThumbnail && oembed.thumbnail_url && (
                         <Thumbnail
