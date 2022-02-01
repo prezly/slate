@@ -34,14 +34,7 @@ export const LinkMenu: FunctionComponent<Props> = ({
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffectOnce(() => {
-        // This fixes an issue where input element is not autofocused on mount.
-        // No, I have no idea why we need to call `select()`, or why this needs a `setTimeout`.
-        // See: https://github.com/prezly/prezly/pull/8354#discussion_r476235647
-        setTimeout(() => {
-            if (inputRef.current) {
-                inputRef.current.select();
-            }
-        }, 0);
+        inputRef.current?.select();
     });
 
     return (

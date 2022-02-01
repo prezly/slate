@@ -9,7 +9,7 @@
     z-index: $highest-known-z-index + 1;
 
     &--uninitialized {
-        visibility: hidden;
+        opacity: 0;
     }
 
     &--no-pointer-events {

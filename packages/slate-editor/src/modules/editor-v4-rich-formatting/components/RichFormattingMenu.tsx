@@ -166,8 +166,14 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
             <ElementPortalV2
                 containerRef={containerRef}
                 element={linkCandidateElement}
-                modifiers={[OFFSET_MODIFIER]}
-                placement="top"
+                modifiers={[
+                    OFFSET_MODIFIER,
+                    keepToolbarInTextColumn({
+                        editorElement: containerRef.current,
+                        availableWidth,
+                    }),
+                ]}
+                placement="top-start"
             >
                 <Menu.Toolbar>
                     <LinkMenu
