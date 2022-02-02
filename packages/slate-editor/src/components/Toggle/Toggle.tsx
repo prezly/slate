@@ -11,11 +11,14 @@ interface ToggleProps {
 export function Toggle(props: React.PropsWithChildren<ToggleProps>) {
     return (
         <Text as="label">
-            <ToggleComponent
-                checked={props.value}
-                onChange={(e) => props.onChange?.(e.target.checked)}
-            />
-            {props.children}
+            <ToggleContent>
+                <ToggleComponent
+                    checked={props.value}
+                    onChange={(e) => props.onChange?.(e.target.checked)}
+                />
+
+                {props.children && <ToggleLabelText>{props.children}</ToggleLabelText>}
+            </ToggleContent>
         </Text>
     );
 }
@@ -23,10 +26,16 @@ export function Toggle(props: React.PropsWithChildren<ToggleProps>) {
 const GRAY_CIRCLE = `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e")`;
 const WHITE_CIRCLE = `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e")`;
 
+const ToggleContent = styled.span`
+    display: inline-flex;
+    align-items: center;
+`;
+
 const ToggleComponent = styled.input.attrs({ type: 'checkbox' })`
     appearance: none;
     width: 30px;
     height: 16px;
+    margin: 0;
     border-radius: 24px;
     background-image: ${GRAY_CIRCLE};
     background-size: contain;
@@ -51,4 +60,8 @@ const ToggleComponent = styled.input.attrs({ type: 'checkbox' })`
     &:disabled {
         opacity: 0.5;
     }
+`;
+
+const ToggleLabelText = styled.span`
+    margin-left: 12px;
 `;
