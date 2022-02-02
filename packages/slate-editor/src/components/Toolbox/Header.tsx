@@ -10,4 +10,5 @@ export function Header(props: React.PropsWithChildren<HeaderProps>) {
 }
 
 const HeaderWrapper = styled.div`
+    background: ${(props) => props.theme.toolbox.hello};
 `;
