@@ -22,7 +22,10 @@ export function FloatingAddMenuExtension(toggleMenu: (open?: boolean) => void): 
                 return;
             }
 
-            if (isTriggerInput(event) && EditorCommands.isCursorInEmptyParagraph(editor)) {
+            if (
+                isTriggerInput(event) &&
+                EditorCommands.isCursorInEmptyParagraph(editor, { trim: true })
+            ) {
                 toggleMenu();
                 return;
             }
