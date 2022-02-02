@@ -6,7 +6,7 @@ import { jsx } from '../jsx';
 
 import { isEmptyParagraphElement } from './isEmptyParagraphElement';
 
-describe('isNodeEmpty', () => {
+describe('isEmptyParagraphElement', () => {
     const editor = (
         <editor>
             <h-p>
