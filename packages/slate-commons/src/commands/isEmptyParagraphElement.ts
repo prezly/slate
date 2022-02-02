@@ -1,28 +1,39 @@
 import { isParagraphNode } from '@prezly/slate-types';
-import { Node } from 'slate';
-import type { Editor } from 'slate';
+import { Editor, Node, Text } from 'slate';
 
-import { isNodeEmpty } from './isNodeEmpty';
-
-export interface IsEmptyParagraphElementOptions {
-    shouldTrim?: boolean;
+interface Options {
+    trim?: boolean;
 }
 
 export function isEmptyParagraphElement(
     editor: Editor,
     node?: Node | null,
-    options?: IsEmptyParagraphElementOptions,
+    options?: Options,
 ): boolean {
     if (!isParagraphNode(node) || !node) {
         return false;
     }
 
-    let nodeEmpty = isNodeEmpty(editor, node);
-
-    if (options?.shouldTrim && nodeEmpty === false) {
-        const str = Node.string(node);
-        nodeEmpty = nodeEmpty || Boolean(str.length && str.trim() === '');
+    if (hasVoidElements(editor, node)) {
+        return false;
     }
 
-    return nodeEmpty;
+    if (options?.trim) {
+        return Node.string(node).trim() === '';
+    }
+
+    return Node.string(node) === '';
+}
+
+function hasVoidElements(editor: Editor, node: Node): boolean {
+    if (Text.isText(node)) {
+        return false;
+    }
+    if (Editor.isEditor(node)) {
+        return node.children.some((child) => hasVoidElements(editor, child));
+    }
+    if (editor.isVoid(node)) {
+        return false;
+    }
+    return node.children.some((child) => hasVoidElements(editor, child));
 }

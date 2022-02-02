@@ -2,17 +2,13 @@ import type { Editor } from 'slate';
 import { Range } from 'slate';
 
 import { getCurrentNodeEntry } from './getCurrentNodeEntry';
-import type { IsEmptyParagraphElementOptions } from './isEmptyParagraphElement';
 import { isEmptyParagraphElement } from './isEmptyParagraphElement';
 
-export interface IsCursorInEmptyParagraphOptions {
-    shouldTrim?: IsEmptyParagraphElementOptions['shouldTrim'];
+interface Options {
+    trim?: boolean;
 }
 
-export function isCursorInEmptyParagraph(
-    editor: Editor,
-    options?: IsCursorInEmptyParagraphOptions,
-): boolean {
+export function isCursorInEmptyParagraph(editor: Editor, options?: Options): boolean {
     if (!editor.selection) {
         return false;
     }
@@ -28,5 +24,7 @@ export function isCursorInEmptyParagraph(
     }
 
     const [currentNode] = currentNodeEntry;
-    return isEmptyParagraphElement(editor, currentNode, options);
+    return isEmptyParagraphElement(editor, currentNode, {
+        trim: options?.trim,
+    });
 }
