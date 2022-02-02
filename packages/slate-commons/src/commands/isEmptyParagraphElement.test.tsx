@@ -19,6 +19,9 @@ describe('isEmptyParagraphElement', () => {
                 <h-text> </h-text>
             </h-p>
             <h-p></h-p>
+            <h-p>
+                <h-void-element/>
+            </h-p>
         </editor>
     ) as unknown as Editor;
 
@@ -48,5 +51,9 @@ describe('isEmptyParagraphElement', () => {
 
     it('Considers paragraph without text nodes to be empty when whitespace is ignored', () => {
         expect(isEmptyParagraphElement(editor, editor.children[3], { trim: true })).toBe(true);
+    });
+
+    it('Considers paragraph with void elements as non-empty', () => {
+        expect(isEmptyParagraphElement(editor, editor.children[4], { trim: true })).toBe(true);
     });
 });

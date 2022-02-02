@@ -33,7 +33,7 @@ function hasVoidElements(editor: Editor, node: Node): boolean {
         return node.children.some((child) => hasVoidElements(editor, child));
     }
     if (editor.isVoid(node)) {
-        return false;
+        return true;
     }
     return node.children.some((child) => hasVoidElements(editor, child));
 }
