@@ -1,5 +1,6 @@
 declare module '@prezly/slate-editor/theme' {
     declare namespace TextTheme {
+        export type FontWeight = 'normal' | 'bold';
         export interface Colors {
             primary: string;
         }

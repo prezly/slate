@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { Text } from '../Text';
+import { Caption } from './Caption';
 
 interface HeaderProps {
     withCloseButton?: boolean;
@@ -10,7 +10,7 @@ interface HeaderProps {
 export function Header(props: React.PropsWithChildren<HeaderProps>) {
     return (
         <HeaderWrapper>
-            <Text>{props.children}</Text>
+            <Caption>{props.children}</Caption>
         </HeaderWrapper>
     );
 }
