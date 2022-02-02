@@ -11,3 +11,5 @@ export * as LoadingPlaceholderV2 from './LoadingPlaceholderV2';
 export { MultilineEllipsis } from './MultilineEllipsis';
 export { ElementPortalV2, TextSelectionPortalV2 } from './Portals';
 export * as TooltipV2 from './TooltipV2';
+export * as Toolbox from './Toolbox';
+export * from './Text';

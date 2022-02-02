@@ -1,6 +1,9 @@
 declare module '@prezly/slate-editor/theme' {
     export interface ToolboxTheme {
-        hello: string;
+        background: string;
+        borderRadius: string;
+        padding: string;
+        textColorName: keyof TextTheme.Colors;
     }
 
     export interface Theme {
