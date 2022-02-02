@@ -19,10 +19,6 @@
         position: absolute;
         top: math.div($editor-v4-paragraph-line-height - $editor-v4-floating-button-size, 2);
         left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
-    }
-
-    &__dropdown,
-    &__button {
         pointer-events: all;
     }
 }
