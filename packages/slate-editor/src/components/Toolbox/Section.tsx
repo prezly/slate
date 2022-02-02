@@ -32,7 +32,8 @@ const SectionWrapper = styled.div`
 
 const SectionContent = styled.div<Pick<SectionProps, 'contentPosition'>>`
     display: flex;
-    justify-content: ${(props) => props.contentPosition ?? 'start'};
+    flex-flow: column;
+    align-items: ${(props) => props.contentPosition ?? 'start'};
 `;
 
 const CaptionWrapper = styled.div`

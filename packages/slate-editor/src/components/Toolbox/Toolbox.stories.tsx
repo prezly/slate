@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { ExternalLink } from '../../icons';
+import { ExternalLink, Delete } from '../../icons';
+import { Button } from '../Button';
 import type { ChooseGroupOption } from '../ChooseGroup';
 import { ChooseGroup } from '../ChooseGroup';
 import { Toggle } from '../Toggle';
@@ -15,8 +16,6 @@ export function Base() {
     const [cardLayout, setCardLayout] = React.useState<
         typeof cardLayoutOptions[number]['value'] | undefined
     >('vertical');
-
-    console.log(cardLayout);
 
     const cardLayoutOptions: ChooseGroupOption<'vertical' | 'horizontal'>[] = [
         {
@@ -100,7 +99,17 @@ export function Base() {
                         selected={cardLayout}
                         onChange={setCardLayout}
                     />
+
+                    <div style={{ margin: '16px 0' }}>
+                        <Toggle>Open in new tab</Toggle>
+                    </div>
                 </Toolbox.Section>
+
+                <Toolbox.Footer>
+                    <Button variant="clear" Icon={Delete} fullWidth>
+                        Remove web bookmark
+                    </Button>
+                </Toolbox.Footer>
             </Toolbox.Panel>
         </div>
     );
