@@ -9,7 +9,9 @@ import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 
 import { useMountedState, useRafLoop } from '#lib';
-import { isEqual, noop } from '#lodash';
+import { isEqual } from '#lodash';
+
+import { convertClientRect } from './convertClientRect';
 
 import './BasePortalV2.scss';
 
@@ -51,8 +53,18 @@ export const BasePortalV2: FunctionComponent<Props> = ({
 }) => {
     const isMounted = useMountedState();
     const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
-    const lastRectRef = useRef<ClientRect | Rect | null>(getBoundingClientRect());
-    const [referenceElement, setReferenceElement] = useState<VirtualElement | null>(null);
+    const lastRectRef = useRef(convertClientRect(getBoundingClientRect()));
+
+    const [referenceElement, setReferenceElement] = useState<VirtualElement | null>(() => {
+        const rect = lastRectRef.current;
+
+        return rect
+            ? {
+                  getBoundingClientRect: () => rect,
+              }
+            : null;
+    });
+
     const { attributes, styles } = usePopper(referenceElement, popperElement, {
         modifiers: [FLIP_MODIFIER, PREVENT_OVERFLOW_MODIFIER, ...modifiers],
         placement,
@@ -63,11 +75,12 @@ export const BasePortalV2: FunctionComponent<Props> = ({
             return;
         }
 
-        const rect = getBoundingClientRect();
+        const rect = convertClientRect(getBoundingClientRect());
 
         // Optimization: do not call `setReferenceElement` on every animation frame to avoid
         // an infinite re-render loop.
-        if (isEqual(rect, lastRectRef.current)) {
+
+        if (rect && lastRectRef.current && isEqual(rect, lastRectRef.current)) {
             return;
         }
 
@@ -76,24 +89,8 @@ export const BasePortalV2: FunctionComponent<Props> = ({
         if (rect === null) {
             setReferenceElement(null);
         } else {
-            /**
-             * We have to manually re-create a ClientRect-shape object instead of `...rect`,
-             * as `DOMRect` object properties are not enumerable.
-             * @see https://github.com/microsoft/TypeScript/issues/9726
-             */
-            const clientRect: ClientRect = {
-                x: 'x' in rect ? rect.x : rect.left,
-                y: 'y' in rect ? rect.y : rect.top,
-                left: rect.left,
-                right: rect.right,
-                top: rect.top,
-                bottom: rect.bottom,
-                width: rect.width,
-                height: rect.height,
-                toJSON: noop,
-            };
             setReferenceElement({
-                getBoundingClientRect: () => clientRect,
+                getBoundingClientRect: () => rect,
             });
         }
     });
