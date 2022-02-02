@@ -20,7 +20,7 @@ describe('isNodeEmpty', () => {
             </h-p>
             <h-text> </h-text>
             <h-p>
-                <h-void-element/>
+                <h-void-element />
             </h-p>
         </editor>
     ) as unknown as Editor;
