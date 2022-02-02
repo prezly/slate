@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { ExternalLink } from '../../icons';
+import { Toggle } from '../Toggle';
 
 import * as Toolbox from './index';
 
@@ -20,7 +21,9 @@ export function Base() {
                     </Toolbox.Link>
                 </Toolbox.Section>
 
-                <Toolbox.Section caption="Preview image">asd</Toolbox.Section>
+                <Toolbox.Section caption="Preview image">
+                    <Toggle>Show preview image</Toggle>
+                </Toolbox.Section>
             </Toolbox.Panel>
         </div>
     );
