@@ -1,12 +1,8 @@
 import * as React from 'react';
 
-import { ExternalLink, Delete } from '../../icons';
-import { Button } from '../Button';
-import type { ChooseGroupOption } from '../ChooseGroup';
-import { ChooseGroup } from '../ChooseGroup';
-import { Toggle } from '../Toggle';
-
-import * as Toolbox from './index';
+import type { ChooseGroupOption } from '#components';
+import { Toolbox, Toggle, ChooseGroup, Button, Link } from '#components';
+import { ExternalLink, Delete } from '#icons';
 
 export default {
     title: 'Components/Toolbox',
@@ -82,9 +78,9 @@ export function Base() {
                 <Toolbox.Header withCloseButton>Web bookmark settings</Toolbox.Header>
 
                 <Toolbox.Section contentPosition="center">
-                    <Toolbox.Link href="#" icon={ExternalLink}>
+                    <Link href="#" icon={ExternalLink}>
                         View
-                    </Toolbox.Link>
+                    </Link>
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Preview image">
