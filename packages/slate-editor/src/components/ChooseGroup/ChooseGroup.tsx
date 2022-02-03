@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styled from 'styled-components';
 
 import type { ChooseGroupOption, CheckboxChoose, RadioChoose } from './ChooseOption';
 import { ChooseOption } from './ChooseOption';
@@ -6,6 +7,7 @@ import { ChooseOption } from './ChooseOption';
 interface ChooseGroupCommon<T extends string> {
     name: string;
     options: ChooseGroupOption<T>[];
+    columns?: number;
 }
 
 type ChooseGroupProps<T extends string> = ChooseGroupCommon<T> &
@@ -17,8 +19,10 @@ export function ChooseGroup<T extends string>(props: ChooseGroupProps<T>) {
         [props.selected],
     );
 
+    const totalColumns = props.columns ?? props.options.length;
+
     return (
-        <div>
+        <ChooseGroupWrapper totalColumns={totalColumns}>
             {props.options.map((o) =>
                 props.type === 'radio' ? (
                     <ChooseOption
@@ -42,6 +46,13 @@ export function ChooseGroup<T extends string>(props: ChooseGroupProps<T>) {
                     />
                 ),
             )}
-        </div>
+        </ChooseGroupWrapper>
     );
 }
+
+const ChooseGroupWrapper = styled.div<{ totalColumns: number }>`
+    display: grid;
+    grid-template-columns: repeat(${(props) => props.totalColumns}, 1fr);
+    justify-items: center;
+    grid-column-gap: 8px;
+`;

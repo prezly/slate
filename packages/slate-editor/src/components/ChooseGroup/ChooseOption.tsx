@@ -69,7 +69,6 @@ const Label = styled.label<{ isActive: boolean }>`
     display: inline-flex;
     flex-flow: column;
     align-items: center;
-    margin-right: 20px;
     font-size: 14px;
 
     ${(props) =>

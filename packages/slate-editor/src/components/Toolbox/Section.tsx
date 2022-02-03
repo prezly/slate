@@ -5,7 +5,6 @@ import { Caption } from './Caption';
 
 interface SectionProps {
     caption?: string;
-    contentPosition?: 'start' | 'center' | 'end';
 }
 
 export function Section(props: React.PropsWithChildren<SectionProps>) {
@@ -17,9 +16,7 @@ export function Section(props: React.PropsWithChildren<SectionProps>) {
                 </CaptionWrapper>
             )}
 
-            <SectionContent contentPosition={props.contentPosition}>
-                {props.children}
-            </SectionContent>
+            {props.children}
         </SectionWrapper>
     );
 }
@@ -28,12 +25,6 @@ const SectionWrapper = styled.div`
     border-top: 1px solid ${(props) => props.theme.toolbox.delimiterColor};
     background: ${(props) => props.theme.toolbox.background};
     padding: ${(props) => props.theme.toolbox.padding};
-`;
-
-const SectionContent = styled.div<Pick<SectionProps, 'contentPosition'>>`
-    display: flex;
-    flex-flow: column;
-    align-items: ${(props) => props.contentPosition ?? 'start'};
 `;
 
 const CaptionWrapper = styled.div`

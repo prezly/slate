@@ -78,10 +78,12 @@ export function Base() {
             <Toolbox.Panel>
                 <Toolbox.Header withCloseButton>Web bookmark settings</Toolbox.Header>
 
-                <Toolbox.Section contentPosition="center">
-                    <Link href="#" icon={ExternalLink}>
-                        View
-                    </Link>
+                <Toolbox.Section>
+                    <Flex justifyContent="center">
+                        <Link href="#" icon={ExternalLink}>
+                            View
+                        </Link>
+                    </Flex>
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Preview image">
@@ -89,13 +91,14 @@ export function Base() {
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Card layout">
-                    <VStack spacing="m">
+                    <VStack spacing="m" flexGrow={1}>
                         <ChooseGroup
                             name="card-layout"
                             type="radio"
                             options={cardLayoutOptions}
                             selected={cardLayout}
                             onChange={setCardLayout}
+                            columns={3}
                         />
 
                         <Toggle>Open in new tab</Toggle>
