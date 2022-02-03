@@ -1,3 +1,5 @@
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
 module.exports = {
     stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
     addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
@@ -26,6 +28,15 @@ module.exports = {
             exclude: [/node_modules/],
             loader: 'babel-loader',
         });
+
+        config.module.rules.push({
+            test: /\.mjs$/,
+            type: 'javascript/auto',
+        });
+
+        config.resolve.alias['#lodash'] = require.resolve('lodash-es');
+
+        config.plugins.push(new TsconfigPathsPlugin({}));
 
         return {
             ...config,

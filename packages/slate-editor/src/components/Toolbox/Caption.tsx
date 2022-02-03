@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTheme } from 'styled-components';
 
-import { Text } from '../Text';
+import { Text } from '#components';
 
 interface CaptionProps {
     withCloseButton?: boolean;
