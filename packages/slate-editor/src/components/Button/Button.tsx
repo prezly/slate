@@ -14,7 +14,7 @@ export function Button(props: React.PropsWithChildren<ButtonProps>) {
     return (
         <ButtonComponent {...props}>
             <Text as={HStack} spacing="s" alignItems="center">
-                {props.Icon && <IconWrapper as={props.Icon} width={12} height={12} />}
+                {props.Icon && <IconWrapper as={props.Icon} />}
                 {props.children && <span>{props.children}</span>}
             </Text>
         </ButtonComponent>
@@ -48,4 +48,7 @@ const ButtonComponent = styled.button<ButtonProps>`
         `}
 `;
 
-const IconWrapper = styled.span``;
+const IconWrapper = styled.span`
+    width: 12px;
+    height: 12px;
+`;

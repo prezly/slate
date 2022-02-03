@@ -5,16 +5,16 @@ import type { DefaultTheme, ThemedStyledProps } from 'styled-components';
 import styled, { css } from 'styled-components';
 
 type BoxSizingProps = {
-    mt?: BoxTheme.BoxSizes;
-    mr?: BoxTheme.BoxSizes;
-    mb?: BoxTheme.BoxSizes;
-    ml?: BoxTheme.BoxSizes;
-    pt?: BoxTheme.BoxSizes;
-    pr?: BoxTheme.BoxSizes;
-    pb?: BoxTheme.BoxSizes;
-    pl?: BoxTheme.BoxSizes;
-    m?: BoxTheme.BoxSizes;
-    p?: BoxTheme.BoxSizes;
+    mt?: BoxTheme.Sizes;
+    mr?: BoxTheme.Sizes;
+    mb?: BoxTheme.Sizes;
+    ml?: BoxTheme.Sizes;
+    pt?: BoxTheme.Sizes;
+    pr?: BoxTheme.Sizes;
+    pb?: BoxTheme.Sizes;
+    pl?: BoxTheme.Sizes;
+    m?: BoxTheme.Sizes;
+    p?: BoxTheme.Sizes;
     width?: React.CSSProperties['width'];
     height?: React.CSSProperties['height'];
     overflow?: React.CSSProperties['overflow'];
@@ -80,7 +80,7 @@ export const Box = styled.div<BoxProps>`
 
 function selectSpacing(
     props: ThemedStyledProps<BoxSizingProps, DefaultTheme>,
-    size: BoxTheme.BoxSizes | undefined,
+    size: BoxTheme.Sizes | undefined,
 ) {
     if (!size) {
         return 0;

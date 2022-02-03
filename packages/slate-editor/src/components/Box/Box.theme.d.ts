@@ -10,7 +10,7 @@ declare module '@prezly/slate-editor/theme' {
             l: string;
         }
 
-        export type BoxSizes = keyof Spacing | 'auto';
+        export type Sizes = keyof Spacing | 'auto';
 
         export interface Values {
             spacing: Spacing;

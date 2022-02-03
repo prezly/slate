@@ -6,11 +6,6 @@ declare module '@prezly/slate-editor/theme' {
         }
 
         export interface Sizes {
-            // $font-size-x-small: 12px;
-            // $font-size-small: 14px;
-            // $font-size-medium: 16px;
-            // $font-size-large: 18px;
-
             xs: string;
             s: string;
             m: string;
