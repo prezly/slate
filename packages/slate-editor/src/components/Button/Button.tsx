@@ -1,20 +1,21 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
 
-import { Text } from '#components';
+import { Text, HStack } from '#components';
 
 interface ButtonProps {
     variant: 'clear';
     Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     fullWidth?: boolean;
+    onClick?: () => void;
 }
 
 export function Button(props: React.PropsWithChildren<ButtonProps>) {
     return (
         <ButtonComponent {...props}>
-            <Text>
+            <Text as={HStack} spacing="s" alignItems="center">
                 {props.Icon && <IconWrapper as={props.Icon} width={12} height={12} />}
-                {props.children}
+                {props.children && <span>{props.children}</span>}
             </Text>
         </ButtonComponent>
     );
@@ -47,6 +48,4 @@ const ButtonComponent = styled.button<ButtonProps>`
         `}
 `;
 
-const IconWrapper = styled.span`
-    margin-right: 8px;
-`;
+const IconWrapper = styled.span``;

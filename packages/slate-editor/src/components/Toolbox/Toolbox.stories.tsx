@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import type { ChooseGroupOption } from '#components';
-import { Box, VStack } from '#components';
+import { Flex, VStack } from '#components';
 import { Toolbox, Toggle, ChooseGroup, Button, Link } from '#components';
 import { ExternalLink, Delete } from '#icons';
 
@@ -103,11 +103,16 @@ export function Base() {
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear" Icon={Delete} fullWidth>
-                        <Box p="m" display="inline-block" as="span">
-                            Remove web bookmark
-                        </Box>
-                    </Button>
+                    <Flex
+                        as={Button}
+                        variant="clear"
+                        Icon={Delete}
+                        fullWidth
+                        p="m"
+                        display="inline-block"
+                    >
+                        Remove web bookmark
+                    </Flex>
                 </Toolbox.Footer>
             </Toolbox.Panel>
         </div>

@@ -1,16 +1,26 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import { Button, Flex } from '#components';
+import { Cross } from '#icons';
+
 import { Caption } from './Caption';
 
 interface HeaderProps {
     withCloseButton?: boolean;
+    onCloseClick?: () => void;
 }
 
 export function Header(props: React.PropsWithChildren<HeaderProps>) {
     return (
         <HeaderWrapper>
-            <Caption>{props.children}</Caption>
+            <Flex alignItems="center" justifyContent="space-between">
+                <Caption>{props.children}</Caption>
+
+                {props.withCloseButton && (
+                    <Button variant="clear" Icon={Cross} onClick={props.onCloseClick} />
+                )}
+            </Flex>
         </HeaderWrapper>
     );
 }
