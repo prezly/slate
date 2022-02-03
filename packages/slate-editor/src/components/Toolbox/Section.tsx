@@ -25,7 +25,7 @@ export function Section(props: React.PropsWithChildren<SectionProps>) {
 }
 
 const SectionWrapper = styled.div`
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid ${(props) => props.theme.toolbox.delimiterColor};
     background: ${(props) => props.theme.toolbox.background};
     padding: ${(props) => props.theme.toolbox.padding};
 `;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import type { ChooseGroupOption } from '#components';
+import { Box, VStack } from '#components';
 import { Toolbox, Toggle, ChooseGroup, Button, Link } from '#components';
 import { ExternalLink, Delete } from '#icons';
 
@@ -88,22 +89,24 @@ export function Base() {
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Card layout">
-                    <ChooseGroup
-                        name="card-layout"
-                        type="radio"
-                        options={cardLayoutOptions}
-                        selected={cardLayout}
-                        onChange={setCardLayout}
-                    />
+                    <VStack spacing="m">
+                        <ChooseGroup
+                            name="card-layout"
+                            type="radio"
+                            options={cardLayoutOptions}
+                            selected={cardLayout}
+                            onChange={setCardLayout}
+                        />
 
-                    <div style={{ margin: '16px 0' }}>
                         <Toggle>Open in new tab</Toggle>
-                    </div>
+                    </VStack>
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
                     <Button variant="clear" Icon={Delete} fullWidth>
-                        Remove web bookmark
+                        <Box p="m" display="inline-block" as="span">
+                            Remove web bookmark
+                        </Box>
                     </Button>
                 </Toolbox.Footer>
             </Toolbox.Panel>

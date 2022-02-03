@@ -16,6 +16,7 @@ export function Header(props: React.PropsWithChildren<HeaderProps>) {
 }
 
 const HeaderWrapper = styled.div`
+    overflow: hidden;
     background: ${(props) => props.theme.toolbox.background};
     border-top-left-radius: ${(props) => props.theme.toolbox.borderRadius};
     border-top-right-radius: ${(props) => props.theme.toolbox.borderRadius};

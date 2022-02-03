@@ -17,6 +17,7 @@ export const theme: Theme = {
         borderRadius: '12px',
         padding: '16px',
         textColorName: 'primary',
+        delimiterColor: 'rgba(255, 255, 255, 0.12)',
     },
     box: {
         spacing: {

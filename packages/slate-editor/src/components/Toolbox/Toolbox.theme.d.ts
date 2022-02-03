@@ -3,6 +3,7 @@ declare module '@prezly/slate-editor/theme' {
         export interface Values {
             background: string;
             borderRadius: string;
+            delimiterColor: string;
             padding: string;
             textColorName: keyof TextTheme.Colors;
         }
