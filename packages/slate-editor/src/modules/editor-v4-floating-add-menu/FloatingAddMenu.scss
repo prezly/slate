@@ -21,4 +21,8 @@
         left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
         pointer-events: all;
     }
+
+    &__dropdown {
+        pointer-events: all;
+    }
 }
