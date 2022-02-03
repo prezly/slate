@@ -18,4 +18,26 @@ export const theme: Theme = {
         padding: '16px',
         textColorName: 'primary',
     },
+    box: {
+        spacing: {
+            none: '0',
+            xs: '4px',
+            s: '8px',
+            sm: '12px',
+            m: '16px',
+            lm: '24px',
+            l: '32px',
+        },
+    },
+    stack: {
+        spacing: {
+            none: '0',
+            xs: '4px',
+            s: '8px',
+            sm: '12px',
+            m: '16px',
+            lm: '24px',
+            l: '32px',
+        },
+    },
 };
