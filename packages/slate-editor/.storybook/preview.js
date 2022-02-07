@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { SlateEditorThemeProvider } from '../src/themes/SlateEditorThemeProvider';
+import '../build/styles/styles.css';
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },

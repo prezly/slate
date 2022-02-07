@@ -11,4 +11,4 @@ node_modules/
 *.log
 *.zip
 packages/**/package-lock.json
-packages/**/*.module.json
+packages/**/*.module.css.ts

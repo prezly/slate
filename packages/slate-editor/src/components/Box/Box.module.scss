@@ -1,0 +1,45 @@
+.box {
+    $sizes: (
+        none: 0,
+        auto: auto,
+        xs: 4px,
+        s: 8px,
+        sm: 12px,
+        m: 16px,
+        lm: 24px,
+        l: 32px,
+    );
+
+    $textAligns: center, left, right;
+
+    box-sizing: border-box;
+    text-align: left;
+
+    @each $align in $textAligns {
+        &--text-align-#{$align} {
+            text-align: $align;
+        }
+    }
+
+    @each $prop,
+        $cssProp
+            in (
+                p: "padding",
+                pt: "padding-top",
+                pr: "padding-right",
+                pb: "padding-bottom",
+                pl: "padding-left",
+                m: "margin",
+                mt: "margin-top",
+                mr: "margin-right",
+                mb: "margin-bottom",
+                ml: "margin-left"
+            )
+    {
+        @each $sizeName, $sizeValue in $sizes {
+            &--#{$prop}-#{$sizeName} {
+                #{$cssProp}: $sizeValue;
+            }
+        }
+    }
+}

@@ -42,7 +42,7 @@
         "lint": "eslint ./src --ext=.ts,.tsx",
         "build": "NODE_ENV=production npm run build:all",
         "build:dev": "NODE_ENV=development npm run build:all",
-        "build:all": "npm run build:types && npm run build:esm && npm run build:cjs && npm run build:sass",
+        "build:all": "npm run build:esm && npm run build:cjs && npm run build:sass && npm run build:types",
         "build:types": "gulp build:types",
         "build:esm": "gulp build:esm",
         "build:cjs": "gulp build:cjs",

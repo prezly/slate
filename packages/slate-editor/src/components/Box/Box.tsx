@@ -1,23 +1,24 @@
 import type { BoxTheme } from '@prezly/slate-editor/theme';
 import type { Property } from 'csstype';
-import type * as React from 'react';
-import type { DefaultTheme, ThemedStyledProps } from 'styled-components';
-import styled, { css } from 'styled-components';
+import * as React from 'react';
+
+import type { WithAsComponent } from '#lib/type-utils';
+
+import { classNames } from './Box.module.css';
 
 type BoxSizingProps = {
-    mt?: BoxTheme.Sizes;
-    mr?: BoxTheme.Sizes;
-    mb?: BoxTheme.Sizes;
-    ml?: BoxTheme.Sizes;
+    p?: BoxTheme.Sizes;
     pt?: BoxTheme.Sizes;
     pr?: BoxTheme.Sizes;
     pb?: BoxTheme.Sizes;
     pl?: BoxTheme.Sizes;
     m?: BoxTheme.Sizes;
-    p?: BoxTheme.Sizes;
+    mt?: BoxTheme.Sizes;
+    mr?: BoxTheme.Sizes;
+    mb?: BoxTheme.Sizes;
+    ml?: BoxTheme.Sizes;
     width?: React.CSSProperties['width'];
     height?: React.CSSProperties['height'];
-    overflow?: React.CSSProperties['overflow'];
     textAlign?: 'center' | 'left' | 'right';
 };
 
@@ -25,70 +26,39 @@ export interface BoxProps extends BoxSizingProps, React.DOMAttributes<HTMLElemen
     display?: Property.Display;
 }
 
-export const Box = styled.div<BoxProps>`
-    box-sizing: border-box;
-    text-align: ${(props) => props.textAlign || 'left'};
-
-    ${(props) =>
-        props.display !== undefined &&
-        css`
-            display: ${props.display};
-        `}
-
-    ${(props) =>
-        props.width !== undefined &&
-        css`
-            width: ${props.width};
-        `}
-
-  ${(props) =>
-        props.height !== undefined &&
-        css`
-            height: ${props.height};
-        `}
-
-  ${(props) =>
-        props.overflow !== undefined &&
-        css`
-            overflow: ${props.overflow};
-        `}
-
-  ${(props) =>
-        'p' in props
-            ? css`
-                  padding: ${selectSpacing(props, props.p)};
-              `
-            : css`
-                  padding-top: ${selectSpacing(props, props.pt)};
-                  padding-right: ${selectSpacing(props, props.pr)};
-                  padding-bottom: ${selectSpacing(props, props.pb)};
-                  padding-left: ${selectSpacing(props, props.pl)};
-              `}
-
-  ${(props) =>
-        'm' in props
-            ? css`
-                  margin: ${selectSpacing(props, props.m)};
-              `
-            : css`
-                  margin-top: ${selectSpacing(props, props.mt)};
-                  margin-right: ${selectSpacing(props, props.mr)};
-                  margin-bottom: ${selectSpacing(props, props.mb)};
-                  margin-left: ${selectSpacing(props, props.ml)};
-              `}
-`;
-
-function selectSpacing(
-    props: ThemedStyledProps<BoxSizingProps, DefaultTheme>,
-    size: BoxTheme.Sizes | undefined,
+export function Box<El extends React.ElementType = 'div'>(
+    props: React.PropsWithChildren<WithAsComponent<BoxProps, El>>,
 ) {
-    if (!size) {
-        return 0;
-    }
+    const className = React.useMemo(() => {
+        const list = ['className' in props ? props.className : '', classNames['box']];
+        const sizesKeys = ['p', 'pt', 'pr', 'pb', 'pl', 'm', 'mt', 'mr', 'mb', 'ml'] as const;
 
-    if (size === 'auto') {
-        return 'auto';
-    }
+        sizesKeys.forEach((key) => {
+            const value = props[key];
 
-    return props.theme.box.spacing[size];
+            if (value) {
+                list.push(classNames[`box--${key}-${value}`]);
+            }
+        });
+
+        if (props.textAlign) {
+            list.push(classNames[`box--text-align-${props.textAlign}`]);
+        }
+
+        return list.join(' ');
+    }, []);
+
+    const Component = props.as || 'div';
+
+    const { p, pt, pr, pb, pl, m, mt, mr, mb, ml, width, height, textAlign, ...clearProps } = props;
+
+    return (
+        <Component
+            className={className}
+            style={{ width: props.width, height: props.height }}
+            {...clearProps}
+        >
+            {props.children}
+        </Component>
+    );
 }

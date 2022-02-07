@@ -143,10 +143,15 @@ function compileComponentsStylesheets(stream) {
 
                         const baseFileName = path.basename(cssFileName, '.css');
                         const baseDir = path.dirname(cssFileName);
-                        const jsonFilePath = path.resolve(baseDir + `/${baseFileName}.json`);
+                        const outputFilePath = path.resolve(baseDir + `/${baseFileName}.css.ts`);
 
-                        const content = `${JSON.stringify(json, undefined, 4)}\n`;
-                        fs.writeFileSync(jsonFilePath, content);
+                        const content = `export const classNames = ${JSON.stringify(
+                            json,
+                            undefined,
+                            4,
+                        )}\n`;
+
+                        fs.writeFileSync(outputFilePath, content);
                     },
                 }),
                 autoprefixer({ grid: true }),
