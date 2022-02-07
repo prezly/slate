@@ -86,6 +86,7 @@
         "jest-canvas-mock": "^2.3.1",
         "lerna": "^3.22.1",
         "postcss": "^8.4.1",
+        "postcss-modules": "^4.3.0",
         "prettier": "^2.2.1",
         "rimraf": "^3.0.2",
         "sass": "^1.32.8",

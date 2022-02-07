@@ -5,13 +5,13 @@ import gulp from 'gulp';
 import babel from 'gulp-babel';
 import concat from 'gulp-concat';
 import filter from 'gulp-filter';
-import map from 'gulp-map';
 import postcss from 'gulp-postcss';
 import rename from 'gulp-rename';
 import createSassProcessor from 'gulp-sass';
 import tap from 'gulp-tap';
 import typescript from 'gulp-typescript';
 import path from 'path';
+import postcssModules from 'postcss-modules';
 import sassBackend from 'sass';
 
 const sass = createSassProcessor(sassBackend);
@@ -129,24 +129,30 @@ function copySassDeclarations(stream) {
  * @returns {stream:Transform}
  */
 function compileComponentsStylesheets(stream) {
-    /**
-     * @param {vinyl:File} file
-     * @returns {vinyl:File}
-     */
-    function toSassIndex(file) {
-        const path = file.path.replace(file.base, '.').replace(/\.scss$/, '');
-        const index = file.clone({ contents: false });
-        index.contents = Buffer.from(`@import "${path}";\n`);
-        return index;
-    }
-
     return stream
         .pipe(filter(SASS_MODULES_STYLESHEETS))
-        .pipe(map(toSassIndex))
-        .pipe(concat('styles.scss'))
-        .pipe(sass({ importPath: 'src/' }))
-        .pipe(postcss([autoprefixer({ grid: true })]))
-        .pipe(rename({ extname: '.css', dirname: 'styles/' }));
+        .pipe(sass({ includePaths: ['./src'] }))
+        .pipe(
+            postcss([
+                postcssModules({
+                    globalModulePaths: [/.*(?<!module.)css/],
+                    getJSON: function (cssFileName, json) {
+                        if (Object.keys(json).length === 0) {
+                            return;
+                        }
+
+                        const baseFileName = path.basename(cssFileName, '.css');
+                        const baseDir = path.dirname(cssFileName);
+                        const jsonFilePath = path.resolve(baseDir + `/${baseFileName}.json`);
+
+                        const content = `${JSON.stringify(json, undefined, 4)}\n`;
+                        fs.writeFileSync(jsonFilePath, content);
+                    },
+                }),
+                autoprefixer({ grid: true }),
+            ]),
+        )
+        .pipe(concat('styles/styles.css'));
 }
 
 /**
