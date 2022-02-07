@@ -30,14 +30,14 @@ export function Base() {
                     <path
                         fillRule="evenodd"
                         clipRule="evenodd"
-                        d="M19 37H6V11H19V37Z"
+                        d="M40 27H8V9H40V27Z"
                         fill={props.isActive ? '#F9CA7B' : 'white'}
                     />
                     <path
                         opacity="0.4"
                         fillRule="evenodd"
                         clipRule="evenodd"
-                        d="M42 37H22V11H42V37Z"
+                        d="M40 39H8V31H40V39Z"
                         fill="white"
                     />
                 </svg>
@@ -58,14 +58,14 @@ export function Base() {
                     <path
                         fillRule="evenodd"
                         clipRule="evenodd"
-                        d="M40 27H8V9H40V27Z"
+                        d="M19 37H6V11H19V37Z"
                         fill={props.isActive ? '#F9CA7B' : 'white'}
                     />
                     <path
                         opacity="0.4"
                         fillRule="evenodd"
                         clipRule="evenodd"
-                        d="M40 39H8V31H40V39Z"
+                        d="M42 37H22V11H42V37Z"
                         fill="white"
                     />
                 </svg>
