@@ -10,20 +10,18 @@ import rename from 'gulp-rename';
 import createSassProcessor from 'gulp-sass';
 import tap from 'gulp-tap';
 import typescript from 'gulp-typescript';
-import { fileURLToPath } from 'node:url';
+import use from 'gulp-use';
 import path from 'path';
 import postcssModules from 'postcss-modules';
 import sassBackend from 'sass';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import File from 'vinyl';
 
 const sass = createSassProcessor(sassBackend);
 
 const BASE_DIR = './src';
 const SASS_SOURCES = 'src/**/*.scss';
 const SASS_DECLARATIONS = 'src/styles/**/*.scss';
-const SASS_MODULES_STYLESHEETS = ['src/**/*.scss', '!src/styles/**/*.scss'];
+const SASS_COMPONENTS = [SASS_SOURCES, `!${SASS_DECLARATIONS}`];
 const CSS_MODULES = '.css-modules/**/*.module.scss.ts';
 const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/*.test.*', '!**/jsx.ts'];
 const TYPESCRIPT_ALIASES = {
@@ -135,62 +133,75 @@ function buildTypes(files = [...TYPESCRIPT_SOURCES, CSS_MODULES]) {
 function buildSass() {
     return gulp
         .src(SASS_SOURCES)
-        .pipe(branch.obj((src) => [copySassDeclarations(src), compileComponentsStylesheets(src)]))
-        .pipe(gulp.dest('build/'));
+        .pipe(branch.obj((src) => [keepSassDeclarations(src), processSass(src)]))
+        .pipe(
+            branch.obj((src) => [
+                // Copy declarations as is
+                src.pipe(filter('*.scss')).pipe(gulp.dest('build/')),
+
+                // Concat CSS files into one
+                src
+                    .pipe(filter('*.css'))
+                    .pipe(concat('styles/styles.css'))
+                    .pipe(gulp.dest('build/')),
+
+                // Extract TS declarations for type checking
+                src.pipe(filter('*.ts')).pipe(gulp.dest('.css-modules/')),
+            ]),
+        );
 }
 
 /**
  * @param {stream:Transform} stream
  * @returns {stream:Transform}
  */
-function copySassDeclarations(stream) {
+function keepSassDeclarations(stream) {
     return stream.pipe(filter(SASS_DECLARATIONS));
 }
 
 /**
+ * Take a stream of SCSS files and compile them to CSS 1:1.
+ * Additionally emit a .ts class mapping file for every .module.scss file.
+ *
  * @param {stream:Transform} stream
  * @returns {stream:Transform}
  */
-function compileComponentsStylesheets(stream) {
+function processSass(stream) {
     return stream
-        .pipe(filter(SASS_MODULES_STYLESHEETS))
+        .pipe(filter(SASS_COMPONENTS))
         .pipe(sass({ includePaths: ['./src'] }))
         .pipe(
-            postcss([
-                postcssModules({
-                    globalModulePaths: [/.*(?<!module.)css/],
-                    getJSON: function (cssFileName, classMap) {
-                        const keys = Object.keys(classMap);
-
-                        if (keys.length === 0) {
-                            return;
-                        }
-
-                        const baseFileName = path.basename(cssFileName, '.css');
-                        const baseDir = path.dirname(cssFileName);
-
-                        const filePath = path.resolve(baseDir + `/${baseFileName}.scss.ts`);
-
-                        const outputFilePath = filePath.replace(
-                            __dirname + '/src',
-                            __dirname + '/.css-modules',
-                        );
-
-                        const outputFolderPath = path.dirname(outputFilePath);
-
-                        const content = `export default ${toPrettyJson(classMap)};`;
-
-                        if (!fs.existsSync(outputFolderPath)) {
-                            fs.mkdirSync(outputFolderPath, { recursive: true });
-                        }
-
-                        fs.writeFileSync(outputFilePath, content);
-                    },
-                }),
-                autoprefixer({ grid: true }),
-            ]),
+            postcss(function (file) {
+                return {
+                    plugins: [
+                        postcssModules({
+                            globalModulePaths: [/.*(?<!module.)css/],
+                            getJSON: function (cssFileName, classMap) {
+                                file.cssModulesClassMap = classMap;
+                            },
+                        }),
+                        autoprefixer({ grid: true }),
+                    ],
+                };
+            }),
         )
-        .pipe(concat('styles/styles.css'));
+        .pipe(
+            use(function generateTypescriptDefinitions(file) {
+                this.push(file);
+                if (Object.keys(file.cssModulesClassMap).length > 0) {
+                    this.push(
+                        new File({
+                            cwd: file.cwd,
+                            base: file.base,
+                            path: `${file.path}.ts`,
+                            contents: Buffer.from(
+                                `export default ${toPrettyJson(file.cssModulesClassMap)}`,
+                            ),
+                        }),
+                    );
+                }
+            }),
+        );
 }
 
 /**

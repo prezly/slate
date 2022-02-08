@@ -65,6 +65,12 @@ module.exports = {
     },
     "overrides": [
         {
+            "files": ["gulpfile.*"],
+            "env": {
+                "node": true,
+            }
+        },
+        {
             "files": ["**/*.tsx"],
             "rules": {
                 "func-style": "off"
