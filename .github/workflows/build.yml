@@ -24,3 +24,8 @@ jobs:
     - run: npm run build
       env:
         CI: true
+
+    - run: npm run build-storybook
+      working-directory: packages/slate-editor
+      env:
+        CI: true
