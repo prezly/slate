@@ -159,8 +159,8 @@ function compileComponentsStylesheets(stream) {
             postcss([
                 postcssModules({
                     globalModulePaths: [/.*(?<!module.)css/],
-                    getJSON: function (cssFileName, json) {
-                        const keys = Object.keys(json);
+                    getJSON: function (cssFileName, classMap) {
+                        const keys = Object.keys(classMap);
 
                         if (keys.length === 0) {
                             return;
@@ -178,11 +178,7 @@ function compileComponentsStylesheets(stream) {
 
                         const outputFolderPath = path.dirname(outputFilePath);
 
-                        const content = `export default ${JSON.stringify(
-                            json,
-                            undefined,
-                            4,
-                        )};`;
+                        const content = `export default ${toPrettyJson(classMap)};`;
 
                         if (!fs.existsSync(outputFolderPath)) {
                             fs.mkdirSync(outputFolderPath, { recursive: true });
@@ -212,4 +208,12 @@ function watch(files, build, incremental) {
             .on('add', (path) => incremental(path))
             .on('change', (path) => incremental(path));
     });
+}
+
+/**
+ * @param {*} value
+ * @returns {string}
+ */
+function toPrettyJson(value) {
+    return JSON.stringify(value, undefined, 4);
 }
