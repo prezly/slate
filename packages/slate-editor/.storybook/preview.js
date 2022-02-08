@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-import { SlateEditorThemeProvider } from '../src/themes/SlateEditorThemeProvider';
 import '../build/styles/styles.css';
 
 export const parameters = {
@@ -12,16 +10,4 @@ export const parameters = {
     },
 };
 
-export const decorators = [
-    (Story) => (
-        <SlateEditorThemeProvider>
-            <GlobalStoryStyles>
-                <Story />
-            </GlobalStoryStyles>
-        </SlateEditorThemeProvider>
-    ),
-];
-
-const GlobalStoryStyles = styled.div`
-    font-family: Inter;
-`;
+export const decorators = [(Story) => <Story />];
