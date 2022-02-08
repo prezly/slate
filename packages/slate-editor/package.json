@@ -91,6 +91,7 @@
         "react-portal": "^4.2.1",
         "react-router-dom": "=5.1.2",
         "react-use": "^17.2.1",
+        "resize-observer-polyfill": "^1.5.1",
         "shave": "^2.5.10",
         "uuid": "^8.3.0",
         "validator": "^13.5.2"
