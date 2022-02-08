@@ -56,15 +56,15 @@ function buildEsm(files = [...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS]) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
-            branch.obj((src) => [
-                src.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelEsmConfig)),
+            branch.obj((stream) => [
+                stream.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelEsmConfig)),
 
-                src
+                stream
                     .pipe(filter(SVG_ICONS))
                     .pipe(babel(babelEsmConfig))
                     .pipe(rename((file) => (file.extname = '.svg.mjs'))),
 
-                src
+                stream
                     .pipe(filter(CSS_MODULES))
                     .pipe(babel(babelEsmConfig))
                     .pipe(
@@ -82,15 +82,15 @@ function buildCommonjs(files = [...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS]) 
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
-            branch.obj((src) => [
-                src.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelCommonjsConfig)),
+            branch.obj((stream) => [
+                stream.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelCommonjsConfig)),
 
-                src
+                stream
                     .pipe(filter(SVG_ICONS))
                     .pipe(babel(babelCommonjsConfig))
                     .pipe(rename((file) => (file.extname = '.svg.cjs'))),
 
-                src
+                stream
                     .pipe(filter(CSS_MODULES))
                     .pipe(babel(babelCommonjsConfig))
                     .pipe(
@@ -133,75 +133,72 @@ function buildTypes(files = [...TYPESCRIPT_SOURCES, CSS_MODULES]) {
 function buildSass() {
     return gulp
         .src(SASS_SOURCES)
-        .pipe(branch.obj((src) => [keepSassDeclarations(src), processSass(src)]))
         .pipe(
-            branch.obj((src) => [
+            branch.obj((stream) => [
+                // keep declarations as uncompiled SCSS
+                stream.pipe(filter(SASS_DECLARATIONS)),
+                // Process components SCSS
+                stream.pipe(filter(SASS_COMPONENTS)).pipe(processSass()),
+            ]),
+        )
+        .pipe(
+            branch.obj((stream) => [
                 // Copy declarations as is
-                src.pipe(filter('*.scss')).pipe(gulp.dest('build/')),
+                stream.pipe(filter('*.scss')).pipe(gulp.dest('build/')),
 
                 // Concat CSS files into one
-                src
+                stream
                     .pipe(filter('*.css'))
                     .pipe(concat('styles/styles.css'))
                     .pipe(gulp.dest('build/')),
 
                 // Extract TS declarations for type checking
-                src.pipe(filter('*.ts')).pipe(gulp.dest('.css-modules/')),
+                stream.pipe(filter('*.ts')).pipe(gulp.dest('.css-modules/')),
             ]),
         );
 }
 
 /**
- * @param {stream:Transform} stream
- * @returns {stream:Transform}
- */
-function keepSassDeclarations(stream) {
-    return stream.pipe(filter(SASS_DECLARATIONS));
-}
-
-/**
  * Take a stream of SCSS files and compile them to CSS 1:1.
  * Additionally emit a .ts class mapping file for every .module.scss file.
- *
- * @param {stream:Transform} stream
- * @returns {stream:Transform}
  */
-function processSass(stream) {
-    return stream
-        .pipe(filter(SASS_COMPONENTS))
-        .pipe(sass({ includePaths: ['./src'] }))
-        .pipe(
-            postcss(function (file) {
-                return {
-                    plugins: [
-                        postcssModules({
-                            globalModulePaths: [/.*(?<!module.)css/],
-                            getJSON: function (cssFileName, classMap) {
-                                file.cssModulesClassMap = classMap;
-                            },
-                        }),
-                        autoprefixer({ grid: true }),
-                    ],
-                };
-            }),
-        )
-        .pipe(
-            use(function generateTypescriptDefinitions(file) {
-                this.push(file);
-                if (Object.keys(file.cssModulesClassMap).length > 0) {
-                    this.push(
-                        new File({
-                            cwd: file.cwd,
-                            base: file.base,
-                            path: `${file.path}.ts`,
-                            contents: Buffer.from(
-                                `export default ${toPrettyJson(file.cssModulesClassMap)}`,
-                            ),
-                        }),
-                    );
-                }
-            }),
-        );
+function processSass() {
+    return branch.obj((stream) => [
+        stream
+            .pipe(sass({ includePaths: ['./src'] }))
+            .pipe(
+                postcss(function (file) {
+                    return {
+                        plugins: [
+                            postcssModules({
+                                globalModulePaths: [/.*(?<!module.)css/],
+                                getJSON: function (cssFileName, classMap) {
+                                    file.cssModulesClassMap = classMap;
+                                },
+                            }),
+                            autoprefixer({ grid: true }),
+                        ],
+                    };
+                }),
+            )
+            .pipe(
+                use(function generateTypescriptDefinitions(file) {
+                    this.push(file);
+                    if (Object.keys(file.cssModulesClassMap).length > 0) {
+                        this.push(
+                            new File({
+                                cwd: file.cwd,
+                                base: file.base,
+                                path: `${file.path}.ts`,
+                                contents: Buffer.from(
+                                    `export default ${toPrettyJson(file.cssModulesClassMap)}`,
+                                ),
+                            }),
+                        );
+                    }
+                }),
+            ),
+    ]);
 }
 
 /**
