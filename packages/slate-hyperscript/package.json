@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-hyperscript",
-    "version": "0.14.6",
+    "version": "0.14.7",
     "description": "Hyperscript helpers for creating Slate documents with JSX",
     "license": "MIT",
     "type": "module",
