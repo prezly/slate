@@ -61,7 +61,10 @@ function buildEsm(files = [...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS]) {
             branch.obj((src) => [
                 src.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelEsmConfig)),
 
-                src.pipe(filter(SVG_ICONS)).pipe(babel(babelEsmConfig)),
+                src
+                    .pipe(filter(SVG_ICONS))
+                    .pipe(babel(babelEsmConfig))
+                    .pipe(rename((file) => (file.extname = '.svg.mjs'))),
 
                 src
                     .pipe(filter(CSS_MODULES))
@@ -84,7 +87,10 @@ function buildCommonjs(files = [...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS]) 
             branch.obj((src) => [
                 src.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelCommonjsConfig)),
 
-                src.pipe(filter(SVG_ICONS)).pipe(babel(babelCommonjsConfig)),
+                src
+                    .pipe(filter(SVG_ICONS))
+                    .pipe(babel(babelCommonjsConfig))
+                    .pipe(rename((file) => (file.extname = '.svg.cjs'))),
 
                 src
                     .pipe(filter(CSS_MODULES))
