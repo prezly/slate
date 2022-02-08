@@ -24,6 +24,7 @@ const BASE_DIR = './src';
 const SASS_SOURCES = 'src/**/*.scss';
 const SASS_DECLARATIONS = 'src/styles/**/*.scss';
 const SASS_MODULES_STYLESHEETS = ['src/**/*.scss', '!src/styles/**/*.scss'];
+const CSS_MODULES = '.css-modules/**/*.module.scss.ts';
 const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/*.test.*', '!**/jsx.ts'];
 const TYPESCRIPT_ALIASES = {
     '#lodash': 'lodash-es',
@@ -33,7 +34,6 @@ const TYPESCRIPT_ALIASES = {
     '#modules': './src/modules',
 };
 const SVG_ICONS = 'src/**/*.svg';
-const CSS_MODULES = '.css-modules/**/*.module.scss.ts';
 
 const babelConfig = JSON.parse(fs.readFileSync('./babel.config.json', { encoding: 'utf-8' }));
 const babelCommonjsConfig = { ...babelConfig, extends: '../../babel.cjs.config.json' };
@@ -44,11 +44,17 @@ gulp.task('build:cjs', () => buildCommonjs());
 gulp.task('build:sass', () => buildSass());
 gulp.task('build:types', () => buildTypes());
 
-gulp.task('watch:esm', watch([...TYPESCRIPT_SOURCES, SVG_ICONS], 'build:esm', buildEsm));
-gulp.task('watch:cjs', watch([...TYPESCRIPT_SOURCES, SVG_ICONS], 'build:cjs', buildCommonjs));
+gulp.task(
+    'watch:esm',
+    watch([...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS], 'build:esm', buildEsm),
+);
+gulp.task(
+    'watch:cjs',
+    watch([...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS], 'build:cjs', buildCommonjs),
+);
 gulp.task('watch:sass', watch(SASS_SOURCES, 'build:sass', buildSass));
 
-function buildEsm(files = [...TYPESCRIPT_SOURCES, SVG_ICONS, CSS_MODULES]) {
+function buildEsm(files = [...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS]) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
@@ -71,7 +77,7 @@ function buildEsm(files = [...TYPESCRIPT_SOURCES, SVG_ICONS, CSS_MODULES]) {
         .pipe(gulp.dest('build/esm/'));
 }
 
-function buildCommonjs(files = [...TYPESCRIPT_SOURCES, SVG_ICONS, CSS_MODULES]) {
+function buildCommonjs(files = [...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS]) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
@@ -94,13 +100,13 @@ function buildCommonjs(files = [...TYPESCRIPT_SOURCES, SVG_ICONS, CSS_MODULES]) 
         .pipe(gulp.dest('build/cjs/'));
 }
 
-function buildTypes(files = TYPESCRIPT_SOURCES) {
+function buildTypes(files = [...TYPESCRIPT_SOURCES, CSS_MODULES]) {
     const compile = typescript.createProject(path.resolve('./tsconfig.build.json'), {
         isolatedModules: false, // otherwise, `gulp-typescript` disables generation of declaration files
         noEmit: false,
     });
 
-    const output = gulp.src(files, { base: BASE_DIR }).pipe(compile());
+    const output = gulp.src(files, { cwdbase: BASE_DIR }).pipe(compile());
 
     return output.dts
         .pipe(

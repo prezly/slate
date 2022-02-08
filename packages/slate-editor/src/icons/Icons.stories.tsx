@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styled from 'styled-components';
 
 import * as icons from './';
 
@@ -9,26 +8,23 @@ export default {
 
 export function Icons() {
     return (
-        <IconSetWrapper>
+        <div
+            style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(10, 1fr [col-start])',
+                columnGap: 10,
+                rowGap: 15,
+            }}
+        >
             {Object.entries(icons).map(([name, Icon]) => (
-                <IconWrapper key={name}>
+                <div
+                    key={name}
+                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+                >
                     <Icon />
                     <span>{name}</span>
-                </IconWrapper>
+                </div>
             ))}
-        </IconSetWrapper>
+        </div>
     );
 }
-
-const IconSetWrapper = styled.div`
-    display: grid;
-    grid-template-columns: repeat(10, 1fr [col-start]);
-    column-gap: 10px;
-    row-gap: 15px;
-`;
-
-const IconWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;

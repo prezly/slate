@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Cross } from '#icons';
 
-import './CloseButtonV2.scss';
+import styles from './CloseButtonV2.module.scss';
 
 interface Props {
     className?: string;
@@ -20,7 +20,7 @@ export const CloseButtonV2: FunctionComponent<Props> = ({
     title,
 }) => (
     <button
-        className={classNames('btn', 'btn-default', 'close-button', className)}
+        className={classNames('btn', 'btn-default', styles['close-button'], className)}
         disabled={disabled}
         onClick={onClick}
         title={title}
