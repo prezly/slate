@@ -1,6 +1,7 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
+        "rootDirs": ["./src", "./.css-modules"],
         "baseUrl": "./src",
         "paths": {
             "#lodash": ["../../../node_modules/@types/lodash-es"],
@@ -10,7 +11,6 @@
             "#lib": ["lib"],
             "#modules/*": ["modules/*"]
         },
-        "rootDirs": ["./src", "./.css-modules"],
         "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./src/@types"]
     },
     "files": ["./src/@types/svg.d.ts"],
