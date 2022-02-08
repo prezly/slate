@@ -1,8 +1,9 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "rootDir": "./src",
         "baseUrl": "./src",
+        "moduleResolution": "Node",
+        "allowJs": true,
         "paths": {
             "#lodash": ["../../../node_modules/@types/lodash-es"],
             "#components": ["components"],
@@ -11,11 +12,12 @@
             "#lib": ["lib"],
             "#modules/*": ["modules/*"]
         },
+        "rootDirs": ["./src", "./css-modules"],
         "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./src/@types"]
     },
     "files": ["./src/@types/svg.d.ts"],
     "exclude": ["node_modules"],
-    "include": ["./src"],
+    "include": ["./src", "./build/css-modules"],
     "references": [
         { "path": "../slate-types/tsconfig.json" },
         { "path": "../slate-commons/tsconfig.build.json" },

@@ -10,9 +10,13 @@ import rename from 'gulp-rename';
 import createSassProcessor from 'gulp-sass';
 import tap from 'gulp-tap';
 import typescript from 'gulp-typescript';
+import { fileURLToPath } from 'node:url';
 import path from 'path';
 import postcssModules from 'postcss-modules';
 import sassBackend from 'sass';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const sass = createSassProcessor(sassBackend);
 
@@ -29,6 +33,7 @@ const TYPESCRIPT_ALIASES = {
     '#modules': './src/modules',
 };
 const SVG_ICONS = 'src/**/*.svg';
+const CSS_MODULES = '.css-modules/**/*.module.scss.ts';
 
 const babelConfig = JSON.parse(fs.readFileSync('./babel.config.json', { encoding: 'utf-8' }));
 const babelCommonjsConfig = { ...babelConfig, extends: '../../babel.cjs.config.json' };
@@ -43,40 +48,46 @@ gulp.task('watch:esm', watch([...TYPESCRIPT_SOURCES, SVG_ICONS], 'build:esm', bu
 gulp.task('watch:cjs', watch([...TYPESCRIPT_SOURCES, SVG_ICONS], 'build:cjs', buildCommonjs));
 gulp.task('watch:sass', watch(SASS_SOURCES, 'build:sass', buildSass));
 
-function buildEsm(files = [...TYPESCRIPT_SOURCES, SVG_ICONS]) {
+function buildEsm(files = [...TYPESCRIPT_SOURCES, SVG_ICONS, CSS_MODULES]) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
             branch.obj((src) => [
-                src
-                    .pipe(filter(TYPESCRIPT_SOURCES))
-                    .pipe(babel(babelEsmConfig))
-                    .pipe(rename((file) => (file.extname = '.cjs'))),
+                src.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelEsmConfig)),
+
+                src.pipe(filter(SVG_ICONS)).pipe(babel(babelEsmConfig)),
 
                 src
-                    .pipe(filter(SVG_ICONS))
+                    .pipe(filter(CSS_MODULES))
                     .pipe(babel(babelEsmConfig))
-                    .pipe(rename((file) => (file.extname = '.svg.cjs'))),
+                    .pipe(
+                        rename((file) => {
+                            file.dirname = file.dirname.replace('.css-modules', 'esm');
+                        }),
+                    ),
             ]),
         )
         .pipe(rename((file) => (file.extname = '.mjs')))
         .pipe(gulp.dest('build/esm/'));
 }
 
-function buildCommonjs(files = [...TYPESCRIPT_SOURCES, SVG_ICONS]) {
+function buildCommonjs(files = [...TYPESCRIPT_SOURCES, SVG_ICONS, CSS_MODULES]) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
             branch.obj((src) => [
-                src
-                    .pipe(filter(TYPESCRIPT_SOURCES))
-                    .pipe(babel(babelCommonjsConfig))
-                    .pipe(rename((file) => (file.extname = '.cjs'))),
+                src.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelCommonjsConfig)),
+
+                src.pipe(filter(SVG_ICONS)).pipe(babel(babelCommonjsConfig)),
 
                 src
-                    .pipe(filter(SVG_ICONS))
+                    .pipe(filter(CSS_MODULES))
                     .pipe(babel(babelCommonjsConfig))
-                    .pipe(rename((file) => (file.extname = '.svg.cjs'))),
+                    .pipe(
+                        rename((file) => {
+                            file.dirname = file.dirname.replace('.css-modules', 'cjs');
+                        }),
+                    ),
             ]),
         )
         .pipe(rename((file) => (file.extname = '.cjs')))
@@ -137,19 +148,33 @@ function compileComponentsStylesheets(stream) {
                 postcssModules({
                     globalModulePaths: [/.*(?<!module.)css/],
                     getJSON: function (cssFileName, json) {
-                        if (Object.keys(json).length === 0) {
+                        const keys = Object.keys(json);
+
+                        if (keys.length === 0) {
                             return;
                         }
 
                         const baseFileName = path.basename(cssFileName, '.css');
                         const baseDir = path.dirname(cssFileName);
-                        const outputFilePath = path.resolve(baseDir + `/${baseFileName}.css.ts`);
 
-                        const content = `export const classNames = ${JSON.stringify(
+                        const filePath = path.resolve(baseDir + `/${baseFileName}.scss.ts`);
+
+                        const outputFilePath = filePath.replace(
+                            __dirname + '/src',
+                            __dirname + '/.css-modules',
+                        );
+
+                        const outputFolderPath = path.dirname(outputFilePath);
+
+                        const content = `const classNames = ${JSON.stringify(
                             json,
                             undefined,
                             4,
-                        )}\n`;
+                        )}\n\nexport default classNames`;
+
+                        if (!fs.existsSync(outputFolderPath)) {
+                            fs.mkdirSync(outputFolderPath, { recursive: true });
+                        }
 
                         fs.writeFileSync(outputFilePath, content);
                     },

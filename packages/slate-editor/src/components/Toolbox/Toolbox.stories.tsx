@@ -100,7 +100,6 @@ export function Base() {
                             onChange={setCardLayout}
                             columns={3}
                         />
-
                         <Toggle>Open in new tab</Toggle>
                     </VStack>
                 </Toolbox.Section>

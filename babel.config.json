@@ -2,13 +2,6 @@
     "targets": {
         "node": "12"
     },
-    "presets": [
-        "@babel/typescript",
-        "@babel/react",
-        "@babel/env",
-        "@dr.pogodin/babel-preset-svgr"
-    ],
-    "plugins": [
-        ["babel-plugin-transform-remove-imports", { "test": "\\.scss$" }]
-    ]
+    "presets": ["@babel/typescript", "@babel/react", "@babel/env", "@dr.pogodin/babel-preset-svgr"],
+    "plugins": []
 }

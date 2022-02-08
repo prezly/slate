@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import type { WithAsComponent } from '#lib/type-utils';
 
-import { classNames } from './Box.module.css';
+import styles from './Box.module.scss';
 
 type BoxSizingProps = {
     p?: BoxTheme.Sizes;
@@ -30,19 +30,19 @@ export function Box<El extends React.ElementType = 'div'>(
     props: React.PropsWithChildren<WithAsComponent<BoxProps, El>>,
 ) {
     const className = React.useMemo(() => {
-        const list = ['className' in props ? props.className : '', classNames['box']];
+        const list = ['className' in props ? props.className : '', styles['box']];
         const sizesKeys = ['p', 'pt', 'pr', 'pb', 'pl', 'm', 'mt', 'mr', 'mb', 'ml'] as const;
 
         sizesKeys.forEach((key) => {
             const value = props[key];
 
             if (value) {
-                list.push(classNames[`box--${key}-${value}`]);
+                list.push(styles[`--${key}-${value}`]);
             }
         });
 
         if (props.textAlign) {
-            list.push(classNames[`box--text-align-${props.textAlign}`]);
+            list.push(styles[`--text-align-${props.textAlign}`]);
         }
 
         return list.join(' ');
