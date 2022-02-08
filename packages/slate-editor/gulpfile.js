@@ -178,11 +178,11 @@ function compileComponentsStylesheets(stream) {
 
                         const outputFolderPath = path.dirname(outputFilePath);
 
-                        const content = `const classNames = ${JSON.stringify(
+                        const content = `export default ${JSON.stringify(
                             json,
                             undefined,
                             4,
-                        )}\n\nexport default classNames`;
+                        )};`;
 
                         if (!fs.existsSync(outputFolderPath)) {
                             fs.mkdirSync(outputFolderPath, { recursive: true });
