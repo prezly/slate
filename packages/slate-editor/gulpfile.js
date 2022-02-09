@@ -19,9 +19,10 @@ import File from 'vinyl';
 const sass = createSassProcessor(sassBackend);
 
 const BASE_DIR = './src';
-const SASS_SOURCES = 'src/**/*.scss';
-const SASS_DECLARATIONS = 'src/styles/**/*.scss';
-const SASS_COMPONENTS = [SASS_SOURCES, `!${SASS_DECLARATIONS}`];
+const SCSS_SOURCES = 'src/**/*.scss';
+const SCSS_DECLARATIONS = 'src/styles/**/*.scss';
+const SCSS_COMPONENTS = [SCSS_SOURCES, `!${SCSS_DECLARATIONS}`];
+const SCSS_MODULES = ['src/**/*.module.scss'];
 const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/*.test.*', '!**/jsx.ts'];
 const TYPESCRIPT_ALIASES = {
     '#lodash': 'lodash-es',
@@ -35,7 +36,7 @@ const SVG_ICONS = 'src/**/*.svg';
 /**
  * Files that will produce build/esm and build/cjs JS deliverables.
  */
-const JS_DELIVERABLE_SOURCES = [...TYPESCRIPT_SOURCES, ...SASS_COMPONENTS, SVG_ICONS];
+const JS_DELIVERABLE_SOURCES = [...TYPESCRIPT_SOURCES, ...SCSS_MODULES, SVG_ICONS];
 
 const babelConfig = JSON.parse(fs.readFileSync('./babel.config.json', { encoding: 'utf-8' }));
 const babelCommonjsConfig = { ...babelConfig, extends: '../../babel.cjs.config.json' };
@@ -48,7 +49,7 @@ gulp.task('build:types', () => buildTypes());
 
 gulp.task('watch:esm', watch(JS_DELIVERABLE_SOURCES, 'build:esm', buildEsm));
 gulp.task('watch:cjs', watch(JS_DELIVERABLE_SOURCES, 'build:cjs', buildCommonjs));
-gulp.task('watch:sass', watch(SASS_SOURCES, 'build:sass', buildSass));
+gulp.task('watch:sass', watch(SCSS_SOURCES, 'build:sass', buildSass));
 
 function buildEsm(files = JS_DELIVERABLE_SOURCES) {
     return gulp
@@ -61,7 +62,7 @@ function buildEsm(files = JS_DELIVERABLE_SOURCES) {
                 stream.pipe(filter(SVG_ICONS)).pipe(rename((file) => (file.extname = '.svg.svg'))),
                 // Generate TS class maps for CSS modules
                 stream
-                    .pipe(filter(SASS_COMPONENTS))
+                    .pipe(filter(SCSS_COMPONENTS))
                     .pipe(processSass())
                     .pipe(filter('*.ts'))
                     .pipe(gulp.dest('.css-modules/')),
@@ -83,7 +84,7 @@ function buildCommonjs(files = JS_DELIVERABLE_SOURCES) {
                 stream.pipe(filter(SVG_ICONS)).pipe(rename((file) => (file.extname = '.svg.svg'))),
                 // Generate TS class maps for CSS modules
                 stream
-                    .pipe(filter(SASS_COMPONENTS))
+                    .pipe(filter(SCSS_COMPONENTS))
                     .pipe(processSass())
                     .pipe(filter('*.ts'))
                     .pipe(gulp.dest('.css-modules/')),
@@ -106,7 +107,7 @@ function buildTypes(files = JS_DELIVERABLE_SOURCES) {
             stream.pipe(filter(TYPESCRIPT_SOURCES)),
             // Generate TS class maps for CSS modules
             stream
-                .pipe(filter(SASS_COMPONENTS))
+                .pipe(filter(SCSS_COMPONENTS))
                 .pipe(processSass())
                 .pipe(filter('*.ts'))
                 .pipe(gulp.dest('.css-modules/')),
@@ -133,19 +134,19 @@ function buildTypes(files = JS_DELIVERABLE_SOURCES) {
 
 function buildSass() {
     return gulp
-        .src(SASS_SOURCES)
+        .src(SCSS_SOURCES)
         .pipe(
             branch.obj((stream) => [
                 // keep declarations as uncompiled SCSS
-                stream.pipe(filter(SASS_DECLARATIONS)),
+                stream.pipe(filter(SCSS_DECLARATIONS)),
                 // Process components SCSS
-                stream.pipe(filter(SASS_COMPONENTS)).pipe(processSass()),
+                stream.pipe(filter(SCSS_COMPONENTS)).pipe(processSass()),
             ]),
         )
         .pipe(
             branch.obj((stream) => [
                 // Copy declarations as is
-                stream.pipe(filter(SASS_DECLARATIONS)).pipe(gulp.dest('build/')),
+                stream.pipe(filter(SCSS_DECLARATIONS)).pipe(gulp.dest('build/')),
                 // Concat CSS files into one
                 stream
                     .pipe(filter('*.css'))
