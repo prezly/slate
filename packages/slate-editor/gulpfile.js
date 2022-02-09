@@ -33,6 +33,11 @@ const TYPESCRIPT_ALIASES = {
 };
 const SVG_ICONS = 'src/**/*.svg';
 
+/**
+ * Files that will produce build/esm and build/cjs JS deliverables.
+ */
+const JS_DELIVERABLE_SOURCES = [...TYPESCRIPT_SOURCES, ...SASS_COMPONENTS, SVG_ICONS];
+
 const babelConfig = JSON.parse(fs.readFileSync('./babel.config.json', { encoding: 'utf-8' }));
 const babelCommonjsConfig = { ...babelConfig, extends: '../../babel.cjs.config.json' };
 const babelEsmConfig = { ...babelConfig, extends: '../../babel.esm.config.json' };
@@ -44,15 +49,15 @@ gulp.task('build:types', () => buildTypes());
 
 gulp.task(
     'watch:esm',
-    watch([...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS], 'build:esm', buildEsm),
+    watch(JS_DELIVERABLE_SOURCES, 'build:esm', buildEsm),
 );
 gulp.task(
     'watch:cjs',
-    watch([...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS], 'build:cjs', buildCommonjs),
+    watch(JS_DELIVERABLE_SOURCES, 'build:cjs', buildCommonjs),
 );
 gulp.task('watch:sass', watch(SASS_SOURCES, 'build:sass', buildSass));
 
-function buildEsm(files = [...TYPESCRIPT_SOURCES, ...SASS_COMPONENTS, SVG_ICONS]) {
+function buildEsm(files = JS_DELIVERABLE_SOURCES) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
@@ -74,7 +79,7 @@ function buildEsm(files = [...TYPESCRIPT_SOURCES, ...SASS_COMPONENTS, SVG_ICONS]
         .pipe(gulp.dest('build/esm/'));
 }
 
-function buildCommonjs(files = [...TYPESCRIPT_SOURCES, ...SASS_COMPONENTS, SVG_ICONS]) {
+function buildCommonjs(files = JS_DELIVERABLE_SOURCES) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
