@@ -101,17 +101,20 @@ function buildTypes(files = JS_DELIVERABLE_SOURCES) {
         noEmit: false,
     });
 
-    const output = gulp.src(files, { cwdbase: BASE_DIR })
-        .pipe(branch.obj((stream) => [
-            // Keep .ts sources files in the stream
-            stream.pipe(filter(TYPESCRIPT_SOURCES)),
-            // Generate TS class maps for CSS modules
-            stream
-                .pipe(filter(SCSS_COMPONENTS))
-                .pipe(processSass())
-                .pipe(filter('*.ts'))
-                .pipe(gulp.dest('.css-modules/')),
-        ]))
+    const output = gulp
+        .src(files, { cwdbase: BASE_DIR })
+        .pipe(
+            branch.obj((stream) => [
+                // Keep .ts sources files in the stream
+                stream.pipe(filter(TYPESCRIPT_SOURCES)),
+                // Generate TS class maps for CSS modules
+                stream
+                    .pipe(filter(SCSS_COMPONENTS))
+                    .pipe(processSass())
+                    .pipe(filter('*.ts'))
+                    .pipe(gulp.dest('.css-modules/')),
+            ]),
+        )
         .pipe(compile());
 
     return output.dts
@@ -153,9 +156,7 @@ function buildSass() {
                     .pipe(concat('styles/styles.css'))
                     .pipe(gulp.dest('build/')),
                 // Generate TS class maps for CSS modules
-                stream
-                    .pipe(filter('*.ts'))
-                    .pipe(gulp.dest('.css-modules/')),
+                stream.pipe(filter('*.ts')).pipe(gulp.dest('.css-modules/')),
             ]),
         );
 }
