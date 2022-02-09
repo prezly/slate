@@ -31,7 +31,8 @@ export class FancyScrollbars extends Component<Props> {
         const parentHeight = parent.getBoundingClientRect().height;
 
         const isChildAboveVisibleArea = child.offsetTop < parent.scrollTop;
-        const isChildBelowVisibleArea = child.offsetTop + childHeight > parent.scrollTop + parentHeight;
+        const isChildBelowVisibleArea =
+            child.offsetTop + childHeight > parent.scrollTop + parentHeight;
 
         if (isChildAboveVisibleArea) {
             const y = child.offsetTop - margin;

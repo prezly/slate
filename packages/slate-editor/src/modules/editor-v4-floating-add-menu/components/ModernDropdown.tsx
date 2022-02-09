@@ -79,11 +79,14 @@ export function ModernDropdown<Action>({
         POPPER_CONFIG,
     );
 
-    useEffect(function () {
-        if (activeItem) {
-            scrollarea.current?.ensureVisible(activeItem);
-        }
-    }, [activeItem, scrollarea]);
+    useEffect(
+        function () {
+            if (activeItem) {
+                scrollarea.current?.ensureVisible(activeItem);
+            }
+        },
+        [activeItem, scrollarea],
+    );
 
     return (
         <div
