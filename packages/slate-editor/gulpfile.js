@@ -94,7 +94,7 @@ function buildCommonjs(files = JS_DELIVERABLE_SOURCES) {
         .pipe(gulp.dest('build/cjs/'));
 }
 
-function buildTypes(files = [...TYPESCRIPT_SOURCES, ...SASS_COMPONENTS]) {
+function buildTypes(files = JS_DELIVERABLE_SOURCES) {
     const compile = typescript.createProject(path.resolve('./tsconfig.build.json'), {
         isolatedModules: false, // otherwise, `gulp-typescript` disables generation of declaration files
         noEmit: false,
@@ -145,7 +145,7 @@ function buildSass() {
         .pipe(
             branch.obj((stream) => [
                 // Copy declarations as is
-                stream.pipe(filter('*.scss')).pipe(gulp.dest('build/')),
+                stream.pipe(filter(SASS_DECLARATIONS)).pipe(gulp.dest('build/')),
                 // Concat CSS files into one
                 stream
                     .pipe(filter('*.css'))
