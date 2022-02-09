@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import maxSize from 'popper-max-size-modifier';
 import type { ReactNode } from 'react';
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { MenuItem } from 'react-bootstrap';
 import { usePopper } from 'react-popper';
 
@@ -71,12 +71,19 @@ export function ModernDropdown<Action>({
     const groups = groupOptions(options);
     const hasLabels = options.some((option) => option.isBeta || option.isNew);
 
+    const [activeItem, setActiveItem] = useState<HTMLElement | null>(null);
     const scrollarea = useRef<FancyScrollbars | null>(null);
     const { attributes, styles } = usePopper(
         referenceElement,
         scrollarea.current?.container,
         POPPER_CONFIG,
     );
+
+    useEffect(function () {
+        if (activeItem) {
+            scrollarea.current?.ensureVisible(activeItem);
+        }
+    }, [activeItem, scrollarea]);
 
     return (
         <div
@@ -144,7 +151,10 @@ export function ModernDropdown<Action>({
                                     >
                                         {isComponent(option.icon) ? <option.icon /> : option.icon}
                                     </div>
-                                    <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
+                                    <div
+                                        className="editor-v4-floating-menu-modern-dropdown__menu-item-text"
+                                        ref={option === selectedOption ? setActiveItem : undefined}
+                                    >
                                         <div className="editor-v4-floating-menu-modern-dropdown__menu-item-title">
                                             <Highlight search={highlight}>{option.text}</Highlight>
                                         </div>
