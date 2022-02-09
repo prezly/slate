@@ -63,6 +63,10 @@
         &.active > a {
             background-color: $grey-100;
         }
+
+        &:last-child > a {
+            padding-bottom: $vertical-spacing + $spacing-half;
+        }
     }
 
     &__menu-item-icon {
