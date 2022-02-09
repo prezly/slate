@@ -87,6 +87,7 @@
         "popper-max-size-modifier": "^0.2.0",
         "rangefix": "^0.2.9",
         "react-bootstrap": "=0.32.4",
+        "react-custom-scrollbars-2": "^4.4.0",
         "react-draggable": "^3.3.2",
         "react-overlays": "^0.8.3",
         "react-popper": "^2.2.4",
