@@ -29,7 +29,7 @@
     &__menu {
         position: initial !important;
         box-shadow: none;
-        padding: 0 0 $spacing-half;
+        padding: 0;
         min-width: $min-width;
         border: none;
 
@@ -39,7 +39,7 @@
     }
 
     &__menu-group {
-        padding: $horizontal-spacing $horizontal-spacing $spacing-half $horizontal-spacing;
+        padding: $vertical-spacing $horizontal-spacing $vertical-spacing $horizontal-spacing;
         color: $grey-700;
         font-size: $font-size-medium;
         font-weight: 600;
@@ -62,6 +62,10 @@
 
         &.active > a {
             background-color: $grey-100;
+        }
+
+        &:last-child > a {
+            padding-bottom: $vertical-spacing + $spacing-half;
         }
     }
 
