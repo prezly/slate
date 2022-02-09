@@ -52,54 +52,46 @@ gulp.task(
 );
 gulp.task('watch:sass', watch(SASS_SOURCES, 'build:sass', buildSass));
 
-function buildEsm(files = [...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS]) {
+function buildEsm(files = [...TYPESCRIPT_SOURCES, ...SASS_COMPONENTS, SVG_ICONS]) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
             branch.obj((stream) => [
-                stream.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelEsmConfig)),
-
+                // Keep .ts sources files in the stream
+                stream.pipe(filter(TYPESCRIPT_SOURCES)),
+                // Keep .svg icons in the stream
+                stream.pipe(filter(SVG_ICONS)).pipe(rename((file) => (file.extname = '.svg.svg'))),
+                // Generate TS class maps for CSS modules
                 stream
-                    .pipe(filter(SVG_ICONS))
-                    .pipe(babel(babelEsmConfig))
-                    .pipe(rename((file) => (file.extname = '.svg.mjs'))),
-
-                stream
-                    .pipe(filter(CSS_MODULES))
-                    .pipe(babel(babelEsmConfig))
-                    .pipe(
-                        rename((file) => {
-                            file.dirname = file.dirname.replace('.css-modules', 'esm');
-                        }),
-                    ),
+                    .pipe(filter('*.scss'))
+                    .pipe(processSass())
+                    .pipe(filter('*.ts'))
+                    .pipe(gulp.dest('.css-modules/')),
             ]),
         )
+        .pipe(babel(babelEsmConfig))
         .pipe(rename((file) => (file.extname = '.mjs')))
         .pipe(gulp.dest('build/esm/'));
 }
 
-function buildCommonjs(files = [...TYPESCRIPT_SOURCES, CSS_MODULES, SVG_ICONS]) {
+function buildCommonjs(files = [...TYPESCRIPT_SOURCES, ...SASS_COMPONENTS, SVG_ICONS]) {
     return gulp
         .src(files, { base: BASE_DIR })
         .pipe(
             branch.obj((stream) => [
-                stream.pipe(filter(TYPESCRIPT_SOURCES)).pipe(babel(babelCommonjsConfig)),
-
+                // Keep .ts sources files in the stream
+                stream.pipe(filter(TYPESCRIPT_SOURCES)),
+                // Keep .svg icons in the stream
+                stream.pipe(filter(SVG_ICONS)).pipe(rename((file) => (file.extname = '.svg.svg'))),
+                // Generate TS class maps for CSS modules
                 stream
-                    .pipe(filter(SVG_ICONS))
-                    .pipe(babel(babelCommonjsConfig))
-                    .pipe(rename((file) => (file.extname = '.svg.cjs'))),
-
-                stream
-                    .pipe(filter(CSS_MODULES))
-                    .pipe(babel(babelCommonjsConfig))
-                    .pipe(
-                        rename((file) => {
-                            file.dirname = file.dirname.replace('.css-modules', 'cjs');
-                        }),
-                    ),
+                    .pipe(filter('*.scss'))
+                    .pipe(processSass())
+                    .pipe(filter('*.ts'))
+                    .pipe(gulp.dest('.css-modules/')),
             ]),
         )
+        .pipe(babel(babelCommonjsConfig))
         .pipe(rename((file) => (file.extname = '.cjs')))
         .pipe(gulp.dest('build/cjs/'));
 }
@@ -151,9 +143,6 @@ function buildSass() {
                     .pipe(filter('*.css'))
                     .pipe(concat('styles/styles.css'))
                     .pipe(gulp.dest('build/')),
-
-                // Extract TS declarations for type checking
-                stream.pipe(filter('*.ts')).pipe(gulp.dest('.css-modules/')),
             ]),
         );
 }
