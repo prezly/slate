@@ -71,8 +71,12 @@ export function ModernDropdown<Action>({
     const groups = groupOptions(options);
     const hasLabels = options.some((option) => option.isBeta || option.isNew);
 
-    const scrollarea = useRef<HTMLDivElement>(null);
-    const { attributes, styles } = usePopper(referenceElement, scrollarea.current, POPPER_CONFIG);
+    const scrollarea = useRef<FancyScrollbars | null>(null);
+    const { attributes, styles } = usePopper(
+        referenceElement,
+        scrollarea.current?.container,
+        POPPER_CONFIG,
+    );
 
     return (
         <div
