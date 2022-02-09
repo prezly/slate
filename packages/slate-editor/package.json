@@ -42,7 +42,7 @@
         "lint": "eslint ./src --ext=.ts,.tsx",
         "build": "NODE_ENV=production npm run build:all",
         "build:dev": "NODE_ENV=development npm run build:all",
-        "build:all": "npm run build:types && npm run build:esm && npm run build:cjs && npm run build:sass",
+        "build:all": "npm run build:sass && npm run build:esm && npm run build:cjs && npm run build:types",
         "build:types": "gulp build:types",
         "build:esm": "gulp build:esm",
         "build:cjs": "gulp build:cjs",
@@ -54,13 +54,15 @@
         "watch:sass": "gulp watch:sass",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
-        "clean:build": "rimraf build/* *.tsbuildinfo",
+        "clean:build": "rimraf build/* *.tsbuildinfo .css-modules/*",
         "test": "npm run test:unit && npm run test:build",
         "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage",
         "test:build": "npm run test:esm && npm run test:cjs && npm run test:types",
         "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/types/index.d.ts",
         "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.mjs'; \" ",
-        "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" "
+        "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" ",
+        "storybook": "start-storybook -p 6006",
+        "build-storybook": "build-storybook"
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
@@ -103,6 +105,11 @@
         "slate-react": "^0.71.0"
     },
     "devDependencies": {
+        "@babel/core": "^7.16.12",
+        "@storybook/addon-actions": "^6.4.17",
+        "@storybook/addon-essentials": "^6.4.17",
+        "@storybook/addon-links": "^6.4.17",
+        "@storybook/react": "^6.4.17",
         "@types/is-hotkey": "^0.1.6",
         "@types/json-stable-stringify": "^1.0.32",
         "@types/lodash": "^4.14.178",
@@ -113,6 +120,7 @@
         "@types/react-portal": "^4.0.2",
         "@types/react-router-dom": "=5.1.2",
         "@types/uuid": "^8.3.0",
-        "@types/validator": "^13.1.3"
+        "@types/validator": "^13.1.3",
+        "babel-loader": "^8.2.3"
     }
 }

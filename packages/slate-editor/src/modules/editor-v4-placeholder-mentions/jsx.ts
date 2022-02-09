@@ -4,8 +4,6 @@ import { createHyperscript } from '@prezly/slate-hyperscript';
 import { PARAGRAPH_NODE_TYPE, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
-import type { Placeholder } from './types';
-
 declare global {
     namespace JSX {
         interface IntrinsicElements {
@@ -14,7 +12,7 @@ declare global {
             };
             'h-placeholder-mention': {
                 children?: ReactNode;
-                key: Placeholder['key'];
+                key: string;
             };
         }
     }

@@ -1,12 +1,13 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "rootDir": "./src",
+        "rootDirs": ["./src", "./.css-modules"],
         "baseUrl": "./src",
         "paths": {
             "#lodash": ["../../../node_modules/@types/lodash-es"],
             "#components": ["components"],
             "#icons": ["icons"],
+            "#lib/type-utils": ["lib/type-utils"],
             "#lib": ["lib"],
             "#modules/*": ["modules/*"]
         },
@@ -14,7 +15,7 @@
     },
     "files": ["./src/@types/svg.d.ts"],
     "exclude": ["node_modules"],
-    "include": ["./src"],
+    "include": ["./src", ".css-modules/**/*.module.scss.ts"],
     "references": [
         { "path": "../slate-types/tsconfig.json" },
         { "path": "../slate-commons/tsconfig.build.json" },

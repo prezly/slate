@@ -65,13 +65,19 @@ module.exports = {
     },
     "overrides": [
         {
+            "files": ["gulpfile.*"],
+            "env": {
+                "node": true,
+            }
+        },
+        {
             "files": ["**/*.tsx"],
             "rules": {
                 "func-style": "off"
             }
         },
         {
-            "files": ["**/*.d.ts"],
+            "files": ["**/*.d.ts", "**/*.stories.tsx"],
             "rules": {
                 "import/no-default-export": "off"
             }
