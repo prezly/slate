@@ -9,7 +9,7 @@ import { FancyScrollbars } from '#components';
 import { BatsIllustration, WarningCircle } from '#icons';
 import { noop } from '#lodash';
 
-import { groupOptions, isComponent, sortBetaOptionsLast } from '../lib';
+import { groupOptions, isComponent } from '../lib';
 import type { Option } from '../types';
 
 import './ModernDropdown.scss';
@@ -123,7 +123,7 @@ export function ModernDropdown<Action>({
                             >
                                 {group}
                             </MenuItem>
-                            {sortBetaOptionsLast(options).map((option) => (
+                            {options.map((option) => (
                                 <MenuItem
                                     active={option === selectedOption}
                                     className="editor-v4-floating-menu-modern-dropdown__menu-item"
