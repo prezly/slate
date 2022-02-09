@@ -10,4 +10,5 @@ export * as LoadingPlaceholderV2 from './LoadingPlaceholderV2';
 export * as Menu from './Menu';
 export { MultilineEllipsis } from './MultilineEllipsis';
 export { ElementPortalV2, TextSelectionPortalV2 } from './Portals';
+export { FancyScrollbars } from './FancyScrollbars';
 export * as TooltipV2 from './TooltipV2';

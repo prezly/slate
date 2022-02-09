@@ -5,6 +5,7 @@ import React, { Fragment, useRef } from 'react';
 import { MenuItem } from 'react-bootstrap';
 import { usePopper } from 'react-popper';
 
+import { FancyScrollbars } from '#components';
 import { BatsIllustration, WarningCircle } from '#icons';
 import { noop } from '#lodash';
 
@@ -81,11 +82,14 @@ export function ModernDropdown<Action>({
                 open,
             })}
         >
-            <div
+            <FancyScrollbars
                 {...attributes.popper}
+                autoHeight
+                autoHeightMin={200}
+                autoHeightMax={1000}
                 className="editor-v4-floating-menu-modern-dropdown__scroll-area"
                 ref={scrollarea}
-                style={styles.popper}
+                style={{ ...styles.popper, width: 'auto' }}
             >
                 <ul
                     className={classNames(
@@ -134,11 +138,17 @@ export function ModernDropdown<Action>({
                                         className="editor-v4-floating-menu-modern-dropdown__menu-item-icon"
                                         data-action={option.action}
                                     >
-                                        {isComponent(option.icon) ? <option.icon /> : option.icon}
+                                        {isComponent(option.icon) ? (
+                                            <option.icon />
+                                        ) : (
+                                            option.icon
+                                        )}
                                     </div>
                                     <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
                                         <div className="editor-v4-floating-menu-modern-dropdown__menu-item-title">
-                                            <Highlight search={highlight}>{option.text}</Highlight>
+                                            <Highlight search={highlight}>
+                                                {option.text}
+                                            </Highlight>
                                         </div>
                                         <div className="editor-v4-floating-menu-modern-dropdown__menu-item-description">
                                             {option.description || ' '}
@@ -161,7 +171,7 @@ export function ModernDropdown<Action>({
                         </Fragment>
                     ))}
                 </ul>
-            </div>
+            </FancyScrollbars>
         </div>
     );
 }
