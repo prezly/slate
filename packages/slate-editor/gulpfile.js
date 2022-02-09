@@ -22,7 +22,6 @@ const BASE_DIR = './src';
 const SASS_SOURCES = 'src/**/*.scss';
 const SASS_DECLARATIONS = 'src/styles/**/*.scss';
 const SASS_COMPONENTS = [SASS_SOURCES, `!${SASS_DECLARATIONS}`];
-const CSS_MODULES = '.css-modules/**/*.module.scss.ts';
 const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/*.test.*', '!**/jsx.ts'];
 const TYPESCRIPT_ALIASES = {
     '#lodash': 'lodash-es',
@@ -47,14 +46,8 @@ gulp.task('build:cjs', () => buildCommonjs());
 gulp.task('build:sass', () => buildSass());
 gulp.task('build:types', () => buildTypes());
 
-gulp.task(
-    'watch:esm',
-    watch(JS_DELIVERABLE_SOURCES, 'build:esm', buildEsm),
-);
-gulp.task(
-    'watch:cjs',
-    watch(JS_DELIVERABLE_SOURCES, 'build:cjs', buildCommonjs),
-);
+gulp.task('watch:esm', watch(JS_DELIVERABLE_SOURCES, 'build:esm', buildEsm));
+gulp.task('watch:cjs', watch(JS_DELIVERABLE_SOURCES, 'build:cjs', buildCommonjs));
 gulp.task('watch:sass', watch(SASS_SOURCES, 'build:sass', buildSass));
 
 function buildEsm(files = JS_DELIVERABLE_SOURCES) {
@@ -68,7 +61,7 @@ function buildEsm(files = JS_DELIVERABLE_SOURCES) {
                 stream.pipe(filter(SVG_ICONS)).pipe(rename((file) => (file.extname = '.svg.svg'))),
                 // Generate TS class maps for CSS modules
                 stream
-                    .pipe(filter('*.scss'))
+                    .pipe(filter(SASS_COMPONENTS))
                     .pipe(processSass())
                     .pipe(filter('*.ts'))
                     .pipe(gulp.dest('.css-modules/')),
@@ -90,7 +83,7 @@ function buildCommonjs(files = JS_DELIVERABLE_SOURCES) {
                 stream.pipe(filter(SVG_ICONS)).pipe(rename((file) => (file.extname = '.svg.svg'))),
                 // Generate TS class maps for CSS modules
                 stream
-                    .pipe(filter('*.scss'))
+                    .pipe(filter(SASS_COMPONENTS))
                     .pipe(processSass())
                     .pipe(filter('*.ts'))
                     .pipe(gulp.dest('.css-modules/')),
@@ -101,13 +94,24 @@ function buildCommonjs(files = JS_DELIVERABLE_SOURCES) {
         .pipe(gulp.dest('build/cjs/'));
 }
 
-function buildTypes(files = [...TYPESCRIPT_SOURCES, CSS_MODULES]) {
+function buildTypes(files = [...TYPESCRIPT_SOURCES, ...SASS_COMPONENTS]) {
     const compile = typescript.createProject(path.resolve('./tsconfig.build.json'), {
         isolatedModules: false, // otherwise, `gulp-typescript` disables generation of declaration files
         noEmit: false,
     });
 
-    const output = gulp.src(files, { cwdbase: BASE_DIR }).pipe(compile());
+    const output = gulp.src(files, { cwdbase: BASE_DIR })
+        .pipe(branch.obj((stream) => [
+            // Keep .ts sources files in the stream
+            stream.pipe(filter(TYPESCRIPT_SOURCES)),
+            // Generate TS class maps for CSS modules
+            stream
+                .pipe(filter(SASS_COMPONENTS))
+                .pipe(processSass())
+                .pipe(filter('*.ts'))
+                .pipe(gulp.dest('.css-modules/')),
+        ]))
+        .pipe(compile());
 
     return output.dts
         .pipe(
@@ -142,12 +146,15 @@ function buildSass() {
             branch.obj((stream) => [
                 // Copy declarations as is
                 stream.pipe(filter('*.scss')).pipe(gulp.dest('build/')),
-
                 // Concat CSS files into one
                 stream
                     .pipe(filter('*.css'))
                     .pipe(concat('styles/styles.css'))
                     .pipe(gulp.dest('build/')),
+                // Generate TS class maps for CSS modules
+                stream
+                    .pipe(filter('*.ts'))
+                    .pipe(gulp.dest('.css-modules/')),
             ]),
         );
 }
