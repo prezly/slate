@@ -138,17 +138,11 @@ export function ModernDropdown<Action>({
                                         className="editor-v4-floating-menu-modern-dropdown__menu-item-icon"
                                         data-action={option.action}
                                     >
-                                        {isComponent(option.icon) ? (
-                                            <option.icon />
-                                        ) : (
-                                            option.icon
-                                        )}
+                                        {isComponent(option.icon) ? <option.icon /> : option.icon}
                                     </div>
                                     <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
                                         <div className="editor-v4-floating-menu-modern-dropdown__menu-item-title">
-                                            <Highlight search={highlight}>
-                                                {option.text}
-                                            </Highlight>
+                                            <Highlight search={highlight}>{option.text}</Highlight>
                                         </div>
                                         <div className="editor-v4-floating-menu-modern-dropdown__menu-item-description">
                                             {option.description || ' '}
