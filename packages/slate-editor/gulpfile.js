@@ -183,7 +183,7 @@ function processSass() {
                             new File({
                                 cwd: file.cwd,
                                 base: file.base,
-                                path: `${file.path}.ts`,
+                                path: file.path.replace(/\.css$/, '.scss.ts'),
                                 contents: Buffer.from(
                                     `export default ${toPrettyJson(file.cssModulesClassMap)}`,
                                 ),
