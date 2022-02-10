@@ -7,8 +7,9 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
-import './WebBookmarkElement.scss';
 import { useResizeObserver } from '#lib';
+
+import styles from './WebBookmarkElement.module.scss';
 
 const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 
@@ -33,13 +34,9 @@ function isEmptyText(text: string | null | undefined): boolean {
 
 const Thumbnail: FunctionComponent<{ href: string; src: string; width?: number; height?: number }> =
     ({ href, src, width, height }) => (
-        <a
-            href={href}
-            className="editor-v4-web-bookmark-element__thumbnail"
-            style={{ backgroundImage: `url("${src}")` }}
-        >
+        <a href={href} className={styles.thumbnail} style={{ backgroundImage: `url("${src}")` }}>
             <img
-                className="editor-v4-web-bookmark-element__thumbnail-image"
+                className={styles.thumbnailImage}
                 src={src}
                 width={width}
                 height={height}
@@ -58,19 +55,14 @@ const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed']; showUrl: boo
     const provider = showUrl ? url : oembed.provider_name || hostname(oembed.provider_url || url);
 
     return (
-        <a
-            className="editor-v4-web-bookmark-element__provider"
-            rel="noopener noreferrer"
-            target="_blank"
-            href={providerUrl}
-        >
+        <a className={styles.provider} rel="noopener noreferrer" target="_blank" href={providerUrl}>
             <img
-                className="editor-v4-web-bookmark-element__provider-icon"
+                className={styles.providerIcon}
                 src={favicon}
                 alt={`${provider} favicon`}
                 aria-hidden="true"
             />
-            <span className="editor-v4-web-bookmark-element__provider-name">{provider}</span>
+            <span className={styles.providerName}>{provider}</span>
         </a>
     );
 };
@@ -99,22 +91,22 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
     return (
         <div
             {...attributes}
-            className={classNames('editor-v4-web-bookmark-element', {
-                'editor-v4-web-bookmark-element--active': isSelected,
-                'editor-v4-web-bookmark-element--minimal': isEmpty,
-                'editor-v4-web-bookmark-element--vertical':
-                    actualLayout === BookmarkCardLayout.VERTICAL,
-                'editor-v4-web-bookmark-element--horizontal':
-                    actualLayout === BookmarkCardLayout.HORIZONTAL,
-                'editor-v4-web-bookmark-element--video': element.oembed.type === 'video',
+            className={classNames(styles.element, {
+                [styles.active]: isSelected,
             })}
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
             ref={attributes.ref}
         >
             <div contentEditable={false}>
-                <div className="editor-v4-web-bookmark-element__overlay" />
-                <div className="editor-v4-web-bookmark-element__card" ref={card}>
+                <div className={styles.overlay} />
+                <div
+                    className={classNames(styles.card, {
+                        [styles.vertical]: actualLayout === BookmarkCardLayout.VERTICAL,
+                        [styles.horizontal]: actualLayout === BookmarkCardLayout.HORIZONTAL,
+                    })}
+                    ref={card}
+                >
                     {showThumbnail && oembed.thumbnail_url && (
                         <Thumbnail
                             href={url}
@@ -123,10 +115,10 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                             height={oembed.thumbnail_height}
                         />
                     )}
-                    <div className="editor-v4-web-bookmark-element__details">
+                    <div className={styles.details}>
                         {!isEmptyText(oembed.title) && (
                             <a
-                                className="editor-v4-web-bookmark-element__title"
+                                className={styles.title}
                                 href={url}
                                 rel="noopener noreferrer"
                                 target="_blank"
@@ -135,7 +127,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
                             </a>
                         )}
                         {!isEmptyText(oembed.description) && (
-                            <div className="editor-v4-web-bookmark-element__description">
+                            <div className={styles.description}>
                                 {oembed.description}
                             </div>
                         )}
