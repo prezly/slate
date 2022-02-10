@@ -1,4 +1,5 @@
 @import "styles/variables";
+@import "styles/mixins";
 
 .editor-v4-floating-menu-modern-dropdown {
     $min-width: 242px;
@@ -19,24 +20,18 @@
         background-color: $white;
         border: 1px solid $grey-200;
         border-radius: $border-radius-base;
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
         pointer-events: all;
         display: flex;
-
-        @include fancy-scrollbars();
+        flex-direction: column;
     }
 
     &__menu {
         position: initial !important;
         box-shadow: none;
-        padding: 0 0 $spacing-half;
+        padding: 0;
         min-width: $min-width;
         border: none;
-
-        // fancy scrollbars support
-        flex-grow: 1;
-        flex-shrink: 0;
 
         .editor-v4-floating-menu-modern-dropdown.open & {
             display: block;
@@ -44,7 +39,7 @@
     }
 
     &__menu-group {
-        padding: $horizontal-spacing $horizontal-spacing $spacing-half $horizontal-spacing;
+        padding: $vertical-spacing $horizontal-spacing $vertical-spacing $horizontal-spacing;
         color: $grey-700;
         font-size: $font-size-medium;
         font-weight: 600;
@@ -55,7 +50,7 @@
     // Override specificity of Bootstrap default .dropdown-menu > li > a style
     .editor-v4-floating-menu-modern-dropdown__menu-item {
         > a {
-            padding: $vertical-spacing $horizontal-spacing * 2 $vertical-spacing $horizontal-spacing;
+            padding: $vertical-spacing $spacing-1 * 2.5 $vertical-spacing $horizontal-spacing;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -67,6 +62,10 @@
 
         &.active > a {
             background-color: $grey-100;
+        }
+
+        &:last-child > a {
+            padding-bottom: $vertical-spacing + $spacing-half;
         }
     }
 

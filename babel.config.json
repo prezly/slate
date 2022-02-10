@@ -9,6 +9,6 @@
         "@dr.pogodin/babel-preset-svgr"
     ],
     "plugins": [
-        ["babel-plugin-transform-remove-imports", { "test": "\\.scss$" }]
+        ["babel-plugin-transform-remove-imports", { "test": "(?<!module)\\.scss$" }]
     ]
 }

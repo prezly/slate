@@ -2,7 +2,8 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "module": "ES6",
-        "target": "ES6"
+        "target": "ES6",
+        "rootDirs": ["./src", "./.css-modules"]
     },
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
     "references": [

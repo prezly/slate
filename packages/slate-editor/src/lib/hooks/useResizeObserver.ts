@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import ResizeObserver from 'resize-observer-polyfill';
 
 import { useLatest } from './react-use';
 
