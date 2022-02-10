@@ -40,6 +40,8 @@ export { default as FormatStyleSuperscript } from './Format-Style-Sup.svg';
 export { default as Gallery } from './Gallery.svg';
 export { default as Image } from './Image.svg';
 export { default as Info } from './Info.svg';
+export { default as ItemsLayoutHorizontal } from './Items-Layout-Horizontal.svg';
+export { default as ItemsLayoutVertical } from './Items-Layout-Vertical.svg';
 export { default as LayoutContained } from './Layout-Contained.svg';
 export { default as LayoutExpanded } from './Layout-Expanded.svg';
 export { default as LayoutFullWidth } from './Layout-FullWidth.svg';

@@ -1,0 +1,31 @@
+@import "styles/variables";
+
+.stack {
+    display: flex;
+}
+
+@each $sizeName, $sizeValue in $sizes {
+    .--column-#{$sizeName} {
+        flex-direction: column;
+
+        & > * {
+            margin-bottom: $sizeValue;
+        }
+
+        & > *:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .--row-#{$sizeName} {
+        flex-direction: row;
+
+        & > * {
+            margin-right: $sizeValue;
+        }
+
+        & > *:last-child {
+            margin-right: 0;
+        }
+    }
+}

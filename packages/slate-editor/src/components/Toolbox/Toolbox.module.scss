@@ -1,0 +1,44 @@
+.__caption {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.__header {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    background: rgba(27, 27, 54, 0.96);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding: 16px;
+    color: white;
+}
+
+.__panel {
+    backdrop-filter: blur(6px);
+}
+
+.__section {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(27, 27, 54, 0.96);
+    padding: 16px;
+
+    &--no-padding {
+        padding: 0;
+    }
+
+    &-header-wrapper {
+        padding-bottom: 18px;
+    }
+}
+
+.__footer {
+    display: flex;
+    overflow: hidden;
+    color: white;
+    background: rgba(27, 27, 54, 0.96);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}

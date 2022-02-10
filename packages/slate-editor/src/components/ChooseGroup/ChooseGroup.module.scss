@@ -1,0 +1,38 @@
+.choose-group {
+    display: grid;
+    justify-items: center;
+    grid-column-gap: 8px;
+}
+
+.__label {
+    cursor: pointer;
+    display: inline-flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: 14px;
+
+    &:hover,
+    &:focus {
+        opacity: 1;
+    }
+
+    &--active {
+        color: #f9ca7b;
+        opacity: 1;
+    }
+
+    &--inactive {
+        color: white;
+        opacity: 0.5;
+    }
+}
+
+.__hidden-input {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+
+.__label-text {
+    margin-top: 8px;
+}
