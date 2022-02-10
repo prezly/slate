@@ -1,6 +1,8 @@
+@import "styles/variables";
+
 .choose-group {
     display: grid;
-    grid-column-gap: 8px;
+    grid-column-gap: $spacing-1;
 }
 
 .label {
@@ -8,7 +10,7 @@
     display: inline-flex;
     flex-flow: column;
     align-items: center;
-    font-size: 14px;
+    font-size: $font-size-small;
 
     &:hover,
     &:focus {
@@ -16,12 +18,12 @@
     }
 
     &--active {
-        color: #f9ca7b;
+        color: $yellow-300;
         opacity: 1;
     }
 
     &--inactive {
-        color: white;
+        color: $white;
         opacity: 0.5;
     }
 }
@@ -33,5 +35,5 @@
 }
 
 .label-text {
-    margin-top: 8px;
+    margin-top: $spacing-1;
 }

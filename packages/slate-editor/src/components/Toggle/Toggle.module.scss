@@ -1,6 +1,8 @@
+@import "styles/variables";
+
 .toggle {
-    color: white;
-    font-size: 14px;
+    color: $white;
+    font-size: $font-size-small;
     font-weight: normal;
     display: inline-flex;
     align-items: center;
@@ -17,17 +19,17 @@ $WHITE_CIRCLE: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'
     border-radius: 24px;
     background-image: $GRAY_CIRCLE;
     background-size: contain;
-    background-color: #fff;
+    background-color: $white;
     background-repeat: no-repeat;
     background-position: left center;
     transition: background-position 0.15s ease-in-out;
-    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.16);
+    box-shadow: inset 0px 1px 3px rgba($black, 0.16);
 
     &:checked {
         background-image: $WHITE_CIRCLE;
-        background-color: #f9ca7b;
+        background-color: $yellow-300;
         background-position: right center;
-        border-color: #f9ca7b;
+        border-color: $yellow-300;
     }
 
     &:focus {

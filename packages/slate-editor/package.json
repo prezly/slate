@@ -61,7 +61,7 @@
         "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/types/index.d.ts",
         "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.mjs'; \" ",
         "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" ",
-        "storybook": "start-storybook -p 6007",
+        "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook"
     },
     "dependencies": {

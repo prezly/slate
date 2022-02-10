@@ -1,3 +1,5 @@
+@import "styles/variables";
+
 .button {
     display: inline-flex;
     align-items: center;
@@ -20,12 +22,12 @@
 
     &--full-width {
         width: 100%;
-        padding: 16px;
+        padding: $spacing-2;
     }
 }
 
 .icon-wrapper {
-    width: 12px;
-    height: 12px;
+    width: $spacing-1-5;
+    height: $spacing-1-5;
     color: inherit;
 }
