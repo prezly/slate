@@ -3,3 +3,4 @@ build/
 coverage/
 node_modules/
 **/dist/
+packages/slate-editor/.css-modules/
