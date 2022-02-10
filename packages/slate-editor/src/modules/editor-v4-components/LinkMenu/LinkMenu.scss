@@ -13,13 +13,7 @@
         align-items: stretch;
         justify-content: stretch;
         border-right: 1px solid;
-
-        .editor-v4-link-menu--classic-theme & {
-            border-color: $toolbar-classic-theme-border-color;
-        }
-        .editor-v4-link-menu--dark-theme & {
-            border-color: $toolbar-dark-theme-border-color;
-        }
+        border-color: $toolbar-dark-theme-border-color;
     }
 
     &__input {

@@ -7,8 +7,6 @@ import * as Draggable from 'react-draggable';
 import { Resize } from '#icons';
 import { clamp, noop } from '#lodash';
 
-import { Theme } from '#modules/themes';
-
 import { getClampedRatioInPercent, getClampedWidthInPercent, increaseWidth } from './lib';
 
 import './ResizableContainer.scss';
@@ -22,7 +20,6 @@ interface Props {
     onResizeStop?: () => void;
     resizingClassName?: string;
     style?: CSSProperties | null;
-    theme: Theme;
     width: number;
     widthFactor: string;
     widthPercent: string;
@@ -102,7 +99,7 @@ export class ResizableContainer extends Component<Props, State> {
     };
 
     render() {
-        const { children, className, enabled, resizingClassName, style, theme } = this.props;
+        const { children, className, enabled, resizingClassName, style } = this.props;
         const { isResizing, widthPercent } = this.state;
 
         return (
@@ -112,9 +109,6 @@ export class ResizableContainer extends Component<Props, State> {
                     className,
                     isResizing && resizingClassName,
                     {
-                        'editor-v4-image-resizable-container--classic-theme':
-                            theme === Theme.CLASSIC,
-                        'editor-v4-image-resizable-container--dark-theme': theme === Theme.DARK,
                         'editor-v4-image-resizable-container--resizing': isResizing,
                     },
                 )}

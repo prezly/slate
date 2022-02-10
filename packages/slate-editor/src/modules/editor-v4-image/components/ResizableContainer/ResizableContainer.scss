@@ -24,23 +24,10 @@
     &__button {
         $size: 24px;
 
-        .editor-v4-image-resizable-container--classic-theme & {
-            @include button-variant(#767676, $legacy-color-grey-250, transparent);
-            padding: 0;
-            border-radius: 4px;
+        @include button-variant(rgba(#1b1b36, 0.96), rgba(#fff, 0.88), transparent);
 
-            &:hover {
-                color: $legacy-color-green-500;
-            }
-        }
-
-        .editor-v4-image-resizable-container--dark-theme & {
-            padding: $spacing-half;
-            border-radius: 4px;
-
-            @include button-variant(rgba(#1b1b36, 0.96), rgba(#fff, 0.88), transparent);
-        }
-
+        padding: $spacing-half;
+        border-radius: 4px;
         width: $size;
         height: $size;
         display: flex;
@@ -58,10 +45,5 @@
     &__button-icon {
         width: 16px;
         height: 16px;
-
-        .editor-v4-image-resizable-container--classic-theme & {
-            width: 14px;
-            height: 14px;
-        }
     }
 }

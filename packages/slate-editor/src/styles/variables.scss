@@ -31,15 +31,6 @@ $slate-paragraph-line-height: 26px;
 $story-composer-navigation-z-index: 10000;
 $story-composer-sidebar-z-index: $story-composer-navigation-z-index + 1;
 
-$toolbar-classic-theme-bg: #fff;
-$toolbar-classic-theme-border-color: $legacy-color-grey-250;
-$toolbar-classic-theme-text-color: $grey-700;
-$toolbar-classic-theme-text-hover-color: $grey-700;
-$toolbar-classic-theme-icon-color: $grey-700;
-$toolbar-classic-theme-icon-active-color: $legacy-color-green-500;
-$toolbar-classic-theme-icon-hover-color: $toolbar-classic-theme-icon-active-color;
-$toolbar-classic-theme-danger-color: $legacy-color-red-500;
-
 $toolbar-dark-theme-bg: rgba(#292942, 0.96);
 $toolbar-dark-theme-border-color: rgba(#fff, 0.12);
 $toolbar-dark-theme-text-color: #fff;

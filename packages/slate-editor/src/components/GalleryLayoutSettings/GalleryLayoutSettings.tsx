@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { Theme, useToolbarsTheme } from '#modules/themes';
-
 import { CloseButtonV2 } from '../CloseButtonV2';
 
 import './GalleryLayoutSettings.scss';
@@ -29,14 +27,9 @@ export const GalleryLayoutSettings = <Padding extends string, Size extends strin
     size,
     sizeOptions,
 }: Props<Padding, Size>) => {
-    const theme = useToolbarsTheme();
-
     return (
         <div
-            className={classNames('gallery-layout-settings', className, {
-                'gallery-layout-settings--classic-theme': theme === Theme.CLASSIC,
-                'gallery-layout-settings--dark-theme': theme === Theme.DARK,
-            })}
+            className={classNames('gallery-layout-settings', className)}
         >
             <div className="gallery-layout-settings__header">
                 <h4 className="gallery-layout-settings__title">Layout settings</h4>
