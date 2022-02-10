@@ -14,7 +14,7 @@ export function isCursorAtEndOfLink(editor: Editor): boolean {
     const relativeCursorPath = Path.relative(cursor.path, link[1]);
 
     const [tail] = [
-        ...Node.texts(link[0], { reverse: true, from: relativeCursorPath, to: relativeCursorPath }),
+        ...Node.texts(link[0], { reverse: true, to: relativeCursorPath }),
     ];
 
     return Path.equals(relativeCursorPath, tail[1]) && cursor.offset === tail[0].text.length;
