@@ -23,7 +23,6 @@ import { ReactEditor, Slate } from 'slate-react';
 import { noop } from '#lodash';
 
 import { LoaderContentType } from '#modules/editor-v4-loader';
-import { Theme, withToolbarsThemeContext } from '#modules/themes';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
@@ -76,7 +75,6 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         plugins,
         readOnly,
         style,
-        toolbarsTheme = Theme.CLASSIC,
         value,
         withAlignmentControls,
         withAttachments,
@@ -291,8 +289,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
 
-    return withToolbarsThemeContext(
-        toolbarsTheme,
+    return (
         <div className={classNames('editor-v4', className)} ref={containerRef} style={style}>
             <Slate
                 editor={editor}
@@ -432,7 +429,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                     />
                 )}
             </Slate>
-        </div>,
+        </div>
     );
 };
 

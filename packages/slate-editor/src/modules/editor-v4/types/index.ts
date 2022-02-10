@@ -3,8 +3,6 @@ import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { Editor, Element } from 'slate';
 
-import type { Theme } from '#modules/themes';
-
 import type { AutoformatParameters } from '../../editor-v4-autoformat/types';
 import type { CoverageExtensionParameters } from '../../editor-v4-coverage';
 import type { EmbedExtensionParameters } from '../../editor-v4-embed/types';
@@ -64,7 +62,6 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     plugins?: (<T extends Editor>(editor: T) => T)[];
     readOnly?: boolean;
     style?: CSSProperties;
-    toolbarsTheme?: Theme;
     value: Value;
     withAlignmentControls: boolean;
     withCursorInView?: {

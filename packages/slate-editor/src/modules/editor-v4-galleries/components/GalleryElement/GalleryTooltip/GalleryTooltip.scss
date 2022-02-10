@@ -7,26 +7,13 @@
     padding: $spacing-1 ($spacing-1 + $spacing-half);
     font-size: 14px;
 
-    &--classic-theme {
-        color: $toolbar-classic-theme-text-color;
-    }
-
-    &--dark-theme {
-        color: $toolbar-dark-theme-icon-color;
-    }
+    color: $toolbar-dark-theme-icon-color;
 
     &__icon {
         margin-right: $spacing-1;
         width: 16px;
         height: 16px;
-
-        .gallery-tooltip--classic-theme & {
-            color: $legacy-color-purple-500;
-        }
-
-        .gallery-tooltip--dark-theme & {
-            color: $toolbar-dark-theme-icon-color;
-        }
+        color: $toolbar-dark-theme-icon-color;
     }
 
     &__button {

@@ -13,7 +13,6 @@ import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components
 import { Image as ImageIcon } from '#icons';
 
 import { LinkWithTooltip } from '#modules/editor-v4-components';
-import { useToolbarsTheme } from '#modules/themes';
 
 import { ImageMenu } from '../ImageMenu';
 import { ResizableContainer } from '../ResizableContainer';
@@ -55,7 +54,6 @@ export const ImageElement: FunctionComponent<Props> = ({
     onRemove,
     showLayoutControls,
 }) => {
-    const theme = useToolbarsTheme();
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview(
         availableWidth * 2, // Using 2x for retina.
     );
@@ -140,7 +138,6 @@ export const ImageElement: FunctionComponent<Props> = ({
                     onResizeStop={handleResizeStop}
                     resizingClassName="editor-v4-image-element__resizable-container--resizing"
                     style={isContainedLayout ? null : { width: '100%' }}
-                    theme={theme}
                     width={imageWidth}
                     widthFactor={imageWidthFactor}
                     widthPercent={imageWidthPercent}
