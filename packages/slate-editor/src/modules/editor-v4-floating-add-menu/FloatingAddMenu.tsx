@@ -60,10 +60,7 @@ export function FloatingAddMenu<Action>({
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
     const [input, setInput] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
-    const [query, filteredOptions] = useKeyboardFiltering(
-        input,
-        variant === Variant.CLASSIC ? sortBetaOptionsLast(options) : options,
-    );
+    const [query, filteredOptions] = useKeyboardFiltering(input, sortBetaOptionsLast(options));
     const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
         filteredOptions,
         onSelect,
