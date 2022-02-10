@@ -28,9 +28,7 @@ export const GalleryLayoutSettings = <Padding extends string, Size extends strin
     sizeOptions,
 }: Props<Padding, Size>) => {
     return (
-        <div
-            className={classNames('gallery-layout-settings', className)}
-        >
+        <div className={classNames('gallery-layout-settings', className)}>
             <div className="gallery-layout-settings__header">
                 <h4 className="gallery-layout-settings__title">Layout settings</h4>
 

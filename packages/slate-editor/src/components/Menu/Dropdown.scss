@@ -72,8 +72,7 @@
         border: none;
         background-color: $toolbar-dark-theme-bg;
         border-radius: 0 0 $border-radius-base * 2 $border-radius-base * 2;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11),
-            inset 0 1px 0 $toolbar-dark-theme-border-color;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11), inset 0 1px 0 $toolbar-dark-theme-border-color;
 
         a {
             text-decoration: none;
