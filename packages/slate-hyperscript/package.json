@@ -48,7 +48,7 @@
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {
-        "react": "^16.9.0",
+        "react": "^16.9.0 || ^17.0.0",
         "slate": "^0.71.0"
     },
     "dependencies": {
