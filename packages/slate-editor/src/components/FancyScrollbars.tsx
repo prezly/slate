@@ -22,6 +22,8 @@ export class FancyScrollbars extends Component<Props> {
 
         if (!parent || !this.container) return;
 
+        if (!this.container.contains(parent)) return;
+
         if (!this.container.contains(child)) {
             console.warn('Child is required to be a descendant of the Scrollbars container.');
             return;
