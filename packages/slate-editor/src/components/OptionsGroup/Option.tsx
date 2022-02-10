@@ -18,21 +18,16 @@ export interface RadioChoose<T extends string> extends Option<T> {
     type?: 'radio';
 }
 
-type ChooseOptionProps<T extends string> = (RadioChoose<T>) & {
+type ChooseOptionProps<T extends string> = RadioChoose<T> & {
     name: string;
     option: OptionsGroupOption<T>;
     allSelected: Set<T | undefined>;
 };
 
 export function ChooseOption<T extends string>(props: ChooseOptionProps<T>) {
-    const onChange = React.useCallback(
-        () => {
-      
-                props.onChange?.(props.option.value);
-     
-        },
-        [ props.option, props.onChange],
-    );
+    const onChange = React.useCallback(() => {
+        props.onChange?.(props.option.value);
+    }, [props.option, props.onChange]);
 
     const isActive = props.allSelected.has(props.option.value);
 

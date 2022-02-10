@@ -5,7 +5,7 @@ import styles from './Link.module.scss';
 
 interface LinkProps {
     href: string;
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     fullWidth?: boolean;
 }
 
@@ -20,7 +20,7 @@ export function Link(props: React.PropsWithChildren<LinkProps>) {
             rel="noreferrer"
         >
             {props.children}
-            {props.icon && <props.icon className={styles.icon} />}
+            {props.Icon && <props.Icon className={styles.icon} />}
         </a>
     );
 }

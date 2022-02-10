@@ -33,7 +33,7 @@ export function Base() {
                 <Toolbox.Header withCloseButton>Web bookmark settings</Toolbox.Header>
 
                 <Toolbox.Section noPadding>
-                    <Link href="#" icon={ExternalLink} fullWidth>
+                    <Link href="#" Icon={ExternalLink} fullWidth>
                         View
                     </Link>
                 </Toolbox.Section>
