@@ -47,15 +47,31 @@ export class FancyScrollbars extends Component<Props> {
         }
     }
 
+    renderThumbHorizontal = (props: Record<string, any>) => (
+        <div {...props} className={styles.hThumb} />
+    );
+
+    renderThumbVertical = (props: Record<string, any>) => (
+        <div {...props} className={styles.vThumb} />
+    );
+
+    renderTrackHorizontal = (props: Record<string, any>) => (
+        <div {...props} className={styles.hTrack} />
+    );
+
+    renderTrackVertical = (props: Record<string, any>) => (
+        <div {...props} className={styles.vTrack} />
+    );
+
     render() {
         const { children, ...props } = this.props;
 
         return (
             <Scrollbars
-                renderThumbHorizontal={(props) => <div {...props} className={styles.hThumb} />}
-                renderThumbVertical={(props) => <div {...props} className={styles.vThumb} />}
-                renderTrackHorizontal={(props) => <div {...props} className={styles.hTrack} />}
-                renderTrackVertical={(props) => <div {...props} className={styles.vTrack} />}
+                renderThumbHorizontal={this.renderThumbHorizontal}
+                renderThumbVertical={this.renderThumbVertical}
+                renderTrackHorizontal={this.renderTrackHorizontal}
+                renderTrackVertical={this.renderTrackVertical}
                 {...props}
                 ref={this.setScrollbarsRef}
             >
