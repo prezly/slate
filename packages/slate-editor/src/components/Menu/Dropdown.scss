@@ -18,6 +18,7 @@
             &,
             &:hover,
             &:focus {
+                color: $toolbar-dark-theme-text-color;
                 background: none;
                 box-shadow: none;
             }

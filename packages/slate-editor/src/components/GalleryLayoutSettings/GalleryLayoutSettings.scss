@@ -46,6 +46,8 @@
         }
 
         &:hover {
+            color: $white;
+
             &:before {
                 content: "";
                 display: block;

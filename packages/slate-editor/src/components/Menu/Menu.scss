@@ -24,13 +24,12 @@
         align-items: center;
         font-size: $font-size;
         cursor: pointer;
-
         padding: 0 $spacing-2;
-        color: $toolbar-dark-theme-text-color;
         border-right: 1px solid $toolbar-dark-theme-border-color;
 
         &,
         &:hover {
+            color: $toolbar-dark-theme-text-color;
             text-decoration: none;
         }
 
