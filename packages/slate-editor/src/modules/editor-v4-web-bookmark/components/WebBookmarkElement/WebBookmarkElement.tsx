@@ -5,8 +5,8 @@ import type { FunctionComponent } from 'react';
 import { useRef, useState } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
 
+import { EditorBlock } from '#components';
 import { useResizeObserver } from '#lib';
 
 import styles from './WebBookmarkElement.module.scss';
@@ -68,7 +68,6 @@ const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed']; showUrl: boo
 };
 
 export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
-    const isSelected = useSelected();
     const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);
 
@@ -89,55 +88,45 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
     });
 
     return (
-        <div
+        <EditorBlock
             {...attributes}
-            className={classNames(styles.element, {
-                [styles.active]: isSelected,
-            })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
-            ref={attributes.ref}
+            element={element}
+            overlay="always"
+            slateInternalsChildren={children}
+            void={true}
         >
-            <div contentEditable={false}>
-                <div className={styles.overlay} />
-                <div
-                    className={classNames(styles.card, {
-                        [styles.vertical]: actualLayout === BookmarkCardLayout.VERTICAL,
-                        [styles.horizontal]: actualLayout === BookmarkCardLayout.HORIZONTAL,
-                    })}
-                    ref={card}
-                >
-                    {showThumbnail && oembed.thumbnail_url && (
-                        <Thumbnail
+            <div
+                className={classNames(styles.card, {
+                    [styles.vertical]: actualLayout === BookmarkCardLayout.VERTICAL,
+                    [styles.horizontal]: actualLayout === BookmarkCardLayout.HORIZONTAL,
+                })}
+                ref={card}
+            >
+                {showThumbnail && oembed.thumbnail_url && (
+                    <Thumbnail
+                        href={url}
+                        src={oembed.thumbnail_url}
+                        width={oembed.thumbnail_width}
+                        height={oembed.thumbnail_height}
+                    />
+                )}
+                <div className={styles.details}>
+                    {!isEmptyText(oembed.title) && (
+                        <a
+                            className={styles.title}
                             href={url}
-                            src={oembed.thumbnail_url}
-                            width={oembed.thumbnail_width}
-                            height={oembed.thumbnail_height}
-                        />
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            {oembed.title}
+                        </a>
                     )}
-                    <div className={styles.details}>
-                        {!isEmptyText(oembed.title) && (
-                            <a
-                                className={styles.title}
-                                href={url}
-                                rel="noopener noreferrer"
-                                target="_blank"
-                            >
-                                {oembed.title}
-                            </a>
-                        )}
-                        {!isEmptyText(oembed.description) && (
-                            <div className={styles.description}>
-                                {oembed.description}
-                            </div>
-                        )}
-                        <Provider oembed={oembed} showUrl={isEmpty} />
-                    </div>
+                    {!isEmptyText(oembed.description) && (
+                        <div className={styles.description}>{oembed.description}</div>
+                    )}
+                    <Provider oembed={oembed} showUrl={isEmpty} />
                 </div>
             </div>
-
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </div>
+        </EditorBlock>
     );
 };
