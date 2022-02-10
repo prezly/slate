@@ -1,10 +1,10 @@
-.__caption {
+.caption {
     color: white;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
-.__header {
+.header {
     display: flex;
     justify-content: space-between;
     overflow: hidden;
@@ -15,11 +15,11 @@
     color: white;
 }
 
-.__panel {
+.panel {
     backdrop-filter: blur(6px);
 }
 
-.__section {
+.section {
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(27, 27, 54, 0.96);
     padding: 16px;
@@ -33,7 +33,7 @@
     }
 }
 
-.__footer {
+.footer {
     display: flex;
     overflow: hidden;
     color: white;

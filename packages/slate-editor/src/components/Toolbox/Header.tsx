@@ -13,7 +13,7 @@ interface HeaderProps {
 
 export function Header(props: React.PropsWithChildren<HeaderProps>) {
     return (
-        <div className={styles.__header}>
+        <div className={styles.header}>
             <Caption>{props.children}</Caption>
 
             {props.withCloseButton && (

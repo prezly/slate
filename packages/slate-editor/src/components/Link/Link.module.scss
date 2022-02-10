@@ -7,14 +7,14 @@
     font-weight: normal;
     text-decoration: none;
     box-sizing: border-box;
+
+    &--full-width {
+        width: 100%;
+        padding: 16px;
+    }
 }
 
-.--full-width {
-    width: 100%;
-    padding: 16px;
-}
-
-.__icon {
+.icon {
     color: white;
     width: 12px;
     height: 12px;

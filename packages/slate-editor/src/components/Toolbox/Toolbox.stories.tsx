@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import type { ChooseGroupOption } from '#components';
+import type { OptionsGroupOption } from '#components';
 import { VStack } from '#components';
-import { Toolbox, Toggle, ChooseGroup, Button, Link } from '#components';
+import { Toolbox, Toggle, OptionsGroup, Button, Link } from '#components';
 import { ExternalLink, Delete, ItemsLayoutVertical, ItemsLayoutHorizontal } from '#icons';
 
 export default {
@@ -14,7 +14,7 @@ export function Base() {
         typeof cardLayoutOptions[number]['value'] | undefined
     >('vertical');
 
-    const cardLayoutOptions: ChooseGroupOption<'vertical' | 'horizontal'>[] = [
+    const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
         {
             value: 'vertical',
             label: 'Vertical',
@@ -26,8 +26,6 @@ export function Base() {
             Icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
     ];
-
-    console.log(cardLayout);
 
     return (
         <div style={{ width: 280 }}>
@@ -46,7 +44,7 @@ export function Base() {
 
                 <Toolbox.Section caption="Card layout">
                     <VStack spacing="spacing-1-5">
-                        <ChooseGroup
+                        <OptionsGroup
                             name="card-layout"
                             type="radio"
                             options={cardLayoutOptions}

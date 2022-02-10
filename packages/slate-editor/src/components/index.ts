@@ -14,7 +14,7 @@ export { FancyScrollbars } from './FancyScrollbars';
 export * as TooltipV2 from './TooltipV2';
 export * from './Stack';
 export * from './Button';
-export * from './ChooseGroup';
+export * from './OptionsGroup';
 export * from './Toggle';
 export * from './Link';
 export * as Toolbox from './Toolbox';

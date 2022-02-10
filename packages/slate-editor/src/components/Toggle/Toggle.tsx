@@ -14,10 +14,10 @@ export function Toggle(props: React.PropsWithChildren<ToggleProps>) {
                 type="checkbox"
                 checked={props.value}
                 onChange={(e) => props.onChange?.(e.target.checked)}
-                className={styles.__input}
+                className={styles.input}
             />
 
-            {props.children && <span className={styles['__label-text']}>{props.children}</span>}
+            {props.children && <span className={styles['label-text']}>{props.children}</span>}
         </label>
     );
 }

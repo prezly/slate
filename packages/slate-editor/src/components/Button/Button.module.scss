@@ -12,19 +12,19 @@
     &:hover {
         opacity: 0.8;
     }
+
+    &--clear {
+        background-color: transparent;
+        border: 1px solid transparent;
+    }
+
+    &--full-width {
+        width: 100%;
+        padding: 16px;
+    }
 }
 
-.--clear {
-    background-color: transparent;
-    border: 1px solid transparent;
-}
-
-.--full-width {
-    width: 100%;
-    padding: 16px;
-}
-
-.__icon-wrapper {
+.icon-wrapper {
     width: 12px;
     height: 12px;
     color: inherit;

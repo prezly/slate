@@ -15,12 +15,12 @@ export function Link(props: React.PropsWithChildren<LinkProps>) {
             href={props.href}
             target="_blank"
             className={classNames(styles.link, {
-                [styles['--full-width']]: props.fullWidth,
+                [styles['link--full-width']]: props.fullWidth,
             })}
             rel="noreferrer"
         >
             {props.children}
-            {props.icon && <props.icon className={styles.__icon} />}
+            {props.icon && <props.icon className={styles.icon} />}
         </a>
     );
 }

@@ -12,12 +12,12 @@ interface SectionProps {
 export function Section(props: React.PropsWithChildren<SectionProps>) {
     return (
         <div
-            className={classNames(styles.__section, {
-                [styles['__section--no-padding']]: props.noPadding,
+            className={classNames(styles.section, {
+                [styles['section--no-padding']]: props.noPadding,
             })}
         >
             {props.caption && (
-                <div className={styles['__section-header-wrapper']}>
+                <div className={styles['section-header-wrapper']}>
                     <Caption>{props.caption}</Caption>
                 </div>
             )}
