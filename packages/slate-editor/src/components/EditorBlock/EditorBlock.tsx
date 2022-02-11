@@ -1,6 +1,6 @@
 import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { PropsWithChildren, ReactNode, Ref } from 'react';
+import type { ReactNode } from 'react';
 import React, { forwardRef, useRef } from 'react';
 import { useSelected } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
@@ -12,11 +12,9 @@ import { Overlay } from './Overlay';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
-interface Props<T extends ElementNode>
-    extends Omit<RenderElementProps, 'attributes'>,
-        SlateInternalAttributes {
+interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
     className?: string;
-    element: T;
+    element: ElementNode;
     renderMenu?: () => ReactNode;
     overlay?: OverlayMode;
     /**
@@ -26,7 +24,7 @@ interface Props<T extends ElementNode>
     void?: boolean;
 }
 
-export const EditorBlock = forwardRef(function <T extends ElementNode>(
+export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     {
         children,
         className,
@@ -36,8 +34,8 @@ export const EditorBlock = forwardRef(function <T extends ElementNode>(
         overlay = false,
         void: isVoid,
         ...attributes
-    }: PropsWithChildren<Props<T>>,
-    ref: Ref<HTMLDivElement>,
+    },
+    ref,
 ) {
     const isSelected = useSelected();
     const arrowReference = useRef<HTMLDivElement | null>(null);
