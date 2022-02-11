@@ -94,6 +94,12 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             overlay="always"
             slateInternalsChildren={children}
             void={true}
+            renderMenu={() => (
+                <div>
+                    This color are used for multiple purposes around the app, from background colors
+                    (eg. $grey-50) to title coloring (eg. $grey-70)
+                </div>
+            )}
         >
             <div
                 className={classNames(styles.card, {

@@ -1,0 +1,88 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.block {
+    @include editor-v4-block($void: false);
+    position: relative;
+    white-space: normal;
+
+    &.void {
+        @include editor-v4-void-element;
+    }
+
+    &.selected {
+        @include editor-v4-block-active;
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $editor-v4-embed-element-overlay-z-index;
+
+    &.hidden {
+        display: none;
+    }
+}
+
+.menu {
+    width: 280px; // FIXME
+    min-height: 320px; // FIXME
+
+    position: absolute;
+    border-radius: 12px;
+    padding: 16px;
+    background-color: rgba(#1B1B36, 0.96);
+    color: white;
+    backdrop-filter: blur(6px);
+}
+
+.arrow {
+    position: absolute;
+    visibility: hidden;
+
+    &, &::before {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: inherit;
+    }
+
+    &::before {
+        visibility: visible;
+        content: '';
+        transform: rotate(45deg);
+    }
+
+    &.top {
+        bottom: -4px;
+    }
+
+    &.bottom {
+        top: -4px;
+    }
+
+    &.left {
+        right: -4px;
+    }
+
+    &.right {
+        left: -4px;
+    }
+
+    &.hidden {
+        display: none;
+    }
+}
+
+.arrowReference {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 42px;
+    height: 42px;
+    pointer-events: none;
+}

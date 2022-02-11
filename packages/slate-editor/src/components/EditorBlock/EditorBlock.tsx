@@ -1,11 +1,12 @@
 import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { PropsWithChildren, ReactNode, Ref } from 'react';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { useSelected } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
 import styles from './EditorBlock.module.scss';
+import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
 
@@ -16,6 +17,7 @@ interface Props<T extends ElementNode>
         SlateInternalAttributes {
     className?: string;
     element: T;
+    renderMenu?: () => ReactNode;
     overlay?: OverlayMode;
     /**
      * Children nodes provided by Slate, required for Slate internals.
@@ -29,6 +31,7 @@ export const EditorBlock = forwardRef(function <T extends ElementNode>(
         children,
         className,
         element,
+        renderMenu,
         slateInternalsChildren,
         overlay = false,
         void: isVoid,
@@ -37,6 +40,7 @@ export const EditorBlock = forwardRef(function <T extends ElementNode>(
     ref: Ref<HTMLDivElement>,
 ) {
     const isSelected = useSelected();
+    const arrowReference = useRef<HTMLDivElement | null>(null);
 
     return (
         <div
@@ -50,6 +54,10 @@ export const EditorBlock = forwardRef(function <T extends ElementNode>(
             ref={ref}
         >
             <div contentEditable={false}>
+                <div className={styles.arrowReference} ref={arrowReference} />
+                {isSelected && renderMenu && (
+                    <Menu reference={arrowReference.current}>{renderMenu()}</Menu>
+                )}
                 <Overlay selected={isSelected} mode={overlay} />
                 {children}
             </div>
@@ -61,5 +69,3 @@ export const EditorBlock = forwardRef(function <T extends ElementNode>(
 });
 
 EditorBlock.displayName = 'EditorBlock';
-
-
