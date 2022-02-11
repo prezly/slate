@@ -1,17 +1,21 @@
+import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode, Ref } from 'react';
 import React, { forwardRef } from 'react';
 import { useSelected } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
 import styles from './EditorBlock.module.scss';
-
-type OverlayMode = 'always' | 'autohide' | false;
+import type { OverlayMode } from './Overlay';
+import { Overlay } from './Overlay';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
-interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
+interface Props<T extends ElementNode>
+    extends Omit<RenderElementProps, 'attributes'>,
+        SlateInternalAttributes {
     className?: string;
+    element: T;
     overlay?: OverlayMode;
     /**
      * Children nodes provided by Slate, required for Slate internals.
@@ -20,7 +24,7 @@ interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAtt
     void?: boolean;
 }
 
-export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
+export const EditorBlock = forwardRef(function <T extends ElementNode>(
     {
         children,
         className,
@@ -29,8 +33,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         overlay = false,
         void: isVoid,
         ...attributes
-    }: PropsWithChildren<Props>,
-    ref,
+    }: PropsWithChildren<Props<T>>,
+    ref: Ref<HTMLDivElement>,
 ) {
     const isSelected = useSelected();
 
@@ -58,15 +62,4 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 
 EditorBlock.displayName = 'EditorBlock';
 
-function Overlay({ selected, mode }: { selected: boolean; mode: OverlayMode }) {
-    if (mode === false) {
-        return null;
-    }
-    return (
-        <div
-            className={classNames(styles.overlay, {
-                [styles.hidden]: selected && mode === 'autohide',
-            })}
-        />
-    );
-}
+
