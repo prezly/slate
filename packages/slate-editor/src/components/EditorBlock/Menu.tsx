@@ -50,7 +50,7 @@ const MODIFIERS: Modifier<string>[] = [
                 }
             }
         },
-    }
+    },
 ];
 
 export class Menu extends Component<Props> {

@@ -1,5 +1,5 @@
-import { ReactEditor, useSlate } from 'slate-react';
 import type { Node } from 'slate';
+import { ReactEditor, useSlate } from 'slate-react';
 
 export function useSlateDom(node?: Node): HTMLElement | null {
     const editor = useSlate();
