@@ -25,11 +25,6 @@ export function Base() {
             label: 'Center',
             Icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
-        {
-            value: 'horizontal3',
-            label: 'Right',
-            Icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
-        },
     ];
 
     return (
@@ -45,6 +40,7 @@ export function Base() {
                         Icon={ExternalLink}
                         iconPosition="right"
                         fullWidth
+                        disabled
                     >
                         View
                     </Button>

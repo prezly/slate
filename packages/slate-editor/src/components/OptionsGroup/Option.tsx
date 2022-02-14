@@ -8,6 +8,7 @@ export interface OptionsGroupOption<T extends string> {
     label: string;
     value: T;
     Icon?: React.ComponentType<React.SVGProps<SVGSVGElement> & { isActive: boolean }>;
+    disabled?: boolean;
 }
 
 interface Option<T> {
@@ -43,6 +44,7 @@ export function ChooseOption<T extends string>(props: ChooseOptionProps<T>) {
                 type={props.type}
                 checked={isActive}
                 onChange={onChange}
+                disabled={props.option.disabled}
             />
             <label htmlFor={id} className={classNames(styles.label)}>
                 {props.option.Icon && <props.option.Icon isActive={isActive} />}

@@ -26,6 +26,10 @@
     justify-content: center;
     min-width: 74px;
 
+    &:hover {
+        opacity: 0.8;
+    }
+
     .hidden-input:focus-visible + &,
     &:focus-visible {
         outline: 4px solid #c7d2fe;
@@ -35,6 +39,10 @@
     .hidden-input:checked + & {
         color: $yellow-300;
         opacity: 1;
+    }
+
+    .hidden-input:disabled + & {
+        opacity: 0.3;
     }
 }
 

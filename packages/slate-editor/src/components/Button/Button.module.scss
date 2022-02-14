@@ -20,12 +20,18 @@
     padding: $spacing-1 - $border-size;
 
     &:hover,
-    &:focus {
+    &:focus-visible {
         background: rgba(255, 255, 255, 0.16);
     }
 
-    &:focus {
+    &:focus-visible {
         border-color: #c7d2fe;
+    }
+
+    &--disabled,
+    &:disabled {
+        opacity: 0.2;
+        cursor: auto;
     }
 
     &--clear {

@@ -5,6 +5,7 @@ import styles from './Toggle.module.scss';
 interface ToggleProps {
     value?: boolean;
     onChange?: (value: boolean) => void;
+    disabled?: boolean;
 }
 
 export function Toggle(props: React.PropsWithChildren<ToggleProps>) {
@@ -15,6 +16,7 @@ export function Toggle(props: React.PropsWithChildren<ToggleProps>) {
                 checked={props.value}
                 onChange={(e) => props.onChange?.(e.target.checked)}
                 className={styles.input}
+                disabled={props.disabled}
             />
 
             {props.children && <span className={styles['label-text']}>{props.children}</span>}
