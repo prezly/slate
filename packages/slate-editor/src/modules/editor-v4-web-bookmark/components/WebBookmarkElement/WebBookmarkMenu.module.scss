@@ -1,7 +1,9 @@
+@import "styles/variables";
+
 .optionIcon {
-    color: white; // FIXME
+    color: $white;
 
     &.active {
-        color: white; // FIXME
+        color: $yellow-300;
     }
 }
