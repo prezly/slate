@@ -9,6 +9,7 @@ import styles from './EditorBlock.module.scss';
 
 interface Props {
     children: ReactNode;
+    editorElement: HTMLElement;
     reference: HTMLElement;
 }
 
@@ -57,7 +58,7 @@ export class Menu extends Component<Props> {
                 return rect;
             },
         };
-    }
+    };
 
     /**
      * Virtual element to position the popover menu and its arrow
@@ -68,11 +69,11 @@ export class Menu extends Component<Props> {
     };
 
     render() {
-        const { children } = this.props;
+        const { children, editorElement } = this.props;
         return (
             <Popper
                 referenceElement={this.virtualReferenceElement}
-                modifiers={MODIFIERS}
+                modifiers={[...MODIFIERS, keepPopoverInEditor(editorElement)]}
                 placement="right-start"
             >
                 {({ ref, style, arrowProps, placement }) => (
@@ -92,4 +93,18 @@ export class Menu extends Component<Props> {
             </Popper>
         );
     }
+}
+
+function keepPopoverInEditor(editorElement: HTMLElement): Modifier<'preventOverflow'> {
+    return {
+        name: 'preventOverflow',
+        enabled: true,
+        options: {
+            altAxis: true,
+            boundary: editorElement,
+            padding: {
+                right: 4,
+            },
+        },
+    };
 }

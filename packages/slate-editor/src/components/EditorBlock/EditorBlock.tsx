@@ -5,6 +5,8 @@ import React, { forwardRef, useState } from 'react';
 import { useSelected } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
+import { useSlateDom } from '#lib';
+
 import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
@@ -37,6 +39,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     },
     ref,
 ) {
+    const editorElement = useSlateDom();
     const isSelected = useSelected();
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
@@ -52,8 +55,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             ref={ref}
         >
             <div contentEditable={false} ref={setContainer}>
-                {isSelected && renderMenu && container && (
-                    <Menu reference={container}>{renderMenu()}</Menu>
+                {isSelected && renderMenu && container && editorElement && (
+                    <Menu editorElement={editorElement} reference={container}>
+                        {renderMenu()}
+                    </Menu>
                 )}
                 <Overlay selected={isSelected} mode={overlay} />
                 {children}
