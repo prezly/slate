@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import { uniqueId } from 'lodash';
 import * as React from 'react';
+
+import { uniqueId } from '#lodash';
 
 import styles from './OptionsGroup.module.scss';
 
