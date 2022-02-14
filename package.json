@@ -24,7 +24,7 @@
         "clean:build": "npm run clean:build --workspaces && rimraf *.tsbuildinfo",
         "clean:node_modules": "npm run clean:node_modules --workspaces && rimraf node_modules/",
         "prettier": "prettier --ignore-path .gitignore --check './**/*.(js|ts|tsx|scss)'",
-        "prettier:fix": "npm run prettier -- --write --no-list-different",
+        "prettier:fix": "npm run prettier -- --write --no-list-different --ignore-path .gitignore",
         "release": "npm run release:prepare && npm run release:publish",
         "release:build": "npm run clean && npm run bootstrap && npm run build",
         "release:prepare": "npm run release:build && npm run check",

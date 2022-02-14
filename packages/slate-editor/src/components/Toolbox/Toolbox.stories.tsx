@@ -54,7 +54,6 @@ export function Base() {
                     <VStack spacing="2-5">
                         <OptionsGroup
                             name="card-layout"
-                            type="radio"
                             options={cardLayoutOptions}
                             selected={cardLayout}
                             onChange={setCardLayout}

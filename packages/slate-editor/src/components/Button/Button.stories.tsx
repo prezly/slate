@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button, VStack } from '#components';
-import { ExternalLink, Delete, ItemsLayoutVertical, ItemsLayoutHorizontal } from '#icons';
+import { ExternalLink } from '#icons';
 
 export default {
     title: 'Components/Button',
