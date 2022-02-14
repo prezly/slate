@@ -1,7 +1,7 @@
 import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { useSelected } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
@@ -38,7 +38,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     ref,
 ) {
     const isSelected = useSelected();
-    const arrowReference = useRef<HTMLDivElement | null>(null);
+    const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
     return (
         <div
@@ -51,10 +51,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-slate-value={JSON.stringify(element)}
             ref={ref}
         >
-            <div contentEditable={false}>
-                <div className={styles.arrowReference} ref={arrowReference} />
-                {isSelected && renderMenu && (
-                    <Menu reference={arrowReference.current}>{renderMenu()}</Menu>
+            <div contentEditable={false} ref={setContainer}>
+                {isSelected && renderMenu && container && (
+                    <Menu reference={container}>{renderMenu()}</Menu>
                 )}
                 <Overlay selected={isSelected} mode={overlay} />
                 {children}
