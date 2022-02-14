@@ -1,0 +1,33 @@
+@import "styles/variables";
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    outline: 0;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 0.5;
+    color: inherit;
+    box-sizing: border-box;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &--clear {
+        background-color: transparent;
+        border: 1px solid transparent;
+    }
+
+    &--full-width {
+        width: 100%;
+        padding: $spacing-2;
+    }
+}
+
+.icon-wrapper {
+    width: $spacing-1-5;
+    height: $spacing-1-5;
+    color: inherit;
+}

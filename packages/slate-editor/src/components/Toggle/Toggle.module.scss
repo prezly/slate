@@ -1,0 +1,47 @@
+@import "styles/variables";
+
+.toggle {
+    color: $white;
+    font-size: $font-size-small;
+    font-weight: normal;
+    display: inline-flex;
+    align-items: center;
+}
+
+$GRAY_CIRCLE: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
+$WHITE_CIRCLE: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+
+.input {
+    appearance: none;
+    width: 30px;
+    height: 16px;
+    margin: 0;
+    border-radius: 24px;
+    background-image: $GRAY_CIRCLE;
+    background-size: contain;
+    background-color: $white;
+    background-repeat: no-repeat;
+    background-position: left center;
+    transition: background-position 0.15s ease-in-out;
+    box-shadow: inset 0px 1px 3px rgba($black, 0.16);
+
+    &:checked {
+        background-image: $WHITE_CIRCLE;
+        background-color: $yellow-300;
+        background-position: right center;
+        border-color: $yellow-300;
+    }
+
+    &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 4px rgba(249, 203, 123, 0.1);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+.label-text {
+    margin-left: 12px;
+}

@@ -2,17 +2,28 @@
 @import "./colors";
 @import "./legacy-colors";
 
-$spacing-base: 8px;
-$spacing-half: 0.5 * $spacing-base;
-$spacing-1: 1 * $spacing-base;
-$spacing-1-5: 1.5 * $spacing-base;
-$spacing-2: 2 * $spacing-base;
-$spacing-3: 3 * $spacing-base;
-$spacing-4: 4 * $spacing-base;
-$spacing-5: 5 * $spacing-base;
-$spacing-6: 6 * $spacing-base;
-$spacing-7: 7 * $spacing-base;
-$spacing-8: 8 * $spacing-base;
+$spacing-base: 8px; // 8
+$spacing-half: 0.5 * $spacing-base; // 4
+$spacing-1: 1 * $spacing-base; // 8
+$spacing-1-5: 1.5 * $spacing-base; // 12
+$spacing-2: 2 * $spacing-base; // 16
+$spacing-3: 3 * $spacing-base; // 24
+$spacing-4: 4 * $spacing-base; // 32
+$spacing-5: 5 * $spacing-base; // 40
+$spacing-6: 6 * $spacing-base; // 48
+$spacing-7: 7 * $spacing-base; // 56
+$spacing-8: 8 * $spacing-base; // 64
+
+$sizes: (
+    none: 0,
+    spacing-half: $spacing-half,
+    spacing-1: $spacing-1,
+    spacing-1-5: $spacing-1-5,
+    spacing-2: $spacing-2,
+    spacing-3: $spacing-3,
+    spacing-4: $spacing-4,
+    spacing-5: $spacing-5,
+);
 
 $border-radius-base: 6px;
 

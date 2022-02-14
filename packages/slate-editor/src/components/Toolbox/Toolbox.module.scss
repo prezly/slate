@@ -1,0 +1,46 @@
+@import "styles/variables";
+
+.caption {
+    color: $white;
+    font-size: $font-size-small;
+    font-weight: 600;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    background: rgba($indigo-900, 0.96);
+    border-top-left-radius: $spacing-1-5;
+    border-top-right-radius: $spacing-1-5;
+    padding: $spacing-2;
+    color: $white;
+}
+
+.panel {
+    backdrop-filter: blur(6px);
+}
+
+.section {
+    border-top: 1px solid rgba($white, 0.12);
+    background: rgba($indigo-900, 0.96);
+    padding: $spacing-2;
+
+    &--no-padding {
+        padding: 0;
+    }
+
+    &-header-wrapper {
+        padding-bottom: $spacing-2;
+    }
+}
+
+.footer {
+    display: flex;
+    overflow: hidden;
+    color: $white;
+    background: rgba($indigo-900, 0.96);
+    border-top: 1px solid rgba($white, 0.12);
+    border-bottom-left-radius: $spacing-1-5;
+    border-bottom-right-radius: $spacing-1-5;
+}

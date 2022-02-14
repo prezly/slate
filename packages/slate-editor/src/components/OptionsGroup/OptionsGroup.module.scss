@@ -1,0 +1,39 @@
+@import "styles/variables";
+
+.choose-group {
+    display: grid;
+    grid-column-gap: $spacing-1;
+}
+
+.label {
+    cursor: pointer;
+    display: inline-flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: $font-size-small;
+
+    &:hover,
+    &:focus {
+        opacity: 1;
+    }
+
+    &--active {
+        color: $yellow-300;
+        opacity: 1;
+    }
+
+    &--inactive {
+        color: $white;
+        opacity: 0.5;
+    }
+}
+
+.hidden-input {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+
+.label-text {
+    margin-top: $spacing-1;
+}
