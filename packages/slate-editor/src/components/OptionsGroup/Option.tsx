@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { uniqueId } from 'lodash';
 import * as React from 'react';
 
 import styles from './OptionsGroup.module.scss';
@@ -31,23 +32,22 @@ export function ChooseOption<T extends string>(props: ChooseOptionProps<T>) {
 
     const isActive = props.allSelected.has(props.option.value);
 
+    const id = React.useMemo(() => uniqueId(props.name), [props.name]);
+
     return (
-        <label
-            className={classNames(
-                styles.label,
-                isActive ? styles['label--active'] : styles['label--inactive'],
-            )}
-        >
+        <span>
             <input
+                id={id}
                 className={styles['hidden-input']}
                 name={props.name}
                 type={props.type}
                 checked={isActive}
                 onChange={onChange}
             />
-            {props.option.Icon && <props.option.Icon isActive={isActive} />}
-
-            <span className={styles['label-text']}>{props.option.label}</span>
-        </label>
+            <label htmlFor={id} className={classNames(styles.label)}>
+                {props.option.Icon && <props.option.Icon isActive={isActive} />}
+                <span className={styles['label-text']}>{props.option.label}</span>
+            </label>
+        </span>
     );
 }

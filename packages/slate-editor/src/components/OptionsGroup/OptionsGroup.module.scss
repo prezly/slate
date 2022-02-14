@@ -1,37 +1,41 @@
 @import "styles/variables";
 
 .choose-group {
-    display: grid;
+    display: flex;
     grid-column-gap: $spacing-1;
-}
-
-.label {
-    cursor: pointer;
-    display: inline-flex;
-    flex-flow: column;
-    align-items: center;
-    font-size: $font-size-small;
-
-    &:hover,
-    &:focus {
-        opacity: 1;
-    }
-
-    &--active {
-        color: $yellow-300;
-        opacity: 1;
-    }
-
-    &--inactive {
-        color: $white;
-        opacity: 0.5;
-    }
 }
 
 .hidden-input {
     position: absolute;
     clip: rect(0, 0, 0, 0);
     pointer-events: none;
+}
+
+.label {
+    $border-size: 4px;
+
+    cursor: pointer;
+    display: inline-flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: $font-size-small;
+    color: $white;
+    opacity: 0.5;
+    border: $border-size solid transparent;
+    border-radius: 8px;
+    padding: $spacing-1 - $border-size;
+    justify-content: center;
+
+    .hidden-input:focus + &,
+    &:hover,
+    &:focus {
+        border-color: #c7d2fe;
+    }
+
+    .hidden-input:checked + & {
+        color: $yellow-300;
+        opacity: 1;
+    }
 }
 
 .label-text {
