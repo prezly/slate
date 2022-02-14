@@ -7,11 +7,8 @@ import type { RenderElementProps } from 'slate-react';
 import { WebBookmarkElement } from './components';
 import { WEB_BOOKMARK_EXTENSION_ID } from './constants';
 import { normalizeRedundantWebBookmarkAttributes, parseSerializedElement } from './lib';
-import type { WebBookmarkParameters } from './types';
 
-export const WebBookmarkExtension = ({
-    availableWidth,
-}: WebBookmarkParameters): Extension => ({
+export const WebBookmarkExtension = (): Extension => ({
     deserialize: {
         element: {
             [BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
@@ -23,11 +20,7 @@ export const WebBookmarkExtension = ({
         if (isBookmarkNode(element)) {
             return (
                 <>
-                    <WebBookmarkElement
-                        attributes={attributes}
-                        availableWidth={availableWidth}
-                        element={element}
-                    >
+                    <WebBookmarkElement attributes={attributes} element={element}>
                         {children}
                     </WebBookmarkElement>
                 </>

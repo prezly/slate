@@ -15,7 +15,6 @@ import { WebBookmarkMenu } from './WebBookmarkMenu';
 const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 
 interface Props extends RenderElementProps {
-    availableWidth: number;
     element: BookmarkNode;
 }
 
