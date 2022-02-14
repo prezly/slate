@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import type { OptionsGroupOption } from '#components';
 import { VStack } from '#components';
-import { Toolbox, Toggle, OptionsGroup, Button, Link } from '#components';
+import { Toolbox, Toggle, OptionsGroup, Button } from '#components';
 import { ExternalLink, Delete, ItemsLayoutVertical, ItemsLayoutHorizontal } from '#icons';
 
 export default {
@@ -33,9 +33,16 @@ export function Base() {
                 <Toolbox.Header withCloseButton>Web bookmark settings</Toolbox.Header>
 
                 <Toolbox.Section noPadding>
-                    <Link href="#" Icon={ExternalLink} fullWidth>
+                    <Button
+                        type="link"
+                        variant="clear"
+                        href="#"
+                        Icon={ExternalLink}
+                        iconPosition="right"
+                        fullWidth
+                    >
                         View
-                    </Link>
+                    </Button>
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Preview image">

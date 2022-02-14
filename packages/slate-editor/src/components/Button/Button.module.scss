@@ -1,33 +1,53 @@
 @import "styles/variables";
 
+@import "styles/variables";
+
 .button {
+    $border-size: 4px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     outline: 0;
     cursor: pointer;
     text-decoration: none;
-    opacity: 0.5;
+    font-weight: normal;
+    font-size: 13px; // Mistake in designs or we should add new variable?
     color: inherit;
     box-sizing: border-box;
+    margin: 0;
+    border: $border-size solid transparent;
+    padding: $spacing-1 - $border-size;
 
-    &:hover {
-        opacity: 0.8;
+    &:hover,
+    &:focus {
+        background: rgba(255, 255, 255, 0.16);
+    }
+
+    &:focus {
+        border-color: #c7d2fe;
     }
 
     &--clear {
         background-color: transparent;
-        border: 1px solid transparent;
     }
 
     &--full-width {
         width: 100%;
-        padding: $spacing-2;
+        padding: calc($spacing-2 - $border-size);
     }
+
+    &--round {
+        border-radius: 6px;
+    }
+}
+
+.button-text {
+    opacity: 0.9;
 }
 
 .icon-wrapper {
     width: $spacing-1-5;
     height: $spacing-1-5;
     color: inherit;
+    opacity: 0.8;
 }

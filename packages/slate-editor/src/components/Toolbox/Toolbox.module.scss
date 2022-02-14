@@ -4,11 +4,13 @@
     color: $white;
     font-size: $font-size-small;
     font-weight: 600;
+    opacity: 0.9;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     overflow: hidden;
     background: rgba($indigo-900, 0.96);
     border-top-left-radius: $spacing-1-5;
@@ -25,6 +27,7 @@
     border-top: 1px solid rgba($white, 0.12);
     background: rgba($indigo-900, 0.96);
     padding: $spacing-2;
+    color: white;
 
     &--no-padding {
         padding: 0;

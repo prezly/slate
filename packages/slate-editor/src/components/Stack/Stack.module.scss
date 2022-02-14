@@ -2,30 +2,36 @@
 
 .stack {
     display: flex;
-}
 
-@each $sizeName, $sizeValue in $sizes {
-    .--column-#{$sizeName} {
-        flex-direction: column;
+    @each $sizeName, $sizeValue in $sizes {
+        &--column-#{$sizeName} {
+            flex-direction: column;
 
-        & > * {
-            margin-bottom: $sizeValue;
+            & > * {
+                margin-bottom: $sizeValue;
+            }
+
+            & > *:last-child {
+                margin-bottom: 0;
+            }
         }
 
-        & > *:last-child {
-            margin-bottom: 0;
+        &--row-#{$sizeName} {
+            flex-direction: row;
+
+            & > * {
+                margin-right: $sizeValue;
+            }
+
+            & > *:last-child {
+                margin-right: 0;
+            }
         }
     }
 
-    .--row-#{$sizeName} {
-        flex-direction: row;
-
-        & > * {
-            margin-right: $sizeValue;
-        }
-
-        & > *:last-child {
-            margin-right: 0;
+    @each $align in start, center, end {
+        &--vertical-align-#{$align} {
+            align-items: $align;
         }
     }
 }
