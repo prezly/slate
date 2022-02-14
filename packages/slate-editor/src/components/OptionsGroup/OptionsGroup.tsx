@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import type { OptionsGroupOption, RadioChoose } from './Option';
+import type { OptionsGroupOption, ChooseOptionProps } from './Option';
 import { ChooseOption } from './Option';
 import styles from './OptionsGroup.module.scss';
 
@@ -10,11 +10,10 @@ interface OptionsGroupCommon<T extends string> {
     columns?: number;
 }
 
-type OptionsGroupProps<T extends string> = OptionsGroupCommon<T> & RadioChoose<T>;
+type OptionsGroupProps<T extends string> = OptionsGroupCommon<T> &
+    Omit<ChooseOptionProps<T>, 'option'>;
 
 export function OptionsGroup<T extends string>(props: OptionsGroupProps<T>) {
-    const allSelected = React.useMemo(() => new Set([props.selected]), [props.selected]);
-
     const totalColumns = props.columns ?? props.options.length;
 
     return (
@@ -26,9 +25,7 @@ export function OptionsGroup<T extends string>(props: OptionsGroupProps<T>) {
                 <ChooseOption
                     key={o.value}
                     name={props.name}
-                    type={props.type}
                     option={o}
-                    allSelected={allSelected}
                     onChange={props.onChange}
                     selected={props.selected}
                 />

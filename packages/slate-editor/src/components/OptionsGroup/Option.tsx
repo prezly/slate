@@ -11,27 +11,19 @@ export interface OptionsGroupOption<T extends string> {
     disabled?: boolean;
 }
 
-interface Option<T> {
-    selected?: T;
-    onChange?: (value: T | undefined) => void;
-}
-
-export interface RadioChoose<T extends string> extends Option<T> {
-    type?: 'radio';
-}
-
-type ChooseOptionProps<T extends string> = RadioChoose<T> & {
+export interface ChooseOptionProps<T extends string> {
     name: string;
     option: OptionsGroupOption<T>;
-    allSelected: Set<T | undefined>;
-};
+    selected?: T;
+    onChange: (value: T | undefined) => void;
+}
 
 export function ChooseOption<T extends string>(props: ChooseOptionProps<T>) {
     const onChange = React.useCallback(() => {
         props.onChange?.(props.option.value);
     }, [props.option, props.onChange]);
 
-    const isActive = props.allSelected.has(props.option.value);
+    const isActive = props.selected === props.option.value;
 
     const id = React.useMemo(() => uniqueId(props.name), [props.name]);
 
@@ -41,7 +33,7 @@ export function ChooseOption<T extends string>(props: ChooseOptionProps<T>) {
                 id={id}
                 className={styles['hidden-input']}
                 name={props.name}
-                type={props.type}
+                type="radio"
                 checked={isActive}
                 onChange={onChange}
                 disabled={props.option.disabled}

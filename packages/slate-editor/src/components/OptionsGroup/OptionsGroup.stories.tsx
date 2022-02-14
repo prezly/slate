@@ -36,7 +36,6 @@ export function Base() {
         <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20 }}>
             <OptionsGroup
                 name="card-layout"
-                type="radio"
                 options={cardLayoutOptions}
                 selected={cardLayout}
                 onChange={setCardLayout}
