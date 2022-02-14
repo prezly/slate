@@ -39,20 +39,20 @@ export function Base() {
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Preview image">
-                    <Toggle>Show preview image</Toggle>
+                    <Toggle name="show_preview">Show preview image</Toggle>
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Card layout">
                     <VStack spacing="spacing-1-5">
                         <OptionsGroup
-                            name="card-layout"
+                            name="layout"
                             type="radio"
                             options={cardLayoutOptions}
                             selected={cardLayout}
                             onChange={setCardLayout}
                             columns={3}
                         />
-                        <Toggle>Open in new tab</Toggle>
+                        <Toggle name="new_tab">Open in new tab</Toggle>
                     </VStack>
                 </Toolbox.Section>
 
