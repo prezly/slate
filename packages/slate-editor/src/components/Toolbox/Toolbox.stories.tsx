@@ -17,12 +17,17 @@ export function Base() {
     const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
         {
             value: 'vertical',
-            label: 'Vertical',
+            label: 'Left',
             Icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
         {
             value: 'horizontal',
-            label: 'Horizontal',
+            label: 'Center',
+            Icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+        {
+            value: 'horizontal3',
+            label: 'Right',
             Icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
     ];
@@ -50,7 +55,7 @@ export function Base() {
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Card layout">
-                    <VStack spacing="spacing-1-5">
+                    <VStack spacing="spacing-2-5">
                         <OptionsGroup
                             name="card-layout"
                             type="radio"

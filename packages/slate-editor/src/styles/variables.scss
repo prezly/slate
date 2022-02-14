@@ -7,6 +7,7 @@ $spacing-half: 0.5 * $spacing-base; // 4
 $spacing-1: 1 * $spacing-base; // 8
 $spacing-1-5: 1.5 * $spacing-base; // 12
 $spacing-2: 2 * $spacing-base; // 16
+$spacing-2-5: 2.5 * $spacing-base; // 20
 $spacing-3: 3 * $spacing-base; // 24
 $spacing-4: 4 * $spacing-base; // 32
 $spacing-5: 5 * $spacing-base; // 40
@@ -20,6 +21,7 @@ $sizes: (
     spacing-1: $spacing-1,
     spacing-1-5: $spacing-1-5,
     spacing-2: $spacing-2,
+    spacing-2-5: $spacing-2-5,
     spacing-3: $spacing-3,
     spacing-4: $spacing-4,
     spacing-5: $spacing-5,
@@ -28,7 +30,8 @@ $sizes: (
 $border-radius-base: 6px;
 
 $font-family-sans-serif: "Open Sans", sans-serif;
-$font-size-x-small: 12px;
+$font-size-smallest: 12px;
+$font-size-smaller: 13px;
 $font-size-small: 14px;
 $font-size-medium: 16px;
 $font-size-large: 18px;

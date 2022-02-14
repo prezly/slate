@@ -2,7 +2,7 @@
 
 .choose-group {
     display: flex;
-    grid-column-gap: $spacing-1;
+    grid-column-gap: 13px;
 }
 
 .hidden-input {
@@ -14,6 +14,7 @@
 .label {
     $border-size: 4px;
 
+    padding-top: 4px;
     cursor: pointer;
     display: inline-flex;
     flex-flow: column;
@@ -21,15 +22,14 @@
     font-size: $font-size-small;
     color: $white;
     opacity: 0.5;
-    border: $border-size solid transparent;
     border-radius: 8px;
-    padding: $spacing-1 - $border-size;
     justify-content: center;
+    min-width: 74px;
 
-    .hidden-input:focus + &,
-    &:hover,
-    &:focus {
-        border-color: #c7d2fe;
+    .hidden-input:focus-visible + &,
+    &:focus-visible {
+        outline: 4px solid #c7d2fe;
+        outline-offset: 4px;
     }
 
     .hidden-input:checked + & {

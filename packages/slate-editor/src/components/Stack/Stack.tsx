@@ -57,6 +57,8 @@ function selectSpaceClassName(props: StackProps) {
                     return styles['stack--column-spacing-1-5'];
                 case 'spacing-2':
                     return styles['stack--column-spacing-2'];
+                case 'spacing-2-5':
+                    return styles['stack--column-spacing-2-5'];
                 case 'spacing-3':
                     return styles['stack--column-spacing-3'];
                 case 'spacing-4':
@@ -78,6 +80,8 @@ function selectSpaceClassName(props: StackProps) {
                     return styles['stack--row-spacing-1-5'];
                 case 'spacing-2':
                     return styles['stack--row-spacing-2'];
+                case 'spacing-2-5':
+                    return styles['stack--row-spacing-2-5'];
                 case 'spacing-3':
                     return styles['stack--row-spacing-3'];
                 case 'spacing-4':
