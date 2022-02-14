@@ -11,7 +11,7 @@ import { Delete, ExternalLink, ItemsLayoutHorizontal, ItemsLayoutVertical } from
 
 import { EventsEditor } from '#modules/editor-v4-events';
 
-import { removeWebBookmark } from '../../transforms';
+import { removeWebBookmark, updateWebBookmark } from '../../transforms';
 
 import styles from './WebBookmarkMenu.module.scss';
 
@@ -72,20 +72,32 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
             </Toolbox.Section>
 
             <Toolbox.Section caption="Preview image">
-                <Toggle>Show preview image</Toggle>
+                <Toggle
+                    name="show_thumbnail"
+                    value={element.show_thumbnail}
+                    onChange={(show_thumbnail) => updateWebBookmark(editor, { show_thumbnail })}
+                >
+                    Show preview image
+                </Toggle>
             </Toolbox.Section>
 
             <Toolbox.Section caption="Card layout">
                 <VStack spacing="spacing-1-5">
                     <OptionsGroup<BookmarkCardLayout>
-                        name="card-layout"
-                        type="radio"
+                        columns={3}
+                        name="layout"
+                        onChange={(layout) => updateWebBookmark(editor, { layout })}
                         options={LAYOUT_OPTIONS}
                         selected={element.layout}
-                        onChange={() => null} // FIXME
-                        columns={3}
+                        type="radio"
                     />
-                    <Toggle>Open in new tab</Toggle>
+                    <Toggle
+                        name="new_tab"
+                        value={element.new_tab}
+                        onChange={(new_tab) => updateWebBookmark(editor, { new_tab })}
+                    >
+                        Open in new tab
+                    </Toggle>
                 </VStack>
             </Toolbox.Section>
 
