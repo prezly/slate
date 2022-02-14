@@ -66,7 +66,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
             </Toolbox.Header>
 
             <Toolbox.Section noPadding>
-                <Link href="#" Icon={ExternalLink} fullWidth>
+                <Link href={element.url} Icon={ExternalLink} fullWidth>
                     View
                 </Link>
             </Toolbox.Section>
