@@ -1,4 +1,5 @@
 import type { VirtualElement } from '@popperjs/core';
+import { preventOverflow } from '@popperjs/core';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import React, { Component } from 'react';
@@ -34,6 +35,22 @@ const MODIFIERS: Modifier<string>[] = [
             padding: 19,
         },
     },
+    {
+        name: 'prezly:autoHideArrow',
+        enabled: true,
+        phase: 'write',
+        fn({ state }) {
+            const { arrow } = state.elements;
+
+            if (arrow) {
+                if (state.modifiersData['prezly:preventEditorOverflow']?.x) {
+                    arrow.classList.add(styles.hidden);
+                } else {
+                    arrow.classList.remove(styles.hidden);
+                }
+            }
+        },
+    }
 ];
 
 export class Menu extends Component<Props> {
@@ -95,12 +112,14 @@ export class Menu extends Component<Props> {
     }
 }
 
-function keepPopoverInEditor(editorElement: HTMLElement): Modifier<'preventOverflow'> {
+function keepPopoverInEditor(editorElement: HTMLElement): Modifier<string> {
     return {
-        name: 'preventOverflow',
+        ...preventOverflow,
+        name: 'prezly:preventEditorOverflow',
         enabled: true,
         options: {
             altAxis: true,
+            mainAxis: false,
             boundary: editorElement,
             padding: {
                 right: 4,

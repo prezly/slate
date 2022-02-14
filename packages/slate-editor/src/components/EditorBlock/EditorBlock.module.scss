@@ -74,6 +74,8 @@
     }
 
     &.hidden {
-        display: none;
+        &::before {
+            visibility: hidden;
+        }
     }
 }
