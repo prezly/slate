@@ -59,6 +59,9 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
         return null;
     }
 
+    const isLayoutChangeable = element.oembed.thumbnail_url && element.show_thumbnail;
+    const activeLayout = isLayoutChangeable ? element.layout : BookmarkCardLayout.VERTICAL;
+
     return (
         <>
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
@@ -73,6 +76,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
 
             <Toolbox.Section caption="Preview image">
                 <Toggle
+                    disabled={!element.oembed.thumbnail_url}
                     name="show_thumbnail"
                     value={element.show_thumbnail}
                     onChange={(show_thumbnail) => updateWebBookmark(editor, { show_thumbnail })}
@@ -85,10 +89,11 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
                 <VStack spacing="spacing-1-5">
                     <OptionsGroup<BookmarkCardLayout>
                         columns={3}
+                        disabled={!isLayoutChangeable}
                         name="layout"
                         onChange={(layout) => updateWebBookmark(editor, { layout })}
                         options={LAYOUT_OPTIONS}
-                        selected={element.layout}
+                        selected={activeLayout}
                         type="radio"
                     />
                     <Toggle

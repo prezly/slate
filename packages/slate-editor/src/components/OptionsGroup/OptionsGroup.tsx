@@ -5,6 +5,7 @@ import { ChooseOption } from './Option';
 import styles from './OptionsGroup.module.scss';
 
 interface OptionsGroupCommon<T extends string> {
+    disabled?: boolean;
     name: string;
     options: OptionsGroupOption<T>[];
     columns?: number;

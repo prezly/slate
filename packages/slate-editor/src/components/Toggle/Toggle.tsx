@@ -3,6 +3,7 @@ import * as React from 'react';
 import styles from './Toggle.module.scss';
 
 interface ToggleProps {
+    disabled?: boolean;
     name: string;
     value?: boolean;
     onChange?: (value: boolean) => void;
