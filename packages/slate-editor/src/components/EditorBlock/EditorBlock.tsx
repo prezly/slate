@@ -1,7 +1,7 @@
 import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useCallback, useState } from 'react';
 import { useSelected } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
@@ -17,7 +17,7 @@ type SlateInternalAttributes = RenderElementProps['attributes'];
 interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
     className?: string;
     element: ElementNode;
-    renderMenu?: () => ReactNode;
+    renderMenu?: (props: { onClose: () => void }) => ReactNode;
     overlay?: OverlayMode;
     /**
      * Children nodes provided by Slate, required for Slate internals.
@@ -41,7 +41,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 ) {
     const editorElement = useSlateDom();
     const isSelected = useSelected();
+    const [menuOpen, setMenuOpen] = useState(true);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
+    const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
+    const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
 
     return (
         <div
@@ -56,11 +59,11 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         >
             <div contentEditable={false} ref={setContainer}>
                 {isSelected && renderMenu && container && editorElement && (
-                    <Menu editorElement={editorElement} reference={container}>
-                        {renderMenu()}
+                    <Menu editorElement={editorElement} open={menuOpen} reference={container}>
+                        {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}
-                <Overlay selected={isSelected} mode={overlay} />
+                <Overlay selected={isSelected} mode={overlay} onClick={openMenu} />
                 {children}
             </div>
 

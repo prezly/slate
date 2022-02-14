@@ -17,6 +17,7 @@ import styles from './WebBookmarkMenu.module.scss';
 
 interface Props {
     element: BookmarkNode;
+    onClose: () => void;
 }
 
 const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
@@ -40,7 +41,7 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
     },
 ];
 
-export const WebBookmarkMenu: FunctionComponent<Props> = ({ element }) => {
+export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) => {
     const editor = useSlate();
     const isSelected = useSelected();
 
@@ -60,7 +61,9 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element }) => {
 
     return (
         <>
-            <Toolbox.Header withCloseButton>Web bookmark settings</Toolbox.Header>
+            <Toolbox.Header withCloseButton onCloseClick={onClose}>
+                Web bookmark settings
+            </Toolbox.Header>
 
             <Toolbox.Section noPadding>
                 <Link href="#" Icon={ExternalLink} fullWidth>

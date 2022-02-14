@@ -13,6 +13,7 @@ import styles from './EditorBlock.module.scss';
 interface Props {
     children: ReactNode;
     editorElement: HTMLElement;
+    open: boolean;
     reference: HTMLElement;
 }
 
@@ -88,7 +89,12 @@ export class Menu extends Component<Props> {
     };
 
     render() {
-        const { children, editorElement } = this.props;
+        const { children, editorElement, open } = this.props;
+
+        if (!open) {
+            return null;
+        }
+
         return (
             <Popper
                 referenceElement={this.virtualReferenceElement}
