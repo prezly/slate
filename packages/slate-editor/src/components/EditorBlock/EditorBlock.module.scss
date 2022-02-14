@@ -13,6 +13,18 @@
     &.selected {
         @include editor-v4-block-active;
     }
+
+    &.extended {
+        $area-vertical-expansion: $spacing-3; // x2 if counted in both directions: up & down
+
+        margin-top: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
+        margin-bottom: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
+
+        .container {
+            padding-top: $area-vertical-expansion;
+            padding-bottom: $area-vertical-expansion;
+        }
+    }
 }
 
 .overlay {

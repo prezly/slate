@@ -13,9 +13,13 @@ interface Props extends RenderElementProps {
 
 export function DividerElement({ attributes, children, element }: PropsWithChildren<Props>) {
     return (
-        <EditorBlock element={element} slateInternalsChildren={children} {...attributes}>
+        <EditorBlock
+            element={element}
+            extendedHitArea
+            slateInternalsChildren={children}
+            {...attributes}
+        >
             <hr className={styles.divider} />
-            <div className={styles.hitbox} />
         </EditorBlock>
     );
 }

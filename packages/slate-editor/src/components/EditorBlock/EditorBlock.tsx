@@ -17,6 +17,11 @@ type SlateInternalAttributes = RenderElementProps['attributes'];
 interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
     className?: string;
     element: ElementNode;
+    /**
+     * Expand hit area and visual focused area when element is selected.
+     * Useful for extremely thin blocks like Divider.
+     */
+    extendedHitArea?: boolean;
     renderMenu?: () => ReactNode;
     overlay?: OverlayMode;
     /**
@@ -31,6 +36,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         children,
         className,
         element,
+        extendedHitArea,
         renderMenu,
         slateInternalsChildren,
         overlay = false,
@@ -49,12 +55,13 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             className={classNames(className, styles.block, {
                 [styles.selected]: isSelected,
                 [styles.void]: isVoid,
+                [styles.extended]: extendedHitArea,
             })}
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
             ref={ref}
         >
-            <div contentEditable={false} ref={setContainer}>
+            <div className={styles.container} contentEditable={false} ref={setContainer}>
                 {isSelected && renderMenu && container && editorElement && (
                     <Menu editorElement={editorElement} reference={container}>
                         {renderMenu()}
