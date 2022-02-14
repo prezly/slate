@@ -4,14 +4,13 @@ import { BOOKMARK_NODE_TYPE, isBookmarkNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import { WebBookmarkElement, WebBookmarkMenu } from './components';
+import { WebBookmarkElement } from './components';
 import { WEB_BOOKMARK_EXTENSION_ID } from './constants';
 import { normalizeRedundantWebBookmarkAttributes, parseSerializedElement } from './lib';
 import type { WebBookmarkParameters } from './types';
 
 export const WebBookmarkExtension = ({
     availableWidth,
-    containerRef,
 }: WebBookmarkParameters): Extension => ({
     deserialize: {
         element: {
@@ -24,12 +23,6 @@ export const WebBookmarkExtension = ({
         if (isBookmarkNode(element)) {
             return (
                 <>
-                    {attributes.ref.current && (
-                        <WebBookmarkMenu
-                            containerRef={containerRef}
-                            element={attributes.ref.current}
-                        />
-                    )}
                     <WebBookmarkElement
                         attributes={attributes}
                         availableWidth={availableWidth}

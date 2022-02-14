@@ -10,6 +10,7 @@ import { EditorBlock } from '#components';
 import { useResizeObserver } from '#lib';
 
 import styles from './WebBookmarkElement.module.scss';
+import { WebBookmarkMenu } from './WebBookmarkMenu';
 
 const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 
@@ -92,6 +93,9 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             {...attributes}
             element={element}
             overlay="always"
+            renderMenu={() => (
+                <WebBookmarkMenu element={element} />
+            )}
             slateInternalsChildren={children}
             void={true}
         >
