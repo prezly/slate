@@ -33,7 +33,8 @@ $editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index 
 }
 
 @mixin editor-v4-block-active {
-    outline: solid 4px #4a90e2;
+    outline: solid 6px $yellow-300;
+    border-radius: 1px;
 }
 
 /**
