@@ -3,10 +3,10 @@ import * as React from 'react';
 
 import styles from './Stack.module.scss';
 
-type StackSizes = Extract<
+type StackSizes<Prefix extends string = 'spacing-'> = Extract<
     keyof typeof styles,
-    `stack--row-${string}`
-> extends `stack--row-${infer Rest}`
+    `${Prefix}${string}`
+> extends `${Prefix}${infer Rest}`
     ? Rest
     : never;
 
@@ -21,8 +21,9 @@ export function Stack(props: React.PropsWithChildren<StackProps>) {
         <div
             className={classNames(
                 styles.stack,
+                selectDirectionClassName(props),
                 selectSpaceClassName(props),
-                selectVerticalAlign(props),
+                selectVerticalAlignClassName(props),
             )}
         >
             {props.children}
@@ -30,68 +31,49 @@ export function Stack(props: React.PropsWithChildren<StackProps>) {
     );
 }
 
-function selectVerticalAlign(props: StackProps) {
+function selectVerticalAlignClassName(props: StackProps) {
     switch (props.verticalAligning) {
         case 'start':
-            return styles['stack--vertical-align-start'];
+            return styles['vertical-align-start'];
         case 'center':
-            return styles['stack--vertical-align-center'];
+            return styles['vertical-align-center'];
         case 'end':
-            return styles['stack--vertical-align-end'];
+            return styles['vertical-align-end'];
+        default:
+            return undefined;
+    }
+}
+
+function selectDirectionClassName(props: StackProps) {
+    switch (props.direction) {
+        case 'column':
+            return styles['column'];
+        case 'row':
+            return styles['row'];
         default:
             return undefined;
     }
 }
 
 function selectSpaceClassName(props: StackProps) {
-    switch (props.direction) {
-        case 'column': {
-            switch (props.spacing) {
-                case 'none':
-                    return styles['stack--column-none'];
-                case 'spacing-half':
-                    return styles['stack--column-spacing-half'];
-                case 'spacing-1':
-                    return styles['stack--column-spacing-1'];
-                case 'spacing-1-5':
-                    return styles['stack--column-spacing-1-5'];
-                case 'spacing-2':
-                    return styles['stack--column-spacing-2'];
-                case 'spacing-2-5':
-                    return styles['stack--column-spacing-2-5'];
-                case 'spacing-3':
-                    return styles['stack--column-spacing-3'];
-                case 'spacing-4':
-                    return styles['stack--column-spacing-4'];
-                case 'spacing-5':
-                    return styles['stack--column-spacing-5'];
-            }
-        }
-
-        case 'row': {
-            switch (props.spacing) {
-                case 'none':
-                    return styles['stack--row-none'];
-                case 'spacing-half':
-                    return styles['stack--row-spacing-half'];
-                case 'spacing-1':
-                    return styles['stack--row-spacing-1'];
-                case 'spacing-1-5':
-                    return styles['stack--row-spacing-1-5'];
-                case 'spacing-2':
-                    return styles['stack--row-spacing-2'];
-                case 'spacing-2-5':
-                    return styles['stack--row-spacing-2-5'];
-                case 'spacing-3':
-                    return styles['stack--row-spacing-3'];
-                case 'spacing-4':
-                    return styles['stack--row-spacing-4'];
-                case 'spacing-5':
-                    return styles['stack--row-spacing-5'];
-            }
-        }
-
-        default:
-            return undefined;
+    switch (props.spacing) {
+        case 'none':
+            return styles['spacing-none'];
+        case 'half':
+            return styles['spacing-half'];
+        case '1':
+            return styles['spacing-1'];
+        case '1-5':
+            return styles['spacing-1-5'];
+        case '2':
+            return styles['spacing-2'];
+        case '2-5':
+            return styles['spacing-2-5'];
+        case '3':
+            return styles['spacing-3'];
+        case '4':
+            return styles['spacing-4'];
+        case '5':
+            return styles['spacing-5'];
     }
 }

@@ -41,7 +41,7 @@ export function Button(props: React.PropsWithChildren<ButtonProps>) {
                 [styles['button--round']]: props.round,
             }),
         },
-        <HStack spacing="spacing-1" verticalAligning="center">
+        <HStack spacing="1" verticalAligning="center">
             {props.Icon && (iconPosition === 'left' || iconPosition === undefined) && (
                 <props.Icon {...iconProps} />
             )}

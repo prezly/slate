@@ -8,7 +8,7 @@ export default {
 
 export function Horizontal() {
     return (
-        <HStack spacing="spacing-1">
+        <HStack spacing="1">
             <div>1</div>
             <div>2</div>
             <div>3</div>
@@ -19,7 +19,7 @@ export function Horizontal() {
 
 export function Vertical() {
     return (
-        <VStack spacing="spacing-1-5">
+        <VStack spacing="1-5">
             <div>1</div>
             <div>2</div>
             <div>3</div>
@@ -30,9 +30,9 @@ export function Vertical() {
 
 export function Combined() {
     return (
-        <VStack spacing="spacing-2">
+        <VStack spacing="2">
             <div>1</div>
-            <HStack spacing="spacing-3">
+            <HStack spacing="3">
                 <div>2</div>
                 <div>3</div>
             </HStack>

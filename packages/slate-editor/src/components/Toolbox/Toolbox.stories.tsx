@@ -55,7 +55,7 @@ export function Base() {
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Card layout">
-                    <VStack spacing="spacing-2-5">
+                    <VStack spacing="2-5">
                         <OptionsGroup
                             name="card-layout"
                             type="radio"
