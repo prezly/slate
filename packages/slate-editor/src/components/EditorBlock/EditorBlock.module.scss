@@ -29,14 +29,8 @@
 }
 
 .menu {
-    width: 280px; // FIXME
-    min-height: 320px; // FIXME
-
+    width: 280px;
     position: absolute;
-    border-radius: 12px;
-    padding: 16px;
-    background-color: rgba($indigo-900, 0.96);
-    color: white;
     backdrop-filter: blur(6px);
 }
 
