@@ -5,10 +5,11 @@ import type { FunctionComponent } from 'react';
 import { useRef, useState } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
 
-import './WebBookmarkElement.scss';
+import { EditorBlock } from '#components';
 import { useResizeObserver } from '#lib';
+
+import styles from './WebBookmarkElement.module.scss';
 
 const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 
@@ -33,13 +34,9 @@ function isEmptyText(text: string | null | undefined): boolean {
 
 const Thumbnail: FunctionComponent<{ href: string; src: string; width?: number; height?: number }> =
     ({ href, src, width, height }) => (
-        <a
-            href={href}
-            className="editor-v4-web-bookmark-element__thumbnail"
-            style={{ backgroundImage: `url("${src}")` }}
-        >
+        <a href={href} className={styles.thumbnail} style={{ backgroundImage: `url("${src}")` }}>
             <img
-                className="editor-v4-web-bookmark-element__thumbnail-image"
+                className={styles.thumbnailImage}
                 src={src}
                 width={width}
                 height={height}
@@ -58,25 +55,19 @@ const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed']; showUrl: boo
     const provider = showUrl ? url : oembed.provider_name || hostname(oembed.provider_url || url);
 
     return (
-        <a
-            className="editor-v4-web-bookmark-element__provider"
-            rel="noopener noreferrer"
-            target="_blank"
-            href={providerUrl}
-        >
+        <a className={styles.provider} rel="noopener noreferrer" target="_blank" href={providerUrl}>
             <img
-                className="editor-v4-web-bookmark-element__provider-icon"
+                className={styles.providerIcon}
                 src={favicon}
                 alt={`${provider} favicon`}
                 aria-hidden="true"
             />
-            <span className="editor-v4-web-bookmark-element__provider-name">{provider}</span>
+            <span className={styles.providerName}>{provider}</span>
         </a>
     );
 };
 
 export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
-    const isSelected = useSelected();
     const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);
 
@@ -97,55 +88,45 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
     });
 
     return (
-        <div
+        <EditorBlock
             {...attributes}
-            className={classNames('editor-v4-web-bookmark-element', {
-                'editor-v4-web-bookmark-element--active': isSelected,
-                'editor-v4-web-bookmark-element--minimal': isEmpty,
-                'editor-v4-web-bookmark-element--vertical':
-                    actualLayout === BookmarkCardLayout.VERTICAL,
-                'editor-v4-web-bookmark-element--horizontal':
-                    actualLayout === BookmarkCardLayout.HORIZONTAL,
-                'editor-v4-web-bookmark-element--video': element.oembed.type === 'video',
-            })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
-            ref={attributes.ref}
+            element={element}
+            overlay="always"
+            slateInternalsChildren={children}
+            void={true}
         >
-            <div contentEditable={false}>
-                <div className="editor-v4-web-bookmark-element__overlay" />
-                <div className="editor-v4-web-bookmark-element__card" ref={card}>
-                    {showThumbnail && oembed.thumbnail_url && (
-                        <Thumbnail
+            <div
+                className={classNames(styles.card, {
+                    [styles.vertical]: actualLayout === BookmarkCardLayout.VERTICAL,
+                    [styles.horizontal]: actualLayout === BookmarkCardLayout.HORIZONTAL,
+                })}
+                ref={card}
+            >
+                {showThumbnail && oembed.thumbnail_url && (
+                    <Thumbnail
+                        href={url}
+                        src={oembed.thumbnail_url}
+                        width={oembed.thumbnail_width}
+                        height={oembed.thumbnail_height}
+                    />
+                )}
+                <div className={styles.details}>
+                    {!isEmptyText(oembed.title) && (
+                        <a
+                            className={styles.title}
                             href={url}
-                            src={oembed.thumbnail_url}
-                            width={oembed.thumbnail_width}
-                            height={oembed.thumbnail_height}
-                        />
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            {oembed.title}
+                        </a>
                     )}
-                    <div className="editor-v4-web-bookmark-element__details">
-                        {!isEmptyText(oembed.title) && (
-                            <a
-                                className="editor-v4-web-bookmark-element__title"
-                                href={url}
-                                rel="noopener noreferrer"
-                                target="_blank"
-                            >
-                                {oembed.title}
-                            </a>
-                        )}
-                        {!isEmptyText(oembed.description) && (
-                            <div className="editor-v4-web-bookmark-element__description">
-                                {oembed.description}
-                            </div>
-                        )}
-                        <Provider oembed={oembed} showUrl={isEmpty} />
-                    </div>
+                    {!isEmptyText(oembed.description) && (
+                        <div className={styles.description}>{oembed.description}</div>
+                    )}
+                    <Provider oembed={oembed} showUrl={isEmpty} />
                 </div>
             </div>
-
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </div>
+        </EditorBlock>
     );
 };

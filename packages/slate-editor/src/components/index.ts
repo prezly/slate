@@ -1,5 +1,6 @@
 export { Avatar } from './Avatar';
 export { CloseButtonV2 } from './CloseButtonV2';
+export { EditorBlock } from './EditorBlock';
 export { GalleryLayoutSettings } from './GalleryLayoutSettings';
 export { HtmlInjection } from './HtmlInjection';
 export { ImageSizeWarning } from './ImageSizeWarning';

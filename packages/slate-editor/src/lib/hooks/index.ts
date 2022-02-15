@@ -7,4 +7,5 @@ export { useElapsed } from './useElapsed';
 export { useImage } from './useImage';
 export { useIsMouseDown } from './useIsMouseDown';
 export { useResizeObserver } from './useResizeObserver';
+export { useSlateDom } from './useSlateDom';
 export { useUniqueId } from './useUniqueId';
