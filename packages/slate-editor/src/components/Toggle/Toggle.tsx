@@ -7,6 +7,7 @@ interface ToggleProps {
     name: string;
     value?: boolean;
     onChange?: (value: boolean) => void;
+    disabled?: boolean;
 }
 
 export function Toggle(props: React.PropsWithChildren<ToggleProps>) {
@@ -18,6 +19,7 @@ export function Toggle(props: React.PropsWithChildren<ToggleProps>) {
                 name={props.name}
                 onChange={(e) => props.onChange?.(e.target.checked)}
                 className={styles.input}
+                disabled={props.disabled}
             />
 
             {props.children && <span className={styles['label-text']}>{props.children}</span>}

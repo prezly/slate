@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import type { OptionsGroupOption } from '#components';
 import { VStack } from '#components';
-import { Toolbox, Toggle, OptionsGroup, Button, Link } from '#components';
+import { Toolbox, Toggle, OptionsGroup, Button } from '#components';
 import { ExternalLink, Delete, ItemsLayoutVertical, ItemsLayoutHorizontal } from '#icons';
 
 export default {
@@ -17,13 +17,13 @@ export function Base() {
     const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
         {
             value: 'vertical',
-            label: 'Vertical',
-            Icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
+            label: 'Left',
+            icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
         {
             value: 'horizontal',
-            label: 'Horizontal',
-            Icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+            label: 'Center',
+            icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
     ];
 
@@ -33,9 +33,16 @@ export function Base() {
                 <Toolbox.Header withCloseButton>Web bookmark settings</Toolbox.Header>
 
                 <Toolbox.Section noPadding>
-                    <Link href="#" Icon={ExternalLink} fullWidth>
+                    <Button
+                        type="link"
+                        variant="clear"
+                        href="#"
+                        Icon={ExternalLink}
+                        iconPosition="right"
+                        fullWidth
+                    >
                         View
-                    </Link>
+                    </Button>
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Preview image">
@@ -43,12 +50,11 @@ export function Base() {
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Card layout">
-                    <VStack spacing="spacing-1-5">
+                    <VStack spacing="2-5">
                         <OptionsGroup
                             name="layout"
-                            type="radio"
                             options={cardLayoutOptions}
-                            selected={cardLayout}
+                            selectedValue={cardLayout}
                             onChange={setCardLayout}
                             columns={3}
                         />

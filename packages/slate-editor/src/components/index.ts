@@ -17,5 +17,4 @@ export * from './Stack';
 export * from './Button';
 export * from './OptionsGroup';
 export * from './Toggle';
-export * from './Link';
 export * as Toolbox from './Toolbox';

@@ -30,6 +30,7 @@ module.exports = {
         }
     },
     "rules": {
+        "no-fallthrough": "off",
         "react/display-name": "warn",
         "react/prop-types": "off",
         "import/no-default-export": "error",

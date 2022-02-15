@@ -4,11 +4,13 @@
     color: $white;
     font-size: $font-size-small;
     font-weight: 600;
+    opacity: 0.9;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     overflow: hidden;
     padding: $spacing-2;
     color: $white;
@@ -23,6 +25,7 @@
 .section {
     border-top: 1px solid rgba($white, 0.12);
     padding: $spacing-2;
+    color: white;
 
     &--no-padding {
         padding: 0;

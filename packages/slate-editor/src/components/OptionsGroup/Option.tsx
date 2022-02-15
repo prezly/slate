@@ -1,53 +1,38 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { uniqueId } from '#lodash';
+
 import styles from './OptionsGroup.module.scss';
 
-export interface OptionsGroupOption<T extends string> {
+export interface OptionProps<T extends string> {
+    name: string;
+    onChange: (value: T) => void;
     label: string;
     value: T;
-    Icon?: React.ComponentType<React.SVGProps<SVGSVGElement> & { isActive: boolean }>;
+    checked: boolean;
+    icon?: React.ComponentType<React.SVGProps<SVGSVGElement> & { isActive: boolean }>;
+    disabled?: boolean;
 }
 
-interface Option<T> {
-    selected?: T;
-    onChange?: (value: T | undefined) => void;
-}
-
-export interface RadioChoose<T extends string> extends Option<T> {
-    type?: 'radio';
-}
-
-type ChooseOptionProps<T extends string> = RadioChoose<T> & {
-    name: string;
-    option: OptionsGroupOption<T>;
-    allSelected: Set<T | undefined>;
-};
-
-export function ChooseOption<T extends string>(props: ChooseOptionProps<T>) {
-    const onChange = React.useCallback(() => {
-        props.onChange?.(props.option.value);
-    }, [props.option, props.onChange]);
-
-    const isActive = props.allSelected.has(props.option.value);
+export function Option<T extends string>(props: OptionProps<T>) {
+    const id = React.useMemo(() => uniqueId(props.name), [props.name]);
 
     return (
-        <label
-            className={classNames(
-                styles.label,
-                isActive ? styles['label--active'] : styles['label--inactive'],
-            )}
-        >
+        <span>
             <input
+                id={id}
                 className={styles['hidden-input']}
                 name={props.name}
-                type={props.type}
-                checked={isActive}
-                onChange={onChange}
+                type="radio"
+                checked={props.checked}
+                onChange={() => props.onChange(props.value)}
+                disabled={props.disabled}
             />
-            {props.option.Icon && <props.option.Icon isActive={isActive} />}
-
-            <span className={styles['label-text']}>{props.option.label}</span>
-        </label>
+            <label htmlFor={id} className={classNames(styles.label)}>
+                {props.icon && <props.icon isActive={props.checked} />}
+                <span className={styles['label-text']}>{props.label}</span>
+            </label>
+        </span>
     );
 }
