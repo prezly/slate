@@ -50,6 +50,10 @@
     &--round {
         border-radius: 6px;
     }
+
+    &.transparent-0-5 {
+        opacity: 0.5;
+    }
 }
 
 .button-text {
