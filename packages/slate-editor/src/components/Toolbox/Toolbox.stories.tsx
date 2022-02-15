@@ -18,12 +18,12 @@ export function Base() {
         {
             value: 'vertical',
             label: 'Left',
-            Icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
+            icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
         {
             value: 'horizontal',
             label: 'Center',
-            Icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+            icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
     ];
 
@@ -55,7 +55,7 @@ export function Base() {
                         <OptionsGroup
                             name="card-layout"
                             options={cardLayoutOptions}
-                            selected={cardLayout}
+                            selectedValue={cardLayout}
                             onChange={setCardLayout}
                             columns={3}
                         />

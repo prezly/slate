@@ -14,12 +14,13 @@
 .label {
     $border-size: 4px;
 
-    padding-top: 4px;
+    padding-top: $spacing-half;
     cursor: pointer;
     display: inline-flex;
     flex-flow: column;
     align-items: center;
-    font-size: $font-size-small;
+    font-size: $font-size-smaller;
+    font-weight: 600;
     color: $white;
     opacity: 0.5;
     border-radius: 8px;
@@ -32,8 +33,8 @@
 
     .hidden-input:focus-visible + &,
     &:focus-visible {
-        outline: 4px solid #c7d2fe;
-        outline-offset: 4px;
+        outline: $spacing-half solid #c7d2fe;
+        outline-offset: $spacing-half;
     }
 
     .hidden-input:checked + & {

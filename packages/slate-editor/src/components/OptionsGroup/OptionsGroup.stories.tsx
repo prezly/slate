@@ -11,23 +11,23 @@ export default {
 export function Base() {
     const [cardLayout, setCardLayout] = React.useState<
         typeof cardLayoutOptions[number]['value'] | undefined
-    >('vertical');
+    >('left');
 
-    const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal' | 'disabled'>[] = [
+    const cardLayoutOptions: OptionsGroupOption<'left' | 'center' | 'right'>[] = [
         {
-            value: 'vertical',
+            value: 'left',
             label: 'Left',
-            Icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
+            icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
         {
-            value: 'horizontal',
+            value: 'center',
             label: 'Center',
-            Icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+            icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
         {
-            value: 'disabled',
-            label: 'Disabled',
-            Icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+            value: 'right',
+            label: 'Right',
+            icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
             disabled: true,
         },
     ];
@@ -37,9 +37,52 @@ export function Base() {
             <OptionsGroup
                 name="card-layout"
                 options={cardLayoutOptions}
-                selected={cardLayout}
+                selectedValue={cardLayout}
                 onChange={setCardLayout}
                 columns={3}
+            />
+        </div>
+    );
+}
+
+export function Disabled() {
+    const [cardLayout, setCardLayout] = React.useState<
+        typeof cardLayoutOptions[number]['value'] | undefined
+    >('right');
+
+    const cardLayoutOptions: OptionsGroupOption<'left' | 'center' | 'right' | 'righter'>[] = [
+        {
+            value: 'left',
+            label: 'Left',
+            icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+        {
+            value: 'center',
+            label: 'Center',
+            icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+        {
+            value: 'right',
+            label: 'Right',
+            icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+            disabled: false,
+        },
+        {
+            value: 'righter',
+            label: 'Righter',
+            icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+            disabled: false,
+        },
+    ];
+
+    return (
+        <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20 }}>
+            <OptionsGroup
+                name="card-layout"
+                options={cardLayoutOptions}
+                selectedValue={cardLayout}
+                onChange={setCardLayout}
+                disabled
             />
         </div>
     );
