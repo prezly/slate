@@ -33,7 +33,7 @@ export function Button({
     round,
     disabled,
     children,
-    ...rest
+    ...attributes
 }: React.PropsWithChildren<ButtonProps>) {
     const Component = type === 'link' ? 'a' : 'button';
 
@@ -44,13 +44,13 @@ export function Button({
     return React.createElement<React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>>(
         Component,
         {
-            ...rest,
+            ...attributes,
             disabled,
             onClick: disabled
                 ? (e) => {
                       e.preventDefault();
                   }
-                : rest.onClick,
+                : attributes.onClick,
             className: classNames(styles.button, {
                 [styles['button--clear']]: variant === 'clear',
                 [styles['button--full-width']]: fullWidth,

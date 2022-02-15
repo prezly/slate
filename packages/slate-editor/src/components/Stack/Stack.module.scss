@@ -30,7 +30,7 @@
     }
 
     @each $align in start, center, end {
-        .vertical-align-#{$align} {
+        &.vertical-align-#{$align} {
             align-items: $align;
         }
     }
