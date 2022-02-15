@@ -1,0 +1,135 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.card {
+    color: $grey-700;
+    display: flex;
+    border: 1px solid $grey-200;
+    border-radius: $border-radius-base;
+    justify-content: stretch;
+    overflow: hidden;
+
+    &.vertical {
+        flex-flow: column;
+    }
+    &.horizontal {
+        flex-flow: row;
+    }
+}
+
+.details {
+    padding: (2.5 * $spacing-base) (3 * $spacing-base);
+    flex-grow: 1;
+}
+
+.thumbnail {
+    background-position: center center;
+    background-size: cover;
+    flex-grow: 0;
+
+    .vertical & {
+        padding-bottom: 50%; // aspect-ratio: 2:1
+        height: 0;
+        position: relative;
+    }
+    .horizontal & {
+        min-width: 180px;
+        min-height: 180px;
+        max-width: 180px;
+    }
+}
+
+.thumbnailImage {
+    visibility: hidden;
+
+    .vertical & {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .horizontal & {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.title {
+    font-weight: 800;
+    line-height: 1.6;
+    margin: 0 0 $spacing-base 0;
+
+    color: $grey-700;
+
+    @include multi-line-ellipsis(2);
+
+    &,
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:hover {
+        color: $grey-800;
+    }
+
+    .vertical & {
+        font-size: 22px;
+    }
+    .horizontal & {
+        font-size: $font-size-large;
+    }
+}
+
+.description {
+    color: $grey-500;
+    margin: $spacing-base 0;
+    line-height: 1.4;
+
+    @include multi-line-ellipsis(2);
+
+    .vertical & {
+        font-size: $font-size-medium;
+    }
+    .horizontal & {
+        font-size: $font-size-small;
+    }
+}
+
+.provider {
+    display: flex;
+    align-items: center;
+    color: $grey-700;
+    font-weight: 600;
+
+    .vertical & {
+        margin-top: 13px;
+        font-size: $font-size-medium;
+    }
+    .horizontal & {
+        margin-top: 16px;
+    }
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &,
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:hover {
+        color: $grey-800;
+    }
+}
+
+.providerIcon {
+    width: $spacing-base * 2;
+    height: $spacing-base * 2;
+    margin-right: $spacing-base;
+}
+
+.providerName {
+    flex-grow: 1;
+}
