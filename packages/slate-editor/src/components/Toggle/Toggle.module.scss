@@ -2,7 +2,7 @@
 
 .toggle {
     color: $white;
-    font-size: $font-size-small;
+    font-size: $font-size-smaller;
     font-weight: 500;
     display: inline-flex;
     align-items: center;
@@ -28,7 +28,7 @@ $WHITE_CIRCLE: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'
     transition: background-color 0.15s ease-in-out, background-position 0.15s ease-in-out;
     box-shadow: inset 0px 1px 3px rgba($black, 0.16);
 
-    &:hover {
+    &:hover:not(:disabled) {
         background-color: rgba($white, 0.35);
 
         &:checked {
@@ -48,7 +48,8 @@ $WHITE_CIRCLE: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'
         outline: 4px solid #c7d2fe;
     }
 
-    &:disabled {
+    &:disabled,
+    &:disabled + .label-text {
         opacity: 0.4;
     }
 }

@@ -11,7 +11,7 @@
     outline: 0;
     cursor: pointer;
     text-decoration: none;
-    font-weight: normal;
+    font-weight: 600;
     font-size: $font-size-smaller;
     color: inherit;
     box-sizing: border-box;
@@ -21,6 +21,10 @@
 
     &:hover,
     &:focus-visible {
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    &:active {
         background: rgba(255, 255, 255, 0.16);
     }
 

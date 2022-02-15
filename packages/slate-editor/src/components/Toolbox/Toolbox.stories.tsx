@@ -40,7 +40,6 @@ export function Base() {
                         Icon={ExternalLink}
                         iconPosition="right"
                         fullWidth
-                        disabled
                     >
                         View
                     </Button>
