@@ -1,0 +1,68 @@
+@import "styles/variables";
+
+@import "styles/variables";
+
+.button {
+    $border-size: 4px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    outline: 0;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: $font-size-smaller;
+    color: inherit;
+    box-sizing: border-box;
+    margin: 0;
+    border: $border-size solid transparent;
+    padding: $spacing-1 - $border-size;
+
+    &:hover,
+    &:focus-visible {
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    &:active {
+        background: rgba(255, 255, 255, 0.16);
+    }
+
+    &:focus-visible {
+        border-color: #c7d2fe;
+    }
+
+    &--disabled,
+    &:disabled {
+        opacity: 0.2;
+        cursor: auto;
+    }
+
+    &--clear {
+        background-color: transparent;
+    }
+
+    &--full-width {
+        width: 100%;
+        padding: calc($spacing-2 - $border-size);
+    }
+
+    &--round {
+        border-radius: 6px;
+    }
+
+    &.transparent-0-5 {
+        opacity: 0.5;
+    }
+}
+
+.button-text {
+    opacity: 0.9;
+}
+
+.icon-wrapper {
+    width: $spacing-1-5;
+    height: $spacing-1-5;
+    color: inherit;
+    opacity: 0.8;
+}

@@ -1,0 +1,52 @@
+@import "styles/variables";
+
+.choose-group {
+    display: flex;
+    grid-column-gap: 13px;
+}
+
+.hidden-input {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+
+.label {
+    $border-size: 4px;
+
+    padding-top: $spacing-half;
+    cursor: pointer;
+    display: inline-flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: $font-size-smaller;
+    font-weight: 600;
+    color: $white;
+    opacity: 0.5;
+    border-radius: 8px;
+    justify-content: center;
+    min-width: 74px;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    .hidden-input:focus-visible + &,
+    &:focus-visible {
+        outline: $spacing-half solid #c7d2fe;
+        outline-offset: $spacing-half;
+    }
+
+    .hidden-input:checked + & {
+        color: $yellow-300;
+        opacity: 1;
+    }
+
+    .hidden-input:disabled + & {
+        opacity: 0.3;
+    }
+}
+
+.label-text {
+    margin-top: $spacing-1;
+}

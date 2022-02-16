@@ -5,4 +5,9 @@ module.exports = {
     features: {
         babelModeV7: true,
     },
+    webpackFinal: (config) => {
+        config.resolve.mainFields = ['browser', 'main', 'module'];
+
+        return config;
+    },
 };
