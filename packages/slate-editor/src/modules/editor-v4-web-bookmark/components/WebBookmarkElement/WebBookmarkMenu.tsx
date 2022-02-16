@@ -6,7 +6,7 @@ import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
 import type { OptionsGroupOption } from '#components';
-import { Button, Link, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
+import { Button, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
 import { Delete, ExternalLink, ItemsLayoutHorizontal, ItemsLayoutVertical } from '#icons';
 
 import { EventsEditor } from '#modules/editor-v4-events';
@@ -22,22 +22,22 @@ interface Props {
 
 const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
     {
+        label: 'Vertical',
         value: BookmarkCardLayout.VERTICAL,
-        Icon: ({ isActive }) => (
+        icon: ({ isActive }) => (
             <ItemsLayoutVertical
                 className={classNames(styles.optionIcon, { [styles.active]: isActive })}
             />
         ),
-        label: 'Vertical',
     },
     {
+        label: 'Horizontal',
         value: BookmarkCardLayout.HORIZONTAL,
-        Icon: ({ isActive }) => (
+        icon: ({ isActive }) => (
             <ItemsLayoutHorizontal
                 className={classNames(styles.optionIcon, { [styles.active]: isActive })}
             />
         ),
-        label: 'Horizontal',
     },
 ];
 
@@ -69,9 +69,9 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
             </Toolbox.Header>
 
             <Toolbox.Section noPadding>
-                <Link href={element.url} Icon={ExternalLink} fullWidth>
+                <Button type="link" href={element.url} Icon={ExternalLink} fullWidth>
                     View
-                </Link>
+                </Button>
             </Toolbox.Section>
 
             <Toolbox.Section caption="Preview image">
@@ -86,15 +86,14 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
             </Toolbox.Section>
 
             <Toolbox.Section caption="Card layout">
-                <VStack spacing="spacing-1-5">
+                <VStack spacing="2-5">
                     <OptionsGroup<BookmarkCardLayout>
                         columns={3}
                         disabled={!isLayoutChangeable}
                         name="layout"
                         onChange={(layout) => updateWebBookmark(editor, { layout })}
                         options={LAYOUT_OPTIONS}
-                        selected={activeLayout}
-                        type="radio"
+                        selectedValue={activeLayout}
                     />
                     <Toggle
                         name="new_tab"
