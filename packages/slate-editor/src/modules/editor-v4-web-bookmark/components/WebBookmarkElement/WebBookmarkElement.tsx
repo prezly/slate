@@ -10,11 +10,11 @@ import { EditorBlock } from '#components';
 import { useResizeObserver } from '#lib';
 
 import styles from './WebBookmarkElement.module.scss';
+import { WebBookmarkMenu } from './WebBookmarkMenu';
 
 const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 
 interface Props extends RenderElementProps {
-    availableWidth: number;
     element: BookmarkNode;
 }
 
@@ -92,6 +92,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             {...attributes} // contains `ref`
             element={element}
             overlay="always"
+            renderMenu={({ onClose }) => <WebBookmarkMenu onClose={onClose} element={element} />}
             renderBlock={({ isSelected }) => (
                 <div
                     className={classNames(styles.card, {

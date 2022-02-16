@@ -23,15 +23,15 @@ export function WithIcon() {
     return (
         <VStack spacing="2">
             <div>
-                <Button Icon={ExternalLink}>Icon left</Button>
+                <Button icon={ExternalLink}>Icon left</Button>
             </div>
             <div>
-                <Button Icon={ExternalLink} iconPosition="right">
+                <Button icon={ExternalLink} iconPosition="right">
                     Icon right
                 </Button>
             </div>
             <div>
-                <Button Icon={ExternalLink} iconPosition="right" />
+                <Button icon={ExternalLink} iconPosition="right" />
             </div>
         </VStack>
     );

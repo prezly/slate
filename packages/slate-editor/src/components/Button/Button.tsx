@@ -8,7 +8,7 @@ import styles from './Button.module.scss';
 
 interface ButtonBaseProps {
     variant?: 'clear';
-    Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     iconPosition?: 'left' | 'right';
     fullWidth?: boolean;
     round?: boolean;
@@ -28,7 +28,7 @@ type ButtonProps = AsButtonProps | AsLinkProps;
 
 export function Button({
     variant,
-    Icon,
+    icon: Icon,
     iconPosition,
     fullWidth,
     type,

@@ -131,11 +131,7 @@ export function* getEnabledExtensions({
     }
 
     if (withWebBookmarks) {
-        yield WebBookmarkExtension({
-            ...withWebBookmarks,
-            availableWidth,
-            containerRef,
-        });
+        yield WebBookmarkExtension();
     }
 
     if (withAutoformat) {

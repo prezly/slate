@@ -1,7 +1,7 @@
 import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useCallback, useState } from 'react';
 import { useSelected } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
@@ -27,7 +27,7 @@ interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAtt
      */
     extendedHitArea?: boolean;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
-    renderMenu?: () => ReactNode;
+    renderMenu?: (props: { onClose: () => void }) => ReactNode;
     overlay?: OverlayMode;
     void?: boolean;
 }
@@ -48,7 +48,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 ) {
     const editorElement = useSlateDom();
     const isSelected = useSelected();
+    const [menuOpen, setMenuOpen] = useState(true);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
+    const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
+    const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
 
     return (
         <div
@@ -64,11 +67,11 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         >
             <div className={styles.container} contentEditable={false} ref={setContainer}>
                 {isSelected && renderMenu && container && editorElement && (
-                    <Menu editorElement={editorElement} reference={container}>
-                        {renderMenu()}
+                    <Menu editorElement={editorElement} open={menuOpen} reference={container}>
+                        {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}
-                <Overlay selected={isSelected} mode={overlay} />
+                <Overlay selected={isSelected} mode={overlay} onClick={openMenu} />
                 {renderBlock({ isSelected })}
             </div>
 
