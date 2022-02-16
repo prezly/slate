@@ -15,6 +15,10 @@ import { Overlay } from './Overlay';
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
 interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
+    /**
+     * Children nodes provided by Slate, required for Slate internals.
+     */
+    children: ReactNode;
     className?: string;
     element: ElementNode;
     /**
@@ -22,12 +26,9 @@ interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAtt
      * Useful for extremely thin blocks like Divider.
      */
     extendedHitArea?: boolean;
+    renderBlock: () => ReactNode;
     renderMenu?: () => ReactNode;
     overlay?: OverlayMode;
-    /**
-     * Children nodes provided by Slate, required for Slate internals.
-     */
-    slateInternalsChildren: ReactNode;
     void?: boolean;
 }
 
@@ -37,8 +38,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         className,
         element,
         extendedHitArea,
+        renderBlock,
         renderMenu,
-        slateInternalsChildren,
         overlay = false,
         void: isVoid,
         ...attributes
@@ -68,11 +69,11 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     </Menu>
                 )}
                 <Overlay selected={isSelected} mode={overlay} />
-                {children}
+                {renderBlock()}
             </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}
-            {slateInternalsChildren}
+            {children}
         </div>
     );
 });
