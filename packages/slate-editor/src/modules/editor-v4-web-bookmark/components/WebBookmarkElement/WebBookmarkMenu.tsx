@@ -69,7 +69,14 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
             </Toolbox.Header>
 
             <Toolbox.Section noPadding>
-                <Button type="link" href={element.url} icon={ExternalLink} fullWidth>
+                <Button
+                    type="link"
+                    href={element.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    icon={ExternalLink}
+                    fullWidth
+                >
                     View
                 </Button>
             </Toolbox.Section>
@@ -106,7 +113,13 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
             </Toolbox.Section>
 
             <Toolbox.Footer>
-                <Button variant="clear" icon={Delete} fullWidth onMouseDown={handleRemove}>
+                <Button
+                    variant="clear"
+                    icon={Delete}
+                    fullWidth
+                    onMouseDown={handleRemove}
+                    transparent="0-5"
+                >
                     Remove web bookmark
                 </Button>
             </Toolbox.Footer>
