@@ -14,12 +14,14 @@ interface Props extends RenderElementProps {
 export function DividerElement({ attributes, children, element }: PropsWithChildren<Props>) {
     return (
         <EditorBlock
+            {...attributes} // contains `ref`
             element={element}
             extendedHitArea
-            slateInternalsChildren={children}
-            {...attributes}
+            renderBlock={() => <hr className={styles.divider} />}
+            void
         >
-            <hr className={styles.divider} />
+            {/* We have to render children or Slate will fail when trying to find the node. */}
+            {children}
         </EditorBlock>
     );
 }
