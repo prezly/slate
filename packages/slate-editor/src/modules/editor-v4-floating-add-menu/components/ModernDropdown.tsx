@@ -82,7 +82,7 @@ export function ModernDropdown<Action>({
     useEffect(
         function () {
             if (activeItem) {
-                scrollarea.current?.ensureVisible(activeItem);
+                scrollarea.current?.ensureVisible(activeItem, 32);
             }
         },
         [activeItem, scrollarea],
