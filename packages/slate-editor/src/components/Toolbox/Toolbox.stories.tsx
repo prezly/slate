@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import type { OptionsGroupOption } from '#components';
 import { VStack } from '#components';
-import { Toolbox, Toggle, OptionsGroup, Button } from '#components';
+import { Toolbox, Toggle, OptionsGroup, Button, ButtonGroup } from '#components';
 import {
     ExternalLink,
     Delete,
@@ -14,6 +14,8 @@ import {
     ImageSpacingNarrow,
     ImageSpacingRegular,
     ImageSpacingWide,
+    Edit,
+    Dice,
 } from '#icons';
 
 export default {
@@ -132,6 +134,19 @@ export function GallerySettings() {
         <div style={{ width: 280 }}>
             <Toolbox.Panel>
                 <Toolbox.Header withCloseButton>Gallery settings</Toolbox.Header>
+
+                <Toolbox.Section noPadding>
+                    <ButtonGroup>
+                        {[
+                            <Button key="edit" variant="clear" Icon={Edit} fullWidth>
+                                Edit
+                            </Button>,
+                            <Button key="view" variant="clear" Icon={Dice} fullWidth>
+                                Randomize
+                            </Button>,
+                        ]}
+                    </ButtonGroup>
+                </Toolbox.Section>
 
                 <Toolbox.Section caption="Gallery width">
                     <OptionsGroup
