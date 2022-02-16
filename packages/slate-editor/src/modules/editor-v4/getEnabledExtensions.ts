@@ -10,6 +10,7 @@ import { EmbedExtension } from '#modules/editor-v4-embed';
 import { FileAttachmentExtension } from '#modules/editor-v4-file-attachment';
 import { FloatingAddMenuExtension } from '#modules/editor-v4-floating-add-menu';
 import { GalleriesExtension } from '#modules/editor-v4-galleries';
+import { HtmlExtension } from '#modules/editor-v4-html';
 import { ImageExtension } from '#modules/editor-v4-image';
 import { LoaderExtension } from '#modules/editor-v4-loader';
 import { ParagraphsExtension } from '#modules/editor-v4-paragraphs';
@@ -153,4 +154,6 @@ export function* getEnabledExtensions({
     yield LoaderExtension({ onOperationEnd, onOperationStart });
 
     yield VoidExtension();
+
+    yield HtmlExtension();
 }
