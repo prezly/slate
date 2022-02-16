@@ -1,33 +1,25 @@
-import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
+import type { DividerNode } from '@prezly/slate-types';
+import type { PropsWithChildren } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
 
-import './DividerElement.scss';
+import { EditorBlock } from '#components';
 
-interface Props extends RenderElementProps {}
+import styles from './DividerElement.module.scss';
 
-export const DividerElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
-    const isSelected = useSelected();
+interface Props extends RenderElementProps {
+    element: DividerNode;
+}
 
+export function DividerElement({ attributes, children, element }: PropsWithChildren<Props>) {
     return (
-        <div
+        <EditorBlock
+            element={element}
+            extendedHitArea
+            slateInternalsChildren={children}
             {...attributes}
-            className={classNames('editor-v4-divider-element', {
-                'editor-v4-divider-element--active': isSelected,
-            })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
         >
-            <div contentEditable={false}>
-                <hr className="editor-v4-divider-element__line" />
-
-                <div className="editor-v4-divider-element__hitbox" />
-            </div>
-
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </div>
+            <hr className={styles.divider} />
+        </EditorBlock>
     );
-};
+}
