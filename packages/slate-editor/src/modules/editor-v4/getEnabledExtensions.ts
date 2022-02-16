@@ -144,7 +144,7 @@ export function* getEnabledExtensions({
         yield AutoformatExtension({ rules });
     }
 
-    yield DividerExtension({ containerRef });
+    yield DividerExtension();
 
     yield LoaderExtension({ onOperationEnd, onOperationStart });
 

@@ -15,14 +15,20 @@ import { Overlay } from './Overlay';
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
 interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
-    className?: string;
-    element: ElementNode;
-    renderMenu?: (props: { onClose: () => void }) => ReactNode;
-    overlay?: OverlayMode;
     /**
      * Children nodes provided by Slate, required for Slate internals.
      */
-    slateInternalsChildren: ReactNode;
+    children: ReactNode;
+    className?: string;
+    element: ElementNode;
+    /**
+     * Expand hit area and visual focused area when element is selected.
+     * Useful for extremely thin blocks like Divider.
+     */
+    extendedHitArea?: boolean;
+    renderBlock: (props: { isSelected: boolean }) => ReactNode;
+    renderMenu?: (props: { onClose: () => void }) => ReactNode;
+    overlay?: OverlayMode;
     void?: boolean;
 }
 
@@ -31,8 +37,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         children,
         className,
         element,
+        extendedHitArea,
+        renderBlock,
         renderMenu,
-        slateInternalsChildren,
         overlay = false,
         void: isVoid,
         ...attributes
@@ -52,23 +59,24 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             className={classNames(className, styles.block, {
                 [styles.selected]: isSelected,
                 [styles.void]: isVoid,
+                [styles.extended]: extendedHitArea,
             })}
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
             ref={ref}
         >
-            <div contentEditable={false} ref={setContainer}>
+            <div className={styles.container} contentEditable={false} ref={setContainer}>
                 {isSelected && renderMenu && container && editorElement && (
                     <Menu editorElement={editorElement} open={menuOpen} reference={container}>
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}
                 <Overlay selected={isSelected} mode={overlay} onClick={openMenu} />
-                {children}
+                {renderBlock({ isSelected })}
             </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}
-            {slateInternalsChildren}
+            {children}
         </div>
     );
 });
