@@ -17,6 +17,7 @@ export function DividerElement({ attributes, children, element }: PropsWithChild
             element={element}
             extendedHitArea
             slateInternalsChildren={children}
+            void
             {...attributes}
         >
             <hr className={styles.divider} />
