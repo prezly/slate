@@ -37,7 +37,7 @@ export function Base() {
                         type="link"
                         variant="clear"
                         href="#"
-                        Icon={ExternalLink}
+                        icon={ExternalLink}
                         iconPosition="right"
                         fullWidth
                     >
@@ -63,7 +63,7 @@ export function Base() {
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear" Icon={Delete} fullWidth transparent="0-5">
+                    <Button variant="clear" icon={Delete} fullWidth transparent="0-5">
                         Remove web bookmark
                     </Button>
                 </Toolbox.Footer>
