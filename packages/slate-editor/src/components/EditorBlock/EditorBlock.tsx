@@ -26,7 +26,7 @@ interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAtt
      * Useful for extremely thin blocks like Divider.
      */
     extendedHitArea?: boolean;
-    renderBlock: () => ReactNode;
+    renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: () => ReactNode;
     overlay?: OverlayMode;
     void?: boolean;
@@ -69,7 +69,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     </Menu>
                 )}
                 <Overlay selected={isSelected} mode={overlay} />
-                {renderBlock()}
+                {renderBlock({ isSelected })}
             </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}

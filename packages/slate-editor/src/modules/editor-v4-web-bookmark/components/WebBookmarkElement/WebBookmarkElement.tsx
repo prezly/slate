@@ -92,9 +92,10 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             {...attributes} // contains `ref`
             element={element}
             overlay="always"
-            renderBlock={() => (
+            renderBlock={({ isSelected }) => (
                 <div
                     className={classNames(styles.card, {
+                        [styles.selected]: isSelected,
                         [styles.vertical]: actualLayout === BookmarkCardLayout.VERTICAL,
                         [styles.horizontal]: actualLayout === BookmarkCardLayout.HORIZONTAL,
                     })}
