@@ -1,17 +1,11 @@
+import type { SelectAfterPrefix } from '@prezly/slate-editor/type-utils';
 import classNames from 'classnames';
 import * as React from 'react';
 
 import styles from './Stack.module.scss';
 
-type StackSizes<Prefix extends string = 'spacing-'> = Extract<
-    keyof typeof styles,
-    `${Prefix}${string}`
-> extends `${Prefix}${infer Rest}`
-    ? Rest
-    : never;
-
 export interface StackProps {
-    spacing: StackSizes;
+    spacing: SelectAfterPrefix<keyof typeof styles, 'spacing-'>;
     direction?: 'column' | 'row';
     verticalAligning?: 'start' | 'center' | 'end';
 }
