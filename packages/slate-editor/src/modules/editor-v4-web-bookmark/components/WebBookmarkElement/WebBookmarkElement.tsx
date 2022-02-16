@@ -92,7 +92,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             {...attributes}
             element={element}
             overlay="always"
-            renderMenu={(props) => <WebBookmarkMenu {...props} element={element} />}
+            renderMenu={({ onClose }) => <WebBookmarkMenu onClose={onClose} element={element} />}
             slateInternalsChildren={children}
             void={true}
         >
