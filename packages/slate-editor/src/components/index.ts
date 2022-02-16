@@ -18,4 +18,5 @@ export * from './Button';
 export * from './ButtonGroup';
 export * from './OptionsGroup';
 export * from './Toggle';
+export * from './InfoText';
 export * as Toolbox from './Toolbox';

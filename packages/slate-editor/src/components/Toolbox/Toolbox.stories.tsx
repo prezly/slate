@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 import type { OptionsGroupOption } from '#components';
-import { VStack } from '#components';
-import { Toolbox, Toggle, OptionsGroup, Button, ButtonGroup } from '#components';
+import { Toolbox, Toggle, OptionsGroup, Button, ButtonGroup, InfoText, VStack } from '#components';
 import {
     ExternalLink,
     Delete,
@@ -146,6 +145,10 @@ export function GallerySettings() {
                             </Button>,
                         ]}
                     </ButtonGroup>
+                </Toolbox.Section>
+
+                <Toolbox.Section>
+                    <InfoText>You can reorder and crop your gallery images in the preview</InfoText>
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Gallery width">
