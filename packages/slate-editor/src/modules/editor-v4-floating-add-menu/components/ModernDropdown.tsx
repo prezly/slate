@@ -99,7 +99,7 @@ export function ModernDropdown<Action>({
             <FancyScrollbars
                 {...attributes.popper}
                 autoHeight
-                autoHeightMin={200}
+                autoHeightMin={20}
                 autoHeightMax={1000}
                 className="editor-v4-floating-menu-modern-dropdown__scroll-area"
                 ref={scrollarea}
