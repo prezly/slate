@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { useState } from 'react';
@@ -115,10 +114,7 @@ export function FloatingAddMenu<Action>({
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className={classNames(
-                'editor-v4-floating-add-menu',
-                'editor-v4-floating-add-menu--modern',
-            )}
+            className="editor-v4-floating-add-menu"
             containerRef={containerRef}
             onClose={menu.close}
             open={open}
