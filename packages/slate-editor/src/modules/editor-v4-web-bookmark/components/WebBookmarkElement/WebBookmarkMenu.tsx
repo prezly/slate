@@ -75,6 +75,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
                     target="_blank"
                     rel="noreferrer"
                     icon={ExternalLink}
+                    iconPosition="right"
                     fullWidth
                 >
                     View
