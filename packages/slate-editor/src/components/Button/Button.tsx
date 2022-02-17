@@ -1,4 +1,3 @@
-import type { SelectAfterPrefix } from '@prezly/slate-editor/type-utils';
 import classNames from 'classnames';
 import * as React from 'react';
 
@@ -7,13 +6,12 @@ import { HStack } from '#components';
 import styles from './Button.module.scss';
 
 interface ButtonBaseProps {
-    variant?: 'clear';
+    variant?: 'clear' | 'clear-faded';
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     iconPosition?: 'left' | 'right';
     fullWidth?: boolean;
     round?: boolean;
     disabled?: boolean;
-    transparent?: SelectAfterPrefix<keyof typeof styles, 'transparent-'>;
 }
 
 interface AsButtonProps extends ButtonBaseProps, React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -35,7 +33,6 @@ export function Button({
     round,
     disabled,
     children,
-    transparent,
     ...attributes
 }: React.PropsWithChildren<ButtonProps>) {
     const Component = type === 'link' ? 'a' : 'button';
@@ -55,11 +52,11 @@ export function Button({
                   }
                 : attributes.onClick,
             className: classNames(styles.button, {
-                [styles['button--clear']]: variant === 'clear',
+                [styles['button--clear']]: variant === 'clear' || variant === 'clear-faded',
+                [styles['button--clear-faded']]: variant === 'clear-faded',
                 [styles['button--full-width']]: fullWidth,
                 [styles['button--round']]: round,
                 [styles['button--disabled']]: disabled,
-                [styles['transparent-0-5']]: transparent === '0-5',
             }),
         },
         <HStack spacing="1" verticalAligning="center">

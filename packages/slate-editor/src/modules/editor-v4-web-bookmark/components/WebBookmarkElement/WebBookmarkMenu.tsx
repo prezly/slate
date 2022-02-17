@@ -115,11 +115,10 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
 
             <Toolbox.Footer>
                 <Button
-                    variant="clear"
+                    variant="clear-faded"
                     icon={Delete}
                     fullWidth
                     onMouseDown={handleRemove}
-                    transparent="0-5"
                 >
                     Remove web bookmark
                 </Button>
