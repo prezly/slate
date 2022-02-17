@@ -47,7 +47,7 @@
     width: 280px;
     position: absolute;
     backdrop-filter: blur(6px);
-    z-index: 1;
+    z-index: $editor-v4-embed-element-overlay-z-index + 1;
 }
 
 .arrow {
