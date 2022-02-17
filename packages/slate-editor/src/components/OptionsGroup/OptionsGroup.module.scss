@@ -42,6 +42,7 @@
     .hidden-input:checked + & {
         color: $yellow-300;
         opacity: 1;
+        font-weight: 600;
     }
 
     .hidden-input:disabled + & {
