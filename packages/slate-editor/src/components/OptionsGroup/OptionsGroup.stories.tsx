@@ -33,7 +33,7 @@ export function Base() {
     ];
 
     return (
-        <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20 }}>
+        <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20, width: 300 }}>
             <OptionsGroup
                 name="card-layout"
                 options={cardLayoutOptions}
@@ -76,13 +76,97 @@ export function Disabled() {
     ];
 
     return (
-        <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20 }}>
+        <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20, width: 300 }}>
             <OptionsGroup
                 name="card-layout"
                 options={cardLayoutOptions}
                 selectedValue={cardLayout}
                 onChange={setCardLayout}
                 disabled
+            />
+        </div>
+    );
+}
+
+export function Pills() {
+    const [imageSize, setImageSize] = React.useState<
+        typeof imageSizeOptions[number]['value'] | undefined
+    >('m');
+
+    const imageSizeOptions: OptionsGroupOption<'xs' | 's' | 'm' | 'l' | 'xl'>[] = [
+        {
+            value: 'xs',
+            label: 'XS',
+        },
+        {
+            value: 's',
+            label: 'S',
+        },
+        {
+            value: 'm',
+            label: 'M',
+        },
+        {
+            value: 'l',
+            label: 'L',
+        },
+        {
+            value: 'xl',
+            label: 'XL',
+        },
+    ];
+
+    return (
+        <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20, width: 300 }}>
+            <OptionsGroup
+                name="image-size"
+                options={imageSizeOptions}
+                selectedValue={imageSize}
+                onChange={setImageSize}
+                variant="pills"
+            />
+        </div>
+    );
+}
+
+export function PillsDisabled() {
+    const [imageSize, setImageSize] = React.useState<
+        typeof imageSizeOptions[number]['value'] | undefined
+    >('m');
+
+    const imageSizeOptions: OptionsGroupOption<'xs' | 's' | 'm' | 'l' | 'xl'>[] = [
+        {
+            value: 'xs',
+            label: 'XS',
+        },
+        {
+            value: 's',
+            label: 'S',
+        },
+        {
+            value: 'm',
+            label: 'M',
+        },
+        {
+            value: 'l',
+            label: 'L',
+            disabled: true,
+        },
+        {
+            value: 'xl',
+            label: 'XL',
+            disabled: true,
+        },
+    ];
+
+    return (
+        <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20, width: 300 }}>
+            <OptionsGroup
+                name="image-size"
+                options={imageSizeOptions}
+                selectedValue={imageSize}
+                onChange={setImageSize}
+                variant="pills"
             />
         </div>
     );

@@ -93,6 +93,10 @@ export function GallerySettings() {
         typeof spacingBetweenImagesOptions[number]['value'] | undefined
     >('regular');
 
+    const [imageSize, setImageSize] = React.useState<
+        typeof imageSizeOptions[number]['value'] | undefined
+    >('m');
+
     const galleryWidthOptions: OptionsGroupOption<'contained' | 'expanded' | 'full-width'>[] = [
         {
             value: 'contained',
@@ -129,6 +133,29 @@ export function GallerySettings() {
         },
     ];
 
+    const imageSizeOptions: OptionsGroupOption<'xs' | 's' | 'm' | 'l' | 'xl'>[] = [
+        {
+            value: 'xs',
+            label: 'XS',
+        },
+        {
+            value: 's',
+            label: 'S',
+        },
+        {
+            value: 'm',
+            label: 'M',
+        },
+        {
+            value: 'l',
+            label: 'L',
+        },
+        {
+            value: 'xl',
+            label: 'XL',
+        },
+    ];
+
     return (
         <div style={{ width: 280 }}>
             <Toolbox.Panel>
@@ -157,6 +184,16 @@ export function GallerySettings() {
                         options={galleryWidthOptions}
                         selectedValue={cardLayout}
                         onChange={setCardLayout}
+                    />
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Image size">
+                    <OptionsGroup
+                        name="image-size"
+                        options={imageSizeOptions}
+                        selectedValue={imageSize}
+                        onChange={setImageSize}
+                        variant="pills"
                     />
                 </Toolbox.Section>
 

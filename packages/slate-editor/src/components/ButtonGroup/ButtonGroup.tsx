@@ -9,16 +9,18 @@ interface ButtonGroupProps {
 export function ButtonGroup(props: ButtonGroupProps) {
     return (
         <div className={styles['button-group']}>
-            {props.children.map((node, index, arr) =>
-                arr.length - 1 === index ? (
-                    node
-                ) : (
-                    <>
-                        {node}
-                        <div className={styles.separator} />
-                    </>
-                ),
-            )}
+            <>
+                {props.children.map((node, index, arr) =>
+                    arr.length - 1 === index ? (
+                        node
+                    ) : (
+                        <>
+                            {node}
+                            <div className={styles.separator} />
+                        </>
+                    ),
+                )}
+            </>
         </div>
     );
 }

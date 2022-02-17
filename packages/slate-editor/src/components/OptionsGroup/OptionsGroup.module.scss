@@ -1,52 +1,119 @@
 @import "styles/variables";
 
-.choose-group {
-    display: flex;
-    grid-column-gap: 13px;
+.options-group {
+    display: grid;
+
+    &.variant-icon-label {
+        grid-column-gap: 13px;
+    }
+
+    &.variant-pills {
+        grid-column-gap: 1px;
+    }
 }
 
 .hidden-input {
     position: absolute;
     clip: rect(0, 0, 0, 0);
     pointer-events: none;
+    margin: 0;
+}
+
+.option {
+    &.variant-pills {
+        $border-radius: 8px;
+
+        &:first-child {
+            .label {
+                border-top-left-radius: $border-radius;
+                border-bottom-left-radius: $border-radius;
+            }
+        }
+
+        &:last-child {
+            .label {
+                border-top-right-radius: $border-radius;
+                border-bottom-right-radius: $border-radius;
+            }
+        }
+    }
 }
 
 .label {
     $border-size: 4px;
 
-    padding-top: $spacing-half;
     cursor: pointer;
     display: inline-flex;
     flex-flow: column;
     align-items: center;
+    justify-content: center;
     font-size: $font-size-smaller;
     font-weight: 600;
     color: $white;
     opacity: 0.5;
-    border-radius: 8px;
-    justify-content: center;
-    min-width: 74px;
 
-    &:hover {
-        opacity: 0.8;
+    &.variant-icon-label {
+        padding-top: $spacing-half;
+        min-width: 74px;
+        border-radius: 8px;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        .hidden-input:focus-visible + &,
+        &:focus-visible {
+            outline: $spacing-half solid #c7d2fe;
+            outline-offset: $spacing-half;
+        }
+
+        .hidden-input:checked + & {
+            color: $yellow-300;
+            opacity: 1;
+        }
+
+        .hidden-input:disabled + & {
+            opacity: 0.3;
+        }
     }
 
-    .hidden-input:focus-visible + &,
-    &:focus-visible {
-        outline: $spacing-half solid #c7d2fe;
-        outline-offset: $spacing-half;
-    }
+    &.variant-pills {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $spacing-1;
+        background: rgba(255, 255, 255, 0.08);
 
-    .hidden-input:checked + & {
-        color: $yellow-300;
-        opacity: 1;
-    }
+        &:hover {
+            background: rgba(255, 255, 255, 0.16);
 
-    .hidden-input:disabled + & {
-        opacity: 0.3;
+            .label-text {
+                opacity: 0.8;
+            }
+        }
+
+        .hidden-input:focus-visible + &,
+        &:focus-visible {
+            outline: $spacing-half solid #c7d2fe;
+        }
+
+        .hidden-input:checked + & {
+            background: $yellow-300;
+            color: #1c1c37;
+            opacity: 1;
+        }
+
+        .hidden-input:disabled + & {
+            opacity: 0.4;
+        }
     }
 }
 
 .label-text {
-    margin-top: $spacing-1;
+    &.variant-icon-label {
+        margin-top: $spacing-1;
+    }
+
+    &.variant-pills {
+    }
 }

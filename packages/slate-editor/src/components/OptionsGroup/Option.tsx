@@ -13,13 +13,14 @@ export interface OptionProps<T extends string> {
     checked: boolean;
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement> & { isActive: boolean }>;
     disabled?: boolean;
+    variantClassName?: string;
 }
 
 export function Option<T extends string>(props: OptionProps<T>) {
     const id = React.useMemo(() => uniqueId(props.name), [props.name]);
 
     return (
-        <span>
+        <span className={classNames(styles.option, props.variantClassName)}>
             <input
                 id={id}
                 className={styles['hidden-input']}
@@ -29,9 +30,12 @@ export function Option<T extends string>(props: OptionProps<T>) {
                 onChange={() => props.onChange(props.value)}
                 disabled={props.disabled}
             />
-            <label htmlFor={id} className={classNames(styles.label)}>
+            <label htmlFor={id} className={classNames(styles.label, props.variantClassName)}>
                 {props.icon && <props.icon isActive={props.checked} />}
-                <span className={styles['label-text']}>{props.label}</span>
+
+                <span className={classNames(styles['label-text'], props.variantClassName)}>
+                    {props.label}
+                </span>
             </label>
         </span>
     );
