@@ -1,10 +1,5 @@
 import type { ComponentType, ReactNode } from 'react';
 
-export enum Variant {
-    CLASSIC = 'classic',
-    MODERN = 'modern',
-}
-
 export interface Option<Action> {
     action: Action;
     icon: ReactNode | ComponentType;
@@ -21,5 +16,4 @@ export interface Settings {
         placement: 'top' | 'right' | 'bottom' | 'left';
         title: string;
     };
-    variant?: 'classic' | 'modern';
 }

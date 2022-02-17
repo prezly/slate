@@ -28,7 +28,7 @@ import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
 import type { EditorEventMap } from '../editor-v4-events';
-import { FloatingAddMenu, Variant as FloatingAddMenuVariant } from '../editor-v4-floating-add-menu';
+import { FloatingAddMenu } from '../editor-v4-floating-add-menu';
 import {
     PlaceholderMentionsDropdown,
     usePlaceholderMentions,
@@ -211,11 +211,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         onKeyDownList.push(userMentions.onKeyDown);
     }
 
-    const menuVariant =
-        withFloatingAddMenu?.variant === FloatingAddMenuVariant.MODERN
-            ? FloatingAddMenuVariant.MODERN
-            : FloatingAddMenuVariant.CLASSIC;
-    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props, menuVariant));
+    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props));
     const handleMenuAction = (action: MenuAction) => {
         if (action === MenuAction.ADD_PARAGRAPH) {
             return; // Do nothing. @see MT-4590
@@ -340,7 +336,6 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         onToggle={onFloatingAddMenuToggle}
                         options={menuOptions}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
-                        variant={menuVariant}
                     />
                 )}
 

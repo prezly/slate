@@ -10,7 +10,7 @@ import { KeyboardKey, TooltipV2 } from '#components';
 
 import { FloatingContainer } from '#modules/editor-v4-components';
 
-import { ClassicDropdown, Input, ModernDropdown } from './components';
+import { Input, ModernDropdown } from './components';
 import './FloatingAddMenu.scss';
 import {
     isMenuHotkey,
@@ -22,7 +22,6 @@ import {
     useMenuToggle,
 } from './lib';
 import type { Option, Settings } from './types';
-import { Variant } from './types';
 
 interface Props<Action> extends Settings {
     availableWidth: number;
@@ -54,7 +53,6 @@ export function FloatingAddMenu<Action>({
     options,
     showTooltipByDefault,
     tooltip,
-    variant,
 }: Props<Action>) {
     const editor = useSlate();
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
@@ -114,17 +112,13 @@ export function FloatingAddMenu<Action>({
         onKeyDown(event);
     }
 
-    const Dropdown = variant === Variant.CLASSIC ? ClassicDropdown : ModernDropdown;
-    const prompt =
-        variant === Variant.CLASSIC ? 'Select the type of content you want to add' : 'Search';
-
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className={classNames('editor-v4-floating-add-menu', {
-                'editor-v4-floating-add-menu--classic': variant === Variant.CLASSIC,
-                'editor-v4-floating-add-menu--modern': variant === Variant.MODERN,
-            })}
+            className={classNames(
+                'editor-v4-floating-add-menu',
+                'editor-v4-floating-add-menu--modern',
+            )}
             containerRef={containerRef}
             onClose={menu.close}
             open={open}
@@ -158,15 +152,7 @@ export function FloatingAddMenu<Action>({
             </TooltipV2.Tooltip>
             {!open && (
                 <p className="editor-v4-floating-add-menu__placeholder">
-                    {variant === Variant.MODERN ? (
-                        <>
-                            Type or press <KeyboardKey>/</KeyboardKey> to add content.
-                        </>
-                    ) : (
-                        <>
-                            Start typing or use <KeyboardKey>+</KeyboardKey> to add content.
-                        </>
-                    )}
+                    Type or press <KeyboardKey>/</KeyboardKey> to add content.
                 </p>
             )}
             {open && (
@@ -177,12 +163,12 @@ export function FloatingAddMenu<Action>({
                         onBlur={menu.close}
                         onChange={setInput}
                         onKeyDown={handleKeyDown}
-                        placeholder={prompt}
+                        placeholder="Search"
                         ref={setInputElement}
                         tabIndex={-1}
                         value={input}
                     />
-                    <Dropdown
+                    <ModernDropdown
                         className="editor-v4-floating-add-menu__dropdown"
                         highlight={query}
                         options={filteredOptions}
