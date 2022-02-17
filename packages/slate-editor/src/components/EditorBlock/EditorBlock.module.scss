@@ -47,6 +47,7 @@
     width: 280px;
     position: absolute;
     backdrop-filter: blur(6px);
+    z-index: 1;
 }
 
 .arrow {
