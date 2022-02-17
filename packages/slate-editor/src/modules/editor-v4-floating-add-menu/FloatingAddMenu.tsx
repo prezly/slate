@@ -10,7 +10,7 @@ import { KeyboardKey, TooltipV2 } from '#components';
 
 import { FloatingContainer } from '#modules/editor-v4-components';
 
-import { Input, ModernDropdown } from './components';
+import { Input, Dropdown } from './components';
 import './FloatingAddMenu.scss';
 import {
     isMenuHotkey,
@@ -168,7 +168,7 @@ export function FloatingAddMenu<Action>({
                         tabIndex={-1}
                         value={input}
                     />
-                    <ModernDropdown
+                    <Dropdown
                         className="editor-v4-floating-add-menu__dropdown"
                         highlight={query}
                         options={filteredOptions}

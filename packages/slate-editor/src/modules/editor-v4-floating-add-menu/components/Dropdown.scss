@@ -1,7 +1,7 @@
 @import "styles/variables";
 @import "styles/mixins";
 
-.editor-v4-floating-menu-modern-dropdown {
+.editor-v4-floating-menu-dropdown {
     $min-width: 242px;
     $min-width-with-labels: 328px;
 
@@ -34,7 +34,7 @@
         min-width: $min-width;
         border: none;
 
-        .editor-v4-floating-menu-modern-dropdown.open & {
+        .editor-v4-floating-menu-dropdown.open & {
             display: block;
         }
     }
@@ -49,7 +49,7 @@
     }
 
     // Override specificity of Bootstrap default .dropdown-menu > li > a style
-    .editor-v4-floating-menu-modern-dropdown__menu-item {
+    .editor-v4-floating-menu-dropdown__menu-item {
         > a {
             padding: $vertical-spacing $spacing-1 * 2.5 $vertical-spacing $horizontal-spacing;
             display: flex;
@@ -149,16 +149,16 @@
     }
 
     &--no-results {
-        .editor-v4-floating-menu-modern-dropdown__menu {
+        .editor-v4-floating-menu-dropdown__menu {
             padding-bottom: 0;
         }
 
-        .editor-v4-floating-menu-modern-dropdown__menu-item > a {
+        .editor-v4-floating-menu-dropdown__menu-item > a {
             padding: $spacing-2;
             min-height: $no-results-decoration-height;
         }
 
-        .editor-v4-floating-menu-modern-dropdown__menu-item-icon {
+        .editor-v4-floating-menu-dropdown__menu-item-icon {
             border: none;
             color: $red-600;
             margin-right: $spacing-1;
@@ -170,14 +170,14 @@
             }
         }
 
-        .editor-v4-floating-menu-modern-dropdown__menu-item-text {
+        .editor-v4-floating-menu-dropdown__menu-item-text {
             color: $green-800;
             font-size: $font-size-medium;
             line-height: 1.4;
             height: 18px;
         }
 
-        .editor-v4-floating-menu-modern-dropdown__menu-item-decoration {
+        .editor-v4-floating-menu-dropdown__menu-item-decoration {
             position: absolute;
             right: 0;
             top: 0;
