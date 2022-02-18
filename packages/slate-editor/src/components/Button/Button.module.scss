@@ -1,7 +1,5 @@
 @import "styles/variables";
 
-@import "styles/variables";
-
 .button {
     $border-size: 4px;
 
@@ -73,6 +71,23 @@
         background: rgba(255, 255, 255, 0.16);
         color: $white;
         padding: $spacing-1 - $border-size;
+    }
+
+    &--underlined {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        text-decoration: underline;
+        text-underline-position: under;
+
+        &:hover,
+        &:focus-visible,
+        &:visited,
+        &:focus,
+        &:active {
+            text-decoration: underline;
+            text-underline-position: under;
+        }
     }
 }
 

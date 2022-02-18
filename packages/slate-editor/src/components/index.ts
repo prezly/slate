@@ -16,6 +16,8 @@ export * as TooltipV2 from './TooltipV2';
 export * as Toolbox from './Toolbox';
 export * from './Stack';
 export * from './Button';
+export * from './ButtonGroup';
 export * from './OptionsGroup';
 export * from './Toggle';
 export * from './Input';
+export * from './InfoText';
