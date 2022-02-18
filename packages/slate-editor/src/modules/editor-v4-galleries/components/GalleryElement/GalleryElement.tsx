@@ -1,22 +1,22 @@
 import type { GalleryNode } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
-import type { RefObject } from 'react';
 import React from 'react';
 import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 
+import { GalleryMenu } from '../../components';
+
 import { Gallery } from './Gallery';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
-    containerRef: RefObject<HTMLElement>;
     element: GalleryNode;
     onEdit: (editor: Editor) => void;
 }
 
-export function GalleryElement({ attributes, availableWidth, children, element }: Props) {
+export function GalleryElement({ attributes, availableWidth, children, element, onEdit }: Props) {
     return (
         <EditorBlock
             {...attributes}
@@ -30,6 +30,9 @@ export function GalleryElement({ attributes, availableWidth, children, element }
                     size={element.thumbnail_size}
                     width={availableWidth}
                 />
+            )}
+            renderMenu={({ onClose }) => (
+                <GalleryMenu element={element} onEdit={onEdit} onClose={onClose} />
             )}
             void
         >

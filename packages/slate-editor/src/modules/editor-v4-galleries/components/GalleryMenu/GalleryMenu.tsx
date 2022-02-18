@@ -1,122 +1,178 @@
 import type { GalleryNode } from '@prezly/slate-types';
-import { GalleryImageSize, GalleryPadding } from '@prezly/slate-types';
-import type { FunctionComponent, RefObject } from 'react';
-import React, { useState } from 'react';
-import { RootCloseWrapper } from 'react-overlays';
+import { GalleryImageSize, GalleryLayout, GalleryPadding } from '@prezly/slate-types';
+import React from 'react';
 import type { Editor } from 'slate';
-import { useSelected, useSlate } from 'slate-react';
+import { useSlate } from 'slate-react';
 
-import { GalleryLayoutSettings, Menu } from '#components';
-import { Cogwheel, Delete, Dice, Edit } from '#icons';
+import type { OptionsGroupOption } from '#components';
+import { Button, ButtonGroup, InfoText, OptionsGroup, Toolbox } from '#components';
+import {
+    Delete,
+    Dice,
+    Edit,
+    ImageLayoutContained,
+    ImageLayoutExpanded,
+    ImageLayoutFullWidth,
+    ImageSpacingNarrow,
+    ImageSpacingRegular,
+    ImageSpacingWide,
+} from '#icons';
 
 import { shuffleImages } from '../../lib';
 import { removeGallery, updateGallery } from '../../transforms';
-import { LayoutControls } from '../LayoutControls';
 
-import './GalleryMenu.scss';
-
-const PADDING_OPTIONS: { label: string; value: GalleryPadding }[] = [
-    { label: 'S', value: GalleryPadding.S },
-    { label: 'M', value: GalleryPadding.M },
-    { label: 'L', value: GalleryPadding.L },
+const LAYOUT_OPTIONS: OptionsGroupOption<GalleryLayout>[] = [
+    {
+        value: GalleryLayout.CONTAINED,
+        label: 'Contained',
+        icon: (props) => <ImageLayoutContained fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
+    {
+        value: GalleryLayout.EXPANDED,
+        label: 'Expanded',
+        icon: (props) => <ImageLayoutExpanded fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
+    {
+        value: GalleryLayout.FULL_WIDTH,
+        label: 'Full width',
+        icon: (props) => <ImageLayoutFullWidth fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
 ];
 
-const SIZE_OPTIONS: { label: string; value: GalleryNode['thumbnail_size'] }[] = [
-    { label: 'XS', value: GalleryImageSize.XS },
-    { label: 'S', value: GalleryImageSize.S },
-    { label: 'M', value: GalleryImageSize.M },
-    { label: 'L', value: GalleryImageSize.L },
-    { label: 'XL', value: GalleryImageSize.XL },
+const PADDING_OPTIONS: OptionsGroupOption<GalleryPadding>[] = [
+    {
+        value: GalleryPadding.S,
+        label: 'Narrow',
+        icon: (props) => <ImageSpacingNarrow fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
+    {
+        value: GalleryPadding.M,
+        label: 'Regular',
+        icon: (props) => <ImageSpacingRegular fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
+    {
+        value: GalleryPadding.L,
+        label: 'Wide',
+        icon: (props) => <ImageSpacingWide fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
+];
+
+const SIZE_OPTIONS: OptionsGroupOption<GalleryImageSize>[] = [
+    {
+        value: GalleryImageSize.XS,
+        label: 'XS',
+    },
+    {
+        value: GalleryImageSize.S,
+        label: 'S',
+    },
+    {
+        value: GalleryImageSize.M,
+        label: 'M',
+    },
+    {
+        value: GalleryImageSize.L,
+        label: 'L',
+    },
+    {
+        value: GalleryImageSize.XL,
+        label: 'XL',
+    },
 ];
 
 interface Props {
-    containerRef: RefObject<HTMLElement>;
-    element: HTMLElement;
-    gallery: GalleryNode;
+    element: GalleryNode;
     onEdit: (editor: Editor) => void;
+    onClose: () => void;
 }
 
-export const GalleryMenu: FunctionComponent<Props> = ({
-    containerRef,
-    element,
-    gallery,
-    onEdit,
-}) => {
+export function GalleryMenu({ element, onEdit, onClose }: Props) {
     const editor = useSlate();
-    const isSelected = useSelected();
-    const [showLayoutMenu, setShowLayoutMenu] = useState<boolean>(false);
 
-    const handleEdit = () => onEdit(editor);
-
-    const handleLayoutMenuToggle = () => setShowLayoutMenu(!showLayoutMenu);
-
-    const handleLayoutMenuClose = () => setShowLayoutMenu(false);
-
-    const handleLayoutChange = (layout: GalleryNode['layout']) => updateGallery(editor, { layout });
-
-    const handlePaddingChange = (padding: GalleryNode['padding']) =>
-        updateGallery(editor, { padding });
-
-    const handleRemove = () => removeGallery(editor);
-
-    const handleSizeChange = (size: GalleryNode['thumbnail_size']) =>
-        updateGallery(editor, { thumbnail_size: size });
-
-    const handleShuffle = () => updateGallery(editor, { images: shuffleImages(gallery.images) });
-
-    if (!isSelected) {
-        return null;
+    function handleShuffle() {
+        updateGallery(editor, {
+            images: shuffleImages(element.images),
+        });
     }
 
     return (
-        <Menu.FloatingMenu containerRef={containerRef} element={element}>
-            <LayoutControls layout={gallery.layout} onChange={handleLayoutChange} />
+        <>
+            <Toolbox.Header withCloseButton onCloseClick={onClose}>
+                Gallery settings
+            </Toolbox.Header>
 
-            <Menu.ButtonGroup>
-                <Menu.Button
-                    active={showLayoutMenu}
-                    onMouseDown={handleLayoutMenuToggle}
-                    title="Layout settings"
+            <Toolbox.Section noPadding>
+                <ButtonGroup>
+                    {[
+                        <EditButton key="edit" onClick={() => onEdit(editor)} />,
+                        <RandomizeButton key="randomize" onClick={handleShuffle} />,
+                    ]}
+                </ButtonGroup>
+            </Toolbox.Section>
+
+            <Toolbox.Section>
+                <InfoText>
+                    You can reorder and crop your gallery images in the{' '}
+                    <Button variant="underlined" onClick={() => onEdit(editor)}>
+                        preview
+                    </Button>
+                </InfoText>
+            </Toolbox.Section>
+
+            <Toolbox.Section caption="Gallery width">
+                <OptionsGroup<GalleryLayout>
+                    name="layout"
+                    options={LAYOUT_OPTIONS}
+                    selectedValue={element.layout}
+                    onChange={(layout) => updateGallery(editor, { layout })}
+                />
+            </Toolbox.Section>
+
+            <Toolbox.Section caption="Image size">
+                <OptionsGroup<GalleryImageSize>
+                    name="thumbnail_size"
+                    options={SIZE_OPTIONS}
+                    selectedValue={element.thumbnail_size}
+                    onChange={(thumbnail_size) => updateGallery(editor, { thumbnail_size })}
+                    variant="pills"
+                />
+            </Toolbox.Section>
+
+            <Toolbox.Section caption="Spacing between images">
+                <OptionsGroup<GalleryPadding>
+                    name="padding"
+                    options={PADDING_OPTIONS}
+                    selectedValue={element.padding}
+                    onChange={(padding) => updateGallery(editor, { padding })}
+                />
+            </Toolbox.Section>
+
+            <Toolbox.Footer>
+                <Button
+                    variant="clear-faded"
+                    icon={Delete}
+                    fullWidth
+                    onClick={() => removeGallery(editor)}
                 >
-                    <Menu.Icon icon={Cogwheel} />
-                </Menu.Button>
-
-                {gallery.images.length > 1 && (
-                    <Menu.Button onMouseDown={handleShuffle} title="Shuffle images">
-                        <Menu.Icon icon={Dice} />
-                    </Menu.Button>
-                )}
-
-                {showLayoutMenu && (
-                    <RootCloseWrapper event="mousedown" onRootClose={handleLayoutMenuClose}>
-                        <GalleryLayoutSettings<
-                            GalleryNode['padding'],
-                            GalleryNode['thumbnail_size']
-                        >
-                            className="gallery-menu__gallery-layout-settings"
-                            onClose={handleLayoutMenuClose}
-                            onPaddingChange={handlePaddingChange}
-                            onSizeChange={handleSizeChange}
-                            padding={gallery.padding}
-                            paddingOptions={PADDING_OPTIONS}
-                            size={gallery.thumbnail_size}
-                            sizeOptions={SIZE_OPTIONS}
-                        />
-                    </RootCloseWrapper>
-                )}
-            </Menu.ButtonGroup>
-
-            <Menu.ButtonGroup>
-                <Menu.Button onMouseDown={handleEdit} title="Edit gallery">
-                    <Menu.Icon icon={Edit} />
-                </Menu.Button>
-            </Menu.ButtonGroup>
-
-            <Menu.ButtonGroup>
-                <Menu.Button onMouseDown={handleRemove} title="Delete gallery" variant="danger">
-                    <Menu.Icon icon={Delete} />
-                </Menu.Button>
-            </Menu.ButtonGroup>
-        </Menu.FloatingMenu>
+                    Remove gallery
+                </Button>
+            </Toolbox.Footer>
+        </>
     );
-};
+}
+
+function EditButton(props: { onClick: () => void }) {
+    return (
+        <Button variant="clear" icon={Edit} fullWidth onClick={props.onClick}>
+            Edit
+        </Button>
+    );
+}
+
+function RandomizeButton(props: { onClick: () => void }) {
+    return (
+        <Button variant="clear" icon={Dice} fullWidth onClick={props.onClick}>
+            Randomize
+        </Button>
+    );
+}
