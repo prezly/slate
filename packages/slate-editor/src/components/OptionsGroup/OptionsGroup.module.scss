@@ -51,26 +51,16 @@
     font-weight: 500;
     color: $white;
     opacity: 0.5;
-<<<<<<< HEAD
+    margin: 0;
 
     &.variant-icon-label {
         padding-top: $spacing-half;
         min-width: 74px;
         border-radius: 8px;
-=======
-    border-radius: 8px;
-    justify-content: center;
-    min-width: 74px;
-    margin: 0;
-
-    &:hover {
-        opacity: 0.8;
-        font-weight: 600;
-    }
->>>>>>> master
 
         &:hover {
             opacity: 0.8;
+            font-weight: 600;
         }
 
         .hidden-input:focus-visible + &,
@@ -82,18 +72,12 @@
         .hidden-input:checked + & {
             color: $yellow-300;
             opacity: 1;
+            font-weight: 600;
         }
 
-<<<<<<< HEAD
         .hidden-input:disabled + & {
             opacity: 0.3;
         }
-=======
-    .hidden-input:checked + & {
-        color: $yellow-300;
-        opacity: 1;
-        font-weight: 600;
->>>>>>> master
     }
 
     &.variant-pills {
