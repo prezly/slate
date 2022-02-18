@@ -1,7 +1,5 @@
 @import "styles/variables";
 
-@import "styles/variables";
-
 .button {
     $border-size: 4px;
 
@@ -67,6 +65,23 @@
 
     &--round {
         border-radius: 6px;
+    }
+
+    &--underlined {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        text-decoration: underline;
+        text-underline-position: under;
+
+        &:hover,
+        &:focus-visible,
+        &:visited,
+        &:focus,
+        &:active {
+            text-decoration: underline;
+            text-underline-position: under;
+        }
     }
 }
 
