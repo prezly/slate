@@ -200,7 +200,7 @@ export function GallerySettings() {
                     />
                 </Toolbox.Section>
 
-                <Toolbox.Section caption="Card layout">
+                <Toolbox.Section caption="Spacing between images">
                     <OptionsGroup
                         name="spacing-between-images"
                         options={spacingBetweenImagesOptions}

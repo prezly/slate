@@ -10,13 +10,13 @@ export function ButtonGroup(props: ButtonGroupProps) {
     return (
         <div className={styles['button-group']}>
             <>
-                {props.children.map((node, index, arr) =>
-                    arr.length - 1 === index ? (
+                {props.children.map((node, index) =>
+                    index === 0 ? (
                         node
                     ) : (
                         <>
-                            {node}
                             <div className={styles.separator} />
+                            {node}
                         </>
                     ),
                 )}

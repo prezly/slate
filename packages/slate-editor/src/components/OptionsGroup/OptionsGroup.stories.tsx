@@ -76,7 +76,7 @@ export function Disabled() {
     ];
 
     return (
-        <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20, width: 300 }}>
+        <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 20, width: 400 }}>
             <OptionsGroup
                 name="card-layout"
                 options={cardLayoutOptions}

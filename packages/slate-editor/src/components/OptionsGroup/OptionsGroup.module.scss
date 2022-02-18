@@ -45,7 +45,6 @@
 .label {
     $border-size: 4px;
 
-    cursor: pointer;
     display: inline-flex;
     flex-flow: column;
     align-items: center;
@@ -53,15 +52,16 @@
     font-size: $font-size-smaller;
     font-weight: 500;
     color: $white;
-    opacity: 0.5;
     margin: 0;
 
     &.variant-icon-label {
+        opacity: 0.5;
         padding-top: $spacing-half;
         min-width: 74px;
         border-radius: 8px;
 
-        &:hover {
+        .hidden-input:not(:disabled) + &:hover {
+            cursor: pointer;
             opacity: 0.8;
             font-weight: 600;
         }
@@ -92,12 +92,14 @@
         box-sizing: border-box;
         min-height: 36px;
 
-        &:hover {
-            background: rgba(255, 255, 255, 0.16);
+        .hidden-input:not(:checked):not(:disabled) + & .label-text {
+            opacity: 0.5;
+        }
 
-            .label-text {
-                opacity: 0.8;
-            }
+        .hidden-input:not(:disabled) + &:hover {
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.16);
+            font-weight: 600;
         }
 
         .hidden-input:focus-visible + &,
@@ -105,10 +107,11 @@
             outline: $spacing-half solid #c7d2fe;
         }
 
-        .hidden-input:checked + & {
+        .hidden-input:checked:not(:disabled) + & {
             background: $yellow-300;
             color: #1c1c37;
             opacity: 1;
+            font-weight: 600;
         }
 
         .hidden-input:disabled + & {
