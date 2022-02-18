@@ -77,7 +77,7 @@ export function LinkSettings() {
     const [link, setLink] = React.useState('');
 
     return (
-        <div style={{ width: 280 }}>
+        <div style={{ width: 320 }}>
             <Toolbox.Panel>
                 <Toolbox.Header withCloseButton>Link settings</Toolbox.Header>
 
@@ -94,7 +94,7 @@ export function LinkSettings() {
                             placeholder="Paste link or search content"
                         />
                         <Toggle name="new_tab">Open in new tab</Toggle>
-                        <Button variant="clear-faded" fullWidth>
+                        <Button variant="primary" fullWidth round>
                             Save
                         </Button>
                     </VStack>

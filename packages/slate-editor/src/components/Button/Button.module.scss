@@ -62,11 +62,17 @@
 
     &--full-width {
         width: 100%;
-        padding: calc($spacing-2 - $border-size);
+        padding: $spacing-2 - $border-size;
     }
 
     &--round {
         border-radius: 6px;
+    }
+
+    &--primary {
+        background: rgba(255, 255, 255, 0.16);
+        color: $white;
+        padding: $spacing-1 - $border-size;
     }
 }
 

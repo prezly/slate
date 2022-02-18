@@ -6,7 +6,7 @@ import { HStack } from '#components';
 import styles from './Button.module.scss';
 
 interface ButtonBaseProps {
-    variant?: 'clear' | 'clear-faded';
+    variant?: 'primary' | 'clear' | 'clear-faded';
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     iconPosition?: 'left' | 'right';
     fullWidth?: boolean;
@@ -54,6 +54,7 @@ export function Button({
             className: classNames(styles.button, {
                 [styles['button--clear']]: variant === 'clear' || variant === 'clear-faded',
                 [styles['button--clear-faded']]: variant === 'clear-faded',
+                [styles['button--primary']]: variant === 'primary',
                 [styles['button--full-width']]: fullWidth,
                 [styles['button--round']]: round,
                 [styles['button--disabled']]: disabled,
