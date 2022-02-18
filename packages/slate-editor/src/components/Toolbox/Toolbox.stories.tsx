@@ -3,7 +3,7 @@ import * as React from 'react';
 import type { OptionsGroupOption } from '#components';
 import { VStack } from '#components';
 import { Toolbox, Toggle, OptionsGroup, Button, Input } from '#components';
-import { ExternalLink, Delete, ItemsLayoutVertical, ItemsLayoutHorizontal } from '#icons';
+import { ExternalLink, Delete, ItemsLayoutVertical, ItemsLayoutHorizontal, Link } from '#icons';
 
 export default {
     title: 'Components/Toolbox',
@@ -73,18 +73,26 @@ export function Base() {
 }
 
 export function LinkSettings() {
+    const [text, setText] = React.useState('');
+    const [link, setLink] = React.useState('');
+
     return (
         <div style={{ width: 280 }}>
             <Toolbox.Panel>
                 <Toolbox.Header withCloseButton>Link settings</Toolbox.Header>
 
                 <Toolbox.Section caption="Text">
-                    <Input value="" onChange={() => {}} />
+                    <Input value={text} onChange={setText} placeholder="Link text" />
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Link">
                     <VStack spacing="2-5">
-                        <Input value="" onChange={() => {}} />
+                        <Input
+                            value={link}
+                            onChange={setLink}
+                            icon={Link}
+                            placeholder="Paste link or search content"
+                        />
                         <Toggle name="new_tab">Open in new tab</Toggle>
                         <Button variant="clear-faded" fullWidth>
                             Save
