@@ -7,6 +7,7 @@
     display: inline-flex;
     align-items: center;
     opacity: 0.9;
+    margin: 0;
 }
 
 $WHITE_CIRCLE: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
@@ -17,9 +18,9 @@ $WHITE_CIRCLE: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'
     padding: 0;
     cursor: pointer;
     appearance: none;
-    width: 30px + $border-size;
-    height: 16px + $border-size;
-    margin: 0;
+    width: 30px;
+    height: 16px;
+    margin: 0 !important;
     border-radius: 24px;
     background-image: $WHITE_CIRCLE;
     background-size: contain;

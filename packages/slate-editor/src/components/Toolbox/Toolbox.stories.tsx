@@ -63,7 +63,7 @@ export function Base() {
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear" icon={Delete} fullWidth transparent="0-5">
+                    <Button variant="clear-faded" icon={Delete} fullWidth>
                         Remove web bookmark
                     </Button>
                 </Toolbox.Footer>
