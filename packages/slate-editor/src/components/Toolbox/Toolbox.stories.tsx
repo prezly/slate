@@ -175,7 +175,10 @@ export function GallerySettings() {
                 </Toolbox.Section>
 
                 <Toolbox.Section>
-                    <InfoText>You can reorder and crop your gallery images in the preview</InfoText>
+                    <InfoText>
+                        You can reorder and crop your gallery images in the{' '}
+                        <Button variant="underlined">preview</Button>
+                    </InfoText>
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Gallery width">
