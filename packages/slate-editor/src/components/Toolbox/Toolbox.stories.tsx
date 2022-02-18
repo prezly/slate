@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import type { OptionsGroupOption } from '#components';
 import { VStack } from '#components';
-import { Toolbox, Toggle, OptionsGroup, Button } from '#components';
+import { Toolbox, Toggle, OptionsGroup, Button, Input } from '#components';
 import { ExternalLink, Delete, ItemsLayoutVertical, ItemsLayoutHorizontal } from '#icons';
 
 export default {
@@ -67,6 +67,30 @@ export function Base() {
                         Remove web bookmark
                     </Button>
                 </Toolbox.Footer>
+            </Toolbox.Panel>
+        </div>
+    );
+}
+
+export function LinkSettings() {
+    return (
+        <div style={{ width: 280 }}>
+            <Toolbox.Panel>
+                <Toolbox.Header withCloseButton>Link settings</Toolbox.Header>
+
+                <Toolbox.Section caption="Text">
+                    <Input value="" onChange={() => {}} />
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Link">
+                    <VStack spacing="2-5">
+                        <Input value="" onChange={() => {}} />
+                        <Toggle name="new_tab">Open in new tab</Toggle>
+                        <Button variant="clear-faded" fullWidth>
+                            Save
+                        </Button>
+                    </VStack>
+                </Toolbox.Section>
             </Toolbox.Panel>
         </div>
     );
