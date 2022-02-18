@@ -17,7 +17,7 @@ export function Header(props: React.PropsWithChildren<HeaderProps>) {
             <Caption>{props.children}</Caption>
 
             {props.withCloseButton && (
-                <Button variant="clear" Icon={Cross} onClick={props.onCloseClick} round />
+                <Button variant="clear" icon={Cross} onClick={props.onCloseClick} round />
             )}
         </div>
     );

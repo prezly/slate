@@ -6,11 +6,14 @@ import React, { Component } from 'react';
 import type { Modifier } from 'react-popper';
 import { Popper } from 'react-popper';
 
+import { Toolbox } from '#components';
+
 import styles from './EditorBlock.module.scss';
 
 interface Props {
     children: ReactNode;
     editorElement: HTMLElement;
+    open: boolean;
     reference: HTMLElement;
 }
 
@@ -86,7 +89,12 @@ export class Menu extends Component<Props> {
     };
 
     render() {
-        const { children, editorElement } = this.props;
+        const { children, editorElement, open } = this.props;
+
+        if (!open) {
+            return null;
+        }
+
         return (
             <Popper
                 referenceElement={this.virtualReferenceElement}
@@ -94,7 +102,7 @@ export class Menu extends Component<Props> {
                 placement="right-start"
             >
                 {({ ref, style, arrowProps, placement }) => (
-                    <div className={styles.menu} ref={ref} style={style}>
+                    <Toolbox.Panel className={styles.menu} ref={ref} style={style}>
                         <div
                             className={classNames(styles.arrow, {
                                 [styles.top]: placement.indexOf('top') >= 0,
@@ -105,7 +113,7 @@ export class Menu extends Component<Props> {
                             {...arrowProps}
                         />
                         {children}
-                    </div>
+                    </Toolbox.Panel>
                 )}
             </Popper>
         );

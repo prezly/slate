@@ -12,20 +12,19 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    background: rgba($indigo-900, 0.96);
-    border-top-left-radius: $spacing-1-5;
-    border-top-right-radius: $spacing-1-5;
-    padding: $spacing-2;
+    padding: $spacing-1-5 $spacing-1;
+    padding-left: $spacing-2;
     color: $white;
 }
 
 .panel {
     backdrop-filter: blur(6px);
+    background: rgba($indigo-900, 0.96);
+    border-radius: $border-radius-base * 2;
 }
 
 .section {
     border-top: 1px solid rgba($white, 0.12);
-    background: rgba($indigo-900, 0.96);
     padding: $spacing-2;
     color: white;
 
@@ -42,8 +41,5 @@
     display: flex;
     overflow: hidden;
     color: $white;
-    background: rgba($indigo-900, 0.96);
     border-top: 1px solid rgba($white, 0.12);
-    border-bottom-left-radius: $spacing-1-5;
-    border-bottom-right-radius: $spacing-1-5;
 }

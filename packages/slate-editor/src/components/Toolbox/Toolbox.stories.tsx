@@ -49,7 +49,7 @@ export function WebBookmark() {
                         type="link"
                         variant="clear"
                         href="#"
-                        Icon={ExternalLink}
+                        icon={ExternalLink}
                         iconPosition="right"
                         fullWidth
                     >
@@ -58,24 +58,24 @@ export function WebBookmark() {
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Preview image">
-                    <Toggle>Show preview image</Toggle>
+                    <Toggle name="show_preview">Show preview image</Toggle>
                 </Toolbox.Section>
 
                 <Toolbox.Section caption="Card layout">
                     <VStack spacing="2-5">
                         <OptionsGroup
-                            name="card-layout"
+                            name="layout"
                             options={cardLayoutOptions}
                             selectedValue={cardLayout}
                             onChange={setCardLayout}
                             columns={3}
                         />
-                        <Toggle>Open in new tab</Toggle>
+                        <Toggle name="new_tab">Open in new tab</Toggle>
                     </VStack>
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear" Icon={Delete} fullWidth transparent="0-5">
+                    <Button variant="clear-faded" icon={Delete} fullWidth>
                         Remove web bookmark
                     </Button>
                 </Toolbox.Footer>

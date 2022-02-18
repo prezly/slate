@@ -10,11 +10,11 @@ import { EditorBlock } from '#components';
 import { useResizeObserver } from '#lib';
 
 import styles from './WebBookmarkElement.module.scss';
+import { WebBookmarkMenu } from './WebBookmarkMenu';
 
 const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 
 interface Props extends RenderElementProps {
-    availableWidth: number;
     element: BookmarkNode;
 }
 
@@ -89,44 +89,49 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
 
     return (
         <EditorBlock
-            {...attributes}
+            {...attributes} // contains `ref`
             element={element}
             overlay="always"
-            slateInternalsChildren={children}
-            void={true}
-        >
-            <div
-                className={classNames(styles.card, {
-                    [styles.vertical]: actualLayout === BookmarkCardLayout.VERTICAL,
-                    [styles.horizontal]: actualLayout === BookmarkCardLayout.HORIZONTAL,
-                })}
-                ref={card}
-            >
-                {showThumbnail && oembed.thumbnail_url && (
-                    <Thumbnail
-                        href={url}
-                        src={oembed.thumbnail_url}
-                        width={oembed.thumbnail_width}
-                        height={oembed.thumbnail_height}
-                    />
-                )}
-                <div className={styles.details}>
-                    {!isEmptyText(oembed.title) && (
-                        <a
-                            className={styles.title}
+            renderMenu={({ onClose }) => <WebBookmarkMenu onClose={onClose} element={element} />}
+            renderBlock={({ isSelected }) => (
+                <div
+                    className={classNames(styles.card, {
+                        [styles.selected]: isSelected,
+                        [styles.vertical]: actualLayout === BookmarkCardLayout.VERTICAL,
+                        [styles.horizontal]: actualLayout === BookmarkCardLayout.HORIZONTAL,
+                    })}
+                    ref={card}
+                >
+                    {showThumbnail && oembed.thumbnail_url && (
+                        <Thumbnail
                             href={url}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                        >
-                            {oembed.title}
-                        </a>
+                            src={oembed.thumbnail_url}
+                            width={oembed.thumbnail_width}
+                            height={oembed.thumbnail_height}
+                        />
                     )}
-                    {!isEmptyText(oembed.description) && (
-                        <div className={styles.description}>{oembed.description}</div>
-                    )}
-                    <Provider oembed={oembed} showUrl={isEmpty} />
+                    <div className={styles.details}>
+                        {!isEmptyText(oembed.title) && (
+                            <a
+                                className={styles.title}
+                                href={url}
+                                rel="noopener noreferrer"
+                                target="_blank"
+                            >
+                                {oembed.title}
+                            </a>
+                        )}
+                        {!isEmptyText(oembed.description) && (
+                            <div className={styles.description}>{oembed.description}</div>
+                        )}
+                        <Provider oembed={oembed} showUrl={isEmpty} />
+                    </div>
                 </div>
-            </div>
+            )}
+            void
+        >
+            {/* We have to render children or Slate will fail when trying to find the node. */}
+            {children}
         </EditorBlock>
     );
 };
