@@ -14,6 +14,8 @@ import { Overlay } from './Overlay';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
+type Position = 'contained' | 'expanded' | 'full-width';
+
 interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
     /**
      * Children nodes provided by Slate, required for Slate internals.
@@ -26,6 +28,7 @@ interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAtt
      * Useful for extremely thin blocks like Divider.
      */
     extendedHitArea?: boolean;
+    position?: Position;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
     overlay?: OverlayMode;
@@ -38,6 +41,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         className,
         element,
         extendedHitArea,
+        position,
         renderBlock,
         renderMenu,
         overlay = false,
@@ -59,7 +63,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             className={classNames(className, styles.block, {
                 [styles.selected]: isSelected,
                 [styles.void]: isVoid,
-                [styles.extended]: extendedHitArea,
+                [styles.extendedHitArea]: extendedHitArea,
+                [styles.expanded]: position === 'expanded',
+                [styles.fullWidth]: position === 'full-width',
             })}
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
