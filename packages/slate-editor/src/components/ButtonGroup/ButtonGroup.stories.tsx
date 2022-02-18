@@ -12,10 +12,10 @@ export function Base() {
         <div style={{ width: 280, background: 'rgba(27, 27, 56, 0.96)', color: 'white' }}>
             <ButtonGroup>
                 {[
-                    <Button key="edit" variant="clear" Icon={Edit} fullWidth>
+                    <Button key="edit" variant="clear" icon={Edit} fullWidth>
                         Edit
                     </Button>,
-                    <Button key="view" variant="clear" Icon={Dice} fullWidth>
+                    <Button key="view" variant="clear" icon={Dice} fullWidth>
                         Randomize
                     </Button>,
                 ]}

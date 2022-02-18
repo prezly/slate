@@ -164,10 +164,10 @@ export function GallerySettings() {
                 <Toolbox.Section noPadding>
                     <ButtonGroup>
                         {[
-                            <Button key="edit" variant="clear" Icon={Edit} fullWidth>
+                            <Button key="edit" variant="clear" icon={Edit} fullWidth>
                                 Edit
                             </Button>,
-                            <Button key="view" variant="clear" Icon={Dice} fullWidth>
+                            <Button key="view" variant="clear" icon={Dice} fullWidth>
                                 Randomize
                             </Button>,
                         ]}
@@ -207,7 +207,7 @@ export function GallerySettings() {
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear" Icon={Delete} fullWidth transparent="0-5">
+                    <Button variant="clear-faded" icon={Delete} fullWidth>
                         Remove gallery
                     </Button>
                 </Toolbox.Footer>
