@@ -6,9 +6,8 @@ import type { RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 
-import { GalleryMenu } from '../../components';
-
 import { Gallery } from './Gallery';
+import { GalleryMenu } from './GalleryMenu';
 
 interface Props extends RenderElementProps {
     availableWidth: number;

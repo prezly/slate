@@ -18,8 +18,8 @@ import {
     ImageSpacingWide,
 } from '#icons';
 
-import { shuffleImages } from '../../lib';
-import { removeGallery, updateGallery } from '../../transforms';
+import { shuffleImages } from '../lib';
+import { removeGallery, updateGallery } from '../transforms';
 
 const LAYOUT_OPTIONS: OptionsGroupOption<GalleryLayout>[] = [
     {
