@@ -3,10 +3,9 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
 import { detectMarks, parseSerializedElement } from './lib';
-import type { RichFormattingExtensionParameters } from './types';
 import { ElementType } from './types';
 
-export function createDeserialize(parameters: RichFormattingExtensionParameters): DeserializeHtml {
+export function createDeserialize(parameters: { blocks: boolean }): DeserializeHtml {
     const deserialize: DeserializeHtml = {
         element: {
             [ElementType.BLOCK_QUOTE]: () => ({ type: PARAGRAPH_NODE_TYPE }),

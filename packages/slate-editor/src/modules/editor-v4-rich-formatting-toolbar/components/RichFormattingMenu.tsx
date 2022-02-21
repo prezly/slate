@@ -1,5 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
+import { LINK_NODE_TYPE } from '@prezly/slate-types';
 import type { FunctionComponent, RefObject } from 'react';
 import React, { useState } from 'react';
 import type { Modifier } from 'react-popper';
@@ -11,25 +12,24 @@ import { v4 as uuidV4 } from 'uuid';
 import { ElementPortalV2, Menu, TextSelectionPortalV2 } from '#components';
 
 import { LinkMenu } from '#modules/editor-v4-components';
-
 import {
     findLinkCandidatePath,
     findSelectedLinkPath,
     getCurrentHref,
-    getRichFormattingBlockNodeType,
-    isSelectionSupported,
-    keepToolbarInTextColumn,
-    restoreSelection,
     unwrapLink,
     unwrapLinkCandidates,
     updateLinkHref,
-    useLinkCandidateElement,
     wrapInLink,
     wrapInLinkCandidate,
-} from '../lib';
-import type { RichFormattingExtensionParameters } from '../types';
-import { ElementType } from '../types';
+} from '#modules/editor-v4-inline-links';
 
+import {
+    keepToolbarInTextColumn,
+    restoreSelection,
+    getRichFormattingBlockNodeType,
+    isSelectionSupported,
+    useLinkCandidateElement,
+} from './lib';
 import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
@@ -37,7 +37,8 @@ interface Props {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
     defaultAlignment: Alignment;
-    parameters: RichFormattingExtensionParameters;
+    withRichBlockElements: boolean;
+    withLinks: boolean;
 }
 
 const OFFSET_MODIFIER: Modifier<'offset'> = {
@@ -52,7 +53,8 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
     availableWidth,
     containerRef,
     defaultAlignment,
-    parameters,
+    withLinks,
+    withRichBlockElements,
 }) => {
     const editor = useSlate();
 
@@ -122,7 +124,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
 
         const isEditingExistingLink = EditorCommands.isBlockActive(
             editor,
-            ElementType.LINK,
+            LINK_NODE_TYPE,
             linkPath,
         );
 
@@ -161,7 +163,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         ReactEditor.blur(editor);
     }
 
-    if (parameters.links && linkCandidateElement) {
+    if (withLinks && linkCandidateElement) {
         return (
             <ElementPortalV2
                 containerRef={containerRef}
@@ -211,7 +213,8 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
                     alignmentControls={alignmentControls}
                     defaultAlignment={defaultAlignment}
                     onLinkClick={handleLinkButtonClick}
-                    parameters={parameters}
+                    withLinks={withLinks}
+                    withRichBlockElements={withRichBlockElements}
                 />
             </Menu.Toolbar>
         </TextSelectionPortalV2>

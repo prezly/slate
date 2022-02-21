@@ -3,20 +3,14 @@ import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import { ParagraphElement } from '#modules/editor-v4-paragraphs';
+import type { RichTextElementType } from '#modules/editor-v4-rich-formatting';
+import { RichTextElement } from '#modules/editor-v4-rich-formatting';
 
-import type { BlockType, RichTextElementType } from '../types';
-
-import { RichTextElement } from './RichTextElement';
-
-const createMockElement = (type: BlockType): RichTextElementType =>
-    ({
-        children: [],
-        type,
-    } as unknown as RichTextElementType);
+import type { SelectedNodeType } from '../types';
 
 interface Props {
     className?: string;
-    type: BlockType;
+    type: SelectedNodeType;
 }
 
 export const MenuOption: FunctionComponent<Props> = ({ children, className, type }) => {
@@ -49,3 +43,10 @@ export const MenuOption: FunctionComponent<Props> = ({ children, className, type
         </RichTextElement>
     );
 };
+
+function createMockElement(type: SelectedNodeType): RichTextElementType {
+    return {
+        type,
+        children: [],
+    } as unknown as RichTextElementType;
+}

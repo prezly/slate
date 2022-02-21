@@ -37,7 +37,8 @@ import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
 } from '../editor-v4-press-contacts';
-import { RichFormattingMenu, toggleBlock } from '../editor-v4-rich-formatting';
+import { toggleBlock } from '../editor-v4-rich-formatting';
+import { RichFormattingMenu } from '../editor-v4-rich-formatting-toolbar';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
 import './EditorV4.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
@@ -368,7 +369,8 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         defaultAlignment={align || Alignment.LEFT}
-                        parameters={withRichFormatting}
+                        withLinks={Boolean(withRichFormatting.links)}
+                        withRichBlockElements={Boolean(withRichFormatting.blocks)}
                     />
                 )}
 

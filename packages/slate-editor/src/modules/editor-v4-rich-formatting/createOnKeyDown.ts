@@ -5,7 +5,6 @@ import { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { lists } from './lists';
-import type { RichFormattingExtensionParameters } from './types';
 import { MarkType } from './types';
 
 const MARK_HOTKEYS: { hotkey: string; mark: MarkType }[] = [
@@ -67,7 +66,7 @@ function softBreakOnKeyDown(event: KeyboardEvent, editor: Editor) {
     }
 }
 
-export function createOnKeyDown(parameters: RichFormattingExtensionParameters) {
+export function createOnKeyDown(parameters: { blocks: boolean }) {
     return (event: KeyboardEvent, editor: Editor) => {
         softBreakOnKeyDown(event, editor);
         marksOnKeyDown(event, editor);

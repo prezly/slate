@@ -1,14 +1,21 @@
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 
-// eslint-disable-next-line import/named
-import type { Menu } from '#components';
+import { Menu } from '#components';
 
-import type { BlockType } from '../../types';
-import { ElementType } from '../../types';
-import { MenuOption } from '../MenuOption';
+import { ElementType } from '#modules/editor-v4-rich-formatting';
 
-export const OPTIONS: Menu.DropdownOption<BlockType>[] = [
+import type { SelectedNodeType } from '../types';
+
+import { MenuOption } from './MenuOption';
+
+
+interface Props {
+    onChange: (value: SelectedNodeType) => void;
+    value: SelectedNodeType | null;
+}
+
+const OPTIONS: Menu.DropdownOption<SelectedNodeType>[] = [
     { hidden: true, label: 'Multiple', value: 'multiple' },
     {
         label: 'Paragraph',
@@ -83,3 +90,14 @@ export const OPTIONS: Menu.DropdownOption<BlockType>[] = [
         ),
     },
 ];
+
+export function BlockDropdown({ value, onChange }: Props) {
+    return (
+        <Menu.Dropdown<SelectedNodeType>
+            id="prezly-editor-toolbar-dropdown"
+            onChange={onChange}
+            options={OPTIONS}
+            value={value || undefined}
+        />
+    );
+}

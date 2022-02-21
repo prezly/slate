@@ -13,7 +13,6 @@ import type { GalleriesExtensionParameters } from '../../editor-v4-galleries';
 import type { ImageExtensionParameters } from '../../editor-v4-image';
 import type { PlaceholderMentionsExtensionParameters } from '../../editor-v4-placeholder-mentions';
 import type { PressContactsExtensionParameters } from '../../editor-v4-press-contacts';
-import type { RichFormattingExtensionParameters } from '../../editor-v4-rich-formatting';
 import type { UserMentionsExtensionParameters } from '../../editor-v4-user-mentions';
 import type { VideoExtensionParameters } from '../../editor-v4-video/types';
 import type { WebBookmarkExtensionParameters } from '../../editor-v4-web-bookmark/types';
@@ -36,7 +35,11 @@ export interface EditorV4ExtensionsProps {
     withImages?: ImageExtensionParameters;
     withPlaceholders?: PlaceholderMentionsExtensionParameters;
     withPressContacts?: PressContactsExtensionParameters;
-    withRichFormatting?: RichFormattingExtensionParameters;
+    withRichFormatting?: {
+        menu?: boolean;
+        blocks?: boolean;
+        links?: boolean;
+    };
     withUserMentions?: UserMentionsExtensionParameters;
     withVideos?: VideoExtensionParameters;
     withWebBookmarks?: WebBookmarkExtensionParameters;

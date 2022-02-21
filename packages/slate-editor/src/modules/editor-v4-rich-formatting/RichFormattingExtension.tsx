@@ -8,19 +8,20 @@ import { RICH_FORMATTING_EXTENSION_ID } from './constants';
 import { createDeserialize } from './createDeserialize';
 import { createOnKeyDown } from './createOnKeyDown';
 import { isRichTextElement, normalizeRedundantRichTextAttributes } from './lib';
-import type { RichFormattingExtensionParameters } from './types';
 import { ElementType } from './types';
 
-export const RichFormattingExtension = (
-    parameters: RichFormattingExtensionParameters,
-): Extension => ({
+interface Parameters {
+    blocks: boolean;
+}
+
+export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
     id: RICH_FORMATTING_EXTENSION_ID,
-    deserialize: createDeserialize(parameters),
+    deserialize: createDeserialize({ blocks }),
     inlineTypes: [],
     normalizers: [normalizeRedundantRichTextAttributes],
-    onKeyDown: createOnKeyDown(parameters),
+    onKeyDown: createOnKeyDown({ blocks }),
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (parameters.blocks && isRichTextElement(element)) {
+        if (blocks && isRichTextElement(element)) {
             return (
                 <RichTextElement attributes={attributes} element={element}>
                     {children}

@@ -12,3 +12,5 @@ export { parseSerializedLinkElement } from './parseSerializedLinkElement';
 export { unwrapLink } from './unwrapLink';
 export { unwrapLinkCandidates } from './unwrapLinkCandidates';
 export { updateLinkHref } from './updateLinkHref';
+export { wrapInLink } from './wrapInLink';
+export { wrapInLinkCandidate } from './wrapInLinkCandidate';

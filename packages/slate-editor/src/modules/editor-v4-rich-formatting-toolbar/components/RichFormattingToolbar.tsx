@@ -18,18 +18,19 @@ import {
     FormatUnderline,
 } from '#icons';
 
-import { toggleBlock } from '../lib';
-import type { BlockType, RichFormattingExtensionParameters } from '../types';
-import { ElementType, MarkType } from '../types';
+import { ElementType, MarkType, toggleBlock } from '#modules/editor-v4-rich-formatting';
+
+import type { SelectedNodeType } from '../types';
 
 import { BlockDropdown } from './BlockDropdown';
 
 interface Props {
-    activeNodeType: BlockType | null;
+    activeNodeType: SelectedNodeType | null;
     alignmentControls: boolean;
     defaultAlignment: Alignment;
     onLinkClick: () => void;
-    parameters: RichFormattingExtensionParameters;
+    withLinks: boolean;
+    withRichBlockElements: boolean;
 }
 
 export const RichFormattingToolbar: FunctionComponent<Props> = ({
@@ -37,7 +38,8 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
     alignmentControls,
     defaultAlignment,
     onLinkClick,
-    parameters,
+    withLinks,
+    withRichBlockElements,
 }) => {
     const editor = useSlate();
     const isSuperScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUPERSCRIPT);
@@ -59,7 +61,7 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
         }
     }
 
-    function handleBlockChange(type: BlockType) {
+    function handleBlockChange(type: SelectedNodeType) {
         if (type === 'multiple') {
             return;
         }
@@ -128,7 +130,7 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
                 </Menu.ButtonGroup>
             )}
 
-            {parameters.links && (
+            {withLinks && (
                 <Menu.ButtonGroup>
                     <Menu.Button
                         active={EditorCommands.isBlockActive(editor, ElementType.LINK)}
@@ -139,7 +141,7 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
                 </Menu.ButtonGroup>
             )}
 
-            {parameters.blocks && (
+            {withRichBlockElements && (
                 <BlockDropdown onChange={handleBlockChange} value={activeNodeType} />
             )}
         </>

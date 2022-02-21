@@ -3,15 +3,9 @@ import type {
     ListNode,
     ListItemNode,
     ListItemTextNode,
-    LinkNode,
     QuoteNode,
-    PARAGRAPH_NODE_TYPE,
     ElementNode,
 } from '@prezly/slate-types';
-
-type Multiple = 'multiple';
-export type ParagraphType = typeof PARAGRAPH_NODE_TYPE;
-export type BlockType = ParagraphType | ElementType | Multiple;
 
 export enum ElementType {
     BLOCK_QUOTE = 'block-quote',
@@ -35,8 +29,6 @@ export enum MarkType {
 
 export type RichTextElementType =
     | HeadingNode
-    | LinkNode
-    | LinkCandidateNode
     | ListNode
     | ListItemNode
     | ListItemTextNode
@@ -49,5 +41,4 @@ export interface LinkCandidateNode extends ElementNode {
 
 export interface RichFormattingExtensionParameters {
     blocks: boolean;
-    menu: boolean;
 }
