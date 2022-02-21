@@ -26,18 +26,18 @@ import { BlockDropdown } from './BlockDropdown';
 
 interface Props {
     activeNodeType: SelectedNodeType | null;
-    alignmentControls: boolean;
     defaultAlignment: Alignment;
     onLinkClick: () => void;
+    withAlignment: boolean;
     withLinks: boolean;
     withRichBlockElements: boolean;
 }
 
 export const RichFormattingToolbar: FunctionComponent<Props> = ({
     activeNodeType,
-    alignmentControls,
     defaultAlignment,
     onLinkClick,
+    withAlignment,
     withLinks,
     withRichBlockElements,
 }) => {
@@ -107,7 +107,7 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
                 </Menu.Button>
             </Menu.ButtonGroup>
 
-            {alignmentControls && (
+            {withAlignment && (
                 <Menu.ButtonGroup>
                     <Menu.Button
                         active={isLeftAlignmentActive}

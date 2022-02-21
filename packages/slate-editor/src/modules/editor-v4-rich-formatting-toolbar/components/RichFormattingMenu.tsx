@@ -33,10 +33,10 @@ import {
 import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
-    alignmentControls: boolean;
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
     defaultAlignment: Alignment;
+    withAlignment: boolean;
     withRichBlockElements: boolean;
     withLinks: boolean;
 }
@@ -49,10 +49,10 @@ const OFFSET_MODIFIER: Modifier<'offset'> = {
 };
 
 export const RichFormattingMenu: FunctionComponent<Props> = ({
-    alignmentControls,
     availableWidth,
     containerRef,
     defaultAlignment,
+    withAlignment,
     withLinks,
     withRichBlockElements,
 }) => {
@@ -210,9 +210,9 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
             <Menu.Toolbar className="rich-formatting-menu">
                 <RichFormattingToolbar
                     activeNodeType={activeNodeType}
-                    alignmentControls={alignmentControls}
                     defaultAlignment={defaultAlignment}
                     onLinkClick={handleLinkButtonClick}
+                    withAlignment={withAlignment}
                     withLinks={withLinks}
                     withRichBlockElements={withRichBlockElements}
                 />

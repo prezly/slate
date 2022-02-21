@@ -365,10 +365,10 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
 
                 {withRichFormatting && withRichFormatting.menu && (
                     <RichFormattingMenu
-                        alignmentControls={withAlignmentControls}
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         defaultAlignment={align || Alignment.LEFT}
+                        withAlignment={withAlignmentControls}
                         withLinks={Boolean(withRichFormatting.links)}
                         withRichBlockElements={Boolean(withRichFormatting.blocks)}
                     />
