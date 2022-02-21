@@ -1,6 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { Alignment } from '@prezly/slate-types';
-import type { FunctionComponent } from 'react';
 import React from 'react';
 import { useSlate } from 'slate-react';
 
@@ -33,14 +32,14 @@ interface Props {
     withRichBlockElements: boolean;
 }
 
-export const RichFormattingToolbar: FunctionComponent<Props> = ({
+export function Toolbar({
     activeNodeType,
     defaultAlignment,
     onLinkClick,
     withAlignment,
     withLinks,
     withRichBlockElements,
-}) => {
+}: Props) {
     const editor = useSlate();
     const isSuperScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUPERSCRIPT);
     const isSubScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUBSCRIPT);
@@ -146,4 +145,4 @@ export const RichFormattingToolbar: FunctionComponent<Props> = ({
             )}
         </>
     );
-};
+}

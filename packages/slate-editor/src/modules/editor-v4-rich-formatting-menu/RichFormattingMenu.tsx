@@ -23,6 +23,7 @@ import {
     wrapInLinkCandidate,
 } from '#modules/editor-v4-inline-links';
 
+import { Toolbar } from './components';
 import {
     keepToolbarInTextColumn,
     restoreSelection,
@@ -30,7 +31,6 @@ import {
     isSelectionSupported,
     useLinkCandidateElement,
 } from './lib';
-import { RichFormattingToolbar } from './RichFormattingToolbar';
 
 interface Props {
     availableWidth: number;
@@ -208,7 +208,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
             placement="top-start"
         >
             <Menu.Toolbar className="rich-formatting-menu">
-                <RichFormattingToolbar
+                <Toolbar
                     activeNodeType={activeNodeType}
                     defaultAlignment={defaultAlignment}
                     onLinkClick={handleLinkButtonClick}

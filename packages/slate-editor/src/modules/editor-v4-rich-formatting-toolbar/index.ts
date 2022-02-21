@@ -1,1 +1,0 @@
-export { RichFormattingMenu } from './components';

@@ -7,8 +7,8 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 
-import { jsx } from '../../jsx';
-import { createRichFormattingEditor } from '../../test-utils';
+import { jsx } from '../jsx';
+import { createRichFormattingEditor } from '../test-utils';
 
 import { getRichFormattingBlockNodeType } from './getRichFormattingBlockNodeType';
 

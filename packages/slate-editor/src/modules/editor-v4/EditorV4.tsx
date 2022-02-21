@@ -38,7 +38,7 @@ import {
     useFloatingPressContactsMenu,
 } from '../editor-v4-press-contacts';
 import { toggleBlock } from '../editor-v4-rich-formatting';
-import { RichFormattingMenu } from '../editor-v4-rich-formatting-toolbar';
+import { RichFormattingMenu } from '../editor-v4-rich-formatting-menu';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
 import './EditorV4.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
