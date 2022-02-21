@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'react';
 import React, { Component, createRef } from 'react';
 
 import { IMAGE_PADDING, IMAGE_SIZE } from './constants';
-import './Gallery.scss';
+import styles from './Gallery.module.scss';
 import { GalleryImage } from './GalleryImage';
 import { calculateLayout } from './lib';
 
@@ -63,16 +63,15 @@ export class Gallery extends Component<Props> {
         const calculatedLayout = calculateLayout({ idealHeight, images, viewportWidth });
 
         return (
-            <div className={classNames('gallery', className)} {...props}>
+            <div className={classNames(styles.gallery, className)} {...props}>
                 <div
-                    className="gallery__images"
                     ref={this.imagesContainerRef}
                     style={{
                         margin: -margin,
                     }}
                 >
                     {calculatedLayout.map((row, index) => (
-                        <div className="gallery__images-row" key={index}>
+                        <div className={styles.row} key={index}>
                             {row.map(({ width, height, image }) => {
                                 const preview = image.resize(maxViewportWidth);
 

@@ -1,0 +1,10 @@
+.gallery {
+    overflow: hidden;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    flex-wrap: wrap;
+}
