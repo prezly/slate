@@ -1,7 +1,7 @@
 import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
-import React, { MouseEvent, forwardRef, useCallback, useEffect, useState } from 'react';
+import type { ReactNode, MouseEvent } from 'react';
+import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import type { Node, Path } from 'slate';
 import { Editor } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
@@ -83,7 +83,12 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-element-layout={layout}
             ref={ref}
         >
-            <div className={styles.container} contentEditable={false} ref={setContainer} onClick={openMenu}>
+            <div
+                className={styles.container}
+                contentEditable={false}
+                ref={setContainer}
+                onClick={openMenu}
+            >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
                     <Menu
                         editorElement={editorElement}
