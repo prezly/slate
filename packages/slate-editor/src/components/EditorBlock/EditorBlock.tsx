@@ -2,7 +2,9 @@ import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import React, { forwardRef, useCallback, useState } from 'react';
-import { useSelected } from 'slate-react';
+import type { Node, Path } from 'slate';
+import { Editor } from 'slate';
+import { useSelected, useSlateStatic } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
 import { useSlateDom } from '#lib';
@@ -41,7 +43,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         className,
         element,
         extendedHitArea,
-        layout= 'contained',
+        layout = 'contained',
         renderBlock,
         renderMenu,
         overlay = false,
@@ -50,8 +52,12 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     },
     ref,
 ) {
-    const editorElement = useSlateDom();
+    const editor = useSlateStatic();
+    const editorElement = useSlateDom(editor);
     const isSelected = useSelected();
+    const isOnlyBlockSelected =
+        isSelected && Array.from(Editor.nodes(editor, { match: isTopLevelBlock })).length === 1;
+
     const [menuOpen, setMenuOpen] = useState(true);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
     const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
@@ -71,7 +77,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             ref={ref}
         >
             <div className={styles.container} contentEditable={false} ref={setContainer}>
-                {isSelected && renderMenu && container && editorElement && (
+                {isOnlyBlockSelected && renderMenu && container && editorElement && (
                     <Menu editorElement={editorElement} open={menuOpen} reference={container}>
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
@@ -87,3 +93,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 });
 
 EditorBlock.displayName = 'EditorBlock';
+
+function isTopLevelBlock(_node: Node, path: Path): boolean {
+    return path.length === 1;
+}
