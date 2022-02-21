@@ -22,6 +22,7 @@ import {
     wrapInLink,
     wrapInLinkCandidate,
 } from '#modules/editor-v4-inline-links';
+import { MarkType, toggleBlock } from '#modules/editor-v4-rich-formatting';
 
 import { Toolbar } from './components';
 import {
@@ -31,6 +32,7 @@ import {
     isSelectionSupported,
     useLinkCandidateElement,
 } from './lib';
+import type { SelectedNodeType } from './types';
 
 interface Props {
     availableWidth: number;
@@ -63,13 +65,44 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
     }
 
     const show = isSelectionSupported(editor);
-    const activeNodeType = getRichFormattingBlockNodeType(editor);
     const [href, setHref] = useState<string>('');
     const [isExistingLink, setIsExistingLink] = useState<boolean>(false);
     const [linkCandidateId, setLinkCandidateId] = useState<string | null>(null);
     const [linkPath, setLinkPath] = useState<Path | null>(null);
     const [savedSelection, setSavedSelection] = useState<Path | Range | null>(null);
     const linkCandidateElement = useLinkCandidateElement(linkCandidateId);
+
+    const alignment = EditorCommands.getAlignment(editor, defaultAlignment);
+    const isBoldActive = EditorCommands.isMarkActive(editor, MarkType.BOLD);
+    const isItalicActive = EditorCommands.isMarkActive(editor, MarkType.ITALIC);
+    const isUnderlineActive = EditorCommands.isMarkActive(editor, MarkType.UNDERLINED);
+    const isSuperScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUPERSCRIPT);
+    const isSubScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUBSCRIPT);
+    const isLinkActive = EditorCommands.isBlockActive(editor, LINK_NODE_TYPE);
+    const formatting = getRichFormattingBlockNodeType(editor);
+
+    function handleSubSupClick() {
+        if (isSuperScriptActive) {
+            EditorCommands.toggleMark(editor, MarkType.SUPERSCRIPT);
+            EditorCommands.toggleMark(editor, MarkType.SUBSCRIPT);
+        } else if (isSubScriptActive) {
+            EditorCommands.toggleMark(editor, MarkType.SUBSCRIPT);
+        } else {
+            EditorCommands.toggleMark(editor, MarkType.SUPERSCRIPT);
+        }
+    }
+
+    function handleFormattingChange(type: SelectedNodeType) {
+        if (type === 'multiple') {
+            return;
+        }
+
+        toggleBlock(editor, type);
+    }
+
+    function handleAlignmentChange(align: Alignment): void {
+        EditorCommands.toggleAlignment(editor, align === defaultAlignment ? undefined : align);
+    }
 
     function resetState() {
         setHref('');
@@ -209,9 +242,24 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         >
             <Menu.Toolbar className="rich-formatting-menu">
                 <Toolbar
-                    activeNodeType={activeNodeType}
-                    defaultAlignment={defaultAlignment}
-                    onLinkClick={handleLinkButtonClick}
+                    // state
+                    alignment={alignment}
+                    isBold={isBoldActive}
+                    isItalic={isItalicActive}
+                    isUnderline={isUnderlineActive}
+                    isSubScript={isSubScriptActive}
+                    isSuperScript={isSuperScriptActive}
+                    isLink={isLinkActive}
+                    formatting={formatting}
+                    // callbacks
+                    onAlignment={handleAlignmentChange}
+                    onBold={() => EditorCommands.toggleMark(editor, MarkType.BOLD)}
+                    onItalic={() => EditorCommands.toggleMark(editor, MarkType.ITALIC)}
+                    onUnderline={() => EditorCommands.toggleMark(editor, MarkType.UNDERLINED)}
+                    onSubSuperScript={handleSubSupClick}
+                    onFormatting={handleFormattingChange}
+                    onLink={handleLinkButtonClick}
+                    // features
                     withAlignment={withAlignment}
                     withLinks={withLinks}
                     withRichBlockElements={withRichBlockElements}
