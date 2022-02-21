@@ -1,0 +1,60 @@
+@import "styles/variables";
+
+.wrapper {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+}
+
+.input {
+    $icon-size: 16px;
+
+    color: $grey-700;
+    font-weight: 500;
+    font-size: $font-size-small;
+    border: 1px solid rgba($black, 0.24);
+    border-radius: 8px;
+    background: $white;
+    padding: $spacing-1 $spacing-1-5;
+    flex-grow: 1;
+
+    &::placeholder {
+        color: $grey-400;
+        opacity: 1;
+    }
+
+    &:focus-visible {
+        outline: $spacing-half solid #c7d2fe;
+    }
+
+    &:disabled {
+        color: $grey-400;
+        opacity: 0.4;
+
+        & + .icon {
+            color: $grey-400;
+        }
+    }
+
+    &.with-icon {
+        padding-left: $spacing-1-5 + $icon-size + $spacing-1;
+
+        & + .icon {
+            width: $icon-size;
+            height: $icon-size;
+        }
+
+        &:focus + .icon,
+        &:focus-visible + .icon {
+            color: #6b7280;
+        }
+    }
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12px;
+    color: $grey-400;
+}
