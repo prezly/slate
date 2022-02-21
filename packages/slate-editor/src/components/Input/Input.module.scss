@@ -42,6 +42,11 @@
             width: $icon-size;
             height: $icon-size;
         }
+
+        &:focus + .icon,
+        &:focus-visible + .icon {
+            color: #6b7280;
+        }
     }
 }
 
