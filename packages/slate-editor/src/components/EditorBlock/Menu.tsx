@@ -1,4 +1,3 @@
-import type { VirtualElement } from '@popperjs/core';
 import { preventOverflow } from '@popperjs/core';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
@@ -80,14 +79,6 @@ export class Menu extends Component<Props> {
         };
     };
 
-    /**
-     * Virtual element to position the popover menu and its arrow
-     * into the top right corner of the block container.
-     */
-    private virtualReferenceElement: VirtualElement = {
-        getBoundingClientRect: this.getVirtualReferenceClientRect,
-    };
-
     render() {
         const { children, editorElement, open } = this.props;
 
@@ -97,7 +88,9 @@ export class Menu extends Component<Props> {
 
         return (
             <Popper
-                referenceElement={this.virtualReferenceElement}
+                referenceElement={{
+                    getBoundingClientRect: this.getVirtualReferenceClientRect,
+                }}
                 modifiers={[...MODIFIERS, keepPopoverInEditor(editorElement)]}
                 placement="right-start"
             >
