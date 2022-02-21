@@ -3,11 +3,11 @@
 import { Editor } from 'slate';
 
 import { jsx } from '../jsx';
-import { createRichFormattingEditor } from '../test-utils';
+import { createInlineLinksEditor } from '../test-utils';
 
 describe('normalizeNestedLink', () => {
     it('Unwraps nested links', () => {
-        const editor = createRichFormattingEditor(
+        const editor = createInlineLinksEditor(
             <editor>
                 <h-p>
                     <h-a href="https://example.com/1">

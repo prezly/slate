@@ -1,6 +1,6 @@
 export { RichFormattingMenu } from './components';
 export { RICH_FORMATTING_EXTENSION_ID } from './constants';
-export { isLinkCandidateElement, toggleBlock, unwrapLinkCandidates } from './lib';
+export { toggleBlock } from './lib';
 export { RichFormattingExtension } from './RichFormattingExtension';
 export type { RichFormattingExtensionParameters } from './types';
 export { ElementType } from './types';

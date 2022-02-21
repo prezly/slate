@@ -49,6 +49,5 @@ export interface LinkCandidateNode extends ElementNode {
 
 export interface RichFormattingExtensionParameters {
     blocks: boolean;
-    links: boolean;
     menu: boolean;
 }

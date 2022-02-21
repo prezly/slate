@@ -1,0 +1,20 @@
+import { normalizeRedundantAttributes } from '@prezly/slate-commons/build/types/commands';
+import type { LinkNode } from '@prezly/slate-types';
+import { isLinkNode } from '@prezly/slate-types';
+import type { Editor, Node, NodeEntry } from 'slate';
+
+const shape: Record<keyof LinkNode, true> = {
+    type: true,
+    href: true,
+    children: true,
+}
+
+const ALLOWED_LINK_ATTRIBUTES = Object.keys(shape);
+
+export function normalizeRedundantLinkAttributes(editor: Editor, [node, path]: NodeEntry<Node>) {
+    if (isLinkNode(node)) {
+        return normalizeRedundantAttributes(editor, [node, path], ALLOWED_LINK_ATTRIBUTES);
+    }
+
+    return false;
+}

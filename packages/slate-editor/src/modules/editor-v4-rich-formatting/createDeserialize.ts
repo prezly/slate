@@ -2,7 +2,7 @@ import type { DeserializeHtml } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
-import { detectMarks, parseSerializedElement, parseSerializedLinkElement } from './lib';
+import { detectMarks, parseSerializedElement } from './lib';
 import type { RichFormattingExtensionParameters } from './types';
 import { ElementType } from './types';
 
@@ -30,6 +30,7 @@ export function createDeserialize(parameters: RichFormattingExtensionParameters)
             UL: () => ({ type: PARAGRAPH_NODE_TYPE }),
         },
         leaf: {
+            A: detectMarks,
             ABBR: detectMarks,
             ACRONYM: detectMarks,
             AUDIO: detectMarks,
@@ -120,26 +121,6 @@ export function createDeserialize(parameters: RichFormattingExtensionParameters)
                 return { type: PARAGRAPH_NODE_TYPE };
             },
             UL: () => ({ type: ElementType.BULLETED_LIST }),
-        });
-    }
-
-    if (parameters.links) {
-        Object.assign(deserialize.element, {
-            [ElementType.LINK]: createDeserializeElement(parseSerializedLinkElement),
-            A: (element: HTMLAnchorElement) => {
-                if (!element.textContent) {
-                    return undefined;
-                }
-
-                return {
-                    href: element.href,
-                    type: ElementType.LINK,
-                };
-            },
-        });
-    } else {
-        Object.assign(deserialize.leaf, {
-            A: detectMarks,
         });
     }
 

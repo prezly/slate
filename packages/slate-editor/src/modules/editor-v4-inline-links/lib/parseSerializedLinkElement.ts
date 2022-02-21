@@ -7,7 +7,7 @@ export function parseSerializedLinkElement(serialized: string): LinkNode | undef
     const parsed = JSON.parse(serialized);
 
     if (isLinkNode(parsed)) {
-        return createLink(parsed.href);
+        return createLink(parsed);
     }
 
     return undefined;

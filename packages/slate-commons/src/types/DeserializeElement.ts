@@ -1,6 +1,6 @@
 export type DeserializeElement = Record<
     string,
-    (element: HTMLElement) =>
+    <T extends HTMLElement>(element: T) =>
         | {
               type: string;
               [key: string]: any;

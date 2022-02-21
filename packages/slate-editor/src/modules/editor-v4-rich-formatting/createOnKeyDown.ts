@@ -1,10 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import { Editor, Transforms } from 'slate';
+import { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { isCursorAtEndOfLink } from './lib';
 import { lists } from './lists';
 import type { RichFormattingExtensionParameters } from './types';
 import { MarkType } from './types';
@@ -14,8 +13,6 @@ const MARK_HOTKEYS: { hotkey: string; mark: MarkType }[] = [
     { hotkey: 'mod+i', mark: MarkType.ITALIC },
     { hotkey: 'mod+u', mark: MarkType.UNDERLINED },
 ];
-
-const isEscapingLink = isHotkey(['space', '.']);
 
 function marksOnKeyDown(event: KeyboardEvent, editor: Editor) {
     return MARK_HOTKEYS.forEach(({ hotkey, mark }) => {
@@ -70,27 +67,10 @@ function softBreakOnKeyDown(event: KeyboardEvent, editor: Editor) {
     }
 }
 
-/**
- * Allow escaping links if certain characters are typed at the right boundary of it.
- *
- * @see MT-4667
- */
-function escapeLinksBoundaries(event: KeyboardEvent, editor: Editor) {
-    if (isEscapingLink(event) && isCursorAtEndOfLink(editor)) {
-        const next = Editor.next(editor, { at: editor.selection?.focus });
-        if (next) {
-            event.preventDefault();
-            Transforms.insertText(editor, event.key, { at: { path: next[1], offset: 0 } });
-            Transforms.select(editor, { path: next[1], offset: 1 });
-        }
-    }
-}
-
 export function createOnKeyDown(parameters: RichFormattingExtensionParameters) {
     return (event: KeyboardEvent, editor: Editor) => {
         softBreakOnKeyDown(event, editor);
         marksOnKeyDown(event, editor);
-        escapeLinksBoundaries(event, editor);
 
         if (parameters.blocks) {
             listsOnKeyDown(event, editor);

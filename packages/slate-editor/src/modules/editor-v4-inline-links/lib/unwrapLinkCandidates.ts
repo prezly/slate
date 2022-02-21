@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
-import { isLinkCandidateElement } from './isLinkCandidateElement';
+import { isLinkCandidateNode } from './isLinkCandidateNode';
 
 export function unwrapLinkCandidates(editor: Editor): void {
     const at = EditorCommands.getEditorRange(editor);
@@ -13,7 +13,7 @@ export function unwrapLinkCandidates(editor: Editor): void {
 
     Transforms.unwrapNodes(editor, {
         at,
-        match: isLinkCandidateElement,
+        match: isLinkCandidateNode,
         split: true,
     });
 }

@@ -3,11 +3,11 @@
 import { Editor } from 'slate';
 
 import { jsx } from '../jsx';
-import { createRichFormattingEditor } from '../test-utils';
+import { createInlineLinksEditor } from '../test-utils';
 
 describe('normalizeEmptyLink', () => {
     it('Removes link nodes without text', () => {
-        const editor = createRichFormattingEditor(
+        const editor = createInlineLinksEditor(
             <editor>
                 <h-p>
                     <h-text>a</h-text>
