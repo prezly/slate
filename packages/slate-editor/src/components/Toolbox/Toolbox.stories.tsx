@@ -102,23 +102,32 @@ export function LinkSettings() {
         <div style={{ width: 320 }}>
             <Toolbox.Panel>
                 <Toolbox.Header withCloseButton>Link settings</Toolbox.Header>
+                <Toolbox.Section>
+                    <VStack spacing="2">
+                        <VStack spacing="1-5">
+                            <Toolbox.Caption>Text</Toolbox.Caption>
+                            <Input value={text} onChange={setText} placeholder="Link text" />
+                        </VStack>
 
-                <Toolbox.Section caption="Text">
-                    <Input value={text} onChange={setText} placeholder="Link text" />
-                </Toolbox.Section>
+                        <VStack spacing="2">
+                            <VStack spacing="2-5">
+                                <VStack spacing="1-5">
+                                    <Toolbox.Caption>Link</Toolbox.Caption>
+                                    <Input
+                                        value={link}
+                                        onChange={setLink}
+                                        icon={Link}
+                                        placeholder="Paste link or search content"
+                                    />
+                                </VStack>
 
-                <Toolbox.Section caption="Link">
-                    <VStack spacing="2-5">
-                        <Input
-                            value={link}
-                            onChange={setLink}
-                            icon={Link}
-                            placeholder="Paste link or search content"
-                        />
-                        <Toggle name="new_tab">Open in new tab</Toggle>
-                        <Button variant="primary" fullWidth round>
-                            Save
-                        </Button>
+                                <Toggle name="new_tab">Open in new tab</Toggle>
+                            </VStack>
+
+                            <Button variant="primary" fullWidth round>
+                                Save
+                            </Button>
+                        </VStack>
                     </VStack>
                 </Toolbox.Section>
             </Toolbox.Panel>
