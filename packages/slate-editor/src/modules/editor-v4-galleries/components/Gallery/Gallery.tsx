@@ -5,7 +5,7 @@ import React, { Component, createRef } from 'react';
 
 import { IMAGE_PADDING, IMAGE_SIZE } from './constants';
 import styles from './Gallery.module.scss';
-import { GalleryImage } from './GalleryImage';
+import { GalleryTile } from './GalleryTile';
 import { calculateLayout } from './lib';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -76,7 +76,7 @@ export class Gallery extends Component<Props> {
                                 const preview = image.resize(maxViewportWidth);
 
                                 return (
-                                    <GalleryImage
+                                    <GalleryTile
                                         height={height}
                                         image={image}
                                         key={image.uuid}

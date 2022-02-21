@@ -6,7 +6,7 @@ import React, { Component, createRef } from 'react';
 
 import { ImageSizeWarning, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components';
 
-import './GalleryImage.scss';
+import styles from './GalleryTile.module.scss';
 
 interface Props {
     className?: string;
@@ -24,7 +24,7 @@ interface State {
     verticalMargin: number;
 }
 
-export class GalleryImage extends Component<Props, State> {
+export class GalleryTile extends Component<Props, State> {
     static defaultProps = {
         className: '',
         style: {},
@@ -76,18 +76,16 @@ export class GalleryImage extends Component<Props, State> {
 
         return (
             <div
-                className={classNames('gallery-image', className, {
-                    'gallery-image--with-border-radius': withBorderRadius,
+                className={classNames(styles.galleryTile, className, {
+                    [styles.hidden]: !this.state.isLoading,
+                    [styles.withBorderRadius]: withBorderRadius,
                 })}
                 ref={this.ref}
                 style={this.getStyle()}
             >
                 <ImageWithLoadingPlaceholderV2
                     availableWidth={width}
-                    className={classNames('gallery-image__image', {
-                        'gallery-image__image--with-border-radius': withBorderRadius,
-                        'gallery-image__image--hidden': !this.state.isLoading,
-                    })}
+                    className={styles.image}
                     onIsLoadingChange={this.handleIsLoadingChange}
                     renderLoadingState={({ percent }) => (
                         <LoadingPlaceholderV2.ProgressBar percent={percent} />
@@ -96,7 +94,7 @@ export class GalleryImage extends Component<Props, State> {
                 />
 
                 {!isUploadcareImageSizeValid(image) && (
-                    <ImageSizeWarning className="gallery-image__size-warning" />
+                    <ImageSizeWarning className={styles.sizeWarning} />
                 )}
             </div>
         );
