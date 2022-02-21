@@ -30,7 +30,7 @@
     }
 
     &.fullWidth {
-        width: calc(100% - ($spacing-2 * 2));
+        max-width: calc(100% - ($spacing-2 * 2));
     }
 }
 
