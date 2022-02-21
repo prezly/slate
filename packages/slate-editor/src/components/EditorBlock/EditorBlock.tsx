@@ -1,7 +1,7 @@
 import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import React, { forwardRef, useCallback, useState } from 'react';
+import React, { MouseEvent, forwardRef, useCallback, useEffect, useState } from 'react';
 import type { Node, Path } from 'slate';
 import { Editor } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
@@ -63,6 +63,13 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
     const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
 
+    useEffect(
+        function () {
+            if (isOnlyBlockSelected) setMenuOpen(true);
+        },
+        [isOnlyBlockSelected],
+    );
+
     return (
         <div
             {...attributes}
@@ -76,13 +83,18 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-element-layout={layout}
             ref={ref}
         >
-            <div className={styles.container} contentEditable={false} ref={setContainer}>
+            <div className={styles.container} contentEditable={false} ref={setContainer} onClick={openMenu}>
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
-                    <Menu editorElement={editorElement} open={menuOpen} reference={container}>
+                    <Menu
+                        editorElement={editorElement}
+                        open={menuOpen}
+                        reference={container}
+                        onClick={preventBubbling}
+                    >
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}
-                <Overlay selected={isSelected} mode={overlay} onClick={openMenu} />
+                <Overlay selected={isSelected} mode={overlay} />
                 {renderBlock({ isSelected })}
             </div>
 
@@ -96,4 +108,8 @@ EditorBlock.displayName = 'EditorBlock';
 
 function isTopLevelBlock(_node: Node, path: Path): boolean {
     return path.length === 1;
+}
+
+function preventBubbling(event: MouseEvent) {
+    event.stopPropagation();
 }

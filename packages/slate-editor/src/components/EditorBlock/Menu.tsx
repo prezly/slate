@@ -1,6 +1,6 @@
 import { preventOverflow } from '@popperjs/core';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import React, { Component } from 'react';
 import type { Modifier } from 'react-popper';
 import { Popper } from 'react-popper';
@@ -12,6 +12,7 @@ import styles from './EditorBlock.module.scss';
 interface Props {
     children: ReactNode;
     editorElement: HTMLElement;
+    onClick?: (event: MouseEvent) => void;
     open: boolean;
     reference: HTMLElement;
 }
@@ -80,7 +81,7 @@ export class Menu extends Component<Props> {
     };
 
     render() {
-        const { children, editorElement, open } = this.props;
+        const { children, editorElement, onClick, open } = this.props;
 
         if (!open) {
             return null;
@@ -95,7 +96,12 @@ export class Menu extends Component<Props> {
                 placement="right-start"
             >
                 {({ ref, style, arrowProps, placement }) => (
-                    <Toolbox.Panel className={styles.menu} ref={ref} style={style}>
+                    <Toolbox.Panel
+                        className={styles.menu}
+                        ref={ref}
+                        style={style}
+                        onClick={onClick}
+                    >
                         <div
                             className={classNames(styles.arrow, {
                                 [styles.top]: placement.indexOf('top') >= 0,
