@@ -20,7 +20,7 @@ export function GalleryElement({ attributes, availableWidth, children, element, 
         <EditorBlock
             {...attributes}
             element={element}
-            position={element.layout}
+            layout={element.layout}
             renderBlock={() => (
                 <Gallery
                     images={element.images.map((image) =>

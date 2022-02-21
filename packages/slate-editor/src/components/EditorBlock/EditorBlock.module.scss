@@ -24,14 +24,6 @@
     &.void > .container {
         @include editor-v4-void-element;
     }
-
-    &.expanded {
-        max-width: calc(100% - ($spacing-2 * 2)); // FIXME
-    }
-
-    &.fullWidth {
-        max-width: calc(100% - ($spacing-2 * 2));
-    }
 }
 
 .container {
