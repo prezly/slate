@@ -28,11 +28,11 @@ import { Toolbar } from './components';
 import {
     keepToolbarInTextColumn,
     restoreSelection,
-    getRichFormattingBlockNodeType,
+    getCurrentFormatting,
     isSelectionSupported,
     useLinkCandidateElement,
 } from './lib';
-import type { SelectedNodeType } from './types';
+import type { Formatting } from './types';
 
 interface Props {
     availableWidth: number;
@@ -79,7 +79,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
     const isSuperScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUPERSCRIPT);
     const isSubScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUBSCRIPT);
     const isLinkActive = EditorCommands.isBlockActive(editor, LINK_NODE_TYPE);
-    const formatting = getRichFormattingBlockNodeType(editor);
+    const formatting = getCurrentFormatting(editor);
 
     function handleSubSupClick() {
         if (isSuperScriptActive) {
@@ -92,7 +92,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         }
     }
 
-    function handleFormattingChange(type: SelectedNodeType) {
+    function handleFormattingChange(type: Formatting) {
         if (type === 'multiple') {
             return;
         }

@@ -7,7 +7,7 @@ import { uniq } from '#lodash';
 import type { RichTextElementType } from '#modules/editor-v4-rich-formatting';
 import { isRichTextBlockElement } from '#modules/editor-v4-rich-formatting';
 
-import type { SelectedNodeType } from '../../types';
+import type { Formatting } from '../types';
 
 const ROOT_PATH: Path = [];
 
@@ -24,7 +24,7 @@ function findParentBlock(editor: Editor, node: Node, path: Path): RichTextElemen
     return findParentBlock(editor, ancestor, ancestorPath);
 }
 
-export function getRichFormattingBlockNodeType(editor: Editor): SelectedNodeType | null {
+export function getCurrentFormatting(editor: Editor): Formatting | null {
     if (!editor.selection || !EditorCommands.isSelectionValid(editor)) {
         return null;
     }
@@ -45,5 +45,5 @@ export function getRichFormattingBlockNodeType(editor: Editor): SelectedNodeType
         return 'multiple';
     }
 
-    return blockTypes[0] as SelectedNodeType;
+    return blockTypes[0] as Formatting;
 }

@@ -15,11 +15,9 @@ import {
     Link,
 } from '#icons';
 
-import type { SelectedNodeType } from '../types';
+import type { Formatting } from '../types';
 
 import { BlockDropdown } from './BlockDropdown';
-
-type Formatting = SelectedNodeType;
 
 interface Props {
     // state

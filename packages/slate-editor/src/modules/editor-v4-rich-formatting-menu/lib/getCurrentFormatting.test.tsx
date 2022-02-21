@@ -10,7 +10,7 @@ import {
 import { jsx } from '../jsx';
 import { createRichFormattingEditor } from '../test-utils';
 
-import { getRichFormattingBlockNodeType } from './getRichFormattingBlockNodeType';
+import { getCurrentFormatting } from './getCurrentFormatting';
 
 describe('getRichFormattingBlockNodeType', () => {
     it('Returns the type of element at the cursor', () => {
@@ -25,7 +25,7 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>,
         );
 
-        const blockType = getRichFormattingBlockNodeType(editor);
+        const blockType = getCurrentFormatting(editor);
 
         expect(blockType).toBe(QUOTE_NODE_TYPE);
     });
@@ -61,8 +61,8 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>,
         );
 
-        expect(getRichFormattingBlockNodeType(editorUl)).toBe(BULLETED_LIST_NODE_TYPE);
-        expect(getRichFormattingBlockNodeType(editorOl)).toBe(NUMBERED_LIST_NODE_TYPE);
+        expect(getCurrentFormatting(editorUl)).toBe(BULLETED_LIST_NODE_TYPE);
+        expect(getCurrentFormatting(editorOl)).toBe(NUMBERED_LIST_NODE_TYPE);
     });
 
     it('Returns the inner-most list type when focused a nested list', () => {
@@ -90,7 +90,7 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>,
         );
 
-        expect(getRichFormattingBlockNodeType(editor)).toBe(BULLETED_LIST_NODE_TYPE);
+        expect(getCurrentFormatting(editor)).toBe(BULLETED_LIST_NODE_TYPE);
     });
 
     it('Returns multiple when selection spans across different list types', () => {
@@ -124,7 +124,7 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>,
         );
 
-        expect(getRichFormattingBlockNodeType(editor)).toBe('multiple');
+        expect(getCurrentFormatting(editor)).toBe('multiple');
     });
 
     it('Returns multiple when the selection spans across different types', () => {
@@ -141,7 +141,7 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>,
         );
 
-        expect(getRichFormattingBlockNodeType(editor)).toBe('multiple');
+        expect(getCurrentFormatting(editor)).toBe('multiple');
     });
 
     it('Returns the element type when the selection spans across multiple block of the same type', () => {
@@ -158,7 +158,7 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>,
         );
 
-        expect(getRichFormattingBlockNodeType(editor)).toBe(HEADING_1_NODE_TYPE);
+        expect(getCurrentFormatting(editor)).toBe(HEADING_1_NODE_TYPE);
     });
 
     it('Ignores the inline blocks', () => {
@@ -174,6 +174,6 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>,
         );
 
-        expect(getRichFormattingBlockNodeType(editor)).toBe(HEADING_1_NODE_TYPE);
+        expect(getCurrentFormatting(editor)).toBe(HEADING_1_NODE_TYPE);
     });
 });
