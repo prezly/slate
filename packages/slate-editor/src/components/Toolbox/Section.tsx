@@ -7,6 +7,7 @@ import styles from './Toolbox.module.scss';
 interface SectionProps {
     caption?: string;
     noPadding?: boolean;
+    paddingBottom?: '3';
 }
 
 export function Section(props: React.PropsWithChildren<SectionProps>) {
@@ -17,7 +18,12 @@ export function Section(props: React.PropsWithChildren<SectionProps>) {
             })}
         >
             {props.caption && (
-                <div className={styles['section-header-wrapper']}>
+                <div
+                    className={classNames(styles['section-header-wrapper'], {
+                        [styles['section-header-wrapper--padding-bottom-3']]:
+                            props.paddingBottom === '3',
+                    })}
+                >
                     <Caption>{props.caption}</Caption>
                 </div>
             )}
