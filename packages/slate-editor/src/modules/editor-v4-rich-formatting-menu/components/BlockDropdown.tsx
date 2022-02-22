@@ -5,17 +5,17 @@ import { Menu } from '#components';
 
 import { ElementType } from '#modules/editor-v4-rich-formatting';
 
-import type { SelectedNodeType } from '../types';
+import type { Formatting } from '../types';
 
 import { MenuOption } from './MenuOption';
 
 
 interface Props {
-    onChange: (value: SelectedNodeType) => void;
-    value: SelectedNodeType | null;
+    onChange: (value: Formatting) => void;
+    value: Formatting | null;
 }
 
-const OPTIONS: Menu.DropdownOption<SelectedNodeType>[] = [
+const OPTIONS: Menu.DropdownOption<Formatting>[] = [
     { hidden: true, label: 'Multiple', value: 'multiple' },
     {
         label: 'Paragraph',
@@ -23,7 +23,7 @@ const OPTIONS: Menu.DropdownOption<SelectedNodeType>[] = [
         render: (option) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--paragraph"
-                type={option.value}
+                formatting={option.value}
             >
                 {option.label}
             </MenuOption>
@@ -35,7 +35,7 @@ const OPTIONS: Menu.DropdownOption<SelectedNodeType>[] = [
         render: (option) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--heading-1"
-                type={option.value}
+                formatting={option.value}
             >
                 {option.label}
             </MenuOption>
@@ -47,7 +47,7 @@ const OPTIONS: Menu.DropdownOption<SelectedNodeType>[] = [
         render: (option) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--heading-2"
-                type={option.value}
+                formatting={option.value}
             >
                 {option.label}
             </MenuOption>
@@ -59,7 +59,7 @@ const OPTIONS: Menu.DropdownOption<SelectedNodeType>[] = [
         render: (option) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--unordered-list"
-                type={option.value}
+                formatting={option.value}
             >
                 <li>{option.label}</li>
             </MenuOption>
@@ -71,7 +71,7 @@ const OPTIONS: Menu.DropdownOption<SelectedNodeType>[] = [
         render: (option) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--ordered-list"
-                type={option.value}
+                formatting={option.value}
             >
                 <li>{option.label}</li>
             </MenuOption>
@@ -83,7 +83,7 @@ const OPTIONS: Menu.DropdownOption<SelectedNodeType>[] = [
         render: (option) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--blockquote"
-                type={option.value}
+                formatting={option.value}
             >
                 {option.label}
             </MenuOption>
@@ -93,7 +93,7 @@ const OPTIONS: Menu.DropdownOption<SelectedNodeType>[] = [
 
 export function BlockDropdown({ value, onChange }: Props) {
     return (
-        <Menu.Dropdown<SelectedNodeType>
+        <Menu.Dropdown<Formatting>
             id="prezly-editor-toolbar-dropdown"
             onChange={onChange}
             options={OPTIONS}

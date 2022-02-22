@@ -22,7 +22,7 @@ import { BlockDropdown } from './BlockDropdown';
 interface Props {
     // state
     alignment: Alignment[];
-    formatting: Formatting;
+    formatting: Formatting | null;
     isBold: boolean;
     isItalic: boolean;
     isUnderline: boolean;
