@@ -5,7 +5,7 @@ import type { RenderElementProps } from 'slate-react';
 
 import { LinkWithTooltip } from '#modules/editor-v4-components';
 
-import './LinkElement.scss';
+import styles from './LinkElement.module.scss';
 
 interface Props extends RenderElementProps {
     element: LinkNode;
@@ -20,7 +20,7 @@ export const LinkElement: FunctionComponent<Props> = ({ attributes, children, el
             {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
                 <a
                     {...ariaAttributes}
-                    className="editor-v4-link-element"
+                    className={styles.link}
                     href={element.href}
                     onBlur={onHide}
                     onFocus={onShow}

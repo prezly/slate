@@ -4,7 +4,7 @@ import type { RenderElementProps } from 'slate-react';
 
 import type { LinkCandidateNode } from '../types';
 
-import './LinkCandidateElement.scss';
+import styles from './LinkCandidateElement.module.scss';
 
 interface Props extends RenderElementProps {
     element: LinkCandidateNode;
@@ -17,7 +17,7 @@ export const LinkCandidateElement: FunctionComponent<Props> = ({
 }) => (
     <span
         {...attributes}
-        className="editor-v4-link-candidate-element"
+        className={styles.linkCandidate}
         data-slate-type={element.type}
         id={element.id}
     >
