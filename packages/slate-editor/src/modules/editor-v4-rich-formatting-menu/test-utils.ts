@@ -5,10 +5,7 @@ import { InlineLinksExtension } from '#modules/editor-v4-inline-links';
 import { RichFormattingExtension, withRichFormatting } from '#modules/editor-v4-rich-formatting';
 
 function getExtensions() {
-    return [
-        RichFormattingExtension({ blocks: true }),
-        InlineLinksExtension(),
-    ];
+    return [RichFormattingExtension({ blocks: true }), InlineLinksExtension()];
 }
 
 export function createRichFormattingEditor(input: JSX.Element) {

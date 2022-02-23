@@ -9,7 +9,6 @@ import type { Formatting } from '../types';
 
 import { MenuOption } from './MenuOption';
 
-
 interface Props {
     onChange: (value: Formatting) => void;
     value: Formatting | null;
