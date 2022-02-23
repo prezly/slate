@@ -27,6 +27,8 @@ export const LinkElement: FunctionComponent<Props> = ({ attributes, children, el
                     onMouseEnter={onShow}
                     onMouseLeave={onHide}
                     ref={setReferenceElement}
+                    rel="noreferrer"
+                    target={element.new_tab ? '_blank' : undefined}
                 >
                     {children}
                 </a>

@@ -6,6 +6,7 @@ import type { Editor, Node, NodeEntry } from 'slate';
 const shape: Record<keyof LinkNode, true> = {
     type: true,
     href: true,
+    new_tab: true,
     children: true,
 };
 
