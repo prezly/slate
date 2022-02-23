@@ -1,14 +1,16 @@
 import classNames from 'classnames';
-import type { Rect } from 'rangefix';
 import RangeFix from 'rangefix';
 import type { FunctionComponent } from 'react';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import type { Editor } from 'slate';
+import { ReactEditor, useSlateStatic } from 'slate-react';
 
 import { useIsMouseDown } from '#lib';
 
 import type { Props as BasePortalV2Props } from './BasePortalV2';
 import { BasePortalV2 } from './BasePortalV2';
 import './TextSelectionPortalV2.scss';
+import { convertClientRect } from './convertClientRect';
 
 interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {}
 
@@ -22,6 +24,8 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
     containerElement,
     ...props
 }) => {
+    const editor = useSlateStatic();
+    const lastRect = useRef<ClientRect | null>(null);
     // When making a selection with mouse, it's possible that mouse will be moved so quickly that
     // it will hover over the `children` of the `BasePortalV2` and it will interfere with the
     // selection that is being made. To make sure, we disable `pointer-events` when selection
@@ -29,8 +33,18 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
     const isMouseDown = useIsMouseDown();
     const [isMouseDownInPortal, setIsMouseDownInPortal] = useState<boolean>(false);
     const getBoundingClientRect = useCallback(
-        () => updateCursorPortalRect(containerElement),
-        [containerElement],
+        function () {
+            const rect = getSelectionRect(editor);
+            if (
+                editor.selection &&
+                rect === null &&
+                containerElement?.contains(document.activeElement)
+            ) {
+                return lastRect.current;
+            }
+            return (lastRect.current = rect);
+        },
+        [editor, containerElement],
     );
 
     return (
@@ -49,22 +63,15 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
     );
 };
 
-function updateCursorPortalRect(container?: HTMLElement | null): ClientRect | Rect | null {
+function getSelectionRect(editor: Editor): ClientRect | null {
+    if (!editor.selection) return null;
+
     try {
-        if (!container || !container.contains(document.activeElement)) {
-            return null;
-        }
+        const range = ReactEditor.toDOMRange(editor, editor.selection);
 
-        const selection = window.getSelection();
+        const [rect] = RangeFix.getClientRects(range) || [];
 
-        if (selection === null) {
-            return null;
-        }
-
-        // polyfill for collapsed selection, because Safari returns invalid coordinates.
-        const [rect] = RangeFix.getClientRects(selection.getRangeAt(0)) || [];
-
-        return rect || null;
+        return rect ? convertClientRect(rect) : null;
     } catch (error) {
         // Sometimes (for example, when resizing the contained image inside the editor),
         // the `getRangeAt(0)` will fail, because the selection is invalid at that moment:
