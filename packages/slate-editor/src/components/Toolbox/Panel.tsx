@@ -15,7 +15,7 @@ export const Panel = forwardRef<HTMLDivElement, Props>(function (
     ref,
 ) {
     return (
-        <div {...props} className={classNames(styles.panel, className)} ref={ref}>
+        <div {...props} ref={ref} className={classNames(styles.panel, className)}>
             {children}
         </div>
     );

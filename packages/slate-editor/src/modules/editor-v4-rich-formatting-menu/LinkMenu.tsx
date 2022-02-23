@@ -1,4 +1,5 @@
 import type { LinkNode } from '@prezly/slate-types';
+import { isHotkey } from 'is-hotkey';
 import * as React from 'react';
 import { useState } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
@@ -14,6 +15,8 @@ interface Props {
     onClose: () => void;
     onUnlink: () => void;
 }
+
+const isEnter = isHotkey('Enter');
 
 export function LinkMenu({ node, canUnlink, onBlur, onChange, onClose, onUnlink }: Props) {
     const [href, setHref] = useState(node?.href ?? '');
@@ -36,9 +39,16 @@ export function LinkMenu({ node, canUnlink, onBlur, onChange, onClose, onUnlink 
                                 <VStack spacing="1-5">
                                     <Toolbox.Caption>Link</Toolbox.Caption>
                                     <Input
+                                        autoFocus
                                         name="href"
                                         value={href}
                                         onChange={setHref}
+                                        onKeyDown={(event) => {
+                                            if (isEnter(event)) {
+                                                event.preventDefault();
+                                                handleSave()
+                                            }
+                                        }}
                                         icon={Link}
                                         placeholder="Paste link"
                                     />
