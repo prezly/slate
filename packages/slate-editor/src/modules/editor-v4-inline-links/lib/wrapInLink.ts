@@ -6,8 +6,11 @@ import { createLink } from './createLink';
 
 export function wrapInLink(
     editor: Editor,
-    at: Path | Range,
     props: Pick<LinkNode, 'href' | 'new_tab'>,
+    selection?: Path | Range,
 ): void {
-    return Transforms.wrapNodes(editor, createLink({ ...props, children: [] }), { at, split: true });
+    return Transforms.wrapNodes(editor, createLink({ ...props, children: [] }), {
+        at: selection,
+        split: true,
+    });
 }

@@ -109,20 +109,25 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         const selection = linkRange?.current;
         if (!selection) return;
 
-        Transforms.select(editor, selection);
-        unwrapLink(editor, selection);
-        wrapInLink(editor, selection, props);
-
         clearLinkRange();
+
+        Transforms.select(editor, selection);
+        ReactEditor.focus(editor);
+
+        unwrapLink(editor);
+        wrapInLink(editor, props);
     }
 
     function unlinkSelection() {
         const selection = linkRange?.current;
         if (!selection) return;
 
-        Transforms.select(editor, selection);
-        unwrapLink(editor, selection);
         clearLinkRange();
+
+        Transforms.select(editor, selection);
+        ReactEditor.focus(editor);
+
+        unwrapLink(editor);
     }
 
     if (withLinks && linkRange?.current) {
