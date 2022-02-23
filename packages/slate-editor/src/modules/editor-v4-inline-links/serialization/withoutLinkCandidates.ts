@@ -4,5 +4,5 @@ import type { Descendant } from 'slate';
 import { isLinkCandidateNode } from '../lib';
 
 export function withoutLinkCandidates<T extends Descendant>(nodes: T[]): T[] {
-    return withoutNodes(nodes, isLinkCandidateNode)
+    return withoutNodes(nodes, isLinkCandidateNode);
 }

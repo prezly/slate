@@ -9,11 +9,7 @@ import type { Value } from '../types';
 
 export type Transform = <T extends Descendant>(nodes: T[]) => T[];
 
-const transforms: Transform[] = [
-    withoutLinkCandidates,
-    withoutImageCandidates,
-    withoutLoaders,
-];
+const transforms: Transform[] = [withoutLinkCandidates, withoutImageCandidates, withoutLoaders];
 
 export function serialize(value: Value): string {
     const children = transforms.reduce((result, transform) => transform(result), value);
