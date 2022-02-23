@@ -9,3 +9,4 @@ export type { OnDOMBeforeInput } from './OnDOMBeforeInput';
 export type { OnKeyDown } from './OnKeyDown';
 export type { RenderElement } from './RenderElement';
 export type { RenderLeaf } from './RenderLeaf';
+export type { WithOverrides } from './WithOverrides';

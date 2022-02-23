@@ -41,11 +41,25 @@ export function Variants() {
     return (
         <VStack spacing="2">
             <div>
+                <Button variant="primary">Primary</Button>
+            </div>
+
+            <div>
+                <Button variant="primary" round>
+                    Primary round
+                </Button>
+            </div>
+
+            <div>
                 <Button variant="clear">Clear</Button>
             </div>
 
             <div>
                 <Button round>Round</Button>
+            </div>
+
+            <div>
+                <Button variant="clear-faded">Clear-faded Round</Button>
             </div>
         </VStack>
     );

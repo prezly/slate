@@ -1,4 +1,3 @@
-import type { Extension } from '@prezly/slate-commons';
 import {
     withBreaksOnExpandedSelection,
     withBreaksOnVoidNodes,
@@ -6,6 +5,8 @@ import {
     withNormalization,
     withUserFriendlyDeleteBehavior,
 } from '@prezly/slate-commons';
+import type { Extension } from '@prezly/slate-commons';
+import type { WithOverrides } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
@@ -28,8 +29,12 @@ import {
 export function createEditorV4(
     baseEditor: Editor,
     getExtensions: () => Extension[],
-    plugins: (<T extends Editor>(editor: T) => T)[] = [],
+    plugins: WithOverrides[] = [],
 ) {
+    const overrides = getExtensions()
+        .map(({ withOverrides }) => withOverrides)
+        .filter((o): o is WithOverrides => Boolean(o));
+
     return flow([
         withReact,
         withHistory,
@@ -49,6 +54,7 @@ export function createEditorV4(
         withRichFormatting,
         withImages,
         withFilePasting(getExtensions),
+        ...overrides,
         ...plugins,
     ])(baseEditor);
 }

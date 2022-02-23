@@ -4,7 +4,7 @@ import type { Editor, NodeEntry } from 'slate';
 
 import { createGallery } from './createGallery';
 
-const ALLOWED_ATTRIBUTES = Object.keys(createGallery([]));
+const ALLOWED_ATTRIBUTES = Object.keys(createGallery({}));
 
 export function normalizeRedundantGalleryAttributes(
     editor: Editor,

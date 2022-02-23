@@ -1,7 +1,16 @@
 import * as React from 'react';
 
 import type { OptionsGroupOption } from '#components';
-import { Toolbox, Toggle, OptionsGroup, Button, ButtonGroup, InfoText, VStack } from '#components';
+import {
+    Toolbox,
+    Toggle,
+    OptionsGroup,
+    Button,
+    Input,
+    ButtonGroup,
+    VStack,
+    InfoText,
+} from '#components';
 import {
     ExternalLink,
     Delete,
@@ -15,6 +24,7 @@ import {
     ImageSpacingWide,
     Edit,
     Dice,
+    Link,
 } from '#icons';
 
 export default {
@@ -79,6 +89,47 @@ export function WebBookmark() {
                         Remove web bookmark
                     </Button>
                 </Toolbox.Footer>
+            </Toolbox.Panel>
+        </div>
+    );
+}
+
+export function LinkSettings() {
+    const [text, setText] = React.useState('');
+    const [link, setLink] = React.useState('');
+
+    return (
+        <div style={{ width: 320 }}>
+            <Toolbox.Panel>
+                <Toolbox.Header withCloseButton>Link settings</Toolbox.Header>
+                <Toolbox.Section>
+                    <VStack spacing="2">
+                        <VStack spacing="1-5">
+                            <Toolbox.Caption>Text</Toolbox.Caption>
+                            <Input value={text} onChange={setText} placeholder="Link text" />
+                        </VStack>
+
+                        <VStack spacing="2">
+                            <VStack spacing="2-5">
+                                <VStack spacing="1-5">
+                                    <Toolbox.Caption>Link</Toolbox.Caption>
+                                    <Input
+                                        value={link}
+                                        onChange={setLink}
+                                        icon={Link}
+                                        placeholder="Paste link or search content"
+                                    />
+                                </VStack>
+
+                                <Toggle name="new_tab">Open in new tab</Toggle>
+                            </VStack>
+
+                            <Button variant="primary" fullWidth round>
+                                Save
+                            </Button>
+                        </VStack>
+                    </VStack>
+                </Toolbox.Section>
             </Toolbox.Panel>
         </div>
     );

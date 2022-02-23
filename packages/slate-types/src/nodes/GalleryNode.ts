@@ -14,17 +14,17 @@ export enum GalleryLayout {
 }
 
 export enum GalleryImageSize {
-    L = 'L',
-    M = 'M',
-    S = 'S',
-    XL = 'XL',
     XS = 'XS',
+    S = 'S',
+    M = 'M',
+    L = 'L',
+    XL = 'XL',
 }
 
 export enum GalleryPadding {
-    L = 'L',
-    M = 'M',
     S = 'S',
+    M = 'M',
+    L = 'L',
 }
 
 export interface GalleryNode extends ElementNode {
