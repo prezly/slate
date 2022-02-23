@@ -1,33 +1,26 @@
 import classNames from 'classnames';
 import * as React from 'react';
+import type { InputHTMLAttributes } from 'react';
 
 import styles from './Input.module.scss';
 
-interface InputProps {
-    autoFocus?: boolean;
-    name?: string;
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     value: string;
     onChange: (newValue: string) => void;
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-    placeholder?: string;
-    disabled?: boolean;
 }
 
-export function Input(props: InputProps) {
+export function Input({ className, icon: Icon, onChange, ...attributes }: InputProps) {
     return (
         <label className={styles.wrapper}>
             <input
-                autoFocus={props.autoFocus}
-                name={props.name}
-                className={classNames(styles.input, {
-                    [styles['with-icon']]: props.icon !== undefined,
+                {...attributes}
+                className={classNames(className, styles.input, {
+                    [styles['with-icon']]: Icon !== undefined,
                 })}
-                value={props.value}
-                onChange={(e) => props.onChange(e.currentTarget.value)}
-                placeholder={props.placeholder}
-                disabled={props.disabled}
+                onChange={(e) => onChange(e.currentTarget.value)}
             />
-            {props.icon && <props.icon className={styles.icon} />}
+            {Icon && <Icon className={styles.icon} />}
         </label>
     );
 }
