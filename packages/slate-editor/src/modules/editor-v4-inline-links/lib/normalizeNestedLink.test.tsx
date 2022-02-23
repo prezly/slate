@@ -3,41 +3,40 @@
 import { Editor } from 'slate';
 
 import { jsx } from '../jsx';
-import { createInlineLinksEditor } from '../test-utils';
 
 describe('normalizeNestedLink', () => {
     it('Unwraps nested links', () => {
-        const editor = createInlineLinksEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-a href="https://example.com/1">
-                        <h-text>lorem</h-text>
-                        <h-a href="https://example.com/2">
-                            <h-text>ipsum</h-text>
-                        </h-a>
-                        <h-text>dolor</h-text>
-                    </h-a>
-                </h-p>
-            </editor>,
-        );
+                <paragraph>
+                    <link href="https://example.com/1">
+                        <text>lorem</text>
+                        <link href="https://example.com/2">
+                            <text>ipsum</text>
+                        </link>
+                        <text>dolor</text>
+                    </link>
+                </paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text />
-                    <h-a href="https://example.com/1">
-                        <h-text>lorem</h-text>
-                    </h-a>
-                    <h-text />
-                    <h-a href="https://example.com/2">
-                        <h-text>ipsum</h-text>
-                    </h-a>
-                    <h-text />
-                    <h-a href="https://example.com/1">
-                        <h-text>dolor</h-text>
-                    </h-a>
-                    <h-text />
-                </h-p>
+                <paragraph>
+                    <text />
+                    <link href="https://example.com/1">
+                        <text>lorem</text>
+                    </link>
+                    <text />
+                    <link href="https://example.com/2">
+                        <text>ipsum</text>
+                    </link>
+                    <text />
+                    <link href="https://example.com/1">
+                        <text>dolor</text>
+                    </link>
+                    <text />
+                </paragraph>
             </editor>
         ) as unknown as Editor;
 

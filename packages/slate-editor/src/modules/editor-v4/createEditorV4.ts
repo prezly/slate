@@ -28,7 +28,7 @@ import {
 export function createEditorV4(
     baseEditor: Editor,
     getExtensions: () => Extension[],
-    plugins: (<T extends Editor>(editor: T) => T)[],
+    plugins: (<T extends Editor>(editor: T) => T)[] = [],
 ) {
     return flow([
         withReact,

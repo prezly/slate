@@ -10,14 +10,14 @@ describe('getCurrentHref', () => {
     it('Returns "null" when link is not selected', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
+                <paragraph>
+                    <text>lorem ipsum</text>
                     <cursor />
-                    <h-text>lorem ipsum</h-text>
-                    <h-a href="http://example.com">
-                        <h-text>link</h-text>
-                    </h-a>
-                </h-p>
+                    <text>lorem ipsum</text>
+                    <link href="http://example.com">
+                        <text>link</text>
+                    </link>
+                </paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -27,15 +27,15 @@ describe('getCurrentHref', () => {
     it('Returns "href" of the selected link', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                    <h-a href="http://example.com">
+                <paragraph>
+                    <text>lorem ipsum</text>
+                    <link href="http://example.com">
                         <anchor />
-                        <h-text>link</h-text>
+                        <text>link</text>
                         <focus />
-                    </h-a>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
+                    </link>
+                    <text>lorem ipsum</text>
+                </paragraph>
             </editor>
         ) as unknown as Editor;
 

@@ -1,26 +1,29 @@
-/* eslint-disable @typescript-eslint/no-namespace */
-
-import { createHyperscript } from '@prezly/slate-hyperscript';
+/* eslint-disable @typescript-eslint/no-namespace,@typescript-eslint/no-unused-vars */
 import { LINK_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import type { ReactNode } from 'react';
+import { createEditor as makeEditor } from 'slate';
+import { createHyperscript, createEditor } from 'slate-hyperscript';
 
+import { InlineLinksExtension } from './InlineLinksExtension';
+
+import { createEditorV4 } from '#modules/editor-v4/createEditorV4';
+
+// This allows tests to include Slate Nodes written in JSX without TypeScript complaining.
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            'h-a': {
-                children?: ReactNode;
-                href: string;
-            };
-            'h-p': {
-                children?: ReactNode;
-            };
+            [elemName: string]: any; // eslint-disable-line
         }
     }
 }
 
+const extensions = [InlineLinksExtension()];
+
 export const jsx = createHyperscript({
     elements: {
-        'h-a': { type: LINK_NODE_TYPE },
-        'h-p': { type: PARAGRAPH_NODE_TYPE },
+        link: { type: LINK_NODE_TYPE },
+        paragraph: { type: PARAGRAPH_NODE_TYPE },
+    },
+    creators: {
+        editor: createEditor(() => createEditorV4(makeEditor(), () => extensions)),
     },
 });

@@ -3,31 +3,30 @@
 import { Editor } from 'slate';
 
 import { jsx } from '../jsx';
-import { createInlineLinksEditor } from '../test-utils';
 
 describe('normalizeEmptyLink', () => {
     it('Removes link nodes without text', () => {
-        const editor = createInlineLinksEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>a</h-text>
-                    <h-a href="https://example.com">
-                        <h-text>
+                <paragraph>
+                    <text>a</text>
+                    <link href="https://example.com">
+                        <text>
                             <anchor />a<focus />
-                        </h-text>
-                    </h-a>
-                    <h-text>b</h-text>
-                </h-p>
-            </editor>,
-        );
+                        </text>
+                    </link>
+                    <text>b</text>
+                </paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>
+                <paragraph>
+                    <text>
                         a<cursor />b
-                    </h-text>
-                </h-p>
+                    </text>
+                </paragraph>
             </editor>
         ) as unknown as Editor;
 
