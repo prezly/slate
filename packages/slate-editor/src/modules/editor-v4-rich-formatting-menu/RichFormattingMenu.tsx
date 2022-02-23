@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
-import type { FunctionComponent, RefObject } from 'react';
+import type { FunctionComponent } from 'react';
 import React from 'react';
 import type { Modifier } from 'react-popper';
 import type { Range } from 'slate';
@@ -26,7 +26,7 @@ import type { Formatting } from './types';
 
 interface Props {
     availableWidth: number;
-    containerRef: RefObject<HTMLElement>;
+    containerElement: HTMLElement | null;
     defaultAlignment: Alignment;
     withAlignment: boolean;
     withRichBlockElements: boolean;
@@ -42,7 +42,7 @@ const OFFSET_MODIFIER: Modifier<'offset'> = {
 
 export const RichFormattingMenu: FunctionComponent<Props> = ({
     availableWidth,
-    containerRef,
+    containerElement,
     defaultAlignment,
     withAlignment,
     withLinks,
@@ -128,7 +128,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
     if (withLinks && linkRange?.current) {
         return (
             <TextSelectionPortalV2
-                containerRef={containerRef}
+                containerElement={containerElement}
                 modifiers={[OFFSET_MODIFIER]}
                 placement="bottom-start"
             >
@@ -150,11 +150,11 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
 
     return (
         <TextSelectionPortalV2
-            containerRef={containerRef}
+            containerElement={containerElement}
             modifiers={[
                 OFFSET_MODIFIER,
                 keepToolbarInTextColumn({
-                    editorElement: containerRef.current,
+                    editorElement: containerElement,
                     availableWidth,
                 }),
             ]}

@@ -19,7 +19,7 @@ interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {}
 export const TextSelectionPortalV2: FunctionComponent<Props> = ({
     children,
     className,
-    containerRef,
+    containerElement,
     ...props
 }) => {
     // When making a selection with mouse, it's possible that mouse will be moved so quickly that
@@ -29,14 +29,14 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
     const isMouseDown = useIsMouseDown();
     const [isMouseDownInPortal, setIsMouseDownInPortal] = useState<boolean>(false);
     const getBoundingClientRect = useCallback(
-        () => updateCursorPortalRect(containerRef?.current),
-        [containerRef],
+        () => updateCursorPortalRect(containerElement),
+        [containerElement],
     );
 
     return (
         <BasePortalV2
             {...props}
-            containerRef={containerRef}
+            containerElement={containerElement}
             className={classNames('text-selection-portal-v2', className, {
                 'text-selection-portal-v2--selecting': isMouseDown && !isMouseDownInPortal,
             })}

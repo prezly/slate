@@ -1,7 +1,7 @@
 import type { Placement, VirtualElement } from '@popperjs/core';
 import classNames from 'classnames';
 import type { Rect } from 'rangefix';
-import type { FunctionComponent, HTMLAttributes, ReactNode, RefObject } from 'react';
+import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 import React from 'react';
 import { useRef, useState } from 'react';
 import type { Modifier } from 'react-popper';
@@ -31,7 +31,7 @@ const FLIP_MODIFIER: Modifier<'flip'> = {
 export interface Props extends HTMLAttributes<HTMLDivElement> {
     children: ReactNode;
     className?: string;
-    containerRef?: RefObject<HTMLElement>;
+    containerElement?: HTMLElement | null | undefined;
     getBoundingClientRect: () => ClientRect | Rect | null;
     modifiers?: Modifier<string>[];
     placement: Placement;
@@ -44,7 +44,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 export const BasePortalV2: FunctionComponent<Props> = ({
     children,
     className,
-    containerRef,
+    containerElement,
     getBoundingClientRect,
     modifiers = [],
     placement,
@@ -96,7 +96,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
     });
 
     return (
-        <Portal node={containerRef ? containerRef.current : undefined}>
+        <Portal node={containerElement}>
             <div
                 {...props}
                 {...attributes.popper}
