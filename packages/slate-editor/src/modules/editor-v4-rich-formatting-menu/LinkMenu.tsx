@@ -1,11 +1,12 @@
 import type { LinkNode } from '@prezly/slate-types';
-import { isHotkey } from 'is-hotkey';
 import * as React from 'react';
 import { useState } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 
 import { Button, Input, Toggle, Toolbox, VStack } from '#components';
 import { Delete, Link } from '#icons';
+
+import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
 
 interface Props {
     node: LinkNode | null;
@@ -15,8 +16,6 @@ interface Props {
     onClose: () => void;
     onUnlink: () => void;
 }
-
-const isEnter = isHotkey('Enter');
 
 export function LinkMenu({ node, canUnlink, onBlur, onChange, onClose, onUnlink }: Props) {
     const [href, setHref] = useState(node?.href ?? '');
@@ -33,43 +32,46 @@ export function LinkMenu({ node, canUnlink, onBlur, onChange, onClose, onUnlink 
                     Link settings
                 </Toolbox.Header>
                 <Toolbox.Section>
-                    <VStack spacing="2">
+                    <form
+                        onSubmit={function (event) {
+                            event.preventDefault();
+                            handleSave();
+                        }}
+                    >
                         <VStack spacing="2">
-                            <VStack spacing="2-5">
-                                <VStack spacing="1-5">
-                                    <Toolbox.Caption>Link</Toolbox.Caption>
-                                    <Input
-                                        autoFocus
-                                        name="href"
-                                        value={href}
-                                        onChange={setHref}
-                                        onKeyDown={(event) => {
-                                            if (isEnter(event)) {
-                                                event.preventDefault();
-                                                handleSave()
-                                            }
-                                        }}
-                                        icon={Link}
-                                        placeholder="Paste link"
-                                    />
+                            <VStack spacing="2">
+                                <VStack spacing="2-5">
+                                    <VStack spacing="1-5">
+                                        <Toolbox.Caption>Link</Toolbox.Caption>
+                                        <Input
+                                            autoFocus
+                                            name="href"
+                                            value={href}
+                                            onChange={setHref}
+                                            icon={Link}
+                                            pattern={STRING_URL_PATTERN}
+                                            placeholder="Paste link"
+                                            type="url"
+                                        />
+                                    </VStack>
+
+                                    <Toggle name="new_tab" value={new_tab} onChange={setNewTab}>
+                                        Open in new tab
+                                    </Toggle>
                                 </VStack>
 
-                                <Toggle name="new_tab" value={new_tab} onChange={setNewTab}>
-                                    Open in new tab
-                                </Toggle>
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    fullWidth
+                                    round
+                                    disabled={!href}
+                                >
+                                    Save
+                                </Button>
                             </VStack>
-
-                            <Button
-                                variant="primary"
-                                type="submit"
-                                fullWidth
-                                round
-                                onClick={handleSave}
-                            >
-                                Save
-                            </Button>
                         </VStack>
-                    </VStack>
+                    </form>
                 </Toolbox.Section>
                 <Toolbox.Footer>
                     <Button
