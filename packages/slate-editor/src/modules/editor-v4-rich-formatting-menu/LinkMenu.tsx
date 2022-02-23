@@ -49,7 +49,13 @@ export function LinkMenu({ node, canUnlink, onBlur, onChange, onClose, onUnlink 
                                 </Toggle>
                             </VStack>
 
-                            <Button variant="primary" fullWidth round onClick={handleSave}>
+                            <Button
+                                variant="primary"
+                                type="submit"
+                                fullWidth
+                                round
+                                onClick={handleSave}
+                            >
                                 Save
                             </Button>
                         </VStack>
