@@ -35,7 +35,7 @@ export function createHandleAddGallery(withGalleries: GalleriesExtensionParamete
                         file: image.toPrezlyStoragePayload(),
                     };
                 });
-                return createGallery(images);
+                return createGallery({ images });
             },
             ensureEmptyParagraphAfter: true,
             filePromise: awaitUploads(filePromises).then(({ failedUploads, successfulUploads }) => {

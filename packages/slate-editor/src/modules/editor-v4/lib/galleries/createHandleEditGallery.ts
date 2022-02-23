@@ -57,7 +57,7 @@ export function createHandleEditGallery(withGalleries: GalleriesExtensionParamet
                         file: image.toPrezlyStoragePayload(),
                     };
                 });
-                return createGallery(images, gallery);
+                return createGallery({ ...gallery, images });
             },
             ensureEmptyParagraphAfter: true,
             filePromise: awaitUploads(filePromises).then(({ failedUploads, successfulUploads }) => {

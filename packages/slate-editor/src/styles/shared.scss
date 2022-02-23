@@ -52,6 +52,14 @@ $editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index 
 @mixin editor-v4-width($width) {
     @include editor-v4-top-elements {
         max-width: $width;
+
+        &[data-element-layout="expanded"] {
+            max-width: $width + 140px;
+        }
+
+        &[data-element-layout="full-width"] {
+            max-width: calc(100% - ($spacing-2 * 2));
+        }
     }
 
     .editor-v4-gallery-element,

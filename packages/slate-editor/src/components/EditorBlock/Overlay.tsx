@@ -8,7 +8,7 @@ export type OverlayMode = 'always' | 'autohide' | false;
 interface Props {
     selected: boolean;
     mode: OverlayMode;
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 export function Overlay({ mode, onClick, selected }: Props) {
