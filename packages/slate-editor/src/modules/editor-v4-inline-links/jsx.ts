@@ -3,9 +3,10 @@ import { LINK_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { createEditor as makeEditor } from 'slate';
 import { createHyperscript, createEditor } from 'slate-hyperscript';
 
+import { createEditorV4 } from '#modules/editor-v4';
+
 import { InlineLinksExtension } from './InlineLinksExtension';
 
-import { createEditorV4 } from '#modules/editor-v4/createEditorV4';
 
 // This allows tests to include Slate Nodes written in JSX without TypeScript complaining.
 declare global {
