@@ -24,10 +24,7 @@ declare global {
     }
 }
 
-const extensions = [
-    InlineLinksExtension(),
-    RichFormattingExtension({ blocks: true }),
-];
+const extensions = [InlineLinksExtension(), RichFormattingExtension({ blocks: true })];
 
 export const jsx = createHyperscript({
     elements: {

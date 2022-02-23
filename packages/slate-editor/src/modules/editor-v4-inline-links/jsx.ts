@@ -7,7 +7,6 @@ import { createEditorV4 } from '#modules/editor-v4';
 
 import { InlineLinksExtension } from './InlineLinksExtension';
 
-
 // This allows tests to include Slate Nodes written in JSX without TypeScript complaining.
 declare global {
     namespace JSX {
