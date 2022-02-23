@@ -4,6 +4,8 @@ import * as React from 'react';
 import styles from './Input.module.scss';
 
 interface InputProps {
+    autoFocus?: boolean;
+    name?: string;
     value: string;
     onChange: (newValue: string) => void;
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -15,6 +17,8 @@ export function Input(props: InputProps) {
     return (
         <label className={styles.wrapper}>
             <input
+                autoFocus={props.autoFocus}
+                name={props.name}
                 className={classNames(styles.input, {
                     [styles['with-icon']]: props.icon !== undefined,
                 })}

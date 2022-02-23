@@ -5,7 +5,7 @@ import { Transforms } from 'slate';
 export function unwrapLink(editor: Editor, selection: Path | Range): void {
     return Transforms.unwrapNodes(editor, {
         at: selection,
-        match: (node) => isLinkNode(node),
+        match: isLinkNode,
         split: true,
     });
 }
