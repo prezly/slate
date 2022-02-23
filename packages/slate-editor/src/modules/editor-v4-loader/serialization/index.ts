@@ -1,1 +1,1 @@
-export { withoutLoaderBlocks } from './withoutLoaderBlocks';
+export { withoutLoaders } from './withoutLoaders';
