@@ -269,3 +269,35 @@ export function GallerySettings() {
         </div>
     );
 }
+
+export function AttachmentSettings() {
+    const [text, setText] = React.useState('');
+
+    return (
+        <div style={{ width: 320 }}>
+            <Toolbox.Panel>
+                <Toolbox.Header withCloseButton>Attachment settings</Toolbox.Header>
+                <Toolbox.Section>
+                    <VStack spacing="2">
+                        <VStack spacing="1-5">
+                            <Toolbox.Caption>Title</Toolbox.Caption>
+                            <Input value={text} onChange={setText} placeholder="filename.png" />
+                        </VStack>
+
+                        <VStack spacing="2">
+                            <Button variant="primary" fullWidth round>
+                                Save
+                            </Button>
+                        </VStack>
+                    </VStack>
+                </Toolbox.Section>
+
+                <Toolbox.Footer>
+                    <Button variant="clear-faded" icon={Delete} fullWidth>
+                        Remove attachment
+                    </Button>
+                </Toolbox.Footer>
+            </Toolbox.Panel>
+        </div>
+    );
+}
