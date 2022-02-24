@@ -7,23 +7,22 @@ import {
 } from '@prezly/slate-types';
 import { v4 as uuidV4 } from 'uuid';
 
-type Options = Partial<Pick<GalleryNode, 'layout' | 'padding' | 'thumbnail_size'>>;
-
 export function createGallery(
-    images: GalleryNode['images'],
-    {
+    props: Partial<Pick<GalleryNode, 'images' | 'padding' | 'thumbnail_size' | 'layout'>>,
+): GalleryNode {
+    const {
+        images = [],
         layout = GalleryLayout.CONTAINED,
         padding = GalleryPadding.M,
         thumbnail_size = GalleryImageSize.M,
-    }: Options = {},
-): GalleryNode {
+    } = props;
     return {
+        type: GALLERY_NODE_TYPE,
+        uuid: uuidV4(),
         children: [{ text: '' }],
         images,
         layout,
         padding,
         thumbnail_size,
-        type: GALLERY_NODE_TYPE,
-        uuid: uuidV4(),
     };
 }
