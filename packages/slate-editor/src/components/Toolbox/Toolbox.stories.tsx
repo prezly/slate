@@ -39,12 +39,12 @@ export function WebBookmark() {
     const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
         {
             value: 'vertical',
-            label: 'Left',
+            label: 'Vertical',
             icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
         {
             value: 'horizontal',
-            label: 'Center',
+            label: 'Horizontal',
             icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
     ];
@@ -295,6 +295,81 @@ export function AttachmentSettings() {
                 <Toolbox.Footer>
                     <Button variant="clear-faded" icon={Delete} fullWidth>
                         Remove attachment
+                    </Button>
+                </Toolbox.Footer>
+            </Toolbox.Panel>
+        </div>
+    );
+}
+
+export function CoverageCard() {
+    const [cardLayout, setCardLayout] = React.useState<
+        typeof cardLayoutOptions[number]['value'] | undefined
+    >('horizontal');
+
+    const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
+        {
+            value: 'horizontal',
+            label: 'Horizontal',
+            icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+        {
+            value: 'vertical',
+            label: 'Vertical',
+            icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+    ];
+
+    return (
+        <div style={{ width: 280 }}>
+            <Toolbox.Panel>
+                <Toolbox.Header withCloseButton>Coverage card settings</Toolbox.Header>
+
+                <Toolbox.Section noPadding>
+                    <ButtonGroup>
+                        {[
+                            <Button
+                                key="edit"
+                                variant="clear"
+                                icon={ExternalLink}
+                                iconPosition="right"
+                                fullWidth
+                            >
+                                Edit
+                            </Button>,
+                            <Button
+                                key="view"
+                                variant="clear"
+                                icon={ExternalLink}
+                                iconPosition="right"
+                                fullWidth
+                            >
+                                View
+                            </Button>,
+                        ]}
+                    </ButtonGroup>
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Preview image">
+                    <Toggle name="show_preview">Show preview image</Toggle>
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Card layout">
+                    <VStack spacing="2-5">
+                        <OptionsGroup
+                            name="layout"
+                            options={cardLayoutOptions}
+                            selectedValue={cardLayout}
+                            onChange={setCardLayout}
+                            columns={3}
+                        />
+                        <Toggle name="new_tab">Open in new tab</Toggle>
+                    </VStack>
+                </Toolbox.Section>
+
+                <Toolbox.Footer>
+                    <Button variant="clear-faded" icon={Delete} fullWidth>
+                        Remove web bookmark
                     </Button>
                 </Toolbox.Footer>
             </Toolbox.Panel>
