@@ -39,7 +39,7 @@ export function WebBookmark() {
     const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
         {
             value: 'vertical',
-            label: 'Certical',
+            label: 'Vertical',
             icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
         {
