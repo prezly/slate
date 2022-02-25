@@ -4,8 +4,8 @@ import type { HTMLAttributes } from 'react';
 import React, { Component, createRef } from 'react';
 
 import { IMAGE_PADDING, IMAGE_SIZE } from './constants';
-import './Gallery.scss';
-import { GalleryImage } from './GalleryImage';
+import styles from './Gallery.module.scss';
+import { GalleryTile } from './GalleryTile';
 import { calculateLayout } from './lib';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -63,21 +63,20 @@ export class Gallery extends Component<Props> {
         const calculatedLayout = calculateLayout({ idealHeight, images, viewportWidth });
 
         return (
-            <div className={classNames('gallery', className)} {...props}>
+            <div className={classNames(styles.gallery, className)} {...props}>
                 <div
-                    className="gallery__images"
                     ref={this.imagesContainerRef}
                     style={{
                         margin: -margin,
                     }}
                 >
                     {calculatedLayout.map((row, index) => (
-                        <div className="gallery__images-row" key={index}>
+                        <div className={styles.row} key={index}>
                             {row.map(({ width, height, image }) => {
                                 const preview = image.resize(maxViewportWidth);
 
                                 return (
-                                    <GalleryImage
+                                    <GalleryTile
                                         height={height}
                                         image={image}
                                         key={image.uuid}

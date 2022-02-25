@@ -1,7 +1,6 @@
-import type { VirtualElement } from '@popperjs/core';
 import { preventOverflow } from '@popperjs/core';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import React, { Component } from 'react';
 import type { Modifier } from 'react-popper';
 import { Popper } from 'react-popper';
@@ -13,6 +12,7 @@ import styles from './EditorBlock.module.scss';
 interface Props {
     children: ReactNode;
     editorElement: HTMLElement;
+    onClick?: (event: MouseEvent) => void;
     open: boolean;
     reference: HTMLElement;
 }
@@ -80,16 +80,8 @@ export class Menu extends Component<Props> {
         };
     };
 
-    /**
-     * Virtual element to position the popover menu and its arrow
-     * into the top right corner of the block container.
-     */
-    private virtualReferenceElement: VirtualElement = {
-        getBoundingClientRect: this.getVirtualReferenceClientRect,
-    };
-
     render() {
-        const { children, editorElement, open } = this.props;
+        const { children, editorElement, onClick, open } = this.props;
 
         if (!open) {
             return null;
@@ -97,12 +89,19 @@ export class Menu extends Component<Props> {
 
         return (
             <Popper
-                referenceElement={this.virtualReferenceElement}
+                referenceElement={{
+                    getBoundingClientRect: this.getVirtualReferenceClientRect,
+                }}
                 modifiers={[...MODIFIERS, keepPopoverInEditor(editorElement)]}
                 placement="right-start"
             >
                 {({ ref, style, arrowProps, placement }) => (
-                    <Toolbox.Panel className={styles.menu} ref={ref} style={style}>
+                    <Toolbox.Panel
+                        className={styles.menu}
+                        ref={ref}
+                        style={style}
+                        onClick={onClick}
+                    >
                         <div
                             className={classNames(styles.arrow, {
                                 [styles.top]: placement.indexOf('top') >= 0,
