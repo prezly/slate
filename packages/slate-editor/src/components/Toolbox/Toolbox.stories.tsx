@@ -25,6 +25,8 @@ import {
     Edit,
     Dice,
     Link,
+    Reload,
+    Crop,
 } from '#icons';
 
 export default {
@@ -370,6 +372,113 @@ export function CoverageCard() {
                 <Toolbox.Footer>
                     <Button variant="clear-faded" icon={Delete} fullWidth>
                         Remove web bookmark
+                    </Button>
+                </Toolbox.Footer>
+            </Toolbox.Panel>
+        </div>
+    );
+}
+
+export function ImageSettings() {
+    const [link, setLink] = React.useState('');
+
+    const [imageSize, setImageSize] = React.useState<
+        typeof imageSizeOptions[number]['value'] | undefined
+    >('contained');
+
+    const [spacingBetweenImages, setSpacingBetweenImages] = React.useState<
+        typeof spacingBetweenImagesOptions[number]['value'] | undefined
+    >('left');
+
+    const imageSizeOptions: OptionsGroupOption<'contained' | 'expanded' | 'full-width'>[] = [
+        {
+            value: 'contained',
+            label: 'Contained',
+            icon: (props) => <ImageLayoutContained fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+        {
+            value: 'expanded',
+            label: 'Expanded',
+            icon: (props) => <ImageLayoutExpanded fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+        {
+            value: 'full-width',
+            label: 'Full width',
+            icon: (props) => <ImageLayoutFullWidth fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+    ];
+
+    const spacingBetweenImagesOptions: OptionsGroupOption<'left' | 'center' | 'right'>[] = [
+        {
+            value: 'left',
+            label: 'Left',
+        },
+        {
+            value: 'center',
+            label: 'Center',
+        },
+        {
+            value: 'right',
+            label: 'Right',
+        },
+    ];
+
+    return (
+        <div style={{ width: 280 }}>
+            <Toolbox.Panel>
+                <Toolbox.Header withCloseButton>Image settings</Toolbox.Header>
+
+                <Toolbox.Section noPadding>
+                    <ButtonGroup>
+                        {[
+                            <Button key="edit" variant="clear" icon={Reload} fullWidth>
+                                Replace
+                            </Button>,
+                            <Button key="view" variant="clear" icon={Crop} fullWidth>
+                                Crop
+                            </Button>,
+                        ]}
+                    </ButtonGroup>
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Image size">
+                    <OptionsGroup
+                        name="image-size"
+                        options={imageSizeOptions}
+                        selectedValue={imageSize}
+                        onChange={setImageSize}
+                    />
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Image alignment" paddingBottom="3">
+                    <OptionsGroup
+                        name="image-alignment"
+                        options={spacingBetweenImagesOptions}
+                        selectedValue={spacingBetweenImages}
+                        onChange={setSpacingBetweenImages}
+                        variant="pills"
+                    />
+                </Toolbox.Section>
+
+                <Toolbox.Section>
+                    <VStack spacing="2-5">
+                        <VStack spacing="1-5">
+                            <Toolbox.Caption>Link</Toolbox.Caption>
+                            <Input
+                                value={link}
+                                onChange={setLink}
+                                icon={Link}
+                                placeholder="Paste link or search content"
+                            />
+                        </VStack>
+
+                        <Toggle name="new_tab">Open in new tab</Toggle>
+                    </VStack>
+                </Toolbox.Section>
+
+                <Toolbox.Footer>
+                    <Button variant="clear-faded" icon={Delete} fullWidth>
+                        Remove image
                     </Button>
                 </Toolbox.Footer>
             </Toolbox.Panel>
