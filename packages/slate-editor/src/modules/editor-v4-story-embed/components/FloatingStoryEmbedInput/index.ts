@@ -1,0 +1,1 @@
+export { FloatingStoryEmbedInput } from './FloatingStoryEmbedInput';
