@@ -56,9 +56,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
 
     const show = isSelectionSupported(editor);
     const [linkRange, setLinkRange, clearLinkRange] = useRangeRef();
-    const link = linkRange?.current
-        ? getCurrentLinkNode(editor, { at: linkRange.current })
-        : null;
+    const link = linkRange?.current ? getCurrentLinkNode(editor, { at: linkRange.current }) : null;
 
     const alignment = EditorCommands.getAlignment(editor, defaultAlignment);
     const isBoldActive = EditorCommands.isMarkActive(editor, MarkType.BOLD);
@@ -111,7 +109,6 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
 
         clearLinkRange();
 
-        Transforms.select(editor, selection);
         ReactEditor.focus(editor);
 
         unwrapLink(editor);
@@ -130,6 +127,17 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         unwrapLink(editor);
     }
 
+    function onClose() {
+        const selection = linkRange?.current;
+        if (!selection) return;
+
+        clearLinkRange();
+
+        ReactEditor.focus(editor);
+        Transforms.collapse(editor, { edge: 'anchor' });
+        Transforms.select(editor, selection);
+    }
+
     if (withLinks && linkRange?.current) {
         return (
             <TextSelectionPortalV2
@@ -142,7 +150,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
                     canUnlink={link !== null}
                     onBlur={clearLinkRange}
                     onChange={linkSelection}
-                    onClose={clearLinkRange}
+                    onClose={onClose}
                     onUnlink={unlinkSelection}
                 />
             </TextSelectionPortalV2>
