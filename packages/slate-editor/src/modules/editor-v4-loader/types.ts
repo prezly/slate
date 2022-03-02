@@ -9,6 +9,7 @@ export enum LoaderContentType {
     GALLERY = 'gallery',
     IMAGE = 'image',
     VIDEO = 'video',
+    STORY_EMBED = 'story-embed',
 }
 
 export interface LoaderNode extends ElementNode {

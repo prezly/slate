@@ -19,6 +19,7 @@ import { PressContactsExtension } from '#modules/editor-v4-press-contacts';
 import { RichFormattingExtension } from '#modules/editor-v4-rich-formatting';
 import { UserMentionsExtension } from '#modules/editor-v4-user-mentions';
 
+import { StoryEmbedExtension } from '../editor-v4-story-embed';
 import { VideoExtension } from '../editor-v4-video';
 import { VoidExtension } from '../editor-v4-void';
 import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
@@ -60,6 +61,7 @@ export function* getEnabledExtensions({
     withVideos,
     withWebBookmarks,
     withAutoformat,
+    withStoryEmbeds,
 }: Parameters): Generator<Extension> {
     yield ParagraphsExtension();
 
@@ -149,6 +151,10 @@ export function* getEnabledExtensions({
         ];
         const rules = withAutoformat === true ? defaultRules : withAutoformat.rules;
         yield AutoformatExtension({ rules });
+    }
+
+    if (withStoryEmbeds) {
+        yield StoryEmbedExtension(withStoryEmbeds);
     }
 
     yield DividerExtension();

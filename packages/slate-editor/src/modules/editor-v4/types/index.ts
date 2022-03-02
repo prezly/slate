@@ -13,6 +13,7 @@ import type { GalleriesExtensionParameters } from '../../editor-v4-galleries';
 import type { ImageExtensionParameters } from '../../editor-v4-image';
 import type { PlaceholderMentionsExtensionParameters } from '../../editor-v4-placeholder-mentions';
 import type { PressContactsExtensionParameters } from '../../editor-v4-press-contacts';
+import type { StoryEmbedExtensionParameters } from '../../editor-v4-story-embed/types';
 import type { UserMentionsExtensionParameters } from '../../editor-v4-user-mentions';
 import type { VideoExtensionParameters } from '../../editor-v4-video/types';
 import type { WebBookmarkExtensionParameters } from '../../editor-v4-web-bookmark/types';
@@ -44,6 +45,7 @@ export interface EditorV4ExtensionsProps {
     withVideos?: VideoExtensionParameters;
     withWebBookmarks?: WebBookmarkExtensionParameters;
     withAutoformat?: boolean | AutoformatParameters;
+    withStoryEmbeds?: StoryEmbedExtensionParameters;
 }
 
 export type Value = Element[];
