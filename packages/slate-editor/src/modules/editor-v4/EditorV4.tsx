@@ -23,7 +23,10 @@ import { ReactEditor, Slate } from 'slate-react';
 import { noop } from '#lodash';
 
 import { LoaderContentType } from '#modules/editor-v4-loader';
-import { FloatingStoryEmbedInput, useFloatingStoryEmbedInput } from '#modules/editor-v4-story-embed';
+import {
+    FloatingStoryEmbedInput,
+    useFloatingStoryEmbedInput,
+} from '#modules/editor-v4-story-embed';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
