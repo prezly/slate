@@ -52,3 +52,18 @@ export function Disabled() {
         />
     );
 }
+
+export function Invalid() {
+    const [value, setValue] = React.useState('');
+
+    return (
+        <Input
+            value={value}
+            onChange={setValue}
+            icon={Link}
+            type="url"
+            pattern="[0-9]+"
+            placeholder="Only numbers"
+        />
+    );
+}

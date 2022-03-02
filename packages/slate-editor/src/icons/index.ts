@@ -59,3 +59,4 @@ export { default as Resize } from './Resize.svg';
 export { default as User } from './User.svg';
 export { default as Video } from './Video.svg';
 export { default as WarningCircle } from './Warning-Circle.svg';
+export { default as WarningTriangle } from './WarningTriangle.svg';

@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import * as React from 'react';
 import type { InputHTMLAttributes } from 'react';
 
+import { WarningTriangle } from '#icons';
+
 import styles from './Input.module.scss';
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
@@ -21,6 +23,8 @@ export function Input({ className, icon: Icon, onChange, ...attributes }: InputP
                 onChange={(e) => onChange(e.currentTarget.value)}
             />
             {Icon && <Icon className={styles.icon} />}
+
+            <WarningTriangle className={styles['invalid-icon']} />
         </label>
     );
 }
