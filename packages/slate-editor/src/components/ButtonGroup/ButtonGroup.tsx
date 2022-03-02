@@ -9,18 +9,18 @@ interface ButtonGroupProps {
 export function ButtonGroup(props: ButtonGroupProps) {
     return (
         <div className={styles['button-group']}>
-            <>
-                {props.children.map((node, index) =>
-                    index === 0 ? (
-                        node
+            {props.children.map((node, index) => (
+                <React.Fragment key={index}>
+                    {index === 0 ? (
+                        <>{node}</>
                     ) : (
                         <>
                             <div className={styles.separator} />
                             {node}
                         </>
-                    ),
-                )}
-            </>
+                    )}
+                </React.Fragment>
+            ))}
         </div>
     );
 }

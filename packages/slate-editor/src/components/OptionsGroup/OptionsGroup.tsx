@@ -33,7 +33,7 @@ export function OptionsGroup<T extends string>(props: OptionsGroupProps<T>) {
         <div
             style={
                 props.variant === 'pills'
-                    ? { gridTemplateColumns: `repeat(auto-fit, minmax(48px, min-content))` }
+                    ? { gridTemplateColumns: `repeat(auto-fit, minmax(48px, 1fr))` }
                     : { gridTemplateColumns: `repeat(${totalColumns}, 1fr)` }
             }
             className={classNames(styles['options-group'], variantClassName)}

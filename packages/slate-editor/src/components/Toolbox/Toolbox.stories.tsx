@@ -25,6 +25,8 @@ import {
     Edit,
     Dice,
     Link,
+    Reload,
+    Crop,
 } from '#icons';
 
 export default {
@@ -39,12 +41,12 @@ export function WebBookmark() {
     const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
         {
             value: 'vertical',
-            label: 'Left',
+            label: 'Vertical',
             icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
         {
             value: 'horizontal',
-            label: 'Center',
+            label: 'Horizontal',
             icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
         },
     ];
@@ -263,6 +265,220 @@ export function GallerySettings() {
                 <Toolbox.Footer>
                     <Button variant="clear-faded" icon={Delete} fullWidth>
                         Remove gallery
+                    </Button>
+                </Toolbox.Footer>
+            </Toolbox.Panel>
+        </div>
+    );
+}
+
+export function AttachmentSettings() {
+    const [text, setText] = React.useState('');
+
+    return (
+        <div style={{ width: 320 }}>
+            <Toolbox.Panel>
+                <Toolbox.Header withCloseButton>Attachment settings</Toolbox.Header>
+                <Toolbox.Section>
+                    <VStack spacing="2">
+                        <VStack spacing="1-5">
+                            <Toolbox.Caption>Title</Toolbox.Caption>
+                            <Input value={text} onChange={setText} placeholder="filename.png" />
+                        </VStack>
+
+                        <VStack spacing="2">
+                            <Button variant="primary" fullWidth round>
+                                Save
+                            </Button>
+                        </VStack>
+                    </VStack>
+                </Toolbox.Section>
+
+                <Toolbox.Footer>
+                    <Button variant="clear-faded" icon={Delete} fullWidth>
+                        Remove attachment
+                    </Button>
+                </Toolbox.Footer>
+            </Toolbox.Panel>
+        </div>
+    );
+}
+
+export function CoverageCard() {
+    const [cardLayout, setCardLayout] = React.useState<
+        typeof cardLayoutOptions[number]['value'] | undefined
+    >('horizontal');
+
+    const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
+        {
+            value: 'horizontal',
+            label: 'Horizontal',
+            icon: (props) => <ItemsLayoutHorizontal fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+        {
+            value: 'vertical',
+            label: 'Vertical',
+            icon: (props) => <ItemsLayoutVertical fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+    ];
+
+    return (
+        <div style={{ width: 280 }}>
+            <Toolbox.Panel>
+                <Toolbox.Header withCloseButton>Coverage card settings</Toolbox.Header>
+
+                <Toolbox.Section noPadding>
+                    <ButtonGroup>
+                        {[
+                            <Button
+                                key="edit"
+                                variant="clear"
+                                icon={ExternalLink}
+                                iconPosition="right"
+                                fullWidth
+                            >
+                                Edit
+                            </Button>,
+                            <Button
+                                key="view"
+                                variant="clear"
+                                icon={ExternalLink}
+                                iconPosition="right"
+                                fullWidth
+                            >
+                                View
+                            </Button>,
+                        ]}
+                    </ButtonGroup>
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Preview image">
+                    <Toggle name="show_preview">Show preview image</Toggle>
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Card layout">
+                    <VStack spacing="2-5">
+                        <OptionsGroup
+                            name="layout"
+                            options={cardLayoutOptions}
+                            selectedValue={cardLayout}
+                            onChange={setCardLayout}
+                            columns={3}
+                        />
+                        <Toggle name="new_tab">Open in new tab</Toggle>
+                    </VStack>
+                </Toolbox.Section>
+
+                <Toolbox.Footer>
+                    <Button variant="clear-faded" icon={Delete} fullWidth>
+                        Remove web bookmark
+                    </Button>
+                </Toolbox.Footer>
+            </Toolbox.Panel>
+        </div>
+    );
+}
+
+export function ImageSettings() {
+    const [link, setLink] = React.useState('');
+
+    const [imageSize, setImageSize] = React.useState<
+        typeof imageSizeOptions[number]['value'] | undefined
+    >('contained');
+
+    const [spacingBetweenImages, setSpacingBetweenImages] = React.useState<
+        typeof spacingBetweenImagesOptions[number]['value'] | undefined
+    >('left');
+
+    const imageSizeOptions: OptionsGroupOption<'contained' | 'expanded' | 'full-width'>[] = [
+        {
+            value: 'contained',
+            label: 'Contained',
+            icon: (props) => <ImageLayoutContained fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+        {
+            value: 'expanded',
+            label: 'Expanded',
+            icon: (props) => <ImageLayoutExpanded fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+        {
+            value: 'full-width',
+            label: 'Full width',
+            icon: (props) => <ImageLayoutFullWidth fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        },
+    ];
+
+    const spacingBetweenImagesOptions: OptionsGroupOption<'left' | 'center' | 'right'>[] = [
+        {
+            value: 'left',
+            label: 'Left',
+        },
+        {
+            value: 'center',
+            label: 'Center',
+        },
+        {
+            value: 'right',
+            label: 'Right',
+        },
+    ];
+
+    return (
+        <div style={{ width: 280 }}>
+            <Toolbox.Panel>
+                <Toolbox.Header withCloseButton>Image settings</Toolbox.Header>
+
+                <Toolbox.Section noPadding>
+                    <ButtonGroup>
+                        {[
+                            <Button key="edit" variant="clear" icon={Reload} fullWidth>
+                                Replace
+                            </Button>,
+                            <Button key="view" variant="clear" icon={Crop} fullWidth>
+                                Crop
+                            </Button>,
+                        ]}
+                    </ButtonGroup>
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Image size">
+                    <OptionsGroup
+                        name="image-size"
+                        options={imageSizeOptions}
+                        selectedValue={imageSize}
+                        onChange={setImageSize}
+                    />
+                </Toolbox.Section>
+
+                <Toolbox.Section caption="Image alignment" paddingBottom="3">
+                    <OptionsGroup
+                        name="image-alignment"
+                        options={spacingBetweenImagesOptions}
+                        selectedValue={spacingBetweenImages}
+                        onChange={setSpacingBetweenImages}
+                        variant="pills"
+                    />
+                </Toolbox.Section>
+
+                <Toolbox.Section>
+                    <VStack spacing="2-5">
+                        <VStack spacing="1-5">
+                            <Toolbox.Caption>Link</Toolbox.Caption>
+                            <Input
+                                value={link}
+                                onChange={setLink}
+                                icon={Link}
+                                placeholder="Paste link or search content"
+                            />
+                        </VStack>
+
+                        <Toggle name="new_tab">Open in new tab</Toggle>
+                    </VStack>
+                </Toolbox.Section>
+
+                <Toolbox.Footer>
+                    <Button variant="clear-faded" icon={Delete} fullWidth>
+                        Remove image
                     </Button>
                 </Toolbox.Footer>
             </Toolbox.Panel>

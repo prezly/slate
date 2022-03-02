@@ -34,6 +34,10 @@
 
     &-header-wrapper {
         padding-bottom: $spacing-2;
+
+        &--padding-bottom-3 {
+            padding-bottom: $spacing-3;
+        }
     }
 }
 

@@ -23,6 +23,10 @@ import { ReactEditor, Slate } from 'slate-react';
 import { noop } from '#lodash';
 
 import { LoaderContentType } from '#modules/editor-v4-loader';
+import {
+    FloatingStoryEmbedInput,
+    useFloatingStoryEmbedInput,
+} from '#modules/editor-v4-story-embed';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
@@ -92,6 +96,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         withUserMentions,
         withVideos,
         withWebBookmarks,
+        withStoryEmbeds,
     } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -123,6 +128,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             withVideos,
             withWebBookmarks,
             withAutoformat,
+            withStoryEmbeds,
         }),
     );
 
@@ -194,6 +200,17 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             submit: submitFloatingEmbedInput,
         },
     ] = useFloatingEmbedInput(editor, withEmbeds?.fetchOembed);
+
+    const [
+        { isOpen: isFloatingStoryEmbedInputOpen, submitButtonLabel: storyEmbedSubmitButtonLabel },
+        {
+            close: closeFloatingStoryEmbedInput,
+            open: openFloatingStoryEmbedInput,
+            rootClose: rootCloseFloatingStoryEmbedInput,
+            submit: submitFloatingStoryEmbedInput,
+        },
+    ] = useFloatingStoryEmbedInput(editor, withStoryEmbeds?.fetchStoryId);
+
     const [
         { isOpen: isFloatingPressContactsMenuOpen },
         {
@@ -264,6 +281,12 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             return openFloatingEmbedInput('Add social post', {
                 contentType: LoaderContentType.EMBED,
                 message: 'Embedding Social Post',
+            });
+        }
+        if (action === MenuAction.ADD_STORY_EMBED) {
+            return openFloatingStoryEmbedInput('Embed Prezly story', {
+                contentType: LoaderContentType.STORY_EMBED,
+                message: 'Embedding Prezly Story',
             });
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
@@ -415,6 +438,17 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         onRootClose={rootCloseFloatingEmbedInput}
                         onSubmit={submitFloatingEmbedInput}
                         submitButtonLabel={embedSubmitButtonLabel}
+                    />
+                )}
+
+                {withStoryEmbeds && isFloatingStoryEmbedInputOpen && (
+                    <FloatingStoryEmbedInput
+                        availableWidth={availableWidth}
+                        containerRef={containerRef}
+                        onClose={closeFloatingStoryEmbedInput}
+                        onRootClose={rootCloseFloatingStoryEmbedInput}
+                        onSubmit={submitFloatingStoryEmbedInput}
+                        submitButtonLabel={storyEmbedSubmitButtonLabel}
                     />
                 )}
 
