@@ -11,16 +11,13 @@ import { FileAttachmentMenu } from './FileAttachmentMenu';
 interface FileAttachmentElementProps extends RenderElementProps {
     element: AttachmentNode;
     styled: boolean;
-
-    containerRef: React.RefObject<HTMLElement>;
-    onEdit: (editor: Editor) => void;
+    onEdit: (editor: Editor, element: Partial<AttachmentNode>) => void;
     onRemove: (editor: Editor, element: AttachmentNode) => void;
 }
 
 export function FileAttachmentElement({
     element,
     attributes,
-    containerRef,
     onEdit,
     onRemove,
     children,
@@ -31,12 +28,12 @@ export function FileAttachmentElement({
             {...attributes}
             element={element}
             renderBlock={() => <FileAttachment styled={styled} element={element} />}
-            renderMenu={() => (
+            renderMenu={({ onClose }) => (
                 <FileAttachmentMenu
-                    containerRef={containerRef}
-                    element={attributes.ref.current}
+                    element={element}
                     onEdit={onEdit}
                     onRemove={onRemove}
+                    onClose={onClose}
                 />
             )}
             void

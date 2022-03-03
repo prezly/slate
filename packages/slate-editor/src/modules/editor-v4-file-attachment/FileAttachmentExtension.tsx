@@ -12,7 +12,6 @@ import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } fr
 import type { FileAttachmentParameters } from './types';
 
 export const FileAttachmentExtension = ({
-    containerRef,
     onEdit = noop,
     onRemove = noop,
     styled,
@@ -31,7 +30,6 @@ export const FileAttachmentExtension = ({
                     attributes={attributes}
                     element={element}
                     styled={styled}
-                    containerRef={containerRef}
                     onEdit={onEdit}
                     onRemove={onRemove}
                 >
