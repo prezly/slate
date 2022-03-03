@@ -7,6 +7,8 @@ import { EventsEditor } from '#modules/editor-v4-events';
 import { getCurrentFileAttachmentElement } from '#modules/editor-v4-file-attachment';
 
 export async function handleEditAttachment(editor: Editor, element: Partial<AttachmentNode>) {
+    EventsEditor.dispatchEvent(editor, 'attachment-edit-clicked');
+
     const currentFileAttachment = getCurrentFileAttachmentElement(editor);
 
     if (!currentFileAttachment) {
