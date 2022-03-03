@@ -6,7 +6,7 @@ import { useSelected } from 'slate-react';
 
 import { Download } from '#icons';
 
-import './FileAttachment.scss';
+import styles from './FileAttachment.module.scss';
 import { Subtitle } from './Subtitle';
 import { Title } from './Title';
 
@@ -20,28 +20,28 @@ export const FileAttachment: FunctionComponent<Props> = ({ element, styled }) =>
 
     return (
         <div
-            className={classNames('editor-v4-file-attachment-element', {
-                'editor-v4-file-attachment-element--active': isSelected,
-                'editor-v4-file-attachment-element--unstyled': !styled,
+            className={classNames(styles['file-attachment-element'], {
+                [styles['file-attachment-element--active']]: isSelected,
+                [styles['file-attachment-element--unstyled']]: !styled,
             })}
         >
-            <div className="editor-v4-file-attachment-element__content" contentEditable={false}>
+            <div className={styles.content} contentEditable={false}>
                 {styled && (
-                    <div className="editor-v4-file-attachment-element__icon-container">
-                        <Download className="editor-v4-file-attachment-element__icon" />
+                    <div className={styles['icon-container']}>
+                        <Download className={styles.icon} />
                     </div>
                 )}
 
-                <div className="editor-v4-file-attachment-element__details">
+                <div className={styles.details}>
                     <Title
                         className={classNames({
-                            'editor-v4-file-attachment-element__text--unstyled': !styled,
+                            [styles['text--unstyled']]: !styled,
                         })}
                         element={element}
                     />
                     <Subtitle
                         className={classNames({
-                            'editor-v4-file-attachment-element__text--unstyled': !styled,
+                            [styles['text--unstyled']]: !styled,
                         })}
                         element={element}
                     />
