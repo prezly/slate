@@ -1,1 +1,0 @@
-export { FileAttachmentElement } from './FileAttachmentElement';

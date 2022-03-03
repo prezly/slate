@@ -12,6 +12,7 @@ import { FloatingAddMenuExtension } from '#modules/editor-v4-floating-add-menu';
 import { GalleriesExtension } from '#modules/editor-v4-galleries';
 import { HtmlExtension } from '#modules/editor-v4-html';
 import { ImageExtension } from '#modules/editor-v4-image';
+import { InlineLinksExtension } from '#modules/editor-v4-inline-links';
 import { LoaderExtension } from '#modules/editor-v4-loader';
 import { ParagraphsExtension } from '#modules/editor-v4-paragraphs';
 import { PlaceholderMentionsExtension } from '#modules/editor-v4-placeholder-mentions';
@@ -33,7 +34,6 @@ import {
     handleRemoveImage,
 } from './lib';
 import type { EditorV4ExtensionsProps } from './types';
-import { InlineLinksExtension } from '#modules/editor-v4-inline-links';
 
 interface Parameters extends EditorV4ExtensionsProps {
     containerRef: RefObject<HTMLElement>;
@@ -93,7 +93,6 @@ export function* getEnabledExtensions({
     if (withAttachments) {
         yield FileAttachmentExtension({
             ...withAttachments,
-            containerRef,
             onEdit: handleEditAttachment,
             onRemove: handleRemoveAttachment,
         });

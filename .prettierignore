@@ -6,3 +6,4 @@ node_modules/
 packages/slate-editor/.css-modules/
 packages/slate-editor/.storybook/
 packages/slate-editor/storybook-static/
+.history

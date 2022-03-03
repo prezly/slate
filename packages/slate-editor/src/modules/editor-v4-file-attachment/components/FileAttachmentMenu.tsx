@@ -1,54 +1,71 @@
 import type { AttachmentNode } from '@prezly/slate-types';
-import type { FunctionComponent, RefObject } from 'react';
+import type { FunctionComponent } from 'react';
 import React from 'react';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
-import { Menu } from '#components';
-import { Delete, Edit } from '#icons';
+import { Button, Input, Toolbox, VStack } from '#components';
+import { Delete } from '#icons';
 
 import { removeFileAttachment } from '../transforms';
 
 interface Props {
-    containerRef: RefObject<HTMLElement>;
-    element: HTMLElement;
-    onEdit: (editor: Editor) => void;
+    element: AttachmentNode;
+    onClose: () => void;
+    onEdit: (editor: Editor, element: Partial<AttachmentNode>) => void;
     onRemove: (editor: Editor, element: AttachmentNode) => void;
 }
 
 export const FileAttachmentMenu: FunctionComponent<Props> = ({
     element,
-    containerRef,
+    onClose,
     onEdit,
     onRemove,
 }) => {
     const editor = useSlate();
     const isSelected = useSelected();
+    const [text, setText] = React.useState(element.file.filename);
 
-    if (!isSelected) {
-        return null;
-    }
-
-    function handleRemove() {
+    const handleRemove = () => {
         const removedElement = removeFileAttachment(editor);
 
         if (removedElement) {
             onRemove(editor, removedElement);
         }
+    };
+
+    const save = () => {
+        onEdit(editor, { file: { ...element.file, filename: text } });
+        onClose();
+    };
+
+    if (!isSelected) {
+        return null;
     }
 
     return (
-        <Menu.FloatingMenu containerRef={containerRef} element={element}>
-            <Menu.ButtonGroup>
-                <Menu.Button onMouseDown={() => onEdit(editor)} title="Edit attachment">
-                    <Menu.Icon icon={Edit} />
-                </Menu.Button>
-            </Menu.ButtonGroup>
-            <Menu.ButtonGroup>
-                <Menu.Button onMouseDown={handleRemove} title="Delete attachment" variant="danger">
-                    <Menu.Icon icon={Delete} />
-                </Menu.Button>
-            </Menu.ButtonGroup>
-        </Menu.FloatingMenu>
+        <Toolbox.Panel>
+            <Toolbox.Header withCloseButton onCloseClick={onClose}>
+                Attachment settings
+            </Toolbox.Header>
+            <Toolbox.Section>
+                <VStack spacing="2">
+                    <VStack spacing="1-5">
+                        <Toolbox.Caption>Title</Toolbox.Caption>
+                        <Input value={text} onChange={setText} placeholder="File name" />
+                    </VStack>
+
+                    <Button variant="primary" fullWidth round onClick={save}>
+                        Save
+                    </Button>
+                </VStack>
+            </Toolbox.Section>
+
+            <Toolbox.Footer>
+                <Button variant="clear-faded" icon={Delete} fullWidth onClick={handleRemove}>
+                    Remove attachment
+                </Button>
+            </Toolbox.Footer>
+        </Toolbox.Panel>
     );
 };
