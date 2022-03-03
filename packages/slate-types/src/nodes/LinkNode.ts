@@ -6,8 +6,9 @@ export const LINK_NODE_TYPE = 'link';
 
 export interface LinkNode extends ElementNode {
     type: typeof LINK_NODE_TYPE;
-    children: TextNode[];
     href: string;
+    new_tab: boolean;
+    children: TextNode[];
 }
 
 export function isLinkNode(value: any): value is LinkNode {

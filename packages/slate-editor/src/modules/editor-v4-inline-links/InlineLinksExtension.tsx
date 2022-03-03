@@ -5,16 +5,14 @@ import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import { LinkCandidateElement, LinkElement } from './components';
+import { LinkElement } from './components';
 import {
     escapeLinksBoundaries,
-    isLinkCandidateNode,
     normalizeEmptyLink,
     normalizeNestedLink,
     normalizeRedundantLinkAttributes,
     parseSerializedLinkElement,
 } from './lib';
-import { LINK_CANDIDATE_NODE_TYPE } from './types';
 
 export const InlineLinksExtension = (): Extension => ({
     id: 'InlineLinksExtension',
@@ -26,6 +24,7 @@ export const InlineLinksExtension = (): Extension => ({
                     return {
                         type: LINK_NODE_TYPE,
                         href: element.href,
+                        new_tab: Boolean(element.getAttribute('target')),
                     };
                 }
 
@@ -33,20 +32,12 @@ export const InlineLinksExtension = (): Extension => ({
             },
         },
     },
-    inlineTypes: [LINK_NODE_TYPE, LINK_CANDIDATE_NODE_TYPE],
+    inlineTypes: [LINK_NODE_TYPE],
     normalizers: [normalizeEmptyLink, normalizeNestedLink, normalizeRedundantLinkAttributes],
     onKeyDown: function (event, editor) {
         escapeLinksBoundaries(event, editor);
     },
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (isLinkCandidateNode(element)) {
-            return (
-                <LinkCandidateElement attributes={attributes} element={element}>
-                    {children}
-                </LinkCandidateElement>
-            );
-        }
-
         if (isLinkNode(element)) {
             return (
                 <LinkElement attributes={attributes} element={element}>

@@ -15,7 +15,7 @@ interface ButtonBaseProps {
 }
 
 interface AsButtonProps extends ButtonBaseProps, React.ButtonHTMLAttributes<HTMLButtonElement> {
-    type?: 'button';
+    type?: 'button' | 'submit';
 }
 
 interface AsLinkProps extends ButtonBaseProps, React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -60,6 +60,7 @@ export function Button({
                 [styles['button--round']]: round,
                 [styles['button--disabled']]: disabled,
             }),
+            type: type !== 'link' ? type : undefined,
         },
         <HStack spacing="1" verticalAligning="center">
             {Icon && (iconPosition === 'left' || iconPosition === undefined) && (

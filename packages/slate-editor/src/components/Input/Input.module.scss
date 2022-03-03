@@ -36,6 +36,15 @@
         }
     }
 
+    &:invalid {
+        background: $red-50;
+        padding-right: $spacing-1-5 + $icon-size + $spacing-1;
+
+        & ~ .invalid-icon {
+            visibility: visible;
+        }
+    }
+
     &.with-icon {
         padding-left: $spacing-1-5 + $icon-size + $spacing-1;
 
@@ -57,4 +66,13 @@
     transform: translateY(-50%);
     left: 12px;
     color: $grey-400;
+}
+
+.invalid-icon {
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 12px;
+    fill: $red-500;
 }

@@ -1,42 +1,32 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Alignment } from '@prezly/slate-types';
-import { LINK_NODE_TYPE } from '@prezly/slate-types';
-import type { FunctionComponent, RefObject } from 'react';
-import React, { useState } from 'react';
+import type { Alignment, LinkNode } from '@prezly/slate-types';
+import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import type { Modifier } from 'react-popper';
-import type { Path, Range } from 'slate';
+import type { Range } from 'slate';
+import { Editor, Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
-import { v4 as uuidV4 } from 'uuid';
 
-import { ElementPortalV2, Menu, TextSelectionPortalV2 } from '#components';
+import { Menu, TextSelectionPortalV2 } from '#components';
 
-import { LinkMenu } from '#modules/editor-v4-components';
-import {
-    findLinkCandidatePath,
-    findSelectedLinkPath,
-    getCurrentHref,
-    unwrapLink,
-    unwrapLinkCandidates,
-    updateLinkHref,
-    wrapInLink,
-    wrapInLinkCandidate,
-} from '#modules/editor-v4-inline-links';
+import { unwrapLink, wrapInLink } from '#modules/editor-v4-inline-links';
 import { MarkType, toggleBlock } from '#modules/editor-v4-rich-formatting';
 
 import { Toolbar } from './components';
 import {
     keepToolbarInTextColumn,
-    restoreSelection,
     getCurrentFormatting,
     isSelectionSupported,
-    useLinkCandidateElement,
+    useRangeRef,
 } from './lib';
+import { LinkMenu } from './LinkMenu';
 import type { Formatting } from './types';
 
 interface Props {
     availableWidth: number;
-    containerRef: RefObject<HTMLElement>;
+    containerElement: HTMLElement | null;
     defaultAlignment: Alignment;
     withAlignment: boolean;
     withRichBlockElements: boolean;
@@ -52,7 +42,7 @@ const OFFSET_MODIFIER: Modifier<'offset'> = {
 
 export const RichFormattingMenu: FunctionComponent<Props> = ({
     availableWidth,
-    containerRef,
+    containerElement,
     defaultAlignment,
     withAlignment,
     withLinks,
@@ -65,12 +55,8 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
     }
 
     const show = isSelectionSupported(editor);
-    const [href, setHref] = useState<string>('');
-    const [isExistingLink, setIsExistingLink] = useState<boolean>(false);
-    const [linkCandidateId, setLinkCandidateId] = useState<string | null>(null);
-    const [linkPath, setLinkPath] = useState<Path | null>(null);
-    const [savedSelection, setSavedSelection] = useState<Path | Range | null>(null);
-    const linkCandidateElement = useLinkCandidateElement(linkCandidateId);
+    const [linkRange, setLinkRange, clearLinkRange] = useRangeRef();
+    const link = linkRange?.current ? getCurrentLinkNode(editor, { at: linkRange.current }) : null;
 
     const alignment = EditorCommands.getAlignment(editor, defaultAlignment);
     const isBoldActive = EditorCommands.isMarkActive(editor, MarkType.BOLD);
@@ -104,123 +90,70 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         EditorCommands.toggleAlignment(editor, align === defaultAlignment ? undefined : align);
     }
 
-    function resetState() {
-        setHref('');
-        setIsExistingLink(false);
-        setLinkCandidateId(null);
-        setLinkPath(null);
-        setSavedSelection(null);
-    }
-
-    function handleRemoveLinkCandidate() {
-        if (!savedSelection) {
-            return;
-        }
-
-        HistoryEditor.withoutSaving(editor, () => {
-            unwrapLinkCandidates(editor);
-        });
-
-        restoreSelection(editor, savedSelection);
-        resetState();
-    }
-
-    function handleAddLinkCandidate(selection: Path | Range) {
-        const id = uuidV4();
-        setSavedSelection(selection);
-
-        HistoryEditor.withoutSaving(editor, () => {
-            wrapInLinkCandidate(editor, selection, id);
-        });
-
-        setLinkPath(findLinkCandidatePath(editor, id));
-        setLinkCandidateId(id);
-    }
-
-    function handleRemoveLink() {
-        if (!linkPath) {
-            return;
-        }
-
-        handleRemoveLinkCandidate();
-        unwrapLink(editor, linkPath);
-    }
-
-    function handleCreateLink() {
-        if (!savedSelection || !linkPath) {
-            return;
-        }
-
-        if (!href) {
-            return;
-        }
-
-        const isEditingExistingLink = EditorCommands.isBlockActive(
-            editor,
-            LINK_NODE_TYPE,
-            linkPath,
-        );
-
-        HistoryEditor.withoutSaving(editor, () => {
-            unwrapLinkCandidates(editor);
-        });
-
-        restoreSelection(editor, savedSelection);
-
-        if (isEditingExistingLink) {
-            updateLinkHref(editor, linkPath, href);
-        } else {
-            wrapInLink(editor, savedSelection, href);
-        }
-
-        resetState();
-    }
-
     function handleLinkButtonClick() {
-        const selection = findSelectedLinkPath(editor) || editor.selection;
+        if (!editor.selection) return;
 
-        if (!selection) {
-            return;
-        }
+        const rangeRef = Editor.rangeRef(editor, editor.selection, {
+            affinity: 'inward',
+        });
 
-        const currentHref = getCurrentHref(editor, selection) || '';
-        setHref(currentHref);
-        // We have to store the value as a state because we deliberately blur the editor
-        // later in this code, which loses the selection, therefore `isBlockActive` does
-        // not work as expected.
-        setIsExistingLink(currentHref !== '');
-
-        handleAddLinkCandidate(selection);
+        setLinkRange(rangeRef);
 
         // We have to blur the editor to allow the LinkMenu input focus.
         ReactEditor.blur(editor);
     }
 
-    if (withLinks && linkCandidateElement) {
+    function linkSelection(props: Pick<LinkNode, 'href' | 'new_tab'>) {
+        const selection = linkRange?.current;
+        if (!selection) return;
+
+        clearLinkRange();
+
+        ReactEditor.focus(editor);
+
+        unwrapLink(editor);
+        wrapInLink(editor, props);
+    }
+
+    function unlinkSelection() {
+        const selection = linkRange?.current;
+        if (!selection) return;
+
+        clearLinkRange();
+
+        Transforms.select(editor, selection);
+        ReactEditor.focus(editor);
+
+        unwrapLink(editor);
+    }
+
+    function onClose() {
+        const selection = linkRange?.current;
+        if (!selection) return;
+
+        clearLinkRange();
+
+        ReactEditor.focus(editor);
+        Transforms.collapse(editor, { edge: 'anchor' });
+        Transforms.select(editor, selection);
+    }
+
+    if (withLinks && linkRange?.current) {
         return (
-            <ElementPortalV2
-                containerRef={containerRef}
-                element={linkCandidateElement}
-                modifiers={[
-                    OFFSET_MODIFIER,
-                    keepToolbarInTextColumn({
-                        editorElement: containerRef.current,
-                        availableWidth,
-                    }),
-                ]}
-                placement="top-start"
+            <TextSelectionPortalV2
+                containerElement={containerElement}
+                modifiers={[OFFSET_MODIFIER]}
+                placement="bottom-start"
             >
-                <Menu.Toolbar>
-                    <LinkMenu
-                        canUnlink={isExistingLink}
-                        onChange={setHref}
-                        onClose={handleRemoveLinkCandidate}
-                        onCreate={handleCreateLink}
-                        onRemove={handleRemoveLink}
-                        value={href}
-                    />
-                </Menu.Toolbar>
-            </ElementPortalV2>
+                <LinkMenu
+                    node={link}
+                    canUnlink={link !== null}
+                    onBlur={clearLinkRange}
+                    onChange={linkSelection}
+                    onClose={onClose}
+                    onUnlink={unlinkSelection}
+                />
+            </TextSelectionPortalV2>
         );
     }
 
@@ -230,11 +163,11 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
 
     return (
         <TextSelectionPortalV2
-            containerRef={containerRef}
+            containerElement={containerElement}
             modifiers={[
                 OFFSET_MODIFIER,
                 keepToolbarInTextColumn({
-                    editorElement: containerRef.current,
+                    editorElement: containerElement,
                     availableWidth,
                 }),
             ]}
@@ -268,3 +201,8 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         </TextSelectionPortalV2>
     );
 };
+
+function getCurrentLinkNode(editor: Editor, options: { at: Range }): LinkNode | null {
+    const entries = Array.from(Editor.nodes(editor, { match: isLinkNode, at: options.at }));
+    return entries.length > 0 ? entries[0][0] : null;
+}
