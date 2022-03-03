@@ -1,0 +1,13 @@
+@import "styles/variables";
+
+.link {
+    text-decoration: underline;
+
+    &,
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+        color: #3c91ff;
+    }
+}

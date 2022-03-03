@@ -1,0 +1,1 @@
+export { RichFormattingMenu } from './RichFormattingMenu';

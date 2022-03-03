@@ -33,6 +33,7 @@ import {
     handleRemoveImage,
 } from './lib';
 import type { EditorV4ExtensionsProps } from './types';
+import { InlineLinksExtension } from '#modules/editor-v4-inline-links';
 
 interface Parameters extends EditorV4ExtensionsProps {
     containerRef: RefObject<HTMLElement>;
@@ -81,7 +82,12 @@ export function* getEnabledExtensions({
     }
 
     if (withRichFormatting) {
-        yield RichFormattingExtension(withRichFormatting);
+        yield RichFormattingExtension({
+            blocks: Boolean(withRichFormatting.blocks),
+        });
+    }
+    if (withRichFormatting?.links) {
+        yield InlineLinksExtension();
     }
 
     if (withAttachments) {

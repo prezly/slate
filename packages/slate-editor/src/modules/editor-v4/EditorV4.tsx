@@ -23,6 +23,10 @@ import { ReactEditor, Slate } from 'slate-react';
 import { noop } from '#lodash';
 
 import { LoaderContentType } from '#modules/editor-v4-loader';
+import {
+    FloatingStoryEmbedInput,
+    useFloatingStoryEmbedInput,
+} from '#modules/editor-v4-story-embed';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
@@ -37,8 +41,8 @@ import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
 } from '../editor-v4-press-contacts';
-import { RichFormattingMenu, toggleBlock } from '../editor-v4-rich-formatting';
-import { FloatingStoryEmbedInput, useFloatingStoryEmbedInput } from '../editor-v4-story-embed';
+import { toggleBlock } from '../editor-v4-rich-formatting';
+import { RichFormattingMenu } from '../editor-v4-rich-formatting-menu';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
 import './EditorV4.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
@@ -384,11 +388,12 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
 
                 {withRichFormatting && withRichFormatting.menu && (
                     <RichFormattingMenu
-                        alignmentControls={withAlignmentControls}
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         defaultAlignment={align || Alignment.LEFT}
-                        parameters={withRichFormatting}
+                        withAlignment={withAlignmentControls}
+                        withLinks={Boolean(withRichFormatting.links)}
+                        withRichBlockElements={Boolean(withRichFormatting.blocks)}
                     />
                 )}
 

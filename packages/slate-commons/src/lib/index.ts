@@ -9,3 +9,4 @@ export { onKeyDownExtensions } from './onKeyDownExtensions';
 export { renderElementExtensions } from './renderElementExtensions';
 export { renderLeafExtensions } from './renderLeafExtensions';
 export { useSavedSelection } from './useSavedSelection';
+export { withoutNodes } from './withoutNodes';

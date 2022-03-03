@@ -6,7 +6,7 @@ import { Transforms } from 'slate';
 import { lists } from '../lists';
 import { ElementType } from '../types';
 
-export function toggleBlock<Block extends ElementNode>(editor: Editor, type: Block['type']): void {
+export function toggleBlock<T extends ElementNode>(editor: Editor, type: T['type']): void {
     const [currentNode, path] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (!currentNode) {
@@ -25,5 +25,5 @@ export function toggleBlock<Block extends ElementNode>(editor: Editor, type: Blo
         EditorCommands.removeChildren(editor, [currentNode, path]);
     }
 
-    Transforms.setNodes(editor, { type } as Partial<Block>);
+    Transforms.setNodes(editor, { type });
 }

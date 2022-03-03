@@ -29,7 +29,7 @@ import {
 export function createEditorV4(
     baseEditor: Editor,
     getExtensions: () => Extension[],
-    plugins: WithOverrides[],
+    plugins: WithOverrides[] = [],
 ) {
     const overrides = getExtensions()
         .map(({ withOverrides }) => withOverrides)
