@@ -6,7 +6,7 @@ import type { RenderElementProps } from 'slate-react';
 
 import { noop } from '#lodash';
 
-import { FileAttachmentElement, FileAttachmentMenu } from './components';
+import { FileAttachmentElement } from './components';
 import { FILE_ATTACHMENT_EXTENSION_ID } from './constants';
 import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
 import type { FileAttachmentParameters } from './types';
@@ -27,23 +27,16 @@ export const FileAttachmentExtension = ({
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isAttachmentNode(element)) {
             return (
-                <>
-                    {attributes.ref.current && (
-                        <FileAttachmentMenu
-                            containerRef={containerRef}
-                            element={attributes.ref.current}
-                            onEdit={onEdit}
-                            onRemove={onRemove}
-                        />
-                    )}
-                    <FileAttachmentElement
-                        attributes={attributes}
-                        element={element}
-                        styled={styled}
-                    >
-                        {children}
-                    </FileAttachmentElement>
-                </>
+                <FileAttachmentElement
+                    attributes={attributes}
+                    element={element}
+                    styled={styled}
+                    containerRef={containerRef}
+                    onEdit={onEdit}
+                    onRemove={onRemove}
+                >
+                    {children}
+                </FileAttachmentElement>
             );
         }
 
