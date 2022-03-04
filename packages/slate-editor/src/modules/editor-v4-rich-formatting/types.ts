@@ -25,6 +25,7 @@ export enum MarkType {
     UNDERLINED = 'underlined',
     SUBSCRIPT = 'subscript',
     SUPERSCRIPT = 'superscript',
+    SELECTION = 'selection',
 }
 
 export type RichTextElementType =

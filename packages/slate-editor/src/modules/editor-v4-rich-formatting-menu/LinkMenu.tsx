@@ -19,7 +19,7 @@ interface Props {
 
 export function LinkMenu({ node, canUnlink, onBlur, onChange, onClose, onUnlink }: Props) {
     const [href, setHref] = useState(node?.href ?? '');
-    const [new_tab, setNewTab] = useState(node?.new_tab ?? false);
+    const [new_tab, setNewTab] = useState(node?.new_tab ?? true);
 
     function handleSave() {
         onChange({ href, new_tab });

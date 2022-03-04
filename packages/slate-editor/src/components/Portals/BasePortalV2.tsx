@@ -10,7 +10,7 @@ import { Portal } from 'react-portal';
 import { useMountedState, useRafLoop } from '#lib';
 import { isEqual } from '#lodash';
 
-import './BasePortalV2.scss';
+import portalStyles from './BasePortalV2.module.scss';
 
 const PREVENT_OVERFLOW_MODIFIER: Modifier<'preventOverflow'> = {
     name: 'preventOverflow',
@@ -28,6 +28,7 @@ const FLIP_MODIFIER: Modifier<'flip'> = {
 export interface Props extends HTMLAttributes<HTMLDivElement> {
     children: ReactNode;
     className?: string;
+    arrowClassName?: string;
     containerElement?: HTMLElement | null | undefined;
     getBoundingClientRect: () => ClientRect | null;
     modifiers?: Modifier<string>[];
@@ -41,6 +42,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 export const BasePortalV2: FunctionComponent<Props> = ({
     children,
     className,
+    arrowClassName,
     containerElement,
     getBoundingClientRect,
     modifiers = [],
@@ -48,6 +50,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
     pointerEvents = true,
     ...props
 }) => {
+    const [arr, setArr] = useState<HTMLElement | null>(null);
     const isMounted = useMountedState();
     const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
     const lastRectRef = useRef(getBoundingClientRect());
@@ -62,8 +65,29 @@ export const BasePortalV2: FunctionComponent<Props> = ({
             : null;
     });
 
+    const popperModifiers = [FLIP_MODIFIER, PREVENT_OVERFLOW_MODIFIER, ...modifiers];
+
+    if (arrowClassName) {
+        popperModifiers.push({
+            name: 'arrow',
+            enabled: true,
+            options: {
+                element: arr,
+                placement: 'top-start',
+            },
+        });
+
+        popperModifiers.push({
+            name: 'offset',
+            enabled: true,
+            options: {
+                offset: [0, 4],
+            },
+        });
+    }
+
     const { attributes, styles } = usePopper(referenceElement, popperElement, {
-        modifiers: [FLIP_MODIFIER, PREVENT_OVERFLOW_MODIFIER, ...modifiers],
+        modifiers: popperModifiers,
         placement,
     });
 
@@ -97,13 +121,26 @@ export const BasePortalV2: FunctionComponent<Props> = ({
             <div
                 {...props}
                 {...attributes.popper}
-                className={classNames('base-portal-v2', className, {
-                    'base-portal-v2--uninitialized': referenceElement === null,
-                    'base-portal-v2--no-pointer-events': pointerEvents === false,
+                className={classNames(portalStyles['base-portal-v2'], className, {
+                    [portalStyles['base-portal-v2--uninitialized']]: referenceElement === null,
+                    [portalStyles['base-portal-v2--no-pointer-events']]: pointerEvents === false,
                 })}
                 ref={setPopperElement}
                 style={styles.popper}
             >
+                {arrowClassName && (
+                    <div
+                        ref={setArr}
+                        className={classNames(arrowClassName, portalStyles.arrow, {
+                            [portalStyles.top]: placement.indexOf('top') >= 0,
+                            [portalStyles.bottom]: placement.indexOf('bottom') >= 0,
+                            [portalStyles.left]: placement.indexOf('left') >= 0,
+                            [portalStyles.right]: placement.indexOf('right') >= 0,
+                        })}
+                        style={styles.arrow}
+                    />
+                )}
+
                 {children}
             </div>
         </Portal>

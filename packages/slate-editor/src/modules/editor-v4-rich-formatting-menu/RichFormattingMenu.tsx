@@ -22,6 +22,7 @@ import {
     useRangeRef,
 } from './lib';
 import { LinkMenu } from './LinkMenu';
+import styles from './RichFormattingMenu.module.scss';
 import type { Formatting } from './types';
 
 interface Props {
@@ -138,12 +139,21 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         Transforms.select(editor, selection);
     }
 
+    React.useEffect(() => {
+        Editor.addMark(editor, MarkType.SELECTION, true);
+
+        return () => {
+            Editor.removeMark(editor, MarkType.SELECTION);
+        };
+    }, [linkRange?.current]);
+
     if (withLinks && linkRange?.current) {
         return (
             <TextSelectionPortalV2
                 containerElement={containerElement}
                 modifiers={[OFFSET_MODIFIER]}
                 placement="bottom-start"
+                arrowClassName={styles['link-menu']}
             >
                 <LinkMenu
                     node={link}
