@@ -58,7 +58,7 @@ const POPPER_CONFIG: Parameters<typeof usePopper>[2] = {
     ],
 };
 
-export function ModernDropdown<Action>({
+export function Dropdown<Action>({
     className,
     highlight,
     options,
@@ -90,9 +90,9 @@ export function ModernDropdown<Action>({
 
     return (
         <div
-            className={classNames('dropdown', 'editor-v4-floating-menu-modern-dropdown', {
-                'editor-v4-floating-menu-modern-dropdown--with-labels': hasLabels,
-                'editor-v4-floating-menu-modern-dropdown--no-results': options.length === 0,
+            className={classNames('dropdown', 'editor-v4-floating-menu-dropdown', {
+                'editor-v4-floating-menu-dropdown--with-labels': hasLabels,
+                'editor-v4-floating-menu-dropdown--no-results': options.length === 0,
                 open,
             })}
         >
@@ -101,38 +101,38 @@ export function ModernDropdown<Action>({
                 autoHeight
                 autoHeightMin={20}
                 autoHeightMax={1000}
-                className="editor-v4-floating-menu-modern-dropdown__scroll-area"
+                className="editor-v4-floating-menu-dropdown__scroll-area"
                 ref={scrollarea}
                 style={{ ...styles.popper, width: 'auto' }}
             >
                 <ul
                     className={classNames(
                         'dropdown-menu',
-                        'editor-v4-floating-menu-modern-dropdown__menu',
+                        'editor-v4-floating-menu-dropdown__menu',
                         className,
                     )}
                     onMouseDown={(event) => event.preventDefault()}
                 >
                     {options.length === 0 && (
                         <MenuItem
-                            className="editor-v4-floating-menu-modern-dropdown__menu-item editor-v4-floating-menu-modern-dropdown__menu-item--no-results"
+                            className="editor-v4-floating-menu-dropdown__menu-item editor-v4-floating-menu-dropdown__menu-item--no-results"
                             disabled
                             onClick={noop}
                         >
-                            <div className="editor-v4-floating-menu-modern-dropdown__menu-item-icon">
+                            <div className="editor-v4-floating-menu-dropdown__menu-item-icon">
                                 <WarningCircle />
                             </div>
-                            <div className="editor-v4-floating-menu-modern-dropdown__menu-item-text">
+                            <div className="editor-v4-floating-menu-dropdown__menu-item-text">
                                 No results
                             </div>
-                            <BatsIllustration className="editor-v4-floating-menu-modern-dropdown__menu-item-decoration" />
+                            <BatsIllustration className="editor-v4-floating-menu-dropdown__menu-item-decoration" />
                         </MenuItem>
                     )}
 
                     {groups.map(({ group, options }) => (
                         <Fragment key={`group:${group}`}>
                             <MenuItem
-                                className="editor-v4-floating-menu-modern-dropdown__menu-group"
+                                className="editor-v4-floating-menu-dropdown__menu-group"
                                 header
                             >
                                 {group}
@@ -140,7 +140,7 @@ export function ModernDropdown<Action>({
                             {options.map((option) => (
                                 <MenuItem
                                     active={option === selectedOption}
-                                    className="editor-v4-floating-menu-modern-dropdown__menu-item"
+                                    className="editor-v4-floating-menu-dropdown__menu-item"
                                     key={`option:${option.text}`}
                                     onClick={(event) => event.preventDefault()}
                                     onMouseDown={(event) => {
@@ -149,29 +149,29 @@ export function ModernDropdown<Action>({
                                     }}
                                 >
                                     <div
-                                        className="editor-v4-floating-menu-modern-dropdown__menu-item-icon"
+                                        className="editor-v4-floating-menu-dropdown__menu-item-icon"
                                         data-action={option.action}
                                     >
                                         {isComponent(option.icon) ? <option.icon /> : option.icon}
                                     </div>
                                     <div
-                                        className="editor-v4-floating-menu-modern-dropdown__menu-item-text"
+                                        className="editor-v4-floating-menu-dropdown__menu-item-text"
                                         ref={option === selectedOption ? setActiveItem : undefined}
                                     >
-                                        <div className="editor-v4-floating-menu-modern-dropdown__menu-item-title">
+                                        <div className="editor-v4-floating-menu-dropdown__menu-item-title">
                                             <Highlight search={highlight}>{option.text}</Highlight>
                                         </div>
-                                        <div className="editor-v4-floating-menu-modern-dropdown__menu-item-description">
+                                        <div className="editor-v4-floating-menu-dropdown__menu-item-description">
                                             {option.description || ' '}
                                         </div>
                                     </div>
                                     {(option.isBeta || option.isNew) && (
                                         <div
                                             className={classNames(
-                                                'editor-v4-floating-menu-modern-dropdown__menu-item-label',
+                                                'editor-v4-floating-menu-dropdown__menu-item-label',
                                                 option.isBeta
-                                                    ? 'editor-v4-floating-menu-modern-dropdown__menu-item-label--beta'
-                                                    : 'editor-v4-floating-menu-modern-dropdown__menu-item-label--new',
+                                                    ? 'editor-v4-floating-menu-dropdown__menu-item-label--beta'
+                                                    : 'editor-v4-floating-menu-dropdown__menu-item-label--new',
                                             )}
                                         >
                                             {option.isBeta ? 'testing' : 'new'}
