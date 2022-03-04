@@ -1,5 +1,5 @@
-import type { StoryRef } from '@prezly/sdk';
 import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
+import type { StoryEmbedNode } from '@prezly/slate-types';
 import { useState } from 'react';
 import type { Editor } from 'slate';
 
@@ -8,7 +8,6 @@ import {
     createLoader,
     findLoaderPath,
     LoaderContentType,
-    loaderPromiseManager,
     removeLoader,
     replaceLoader,
 } from '#modules/editor-v4-loader';
@@ -24,19 +23,10 @@ interface Actions {
     close: () => void;
     open: (buttonLabel: string, loaderParameters: Parameters<typeof createLoader>[0]) => void;
     rootClose: () => void;
-    submit: (url: string) => Promise<void>;
+    submit: (url: Pick<StoryEmbedNode, 'story'> & Partial<StoryEmbedNode>) => Promise<void>;
 }
 
-function defaultFetchStoryId(): Promise<StoryRef> {
-    // It should never happen, we just want useFloatingEmbedInput to be a no-op
-    // when fetchStoryId is not provided (which implies that embeds are not enabled).
-    return Promise.reject(new Error('Story embeds are not enabled'));
-}
-
-export function useFloatingStoryEmbedInput(
-    editor: Editor,
-    fetchStoryId: (url: string) => Promise<StoryRef> = defaultFetchStoryId,
-): [State, Actions] {
+export function useFloatingStoryEmbedInput(editor: Editor): [State, Actions] {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [submitButtonLabel, setSubmitButtonLabel] = useState<string>('');
     const [loaderParameters, setLoaderParameters] = useState<Parameters<typeof createLoader>[0]>();
@@ -63,9 +53,9 @@ export function useFloatingStoryEmbedInput(
         savedSelection.save(editor);
     }
 
-    async function submit(url: string) {
+    async function submit(node: Pick<StoryEmbedNode, 'story'> & Partial<StoryEmbedNode>) {
         EventsEditor.dispatchEvent(editor, 'story-embed-dialog-submitted', {
-            url,
+            node: JSON.stringify(node),
             selectedItemText: submitButtonLabel,
         });
 
@@ -83,10 +73,7 @@ export function useFloatingStoryEmbedInput(
         });
 
         try {
-            const promise = fetchStoryId(url);
-            loaderPromiseManager.track(loader.id, promise);
-            const story = await promise;
-            const element = createStoryEmbed({ story: { uuid: story.uuid } });
+            const element = createStoryEmbed(node);
             replaceLoader(editor, loader, element);
         } catch (error) {
             EventsEditor.dispatchEvent(editor, 'notification', {

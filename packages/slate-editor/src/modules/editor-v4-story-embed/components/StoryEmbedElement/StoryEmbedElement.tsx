@@ -35,7 +35,6 @@ export const StoryEmbedElement: FunctionComponent<Props> = ({
             {...attributes} // contains `ref`
             element={element}
             overlay="always"
-            // renderMenu={({ onClose }) => <StoryEmbedMenu onClose={onClose} element={element} />}
             renderMenu={undefined}
             renderBlock={({ isSelected }) =>
                 render({
