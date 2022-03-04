@@ -50,9 +50,9 @@ export const BasePortalV2: FunctionComponent<Props> = ({
     pointerEvents = true,
     ...props
 }) => {
-    const [arr, setArr] = useState<HTMLElement | null>(null);
     const isMounted = useMountedState();
     const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
+    const [arrowElement, setArrowElement] = useState<HTMLElement | null>(null);
     const lastRectRef = useRef(getBoundingClientRect());
 
     const [referenceElement, setReferenceElement] = useState<VirtualElement | null>(() => {
@@ -72,7 +72,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
             name: 'arrow',
             enabled: true,
             options: {
-                element: arr,
+                element: arrowElement,
                 placement: 'top-start',
             },
         });
@@ -130,7 +130,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
             >
                 {arrowClassName && (
                     <div
-                        ref={setArr}
+                        ref={setArrowElement}
                         className={classNames(arrowClassName, portalStyles.arrow, {
                             [portalStyles.top]: placement.indexOf('top') >= 0,
                             [portalStyles.bottom]: placement.indexOf('bottom') >= 0,
