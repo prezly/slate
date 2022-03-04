@@ -202,14 +202,14 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     ] = useFloatingEmbedInput(editor, withEmbeds?.fetchOembed);
 
     const [
-        { isOpen: isFloatingStoryEmbedInputOpen, submitButtonLabel: storyEmbedSubmitButtonLabel },
+        { isOpen: isFloatingStoryEmbedInputOpen },
         {
             close: closeFloatingStoryEmbedInput,
             open: openFloatingStoryEmbedInput,
             rootClose: rootCloseFloatingStoryEmbedInput,
             submit: submitFloatingStoryEmbedInput,
         },
-    ] = useFloatingStoryEmbedInput(editor, withStoryEmbeds?.fetchStoryId);
+    ] = useFloatingStoryEmbedInput(editor);
 
     const [
         { isOpen: isFloatingPressContactsMenuOpen },
@@ -443,7 +443,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         onClose={closeFloatingStoryEmbedInput}
                         onRootClose={rootCloseFloatingStoryEmbedInput}
                         onSubmit={submitFloatingStoryEmbedInput}
-                        submitButtonLabel={storyEmbedSubmitButtonLabel}
+                        renderInput={withStoryEmbeds.renderInput}
                     />
                 )}
 

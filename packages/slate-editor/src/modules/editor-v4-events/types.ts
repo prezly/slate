@@ -110,7 +110,7 @@ export type EditorEventMap = {
     };
     'story-embed-dialog-submitted': {
         selectedItemText: string;
-        url: string;
+        node: string;
     };
 };
 
