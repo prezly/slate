@@ -1,7 +1,6 @@
 import type { Placement, VirtualElement } from '@popperjs/core';
 import classNames from 'classnames';
-import type { Rect } from 'rangefix';
-import type { FunctionComponent, HTMLAttributes, ReactNode, RefObject } from 'react';
+import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 import React from 'react';
 import { useRef, useState } from 'react';
 import type { Modifier } from 'react-popper';
@@ -10,8 +9,6 @@ import { Portal } from 'react-portal';
 
 import { useMountedState, useRafLoop } from '#lib';
 import { isEqual } from '#lodash';
-
-import { convertClientRect } from './convertClientRect';
 
 import './BasePortalV2.scss';
 
@@ -31,8 +28,8 @@ const FLIP_MODIFIER: Modifier<'flip'> = {
 export interface Props extends HTMLAttributes<HTMLDivElement> {
     children: ReactNode;
     className?: string;
-    containerRef?: RefObject<HTMLElement>;
-    getBoundingClientRect: () => ClientRect | Rect | null;
+    containerElement?: HTMLElement | null | undefined;
+    getBoundingClientRect: () => ClientRect | null;
     modifiers?: Modifier<string>[];
     placement: Placement;
     pointerEvents?: boolean;
@@ -44,7 +41,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 export const BasePortalV2: FunctionComponent<Props> = ({
     children,
     className,
-    containerRef,
+    containerElement,
     getBoundingClientRect,
     modifiers = [],
     placement,
@@ -53,7 +50,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
 }) => {
     const isMounted = useMountedState();
     const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
-    const lastRectRef = useRef(convertClientRect(getBoundingClientRect()));
+    const lastRectRef = useRef(getBoundingClientRect());
 
     const [referenceElement, setReferenceElement] = useState<VirtualElement | null>(() => {
         const rect = lastRectRef.current;
@@ -75,7 +72,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
             return;
         }
 
-        const rect = convertClientRect(getBoundingClientRect());
+        const rect = getBoundingClientRect();
 
         // Optimization: do not call `setReferenceElement` on every animation frame to avoid
         // an infinite re-render loop.
@@ -96,7 +93,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
     });
 
     return (
-        <Portal node={containerRef ? containerRef.current : undefined}>
+        <Portal node={containerElement}>
             <div
                 {...props}
                 {...attributes.popper}

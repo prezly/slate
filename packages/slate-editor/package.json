@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-editor",
-    "version": "0.16.1",
+    "version": "0.20.0",
     "description": "The Prezly Slate Editor",
     "license": "MIT",
     "type": "module",
@@ -71,10 +71,10 @@
         "@prezly/linear-partition": "^1.0.2",
         "@prezly/progress-promise": "^1.0.1",
         "@prezly/sdk": "^6.12.1",
-        "@prezly/slate-commons": "^0.16.1",
-        "@prezly/slate-hyperscript": "^0.16.1",
-        "@prezly/slate-lists": "^0.16.1",
-        "@prezly/slate-types": "^0.16.1",
+        "@prezly/slate-commons": "^0.20.0",
+        "@prezly/slate-hyperscript": "^0.20.0",
+        "@prezly/slate-lists": "^0.20.0",
+        "@prezly/slate-types": "^0.20.0",
         "@prezly/uploadcare": "^1.1.2",
         "@prezly/uploadcare-widget": "^3.16.1",
         "@udecode/plate-core": "^9.0.0",
@@ -122,6 +122,7 @@
         "@types/react-router-dom": "=5.1.2",
         "@types/uuid": "^8.3.0",
         "@types/validator": "^13.1.3",
-        "babel-loader": "^8.2.3"
+        "babel-loader": "^8.2.3",
+        "slate-hyperscript": "^0.67.0"
     }
 }

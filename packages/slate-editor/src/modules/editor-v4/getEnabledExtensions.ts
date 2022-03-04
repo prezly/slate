@@ -12,6 +12,7 @@ import { FloatingAddMenuExtension } from '#modules/editor-v4-floating-add-menu';
 import { GalleriesExtension } from '#modules/editor-v4-galleries';
 import { HtmlExtension } from '#modules/editor-v4-html';
 import { ImageExtension } from '#modules/editor-v4-image';
+import { InlineLinksExtension } from '#modules/editor-v4-inline-links';
 import { LoaderExtension } from '#modules/editor-v4-loader';
 import { ParagraphsExtension } from '#modules/editor-v4-paragraphs';
 import { PlaceholderMentionsExtension } from '#modules/editor-v4-placeholder-mentions';
@@ -19,6 +20,7 @@ import { PressContactsExtension } from '#modules/editor-v4-press-contacts';
 import { RichFormattingExtension } from '#modules/editor-v4-rich-formatting';
 import { UserMentionsExtension } from '#modules/editor-v4-user-mentions';
 
+import { StoryEmbedExtension } from '../editor-v4-story-embed';
 import { VideoExtension } from '../editor-v4-video';
 import { VoidExtension } from '../editor-v4-void';
 import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
@@ -59,6 +61,7 @@ export function* getEnabledExtensions({
     withVideos,
     withWebBookmarks,
     withAutoformat,
+    withStoryEmbeds,
 }: Parameters): Generator<Extension> {
     yield ParagraphsExtension();
 
@@ -79,13 +82,17 @@ export function* getEnabledExtensions({
     }
 
     if (withRichFormatting) {
-        yield RichFormattingExtension(withRichFormatting);
+        yield RichFormattingExtension({
+            blocks: Boolean(withRichFormatting.blocks),
+        });
+    }
+    if (withRichFormatting?.links) {
+        yield InlineLinksExtension();
     }
 
     if (withAttachments) {
         yield FileAttachmentExtension({
             ...withAttachments,
-            containerRef,
             onEdit: handleEditAttachment,
             onRemove: handleRemoveAttachment,
         });
@@ -143,6 +150,10 @@ export function* getEnabledExtensions({
         ];
         const rules = withAutoformat === true ? defaultRules : withAutoformat.rules;
         yield AutoformatExtension({ rules });
+    }
+
+    if (withStoryEmbeds) {
+        yield StoryEmbedExtension(withStoryEmbeds);
     }
 
     yield DividerExtension();

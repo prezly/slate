@@ -47,6 +47,7 @@
             },
             {
                 "href": "https://www.linkedin.com/in/bernhardney/",
+                "new_tab": true,
                 "type": "link",
                 "children": [
                     {
@@ -61,6 +62,7 @@
             },
             {
                 "href": "https://www.comatch.com/fr/",
+                "new_tab": true,
                 "type": "link",
                 "children": [
                     {

@@ -69,8 +69,8 @@ export const Container: FunctionComponent<Props> = ({
 
     return (
         <ElementPortalV2
-            containerRef={containerRef}
-            element={currentDomElement}
+            containerElement={containerRef.current}
+            referenceElement={currentDomElement}
             modifiers={MODIFIERS}
             placement="top"
             pointerEvents={pointerEvents}

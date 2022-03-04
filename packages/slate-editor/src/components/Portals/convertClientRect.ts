@@ -9,6 +9,8 @@ export type PureRect = ReturnType<typeof convertClientRect>;
  * as `DOMRect` object properties are not enumerable.
  * @see https://github.com/microsoft/TypeScript/issues/9726
  */
+export function convertClientRect(domRect: DOMRect | ClientRect | Rect): ClientRect;
+export function convertClientRect(domRect: DOMRect | ClientRect | Rect | null): ClientRect | null;
 export function convertClientRect(domRect: DOMRect | ClientRect | Rect | null) {
     if (!domRect) {
         return null;

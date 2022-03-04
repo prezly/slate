@@ -1,56 +1,44 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { createHyperscript } from '@prezly/slate-hyperscript';
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import type { ReactNode } from 'react';
+import {
+    BULLETED_LIST_NODE_TYPE,
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    LINK_NODE_TYPE,
+    LIST_ITEM_NODE_TYPE,
+    LIST_ITEM_TEXT_NODE_TYPE,
+    NUMBERED_LIST_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
+    QUOTE_NODE_TYPE,
+} from '@prezly/slate-types';
+import { createEditor as makeEditor } from 'slate';
+import { createEditor, createHyperscript } from 'slate-hyperscript';
 
-import { ElementType } from './types';
+import { createEditorV4 } from '#modules/editor-v4';
+
+import { RichFormattingExtension } from './RichFormattingExtension';
 
 declare global {
     namespace JSX {
-        interface IntrinsicElements {
-            'h-a': {
-                children?: ReactNode;
-                href: string;
-            };
-            'h-blockquote': {
-                children?: ReactNode;
-            };
-            'h-h1': {
-                children?: ReactNode;
-            };
-            'h-h2': {
-                children?: ReactNode;
-            };
-            'h-li': {
-                children?: ReactNode;
-            };
-            'h-li-text': {
-                children?: ReactNode;
-            };
-            'h-ol': {
-                children?: ReactNode;
-            };
-            'h-p': {
-                children?: ReactNode;
-            };
-            'h-ul': {
-                children?: ReactNode;
-            };
-        }
+        interface IntrinsicElements {}
     }
 }
 
+const extensions = [RichFormattingExtension({ blocks: true })];
+
 export const jsx = createHyperscript({
     elements: {
-        'h-a': { type: ElementType.LINK },
-        'h-blockquote': { type: ElementType.BLOCK_QUOTE },
-        'h-h1': { type: ElementType.HEADING_ONE },
-        'h-h2': { type: ElementType.HEADING_TWO },
-        'h-li': { type: ElementType.LIST_ITEM },
-        'h-li-text': { type: ElementType.LIST_ITEM_TEXT },
-        'h-ol': { type: ElementType.NUMBERED_LIST },
-        'h-p': { type: PARAGRAPH_NODE_TYPE },
-        'h-ul': { type: ElementType.BULLETED_LIST },
+        paragraph: { type: PARAGRAPH_NODE_TYPE },
+        link: { type: LINK_NODE_TYPE },
+        blockquote: { type: QUOTE_NODE_TYPE },
+        h1: { type: HEADING_1_NODE_TYPE },
+        h2: { type: HEADING_2_NODE_TYPE },
+        ol: { type: NUMBERED_LIST_NODE_TYPE },
+        ul: { type: BULLETED_LIST_NODE_TYPE },
+        li: { type: LIST_ITEM_NODE_TYPE },
+        'li-text': { type: LIST_ITEM_TEXT_NODE_TYPE },
+    },
+    creators: {
+        editor: createEditor(() => createEditorV4(makeEditor(), () => extensions)),
     },
 });

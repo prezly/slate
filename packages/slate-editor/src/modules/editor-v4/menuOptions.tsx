@@ -30,6 +30,7 @@ export enum MenuAction {
     ADD_QUOTE = 'add_quote',
     ADD_VIDEO = 'add_video',
     ADD_WEB_BOOKMARK = 'add_web_bookmark',
+    ADD_STORY_EMBED = 'add_story_embed',
 }
 
 enum Group {
@@ -47,6 +48,7 @@ type Params = Pick<
     | 'withImages'
     | 'withPressContacts'
     | 'withRichFormatting'
+    | 'withStoryEmbeds'
     | 'withVideos'
     | 'withWebBookmarks'
 >;
@@ -61,6 +63,7 @@ export function* generateFloatingAddMenuOptions(
         withImages,
         withPressContacts,
         withRichFormatting,
+        withStoryEmbeds,
         withVideos,
         withWebBookmarks,
     }: Params,
@@ -198,6 +201,17 @@ export function* generateFloatingAddMenuOptions(
             group: Group.PREZLY_CONTENT,
             text: 'Contact',
             description: 'Add your newsroom contacts',
+        };
+    }
+
+    if (withStoryEmbeds) {
+        yield {
+            action: MenuAction.ADD_STORY_EMBED,
+            icon: Icons.ComponentWebBookmark,
+            group: Group.PREZLY_CONTENT,
+            text: 'Story Embed',
+            description: 'Insert Prezly story content',
+            isBeta: true,
         };
     }
 

@@ -4,9 +4,10 @@
 .editor-v4-mentions-dropdown {
     position: fixed;
     display: block;
-    // 220px is the height at which all 5 campaign placeholders and salutation (6 items)
-    // fit without  showing a vertical scrollbar
-    max-height: 220px;
+    // 226px is the height at which all 5 campaign placeholders and salutation (6 items)
+    // fit without showing a vertical scrollbar
+    // 6 * 36px (item) + 2 * 4px (top and bottom padding) + 2 * 1px (top and bottom border)
+    max-height: 226px;
     overflow: auto;
     padding: $spacing-half 0 !important; // override editor's ul styling
     margin: 0 !important; // override editor's ul styling
