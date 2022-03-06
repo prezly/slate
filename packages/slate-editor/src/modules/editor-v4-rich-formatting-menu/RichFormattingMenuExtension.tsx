@@ -26,7 +26,7 @@ export function RichFormattingMenuExtension(): Extension {
         },
         renderLeaf({ leaf, children }) {
             if (leaf[SELECTION_MARK]) {
-                return <SelectionHighlight>{children}</SelectionHighlight>
+                return <SelectionHighlight>{children}</SelectionHighlight>;
             }
 
             return <>{children}</>;
