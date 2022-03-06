@@ -1,5 +1,5 @@
 import type { Events } from '@prezly/events';
-import type { Decorate, Extension, OnKeyDown } from '@prezly/slate-commons';
+import type { Extension, OnKeyDown } from '@prezly/slate-commons';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Editor } from 'slate';
@@ -22,7 +22,6 @@ interface Parameters {
 }
 
 interface State {
-    decorateList: Decorate[];
     editor: ReactEditor & HistoryEditor;
     onKeyDownList: OnKeyDown[];
 }
@@ -37,7 +36,6 @@ export function useCreateEditor({
     onKeyDown,
     plugins = DEFAULT_PLUGINS,
 }: Parameters): State {
-    const decorateList: Decorate[] = [];
     const onKeyDownList: OnKeyDown[] = [];
 
     if (onKeyDown) {
@@ -63,7 +61,6 @@ export function useCreateEditor({
     }, [plugins, userPlugins]);
 
     return {
-        decorateList,
         editor,
         onKeyDownList,
     };

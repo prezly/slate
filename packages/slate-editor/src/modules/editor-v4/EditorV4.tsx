@@ -132,7 +132,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         }),
     );
 
-    const { decorateList, editor, onKeyDownList } = useCreateEditor({
+    const { editor, onKeyDownList } = useCreateEditor({
         events,
         extensions,
         onKeyDown,
@@ -329,7 +329,6 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 value={value}
             >
                 <EditableWithExtensions
-                    decorate={decorateList}
                     extensions={extensions}
                     onCut={createOnCut(editor)}
                     onKeyDown={onKeyDownList}
