@@ -21,6 +21,7 @@ import type {
 } from './types';
 
 export interface Props {
+    decorate?: Decorate;
     /**
      * Each extension fields will be combined by role.
      *
@@ -65,6 +66,7 @@ export interface Props {
 }
 
 export const EditableWithExtensions: FunctionComponent<Props> = ({
+    decorate,
     extensions = [],
     onDOMBeforeInput: onDOMBeforeInputList = [],
     onDOMBeforeInputDeps = [],
@@ -81,9 +83,9 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
     const combinedDecorate: Decorate = useMemo(
         function () {
             const decorateFns = createExtensionsDecorators(editor, extensions);
-            return combineDecorate(decorateFns);
+            return combineDecorate(decorate ? [decorate, ...decorateFns] : decorateFns);
         },
-        [editor, extensions],
+        [decorate, editor, extensions],
     );
 
     return (
