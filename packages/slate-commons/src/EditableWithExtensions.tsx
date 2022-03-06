@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FunctionComponent } from 'react';
-import React, { useCallback } from 'react';
-import { Editable, useSlate } from 'slate-react';
+import React, { useCallback, useMemo } from 'react';
+import { Editable, useSlateStatic } from 'slate-react';
 
 import {
-    decorateExtensions,
+    combineDecorate,
+    createExtensionsDecorators,
     onDOMBeforeInputExtensions,
     onKeyDownExtensions,
     renderElementExtensions,
@@ -20,19 +21,6 @@ import type {
 } from './types';
 
 export interface Props {
-    /**
-     * Decorations are another type of text-level formatting.
-     * They are similar to regular old custom properties,
-     * except each one applies to a Range of the document instead of being
-     * associated with a given text node.
-     * However, decorations are computed at render-time based on the content itself.
-     * This is helpful for dynamic formatting like syntax highlighting or search
-     * keywords, where changes to the content (or some external data) has the
-     * potential to change the formatting.
-     */
-    decorate?: Decorate[];
-    // Dependencies of `decorate`
-    decorateDeps?: any[];
     /**
      * Each extension fields will be combined by role.
      *
@@ -77,8 +65,6 @@ export interface Props {
 }
 
 export const EditableWithExtensions: FunctionComponent<Props> = ({
-    decorate: decorateList = [],
-    decorateDeps = [],
     extensions = [],
     onDOMBeforeInput: onDOMBeforeInputList = [],
     onDOMBeforeInputDeps = [],
@@ -90,12 +76,20 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
     renderLeafDeps = [],
     ...props
 }) => {
-    const editor = useSlate();
+    const editor = useSlateStatic();
+
+    const combinedDecorate: Decorate = useMemo(
+        function () {
+            const decorateFns = createExtensionsDecorators(editor, extensions);
+            return combineDecorate(decorateFns);
+        },
+        [editor, extensions],
+    );
 
     return (
         <Editable
             {...props}
-            decorate={useCallback(decorateExtensions(extensions, decorateList), decorateDeps)}
+            decorate={combinedDecorate}
             onDOMBeforeInput={useCallback(
                 onDOMBeforeInputExtensions(editor, extensions, onDOMBeforeInputList),
                 onDOMBeforeInputDeps,
