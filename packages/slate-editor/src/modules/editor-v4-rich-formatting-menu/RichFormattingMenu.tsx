@@ -139,14 +139,6 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         Transforms.select(editor, selection);
     }
 
-    React.useEffect(() => {
-        Editor.addMark(editor, MarkType.SELECTION, true);
-
-        return () => {
-            Editor.removeMark(editor, MarkType.SELECTION);
-        };
-    }, [linkRange?.current]);
-
     if (withLinks && linkRange?.current) {
         return (
             <TextSelectionPortalV2

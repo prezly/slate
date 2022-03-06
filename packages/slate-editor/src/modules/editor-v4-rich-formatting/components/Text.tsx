@@ -1,11 +1,9 @@
 import React from 'react';
 import type { RenderLeafProps } from 'slate-react';
 
-import { MarkType } from '../../types';
+import { MarkType } from '../types';
 
-import styled from './Text.module.scss';
-
-export function Text({ attributes, children, leaf }: RenderLeafProps) {
+export function Text({ children, leaf }: RenderLeafProps) {
     if (leaf[MarkType.BOLD]) {
         children = <strong>{children}</strong>;
     }
@@ -26,13 +24,5 @@ export function Text({ attributes, children, leaf }: RenderLeafProps) {
         children = <u>{children}</u>;
     }
 
-    if (leaf[MarkType.SELECTION]) {
-        children = (
-            <span {...attributes} className={styled.selection}>
-                {children}
-            </span>
-        );
-    }
-
-    return <span {...attributes}>{children}</span>;
+    return <>{children}</>;
 }
