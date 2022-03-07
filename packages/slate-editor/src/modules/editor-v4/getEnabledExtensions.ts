@@ -5,6 +5,7 @@ import { noop } from '#lodash';
 
 import { AutoformatExtension } from '#modules/editor-v4-autoformat';
 import { CoverageExtension } from '#modules/editor-v4-coverage';
+import { DecorateSelectionExtension } from '#modules/editor-v4-decorate-selection';
 import { DividerExtension } from '#modules/editor-v4-divider';
 import { EmbedExtension } from '#modules/editor-v4-embed';
 import { FileAttachmentExtension } from '#modules/editor-v4-file-attachment';
@@ -63,6 +64,7 @@ export function* getEnabledExtensions({
     withAutoformat,
     withStoryEmbeds,
 }: Parameters): Generator<Extension> {
+    yield DecorateSelectionExtension();
     yield ParagraphsExtension();
 
     if (withFloatingAddMenu) {

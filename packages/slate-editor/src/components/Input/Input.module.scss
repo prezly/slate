@@ -17,14 +17,17 @@
     background: $white;
     padding: $spacing-1 $spacing-1-5;
     flex-grow: 1;
+    width: 100%;
 
     &::placeholder {
         color: $grey-400;
         opacity: 1;
     }
 
-    &:focus-visible {
-        outline: $spacing-half solid #c7d2fe;
+    // Safari doesn't support focus-visible and outline with border-radius
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0px $spacing-half #c7d2fe;
     }
 
     &:disabled {

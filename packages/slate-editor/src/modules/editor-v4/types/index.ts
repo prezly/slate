@@ -1,4 +1,5 @@
 import type { Events } from '@prezly/events';
+import type { Decorate } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { Editor, Element } from 'slate';
@@ -55,6 +56,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     autoFocus?: boolean;
     className?: string;
     contentStyle?: CSSProperties;
+    decorate?: Decorate;
     editorRef?: RefObject<EditorRef>;
     onChange: (value: Value) => void;
     onIsOperationPendingChange?: (isOperationPending: boolean) => void;

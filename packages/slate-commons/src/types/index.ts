@@ -1,4 +1,5 @@
 export type { Decorate } from './Decorate';
+export type { DecorateFactory } from './DecorateFactory';
 export type { DeserializeElement } from './DeserializeElement';
 export type { DeserializeHtml } from './DeserializeHtml';
 export type { DeserializeLeaf } from './DeserializeLeaf';

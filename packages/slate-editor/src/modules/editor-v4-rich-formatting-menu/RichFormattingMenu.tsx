@@ -2,10 +2,9 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
-import type { Range } from 'slate';
-import { Editor, Transforms } from 'slate';
+import { Editor, Range, Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
 
@@ -22,6 +21,7 @@ import {
     useRangeRef,
 } from './lib';
 import { LinkMenu } from './LinkMenu';
+import styles from './RichFormattingMenu.module.scss';
 import type { Formatting } from './types';
 
 interface Props {
@@ -33,10 +33,17 @@ interface Props {
     withLinks: boolean;
 }
 
-const OFFSET_MODIFIER: Modifier<'offset'> = {
+const TOOLBAR_OFFSET_MODIFIER: Modifier<'offset'> = {
     name: 'offset',
     options: {
         offset: [-12, 4],
+    },
+};
+
+const LINK_MENU_OFFSET_MODIFIER: Modifier<'offset'> = {
+    name: 'offset',
+    options: {
+        offset: [-8, 4],
     },
 };
 
@@ -138,12 +145,22 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         Transforms.select(editor, selection);
     }
 
-    if (withLinks && linkRange?.current) {
+    useEffect(
+        function () {
+            if (editor.selection && Range.isCollapsed(editor.selection) && linkRange?.current) {
+                clearLinkRange();
+            }
+        },
+        [editor.selection],
+    );
+
+    if (withLinks && linkRange?.current && editor.selection && Range.isExpanded(editor.selection)) {
         return (
             <TextSelectionPortalV2
                 containerElement={containerElement}
-                modifiers={[OFFSET_MODIFIER]}
+                modifiers={[LINK_MENU_OFFSET_MODIFIER]}
                 placement="bottom-start"
+                arrowClassName={styles['link-menu']}
             >
                 <LinkMenu
                     node={link}
@@ -165,7 +182,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         <TextSelectionPortalV2
             containerElement={containerElement}
             modifiers={[
-                OFFSET_MODIFIER,
+                TOOLBAR_OFFSET_MODIFIER,
                 keepToolbarInTextColumn({
                     editorElement: containerElement,
                     availableWidth,

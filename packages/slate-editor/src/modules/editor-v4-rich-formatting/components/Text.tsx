@@ -3,7 +3,7 @@ import type { RenderLeafProps } from 'slate-react';
 
 import { MarkType } from '../types';
 
-export function Text({ attributes, children, leaf }: RenderLeafProps) {
+export function Text({ children, leaf }: RenderLeafProps) {
     if (leaf[MarkType.BOLD]) {
         children = <strong>{children}</strong>;
     }
@@ -24,5 +24,5 @@ export function Text({ attributes, children, leaf }: RenderLeafProps) {
         children = <u>{children}</u>;
     }
 
-    return <span {...attributes}>{children}</span>;
+    return <>{children}</>;
 }

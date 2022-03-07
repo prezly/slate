@@ -1,0 +1,60 @@
+@import "styles/variables";
+
+.base-portal-v2 {
+    $highest-known-z-index: $story-composer-sidebar-z-index;
+
+    position: absolute;
+    top: -10000px;
+    left: -10000px;
+    z-index: $highest-known-z-index + 1;
+    background: inherit;
+
+    &--uninitialized {
+        opacity: 0;
+    }
+
+    &--no-pointer-events {
+        pointer-events: none;
+    }
+}
+
+.arrow {
+    position: absolute;
+    visibility: hidden;
+
+    &,
+    &::before {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: inherit;
+    }
+
+    &::before {
+        visibility: visible;
+        content: "";
+        transform: rotate(45deg);
+    }
+
+    &.top {
+        bottom: -4px;
+    }
+
+    &.bottom {
+        top: -4px;
+    }
+
+    &.left {
+        right: -4px;
+    }
+
+    &.right {
+        left: -4px;
+    }
+
+    &.hidden {
+        &::before {
+            visibility: hidden;
+        }
+    }
+}
