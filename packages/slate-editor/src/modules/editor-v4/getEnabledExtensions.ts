@@ -5,6 +5,7 @@ import { noop } from '#lodash';
 
 import { AutoformatExtension } from '#modules/editor-v4-autoformat';
 import { CoverageExtension } from '#modules/editor-v4-coverage';
+import { DecorateSelectionExtension } from '#modules/editor-v4-decorate-selection';
 import { DividerExtension } from '#modules/editor-v4-divider';
 import { EmbedExtension } from '#modules/editor-v4-embed';
 import { FileAttachmentExtension } from '#modules/editor-v4-file-attachment';
@@ -18,7 +19,6 @@ import { ParagraphsExtension } from '#modules/editor-v4-paragraphs';
 import { PlaceholderMentionsExtension } from '#modules/editor-v4-placeholder-mentions';
 import { PressContactsExtension } from '#modules/editor-v4-press-contacts';
 import { RichFormattingExtension } from '#modules/editor-v4-rich-formatting';
-import { RichFormattingMenuExtension } from '#modules/editor-v4-rich-formatting-menu';
 import { UserMentionsExtension } from '#modules/editor-v4-user-mentions';
 
 import { StoryEmbedExtension } from '../editor-v4-story-embed';
@@ -64,6 +64,7 @@ export function* getEnabledExtensions({
     withAutoformat,
     withStoryEmbeds,
 }: Parameters): Generator<Extension> {
+    yield DecorateSelectionExtension();
     yield ParagraphsExtension();
 
     if (withFloatingAddMenu) {
@@ -86,9 +87,6 @@ export function* getEnabledExtensions({
         yield RichFormattingExtension({
             blocks: Boolean(withRichFormatting.blocks),
         });
-    }
-    if (withRichFormatting?.menu) {
-        yield RichFormattingMenuExtension();
     }
     if (withRichFormatting?.links) {
         yield InlineLinksExtension();

@@ -7,9 +7,9 @@ import { SelectionHighlight } from './components';
 
 const SELECTION_MARK = 'selection';
 
-export function RichFormattingMenuExtension(): Extension {
+export function DecorateSelectionExtension(): Extension {
     return {
-        id: 'RichFormattingMenuExtension',
+        id: 'DecorateSelectionExtension',
         decorate(editor: Editor) {
             return function decorateSelection([node, path]) {
                 if (editor.selection && Range.isExpanded(editor.selection) && Text.isText(node)) {
