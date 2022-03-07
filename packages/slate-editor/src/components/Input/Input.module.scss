@@ -17,6 +17,7 @@
     background: $white;
     padding: $spacing-1 $spacing-1-5;
     flex-grow: 1;
+    width: 100%;
 
     &::placeholder {
         color: $grey-400;
