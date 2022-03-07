@@ -33,10 +33,17 @@ interface Props {
     withLinks: boolean;
 }
 
-const OFFSET_MODIFIER: Modifier<'offset'> = {
+const TOOLBAR_OFFSET_MODIFIER: Modifier<'offset'> = {
     name: 'offset',
     options: {
         offset: [-12, 4],
+    },
+};
+
+const LINK_MENU_OFFSET_MODIFIER: Modifier<'offset'> = {
+    name: 'offset',
+    options: {
+        offset: [-8, 4],
     },
 };
 
@@ -151,7 +158,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         return (
             <TextSelectionPortalV2
                 containerElement={containerElement}
-                modifiers={[OFFSET_MODIFIER]}
+                modifiers={[LINK_MENU_OFFSET_MODIFIER]}
                 placement="bottom-start"
                 arrowClassName={styles['link-menu']}
             >
@@ -175,7 +182,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         <TextSelectionPortalV2
             containerElement={containerElement}
             modifiers={[
-                OFFSET_MODIFIER,
+                TOOLBAR_OFFSET_MODIFIER,
                 keepToolbarInTextColumn({
                     editorElement: containerElement,
                     availableWidth,
