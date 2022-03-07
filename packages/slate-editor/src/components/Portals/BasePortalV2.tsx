@@ -76,14 +76,6 @@ export const BasePortalV2: FunctionComponent<Props> = ({
                 placement: 'top-start',
             },
         });
-
-        popperModifiers.push({
-            name: 'offset',
-            enabled: true,
-            options: {
-                offset: [0, 4],
-            },
-        });
     }
 
     const { attributes, styles } = usePopper(referenceElement, popperElement, {
