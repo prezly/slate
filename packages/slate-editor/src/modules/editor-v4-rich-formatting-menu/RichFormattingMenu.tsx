@@ -138,11 +138,14 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         Transforms.select(editor, selection);
     }
 
-    useEffect(function() {
-        if (editor.selection && Range.isCollapsed(editor.selection) && linkRange?.current) {
-            clearLinkRange();
-        }
-    }, [editor.selection]);
+    useEffect(
+        function () {
+            if (editor.selection && Range.isCollapsed(editor.selection) && linkRange?.current) {
+                clearLinkRange();
+            }
+        },
+        [editor.selection],
+    );
 
     if (withLinks && linkRange?.current && editor.selection && Range.isExpanded(editor.selection)) {
         return (
