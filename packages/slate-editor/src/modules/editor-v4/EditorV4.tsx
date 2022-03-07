@@ -72,6 +72,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         autoFocus,
         className,
         contentStyle,
+        decorate,
         editorRef,
         onChange,
         onIsOperationPendingChange,
@@ -132,7 +133,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         }),
     );
 
-    const { decorateList, editor, onKeyDownList } = useCreateEditor({
+    const { editor, onKeyDownList } = useCreateEditor({
         events,
         extensions,
         onKeyDown,
@@ -329,7 +330,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 value={value}
             >
                 <EditableWithExtensions
-                    decorate={decorateList}
+                    decorate={decorate}
                     extensions={extensions}
                     onCut={createOnCut(editor)}
                     onKeyDown={onKeyDownList}

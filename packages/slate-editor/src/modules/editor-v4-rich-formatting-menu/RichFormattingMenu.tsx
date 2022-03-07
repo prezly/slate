@@ -2,10 +2,9 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
-import type { Range } from 'slate';
-import { Editor, Transforms } from 'slate';
+import { Editor, Range, Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
 
@@ -139,15 +138,16 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         Transforms.select(editor, selection);
     }
 
-    React.useEffect(() => {
-        Editor.addMark(editor, MarkType.SELECTION, true);
+    useEffect(
+        function () {
+            if (editor.selection && Range.isCollapsed(editor.selection) && linkRange?.current) {
+                clearLinkRange();
+            }
+        },
+        [editor.selection],
+    );
 
-        return () => {
-            Editor.removeMark(editor, MarkType.SELECTION);
-        };
-    }, [linkRange?.current]);
-
-    if (withLinks && linkRange?.current) {
+    if (withLinks && linkRange?.current && editor.selection && Range.isExpanded(editor.selection)) {
         return (
             <TextSelectionPortalV2
                 containerElement={containerElement}
