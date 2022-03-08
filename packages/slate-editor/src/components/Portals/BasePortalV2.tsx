@@ -73,7 +73,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
             enabled: true,
             options: {
                 element: arrowElement,
-                placement: 'top-start',
+                padding: 12,
             },
         });
     }
