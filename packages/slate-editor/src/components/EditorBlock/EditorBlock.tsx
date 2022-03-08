@@ -73,8 +73,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     return (
         <div
             {...attributes}
-            className={classNames(className, styles.block, {
-                [styles.selected]: isSelected,
+            className={classNames(className, styles.outer, {
                 [styles.void]: isVoid,
                 [styles.extendedHitArea]: extendedHitArea,
             })}
@@ -84,7 +83,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             ref={ref}
         >
             <div
-                className={styles.container}
+                className={classNames(styles.card, {
+                    [styles.selected]: isSelected,
+                })}
                 contentEditable={false}
                 ref={setContainer}
                 onClick={openMenu}
