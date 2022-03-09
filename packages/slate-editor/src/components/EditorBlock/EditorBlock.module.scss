@@ -24,6 +24,7 @@
 
 .card {
     white-space: normal;
+    position: relative;
 
     &.selected {
         @include editor-v4-block-active;
