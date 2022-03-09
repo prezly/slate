@@ -19,7 +19,7 @@ import { EditorBlock /*, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2*/ }
 // import { ImageMenu } from '../ImageMenu';
 // import { ResizableContainer } from '../ResizableContainer';
 
-import { updateImage } from '../transforms';
+import { removeImage, updateImage } from '../transforms';
 
 import { Image } from './Image';
 import styles from './ImageElement.module.scss';
@@ -113,7 +113,13 @@ export const ImageElement: FunctionComponent<Props> = ({
     // }
 
     const handleCrop = useCallback(() => onCrop(editor, element), [editor, element]);
-    const handleRemove = useCallback(() => onRemove(editor, element), [editor, element]);
+    const handleRemove = useCallback(
+        function () {
+            const removedElement = removeImage(editor);
+            if (removedElement) onRemove(editor, removedElement);
+        },
+        [editor, element],
+    );
     const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
 
