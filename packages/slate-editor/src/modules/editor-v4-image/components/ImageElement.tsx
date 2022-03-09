@@ -21,7 +21,7 @@ import { EditorBlock /*, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2*/ }
 
 import { noop } from '#lodash';
 
-import { updateImage } from '../../transforms';
+import { updateImage } from '../transforms';
 
 import { Image } from './Image';
 import styles from './ImageElement.module.scss';
