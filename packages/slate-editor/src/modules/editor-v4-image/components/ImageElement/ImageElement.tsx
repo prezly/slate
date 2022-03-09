@@ -6,10 +6,10 @@ import { UploadcareImage } from '@prezly/uploadcare';
 // import classNames from 'classnames';
 import classNames from 'classnames';
 import type { FunctionComponent, RefObject } from 'react';
-import React /*, { useState }*/ from 'react';
+import React /*, { useState }*/, { useCallback } from 'react';
 import { Editor /*, Transforms*/ } from 'slate';
 import type { RenderElementProps } from 'slate-react';
-import { useSelected, /*ReactEditor, useSelected,*/ useSlate } from 'slate-react';
+import { useSelected, /*ReactEditor, useSelected,*/ useSlateStatic } from 'slate-react';
 
 import { EditorBlock /*, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2*/ } from '#components';
 // import { Image as ImageIcon } from '#icons';
@@ -19,8 +19,13 @@ import { EditorBlock /*, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2*/ }
 // import { ImageMenu } from '../ImageMenu';
 // import { ResizableContainer } from '../ResizableContainer';
 
+import { noop } from '#lodash';
+
+import { updateImage } from '../../transforms';
+
 import { Image } from './Image';
 import styles from './ImageElement.module.scss';
+import { ImageMenu } from './ImageMenu';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -69,7 +74,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     // const imageWidthFactor = element.width_factor || defaultWidthFactor;
     // const imageWidthPercent = element.width || '100%';
 
-    const editor = useSlate();
+    const editor = useSlateStatic();
     const isSelected = useSelected();
     const isVoid = Editor.isVoid(editor, element);
     const isSupportingCaptions = !isVoid;
@@ -77,8 +82,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     // const [isLinkMenuOpen, setLinkMenuOpen] = useState<boolean>(false);
     // const [imageElement, setImageElement] = useState<HTMLElement | null>(null);
     const isCaptionVisible =
-        isSupportingCaptions &&
-        (isSelected || !EditorCommands.isNodeEmpty(editor, element));
+        isSupportingCaptions && (isSelected || !EditorCommands.isNodeEmpty(editor, element));
     // const isContainedLayout = activeLayout === ImageLayout.CONTAINED;
     //
     // function focusCurrentElement() {
@@ -108,15 +112,25 @@ export const ImageElement: FunctionComponent<Props> = ({
     //     onEdit(editor);
     // }
 
+    const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
+
     return (
         <EditorBlock
             {...attributes}
             element={element}
             layout={element.layout}
             overlay="always"
-            renderBlock={function () {
-                return <Image alt="Image" className={styles.image} src={image.cdnUrl} />;
-            }}
+            renderBlock={() => <Image alt="Image" className={styles.image} src={image.cdnUrl} />}
+            renderMenu={({ onClose }) => (
+                <ImageMenu
+                    element={element}
+                    onChange={handleUpdate}
+                    onClose={onClose}
+                    onCrop={noop}
+                    onEdit={noop}
+                    onRemove={noop}
+                />
+            )}
             void={isVoid}
         >
             {isSupportingCaptions ? (
