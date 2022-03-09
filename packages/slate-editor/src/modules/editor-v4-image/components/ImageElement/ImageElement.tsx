@@ -1,15 +1,17 @@
 // import { EditorCommands } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
 import type { ImageNode } from '@prezly/slate-types';
 // import { ImageLayout, isImageNode } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 // import classNames from 'classnames';
+import classNames from 'classnames';
 import type { FunctionComponent, RefObject } from 'react';
-import React/*, { useState }*/ from 'react';
-import { Editor/*, Transforms*/ } from 'slate';
+import React /*, { useState }*/ from 'react';
+import { Editor /*, Transforms*/ } from 'slate';
 import type { RenderElementProps } from 'slate-react';
-import { /*ReactEditor, useSelected,*/ useSlate } from 'slate-react';
+import { useSelected, /*ReactEditor, useSelected,*/ useSlate } from 'slate-react';
 
-import { EditorBlock/*, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2*/ } from '#components';
+import { EditorBlock /*, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2*/ } from '#components';
 // import { Image as ImageIcon } from '#icons';
 //
 // import { LinkWithTooltip } from '#modules/editor-v4-components';
@@ -68,15 +70,15 @@ export const ImageElement: FunctionComponent<Props> = ({
     // const imageWidthPercent = element.width || '100%';
 
     const editor = useSlate();
-    // const isSelected = useSelected();
+    const isSelected = useSelected();
     const isVoid = Editor.isVoid(editor, element);
-    // const isSupportingCaptions = !isVoid;
+    const isSupportingCaptions = !isVoid;
     // const [isLoading, setLoading] = useState<boolean>(false);
     // const [isLinkMenuOpen, setLinkMenuOpen] = useState<boolean>(false);
     // const [imageElement, setImageElement] = useState<HTMLElement | null>(null);
-    // const isCaptionVisible =
-    //     isSupportingCaptions &&
-    //     (isSelected || isLinkMenuOpen || !EditorCommands.isNodeEmpty(editor, element));
+    const isCaptionVisible =
+        isSupportingCaptions &&
+        (isSelected || !EditorCommands.isNodeEmpty(editor, element));
     // const isContainedLayout = activeLayout === ImageLayout.CONTAINED;
     //
     // function focusCurrentElement() {
@@ -117,7 +119,17 @@ export const ImageElement: FunctionComponent<Props> = ({
             }}
             void={isVoid}
         >
-            {children}
+            {isSupportingCaptions ? (
+                <div
+                    className={classNames(styles.caption, {
+                        [styles.visible]: isCaptionVisible,
+                    })}
+                >
+                    {children}
+                </div>
+            ) : (
+                children
+            )}
         </EditorBlock>
     );
 
@@ -194,17 +206,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     //                 </LinkWithTooltip>
     //             </ResizableContainer>
     //
-    //             {isSupportingCaptions ? (
-    //                 <div
-    //                     className={classNames('editor-v4-image-element__caption', {
-    //                         'editor-v4-image-element__caption--visible': isCaptionVisible,
-    //                     })}
-    //                 >
-    //                     {children}
-    //                 </div>
-    //             ) : (
-    //                 children
-    //             )}
+    //
     //         </div>
     //     </>
     // );
