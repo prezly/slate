@@ -20,8 +20,8 @@ interface Props {
     element: ImageNode;
     onClose: () => void;
     onCrop: () => void;
-    onEdit: () => void;
     onRemove: () => void;
+    onReplace: () => void;
     onUpdate: (props: Partial<Pick<ImageNode, 'layout' | 'href'>>) => void;
     showLayoutControls: boolean;
 }
@@ -48,8 +48,8 @@ export function ImageMenu({
     element,
     onClose,
     onCrop,
-    onEdit,
     onRemove,
+    onReplace,
     onUpdate,
     showLayoutControls,
 }: Props) {
@@ -82,12 +82,8 @@ export function ImageMenu({
             <Toolbox.Section noPadding>
                 <ButtonGroup>
                     {[
-                        <Button key="edit" variant="clear" icon={Reload} fullWidth onClick={onEdit}>
-                            Replace
-                        </Button>,
-                        <Button key="crop" variant="clear" icon={Crop} fullWidth onClick={onCrop}>
-                            Crop
-                        </Button>,
+                        <ReplaceButton key="replace" onClick={onReplace} />,
+                        <CropButton key="crop" onClick={onCrop} />,
                     ]}
                 </ButtonGroup>
             </Toolbox.Section>
@@ -125,5 +121,21 @@ export function ImageMenu({
                 </Button>
             </Toolbox.Footer>
         </>
+    );
+}
+
+function ReplaceButton(props: { onClick: () => void }) {
+    return (
+        <Button variant="clear" icon={Reload} fullWidth onClick={props.onClick}>
+            Replace
+        </Button>
+    );
+}
+
+function CropButton(props: { onClick: () => void }) {
+    return (
+        <Button  variant="clear" icon={Crop} fullWidth onClick={props.onClick}>
+            Crop
+        </Button>
     );
 }

@@ -30,6 +30,7 @@ export interface ImageExtensionParameters {
 export interface ImageParameters extends ImageExtensionParameters {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
-    onEdit?: (editor: Editor) => void;
+    onCrop?: (editor: Editor, element: ImageNode) => void;
     onRemove?: (editor: Editor, element: ImageNode) => void;
+    onReplace?: (editor: Editor, element: ImageNode) => void;
 }

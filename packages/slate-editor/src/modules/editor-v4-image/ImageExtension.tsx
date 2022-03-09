@@ -34,8 +34,9 @@ export const ImageExtension = ({
     availableWidth,
     captions,
     containerRef,
-    onEdit = noop,
+    onCrop = noop,
     onRemove = noop,
+    onReplace = noop,
     showLayoutControls,
 }: ImageParameters): Extension => ({
     deserialize: {
@@ -126,9 +127,10 @@ export const ImageExtension = ({
                     availableWidth={availableWidth}
                     containerRef={containerRef}
                     element={element}
-                    onEdit={onEdit}
+                    onCrop={onCrop}
                     onRemove={onRemove}
-                    showLayoutControls={showLayoutControls}
+                    onReplace={onReplace}
+                    showLayoutControls={Boolean(showLayoutControls)}
                 >
                     {children}
                 </ImageElement>

@@ -29,7 +29,8 @@ interface Props extends RenderElementProps {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
     element: ImageNode;
-    onEdit: (editor: Editor) => void;
+    onCrop: (editor: Editor, element: ImageNode) => void;
+    onReplace: (editor: Editor, element: ImageNode) => void;
     onRemove: (editor: Editor, element: ImageNode) => void;
     showLayoutControls: boolean;
 }
@@ -56,7 +57,8 @@ export const ImageElement: FunctionComponent<Props> = ({
     children,
     // containerRef,
     element,
-    onEdit,
+    onCrop,
+    onReplace,
     onRemove,
     showLayoutControls,
 }) => {
@@ -110,8 +112,9 @@ export const ImageElement: FunctionComponent<Props> = ({
     //     onEdit(editor);
     // }
 
-    const handleEdit = useCallback(() => onEdit(editor), [editor]);
+    const handleCrop = useCallback(() => onCrop(editor, element), [editor, element]);
     const handleRemove = useCallback(() => onRemove(editor, element), [editor, element]);
+    const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
 
     return (
@@ -125,9 +128,9 @@ export const ImageElement: FunctionComponent<Props> = ({
                 <ImageMenu
                     element={element}
                     onClose={onClose}
-                    onCrop={handleEdit}
-                    onEdit={handleEdit}
+                    onCrop={handleCrop}
                     onRemove={handleRemove}
+                    onReplace={handleReplace}
                     onUpdate={handleUpdate}
                     showLayoutControls={showLayoutControls}
                 />
