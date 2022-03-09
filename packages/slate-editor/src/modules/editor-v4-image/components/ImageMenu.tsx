@@ -1,6 +1,6 @@
 import type { ImageNode } from '@prezly/slate-types';
 import { ImageLayout } from '@prezly/slate-types';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import type { OptionsGroupOption } from '#components';
 import { Button, ButtonGroup, Input, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
@@ -53,6 +53,26 @@ export function ImageMenu({
     onUpdate,
     showLayoutControls,
 }: Props) {
+    const [href, setHref] = useState(element.href);
+
+    const onHrefChange = useCallback(
+        function (href: string, valid: boolean) {
+            console.log({ href, valid });
+            setHref(href);
+            if (valid) {
+                onUpdate({ href });
+            }
+        },
+        [setHref],
+    );
+
+    useEffect(
+        function () {
+            setHref(element.href);
+        },
+        [element.href],
+    );
+
     return (
         <>
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
@@ -89,8 +109,8 @@ export function ImageMenu({
                         <Toolbox.Caption>Link</Toolbox.Caption>
                         <Input
                             name="href"
-                            value={element.href}
-                            onChange={(href) => onUpdate({ href })}
+                            value={href}
+                            onChange={onHrefChange}
                             icon={Link}
                             pattern={STRING_URL_PATTERN}
                             placeholder="Paste link"
