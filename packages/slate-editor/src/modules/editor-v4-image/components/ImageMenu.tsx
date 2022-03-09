@@ -3,7 +3,7 @@ import { ImageLayout } from '@prezly/slate-types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import type { OptionsGroupOption } from '#components';
-import { Button, ButtonGroup, Input, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
+import { Button, ButtonGroup, Input, OptionsGroup, Toolbox, VStack } from '#components';
 import {
     Crop,
     Delete,
@@ -116,8 +116,6 @@ export function ImageMenu({
                             placeholder="Paste link"
                         />
                     </VStack>
-
-                    <Toggle name="new_tab">Open in new tab</Toggle>
                 </VStack>
             </Toolbox.Section>
 
