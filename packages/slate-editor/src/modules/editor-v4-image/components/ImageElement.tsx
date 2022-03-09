@@ -124,11 +124,11 @@ export const ImageElement: FunctionComponent<Props> = ({
             renderMenu={({ onClose }) => (
                 <ImageMenu
                     element={element}
-                    onChange={handleUpdate}
                     onClose={onClose}
                     onCrop={handleEdit}
                     onEdit={handleEdit}
                     onRemove={handleRemove}
+                    onUpdate={handleUpdate}
                 />
             )}
             void={isVoid}

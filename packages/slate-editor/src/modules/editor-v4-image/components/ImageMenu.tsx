@@ -18,11 +18,11 @@ import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
 
 interface Props {
     element: ImageNode;
-    onChange: (props: Partial<Pick<ImageNode, 'layout' | 'href'>>) => void;
     onClose: () => void;
     onCrop: () => void;
     onEdit: () => void;
     onRemove: () => void;
+    onUpdate: (props: Partial<Pick<ImageNode, 'layout' | 'href'>>) => void;
 }
 
 const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
@@ -43,7 +43,7 @@ const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
     },
 ];
 
-export function ImageMenu({ element, onChange, onClose, onCrop, onEdit, onRemove }: Props) {
+export function ImageMenu({ element, onClose, onCrop, onEdit, onRemove, onUpdate }: Props) {
     return (
         <>
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
@@ -68,7 +68,7 @@ export function ImageMenu({ element, onChange, onClose, onCrop, onEdit, onRemove
                     name="layout"
                     options={IMAGE_SIZE_OPTIONS}
                     selectedValue={element.layout}
-                    onChange={(layout) => onChange({ layout })}
+                    onChange={(layout) => onUpdate({ layout })}
                 />
             </Toolbox.Section>
 
@@ -79,7 +79,7 @@ export function ImageMenu({ element, onChange, onClose, onCrop, onEdit, onRemove
                         <Input
                             name="href"
                             value={element.href}
-                            onChange={(href) => onChange({ href })}
+                            onChange={(href) => onUpdate({ href })}
                             icon={Link}
                             pattern={STRING_URL_PATTERN}
                             placeholder="Paste link"
