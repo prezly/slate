@@ -54,6 +54,7 @@
 .arrow {
     position: absolute;
     visibility: hidden;
+    z-index: -1;
 
     &,
     &::before {
