@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import type { ReactNode, MouseEvent } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import type { Node, Path } from 'slate';
-import { Editor } from 'slate';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { Editor, Transforms } from 'slate';
+import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
 import { useSlateDom } from '#lib';
@@ -63,6 +63,15 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
     const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
 
+    const handleClick = useCallback(function () {
+        openMenu();
+
+        if (!isVoid) {
+            const path = ReactEditor.findPath(editor, element);
+            Transforms.select(editor, path);
+        }
+    }, [editor, element, openMenu, isVoid]);
+
     useEffect(
         function () {
             if (isOnlyBlockSelected) setMenuOpen(true);
@@ -88,7 +97,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 })}
                 contentEditable={false}
                 ref={setContainer}
-                onClick={openMenu}
+                onClick={handleClick}
             >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
                     <Menu
