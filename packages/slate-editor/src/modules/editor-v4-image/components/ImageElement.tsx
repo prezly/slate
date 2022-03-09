@@ -19,8 +19,6 @@ import { EditorBlock /*, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2*/ }
 // import { ImageMenu } from '../ImageMenu';
 // import { ResizableContainer } from '../ResizableContainer';
 
-import { noop } from '#lodash';
-
 import { updateImage } from '../transforms';
 
 import { Image } from './Image';
@@ -58,8 +56,8 @@ export const ImageElement: FunctionComponent<Props> = ({
     children,
     // containerRef,
     element,
-    // onEdit,
-    // onRemove,
+    onEdit,
+    onRemove,
     // showLayoutControls,
 }) => {
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview(
@@ -112,6 +110,8 @@ export const ImageElement: FunctionComponent<Props> = ({
     //     onEdit(editor);
     // }
 
+    const handleEdit = useCallback(() => onEdit(editor), [editor]);
+    const handleRemove = useCallback(() => onRemove(editor, element), [editor, element]);
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
 
     return (
@@ -126,9 +126,9 @@ export const ImageElement: FunctionComponent<Props> = ({
                     element={element}
                     onChange={handleUpdate}
                     onClose={onClose}
-                    onCrop={noop}
-                    onEdit={noop}
-                    onRemove={noop}
+                    onCrop={handleEdit}
+                    onEdit={handleEdit}
+                    onRemove={handleRemove}
                 />
             )}
             void={isVoid}
