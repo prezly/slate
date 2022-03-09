@@ -31,7 +31,7 @@ interface Props extends RenderElementProps {
     element: ImageNode;
     onEdit: (editor: Editor) => void;
     onRemove: (editor: Editor, element: ImageNode) => void;
-    showLayoutControls?: boolean;
+    showLayoutControls: boolean;
 }
 
 // const getImageAvailableWidth = ({
@@ -58,7 +58,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     element,
     onEdit,
     onRemove,
-    // showLayoutControls,
+    showLayoutControls,
 }) => {
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview(
         availableWidth * 2, // Using 2x for retina.
@@ -129,6 +129,7 @@ export const ImageElement: FunctionComponent<Props> = ({
                     onEdit={handleEdit}
                     onRemove={handleRemove}
                     onUpdate={handleUpdate}
+                    showLayoutControls={showLayoutControls}
                 />
             )}
             void={isVoid}

@@ -23,6 +23,7 @@ interface Props {
     onEdit: () => void;
     onRemove: () => void;
     onUpdate: (props: Partial<Pick<ImageNode, 'layout' | 'href'>>) => void;
+    showLayoutControls: boolean;
 }
 
 const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
@@ -43,7 +44,15 @@ const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
     },
 ];
 
-export function ImageMenu({ element, onClose, onCrop, onEdit, onRemove, onUpdate }: Props) {
+export function ImageMenu({
+    element,
+    onClose,
+    onCrop,
+    onEdit,
+    onRemove,
+    onUpdate,
+    showLayoutControls,
+}: Props) {
     return (
         <>
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
@@ -63,14 +72,16 @@ export function ImageMenu({ element, onClose, onCrop, onEdit, onRemove, onUpdate
                 </ButtonGroup>
             </Toolbox.Section>
 
-            <Toolbox.Section caption="Image size">
-                <OptionsGroup
-                    name="layout"
-                    options={IMAGE_SIZE_OPTIONS}
-                    selectedValue={element.layout}
-                    onChange={(layout) => onUpdate({ layout })}
-                />
-            </Toolbox.Section>
+            {showLayoutControls && (
+                <Toolbox.Section caption="Image size">
+                    <OptionsGroup
+                        name="layout"
+                        options={IMAGE_SIZE_OPTIONS}
+                        selectedValue={element.layout}
+                        onChange={(layout) => onUpdate({ layout })}
+                    />
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Section>
                 <VStack spacing="2-5">
