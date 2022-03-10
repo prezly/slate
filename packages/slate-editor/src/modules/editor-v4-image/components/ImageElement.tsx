@@ -2,6 +2,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ImageNode } from '@prezly/slate-types';
 // import { ImageLayout, isImageNode } from '@prezly/slate-types';
+import { ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 // import classNames from 'classnames';
 import classNames from 'classnames';
@@ -141,6 +142,7 @@ export const ImageElement: FunctionComponent<Props> = ({
                     showLayoutControls={showLayoutControls}
                 />
             )}
+            resizable={true}
             void={isVoid}
         >
             {isSupportingCaptions ? (

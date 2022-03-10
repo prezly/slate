@@ -25,6 +25,8 @@
 .card {
     white-space: normal;
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
 
     &.selected {
         @include editor-v4-block-active;
@@ -92,4 +94,8 @@
             visibility: hidden;
         }
     }
+}
+
+.resizeButton {
+    z-index: $editor-v4-embed-element-overlay-z-index + 1;
 }

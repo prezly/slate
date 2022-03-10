@@ -13,6 +13,7 @@ import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
+import { ResizeButton } from './ResizeButton';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
@@ -33,6 +34,7 @@ interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAtt
     layout?: Layout;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
+    resizable?: boolean;
     overlay?: OverlayMode;
     void?: boolean;
 }
@@ -46,6 +48,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         layout = 'contained',
         renderBlock,
         renderMenu,
+        resizable: isResizable = false,
         overlay = false,
         void: isVoid,
         ...attributes
@@ -63,14 +66,17 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
     const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
 
-    const handleClick = useCallback(function () {
-        openMenu();
+    const handleClick = useCallback(
+        function () {
+            openMenu();
 
-        if (!isVoid) {
-            const path = ReactEditor.findPath(editor, element);
-            Transforms.select(editor, path);
-        }
-    }, [editor, element, openMenu, isVoid]);
+            if (!isVoid) {
+                const path = ReactEditor.findPath(editor, element);
+                Transforms.select(editor, path);
+            }
+        },
+        [editor, element, openMenu, isVoid],
+    );
 
     useEffect(
         function () {
@@ -111,6 +117,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 )}
                 <Overlay selected={isSelected} mode={overlay} />
                 {renderBlock({ isSelected })}
+                {isResizable && <ResizeButton className={styles.resizeButton} />}
             </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}
