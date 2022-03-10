@@ -28,6 +28,7 @@
     &:focus {
         outline: none;
         box-shadow: 0 0 0px $spacing-half #c7d2fe;
+        border-color: transparent;
     }
 
     &:disabled {

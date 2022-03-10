@@ -43,7 +43,7 @@ const TOOLBAR_OFFSET_MODIFIER: Modifier<'offset'> = {
 const LINK_MENU_OFFSET_MODIFIER: Modifier<'offset'> = {
     name: 'offset',
     options: {
-        offset: [-8, 4],
+        offset: [-8, 10],
     },
 };
 
