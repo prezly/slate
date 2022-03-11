@@ -140,7 +140,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         plugins,
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         editor.children = value;
     }, [value]);
 
