@@ -140,6 +140,10 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         plugins,
     });
 
+    React.useEffect(() => {
+        editor.children = value;
+    }, [value]);
+
     useEffect(() => {
         if (autoFocus) {
             EditorCommands.focus(editor);
