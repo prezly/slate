@@ -11,15 +11,6 @@
         @include editor-v4-block-active;
     }
 
-    &__overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: $editor-v4-embed-element-overlay-z-index;
-    }
-
     &__card {
     }
 
