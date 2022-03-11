@@ -107,6 +107,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
                     <Menu
+                        className={styles.menu}
                         editorElement={editorElement}
                         open={menuOpen}
                         reference={container}
@@ -115,7 +116,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}
-                <Overlay selected={isSelected} mode={overlay} />
+                <Overlay className={styles.overlay} selected={isSelected} mode={overlay} />
                 {renderBlock({ isSelected })}
                 {isResizable && <ResizeButton className={styles.resizeButton} />}
             </div>

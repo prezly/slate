@@ -35,65 +35,11 @@
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     z-index: $editor-v4-embed-element-overlay-z-index;
-
-    &.hidden {
-        display: none;
-    }
 }
 
 .menu {
-    width: 280px;
-    position: absolute;
-    backdrop-filter: blur(6px);
     z-index: $editor-v4-embed-element-overlay-z-index + 1;
-}
-
-.arrow {
-    position: absolute;
-    visibility: hidden;
-    z-index: -1;
-
-    &,
-    &::before {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: inherit;
-    }
-
-    &::before {
-        visibility: visible;
-        content: "";
-        transform: rotate(45deg);
-    }
-
-    &.top {
-        bottom: -4px;
-    }
-
-    &.bottom {
-        top: -4px;
-    }
-
-    &.left {
-        right: -4px;
-    }
-
-    &.right {
-        left: -4px;
-    }
-
-    &.hidden {
-        &::before {
-            visibility: hidden;
-        }
-    }
 }
 
 .resizeButton {
