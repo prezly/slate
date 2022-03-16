@@ -16,12 +16,11 @@ interface Props {
     enabled: boolean;
     maxWidth: number;
     minWidth: number;
-    onResize: (widthPercent: string, widthFactor: string) => void;
+    onResize: (widthPercent: string) => void;
     onResizeStop?: () => void;
     resizingClassName?: string;
     style?: CSSProperties | null;
     width: number;
-    widthFactor: string;
     widthPercent: string;
 }
 
@@ -57,7 +56,7 @@ export class ResizableContainer extends Component<Props, State> {
     }
 
     componentDidMount() {
-        this.props.onResize(this.state.widthPercent, this.props.widthFactor);
+        this.props.onResize(this.state.widthPercent);
     }
 
     getMaximumWidth = () => Math.min(this.props.width, this.props.maxWidth);
@@ -92,7 +91,7 @@ export class ResizableContainer extends Component<Props, State> {
             },
             () => {
                 if (this.state.widthPercent !== this.props.widthPercent) {
-                    this.props.onResize(this.state.widthPercent, this.props.widthFactor);
+                    this.props.onResize(this.state.widthPercent);
                 }
             },
         );

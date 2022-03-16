@@ -40,7 +40,6 @@ describe('withImages - normalizeChildren', () => {
                     href=""
                     layout={ImageLayout.CONTAINED}
                     width="100%"
-                    width_factor="100%"
                 >
                     <fragment>
                         <fragment>
@@ -63,7 +62,6 @@ describe('withImages - normalizeChildren', () => {
                     href=""
                     layout={ImageLayout.CONTAINED}
                     width="100%"
-                    width_factor="100%"
                 >
                     <h-text>lorem ipsum</h-text>
                     <cursor />

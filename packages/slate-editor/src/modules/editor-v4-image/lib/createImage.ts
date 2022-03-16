@@ -9,8 +9,7 @@ export function createImage(
         href = '',
         layout = ImageLayout.CONTAINED,
         width = '100%',
-        width_factor = '100%',
-    }: Partial<Omit<ImageNode, 'file' | 'type'>>,
+    }: Partial<Omit<ImageNode, 'file' | 'type' | 'width_factor'>>,
 ): ImageNode {
     return {
         type: IMAGE_NODE_TYPE,
@@ -18,7 +17,7 @@ export function createImage(
         file,
         href,
         layout,
-        width_factor,
         width,
+        width_factor: '100%',
     };
 }

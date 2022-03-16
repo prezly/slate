@@ -11,7 +11,6 @@ export function parseSerializedElement(serialized: string): ImageNode | undefine
             children: parsed.children,
             href: parsed.href,
             layout: parsed.layout,
-            width_factor: parsed.width_factor,
             width: parsed.width,
         });
     }
