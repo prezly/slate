@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { createEmptyValue } from '@prezly/slate-editor';
 import type { CSSProperties } from 'react';
 import React, { useState } from 'react';
 
@@ -7,6 +5,7 @@ import type { FileAttachmentExtensionParameters } from '#modules/editor-v4-file-
 import type { Settings as FloatingAddMenuExtensionParameters } from '#modules/editor-v4-floating-add-menu';
 
 import EditorV4 from './EditorV4';
+import { createEmptyValue } from './lib/createEmptyValue';
 import type { Value } from './types';
 
 export default {
