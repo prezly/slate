@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { createEmptyValue } from '@prezly/slate-editor';
 import type { CSSProperties } from 'react';
 import React, { useState } from 'react';
 
@@ -14,7 +16,6 @@ export default {
 
 interface IBaseProps {
     className: string;
-    placeholder: string;
     style: CSSProperties;
     withAlignmentControls: boolean;
     withAutoformat: boolean;
@@ -32,15 +33,22 @@ interface IBaseProps {
 }
 
 const BaseTemplate = (args: IBaseProps) => {
-    const [value, setValue] = useState<Value>([]);
+    const [value, setValue] = useState<Value>(createEmptyValue());
 
-    return <EditorV4 {...args} availableWidth={680} onChange={setValue} value={value} />;
+    return (
+        <EditorV4
+            {...args}
+            placeholder="Start typing..."
+            availableWidth={680}
+            onChange={setValue}
+            value={value}
+        />
+    );
 };
 
 export const Base = BaseTemplate.bind({}) as any;
 Base.args = {
     className: '',
-    placeholder: '',
     withAlignmentControls: true,
     withAutoformat: true,
     style: { marginLeft: '3rem' },
