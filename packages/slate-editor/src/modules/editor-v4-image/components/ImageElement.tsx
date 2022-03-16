@@ -123,6 +123,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     );
     const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
+    const width = calculateWidth(element);
 
     return (
         <EditorBlock
@@ -130,7 +131,9 @@ export const ImageElement: FunctionComponent<Props> = ({
             element={element}
             layout={element.layout}
             overlay="always"
-            renderBlock={() => <Image alt="Image" className={styles.image} src={image.cdnUrl} />}
+            renderBlock={() => (
+                <Image alt="Image" className={styles.image} src={image.cdnUrl} style={{ width }} />
+            )}
             renderMenu={({ onClose }) => (
                 <ImageMenu
                     element={element}
@@ -237,3 +240,10 @@ export const ImageElement: FunctionComponent<Props> = ({
     //     </>
     // );
 };
+
+function calculateWidth(element: ImageNode): number {
+    const width = parseFloat(element.width);
+    const factor = parseFloat(element.width_factor);
+
+    return width * factor;
+}
