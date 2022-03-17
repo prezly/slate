@@ -62,9 +62,8 @@ export const ImageElement: FunctionComponent<Props> = ({
         : ImageLayout.CONTAINED;
     const imageWidth =
         typeof image.originalWidth !== 'undefined' ? image.originalWidth : availableWidth;
-    const defaultWidthFactor = `${Math.round(100 * Math.min(1, imageWidth / availableWidth))}%`;
-    const imageWidthFactor = element.width_factor || defaultWidthFactor;
-    const imageWidthPercent = element.width || '100%';
+    const defaultWidth = `${Math.round(100 * Math.min(1, imageWidth / availableWidth))}%`;
+    const imageWidthPercent = element.width || defaultWidth;
 
     const editor = useSlate();
     const isSelected = useSelected();
@@ -82,15 +81,8 @@ export const ImageElement: FunctionComponent<Props> = ({
         Transforms.select(editor, path);
     }
 
-    function handleResize(widthPercent: string, widthFactor: string) {
-        Transforms.setNodes(
-            editor,
-            {
-                width: widthPercent,
-                width_factor: widthFactor,
-            },
-            { match: isImageNode },
-        );
+    function handleResize(width: string) {
+        Transforms.setNodes(editor, { width }, { match: isImageNode });
     }
 
     function handleResizeStop() {
@@ -139,7 +131,6 @@ export const ImageElement: FunctionComponent<Props> = ({
                     resizingClassName="editor-v4-image-element__resizable-container--resizing"
                     style={isContainedLayout ? null : { width: '100%' }}
                     width={imageWidth}
-                    widthFactor={imageWidthFactor}
                     widthPercent={imageWidthPercent}
                 >
                     <LinkWithTooltip enabled={element.href !== ''} href={element.href}>

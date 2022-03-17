@@ -91,8 +91,6 @@ export interface ImageNode {
     type: 'image-block';
     /** matches this regexp: /^\d+(\.\d+)?%$/ */
     width: string;
-    /** matches this regexp: /^\d+(\.\d+)?%$/ */
-    width_factor: string;
 }
 
 export interface ListNode {
