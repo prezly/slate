@@ -35,13 +35,7 @@ describe('withImages - normalizeChildren', () => {
     it('unwraps deeply nested text objects', () => {
         const editor = createEditor(
             <editor>
-                <h-image
-                    file={file}
-                    href=""
-                    layout={ImageLayout.CONTAINED}
-                    width="100%"
-                    width_factor="100%"
-                >
+                <h-image file={file} href="" layout={ImageLayout.CONTAINED} width="100%">
                     <fragment>
                         <fragment>
                             <h-text />
@@ -58,13 +52,7 @@ describe('withImages - normalizeChildren', () => {
 
         const expected = createEditor(
             <editor>
-                <h-image
-                    file={file}
-                    href=""
-                    layout={ImageLayout.CONTAINED}
-                    width="100%"
-                    width_factor="100%"
-                >
+                <h-image file={file} href="" layout={ImageLayout.CONTAINED} width="100%">
                     <h-text>lorem ipsum</h-text>
                     <cursor />
                 </h-image>

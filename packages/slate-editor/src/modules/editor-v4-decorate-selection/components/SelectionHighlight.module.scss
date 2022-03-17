@@ -1,3 +1,13 @@
+@import "styles/variables";
+
 .selection {
-    background: rgba($color: #c7d2fe, $alpha: 0.8);
+    border-radius: 4px;
+    box-shadow: 0px 2px 0px 1px #c7d2fe, 0px -2px 0px 1px #c7d2fe;
+    color: #3630a3;
+
+    &,
+    &::selection,
+    & *::selection {
+        background: #c7d2fe !important;
+    }
 }

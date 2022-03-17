@@ -9,7 +9,6 @@ const shape: Record<keyof ImageNode, true> = {
     href: true,
     layout: true,
     width: true,
-    width_factor: true,
     children: true,
 };
 

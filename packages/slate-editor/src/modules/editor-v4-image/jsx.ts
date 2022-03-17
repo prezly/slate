@@ -20,7 +20,6 @@ declare global {
                 href: string;
                 layout: ImageLayout;
                 width: string;
-                width_factor: string;
             };
             'h-image-candidate': {
                 children?: ReactNode;

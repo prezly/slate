@@ -6,13 +6,16 @@ import type { Editor } from 'slate';
 import { ReactEditor, useSlateStatic } from 'slate-react';
 
 import { useIsMouseDown } from '#lib';
+import { identity } from '#lodash';
 
 import type { Props as BasePortalV2Props } from './BasePortalV2';
 import { BasePortalV2 } from './BasePortalV2';
 import './TextSelectionPortalV2.scss';
 import { convertClientRect } from './convertClientRect';
 
-interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {}
+interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {
+    modifySelectionRect?: (rect: ClientRect) => ClientRect | null;
+}
 
 /**
  * TextSelectionPortalV2 is a modification of CursorPortalV2 that uses
@@ -22,6 +25,7 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
     children,
     className,
     containerElement,
+    modifySelectionRect = identity,
     ...props
 }) => {
     const editor = useSlateStatic();
@@ -34,7 +38,8 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
     const [isMouseDownInPortal, setIsMouseDownInPortal] = useState<boolean>(false);
     const getBoundingClientRect = useCallback(
         function () {
-            const rect = getSelectionRect(editor);
+            const selectionRect = getSelectionRect(editor);
+            const rect = selectionRect ? modifySelectionRect(selectionRect) : null;
             if (
                 editor.selection &&
                 rect === null &&
@@ -42,9 +47,9 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
             ) {
                 return lastRect.current;
             }
-            return (lastRect.current = rect);
+            return (lastRect.current = rect || null);
         },
-        [editor, containerElement],
+        [editor, containerElement, modifySelectionRect],
     );
 
     return (

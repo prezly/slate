@@ -43,7 +43,7 @@ const TOOLBAR_OFFSET_MODIFIER: Modifier<'offset'> = {
 const LINK_MENU_OFFSET_MODIFIER: Modifier<'offset'> = {
     name: 'offset',
     options: {
-        offset: [-8, 4],
+        offset: [-8, 10],
     },
 };
 
@@ -159,6 +159,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
             <TextSelectionPortalV2
                 containerElement={containerElement}
                 modifiers={[LINK_MENU_OFFSET_MODIFIER]}
+                modifySelectionRect={getTextSelectionLeftTopCornerRect}
                 placement="bottom-start"
                 arrowClassName={styles['link-menu']}
             >
@@ -222,4 +223,14 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
 function getCurrentLinkNode(editor: Editor, options: { at: Range }): LinkNode | null {
     const entries = Array.from(Editor.nodes(editor, { match: isLinkNode, at: options.at }));
     return entries.length > 0 ? entries[0][0] : null;
+}
+
+const TEXT_SELECTION_CORNER_SIZE = 24;
+
+function getTextSelectionLeftTopCornerRect(rect: ClientRect): ClientRect | null {
+    return {
+        ...rect,
+        width: TEXT_SELECTION_CORNER_SIZE,
+        right: rect.left + TEXT_SELECTION_CORNER_SIZE,
+    };
 }
