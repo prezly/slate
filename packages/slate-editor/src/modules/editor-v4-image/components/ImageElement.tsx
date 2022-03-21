@@ -2,7 +2,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ImageNode } from '@prezly/slate-types';
 // import { ImageLayout, isImageNode } from '@prezly/slate-types';
-import { ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 // import classNames from 'classnames';
 import classNames from 'classnames';
@@ -113,6 +112,9 @@ export const ImageElement: FunctionComponent<Props> = ({
     //     onEdit(editor);
     // }
 
+    const handleResize = useCallback(function () {
+        // TODO: Implement this
+    }, []);
     const handleCrop = useCallback(() => onCrop(editor, element), [editor, element]);
     const handleRemove = useCallback(
         function () {
@@ -123,16 +125,16 @@ export const ImageElement: FunctionComponent<Props> = ({
     );
     const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
-    const width = calculateWidth(element);
 
     return (
         <EditorBlock
             {...attributes}
             element={element}
             layout={element.layout}
+            onResize={handleResize}
             overlay="always"
             renderBlock={() => (
-                <Image alt="Image" className={styles.image} src={image.cdnUrl} style={{ width }} />
+                <Image alt="Image" className={styles.image} src={image.cdnUrl} />
             )}
             renderMenu={({ onClose }) => (
                 <ImageMenu
@@ -147,6 +149,7 @@ export const ImageElement: FunctionComponent<Props> = ({
             )}
             resizable={true}
             void={isVoid}
+            width={element.width}
         >
             {isSupportingCaptions ? (
                 <div
@@ -240,10 +243,3 @@ export const ImageElement: FunctionComponent<Props> = ({
     //     </>
     // );
 };
-
-function calculateWidth(element: ImageNode): number {
-    const width = parseFloat(element.width);
-    const factor = parseFloat(element.width_factor);
-
-    return width * factor;
-}

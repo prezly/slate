@@ -35,8 +35,10 @@ interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAtt
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
     resizable?: boolean;
+    onResize?: (width: string) => void;
     overlay?: OverlayMode;
     void?: boolean;
+    width?: string;
 }
 
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
@@ -46,11 +48,13 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         element,
         extendedHitArea,
         layout = 'contained',
+        onResize,
+        overlay = false,
         renderBlock,
         renderMenu,
         resizable: isResizable = false,
-        overlay = false,
         void: isVoid,
+        width = '100%',
         ...attributes
     },
     ref,
@@ -104,6 +108,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 contentEditable={false}
                 ref={setContainer}
                 onClick={handleClick}
+                style={{ width }}
             >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
                     <Menu
