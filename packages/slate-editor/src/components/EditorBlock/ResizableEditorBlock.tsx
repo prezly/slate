@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useEffect, useState } from 'react';
+import React, { forwardRef, useCallback, useState } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
 import { DraggableCore } from 'react-draggable';
 
@@ -14,44 +14,53 @@ interface Props extends EditorBlockProps {
     width: string;
 }
 
-export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>(
-    ({ renderBlock, renderMenu, onResize, width, ...props }, ref) => {
-        const [sizer, size] = useSize(Sizer);
-        const [isResizing, setResizing] = useState(false);
-        const startResizing = useCallback(() => setResizing(true), [setResizing]);
-        const stopResizing = useCallback(() => setResizing(false), [setResizing]);
+export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, ref) => {
+    const { renderBlock, renderMenu, onResize, width, children, ...attributes } = props;
+    // const latest = useLatest(props);
+    // const [realtimeWidth, setRealtimeWidth] = useState(width);
+    const [sizer, size] = useSize(Sizer);
+    const [isResizing, setResizing] = useState(false);
+    const startResizing = useCallback(() => setResizing(true), [setResizing]);
+    const stopResizing = useCallback(() => setResizing(false), [setResizing]);
 
-        const handleResize: DraggableEventHandler = function (event, data) {
+    const handleResize: DraggableEventHandler = useCallback(
+        function (event, data) {
             console.log({
                 event,
                 data,
+                // realtimeWidth,
                 width: size.width,
             });
-        };
+        },
+        [size.width],
+    );
 
-        return (
-            <EditorBlock
-                {...props}
-                ref={ref}
-                renderBlock={({ isSelected }) => (
-                    <>
-                        {sizer}
-                        {renderBlock({ isSelected })}
-                        <DraggableCore
-                            onDrag={handleResize}
-                            onStart={startResizing}
-                            onStop={stopResizing}
-                        >
+    return (
+        <EditorBlock
+            {...attributes}
+            ref={ref}
+            renderBlock={({ isSelected }) => (
+                <>
+                    {sizer}
+                    {renderBlock({ isSelected })}
+                    <DraggableCore
+                        onDrag={handleResize}
+                        onStart={startResizing}
+                        onStop={stopResizing}
+                    >
+                        <div>
                             <ResizeButton className={styles.resizeButton} />
-                        </DraggableCore>
-                    </>
-                )}
-                renderMenu={isResizing ? undefined : renderMenu}
-                width={width}
-            />
-        );
-    },
-);
+                        </div>
+                    </DraggableCore>
+                </>
+            )}
+            renderMenu={isResizing ? undefined : renderMenu}
+            width={width}
+        >
+            {children}
+        </EditorBlock>
+    );
+});
 
 function Sizer() {
     return <div />;
