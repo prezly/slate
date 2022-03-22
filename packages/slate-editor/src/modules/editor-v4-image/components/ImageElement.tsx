@@ -11,13 +11,14 @@ import { Editor /*, Transforms*/ } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, /*ReactEditor, useSelected,*/ useSlateStatic } from 'slate-react';
 
-import { EditorBlock /*, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2*/ } from '#components';
 // import { Image as ImageIcon } from '#icons';
 //
 // import { LinkWithTooltip } from '#modules/editor-v4-components';
 //
 // import { ImageMenu } from '../ImageMenu';
 // import { ResizableContainer } from '../ResizableContainer';
+
+import { ResizableEditorBlock } from '#components';
 
 import { removeImage, updateImage } from '../transforms';
 
@@ -127,7 +128,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
 
     return (
-        <EditorBlock
+        <ResizableEditorBlock
             {...attributes}
             element={element}
             layout={element.layout}
@@ -147,7 +148,6 @@ export const ImageElement: FunctionComponent<Props> = ({
                     showLayoutControls={showLayoutControls}
                 />
             )}
-            resizable={true}
             void={isVoid}
             width={element.width}
         >
@@ -162,7 +162,7 @@ export const ImageElement: FunctionComponent<Props> = ({
             ) : (
                 children
             )}
-        </EditorBlock>
+        </ResizableEditorBlock>
     );
 
     // return (

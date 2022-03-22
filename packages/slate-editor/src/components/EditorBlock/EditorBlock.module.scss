@@ -44,4 +44,7 @@
 
 .resizeButton {
     z-index: $editor-v4-embed-element-overlay-z-index + 1;
+    position: absolute;
+    right: $spacing-1;
+    bottom: $spacing-1;
 }

@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 import type { MouseEvent } from 'react';
-import { DraggableCore } from 'react-draggable';
 
 import { Resize } from '#icons';
 
@@ -13,13 +12,11 @@ interface Props {
 
 export function ResizeButton({ className }: Props) {
     return (
-        <DraggableCore>
-            <div className={classNames(styles.handle, className)}>
-                <button className={styles.button} onMouseDown={preventDefault} type="button">
-                    <Resize className={styles.icon} />
-                </button>
-            </div>
-        </DraggableCore>
+        <div className={classNames(styles.handle, className)}>
+            <button className={styles.button} onMouseDown={preventDefault} type="button">
+                <Resize className={styles.icon} />
+            </button>
+        </div>
     );
 }
 

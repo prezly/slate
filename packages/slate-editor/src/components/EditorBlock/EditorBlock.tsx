@@ -2,26 +2,23 @@ import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode, MouseEvent } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import type { DraggableEventHandler } from 'react-draggable';
-import { DraggableCore } from 'react-draggable';
 import type { Node, Path } from 'slate';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
-import { useSize, useSlateDom } from '#lib';
+import { useSlateDom } from '#lib';
 
 import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
-import { ResizeButton } from './ResizeButton';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
 type Layout = 'contained' | 'expanded' | 'full-width';
 
-interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
+export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
     /**
      * Children nodes provided by Slate, required for Slate internals.
      */
@@ -36,8 +33,6 @@ interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAtt
     layout?: Layout;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
-    resizable?: boolean;
-    onResize?: (width: string) => void;
     overlay?: OverlayMode;
     void?: boolean;
     width?: string;
@@ -50,11 +45,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         element,
         extendedHitArea,
         layout = 'contained',
-        onResize,
         overlay = false,
         renderBlock,
         renderMenu,
-        resizable: isResizable = false,
         void: isVoid,
         width = '100%',
         ...attributes
@@ -72,11 +65,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
     const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
 
-    const [sizer, size] = useSize(Sizer);
-    const [isResizing, setResizing] = useState(false);
-    const startResizing = useCallback(() => setResizing(true), [setResizing]);
-    const stopResizing = useCallback(() => setResizing(false), [setResizing]);
-
     const handleClick = useCallback(
         function () {
             openMenu();
@@ -88,10 +76,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         },
         [editor, element, openMenu, isVoid],
     );
-
-    const handleResize = useCallback(function () {
-        console.log(size.width);
-    }, []);
 
     useEffect(
         function () {
@@ -112,38 +96,29 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-element-layout={layout}
             ref={ref}
         >
-            {sizer}
-            <Resizer
-                enabled={isResizable}
-                onResize={handleResize}
-                onStart={startResizing}
-                onStop={stopResizing}
+            <div
+                className={classNames(styles.card, {
+                    [styles.selected]: isSelected,
+                })}
+                contentEditable={false}
+                ref={setContainer}
+                onClick={handleClick}
+                style={{ width }}
             >
-                <div
-                    className={classNames(styles.card, {
-                        [styles.selected]: isSelected,
-                    })}
-                    contentEditable={false}
-                    ref={setContainer}
-                    onClick={handleClick}
-                    style={{ width }}
-                >
-                    {!isResizing && isOnlyBlockSelected && renderMenu && container && editorElement && (
-                        <Menu
-                            className={styles.menu}
-                            editorElement={editorElement}
-                            open={menuOpen}
-                            reference={container}
-                            onClick={preventBubbling}
-                        >
-                            {renderMenu({ onClose: closeMenu })}
-                        </Menu>
-                    )}
-                    <Overlay className={styles.overlay} selected={isSelected} mode={overlay} />
-                    {renderBlock({ isSelected })}
-                    {isResizable && <ResizeButton className={styles.resizeButton} />}
-                </div>
-            </Resizer>
+                {isOnlyBlockSelected && renderMenu && container && editorElement && (
+                    <Menu
+                        className={styles.menu}
+                        editorElement={editorElement}
+                        open={menuOpen}
+                        reference={container}
+                        onClick={preventBubbling}
+                    >
+                        {renderMenu({ onClose: closeMenu })}
+                    </Menu>
+                )}
+                <Overlay className={styles.overlay} selected={isSelected} mode={overlay} />
+                {renderBlock({ isSelected })}
+            </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}
             {children}
@@ -159,24 +134,4 @@ function isTopLevelBlock(_node: Node, path: Path): boolean {
 
 function preventBubbling(event: MouseEvent) {
     event.stopPropagation();
-}
-
-function Resizer(props: {
-    enabled: boolean;
-    onResize: DraggableEventHandler;
-    onStart: () => void;
-    onStop: () => void;
-    children: ReactNode;
-}) {
-    if (!props.enabled) return <>{props.children}</>;
-
-    return (
-        <DraggableCore onDrag={props.onResize} onStart={props.onStart} onStop={props.onStop}>
-            {props.children}
-        </DraggableCore>
-    );
-}
-
-function Sizer() {
-    return <div />;
 }

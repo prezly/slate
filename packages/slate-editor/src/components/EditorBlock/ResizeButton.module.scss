@@ -2,10 +2,6 @@
 @import "styles/variables";
 
 .handle {
-    position: absolute;
-    right: $spacing-1;
-    bottom: $spacing-1;
-
     &,
     * {
         user-select: none;
