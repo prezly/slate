@@ -55,6 +55,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                 </>
             )}
             renderMenu={isResizing ? undefined : renderMenu}
+            selected={isResizing || undefined}
             width={width}
         >
             {children}

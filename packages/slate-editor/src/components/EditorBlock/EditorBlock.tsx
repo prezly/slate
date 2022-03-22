@@ -31,9 +31,10 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
      */
     extendedHitArea?: boolean;
     layout?: Layout;
+    overlay?: OverlayMode;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
-    overlay?: OverlayMode;
+    selected?: boolean;
     void?: boolean;
     width?: string;
 }
@@ -48,6 +49,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         overlay = false,
         renderBlock,
         renderMenu,
+        selected,
         void: isVoid,
         width = '100%',
         ...attributes
@@ -56,9 +58,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 ) {
     const editor = useSlateStatic();
     const editorElement = useSlateDom(editor);
-    const isSelected = useSelected();
+    const isNodeSelected = useSelected();
     const isOnlyBlockSelected =
-        isSelected && Array.from(Editor.nodes(editor, { match: isTopLevelBlock })).length === 1;
+        isNodeSelected && Array.from(Editor.nodes(editor, { match: isTopLevelBlock })).length === 1;
+    const isSelected = selected ?? isNodeSelected;
 
     const [menuOpen, setMenuOpen] = useState(true);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
