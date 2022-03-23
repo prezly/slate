@@ -28,7 +28,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
             setPixelWidth(nextPixelWidth);
             setRealtimeWidth(percent(100.0 * nextPixelWidth / containerWidth));
         },
-        [width, containerWidth, pixelWidth],
+        [containerWidth, pixelWidth],
     );
     const startResizing = useCallback(() => setResizing(true), [setResizing]);
     const stopResizing = useCallback(
