@@ -113,9 +113,10 @@ export const ImageElement: FunctionComponent<Props> = ({
     //     onEdit(editor);
     // }
 
-    const handleResize = useCallback(function () {
-        // TODO: Implement this
-    }, []);
+    const handleResize = useCallback(function (width: string) {
+        updateImage(editor, { width });
+    }, [editor]);
+
     const handleCrop = useCallback(() => onCrop(editor, element), [editor, element]);
     const handleRemove = useCallback(
         function () {

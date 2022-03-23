@@ -7,9 +7,9 @@ import { pick } from '#lodash';
 
 export function updateImage(
     editor: Editor,
-    props: Partial<Pick<ImageNode, 'file' | 'layout' | 'href'>>,
+    props: Partial<Pick<ImageNode, 'file' | 'layout' | 'href' | 'width'>>,
 ) {
-    const changes = pick(props, ['file', 'layout', 'href']);
+    const changes = pick(props, ['file', 'layout', 'href', 'width']);
 
     Transforms.setNodes<ImageNode>(editor, changes, {
         match: isImageNode,
