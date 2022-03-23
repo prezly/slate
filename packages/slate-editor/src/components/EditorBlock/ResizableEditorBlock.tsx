@@ -12,11 +12,20 @@ import { ResizeButton } from './ResizeButton';
 
 interface Props extends EditorBlockProps {
     onResize: (width: string) => void;
+    resizable?: boolean;
     width: string;
 }
 
 export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, ref) => {
-    const { renderBlock, renderMenu, onResize, width, children, ...attributes } = props;
+    const {
+        children,
+        onResize,
+        renderBlock,
+        renderMenu,
+        resizable = true,
+        width,
+        ...attributes
+    } = props;
 
     const [sizer, { width: containerWidth }] = useSize(Sizer);
     const [pixelWidth, setPixelWidth] = useState(0); // pixel equivalent of `width%`
@@ -41,9 +50,12 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         [pixelWidth, containerWidth],
     );
 
-    useEffect(function () {
-        setRealtimeWidth(width);
-    }, [width]);
+    useEffect(
+        function () {
+            setRealtimeWidth(width);
+        },
+        [width],
+    );
 
     useEffect(
         function () {
@@ -61,7 +73,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
             renderBlock={({ isSelected }) => (
                 <>
                     {renderBlock({ isSelected })}
-                    {isSelected && (
+                    {resizable && isSelected && (
                         <DraggableCore
                             onDrag={handleResize}
                             onStart={startResizing}
