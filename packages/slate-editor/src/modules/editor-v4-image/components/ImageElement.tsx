@@ -28,6 +28,8 @@ interface Props extends RenderElementProps {
     showLayoutControls: boolean;
 }
 
+const HUNDRED_PIXELS = Size.fromPixels(100);
+
 export const ImageElement: FunctionComponent<Props> = ({
     attributes,
     availableWidth,
@@ -66,6 +68,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     );
     const layout = element.layout ?? ImageLayout.CONTAINED;
     const width = useMemo(() => Size.fromString(element.width), [element.width]);
+    const originalWidth = useMemo(() => Size.fromPixels(image.originalWidth), [image.originalWidth]);
 
     return (
         <ResizableEditorBlock
@@ -91,6 +94,8 @@ export const ImageElement: FunctionComponent<Props> = ({
             resizable={layout === ImageLayout.CONTAINED}
             void={isVoid}
             width={width}
+            minWidth={HUNDRED_PIXELS}
+            maxWidth={originalWidth}
         >
             {isSupportingCaptions ? (
                 <div

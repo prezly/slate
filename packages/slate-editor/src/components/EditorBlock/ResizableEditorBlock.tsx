@@ -13,6 +13,8 @@ interface Props extends EditorBlockProps {
     onResize: (width: Size.Size) => void;
     resizable?: boolean;
     width: Size.Size;
+    minWidth?: Size.Size;
+    maxWidth?: Size.Size;
 }
 
 const ZERO_PIXELS = Size.fromPixels(0);
@@ -27,6 +29,8 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         renderMenu,
         resizable = true,
         width,
+        minWidth = TEN_PERCENT,
+        maxWidth = HUNDRED_PERCENT,
         ...attributes
     } = props;
 
@@ -37,7 +41,12 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         function (_event, data) {
             const nextPixelWidth = Size.add(pixelWidth, Size.fromPixels(data.deltaX), containerWidth);
             setPixelWidth(
-                Size.clamp(nextPixelWidth, TEN_PERCENT, HUNDRED_PERCENT, containerWidth),
+                Size.clamp(
+                    Size.clamp(nextPixelWidth, TEN_PERCENT, HUNDRED_PERCENT, containerWidth),
+                    minWidth,
+                    maxWidth,
+                    containerWidth,
+                ),
             );
         },
         [containerWidth, pixelWidth],
