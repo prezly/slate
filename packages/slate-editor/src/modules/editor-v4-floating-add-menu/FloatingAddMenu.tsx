@@ -1,5 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isHeadingNode, isParagraphNode } from '@prezly/slate-types';
+import {
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    isHeadingNode,
+    isParagraphNode,
+} from '@prezly/slate-types';
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
@@ -117,8 +122,8 @@ export function FloatingAddMenu<Action>({
     }
 
     const isParagraph = isParagraphNode(currentNode);
-    const isHeading1 = isHeadingNode(currentNode);
-    const isHeading2 = isHeadingNode(currentNode);
+    const isHeading1 = isHeadingNode(currentNode, HEADING_1_NODE_TYPE);
+    const isHeading2 = isHeadingNode(currentNode, HEADING_2_NODE_TYPE);
 
     return (
         <FloatingContainer.Container
