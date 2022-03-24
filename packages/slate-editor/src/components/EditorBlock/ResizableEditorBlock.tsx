@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
 import { DraggableCore } from 'react-draggable';
 
-import { useSize, Size } from '#lib';
+import { Size, useLatest, useSize } from '#lib';
 
 import type { Props as EditorBlockProps } from './EditorBlock';
 import { EditorBlock } from './EditorBlock';
@@ -29,27 +29,42 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         renderMenu,
         resizable = true,
         width,
-        minWidth = TEN_PERCENT,
-        maxWidth = HUNDRED_PERCENT,
+        minWidth,
+        maxWidth,
         ...attributes
     } = props;
+    const latest = useLatest({ minWidth: TEN_PERCENT, maxWidth: HUNDRED_PERCENT, ...props });
 
     const [sizer, { width: containerWidth }] = useSize(Sizer);
     const [pixelWidth, setPixelWidth] = useState(ZERO_PIXELS);
     const [isResizing, setResizing] = useState(false);
+
+    const constrainSize = useCallback(
+        function <U extends Size.Unit>(size: Size.Size<U>): Size.Size<U> {
+            return Size.clamp(
+                size,
+                latest.current.minWidth,
+                latest.current.maxWidth,
+                containerWidth,
+            );
+        },
+        [containerWidth],
+    );
+
     const handleResize: DraggableEventHandler = useCallback(
         function (_event, data) {
-            const nextPixelWidth = Size.add(pixelWidth, Size.fromPixels(data.deltaX), containerWidth);
+            const nextPixelWidth = Size.add(
+                pixelWidth,
+                Size.fromPixels(data.deltaX),
+                containerWidth,
+            );
             setPixelWidth(
-                Size.clamp(
-                    Size.clamp(nextPixelWidth, TEN_PERCENT, HUNDRED_PERCENT, containerWidth),
-                    minWidth,
-                    maxWidth,
-                    containerWidth,
+                constrainSize(
+                    Size.clamp(nextPixelWidth, ZERO_PIXELS, HUNDRED_PERCENT, containerWidth),
                 ),
             );
         },
-        [containerWidth, pixelWidth],
+        [containerWidth, pixelWidth, constrainSize],
     );
     const startResizing = useCallback(() => setResizing(true), [setResizing]);
     const stopResizing = useCallback(
@@ -63,10 +78,10 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     useEffect(
         function () {
             if (containerWidth > 0 && containerWidth !== Infinity) {
-                setPixelWidth(Size.toPixels(width, containerWidth));
+                setPixelWidth(constrainSize(Size.toPixels(width, containerWidth)));
             }
         },
-        [Size.toString(width), containerWidth],
+        [Size.toString(width), containerWidth, constrainSize],
     );
 
     return (
