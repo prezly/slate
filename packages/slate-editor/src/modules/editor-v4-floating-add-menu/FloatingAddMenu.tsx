@@ -14,6 +14,7 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 
 import { Input, Dropdown } from './components';
 import './FloatingAddMenu.scss';
+import styles from './FloatingAddMenu.module.scss';
 import {
     isMenuHotkey,
     shouldShowMenuButton,
@@ -122,10 +123,10 @@ export function FloatingAddMenu<Action>({
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className={classNames('editor-v4-floating-add-menu', {
-                'editor-v4-floating-add-menu--paragraph': isParagraph,
-                'editor-v4-floating-add-menu--heading-one': isHeading1,
-                'editor-v4-floating-add-menu--heading-two': isHeading2,
+            className={classNames(styles['editor-v4-floating-add-menu'], {
+                [styles['editor-v4-floating-add-menu--paragraph']]: isParagraph,
+                [styles['editor-v4-floating-add-menu--heading-one']]: isHeading1,
+                [styles['editor-v4-floating-add-menu--heading-two']]: isHeading2,
             })}
             containerRef={containerRef}
             onClose={menu.close}
@@ -144,7 +145,7 @@ export function FloatingAddMenu<Action>({
                 {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
                     <FloatingContainer.Button
                         {...ariaAttributes}
-                        className="editor-v4-floating-add-menu__button"
+                        className={styles.button}
                         onClick={(event) => {
                             event.preventDefault();
                             event.stopPropagation();
@@ -159,7 +160,7 @@ export function FloatingAddMenu<Action>({
                 )}
             </TooltipV2.Tooltip>
             {!open && (
-                <p className="editor-v4-floating-add-menu__placeholder">
+                <p className={styles.placeholder}>
                     Type or press <KeyboardKey>/</KeyboardKey> to add content
                 </p>
             )}
@@ -167,7 +168,7 @@ export function FloatingAddMenu<Action>({
                 <>
                     <Input
                         autoFocus
-                        className="editor-v4-floating-add-menu__input"
+                        className={styles.input}
                         onBlur={menu.close}
                         onChange={setInput}
                         onKeyDown={handleKeyDown}
@@ -177,7 +178,7 @@ export function FloatingAddMenu<Action>({
                         value={input}
                     />
                     <Dropdown
-                        className="editor-v4-floating-add-menu__dropdown"
+                        className={styles.dropdown}
                         highlight={query}
                         options={filteredOptions}
                         onItemClick={onSelect}
