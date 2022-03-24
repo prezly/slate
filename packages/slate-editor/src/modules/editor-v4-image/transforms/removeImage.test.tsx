@@ -34,7 +34,6 @@ describe('removeImage', () => {
                     href=""
                     layout={ImageLayout.CONTAINED}
                     width="100%"
-                    width_factor="100%"
                 >
                     <h-text>
                         <cursor />
@@ -78,7 +77,6 @@ describe('removeImage', () => {
                     href=""
                     layout={ImageLayout.CONTAINED}
                     width="100%"
-                    width_factor="100%"
                 >
                     <h-text />
                 </h-image>
@@ -99,7 +97,6 @@ describe('removeImage', () => {
                     href=""
                     layout={ImageLayout.CONTAINED}
                     width="100%"
-                    width_factor="100%"
                 >
                     <h-text />
                 </h-image>

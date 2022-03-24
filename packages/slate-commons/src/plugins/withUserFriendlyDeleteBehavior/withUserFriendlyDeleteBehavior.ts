@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import type { Editor } from 'slate';
+import { Editor } from 'slate';
 
 import { saveSelection } from '../../commands';
 
@@ -9,8 +9,16 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
     const { deleteBackward, deleteForward } = editor;
 
     editor.deleteBackward = (unit) => {
+        const previousBlockSelection = saveSelection(
+            editor,
+            (location) => Editor.before(editor, location) ?? location,
+        );
+
         const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: true, unit });
-        if (!isRemoved) {
+
+        if (isRemoved) {
+            previousBlockSelection.restore(editor);
+        } else {
             // The custom delete could not be applied, fall back to the default editor action.
             deleteBackward(unit);
         }

@@ -1,5 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement, EditorCommands } from '@prezly/slate-commons';
+import type { ImageNode, ParagraphNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
@@ -8,15 +9,16 @@ import type { Editor } from 'slate';
 import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
+import { isDeletingEvent, isDeletingEventBackward } from '#lib';
 import { noop } from '#lodash';
+
+import { createParagraph } from '#modules/editor-v4-paragraphs';
 
 import { ImageElement } from './components';
 import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
 import {
     createImageCandidate,
     getAncestorAnchor,
-    isDeleting,
-    isDeletingBackward,
     normalizeChildren,
     normalizeImageCandidate,
     normalizeRedundantImageAttributes,
@@ -79,7 +81,7 @@ export const ImageExtension = ({
             Transforms.insertText(editor, '\n');
         }
 
-        if (isDeleting(event)) {
+        if (isDeletingEvent(event)) {
             const nodeEntry = EditorCommands.getCurrentNodeEntry(editor);
             const now = Date.now();
             const isHoldingDelete = now - lastBackspaceTimestamp <= HOLDING_BACKSPACE_THRESHOLD;
@@ -91,7 +93,7 @@ export const ImageExtension = ({
 
             if (EditorCommands.isNodeEmpty(editor, nodeEntry[0])) {
                 if (!isHoldingDelete) {
-                    EditorCommands.removeNode(editor, {
+                    Transforms.setNodes<ImageNode | ParagraphNode>(editor, createParagraph(), {
                         at: nodeEntry[1],
                         match: isImageNode,
                     });
@@ -103,11 +105,11 @@ export const ImageExtension = ({
             }
 
             if (
-                isDeletingBackward(event) &&
+                isDeletingEventBackward(event) &&
                 EditorCommands.isSelectionAtBlockStart(editor) &&
                 EditorCommands.isSelectionEmpty(editor)
             ) {
-                EditorCommands.removeNode(editor, {
+                Transforms.setNodes<ImageNode | ParagraphNode>(editor, createParagraph(), {
                     at: nodeEntry[1],
                     match: isImageNode,
                 });

@@ -71,35 +71,3 @@
         }
     }
 }
-
-@mixin fancy-scrollbars() {
-    $scrollbar-width: 4px;
-    $scrollbar-paddings: $spacing-1;
-
-    // Firefox scrollbar styling (CSS Scrollbars Level 1 Working Draft)
-    // @see https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars
-    scrollbar-color: $grey-300 $white;
-
-    scrollbar-face-color: $grey-300;
-    scrollbar-arrow-color: $grey-300;
-    scrollbar-track-color: $white;
-    scrollbar-shadow-color: $white;
-    scrollbar-highlight-color: $white;
-    scrollbar-3dlight-color: $grey-500;
-    scrollbar-darkshadow-color: $grey-700;
-
-    &::-webkit-scrollbar {
-        width: $scrollbar-width;
-        height: $scrollbar-width;
-        background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: $grey-300;
-        border-radius: $scrollbar-width;
-    }
-
-    &:hover::-webkit-scrollbar-thumb {
-        background-color: $grey-400;
-    }
-}

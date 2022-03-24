@@ -20,7 +20,11 @@ export const FloatingMenu: FunctionComponent<Props> = ({
     element,
     placement = 'top-end',
 }) => (
-    <ElementPortalV2 containerRef={containerRef} element={element} placement={placement}>
+    <ElementPortalV2
+        containerElement={containerRef.current}
+        referenceElement={element}
+        placement={placement}
+    >
         <Toolbar className={className}>{children}</Toolbar>
     </ElementPortalV2>
 );

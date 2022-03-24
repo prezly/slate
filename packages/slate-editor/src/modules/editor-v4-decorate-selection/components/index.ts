@@ -1,0 +1,1 @@
+export { SelectionHighlight } from './SelectionHighlight';

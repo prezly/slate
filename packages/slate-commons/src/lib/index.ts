@@ -1,6 +1,7 @@
+export { combineDecorate } from './combineDecorate';
 export { createDeserializeElement } from './createDeserializeElement';
+export { createExtensionsDecorators } from './createExtensionsDecorators';
 export { decodeSlateFragment } from './decodeSlateFragment';
-export { decorateExtensions } from './decorateExtensions';
 export { encodeSlateFragment } from './encodeSlateFragment';
 export { isGoogleDocsWrapper } from './isGoogleDocsWrapper';
 export { nodeIdManager } from './nodeIdManager';
@@ -9,3 +10,4 @@ export { onKeyDownExtensions } from './onKeyDownExtensions';
 export { renderElementExtensions } from './renderElementExtensions';
 export { renderLeafExtensions } from './renderLeafExtensions';
 export { useSavedSelection } from './useSavedSelection';
+export { withoutNodes } from './withoutNodes';

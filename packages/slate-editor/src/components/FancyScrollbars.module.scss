@@ -1,0 +1,29 @@
+@import "styles/variables";
+
+.hTrack {
+    bottom: $spacing-half;
+    left: $spacing-1;
+    right: $spacing-1;
+    height: 6px;
+}
+
+.vTrack {
+    right: $spacing-half;
+    top: $spacing-1;
+    bottom: $spacing-1;
+    width: 6px;
+}
+
+.hThumb {
+    height: 6px;
+}
+
+.vThumb {
+    width: 6px;
+}
+
+.hThumb,
+.vThumb {
+    background-color: $grey-300;
+    border-radius: 6px;
+}

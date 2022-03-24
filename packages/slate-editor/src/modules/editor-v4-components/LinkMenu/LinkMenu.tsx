@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React, { useRef } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
@@ -6,8 +5,6 @@ import { RootCloseWrapper } from 'react-overlays';
 import { Menu } from '#components';
 import { Cross } from '#icons';
 import { useEffectOnce } from '#lib';
-
-import { Theme, useToolbarsTheme } from '#modules/themes';
 
 import { STRING_URL_PATTERN } from './constants';
 
@@ -30,28 +27,15 @@ export const LinkMenu: FunctionComponent<Props> = ({
     onRemove,
     value,
 }) => {
-    const theme = useToolbarsTheme();
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffectOnce(() => {
-        // This fixes an issue where input element is not autofocused on mount.
-        // No, I have no idea why we need to call `select()`, or why this needs a `setTimeout`.
-        // See: https://github.com/prezly/prezly/pull/8354#discussion_r476235647
-        setTimeout(() => {
-            if (inputRef.current) {
-                inputRef.current.select();
-            }
-        }, 0);
+        inputRef.current?.select();
     });
 
     return (
         <RootCloseWrapper onRootClose={onClose}>
-            <div
-                className={classNames('editor-v4-link-menu', {
-                    'editor-v4-link-menu--classic-theme': theme === Theme.CLASSIC,
-                    'editor-v4-link-menu--dark-theme': theme === Theme.DARK,
-                })}
-            >
+            <div className="editor-v4-link-menu">
                 <Menu.ButtonGroup>
                     <Menu.Button onClick={onClose}>
                         <Menu.Icon icon={Cross} />

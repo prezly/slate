@@ -1,4 +1,4 @@
-import type { Decorate } from './Decorate';
+import type { DecorateFactory } from './DecorateFactory';
 import type { DeserializeHtml } from './DeserializeHtml';
 import type { Normalize } from './Normalize';
 import type { OnDOMBeforeInput } from './OnDOMBeforeInput';
@@ -8,7 +8,7 @@ import type { RenderLeaf } from './RenderLeaf';
 import type { WithOverrides } from './WithOverrides';
 
 export interface Extension {
-    decorate?: Decorate;
+    decorate?: DecorateFactory;
     deserialize?: DeserializeHtml;
     id: string;
     inlineTypes?: string[];

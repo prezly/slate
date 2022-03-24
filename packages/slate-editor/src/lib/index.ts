@@ -12,3 +12,4 @@ export { isHtmlElement } from './isHtmlElement';
 export { Observable } from './Observable';
 export { scrollIntoView } from './scrollIntoView';
 export { scrollTo } from './scrollTo';
+export * from './isDeletingEvent';

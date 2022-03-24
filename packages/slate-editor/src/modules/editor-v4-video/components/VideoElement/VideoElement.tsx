@@ -30,11 +30,6 @@ export const VideoElement: FunctionComponent<Props> = ({ attributes, children, e
             data-slate-value={JSON.stringify(element)}
         >
             <div contentEditable={false}>
-                <div
-                    className={classNames('editor-v4-video-element__overlay', {
-                        'editor-v4-video-element__overlay--hidden': isSelected,
-                    })}
-                />
                 <div className="editor-v4-video-element__card">
                     {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
                         <HtmlInjection

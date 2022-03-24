@@ -2,8 +2,6 @@ import type { VideoNode } from '@prezly/slate-types';
 import { VIDEO_NODE_TYPE } from '@prezly/slate-types';
 import { v4 as uuidV4 } from 'uuid';
 
-const EMPTY_TEXT = { text: '' };
-
 type RequiredProps = Pick<VideoNode, 'url' | 'oembed'>;
 
 function withoutExtraAttributes<T extends VideoNode>(node: T): VideoNode {
@@ -17,7 +15,7 @@ function withoutExtraAttributes<T extends VideoNode>(node: T): VideoNode {
 export function createVideoBookmark(props: RequiredProps): VideoNode {
     return withoutExtraAttributes({
         uuid: uuidV4(),
-        children: [EMPTY_TEXT],
+        children: [{ text: '' }],
         ...props,
         type: VIDEO_NODE_TYPE, // disallowed to override type
     });

@@ -20,8 +20,6 @@ export interface ImageNode extends ElementNode {
     layout: ImageLayout;
     /** matches this regexp: /^\d+(\.\d+)?%$/ */
     width: string;
-    /** matches this regexp: /^\d+(\.\d+)?%$/ */
-    width_factor: string;
 }
 
 export function isImageNode(value: any): value is ImageNode {

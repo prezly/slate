@@ -1,11 +1,8 @@
-import classNames from 'classnames';
-import React from 'react';
 import type { Editor } from 'slate';
 
 import * as Icons from '#icons';
 
 import type { Option } from '#modules/editor-v4-floating-add-menu';
-import { Variant } from '#modules/editor-v4-floating-add-menu';
 import { UploadcareEditor } from '#modules/editor-v4-uploadcare';
 
 import type { EditorV4Props } from '#modules/editor-v4/types';
@@ -33,6 +30,7 @@ export enum MenuAction {
     ADD_QUOTE = 'add_quote',
     ADD_VIDEO = 'add_video',
     ADD_WEB_BOOKMARK = 'add_web_bookmark',
+    ADD_STORY_EMBED = 'add_story_embed',
 }
 
 enum Group {
@@ -50,22 +48,12 @@ type Params = Pick<
     | 'withImages'
     | 'withPressContacts'
     | 'withRichFormatting'
+    | 'withStoryEmbeds'
     | 'withVideos'
     | 'withWebBookmarks'
 >;
 
-export function generateFloatingAddMenuOptions(
-    editor: Editor,
-    params: Params,
-    variant: Variant,
-): Generator<Option<MenuAction>> {
-    if (variant === Variant.CLASSIC) {
-        return generateClassicMenuOptions(editor, params);
-    }
-    return generateModernMenuOptions(editor, params);
-}
-
-function* generateModernMenuOptions(
+export function* generateFloatingAddMenuOptions(
     editor: Editor,
     {
         withAttachments,
@@ -75,6 +63,7 @@ function* generateModernMenuOptions(
         withImages,
         withPressContacts,
         withRichFormatting,
+        withStoryEmbeds,
         withVideos,
         withWebBookmarks,
     }: Params,
@@ -215,122 +204,20 @@ function* generateModernMenuOptions(
         };
     }
 
+    if (withStoryEmbeds) {
+        yield {
+            action: MenuAction.ADD_STORY_EMBED,
+            icon: Icons.ComponentWebBookmark,
+            group: Group.PREZLY_CONTENT,
+            text: 'Story Embed',
+            description: 'Insert Prezly story content',
+            isBeta: true,
+        };
+    }
+
     /*
      * Intentionally not included:
      * - MenuAction.ADD_EMBED_VIDEO
      * - MenuAction.ADD_EMBED_LINK
      */
-}
-
-function* generateClassicMenuOptions(
-    editor: Editor,
-    {
-        withAttachments,
-        withCoverage,
-        withEmbeds,
-        withGalleries,
-        withImages,
-        withPressContacts,
-        withVideos,
-        withWebBookmarks,
-    }: Params,
-): Generator<Option<MenuAction>> {
-    if (withImages && UploadcareEditor.isUploadcareEditor(editor)) {
-        yield {
-            icon: <i className="icon icon-camera2" />,
-            action: MenuAction.ADD_IMAGE,
-            text: 'Add image',
-        };
-    }
-
-    if (withGalleries && UploadcareEditor.isUploadcareEditor(editor)) {
-        yield {
-            action: MenuAction.ADD_GALLERY,
-            icon: <i className="icon icon-images2" />,
-            text: 'Add gallery',
-        };
-    }
-
-    if (withWebBookmarks) {
-        yield {
-            action: MenuAction.ADD_WEB_BOOKMARK,
-            icon: <i className={classNames('icon', 'icon-news')} />,
-            text: 'Add web bookmark',
-            isNew: true,
-        };
-    }
-
-    if (withVideos) {
-        yield {
-            action: MenuAction.ADD_VIDEO,
-            icon: <i className={classNames('icon', 'icon-play2')} />,
-            text: 'Add video',
-            isNew: true,
-        };
-    }
-
-    if (!withVideos && withEmbeds?.menuOptions.video) {
-        yield {
-            action: MenuAction.ADD_EMBED_VIDEO,
-            icon: <i className={classNames('icon', 'icon-play2')} />,
-            text: 'Add video',
-        };
-    }
-
-    if (withEmbeds?.menuOptions.socialPost) {
-        yield {
-            action: MenuAction.ADD_EMBED_SOCIAL,
-            icon: <i className={classNames('icon', 'icon-chat')} />,
-            text: 'Add social post',
-            isBeta: true,
-        };
-    }
-
-    if (!withWebBookmarks && withEmbeds?.menuOptions.link) {
-        yield {
-            action: MenuAction.ADD_EMBED_LINK,
-            icon: <Icons.Link className="editor-v4__floating-add-menu-icon" />,
-            text: 'Add link',
-            isBeta: true,
-        };
-    }
-
-    if (withEmbeds?.menuOptions.embed) {
-        yield {
-            action: MenuAction.ADD_EMBED,
-            isBeta: true,
-            icon: <i className={classNames('icon', 'icon-news')} />,
-            text: 'Add embed',
-        };
-    }
-
-    if (withAttachments && UploadcareEditor.isUploadcareEditor(editor)) {
-        yield {
-            action: MenuAction.ADD_ATTACHMENT,
-            icon: Icons.FilesEmpty2,
-            text: 'Add attachment',
-        };
-    }
-
-    yield {
-        action: MenuAction.ADD_DIVIDER,
-        icon: Icons.DotsThreeHorizontal,
-        text: 'Add divider',
-    };
-
-    if (withPressContacts) {
-        yield {
-            action: MenuAction.ADD_CONTACT,
-            icon: Icons.User,
-            text: 'Add contact',
-        };
-    }
-
-    if (withCoverage) {
-        yield {
-            action: MenuAction.ADD_COVERAGE,
-            icon: Icons.Coverage,
-            text: 'Add coverage',
-        };
-    }
 }

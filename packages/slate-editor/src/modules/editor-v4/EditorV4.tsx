@@ -24,13 +24,16 @@ import { ReactEditor, Slate } from 'slate-react';
 import { noop } from '#lodash';
 
 import { LoaderContentType } from '#modules/editor-v4-loader';
-import { Theme, withToolbarsThemeContext } from '#modules/themes';
+import {
+    FloatingStoryEmbedInput,
+    useFloatingStoryEmbedInput,
+} from '#modules/editor-v4-story-embed';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
 import type { EditorEventMap } from '../editor-v4-events';
-import { FloatingAddMenu, Variant as FloatingAddMenuVariant } from '../editor-v4-floating-add-menu';
+import { FloatingAddMenu } from '../editor-v4-floating-add-menu';
 import {
     PlaceholderMentionsDropdown,
     usePlaceholderMentions,
@@ -39,7 +42,8 @@ import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
 } from '../editor-v4-press-contacts';
-import { RichFormattingMenu, toggleBlock } from '../editor-v4-rich-formatting';
+import { toggleBlock } from '../editor-v4-rich-formatting';
+import { RichFormattingMenu } from '../editor-v4-rich-formatting-menu';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
 import './EditorV4.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
@@ -69,6 +73,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         autoFocus,
         className,
         contentStyle,
+        decorate,
         editorRef,
         onChange,
         onIsOperationPendingChange,
@@ -77,7 +82,6 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         plugins,
         readOnly,
         style,
-        toolbarsTheme = Theme.CLASSIC,
         value,
         withAlignmentControls,
         withAttachments,
@@ -94,6 +98,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         withUserMentions,
         withVideos,
         withWebBookmarks,
+        withStoryEmbeds,
     } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -125,15 +130,20 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             withVideos,
             withWebBookmarks,
             withAutoformat,
+            withStoryEmbeds,
         }),
     );
 
-    const { decorateList, editor, onKeyDownList } = useCreateEditor({
+    const { editor, onKeyDownList } = useCreateEditor({
         events,
         extensions,
         onKeyDown,
         plugins,
     });
+
+    useEffect(() => {
+        editor.children = value;
+    }, [value]);
 
     useEffect(() => {
         if (autoFocus) {
@@ -196,6 +206,17 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             submit: submitFloatingEmbedInput,
         },
     ] = useFloatingEmbedInput(editor, withEmbeds?.fetchOembed);
+
+    const [
+        { isOpen: isFloatingStoryEmbedInputOpen },
+        {
+            close: closeFloatingStoryEmbedInput,
+            open: openFloatingStoryEmbedInput,
+            rootClose: rootCloseFloatingStoryEmbedInput,
+            submit: submitFloatingStoryEmbedInput,
+        },
+    ] = useFloatingStoryEmbedInput(editor);
+
     const [
         { isOpen: isFloatingPressContactsMenuOpen },
         {
@@ -214,11 +235,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         onKeyDownList.push(userMentions.onKeyDown);
     }
 
-    const menuVariant =
-        withFloatingAddMenu?.variant === FloatingAddMenuVariant.MODERN
-            ? FloatingAddMenuVariant.MODERN
-            : FloatingAddMenuVariant.CLASSIC;
-    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props, menuVariant));
+    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props));
     const handleMenuAction = (action: MenuAction) => {
         if (action === MenuAction.ADD_PARAGRAPH) {
             return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);
@@ -268,6 +285,12 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 message: 'Embedding Social Post',
             });
         }
+        if (action === MenuAction.ADD_STORY_EMBED) {
+            return openFloatingStoryEmbedInput('Embed Prezly story', {
+                contentType: LoaderContentType.STORY_EMBED,
+                message: 'Embedding Prezly Story',
+            });
+        }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             return createHandleAddGallery(withGalleries)(editor);
         }
@@ -292,8 +315,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
 
-    return withToolbarsThemeContext(
-        toolbarsTheme,
+    return (
         <div className={classNames('editor-v4', className)} ref={containerRef} style={style}>
             <Slate
                 editor={editor}
@@ -313,7 +335,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 value={value}
             >
                 <EditableWithExtensions
-                    decorate={decorateList}
+                    decorate={decorate}
                     extensions={extensions}
                     onCut={createOnCut(editor)}
                     onKeyDown={onKeyDownList}
@@ -344,7 +366,6 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         onToggle={onFloatingAddMenuToggle}
                         options={menuOptions}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
-                        variant={menuVariant}
                     />
                 )}
 
@@ -368,11 +389,12 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
 
                 {withRichFormatting && withRichFormatting.menu && (
                     <RichFormattingMenu
-                        alignmentControls={withAlignmentControls}
                         availableWidth={availableWidth}
-                        containerRef={containerRef}
+                        containerElement={containerRef.current}
                         defaultAlignment={align || Alignment.LEFT}
-                        parameters={withRichFormatting}
+                        withAlignment={withAlignmentControls}
+                        withLinks={Boolean(withRichFormatting.links)}
+                        withRichBlockElements={Boolean(withRichFormatting.blocks)}
                     />
                 )}
 
@@ -420,6 +442,17 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                     />
                 )}
 
+                {withStoryEmbeds && isFloatingStoryEmbedInputOpen && (
+                    <FloatingStoryEmbedInput
+                        availableWidth={availableWidth}
+                        containerRef={containerRef}
+                        onClose={closeFloatingStoryEmbedInput}
+                        onRootClose={rootCloseFloatingStoryEmbedInput}
+                        onSubmit={submitFloatingStoryEmbedInput}
+                        renderInput={withStoryEmbeds.renderInput}
+                    />
+                )}
+
                 {withPressContacts && isFloatingPressContactsMenuOpen && (
                     <FloatingPressContactsMenu
                         availableWidth={availableWidth}
@@ -433,7 +466,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                     />
                 )}
             </Slate>
-        </div>,
+        </div>
     );
 };
 

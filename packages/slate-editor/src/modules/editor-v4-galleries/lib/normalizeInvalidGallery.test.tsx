@@ -16,8 +16,6 @@ import { createEditorWithChildren, uploadedImage, withNormalization } from '../.
 
 import { normalizeInvalidGallery } from './normalizeInvalidGallery';
 
-const EMPTY_TEXT = { text: '' };
-
 describe('normalizeInvalidGallery', () => {
     it('it should remove malformed GalleryNode elements', function () {
         const input = [
@@ -32,7 +30,7 @@ describe('normalizeInvalidGallery', () => {
                     { caption: 'Hello', file: uploadedImage },
                     { caption: 'World', file: uploadedImage },
                 ],
-                children: [EMPTY_TEXT],
+                children: [{ text: '' }],
             } as GalleryNode,
             {
                 type: GALLERY_NODE_TYPE,
@@ -44,7 +42,7 @@ describe('normalizeInvalidGallery', () => {
                     { caption: 'Hello', file: omit(uploadedImage, 'uuid') }, // corrupted file
                     { caption: 'World', file: uploadedImage },
                 ],
-                children: [EMPTY_TEXT],
+                children: [{ text: '' }],
             } as GalleryNode,
             {
                 type: GALLERY_NODE_TYPE,
@@ -56,7 +54,7 @@ describe('normalizeInvalidGallery', () => {
                     { caption: 'Hello', file: uploadedImage },
                     { caption: 'World', file: uploadedImage },
                 ],
-                children: [EMPTY_TEXT],
+                children: [{ text: '' }],
             } as GalleryNode,
             {
                 type: GALLERY_NODE_TYPE,
@@ -65,7 +63,7 @@ describe('normalizeInvalidGallery', () => {
                 padding: '?', // <-- invalid
                 thumbnail_size: GalleryImageSize.M,
                 images: [{ caption: 'World', file: uploadedImage }],
-                children: [EMPTY_TEXT],
+                children: [{ text: '' }],
             } as any as GalleryNode,
         ];
 
@@ -81,7 +79,7 @@ describe('normalizeInvalidGallery', () => {
                     { caption: 'Hello', file: uploadedImage },
                     { caption: 'World', file: uploadedImage },
                 ],
-                children: [EMPTY_TEXT],
+                children: [{ text: '' }],
             } as GalleryNode,
         ];
 

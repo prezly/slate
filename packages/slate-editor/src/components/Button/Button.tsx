@@ -1,0 +1,73 @@
+import classNames from 'classnames';
+import * as React from 'react';
+
+import { HStack } from '#components';
+
+import styles from './Button.module.scss';
+
+interface ButtonBaseProps {
+    variant?: 'primary' | 'clear' | 'clear-faded' | 'underlined';
+    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    iconPosition?: 'left' | 'right';
+    fullWidth?: boolean;
+    round?: boolean;
+    disabled?: boolean;
+}
+
+interface AsButtonProps extends ButtonBaseProps, React.ButtonHTMLAttributes<HTMLButtonElement> {
+    type?: 'button' | 'submit';
+}
+
+interface AsLinkProps extends ButtonBaseProps, React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    type?: 'link';
+}
+
+type ButtonProps = AsButtonProps | AsLinkProps;
+
+export function Button({
+    variant,
+    icon: Icon,
+    iconPosition,
+    fullWidth,
+    type,
+    round,
+    disabled,
+    children,
+    ...attributes
+}: React.PropsWithChildren<ButtonProps>) {
+    const Component = type === 'link' ? 'a' : 'button';
+
+    const iconProps: React.SVGProps<SVGSVGElement> = {
+        className: styles['icon-wrapper'],
+    };
+
+    return React.createElement<React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>>(
+        Component,
+        {
+            ...attributes,
+            disabled,
+            onClick: disabled
+                ? (e) => {
+                      e.preventDefault();
+                  }
+                : attributes.onClick,
+            className: classNames(styles.button, {
+                [styles['button--clear']]: variant === 'clear' || variant === 'clear-faded',
+                [styles['button--clear-faded']]: variant === 'clear-faded',
+                [styles['button--primary']]: variant === 'primary',
+                [styles['button--underlined']]: variant === 'underlined',
+                [styles['button--full-width']]: fullWidth,
+                [styles['button--round']]: round,
+                [styles['button--disabled']]: disabled,
+            }),
+            type: type !== 'link' ? type : undefined,
+        },
+        <HStack spacing="1" verticalAligning="center">
+            {Icon && (iconPosition === 'left' || iconPosition === undefined) && (
+                <Icon {...iconProps} />
+            )}
+            {children && <span className={styles['button-text']}>{children}</span>}
+            {Icon && iconPosition === 'right' && <Icon {...iconProps} />}
+        </HStack>,
+    );
+}

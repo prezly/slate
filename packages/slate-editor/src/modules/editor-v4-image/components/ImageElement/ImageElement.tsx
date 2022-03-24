@@ -13,7 +13,6 @@ import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components
 import { Image as ImageIcon } from '#icons';
 
 import { LinkWithTooltip } from '#modules/editor-v4-components';
-import { useToolbarsTheme } from '#modules/themes';
 
 import { ImageMenu } from '../ImageMenu';
 import { ResizableContainer } from '../ResizableContainer';
@@ -55,7 +54,6 @@ export const ImageElement: FunctionComponent<Props> = ({
     onRemove,
     showLayoutControls,
 }) => {
-    const theme = useToolbarsTheme();
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview(
         availableWidth * 2, // Using 2x for retina.
     );
@@ -64,9 +62,8 @@ export const ImageElement: FunctionComponent<Props> = ({
         : ImageLayout.CONTAINED;
     const imageWidth =
         typeof image.originalWidth !== 'undefined' ? image.originalWidth : availableWidth;
-    const defaultWidthFactor = `${Math.round(100 * Math.min(1, imageWidth / availableWidth))}%`;
-    const imageWidthFactor = element.width_factor || defaultWidthFactor;
-    const imageWidthPercent = element.width || '100%';
+    const defaultWidth = `${Math.round(100 * Math.min(1, imageWidth / availableWidth))}%`;
+    const imageWidthPercent = element.width || defaultWidth;
 
     const editor = useSlate();
     const isSelected = useSelected();
@@ -84,15 +81,8 @@ export const ImageElement: FunctionComponent<Props> = ({
         Transforms.select(editor, path);
     }
 
-    function handleResize(widthPercent: string, widthFactor: string) {
-        Transforms.setNodes(
-            editor,
-            {
-                width: widthPercent,
-                width_factor: widthFactor,
-            },
-            { match: isImageNode },
-        );
+    function handleResize(width: string) {
+        Transforms.setNodes(editor, { width }, { match: isImageNode });
     }
 
     function handleResizeStop() {
@@ -140,9 +130,7 @@ export const ImageElement: FunctionComponent<Props> = ({
                     onResizeStop={handleResizeStop}
                     resizingClassName="editor-v4-image-element__resizable-container--resizing"
                     style={isContainedLayout ? null : { width: '100%' }}
-                    theme={theme}
                     width={imageWidth}
-                    widthFactor={imageWidthFactor}
                     widthPercent={imageWidthPercent}
                 >
                     <LinkWithTooltip enabled={element.href !== ''} href={element.href}>

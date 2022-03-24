@@ -2,8 +2,6 @@ import type { BookmarkNode } from '@prezly/slate-types';
 import { BOOKMARK_NODE_TYPE, BookmarkCardLayout } from '@prezly/slate-types';
 import { v4 as uuidV4 } from 'uuid';
 
-const EMPTY_TEXT = { text: '' };
-
 type RequiredProps = Pick<BookmarkNode, 'url' | 'oembed'>;
 type OptionalProps = Omit<BookmarkNode, 'type' | 'url' | 'oembed'>;
 
@@ -21,7 +19,7 @@ export function createWebBookmark(props: RequiredProps & Partial<OptionalProps>)
         layout: BookmarkCardLayout.HORIZONTAL,
         new_tab: false,
         show_thumbnail: true,
-        children: [EMPTY_TEXT],
+        children: [{ text: '' }],
         ...props,
         type: BOOKMARK_NODE_TYPE, // disallowed to override type
     });

@@ -105,6 +105,13 @@ export type EditorEventMap = {
     'web-bookmark-removed': {
         uuid: string;
     };
+    'story-embed-dialog-opened': {
+        selectedItemText: string;
+    };
+    'story-embed-dialog-submitted': {
+        selectedItemText: string;
+        node: string;
+    };
 };
 
 export type EditorEventHandlers = {

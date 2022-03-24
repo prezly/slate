@@ -30,6 +30,7 @@ module.exports = {
         }
     },
     "rules": {
+        "no-fallthrough": "off",
         "react/display-name": "warn",
         "react/prop-types": "off",
         "import/no-default-export": "error",
@@ -65,13 +66,19 @@ module.exports = {
     },
     "overrides": [
         {
+            "files": ["gulpfile.*"],
+            "env": {
+                "node": true,
+            }
+        },
+        {
             "files": ["**/*.tsx"],
             "rules": {
                 "func-style": "off"
             }
         },
         {
-            "files": ["**/*.d.ts"],
+            "files": ["**/*.d.ts", "**/*.stories.tsx"],
             "rules": {
                 "import/no-default-export": "off"
             }

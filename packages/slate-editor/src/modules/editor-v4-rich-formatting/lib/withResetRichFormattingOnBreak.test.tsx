@@ -3,31 +3,30 @@
 import { Editor } from 'slate';
 
 import { jsx } from '../jsx';
-import { createRichFormattingEditor } from '../test-utils';
 
 describe('withResetRichFormattingOnBreak', () => {
     it('Inserts a new default paragraph when inserting a break inside a heading', () => {
-        const editor = createRichFormattingEditor(
+        const editor = (
             <editor>
-                <h-h1>
-                    <h-text>
+                <h1>
+                    <text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-h1>
-            </editor>,
-        );
+                    </text>
+                </h1>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-h1>
-                    <h-text>lorem ipsum</h-text>
-                </h-h1>
-                <h-p>
-                    <h-text>
+                <h1>
+                    <text>lorem ipsum</text>
+                </h1>
+                <paragraph>
+                    <text>
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </text>
+                </paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -38,27 +37,27 @@ describe('withResetRichFormattingOnBreak', () => {
     });
 
     it('Inserts a new default paragraph when inserting a break inside a paragraph', () => {
-        const editor = createRichFormattingEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <paragraph>
+                    <text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </text>
+                </paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-                <h-p>
-                    <h-text>
+                <paragraph>
+                    <text>lorem ipsum</text>
+                </paragraph>
+                <paragraph>
+                    <text>
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </text>
+                </paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -69,37 +68,37 @@ describe('withResetRichFormattingOnBreak', () => {
     });
 
     it('Inserts a new list item when inserting a break inside a list item', () => {
-        const editor = createRichFormattingEditor(
+        const editor = (
             <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+                <ul>
+                    <li>
+                        <li-text>
+                            <text>
                                 lorem ipsum
                                 <cursor />
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                            </text>
+                        </li-text>
+                    </li>
+                </ul>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+                <ul>
+                    <li>
+                        <li-text>
+                            <text>lorem ipsum</text>
+                        </li-text>
+                    </li>
+                    <li>
+                        <li-text>
+                            <text>
                                 <cursor />
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
+                            </text>
+                        </li-text>
+                    </li>
+                </ul>
             </editor>
         ) as unknown as Editor;
 
@@ -110,28 +109,28 @@ describe('withResetRichFormattingOnBreak', () => {
     });
 
     it('Inserts a new default paragraph when inserting a break while selecting a heading', () => {
-        const editor = createRichFormattingEditor(
+        const editor = (
             <editor>
-                <h-h1>
-                    <h-text>
+                <h1>
+                    <text>
                         lorem <anchor />
                         ipsum
                         <focus />
-                    </h-text>
-                </h-h1>
-            </editor>,
-        );
+                    </text>
+                </h1>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-h1>
-                    <h-text>lorem </h-text>
-                </h-h1>
-                <h-p>
-                    <h-text>
+                <h1>
+                    <text>lorem </text>
+                </h1>
+                <paragraph>
+                    <text>
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </text>
+                </paragraph>
             </editor>
         ) as unknown as Editor;
 

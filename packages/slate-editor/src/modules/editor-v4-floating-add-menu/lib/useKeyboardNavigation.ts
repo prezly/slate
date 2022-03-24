@@ -6,6 +6,7 @@ import { useLatest } from '#lib';
 
 type ResetFn = () => void;
 
+const isTab = isHotkey('tab');
 const isEnter = isHotkey('enter');
 const isArrowUp = isHotkey('up');
 const isArrowDown = isHotkey('down');
@@ -43,7 +44,7 @@ export function useKeyboardNavigation<Option>(
                 setCurrentIndex((currentIndex) => clampIndex(currentIndex + 1, options.length));
             }
 
-            if (isEnter(event)) {
+            if (isEnter(event) || isTab(event)) {
                 // Prevent the event propagation to Slate (inserts a new paragraph).
                 event.stopPropagation();
                 event.preventDefault();

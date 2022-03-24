@@ -2,19 +2,11 @@
 @import "styles/variables";
 
 .editor-menu-dropdown {
-    @import "./mixins";
-
     display: inline-block;
     width: 180px;
     vertical-align: top;
 
-    @include classic-toolbar {
-        border-right: 1px solid $toolbar-classic-theme-border-color;
-    }
-
-    @include dark-toolbar {
-        border-color: $toolbar-dark-theme-border-color;
-    }
+    border-color: $toolbar-dark-theme-border-color;
 
     &:last-child {
         border-right: none;
@@ -26,9 +18,7 @@
             &,
             &:hover,
             &:focus {
-                @include classic-toolbar {
-                    color: #1f1f1f;
-                }
+                color: $toolbar-dark-theme-text-color;
                 background: none;
                 box-shadow: none;
             }
@@ -43,15 +33,8 @@
             height: $border-radius-base * 2 + 2px;
             right: 0;
             bottom: 0;
-
-            @include classic-toolbar {
-                display: none;
-            }
-
-            @include dark-toolbar {
-                display: block;
-                background-color: $toolbar-dark-theme-bg;
-            }
+            display: block;
+            background-color: $toolbar-dark-theme-bg;
         }
     }
 
@@ -60,66 +43,36 @@
         height: 40px;
         padding: 0 $spacing-2;
         font-size: 13px;
-
-        @include classic-toolbar {
-            font-size: 14px;
-            color: #767676;
-            &:hover {
-                color: $toolbar-classic-theme-text-hover-color;
-            }
-        }
-
-        @include dark-toolbar {
-            color: $toolbar-dark-theme-text-color;
-            &:hover {
-                color: $toolbar-dark-theme-text-hover-color;
-            }
-        }
-
         background: none;
         border: 0;
         border-radius: 0;
         font-weight: normal;
         text-align: left;
+        color: $toolbar-dark-theme-text-color;
+
+        &:hover {
+            color: $toolbar-dark-theme-text-hover-color;
+        }
 
         .caret {
             position: absolute;
             top: 50%;
             right: $spacing-2;
             margin-top: -2px;
-
-            @include classic-toolbar {
-                // beat `.btn-default .caret` !important rule specificity
-                color: $toolbar-classic-theme-icon-color !important;
-            }
-            @include dark-toolbar {
-                // beat `.btn-default .caret` !important rule specificity
-                color: $toolbar-dark-theme-icon-color !important;
-            }
+            // beat `.btn-default .caret` !important rule specificity
+            color: $toolbar-dark-theme-icon-color !important;
         }
     }
 
     .dropdown-menu {
         width: 181px; // we need +1 px to align with the toggle button
         margin: 0 0 0 -1px;
-        padding: 0;
         overflow: auto;
-        box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.05);
-
-        @include classic-toolbar {
-            border-color: $toolbar-classic-theme-border-color;
-            border-radius: 0 0 4px 4px;
-            border-top: none;
-        }
-
-        @include dark-toolbar {
-            padding: $spacing-1 0;
-            border: none;
-            background-color: $toolbar-dark-theme-bg;
-            border-radius: 0 0 $border-radius-base * 2 $border-radius-base * 2;
-            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11),
-                inset 0 1px 0 $toolbar-dark-theme-border-color;
-        }
+        padding: $spacing-1 0;
+        border: none;
+        background-color: $toolbar-dark-theme-bg;
+        border-radius: 0 0 $border-radius-base * 2 $border-radius-base * 2;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11), inset 0 1px 0 $toolbar-dark-theme-border-color;
 
         a {
             text-decoration: none;
@@ -135,23 +88,21 @@
         display: table;
         width: 100%;
 
-        @include classic-toolbar {
-            border-top: 1px solid $toolbar-classic-theme-border-color;
-        }
-
         > a {
             display: table-cell;
             vertical-align: middle;
             position: relative;
+            padding: 0 $spacing-2;
+            color: $toolbar-dark-theme-icon-color;
+            border-top: 1px solid transparent;
+
+            &,
+            &:hover {
+                background-color: transparent;
+            }
 
             &:hover {
-                @include classic-toolbar {
-                    color: $toolbar-classic-theme-text-hover-color;
-                }
-
-                @include dark-toolbar {
-                    color: $toolbar-dark-theme-text-hover-color;
-                }
+                color: $toolbar-dark-theme-text-hover-color;
             }
 
             &:focus::before {
@@ -159,53 +110,25 @@
                 bottom: $spacing-half;
                 left: $spacing-base;
                 right: $spacing-base;
-
-                @include dark-toolbar {
-                    display: block;
-                    outline: $spacing-half solid $toolbar-dark-theme-focus-outline;
-                }
-            }
-
-            @include classic-toolbar {
-                padding: $spacing-half $spacing-2;
-            }
-
-            @include dark-toolbar {
-                padding: 0 $spacing-2;
-                color: $toolbar-dark-theme-icon-color;
-                border-top: 1px solid transparent;
-
-                &,
-                &:hover {
-                    background-color: transparent;
-                }
+                display: block;
+                outline: $spacing-half solid $toolbar-dark-theme-focus-outline;
             }
         }
 
         &--selected > a {
-            @include dark-toolbar {
-                color: $toolbar-dark-theme-icon-active-color;
-            }
+            color: $toolbar-dark-theme-icon-active-color;
 
             &::before {
                 // Trick to display smaller hover background square,
                 // while keeping the button area as big as possible (for a11y)
                 content: "";
-                display: none;
                 border-radius: $border-radius-base;
                 position: absolute;
                 top: $spacing-half * 0.5;
                 bottom: $spacing-half * 0.5;
                 left: $spacing-base;
                 right: $spacing-base;
-
-                @include classic-toolbar {
-                    display: none;
-                }
-                @include dark-toolbar {
-                    display: block;
-                    background-color: $toolbar-dark-theme-hover-bg;
-                }
+                background-color: $toolbar-dark-theme-hover-bg;
             }
         }
     }
@@ -213,6 +136,7 @@
     .editor-menu-dropdown__menu-option {
         margin: 0;
         font-size: 13px;
+        color: inherit;
 
         &--paragraph {
             // Override margin set on `.editor-story p`.
@@ -243,15 +167,9 @@
         &--blockquote {
             padding: 0 $spacing-1;
         }
-
-        @include dark-toolbar {
-            color: inherit;
-        }
     }
 
     .editor-menu-dropdown__menu-item--selected .editor-menu-dropdown__menu-option {
-        @include dark-toolbar {
-            color: $toolbar-dark-theme-icon-active-color;
-        }
+        color: $toolbar-dark-theme-icon-active-color;
     }
 }

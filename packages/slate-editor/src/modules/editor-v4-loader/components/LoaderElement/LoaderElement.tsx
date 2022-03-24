@@ -27,6 +27,7 @@ const ICONS: Record<LoaderContentType, FunctionComponent<HTMLAttributes<SVGEleme
     gallery: Gallery,
     image: Image,
     video: Video,
+    'story-embed': Bookmark,
 };
 
 const ESTIMATED_DURATIONS: Record<LoaderContentType, number> = {
@@ -44,6 +45,8 @@ const ESTIMATED_DURATIONS: Record<LoaderContentType, number> = {
     image: 5000,
     // GET /v1/oembed endpoint usually responds in 500-1000 ms.
     video: 500,
+    // Iframely call to detect Prezly story.
+    'story-embed': 500,
 };
 
 export const LoaderElement: FunctionComponent<Props> = ({
