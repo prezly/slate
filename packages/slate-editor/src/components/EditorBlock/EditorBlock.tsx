@@ -7,7 +7,7 @@ import { Editor, Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
-import { useSlateDom } from '#lib';
+import { Size, useSlateDom } from '#lib';
 
 import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
@@ -36,7 +36,7 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
     selected?: boolean;
     void?: boolean;
-    width?: string;
+    width?: Size.Size;
 }
 
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
@@ -51,7 +51,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         renderMenu,
         selected,
         void: isVoid,
-        width = '100%',
+        width,
         ...attributes
     },
     ref,
@@ -106,7 +106,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 contentEditable={false}
                 ref={setContainer}
                 onClick={handleClick}
-                style={{ width }}
+                style={{ width: width ? Size.toString(width) : undefined }}
             >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
                     <Menu

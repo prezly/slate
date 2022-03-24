@@ -4,12 +4,13 @@ import { ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { FunctionComponent, RefObject } from 'react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlateStatic } from 'slate-react';
 
 import { ResizableEditorBlock } from '#components';
+import { Size } from '#lib';
 
 import { removeImage, updateImage } from '../transforms';
 
@@ -45,8 +46,8 @@ export const ImageElement: FunctionComponent<Props> = ({
     const isCaptionVisible =
         isSupportingCaptions && (isSelected || !EditorCommands.isNodeEmpty(editor, element));
 
-    const handleResize = useCallback(function (width: string) {
-        updateImage(editor, { width });
+    const handleResize = useCallback(function (width: Size.Size) {
+        updateImage(editor, { width: Size.toString(width) });
     }, [editor]);
 
     const handleCrop = useCallback(() => onCrop(editor, element), [editor, element]);
@@ -64,6 +65,7 @@ export const ImageElement: FunctionComponent<Props> = ({
         availableWidth * 2, // Using 2x for retina.
     );
     const layout = element.layout ?? ImageLayout.CONTAINED;
+    const width = useMemo(() => Size.fromString(element.width), [element.width]);
 
     return (
         <ResizableEditorBlock
@@ -88,7 +90,7 @@ export const ImageElement: FunctionComponent<Props> = ({
             )}
             resizable={layout === ImageLayout.CONTAINED}
             void={isVoid}
-            width={element.width}
+            width={width}
         >
             {isSupportingCaptions ? (
                 <div

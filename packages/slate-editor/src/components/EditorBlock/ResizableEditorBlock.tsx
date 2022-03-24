@@ -2,8 +2,7 @@ import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
 import { DraggableCore } from 'react-draggable';
 
-import { useSize } from '#lib';
-import { clamp } from '#lodash';
+import { useSize, Size } from '#lib';
 
 import type { Props as EditorBlockProps } from './EditorBlock';
 import { EditorBlock } from './EditorBlock';
@@ -11,10 +10,14 @@ import styles from './EditorBlock.module.scss';
 import { ResizeButton } from './ResizeButton';
 
 interface Props extends EditorBlockProps {
-    onResize: (width: string) => void;
+    onResize: (width: Size.Size) => void;
     resizable?: boolean;
-    width: string;
+    width: Size.Size;
 }
+
+const ZERO_PIXELS = Size.fromPixels(0);
+const TEN_PERCENT = Size.fromPercents(10);
+const HUNDRED_PERCENT = Size.fromPercents(100);
 
 export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, ref) => {
     const {
@@ -28,42 +31,33 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     } = props;
 
     const [sizer, { width: containerWidth }] = useSize(Sizer);
-    const [pixelWidth, setPixelWidth] = useState(0); // pixel equivalent of `width%`
-    const [realtimeWidth, setRealtimeWidth] = useState(width); // local state for `width%`
+    const [pixelWidth, setPixelWidth] = useState(ZERO_PIXELS);
     const [isResizing, setResizing] = useState(false);
     const handleResize: DraggableEventHandler = useCallback(
         function (_event, data) {
-            const nextPixelWidth = clamp(pixelWidth + data.deltaX, 100, containerWidth);
-            setPixelWidth(nextPixelWidth);
-            setRealtimeWidth(percent(100.0 * nextPixelWidth / containerWidth));
+            const nextPixelWidth = Size.add(pixelWidth, Size.fromPixels(data.deltaX), containerWidth);
+            setPixelWidth(
+                Size.clamp(nextPixelWidth, TEN_PERCENT, HUNDRED_PERCENT, containerWidth),
+            );
         },
         [containerWidth, pixelWidth],
     );
     const startResizing = useCallback(() => setResizing(true), [setResizing]);
     const stopResizing = useCallback(
         function () {
-            const nextWidth = percent(100.0 * pixelWidth / containerWidth);
             setResizing(false);
-            setRealtimeWidth(nextWidth);
-            onResize(nextWidth);
+            onResize(Size.toUnit(pixelWidth, width[1], containerWidth));
         },
-        [pixelWidth, containerWidth],
-    );
-
-    useEffect(
-        function () {
-            setRealtimeWidth(width);
-        },
-        [width],
+        [Size.toString(pixelWidth), containerWidth],
     );
 
     useEffect(
         function () {
             if (containerWidth > 0 && containerWidth !== Infinity) {
-                setPixelWidth(containerWidth * parseFloat(width) * 0.01);
+                setPixelWidth(Size.toPixels(width, containerWidth));
             }
         },
-        [width, containerWidth],
+        [Size.toString(width), containerWidth],
     );
 
     return (
@@ -88,7 +82,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
             )}
             renderMenu={isResizing ? undefined : renderMenu}
             selected={isResizing || undefined}
-            width={realtimeWidth}
+            width={Size.toUnit(pixelWidth, width[1], containerWidth)}
         >
             {sizer}
             {children}
@@ -100,8 +94,4 @@ ResizableEditorBlock.displayName = 'ResizableEditorBlock';
 
 function Sizer() {
     return <div />;
-}
-
-function percent(value: number): string {
-    return `${value.toFixed(2)}%`;
 }
