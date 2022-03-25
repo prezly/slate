@@ -48,9 +48,12 @@ export const ImageElement: FunctionComponent<Props> = ({
     const isCaptionVisible =
         isSupportingCaptions && (isSelected || !EditorCommands.isNodeEmpty(editor, element));
 
-    const handleResize = useCallback(function (width: Size.Size) {
-        updateImage(editor, { width: Size.toString(width) });
-    }, [editor]);
+    const handleResize = useCallback(
+        function (width: Size.Size) {
+            updateImage(editor, { width: Size.toString(width) });
+        },
+        [editor],
+    );
 
     const handleCrop = useCallback(() => onCrop(editor, element), [editor, element]);
     const handleRemove = useCallback(
@@ -68,7 +71,10 @@ export const ImageElement: FunctionComponent<Props> = ({
     );
     const layout = element.layout ?? ImageLayout.CONTAINED;
     const width = useMemo(() => Size.fromString(element.width), [element.width]);
-    const originalWidth = useMemo(() => Size.fromPixels(image.originalWidth), [image.originalWidth]);
+    const originalWidth = useMemo(
+        () => Size.fromPixels(image.originalWidth),
+        [image.originalWidth],
+    );
 
     return (
         <ResizableEditorBlock
@@ -77,9 +83,7 @@ export const ImageElement: FunctionComponent<Props> = ({
             layout={element.layout}
             onResize={handleResize}
             overlay="always"
-            renderBlock={() => (
-                <Image alt="Image" className={styles.image} src={image.cdnUrl} />
-            )}
+            renderBlock={() => <Image className={styles.image} image={image} />}
             renderMenu={({ onClose }) => (
                 <ImageMenu
                     element={element}
