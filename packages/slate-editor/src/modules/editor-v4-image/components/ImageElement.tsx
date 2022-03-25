@@ -3,7 +3,7 @@ import type { ImageNode } from '@prezly/slate-types';
 import { ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
-import type { FunctionComponent, RefObject } from 'react';
+import type { FunctionComponent } from 'react';
 import React, { useCallback, useMemo } from 'react';
 import { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';

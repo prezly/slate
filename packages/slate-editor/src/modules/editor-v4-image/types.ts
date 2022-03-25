@@ -1,6 +1,5 @@
 import type { NewsroomRef } from '@prezly/sdk';
 import type { ElementNode, ImageNode } from '@prezly/slate-types';
-import type { RefObject } from 'react';
 import type { Editor, Text } from 'slate';
 
 import type { IMAGE_CANDIDATE_TYPE } from './constants';
