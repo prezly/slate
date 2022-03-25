@@ -57,7 +57,6 @@ export function ImageMenu({
 
     const onHrefChange = useCallback(
         function (href: string, valid: boolean) {
-            console.log({ href, valid });
             setHref(href);
             if (valid) {
                 onUpdate({ href });
