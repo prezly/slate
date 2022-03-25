@@ -29,6 +29,7 @@ interface Props extends RenderElementProps {
 }
 
 const HUNDRED_PIXELS = Size.fromPixels(100);
+const HUNDRED_PERCENT = Size.fromPercents(100);
 
 export const ImageElement: FunctionComponent<Props> = ({
     attributes,
@@ -70,6 +71,7 @@ export const ImageElement: FunctionComponent<Props> = ({
         availableWidth * 2, // Using 2x for retina.
     );
     const layout = element.layout ?? ImageLayout.CONTAINED;
+    const isResizable = layout === ImageLayout.CONTAINED;
     const width = useMemo(() => Size.fromString(element.width), [element.width]);
     const originalWidth = useMemo(
         () => Size.fromPixels(image.originalWidth),
@@ -95,9 +97,9 @@ export const ImageElement: FunctionComponent<Props> = ({
                     showLayoutControls={showLayoutControls}
                 />
             )}
-            resizable={layout === ImageLayout.CONTAINED}
+            resizable={isResizable}
             void={isVoid}
-            width={width}
+            width={isResizable ? width : HUNDRED_PERCENT}
             minWidth={HUNDRED_PIXELS}
             maxWidth={originalWidth}
         >
