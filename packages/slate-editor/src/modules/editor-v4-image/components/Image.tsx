@@ -18,7 +18,7 @@ interface Props {
 const ESTIMATED_LOADING_DURATION = 2000;
 
 export const Image = forwardRef<HTMLDivElement, Props>(({ className, image }: Props, ref) => {
-    const aspectRatio = image.originalWidth / image.originalHeight;
+    const aspectRatio = image.originalHeight / image.originalWidth;
     const { loading, progress, url } = useImage(image.preview().cdnUrl);
 
     return (
