@@ -116,38 +116,4 @@ export const ImageElement: FunctionComponent<Props> = ({
             )}
         </ResizableEditorBlock>
     );
-
-    //  <LinkWithTooltip enabled={element.href !== ''} href={element.href}>
-    //      {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
-    //          <div {...ariaAttributes} draggable ref={setReferenceElement}>
-    //              <ImageWithLoadingPlaceholderV2
-    //                  alt={image.filename}
-    //                  availableWidth={getImageAvailableWidth({
-    //                      availableWidth,
-    //                      layout: activeLayout,
-    //                      widthPercent: parseInt(imageWidthPercent, 10),
-    //                  })}
-    //                  className="editor-v4-image-element__image"
-    //                  draggable={false}
-    //                  height={image.originalHeight}
-    //                  onClick={focusCurrentElement}
-    //                  onIsLoadingChange={setLoading}
-    //                  onMouseEnter={onShow}
-    //                  onMouseLeave={onHide}
-    //                  ref={setImageElement}
-    //                  renderLoadingState={({ percent }) => (
-    //                      <>
-    //                          <LoadingPlaceholderV2.Icon icon={ImageIcon} />
-    //                          <LoadingPlaceholderV2.Description percent={percent}>
-    //                              Loading Image
-    //                          </LoadingPlaceholderV2.Description>
-    //                          <LoadingPlaceholderV2.ProgressBar percent={percent} />
-    //                      </>
-    //                  )}
-    //                  src={image.cdnUrl}
-    //                  width={image.originalWidth}
-    //              />
-    //          </div>
-    //      )}
-    //  </LinkWithTooltip>
 };
