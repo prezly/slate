@@ -31,9 +31,7 @@ const HOLDING_BACKSPACE_THRESHOLD = 100;
 let lastBackspaceTimestamp = 0;
 
 export const ImageExtension = ({
-    availableWidth,
     captions,
-    containerRef,
     onCrop = noop,
     onRemove = noop,
     onReplace = noop,
@@ -124,8 +122,6 @@ export const ImageExtension = ({
             return (
                 <ImageElement
                     attributes={attributes}
-                    availableWidth={availableWidth}
-                    containerRef={containerRef}
                     element={element}
                     onCrop={onCrop}
                     onRemove={onRemove}

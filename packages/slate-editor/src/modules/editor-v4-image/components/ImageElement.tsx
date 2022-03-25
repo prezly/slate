@@ -19,8 +19,6 @@ import styles from './ImageElement.module.scss';
 import { ImageMenu } from './ImageMenu';
 
 interface Props extends RenderElementProps {
-    availableWidth: number;
-    containerRef: RefObject<HTMLElement>;
     element: ImageNode;
     onCrop: (editor: Editor, element: ImageNode) => void;
     onReplace: (editor: Editor, element: ImageNode) => void;
@@ -33,9 +31,7 @@ const HUNDRED_PERCENT = Size.fromPercents(100);
 
 export const ImageElement: FunctionComponent<Props> = ({
     attributes,
-    availableWidth,
     children,
-    // containerRef,
     element,
     onCrop,
     onReplace,
@@ -67,9 +63,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
 
-    const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview(
-        availableWidth * 2, // Using 2x for retina.
-    );
+    const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
     const layout = element.layout ?? ImageLayout.CONTAINED;
     const isResizable = layout === ImageLayout.CONTAINED;
     const width = useMemo(() => Size.fromString(element.width), [element.width]);

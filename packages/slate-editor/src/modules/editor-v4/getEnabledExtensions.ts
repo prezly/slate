@@ -118,8 +118,6 @@ export function* getEnabledExtensions({
         // that it also deserializes <a> elements (ImageExtension is more specific).
         yield ImageExtension({
             ...withImages,
-            availableWidth,
-            containerRef,
             onCrop: handleEditImage,
             onRemove: handleRemoveImage,
             onReplace: handleEditImage,
