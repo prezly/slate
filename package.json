@@ -14,7 +14,7 @@
     "type": "module",
     "scripts": {
         "bootstrap": "npm ci --legacy-peer-deps",
-        "build": "npm run build -w packages/slate-types -w packages/slate-commons -w packages/slate-hyperscript -w packages/slate-lists -w packages/slate-editor",
+        "build": "npm run build -w packages/slate-types && npm run build -w packages/slate-commons && npm run build -w packages/slate-hyperscript && npm run build -w packages/slate-lists && npm run build -w packages/slate-editor",
         "check": "npm run prettier && npm run test",
         "watch": "concurrently --kill-others --names 'types  ,commons,hyper  ,lists  ,editor ' 'npm run watch -w packages/slate-types' 'npm run watch -w packages/slate-commons' 'npm run watch -w packages/slate-hyperscript' 'npm run watch -w packages/slate-lists' 'npm run watch -w packages/slate-editor'",
         "lint": "npm run lint --workspaces",
