@@ -18,6 +18,7 @@ import {
 import type { Formatting } from '../types';
 
 import { BlockDropdown } from './BlockDropdown';
+import { ElementType } from '#modules/editor-v4-rich-formatting';
 
 interface Props {
     // state
@@ -41,6 +42,7 @@ interface Props {
     withAlignment: boolean;
     withLinks: boolean;
     withRichBlockElements: boolean;
+    withBoldOnHeaders: boolean;
 }
 
 export function Toolbar({
@@ -65,13 +67,18 @@ export function Toolbar({
     withAlignment,
     withLinks,
     withRichBlockElements,
+    withBoldOnHeaders,
 }: Props) {
     return (
         <>
             <Menu.ButtonGroup>
-                <Menu.Button active={isBold} onClick={onBold}>
-                    <Menu.Icon icon={FormatBold} />
-                </Menu.Button>
+                {(withBoldOnHeaders ||
+                    (formatting !== ElementType.HEADING_ONE &&
+                        formatting !== ElementType.HEADING_TWO)) && (
+                    <Menu.Button active={isBold} onClick={onBold}>
+                        <Menu.Icon icon={FormatBold} />
+                    </Menu.Button>
+                )}
                 <Menu.Button active={isItalic} onClick={onItalic}>
                     <Menu.Icon icon={FormatItalic} />
                 </Menu.Button>

@@ -27,6 +27,7 @@ interface IBaseProps {
         menu?: boolean;
         blocks?: boolean;
         links?: boolean;
+        boldOnHeaders?: boolean;
     };
     withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
 }
@@ -56,6 +57,7 @@ Base.args = {
         blocks: true,
         links: true,
         menu: true,
+        boldOnHeaders: false,
     },
     withFloatingAddMenu: {
         tooltip: {

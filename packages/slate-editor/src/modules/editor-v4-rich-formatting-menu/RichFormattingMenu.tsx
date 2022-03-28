@@ -31,6 +31,7 @@ interface Props {
     withAlignment: boolean;
     withRichBlockElements: boolean;
     withLinks: boolean;
+    withBoldOnHeaders: boolean;
 }
 
 const TOOLBAR_OFFSET_MODIFIER: Modifier<'offset'> = {
@@ -54,6 +55,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
     withAlignment,
     withLinks,
     withRichBlockElements,
+    withBoldOnHeaders,
 }) => {
     const editor = useSlate();
 
@@ -214,6 +216,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
                     withAlignment={withAlignment}
                     withLinks={withLinks}
                     withRichBlockElements={withRichBlockElements}
+                    withBoldOnHeaders={withBoldOnHeaders}
                 />
             </Menu.Toolbar>
         </TextSelectionPortalV2>
