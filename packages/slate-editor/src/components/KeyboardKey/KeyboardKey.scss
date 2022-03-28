@@ -8,11 +8,10 @@
 
     display: inline-block;
     height: $size;
-    width: $size;
+    min-width: $size;
     padding: $spacing-half;
     color: $grey-700;
     background-color: $grey-100;
-    outline: $border-width solid $grey-300;
     border-radius: 3px;
     box-shadow: 1px 1px 0 0 $grey-300;
     line-height: $size - $spacing-half * 2;
