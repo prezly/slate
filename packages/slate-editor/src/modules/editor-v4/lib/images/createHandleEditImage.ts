@@ -49,6 +49,7 @@ export function createHandleEditImage(withImages: ImageExtensionParameters) {
                     children: [{ text: caption }],
                     href: imageElement.href,
                     layout: imageElement.layout,
+                    new_tab: imageElement.new_tab,
                     width: imageElement.width,
                 });
             },

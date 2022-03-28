@@ -6,6 +6,7 @@ export function createImage({
     children = [{ text: '' }],
     href = '',
     layout = ImageLayout.CONTAINED,
+    new_tab = true,
     width = '100%',
 }: Pick<ImageNode, 'file'> & Partial<Omit<ImageNode, 'type'>>): ImageNode {
     return {
@@ -14,6 +15,7 @@ export function createImage({
         file,
         href,
         layout,
+        new_tab,
         width,
     };
 }
