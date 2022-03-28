@@ -7,7 +7,8 @@ export function parseSerializedElement(serialized: string): ImageNode | undefine
     const parsed = JSON.parse(serialized);
 
     if (isImageNode(parsed)) {
-        return createImage(parsed.file, {
+        return createImage({
+            file: parsed.file,
             children: parsed.children,
             href: parsed.href,
             layout: parsed.layout,
