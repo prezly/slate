@@ -4,13 +4,12 @@ import { ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlateStatic } from 'slate-react';
 
 import { ResizableEditorBlock } from '#components';
-import { Size } from '#lib';
 
 import { removeImage, updateImage } from '../transforms';
 
@@ -25,9 +24,6 @@ interface Props extends RenderElementProps {
     onRemove: (editor: Editor, element: ImageNode) => void;
     showLayoutControls: boolean;
 }
-
-const HUNDRED_PIXELS = Size.fromPixels(100);
-const HUNDRED_PERCENT = Size.fromPercents(100);
 
 export const ImageElement: FunctionComponent<Props> = ({
     attributes,
@@ -46,8 +42,8 @@ export const ImageElement: FunctionComponent<Props> = ({
         isSupportingCaptions && (isSelected || !EditorCommands.isNodeEmpty(editor, element));
 
     const handleResize = useCallback(
-        function (width: Size.Size) {
-            updateImage(editor, { width: Size.toString(width) });
+        function (width: string) {
+            updateImage(editor, { width });
         },
         [editor],
     );
@@ -66,11 +62,6 @@ export const ImageElement: FunctionComponent<Props> = ({
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
     const layout = element.layout ?? ImageLayout.CONTAINED;
     const isResizable = layout === ImageLayout.CONTAINED;
-    const width = useMemo(() => Size.fromString(element.width), [element.width]);
-    const originalWidth = useMemo(
-        () => Size.fromPixels(image.originalWidth),
-        [image.originalWidth],
-    );
 
     return (
         <ResizableEditorBlock
@@ -93,9 +84,9 @@ export const ImageElement: FunctionComponent<Props> = ({
             )}
             resizable={isResizable}
             void={isVoid}
-            width={isResizable ? width : HUNDRED_PERCENT}
-            minWidth={HUNDRED_PIXELS}
-            maxWidth={originalWidth}
+            width={isResizable ? element.width : '100%'}
+            minWidth="100px"
+            maxWidth={`${image.originalWidth}px`}
         >
             {isSupportingCaptions ? (
                 <div
