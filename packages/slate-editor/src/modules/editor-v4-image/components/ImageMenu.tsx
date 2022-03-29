@@ -3,7 +3,7 @@ import { ImageLayout } from '@prezly/slate-types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import type { OptionsGroupOption } from '#components';
-import { Button, ButtonGroup, Input, OptionsGroup, Toolbox, VStack } from '#components';
+import { Button, ButtonGroup, Input, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
 import {
     Crop,
     Delete,
@@ -22,7 +22,7 @@ interface Props {
     onCrop: () => void;
     onRemove: () => void;
     onReplace: () => void;
-    onUpdate: (props: Partial<Pick<ImageNode, 'layout' | 'href'>>) => void;
+    onUpdate: (props: Partial<Pick<ImageNode, 'layout' | 'href' | 'new_tab'>>) => void;
     showLayoutControls: boolean;
 }
 
@@ -111,6 +111,10 @@ export function ImageMenu({
                             placeholder="Paste link"
                         />
                     </VStack>
+
+                    <Toggle name="new_tab" onChange={(new_tab) => onUpdate({ new_tab })}>
+                        Open in new tab
+                    </Toggle>
                 </VStack>
             </Toolbox.Section>
 
@@ -133,7 +137,7 @@ function ReplaceButton(props: { onClick: () => void }) {
 
 function CropButton(props: { onClick: () => void }) {
     return (
-        <Button  variant="clear" icon={Crop} fullWidth onClick={props.onClick}>
+        <Button variant="clear" icon={Crop} fullWidth onClick={props.onClick}>
             Crop
         </Button>
     );
