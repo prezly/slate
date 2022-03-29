@@ -12,6 +12,7 @@ export function parseSerializedElement(serialized: string): ImageNode | undefine
             children: parsed.children,
             href: parsed.href,
             layout: parsed.layout,
+            new_tab: parsed.new_tab,
             width: parsed.width,
         });
     }
