@@ -8,6 +8,7 @@ const shape: Record<keyof ImageNode, true> = {
     file: true,
     href: true,
     layout: true,
+    new_tab: true,
     width: true,
     children: true,
 };

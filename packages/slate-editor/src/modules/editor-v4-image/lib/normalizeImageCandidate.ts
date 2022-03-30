@@ -100,7 +100,7 @@ async function scheduleLoaderReplacement(
     }
 
     const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-    const imageElement = createImage(image.toPrezlyStoragePayload(), { href });
+    const imageElement = createImage({ file: image.toPrezlyStoragePayload(), href });
     replaceLoader(editor, loaderElement, imageElement);
 
     EventsEditor.dispatchEvent(editor, 'image-added', {

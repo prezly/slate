@@ -94,7 +94,8 @@ export function withFilePasting(getExtensions: () => Extension[]) {
                         if (fileInfo.isImage && isImageExtensionEnabled) {
                             const image =
                                 UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-                            return createImage(image.toPrezlyStoragePayload(), {
+                            return createImage({
+                                file: image.toPrezlyStoragePayload(),
                                 children: [{ text: caption }],
                             });
                         }
