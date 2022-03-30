@@ -54,21 +54,12 @@
         "slate-react": "^0.71.0"
     },
     "dependencies": {
-<<<<<<< HEAD
-        "@prezly/slate-commons": "^0.28.1-alpha.0",
-        "@prezly/slate-types": "^0.28.1-alpha.0",
-        "uuid": "^8.3.0"
-    },
-    "devDependencies": {
-        "@prezly/slate-hyperscript": "^0.28.1-alpha.0",
-=======
         "@prezly/slate-commons": "^0.28.0",
         "@prezly/slate-types": "^0.28.0",
         "uuid": "^8.3.0"
     },
     "devDependencies": {
         "@prezly/slate-hyperscript": "^0.28.0",
->>>>>>> master
         "@types/uuid": "^8.3.0"
     }
 }
