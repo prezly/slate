@@ -32,7 +32,8 @@ export function createHandleAddImage(withImages: ImageExtensionParameters) {
                 createElement: (fileInfo) => {
                     const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
                     const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
-                    return createImage(image.toPrezlyStoragePayload(), {
+                    return createImage({
+                        file: image.toPrezlyStoragePayload(),
                         children: [{ text: caption }],
                     });
                 },

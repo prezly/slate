@@ -1,6 +1,10 @@
 {
     "name": "@prezly/slate-commons",
+<<<<<<< HEAD
     "version": "0.28.1-alpha.0",
+=======
+    "version": "0.28.0",
+>>>>>>> master
     "description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
     "license": "MIT",
     "type": "module",
@@ -55,11 +59,11 @@
         "slate-react": "^0.71.0"
     },
     "dependencies": {
-        "@prezly/slate-types": "^0.28.1-alpha.0",
+        "@prezly/slate-types": "^0.28.0",
         "uuid": "^8.3.0"
     },
     "devDependencies": {
-        "@prezly/slate-hyperscript": "^0.28.1-alpha.0",
+        "@prezly/slate-hyperscript": "^0.28.0",
         "@types/uuid": "^8.3.0"
     }
 }

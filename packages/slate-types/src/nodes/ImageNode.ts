@@ -18,6 +18,7 @@ export interface ImageNode extends ElementNode {
     /** empty string if no URL */
     href: string;
     layout: ImageLayout;
+    new_tab: boolean;
     /** matches this regexp: /^\d+(\.\d+)?%$/ */
     width: string;
 }
