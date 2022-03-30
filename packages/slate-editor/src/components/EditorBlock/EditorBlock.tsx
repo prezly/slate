@@ -3,7 +3,7 @@ import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode, MouseEvent } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import type { Node, Path} from 'slate';
+import type { Node, Path } from 'slate';
 import { Transforms } from 'slate';
 import { Editor } from 'slate';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
