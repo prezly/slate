@@ -112,7 +112,11 @@ export function ImageMenu({
                         />
                     </VStack>
 
-                    <Toggle name="new_tab" onChange={(new_tab) => onUpdate({ new_tab })}>
+                    <Toggle
+                        name="new_tab"
+                        value={Boolean(element.new_tab)}
+                        onChange={(new_tab) => onUpdate({ new_tab })}
+                    >
                         Open in new tab
                     </Toggle>
                 </VStack>
