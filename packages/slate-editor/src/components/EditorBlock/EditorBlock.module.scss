@@ -1,6 +1,15 @@
 @import "styles/mixins";
 @import "styles/variables";
 
+.main {
+    &.selected,
+    &:hover {
+        .wrapper {
+            visibility: visible;
+        }
+    }
+}
+
 .block {
     @include editor-v4-block($void: false);
     position: relative;
@@ -89,4 +98,50 @@
             visibility: hidden;
         }
     }
+}
+
+$line-color: rgba(#01a859, 0.3);
+$line-color-hovered: rgba(#01a859, 0.6);
+
+.wrapper {
+    cursor: pointer;
+    position: relative;
+    visibility: hidden;
+
+    &:hover {
+        .line {
+            background: $line-color-hovered;
+        }
+
+        .add {
+            border: 1px solid $line-color-hovered;
+            color: $line-color-hovered;
+        }
+    }
+}
+
+.wrapper-hit-area {
+    position: absolute;
+    height: 100%;
+    padding: 20px 0;
+    margin-top: -20px;
+    left: -20px;
+    right: 0;
+}
+
+.line {
+    background: $line-color;
+    margin: 0;
+    height: 1px;
+    width: 100%;
+}
+
+.add {
+    color: $line-color;
+    border: 1px solid $line-color;
+    position: absolute;
+    transform: translate(-100%, -50%);
+    border-radius: 50%;
+    padding: 1px;
+    margin-top: 1px;
 }

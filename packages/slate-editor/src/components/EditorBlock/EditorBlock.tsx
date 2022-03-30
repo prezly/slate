@@ -1,12 +1,15 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode, MouseEvent } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import type { Node, Path } from 'slate';
+import type { Node, Path} from 'slate';
+import { Transforms } from 'slate';
 import { Editor } from 'slate';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
 
+import { Add } from '#icons';
 import { useSlateDom } from '#lib';
 
 import styles from './EditorBlock.module.scss';
@@ -72,39 +75,47 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 
     return (
         <div
-            {...attributes}
-            className={classNames(className, styles.block, {
+            className={classNames(styles.main, {
                 [styles.selected]: isSelected,
-                [styles.void]: isVoid,
-                [styles.extendedHitArea]: extendedHitArea,
             })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
-            data-element-layout={layout}
-            ref={ref}
         >
+            <Line element={element} position="above" />
             <div
-                className={styles.container}
-                contentEditable={false}
-                ref={setContainer}
-                onClick={openMenu}
+                {...attributes}
+                className={classNames(className, styles.block, {
+                    [styles.selected]: isSelected,
+                    [styles.void]: isVoid,
+                    [styles.extendedHitArea]: extendedHitArea,
+                })}
+                data-slate-type={element.type}
+                data-slate-value={JSON.stringify(element)}
+                data-element-layout={layout}
+                ref={ref}
             >
-                {isOnlyBlockSelected && renderMenu && container && editorElement && (
-                    <Menu
-                        editorElement={editorElement}
-                        open={menuOpen}
-                        reference={container}
-                        onClick={preventBubbling}
-                    >
-                        {renderMenu({ onClose: closeMenu })}
-                    </Menu>
-                )}
-                <Overlay selected={isSelected} mode={overlay} />
-                {renderBlock({ isSelected })}
-            </div>
+                <div
+                    className={styles.container}
+                    contentEditable={false}
+                    ref={setContainer}
+                    onClick={openMenu}
+                >
+                    {isOnlyBlockSelected && renderMenu && container && editorElement && (
+                        <Menu
+                            editorElement={editorElement}
+                            open={menuOpen}
+                            reference={container}
+                            onClick={preventBubbling}
+                        >
+                            {renderMenu({ onClose: closeMenu })}
+                        </Menu>
+                    )}
+                    <Overlay selected={isSelected} mode={overlay} />
+                    {renderBlock({ isSelected })}
+                </div>
 
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
+                {/* We have to render children or Slate will fail when trying to find the node. */}
+                {children}
+            </div>
+            <Line element={element} position="below" />
         </div>
     );
 });
@@ -117,4 +128,29 @@ function isTopLevelBlock(_node: Node, path: Path): boolean {
 
 function preventBubbling(event: MouseEvent) {
     event.stopPropagation();
+}
+
+function Line(props: { element: ElementNode; position: 'above' | 'below' }) {
+    const editor = useSlateStatic();
+    const path = ReactEditor.findPath(editor, props.element);
+
+    return (
+        <div
+            contentEditable={false}
+            className={classNames(styles.wrapper)}
+            onClick={() => {
+                const where =
+                    props.position === 'above'
+                        ? Editor.before(editor, path) ?? path
+                        : Editor.after(editor, path) ?? path;
+
+                EditorCommands.insertEmptyParagraph(editor, where);
+                Transforms.select(editor, where);
+            }}
+        >
+            <div className={styles['wrapper-hit-area']} />
+            <Add className={styles.add} />
+            <hr className={styles.line} />
+        </div>
+    );
 }
