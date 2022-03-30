@@ -29,5 +29,4 @@ export interface ImageExtensionParameters {
 export interface ImageParameters extends ImageExtensionParameters {
     onCrop?: (editor: Editor, element: ImageNode) => void;
     onRemove?: (editor: Editor, element: ImageNode) => void;
-    onReplace?: (editor: Editor, element: ImageNode) => void;
 }

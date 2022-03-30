@@ -3,7 +3,7 @@ import { ImageLayout } from '@prezly/slate-types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import type { OptionsGroupOption } from '#components';
-import { Button, ButtonGroup, Input, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
+import { Button, Input, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
 import {
     Crop,
     Delete,
@@ -11,7 +11,6 @@ import {
     ImageLayoutExpanded,
     ImageLayoutFullWidth,
     Link,
-    Reload,
 } from '#icons';
 
 import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
@@ -21,7 +20,6 @@ interface Props {
     onClose: () => void;
     onCrop: () => void;
     onRemove: () => void;
-    onReplace: () => void;
     onUpdate: (props: Partial<Pick<ImageNode, 'layout' | 'href' | 'new_tab'>>) => void;
     showLayoutControls: boolean;
 }
@@ -49,7 +47,6 @@ export function ImageMenu({
     onClose,
     onCrop,
     onRemove,
-    onReplace,
     onUpdate,
     showLayoutControls,
 }: Props) {
@@ -79,12 +76,9 @@ export function ImageMenu({
             </Toolbox.Header>
 
             <Toolbox.Section noPadding>
-                <ButtonGroup>
-                    {[
-                        <ReplaceButton key="replace" onClick={onReplace} />,
-                        <CropButton key="crop" onClick={onCrop} />,
-                    ]}
-                </ButtonGroup>
+                <Button variant="clear" icon={Crop} fullWidth onClick={onCrop}>
+                    Crop
+                </Button>
             </Toolbox.Section>
 
             {showLayoutControls && (
@@ -128,21 +122,5 @@ export function ImageMenu({
                 </Button>
             </Toolbox.Footer>
         </>
-    );
-}
-
-function ReplaceButton(props: { onClick: () => void }) {
-    return (
-        <Button variant="clear" icon={Reload} fullWidth onClick={props.onClick}>
-            Replace
-        </Button>
-    );
-}
-
-function CropButton(props: { onClick: () => void }) {
-    return (
-        <Button variant="clear" icon={Crop} fullWidth onClick={props.onClick}>
-            Crop
-        </Button>
     );
 }
