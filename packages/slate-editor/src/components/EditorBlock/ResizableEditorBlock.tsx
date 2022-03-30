@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
-import { DraggableCore } from 'react-draggable';
+import * as Draggable from 'react-draggable';
 
 import { useLatest, useSize } from '#lib';
 
@@ -91,7 +91,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                 <>
                     {renderBlock({ isSelected })}
                     {resizable && isSelected && (
-                        <DraggableCore
+                        <Draggable.DraggableCore
                             onDrag={handleResize}
                             onStart={startResizing}
                             onStop={stopResizing}
@@ -99,7 +99,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                             <div>
                                 <ResizeButton className={styles.resizeButton} />
                             </div>
-                        </DraggableCore>
+                        </Draggable.DraggableCore>
                     )}
                 </>
             )}
