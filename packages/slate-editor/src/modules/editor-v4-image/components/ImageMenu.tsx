@@ -113,8 +113,9 @@ export function ImageMenu({
                     </VStack>
 
                     <Toggle
+                        disabled={!href}
                         name="new_tab"
-                        value={Boolean(element.new_tab)}
+                        value={href ? Boolean(element.new_tab) : false}
                         onChange={(new_tab) => onUpdate({ new_tab })}
                     >
                         Open in new tab
