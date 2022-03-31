@@ -30,6 +30,7 @@ import { compositeCharactersRules, textStyleRules, blockRules } from './autoform
 import {
     createHandleEditGallery,
     createHandleEditImage,
+    createHandleReplaceImage,
     handleEditAttachment,
     handleRemoveAttachment,
     handleRemoveImage,
@@ -114,13 +115,14 @@ export function* getEnabledExtensions({
 
     if (withImages) {
         const handleEditImage = createHandleEditImage(withImages);
+        const handleReplaceImage = createHandleReplaceImage(withImages);
         // ImageExtension has to be after RichFormattingExtension due to the fact
         // that it also deserializes <a> elements (ImageExtension is more specific).
         yield ImageExtension({
             ...withImages,
             onCrop: handleEditImage,
             onRemove: handleRemoveImage,
-            onReplace: handleEditImage,
+            onReplace: handleReplaceImage,
         });
     }
 

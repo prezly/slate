@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
-import { Editor } from 'slate';
+import type { Editor } from "slate";
 
 import { EventsEditor } from '#modules/editor-v4-events';
 import type { ImageExtensionParameters } from '#modules/editor-v4-image';
@@ -13,7 +13,7 @@ import { insertUploadingFile } from '../insertUploadingFile';
 
 import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-export function createHandleEditImage(withImages: ImageExtensionParameters) {
+export function createHandleReplaceImage(withImages: ImageExtensionParameters) {
     return async function (editor: Editor) {
         const currentNodeEntry = getCurrentImageNodeEntry(editor);
         if (!currentNodeEntry) {
@@ -21,14 +21,11 @@ export function createHandleEditImage(withImages: ImageExtensionParameters) {
         }
 
         EventsEditor.dispatchEvent(editor, 'image-edit-clicked');
-        const [imageElement, currentPath] = currentNodeEntry;
-        const initialFileInfo = UploadcareImage.createFromPrezlyStoragePayload(imageElement.file);
-        initialFileInfo[UPLOADCARE_FILE_DATA_KEY] = { caption: Editor.string(editor, currentPath) };
+        const [imageElement] = currentNodeEntry;
 
         const filePromises = await UploadcareEditor.upload(editor, {
             ...getMediaGalleryParameters(withImages),
             captions: withImages.captions,
-            files: [initialFileInfo],
             imagesOnly: true,
             multiple: false,
         });
@@ -46,7 +43,7 @@ export function createHandleEditImage(withImages: ImageExtensionParameters) {
                 const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
                 return createImage({
                     file: image.toPrezlyStoragePayload(),
-                    children: [{ text: caption }],
+                    children: caption ? [{ text: caption }] : imageElement.children,
                     href: imageElement.href,
                     layout: imageElement.layout,
                     new_tab: imageElement.new_tab,
