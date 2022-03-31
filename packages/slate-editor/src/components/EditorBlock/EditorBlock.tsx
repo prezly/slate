@@ -1,8 +1,8 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode, MouseEvent } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import type { Node, Path } from 'slate';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
@@ -60,7 +60,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const editorElement = useSlateDom(editor);
     const isNodeSelected = useSelected();
     const isOnlyBlockSelected =
-        isNodeSelected && Array.from(Editor.nodes(editor, { match: isTopLevelBlock })).length === 1;
+        isNodeSelected &&
+        Array.from(Editor.nodes(editor, { match: EditorCommands.isTopLevelNode })).length === 1;
     const isSelected = selected ?? isNodeSelected;
 
     const [menuOpen, setMenuOpen] = useState(true);
@@ -130,10 +131,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 });
 
 EditorBlock.displayName = 'EditorBlock';
-
-function isTopLevelBlock(_node: Node, path: Path): boolean {
-    return path.length === 1;
-}
 
 function preventBubbling(event: MouseEvent) {
     event.stopPropagation();

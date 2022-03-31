@@ -22,6 +22,8 @@ export { isSelectionAtBlockEnd } from './isSelectionAtBlockEnd';
 export { isSelectionAtBlockStart } from './isSelectionAtBlockStart';
 export { isSelectionEmpty } from './isSelectionEmpty';
 export { isSelectionValid } from './isSelectionValid';
+export { isTopLevelNode } from './isTopLevelNode';
+export { isTopLevelNodeSelected } from './isTopLevelNodeSelected';
 export { isValidLocation } from './isValidLocation';
 export { makeDirty } from './makeDirty';
 export { moveCursorToEndOfDocument } from './moveCursorToEndOfDocument';
