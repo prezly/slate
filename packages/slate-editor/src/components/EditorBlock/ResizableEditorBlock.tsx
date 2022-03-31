@@ -39,6 +39,9 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     const [pixelWidth, setPixelWidth] = useState(0);
     const [isResizing, setResizing] = useState(false);
 
+    /**
+     * Clamp given Size value within the provided minWidth/maxWidth constraints.
+     */
     const constrainSize = useCallback(
         function (size: Size) {
             return clamp(
@@ -51,7 +54,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         [containerWidth],
     );
 
-    const handleResize: DraggableEventHandler = useCallback(
+    const handleResizeEvent: DraggableEventHandler = useCallback(
         function (_event, data) {
             const nextPixelWidth = Size(pixelWidth + data.deltaX, Unit.PIXELS);
             setPixelWidth(
@@ -65,8 +68,8 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         },
         [containerWidth, pixelWidth, constrainSize],
     );
-    const startResizing = useCallback(() => setResizing(true), [setResizing]);
-    const stopResizing = useCallback(
+    const handleResizingStarted = useCallback(() => setResizing(true), [setResizing]);
+    const handleResizingFinished = useCallback(
         function () {
             setResizing(false);
             onResize(toString(convert(Size(pixelWidth, Unit.PIXELS), unit(width), containerWidth)));
@@ -75,6 +78,9 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     );
 
     useEffect(
+        /**
+         * Recalculate pixelWidth when outer width properties change.
+         */
         function () {
             if (containerWidth > 0 && containerWidth !== Infinity) {
                 setPixelWidth(constrainSize(toPixels(Size(width), containerWidth)).value);
@@ -92,9 +98,9 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                     {renderBlock({ isSelected })}
                     {resizable && isSelected && (
                         <Draggable.DraggableCore
-                            onDrag={handleResize}
-                            onStart={startResizing}
-                            onStop={stopResizing}
+                            onDrag={handleResizeEvent}
+                            onStart={handleResizingStarted}
+                            onStop={handleResizingFinished}
                         >
                             <div>
                                 <ResizeButton className={styles.resizeButton} />
