@@ -26,7 +26,7 @@ import { VideoExtension } from '../editor-v4-video';
 import { VoidExtension } from '../editor-v4-void';
 import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
 
-import { blockRules, compositeCharactersRules, textStyleRules } from './autoformatRules';
+import { compositeCharactersRules, textStyleRules, blockRules } from './autoformatRules';
 import {
     createHandleEditGallery,
     createHandleEditImage,
@@ -113,12 +113,14 @@ export function* getEnabledExtensions({
     }
 
     if (withImages) {
+        const handleEditImage = createHandleEditImage(withImages);
         // ImageExtension has to be after RichFormattingExtension due to the fact
         // that it also deserializes <a> elements (ImageExtension is more specific).
         yield ImageExtension({
             ...withImages,
-            onCrop: createHandleEditImage(withImages),
+            onCrop: handleEditImage,
             onRemove: handleRemoveImage,
+            onReplace: handleEditImage,
         });
     }
 

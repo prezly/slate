@@ -20,6 +20,7 @@ import { ImageMenu } from './ImageMenu';
 interface Props extends RenderElementProps {
     element: ImageNode;
     onCrop: (editor: Editor, element: ImageNode) => void;
+    onReplace: (editor: Editor, element: ImageNode) => void;
     onRemove: (editor: Editor, element: ImageNode) => void;
     showLayoutControls: boolean;
 }
@@ -29,6 +30,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     children,
     element,
     onCrop,
+    onReplace,
     onRemove,
     showLayoutControls,
 }) => {
@@ -54,6 +56,7 @@ export const ImageElement: FunctionComponent<Props> = ({
         },
         [editor, element],
     );
+    const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
 
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
@@ -74,6 +77,7 @@ export const ImageElement: FunctionComponent<Props> = ({
                     onClose={onClose}
                     onCrop={handleCrop}
                     onRemove={handleRemove}
+                    onReplace={handleReplace}
                     onUpdate={handleUpdate}
                     showLayoutControls={showLayoutControls}
                 />
