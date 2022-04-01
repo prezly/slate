@@ -31,6 +31,7 @@ export enum MenuAction {
     ADD_VIDEO = 'add_video',
     ADD_WEB_BOOKMARK = 'add_web_bookmark',
     ADD_STORY_EMBED = 'add_story_embed',
+    ADD_STORY_BOOKMARK = 'add_story_bookmark',
 }
 
 enum Group {
@@ -49,6 +50,7 @@ type Params = Pick<
     | 'withPressContacts'
     | 'withRichFormatting'
     | 'withStoryEmbeds'
+    | 'withStoryBookmarks'
     | 'withVideos'
     | 'withWebBookmarks'
 >;
@@ -64,6 +66,7 @@ export function* generateFloatingAddMenuOptions(
         withPressContacts,
         withRichFormatting,
         withStoryEmbeds,
+        withStoryBookmarks,
         withVideos,
         withWebBookmarks,
     }: Params,
@@ -211,6 +214,17 @@ export function* generateFloatingAddMenuOptions(
             group: Group.PREZLY_CONTENT,
             text: 'Story Embed',
             description: 'Insert Prezly story content',
+            isBeta: true,
+        };
+    }
+
+    if (withStoryBookmarks) {
+        yield {
+            action: MenuAction.ADD_STORY_BOOKMARK,
+            icon: Icons.ComponentStoryBookmark,
+            group: Group.PREZLY_CONTENT,
+            text: 'Story bookmark',
+            description: 'Embed your Prezly content',
             isBeta: true,
         };
     }

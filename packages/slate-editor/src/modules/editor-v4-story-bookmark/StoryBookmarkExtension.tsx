@@ -1,0 +1,35 @@
+import type { Extension } from '@prezly/slate-commons';
+import { createDeserializeElement } from '@prezly/slate-commons';
+import { STORY_BOOKMARK_NODE_TYPE, isStoryBookmarkNode } from '@prezly/slate-types';
+import React from 'react';
+import type { RenderElementProps } from 'slate-react';
+
+import { StoryBookmarkElement } from './components';
+import { STORY_BOOKMARK_EXTENSION_ID } from './constants';
+import { normalizeRedundantStoryBookmarkAttributes, parseSerializedElement } from './lib';
+import type { StoryBookmarkExtensionParameters } from './types';
+
+export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters): Extension => ({
+    deserialize: {
+        element: {
+            [STORY_BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
+        },
+    },
+    id: STORY_BOOKMARK_EXTENSION_ID,
+    normalizers: [normalizeRedundantStoryBookmarkAttributes],
+    renderElement: ({ attributes, children, element }: RenderElementProps) => {
+        if (isStoryBookmarkNode(element)) {
+            return (
+                <>
+                    <StoryBookmarkElement attributes={attributes} element={element} params={params}>
+                        {children}
+                    </StoryBookmarkElement>
+                </>
+            );
+        }
+
+        return undefined;
+    },
+    rootTypes: [STORY_BOOKMARK_NODE_TYPE],
+    voidTypes: [STORY_BOOKMARK_NODE_TYPE],
+});

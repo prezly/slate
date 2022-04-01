@@ -98,6 +98,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         withVideos,
         withWebBookmarks,
         withStoryEmbeds,
+        withStoryBookmarks,
     } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -130,6 +131,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             withWebBookmarks,
             withAutoformat,
             withStoryEmbeds,
+            withStoryBookmarks,
         }),
     );
 
@@ -290,6 +292,12 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 message: 'Embedding Prezly Story',
             });
         }
+        if (action === MenuAction.ADD_STORY_BOOKMARK) {
+            return openFloatingStoryEmbedInput('Embed Prezly story', {
+                contentType: LoaderContentType.STORY_BOOKMARK,
+                message: 'Embedding Prezly Story',
+            });
+        }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             return createHandleAddGallery(withGalleries)(editor);
         }
@@ -441,14 +449,16 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                     />
                 )}
 
-                {withStoryEmbeds && isFloatingStoryEmbedInputOpen && (
+                {(withStoryEmbeds || withStoryBookmarks) && isFloatingStoryEmbedInputOpen && (
                     <FloatingStoryEmbedInput
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onClose={closeFloatingStoryEmbedInput}
                         onRootClose={rootCloseFloatingStoryEmbedInput}
                         onSubmit={submitFloatingStoryEmbedInput}
-                        renderInput={withStoryEmbeds.renderInput}
+                        renderInput={
+                            withStoryEmbeds?.renderInput ?? (withStoryBookmarks?.renderInput as any)
+                        }
                     />
                 )}
 
