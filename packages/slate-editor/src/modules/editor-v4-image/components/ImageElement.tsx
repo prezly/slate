@@ -60,14 +60,16 @@ export const ImageElement: FunctionComponent<Props> = ({
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
 
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
-    const layout = element.layout ?? ImageLayout.CONTAINED;
+    const layout = showLayoutControls
+        ? element.layout ?? ImageLayout.CONTAINED
+        : ImageLayout.CONTAINED;
     const isResizable = layout === ImageLayout.CONTAINED;
 
     return (
         <ResizableEditorBlock
             {...attributes}
             element={element}
-            layout={element.layout}
+            layout={layout}
             onResize={handleResize}
             overlay="always"
             renderBlock={() => <Image className={styles.image} image={image} />}
