@@ -44,7 +44,7 @@ export function useFloatingStoryBookmarkInput(editor: Editor): [State, Actions] 
     }
 
     function open(buttonLabel: string, newLoaderParameters: Parameters<typeof createLoader>[0]) {
-        EventsEditor.dispatchEvent(editor, 'story-embed-dialog-opened', {
+        EventsEditor.dispatchEvent(editor, 'story-bookmark-dialog-opened', {
             selectedItemText: buttonLabel,
         });
         setSubmitButtonLabel(buttonLabel);
@@ -54,7 +54,7 @@ export function useFloatingStoryBookmarkInput(editor: Editor): [State, Actions] 
     }
 
     async function submit(node: Pick<StoryBookmarkNode, 'story'> & Partial<StoryBookmarkNode>) {
-        EventsEditor.dispatchEvent(editor, 'story-embed-dialog-submitted', {
+        EventsEditor.dispatchEvent(editor, 'story-bookmark-dialog-submitted', {
             node: JSON.stringify(node),
             selectedItemText: submitButtonLabel,
         });
