@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isParagraphNode } from '@prezly/slate-types';
+import { isParagraphNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Node, Range } from 'slate';
 
@@ -17,6 +17,9 @@ export function shouldShowMenuButton(editor: Editor): boolean {
     }
 
     const text = Node.string(currentNode);
+    const hasNoPlaceholder = currentNode.children.every(
+        (child) => !('type' in child && child.type === PLACEHOLDER_NODE_TYPE),
+    );
 
-    return text.trim() === '' || text === MENU_TRIGGER_CHARACTER;
+    return (text.trim() === '' || text === MENU_TRIGGER_CHARACTER) && hasNoPlaceholder;
 }
