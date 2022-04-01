@@ -22,12 +22,10 @@ import { ReactEditor, Slate } from 'slate-react';
 
 import { noop } from '#lodash';
 
+import { FloatingStoryEmbedInput } from '#modules/editor-v4-components';
 import { LoaderContentType } from '#modules/editor-v4-loader';
 import { useFloatingStoryBookmarkInput } from '#modules/editor-v4-story-bookmark';
-import {
-    FloatingStoryEmbedInput,
-    useFloatingStoryEmbedInput,
-} from '#modules/editor-v4-story-embed';
+import { useFloatingStoryEmbedInput } from '#modules/editor-v4-story-embed';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
@@ -466,8 +464,12 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         containerRef={containerRef}
                         onClose={closeFloatingStoryEmbedInput}
                         onRootClose={rootCloseFloatingStoryEmbedInput}
-                        onSubmit={submitFloatingStoryEmbedInput}
-                        renderInput={withStoryEmbeds?.renderInput}
+                        renderInput={() =>
+                            withStoryEmbeds.renderInput({
+                                onCreate: submitFloatingStoryEmbedInput,
+                                onRemove: closeFloatingStoryEmbedInput,
+                            })
+                        }
                     />
                 )}
 
@@ -477,8 +479,12 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         containerRef={containerRef}
                         onClose={closeFloatingStoryBookmarkInput}
                         onRootClose={rootCloseFloatingStoryBookmarkInput}
-                        onSubmit={submitFloatingStoryBookmarkInput as any}
-                        renderInput={withStoryBookmarks.renderInput as any}
+                        renderInput={() =>
+                            withStoryBookmarks.renderInput({
+                                onCreate: submitFloatingStoryBookmarkInput,
+                                onRemove: closeFloatingStoryBookmarkInput,
+                            })
+                        }
                     />
                 )}
 
