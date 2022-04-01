@@ -17,9 +17,9 @@ export function shouldShowMenuButton(editor: Editor): boolean {
     }
 
     const text = Node.string(currentNode);
-    const hasNoPlaceholder = currentNode.children.every(
-        (child) => !('type' in child && child.type === PLACEHOLDER_NODE_TYPE),
+    const hasPlaceholder = currentNode.children.some(
+        (child) => 'type' in child && child.type === PLACEHOLDER_NODE_TYPE
     );
 
-    return (text.trim() === '' || text === MENU_TRIGGER_CHARACTER) && hasNoPlaceholder;
+    return (text.trim() === '' || text === MENU_TRIGGER_CHARACTER) && !hasPlaceholder;
 }
