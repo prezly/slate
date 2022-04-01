@@ -8,7 +8,7 @@ import styles from './Input.module.scss';
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     value: string;
-    onChange: (newValue: string) => void;
+    onChange: (newValue: string, valid: boolean) => void;
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
@@ -20,7 +20,7 @@ export function Input({ className, icon: Icon, onChange, ...attributes }: InputP
                 className={classNames(className, styles.input, {
                     [styles['with-icon']]: Icon !== undefined,
                 })}
-                onChange={(e) => onChange(e.currentTarget.value)}
+                onChange={(e) => onChange(e.currentTarget.value, e.currentTarget.validity.valid)}
             />
             {Icon && <Icon className={styles.icon} />}
 

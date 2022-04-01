@@ -1,0 +1,36 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.handle {
+    &,
+    * {
+        user-select: none;
+        cursor: nwse-resize;
+    }
+}
+
+.button {
+    $size: 24px;
+
+    @include button-variant(rgba(#1b1b36, 0.96), rgba(#fff, 0.88), transparent);
+
+    padding: $spacing-half;
+    border-radius: 4px;
+    width: $size;
+    height: $size;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    font-size: 11px;
+    text-align: center;
+
+    &:active {
+        box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.11);
+    }
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+}

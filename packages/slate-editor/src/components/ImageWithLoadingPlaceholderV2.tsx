@@ -110,3 +110,5 @@ export const ImageWithLoadingPlaceholderV2 = forwardRef<HTMLElement, Props>(
         );
     },
 );
+
+ImageWithLoadingPlaceholderV2.displayName = 'ImageWithLoadingPlaceholderV2';
