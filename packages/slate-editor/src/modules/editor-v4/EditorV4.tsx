@@ -23,6 +23,7 @@ import { ReactEditor, Slate } from 'slate-react';
 import { noop } from '#lodash';
 
 import { LoaderContentType } from '#modules/editor-v4-loader';
+import { useFloatingStoryBookmarkInput } from '#modules/editor-v4-story-bookmark';
 import {
     FloatingStoryEmbedInput,
     useFloatingStoryEmbedInput,
@@ -219,6 +220,16 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     ] = useFloatingStoryEmbedInput(editor);
 
     const [
+        { isOpen: isFloatingStoryBookmarkInputOpen },
+        {
+            close: closeFloatingStoryBookmarkInput,
+            open: openFloatingStoryBookmarkInput,
+            rootClose: rootCloseFloatingStoryBookmarkInput,
+            submit: submitFloatingStoryBookmarkInput,
+        },
+    ] = useFloatingStoryBookmarkInput(editor);
+
+    const [
         { isOpen: isFloatingPressContactsMenuOpen },
         {
             close: closeFloatingPressContactsMenu,
@@ -293,7 +304,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             });
         }
         if (action === MenuAction.ADD_STORY_BOOKMARK) {
-            return openFloatingStoryEmbedInput('Embed Prezly story', {
+            return openFloatingStoryBookmarkInput('Embed Prezly story', {
                 contentType: LoaderContentType.STORY_BOOKMARK,
                 message: 'Embedding Prezly Story',
             });
@@ -449,16 +460,25 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                     />
                 )}
 
-                {(withStoryEmbeds || withStoryBookmarks) && isFloatingStoryEmbedInputOpen && (
+                {withStoryEmbeds && isFloatingStoryEmbedInputOpen && (
                     <FloatingStoryEmbedInput
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onClose={closeFloatingStoryEmbedInput}
                         onRootClose={rootCloseFloatingStoryEmbedInput}
                         onSubmit={submitFloatingStoryEmbedInput}
-                        renderInput={
-                            withStoryEmbeds?.renderInput ?? (withStoryBookmarks?.renderInput as any)
-                        }
+                        renderInput={withStoryEmbeds?.renderInput}
+                    />
+                )}
+
+                {withStoryBookmarks && isFloatingStoryBookmarkInputOpen && (
+                    <FloatingStoryEmbedInput
+                        availableWidth={availableWidth}
+                        containerRef={containerRef}
+                        onClose={closeFloatingStoryBookmarkInput}
+                        onRootClose={rootCloseFloatingStoryBookmarkInput}
+                        onSubmit={submitFloatingStoryBookmarkInput as any}
+                        renderInput={withStoryBookmarks.renderInput as any}
                     />
                 )}
 

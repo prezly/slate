@@ -19,6 +19,7 @@ import { ParagraphsExtension } from '#modules/editor-v4-paragraphs';
 import { PlaceholderMentionsExtension } from '#modules/editor-v4-placeholder-mentions';
 import { PressContactsExtension } from '#modules/editor-v4-press-contacts';
 import { RichFormattingExtension } from '#modules/editor-v4-rich-formatting';
+import { StoryBookmarkExtension } from '#modules/editor-v4-story-bookmark';
 import { UserMentionsExtension } from '#modules/editor-v4-user-mentions';
 
 import { StoryEmbedExtension } from '../editor-v4-story-embed';
@@ -64,6 +65,7 @@ export function* getEnabledExtensions({
     withWebBookmarks,
     withAutoformat,
     withStoryEmbeds,
+    withStoryBookmarks,
 }: Parameters): Generator<Extension> {
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
@@ -158,6 +160,10 @@ export function* getEnabledExtensions({
 
     if (withStoryEmbeds) {
         yield StoryEmbedExtension(withStoryEmbeds);
+    }
+
+    if (withStoryBookmarks) {
+        yield StoryBookmarkExtension(withStoryBookmarks);
     }
 
     yield DividerExtension();
