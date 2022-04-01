@@ -18,7 +18,7 @@ export function shouldShowMenuButton(editor: Editor): boolean {
 
     const text = Node.string(currentNode);
     const hasPlaceholder = currentNode.children.some(
-        (child) => 'type' in child && child.type === PLACEHOLDER_NODE_TYPE
+        (child) => 'type' in child && child.type === PLACEHOLDER_NODE_TYPE,
     );
 
     return (text.trim() === '' || text === MENU_TRIGGER_CHARACTER) && !hasPlaceholder;
