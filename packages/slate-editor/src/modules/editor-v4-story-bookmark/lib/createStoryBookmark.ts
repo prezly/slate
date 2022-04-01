@@ -21,9 +21,9 @@ export function createStoryBookmark(
         layout: StoryBookmarkLayout.HORIZONTAL,
         new_tab: true,
         show_thumbnail: true,
+        ...props,
         children: [{ text: '' }],
         uuid: uuidV4(),
-        ...props,
         type: STORY_BOOKMARK_NODE_TYPE, // disallowed to override type
     });
 }
