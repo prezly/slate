@@ -1,13 +1,15 @@
 import type { StoryBookmarkNode } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
-import type { RenderElementProps } from 'slate-react';
+import type { RenderElementProps} from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 
 import { EditorBlock, LoadingPlaceholderV2 } from '#components';
 import { ComponentStoryBookmark } from '#icons';
 import { useAsyncFn } from '#lib';
 
+import { removeStoryBookmark, updateImage } from '../../transforms';
 import type { StoryBookmarkExtensionParameters } from '../../types';
-
+import { StoryBookmarkMenu } from '../StoryBookmarkMenu';
 interface Props extends RenderElementProps {
     element: StoryBookmarkNode;
     params: StoryBookmarkExtensionParameters;
@@ -16,6 +18,8 @@ interface Props extends RenderElementProps {
 const ESTIMATED_LOADING_DURATION = 300;
 
 export function StoryBookmarkElement({ attributes, children, element, params }: Props) {
+    const editor = useSlateStatic();
+
     const [{ error, loading, value: story }, loadStory] = useAsyncFn(() => {
         return params.loadStory(element.story.uuid);
     }, [params.loadStory, element.story.uuid]);
@@ -29,7 +33,17 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
             {...attributes} // contains `ref`
             element={element}
             overlay="always"
-            renderMenu={undefined}
+            renderMenu={({ onClose }) =>
+                story && (
+                    <StoryBookmarkMenu
+                        onClose={onClose}
+                        element={element}
+                        story={story}
+                        onUpdate={(attrs) => updateImage(editor, attrs)}
+                        onRemove={() => removeStoryBookmark(editor)}
+                    />
+                )
+            }
             renderBlock={({ isSelected }) => (
                 <div>
                     <div>StoryBookmark</div>
