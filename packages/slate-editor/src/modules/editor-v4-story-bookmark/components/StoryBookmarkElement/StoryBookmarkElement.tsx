@@ -1,6 +1,6 @@
 import type { StoryBookmarkNode } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
-import type { RenderElementProps} from 'slate-react';
+import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
 import { EditorBlock, LoadingPlaceholderV2 } from '#components';
