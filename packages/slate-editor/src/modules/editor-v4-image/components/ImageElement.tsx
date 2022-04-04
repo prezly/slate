@@ -75,13 +75,17 @@ export const ImageElement: FunctionComponent<Props> = ({
             renderBlock={() => <Image className={styles.image} image={image} />}
             renderMenu={({ onClose }) => (
                 <ImageMenu
-                    element={element}
+                    onChange={handleUpdate}
                     onClose={onClose}
                     onCrop={handleCrop}
                     onRemove={handleRemove}
                     onReplace={handleReplace}
-                    onUpdate={handleUpdate}
                     showLayoutControls={showLayoutControls}
+                    value={{
+                        layout,
+                        href: element.href,
+                        new_tab: element.new_tab,
+                    }}
                 />
             )}
             resizable={isResizable}
