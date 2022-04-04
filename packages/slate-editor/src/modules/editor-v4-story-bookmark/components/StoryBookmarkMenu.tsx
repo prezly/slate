@@ -32,7 +32,8 @@ const CARD_LAYOUT_OPTIONS: OptionsGroupOption<StoryBookmarkLayout>[] = [
 ];
 
 export function StoryBookmarkMenu({ element, story, onClose, onRemove, onUpdate }: Props) {
-    console.log(story);
+    const isLayoutChangeable = story.oembed.thumbnail_url && element.show_thumbnail;
+    const activeLayout = isLayoutChangeable ? element.layout : StoryBookmarkLayout.VERTICAL;
 
     return (
         <>
@@ -77,6 +78,7 @@ export function StoryBookmarkMenu({ element, story, onClose, onRemove, onUpdate 
                 <Toggle
                     name="show_preview"
                     value={element.show_thumbnail}
+                    disabled={!story.oembed.thumbnail_url}
                     onChange={(show_thumbnail) => onUpdate({ show_thumbnail })}
                 >
                     Show preview image
@@ -87,8 +89,9 @@ export function StoryBookmarkMenu({ element, story, onClose, onRemove, onUpdate 
                 <VStack spacing="2-5">
                     <OptionsGroup
                         name="layout"
+                        disabled={!isLayoutChangeable}
                         options={CARD_LAYOUT_OPTIONS}
-                        selectedValue={element.layout}
+                        selectedValue={activeLayout}
                         onChange={(layout) => onUpdate({ layout })}
                         columns={3}
                     />
