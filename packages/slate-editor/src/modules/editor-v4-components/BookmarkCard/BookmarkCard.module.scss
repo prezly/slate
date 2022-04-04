@@ -1,7 +1,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.card {
+.container {
     color: $grey-700;
     display: flex;
     border: 1px solid $grey-200;
@@ -21,11 +21,6 @@
     }
 }
 
-.details {
-    padding: (2.5 * $spacing-base) (3 * $spacing-base);
-    flex-grow: 1;
-}
-
 .thumbnail {
     background-position: center center;
     background-size: cover;
@@ -36,6 +31,7 @@
         height: 0;
         position: relative;
     }
+
     .horizontal & {
         min-width: 180px;
         min-height: 180px;
@@ -43,7 +39,7 @@
     }
 }
 
-.thumbnailImage {
+.thumbnail-image {
     visibility: hidden;
 
     .vertical & {
@@ -57,6 +53,11 @@
         width: 100%;
         height: 100%;
     }
+}
+
+.details {
+    padding: (2.5 * $spacing-base) (3 * $spacing-base);
+    flex-grow: 1;
 }
 
 .title {
@@ -128,12 +129,12 @@
     }
 }
 
-.providerIcon {
+.provider-icon {
     width: $spacing-base * 2;
     height: $spacing-base * 2;
     margin-right: $spacing-base;
 }
 
-.providerName {
+.provider-name {
     flex-grow: 1;
 }
