@@ -10,6 +10,9 @@ import { useAsyncFn } from '#lib';
 import { removeStoryBookmark, updateImage } from '../../transforms';
 import type { StoryBookmarkExtensionParameters } from '../../types';
 import { StoryBookmarkMenu } from '../StoryBookmarkMenu';
+
+import { StoryBookmarkBlock } from './StoryBookmarkBlock';
+
 interface Props extends RenderElementProps {
     element: StoryBookmarkNode;
     params: StoryBookmarkExtensionParameters;
@@ -27,6 +30,10 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
     useEffect(() => {
         loadStory();
     }, [loadStory]);
+
+    if (error) {
+        console.log(error);
+    }
 
     return (
         <EditorBlock
@@ -46,31 +53,13 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
             }
             renderBlock={({ isSelected }) => (
                 <div>
-                    <div>StoryBookmark</div>
-                    <pre>{JSON.stringify(element, undefined, 4)}</pre>
                     {story && (
-                        <pre>
-                            {JSON.stringify(
-                                {
-                                    uuid: story.uuid,
-                                    title: story.title,
-                                    thumbnail_url: story.thumbnail_url,
-                                    newsroom: {
-                                        display_name: story.newsroom.display_name,
-                                        thumbnail_url: story.newsroom.thumbnail_url,
-                                        newsroom: story.newsroom.url,
-                                    },
-                                    links: {
-                                        newsroom_preview: story.links.newsroom_preview,
-                                    },
-                                },
-                                undefined,
-                                4,
-                            )}
-                        </pre>
+                        <StoryBookmarkBlock
+                            isSelected={isSelected}
+                            element={element}
+                            story={story}
+                        />
                     )}
-                    <pre>{JSON.stringify(error, undefined, 4)}</pre>
-                    {isSelected && 'Selected'}
 
                     {loading && (
                         <LoadingPlaceholderV2.Placeholder

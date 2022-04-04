@@ -39,8 +39,6 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
         });
     });
 
-    console.log(url, oembed);
-
     return (
         <EditorBlock
             {...attributes} // contains `ref`
