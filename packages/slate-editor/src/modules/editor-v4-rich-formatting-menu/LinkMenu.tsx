@@ -18,7 +18,15 @@ interface Props {
     onUnlink: () => void;
 }
 
-export function LinkMenu({ node, canUnlink, showOpenInNewTabOption, onBlur, onChange, onClose, onUnlink }: Props) {
+export function LinkMenu({
+    node,
+    canUnlink,
+    showOpenInNewTabOption,
+    onBlur,
+    onChange,
+    onClose,
+    onUnlink,
+}: Props) {
     const [href, setHref] = useState(node?.href ?? '');
     const [new_tab, setNewTab] = useState(node?.new_tab ?? true);
 
