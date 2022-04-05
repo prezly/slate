@@ -7,6 +7,8 @@ import { EditorBlock, LoadingPlaceholderV2 } from '#components';
 import { ComponentStoryBookmark } from '#icons';
 import { useAsyncFn } from '#lib';
 
+import { EventsEditor } from '#modules/editor-v4-events';
+
 import { removeStoryBookmark, updateImage } from '../../transforms';
 import type { StoryBookmarkExtensionParameters } from '../../types';
 import { StoryBookmarkMenu } from '../StoryBookmarkMenu';
@@ -27,13 +29,28 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
         return params.loadStory(element.story.uuid);
     }, [params.loadStory, element.story.uuid]);
 
+    const remove = () => {
+        const removedElement = removeStoryBookmark(editor);
+
+        if (removedElement) {
+            EventsEditor.dispatchEvent(editor, 'web-bookmark-removed', {
+                uuid: removedElement.uuid,
+            });
+        }
+    };
+
     useEffect(() => {
         loadStory();
     }, [loadStory]);
 
-    if (error) {
-        console.log(error);
-    }
+    useEffect(() => {
+        if (error) {
+            EventsEditor.dispatchEvent(editor, 'notification', {
+                children: error.message,
+                type: 'error',
+            });
+        }
+    }, [error]);
 
     return (
         <EditorBlock
@@ -47,7 +64,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                         element={element}
                         story={story}
                         onUpdate={(attrs) => updateImage(editor, attrs)}
-                        onRemove={() => removeStoryBookmark(editor)}
+                        onRemove={remove}
                     />
                 )
             }
