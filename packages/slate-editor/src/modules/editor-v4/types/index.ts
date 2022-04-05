@@ -41,6 +41,7 @@ export interface EditorV4ExtensionsProps {
         menu?: boolean;
         blocks?: boolean;
         links?: boolean;
+        linksOpenInNewTabOption?: boolean;
     };
     withUserMentions?: UserMentionsExtensionParameters;
     withVideos?: VideoExtensionParameters;
