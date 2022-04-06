@@ -12,11 +12,10 @@ export function shouldShowMenuButton(editor: Editor): boolean {
 
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (!isParagraphNode(currentNode)) {
+    if (!isParagraphNode(currentNode) || EditorCommands.hasVoidElements(editor, currentNode)) {
         return false;
     }
 
     const text = Node.string(currentNode);
-
     return text.trim() === '' || text === MENU_TRIGGER_CHARACTER;
 }
