@@ -1,4 +1,4 @@
-import { EditorCommands } from '@prezly/slate-commons';
+import { EditorCommands, hasVoidElements } from '@prezly/slate-commons';
 import { isParagraphNode, PLACEHOLDER_NODE_TYPE } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Node, Range } from 'slate';
@@ -12,14 +12,10 @@ export function shouldShowMenuButton(editor: Editor): boolean {
 
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (!isParagraphNode(currentNode)) {
+    if (!isParagraphNode(currentNode) || hasVoidElements(editor, currentNode)) {
         return false;
     }
 
     const text = Node.string(currentNode);
-    const hasPlaceholder = currentNode.children.some(
-        (child) => 'type' in child && child.type === PLACEHOLDER_NODE_TYPE,
-    );
-
-    return (text.trim() === '' || text === MENU_TRIGGER_CHARACTER) && !hasPlaceholder;
+    return text.trim() === '' || text === MENU_TRIGGER_CHARACTER;
 }
