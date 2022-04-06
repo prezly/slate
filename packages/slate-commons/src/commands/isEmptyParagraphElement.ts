@@ -25,7 +25,7 @@ export function isEmptyParagraphElement(
     return Node.string(node) === '';
 }
 
-function hasVoidElements(editor: Editor, node: Node): boolean {
+export function hasVoidElements(editor: Editor, node: Node): boolean {
     if (Text.isText(node)) {
         return false;
     }
