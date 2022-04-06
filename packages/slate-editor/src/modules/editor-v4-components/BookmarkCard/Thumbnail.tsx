@@ -13,7 +13,7 @@ export function Thumbnail({ href, src, width, height }: ThumbnailProps) {
     return (
         <a href={href} className={styles.thumbnail} style={{ backgroundImage: `url("${src}")` }}>
             <img
-                className={styles['thumbnail-image']}
+                className={styles.thumbnailImage}
                 src={src}
                 width={width}
                 height={height}

@@ -39,7 +39,7 @@
     }
 }
 
-.thumbnail-image {
+.thumbnailImage {
     visibility: hidden;
 
     .vertical & {
@@ -129,12 +129,12 @@
     }
 }
 
-.provider-icon {
+.providerIcon {
     width: $spacing-base * 2;
     height: $spacing-base * 2;
     margin-right: $spacing-base;
 }
 
-.provider-name {
+.providerName {
     flex-grow: 1;
 }

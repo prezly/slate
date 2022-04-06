@@ -17,12 +17,12 @@ export function Provider({ url, providerUrl, providerName, showUrl }: ProviderPr
     return (
         <a className={styles.provider} rel="noopener noreferrer" target="_blank" href={href}>
             <img
-                className={styles['provider-icon']}
+                className={styles.providerIcon}
                 src={favicon}
                 alt={`${provider} favicon`}
                 aria-hidden="true"
             />
-            <span className={styles['provider-name']}>{provider}</span>
+            <span className={styles.providerName}>{provider}</span>
         </a>
     );
 }
