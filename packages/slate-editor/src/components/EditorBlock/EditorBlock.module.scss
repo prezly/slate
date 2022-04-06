@@ -1,13 +1,9 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.block {
+.outer {
     @include editor-v4-block($void: false);
     position: relative;
-
-    &.selected {
-        @include editor-v4-block-active;
-    }
 
     &.extendedHitArea {
         $area-vertical-expansion: $spacing-3; // x2 if counted in both directions: up & down
@@ -15,78 +11,39 @@
         margin-top: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
         margin-bottom: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
 
-        > .container {
+        > .card {
             padding-top: $area-vertical-expansion;
             padding-bottom: $area-vertical-expansion;
         }
     }
 
-    &.void > .container {
+    &.void > .card {
         @include editor-v4-void-element;
     }
 }
 
-.container {
+.card {
     white-space: normal;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+
+    &.selected {
+        @include editor-v4-block-active;
+    }
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     z-index: $editor-v4-embed-element-overlay-z-index;
-
-    &.hidden {
-        display: none;
-    }
 }
 
 .menu {
-    width: 280px;
-    position: absolute;
-    backdrop-filter: blur(6px);
-    z-index: $editor-v4-embed-element-overlay-z-index + 1;
+    z-index: $editor-v4-embed-element-overlay-z-index + 2;
 }
 
-.arrow {
+.resizeButton {
+    z-index: $editor-v4-embed-element-overlay-z-index + 1;
     position: absolute;
-    visibility: hidden;
-
-    &,
-    &::before {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: inherit;
-    }
-
-    &::before {
-        visibility: visible;
-        content: "";
-        transform: rotate(45deg);
-    }
-
-    &.top {
-        bottom: -4px;
-    }
-
-    &.bottom {
-        top: -4px;
-    }
-
-    &.left {
-        right: -4px;
-    }
-
-    &.right {
-        left: -4px;
-    }
-
-    &.hidden {
-        &::before {
-            visibility: hidden;
-        }
-    }
+    right: $spacing-1;
+    bottom: $spacing-1;
 }

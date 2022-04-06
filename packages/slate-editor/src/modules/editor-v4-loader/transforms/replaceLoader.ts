@@ -1,3 +1,4 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import type { Editor, Element } from 'slate';
 import { Transforms } from 'slate';
 
@@ -7,9 +8,9 @@ import type { LoaderNode } from '../types';
 export function replaceLoader(editor: Editor, loader: LoaderNode, element: Element): void {
     const loaderPath = findLoaderPath(editor, loader.id);
 
-    if (!loaderPath) {
-        return;
-    }
+    if (!loaderPath) return;
+
+    const wasSelected = EditorCommands.isTopLevelNodeSelected(editor, loader);
 
     Transforms.removeNodes(editor, {
         at: loaderPath,
@@ -20,4 +21,6 @@ export function replaceLoader(editor: Editor, loader: LoaderNode, element: Eleme
         at: loaderPath,
         mode: 'highest',
     });
+
+    if (wasSelected) Transforms.select(editor, loaderPath);
 }
