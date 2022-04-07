@@ -25,15 +25,13 @@ export function shouldShowMenuButton(editor: Editor): boolean {
 }
 
 function canShowMenuButton(editor: Editor, currentNode: Node) {
-    const hasVoidElements = EditorCommands.hasVoidElements(editor, currentNode);
-
-    if (isParagraphNode(currentNode) && !hasVoidElements) {
-        return true;
+    if (!isParagraphNode(currentNode) && !isHeadingNode(currentNode)) {
+        return false;
     }
 
-    if (isHeadingNode(currentNode) && !hasVoidElements) {
-        return true;
+    if (EditorCommands.hasVoidElements(editor, currentNode)) {
+        return false;
     }
 
-    return !hasVoidElements;
+    return true;
 }
