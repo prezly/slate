@@ -12,7 +12,9 @@ interface WebBookmarkExtensionParameters {
     withNewTabOption?: boolean;
 }
 
-export const WebBookmarkExtension = ({ withNewTabOption = true } : WebBookmarkExtensionParameters): Extension => ({
+export const WebBookmarkExtension = ({
+    withNewTabOption = true,
+}: WebBookmarkExtensionParameters): Extension => ({
     deserialize: {
         element: {
             [BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
@@ -24,7 +26,11 @@ export const WebBookmarkExtension = ({ withNewTabOption = true } : WebBookmarkEx
         if (isBookmarkNode(element)) {
             return (
                 <>
-                    <WebBookmarkElement attributes={attributes} element={element} withNewTabOption={withNewTabOption}>
+                    <WebBookmarkElement
+                        attributes={attributes}
+                        element={element}
+                        withNewTabOption={withNewTabOption}
+                    >
                         {children}
                     </WebBookmarkElement>
                 </>

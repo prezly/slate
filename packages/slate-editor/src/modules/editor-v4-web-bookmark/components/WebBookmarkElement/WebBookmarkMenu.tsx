@@ -42,7 +42,11 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
     },
 ];
 
-export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, withNewTabOption, onClose }) => {
+export const WebBookmarkMenu: FunctionComponent<Props> = ({
+    element,
+    withNewTabOption,
+    onClose,
+}) => {
     const editor = useSlate();
     const isSelected = useSelected();
 

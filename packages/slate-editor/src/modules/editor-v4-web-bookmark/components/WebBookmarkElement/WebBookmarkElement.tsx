@@ -68,7 +68,12 @@ const Provider: FunctionComponent<{ oembed: BookmarkNode['oembed']; showUrl: boo
     );
 };
 
-export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, children, element, withNewTabOption }) => {
+export const WebBookmarkElement: FunctionComponent<Props> = ({
+    attributes,
+    children,
+    element,
+    withNewTabOption,
+}) => {
     const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);
 
@@ -93,7 +98,13 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             {...attributes} // contains `ref`
             element={element}
             overlay="always"
-            renderMenu={({ onClose }) => <WebBookmarkMenu onClose={onClose} element={element} withNewTabOption={withNewTabOption} />}
+            renderMenu={({ onClose }) => (
+                <WebBookmarkMenu
+                    onClose={onClose}
+                    element={element}
+                    withNewTabOption={withNewTabOption}
+                />
+            )}
             renderBlock={({ isSelected }) => (
                 <div
                     className={classNames(styles.card, {

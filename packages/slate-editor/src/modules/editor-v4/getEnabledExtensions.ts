@@ -141,7 +141,7 @@ export function* getEnabledExtensions({
     }
 
     if (withWebBookmarks) {
-        yield WebBookmarkExtension({withNewTabOption: withWebBookmarks.withNewTabOption});
+        yield WebBookmarkExtension({ withNewTabOption: withWebBookmarks.withNewTabOption });
     }
 
     if (withAutoformat) {
