@@ -12,15 +12,14 @@ export function shouldShowMenuButton(editor: Editor): boolean {
 
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (!currentNode) {
+    if (
+        !isParagraphNode(currentNode) ||
+        isHeadingNode(currentNode) ||
+        EditorCommands.hasVoidElements(editor, currentNode)
+    ) {
         return false;
     }
 
-    if (isParagraphNode(currentNode) || isHeadingNode(currentNode)) {
-        const text = Node.string(currentNode);
-
-        return text === '' || text === MENU_TRIGGER_CHARACTER;
-    }
-
-    return false;
+    const text = Node.string(currentNode);
+    return text.trim() === '' || text === MENU_TRIGGER_CHARACTER;
 }
