@@ -12,14 +12,28 @@ export function shouldShowMenuButton(editor: Editor): boolean {
 
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (
-        !isParagraphNode(currentNode) ||
-        isHeadingNode(currentNode) ||
-        EditorCommands.hasVoidElements(editor, currentNode)
-    ) {
+    if (!currentNode) {
+        return false;
+    }
+
+    if (!canShowMenuButton(editor, currentNode)) {
         return false;
     }
 
     const text = Node.string(currentNode);
     return text.trim() === '' || text === MENU_TRIGGER_CHARACTER;
+}
+
+function canShowMenuButton(editor: Editor, currentNode: Node) {
+    const hasVoidElements = EditorCommands.hasVoidElements(editor, currentNode);
+
+    if (isParagraphNode(currentNode) && !hasVoidElements) {
+        return true;
+    }
+
+    if (isHeadingNode(currentNode) && !hasVoidElements) {
+        return true;
+    }
+
+    return !hasVoidElements;
 }
