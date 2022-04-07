@@ -3,7 +3,7 @@ import { STORY_BOOKMARK_NODE_TYPE, StoryBookmarkLayout } from '@prezly/slate-typ
 import { v4 as uuidV4 } from 'uuid';
 
 type RequiredProps = Pick<StoryBookmarkNode, 'story'>;
-type OptionalProps = Omit<StoryBookmarkNode, keyof RequiredProps>;
+type OptionalProps = Omit<StoryBookmarkNode, 'type' | 'children'>;
 
 function withoutExtraAttributes<T extends StoryBookmarkNode>(node: T): StoryBookmarkNode {
     const { type, story, children, layout, new_tab, show_thumbnail, uuid, ...extra } = node;
@@ -21,9 +21,9 @@ export function createStoryBookmark(
         layout: StoryBookmarkLayout.HORIZONTAL,
         new_tab: true,
         show_thumbnail: true,
+        uuid: uuidV4(),
         ...props,
         children: [{ text: '' }],
-        uuid: uuidV4(),
         type: STORY_BOOKMARK_NODE_TYPE, // disallowed to override type
     });
 }
