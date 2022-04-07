@@ -58,7 +58,7 @@ Base.args = {
         blocks: true,
         links: true,
         menu: true,
-        linksOpenInNewTabOption: undefined,
+        withNewTabOption: undefined,
     },
     withFloatingAddMenu: {
         tooltip: {

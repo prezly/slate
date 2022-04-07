@@ -11,7 +11,7 @@ import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
 interface Props {
     node: LinkNode | null;
     canUnlink: boolean;
-    showOpenInNewTabOption: boolean;
+    withNewTabOption: boolean;
     onBlur: () => void;
     onChange: (props: Pick<LinkNode, 'href' | 'new_tab'>) => void;
     onClose: () => void;
@@ -21,7 +21,7 @@ interface Props {
 export function LinkMenu({
     node,
     canUnlink,
-    showOpenInNewTabOption,
+    withNewTabOption,
     onBlur,
     onChange,
     onClose,
@@ -64,7 +64,7 @@ export function LinkMenu({
                                         />
                                     </VStack>
 
-                                    {showOpenInNewTabOption && (
+                                    {withNewTabOption && (
                                         <Toggle name="new_tab" value={new_tab} onChange={setNewTab}>
                                             Open in new tab
                                         </Toggle>

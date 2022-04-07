@@ -31,7 +31,7 @@ interface Props {
     withAlignment: boolean;
     withRichBlockElements: boolean;
     withLinks: boolean;
-    withLinksOpenInNewTabOption?: boolean;
+    withNewTabOption?: boolean;
 }
 
 const TOOLBAR_OFFSET_MODIFIER: Modifier<'offset'> = {
@@ -55,7 +55,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
     withAlignment,
     withLinks,
     withRichBlockElements,
-    withLinksOpenInNewTabOption = true,
+    withNewTabOption = true,
 }) => {
     const editor = useSlate();
 
@@ -168,7 +168,7 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
                 <LinkMenu
                     node={link}
                     canUnlink={link !== null}
-                    showOpenInNewTabOption={withLinksOpenInNewTabOption}
+                    withNewTabOption={withNewTabOption}
                     onBlur={clearLinkRange}
                     onChange={linkSelection}
                     onClose={onClose}

@@ -8,7 +8,11 @@ import { WebBookmarkElement } from './components';
 import { WEB_BOOKMARK_EXTENSION_ID } from './constants';
 import { normalizeRedundantWebBookmarkAttributes, parseSerializedElement } from './lib';
 
-export const WebBookmarkExtension = (): Extension => ({
+interface WebBookmarkExtensionParameters {
+    withNewTabOption?: boolean;
+}
+
+export const WebBookmarkExtension = ({ withNewTabOption = true } : WebBookmarkExtensionParameters): Extension => ({
     deserialize: {
         element: {
             [BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
@@ -20,7 +24,7 @@ export const WebBookmarkExtension = (): Extension => ({
         if (isBookmarkNode(element)) {
             return (
                 <>
-                    <WebBookmarkElement attributes={attributes} element={element}>
+                    <WebBookmarkElement attributes={attributes} element={element} withNewTabOption={withNewTabOption}>
                         {children}
                     </WebBookmarkElement>
                 </>
