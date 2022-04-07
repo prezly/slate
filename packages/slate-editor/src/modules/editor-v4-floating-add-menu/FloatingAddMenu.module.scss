@@ -1,7 +1,7 @@
 @use "sass:math";
 @import "styles/variables";
 
-.editor-v4-floating-add-menu {
+.menu {
     pointer-events: none; // allow click through the placeholder to prevent loss of focus in editor
 
     &--paragraph {

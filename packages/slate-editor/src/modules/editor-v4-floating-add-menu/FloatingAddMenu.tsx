@@ -128,10 +128,10 @@ export function FloatingAddMenu<Action>({
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className={classNames(styles['editor-v4-floating-add-menu'], {
-                [styles['editor-v4-floating-add-menu--paragraph']]: isParagraph,
-                [styles['editor-v4-floating-add-menu--heading-one']]: isHeading1,
-                [styles['editor-v4-floating-add-menu--heading-two']]: isHeading2,
+            className={classNames(styles['menu'], {
+                [styles['menu--paragraph']]: isParagraph,
+                [styles['menu--heading-one']]: isHeading1,
+                [styles['menu--heading-two']]: isHeading2,
             })}
             containerRef={containerRef}
             onClose={menu.close}
