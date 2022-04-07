@@ -20,11 +20,9 @@ export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters)
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isStoryBookmarkNode(element)) {
             return (
-                <>
-                    <StoryBookmarkElement attributes={attributes} element={element} params={params}>
-                        {children}
-                    </StoryBookmarkElement>
-                </>
+                <StoryBookmarkElement attributes={attributes} element={element} params={params}>
+                    {children}
+                </StoryBookmarkElement>
             );
         }
 
