@@ -3,11 +3,11 @@ import type { ReactNode } from 'react';
 
 export interface StoryEmbedExtensionParameters {
     renderInput: ({
-        onCreate,
-        onRemove,
+        onSubmit,
+        onClose,
     }: {
-        onCreate: (props: Pick<StoryEmbedNode, 'story'> & Partial<StoryEmbedNode>) => void;
-        onRemove: () => void;
+        onSubmit: (props: Pick<StoryEmbedNode, 'story'> & Partial<StoryEmbedNode>) => void;
+        onClose: () => void;
     }) => ReactNode;
     render: ({
         element,

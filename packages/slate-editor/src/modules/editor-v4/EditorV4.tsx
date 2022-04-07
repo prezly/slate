@@ -302,7 +302,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             });
         }
         if (action === MenuAction.ADD_STORY_BOOKMARK) {
-            return openFloatingStoryBookmarkInput('Embed Prezly story', {
+            return openFloatingStoryBookmarkInput('Embed Prezly Story', {
                 contentType: LoaderContentType.STORY_BOOKMARK,
                 message: 'Embedding Prezly Story',
             });
@@ -466,8 +466,8 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         onRootClose={rootCloseFloatingStoryEmbedInput}
                         renderInput={() =>
                             withStoryEmbeds.renderInput({
-                                onCreate: submitFloatingStoryEmbedInput,
-                                onRemove: closeFloatingStoryEmbedInput,
+                                onSubmit: submitFloatingStoryEmbedInput,
+                                onClose: closeFloatingStoryEmbedInput,
                             })
                         }
                     />
