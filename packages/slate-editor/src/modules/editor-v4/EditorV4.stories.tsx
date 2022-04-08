@@ -28,7 +28,7 @@ interface IBaseProps {
         menu?: boolean;
         blocks?: boolean;
         links?: boolean;
-        linksOpenInNewTabOption?: boolean;
+        withNewTabOption?: boolean;
     };
     withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
 }
