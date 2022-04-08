@@ -394,6 +394,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         withAlignment={withAlignmentControls}
                         withLinks={Boolean(withRichFormatting.links)}
                         withRichBlockElements={Boolean(withRichFormatting.blocks)}
+                        withNewTabOption={withRichFormatting.withNewTabOption}
                     />
                 )}
 
