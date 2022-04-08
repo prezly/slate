@@ -13,7 +13,7 @@ import { insertUploadingFile } from '../insertUploadingFile';
 
 import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-export function createHandleEditImage(withImages: ImageExtensionParameters) {
+export function createImageEditHandler(params: ImageExtensionParameters) {
     return async function (editor: Editor) {
         const currentNodeEntry = getCurrentImageNodeEntry(editor);
         if (!currentNodeEntry) {
@@ -26,8 +26,8 @@ export function createHandleEditImage(withImages: ImageExtensionParameters) {
         initialFileInfo[UPLOADCARE_FILE_DATA_KEY] = { caption: Editor.string(editor, currentPath) };
 
         const filePromises = await UploadcareEditor.upload(editor, {
-            ...getMediaGalleryParameters(withImages),
-            captions: withImages.captions,
+            ...getMediaGalleryParameters(params),
+            captions: params.captions,
             files: [initialFileInfo],
             imagesOnly: true,
             multiple: false,

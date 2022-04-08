@@ -51,7 +51,7 @@ import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor
 import { getEnabledExtensions } from './getEnabledExtensions';
 import {
     createHandleAddGallery,
-    createHandleAddImage,
+    createImageAddHandler,
     createOnCut,
     handleAddAttachment,
     insertDivider,
@@ -294,7 +294,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             return createHandleAddGallery(withGalleries)(editor);
         }
         if (action === MenuAction.ADD_IMAGE && withImages) {
-            return createHandleAddImage(withImages)(editor);
+            return createImageAddHandler(withImages)(editor);
         }
         if (action === MenuAction.ADD_VIDEO) {
             return openFloatingVideoInput('Add video', {

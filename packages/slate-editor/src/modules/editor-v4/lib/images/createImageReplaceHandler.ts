@@ -13,7 +13,7 @@ import { insertUploadingFile } from '../insertUploadingFile';
 
 import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-export function createHandleReplaceImage(withImages: ImageExtensionParameters) {
+export function createImageReplaceHandler(params: ImageExtensionParameters) {
     return async function (editor: Editor) {
         const currentNodeEntry = getCurrentImageNodeEntry(editor);
         if (!currentNodeEntry) {
@@ -24,8 +24,8 @@ export function createHandleReplaceImage(withImages: ImageExtensionParameters) {
         const [imageElement] = currentNodeEntry;
 
         const filePromises = await UploadcareEditor.upload(editor, {
-            ...getMediaGalleryParameters(withImages),
-            captions: withImages.captions,
+            ...getMediaGalleryParameters(params),
+            captions: params.captions,
             imagesOnly: true,
             multiple: false,
         });
