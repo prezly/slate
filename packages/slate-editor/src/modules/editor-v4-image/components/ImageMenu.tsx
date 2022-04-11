@@ -16,14 +16,16 @@ import {
 
 import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
 
+type FormState = Pick<ImageNode, 'href' | 'layout' | 'new_tab'>;
+
 interface Props {
-    element: ImageNode;
+    onChange: (props: Partial<FormState>) => void;
     onClose: () => void;
     onCrop: () => void;
     onRemove: () => void;
     onReplace: () => void;
-    onUpdate: (props: Partial<Pick<ImageNode, 'layout' | 'href' | 'new_tab'>>) => void;
     showLayoutControls: boolean;
+    value: FormState;
 }
 
 const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
@@ -45,21 +47,21 @@ const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
 ];
 
 export function ImageMenu({
-    element,
+    onChange,
     onClose,
     onCrop,
     onRemove,
     onReplace,
-    onUpdate,
     showLayoutControls,
+    value,
 }: Props) {
-    const [href, setHref] = useState(element.href);
+    const [href, setHref] = useState(value.href);
 
     const onHrefChange = useCallback(
         function (href: string, valid: boolean) {
             setHref(href);
             if (valid) {
-                onUpdate({ href });
+                onChange({ href });
             }
         },
         [setHref],
@@ -67,9 +69,9 @@ export function ImageMenu({
 
     useEffect(
         function () {
-            setHref(element.href);
+            setHref(value.href);
         },
-        [element.href],
+        [value.href],
     );
 
     return (
@@ -92,8 +94,8 @@ export function ImageMenu({
                     <OptionsGroup
                         name="layout"
                         options={IMAGE_SIZE_OPTIONS}
-                        selectedValue={element.layout}
-                        onChange={(layout) => onUpdate({ layout })}
+                        selectedValue={value.layout}
+                        onChange={(layout) => onChange({ layout })}
                     />
                 </Toolbox.Section>
             )}
@@ -115,8 +117,8 @@ export function ImageMenu({
                     <Toggle
                         disabled={!href}
                         name="new_tab"
-                        value={href ? Boolean(element.new_tab) : false}
-                        onChange={(new_tab) => onUpdate({ new_tab })}
+                        value={href ? Boolean(value.new_tab) : false}
+                        onChange={(new_tab) => onChange({ new_tab })}
                     >
                         Open in new tab
                     </Toggle>

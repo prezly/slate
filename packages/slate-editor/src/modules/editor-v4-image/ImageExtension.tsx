@@ -70,7 +70,7 @@ export const ImageExtension = ({
                 event.preventDefault();
 
                 const nextPath = Path.next(nodeEntry[1]);
-                EditorCommands.insertEmptyParagraph(editor, nextPath);
+                EditorCommands.insertEmptyParagraph(editor, { at: nextPath });
                 Transforms.select(editor, nextPath);
             }
         }

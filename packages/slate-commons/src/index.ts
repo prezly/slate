@@ -11,11 +11,8 @@ declare module 'slate' {
     }
 }
 
-import * as EditorCommands from './commands';
-
 export { EditableWithExtensions } from './EditableWithExtensions';
-
-export { EditorCommands };
+export * as EditorCommands from './commands';
 export {
     createDeserializeElement,
     decodeSlateFragment,
@@ -27,4 +24,5 @@ export {
 } from './lib';
 export * from './constants';
 export * from './plugins';
+export * as Selection from './selection';
 export * from './types';

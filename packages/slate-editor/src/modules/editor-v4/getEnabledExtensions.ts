@@ -29,8 +29,8 @@ import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
 import { compositeCharactersRules, textStyleRules, blockRules } from './autoformatRules';
 import {
     createHandleEditGallery,
-    createHandleEditImage,
-    createHandleReplaceImage,
+    createImageEditHandler,
+    createImageReplaceHandler,
     handleEditAttachment,
     handleRemoveAttachment,
     handleRemoveImage,
@@ -114,15 +114,15 @@ export function* getEnabledExtensions({
     }
 
     if (withImages) {
-        const handleEditImage = createHandleEditImage(withImages);
-        const handleReplaceImage = createHandleReplaceImage(withImages);
+        const handleCrop = createImageEditHandler(withImages);
+        const handleReplace = createImageReplaceHandler(withImages);
         // ImageExtension has to be after RichFormattingExtension due to the fact
         // that it also deserializes <a> elements (ImageExtension is more specific).
         yield ImageExtension({
             ...withImages,
-            onCrop: handleEditImage,
+            onCrop: handleCrop,
             onRemove: handleRemoveImage,
-            onReplace: handleReplaceImage,
+            onReplace: handleReplace,
         });
     }
 

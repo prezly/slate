@@ -126,5 +126,5 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
 ResizableEditorBlock.displayName = 'ResizableEditorBlock';
 
 function Sizer() {
-    return <div />;
+    return <div contentEditable={false} />;
 }
