@@ -1,4 +1,4 @@
-import { EditorCommands } from '@prezly/slate-commons';
+import { EditorCommands, Selection } from '@prezly/slate-commons';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import { Editor } from 'slate';
@@ -38,7 +38,10 @@ export function createImageEditHandler(params: ImageExtensionParameters) {
         }
 
         removeImage(editor);
-        EditorCommands.insertEmptyParagraph(editor);
+        EditorCommands.insertEmptyParagraph(editor, {
+            at: editor.selection ? Selection.highest(editor.selection) : undefined,
+            select: true,
+        });
 
         const imageFileInfo = await insertUploadingFile<PrezlyFileInfo>(editor, {
             createElement(fileInfo) {
