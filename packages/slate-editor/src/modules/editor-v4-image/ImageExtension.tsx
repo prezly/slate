@@ -36,7 +36,9 @@ export const ImageExtension = ({
     onRemove = noop,
     onReplace = noop,
     showLayoutControls,
+    withNewTabOption = true,
 }: ImageParameters): Extension => ({
+    id: IMAGE_EXTENSION_ID,
     deserialize: {
         element: {
             [IMAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
@@ -52,7 +54,6 @@ export const ImageExtension = ({
             },
         },
     },
-    id: IMAGE_EXTENSION_ID,
     normalizers: [
         normalizeRedundantImageAttributes,
         normalizeChildren,
@@ -127,6 +128,7 @@ export const ImageExtension = ({
                     onRemove={onRemove}
                     onReplace={onReplace}
                     showLayoutControls={Boolean(showLayoutControls)}
+                    withNewTabOption={withNewTabOption}
                 >
                     {children}
                 </ImageElement>
