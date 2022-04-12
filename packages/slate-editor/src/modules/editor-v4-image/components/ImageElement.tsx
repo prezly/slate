@@ -23,6 +23,7 @@ interface Props extends RenderElementProps {
     onReplace: (editor: Editor, element: ImageNode) => void;
     onRemove: (editor: Editor, element: ImageNode) => void;
     showLayoutControls: boolean;
+    withNewTabOption: boolean;
 }
 
 export const ImageElement: FunctionComponent<Props> = ({
@@ -33,6 +34,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     onReplace,
     onRemove,
     showLayoutControls,
+    withNewTabOption,
 }) => {
     const editor = useSlateStatic();
     const isSelected = useSelected();
@@ -86,6 +88,7 @@ export const ImageElement: FunctionComponent<Props> = ({
                         href: element.href,
                         new_tab: element.new_tab,
                     }}
+                    withNewTabOption={withNewTabOption}
                 />
             )}
             resizable={isResizable}

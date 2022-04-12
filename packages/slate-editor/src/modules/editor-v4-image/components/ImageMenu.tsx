@@ -26,6 +26,7 @@ interface Props {
     onReplace: () => void;
     showLayoutControls: boolean;
     value: FormState;
+    withNewTabOption: boolean;
 }
 
 const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
@@ -54,6 +55,7 @@ export function ImageMenu({
     onReplace,
     showLayoutControls,
     value,
+    withNewTabOption,
 }: Props) {
     const [href, setHref] = useState(value.href);
 
@@ -114,14 +116,16 @@ export function ImageMenu({
                         />
                     </VStack>
 
-                    <Toggle
-                        disabled={!href}
-                        name="new_tab"
-                        value={href ? Boolean(value.new_tab) : false}
-                        onChange={(new_tab) => onChange({ new_tab })}
-                    >
-                        Open in new tab
-                    </Toggle>
+                    {withNewTabOption && (
+                        <Toggle
+                            disabled={!href}
+                            name="new_tab"
+                            value={href ? Boolean(value.new_tab) : false}
+                            onChange={(new_tab) => onChange({ new_tab })}
+                        >
+                            Open in new tab
+                        </Toggle>
+                    )}
                 </VStack>
             </Toolbox.Section>
 
