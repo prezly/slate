@@ -1,7 +1,7 @@
 import type { Story } from '@prezly/sdk';
 import type { StoryBookmarkNode } from '@prezly/slate-types';
 import { StoryBookmarkLayout } from '@prezly/slate-types';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 
 import { useResizeObserver, utils } from '#lib';
 
@@ -26,11 +26,15 @@ export function StoryBookmarkBlock({ story, element, isSelected }: StoryBookmark
         utils.isEmptyText(story.oembed.title) &&
         utils.isEmptyText(story.oembed.description);
 
-    const actualLayout = !showThumbnail
-        ? StoryBookmarkLayout.HORIZONTAL
-        : isSmallViewport
-        ? StoryBookmarkLayout.VERTICAL
-        : element.layout;
+    const actualLayout = useMemo(() => {
+        if (!showThumbnail) {
+            return StoryBookmarkLayout.HORIZONTAL;
+        } else if (isSmallViewport) {
+            return StoryBookmarkLayout.VERTICAL;
+        } else {
+            return element.layout;
+        }
+    }, [showThumbnail, isSmallViewport, element.layout]);
 
     useResizeObserver(card.current, function (entries) {
         entries.forEach(function (entry) {
