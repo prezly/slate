@@ -2,7 +2,7 @@
 
 import type { ReactEditor } from 'slate-react';
 
-import { cloneContentsMonkeyPatch } from './lib';
+import { withRangeCloneContentsPatched } from './util';
 
 /**
  * Enables Range.prototype.cloneContents monkey patch to improve pasting behavior
@@ -12,9 +12,9 @@ export function withListsReact<T extends ReactEditor>(editor: T): T {
     const { setFragmentData } = editor;
 
     editor.setFragmentData = (data: DataTransfer) => {
-        cloneContentsMonkeyPatch.activate();
-        setFragmentData(data);
-        cloneContentsMonkeyPatch.deactivate();
+        withRangeCloneContentsPatched(function() {
+            setFragmentData(data);
+        });
     };
 
     return editor;

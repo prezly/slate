@@ -1,9 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Node, NodeEntry } from 'slate';
 
+import { mergeListWithPreviousSiblingList } from '../lib';
 import type { ListsEditor } from '../types';
-
-import { mergeListWithPreviousSiblingList } from './mergeListWithPreviousSiblingList';
 
 /**
  * If there are 2 "lists" of the same type next to each other, merge them together.

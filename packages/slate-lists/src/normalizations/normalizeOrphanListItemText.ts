@@ -1,9 +1,9 @@
 import type { Node, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
 
+import { getParentListItem } from '../lib';
 import type { ListsEditor } from '../types';
 
-import { getParentListItem } from './getParentListItem';
 
 /**
  * If "list-item-text" somehow (e.g. by deleting everything around it) ends up

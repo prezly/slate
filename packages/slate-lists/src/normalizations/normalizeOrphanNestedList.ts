@@ -2,11 +2,8 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { NodeEntry } from 'slate';
 import { Node, Transforms } from 'slate';
 
+import { getNestedList, moveListItemsToAnotherList, moveListToListItem } from '../lib';
 import type { ListsEditor } from '../types';
-
-import { getNestedList } from './getNestedList';
-import { moveListItemsToAnotherList } from './moveListItemsToAnotherList';
-import { moveListToListItem } from './moveListToListItem';
 
 /**
  * If there is a nested "list" inside a "list-item" without a "list-item-text"

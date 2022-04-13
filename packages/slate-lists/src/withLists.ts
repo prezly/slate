@@ -9,7 +9,7 @@ import {
     normalizeOrphanListItemText,
     normalizeOrphanNestedList,
     normalizeSiblingLists,
-} from './lib';
+} from './normalizations';
 import type { ListsEditor, ListsSchema } from './types';
 
 type Normalizer = (editor: ListsEditor, entry: NodeEntry) => boolean;
