@@ -1,10 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { Lists } from '@prezly/slate-lists';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 import { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { lists } from './lists';
 import { MarkType } from './types';
 
 const MARK_HOTKEYS: { hotkey: string; mark: MarkType }[] = [
@@ -23,7 +23,7 @@ function marksOnKeyDown(event: KeyboardEvent, editor: Editor) {
 }
 
 function listsOnKeyDown(event: KeyboardEvent, editor: Editor) {
-    const listItemsInSelection = lists.getListItemsInRange(editor, editor.selection);
+    const listItemsInSelection = Lists.getListItemsInRange(editor, editor.selection);
 
     // Since we're overriding the default Tab key behavior
     // we need to bring back the possibility to blur the editor
@@ -35,26 +35,26 @@ function listsOnKeyDown(event: KeyboardEvent, editor: Editor) {
 
     if (isHotkey('tab', event.nativeEvent)) {
         event.preventDefault();
-        lists.increaseDepth(editor);
+        Lists.increaseDepth(editor);
     }
 
     if (isHotkey('shift+tab', event.nativeEvent)) {
         event.preventDefault();
-        lists.decreaseDepth(editor);
+        Lists.decreaseDepth(editor);
     }
 
-    if (isHotkey('backspace', event.nativeEvent) && !lists.canDeleteBackward(editor)) {
+    if (isHotkey('backspace', event.nativeEvent) && !Lists.canDeleteBackward(editor)) {
         event.preventDefault();
-        lists.decreaseDepth(editor);
+        Lists.decreaseDepth(editor);
     }
 
     if (isHotkey('enter', event.nativeEvent)) {
-        if (lists.isCursorInEmptyListItem(editor)) {
+        if (Lists.isCursorInEmptyListItem(editor)) {
             event.preventDefault();
-            lists.decreaseDepth(editor);
+            Lists.decreaseDepth(editor);
         } else if (listItemsInSelection.length > 0) {
             event.preventDefault();
-            lists.splitListItem(editor);
+            Lists.splitListItem(editor);
         }
     }
 }

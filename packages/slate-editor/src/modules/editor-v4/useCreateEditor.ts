@@ -4,8 +4,6 @@ import type { KeyboardEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Editor } from 'slate';
 import { createEditor } from 'slate';
-import type { HistoryEditor } from 'slate-history';
-import type { ReactEditor } from 'slate-react';
 
 import { useLatest } from '#lib';
 
@@ -22,7 +20,7 @@ interface Parameters {
 }
 
 interface State {
-    editor: ReactEditor & HistoryEditor;
+    editor: Editor;
     onKeyDownList: OnKeyDown[];
 }
 

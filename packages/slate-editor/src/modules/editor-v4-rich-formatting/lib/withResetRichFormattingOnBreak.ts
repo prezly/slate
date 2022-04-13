@@ -1,10 +1,8 @@
 /* eslint-disable no-param-reassign */
 
 import { EditorCommands } from '@prezly/slate-commons';
-import { isList } from '@prezly/slate-lists';
+import { isListNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
-
-import { options } from '../lists';
 
 import { isRichTextBlockElement } from './isRichTextBlockElement';
 
@@ -21,7 +19,7 @@ export function withResetRichFormattingOnBreak<T extends Editor>(editor: T): T {
 
         if (
             isRichTextBlockElement(currentNode) &&
-            !isList(options, currentNode) &&
+            !isListNode(currentNode) &&
             EditorCommands.isSelectionAtBlockEnd(editor)
         ) {
             EditorCommands.insertEmptyParagraph(editor);
