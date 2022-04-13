@@ -16,9 +16,15 @@ const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 
 interface Props extends RenderElementProps {
     element: BookmarkNode;
+    withNewTabOption: boolean;
 }
 
-export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
+export const WebBookmarkElement: FunctionComponent<Props> = ({
+    attributes,
+    children,
+    element,
+    withNewTabOption,
+}) => {
     const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);
 
@@ -44,7 +50,13 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({ attributes, child
             {...attributes} // contains `ref`
             element={element}
             overlay="always"
-            renderMenu={({ onClose }) => <WebBookmarkMenu onClose={onClose} element={element} />}
+            renderMenu={({ onClose }) => (
+                <WebBookmarkMenu
+                    onClose={onClose}
+                    element={element}
+                    withNewTabOption={withNewTabOption}
+                />
+            )}
             renderBlock={({ isSelected }) => (
                 <BookmarkCard.Container isSelected={isSelected} layout={actualLayout} ref={card}>
                     {showThumbnail && oembed.thumbnail_url && (

@@ -1,0 +1,59 @@
+@use "sass:math";
+@import "styles/variables";
+
+.menu {
+    pointer-events: none; // allow click through the placeholder to prevent loss of focus in editor
+
+    &--paragraph {
+        .input,
+        .placeholder {
+            font-size: $editor-v4-paragraph-font-size;
+            line-height: $editor-v4-paragraph-line-height;
+        }
+
+        .button {
+            top: math.div($editor-v4-paragraph-line-height - $editor-v4-floating-button-size, 2);
+        }
+    }
+
+    &--heading-one {
+        .input,
+        .placeholder {
+            font-size: $editor-v4-heading-one-font-size;
+            line-height: $editor-v4-heading-one-line-height;
+        }
+
+        .button {
+            top: math.div($editor-v4-heading-one-line-height - $editor-v4-floating-button-size, 2);
+        }
+    }
+
+    &--heading-two {
+        .input,
+        .placeholder {
+            font-size: $editor-v4-heading-two-font-size;
+            line-height: $editor-v4-heading-two-line-height;
+        }
+
+        .button {
+            top: math.div($editor-v4-heading-two-line-height - $editor-v4-floating-button-size, 2);
+        }
+    }
+}
+
+.input::placeholder,
+.placeholder {
+    color: $grey-400;
+    opacity: 1;
+}
+
+.button {
+    position: absolute;
+    left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
+    pointer-events: all;
+}
+
+.dropdown,
+.button {
+    pointer-events: all;
+}

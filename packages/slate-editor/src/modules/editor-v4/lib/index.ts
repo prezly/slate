@@ -15,9 +15,9 @@ export {
 } from './file-attachment';
 export { createHandleAddGallery, createHandleEditGallery } from './galleries';
 export {
-    createHandleAddImage,
-    createHandleEditImage,
-    createHandleReplaceImage,
+    createImageAddHandler,
+    createImageEditHandler,
+    createImageReplaceHandler,
     handleRemoveImage,
 } from './images';
 

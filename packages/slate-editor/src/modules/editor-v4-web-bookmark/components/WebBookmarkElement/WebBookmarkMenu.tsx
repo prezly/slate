@@ -17,6 +17,7 @@ import styles from './WebBookmarkMenu.module.scss';
 
 interface Props {
     element: BookmarkNode;
+    withNewTabOption: boolean;
     onClose: () => void;
 }
 
@@ -41,7 +42,11 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
     },
 ];
 
-export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) => {
+export const WebBookmarkMenu: FunctionComponent<Props> = ({
+    element,
+    withNewTabOption,
+    onClose,
+}) => {
     const editor = useSlate();
     const isSelected = useSelected();
 
@@ -103,13 +108,15 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({ element, onClose }) 
                         options={LAYOUT_OPTIONS}
                         selectedValue={activeLayout}
                     />
-                    <Toggle
-                        name="new_tab"
-                        value={element.new_tab}
-                        onChange={(new_tab) => updateWebBookmark(editor, { new_tab })}
-                    >
-                        Open in new tab
-                    </Toggle>
+                    {withNewTabOption && (
+                        <Toggle
+                            name="new_tab"
+                            value={element.new_tab}
+                            onChange={(new_tab) => updateWebBookmark(editor, { new_tab })}
+                        >
+                            Open in new tab
+                        </Toggle>
+                    )}
                 </VStack>
             </Toolbox.Section>
 

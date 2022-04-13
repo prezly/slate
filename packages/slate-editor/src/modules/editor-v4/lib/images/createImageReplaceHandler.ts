@@ -1,4 +1,4 @@
-import { EditorCommands } from '@prezly/slate-commons';
+import { EditorCommands, Selection } from '@prezly/slate-commons';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
@@ -13,7 +13,7 @@ import { insertUploadingFile } from '../insertUploadingFile';
 
 import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-export function createHandleReplaceImage(withImages: ImageExtensionParameters) {
+export function createImageReplaceHandler(params: ImageExtensionParameters) {
     return async function (editor: Editor) {
         const currentNodeEntry = getCurrentImageNodeEntry(editor);
         if (!currentNodeEntry) {
@@ -24,8 +24,8 @@ export function createHandleReplaceImage(withImages: ImageExtensionParameters) {
         const [imageElement] = currentNodeEntry;
 
         const filePromises = await UploadcareEditor.upload(editor, {
-            ...getMediaGalleryParameters(withImages),
-            captions: withImages.captions,
+            ...getMediaGalleryParameters(params),
+            captions: params.captions,
             imagesOnly: true,
             multiple: false,
         });
@@ -35,7 +35,10 @@ export function createHandleReplaceImage(withImages: ImageExtensionParameters) {
         }
 
         removeImage(editor);
-        EditorCommands.insertEmptyParagraph(editor);
+        EditorCommands.insertEmptyParagraph(editor, {
+            at: editor.selection ? Selection.highest(editor.selection) : undefined,
+            select: true,
+        });
 
         const imageFileInfo = await insertUploadingFile<PrezlyFileInfo>(editor, {
             createElement(fileInfo) {
