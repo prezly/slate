@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isParagraphNode } from '@prezly/slate-types';
+import { isHeadingNode, isParagraphNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Node, Range } from 'slate';
 
@@ -12,7 +12,11 @@ export function shouldShowMenuButton(editor: Editor): boolean {
 
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (!isParagraphNode(currentNode) || EditorCommands.hasVoidElements(editor, currentNode)) {
+    if (!currentNode) {
+        return false;
+    }
+
+    if (!canShowMenuButton(editor, currentNode)) {
         return false;
     }
 
@@ -20,4 +24,16 @@ export function shouldShowMenuButton(editor: Editor): boolean {
     return (
         text.trim() === '' || MENU_TRIGGER_CHARACTERS.some((triggerChar) => triggerChar === text)
     );
+}
+
+function canShowMenuButton(editor: Editor, currentNode: Node) {
+    if (!isParagraphNode(currentNode) && !isHeadingNode(currentNode)) {
+        return false;
+    }
+
+    if (EditorCommands.hasVoidElements(editor, currentNode)) {
+        return false;
+    }
+
+    return true;
 }

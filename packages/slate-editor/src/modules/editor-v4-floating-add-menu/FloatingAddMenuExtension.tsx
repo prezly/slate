@@ -1,9 +1,8 @@
 import type { Extension } from '@prezly/slate-commons';
-import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 
-import { isMenuHotkey, MENU_TRIGGER_CHARACTERS } from './lib';
+import { isMenuHotkey, MENU_TRIGGER_CHARACTERS, shouldShowMenuButton } from './lib';
 
 const FLOATING_ADD_MENU_EXTENSION_ID = 'FloatingAddMenuExtension';
 
@@ -17,17 +16,14 @@ export function FloatingAddMenuExtension(toggleMenu: (open?: boolean) => void): 
     return {
         id: FLOATING_ADD_MENU_EXTENSION_ID,
         onKeyDown(event, editor) {
-            if (isMenuHotkey(event)) {
+            if (isMenuHotkey(event) && shouldShowMenuButton(editor)) {
                 event.preventDefault();
                 event.stopPropagation();
                 toggleMenu();
                 return;
             }
 
-            if (
-                isTriggerInput(event) &&
-                EditorCommands.isCursorInEmptyParagraph(editor, { trim: true })
-            ) {
+            if (isTriggerInput(event) && shouldShowMenuButton(editor)) {
                 toggleMenu();
                 return;
             }

@@ -1,10 +1,11 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
-import type { HeadingNode, QuoteNode } from '@prezly/slate-types';
+import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
 import {
     Alignment,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import classNames from 'classnames';
@@ -237,7 +238,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props));
     const handleMenuAction = (action: MenuAction) => {
         if (action === MenuAction.ADD_PARAGRAPH) {
-            return; // Do nothing. @see MT-4590
+            return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);
         }
         if (action === MenuAction.ADD_HEADING_1) {
             return toggleBlock<HeadingNode>(editor, HEADING_1_NODE_TYPE);
