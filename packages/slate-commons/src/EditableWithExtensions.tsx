@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FunctionComponent } from 'react';
 import React, { useCallback, useMemo } from 'react';
-import { Editable, useSlateStatic } from 'slate-react';
+import type { Editor } from 'slate';
+import type { ReactEditor } from 'slate-react';
+import { Editable } from 'slate-react';
 
 import {
     combineDecorate,
@@ -20,8 +22,10 @@ import type {
     RenderLeaf,
 } from './types';
 
+
 export interface Props {
     decorate?: Decorate;
+    editor: Editor & ReactEditor;
     /**
      * Each extension fields will be combined by role.
      *
@@ -67,6 +71,7 @@ export interface Props {
 
 export const EditableWithExtensions: FunctionComponent<Props> = ({
     decorate,
+    editor,
     extensions = [],
     onDOMBeforeInput: onDOMBeforeInputList = [],
     onDOMBeforeInputDeps = [],
@@ -78,8 +83,6 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
     renderLeafDeps = [],
     ...props
 }) => {
-    const editor = useSlateStatic();
-
     const combinedDecorate: Decorate = useMemo(
         function () {
             const decorateFns = createExtensionsDecorators(editor, extensions);

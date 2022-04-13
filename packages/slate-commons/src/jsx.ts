@@ -51,7 +51,7 @@ declare global {
             // using 'h-text' instead of 'text' to avoid collision with React typings, see:
             // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0182cd9094aa081558a3c4bfc970bbdfb71d891d/types/react/index.d.ts#L3136
             'h-text': {
-                [key: string]: any; // allow marks
+                [key: string]: any;
                 children?: ReactNode;
             };
         }

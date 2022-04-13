@@ -336,6 +336,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             >
                 <EditableWithExtensions
                     decorate={decorate}
+                    editor={editor}
                     extensions={extensions}
                     onCut={createOnCut(editor)}
                     onKeyDown={onKeyDownList}
