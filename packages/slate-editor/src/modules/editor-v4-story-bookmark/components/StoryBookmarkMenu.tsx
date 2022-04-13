@@ -11,6 +11,7 @@ import { Delete, ItemsLayoutHorizontal, ItemsLayoutVertical, ExternalLink } from
 interface Props {
     element: StoryBookmarkNode;
     story: Story;
+    withNewTabOption: boolean | undefined;
     onClose: () => void;
     onRemove: () => void;
     onUpdate: (
@@ -31,7 +32,14 @@ const CARD_LAYOUT_OPTIONS: OptionsGroupOption<StoryBookmarkLayout>[] = [
     },
 ];
 
-export function StoryBookmarkMenu({ element, story, onClose, onRemove, onUpdate }: Props) {
+export function StoryBookmarkMenu({
+    element,
+    story,
+    withNewTabOption = true,
+    onClose,
+    onRemove,
+    onUpdate,
+}: Props) {
     const isLayoutChangeable = story.oembed.thumbnail_url && element.show_thumbnail;
     const activeLayout = isLayoutChangeable ? element.layout : StoryBookmarkLayout.VERTICAL;
 
@@ -95,13 +103,16 @@ export function StoryBookmarkMenu({ element, story, onClose, onRemove, onUpdate 
                         onChange={(layout) => onUpdate({ layout })}
                         columns={3}
                     />
-                    <Toggle
-                        name="new_tab"
-                        value={element.new_tab}
-                        onChange={(new_tab) => onUpdate({ new_tab })}
-                    >
-                        Open in new tab
-                    </Toggle>
+
+                    {withNewTabOption && (
+                        <Toggle
+                            name="new_tab"
+                            value={element.new_tab}
+                            onChange={(new_tab) => onUpdate({ new_tab })}
+                        >
+                            Open in new tab
+                        </Toggle>
+                    )}
                 </VStack>
             </Toolbox.Section>
 

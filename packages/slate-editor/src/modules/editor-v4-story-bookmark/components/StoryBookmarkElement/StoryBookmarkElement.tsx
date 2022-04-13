@@ -63,6 +63,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                         onClose={onClose}
                         element={element}
                         story={story}
+                        withNewTabOption={params.withNewTabOption}
                         onUpdate={(attrs) => updateImage(editor, attrs)}
                         onRemove={remove}
                     />
