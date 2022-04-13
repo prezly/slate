@@ -12,13 +12,13 @@ import { insertUploadingFile } from '../insertUploadingFile';
 
 import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-export function createHandleAddImage(withImages: ImageExtensionParameters) {
+export function createImageAddHandler(params: ImageExtensionParameters) {
     return async function (editor: Editor): Promise<void> {
         EventsEditor.dispatchEvent(editor, 'image-add-clicked');
 
         const filePromises = await UploadcareEditor.upload(editor, {
-            ...getMediaGalleryParameters(withImages),
-            captions: withImages.captions,
+            ...getMediaGalleryParameters(params),
+            captions: params.captions,
             imagesOnly: true,
             multiple: true,
         });
