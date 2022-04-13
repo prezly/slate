@@ -1,4 +1,4 @@
-import type { BaseEditor, Element, Node } from 'slate';
+import type { BaseEditor, Descendant, Element, Node } from 'slate';
 
 export enum ListType {
     ORDERED = 'ol',
@@ -6,26 +6,23 @@ export enum ListType {
 }
 
 export interface ListsSchema {
-    isDefaultTextNode<T extends Element = Element>(node: Node): node is T;
+    isDefaultTextNode(node: Node): node is Element;
 
-    isListNode<T extends Element = Element>(node: Node, type?: ListType): node is T;
+    isListNode(node: Node, type?: ListType): node is Element;
 
-    isListItemNode<T extends Element = Element>(node: Node): node is T;
+    isListItemNode(node: Node): node is Element;
 
-    isListItemTextNode<T extends Element = Element>(node: Node): node is T;
+    isListItemTextNode(node: Node): node is Element;
 
     isListNestable(node: Node): boolean;
 
-    createDefaultTextNode<T extends Element = Element>(props?: Partial<Pick<T, 'children'>>): T;
+    createDefaultTextNode(props?: { children?: Descendant[] }): Element;
 
-    createListNode<T extends Element = Element>(
-        type?: ListType,
-        props?: Partial<Pick<T, 'children'>>,
-    ): T;
+    createListNode(type?: ListType, props?: { children?: Descendant[] }): Element;
 
-    createListItemNode<T extends Element = Element>(props?: Partial<Pick<T, 'children'>>): T;
+    createListItemNode(props?: { children?: Descendant[] }): Element;
 
-    createListItemTextNode<T extends Element = Element>(props?: Partial<Pick<T, 'children'>>): T;
+    createListItemTextNode(props?: { children?: Descendant[] }): Element;
 }
 
 export interface ListsEditor extends ListsSchema, BaseEditor {}
