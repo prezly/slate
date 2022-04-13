@@ -18,7 +18,7 @@ export function createStoryBookmark(
     props: RequiredProps & Partial<OptionalProps>,
 ): StoryBookmarkNode {
     return withoutExtraAttributes({
-        layout: StoryBookmarkLayout.HORIZONTAL,
+        layout: StoryBookmarkLayout.VERTICAL,
         new_tab: true,
         show_thumbnail: true,
         uuid: uuidV4(),
