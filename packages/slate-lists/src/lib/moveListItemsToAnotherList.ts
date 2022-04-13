@@ -1,5 +1,5 @@
 import type { Node, NodeEntry } from 'slate';
-import { Transforms } from 'slate';
+import { Element, Transforms } from 'slate';
 
 import type { ListsEditor } from '../types';
 
@@ -16,15 +16,18 @@ export function moveListItemsToAnotherList(
     const [sourceListNode, sourceListPath] = parameters.at;
     const [targetListNode, targetListPath] = parameters.to;
 
-    if (!editor.isListNode(sourceListNode) || !editor.isListNode(targetListNode)) {
+    if (
+        Element.isElement(sourceListNode) &&
+        Element.isElement(targetListNode) &&
+        editor.isListNode(sourceListNode) &&
+        editor.isListNode(targetListNode)
+    ) {
         // Sanity check.
-        return;
-    }
-
-    for (let i = 0; i < sourceListNode.children.length; ++i) {
-        Transforms.moveNodes(editor, {
-            at: [...sourceListPath, 0],
-            to: [...targetListPath, targetListNode.children.length + i],
-        });
+        for (let i = 0; i < sourceListNode.children.length; ++i) {
+            Transforms.moveNodes(editor, {
+                at: [...sourceListPath, 0],
+                to: [...targetListPath, targetListNode.children.length + i],
+            });
+        }
     }
 }

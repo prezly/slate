@@ -37,10 +37,10 @@ const INLINE_ELEMENTS = [LINK_TYPE];
 const VOID_ELEMENTS = [DIVIDER_TYPE];
 
 const SCHEMA: ListsSchema = {
-    isDefaultTextNode(node): node is Element {
+    isDefaultTextNode(node) {
         return Element.isElementType(node, PARAGRAPH_TYPE);
     },
-    isListNode(node, type): node is Element {
+    isListNode(node, type) {
         if (type) {
             return Element.isElementType(node, type);
         }
@@ -49,10 +49,10 @@ const SCHEMA: ListsSchema = {
             Element.isElementType(node, UNORDERED_LIST_TYPE)
         );
     },
-    isListItemNode(node): node is Element {
+    isListItemNode(node) {
         return Element.isElementType(node, LIST_ITEM_TYPE);
     },
-    isListItemTextNode(node): node is Element {
+    isListItemTextNode(node) {
         return Element.isElementType(node, LIST_ITEM_TEXT_TYPE);
     },
     isListNestable(node): boolean {

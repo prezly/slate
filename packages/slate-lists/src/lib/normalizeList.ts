@@ -1,5 +1,4 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isElementNode } from '@prezly/slate-types';
 import type { Node, NodeEntry } from 'slate';
 import { Editor, Element, Transforms } from 'slate';
 
@@ -27,10 +26,7 @@ export function normalizeList(editor: ListsEditor, [node, path]: NodeEntry<Node>
         return false;
     }
 
-    if (
-        isElementNode(ancestorNode) &&
-        (editor.isListNode(ancestorNode) || editor.isListItemNode(ancestorNode))
-    ) {
+    if (editor.isListNode(ancestorNode) || editor.isListItemNode(ancestorNode)) {
         return false;
     }
 

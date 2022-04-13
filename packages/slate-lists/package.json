@@ -55,7 +55,6 @@
     },
     "dependencies": {
         "@prezly/slate-commons": "^0.29.4",
-        "@prezly/slate-types": "^0.29.4",
         "uuid": "^8.3.0"
     },
     "devDependencies": {

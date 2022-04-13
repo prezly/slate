@@ -1,5 +1,5 @@
-import type { Element, NodeEntry, Path } from 'slate';
-import { Node } from 'slate';
+import type { NodeEntry, Path } from 'slate';
+import { Node, Element } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import type { ListsEditor } from '../types';
@@ -17,7 +17,7 @@ export function getNestedList(editor: ListsEditor, path: Path): NodeEntry<Elemen
 
     const nestedList = Node.get(editor, nestedListPath);
 
-    if (editor.isListNode(nestedList)) {
+    if (Element.isElement(nestedList) && editor.isListNode(nestedList)) {
         // Sanity check.
         return [nestedList, nestedListPath];
     }

@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Node, Path, Transforms } from 'slate';
+import { Editor, Element, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import type { ListsEditor } from '../types';
@@ -39,7 +39,10 @@ export function increaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
 
         const previousListItemChildList = Node.get(editor, previousListItemChildListPath);
 
-        if (editor.isListNode(previousListItemChildList)) {
+        if (
+            Element.isElement(previousListItemChildList) &&
+            editor.isListNode(previousListItemChildList)
+        ) {
             const index = previousListItemHasChildList
                 ? previousListItemChildList.children.length
                 : 0;

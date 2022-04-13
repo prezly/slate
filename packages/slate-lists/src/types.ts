@@ -6,13 +6,13 @@ export enum ListType {
 }
 
 export interface ListsSchema {
-    isDefaultTextNode(node: Node): node is Element;
+    isDefaultTextNode(node: Node): boolean;
 
-    isListNode(node: Node, type?: ListType): node is Element;
+    isListNode(node: Node, type?: ListType): boolean;
 
-    isListItemNode(node: Node): node is Element;
+    isListItemNode(node: Node): boolean;
 
-    isListItemTextNode(node: Node): node is Element;
+    isListItemTextNode(node: Node): boolean;
 
     isListNestable(node: Node): boolean;
 
