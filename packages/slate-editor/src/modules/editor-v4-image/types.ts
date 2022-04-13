@@ -24,6 +24,7 @@ export interface ImageExtensionParameters {
         newsroom: NewsroomRef;
     };
     showLayoutControls?: boolean;
+    withNewTabOption?: boolean;
 }
 
 export interface ImageParameters extends ImageExtensionParameters {

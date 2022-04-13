@@ -1,4 +1,4 @@
-export { createHandleAddImage } from './createHandleAddImage';
-export { createHandleEditImage } from './createHandleEditImage';
-export { createHandleReplaceImage } from './createHandleReplaceImage';
+export { createImageAddHandler } from './createImageAddHandler';
+export { createImageEditHandler } from './createImageEditHandler';
+export { createImageReplaceHandler } from './createImageReplaceHandler';
 export { handleRemoveImage } from './handleRemoveImage';

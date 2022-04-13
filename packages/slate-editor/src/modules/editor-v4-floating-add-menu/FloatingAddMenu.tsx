@@ -1,3 +1,11 @@
+import { EditorCommands } from '@prezly/slate-commons';
+import {
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    isHeadingNode,
+    isParagraphNode,
+} from '@prezly/slate-types';
+import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { useState } from 'react';
@@ -11,6 +19,7 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 
 import { Input, Dropdown } from './components';
 import './FloatingAddMenu.scss';
+import styles from './FloatingAddMenu.module.scss';
 import {
     isMenuHotkey,
     shouldShowMenuButton,
@@ -54,6 +63,7 @@ export function FloatingAddMenu<Action>({
     tooltip,
 }: Props<Action>) {
     const editor = useSlate();
+    const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
     const [input, setInput] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
@@ -111,10 +121,18 @@ export function FloatingAddMenu<Action>({
         onKeyDown(event);
     }
 
+    const isParagraph = isParagraphNode(currentNode);
+    const isHeading1 = isHeadingNode(currentNode, HEADING_1_NODE_TYPE);
+    const isHeading2 = isHeadingNode(currentNode, HEADING_2_NODE_TYPE);
+
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className="editor-v4-floating-add-menu"
+            className={classNames(styles['menu'], {
+                [styles['menu--paragraph']]: isParagraph,
+                [styles['menu--heading-one']]: isHeading1,
+                [styles['menu--heading-two']]: isHeading2,
+            })}
             containerRef={containerRef}
             onClose={menu.close}
             open={open}
@@ -132,7 +150,7 @@ export function FloatingAddMenu<Action>({
                 {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
                     <FloatingContainer.Button
                         {...ariaAttributes}
-                        className="editor-v4-floating-add-menu__button"
+                        className={styles.button}
                         onClick={(event) => {
                             event.preventDefault();
                             event.stopPropagation();
@@ -147,15 +165,15 @@ export function FloatingAddMenu<Action>({
                 )}
             </TooltipV2.Tooltip>
             {!open && (
-                <p className="editor-v4-floating-add-menu__placeholder">
-                    Type or press <KeyboardKey>/</KeyboardKey> to add content.
+                <p className={styles.placeholder}>
+                    Type or press <KeyboardKey>/</KeyboardKey> to add content
                 </p>
             )}
             {open && (
                 <>
                     <Input
                         autoFocus
-                        className="editor-v4-floating-add-menu__input"
+                        className={styles.input}
                         onBlur={menu.close}
                         onChange={setInput}
                         onKeyDown={handleKeyDown}
@@ -165,7 +183,7 @@ export function FloatingAddMenu<Action>({
                         value={input}
                     />
                     <Dropdown
-                        className="editor-v4-floating-add-menu__dropdown"
+                        className={styles.dropdown}
                         highlight={query}
                         options={filteredOptions}
                         onItemClick={onSelect}
