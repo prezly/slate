@@ -7,9 +7,14 @@ import { EditorBlock, LoadingPlaceholderV2 } from '#components';
 import { ComponentStoryBookmark } from '#icons';
 import { useAsyncFn } from '#lib';
 
+import { EventsEditor } from '#modules/editor-v4-events';
+
 import { removeStoryBookmark, updateImage } from '../../transforms';
 import type { StoryBookmarkExtensionParameters } from '../../types';
 import { StoryBookmarkMenu } from '../StoryBookmarkMenu';
+
+import { StoryBookmarkBlock } from './StoryBookmarkBlock';
+
 interface Props extends RenderElementProps {
     element: StoryBookmarkNode;
     params: StoryBookmarkExtensionParameters;
@@ -24,9 +29,28 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
         return params.loadStory(element.story.uuid);
     }, [params.loadStory, element.story.uuid]);
 
+    const remove = () => {
+        const removedElement = removeStoryBookmark(editor);
+
+        if (removedElement) {
+            EventsEditor.dispatchEvent(editor, 'web-bookmark-removed', {
+                uuid: removedElement.uuid,
+            });
+        }
+    };
+
     useEffect(() => {
         loadStory();
     }, [loadStory]);
+
+    useEffect(() => {
+        if (error) {
+            EventsEditor.dispatchEvent(editor, 'notification', {
+                children: error.message,
+                type: 'error',
+            });
+        }
+    }, [error]);
 
     return (
         <EditorBlock
@@ -39,38 +63,21 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                         onClose={onClose}
                         element={element}
                         story={story}
+                        withNewTabOption={params.withNewTabOption}
                         onUpdate={(attrs) => updateImage(editor, attrs)}
-                        onRemove={() => removeStoryBookmark(editor)}
+                        onRemove={remove}
                     />
                 )
             }
             renderBlock={({ isSelected }) => (
                 <div>
-                    <div>StoryBookmark</div>
-                    <pre>{JSON.stringify(element, undefined, 4)}</pre>
                     {story && (
-                        <pre>
-                            {JSON.stringify(
-                                {
-                                    uuid: story.uuid,
-                                    title: story.title,
-                                    thumbnail_url: story.thumbnail_url,
-                                    newsroom: {
-                                        display_name: story.newsroom.display_name,
-                                        thumbnail_url: story.newsroom.thumbnail_url,
-                                        newsroom: story.newsroom.url,
-                                    },
-                                    links: {
-                                        newsroom_preview: story.links.newsroom_preview,
-                                    },
-                                },
-                                undefined,
-                                4,
-                            )}
-                        </pre>
+                        <StoryBookmarkBlock
+                            isSelected={isSelected}
+                            element={element}
+                            story={story}
+                        />
                     )}
-                    <pre>{JSON.stringify(error, undefined, 4)}</pre>
-                    {isSelected && 'Selected'}
 
                     {loading && (
                         <LoadingPlaceholderV2.Placeholder
