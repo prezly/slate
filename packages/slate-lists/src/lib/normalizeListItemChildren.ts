@@ -1,23 +1,16 @@
-import type { Editor, NodeEntry } from 'slate';
-import { Element, Node, Text, Transforms } from 'slate';
+import type { NodeEntry } from 'slate';
+import { Node, Text, Transforms } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { createListItem } from './createListItem';
-import { createListItemText } from './createListItemText';
-import { isList } from './isList';
-import { isListItem } from './isListItem';
-import { isListItemText } from './isListItemText';
+import type { ListsEditor } from '../types';
 
 /**
  * A "list-item" can have a single "list-item-text" and optionally an extra "list" as a child.
  */
 export function normalizeListItemChildren(
-    options: ListsOptions,
-    editor: Editor,
+    editor: ListsEditor,
     [node, path]: NodeEntry<Node>,
 ): boolean {
-    if (!isListItem(options, node)) {
+    if (!editor.isListItemNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
@@ -28,13 +21,15 @@ export function normalizeListItemChildren(
         const [childNode, childPath] = children[childIndex];
 
         if (Text.isText(childNode) || editor.isInline(childNode)) {
-            const listItemText = createListItemText(options, [childNode]);
+            const listItemText = editor.createListItemTextNode({
+                children: [childNode],
+            });
             Transforms.wrapNodes(editor, listItemText, { at: childPath });
 
             if (childIndex > 0) {
                 const [previousChildNode] = children[childIndex - 1];
 
-                if (isListItemText(options, previousChildNode)) {
+                if (editor.isListItemTextNode(previousChildNode)) {
                     Transforms.mergeNodes(editor, { at: childPath });
                 }
             }
@@ -42,34 +37,18 @@ export function normalizeListItemChildren(
             return true;
         }
 
-        // Casting `as Element` here, because of TypeScript incorrectly complaining that `childNode`
-        // is of type `never`, even though we just checked if it's an `Element`.
-        if (Element.isElement(childNode) && typeof (childNode as Element).type === 'undefined') {
-            // It can happen during pasting that the `type` attribute will be missing.
-            Transforms.setNodes(
-                editor,
-                { type: options.listItemTextType as Element['type'] },
-                { at: childPath },
-            );
-            return true;
-        }
-
-        if (isListItem(options, childNode)) {
+        if (editor.isListItemNode(childNode)) {
             Transforms.liftNodes(editor, { at: childPath });
             return true;
         }
 
-        if (isListItemText(options, childNode) && childIndex !== 0) {
-            Transforms.wrapNodes(editor, createListItem(options), { at: childPath });
+        if (editor.isListItemTextNode(childNode) && childIndex !== 0) {
+            Transforms.wrapNodes(editor, editor.createListItemNode(), { at: childPath });
             return true;
         }
 
-        if (!isListItemText(options, childNode) && !isList(options, childNode)) {
-            Transforms.setNodes(
-                editor,
-                { type: options.listItemTextType as Element['type'] },
-                { at: childPath },
-            );
+        if (!editor.isListItemTextNode(childNode) && !editor.isListNode(childNode)) {
+            Transforms.setNodes(editor, editor.createListItemTextNode(), { at: childPath });
             return true;
         }
     }

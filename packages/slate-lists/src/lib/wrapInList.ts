@@ -1,34 +1,31 @@
 import { nodeIdManager } from '@prezly/slate-commons';
 import { Editor, Element, Transforms } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { createList } from './createList';
-import { createListItem } from './createListItem';
+import type { ListsEditor } from '../types';
+import type { ListType } from '../types';
 
 /**
- * All nodes matching options.wrappableTypes in the current selection
- * will be converted to "list-items" and wrapped in "lists".
+ * All nodes matching `isListNestable()` in the current selection
+ * will be converted to list items and then wrapped in lists.
+ *
+ * @see ListsEditor.isListNestable()
  */
-export function wrapInList(options: ListsOptions, editor: Editor, listType: string): void {
+export function wrapInList(editor: ListsEditor, listType: ListType): void {
     if (!editor.selection) {
         return;
     }
 
-    const listNodeTypes = [...options.listTypes, options.listItemType, options.listItemTextType];
     const nonListEntries = Array.from(
         Editor.nodes(editor, {
             at: editor.selection,
             match: (node) => {
-                if (!Element.isElement(node)) {
-                    return false;
-                }
-
-                if (listNodeTypes.includes(node.type)) {
-                    return false;
-                }
-
-                return options.wrappableTypes.includes(node.type);
+                return (
+                    Element.isElement(node) &&
+                    !editor.isListNode(node) &&
+                    !editor.isListItemNode(node) &&
+                    !editor.isListItemTextNode(node) &&
+                    editor.isListNestable(node)
+                );
             },
         }),
     );
@@ -48,13 +45,9 @@ export function wrapInList(options: ListsOptions, editor: Editor, listType: stri
 
         const [, nonListEntryPath] = nonListEntry;
         Editor.withoutNormalizing(editor, () => {
-            Transforms.setNodes(
-                editor,
-                { type: options.listItemTextType as Element['type'] },
-                { at: nonListEntryPath },
-            );
-            Transforms.wrapNodes(editor, createListItem(options), { at: nonListEntryPath });
-            Transforms.wrapNodes(editor, createList(listType), { at: nonListEntryPath });
+            Transforms.setNodes(editor, editor.createListItemTextNode(), { at: nonListEntryPath });
+            Transforms.wrapNodes(editor, editor.createListItemNode(), { at: nonListEntryPath });
+            Transforms.wrapNodes(editor, editor.createListNode(listType), { at: nonListEntryPath });
         });
     });
 }

@@ -3,20 +3,14 @@ import { isElementNode } from '@prezly/slate-types';
 import type { Node, NodeEntry } from 'slate';
 import { Editor, Element, Transforms } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { isList } from './isList';
+import type { ListsEditor } from '../types';
 
 /**
  * A "list" can have no parent (be at the root) or have a "list-item" parent (nested list).
  * In any other case we will try to unwrap it, or lift it up.
  */
-export function normalizeList(
-    options: ListsOptions,
-    editor: Editor,
-    [node, path]: NodeEntry<Node>,
-): boolean {
-    if (!isList(options, node)) {
+export function normalizeList(editor: ListsEditor, [node, path]: NodeEntry<Node>): boolean {
+    if (!editor.isListNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
@@ -35,7 +29,7 @@ export function normalizeList(
 
     if (
         isElementNode(ancestorNode) &&
-        [...options.listTypes, options.listItemType].includes(ancestorNode.type)
+        (editor.isListNode(ancestorNode) || editor.isListItemNode(ancestorNode))
     ) {
         return false;
     }

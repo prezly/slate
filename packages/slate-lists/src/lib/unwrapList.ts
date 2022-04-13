@@ -1,6 +1,4 @@
-import type { Editor } from 'slate';
-
-import type { ListsOptions } from '../types';
+import type { ListsEditor } from '../types';
 
 import { decreaseDepth } from './decreaseDepth';
 import { getListItemsInRange } from './getListItemsInRange';
@@ -9,8 +7,8 @@ import { getListItemsInRange } from './getListItemsInRange';
  * Unwraps all "list-items" in the current selection.
  * No list be left in the current selection.
  */
-export function unwrapList(options: ListsOptions, editor: Editor): void {
-    while (getListItemsInRange(options, editor, editor.selection).length > 0) {
-        decreaseDepth(options, editor);
+export function unwrapList(editor: ListsEditor): void {
+    while (getListItemsInRange(editor, editor.selection).length > 0) {
+        decreaseDepth(editor);
     }
 }

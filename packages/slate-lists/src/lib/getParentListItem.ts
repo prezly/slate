@@ -1,28 +1,18 @@
 import type { ElementNode } from '@prezly/slate-types';
-import type { NodeEntry, Path } from 'slate';
+import type { Element, NodeEntry, Path } from 'slate';
 import { Editor } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { isListItem } from './isListItem';
+import type { ListsEditor } from '../types';
 
 /**
  * Returns parent "list-item" node of "list-item" at a given path.
  * Returns null if there is no parent "list-item".
  */
-export function getParentListItem(
-    options: ListsOptions,
-    editor: Editor,
-    listItemPath: Path,
-): NodeEntry<ElementNode> | null {
+export function getParentListItem(editor: ListsEditor, path: Path): NodeEntry<Element> | null {
     const parentListItem = Editor.above<ElementNode>(editor, {
-        at: listItemPath,
-        match: (node) => isListItem(options, node),
+        at: path,
+        match: (node) => editor.isListItemNode(node),
     });
 
-    if (parentListItem && isListItem(options, parentListItem[0])) {
-        return parentListItem;
-    }
-
-    return null;
+    return parentListItem ?? null;
 }
