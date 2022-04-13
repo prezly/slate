@@ -1,44 +1,40 @@
-import type { StoryEmbedNode } from '@prezly/slate-types';
-import type { FunctionComponent, RefObject } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import React from 'react';
 
 import { FloatingContainer } from '#modules/editor-v4-components';
-import './FloatingStoryEmbedInput.scss';
 
-import type { StoryEmbedExtensionParameters } from '../../types';
+import styles from './FloatingStoryEmbedInput.module.scss';
 
 interface Props {
     availableWidth: number;
     containerRef: RefObject<HTMLDivElement>;
     onClose: () => void;
     onRootClose: () => void;
-    onSubmit: (url: Pick<StoryEmbedNode, 'story'> & Partial<StoryEmbedNode>) => Promise<void>;
-    renderInput: StoryEmbedExtensionParameters['renderInput'];
+    renderInput: () => ReactNode;
 }
 
-export const FloatingStoryEmbedInput: FunctionComponent<Props> = ({
+export function FloatingStoryEmbedInput({
     availableWidth,
     containerRef,
     onClose,
     onRootClose,
-    onSubmit,
     renderInput,
-}) => {
+}: Props) {
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className="editor-v4-floating-story-embed-input"
+            className={styles['editor-v4-floating-story-embed-input']}
             containerRef={containerRef}
             onClose={onRootClose}
             open
             show
         >
             <FloatingContainer.Button
-                className="editor-v4-floating-story-embed-input__close-button"
+                className={styles['editor-v4-floating-story-embed-input__close-button']}
                 onClick={onClose}
                 open
             />
-            {renderInput({ onCreate: onSubmit, onRemove: onClose })}
+            {renderInput()}
         </FloatingContainer.Container>
     );
-};
+}

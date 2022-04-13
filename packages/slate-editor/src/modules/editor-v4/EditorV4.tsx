@@ -23,11 +23,10 @@ import { ReactEditor, Slate } from 'slate-react';
 
 import { noop } from '#lodash';
 
+import { FloatingStoryEmbedInput } from '#modules/editor-v4-components';
 import { LoaderContentType } from '#modules/editor-v4-loader';
-import {
-    FloatingStoryEmbedInput,
-    useFloatingStoryEmbedInput,
-} from '#modules/editor-v4-story-embed';
+import { useFloatingStoryBookmarkInput } from '#modules/editor-v4-story-bookmark';
+import { useFloatingStoryEmbedInput } from '#modules/editor-v4-story-embed';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
@@ -99,6 +98,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         withVideos,
         withWebBookmarks,
         withStoryEmbeds,
+        withStoryBookmarks,
     } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -131,6 +131,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             withWebBookmarks,
             withAutoformat,
             withStoryEmbeds,
+            withStoryBookmarks,
         }),
     );
 
@@ -218,6 +219,16 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     ] = useFloatingStoryEmbedInput(editor);
 
     const [
+        { isOpen: isFloatingStoryBookmarkInputOpen },
+        {
+            close: closeFloatingStoryBookmarkInput,
+            open: openFloatingStoryBookmarkInput,
+            rootClose: rootCloseFloatingStoryBookmarkInput,
+            submit: submitFloatingStoryBookmarkInput,
+        },
+    ] = useFloatingStoryBookmarkInput(editor);
+
+    const [
         { isOpen: isFloatingPressContactsMenuOpen },
         {
             close: closeFloatingPressContactsMenu,
@@ -288,6 +299,12 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         if (action === MenuAction.ADD_STORY_EMBED) {
             return openFloatingStoryEmbedInput('Embed Prezly story', {
                 contentType: LoaderContentType.STORY_EMBED,
+                message: 'Embedding Prezly Story',
+            });
+        }
+        if (action === MenuAction.ADD_STORY_BOOKMARK) {
+            return openFloatingStoryBookmarkInput('Embed Prezly Story', {
+                contentType: LoaderContentType.STORY_BOOKMARK,
                 message: 'Embedding Prezly Story',
             });
         }
@@ -449,8 +466,27 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         containerRef={containerRef}
                         onClose={closeFloatingStoryEmbedInput}
                         onRootClose={rootCloseFloatingStoryEmbedInput}
-                        onSubmit={submitFloatingStoryEmbedInput}
-                        renderInput={withStoryEmbeds.renderInput}
+                        renderInput={() =>
+                            withStoryEmbeds.renderInput({
+                                onSubmit: submitFloatingStoryEmbedInput,
+                                onClose: closeFloatingStoryEmbedInput,
+                            })
+                        }
+                    />
+                )}
+
+                {withStoryBookmarks && isFloatingStoryBookmarkInputOpen && (
+                    <FloatingStoryEmbedInput
+                        availableWidth={availableWidth}
+                        containerRef={containerRef}
+                        onClose={closeFloatingStoryBookmarkInput}
+                        onRootClose={rootCloseFloatingStoryBookmarkInput}
+                        renderInput={() =>
+                            withStoryBookmarks.renderInput({
+                                onCreate: submitFloatingStoryBookmarkInput,
+                                onRemove: closeFloatingStoryBookmarkInput,
+                            })
+                        }
                     />
                 )}
 

@@ -12,19 +12,4 @@
         top: math.div($input-height - $editor-v4-floating-button-size, 2);
         left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
     }
-
-    &__input {
-        border-right: none;
-    }
-
-    &__addon {
-        padding: 0;
-        border: none;
-    }
-
-    &__button {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        height: $input-height;
-    }
 }
