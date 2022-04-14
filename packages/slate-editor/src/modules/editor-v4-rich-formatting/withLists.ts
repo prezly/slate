@@ -11,9 +11,10 @@ import {
     LIST_ITEM_NODE_TYPE,
     LIST_ITEM_TEXT_NODE_TYPE,
     NUMBERED_LIST_NODE_TYPE,
-    PARAGRAPH_NODE_TYPE,
 } from '@prezly/slate-types';
 import type { Editor } from 'slate';
+
+import { createParagraph } from '#modules/editor-v4-paragraphs';
 
 const SCHEMA: ListsSchema = {
     isAllowedListDescendant(node): boolean {
@@ -32,7 +33,7 @@ const SCHEMA: ListsSchema = {
     isListItemNode,
     isListItemTextNode,
     createDefaultTextNode(props = {}) {
-        return { children: [{ text: '' }], ...props, type: PARAGRAPH_NODE_TYPE };
+        return createParagraph(props);
     },
     createListNode(type: ListType = ListType.UNORDERED, props = {}) {
         return {

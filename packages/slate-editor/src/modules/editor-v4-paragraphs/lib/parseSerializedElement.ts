@@ -7,7 +7,7 @@ export function parseSerializedElement(serialized: string): ParagraphNode | unde
     const parsed = JSON.parse(serialized);
 
     if (isParagraphNode(parsed)) {
-        return createParagraph(parsed.children);
+        return createParagraph(parsed);
     }
 
     return undefined;
