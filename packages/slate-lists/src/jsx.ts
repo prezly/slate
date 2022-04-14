@@ -37,6 +37,9 @@ const INLINE_ELEMENTS = [LINK_TYPE];
 const VOID_ELEMENTS = [DIVIDER_TYPE];
 
 const SCHEMA: ListsSchema = {
+    isAllowedListDescendant(node): boolean {
+        return Element.isElementType(node, PARAGRAPH_TYPE);
+    },
     isDefaultTextNode(node) {
         return Element.isElementType(node, PARAGRAPH_TYPE);
     },
@@ -54,9 +57,6 @@ const SCHEMA: ListsSchema = {
     },
     isListItemTextNode(node) {
         return Element.isElementType(node, LIST_ITEM_TEXT_TYPE);
-    },
-    isListNestable(node): boolean {
-        return Element.isElementType(node, PARAGRAPH_TYPE);
     },
     createDefaultTextNode(props = {}) {
         return { children: [{ text: '' }], ...props, type: PARAGRAPH_TYPE };

@@ -5,10 +5,10 @@ import type { ListsEditor } from '../types';
 import type { ListType } from '../types';
 
 /**
- * All nodes matching `isListNestable()` in the current selection
+ * All nodes matching `isAllowedListDescendant()` in the current selection
  * will be converted to list items and then wrapped in lists.
  *
- * @see ListsEditor.isListNestable()
+ * @see ListsEditor.isAllowedListDescendant()
  */
 export function wrapInList(editor: ListsEditor, listType: ListType): void {
     if (!editor.selection) {
@@ -24,7 +24,7 @@ export function wrapInList(editor: ListsEditor, listType: ListType): void {
                     !editor.isListNode(node) &&
                     !editor.isListItemNode(node) &&
                     !editor.isListItemTextNode(node) &&
-                    editor.isListNestable(node)
+                    editor.isAllowedListDescendant(node)
                 );
             },
         }),

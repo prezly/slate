@@ -31,11 +31,11 @@ const LIST_NORMALIZERS: Normalizer[] = [
 export function withLists(schema: ListsSchema) {
     return function <T extends Editor>(editor: T): T & ListsEditor {
         const listsEditor: T & ListsEditor = Object.assign(editor, {
+            isAllowedListDescendant: schema.isAllowedListDescendant,
             isDefaultTextNode: schema.isDefaultTextNode,
             isListNode: schema.isListNode,
             isListItemNode: schema.isListItemNode,
             isListItemTextNode: schema.isListItemTextNode,
-            isListNestable: schema.isListNestable,
             createDefaultTextNode: schema.createDefaultTextNode,
             createListNode: schema.createListNode,
             createListItemNode: schema.createListItemNode,

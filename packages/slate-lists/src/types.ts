@@ -6,6 +6,8 @@ export enum ListType {
 }
 
 export interface ListsSchema {
+    isAllowedListDescendant(node: Node): boolean;
+
     isDefaultTextNode(node: Node): boolean;
 
     isListNode(node: Node, type?: ListType): boolean;
@@ -13,8 +15,6 @@ export interface ListsSchema {
     isListItemNode(node: Node): boolean;
 
     isListItemTextNode(node: Node): boolean;
-
-    isListNestable(node: Node): boolean;
 
     createDefaultTextNode(props?: { children?: Descendant[] }): Element;
 

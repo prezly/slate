@@ -16,6 +16,9 @@ import {
 import type { Editor } from 'slate';
 
 const SCHEMA: ListsSchema = {
+    isAllowedListDescendant(node): boolean {
+        return isParagraphNode(node) || isHeadingNode(node) || isQuoteNode(node);
+    },
     isDefaultTextNode: isParagraphNode,
     isListNode(node, type?) {
         if (type === ListType.ORDERED) {
@@ -28,9 +31,6 @@ const SCHEMA: ListsSchema = {
     },
     isListItemNode,
     isListItemTextNode,
-    isListNestable(node): boolean {
-        return isParagraphNode(node) || isHeadingNode(node) || isQuoteNode(node);
-    },
     createDefaultTextNode(props = {}) {
         return { children: [{ text: '' }], ...props, type: PARAGRAPH_NODE_TYPE };
     },
