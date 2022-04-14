@@ -11,7 +11,5 @@ interface Props {
 }
 
 export const Title: FunctionComponent<Props> = ({ className, element }) => (
-    <div className={classNames(styles.title, className)}>
-        {element.file.filename}
-    </div>
+    <div className={classNames(styles.title, className)}>{element.file.filename}</div>
 );
