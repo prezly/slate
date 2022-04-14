@@ -24,7 +24,8 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
 }) => {
     const editor = useSlate();
     const isSelected = useSelected();
-    const [text, setText] = React.useState(element.description);
+    const [description, setDescription] = React.useState(element.description);
+    const [filename, setFilename] = React.useState(element.file.filename);
 
     const handleRemove = () => {
         const removedElement = removeFileAttachment(editor);
@@ -35,7 +36,7 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
     };
 
     const save = () => {
-        onEdit(editor, { file: element.file, description: text });
+        onEdit(editor, { file: { ...element.file, filename: filename }, description: description });
         onClose();
     };
 
@@ -51,8 +52,12 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
             <Toolbox.Section>
                 <VStack spacing="2">
                     <VStack spacing="1-5">
+                        <Toolbox.Caption>Filename</Toolbox.Caption>
+                        <Input value={filename} onChange={setFilename} />
+                    </VStack>
+                    <VStack spacing="1-5">
                         <Toolbox.Caption>Description</Toolbox.Caption>
-                        <Input value={text} onChange={setText} placeholder="Insert description" />
+                        <Input value={description} onChange={setDescription} placeholder="Insert description" />
                     </VStack>
 
                     <Button variant="primary" fullWidth round onClick={save}>
