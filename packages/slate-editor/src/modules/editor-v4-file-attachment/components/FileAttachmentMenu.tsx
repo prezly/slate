@@ -57,7 +57,11 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
                     </VStack>
                     <VStack spacing="1-5">
                         <Toolbox.Caption>Description</Toolbox.Caption>
-                        <Input value={description} onChange={setDescription} placeholder="Insert description" />
+                        <Input
+                            value={description}
+                            onChange={setDescription}
+                            placeholder="Insert description"
+                        />
                     </VStack>
 
                     <Button variant="primary" fullWidth round onClick={save}>
