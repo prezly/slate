@@ -4,6 +4,8 @@ import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { Editor, Element } from 'slate';
 
+import type { StoryBookmarkExtensionParameters } from '#modules/editor-v4-story-bookmark';
+
 import type { AutoformatParameters } from '../../editor-v4-autoformat/types';
 import type { CoverageExtensionParameters } from '../../editor-v4-coverage';
 import type { EmbedExtensionParameters } from '../../editor-v4-embed/types';
@@ -48,6 +50,7 @@ export interface EditorV4ExtensionsProps {
     withWebBookmarks?: WebBookmarkExtensionParameters;
     withAutoformat?: boolean | AutoformatParameters;
     withStoryEmbeds?: StoryEmbedExtensionParameters;
+    withStoryBookmarks?: StoryBookmarkExtensionParameters;
 }
 
 export type Value = Element[];
