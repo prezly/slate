@@ -64,11 +64,9 @@ export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
             }
 
             if (Node.has(editor, listItemTextPath)) {
-                Transforms.setNodes(
-                    editor,
-                    editor.createDefaultTextNode(),
-                    { at: listItemTextPath },
-                );
+                Transforms.setNodes(editor, editor.createDefaultTextNode(), {
+                    at: listItemTextPath,
+                });
                 Transforms.liftNodes(editor, { at: listItemTextPath });
                 Transforms.liftNodes(editor, { at: listItemPath });
             }

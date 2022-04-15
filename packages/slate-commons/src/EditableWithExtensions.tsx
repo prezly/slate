@@ -22,7 +22,6 @@ import type {
     RenderLeaf,
 } from './types';
 
-
 export interface Props {
     decorate?: Decorate;
     editor: Editor & ReactEditor;

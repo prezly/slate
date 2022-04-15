@@ -13,7 +13,7 @@ export function withListsReact<T extends Editor & ReactEditor>(editor: T): T {
     const { setFragmentData } = editor;
 
     editor.setFragmentData = (data: DataTransfer) => {
-        withRangeCloneContentsPatched(function() {
+        withRangeCloneContentsPatched(function () {
             setFragmentData(data);
         });
     };

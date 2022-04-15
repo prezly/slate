@@ -4,7 +4,6 @@ import { Transforms } from 'slate';
 import { getParentListItem } from '../lib';
 import type { ListsEditor } from '../types';
 
-
 /**
  * If "list-item-text" somehow (e.g. by deleting everything around it) ends up
  * at the root of the editor, we have to convert it into a "default-block".

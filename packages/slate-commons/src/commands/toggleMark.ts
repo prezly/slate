@@ -3,7 +3,11 @@ import { Editor } from 'slate';
 
 import { isMarkActive } from './isMarkActive';
 
-export function toggleMark<T extends Text>(editor: Editor, mark: keyof Omit<T, 'text'>, force?: boolean): void {
+export function toggleMark<T extends Text>(
+    editor: Editor,
+    mark: keyof Omit<T, 'text'>,
+    force?: boolean,
+): void {
     const shouldSet = force ?? !isMarkActive(editor, mark);
 
     if (shouldSet) {
