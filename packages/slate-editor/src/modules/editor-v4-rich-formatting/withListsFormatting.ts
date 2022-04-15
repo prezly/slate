@@ -1,5 +1,5 @@
 import type { ListsEditor, ListsSchema } from '@prezly/slate-lists';
-import { ListType, withLists as withListsMethods, withListsReact } from '@prezly/slate-lists';
+import { ListType, withLists, withListsReact } from '@prezly/slate-lists';
 import {
     BULLETED_LIST_NODE_TYPE,
     isHeadingNode,
@@ -50,6 +50,6 @@ const SCHEMA: ListsSchema = {
     },
 };
 
-export function withLists<T extends Editor>(editor: T): T & ListsEditor {
-    return withListsReact(withListsMethods(SCHEMA)(editor));
+export function withListsFormatting<T extends Editor>(editor: T): T & ListsEditor {
+    return withListsReact(withLists(SCHEMA)(editor));
 }

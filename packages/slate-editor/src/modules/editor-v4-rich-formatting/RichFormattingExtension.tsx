@@ -13,7 +13,7 @@ import {
     withResetRichFormattingOnBreak,
 } from './lib';
 import { ElementType } from './types';
-import { withLists } from './withLists';
+import { withListsFormatting } from './withListsFormatting';
 
 interface Parameters {
     blocks: boolean;
@@ -44,6 +44,6 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
         ElementType.HEADING_TWO,
     ],
     withOverrides(editor) {
-        return withResetRichFormattingOnBreak(blocks ? withLists(editor) : editor);
+        return withResetRichFormattingOnBreak(blocks ? withListsFormatting(editor) : editor);
     },
 });
