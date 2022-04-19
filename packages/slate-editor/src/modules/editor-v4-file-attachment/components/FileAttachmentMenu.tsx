@@ -25,7 +25,7 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
     const editor = useSlate();
     const isSelected = useSelected();
     const [description, setDescription] = React.useState(element.description);
-    const [filename, setFilename] = React.useState(element.file.filename);
+    const [filename, setFilename] = React.useState(getFilename(element.file.filename));
 
     const handleRemove = () => {
         const removedElement = removeFileAttachment(editor);
@@ -36,7 +36,13 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
     };
 
     const save = () => {
-        onEdit(editor, { file: { ...element.file, filename: filename }, description: description });
+        onEdit(editor, {
+            file: {
+                ...element.file,
+                filename: `${filename}.${getFileExtension(element.file.filename)}`,
+            },
+            description: description,
+        });
         onClose();
     };
 
@@ -78,3 +84,12 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
         </Toolbox.Panel>
     );
 };
+
+function getFileExtension(filename: string) {
+    return filename.slice(((filename.lastIndexOf('.') - 1) >>> 0) + 2);
+}
+
+function getFilename(filename: string) {
+    const extension = getFileExtension(filename);
+    return filename.substring(0, filename.length - extension.length - 1);
+}
