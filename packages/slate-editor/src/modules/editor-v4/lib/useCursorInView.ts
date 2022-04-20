@@ -34,7 +34,7 @@ function ensureCursorInView(
 
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (Editor.isBlock(editor, currentNode) && Editor.isVoid(editor, currentNode)) {
+    if (Editor.isBlock(editor, currentNode) || (Editor.isBlock(editor, currentNode) && Editor.isVoid(editor, currentNode))) {
         /**
          * Slate reports invalid `domRange` on void elements. The reported range points to
          * the `data-slate-zero-width` element which is inside [data-slate-spacer="true"]
@@ -57,7 +57,6 @@ function ensureCursorInView(
     }
 
     const domRange = EditorCommands.toDomRange(editor, editor.selection);
-
     ensureRangeInView(domRange, {
         minBottom: withCursorInView.minBottom,
         minTop: withCursorInView.minTop,
