@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { createHyperscript } from '@prezly/slate-hyperscript';
 import type { ImageLayout } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { UploadcareStoragePayload } from '@prezly/uploadcare';
 import type { ReactNode } from 'react';
+import { createHyperscript, createText } from 'slate-hyperscript';
 
 import type { LoaderNode } from '#modules/editor-v4-loader';
 import { LOADER_TYPE } from '#modules/editor-v4-loader';
@@ -45,5 +45,8 @@ export const jsx = createHyperscript({
         'h-image-candidate': { type: IMAGE_CANDIDATE_TYPE },
         'h-loader': { type: LOADER_TYPE },
         'h-p': { type: PARAGRAPH_NODE_TYPE },
+    },
+    creators: {
+        'h-text': createText,
     },
 });
