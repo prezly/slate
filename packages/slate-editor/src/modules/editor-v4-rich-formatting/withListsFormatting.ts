@@ -35,18 +35,23 @@ const SCHEMA: ListsSchema = {
     createDefaultTextNode(props = {}) {
         return createParagraph(props);
     },
-    createListNode(type: ListType = ListType.UNORDERED, props = {}) {
+    createListNode(type: ListType = ListType.UNORDERED, { children } = {}) {
         return {
-            children: [{ text: '' }],
-            ...props,
             type: type === ListType.ORDERED ? NUMBERED_LIST_NODE_TYPE : BULLETED_LIST_NODE_TYPE,
+            children: children ?? [this.createListItemNode()],
         };
     },
-    createListItemNode(props = {}) {
-        return { children: [{ text: '' }], ...props, type: LIST_ITEM_NODE_TYPE };
+    createListItemNode({ children } = {}) {
+        return {
+            type: LIST_ITEM_NODE_TYPE,
+            children: children ?? [this.createListItemTextNode()],
+        };
     },
-    createListItemTextNode(props = {}) {
-        return { children: [{ text: '' }], ...props, type: LIST_ITEM_TEXT_NODE_TYPE };
+    createListItemTextNode({ children } = {}) {
+        return {
+            type: LIST_ITEM_TEXT_NODE_TYPE,
+            children: children ?? [{ text: '' }],
+        };
     },
 };
 
