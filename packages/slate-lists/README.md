@@ -137,7 +137,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-1-define-opt
 +import { type ListsSchema, ListType } from '@prezly/slate-lists';
 +
 +const schema: ListsSchema = {
-+  isAllowedListDescendant(node) {
++  isConvertibleToListTextNode(node) {
 +    return Element.isElementType(node, PARAGRAPH_TYPE);
 +  },
 +  isDefaultTextNode(node) {
@@ -211,7 +211,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-2-use-withli
 +import { type ListsSchema, ListType, withLists } from '@prezly/slate-lists';
  
  const schema: ListsSchema = {
-   isAllowedListDescendant(node) {
+   isConvertibleToListTextNode(node) {
      return Element.isElementType(node, PARAGRAPH_TYPE);
    },
    isDefaultTextNode(node) {
@@ -289,7 +289,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-3-use-withli
 +import { type ListsSchema, ListType, withLists, withListsReact } from '@prezly/slate-lists';
  
  const schema: ListsSchema = {
-   isAllowedListDescendant(node) {
+   isConvertibleToListTextNode(node) {
      return Element.isElementType(node, PARAGRAPH_TYPE);
    },
    isDefaultTextNode(node) {
@@ -373,17 +373,17 @@ Only core API is documented although all utility functions are exposed. Should y
 Lists schema wires the Lists plugin to your project-level defined Slate model. 
 It is designed with 100% customization in mind, not depending on any specific node types, or non-core interfaces.
 
-| Name                      | Description                                                                                                            |
-|---------------------------|------------------------------------------------------------------------------------------------------------------------|
-| `isAllowedListDescendant` | Check if a node can be converted to a list item text node.                                                             |
-| `isDefaultTextNode`       | Check if a node is a plain default text node, that list item text node will become when it is unwrapped or normalized. |
-| `isListNode`              | Check if a node is representing a list.                                                                                |
-| `isListItemNode`          | Check if a node is representing a list item.                                                                           |
-| `isListItemTextNode`      | Check if a node is representing a list item text.                                                                      |
-| `createDefaultTextNode`   | Create a plain default text node. List item text nodes become these when unwrapped or normalized.                      |
-| `createListNode`          | Create a new list node of the given type.                                                                              |
-| `createListItemNode`      | Create a new list item node.                                                                                           |
-| `createListItemTextNode`  | Create a new list item text node.                                                                                      |
+| Name                          | Description                                                                                                            |
+|-------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| `isConvertibleToListTextNode` | Check if a node can be converted to a list item text node.                                                             |
+| `isDefaultTextNode`           | Check if a node is a plain default text node, that list item text node will become when it is unwrapped or normalized. |
+| `isListNode`                  | Check if a node is representing a list.                                                                                |
+| `isListItemNode`              | Check if a node is representing a list item.                                                                           |
+| `isListItemTextNode`          | Check if a node is representing a list item text.                                                                      |
+| `createDefaultTextNode`       | Create a plain default text node. List item text nodes become these when unwrapped or normalized.                      |
+| `createListNode`              | Create a new list node of the given type.                                                                              |
+| `createListItemNode`          | Create a new list item node.                                                                                           |
+| `createListItemTextNode`      | Create a new list item text node.                                                                                      |
 
 ### [`ListsEditor`](src/types.ts)
 

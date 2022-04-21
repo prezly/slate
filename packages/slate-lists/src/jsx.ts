@@ -37,7 +37,7 @@ const INLINE_ELEMENTS = [LINK_TYPE];
 const VOID_ELEMENTS = [DIVIDER_TYPE];
 
 const SCHEMA: ListsSchema = {
-    isAllowedListDescendant(node): boolean {
+    isConvertibleToListTextNode(node) {
         return Element.isElementType(node, PARAGRAPH_TYPE);
     },
     isDefaultTextNode(node) {

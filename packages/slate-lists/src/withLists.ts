@@ -31,7 +31,7 @@ const LIST_NORMALIZERS: Normalizer[] = [
 export function withLists(schema: ListsSchema) {
     return function <T extends Editor>(editor: T): T & ListsEditor {
         const listsEditor: T & ListsEditor = Object.assign(editor, {
-            isAllowedListDescendant: schema.isAllowedListDescendant,
+            isConvertibleToListTextNode: schema.isConvertibleToListTextNode,
             isDefaultTextNode: schema.isDefaultTextNode,
             isListNode: schema.isListNode,
             isListItemNode: schema.isListItemNode,

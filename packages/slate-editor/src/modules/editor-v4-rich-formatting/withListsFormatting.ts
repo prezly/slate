@@ -17,7 +17,7 @@ import type { Editor } from 'slate';
 import { createParagraph } from '#modules/editor-v4-paragraphs';
 
 const SCHEMA: ListsSchema = {
-    isAllowedListDescendant(node): boolean {
+    isConvertibleToListTextNode(node) {
         return isParagraphNode(node) || isHeadingNode(node) || isQuoteNode(node);
     },
     isDefaultTextNode: isParagraphNode,

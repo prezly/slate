@@ -6,7 +6,7 @@ export enum ListType {
 }
 
 export interface ListsSchema {
-    isAllowedListDescendant(node: Node): boolean;
+    isConvertibleToListTextNode(node: Node): boolean;
 
     isDefaultTextNode(node: Node): boolean;
 
