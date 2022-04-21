@@ -18,7 +18,7 @@ export const Subtitle: FunctionComponent<Props> = ({ className, element }) => (
     <div className={classNames(styles.subtitle, className)}>
         {isUsingCustomTitle(element) ? (
             <>
-                {element.file.filename} - {formatBytes(element.file.size)}
+                {element.description} - {formatBytes(element.file.size)}
             </>
         ) : (
             formatBytes(element.file.size)
