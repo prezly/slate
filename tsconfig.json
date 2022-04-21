@@ -30,7 +30,6 @@
     },
     "references": [
         { "path": "packages/slate-types" },
-        { "path": "packages/slate-hyperscript" },
         { "path": "packages/slate-commons" },
         { "path": "packages/slate-lists" },
         { "path": "packages/slate-editor" }

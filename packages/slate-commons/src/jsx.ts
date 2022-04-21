@@ -8,9 +8,7 @@ import { INLINE_VOID_ELEMENT, SOME_ELEMENT_1, SOME_ELEMENT_2, VOID_ELEMENT } fro
 
 declare global {
     namespace JSX {
-        // This is copied from "packages/slate-hyperscript/src/index.ts"
-        // TODO: find a way to not have to copy it and still have type hinting
-        // when using hyperscript.
+        // TODO: find a way to not have to copy it and still have type hinting when using hyperscript.
         // See: https://github.com/prezly/slate/issues/6
         interface IntrinsicElements {
             anchor:
