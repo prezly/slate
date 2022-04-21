@@ -36,18 +36,23 @@ Source code: https://codesandbox.io/s/prezlyslate-lists-demo-complete-example-h9
 
 ## Constraints
 
--   all list-related nodes have a `type: string` attribute (you can customize the supported string values via [`ListsOptions`](src/types.ts))
--   there is an assumption that a _default_ node `type` to which this extension can convert list-related nodes to exists (e.g. during normalization, or unwrapping lists)
+- There are two types of lists: ordered and unordered. 
+  You can initialize the plugin to work with any project-level data model via [`ListsSchema`](src/types.ts).
+
+- There is an assumption that there is a _default_ text node type to which the plugin can convert list-related nodes
+  (e.g. during normalization, or unwrapping lists). Normally, this is a paragraph block, but it's up to you.
 
 ## Schema
 
--   a **list** node can only contain **list item** nodes
--   a **list item** node can contain either:
-    -   a **list item text** node
-    -   a **list item text** node and a **list** node (in that order) (nesting lists)
--   a **list** node can either:
-    -   have no parent node
-    -   have a parent **list item** node
+- a **list** node can only contain **list item** nodes
+
+- a **list item** node can contain either:
+    - a **list item text** node
+    - a pair of **list item text** node and a **list** node (in that order) (nesting lists)
+
+- a **list** node can either:
+    - have no parent node
+    - have a parent **list item** node
 
 <details>
 <summary>As TypeScript interfaces...</summary>
@@ -60,17 +65,17 @@ import { Node } from 'slate';
 
 interface ListNode {
     children: ListItemNode[];
-    type: 'bulleted-list' | 'numbered-list'; // see ListsSchema to customize this
+    type: 'bulleted-list' | 'numbered-list'; // depends on your ListsSchema 
 }
 
 interface ListItemNode {
     children: [ListItemTextNode] | [ListItemTextNode, ListNode];
-    type: 'list-item'; // see ListsOptions to customize this
+    type: 'list-item'; // depends on your ListsSchema
 }
 
 interface ListItemTextNode {
     children: Node[]; // by default everything is allowed here
-    type: 'list-item-text'; // see ListsOptions to customize this
+    type: 'list-item-text'; // depends on your ListsSchema
 }
 ```
 
