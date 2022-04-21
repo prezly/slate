@@ -15,7 +15,6 @@ import { flow } from '#lodash';
 
 import { withImages } from '#modules/editor-v4-image';
 import { withLoaders } from '#modules/editor-v4-loader';
-import { withRichFormatting } from '#modules/editor-v4-rich-formatting';
 
 import {
     withDeserializeHtml,
@@ -51,7 +50,6 @@ export function createEditorV4(
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
         withSlatePasting,
-        withRichFormatting,
         withImages,
         withFilePasting(getExtensions),
         ...overrides,

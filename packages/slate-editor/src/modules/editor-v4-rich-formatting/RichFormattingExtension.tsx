@@ -6,9 +6,14 @@ import type { RenderElementProps } from 'slate-react';
 import { RichTextElement, Text } from './components';
 import { RICH_FORMATTING_EXTENSION_ID } from './constants';
 import { createDeserialize } from './createDeserialize';
-import { createOnKeyDown } from './createOnKeyDown';
-import { isRichTextElement, normalizeRedundantRichTextAttributes } from './lib';
+import { createOnKeyDownHandler } from './createOnKeyDownHandler';
+import {
+    isRichTextElement,
+    normalizeRedundantRichTextAttributes,
+    withResetRichFormattingOnBreak,
+} from './lib';
 import { ElementType } from './types';
+import { withListsFormatting } from './withListsFormatting';
 
 interface Parameters {
     blocks: boolean;
@@ -19,7 +24,7 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
     deserialize: createDeserialize({ blocks }),
     inlineTypes: [],
     normalizers: [normalizeRedundantRichTextAttributes],
-    onKeyDown: createOnKeyDown({ blocks }),
+    onKeyDown: createOnKeyDownHandler({ blocks }),
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (blocks && isRichTextElement(element)) {
             return (
@@ -38,4 +43,7 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
         ElementType.HEADING_ONE,
         ElementType.HEADING_TWO,
     ],
+    withOverrides(editor) {
+        return withResetRichFormattingOnBreak(blocks ? withListsFormatting(editor) : editor);
+    },
 });

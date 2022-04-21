@@ -1,10 +1,8 @@
-import type { Editor, Element, Node, NodeEntry } from 'slate';
+import type { Node, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { getParentListItem } from './getParentListItem';
-import { isListItemText } from './isListItemText';
+import { getParentListItem } from '../lib';
+import type { ListsEditor } from '../types';
 
 /**
  * If "list-item-text" somehow (e.g. by deleting everything around it) ends up
@@ -15,27 +13,22 @@ import { isListItemText } from './isListItemText';
  * pasting, so we have a separate rule for that in `deserializeHtml`.
  */
 export function normalizeOrphanListItemText(
-    options: ListsOptions,
-    editor: Editor,
+    editor: ListsEditor,
     [node, path]: NodeEntry<Node>,
 ): boolean {
-    if (!isListItemText(options, node)) {
+    if (!editor.isListItemTextNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
 
-    const parentListItem = getParentListItem(options, editor, path);
+    const parentListItem = getParentListItem(editor, path);
 
     if (parentListItem) {
         // If there is a parent "list-item", then the fix does not apply.
         return false;
     }
 
-    Transforms.setNodes(
-        editor,
-        { type: options.defaultBlockType as Element['type'] },
-        { at: path },
-    );
+    Transforms.setNodes(editor, editor.createDefaultTextNode(), { at: path });
 
     return true;
 }

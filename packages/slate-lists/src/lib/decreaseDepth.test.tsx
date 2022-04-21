@@ -1,37 +1,49 @@
 /** @jsx jsx */
 
-import type { Editor } from 'slate';
+import {
+    jsx,
+    Editor,
+    OrderedList,
+    UnorderedList,
+    ListItem,
+    ListItemText,
+    Text,
+    Paragraph,
+    Cursor,
+    Anchor,
+    Focus,
+} from '../jsx';
+import type { ListsEditor } from '../types';
 
-import { jsx } from '../jsx';
-import { createListsEditor, lists } from '../test-utils';
+import { decreaseDepth } from './decreaseDepth';
 
 describe('decreaseDepth - no selected items', () => {
     it('Does nothing when there is no selection', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.decreaseDepth(editor);
+        decreaseDepth(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -40,307 +52,307 @@ describe('decreaseDepth - no selected items', () => {
 
 describe('decreaseDepth - single item selected', () => {
     it('Converts list item to a paragraph when there is no grandparent list', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
                                 lorem ipsum
-                                <cursor />
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                <Cursor />
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-p>
-                    <h-text>
+            <Editor>
+                <Paragraph>
+                    <Text>
                         lorem ipsum
-                        <cursor />
-                    </h-text>
-                </h-p>
-            </editor>
-        ) as unknown as Editor;
+                        <Cursor />
+                    </Text>
+                </Paragraph>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.decreaseDepth(editor);
+        decreaseDepth(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
 
     it('Moves list-item to the grandparent list', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>ipsum</h-text>
-                                </h-li-text>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>ipsum</Text>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>
                                         dolor sit amet
-                                        <cursor />
-                                    </h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                        <Cursor />
+                                    </Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>ipsum</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>ipsum</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
                                 dolor sit amet
-                                <cursor />
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+                                <Cursor />
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.decreaseDepth(editor);
+        decreaseDepth(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
 
     it('Moves list-item to the grandparent list and removes the parent list if empty', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>
                                         dolor sit amet
-                                        <cursor />
-                                    </h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                        <Cursor />
+                                    </Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
                                 dolor sit amet
-                                <cursor />
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+                                <Cursor />
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.decreaseDepth(editor);
+        decreaseDepth(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
 
     it('Moves list-item to the grandparent list and moves succeeding siblings into a new nested list', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>aaa</h-text>
-                                </h-li-text>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>aaa</Text>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>
                                         dolor sit amet
-                                        <cursor />
-                                    </h-text>
-                                </h-li-text>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>bbb</h-text>
-                                </h-li-text>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>ccc</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                        <Cursor />
+                                    </Text>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>bbb</Text>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>ccc</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>aaa</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>aaa</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
                                 dolor sit amet
-                                <cursor />
-                            </h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>bbb</h-text>
-                                </h-li-text>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>ccc</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+                                <Cursor />
+                            </Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>bbb</Text>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>ccc</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.decreaseDepth(editor);
+        decreaseDepth(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
 
     it('Converts list-item into a paragraph, moves it out of the list and moves succeeding siblings into a new list', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>aaa</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>aaa</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
                                 dolor sit amet
-                                <cursor />
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>bbb</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>ccc</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                <Cursor />
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>bbb</Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>ccc</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>aaa</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                </h-ul>
-                <h-p>
-                    <h-text>
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>aaa</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                </UnorderedList>
+                <Paragraph>
+                    <Text>
                         dolor sit amet
-                        <cursor />
-                    </h-text>
-                </h-p>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>bbb</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>ccc</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+                        <Cursor />
+                    </Text>
+                </Paragraph>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>bbb</Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>ccc</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.decreaseDepth(editor);
+        decreaseDepth(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -349,191 +361,191 @@ describe('decreaseDepth - single item selected', () => {
 
 describe('decreaseDepth - multiple items selected', () => {
     it('Decreases depth of all list items in selection that have no list items ancesors in selection', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists A</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists A1</h-text>
-                                </h-li-text>
-                                <h-ol>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A1a</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A1b</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                </h-ol>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists A</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists A1</Text>
+                                </ListItemText>
+                                <OrderedList>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A1a</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A1b</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                </OrderedList>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>
                                         Nested
-                                        <anchor /> Lists A2
-                                    </h-text>
-                                </h-li-text>
-                                <h-ul>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A2a</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A2b</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                </h-ul>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists A3</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists B</h-text>
-                        </h-li-text>
-                        <h-ol>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists B1</h-text>
-                                </h-li-text>
-                                <h-ul>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists B1a</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>
+                                        <Anchor /> Lists A2
+                                    </Text>
+                                </ListItemText>
+                                <UnorderedList>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A2a</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A2b</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                </UnorderedList>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists A3</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists B</Text>
+                        </ListItemText>
+                        <OrderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists B1</Text>
+                                </ListItemText>
+                                <UnorderedList>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists B1a</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>
                                                 Nested Lists
-                                                <focus /> B1b
-                                            </h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                </h-ul>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists B2</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ol>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists C</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                                <Focus /> B1b
+                                            </Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                </UnorderedList>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists B2</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </OrderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists C</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists A</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists A1</h-text>
-                                </h-li-text>
-                                <h-ol>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A1a</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A1b</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                </h-ol>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists A</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists A1</Text>
+                                </ListItemText>
+                                <OrderedList>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A1a</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A1b</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                </OrderedList>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
                                 Nested
-                                <anchor /> Lists A2
-                            </h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists A2a</h-text>
-                                </h-li-text>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists A2b</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists A3</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-                <h-p>
-                    <h-text>Nested Lists B</h-text>
-                </h-p>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists B1</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists B1a</h-text>
-                                </h-li-text>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>
+                                <Anchor /> Lists A2
+                            </Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists A2a</Text>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists A2b</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists A3</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+                <Paragraph>
+                    <Text>Nested Lists B</Text>
+                </Paragraph>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists B1</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists B1a</Text>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>
                                         Nested Lists
-                                        <focus /> B1b
-                                    </h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists B2</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists C</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+                                        <Focus /> B1b
+                                    </Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists B2</Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists C</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.decreaseDepth(editor);
+        decreaseDepth(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

@@ -1,147 +1,157 @@
 /** @jsx jsx */
 
-import { jsx } from '../jsx';
-import { createListsEditor, options } from '../test-utils';
+import {
+    jsx,
+    Editor,
+    OrderedList,
+    UnorderedList,
+    ListItem,
+    ListItemText,
+    Text,
+    Anchor,
+    Focus,
+} from '../jsx';
+import type { ListsEditor } from '../types';
 
 import { getListItemsInRange } from './getListItemsInRange';
 
 describe('getListItemsInRange', () => {
     it('Returns an empty array when there is no selection', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists A</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists A1</h-text>
-                                </h-li-text>
-                                <h-ol>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A1a</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A1b</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                </h-ol>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists C</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists A</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists A1</Text>
+                                </ListItemText>
+                                <OrderedList>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A1a</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A1b</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                </OrderedList>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists C</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        const listItemsInRange = getListItemsInRange(options, editor, editor.selection);
+        const listItemsInRange = getListItemsInRange(editor, editor.selection);
         expect(listItemsInRange).toEqual([]);
     });
 
     it('Finds all partially selected list items', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists A</h-text>
-                        </h-li-text>
-                        <h-ul>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists A1</h-text>
-                                </h-li-text>
-                                <h-ol>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A1a</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A1b</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                </h-ol>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists A</Text>
+                        </ListItemText>
+                        <UnorderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists A1</Text>
+                                </ListItemText>
+                                <OrderedList>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A1a</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A1b</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                </OrderedList>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>
                                         Nested
-                                        <anchor /> Lists A2
-                                    </h-text>
-                                </h-li-text>
-                                <h-ul>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A2a</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists A2b</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                </h-ul>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists A3</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ul>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists B</h-text>
-                        </h-li-text>
-                        <h-ol>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists B1</h-text>
-                                </h-li-text>
-                                <h-ul>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>Nested Lists B1a</h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                    <h-li>
-                                        <h-li-text>
-                                            <h-text>
+                                        <Anchor /> Lists A2
+                                    </Text>
+                                </ListItemText>
+                                <UnorderedList>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A2a</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists A2b</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                </UnorderedList>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists A3</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </UnorderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists B</Text>
+                        </ListItemText>
+                        <OrderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists B1</Text>
+                                </ListItemText>
+                                <UnorderedList>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>Nested Lists B1a</Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            <Text>
                                                 Nested Lists
-                                                <focus /> B1b
-                                            </h-text>
-                                        </h-li-text>
-                                    </h-li>
-                                </h-ul>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>Nested Lists B2</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ol>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>Nested Lists C</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                                <Focus /> B1b
+                                            </Text>
+                                        </ListItemText>
+                                    </ListItem>
+                                </UnorderedList>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>Nested Lists B2</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </OrderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>Nested Lists C</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        const listItemsInRange = getListItemsInRange(options, editor, editor.selection);
+        const listItemsInRange = getListItemsInRange(editor, editor.selection);
         const listItemsPathsInRange = listItemsInRange.map(([, path]) => path);
 
         expect(listItemsPathsInRange).toEqual([

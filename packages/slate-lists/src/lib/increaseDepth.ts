@@ -1,7 +1,7 @@
 import { EditorCommands, nodeIdManager } from '@prezly/slate-commons';
-import type { Editor } from 'slate';
 
-import type { ListsOptions } from '../types';
+import type { ListsEditor } from '../types';
+import { ListType } from '../types';
 
 import { getListItemsInRange } from './getListItemsInRange';
 import { increaseListItemDepth } from './increaseListItemDepth';
@@ -11,12 +11,12 @@ import { wrapInList } from './wrapInList';
  * Increases nesting depth of all "list-items" in the current selection.
  * All nodes matching options.wrappableTypes in the selection will be converted to "list-items" and wrapped in a "list".
  */
-export function increaseDepth(options: ListsOptions, editor: Editor): void {
+export function increaseDepth(editor: ListsEditor): void {
     if (!editor.selection) {
         return;
     }
 
-    const listItemsInRange = getListItemsInRange(options, editor, editor.selection);
+    const listItemsInRange = getListItemsInRange(editor, editor.selection);
     const indentableListItemsInRange = listItemsInRange.filter(([, listItemPath]) => {
         const previousListItem = EditorCommands.getPreviousSibling(editor, listItemPath);
         return previousListItem !== null;
@@ -29,7 +29,7 @@ export function increaseDepth(options: ListsOptions, editor: Editor): void {
     });
 
     // Before we indent "list-items", we want to convert every non list-related block in selection to a "list".
-    wrapInList(options, editor, options.listTypes[0]);
+    wrapInList(editor, ListType.UNORDERED);
 
     unreachableListItemsIds.forEach((id) => {
         const listItemEntry = nodeIdManager.get(editor, id);
@@ -41,6 +41,6 @@ export function increaseDepth(options: ListsOptions, editor: Editor): void {
         }
 
         const [, listItemEntryPath] = listItemEntry;
-        increaseListItemDepth(options, editor, listItemEntryPath);
+        increaseListItemDepth(editor, listItemEntryPath);
     });
 }

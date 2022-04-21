@@ -1,37 +1,47 @@
 /** @jsx jsx */
 
-import type { Editor } from 'slate';
+import {
+    jsx,
+    Editor,
+    OrderedList,
+    UnorderedList,
+    ListItem,
+    ListItemText,
+    Text,
+    Paragraph,
+    Cursor,
+} from '../jsx';
+import type { ListsEditor } from '../types';
 
-import { jsx } from '../jsx';
-import { createListsEditor, lists } from '../test-utils';
+import { unwrapList } from './unwrapList';
 
 describe('unwrapList - no selection', () => {
     it('Does nothing when there is no selection', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.unwrapList(editor);
+        unwrapList(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -40,181 +50,181 @@ describe('unwrapList - no selection', () => {
 
 describe('unwrapList - selection within item', () => {
     it('Converts only list item into a paragraph', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
                                 lorem
-                                <cursor /> ipsum
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                <Cursor /> ipsum
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-p>
-                    <h-text>
+            <Editor>
+                <Paragraph>
+                    <Text>
                         lorem
-                        <cursor /> ipsum
-                    </h-text>
-                </h-p>
-            </editor>
-        ) as unknown as Editor;
+                        <Cursor /> ipsum
+                    </Text>
+                </Paragraph>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.unwrapList(editor);
+        unwrapList(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
 
     it('Converts middle list item into a paragraph', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>dolor</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>dolor</Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
                                 lorem
-                                <cursor /> ipsum
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>sit</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                <Cursor /> ipsum
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>sit</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>dolor</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-                <h-p>
-                    <h-text>
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>dolor</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+                <Paragraph>
+                    <Text>
                         lorem
-                        <cursor /> ipsum
-                    </h-text>
-                </h-p>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>sit</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+                        <Cursor /> ipsum
+                    </Text>
+                </Paragraph>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>sit</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.unwrapList(editor);
+        unwrapList(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
 
     it('Converts nested middle list item into a paragraph', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>ipsum</h-text>
-                        </h-li-text>
-                        <h-ol>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>lorem</h-text>
-                                </h-li-text>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem</Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>ipsum</Text>
+                        </ListItemText>
+                        <OrderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>lorem</Text>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>
                                         ipsum
-                                        <cursor />
-                                    </h-text>
-                                </h-li-text>
-                            </h-li>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>dolor</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ol>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>dolor</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>,
-        );
+                                        <Cursor />
+                                    </Text>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>dolor</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </OrderedList>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>dolor</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>ipsum</h-text>
-                        </h-li-text>
-                        <h-ol>
-                            <h-li>
-                                <h-li-text>
-                                    <h-text>lorem</h-text>
-                                </h-li-text>
-                            </h-li>
-                        </h-ol>
-                    </h-li>
-                </h-ul>
-                <h-p>
-                    <h-text>
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem</Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>ipsum</Text>
+                        </ListItemText>
+                        <OrderedList>
+                            <ListItem>
+                                <ListItemText>
+                                    <Text>lorem</Text>
+                                </ListItemText>
+                            </ListItem>
+                        </OrderedList>
+                    </ListItem>
+                </UnorderedList>
+                <Paragraph>
+                    <Text>
                         ipsum
-                        <cursor />
-                    </h-text>
-                </h-p>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>dolor</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>dolor</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+                        <Cursor />
+                    </Text>
+                </Paragraph>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>dolor</Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>dolor</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.unwrapList(editor);
+        unwrapList(editor);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

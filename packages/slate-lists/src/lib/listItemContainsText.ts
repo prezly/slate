@@ -1,27 +1,18 @@
-import { Editor } from 'slate';
+import type { Node } from 'slate';
+import { Editor, Element } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { isListItem } from './isListItem';
-import { isListItemText } from './isListItemText';
+import type { ListsEditor } from '../types';
 
 /**
  * Returns true if given "list-item" node contains a non-empty "list-item-text" node.
  */
-export function listItemContainsText(
-    options: ListsOptions,
-    editor: Editor,
-    node: unknown,
-): boolean {
-    if (!isListItem(options, node)) {
-        return false;
+export function listItemContainsText(editor: ListsEditor, node: Node): boolean {
+    if (Element.isElement(node) && editor.isListItemNode(node)) {
+        const [listItemText] = node.children;
+
+        if (Element.isElement(listItemText) && editor.isListItemTextNode(listItemText)) {
+            return !Editor.isEmpty(editor, listItemText);
+        }
     }
-
-    const [listItemText] = node.children;
-
-    if (!isListItemText(options, listItemText)) {
-        return false;
-    }
-
-    return !Editor.isEmpty(editor, listItemText);
+    return false;
 }

@@ -1,6 +1,4 @@
-/* eslint-disable no-param-reassign */
-
-import type { Editor } from 'slate';
+import type { Editor, NodeEntry } from 'slate';
 
 import {
     normalizeList,
@@ -11,10 +9,12 @@ import {
     normalizeOrphanListItemText,
     normalizeOrphanNestedList,
     normalizeSiblingLists,
-} from './lib';
-import type { ListsOptions } from './types';
+} from './normalizations';
+import type { ListsEditor, ListsSchema } from './types';
 
-const normalizers = [
+type Normalizer = (editor: ListsEditor, entry: NodeEntry) => boolean;
+
+const LIST_NORMALIZERS: Normalizer[] = [
     normalizeList,
     normalizeListChildren,
     normalizeListItemChildren,
@@ -28,22 +28,36 @@ const normalizers = [
 /**
  * Enables normalizations that enforce schema constraints and recover from unsupported cases.
  */
-export function withLists(options: ListsOptions) {
-    return function <T extends Editor>(editor: T): T {
-        const { normalizeNode } = editor;
+export function withLists(schema: ListsSchema) {
+    return function <T extends Editor>(editor: T): T & ListsEditor {
+        const listsEditor: T & ListsEditor = Object.assign(editor, {
+            isConvertibleToListTextNode: schema.isConvertibleToListTextNode,
+            isDefaultTextNode: schema.isDefaultTextNode,
+            isListNode: schema.isListNode,
+            isListItemNode: schema.isListItemNode,
+            isListItemTextNode: schema.isListItemTextNode,
+            createDefaultTextNode: schema.createDefaultTextNode,
+            createListNode: schema.createListNode,
+            createListItemNode: schema.createListItemNode,
+            createListItemTextNode: schema.createListItemTextNode,
+        });
 
-        editor.normalizeNode = (entry) => {
-            for (const normalizer of normalizers) {
-                const normalized = normalizer(options, editor, entry);
-
-                if (normalized) {
-                    return;
-                }
-            }
-
-            normalizeNode(entry);
-        };
-
-        return editor;
+        return withNormalizations(listsEditor, LIST_NORMALIZERS);
     };
+}
+
+function withNormalizations<T extends ListsEditor>(editor: T, normalizers: Normalizer[]): T {
+    const { normalizeNode } = editor;
+
+    editor.normalizeNode = (entry) => {
+        for (const normalize of normalizers) {
+            const changed = normalize(editor, entry);
+            if (changed) {
+                return;
+            }
+        }
+
+        normalizeNode(entry);
+    };
+    return editor;
 }

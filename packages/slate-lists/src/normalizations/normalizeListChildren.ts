@@ -1,25 +1,15 @@
-import type { Editor, NodeEntry } from 'slate';
+import type { NodeEntry } from 'slate';
 import { Element, Node, Text, Transforms } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { createListItem } from './createListItem';
-import { createListItemText } from './createListItemText';
-import { isList } from './isList';
-import { isListItem } from './isListItem';
-import { isListItemText } from './isListItemText';
+import type { ListsEditor } from '../types';
 
 /**
  * All children of a "list" have to be "list-items". It can happen (e.g. during pasting) that
  * this will not be true, so we have to convert all non-"list-item" children of a "list"
  * into "list-items".
  */
-export function normalizeListChildren(
-    options: ListsOptions,
-    editor: Editor,
-    [node, path]: NodeEntry<Node>,
-): boolean {
-    if (!isList(options, node)) {
+export function normalizeListChildren(editor: ListsEditor, [node, path]: NodeEntry<Node>): boolean {
+    if (!editor.isListNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
@@ -53,7 +43,9 @@ export function normalizeListChildren(
 
             Transforms.wrapNodes(
                 editor,
-                createListItem(options, [createListItemText(options, [childNode])]),
+                editor.createListItemNode({
+                    children: [editor.createListItemTextNode({ children: [childNode] })],
+                }),
                 { at: childPath },
             );
             normalized = true;
@@ -64,26 +56,22 @@ export function normalizeListChildren(
             return;
         }
 
-        if (isListItemText(options, childNode)) {
-            Transforms.wrapNodes(editor, createListItem(options), { at: childPath });
+        if (editor.isListItemTextNode(childNode)) {
+            Transforms.wrapNodes(editor, editor.createListItemNode(), { at: childPath });
             normalized = true;
             return;
         }
 
-        if (isList(options, childNode)) {
+        if (editor.isListNode(childNode)) {
             // Wrap it into a list item so that `normalizeOrphanNestedList` can take care of it.
-            Transforms.wrapNodes(editor, createListItem(options), { at: childPath });
+            Transforms.wrapNodes(editor, editor.createListItemNode(), { at: childPath });
             normalized = true;
             return;
         }
 
-        if (!isListItem(options, childNode)) {
-            Transforms.setNodes(
-                editor,
-                { type: options.listItemTextType as Element['type'] },
-                { at: childPath },
-            );
-            Transforms.wrapNodes(editor, createListItem(options), { at: childPath });
+        if (!editor.isListItemNode(childNode)) {
+            Transforms.setNodes(editor, editor.createListItemTextNode(), { at: childPath });
+            Transforms.wrapNodes(editor, editor.createListItemNode(), { at: childPath });
             normalized = true;
         }
     });
