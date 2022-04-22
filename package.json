@@ -14,9 +14,9 @@
     "type": "module",
     "scripts": {
         "bootstrap": "npm ci --legacy-peer-deps",
-        "build": "npm run build -w packages/slate-types -w packages/slate-commons -w packages/slate-hyperscript -w packages/slate-lists -w packages/slate-editor",
+        "build": "npm run build -w packages/slate-types -w packages/slate-commons -w packages/slate-lists -w packages/slate-editor",
         "check": "npm run prettier && npm run test",
-        "watch": "concurrently --kill-others --names 'types  ,commons,hyper  ,lists  ,editor ' 'npm run watch -w packages/slate-types' 'npm run watch -w packages/slate-commons' 'npm run watch -w packages/slate-hyperscript' 'npm run watch -w packages/slate-lists' 'npm run watch -w packages/slate-editor'",
+        "watch": "concurrently --kill-others --names 'types  ,common ,lists  ,editor ' 'npm run watch -w packages/slate-types' 'npm run watch -w packages/slate-commons' 'npm run watch -w packages/slate-lists' 'npm run watch -w packages/slate-editor'",
         "lint": "npm run lint --workspaces",
         "lint:fix": "npm run lint --workspaces -- --fix",
         "test": "npm run test --workspaces",
@@ -41,9 +41,9 @@
         "react": "^16.9.0 || ^17.0.0",
         "react-bootstrap": "=0.32.4",
         "react-dom": "^16.9.0 || ^17.0.0",
-        "slate": "^0.71.0",
+        "slate": "^0.77.2",
         "slate-history": "^0.66.0",
-        "slate-react": "^0.71.0"
+        "slate-react": "^0.77.2"
     },
     "devDependencies": {
         "@babel/cli": "^7.16.0",
@@ -91,7 +91,7 @@
         "prettier": "^2.2.1",
         "rimraf": "^3.0.2",
         "sass": "^1.32.8",
-        "slate-hyperscript": "^0.67.0",
+        "slate-hyperscript": "^0.77.0",
         "ts-jest": "^27.0.7",
         "ts-node": "^10.4.0",
         "tsc-fancy": "^1.1.2",

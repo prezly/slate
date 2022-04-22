@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
-import { jsx } from '@prezly/slate-hyperscript';
 import type { Descendant } from 'slate';
 import { Element } from 'slate';
+import { createText } from 'slate-hyperscript';
 
 import { getLeafDeserializers } from './getLeafDeserializers';
 
@@ -30,7 +30,7 @@ export function deserializeHtmlToMarks(extensions: Extension[]) {
                 if (Element.isElement(child)) {
                     array.push(child);
                 } else {
-                    array.push(jsx('text', props, child));
+                    array.push(createText('text', props, [child]));
                 }
 
                 return array;

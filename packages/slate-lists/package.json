@@ -50,8 +50,8 @@
     },
     "peerDependencies": {
         "react": "^16.9.0 || ^17.0.0",
-        "slate": "^0.71.0",
-        "slate-react": "^0.71.0"
+        "slate": "^0.77.2",
+        "slate-react": "^0.77.2"
     },
     "dependencies": {
         "@prezly/slate-commons": "^0.32.0",
@@ -60,6 +60,6 @@
     },
     "devDependencies": {
         "@types/uuid": "^8.3.0",
-        "slate-hyperscript": "^0.67.0"
+        "slate-hyperscript": "^0.77.0"
     }
 }

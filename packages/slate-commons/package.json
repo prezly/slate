@@ -50,16 +50,16 @@
     },
     "peerDependencies": {
         "react": "^16.9.0 || ^17.0.0",
-        "slate": "^0.71.0",
+        "slate": "^0.77.2",
         "slate-history": "^0.66.0",
-        "slate-react": "^0.71.0"
+        "slate-react": "^0.77.2"
     },
     "dependencies": {
         "@prezly/slate-types": "^0.32.0",
         "uuid": "^8.3.0"
     },
     "devDependencies": {
-        "@prezly/slate-hyperscript": "^0.32.0",
-        "@types/uuid": "^8.3.0"
+        "@types/uuid": "^8.3.0",
+        "slate-hyperscript": "^0.77.0"
     }
 }
