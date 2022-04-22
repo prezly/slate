@@ -8,12 +8,13 @@ import type { Props as EditorBlockProps } from './EditorBlock';
 import { EditorBlock } from './EditorBlock';
 import styles from './EditorBlock.module.scss';
 import { ResizeButton } from './ResizeButton';
+import type { SizeString } from './Size';
 import { clamp, convert, Size, toPixels, toString, unit, Unit } from './Size';
 
 interface Props extends EditorBlockProps {
-    onResize: (width: string) => void;
+    onResize: (width: SizeString) => void;
     resizable?: boolean;
-    width: string;
+    width: SizeString;
     minWidth?: string;
     maxWidth?: string;
 }

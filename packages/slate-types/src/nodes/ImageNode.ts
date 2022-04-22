@@ -19,8 +19,8 @@ export interface ImageNode extends ElementNode {
     href: string;
     layout: ImageLayout;
     new_tab: boolean;
-    /** matches this regexp: /^\d+(\.\d+)?%$/ */
-    width: string;
+    /** matches this regexp: /^\d+(\.\d+)?(%|px)$/ */
+    width: `${number}%` | `${number}px`;
 }
 
 export function isImageNode(value: any): value is ImageNode {
