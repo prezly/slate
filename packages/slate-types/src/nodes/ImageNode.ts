@@ -2,6 +2,7 @@ import type { UploadcareImageStoragePayload } from '../sdk';
 
 import type { ElementNode } from './ElementNode';
 import { isElementNode } from './ElementNode';
+import type { Alignable, Alignment } from './interfaces';
 
 export const IMAGE_NODE_TYPE = 'image-block';
 
@@ -11,13 +12,14 @@ export enum ImageLayout {
     FULL_WIDTH = 'full-width',
 }
 
-export interface ImageNode extends ElementNode {
+export interface ImageNode extends ElementNode, Alignable {
     type: typeof IMAGE_NODE_TYPE;
     /** caption */
     file: UploadcareImageStoragePayload;
     /** empty string if no URL */
     href: string;
     layout: ImageLayout;
+    align: Alignment;
     new_tab: boolean;
     /** matches this regexp: /^\d+(\.\d+)?(%|px)$/ */
     width: `${number}%` | `${number}px`;
