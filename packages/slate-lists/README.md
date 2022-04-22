@@ -2,7 +2,7 @@
 
 The best Slate lists extension out there.
 
-Demo: https://h9xxi.csb.app/ ([source code](https://codesandbox.io/s/prezlyslate-lists-demo-complete-example-h9xxi)).
+Demo: https://veu8mp.csb.app/ ([source code](https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-options-forked-veu8mp)).
 
 API inspired by https://github.com/GitbookIO/slate-edit-list.
 
@@ -21,9 +21,9 @@ API inspired by https://github.com/GitbookIO/slate-edit-list.
 
 ## Demo
 
-Live: https://h9xxi.csb.app/
+Live: ttps://veu8mp.csb.app/
 
-Source code: https://codesandbox.io/s/prezlyslate-lists-demo-complete-example-h9xxi
+Source code: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-options-forked-veu8mp
 
 ## Features
 
@@ -146,7 +146,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-op
 +  isListNode(node, type?) {
 +    if (type === ListType.UNORDERED) return Element.isElementType(node, 'bulleted-list');
 +    if (type === ListType.ORDERED) return Element.isElementType(node, 'numbered-list');
-+    return Element.isElementType(node, 'ordered-list') || Element.isElementType(node, 'numbered-list');
++    return Element.isElementType(node, 'bulleted-list') || Element.isElementType(node, 'numbered-list');
 +  },
 +  isListItemNode(node) {
 +    return Element.isElementType(node, 'list-item');
