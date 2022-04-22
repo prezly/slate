@@ -127,7 +127,7 @@ export const MyEditor = () => {
 First you're going to want to define schema that will be passed to the extension. 
 Just create an object matching the [`ListsSchema`](src/types.ts) interface.
 
-Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-1-define-options-m564b?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-options-forked-cnew1g?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
@@ -138,7 +138,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-1-define-opt
 +
 +const schema: ListsSchema = {
 +  isConvertibleToListTextNode(node) {
-+    return Element.isElementType(node, PARAGRAPH_TYPE);
++    return Element.isElementType(node, 'paragraph');
 +  },
 +  isDefaultTextNode(node) {
 +    return Element.isElementType(node, 'paragraph');
@@ -149,10 +149,10 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-1-define-opt
 +    return Element.isElementType(node, 'ordered-list') || Element.isElementType(node, 'numbered-list');
 +  },
 +  isListItemNode(node) {
-+    return Element.isElementNode(node, 'list-item');
++    return Element.isElementType(node, 'list-item');
 +  },
 +  isListItemTextNode(node) {
-+    return Element.isElementNode(node, 'list-item-text');
++    return Element.isElementType(node, 'list-item-text');
 +  },
 +  createDefaultTextNode({ children } = {}) {
 +    return { 
@@ -160,10 +160,10 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-1-define-opt
 +      children: children ?? [{ text: '' }],
 +    };
 +  },
-+  createListNode({ children } = {}, type = ListType.UNORDERED) {
++  createListNode(type = ListType.UNORDERED, { children } = {}) {
 +    return {
 +      type: type === ListType.UNORDERED ? 'bulleted-list' : 'numbered-list',
-+      children: children ?? [this.creteListItemNode()],
++      children: children ?? [this.createListItemNode()],
 +    };
 +  },
 +  createListItemNode({ children } = {}) {
@@ -200,7 +200,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-1-define-opt
 that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) 
 which enforce [schema](#Schema) constraints and recover from unsupported structures.
 
-Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-2-use-withlists-plugin-5splt?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-options-forked-llr5kw?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
@@ -212,7 +212,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-2-use-withli
  
  const schema: ListsSchema = {
    isConvertibleToListTextNode(node) {
-     return Element.isElementType(node, PARAGRAPH_TYPE);
+     return Element.isElementType(node, 'paragraph');
    },
    isDefaultTextNode(node) {
      return Element.isElementType(node, 'paragraph');
@@ -223,10 +223,10 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-2-use-withli
      return Element.isElementType(node, 'ordered-list') || Element.isElementType(node, 'numbered-list');
    },
    isListItemNode(node) {
-     return Element.isElementNode(node, 'list-item');
+     return Element.isElementType(node, 'list-item');
    },
    isListItemTextNode(node) {
-     return Element.isElementNode(node, 'list-item-text');
+     return Element.isElementType(node, 'list-item-text');
    },
    createDefaultTextNode({ children } = {}) {
      return { 
@@ -234,10 +234,10 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-2-use-withli
        children: children ?? [{ text: '' }],
      };
    },
-   createListNode({ children } = {}, type = ListType.UNORDERED) {
+   createListNode(type = ListType.UNORDERED, { children } = {}) {
      return {
        type: type === ListType.UNORDERED ? 'bulleted-list' : 'numbered-list',
-       children: children ?? [this.creteListItemNode()],
+       children: children ?? [this.createListItemNode()],
      };
    },
    createListItemNode({ children } = {}) {
@@ -278,7 +278,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-2-use-withli
 it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) - that overrides `editor.setFragmentData`. 
 It enables `Range.prototype.cloneContents` monkey patch to improve copying behavior in some edge cases.
 
-Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-3-use-withlistsreact-plugin-rgubg?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-options-forked-pe7y8e?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
@@ -290,7 +290,7 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-3-use-withli
  
  const schema: ListsSchema = {
    isConvertibleToListTextNode(node) {
-     return Element.isElementType(node, PARAGRAPH_TYPE);
+     return Element.isElementType(node, 'paragraph');
    },
    isDefaultTextNode(node) {
      return Element.isElementType(node, 'paragraph');
@@ -301,10 +301,10 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-3-use-withli
      return Element.isElementType(node, 'ordered-list') || Element.isElementType(node, 'numbered-list');
    },
    isListItemNode(node) {
-     return Element.isElementNode(node, 'list-item');
+     return Element.isElementType(node, 'list-item');
    },
    isListItemTextNode(node) {
-     return Element.isElementNode(node, 'list-item-text');
+     return Element.isElementType(node, 'list-item-text');
    },
    createDefaultTextNode({ children } = {}) {
      return { 
@@ -312,10 +312,10 @@ Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-3-use-withli
        children: children ?? [{ text: '' }],
      };
    },
-   createListNode({ children } = {}, type = ListType.UNORDERED) {
+   createListNode(type = ListType.UNORDERED, { children } = {}) {
      return {
        type: type === ListType.UNORDERED ? 'bulleted-list' : 'numbered-list',
-       children: children ?? [this.creteListItemNode()],
+       children: children ?? [this.createListItemNode()],
      };
    },
    createListItemNode({ children } = {}) {
