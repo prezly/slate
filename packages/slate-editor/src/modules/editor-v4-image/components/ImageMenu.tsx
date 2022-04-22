@@ -24,8 +24,9 @@ interface Props {
     onCrop: () => void;
     onRemove: () => void;
     onReplace: () => void;
-    showLayoutControls: boolean;
     value: FormState;
+    withAlignmentControls: boolean;
+    withLayoutControls: boolean;
     withNewTabOption: boolean;
 }
 
@@ -68,8 +69,9 @@ export function ImageMenu({
     onCrop,
     onRemove,
     onReplace,
-    showLayoutControls,
     value,
+    withAlignmentControls,
+    withLayoutControls,
     withNewTabOption,
 }: Props) {
     const [href, setHref] = useState(value.href);
@@ -106,7 +108,7 @@ export function ImageMenu({
                 </ButtonGroup>
             </Toolbox.Section>
 
-            {showLayoutControls && (
+            {withLayoutControls && (
                 <Toolbox.Section caption="Image size">
                     <OptionsGroup
                         name="layout"
@@ -117,16 +119,18 @@ export function ImageMenu({
                 </Toolbox.Section>
             )}
 
-            <Toolbox.Section caption="Image alignment" paddingBottom="3">
-                <OptionsGroup
-                    disabled={value.layout !== ImageLayout.CONTAINED}
-                    name="align"
-                    options={IMAGE_ALIGNMENT_OPTIONS}
-                    selectedValue={value.align}
-                    onChange={(align) => onChange({ align })}
-                    variant="pills"
-                />
-            </Toolbox.Section>
+            {withAlignmentControls && (
+                <Toolbox.Section caption="Image alignment" paddingBottom="3">
+                    <OptionsGroup
+                        disabled={value.layout !== ImageLayout.CONTAINED}
+                        name="align"
+                        options={IMAGE_ALIGNMENT_OPTIONS}
+                        selectedValue={value.align}
+                        onChange={(align) => onChange({ align })}
+                        variant="pills"
+                    />
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Section>
                 <VStack spacing="2-5">

@@ -22,7 +22,8 @@ interface Props extends RenderElementProps {
     onCrop: (editor: Editor, element: ImageNode) => void;
     onReplace: (editor: Editor, element: ImageNode) => void;
     onRemove: (editor: Editor, element: ImageNode) => void;
-    showLayoutControls: boolean;
+    withAlignmentControls: boolean;
+    withLayoutControls: boolean;
     withNewTabOption: boolean;
 }
 
@@ -33,7 +34,8 @@ export const ImageElement: FunctionComponent<Props> = ({
     onCrop,
     onReplace,
     onRemove,
-    showLayoutControls,
+    withAlignmentControls,
+    withLayoutControls,
     withNewTabOption,
 }) => {
     const editor = useSlateStatic();
@@ -62,7 +64,7 @@ export const ImageElement: FunctionComponent<Props> = ({
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
 
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
-    const layout = showLayoutControls
+    const layout = withLayoutControls
         ? element.layout ?? ImageLayout.CONTAINED
         : ImageLayout.CONTAINED;
     const isResizable = layout === ImageLayout.CONTAINED;
@@ -82,13 +84,14 @@ export const ImageElement: FunctionComponent<Props> = ({
                     onCrop={handleCrop}
                     onRemove={handleRemove}
                     onReplace={handleReplace}
-                    showLayoutControls={showLayoutControls}
                     value={{
                         align: element.align,
                         layout,
                         href: element.href,
                         new_tab: element.new_tab,
                     }}
+                    withAlignmentControls={withAlignmentControls}
+                    withLayoutControls={withLayoutControls}
                     withNewTabOption={withNewTabOption}
                 />
             )}
