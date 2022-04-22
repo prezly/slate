@@ -84,6 +84,7 @@ export const ImageElement: FunctionComponent<Props> = ({
                     onReplace={handleReplace}
                     showLayoutControls={showLayoutControls}
                     value={{
+                        align: element.align,
                         layout,
                         href: element.href,
                         new_tab: element.new_tab,

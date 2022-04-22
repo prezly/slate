@@ -1,5 +1,5 @@
 import type { ImageNode } from '@prezly/slate-types';
-import { ImageLayout } from '@prezly/slate-types';
+import { Alignment, ImageLayout } from '@prezly/slate-types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import type { OptionsGroupOption } from '#components';
@@ -16,7 +16,7 @@ import {
 
 import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
 
-type FormState = Pick<ImageNode, 'href' | 'layout' | 'new_tab'>;
+type FormState = Pick<ImageNode, 'align' | 'href' | 'layout' | 'new_tab'>;
 
 interface Props {
     onChange: (props: Partial<FormState>) => void;
@@ -44,6 +44,21 @@ const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
         value: ImageLayout.FULL_WIDTH,
         label: 'Full width',
         icon: (props) => <ImageLayoutFullWidth fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
+];
+
+const IMAGE_ALIGNMENT_OPTIONS: OptionsGroupOption<Alignment>[] = [
+    {
+        value: Alignment.LEFT,
+        label: 'Left',
+    },
+    {
+        value: Alignment.CENTER,
+        label: 'Center',
+    },
+    {
+        value: Alignment.RIGHT,
+        label: 'Right',
     },
 ];
 
@@ -101,6 +116,17 @@ export function ImageMenu({
                     />
                 </Toolbox.Section>
             )}
+
+            <Toolbox.Section caption="Image alignment" paddingBottom="3">
+                <OptionsGroup
+                    disabled={value.layout !== ImageLayout.CONTAINED}
+                    name="align"
+                    options={IMAGE_ALIGNMENT_OPTIONS}
+                    selectedValue={value.align}
+                    onChange={(align) => onChange({ align })}
+                    variant="pills"
+                />
+            </Toolbox.Section>
 
             <Toolbox.Section>
                 <VStack spacing="2-5">
