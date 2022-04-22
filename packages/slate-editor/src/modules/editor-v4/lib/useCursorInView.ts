@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isImageNode } from '@prezly/slate-types';
 import jsonStableStringify from 'json-stable-stringify';
 import { useLayoutEffect, useMemo } from 'react';
 import { Editor, Range } from 'slate';
@@ -35,8 +36,8 @@ function ensureCursorInView(
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (
-        Editor.isBlock(editor, currentNode) ||
-        (Editor.isBlock(editor, currentNode) && Editor.isVoid(editor, currentNode))
+        (Editor.isBlock(editor, currentNode) && Editor.isVoid(editor, currentNode)) ||
+        isImageNode(currentNode)
     ) {
         /**
          * Slate reports invalid `domRange` on void elements. The reported range points to
