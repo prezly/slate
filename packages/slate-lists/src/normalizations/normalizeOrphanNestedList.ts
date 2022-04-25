@@ -1,25 +1,19 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, NodeEntry } from 'slate';
+import type { NodeEntry } from 'slate';
 import { Node, Transforms } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { getNestedList } from './getNestedList';
-import { isList } from './isList';
-import { isListItem } from './isListItem';
-import { moveListItemsToAnotherList } from './moveListItemsToAnotherList';
-import { moveListToListItem } from './moveListToListItem';
+import { getNestedList, moveListItemsToAnotherList, moveListToListItem } from '../lib';
+import type { ListsEditor } from '../types';
 
 /**
  * If there is a nested "list" inside a "list-item" without a "list-item-text"
  * unwrap that nested "list" and try to nest it in previous sibling "list-item".
  */
 export function normalizeOrphanNestedList(
-    options: ListsOptions,
-    editor: Editor,
+    editor: ListsEditor,
     [node, path]: NodeEntry<Node>,
 ): boolean {
-    if (!isListItem(options, node)) {
+    if (!editor.isListItemNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
@@ -33,7 +27,7 @@ export function normalizeOrphanNestedList(
     const [list] = children;
     const [listNode, listPath] = list;
 
-    if (!isList(options, listNode)) {
+    if (!editor.isListNode(listNode)) {
         // If the first child is not a "list", then this fix does not apply.
         return false;
     }
@@ -42,15 +36,15 @@ export function normalizeOrphanNestedList(
 
     if (previousListItem) {
         const [, previousListItemPath] = previousListItem;
-        const previousListItemNestedList = getNestedList(options, editor, previousListItemPath);
+        const previousListItemNestedList = getNestedList(editor, previousListItemPath);
 
         if (previousListItemNestedList) {
-            moveListItemsToAnotherList(options, editor, {
+            moveListItemsToAnotherList(editor, {
                 at: list,
                 to: previousListItemNestedList,
             });
         } else {
-            moveListToListItem(options, editor, {
+            moveListToListItem(editor, {
                 at: list,
                 to: previousListItem,
             });

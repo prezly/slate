@@ -1,18 +1,17 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, Node, NodeEntry } from 'slate';
+import type { Node, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
 
-import type { ListsOptions } from '../types';
+import type { ListsEditor } from '../types';
 
+import { getListType } from './getListType';
 import { getParentListItem } from './getParentListItem';
-import { isList } from './isList';
 
 export function mergeListWithPreviousSiblingList(
-    options: ListsOptions,
-    editor: Editor,
+    editor: ListsEditor,
     [node, path]: NodeEntry<Node>,
 ): boolean {
-    if (!isList(options, node)) {
+    if (!editor.isListNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
@@ -26,12 +25,13 @@ export function mergeListWithPreviousSiblingList(
 
     const [previousSiblingNode] = previousSibling;
 
-    if (!isList(options, previousSiblingNode)) {
+    if (!editor.isListNode(previousSiblingNode)) {
         return false;
     }
 
-    const isNestedList = Boolean(getParentListItem(options, editor, path));
-    const isPreviousSiblingSameListType = previousSiblingNode.type === node.type;
+    const isNestedList = Boolean(getParentListItem(editor, path));
+    const isPreviousSiblingSameListType =
+        getListType(editor, previousSiblingNode) === getListType(editor, node);
 
     if (!isPreviousSiblingSameListType && !isNestedList) {
         // If previous sibling "list" is of a different type, then this fix does not apply

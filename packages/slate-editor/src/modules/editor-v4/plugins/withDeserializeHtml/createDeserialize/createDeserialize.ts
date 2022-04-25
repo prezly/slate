@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { isGoogleDocsWrapper } from '@prezly/slate-commons';
-import { jsx } from '@prezly/slate-hyperscript';
 import type { Descendant, Element } from 'slate';
+import { jsx } from 'slate-hyperscript';
 
 import { deserializeHtmlToElement } from './deserializeHtmlToElement';
 import { deserializeHtmlToMarks } from './deserializeHtmlToMarks';

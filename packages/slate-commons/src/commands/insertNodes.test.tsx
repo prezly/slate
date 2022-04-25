@@ -1,11 +1,9 @@
 /** @jsx jsx */
 
-import type { LinkNode } from '@prezly/slate-types';
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { Editor, Node } from 'slate';
 
 import { jsx } from '../jsx';
-import { createEditor, INLINE_ELEMENT, INLINE_VOID_ELEMENT, VOID_ELEMENT } from '../test-utils';
+import { createEditor } from '../test-utils';
 
 import { insertNodes } from './insertNodes';
 
@@ -88,12 +86,14 @@ describe('insertNodes', () => {
             </editor>
         ) as unknown as Editor;
 
-        insertNodes(editor, [
-            {
-                children: [{ text: 'dolor' }],
-                type: PARAGRAPH_NODE_TYPE,
-            },
-        ]);
+        insertNodes(
+            editor,
+            nodes([
+                <h-p>
+                    <h-text>dolor</h-text>
+                </h-p>,
+            ]),
+        );
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -129,12 +129,11 @@ describe('insertNodes', () => {
 
         insertNodes(
             editor,
-            [
-                {
-                    children: [{ text: 'dolor' }],
-                    type: PARAGRAPH_NODE_TYPE,
-                },
-            ],
+            nodes([
+                <h-p>
+                    <h-text>dolor</h-text>
+                </h-p>,
+            ]),
             { ensureEmptyParagraphAfter: true },
         );
 
@@ -172,16 +171,14 @@ describe('insertNodes', () => {
 
         insertNodes(
             editor,
-            [
-                {
-                    children: [{ text: 'dolor' }],
-                    type: PARAGRAPH_NODE_TYPE,
-                },
-                {
-                    children: [{ text: '' }],
-                    type: PARAGRAPH_NODE_TYPE,
-                },
-            ],
+            nodes([
+                <h-p>
+                    <h-text>dolor</h-text>
+                </h-p>,
+                <h-p>
+                    <h-text></h-text>
+                </h-p>,
+            ]),
             { ensureEmptyParagraphAfter: true },
         );
 
@@ -219,19 +216,19 @@ describe('insertNodes', () => {
             </editor>
         ) as unknown as Editor;
 
-        insertNodes(editor, [
-            { text: 'xxx' },
-            {
-                type: INLINE_ELEMENT,
-                children: [{ text: 'yyy' }],
-                href: 'https://example.com',
-            } as LinkNode,
-            {
-                type: PARAGRAPH_NODE_TYPE,
-                children: [{ text: 'dolor' }],
-            },
-            { text: 'zzz' },
-        ]);
+        insertNodes(
+            editor,
+            nodes([
+                <h-text>xxx</h-text>,
+                <h-inline-element href="https://example.com">
+                    <h-text>yyy</h-text>
+                </h-inline-element>,
+                <h-p>
+                    <h-text>dolor</h-text>
+                </h-p>,
+                <h-text>zzz</h-text>,
+            ]),
+        );
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -259,12 +256,14 @@ describe('insertNodes', () => {
             </editor>
         ) as unknown as Editor;
 
-        insertNodes(editor, [
-            {
-                type: PARAGRAPH_NODE_TYPE,
-                children: [{ text: 'dolor' }],
-            },
-        ]);
+        insertNodes(
+            editor,
+            nodes([
+                <h-p>
+                    <h-text>dolor</h-text>
+                </h-p>,
+            ]),
+        );
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -299,20 +298,20 @@ describe('insertNodes', () => {
             </editor>
         ) as unknown as Editor;
 
-        insertNodes(editor, [
-            { text: 'xxx' },
-            {
-                type: INLINE_ELEMENT,
-                children: [{ text: 'yyy' }],
-                href: 'https://example.com',
-            } as LinkNode,
-            { text: 'zzz' },
-            {
-                children: [{ text: 'dolor' }],
-                type: PARAGRAPH_NODE_TYPE,
-            },
-            { text: 'aaa' },
-        ]);
+        insertNodes(
+            editor,
+            nodes([
+                <h-text>xxx</h-text>,
+                <h-inline-element href="https://example.com">
+                    <h-text>yyy</h-text>
+                </h-inline-element>,
+                <h-text>zzz</h-text>,
+                <h-p>
+                    <h-text>dolor</h-text>
+                </h-p>,
+                <h-text>aaa</h-text>,
+            ]),
+        );
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -347,15 +346,16 @@ describe('insertNodes', () => {
             </editor>
         ) as unknown as Editor;
 
-        insertNodes(editor, [
-            { text: 'xxx' },
-            {
-                type: INLINE_ELEMENT,
-                children: [{ text: 'yyy' }],
-                href: 'https://example.com',
-            } as LinkNode,
-            { text: 'zzz' },
-        ]);
+        insertNodes(
+            editor,
+            nodes([
+                <h-text>xxx</h-text>,
+                <h-inline-element href="https://example.com">
+                    <h-text>yyy</h-text>
+                </h-inline-element>,
+                <h-text>zzz</h-text>,
+            ]),
+        );
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -388,22 +388,12 @@ describe('insertNodes', () => {
         ) as unknown as Editor;
 
         insertNodes(editor, [
-            {
-                children: [{ text: '' }],
-                type: VOID_ELEMENT,
-            },
-            {
-                text: 'lorem',
-            },
-            {
-                bold: true,
-                text: ' ',
-            },
-            {
-                bold: true,
-                text: 'ipsum',
-            },
-        ]);
+            <h-void-element>
+                <h-text />
+            </h-void-element>,
+            <h-text>lorem</h-text>,
+            <h-text bold>{' ipsum'}</h-text>,
+        ] as unknown as Node[]);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -438,30 +428,25 @@ describe('insertNodes', () => {
             </editor>
         ) as unknown as Editor;
 
-        insertNodes(editor, [
-            {
-                children: [{ text: '' }],
-                type: VOID_ELEMENT,
-            },
-            {
-                text: 'lorem',
-            },
-            {
-                type: INLINE_VOID_ELEMENT,
-                href: 'https://example.com',
-                children: [{ text: 'ipsum' }],
-            } as LinkNode,
-            {
-                bold: true,
-                text: ' ',
-            },
-            {
-                bold: true,
-                text: 'dolor',
-            },
-        ]);
+        insertNodes(
+            editor,
+            nodes([
+                <h-void-element>
+                    <h-text />
+                </h-void-element>,
+                <h-text>lorem</h-text>,
+                <h-inline-void-element href="https://example.com">
+                    <h-text>ipsum</h-text>
+                </h-inline-void-element>,
+                <h-text bold>{' dolor'}</h-text>,
+            ]),
+        );
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
 });
+
+function nodes(nodes: JSX.IntrinsicElements[keyof JSX.IntrinsicElements][]): Node[] {
+    return nodes as unknown as Node[];
+}

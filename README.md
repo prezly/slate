@@ -21,7 +21,6 @@ Prezly-specific packages mention Prezly in the description. All other packages s
 | ------------------------------------------------------------------------------------ | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [@prezly/slate-commons](https://www.npmjs.com/package/@prezly/slate-commons)         | [README.md](packages/slate-commons/README.md)     | Low-level commands, utilities, plugins, types, etc. used throughout [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate)-[Slate](https://www.slatejs.org/) packages |
 | [@prezly/slate-editor](https://www.npmjs.com/package/@prezly/slate-editor)           | [README.md](packages/slate-editor/README.md)      | The [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate-editor) [Slate](https://www.slatejs.org/) Editor                                                            |
-| [@prezly/slate-hyperscript](https://www.npmjs.com/package/@prezly/slate-hyperscript) | [README.md](packages/slate-hyperscript/README.md) | Hyperscript helpers for creating [Slate](https://www.slatejs.org/) documents with JSX                                                                                                         |
 | [@prezly/slate-lists](https://www.npmjs.com/package/@prezly/slate-lists)             | [README.md](packages/slate-lists/README.md)       | The best [Slate](https://www.slatejs.org/) lists extension out there                                                                                                                          |
 | [@prezly/slate-types](https://www.npmjs.com/package/@prezly/slate-types)             | [README.md](packages/slate-types/README.md)       | TypeScript definitions for [Slate](https://www.slatejs.org/) document structure used at [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate)                        |
 
@@ -38,7 +37,6 @@ Then link these packages to the main app with `npm link PACKAGE_NAME`:
 
 ```sh
 npm link @prezly/slate-types \
-         @prezly/slate-hyperscript \
          @prezly/slate-commons \
          @prezly/slate-lists \
          @prezly/slate-editor

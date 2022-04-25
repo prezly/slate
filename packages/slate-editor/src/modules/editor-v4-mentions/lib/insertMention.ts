@@ -5,5 +5,5 @@ import type { MentionElementType } from '../types';
 
 export function insertMention(editor: Editor, element: MentionElementType) {
     Transforms.insertNodes(editor, element);
-    Transforms.move(editor);
+    Transforms.move(editor, { distance: 1, unit: 'offset' });
 }

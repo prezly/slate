@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { createHyperscript } from '@prezly/slate-hyperscript';
 import { DIVIDER_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
+import { createHyperscript, createText } from 'slate-hyperscript';
 
 import { ElementType } from '#modules/editor-v4-rich-formatting';
 
@@ -39,5 +39,8 @@ export const jsx = createHyperscript({
         'h-ol': { type: ElementType.NUMBERED_LIST },
         'h-p': { type: PARAGRAPH_NODE_TYPE },
         'h-ul': { type: ElementType.BULLETED_LIST },
+    },
+    creators: {
+        'h-text': createText,
     },
 });

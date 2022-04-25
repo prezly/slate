@@ -1,16 +1,13 @@
-import type { Editor, Node, NodeEntry } from 'slate';
-import { Transforms } from 'slate';
+import type { Node, NodeEntry } from 'slate';
+import { Element, Transforms } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { isList } from './isList';
+import type { ListsEditor } from '../types';
 
 /**
  * Moves all "list-items" from one "list" to the end of another "list".
  */
 export function moveListItemsToAnotherList(
-    options: ListsOptions,
-    editor: Editor,
+    editor: ListsEditor,
     parameters: {
         at: NodeEntry<Node>;
         to: NodeEntry<Node>;
@@ -19,15 +16,18 @@ export function moveListItemsToAnotherList(
     const [sourceListNode, sourceListPath] = parameters.at;
     const [targetListNode, targetListPath] = parameters.to;
 
-    if (!isList(options, sourceListNode) || !isList(options, targetListNode)) {
+    if (
+        Element.isElement(sourceListNode) &&
+        Element.isElement(targetListNode) &&
+        editor.isListNode(sourceListNode) &&
+        editor.isListNode(targetListNode)
+    ) {
         // Sanity check.
-        return;
-    }
-
-    for (let i = 0; i < sourceListNode.children.length; ++i) {
-        Transforms.moveNodes(editor, {
-            at: [...sourceListPath, 0],
-            to: [...targetListPath, targetListNode.children.length + i],
-        });
+        for (let i = 0; i < sourceListNode.children.length; ++i) {
+            Transforms.moveNodes(editor, {
+                at: [...sourceListPath, 0],
+                to: [...targetListPath, targetListNode.children.length + i],
+            });
+        }
     }
 }

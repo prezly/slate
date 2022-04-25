@@ -1,15 +1,23 @@
+import type { Node } from 'slate';
 import { Element } from 'slate';
 
-import type { ListsOptions } from '../types';
+import type { ListsEditor } from '../types';
+import { ListType } from '../types';
 
 /**
  * Returns the "type" of a given list node.
  */
-export function getListType(options: ListsOptions, node: unknown): string {
-    if (Element.isElement(node)) {
-        return node.type;
+export function getListType(editor: ListsEditor, node: Node): ListType {
+    const isElement = Element.isElement(node);
+
+    if (isElement && editor.isListNode(node, ListType.ORDERED)) {
+        return ListType.ORDERED;
     }
 
-    // It should never happen.
-    return options.listTypes[0];
+    if (isElement && editor.isListNode(node, ListType.UNORDERED)) {
+        return ListType.UNORDERED;
+    }
+
+    // This should never happen.
+    return ListType.UNORDERED;
 }

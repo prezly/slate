@@ -1,19 +1,16 @@
 import type { NodeEntry } from 'slate';
 import { Editor, Element, Node, Transforms } from 'slate';
 
-import type { ListsOptions } from '../types';
-
-import { isListItemText } from './isListItemText';
+import type { ListsEditor } from '../types';
 
 /**
  * A "list-item-text" can have only inline nodes in it.
  */
 export function normalizeListItemTextChildren(
-    options: ListsOptions,
-    editor: Editor,
+    editor: ListsEditor,
     [node, path]: NodeEntry<Node>,
 ): boolean {
-    if (!isListItemText(options, node)) {
+    if (!editor.isListItemTextNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }

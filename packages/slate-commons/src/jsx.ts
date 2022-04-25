@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { createHyperscript } from '@prezly/slate-hyperscript';
 import { LINK_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
+import { createHyperscript, createText } from 'slate-hyperscript';
 
 import { INLINE_VOID_ELEMENT, SOME_ELEMENT_1, SOME_ELEMENT_2, VOID_ELEMENT } from './test-utils';
 
 declare global {
     namespace JSX {
-        // This is copied from "packages/slate-hyperscript/src/index.ts"
-        // TODO: find a way to not have to copy it and still have type hinting
-        // when using hyperscript.
+        // TODO: find a way to not have to copy it and still have type hinting when using hyperscript.
         // See: https://github.com/prezly/slate/issues/6
         interface IntrinsicElements {
             anchor:
@@ -51,7 +49,7 @@ declare global {
             // using 'h-text' instead of 'text' to avoid collision with React typings, see:
             // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0182cd9094aa081558a3c4bfc970bbdfb71d891d/types/react/index.d.ts#L3136
             'h-text': {
-                [key: string]: any; // allow marks
+                [key: string]: any;
                 children?: ReactNode;
             };
         }
@@ -101,5 +99,8 @@ export const jsx = createHyperscript({
         'h-p': { type: PARAGRAPH_NODE_TYPE },
         'h-some-element-1': { type: SOME_ELEMENT_1 },
         'h-some-element-2': { type: SOME_ELEMENT_2 },
+    },
+    creators: {
+        'h-text': createText,
     },
 });
