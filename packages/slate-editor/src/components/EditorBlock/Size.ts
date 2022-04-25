@@ -1,6 +1,8 @@
+import type { ImageWidth } from '@prezly/slate-types';
+
 export type Size<U extends Unit = Unit> = { value: number; unit: U };
 
-export type SizeString = `${number}%` | `${number}px`;
+export type SizeString = ImageWidth;
 
 export enum Unit {
     PIXELS = 'px',

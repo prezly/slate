@@ -12,6 +12,8 @@ export enum ImageLayout {
     FULL_WIDTH = 'full-width',
 }
 
+export type ImageWidth = `${number}%` | `${number}px`;
+
 export interface ImageNode extends ElementNode, Alignable {
     type: typeof IMAGE_NODE_TYPE;
     /** caption */
@@ -21,8 +23,7 @@ export interface ImageNode extends ElementNode, Alignable {
     layout: ImageLayout;
     align: Alignment;
     new_tab: boolean;
-    /** matches this regexp: /^\d+(\.\d+)?(%|px)$/ */
-    width: `${number}%` | `${number}px`;
+    width: ImageWidth;
 }
 
 export function isImageNode(value: any): value is ImageNode {
