@@ -59,7 +59,7 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
                 <VStack spacing="2">
                     <VStack spacing="1-5">
                         <Toolbox.Caption>Filename</Toolbox.Caption>
-                        <Input value={filename} onChange={setFilename} />
+                        <Input value={filename} onChange={setFilename} required />
                     </VStack>
                     <VStack spacing="1-5">
                         <Toolbox.Caption>Description</Toolbox.Caption>
