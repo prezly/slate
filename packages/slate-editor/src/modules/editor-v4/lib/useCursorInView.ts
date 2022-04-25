@@ -23,8 +23,9 @@ function ensureCursorInView(
     if (!withCursorInView || !editor.selection) {
         return;
     }
+    const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (Range.isExpanded(editor.selection)) {
+    if (Range.isExpanded(editor.selection) && !isImageNode(currentNode)) {
         // Slate has built-in mechanism to follow the cursor, but it's not perfect,
         // see: https://github.com/ianstormtaylor/slate/issues/3750
         // We don't know any issues when selecting things, so our fix is only
@@ -32,8 +33,6 @@ function ensureCursorInView(
         // When `Range.isExpanded(editor.selection)` we leave the work to Slate.
         return;
     }
-
-    const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (
         (Editor.isBlock(editor, currentNode) && Editor.isVoid(editor, currentNode)) ||

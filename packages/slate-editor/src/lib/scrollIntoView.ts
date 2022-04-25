@@ -44,6 +44,8 @@ export function scrollIntoView(
         return;
     }
 
-    const y = parent.scrollTop + elementTop - minTop;
-    scrollTo(parent, parent.scrollLeft, y);
+    if (isChildAboveVisibleArea || isChildBelowVisibleArea) {
+        const y = parent.scrollTop + elementTop - minTop;
+        scrollTo(parent, parent.scrollLeft, y);
+    }
 }
