@@ -21,7 +21,7 @@ const file: UploadcareStoragePayload = {
 const getExtensions = () => [
     ImageExtension({
         captions: true,
-        showLayoutControls: true,
+        withLayoutControls: true,
     }),
 ];
 
