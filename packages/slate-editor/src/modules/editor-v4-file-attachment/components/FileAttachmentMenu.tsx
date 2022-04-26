@@ -1,6 +1,6 @@
 import type { AttachmentNode } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
@@ -26,6 +26,7 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
     const isSelected = useSelected();
     const [description, setDescription] = React.useState(element.description);
     const [filename, setFilename] = React.useState(getFilename(element.file.filename));
+    const [isFilenameValid, setIsFilenameValid] = React.useState(true);
 
     const handleRemove = () => {
         const removedElement = removeFileAttachment(editor);
@@ -46,6 +47,11 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
         onClose();
     };
 
+    const onFilenameChanged = useCallback(function (value: string, isValid: boolean) {
+        setFilename(value);
+        setIsFilenameValid(isValid);
+    }, []);
+
     if (!isSelected) {
         return null;
     }
@@ -59,7 +65,7 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
                 <VStack spacing="2">
                     <VStack spacing="1-5">
                         <Toolbox.Caption>Filename</Toolbox.Caption>
-                        <Input value={filename} onChange={setFilename} required />
+                        <Input value={filename} onChange={onFilenameChanged} required />
                     </VStack>
                     <VStack spacing="1-5">
                         <Toolbox.Caption>Description</Toolbox.Caption>
@@ -70,7 +76,13 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
                         />
                     </VStack>
 
-                    <Button variant="primary" fullWidth round onClick={save}>
+                    <Button
+                        variant="primary"
+                        fullWidth
+                        round
+                        onClick={save}
+                        disabled={!isFilenameValid}
+                    >
                         Save
                     </Button>
                 </VStack>
