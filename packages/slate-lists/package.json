@@ -59,6 +59,7 @@
         "uuid": "^8.3.0"
     },
     "devDependencies": {
+        "@types/is-hotkey": "^0.1.7",
         "@types/uuid": "^8.3.0",
         "slate-hyperscript": "^0.77.0"
     }
