@@ -47,13 +47,10 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
         onClose();
     };
 
-    const onFilenameChanged = useCallback(
-        function (value: string, isValid: boolean) {
-            setFilename(value);
-            setIsFilenameValid(isValid);
-        },
-        [],
-    );
+    const onFilenameChanged = useCallback(function (value: string, isValid: boolean) {
+        setFilename(value);
+        setIsFilenameValid(isValid);
+    }, []);
 
     if (!isSelected) {
         return null;
