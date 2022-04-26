@@ -52,7 +52,7 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
             setFilename(value);
             setIsFilenameValid(isValid);
         },
-        [setIsFilenameValid],
+        [],
     );
 
     if (!isSelected) {
