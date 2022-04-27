@@ -114,7 +114,11 @@ export function ImageMenu({
                         name="layout"
                         options={IMAGE_SIZE_OPTIONS}
                         selectedValue={value.layout}
-                        onChange={(layout) => onChange({ layout })}
+                        onChange={function (layout) {
+                            const align =
+                                layout === ImageLayout.CONTAINED ? value.align : Alignment.CENTER;
+                            onChange({ layout, align });
+                        }}
                     />
                 </Toolbox.Section>
             )}
