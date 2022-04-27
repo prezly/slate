@@ -3,7 +3,6 @@ import type { ImageNode } from '@prezly/slate-types';
 import { Alignment, ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
 import React, { useCallback } from 'react';
 import { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
@@ -15,6 +14,7 @@ import { removeImage, updateImage } from '../transforms';
 
 import { Image } from './Image';
 import styles from './ImageElement.module.scss';
+import type { FormState } from './ImageMenu';
 import { ImageMenu } from './ImageMenu';
 
 interface Props extends RenderElementProps {
@@ -23,11 +23,12 @@ interface Props extends RenderElementProps {
     onReplace: (editor: Editor, element: ImageNode) => void;
     onRemove: (editor: Editor, element: ImageNode) => void;
     withAlignmentOptions: boolean;
+    withSizeOptions: boolean;
     withLayoutOptions: boolean;
     withNewTabOption: boolean;
 }
 
-export const ImageElement: FunctionComponent<Props> = ({
+export function ImageElement({
     attributes,
     children,
     element,
@@ -35,9 +36,10 @@ export const ImageElement: FunctionComponent<Props> = ({
     onReplace,
     onRemove,
     withAlignmentOptions,
+    withSizeOptions,
     withLayoutOptions,
     withNewTabOption,
-}) => {
+}: Props) {
     const editor = useSlateStatic();
     const isSelected = useSelected();
     const isVoid = Editor.isVoid(editor, element);
@@ -61,7 +63,10 @@ export const ImageElement: FunctionComponent<Props> = ({
         [editor, element],
     );
     const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
-    const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
+    const handleUpdate = useCallback(
+        (patch: Partial<FormState>) => updateImage(editor, patch),
+        [editor],
+    );
 
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
     const layout = withLayoutOptions
@@ -91,8 +96,10 @@ export const ImageElement: FunctionComponent<Props> = ({
                         layout,
                         href: element.href,
                         new_tab: element.new_tab,
+                        size: undefined,
                     }}
                     withAlignmentOptions={withAlignmentOptions}
+                    withSizeOptions={withSizeOptions}
                     withLayoutOptions={withLayoutOptions}
                     withNewTabOption={withNewTabOption}
                 />
@@ -119,4 +126,4 @@ export const ImageElement: FunctionComponent<Props> = ({
             )}
         </ResizableEditorBlock>
     );
-};
+}

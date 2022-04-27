@@ -16,7 +16,19 @@ import {
 
 import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
 
-type FormState = Pick<ImageNode, 'align' | 'href' | 'layout' | 'new_tab'>;
+export enum Size {
+    SMALL = 'small',
+    BEST_FIT = 'best-fit',
+    ORIGINAL = 'original',
+}
+
+export interface FormState {
+    align: ImageNode['align'];
+    href: ImageNode['href'];
+    layout: ImageNode['layout'];
+    new_tab: ImageNode['new_tab'];
+    size: Size | undefined;
+}
 
 interface Props {
     onChange: (props: Partial<FormState>) => void;
@@ -26,11 +38,12 @@ interface Props {
     onReplace: () => void;
     value: FormState;
     withAlignmentOptions: boolean;
+    withSizeOptions: boolean;
     withLayoutOptions: boolean;
     withNewTabOption: boolean;
 }
 
-const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
+const IMAGE_LAYOUT_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
     {
         value: ImageLayout.CONTAINED,
         label: 'Contained',
@@ -44,6 +57,24 @@ const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
     {
         value: ImageLayout.FULL_WIDTH,
         label: 'Full width',
+        icon: (props) => <ImageLayoutFullWidth fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
+];
+
+const IMAGE_SIZE_OPTIONS: OptionsGroupOption<Size>[] = [
+    {
+        value: Size.SMALL,
+        label: 'Small',
+        icon: (props) => <ImageLayoutContained fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
+    {
+        value: Size.BEST_FIT,
+        label: 'Best Fit',
+        icon: (props) => <ImageLayoutExpanded fill={props.isActive ? '#F9CA7B' : 'white'} />,
+    },
+    {
+        value: Size.ORIGINAL,
+        label: 'Original',
         icon: (props) => <ImageLayoutFullWidth fill={props.isActive ? '#F9CA7B' : 'white'} />,
     },
 ];
@@ -71,6 +102,7 @@ export function ImageMenu({
     onReplace,
     value,
     withAlignmentOptions,
+    withSizeOptions,
     withLayoutOptions,
     withNewTabOption,
 }: Props) {
@@ -112,12 +144,25 @@ export function ImageMenu({
                 <Toolbox.Section caption="Image size">
                     <OptionsGroup
                         name="layout"
-                        options={IMAGE_SIZE_OPTIONS}
+                        options={IMAGE_LAYOUT_OPTIONS}
                         selectedValue={value.layout}
                         onChange={function (layout) {
                             const align =
                                 layout === ImageLayout.CONTAINED ? value.align : Alignment.CENTER;
                             onChange({ layout, align });
+                        }}
+                    />
+                </Toolbox.Section>
+            )}
+
+            {withSizeOptions && (
+                <Toolbox.Section caption="Image size">
+                    <OptionsGroup
+                        name="width"
+                        options={IMAGE_SIZE_OPTIONS}
+                        selectedValue={undefined}
+                        onChange={function (size) {
+                            onChange({ size });
                         }}
                     />
                 </Toolbox.Section>
