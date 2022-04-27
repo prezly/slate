@@ -110,7 +110,6 @@ export function FloatingAddMenu<Action>({
             if (filteredOptions.length === 0) {
                 event.preventDefault();
                 event.stopPropagation();
-                console.log('inserting text', `${input} `);
                 Transforms.insertText(editor, `${input} `);
                 rememberEditorSelection();
                 menu.close();
