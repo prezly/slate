@@ -65,3 +65,5 @@ npm run release     # reinstall & rebuild everything from scratch and...
 ---
 
 Brought to you by [Prezly](https://www.prezly.com/?utm_source=github&utm_campaign=@prezly/slate).
+
+check
