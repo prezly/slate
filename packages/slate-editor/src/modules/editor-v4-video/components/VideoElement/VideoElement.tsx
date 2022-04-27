@@ -80,12 +80,15 @@ const ThumbnailPlaceholder: FunctionComponent = () => (
     <div className="editor-v4-video-element__thumbnail-placeholder" />
 );
 
-const ExternalLink: FunctionComponent<{ href: string; className?: string; children?: ReactNode }> =
-    ({ href, children, className }) => (
-        <a className={className} href={href} rel="noopener noreferer" target="blank">
-            {children}
-        </a>
-    );
+const ExternalLink: FunctionComponent<{
+    href: string;
+    className?: string;
+    children?: ReactNode;
+}> = ({ href, children, className }) => (
+    <a className={className} href={href} rel="noopener noreferer" target="blank">
+        {children}
+    </a>
+);
 
 const PlayButtonOverlay: FunctionComponent<{ href: string }> = ({ href }) => (
     <ExternalLink href={href} className="editor-v4-video-element__play-button-overlay">
