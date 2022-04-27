@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ImageNode } from '@prezly/slate-types';
-import { ImageLayout } from '@prezly/slate-types';
+import { Alignment, ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
@@ -68,10 +68,12 @@ export const ImageElement: FunctionComponent<Props> = ({
         ? element.layout ?? ImageLayout.CONTAINED
         : ImageLayout.CONTAINED;
     const isResizable = layout === ImageLayout.CONTAINED;
+    const align = isResizable ? element.align : Alignment.CENTER;
 
     return (
         <ResizableEditorBlock
             {...attributes}
+            align={align}
             element={element}
             layout={layout}
             onResize={handleResize}
@@ -105,6 +107,9 @@ export const ImageElement: FunctionComponent<Props> = ({
                 <div
                     className={classNames(styles.caption, {
                         [styles.visible]: isCaptionVisible,
+                        [styles.alignLeft]: align === Alignment.LEFT,
+                        [styles.alignCenter]: align === Alignment.CENTER,
+                        [styles.alignRight]: align === Alignment.RIGHT,
                     })}
                 >
                     {children}

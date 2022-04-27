@@ -1,11 +1,12 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
+import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { ReactNode, MouseEvent } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Editor, Transforms } from 'slate';
-import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
+import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 
 import { useSlateDom } from '#lib';
 
@@ -19,6 +20,7 @@ type SlateInternalAttributes = RenderElementProps['attributes'];
 type Layout = 'contained' | 'expanded' | 'full-width';
 
 export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
+    align?: Alignment;
     /**
      * Children nodes provided by Slate, required for Slate internals.
      */
@@ -41,6 +43,7 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
 
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     {
+        align = Alignment.CENTER,
         children,
         className,
         element,
@@ -103,6 +106,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             <div
                 className={classNames(styles.card, {
                     [styles.selected]: isSelected,
+                    [styles.alignLeft]: align === Alignment.LEFT,
+                    [styles.alignCenter]: align === Alignment.CENTER,
+                    [styles.alignRight]: align === Alignment.RIGHT,
                 })}
                 contentEditable={false}
                 ref={setContainer}
