@@ -8,5 +8,5 @@ coverage/
 *.log
 *.zip
 *.txt
-*.test.ts
-*.test.tsx
+**/*.test.ts
+**/*.test.tsx
