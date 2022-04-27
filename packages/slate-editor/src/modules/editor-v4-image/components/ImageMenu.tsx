@@ -25,8 +25,8 @@ interface Props {
     onRemove: () => void;
     onReplace: () => void;
     value: FormState;
-    withAlignmentControls: boolean;
-    withLayoutControls: boolean;
+    withAlignmentOptions: boolean;
+    withLayoutOptions: boolean;
     withNewTabOption: boolean;
 }
 
@@ -70,8 +70,8 @@ export function ImageMenu({
     onRemove,
     onReplace,
     value,
-    withAlignmentControls,
-    withLayoutControls,
+    withAlignmentOptions,
+    withLayoutOptions,
     withNewTabOption,
 }: Props) {
     const [href, setHref] = useState(value.href);
@@ -108,7 +108,7 @@ export function ImageMenu({
                 </ButtonGroup>
             </Toolbox.Section>
 
-            {withLayoutControls && (
+            {withLayoutOptions && (
                 <Toolbox.Section caption="Image size">
                     <OptionsGroup
                         name="layout"
@@ -123,7 +123,7 @@ export function ImageMenu({
                 </Toolbox.Section>
             )}
 
-            {withAlignmentControls && (
+            {withAlignmentOptions && (
                 <Toolbox.Section caption="Image alignment" paddingBottom="3">
                     <OptionsGroup
                         disabled={value.layout !== ImageLayout.CONTAINED}

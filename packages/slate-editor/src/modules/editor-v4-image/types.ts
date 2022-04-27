@@ -23,8 +23,8 @@ export interface ImageExtensionParameters {
     mediaGalleryTab?: {
         newsroom: NewsroomRef;
     };
-    withAlignmentControls?: boolean;
-    withLayoutControls?: boolean;
+    withAlignmentOptions?: boolean;
+    withLayoutOptions?: boolean;
     withNewTabOption?: boolean;
 }
 
