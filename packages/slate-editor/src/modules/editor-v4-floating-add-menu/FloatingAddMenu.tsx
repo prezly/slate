@@ -10,7 +10,7 @@ import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { useState } from 'react';
 import type { Modifier } from 'react-popper';
-import { Transforms } from 'slate';
+import { Node, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
 import { KeyboardKey, TooltipV2 } from '#components';
@@ -83,9 +83,9 @@ export function FloatingAddMenu<Action>({
             rememberEditorSelection();
         },
         onClose() {
+            setInput('');
             restoreEditorSelection();
             resetSelectedOption();
-            setInput('');
         },
     });
 
@@ -124,6 +124,7 @@ export function FloatingAddMenu<Action>({
     const isParagraph = isParagraphNode(currentNode);
     const isHeading1 = isHeadingNode(currentNode, HEADING_1_NODE_TYPE);
     const isHeading2 = isHeadingNode(currentNode, HEADING_2_NODE_TYPE);
+    const text = currentNode ? Node.string(currentNode) : '';
 
     return (
         <FloatingContainer.Container
@@ -164,7 +165,7 @@ export function FloatingAddMenu<Action>({
                     />
                 )}
             </TooltipV2.Tooltip>
-            {!open && (
+            {!open && !hasOnlySpaces(text) && (
                 <p className={styles.placeholder}>
                     Type or press <KeyboardKey>/</KeyboardKey> to add content
                 </p>
@@ -195,4 +196,8 @@ export function FloatingAddMenu<Action>({
             )}
         </FloatingContainer.Container>
     );
+}
+
+function hasOnlySpaces(text: string) {
+    return text.length !== 0 && text.trim().length === 0;
 }
