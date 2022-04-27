@@ -44,7 +44,7 @@ export const ImageElement: FunctionComponent<Props> = ({
         isSupportingCaptions && (isSelected || !EditorCommands.isNodeEmpty(editor, element));
 
     const handleResize = useCallback(
-        function (width: string) {
+        function (width: ImageNode['width']) {
             updateImage(editor, { width });
         },
         [editor],

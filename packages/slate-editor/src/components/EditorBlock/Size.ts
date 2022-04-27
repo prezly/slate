@@ -1,4 +1,8 @@
+import type { ImageWidth } from '@prezly/slate-types';
+
 export type Size<U extends Unit = Unit> = { value: number; unit: U };
+
+export type SizeString = ImageWidth;
 
 export enum Unit {
     PIXELS = 'px',
@@ -36,8 +40,8 @@ function fromString(size: string): Size {
     return { value, unit: unit(size) };
 }
 
-export function toString(size: Size): string {
-    return `${size.value.toFixed(2)}${size.unit}`;
+export function toString(size: Size) {
+    return `${size.value.toFixed(2)}${size.unit}` as SizeString;
 }
 
 export function toPixels(size: Size, containerWidth: number): Size<Unit.PIXELS> {
