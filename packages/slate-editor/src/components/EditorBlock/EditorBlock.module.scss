@@ -4,6 +4,7 @@
 .outer {
     @include editor-v4-block($void: false);
     position: relative;
+    caret-color: transparent;
 
     &.extendedHitArea {
         $area-vertical-expansion: $spacing-3; // x2 if counted in both directions: up & down
