@@ -40,7 +40,7 @@ export function getAllExtensions() {
             },
             withImages: {
                 captions: true,
-                showLayoutControls: true,
+                withLayoutOptions: true,
             },
             withPlaceholders: {
                 placeholders: [

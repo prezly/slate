@@ -1,5 +1,5 @@
 import type { ImageNode } from '@prezly/slate-types';
-import { ImageLayout } from '@prezly/slate-types';
+import { Alignment, ImageLayout } from '@prezly/slate-types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import type { OptionsGroupOption } from '#components';
@@ -16,7 +16,7 @@ import {
 
 import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
 
-type FormState = Pick<ImageNode, 'href' | 'layout' | 'new_tab'>;
+type FormState = Pick<ImageNode, 'align' | 'href' | 'layout' | 'new_tab'>;
 
 interface Props {
     onChange: (props: Partial<FormState>) => void;
@@ -24,8 +24,9 @@ interface Props {
     onCrop: () => void;
     onRemove: () => void;
     onReplace: () => void;
-    showLayoutControls: boolean;
     value: FormState;
+    withAlignmentOptions: boolean;
+    withLayoutOptions: boolean;
     withNewTabOption: boolean;
 }
 
@@ -47,14 +48,30 @@ const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
     },
 ];
 
+const IMAGE_ALIGNMENT_OPTIONS: OptionsGroupOption<Alignment>[] = [
+    {
+        value: Alignment.LEFT,
+        label: 'Left',
+    },
+    {
+        value: Alignment.CENTER,
+        label: 'Center',
+    },
+    {
+        value: Alignment.RIGHT,
+        label: 'Right',
+    },
+];
+
 export function ImageMenu({
     onChange,
     onClose,
     onCrop,
     onRemove,
     onReplace,
-    showLayoutControls,
     value,
+    withAlignmentOptions,
+    withLayoutOptions,
     withNewTabOption,
 }: Props) {
     const [href, setHref] = useState(value.href);
@@ -91,13 +108,30 @@ export function ImageMenu({
                 </ButtonGroup>
             </Toolbox.Section>
 
-            {showLayoutControls && (
+            {withLayoutOptions && (
                 <Toolbox.Section caption="Image size">
                     <OptionsGroup
                         name="layout"
                         options={IMAGE_SIZE_OPTIONS}
                         selectedValue={value.layout}
-                        onChange={(layout) => onChange({ layout })}
+                        onChange={function (layout) {
+                            const align =
+                                layout === ImageLayout.CONTAINED ? value.align : Alignment.CENTER;
+                            onChange({ layout, align });
+                        }}
+                    />
+                </Toolbox.Section>
+            )}
+
+            {withAlignmentOptions && (
+                <Toolbox.Section caption="Image alignment" paddingBottom="3">
+                    <OptionsGroup
+                        disabled={value.layout !== ImageLayout.CONTAINED}
+                        name="align"
+                        options={IMAGE_ALIGNMENT_OPTIONS}
+                        selectedValue={value.align}
+                        onChange={(align) => onChange({ align })}
+                        variant="pills"
                     />
                 </Toolbox.Section>
             )}
