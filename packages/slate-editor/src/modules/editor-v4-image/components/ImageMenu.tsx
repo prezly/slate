@@ -1,5 +1,6 @@
 import type { ImageNode } from '@prezly/slate-types';
 import { Alignment, ImageLayout } from '@prezly/slate-types';
+import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import type { OptionsGroupOption } from '#components';
@@ -10,9 +11,14 @@ import {
     ImageLayoutContained,
     ImageLayoutExpanded,
     ImageLayoutFullWidth,
+    ImageSizeBestFit,
+    ImageSizeOriginal,
+    ImageSizeSmall,
     Link,
     Reload,
 } from '#icons';
+
+import styles from './ImageMenu.module.scss';
 
 import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
 
@@ -47,17 +53,29 @@ const IMAGE_LAYOUT_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
     {
         value: ImageLayout.CONTAINED,
         label: 'Contained',
-        icon: (props) => <ImageLayoutContained fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        icon: ({ isActive }) => (
+            <ImageLayoutContained
+                className={classNames(styles.icon, { [styles.active]: isActive })}
+            />
+        ),
     },
     {
         value: ImageLayout.EXPANDED,
         label: 'Expanded',
-        icon: (props) => <ImageLayoutExpanded fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        icon: ({ isActive }) => (
+            <ImageLayoutExpanded
+                className={classNames(styles.icon, { [styles.active]: isActive })}
+            />
+        ),
     },
     {
         value: ImageLayout.FULL_WIDTH,
         label: 'Full width',
-        icon: (props) => <ImageLayoutFullWidth fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        icon: ({ isActive }) => (
+            <ImageLayoutFullWidth
+                className={classNames(styles.icon, { [styles.active]: isActive })}
+            />
+        ),
     },
 ];
 
@@ -65,17 +83,23 @@ const IMAGE_SIZE_OPTIONS: OptionsGroupOption<Size>[] = [
     {
         value: Size.SMALL,
         label: 'Small',
-        icon: (props) => <ImageLayoutContained fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        icon: ({ isActive }) => (
+            <ImageSizeSmall className={classNames(styles.icon, { [styles.active]: isActive })} />
+        ),
     },
     {
         value: Size.BEST_FIT,
         label: 'Best Fit',
-        icon: (props) => <ImageLayoutExpanded fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        icon: ({ isActive }) => (
+            <ImageSizeBestFit className={classNames(styles.icon, { [styles.active]: isActive })} />
+        ),
     },
     {
         value: Size.ORIGINAL,
         label: 'Original',
-        icon: (props) => <ImageLayoutFullWidth fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        icon: ({ isActive }) => (
+            <ImageSizeOriginal className={classNames(styles.icon, { [styles.active]: isActive })} />
+        ),
     },
 ];
 
