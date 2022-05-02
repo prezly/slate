@@ -80,7 +80,7 @@ export function ImageElement({
         ? element.layout ?? ImageLayout.CONTAINED
         : ImageLayout.CONTAINED;
     const isResizable = layout === ImageLayout.CONTAINED;
-    const align = isResizable ? element.align : Alignment.CENTER;
+    const align = withAlignmentOptions && isResizable ? element.align : Alignment.CENTER;
     const sizeOptions = useMemo(
         function () {
             if (!withSizeOptions) return false;
