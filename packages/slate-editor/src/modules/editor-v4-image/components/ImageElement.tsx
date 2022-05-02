@@ -1,9 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { ImageNode } from '@prezly/slate-types';
+import type { ImageNode, ImageWidth } from '@prezly/slate-types';
 import { Alignment, ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlateStatic } from 'slate-react';
@@ -15,7 +15,7 @@ import { removeImage, updateImage } from '../transforms';
 import { Image } from './Image';
 import styles from './ImageElement.module.scss';
 import type { FormState } from './ImageMenu';
-import { ImageMenu } from './ImageMenu';
+import { ImageMenu, Size } from './ImageMenu';
 
 interface Props extends RenderElementProps {
     element: ImageNode;
@@ -64,8 +64,15 @@ export function ImageElement({
     );
     const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
     const handleUpdate = useCallback(
-        (patch: Partial<FormState>) => updateImage(editor, patch),
-        [editor],
+        function (patch: Partial<FormState>) {
+            const { size, ...rest } = patch;
+            if (size !== undefined) {
+                updateImage(editor, { ...rest, width: fromSizeOption(element, size) });
+                return;
+            }
+            updateImage(editor, patch);
+        },
+        [editor, element],
     );
 
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
@@ -74,6 +81,18 @@ export function ImageElement({
         : ImageLayout.CONTAINED;
     const isResizable = layout === ImageLayout.CONTAINED;
     const align = isResizable ? element.align : Alignment.CENTER;
+    const sizeOptions = useMemo(
+        function () {
+            if (!withSizeOptions) return false;
+            const width = UploadcareImage.createFromPrezlyStoragePayload(element.file).width;
+
+            if (width < 300) return [Size.ORIGINAL];
+            if (width < 720) return [Size.SMALL, Size.ORIGINAL];
+
+            return [Size.SMALL, Size.BEST_FIT, Size.ORIGINAL];
+        },
+        [withSizeOptions, element.file],
+    );
 
     return (
         <ResizableEditorBlock
@@ -96,10 +115,10 @@ export function ImageElement({
                         layout,
                         href: element.href,
                         new_tab: element.new_tab,
-                        size: undefined,
+                        size: toSizeOption(element),
                     }}
                     withAlignmentOptions={withAlignmentOptions}
-                    withSizeOptions={withSizeOptions}
+                    withSizeOptions={sizeOptions}
                     withLayoutOptions={withLayoutOptions}
                     withNewTabOption={withNewTabOption}
                 />
@@ -126,4 +145,27 @@ export function ImageElement({
             )}
         </ResizableEditorBlock>
     );
+}
+
+function fromSizeOption(image: ImageNode, size: Size): ImageWidth {
+    if (size === Size.SMALL) {
+        return '300px';
+    }
+    if (size === Size.BEST_FIT) {
+        return '720px';
+    }
+    return `${UploadcareImage.createFromPrezlyStoragePayload(image.file).width}px`;
+}
+
+function toSizeOption(image: ImageNode): Size | undefined {
+    if (image.width === '300px') {
+        return Size.SMALL;
+    }
+    if (image.width === '720px') {
+        return Size.BEST_FIT;
+    }
+    if (image.width === `${UploadcareImage.createFromPrezlyStoragePayload(image.file).width}px`) {
+        return Size.ORIGINAL;
+    }
+    return undefined;
 }

@@ -38,7 +38,7 @@ interface Props {
     onReplace: () => void;
     value: FormState;
     withAlignmentOptions: boolean;
-    withSizeOptions: boolean;
+    withSizeOptions: boolean | Size[];
     withLayoutOptions: boolean;
     withNewTabOption: boolean;
 }
@@ -159,8 +159,8 @@ export function ImageMenu({
                 <Toolbox.Section caption="Image size">
                     <OptionsGroup
                         name="width"
-                        options={IMAGE_SIZE_OPTIONS}
-                        selectedValue={undefined}
+                        options={getAvailableSizeOptions(withSizeOptions)}
+                        selectedValue={value.size}
                         onChange={function (size) {
                             onChange({ size });
                         }}
@@ -231,4 +231,14 @@ function CropButton(props: { onClick: () => void }) {
             Crop
         </Button>
     );
+}
+
+function getAvailableSizeOptions(withSizeOptions: boolean | Size[]): OptionsGroupOption<Size>[] {
+    if (withSizeOptions === false) return [];
+    if (withSizeOptions === true) return IMAGE_SIZE_OPTIONS;
+
+    return IMAGE_SIZE_OPTIONS.map((option) => ({
+        ...option,
+        disabled: !withSizeOptions.includes(option.value),
+    }));
 }
