@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ImageNode } from '@prezly/slate-types';
-import { ImageLayout } from '@prezly/slate-types';
+import { Alignment, ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
@@ -22,7 +22,8 @@ interface Props extends RenderElementProps {
     onCrop: (editor: Editor, element: ImageNode) => void;
     onReplace: (editor: Editor, element: ImageNode) => void;
     onRemove: (editor: Editor, element: ImageNode) => void;
-    showLayoutControls: boolean;
+    withAlignmentOptions: boolean;
+    withLayoutOptions: boolean;
     withNewTabOption: boolean;
 }
 
@@ -33,7 +34,8 @@ export const ImageElement: FunctionComponent<Props> = ({
     onCrop,
     onReplace,
     onRemove,
-    showLayoutControls,
+    withAlignmentOptions,
+    withLayoutOptions,
     withNewTabOption,
 }) => {
     const editor = useSlateStatic();
@@ -62,14 +64,16 @@ export const ImageElement: FunctionComponent<Props> = ({
     const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
 
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
-    const layout = showLayoutControls
+    const layout = withLayoutOptions
         ? element.layout ?? ImageLayout.CONTAINED
         : ImageLayout.CONTAINED;
     const isResizable = layout === ImageLayout.CONTAINED;
+    const align = withAlignmentOptions && isResizable ? element.align : Alignment.CENTER;
 
     return (
         <ResizableEditorBlock
             {...attributes}
+            align={align}
             element={element}
             layout={layout}
             onResize={handleResize}
@@ -82,12 +86,14 @@ export const ImageElement: FunctionComponent<Props> = ({
                     onCrop={handleCrop}
                     onRemove={handleRemove}
                     onReplace={handleReplace}
-                    showLayoutControls={showLayoutControls}
                     value={{
+                        align: element.align,
                         layout,
                         href: element.href,
                         new_tab: element.new_tab,
                     }}
+                    withAlignmentOptions={withAlignmentOptions}
+                    withLayoutOptions={withLayoutOptions}
                     withNewTabOption={withNewTabOption}
                 />
             )}
@@ -101,6 +107,9 @@ export const ImageElement: FunctionComponent<Props> = ({
                 <div
                     className={classNames(styles.caption, {
                         [styles.visible]: isCaptionVisible,
+                        [styles.alignLeft]: align === Alignment.LEFT,
+                        [styles.alignCenter]: align === Alignment.CENTER,
+                        [styles.alignRight]: align === Alignment.RIGHT,
                     })}
                 >
                     {children}

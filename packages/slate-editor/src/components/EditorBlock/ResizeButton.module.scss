@@ -2,10 +2,23 @@
 @import "styles/variables";
 
 .handle {
-    &,
-    * {
-        user-select: none;
-        cursor: nwse-resize;
+    &.left {
+        &,
+        * {
+            cursor: nesw-resize;
+        }
+
+        .icon {
+            transform: scale(-1, 1); // flip icon
+        }
+    }
+
+    &.right {
+        &,
+        * {
+            user-select: none;
+            cursor: nwse-resize;
+        }
     }
 }
 

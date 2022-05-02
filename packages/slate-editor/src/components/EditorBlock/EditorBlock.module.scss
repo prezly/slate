@@ -25,11 +25,24 @@
 .card {
     white-space: normal;
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
 
     &.selected {
         @include editor-v4-block-active;
+    }
+
+    &.alignLeft {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    &.alignCenter {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &.alignRight {
+        margin-left: auto;
+        margin-right: 0;
     }
 }
 
@@ -44,6 +57,14 @@
 .resizeButton {
     z-index: $editor-v4-embed-element-overlay-z-index + 1;
     position: absolute;
-    right: $spacing-1;
-    bottom: $spacing-1;
+
+    &.left {
+        left: $spacing-1;
+        bottom: $spacing-1;
+    }
+
+    &.right {
+        right: $spacing-1;
+        bottom: $spacing-1;
+    }
 }
