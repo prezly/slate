@@ -1,6 +1,6 @@
 import type { Coverage, OEmbedInfo } from '@prezly/sdk';
 import type { PressContact } from '@prezly/slate-types';
-import type { UploadcareImageStoragePayload, UploadcareStoragePayload } from '@prezly/uploadcare';
+import type { UploadedFile, UploadedImage } from '@prezly/uploadcare';
 
 /**
  * Document nodes
@@ -31,7 +31,7 @@ export type BlockNode =
 
 export interface AttachmentNode {
     description: string;
-    file: UploadcareStoragePayload;
+    file: UploadedFile;
     type: 'attachment';
 }
 
@@ -67,7 +67,7 @@ export interface GalleryNode {
     images: {
         /** empty string if no caption */
         caption: string;
-        file: UploadcareImageStoragePayload;
+        file: UploadedImage;
     }[];
     layout: ImageLayout;
     padding: 'S' | 'M' | 'L';
@@ -84,7 +84,7 @@ export interface HeadingNode {
 export interface ImageNode {
     /** caption */
     children: (InlineNode | TextNode)[];
-    file: UploadcareImageStoragePayload;
+    file: UploadedImage;
     /** empty string if no URL */
     href: string;
     layout: ImageLayout;
