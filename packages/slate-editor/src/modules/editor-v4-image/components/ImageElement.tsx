@@ -108,7 +108,7 @@ export function ImageElement({
             void={isVoid}
             width={isResizable ? element.width : '100%'}
             minWidth="100px"
-            maxWidth={`${image.originalWidth}px`}
+            maxWidth={`${image.width}px`}
         >
             {isSupportingCaptions ? (
                 <div
