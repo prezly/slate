@@ -5,9 +5,5 @@
     "publishConfig": {
         "access": "public"
     },
-<<<<<<< HEAD
-    "version": "0.28.1-demo.0"
-=======
     "version": "0.35.2"
->>>>>>> master
 }
