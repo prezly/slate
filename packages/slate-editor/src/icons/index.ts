@@ -4,6 +4,7 @@ export { default as AlignLeft } from './Align-Left.svg';
 export { default as AlignRight } from './Align-Right.svg';
 export { default as Attachment } from './Attachment.svg';
 export { default as BatsIllustration } from './Bats-Illustration.svg';
+export { default as ChickenNoSignalIllustration } from './Chicken-no-signal-Illustration.svg';
 export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
 export { default as Coverage } from './Coverage.svg';
 export { default as Cross } from './Cross.svg';

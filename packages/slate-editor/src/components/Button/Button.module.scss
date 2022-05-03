@@ -21,7 +21,7 @@
         opacity: 0.5;
     }
 
-    &:not(&--disabled, &:disabled) {
+    &:not(.--disabled, &:disabled) {
         &:hover,
         &:focus-visible {
             background: rgba(255, 255, 255, 0.12);
@@ -50,7 +50,7 @@
         opacity: 1;
     }
 
-    &--disabled,
+    .--disabled,
     &:disabled {
         cursor: auto;
         opacity: 0.2;
@@ -74,7 +74,7 @@
         color: $white;
         padding: $spacing-1 - $border-size;
 
-        &:not(&--disabled, &:disabled) {
+        &:not(.--disabled, &:disabled) {
             &:hover,
             &:focus-visible {
                 background: rgba(255, 255, 255, 0.2);
@@ -85,7 +85,29 @@
             background: rgba(255, 255, 255, 0.24);
         }
 
-        &--disabled,
+        .--disabled,
+        &:disabled {
+            opacity: 0.4;
+        }
+    }
+
+    &--secondary {
+        background: $grey-200;
+        color: #4b5563;
+        padding: $spacing-1 - $border-size;
+
+        &:not(&--disabled, &:disabled) {
+            &:hover,
+            &:focus-visible {
+                background: rgba($grey-200, 0.8);
+            }
+        }
+
+        &:active {
+            background: rgba($grey-200, 0.8);
+        }
+
+        .--disabled,
         &:disabled {
             opacity: 0.4;
         }

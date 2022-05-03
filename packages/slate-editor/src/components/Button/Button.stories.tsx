@@ -5,6 +5,13 @@ import { ExternalLink } from '#icons';
 
 export default {
     title: 'Components/Button',
+    decorators: [
+        (Story: React.ComponentType) => (
+            <div style={{ background: 'rgba(31, 32, 35, 0.5)' }}>
+                <Story />
+            </div>
+        ),
+    ],
 };
 
 export function Base() {
@@ -31,7 +38,11 @@ export function WithIcon() {
                 </Button>
             </div>
             <div>
-                <Button icon={ExternalLink} iconPosition="right" />
+                <Button icon={ExternalLink} />
+            </div>
+
+            <div>
+                <Button icon={ExternalLink} variant="secondary" round />
             </div>
         </VStack>
     );
@@ -51,6 +62,16 @@ export function Variants() {
             </div>
 
             <div>
+                <Button variant="secondary">Secondary</Button>
+            </div>
+
+            <div>
+                <Button variant="secondary" round>
+                    Secondary round
+                </Button>
+            </div>
+
+            <div>
                 <Button variant="clear">Clear</Button>
             </div>
 
@@ -60,6 +81,10 @@ export function Variants() {
 
             <div>
                 <Button variant="clear-faded">Clear-faded Round</Button>
+            </div>
+
+            <div>
+                <Button variant="underlined">Underlined</Button>
             </div>
         </VStack>
     );

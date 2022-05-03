@@ -1,0 +1,34 @@
+@import "styles/variables";
+
+.container {
+    position: relative;
+    background: $grey-100;
+    border-radius: $border-radius-base;
+    padding: 50px $spacing-1;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.illustration {
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    font-weight: 600;
+    font-size: $font-size-medium;
+    color: #374151;
+}
+
+.subtitle {
+    font-weight: 500;
+    font-size: $font-size-smaller;
+    color: #9ca3af;
+}
+
+.closeIcon {
+    position: absolute;
+    right: $spacing-1;
+    top: $spacing-1;
+}
