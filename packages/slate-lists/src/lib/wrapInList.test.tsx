@@ -1,50 +1,61 @@
 /** @jsx jsx */
 
-import { BULLETED_LIST_NODE_TYPE } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import {
+    Anchor,
+    Divider,
+    Editor,
+    Focus,
+    jsx,
+    ListItem,
+    ListItemText,
+    Paragraph,
+    Text,
+    UnorderedList,
+} from '../jsx';
+import type { ListsEditor } from '../types';
+import { ListType } from '../types';
 
-import { jsx } from '../jsx';
-import { createListsEditor, lists } from '../test-utils';
+import { wrapInList } from './wrapInList';
 
 describe('wrapInList - no selection', () => {
     it('Does nothing when there is no selection', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-p>
-                    <h-text>aaa</h-text>
-                </h-p>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-                <h-p>
-                    <h-text>bbb</h-text>
-                </h-p>
-            </editor>,
-        );
+        const editor = (
+            <Editor>
+                <Paragraph>
+                    <Text>aaa</Text>
+                </Paragraph>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+                <Paragraph>
+                    <Text>bbb</Text>
+                </Paragraph>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-p>
-                    <h-text>aaa</h-text>
-                </h-p>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-                <h-p>
-                    <h-text>bbb</h-text>
-                </h-p>
-            </editor>
-        ) as unknown as Editor;
+            <Editor>
+                <Paragraph>
+                    <Text>aaa</Text>
+                </Paragraph>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+                <Paragraph>
+                    <Text>bbb</Text>
+                </Paragraph>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
+        wrapInList(editor, ListType.UNORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -53,35 +64,35 @@ describe('wrapInList - no selection', () => {
 
 describe('wrapInList - selection with wrappable nodes', () => {
     it('Converts wrappable node into list', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-p>
-                    <h-text>
-                        <anchor />
+        const editor = (
+            <Editor>
+                <Paragraph>
+                    <Text>
+                        <Anchor />
                         aaa
-                        <focus />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                        <Focus />
+                    </Text>
+                </Paragraph>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
-                                <anchor />
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
+                                <Anchor />
                                 aaa
-                                <focus />
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+                                <Focus />
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
+        wrapInList(editor, ListType.UNORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -90,59 +101,59 @@ describe('wrapInList - selection with wrappable nodes', () => {
 
 describe('wrapInList - selection with lists and wrappable nodes', () => {
     it('Converts wrappable nodes into lists items and merges them together', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-p>
-                    <h-text>
-                        <anchor />
+        const editor = (
+            <Editor>
+                <Paragraph>
+                    <Text>
+                        <Anchor />
                         aaa
-                    </h-text>
-                </h-p>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-                <h-p>
-                    <h-text>
+                    </Text>
+                </Paragraph>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+                <Paragraph>
+                    <Text>
                         bbb
-                        <focus />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                        <Focus />
+                    </Text>
+                </Paragraph>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
-                                <anchor />
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
+                                <Anchor />
                                 aaa
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>lorem ipsum</h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
                                 bbb
-                                <focus />
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-            </editor>
-        ) as unknown as Editor;
+                                <Focus />
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
+        wrapInList(editor, ListType.UNORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -151,53 +162,53 @@ describe('wrapInList - selection with lists and wrappable nodes', () => {
 
 describe('wrapInList - selection with lists, wrappable & unwrappable nodes', () => {
     it('Converts wrappable nodes into lists items and merges them together, but leaves out unwrappable nodes', () => {
-        const editor = createListsEditor(
-            <editor>
-                <h-p>
-                    <h-text>
-                        <anchor />
+        const editor = (
+            <Editor>
+                <Paragraph>
+                    <Text>
+                        <Anchor />
                         aaa
-                    </h-text>
-                </h-p>
-                <h-p>
-                    <h-text>bbb</h-text>
-                </h-p>
-                <h-unwrappable-element>
-                    <h-text>
+                    </Text>
+                </Paragraph>
+                <Paragraph>
+                    <Text>bbb</Text>
+                </Paragraph>
+                <Divider>
+                    <Text>
                         ccc
-                        <focus />
-                    </h-text>
-                </h-unwrappable-element>
-            </editor>,
-        );
+                        <Focus />
+                    </Text>
+                </Divider>
+            </Editor>
+        ) as unknown as ListsEditor;
 
         const expected = (
-            <editor>
-                <h-ul>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>
-                                <anchor />
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>
+                                <Anchor />
                                 aaa
-                            </h-text>
-                        </h-li-text>
-                    </h-li>
-                    <h-li>
-                        <h-li-text>
-                            <h-text>bbb</h-text>
-                        </h-li-text>
-                    </h-li>
-                </h-ul>
-                <h-unwrappable-element>
-                    <h-text>
+                            </Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>bbb</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+                <Divider>
+                    <Text>
                         ccc
-                        <focus />
-                    </h-text>
-                </h-unwrappable-element>
-            </editor>
-        ) as unknown as Editor;
+                        <Focus />
+                    </Text>
+                </Divider>
+            </Editor>
+        ) as unknown as ListsEditor;
 
-        lists.wrapInList(editor, BULLETED_LIST_NODE_TYPE);
+        wrapInList(editor, ListType.UNORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

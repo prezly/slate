@@ -52,5 +52,3 @@ const editor = ((<editor>text</editor>) as unknown) as Editor;
 <anchor />
 <focus />
 ```
-
-You can look them up in https://github.com/prezly/slate/blob/master/packages/slate-hyperscript/src/index.ts and in `jsx.ts` file in respective extension directory (e.g. `modules/editor-v4-rich-formatting/jsx.ts`).

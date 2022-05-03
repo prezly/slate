@@ -1,12 +1,14 @@
 /** @jsx jsx */
 
-import type { Editor } from 'slate';
+import type { BaseText, Editor } from 'slate';
 
 import { jsx } from '../jsx';
 
 import { toggleMark } from './toggleMark';
 
-const EXAMPLE_MARK_1 = 'bold';
+interface StyledText extends BaseText {
+    bold?: boolean;
+}
 
 describe('toggleMark', () => {
     it('Adds the mark when it is inactive', () => {
@@ -25,7 +27,7 @@ describe('toggleMark', () => {
         const expected = (
             <editor>
                 <h-p>
-                    <h-text {...{ [EXAMPLE_MARK_1]: true }}>
+                    <h-text bold>
                         <anchor />
                         lorem ipsum
                         <focus />
@@ -34,7 +36,7 @@ describe('toggleMark', () => {
             </editor>
         ) as unknown as Editor;
 
-        toggleMark(editor, EXAMPLE_MARK_1);
+        toggleMark<StyledText>(editor, 'bold');
 
         expect(editor.children).toEqual(expected.children);
     });
@@ -43,7 +45,7 @@ describe('toggleMark', () => {
         const editor = (
             <editor>
                 <h-p>
-                    <h-text {...{ [EXAMPLE_MARK_1]: true }}>
+                    <h-text bold>
                         <anchor />
                         lorem ipsum
                         <focus />
@@ -64,7 +66,7 @@ describe('toggleMark', () => {
             </editor>
         ) as unknown as Editor;
 
-        toggleMark(editor, EXAMPLE_MARK_1);
+        toggleMark<StyledText>(editor, 'bold');
 
         expect(editor.children).toEqual(expected.children);
     });

@@ -3,7 +3,6 @@
 import { withNormalization } from '@prezly/slate-commons';
 import { ImageLayout } from '@prezly/slate-types';
 import type { UploadcareStoragePayload } from '@prezly/uploadcare';
-import { createRef } from 'react';
 import { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
@@ -21,10 +20,8 @@ const file: UploadcareStoragePayload = {
 
 const getExtensions = () => [
     ImageExtension({
-        availableWidth: 0,
         captions: true,
-        containerRef: createRef(),
-        showLayoutControls: true,
+        withLayoutOptions: true,
     }),
 ];
 

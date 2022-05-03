@@ -60,7 +60,7 @@ export class GalleryTile extends Component<Props, State> {
         }
     };
 
-    getStyle = () => {
+    getStyle = (): CSSProperties => {
         const { horizontalMargin, verticalMargin } = this.state;
         const { height, style, url, width } = this.props;
         return {

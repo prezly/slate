@@ -14,7 +14,12 @@ export {
     handleRemoveAttachment,
 } from './file-attachment';
 export { createHandleAddGallery, createHandleEditGallery } from './galleries';
-export { createHandleAddImage, createHandleEditImage, handleRemoveImage } from './images';
+export {
+    createImageAddHandler,
+    createImageEditHandler,
+    createImageReplaceHandler,
+    handleRemoveImage,
+} from './images';
 
 export { insertUploadingFile } from './insertUploadingFile';
 export { isEditorValueEquivalent } from './isEditorValueEquivalent';

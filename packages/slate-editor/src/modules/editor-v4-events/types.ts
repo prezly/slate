@@ -112,6 +112,16 @@ export type EditorEventMap = {
         selectedItemText: string;
         node: string;
     };
+    'story-bookmark-dialog-opened': {
+        selectedItemText: string;
+    };
+    'story-bookmark-dialog-submitted': {
+        selectedItemText: string;
+        node: string;
+    };
+    'story-bookmark-removed': {
+        uuid: string;
+    };
 };
 
 export type EditorEventHandlers = {

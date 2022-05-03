@@ -187,7 +187,7 @@ describe('insertEmptyParagraph', () => {
             </editor>
         ) as unknown as Editor;
 
-        insertEmptyParagraph(editor, [1]);
+        insertEmptyParagraph(editor, { at: [1] });
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

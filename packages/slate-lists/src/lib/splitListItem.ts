@@ -2,10 +2,8 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, Node, Path, Range, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
-import type { ListsOptions } from '../types';
+import type { ListsEditor } from '../types';
 
-import { createListItem } from './createListItem';
-import { createListItemText } from './createListItemText';
 import { getListItemsInRange } from './getListItemsInRange';
 
 /**
@@ -13,7 +11,7 @@ import { getListItemsInRange } from './getListItemsInRange';
  * ends up in a "list-item" node, it will break that "list-item" into 2 nodes, splitting
  * the text at the cursor location.
  */
-export function splitListItem(options: ListsOptions, editor: Editor): void {
+export function splitListItem(editor: ListsEditor): void {
     if (!editor.selection) {
         return;
     }
@@ -23,7 +21,7 @@ export function splitListItem(options: ListsOptions, editor: Editor): void {
         Transforms.delete(editor);
     }
 
-    const listItemsInSelection = getListItemsInRange(options, editor, editor.selection);
+    const listItemsInSelection = getListItemsInRange(editor, editor.selection);
 
     if (listItemsInSelection.length !== 1) {
         // Selection is collapsed, so there should be either 0 or 1 "list-item" in selection.
@@ -42,7 +40,9 @@ export function splitListItem(options: ListsOptions, editor: Editor): void {
     );
 
     if (isStart) {
-        const newListItem = createListItem(options, [createListItemText(options)]);
+        const newListItem = editor.createListItemNode({
+            children: [editor.createListItemTextNode()],
+        });
         Transforms.insertNodes(editor, newListItem, { at: listItemPath });
         return;
     }
@@ -53,7 +53,9 @@ export function splitListItem(options: ListsOptions, editor: Editor): void {
 
     Editor.withoutNormalizing(editor, () => {
         if (isEnd) {
-            const newListItem = createListItem(options, [createListItemText(options)]);
+            const newListItem = editor.createListItemNode({
+                children: [editor.createListItemTextNode()],
+            });
             Transforms.insertNodes(editor, newListItem, { at: newListItemPath });
             // Move the cursor to the new "list-item".
             Transforms.select(editor, newListItemPath);
@@ -62,7 +64,7 @@ export function splitListItem(options: ListsOptions, editor: Editor): void {
             Transforms.splitNodes(editor);
 
             // The current "list-item-text" has a parent "list-item", the new one needs its own.
-            Transforms.wrapNodes(editor, createListItem(options), { at: newListItemTextPath });
+            Transforms.wrapNodes(editor, editor.createListItemNode(), { at: newListItemTextPath });
 
             // Move the new "list-item" up to be a sibling of the original "list-item".
             Transforms.moveNodes(editor, {

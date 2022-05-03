@@ -1,0 +1,32 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.image {
+    display: block;
+    width: 100%;
+}
+
+.caption {
+    height: 0;
+    margin: 0 auto;
+    padding: 12px 0 0;
+    color: #767676;
+    font-style: italic;
+    font-size: $font-size-small;
+
+    &.visible {
+        height: auto;
+    }
+
+    &.alignLeft {
+        text-align: left;
+    }
+
+    &.alignCenter {
+        text-align: center;
+    }
+
+    &.alignRight {
+        text-align: right;
+    }
+}

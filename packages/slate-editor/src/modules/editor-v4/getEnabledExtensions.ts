@@ -19,6 +19,7 @@ import { ParagraphsExtension } from '#modules/editor-v4-paragraphs';
 import { PlaceholderMentionsExtension } from '#modules/editor-v4-placeholder-mentions';
 import { PressContactsExtension } from '#modules/editor-v4-press-contacts';
 import { RichFormattingExtension } from '#modules/editor-v4-rich-formatting';
+import { StoryBookmarkExtension } from '#modules/editor-v4-story-bookmark';
 import { UserMentionsExtension } from '#modules/editor-v4-user-mentions';
 
 import { StoryEmbedExtension } from '../editor-v4-story-embed';
@@ -29,7 +30,8 @@ import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
 import { compositeCharactersRules, textStyleRules, blockRules } from './autoformatRules';
 import {
     createHandleEditGallery,
-    createHandleEditImage,
+    createImageEditHandler,
+    createImageReplaceHandler,
     handleEditAttachment,
     handleRemoveAttachment,
     handleRemoveImage,
@@ -63,6 +65,7 @@ export function* getEnabledExtensions({
     withWebBookmarks,
     withAutoformat,
     withStoryEmbeds,
+    withStoryBookmarks,
 }: Parameters): Generator<Extension> {
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
@@ -113,14 +116,15 @@ export function* getEnabledExtensions({
     }
 
     if (withImages) {
+        const handleCrop = createImageEditHandler(withImages);
+        const handleReplace = createImageReplaceHandler(withImages);
         // ImageExtension has to be after RichFormattingExtension due to the fact
         // that it also deserializes <a> elements (ImageExtension is more specific).
         yield ImageExtension({
             ...withImages,
-            availableWidth,
-            containerRef,
-            onEdit: createHandleEditImage(withImages),
+            onCrop: handleCrop,
             onRemove: handleRemoveImage,
+            onReplace: handleReplace,
         });
     }
 
@@ -141,7 +145,7 @@ export function* getEnabledExtensions({
     }
 
     if (withWebBookmarks) {
-        yield WebBookmarkExtension();
+        yield WebBookmarkExtension({ withNewTabOption: withWebBookmarks.withNewTabOption });
     }
 
     if (withAutoformat) {
@@ -156,6 +160,10 @@ export function* getEnabledExtensions({
 
     if (withStoryEmbeds) {
         yield StoryEmbedExtension(withStoryEmbeds);
+    }
+
+    if (withStoryBookmarks) {
+        yield StoryBookmarkExtension(withStoryBookmarks);
     }
 
     yield DividerExtension();

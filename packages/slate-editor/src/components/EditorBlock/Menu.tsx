@@ -7,10 +7,11 @@ import { Popper } from 'react-popper';
 
 import { Toolbox } from '#components';
 
-import styles from './EditorBlock.module.scss';
+import styles from './Menu.module.scss';
 
 interface Props {
     children: ReactNode;
+    className?: string;
     editorElement: HTMLElement;
     onClick?: (event: MouseEvent) => void;
     open: boolean;
@@ -81,7 +82,7 @@ export class Menu extends Component<Props> {
     };
 
     render() {
-        const { children, editorElement, onClick, open } = this.props;
+        const { children, className, editorElement, onClick, open } = this.props;
 
         if (!open) {
             return null;
@@ -97,7 +98,7 @@ export class Menu extends Component<Props> {
             >
                 {({ ref, style, arrowProps, placement }) => (
                     <Toolbox.Panel
-                        className={styles.menu}
+                        className={classNames(className, styles.menu)}
                         ref={ref}
                         style={style}
                         onClick={onClick}

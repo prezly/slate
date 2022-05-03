@@ -28,6 +28,7 @@ const ICONS: Record<LoaderContentType, FunctionComponent<HTMLAttributes<SVGEleme
     image: Image,
     video: Video,
     'story-embed': Bookmark,
+    'story-bookmark': Bookmark,
 };
 
 const ESTIMATED_DURATIONS: Record<LoaderContentType, number> = {
@@ -47,6 +48,7 @@ const ESTIMATED_DURATIONS: Record<LoaderContentType, number> = {
     video: 500,
     // Iframely call to detect Prezly story.
     'story-embed': 500,
+    'story-bookmark': 500,
 };
 
 export const LoaderElement: FunctionComponent<Props> = ({

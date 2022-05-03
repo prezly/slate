@@ -1,17 +1,20 @@
+@use "sass:math";
 @import "styles/variables";
 
 .keyboard-key {
-    $size: 22px;
+    $size: 1.25em; // 20px : 16px
+    $spacing-half: 0.25em; // 4px : 16px
     $border-width: 1px;
 
     display: inline-block;
     height: $size;
+    min-width: $size;
     padding: $spacing-half;
-    background-color: #f5f5f5;
-    border: $border-width solid $legacy-color-grey-500;
+    color: $grey-700;
+    background-color: $grey-100;
     border-radius: 3px;
-    box-shadow: 0 1px 0 0 $legacy-color-grey-500;
-    line-height: $size - 2 * ($spacing-half + $border-width);
+    box-shadow: 1px 1px 0 0 $grey-300;
+    line-height: $size - $spacing-half * 2;
     text-align: center;
     white-space: nowrap;
     font-family: $font-family-sans-serif;

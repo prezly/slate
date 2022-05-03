@@ -31,13 +31,15 @@ const HOLDING_BACKSPACE_THRESHOLD = 100;
 let lastBackspaceTimestamp = 0;
 
 export const ImageExtension = ({
-    availableWidth,
     captions,
-    containerRef,
-    onEdit = noop,
+    onCrop = noop,
     onRemove = noop,
-    showLayoutControls,
+    onReplace = noop,
+    withAlignmentOptions = false,
+    withLayoutOptions = false,
+    withNewTabOption = true,
 }: ImageParameters): Extension => ({
+    id: IMAGE_EXTENSION_ID,
     deserialize: {
         element: {
             [IMAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
@@ -53,7 +55,6 @@ export const ImageExtension = ({
             },
         },
     },
-    id: IMAGE_EXTENSION_ID,
     normalizers: [
         normalizeRedundantImageAttributes,
         normalizeChildren,
@@ -71,7 +72,7 @@ export const ImageExtension = ({
                 event.preventDefault();
 
                 const nextPath = Path.next(nodeEntry[1]);
-                EditorCommands.insertEmptyParagraph(editor, nextPath);
+                EditorCommands.insertEmptyParagraph(editor, { at: nextPath });
                 Transforms.select(editor, nextPath);
             }
         }
@@ -123,12 +124,13 @@ export const ImageExtension = ({
             return (
                 <ImageElement
                     attributes={attributes}
-                    availableWidth={availableWidth}
-                    containerRef={containerRef}
                     element={element}
-                    onEdit={onEdit}
+                    onCrop={onCrop}
                     onRemove={onRemove}
-                    showLayoutControls={showLayoutControls}
+                    onReplace={onReplace}
+                    withAlignmentOptions={withAlignmentOptions}
+                    withLayoutOptions={withLayoutOptions}
+                    withNewTabOption={withNewTabOption}
                 >
                     {children}
                 </ImageElement>

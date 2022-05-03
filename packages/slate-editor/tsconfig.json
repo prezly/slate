@@ -4,7 +4,10 @@
         "rootDirs": ["./src", "./.css-modules"],
         "baseUrl": "./src",
         "paths": {
-            "#lodash": ["../../../node_modules/@types/lodash-es"],
+            "#lodash": [
+                "../node_modules/@types/lodash-es",
+                "../../../node_modules/@types/lodash-es"
+            ],
             "#components": ["components"],
             "#icons": ["icons"],
             "#lib/type-utils": ["lib/type-utils"],
@@ -19,7 +22,6 @@
     "references": [
         { "path": "../slate-types/tsconfig.json" },
         { "path": "../slate-commons/tsconfig.build.json" },
-        { "path": "../slate-hyperscript/tsconfig.build.json" },
         { "path": "../slate-lists/tsconfig.build.json" }
     ]
 }

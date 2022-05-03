@@ -1,22 +1,15 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Node, Path, Transforms } from 'slate';
+import { Editor, Element, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
-import type { ListsOptions } from '../types';
+import type { ListsEditor } from '../types';
 
-import { createList } from './createList';
 import { getListType } from './getListType';
-import { isList } from './isList';
-import { isListItem } from './isListItem';
 
 /**
  * Increases nesting depth of "list-item" at a given Path.
  */
-export function increaseListItemDepth(
-    options: ListsOptions,
-    editor: Editor,
-    listItemPath: Path,
-): void {
+export function increaseListItemDepth(editor: ListsEditor, listItemPath: Path): void {
     const previousListItem = EditorCommands.getPreviousSibling(editor, listItemPath);
 
     if (!previousListItem) {
@@ -27,7 +20,7 @@ export function increaseListItemDepth(
 
     const [previousListItemNode, previousListItemPath] = previousListItem;
 
-    if (!isListItem(options, previousListItemNode)) {
+    if (!editor.isListItemNode(previousListItemNode)) {
         // Sanity check.
         return;
     }
@@ -40,13 +33,16 @@ export function increaseListItemDepth(
         if (!previousListItemHasChildList) {
             const listNodePath = Path.ancestors(listItemPath, { reverse: true })[0];
             const listNode = Node.get(editor, listNodePath);
-            const newList = createList(getListType(options, listNode));
+            const newList = editor.createListNode(getListType(editor, listNode));
             Transforms.insertNodes(editor, newList, { at: previousListItemChildListPath });
         }
 
         const previousListItemChildList = Node.get(editor, previousListItemChildListPath);
 
-        if (isList(options, previousListItemChildList)) {
+        if (
+            Element.isElement(previousListItemChildList) &&
+            editor.isListNode(previousListItemChildList)
+        ) {
             const index = previousListItemHasChildList
                 ? previousListItemChildList.children.length
                 : 0;

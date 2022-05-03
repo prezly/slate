@@ -93,7 +93,6 @@ module.exports = {
             }
         },
         overrideNoExtraneousDependenciesRule('slate-types'),
-        overrideNoExtraneousDependenciesRule('slate-hyperscript'),
         overrideNoExtraneousDependenciesRule('slate-commons'),
         overrideNoExtraneousDependenciesRule('slate-lists'),
         overrideNoExtraneousDependenciesRule('slate-editor'),

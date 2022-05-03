@@ -1,10 +1,11 @@
 import { Events } from '@prezly/events';
 import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
-import type { HeadingNode, QuoteNode } from '@prezly/slate-types';
+import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
 import {
     Alignment,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import classNames from 'classnames';
@@ -22,11 +23,10 @@ import { ReactEditor, Slate } from 'slate-react';
 
 import { noop } from '#lodash';
 
+import { FloatingStoryEmbedInput } from '#modules/editor-v4-components';
 import { LoaderContentType } from '#modules/editor-v4-loader';
-import {
-    FloatingStoryEmbedInput,
-    useFloatingStoryEmbedInput,
-} from '#modules/editor-v4-story-embed';
+import { useFloatingStoryBookmarkInput } from '#modules/editor-v4-story-bookmark';
+import { useFloatingStoryEmbedInput } from '#modules/editor-v4-story-embed';
 
 import { Placeholder } from '../editor-v4-components';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
@@ -51,7 +51,7 @@ import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor
 import { getEnabledExtensions } from './getEnabledExtensions';
 import {
     createHandleAddGallery,
-    createHandleAddImage,
+    createImageAddHandler,
     createOnCut,
     handleAddAttachment,
     insertDivider,
@@ -98,6 +98,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         withVideos,
         withWebBookmarks,
         withStoryEmbeds,
+        withStoryBookmarks,
     } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -130,6 +131,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             withWebBookmarks,
             withAutoformat,
             withStoryEmbeds,
+            withStoryBookmarks,
         }),
     );
 
@@ -217,6 +219,16 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     ] = useFloatingStoryEmbedInput(editor);
 
     const [
+        { isOpen: isFloatingStoryBookmarkInputOpen },
+        {
+            close: closeFloatingStoryBookmarkInput,
+            open: openFloatingStoryBookmarkInput,
+            rootClose: rootCloseFloatingStoryBookmarkInput,
+            submit: submitFloatingStoryBookmarkInput,
+        },
+    ] = useFloatingStoryBookmarkInput(editor);
+
+    const [
         { isOpen: isFloatingPressContactsMenuOpen },
         {
             close: closeFloatingPressContactsMenu,
@@ -237,7 +249,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
     const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props));
     const handleMenuAction = (action: MenuAction) => {
         if (action === MenuAction.ADD_PARAGRAPH) {
-            return; // Do nothing. @see MT-4590
+            return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);
         }
         if (action === MenuAction.ADD_HEADING_1) {
             return toggleBlock<HeadingNode>(editor, HEADING_1_NODE_TYPE);
@@ -290,11 +302,17 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                 message: 'Embedding Prezly Story',
             });
         }
+        if (action === MenuAction.ADD_STORY_BOOKMARK) {
+            return openFloatingStoryBookmarkInput('Embed Prezly Story', {
+                contentType: LoaderContentType.STORY_BOOKMARK,
+                message: 'Embedding Prezly Story',
+            });
+        }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             return createHandleAddGallery(withGalleries)(editor);
         }
         if (action === MenuAction.ADD_IMAGE && withImages) {
-            return createHandleAddImage(withImages)(editor);
+            return createImageAddHandler(withImages)(editor);
         }
         if (action === MenuAction.ADD_VIDEO) {
             return openFloatingVideoInput('Add video', {
@@ -335,6 +353,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             >
                 <EditableWithExtensions
                     decorate={decorate}
+                    editor={editor}
                     extensions={extensions}
                     onCut={createOnCut(editor)}
                     onKeyDown={onKeyDownList}
@@ -394,6 +413,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         withAlignment={withAlignmentControls}
                         withLinks={Boolean(withRichFormatting.links)}
                         withRichBlockElements={Boolean(withRichFormatting.blocks)}
+                        withNewTabOption={withRichFormatting.withNewTabOption}
                     />
                 )}
 
@@ -447,8 +467,27 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                         containerRef={containerRef}
                         onClose={closeFloatingStoryEmbedInput}
                         onRootClose={rootCloseFloatingStoryEmbedInput}
-                        onSubmit={submitFloatingStoryEmbedInput}
-                        renderInput={withStoryEmbeds.renderInput}
+                        renderInput={() =>
+                            withStoryEmbeds.renderInput({
+                                onSubmit: submitFloatingStoryEmbedInput,
+                                onClose: closeFloatingStoryEmbedInput,
+                            })
+                        }
+                    />
+                )}
+
+                {withStoryBookmarks && isFloatingStoryBookmarkInputOpen && (
+                    <FloatingStoryEmbedInput
+                        availableWidth={availableWidth}
+                        containerRef={containerRef}
+                        onClose={closeFloatingStoryBookmarkInput}
+                        onRootClose={rootCloseFloatingStoryBookmarkInput}
+                        renderInput={() =>
+                            withStoryBookmarks.renderInput({
+                                onCreate: submitFloatingStoryBookmarkInput,
+                                onRemove: closeFloatingStoryBookmarkInput,
+                            })
+                        }
                     />
                 )}
 

@@ -1,15 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { BaseEditor } from 'slate';
-import type { HistoryEditor } from 'slate-history';
-import type { ReactEditor } from 'slate-react';
+import type { Editor } from 'slate';
 
 import { autoformatBlock, autoformatMark, autoformatText } from './transforms';
 import type { AutoformatRule } from './types';
 
-export function withAutoformat<T extends BaseEditor & ReactEditor & HistoryEditor>(
-    editor: T,
-    rules: AutoformatRule[],
-): T {
+export function withAutoformat<T extends Editor>(editor: T, rules: AutoformatRule[]): T {
     const { insertText } = editor;
 
     const autoformatters = {

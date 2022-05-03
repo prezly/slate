@@ -1,6 +1,6 @@
 import type { AttachmentNode } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { Editor } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
@@ -24,7 +24,9 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
 }) => {
     const editor = useSlate();
     const isSelected = useSelected();
-    const [text, setText] = React.useState(element.file.filename);
+    const [description, setDescription] = React.useState(element.description);
+    const [filename, setFilename] = React.useState(getFilename(element.file.filename));
+    const [isFilenameValid, setIsFilenameValid] = React.useState(true);
 
     const handleRemove = () => {
         const removedElement = removeFileAttachment(editor);
@@ -35,9 +37,20 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
     };
 
     const save = () => {
-        onEdit(editor, { file: { ...element.file, filename: text } });
+        onEdit(editor, {
+            file: {
+                ...element.file,
+                filename: `${filename}.${getFileExtension(element.file.filename)}`,
+            },
+            description: description,
+        });
         onClose();
     };
+
+    const onFilenameChanged = useCallback(function (value: string, isValid: boolean) {
+        setFilename(value);
+        setIsFilenameValid(isValid);
+    }, []);
 
     if (!isSelected) {
         return null;
@@ -51,11 +64,25 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
             <Toolbox.Section>
                 <VStack spacing="2">
                     <VStack spacing="1-5">
-                        <Toolbox.Caption>Title</Toolbox.Caption>
-                        <Input value={text} onChange={setText} placeholder="File name" />
+                        <Toolbox.Caption>Filename</Toolbox.Caption>
+                        <Input value={filename} onChange={onFilenameChanged} required />
+                    </VStack>
+                    <VStack spacing="1-5">
+                        <Toolbox.Caption>Description</Toolbox.Caption>
+                        <Input
+                            value={description}
+                            onChange={setDescription}
+                            placeholder="Insert description"
+                        />
                     </VStack>
 
-                    <Button variant="primary" fullWidth round onClick={save}>
+                    <Button
+                        variant="primary"
+                        fullWidth
+                        round
+                        onClick={save}
+                        disabled={!isFilenameValid}
+                    >
                         Save
                     </Button>
                 </VStack>
@@ -69,3 +96,12 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
         </Toolbox.Panel>
     );
 };
+
+function getFileExtension(filename: string) {
+    return filename.slice(((filename.lastIndexOf('.') - 1) >>> 0) + 2);
+}
+
+function getFilename(filename: string) {
+    const extension = getFileExtension(filename);
+    return filename.substring(0, filename.length - extension.length - 1);
+}

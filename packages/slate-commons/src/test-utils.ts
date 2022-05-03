@@ -7,6 +7,7 @@ import {
     LINK_NODE_TYPE,
 } from '@prezly/slate-types';
 import type { Editor } from 'slate';
+import { Element } from 'slate';
 
 export const INLINE_ELEMENT = LINK_NODE_TYPE;
 export const INLINE_VOID_ELEMENT = LINK_NODE_TYPE;
@@ -18,14 +19,14 @@ function withGenericTestElements<T extends Editor>(editor: T): T {
     const { isInline, isVoid } = editor;
 
     editor.isInline = (element) =>
-        [INLINE_ELEMENT, INLINE_VOID_ELEMENT].includes(element.type as string)
-            ? true
-            : isInline(element);
+        Element.isElementType(element, INLINE_ELEMENT) ||
+        Element.isElementType(element, INLINE_VOID_ELEMENT) ||
+        isInline(element);
 
     editor.isVoid = (element) =>
-        [VOID_ELEMENT, INLINE_VOID_ELEMENT].includes(element.type as string)
-            ? true
-            : isVoid(element);
+        Element.isElementType(element, VOID_ELEMENT) ||
+        Element.isElementType(element, INLINE_VOID_ELEMENT) ||
+        isVoid(element);
 
     return editor;
 }

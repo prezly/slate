@@ -1,28 +1,28 @@
-import type { ElementNode } from '@prezly/slate-types';
+import type { BaseEditor, Descendant, Element, Node } from 'slate';
 
-export interface ListsOptions {
-    /**
-     * Type of the node that "listItemTextType" will become when it is unwrapped or normalized.
-     */
-    defaultBlockType: ElementNode['type'];
-
-    /**
-     * Type of the node representing list item text.
-     */
-    listItemTextType: ElementNode['type'];
-
-    /**
-     * Type of the node representing list item.
-     */
-    listItemType: ElementNode['type'];
-
-    /**
-     * Types of nodes representing lists. The first type will be the default type (e.g. when wrapping with lists).
-     */
-    listTypes: ElementNode['type'][];
-
-    /**
-     * Types of nodes that can be converted into a node representing list item text.
-     */
-    wrappableTypes: ElementNode['type'][];
+export enum ListType {
+    ORDERED = 'ol',
+    UNORDERED = 'ul',
 }
+
+export interface ListsSchema {
+    isConvertibleToListTextNode(node: Node): boolean;
+
+    isDefaultTextNode(node: Node): boolean;
+
+    isListNode(node: Node, type?: ListType): boolean;
+
+    isListItemNode(node: Node): boolean;
+
+    isListItemTextNode(node: Node): boolean;
+
+    createDefaultTextNode(props?: { children?: Descendant[] }): Element;
+
+    createListNode(type?: ListType, props?: { children?: Descendant[] }): Element;
+
+    createListItemNode(props?: { children?: Descendant[] }): Element;
+
+    createListItemTextNode(props?: { children?: Descendant[] }): Element;
+}
+
+export interface ListsEditor extends ListsSchema, BaseEditor {}
