@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
-import { EditorBlock, LoadingPlaceholderV2 } from '#components';
-import { ComponentStoryBookmark } from '#icons';
+import { EditorBlock, ElementPlaceholder, VStack, LoadingPlaceholderV2 } from '#components';
+import { ChickenNoSignalIllustration, ComponentStoryBookmark } from '#icons';
 import { useAsyncFn } from '#lib';
 
 import { EventsEditor } from '#modules/editor-v4-events';
@@ -52,25 +52,43 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
         }
     }, [error]);
 
+    const hasStory = Boolean(!loading && story);
+
     return (
         <EditorBlock
             {...attributes} // contains `ref`
             element={element}
-            overlay="always"
-            renderMenu={({ onClose }) =>
-                story && (
-                    <StoryBookmarkMenu
-                        onClose={onClose}
-                        element={element}
-                        story={story}
-                        withNewTabOption={params.withNewTabOption}
-                        onUpdate={(attrs) => updateImage(editor, attrs)}
-                        onRemove={remove}
-                    />
-                )
+            overlay={hasStory ? 'always' : false}
+            renderMenu={
+                hasStory
+                    ? ({ onClose }) =>
+                          story && (
+                              <StoryBookmarkMenu
+                                  onClose={onClose}
+                                  element={element}
+                                  story={story}
+                                  withNewTabOption={params.withNewTabOption}
+                                  onUpdate={(attrs) => updateImage(editor, attrs)}
+                                  onRemove={remove}
+                              />
+                          )
+                    : undefined
             }
             renderBlock={({ isSelected }) => (
                 <div>
+                    {!hasStory && (
+                        <ElementPlaceholder.Container onClick={remove}>
+                            <VStack spacing="2">
+                                <ElementPlaceholder.Illustration>
+                                    <ChickenNoSignalIllustration />
+                                </ElementPlaceholder.Illustration>
+                                <ElementPlaceholder.Title>
+                                    The selected Prezly Story is no longer available
+                                </ElementPlaceholder.Title>
+                            </VStack>
+                        </ElementPlaceholder.Container>
+                    )}
+
                     {story && (
                         <StoryBookmarkBlock
                             isSelected={isSelected}
