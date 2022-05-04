@@ -52,7 +52,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
         }
     }, [error]);
 
-    const hasStory = Boolean(!loading && story);
+    const hasStory = !loading && story;
 
     return (
         <EditorBlock
@@ -61,66 +61,59 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
             overlay={hasStory ? 'always' : false}
             renderMenu={
                 hasStory
-                    ? ({ onClose }) =>
-                          story && (
-                              <StoryBookmarkMenu
-                                  onClose={onClose}
-                                  element={element}
-                                  story={story}
-                                  withNewTabOption={params.withNewTabOption}
-                                  onUpdate={(attrs) => updateImage(editor, attrs)}
-                                  onRemove={remove}
-                              />
-                          )
+                    ? ({ onClose }) => (
+                          <StoryBookmarkMenu
+                              onClose={onClose}
+                              element={element}
+                              story={story}
+                              withNewTabOption={params.withNewTabOption}
+                              onUpdate={(attrs) => updateImage(editor, attrs)}
+                              onRemove={remove}
+                          />
+                      )
                     : undefined
             }
             renderBlock={({ isSelected }) => {
                 if (loading) {
                     return (
-                        <div>
-                            <LoadingPlaceholderV2.Placeholder
-                                className="editor-v4-coverage-element__loading-placeholder"
-                                estimatedDuration={ESTIMATED_LOADING_DURATION}
-                            >
-                                {({ percent }) => (
-                                    <>
-                                        <LoadingPlaceholderV2.Icon icon={ComponentStoryBookmark} />
-                                        <LoadingPlaceholderV2.Description percent={percent}>
-                                            Loading Story bookmark
-                                        </LoadingPlaceholderV2.Description>
-                                        <LoadingPlaceholderV2.ProgressBar percent={percent} />
-                                    </>
-                                )}
-                            </LoadingPlaceholderV2.Placeholder>
-                        </div>
+                        <LoadingPlaceholderV2.Placeholder
+                            className="editor-v4-coverage-element__loading-placeholder"
+                            estimatedDuration={ESTIMATED_LOADING_DURATION}
+                        >
+                            {({ percent }) => (
+                                <>
+                                    <LoadingPlaceholderV2.Icon icon={ComponentStoryBookmark} />
+                                    <LoadingPlaceholderV2.Description percent={percent}>
+                                        Loading Story bookmark
+                                    </LoadingPlaceholderV2.Description>
+                                    <LoadingPlaceholderV2.ProgressBar percent={percent} />
+                                </>
+                            )}
+                        </LoadingPlaceholderV2.Placeholder>
                     );
                 }
 
                 if (story) {
                     return (
-                        <div>
-                            <StoryBookmarkBlock
-                                isSelected={isSelected}
-                                element={element}
-                                story={story}
-                            />
-                        </div>
+                        <StoryBookmarkBlock
+                            isSelected={isSelected}
+                            element={element}
+                            story={story}
+                        />
                     );
                 }
 
                 return (
-                    <div>
-                        <ElementPlaceholder.Container onClick={remove}>
-                            <VStack spacing="2">
-                                <ElementPlaceholder.Illustration>
-                                    <ChickenNoSignalIllustration />
-                                </ElementPlaceholder.Illustration>
-                                <ElementPlaceholder.Title>
-                                    The selected Prezly Story is no longer available
-                                </ElementPlaceholder.Title>
-                            </VStack>
-                        </ElementPlaceholder.Container>
-                    </div>
+                    <ElementPlaceholder.Container onClick={remove}>
+                        <VStack spacing="2">
+                            <ElementPlaceholder.Illustration>
+                                <ChickenNoSignalIllustration />
+                            </ElementPlaceholder.Illustration>
+                            <ElementPlaceholder.Title>
+                                The selected Prezly Story is no longer available
+                            </ElementPlaceholder.Title>
+                        </VStack>
+                    </ElementPlaceholder.Container>
                 );
             }}
             void

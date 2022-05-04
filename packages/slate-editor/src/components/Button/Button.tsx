@@ -59,7 +59,7 @@ export function Button({
                 [styles['button--underlined']]: variant === 'underlined',
                 [styles['button--full-width']]: fullWidth,
                 [styles['button--round']]: round,
-                [styles['--disabled']]: disabled,
+                [styles['disabled']]: disabled,
             }),
             type: type !== 'link' ? type : undefined,
         },
