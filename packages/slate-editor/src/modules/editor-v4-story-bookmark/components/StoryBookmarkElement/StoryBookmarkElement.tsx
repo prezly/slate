@@ -74,9 +74,42 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                           )
                     : undefined
             }
-            renderBlock={({ isSelected }) => (
-                <div>
-                    {!hasStory && (
+            renderBlock={({ isSelected }) => {
+                if (loading) {
+                    return (
+                        <div>
+                            <LoadingPlaceholderV2.Placeholder
+                                className="editor-v4-coverage-element__loading-placeholder"
+                                estimatedDuration={ESTIMATED_LOADING_DURATION}
+                            >
+                                {({ percent }) => (
+                                    <>
+                                        <LoadingPlaceholderV2.Icon icon={ComponentStoryBookmark} />
+                                        <LoadingPlaceholderV2.Description percent={percent}>
+                                            Loading Story bookmark
+                                        </LoadingPlaceholderV2.Description>
+                                        <LoadingPlaceholderV2.ProgressBar percent={percent} />
+                                    </>
+                                )}
+                            </LoadingPlaceholderV2.Placeholder>
+                        </div>
+                    );
+                }
+
+                if (story) {
+                    return (
+                        <div>
+                            <StoryBookmarkBlock
+                                isSelected={isSelected}
+                                element={element}
+                                story={story}
+                            />
+                        </div>
+                    );
+                }
+
+                return (
+                    <div>
                         <ElementPlaceholder.Container onClick={remove}>
                             <VStack spacing="2">
                                 <ElementPlaceholder.Illustration>
@@ -87,34 +120,9 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                                 </ElementPlaceholder.Title>
                             </VStack>
                         </ElementPlaceholder.Container>
-                    )}
-
-                    {story && (
-                        <StoryBookmarkBlock
-                            isSelected={isSelected}
-                            element={element}
-                            story={story}
-                        />
-                    )}
-
-                    {loading && (
-                        <LoadingPlaceholderV2.Placeholder
-                            className="editor-v4-coverage-element__loading-placeholder"
-                            estimatedDuration={ESTIMATED_LOADING_DURATION}
-                        >
-                            {({ percent }) => (
-                                <>
-                                    <LoadingPlaceholderV2.Icon icon={ComponentStoryBookmark} />
-                                    <LoadingPlaceholderV2.Description percent={percent}>
-                                        Loading Story bookmark
-                                    </LoadingPlaceholderV2.Description>
-                                    <LoadingPlaceholderV2.ProgressBar percent={percent} />
-                                </>
-                            )}
-                        </LoadingPlaceholderV2.Placeholder>
-                    )}
-                </div>
-            )}
+                    </div>
+                );
+            }}
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}
