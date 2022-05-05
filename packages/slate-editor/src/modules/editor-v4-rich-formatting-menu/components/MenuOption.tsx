@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const MenuOption: FunctionComponent<Props> = ({ children, className, formatting }) => {
-    if (formatting === 'multiple') {
+    if (formatting === 'multiple' || formatting === 'block-quote') {
         return (
             <div className={classNames('editor-menu-dropdown__menu-option', className)}>
                 {children}
