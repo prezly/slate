@@ -17,7 +17,7 @@ export const DividerExtension = (): Extension => ({
                     return undefined;
                 }
 
-                return createDivider()
+                return createDivider();
             },
         },
     },
