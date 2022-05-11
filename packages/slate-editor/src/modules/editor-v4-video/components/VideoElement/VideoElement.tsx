@@ -9,7 +9,6 @@ import { PlayButton } from '#icons';
 import styles from './VideoElement.module.scss';
 
 interface Props extends RenderElementProps {
-    availableWidth: number;
     element: VideoNode;
 }
 
