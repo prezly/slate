@@ -1,6 +1,6 @@
 import type { Events } from '@prezly/events';
 import type { PressContact } from '@prezly/slate-types';
-import type { FunctionComponent, ReactNode, RefObject } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import React, { useMemo } from 'react';
 import type { Editor } from 'slate';
 import { useSlate } from 'slate-react';
@@ -13,7 +13,7 @@ import { EventsEditor } from '#modules/editor-v4-events';
 
 import type { SearchProps } from '../types';
 
-import './FloatingPressContactsMenu.scss';
+import styles from './FloatingPressContactsMenu.module.scss';
 
 interface Props {
     availableWidth: number;
@@ -30,7 +30,7 @@ function trackSearchUsed(editor: Editor) {
     return EventsEditor.dispatchEvent(editor, 'contact-dialog-search-used');
 }
 
-export const FloatingPressContactsMenu: FunctionComponent<Props> = ({
+export function FloatingPressContactsMenu({
     availableWidth,
     containerRef,
     newsroomSettingsUrl,
@@ -38,7 +38,7 @@ export const FloatingPressContactsMenu: FunctionComponent<Props> = ({
     onClose,
     onRootClose,
     onSubmit,
-}) => {
+}: Props) {
     const editor = useSlate();
 
     const trackSearchUsedOnce = useMemo(() => once(trackSearchUsed), []);
@@ -52,17 +52,13 @@ export const FloatingPressContactsMenu: FunctionComponent<Props> = ({
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className="editor-v4-floating-press-contacts-menu"
+            className={styles.menu}
             containerRef={containerRef}
             onClose={onRootClose}
             open
             show
         >
-            <FloatingContainer.Button
-                className="editor-v4-floating-press-contacts-menu__close-button"
-                onClick={onClose}
-                open
-            />
+            <FloatingContainer.Button className={styles.closeButton} onClick={onClose} open />
 
             {renderSearch({
                 newsroomSettingsUrl,
@@ -71,4 +67,4 @@ export const FloatingPressContactsMenu: FunctionComponent<Props> = ({
             })}
         </FloatingContainer.Container>
     );
-};
+}
