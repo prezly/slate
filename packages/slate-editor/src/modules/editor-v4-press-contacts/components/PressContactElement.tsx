@@ -68,6 +68,7 @@ function JobDescription(props: { className?: string; contact: PressContact }) {
 function SocialFields(props: { contact: PressContact }) {
     const { email, phone, mobile, twitter, facebook, website } = props.contact;
     return (
+        // TODO: Remove dependency on external CSS icons
         <ul className={styles.socialFields}>
             {email && <SocialField icon="icon-paper-plane">{email}</SocialField>}
             {phone && <SocialField icon="icon-phone">{phone}</SocialField>}
@@ -82,6 +83,7 @@ function SocialFields(props: { contact: PressContact }) {
 export function SocialField({ children, icon }: { children: ReactNode; icon: string }) {
     return (
         <li className={styles.socialField}>
+            {/* TODO: Remove dependency on external CSS icons */}
             <i className={classNames(styles.socialIcon, 'icon', icon)} />
             {children}
         </li>
