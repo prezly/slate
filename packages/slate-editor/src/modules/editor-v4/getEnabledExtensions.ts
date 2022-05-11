@@ -132,7 +132,6 @@ export function* getEnabledExtensions({
         yield EmbedExtension({
             ...withEmbeds,
             availableWidth,
-            containerRef,
         });
     }
 
