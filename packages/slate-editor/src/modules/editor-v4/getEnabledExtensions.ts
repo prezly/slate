@@ -75,7 +75,7 @@ export function* getEnabledExtensions({
     }
 
     if (withPressContacts) {
-        yield PressContactsExtension({ containerRef });
+        yield PressContactsExtension();
     }
 
     if (withPlaceholders) {
