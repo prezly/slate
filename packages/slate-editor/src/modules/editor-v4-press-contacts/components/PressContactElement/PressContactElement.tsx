@@ -7,7 +7,7 @@ import { User } from '#icons';
 
 import { JobDescription } from '../JobDescription';
 
-import './PressContactElement.scss';
+import styles from './PressContactElement.module.scss';
 import { SocialFields } from './SocialFields';
 
 interface Props extends RenderElementProps {
@@ -20,10 +20,10 @@ export function PressContactElement({ attributes, children, element }: Props) {
             {...attributes}
             element={element}
             renderBlock={() => (
-                <div className="editor-v4-press-contact-element__wrapper" contentEditable={false}>
+                <div className={styles.wrapper}>
                     {element.contact.avatar_url && (
                         <Avatar
-                            className="editor-v4-press-contact-element__avatar"
+                            className={styles.avatar}
                             name={element.contact.name}
                             size="large"
                             square
@@ -32,18 +32,16 @@ export function PressContactElement({ attributes, children, element }: Props) {
                     )}
 
                     {!element.contact.avatar_url && (
-                        <div className="editor-v4-press-contact-element__avatar">
-                            <User className="editor-v4-press-contact-element__placeholder" />
+                        <div className={styles.avatar}>
+                            <User className={styles.avatarPlaceholder} />
                         </div>
                     )}
 
-                    <div className="editor-v4-press-contact-element__content">
-                        <h3 className="editor-v4-press-contact-element__name">
-                            {element.contact.name}
-                        </h3>
+                    <div className={styles.content}>
+                        <h3 className={styles.name}>{element.contact.name}</h3>
 
                         <JobDescription
-                            className="editor-v4-press-contact-element__job-description"
+                            className={styles.jobDescription}
                             contact={element.contact}
                         />
 
