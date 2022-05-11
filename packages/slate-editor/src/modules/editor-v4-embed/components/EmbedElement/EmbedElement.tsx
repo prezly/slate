@@ -1,13 +1,16 @@
 import type { EmbedNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import { EditorBlock, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components';
+import {
+    EditorBlock,
+    HtmlInjection,
+    ImageWithLoadingPlaceholderV2,
+    LoadingPlaceholderV2,
+} from '#components';
 import { Embed } from '#icons';
-
-import { injectOembedMarkup } from '../../lib';
 
 import styles from './EmbedElement.module.scss';
 
@@ -25,18 +28,7 @@ export const EmbedElement: FunctionComponent<Props> = ({
     showAsScreenshot,
 }) => {
     const [isInvalid, setIsInvalid] = useState<boolean>(false);
-    const contentRef = useRef<HTMLDivElement>(null);
     const isUsingScreenshots = showAsScreenshot && element.oembed.type !== 'link';
-
-    useEffect(() => {
-        if (!isUsingScreenshots && contentRef.current) {
-            injectOembedMarkup({
-                html: element.oembed.html,
-                onError: () => setIsInvalid(true),
-                target: contentRef.current,
-            });
-        }
-    }, [element.oembed, isUsingScreenshots]);
 
     return (
         <EditorBlock
@@ -67,11 +59,12 @@ export const EmbedElement: FunctionComponent<Props> = ({
                                 There was a problem loading the requested URL.
                             </div>
                         ) : (
-                            <div
+                            <HtmlInjection
                                 className={classNames(styles.content, {
                                     [styles.video]: element.oembed.type === 'video',
                                 })}
-                                ref={contentRef}
+                                html={element.oembed.html ?? ''}
+                                onError={() => setIsInvalid(true)}
                             />
                         )}
                     </>
