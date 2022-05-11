@@ -1,6 +1,6 @@
 import type { VideoNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { FunctionComponent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import React, { useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
@@ -15,7 +15,7 @@ interface Props extends RenderElementProps {
     element: VideoNode;
 }
 
-export const VideoElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
+export function VideoElement({ attributes, children, element }: Props) {
     const isSelected = useSelected();
     const { url, oembed } = element;
     const [isHtmlEmbeddedWithErrors, setHtmlEmbeddedWithErrors] = useState<boolean>(false);
@@ -53,13 +53,10 @@ export const VideoElement: FunctionComponent<Props> = ({ attributes, children, e
             {children}
         </div>
     );
-};
+}
 
-const Thumbnail: FunctionComponent<{ src?: string; width?: number; height?: number }> = ({
-    src,
-    width,
-    height,
-}) => {
+function Thumbnail(props: { src?: string; width?: number; height?: number }) {
+    const { src, width, height } = props;
     if (!src) {
         return <ThumbnailPlaceholder />;
     }
@@ -74,24 +71,24 @@ const Thumbnail: FunctionComponent<{ src?: string; width?: number; height?: numb
             />
         </div>
     );
-};
+}
 
-const ThumbnailPlaceholder: FunctionComponent = () => (
-    <div className="editor-v4-video-element__thumbnail-placeholder" />
-);
+function ThumbnailPlaceholder() {
+    return <div className="editor-v4-video-element__thumbnail-placeholder" />;
+}
 
-const ExternalLink: FunctionComponent<{
-    href: string;
-    className?: string;
-    children?: ReactNode;
-}> = ({ href, children, className }) => (
-    <a className={className} href={href} rel="noopener noreferer" target="blank">
-        {children}
-    </a>
-);
+function ExternalLink(props: { href: string; className?: string; children?: ReactNode }) {
+    return (
+        <a className={props.className} href={props.href} rel="noopener noreferer" target="blank">
+            {props.children}
+        </a>
+    );
+}
 
-const PlayButtonOverlay: FunctionComponent<{ href: string }> = ({ href }) => (
-    <ExternalLink href={href} className="editor-v4-video-element__play-button-overlay">
-        <PlayButton className="editor-v4-video-element__play-button-icon" />
-    </ExternalLink>
-);
+function PlayButtonOverlay(props: { href: string }) {
+    return (
+        <ExternalLink href={props.href} className="editor-v4-video-element__play-button-overlay">
+            <PlayButton className="editor-v4-video-element__play-button-icon" />
+        </ExternalLink>
+    );
+}
