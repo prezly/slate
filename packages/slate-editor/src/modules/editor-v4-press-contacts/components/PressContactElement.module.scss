@@ -8,6 +8,10 @@ $avatar-size: 64px;
     grid-template-columns: $avatar-size 1fr;
     grid-column-gap: 24px;
     padding: $spacing-3;
+
+    .jobDescription {
+        margin-bottom: $spacing-2;
+    }
 }
 
 .name {
@@ -18,7 +22,6 @@ $avatar-size: 64px;
 
 .jobDescription {
     color: $legacy-color-type-secondary;
-    margin-bottom: $spacing-2;
 }
 
 .avatar {

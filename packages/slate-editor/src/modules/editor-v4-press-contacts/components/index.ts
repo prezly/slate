@@ -1,2 +1,2 @@
 export { FloatingPressContactsMenu } from './FloatingPressContactsMenu';
-export { PressContactElement } from './PressContactElement';
+export { JobDescription, PressContactElement } from './PressContactElement';

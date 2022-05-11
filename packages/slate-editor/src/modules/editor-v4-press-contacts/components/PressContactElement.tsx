@@ -40,10 +40,7 @@ export function PressContactElement({ attributes, children, element }: Props) {
                     <div className={styles.content}>
                         <h3 className={styles.name}>{element.contact.name}</h3>
 
-                        <JobDescription
-                            className={styles.jobDescription}
-                            contact={element.contact}
-                        />
+                        <JobDescription contact={element.contact} />
 
                         <SocialFields contact={element.contact} />
                     </div>
@@ -57,12 +54,12 @@ export function PressContactElement({ attributes, children, element }: Props) {
     );
 }
 
-function JobDescription(props: { className?: string; contact: PressContact }) {
+export function JobDescription(props: { className?: string; contact: PressContact }) {
     const { description, company } = props.contact;
     // If there is not text to show, render an empty <div> to keep height consistent.
     const text = [description, company].filter(Boolean).join(', ') || <>&nbsp;</>;
 
-    return <div className={props.className}>{text}</div>;
+    return <div className={classNames(styles.jobDescription, props.className)}>{text}</div>;
 }
 
 function SocialFields(props: { contact: PressContact }) {
