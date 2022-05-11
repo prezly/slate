@@ -1,11 +1,9 @@
 import type { VideoNode } from '@prezly/slate-types';
-import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import React, { useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
 
-import { HtmlInjection } from '#components';
+import { EditorBlock, HtmlInjection } from '#components';
 import { PlayButton } from '#icons';
 
 import './VideoElement.scss';
@@ -16,20 +14,14 @@ interface Props extends RenderElementProps {
 }
 
 export function VideoElement({ attributes, children, element }: Props) {
-    const isSelected = useSelected();
     const { url, oembed } = element;
     const [isHtmlEmbeddedWithErrors, setHtmlEmbeddedWithErrors] = useState<boolean>(false);
 
     return (
-        <div
+        <EditorBlock
             {...attributes}
-            className={classNames('editor-v4-video-element', {
-                'editor-v4-video-element--active': isSelected,
-            })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
-        >
-            <div contentEditable={false}>
+            element={element}
+            renderBlock={() => (
                 <div className="editor-v4-video-element__card">
                     {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
                         <HtmlInjection
@@ -47,11 +39,11 @@ export function VideoElement({ attributes, children, element }: Props) {
                         </>
                     )}
                 </div>
-            </div>
-
+            )}
+        >
             {/* We have to render children or Slate will fail when trying to find the node. */}
             {children}
-        </div>
+        </EditorBlock>
     );
 }
 
