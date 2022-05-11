@@ -3,14 +3,13 @@ import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
 
 import { EditorBlock, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components';
 import { Embed } from '#icons';
 
 import { injectOembedMarkup } from '../../lib';
 
-import './EmbedElement.scss';
+import styles from './EmbedElement.module.scss';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -25,7 +24,6 @@ export const EmbedElement: FunctionComponent<Props> = ({
     element,
     showAsScreenshot,
 }) => {
-    const isSelected = useSelected();
     const [isInvalid, setIsInvalid] = useState<boolean>(false);
     const contentRef = useRef<HTMLDivElement>(null);
     const isUsingScreenshots = showAsScreenshot && element.oembed.type !== 'link';
@@ -50,7 +48,7 @@ export const EmbedElement: FunctionComponent<Props> = ({
                 isUsingScreenshots && element.oembed.screenshot_url ? (
                     <ImageWithLoadingPlaceholderV2
                         availableWidth={availableWidth}
-                        className="editor-v4-embed-element__loading-placeholder"
+                        className={styles.loadingPlaceholder}
                         renderLoadingState={({ percent }) => (
                             <>
                                 <LoadingPlaceholderV2.Icon icon={Embed} />
@@ -64,17 +62,17 @@ export const EmbedElement: FunctionComponent<Props> = ({
                     />
                 ) : (
                     <>
-                        <div
-                            className={classNames('editor-v4-embed-element__overlay', {
-                                'editor-v4-embed-element__overlay--hidden': isSelected,
-                            })}
-                        />
                         {isInvalid ? (
-                            <div className="editor-v4-embed-element__error">
+                            <div className={styles.error}>
                                 There was a problem loading the requested URL.
                             </div>
                         ) : (
-                            <div className="editor-v4-embed-element__content" ref={contentRef} />
+                            <div
+                                className={classNames(styles.content, {
+                                    [styles.video]: element.oembed.type === 'video',
+                                })}
+                                ref={contentRef}
+                            />
                         )}
                     </>
                 )
