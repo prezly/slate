@@ -1,3 +1,5 @@
+import { Alignment } from '@prezly/slate-types';
+import classNames from 'classnames';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
 import * as Draggable from 'react-draggable';
@@ -7,13 +9,15 @@ import { useLatest, useSize } from '#lib';
 import type { Props as EditorBlockProps } from './EditorBlock';
 import { EditorBlock } from './EditorBlock';
 import styles from './EditorBlock.module.scss';
+import { mergeRefs } from './lib';
 import { ResizeButton } from './ResizeButton';
+import type { SizeString } from './Size';
 import { clamp, convert, Size, toPixels, toString, unit, Unit } from './Size';
 
 interface Props extends EditorBlockProps {
-    onResize: (width: string) => void;
+    onResize: (width: SizeString) => void;
     resizable?: boolean;
-    width: string;
+    width: SizeString;
     minWidth?: string;
     maxWidth?: string;
 }
@@ -23,6 +27,7 @@ const HUNDRED_PERCENT = Size(100, Unit.PERCENTS);
 
 export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, ref) => {
     const {
+        align,
         children,
         onResize,
         renderBlock,
@@ -38,6 +43,8 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     const [sizer, { width: containerWidth }] = useSize(Sizer);
     const [pixelWidth, setPixelWidth] = useState(0);
     const [isResizing, setResizing] = useState(false);
+    const isInvertedResizing = align === Alignment.RIGHT;
+    const [blockElement, setBlockElement] = useState<HTMLElement | null>(null);
 
     /**
      * Clamp given Size value within the provided minWidth/maxWidth constraints.
@@ -55,18 +62,20 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     );
 
     const handleResizeEvent: DraggableEventHandler = useCallback(
-        function (_event, data) {
-            const nextPixelWidth = Size(pixelWidth + data.deltaX, Unit.PIXELS);
-            setPixelWidth(
-                toPixels(
+        function (_event, { deltaX }) {
+            setPixelWidth(function (currentPixelWidth) {
+                const delta = isInvertedResizing ? -deltaX : deltaX;
+                const nextPixelWidth = Size(currentPixelWidth + delta, Unit.PIXELS);
+
+                return toPixels(
                     constrainSize(
                         clamp(nextPixelWidth, ZERO_PIXELS, HUNDRED_PERCENT, containerWidth),
                     ),
                     containerWidth,
-                ).value,
-            );
+                ).value;
+            });
         },
-        [containerWidth, pixelWidth, constrainSize],
+        [containerWidth, constrainSize, isInvertedResizing],
     );
     const handleResizingStarted = useCallback(() => setResizing(true), [setResizing]);
     const handleResizingFinished = useCallback(
@@ -92,18 +101,26 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     return (
         <EditorBlock
             {...attributes}
-            ref={ref}
+            align={align}
+            ref={mergeRefs(setBlockElement, ref)}
             renderBlock={({ isSelected }) => (
                 <>
                     {renderBlock({ isSelected })}
                     {resizable && isSelected && (
                         <Draggable.DraggableCore
+                            offsetParent={blockElement ?? undefined}
                             onDrag={handleResizeEvent}
                             onStart={handleResizingStarted}
                             onStop={handleResizingFinished}
                         >
                             <div>
-                                <ResizeButton className={styles.resizeButton} />
+                                <ResizeButton
+                                    className={classNames(
+                                        styles.resizeButton,
+                                        isInvertedResizing ? styles.left : styles.right,
+                                    )}
+                                    position={isInvertedResizing ? 'left' : 'right'}
+                                />
                             </div>
                         </Draggable.DraggableCore>
                     )}
