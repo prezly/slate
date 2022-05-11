@@ -5,8 +5,7 @@ import type { RenderElementProps } from 'slate-react';
 import { Avatar, EditorBlock } from '#components';
 import { User } from '#icons';
 
-import { JobDescription } from '../JobDescription';
-
+import { JobDescription } from './JobDescription';
 import styles from './PressContactElement.module.scss';
 import { SocialFields } from './SocialFields';
 

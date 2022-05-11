@@ -1,4 +1,4 @@
-export { JobDescription, FloatingPressContactsMenu } from './components';
+export { FloatingPressContactsMenu } from './components';
 export { PRESS_CONTACTS_EXTENSION_ID } from './constants';
 export { createPressContact, useFloatingPressContactsMenu } from './lib';
 export { PressContactsExtension } from './PressContactsExtension';

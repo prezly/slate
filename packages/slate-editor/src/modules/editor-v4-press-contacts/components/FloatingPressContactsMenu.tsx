@@ -11,7 +11,7 @@ import { FloatingContainer } from '#modules/editor-v4-components';
 import type { EditorEventMap } from '#modules/editor-v4-events';
 import { EventsEditor } from '#modules/editor-v4-events';
 
-import type { SearchProps } from '../../types';
+import type { SearchProps } from '../types';
 
 import './FloatingPressContactsMenu.scss';
 
