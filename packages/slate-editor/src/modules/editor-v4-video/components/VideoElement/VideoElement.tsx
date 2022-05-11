@@ -20,6 +20,7 @@ export function VideoElement({ attributes, children, element }: Props) {
         <EditorBlock
             {...attributes}
             element={element}
+            overlay="autohide"
             renderBlock={() => (
                 <div className={styles.card}>
                     {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
