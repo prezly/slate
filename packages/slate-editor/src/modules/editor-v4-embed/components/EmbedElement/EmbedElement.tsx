@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
-import { ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components';
+import { EditorBlock, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components';
 import { Embed } from '#icons';
 
 import { injectOembedMarkup } from '../../lib';
@@ -41,18 +41,13 @@ export const EmbedElement: FunctionComponent<Props> = ({
     }, [element.oembed, isUsingScreenshots]);
 
     return (
-        <div
+        <EditorBlock
             {...attributes}
-            className={classNames('editor-v4-embed-element', {
-                'editor-v4-embed-element--active': isSelected,
-                'editor-v4-embed-element--invalid': isInvalid,
-                'editor-v4-embed-element--video': element.oembed.type === 'video',
-            })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
-        >
-            <div contentEditable={false}>
-                {isUsingScreenshots && element.oembed.screenshot_url ? (
+            element={element}
+            hasError={isInvalid}
+            overlay="autohide"
+            renderBlock={() =>
+                isUsingScreenshots && element.oembed.screenshot_url ? (
                     <ImageWithLoadingPlaceholderV2
                         availableWidth={availableWidth}
                         className="editor-v4-embed-element__loading-placeholder"
@@ -82,11 +77,12 @@ export const EmbedElement: FunctionComponent<Props> = ({
                             <div className="editor-v4-embed-element__content" ref={contentRef} />
                         )}
                     </>
-                )}
-            </div>
-
+                )
+            }
+            void
+        >
             {/* We have to render children or Slate will fail when trying to find the node. */}
             {children}
-        </div>
+        </EditorBlock>
     );
 };

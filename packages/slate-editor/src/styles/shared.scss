@@ -44,6 +44,11 @@ $editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index 
     border-radius: 1px;
 }
 
+@mixin editor-v4-block-error {
+    color: $legacy-color-status-error;
+    outline: solid 6px $legacy-color-status-error;
+}
+
 /**
  * Do not use this mixin outside of this file
  */

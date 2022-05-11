@@ -8,7 +8,7 @@ import type { StoryBookmarkExtensionParameters } from '#modules/editor-v4-story-
 
 import type { AutoformatParameters } from '../../editor-v4-autoformat/types';
 import type { CoverageExtensionParameters } from '../../editor-v4-coverage';
-import type { EmbedExtensionParameters } from '../../editor-v4-embed/types';
+import type { EmbedExtensionConfiguration } from '../../editor-v4-embed/types';
 import type { EditorEventMap } from '../../editor-v4-events';
 import type { FileAttachmentExtensionParameters } from '../../editor-v4-file-attachment';
 import type { Settings as FloatingAddMenuExtensionParameters } from '../../editor-v4-floating-add-menu';
@@ -33,7 +33,7 @@ export interface EditorV4ExtensionsProps {
     availableWidth: number;
     withAttachments?: FileAttachmentExtensionParameters;
     withCoverage?: CoverageExtensionParameters;
-    withEmbeds?: EmbedExtensionParameters;
+    withEmbeds?: EmbedExtensionConfiguration;
     withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
     withGalleries?: GalleriesExtensionParameters;
     withImages?: ImageExtensionParameters;
