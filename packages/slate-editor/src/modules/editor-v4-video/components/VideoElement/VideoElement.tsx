@@ -22,7 +22,7 @@ export function VideoElement({ attributes, children, element }: Props) {
             element={element}
             overlay="autohide"
             renderBlock={() => (
-                <div className={styles.card}>
+                <div className={styles.container}>
                     {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
                         <HtmlInjection
                             html={oembed.html}
