@@ -6,7 +6,7 @@ import type { RenderElementProps } from 'slate-react';
 import { EditorBlock, HtmlInjection } from '#components';
 import { PlayButton } from '#icons';
 
-import './VideoElement.scss';
+import styles from './VideoElement.module.scss';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -22,7 +22,7 @@ export function VideoElement({ attributes, children, element }: Props) {
             {...attributes}
             element={element}
             renderBlock={() => (
-                <div className="editor-v4-video-element__card">
+                <div className={styles.card}>
                     {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
                         <HtmlInjection
                             html={oembed.html}
@@ -55,18 +55,14 @@ function Thumbnail(props: { src?: string; width?: number; height?: number }) {
 
     const paddingBottom = width && height ? `${Math.round((100 * height) / width)}%` : undefined;
     return (
-        <div className="editor-v4-video-element__thumbnail" style={{ paddingBottom }}>
-            <img
-                className="editor-v4-video-element__thumbnail-image"
-                src={src}
-                alt="Video thumbnail"
-            />
+        <div className={styles.thumbnail} style={{ paddingBottom }}>
+            <img className={styles.thumbnailImage} src={src} alt="Video thumbnail" />
         </div>
     );
 }
 
 function ThumbnailPlaceholder() {
-    return <div className="editor-v4-video-element__thumbnail-placeholder" />;
+    return <div className={styles.thumbnailPlaceholder} />;
 }
 
 function ExternalLink(props: { href: string; className?: string; children?: ReactNode }) {
@@ -79,8 +75,8 @@ function ExternalLink(props: { href: string; className?: string; children?: Reac
 
 function PlayButtonOverlay(props: { href: string }) {
     return (
-        <ExternalLink href={props.href} className="editor-v4-video-element__play-button-overlay">
-            <PlayButton className="editor-v4-video-element__play-button-icon" />
+        <ExternalLink href={props.href} className={styles.playButtonOverlay}>
+            <PlayButton className={styles.playButtonIcon} />
         </ExternalLink>
     );
 }

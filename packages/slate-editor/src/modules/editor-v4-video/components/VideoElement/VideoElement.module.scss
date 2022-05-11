@@ -1,0 +1,49 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.thumbnail {
+    height: 0;
+    position: relative;
+}
+
+.thumbnailImage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: cover;
+    width: 100%;
+}
+
+.thumbnailPlaceholder {
+    max-width: 100%;
+    height: 0;
+    background: $grey-500;
+    padding-bottom: 56%; // 16:9
+    opacity: 0.24;
+}
+
+.playButtonOverlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playButtonIcon {
+    width: 80px;
+    height: 80px;
+    color: $white;
+    fill: rgba($black, 0.4);
+    border: 6px solid rgba($white, 0.4);
+    border-radius: 80px;
+
+    .card:hover & {
+        fill: $indigo-500;
+    }
+}
