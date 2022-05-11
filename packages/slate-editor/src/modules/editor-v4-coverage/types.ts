@@ -10,10 +10,6 @@ export interface CoverageExtensionParameters {
     renderSearch: (searchProps: SearchProps) => ReactNode;
 }
 
-export interface CoverageParameters extends CoverageExtensionParameters {
-    containerRef: RefObject<HTMLElement>;
-}
-
 export interface SearchProps {
     onChange: (query: string) => void;
     onSubmit: (coverage: Coverage) => void;
