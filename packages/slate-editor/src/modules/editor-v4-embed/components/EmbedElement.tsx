@@ -1,6 +1,5 @@
 import type { EmbedNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
 import React, { useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 
@@ -20,13 +19,13 @@ interface Props extends RenderElementProps {
     showAsScreenshot: boolean;
 }
 
-export const EmbedElement: FunctionComponent<Props> = ({
+export function EmbedElement({
     availableWidth,
     attributes,
     children,
     element,
     showAsScreenshot,
-}) => {
+}: Props) {
     const [isInvalid, setIsInvalid] = useState<boolean>(false);
     const isUsingScreenshots = showAsScreenshot && element.oembed.type !== 'link';
 
@@ -76,4 +75,4 @@ export const EmbedElement: FunctionComponent<Props> = ({
             {children}
         </EditorBlock>
     );
-};
+}
