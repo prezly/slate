@@ -1,0 +1,9 @@
+@import "styles/variables";
+
+.icon {
+    fill: white;
+
+    &.active {
+        fill: $yellow-300;
+    }
+}
