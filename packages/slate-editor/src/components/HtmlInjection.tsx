@@ -1,4 +1,3 @@
-import type { FunctionComponent } from 'react';
 import React, { useEffect, useRef } from 'react';
 
 import { useLatest } from '#lib';
@@ -9,7 +8,7 @@ interface Props {
     onError: () => void;
 }
 
-export const HtmlInjection: FunctionComponent<Props> = (props) => {
+export function HtmlInjection(props: Props) {
     const { html, className } = props;
     const freshProps = useLatest<Props>(props);
     const ref = useRef<HTMLDivElement>(null);
@@ -25,7 +24,7 @@ export const HtmlInjection: FunctionComponent<Props> = (props) => {
     }, [html]);
 
     return <div className={className} ref={ref} />;
-};
+}
 
 export function injectOembedMarkup({
     html,
