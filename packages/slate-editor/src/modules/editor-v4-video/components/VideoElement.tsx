@@ -40,6 +40,7 @@ export function VideoElement({ attributes, children, element }: Props) {
                     )}
                 </div>
             )}
+            void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}
             {children}
