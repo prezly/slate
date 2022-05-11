@@ -10,7 +10,7 @@ import { useAsyncFn } from '#lib';
 import type { ApiError } from '#modules/api';
 
 import { CoverageCard } from './CoverageCard';
-import './CoverageElement.scss';
+import styles from './CoverageElement.module.scss';
 import { FetchingError } from './FetchingError';
 
 // GET /v2/coverage/:id endpoint usually responds in 300-1000 ms
@@ -50,7 +50,7 @@ export function CoverageElement({
                 <>
                     {error && (
                         <FetchingError
-                            className="editor-v4-coverage-element__error"
+                            className={styles.error}
                             error={error as ApiError}
                             onRetry={loadCoverage}
                         />
@@ -58,7 +58,7 @@ export function CoverageElement({
 
                     {loading && (
                         <LoadingPlaceholderV2.Placeholder
-                            className="editor-v4-coverage-element__loading-placeholder"
+                            className={styles.loadingPlaceholder}
                             estimatedDuration={ESTIMATED_LOADING_DURATION}
                         >
                             {({ percent }) => (
