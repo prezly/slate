@@ -1,4 +1,4 @@
-import type {UploadedFile} from "@prezly/uploads";
+import type { UploadedFile } from '@prezly/uploads';
 
 import type { ElementNode } from './ElementNode';
 import { isElementNode } from './ElementNode';
