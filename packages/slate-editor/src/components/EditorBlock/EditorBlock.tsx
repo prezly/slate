@@ -21,6 +21,7 @@ type Layout = 'contained' | 'expanded' | 'full-width';
 
 export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
     align?: Alignment;
+    border?: boolean;
     /**
      * Children nodes provided by Slate, required for Slate internals.
      */
@@ -49,6 +50,7 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     {
         align = Alignment.CENTER,
+        border = false,
         children,
         className,
         element,
@@ -112,9 +114,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         >
             <div
                 className={classNames(styles.frame, {
-                    [styles.rounded]: rounded,
-                    [styles.selected]: isSelected,
-                    [styles.hasError]: hasError,
                     [styles.alignLeft]: align === Alignment.LEFT,
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
@@ -136,7 +135,16 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     </Menu>
                 )}
                 <Overlay className={styles.overlay} selected={isSelected} mode={overlay} />
-                {renderBlock({ isSelected })}
+                <div
+                    className={classNames(styles.content, {
+                        [styles.selected]: isSelected,
+                        [styles.hasError]: hasError,
+                        [styles.border]: border,
+                        [styles.rounded]: rounded,
+                    })}
+                >
+                    {renderBlock({ isSelected })}
+                </div>
             </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}

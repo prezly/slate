@@ -55,6 +55,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
     return (
         <EditorBlock
             {...attributes} // contains `ref`
+            border
             element={element}
             overlay="always"
             renderMenu={({ onClose }) =>
@@ -69,15 +70,9 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                     />
                 )
             }
-            renderBlock={({ isSelected }) => (
+            renderBlock={() => (
                 <div>
-                    {story && (
-                        <StoryBookmarkBlock
-                            isSelected={isSelected}
-                            element={element}
-                            story={story}
-                        />
-                    )}
+                    {story && <StoryBookmarkBlock element={element} story={story} />}
 
                     {loading && (
                         <LoadingPlaceholderV2.Placeholder

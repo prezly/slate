@@ -18,6 +18,7 @@ export function PressContactElement({ attributes, children, element }: Props) {
     return (
         <EditorBlock
             {...attributes}
+            border
             element={element}
             renderBlock={() => (
                 <div className={styles.wrapper}>

@@ -4,11 +4,13 @@
 .container {
     color: $grey-700;
     display: flex;
-    border: 1px solid $grey-200;
-    border-radius: $border-radius-base;
     justify-content: stretch;
     overflow: hidden;
 
+    &.border {
+        border: 1px solid $grey-200;
+        border-radius: $border-radius-base;
+    }
     &.vertical {
         flex-flow: column;
     }

@@ -26,6 +26,7 @@ export function FileAttachmentElement({
     return (
         <EditorBlock
             {...attributes}
+            border
             element={element}
             renderBlock={() => <FileAttachment styled={styled} element={element} />}
             renderMenu={({ onClose }) => (

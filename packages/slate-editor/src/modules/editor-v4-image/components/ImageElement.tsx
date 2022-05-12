@@ -124,6 +124,7 @@ export function ImageElement({
                 />
             )}
             resizable={isResizable}
+            rounded
             void={isVoid}
             width={isResizable ? element.width : '100%'}
             minWidth="100px"
