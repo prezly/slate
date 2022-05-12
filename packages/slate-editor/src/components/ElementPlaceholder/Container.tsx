@@ -8,7 +8,7 @@ import { Button } from '../Button';
 import styles from './ElementPlaceholder.module.scss';
 
 interface Props {
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 export function Container(props: PropsWithChildren<Props>) {

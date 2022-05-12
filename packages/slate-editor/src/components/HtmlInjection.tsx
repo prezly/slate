@@ -1,9 +1,6 @@
-import type { FunctionComponent } from 'react';
 import React, { useEffect, useRef } from 'react';
 
 import { useLatest } from '#lib';
-
-import { injectOembedMarkup } from '#modules/editor-v4-embed/lib';
 
 interface Props {
     html: string;
@@ -11,7 +8,7 @@ interface Props {
     onError: () => void;
 }
 
-export const HtmlInjection: FunctionComponent<Props> = (props) => {
+export function HtmlInjection(props: Props) {
     const { html, className } = props;
     const freshProps = useLatest<Props>(props);
     const ref = useRef<HTMLDivElement>(null);
@@ -27,4 +24,39 @@ export const HtmlInjection: FunctionComponent<Props> = (props) => {
     }, [html]);
 
     return <div className={className} ref={ref} />;
-};
+}
+
+export function injectOembedMarkup({
+    html,
+    onError,
+    target,
+}: {
+    html: string | undefined;
+    onError: () => void;
+    target: HTMLElement;
+}): void {
+    const container = document.createElement('div');
+    container.innerHTML = html || '';
+    const embedScripts = Array.from(container.getElementsByTagName('script'));
+
+    embedScripts.forEach((embedScript) => {
+        const script = document.createElement('script');
+        copyScriptAttributes(embedScript, script);
+        script.addEventListener('error', onError);
+
+        document.body.appendChild(script);
+        // Remove the original script so it's not loaded twice.
+        embedScript.remove();
+    });
+
+    // eslint-disable-next-line no-param-reassign
+    target.innerHTML = container.innerHTML;
+}
+
+function copyScriptAttributes(source: HTMLScriptElement, target: HTMLScriptElement) {
+    Array.from(source.attributes).forEach(({ name, value }) => {
+        target.setAttribute(name, value);
+    });
+    // eslint-disable-next-line no-param-reassign
+    target.innerText = source.innerText;
+}

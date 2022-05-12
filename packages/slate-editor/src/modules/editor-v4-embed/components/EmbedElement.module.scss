@@ -1,0 +1,22 @@
+@import "styles/variables";
+
+.loadingPlaceholder {
+    margin-bottom: $spacing-3;
+}
+
+.error {
+    padding: $spacing-2 $spacing-1;
+    text-align: center;
+}
+
+.content {
+    &.video {
+        > div:only-child {
+            margin: 0 auto;
+        }
+    }
+
+    :global(.iframely-embed) {
+        margin: 0 auto;
+    }
+}

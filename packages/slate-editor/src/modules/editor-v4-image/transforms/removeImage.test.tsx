@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { ImageLayout } from '@prezly/slate-types';
-import type { UploadcareStoragePayload } from '@prezly/uploadcare';
+import type { UploadedImage } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
@@ -11,7 +11,7 @@ import { removeImage } from './removeImage';
 
 const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 
-const createImageFile = (): UploadcareStoragePayload => ({
+const createImageFile = (): UploadedImage => ({
     effects: [],
     filename: 'Screenshot (46).png',
     mime_type: 'image/png',

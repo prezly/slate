@@ -32,6 +32,10 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
      * Useful for extremely thin blocks like Divider.
      */
     extendedHitArea?: boolean;
+    /**
+     * Mark the block having an error.
+     */
+    hasError?: boolean;
     layout?: Layout;
     overlay?: OverlayMode;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
@@ -48,6 +52,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         className,
         element,
         extendedHitArea,
+        hasError,
         layout = 'contained',
         overlay = false,
         renderBlock,
@@ -106,6 +111,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             <div
                 className={classNames(styles.card, {
                     [styles.selected]: isSelected,
+                    [styles.error]: hasError,
                     [styles.alignLeft]: align === Alignment.LEFT,
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,

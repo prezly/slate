@@ -23,11 +23,16 @@
 }
 
 .card {
+    max-width: 100%;
     white-space: normal;
     position: relative;
 
     &.selected {
         @include editor-v4-block-active;
+    }
+
+    &.error {
+        @include editor-v4-block-error;
     }
 
     &.alignLeft {

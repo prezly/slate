@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
-import { EditorBlock, ElementPlaceholder, VStack, LoadingPlaceholderV2 } from '#components';
+import { EditorBlock, ElementPlaceholder, LoadingPlaceholderV2 } from '#components';
 import { ChickenNoSignalIllustration, ComponentStoryBookmark } from '#icons';
 import { useAsyncFn } from '#lib';
 
@@ -104,16 +104,11 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                 }
 
                 return (
-                    <ElementPlaceholder.Container onClick={remove}>
-                        <VStack spacing="2">
-                            <ElementPlaceholder.Illustration>
-                                <ChickenNoSignalIllustration />
-                            </ElementPlaceholder.Illustration>
-                            <ElementPlaceholder.Title>
-                                The selected Prezly Story is no longer available
-                            </ElementPlaceholder.Title>
-                        </VStack>
-                    </ElementPlaceholder.Container>
+                    <ElementPlaceholder
+                        onClick={remove}
+                        illustration={<ChickenNoSignalIllustration />}
+                        title="The selected Prezly Story is no longer available"
+                    />
                 );
             }}
             void

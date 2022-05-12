@@ -96,7 +96,7 @@
         color: #4b5563;
         padding: $spacing-1 - $border-size;
 
-        &:not(&--disabled, &:disabled) {
+        &:not(&.disabled, &:disabled) {
             &:hover,
             &:focus-visible {
                 background: rgba($grey-200, 0.8);

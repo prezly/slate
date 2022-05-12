@@ -36,6 +36,7 @@ export const ImageExtension = ({
     onRemove = noop,
     onReplace = noop,
     withAlignmentOptions = false,
+    withSizeOptions = false,
     withLayoutOptions = false,
     withNewTabOption = true,
 }: ImageParameters): Extension => ({
@@ -129,6 +130,7 @@ export const ImageExtension = ({
                     onRemove={onRemove}
                     onReplace={onReplace}
                     withAlignmentOptions={withAlignmentOptions}
+                    withSizeOptions={withSizeOptions}
                     withLayoutOptions={withLayoutOptions}
                     withNewTabOption={withNewTabOption}
                 >
