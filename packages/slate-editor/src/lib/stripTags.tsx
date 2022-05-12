@@ -2,7 +2,7 @@ import striptags from 'striptags';
 
 export function stripTags(text?: string) {
     if (!text) {
-        return null;
+        return '';
     }
 
     return striptags(text);
