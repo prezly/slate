@@ -1,14 +1,16 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import type { QuoteNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes } from 'react';
 import React from 'react';
+import { Node } from 'slate';
 import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 
 import { ElementType } from '../../types';
 
-import './BlockQuoteElement.scss';
-import { Node } from 'slate';
+import styles from './BlockQuoteElement.module.scss';
 
 interface Props extends HTMLAttributes<HTMLQuoteElement> {
     attributes?: RenderElementProps['attributes'];
@@ -22,34 +24,34 @@ export const BlockQuoteElement: FunctionComponent<Props> = ({
     element,
     ...props
 }) => {
+    const editor = useSlateStatic();
     const align = element.align ?? Alignment.LEFT;
-    const isEmpty = Node.string(element).length === 0;
+    const isEmpty = !EditorCommands.hasVoidElements(editor, element) && Node.string(element) === '';
 
     return (
-        <blockquote
-            {...attributes}
-            {...props}
-            className={classNames('editor-v4-block-quote-element', className, {
-                ['editor-v4-block-quote-element--alignLeft']: align === Alignment.LEFT,
-                ['editor-v4-block-quote-element--alignCenter']: align === Alignment.CENTER,
-                ['editor-v4-block-quote-element--alignRight']: align === Alignment.RIGHT,
-            })}
-            data-slate-type={ElementType.BLOCK_QUOTE}
-            data-slate-value={JSON.stringify(element)}
-        >
-            <p
-                data-placeholder={isEmpty ? 'Quote' : undefined}
-                className={classNames('editor-v4-block-quote-element__paragraph', className, {
-                    ['editor-v4-block-quote-element__paragraph--alignLeft']:
-                        align === Alignment.LEFT,
-                    ['editor-v4-block-quote-element__paragraph--alignCenter']:
-                        align === Alignment.CENTER,
-                    ['editor-v4-block-quote-element__paragraph--alignRight']:
-                        align === Alignment.RIGHT,
+        <div>
+            <blockquote
+                {...attributes}
+                {...props}
+                className={classNames(className, styles.blockQuote, {
+                    [styles.alignLeft]: align === Alignment.LEFT,
+                    [styles.alignCenter]: align === Alignment.CENTER,
+                    [styles.alignRight]: align === Alignment.RIGHT,
                 })}
+                data-slate-type={ElementType.BLOCK_QUOTE}
+                data-slate-value={JSON.stringify(element)}
             >
-                {children}
-            </p>
-        </blockquote>
+                <p
+                    data-placeholder={isEmpty ? 'Quote' : undefined}
+                    className={classNames(styles.paragraph, className, {
+                        [styles.alignLeft]: align === Alignment.LEFT,
+                        [styles.alignCenter]: align === Alignment.CENTER,
+                        [styles.alignRight]: align === Alignment.RIGHT,
+                    })}
+                >
+                    {children}
+                </p>
+            </blockquote>
+        </div>
     );
 };

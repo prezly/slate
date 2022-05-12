@@ -1,52 +1,53 @@
 @import "styles/variables";
 
-.editor-v4-block-quote-element {
+.blockQuote {
     padding: $spacing-3;
     background-color: $grey-50;
     max-width: fit-content;
     position: relative;
+    border-left: none;
 
-    &__paragraph {
-        padding: 0 $spacing-2;
+    &.paragraph {
+        padding-left: $spacing-2;
         background-color: $grey-50;
         margin: 0;
         line-height: 160%;
         font-weight: 500;
-        min-width: 3em;
+        min-width: 5em;
 
-        &--alignLeft {
+        &.alignLeft {
             border-left: 2px solid $grey-400;
             text-align: left;
         }
 
-        &--alignCenter {
+        &.alignCenter {
             border-left: 2px solid $grey-400;
             text-align: center;
         }
 
-        &--alignRight {
+        &.alignRight {
             border-right: 2px solid $grey-400;
             text-align: right;
         }
     }
 
-    &__paragraph::before {
+    &.paragraph::before {
         content: attr(data-placeholder);
         color: $grey-400;
         position: absolute;
     }
 
-    &--alignLeft {
+    &.alignLeft {
         margin-left: 0 !important;
         margin-right: auto !important;
     }
 
-    &--alignCenter {
+    &.alignCenter {
         margin-left: auto !important;
         margin-right: auto !important;
     }
 
-    &--alignRight {
+    &.alignRight {
         margin-left: auto !important;
         margin-right: 0 !important;
     }

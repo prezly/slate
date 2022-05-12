@@ -165,7 +165,17 @@
         }
 
         &--blockquote {
-            padding: 0 $spacing-1;
+            padding: 0;
+            background: unset;
+        }
+
+        &--blockquote > p {
+            padding-left: $spacing-half;
+            font-style: italic;
+        }
+
+        &--blockquote > p::before {
+            content: unset;
         }
     }
 
