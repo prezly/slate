@@ -2,14 +2,12 @@ import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { isVideoNode, VIDEO_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
-import { VideoElement, VideoMenu } from './components';
+import { VideoElement } from './components';
 import { VIDEO_EXTENSION_ID } from './constants';
 import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib';
-import type { VideoParameters } from './types';
 
-export function VideoExtension({ availableWidth, containerRef }: VideoParameters): Extension {
+export function VideoExtension(): Extension {
     return {
         deserialize: {
             element: {
@@ -18,24 +16,12 @@ export function VideoExtension({ availableWidth, containerRef }: VideoParameters
         },
         id: VIDEO_EXTENSION_ID,
         normalizers: [normalizeRedundantVideoAttributes],
-        renderElement: ({ attributes, children, element }: RenderElementProps) => {
+        renderElement: ({ attributes, children, element }) => {
             if (isVideoNode(element)) {
                 return (
-                    <>
-                        {attributes.ref.current && (
-                            <VideoMenu
-                                containerRef={containerRef}
-                                element={attributes.ref.current}
-                            />
-                        )}
-                        <VideoElement
-                            attributes={attributes}
-                            availableWidth={availableWidth}
-                            element={element}
-                        >
-                            {children}
-                        </VideoElement>
-                    </>
+                    <VideoElement attributes={attributes} element={element}>
+                        {children}
+                    </VideoElement>
                 );
             }
 

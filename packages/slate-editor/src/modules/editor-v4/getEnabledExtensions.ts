@@ -137,11 +137,7 @@ export function* getEnabledExtensions({
     }
 
     if (withVideos) {
-        yield VideoExtension({
-            ...withVideos,
-            availableWidth,
-            containerRef,
-        });
+        yield VideoExtension();
     }
 
     if (withWebBookmarks) {
