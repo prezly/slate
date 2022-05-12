@@ -11,11 +11,11 @@ import styles from './ElementPlaceholder.module.scss';
 interface Props {
     title: string;
     illustration: ReactNode;
-    onClick?: () => void;
+    onDismiss?: () => void;
     subtitle?: string;
 }
 
-export function ElementPlaceholder({ onClick, title, subtitle, illustration }: Props) {
+export function ElementPlaceholder({ onDismiss, title, subtitle, illustration }: Props) {
     return (
         <div className={styles.container}>
             <Button
@@ -23,7 +23,7 @@ export function ElementPlaceholder({ onClick, title, subtitle, illustration }: P
                 variant="secondary"
                 icon={Cross}
                 round
-                onClick={onClick}
+                onClick={onDismiss}
             />
             <VStack spacing="2">
                 <div className={styles.illustration}>{illustration}</div>

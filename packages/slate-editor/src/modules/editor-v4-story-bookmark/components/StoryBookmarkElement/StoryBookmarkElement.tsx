@@ -100,9 +100,9 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
 
                 return (
                     <ElementPlaceholder
-                        onClick={remove}
                         illustration={<ChickenNoSignalIllustration />}
                         title="The selected Prezly Story is no longer available"
+                        onDismiss={remove}
                     />
                 );
             }}
