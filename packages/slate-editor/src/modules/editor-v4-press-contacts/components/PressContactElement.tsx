@@ -18,6 +18,7 @@ export function PressContactElement({ attributes, children, element }: Props) {
     return (
         <EditorBlock
             {...attributes}
+            border
             element={element}
             renderBlock={() => (
                 <div className={styles.wrapper}>
@@ -46,6 +47,7 @@ export function PressContactElement({ attributes, children, element }: Props) {
                     </div>
                 </div>
             )}
+            rounded
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}

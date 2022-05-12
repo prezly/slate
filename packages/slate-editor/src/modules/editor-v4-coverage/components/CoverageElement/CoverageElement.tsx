@@ -45,7 +45,9 @@ export function CoverageElement({
     return (
         <EditorBlock
             {...attributes}
+            border
             element={element}
+            hasError={Boolean(error)}
             renderBlock={() => (
                 <>
                     {error && (
@@ -76,6 +78,7 @@ export function CoverageElement({
                     {coverage && <CoverageCard coverage={coverage} dateFormat={dateFormat} />}
                 </>
             )}
+            rounded
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}

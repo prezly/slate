@@ -57,6 +57,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
     return (
         <EditorBlock
             {...attributes} // contains `ref`
+            border
             element={element}
             overlay={hasStory ? 'always' : false}
             renderMenu={
@@ -73,7 +74,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                       )
                     : undefined
             }
-            renderBlock={({ isSelected }) => {
+            renderBlock={() => {
                 if (loading) {
                     return (
                         <LoadingPlaceholderV2.Placeholder
@@ -94,13 +95,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                 }
 
                 if (story) {
-                    return (
-                        <StoryBookmarkBlock
-                            isSelected={isSelected}
-                            element={element}
-                            story={story}
-                        />
-                    );
+                    return <StoryBookmarkBlock element={element} story={story} />;
                 }
 
                 return (
