@@ -1,5 +1,5 @@
 import type { Coverage } from '@prezly/sdk';
-import type { ReactNode, RefObject } from 'react';
+import type { ReactNode } from 'react';
 
 export interface CoverageExtensionParameters {
     /**
@@ -8,10 +8,6 @@ export interface CoverageExtensionParameters {
     dateFormat: string;
     fetchCoverage: (id: Coverage['id']) => Promise<Coverage>;
     renderSearch: (searchProps: SearchProps) => ReactNode;
-}
-
-export interface CoverageParameters extends CoverageExtensionParameters {
-    containerRef: RefObject<HTMLElement>;
 }
 
 export interface SearchProps {

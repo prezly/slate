@@ -104,7 +104,7 @@ export function* getEnabledExtensions({
     }
 
     if (withCoverage) {
-        yield CoverageExtension({ ...withCoverage, containerRef });
+        yield CoverageExtension(withCoverage);
     }
 
     if (withGalleries) {
