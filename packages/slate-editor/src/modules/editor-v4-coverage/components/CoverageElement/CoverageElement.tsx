@@ -84,21 +84,23 @@ export function CoverageElement({
                 if (error && isNotFoundError(error)) {
                     return (
                         <ElementPlaceholder
-                            onDismiss={remove}
-                            illustration={<ChickenNoSignalIllustration />}
                             title="The selected coverage no longer exists and will not be displayed"
+                            illustration={<ChickenNoSignalIllustration />}
+                            onDismiss={remove}
+                            onDismissLabel="Remove this coverage"
                         />
                     );
                 }
 
                 return (
                     <ElementPlaceholder
+                        title="We have encountered a problem when loading your coverage"
+                        subtitle="Click to try again"
+                        illustration={<ChickenNoSignalIllustration />}
                         onClick={loadCoverage}
                         onClickLabel="Click to try again"
                         onDismiss={remove}
-                        illustration={<ChickenNoSignalIllustration />}
-                        title="We have encountered a problem when loading your coverage"
-                        subtitle="Click to try again"
+                        onDismissLabel="Remove this coverage"
                     />
                 );
             }}

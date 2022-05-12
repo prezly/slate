@@ -103,6 +103,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                         illustration={<ChickenNoSignalIllustration />}
                         title="The selected Prezly Story is no longer available"
                         onDismiss={remove}
+                        onDismissLabel="Remove this Story Bookmark"
                     />
                 );
             }}

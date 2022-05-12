@@ -14,6 +14,7 @@ interface Props {
     onClick?: () => void;
     onClickLabel?: string;
     onDismiss?: () => void;
+    onDismissLabel?: string;
     subtitle?: string;
 }
 
@@ -22,8 +23,9 @@ export function ElementPlaceholder({
     subtitle,
     illustration,
     onClick,
-    onClickLabel = ' ',
+    onClickLabel,
     onDismiss,
+    onDismissLabel,
 }: Props) {
     return (
         <div className={styles.container}>
@@ -38,6 +40,7 @@ export function ElementPlaceholder({
                 icon={Cross}
                 round
                 onClick={onDismiss}
+                title={onDismissLabel}
             />
             <VStack spacing="2">
                 <div className={styles.illustration}>{illustration}</div>
