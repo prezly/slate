@@ -44,7 +44,7 @@ export function CoverageElement({
     return (
         <EditorBlock
             {...attributes}
-            border
+            border={Boolean(coverage)}
             element={element}
             renderBlock={function () {
                 if (loading) {
