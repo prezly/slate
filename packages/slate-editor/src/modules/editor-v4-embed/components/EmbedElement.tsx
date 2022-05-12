@@ -35,40 +35,44 @@ export function EmbedElement({
             element={element}
             hasError={isInvalid}
             overlay="autohide"
-            renderBlock={() =>
-                isUsingScreenshots && element.oembed.screenshot_url ? (
-                    <ImageWithLoadingPlaceholderV2
-                        availableWidth={availableWidth}
-                        className={styles.loadingPlaceholder}
-                        renderLoadingState={({ percent }) => (
-                            <>
-                                <LoadingPlaceholderV2.Icon icon={Embed} />
-                                <LoadingPlaceholderV2.Description percent={percent}>
-                                    Loading Embed
-                                </LoadingPlaceholderV2.Description>
-                                <LoadingPlaceholderV2.ProgressBar percent={percent} />
-                            </>
-                        )}
-                        src={element.oembed.screenshot_url}
+            renderBlock={function () {
+                if (isUsingScreenshots && element.oembed.screenshot_url) {
+                    return (
+                        <ImageWithLoadingPlaceholderV2
+                            availableWidth={availableWidth}
+                            className={styles.loadingPlaceholder}
+                            renderLoadingState={({ percent }) => (
+                                <>
+                                    <LoadingPlaceholderV2.Icon icon={Embed} />
+                                    <LoadingPlaceholderV2.Description percent={percent}>
+                                        Loading Embed
+                                    </LoadingPlaceholderV2.Description>
+                                    <LoadingPlaceholderV2.ProgressBar percent={percent} />
+                                </>
+                            )}
+                            src={element.oembed.screenshot_url}
+                        />
+                    );
+                }
+
+                if (isInvalid) {
+                    return (
+                        <div className={styles.error}>
+                            There was a problem loading the requested URL.
+                        </div>
+                    );
+                }
+
+                return (
+                    <HtmlInjection
+                        className={classNames(styles.content, {
+                            [styles.video]: element.oembed.type === 'video',
+                        })}
+                        html={element.oembed.html ?? ''}
+                        onError={() => setIsInvalid(true)}
                     />
-                ) : (
-                    <>
-                        {isInvalid ? (
-                            <div className={styles.error}>
-                                There was a problem loading the requested URL.
-                            </div>
-                        ) : (
-                            <HtmlInjection
-                                className={classNames(styles.content, {
-                                    [styles.video]: element.oembed.type === 'video',
-                                })}
-                                html={element.oembed.html ?? ''}
-                                onError={() => setIsInvalid(true)}
-                            />
-                        )}
-                    </>
-                )
-            }
+                );
+            }}
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}
