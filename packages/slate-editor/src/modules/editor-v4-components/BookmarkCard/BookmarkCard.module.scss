@@ -17,10 +17,6 @@
     &.horizontal {
         flex-flow: row;
     }
-    &.selected {
-        border-radius: 0;
-        border-color: $editor-v4-block-focus-color;
-    }
 }
 
 .thumbnail {

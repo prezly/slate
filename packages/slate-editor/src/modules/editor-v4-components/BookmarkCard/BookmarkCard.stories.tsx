@@ -24,7 +24,7 @@ const info = {
 export function Horizontal(props: { showUrl: boolean }) {
     return (
         <div style={{ width: 680 }}>
-            <BookmarkCard.Container border isSelected layout="horizontal">
+            <BookmarkCard.Container border layout="horizontal">
                 <BookmarkCard.Thumbnail
                     href={info.url}
                     src={info.thumbnail_url}
@@ -50,7 +50,7 @@ export function Horizontal(props: { showUrl: boolean }) {
 export function Vertical(props: { showUrl: boolean }) {
     return (
         <div style={{ width: 680 }}>
-            <BookmarkCard.Container border isSelected layout="vertical">
+            <BookmarkCard.Container border layout="vertical">
                 <BookmarkCard.Thumbnail
                     href={info.url}
                     src={info.thumbnail_url}
