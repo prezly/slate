@@ -11,15 +11,29 @@ import styles from './ElementPlaceholder.module.scss';
 interface Props {
     title: string;
     illustration: ReactNode;
+    onClick?: () => void;
+    onClickLabel?: string;
     onDismiss?: () => void;
     subtitle?: string;
 }
 
-export function ElementPlaceholder({ onDismiss, title, subtitle, illustration }: Props) {
+export function ElementPlaceholder({
+    title,
+    subtitle,
+    illustration,
+    onClick,
+    onClickLabel = ' ',
+    onDismiss,
+}: Props) {
     return (
         <div className={styles.container}>
+            {onClick && (
+                <button className={styles.clickArea} onClick={onClick}>
+                    {onClickLabel}
+                </button>
+            )}
             <Button
-                className={styles.closeIcon}
+                className={styles.closeButton}
                 variant="secondary"
                 icon={Cross}
                 round

@@ -2,12 +2,16 @@ import type { Coverage } from '@prezly/sdk';
 import type { CoverageNode } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 
 import { EditorBlock, ElementPlaceholder, LoadingPlaceholderV2 } from '#components';
 import { ChickenNoSignalIllustration, Coverage as CoverageIcon } from '#icons';
 import { useAsyncFn } from '#lib';
 
 import { HttpCodes } from '#modules/api';
+import { EventsEditor } from '#modules/editor-v4-events';
+
+import { removeCoverage } from '../../lib';
 
 import { CoverageCard } from './CoverageCard';
 import styles from './CoverageElement.module.scss';
@@ -32,6 +36,7 @@ export function CoverageElement({
     element,
     fetchCoverage,
 }: Props) {
+    const editor = useSlateStatic();
     const coverageId = element.coverage.id;
     const [{ error, loading, value: coverage }, loadCoverage] = useAsyncFn(() => {
         return fetchCoverage(coverageId);
@@ -40,6 +45,12 @@ export function CoverageElement({
     useEffect(() => {
         loadCoverage();
     }, [loadCoverage]);
+
+    function remove() {
+        if (removeCoverage(editor, element)) {
+            EventsEditor.dispatchEvent(editor, 'coverage-removed');
+        }
+    }
 
     return (
         <EditorBlock
@@ -73,6 +84,7 @@ export function CoverageElement({
                 if (error && isNotFoundError(error)) {
                     return (
                         <ElementPlaceholder
+                            onDismiss={remove}
                             illustration={<ChickenNoSignalIllustration />}
                             title="The selected coverage no longer exists and will not be displayed"
                         />
@@ -82,6 +94,8 @@ export function CoverageElement({
                 return (
                     <ElementPlaceholder
                         onClick={loadCoverage}
+                        onClickLabel="Click to try again"
+                        onDismiss={remove}
                         illustration={<ChickenNoSignalIllustration />}
                         title="We have encountered a problem when loading your coverage"
                         subtitle="Click to try again"

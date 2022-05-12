@@ -30,11 +30,11 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
     }, [params.loadStory, element.story.uuid]);
 
     function remove() {
-        const removedElement = removeStoryBookmark(editor);
+        const removed = removeStoryBookmark(editor);
 
-        if (removedElement) {
+        if (removed) {
             EventsEditor.dispatchEvent(editor, 'web-bookmark-removed', {
-                uuid: removedElement.uuid,
+                uuid: removed.uuid,
             });
         }
     }
