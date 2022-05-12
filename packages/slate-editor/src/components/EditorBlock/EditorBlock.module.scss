@@ -31,6 +31,10 @@
         @include editor-v4-block-active;
     }
 
+    &.error {
+        @include editor-v4-block-error;
+    }
+
     &.alignLeft {
         margin-left: 0;
         margin-right: auto;
