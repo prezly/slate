@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
-import { EditorBlock, LoadingPlaceholderV2 } from '#components';
-import { ComponentStoryBookmark } from '#icons';
+import { EditorBlock, ElementPlaceholder, LoadingPlaceholderV2 } from '#components';
+import { ChickenNoSignalIllustration, ComponentStoryBookmark } from '#icons';
 import { useAsyncFn } from '#lib';
 
 import { EventsEditor } from '#modules/editor-v4-events';
@@ -52,29 +52,31 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
         }
     }, [error]);
 
+    const hasStory = !loading && story;
+
     return (
         <EditorBlock
             {...attributes} // contains `ref`
             border
             element={element}
-            overlay="always"
-            renderMenu={({ onClose }) =>
-                story && (
-                    <StoryBookmarkMenu
-                        onClose={onClose}
-                        element={element}
-                        story={story}
-                        withNewTabOption={params.withNewTabOption}
-                        onUpdate={(attrs) => updateImage(editor, attrs)}
-                        onRemove={remove}
-                    />
-                )
+            overlay={hasStory ? 'always' : false}
+            renderMenu={
+                hasStory
+                    ? ({ onClose }) => (
+                          <StoryBookmarkMenu
+                              onClose={onClose}
+                              element={element}
+                              story={story}
+                              withNewTabOption={params.withNewTabOption}
+                              onUpdate={(attrs) => updateImage(editor, attrs)}
+                              onRemove={remove}
+                          />
+                      )
+                    : undefined
             }
-            renderBlock={() => (
-                <div>
-                    {story && <StoryBookmarkBlock element={element} story={story} />}
-
-                    {loading && (
+            renderBlock={() => {
+                if (loading) {
+                    return (
                         <LoadingPlaceholderV2.Placeholder
                             className="editor-v4-coverage-element__loading-placeholder"
                             estimatedDuration={ESTIMATED_LOADING_DURATION}
@@ -89,9 +91,21 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                                 </>
                             )}
                         </LoadingPlaceholderV2.Placeholder>
-                    )}
-                </div>
-            )}
+                    );
+                }
+
+                if (story) {
+                    return <StoryBookmarkBlock element={element} story={story} />;
+                }
+
+                return (
+                    <ElementPlaceholder
+                        onClick={remove}
+                        illustration={<ChickenNoSignalIllustration />}
+                        title="The selected Prezly Story is no longer available"
+                    />
+                );
+            }}
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}

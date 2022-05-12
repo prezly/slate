@@ -13,4 +13,5 @@ export { Observable } from './Observable';
 export { scrollIntoView } from './scrollIntoView';
 export { scrollTo } from './scrollTo';
 export * from './isDeletingEvent';
+export * from './stripTags';
 export * as utils from './utils';
