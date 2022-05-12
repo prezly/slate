@@ -1,9 +1,5 @@
 import type { PressContact } from '@prezly/slate-types';
-import type { ReactNode, RefObject } from 'react';
-
-export interface PressContactsParameters {
-    containerRef: RefObject<HTMLElement>;
-}
+import type { ReactNode } from 'react';
 
 export interface PressContactsExtensionParameters {
     newsroomSettingsUrl: string;
