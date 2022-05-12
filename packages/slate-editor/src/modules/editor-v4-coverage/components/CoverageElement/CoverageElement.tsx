@@ -3,15 +3,14 @@ import type { CoverageNode } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import { EditorBlock, LoadingPlaceholderV2 } from '#components';
-import { Coverage as CoverageIcon } from '#icons';
+import { EditorBlock, ElementPlaceholder, LoadingPlaceholderV2 } from '#components';
+import { ChickenNoSignalIllustration, Coverage as CoverageIcon } from '#icons';
 import { useAsyncFn } from '#lib';
 
-import type { ApiError } from '#modules/api';
+import { HttpCodes } from '#modules/api';
 
 import { CoverageCard } from './CoverageCard';
 import styles from './CoverageElement.module.scss';
-import { FetchingError } from './FetchingError';
 
 // GET /v2/coverage/:id endpoint usually responds in 300-1000 ms
 // Depending on whether it has an attachment or URL.
@@ -47,18 +46,9 @@ export function CoverageElement({
             {...attributes}
             border
             element={element}
-            hasError={Boolean(error)}
-            renderBlock={() => (
-                <>
-                    {error && (
-                        <FetchingError
-                            className={styles.error}
-                            error={error as ApiError}
-                            onRetry={loadCoverage}
-                        />
-                    )}
-
-                    {loading && (
+            renderBlock={function () {
+                if (loading) {
+                    return (
                         <LoadingPlaceholderV2.Placeholder
                             className={styles.loadingPlaceholder}
                             estimatedDuration={ESTIMATED_LOADING_DURATION}
@@ -73,11 +63,31 @@ export function CoverageElement({
                                 </>
                             )}
                         </LoadingPlaceholderV2.Placeholder>
-                    )}
+                    );
+                }
 
-                    {coverage && <CoverageCard coverage={coverage} dateFormat={dateFormat} />}
-                </>
-            )}
+                if (coverage) {
+                    return <CoverageCard coverage={coverage} dateFormat={dateFormat} />;
+                }
+
+                if (error && isNotFoundError(error)) {
+                    return (
+                        <ElementPlaceholder
+                            illustration={<ChickenNoSignalIllustration />}
+                            title="The selected coverage no longer exists and will not be displayed"
+                        />
+                    );
+                }
+
+                return (
+                    <ElementPlaceholder
+                        onClick={loadCoverage}
+                        illustration={<ChickenNoSignalIllustration />}
+                        title="We have encountered a problem when loading your coverage"
+                        subtitle="Click to try again"
+                    />
+                );
+            }}
             rounded
             void
         >
@@ -85,4 +95,8 @@ export function CoverageElement({
             {children}
         </EditorBlock>
     );
+}
+
+function isNotFoundError(error: any): boolean {
+    return error && typeof error === 'object' && error.status === HttpCodes.NOT_FOUND;
 }
