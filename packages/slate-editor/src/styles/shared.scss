@@ -50,10 +50,6 @@ $editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index 
     border-radius: 0;
 }
 
-@mixin editor-v4-block-active-and-error {
-    outline-color: mix($editor-v4-block-focus-color, $legacy-color-status-error, 50%);
-}
-
 /**
  * Do not use this mixin outside of this file
  */
