@@ -31,8 +31,12 @@
         @include editor-v4-block-active;
     }
 
-    &.error {
+    &.hasError {
         @include editor-v4-block-error;
+    }
+
+    &.selected.hasError {
+        @include editor-v4-block-active-and-error;
     }
 
     &.alignLeft {

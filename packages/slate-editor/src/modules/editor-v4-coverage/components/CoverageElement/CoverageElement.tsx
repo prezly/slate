@@ -46,6 +46,7 @@ export function CoverageElement({
         <EditorBlock
             {...attributes}
             element={element}
+            hasError={Boolean(error)}
             renderBlock={() => (
                 <>
                     {error && (

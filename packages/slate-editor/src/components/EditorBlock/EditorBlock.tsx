@@ -111,7 +111,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             <div
                 className={classNames(styles.card, {
                     [styles.selected]: isSelected,
-                    [styles.error]: hasError,
+                    [styles.hasError]: hasError,
                     [styles.alignLeft]: align === Alignment.LEFT,
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
