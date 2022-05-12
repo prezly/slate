@@ -26,9 +26,9 @@ export function ElementPlaceholder({ onClick, title, subtitle, illustration }: P
                 onClick={onClick}
             />
             <VStack spacing="2">
-                <div className={styles.illustration}>{illustration}</div>;
+                <div className={styles.illustration}>{illustration}</div>
                 <VStack spacing="1">
-                    <div className={styles.title}>{title}</div>;
+                    <div className={styles.title}>{title}</div>
                     {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
                 </VStack>
             </VStack>
