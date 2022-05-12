@@ -27,9 +27,8 @@
     white-space: normal;
     position: relative;
 
-    &.cardStyle {
-        border-radius: $border-radius-base;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11);
+    &.rounded {
+        border-radius: 2px;
     }
 
     &.hasError {

@@ -36,6 +36,7 @@ export function FileAttachmentElement({
                     onClose={onClose}
                 />
             )}
+            rounded
             void
         >
             {children}

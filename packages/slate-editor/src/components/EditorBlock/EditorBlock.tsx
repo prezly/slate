@@ -40,8 +40,8 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
     overlay?: OverlayMode;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
+    rounded?: boolean;
     selected?: boolean;
-    style?: 'default' | 'card';
     void?: boolean;
     width?: string;
 }
@@ -58,8 +58,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         overlay = false,
         renderBlock,
         renderMenu,
+        rounded = false,
         selected,
-        style,
         void: isVoid,
         width,
         ...attributes
@@ -112,7 +112,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         >
             <div
                 className={classNames(styles.frame, {
-                    [styles.cardStyle]: style === 'card',
+                    [styles.rounded]: rounded,
                     [styles.selected]: isSelected,
                     [styles.hasError]: hasError,
                     [styles.alignLeft]: align === Alignment.LEFT,

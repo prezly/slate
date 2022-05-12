@@ -77,7 +77,7 @@ export function CoverageElement({
                     {coverage && <CoverageCard coverage={coverage} dateFormat={dateFormat} />}
                 </>
             )}
-            style="card"
+            rounded
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}
