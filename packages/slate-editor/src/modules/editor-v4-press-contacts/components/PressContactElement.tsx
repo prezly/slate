@@ -46,6 +46,7 @@ export function PressContactElement({ attributes, children, element }: Props) {
                     </div>
                 </div>
             )}
+            style="card"
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}

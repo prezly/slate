@@ -81,6 +81,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
                     </BookmarkCard.Details>
                 </BookmarkCard.Container>
             )}
+            style="card"
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}

@@ -41,6 +41,7 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
     selected?: boolean;
+    style?: 'default' | 'card';
     void?: boolean;
     width?: string;
 }
@@ -58,6 +59,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         renderBlock,
         renderMenu,
         selected,
+        style,
         void: isVoid,
         width,
         ...attributes
@@ -109,7 +111,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             ref={ref}
         >
             <div
-                className={classNames(styles.card, {
+                className={classNames(styles.frame, {
+                    [styles.cardStyle]: style === 'card',
                     [styles.selected]: isSelected,
                     [styles.hasError]: hasError,
                     [styles.alignLeft]: align === Alignment.LEFT,

@@ -11,18 +11,18 @@
         margin-top: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
         margin-bottom: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
 
-        > .card {
+        > .frame {
             padding-top: $area-vertical-expansion;
             padding-bottom: $area-vertical-expansion;
         }
     }
 
-    &.void > .card {
+    &.void > .frame {
         @include editor-v4-void-element;
     }
 }
 
-.card {
+.frame {
     max-width: 100%;
     white-space: normal;
     position: relative;
@@ -37,6 +37,11 @@
 
     &.selected.hasError {
         @include editor-v4-block-active-and-error;
+    }
+
+    &.cardStyle {
+        border-radius: $border-radius-base;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11);
     }
 
     &.alignLeft {
