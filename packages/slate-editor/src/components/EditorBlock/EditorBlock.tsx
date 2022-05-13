@@ -85,8 +85,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
     const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
 
-    const handleClick = useCallback(
-        function () {
+    const handleBlockClick = useCallback(
+        function (event) {
+            event.stopPropagation();
+
             openMenu();
 
             if (!isVoid) {
@@ -97,9 +99,19 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         [editor, element, openMenu, isVoid],
     );
 
+    const handleTextClick = useCallback(
+        function () {
+            if (!isVoid) {
+                setMenuOpen(false);
+            }
+        },
+        [isVoid],
+    );
+
     useEffect(
         function () {
-            if (isOnlyBlockSelected) setMenuOpen(true);
+            if (isVoid && isOnlyBlockSelected) setMenuOpen(true);
+            if (!isOnlyBlockSelected) setMenuOpen(false);
         },
         [isOnlyBlockSelected],
     );
@@ -114,6 +126,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
             data-element-layout={layout}
+            onClick={handleTextClick}
             ref={ref}
         >
             <div
@@ -124,7 +137,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 })}
                 contentEditable={false}
                 ref={setContainer}
-                onClick={handleClick}
                 style={{ width }}
             >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
@@ -137,7 +149,12 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}
-                <Overlay className={styles.overlay} selected={isSelected} mode={overlay} />
+                <Overlay
+                    className={styles.overlay}
+                    selected={isSelected}
+                    mode={overlay}
+                    onClick={handleBlockClick}
+                />
                 <div
                     className={classNames(styles.content, {
                         [styles.selected]: isSelected,
@@ -145,6 +162,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         [styles.border]: border,
                         [styles.rounded]: rounded,
                     })}
+                    onClick={handleBlockClick}
                 >
                     {renderBlock({ isSelected })}
                 </div>
