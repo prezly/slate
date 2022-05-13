@@ -98,7 +98,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         [editor, element],
     );
 
-
     useEffect(
         function () {
             if (isVoid && isOnlyBlockSelected) setMenuOpen(true);
