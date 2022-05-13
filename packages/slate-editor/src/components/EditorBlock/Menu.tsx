@@ -1,4 +1,3 @@
-import { preventOverflow } from '@popperjs/core';
 import classNames from 'classnames';
 import type { MouseEvent, ReactNode } from 'react';
 import React, { Component } from 'react';
@@ -12,7 +11,6 @@ import styles from './Menu.module.scss';
 interface Props {
     children: ReactNode;
     className?: string;
-    editorElement: HTMLElement;
     onClick?: (event: MouseEvent) => void;
     open: boolean;
     reference: HTMLElement;
@@ -40,6 +38,18 @@ const MODIFIERS: Modifier<string>[] = [
         },
     },
     {
+        name: 'preventOverflow',
+        enabled: true,
+        options: {
+            altAxis: true,
+            mainAxis: false,
+            boundary: document.body,
+            padding: {
+                right: 4,
+            },
+        },
+    },
+    {
         name: 'prezly:autoHideArrow',
         enabled: true,
         phase: 'write',
@@ -47,7 +57,7 @@ const MODIFIERS: Modifier<string>[] = [
             const { arrow } = state.elements;
 
             if (arrow) {
-                if (state.modifiersData['prezly:preventEditorOverflow']?.x) {
+                if (state.modifiersData.preventOverflow?.x) {
                     arrow.classList.add(styles.hidden);
                 } else {
                     arrow.classList.remove(styles.hidden);
@@ -82,7 +92,7 @@ export class Menu extends Component<Props> {
     };
 
     render() {
-        const { children, className, editorElement, onClick, open } = this.props;
+        const { children, className, onClick, open } = this.props;
 
         if (!open) {
             return null;
@@ -93,7 +103,7 @@ export class Menu extends Component<Props> {
                 referenceElement={{
                     getBoundingClientRect: this.getVirtualReferenceClientRect,
                 }}
-                modifiers={[...MODIFIERS, keepPopoverInEditor(editorElement)]}
+                modifiers={MODIFIERS}
                 placement="right-start"
             >
                 {({ ref, style, arrowProps, placement }) => (
@@ -118,20 +128,4 @@ export class Menu extends Component<Props> {
             </Popper>
         );
     }
-}
-
-function keepPopoverInEditor(editorElement: HTMLElement): Modifier<string> {
-    return {
-        ...preventOverflow,
-        name: 'prezly:preventEditorOverflow',
-        enabled: true,
-        options: {
-            altAxis: true,
-            mainAxis: false,
-            boundary: editorElement,
-            padding: {
-                right: 4,
-            },
-        },
-    };
 }
