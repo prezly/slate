@@ -100,11 +100,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 
     const handleNonVoidChildrenClick = useCallback(
         function () {
-            if (!isVoid) {
-                setMenuOpen(false);
-            }
+            setMenuOpen(false);
         },
-        [isVoid],
+        [],
     );
 
     useEffect(
