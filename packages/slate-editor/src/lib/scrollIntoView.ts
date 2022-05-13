@@ -5,6 +5,7 @@ import { scrollTo } from './scrollTo';
 export interface Options {
     minBottom?: number;
     minTop?: number;
+    padding?: number;
     skipWhenDoesNotFitView?: boolean;
 }
 
@@ -25,7 +26,7 @@ export interface Options {
 export function scrollIntoView(
     parent: HTMLElement,
     rect: ClientRect | Rect,
-    { minTop = 0, minBottom = 0, skipWhenDoesNotFitView = false }: Options,
+    { minTop = 0, minBottom = 0, padding = 16, skipWhenDoesNotFitView = false }: Options,
 ) {
     const { height: parentHeight } = parent.getBoundingClientRect();
     const { height: elementHeight, top: elementTop } = rect;
@@ -45,7 +46,7 @@ export function scrollIntoView(
     }
 
     if (isChildAboveVisibleArea) {
-        const y = parent.scrollTop + elementTop - minTop;
+        const y = parent.scrollTop + elementTop - minTop - padding;
         scrollTo(parent, parent.scrollLeft, y);
         return;
     }
@@ -55,8 +56,8 @@ export function scrollIntoView(
         // but disallow the element TOP EDGE to leave the viewport.
         // This is critical for tall elements, like big galleries.
         const y = Math.min(
-            parent.scrollTop + elementTop - minTop,
-            parent.scrollTop + elementTop + elementHeight - parentHeight + minBottom,
+            parent.scrollTop + elementTop - minTop - padding,
+            parent.scrollTop + elementTop + elementHeight - parentHeight + minBottom + padding,
         );
         scrollTo(parent, parent.scrollLeft, y);
         return;
