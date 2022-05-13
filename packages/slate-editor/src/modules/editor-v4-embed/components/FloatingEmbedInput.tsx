@@ -1,4 +1,4 @@
-import type { ChangeEvent, FunctionComponent, RefObject } from 'react';
+import type { ChangeEvent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 
@@ -17,14 +17,14 @@ interface Props {
     submitButtonLabel: string;
 }
 
-export const FloatingEmbedInput: FunctionComponent<Props> = ({
+export function FloatingEmbedInput({
     availableWidth,
     containerRef,
     onClose,
     onRootClose,
     onSubmit,
     submitButtonLabel,
-}) => {
+}: Props) {
     const inputRef = useRef<HTMLInputElement>();
     const [url, setUrl] = useState<string>('');
 
@@ -94,4 +94,4 @@ export const FloatingEmbedInput: FunctionComponent<Props> = ({
             </form>
         </FloatingContainer.Container>
     );
-};
+}

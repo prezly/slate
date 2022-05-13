@@ -1,0 +1,14 @@
+@import "styles/variables";
+
+.loadingPlaceholder {
+    $block-height: 180px;
+
+    height: $block-height;
+}
+
+.error {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-2 $spacing-3;
+}

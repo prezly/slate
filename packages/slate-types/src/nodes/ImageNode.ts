@@ -1,4 +1,4 @@
-import type { UploadcareImageStoragePayload } from '../sdk';
+import type { UploadedImage } from '@prezly/uploads';
 
 import type { ElementNode } from './ElementNode';
 import { isElementNode } from './ElementNode';
@@ -17,7 +17,7 @@ export type ImageWidth = `${number}%` | `${number}px`;
 export interface ImageNode extends ElementNode, Alignable {
     type: typeof IMAGE_NODE_TYPE;
     /** caption */
-    file: UploadcareImageStoragePayload;
+    file: UploadedImage;
     /** empty string if no URL */
     href: string;
     layout: ImageLayout;

@@ -1,2 +1,2 @@
-export * from './removeStoryBookmark';
-export * from './updateStoryBookmark';
+export { removeStoryBookmark } from './removeStoryBookmark';
+export { updateStoryBookmark } from './updateStoryBookmark';

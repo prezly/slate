@@ -4,6 +4,7 @@ export { default as AlignLeft } from './Align-Left.svg';
 export { default as AlignRight } from './Align-Right.svg';
 export { default as Attachment } from './Attachment.svg';
 export { default as BatsIllustration } from './Bats-Illustration.svg';
+export { default as ChickenNoSignalIllustration } from './Chicken-no-signal-Illustration.svg';
 export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
 export { default as Coverage } from './Coverage.svg';
 export { default as Cross } from './Cross.svg';
@@ -41,6 +42,9 @@ export { default as Image } from './Image.svg';
 export { default as ImageLayoutContained } from './ImageLayoutContained.svg';
 export { default as ImageLayoutExpanded } from './ImageLayoutExpanded.svg';
 export { default as ImageLayoutFullWidth } from './ImageLayoutFullWidth.svg';
+export { default as ImageSizeBestFit } from './Image-Size-BestFit.svg';
+export { default as ImageSizeOriginal } from './Image-Size-Original.svg';
+export { default as ImageSizeSmall } from './Image-Size-Small.svg';
 export { default as ImageSpacingNarrow } from './ImageSpacingNarrow.svg';
 export { default as ImageSpacingRegular } from './ImageSpacingRegular.svg';
 export { default as ImageSpacingWide } from './ImageSpacingWide.svg';

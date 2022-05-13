@@ -1,10 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { ImageNode } from '@prezly/slate-types';
+import type { ImageNode, ImageWidth } from '@prezly/slate-types';
 import { Alignment, ImageLayout } from '@prezly/slate-types';
 import { UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlateStatic } from 'slate-react';
@@ -15,7 +14,8 @@ import { removeImage, updateImage } from '../transforms';
 
 import { Image } from './Image';
 import styles from './ImageElement.module.scss';
-import { ImageMenu } from './ImageMenu';
+import type { FormState } from './ImageMenu';
+import { ImageMenu, Size } from './ImageMenu';
 
 interface Props extends RenderElementProps {
     element: ImageNode;
@@ -23,11 +23,12 @@ interface Props extends RenderElementProps {
     onReplace: (editor: Editor, element: ImageNode) => void;
     onRemove: (editor: Editor, element: ImageNode) => void;
     withAlignmentOptions: boolean;
+    withSizeOptions: boolean;
     withLayoutOptions: boolean;
     withNewTabOption: boolean;
 }
 
-export const ImageElement: FunctionComponent<Props> = ({
+export function ImageElement({
     attributes,
     children,
     element,
@@ -35,9 +36,10 @@ export const ImageElement: FunctionComponent<Props> = ({
     onReplace,
     onRemove,
     withAlignmentOptions,
+    withSizeOptions,
     withLayoutOptions,
     withNewTabOption,
-}) => {
+}: Props) {
     const editor = useSlateStatic();
     const isSelected = useSelected();
     const isVoid = Editor.isVoid(editor, element);
@@ -61,7 +63,17 @@ export const ImageElement: FunctionComponent<Props> = ({
         [editor, element],
     );
     const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
-    const handleUpdate = useCallback((patch) => updateImage(editor, patch), [editor]);
+    const handleUpdate = useCallback(
+        function (patch: Partial<FormState>) {
+            const { size, ...rest } = patch;
+            if (size !== undefined) {
+                updateImage(editor, { ...rest, width: fromSizeOption(element, size) });
+                return;
+            }
+            updateImage(editor, patch);
+        },
+        [editor, element],
+    );
 
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
     const layout = withLayoutOptions
@@ -69,6 +81,18 @@ export const ImageElement: FunctionComponent<Props> = ({
         : ImageLayout.CONTAINED;
     const isResizable = layout === ImageLayout.CONTAINED;
     const align = withAlignmentOptions && isResizable ? element.align : Alignment.CENTER;
+    const sizeOptions = useMemo(
+        function () {
+            if (!withSizeOptions) return false;
+            const width = UploadcareImage.createFromPrezlyStoragePayload(element.file).width;
+
+            if (width < 300) return [Size.ORIGINAL];
+            if (width < 720) return [Size.SMALL, Size.ORIGINAL];
+
+            return [Size.SMALL, Size.BEST_FIT, Size.ORIGINAL];
+        },
+        [withSizeOptions, element.file],
+    );
 
     return (
         <ResizableEditorBlock
@@ -91,17 +115,20 @@ export const ImageElement: FunctionComponent<Props> = ({
                         layout,
                         href: element.href,
                         new_tab: element.new_tab,
+                        size: toSizeOption(element),
                     }}
                     withAlignmentOptions={withAlignmentOptions}
+                    withSizeOptions={sizeOptions}
                     withLayoutOptions={withLayoutOptions}
                     withNewTabOption={withNewTabOption}
                 />
             )}
             resizable={isResizable}
+            rounded
             void={isVoid}
             width={isResizable ? element.width : '100%'}
             minWidth="100px"
-            maxWidth={`${image.originalWidth}px`}
+            maxWidth={`${image.width}px`}
         >
             {isSupportingCaptions ? (
                 <div
@@ -119,4 +146,27 @@ export const ImageElement: FunctionComponent<Props> = ({
             )}
         </ResizableEditorBlock>
     );
-};
+}
+
+function fromSizeOption(image: ImageNode, size: Size): ImageWidth {
+    if (size === Size.SMALL) {
+        return '300px';
+    }
+    if (size === Size.BEST_FIT) {
+        return '720px';
+    }
+    return `${UploadcareImage.createFromPrezlyStoragePayload(image.file).width}px`;
+}
+
+function toSizeOption(image: ImageNode): Size | undefined {
+    if (image.width === '300px') {
+        return Size.SMALL;
+    }
+    if (image.width === '720px') {
+        return Size.BEST_FIT;
+    }
+    if (image.width === `${UploadcareImage.createFromPrezlyStoragePayload(image.file).width}px`) {
+        return Size.ORIGINAL;
+    }
+    return undefined;
+}

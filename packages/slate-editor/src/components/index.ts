@@ -14,6 +14,7 @@ export { ElementPortalV2, TextSelectionPortalV2 } from './Portals';
 export { FancyScrollbars } from './FancyScrollbars';
 export * as TooltipV2 from './TooltipV2';
 export * as Toolbox from './Toolbox';
+export { ElementPlaceholder } from './ElementPlaceholder';
 export * from './Stack';
 export * from './Button';
 export * from './ButtonGroup';

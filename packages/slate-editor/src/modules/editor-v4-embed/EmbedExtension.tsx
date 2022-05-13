@@ -4,16 +4,16 @@ import { isEmbedNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import { EmbedElement, EmbedMenu } from './components';
+import { EmbedElement } from './components';
 import { EMBED_EXTENSION_ID, EMBED_TYPE } from './constants';
 import { normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
-import type { EmbedParameters } from './types';
+import type { EmbedExtensionConfiguration } from './types';
 
-export const EmbedExtension = ({
-    availableWidth,
-    containerRef,
-    showAsScreenshot,
-}: EmbedParameters): Extension => ({
+interface Parameters extends EmbedExtensionConfiguration {
+    availableWidth: number;
+}
+
+export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters): Extension => ({
     deserialize: {
         element: {
             [EMBED_TYPE]: createDeserializeElement(parseSerializedElement),
@@ -25,9 +25,6 @@ export const EmbedExtension = ({
         if (isEmbedNode(element)) {
             return (
                 <>
-                    {attributes.ref.current && (
-                        <EmbedMenu containerRef={containerRef} element={attributes.ref.current} />
-                    )}
                     <EmbedElement
                         attributes={attributes}
                         availableWidth={availableWidth}

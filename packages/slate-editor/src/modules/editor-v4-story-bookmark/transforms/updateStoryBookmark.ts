@@ -5,7 +5,7 @@ import { Transforms } from 'slate';
 
 import { pick } from '#lodash';
 
-export function updateImage(
+export function updateStoryBookmark(
     editor: Editor,
     attrs: Partial<Pick<StoryBookmarkNode, 'show_thumbnail' | 'layout' | 'new_tab'>>,
 ) {

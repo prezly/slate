@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import type { UploadcareStoragePayload } from '@prezly/uploadcare';
+import type { UploadedFile } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
@@ -10,7 +10,7 @@ import { removeFileAttachment } from './removeFileAttachment';
 
 const createEditor = (editor: JSX.Element): Editor => withReact(editor as unknown as Editor);
 
-const createFileAttachmentFile = (): UploadcareStoragePayload => ({
+const createFileAttachmentFile = (): UploadedFile => ({
     filename: 'example.pdf',
     mime_type: 'application/pdf',
     size: 1234,

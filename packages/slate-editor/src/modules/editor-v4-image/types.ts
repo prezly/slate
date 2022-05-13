@@ -24,6 +24,7 @@ export interface ImageExtensionParameters {
         newsroom: NewsroomRef;
     };
     withAlignmentOptions?: boolean;
+    withSizeOptions?: boolean;
     withLayoutOptions?: boolean;
     withNewTabOption?: boolean;
 }
