@@ -47,8 +47,18 @@ export function scrollIntoView(
     if (isChildAboveVisibleArea) {
         const y = parent.scrollTop + elementTop - minTop;
         scrollTo(parent, parent.scrollLeft, y);
-    } else if (isChildBelowVisibleArea) {
-        const y = parent.scrollTop + elementTop + elementHeight - parentHeight + minBottom;
+        return;
+    }
+
+    if (isChildBelowVisibleArea) {
+        // Scroll to align the BOTTOM EDGE of the element with the viewport,
+        // but disallow the element TOP EDGE to leave the viewport.
+        // This is critical for tall elements, like big galleries.
+        const y = Math.min(
+            parent.scrollTop + elementTop - minTop,
+            parent.scrollTop + elementTop + elementHeight - parentHeight + minBottom
+        );
         scrollTo(parent, parent.scrollLeft, y);
+        return;
     }
 }
