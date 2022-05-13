@@ -82,21 +82,20 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 
     const [menuOpen, setMenuOpen] = useState(true);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
-    const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
-    const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
+    const closeMenu = useCallback(() => setMenuOpen(false), []);
 
     const handleBlockClick = useCallback(
         function (event) {
             event.stopPropagation();
 
-            openMenu();
+            setMenuOpen(true);
 
             if (!isVoid) {
                 const path = ReactEditor.findPath(editor, element);
                 Transforms.select(editor, path);
             }
         },
-        [editor, element, openMenu, isVoid],
+        [editor, element, isVoid],
     );
 
     const handleTextClick = useCallback(
