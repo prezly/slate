@@ -27,8 +27,9 @@ export function isCoverageNode(value: any): value is CoverageNode {
 }
 
 export function validateCoverageNode(value: any): CoverageNode | null {
-    const isValid = isCoverageNode(value);
-    isUuid(value.uuid) &&
+    const isValid =
+        isCoverageNode(value) &&
+        isUuid(value.uuid) &&
         isEnum(value.layout, CoverageLayout) &&
         isBoolean(value.new_tab) &&
         isBoolean(value.show_thumbnail) &&
