@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 
-import { utils } from '#lib';
+import { utils, stripTags } from '#lib';
 
 import styles from './BookmarkCard.module.scss';
 
@@ -16,12 +16,12 @@ export function Details({ title, description, href, children }: PropsWithChildre
         <div className={styles.details}>
             {!utils.isEmptyText(title) && (
                 <a className={styles.title} href={href} rel="noopener noreferrer" target="_blank">
-                    {title}
+                    {stripTags(title)}
                 </a>
             )}
 
             {!utils.isEmptyText(description) && (
-                <div className={styles.description}>{description}</div>
+                <div className={styles.description}>{stripTags(description)}</div>
             )}
 
             {children}

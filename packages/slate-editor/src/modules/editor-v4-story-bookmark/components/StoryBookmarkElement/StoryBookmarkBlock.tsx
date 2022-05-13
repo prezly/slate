@@ -8,14 +8,13 @@ import { useResizeObserver, utils } from '#lib';
 import { BookmarkCard } from '#modules/editor-v4-components';
 
 interface StoryBookmarkBlockProps {
-    isSelected: boolean;
     story: Story;
     element: StoryBookmarkNode;
 }
 
 const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 
-export function StoryBookmarkBlock({ story, element, isSelected }: StoryBookmarkBlockProps) {
+export function StoryBookmarkBlock({ story, element }: StoryBookmarkBlockProps) {
     const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);
 
@@ -43,7 +42,7 @@ export function StoryBookmarkBlock({ story, element, isSelected }: StoryBookmark
     });
 
     return (
-        <BookmarkCard.Container isSelected={isSelected} layout={actualLayout} ref={card}>
+        <BookmarkCard.Container border={false} layout={actualLayout} ref={card}>
             {showThumbnail && story.oembed.thumbnail_url && (
                 <BookmarkCard.Thumbnail
                     href={story.oembed.url}

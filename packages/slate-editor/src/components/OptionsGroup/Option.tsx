@@ -11,7 +11,7 @@ export interface OptionProps<T extends string> {
     label: string;
     value: T;
     checked: boolean;
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement> & { isActive: boolean }>;
+    icon?: React.ComponentType<{ isActive: boolean }>;
     disabled?: boolean;
     variantClassName?: string;
 }
