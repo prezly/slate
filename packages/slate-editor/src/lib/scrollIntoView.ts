@@ -56,7 +56,7 @@ export function scrollIntoView(
         // This is critical for tall elements, like big galleries.
         const y = Math.min(
             parent.scrollTop + elementTop - minTop,
-            parent.scrollTop + elementTop + elementHeight - parentHeight + minBottom
+            parent.scrollTop + elementTop + elementHeight - parentHeight + minBottom,
         );
         scrollTo(parent, parent.scrollLeft, y);
         return;
