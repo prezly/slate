@@ -84,20 +84,21 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
     const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-    const handleBlockClick = useCallback(
+    const handleVoidBlockClick = useCallback(function () {
+        setMenuOpen(true);
+    }, []);
+
+    const handleNonVoidBlockClick = useCallback(
         function (event: MouseEvent) {
             setMenuOpen(true);
-
-            if (!isVoid) {
-                event.stopPropagation();
-                const path = ReactEditor.findPath(editor, element);
-                Transforms.select(editor, path);
-            }
+            event.stopPropagation();
+            const path = ReactEditor.findPath(editor, element);
+            Transforms.select(editor, path);
         },
-        [editor, element, isVoid],
+        [editor, element],
     );
 
-    const handleTextClick = useCallback(
+    const handleNonVoidChildrenClick = useCallback(
         function () {
             if (!isVoid) {
                 setMenuOpen(false);
@@ -124,7 +125,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
             data-element-layout={layout}
-            onClick={!isVoid ? handleTextClick : undefined}
+            onClick={isVoid ? undefined : handleNonVoidChildrenClick}
             ref={ref}
         >
             <div
@@ -151,7 +152,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     className={styles.overlay}
                     selected={isSelected}
                     mode={overlay}
-                    onClick={handleBlockClick}
+                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
                 />
                 <div
                     className={classNames(styles.content, {
@@ -160,7 +161,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         [styles.border]: border,
                         [styles.rounded]: rounded,
                     })}
-                    onClick={handleBlockClick}
+                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
                 >
                     {renderBlock({ isSelected })}
                 </div>
