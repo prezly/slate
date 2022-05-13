@@ -1,1 +1,1 @@
-export * from './ElementPlaceholder';
+export { ElementPlaceholder } from './ElementPlaceholder';

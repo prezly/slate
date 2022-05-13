@@ -12,23 +12,40 @@ interface Props {
     title: string;
     illustration: ReactNode;
     onClick?: () => void;
+    onClickLabel?: string;
+    onDismiss?: () => void;
+    onDismissLabel?: string;
     subtitle?: string;
 }
 
-export function ElementPlaceholder({ onClick, title, subtitle, illustration }: Props) {
+export function ElementPlaceholder({
+    title,
+    subtitle,
+    illustration,
+    onClick,
+    onClickLabel,
+    onDismiss,
+    onDismissLabel,
+}: Props) {
     return (
         <div className={styles.container}>
+            {onClick && (
+                <button className={styles.clickArea} onClick={onClick}>
+                    {onClickLabel}
+                </button>
+            )}
             <Button
-                className={styles.closeIcon}
+                className={styles.closeButton}
                 variant="secondary"
                 icon={Cross}
                 round
-                onClick={onClick}
+                onClick={onDismiss}
+                title={onDismissLabel}
             />
             <VStack spacing="2">
-                <div className={styles.illustration}>{illustration}</div>;
+                <div className={styles.illustration}>{illustration}</div>
                 <VStack spacing="1">
-                    <div className={styles.title}>{title}</div>;
+                    <div className={styles.title}>{title}</div>
                     {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
                 </VStack>
             </VStack>

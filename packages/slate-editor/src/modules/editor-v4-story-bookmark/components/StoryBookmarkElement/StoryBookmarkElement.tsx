@@ -9,7 +9,7 @@ import { useAsyncFn } from '#lib';
 
 import { EventsEditor } from '#modules/editor-v4-events';
 
-import { removeStoryBookmark, updateImage } from '../../transforms';
+import { removeStoryBookmark, updateStoryBookmark } from '../../transforms';
 import type { StoryBookmarkExtensionParameters } from '../../types';
 import { StoryBookmarkMenu } from '../StoryBookmarkMenu';
 
@@ -29,15 +29,15 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
         return params.loadStory(element.story.uuid);
     }, [params.loadStory, element.story.uuid]);
 
-    const remove = () => {
-        const removedElement = removeStoryBookmark(editor);
+    function remove() {
+        const removed = removeStoryBookmark(editor);
 
-        if (removedElement) {
+        if (removed) {
             EventsEditor.dispatchEvent(editor, 'web-bookmark-removed', {
-                uuid: removedElement.uuid,
+                uuid: removed.uuid,
             });
         }
-    };
+    }
 
     useEffect(() => {
         loadStory();
@@ -68,7 +68,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                               element={element}
                               story={story}
                               withNewTabOption={params.withNewTabOption}
-                              onUpdate={(attrs) => updateImage(editor, attrs)}
+                              onUpdate={(attrs) => updateStoryBookmark(editor, attrs)}
                               onRemove={remove}
                           />
                       )
@@ -100,9 +100,10 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
 
                 return (
                     <ElementPlaceholder
-                        onClick={remove}
                         illustration={<ChickenNoSignalIllustration />}
                         title="The selected Prezly Story is no longer available"
+                        onDismiss={remove}
+                        onDismissLabel="Remove this Story Bookmark"
                     />
                 );
             }}
