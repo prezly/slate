@@ -98,12 +98,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         [editor, element],
     );
 
-    const handleNonVoidChildrenClick = useCallback(
-        function () {
-            setMenuOpen(false);
-        },
-        [],
-    );
 
     useEffect(
         function () {
@@ -123,7 +117,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
             data-element-layout={layout}
-            onClick={isVoid ? undefined : handleNonVoidChildrenClick}
+            onClick={isVoid ? undefined : closeMenu}
             ref={ref}
         >
             <div
