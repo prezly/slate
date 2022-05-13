@@ -43,7 +43,7 @@ const MODIFIERS: Modifier<string>[] = [
         options: {
             altAxis: true,
             mainAxis: false,
-            boundary: document.body,
+            rootBoundary: 'document',
             padding: {
                 right: 4,
             },
