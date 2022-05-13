@@ -2,7 +2,7 @@
 
 import { withNormalization } from '@prezly/slate-commons';
 import { ImageLayout } from '@prezly/slate-types';
-import type { UploadcareStoragePayload } from '@prezly/uploadcare';
+import type { UploadedFile } from '@prezly/uploadcare';
 import { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
@@ -10,7 +10,7 @@ import { ImageExtension } from './ImageExtension';
 import { jsx } from './jsx';
 import { withImages } from './withImages';
 
-const file: UploadcareStoragePayload = {
+const file: UploadedFile = {
     filename: 'lorem.jpg',
     mime_type: 'image/jpeg',
     size: 1234,
@@ -21,7 +21,7 @@ const file: UploadcareStoragePayload = {
 const getExtensions = () => [
     ImageExtension({
         captions: true,
-        showLayoutControls: true,
+        withLayoutOptions: true,
     }),
 ];
 

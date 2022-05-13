@@ -48,6 +48,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
     return (
         <EditorBlock
             {...attributes} // contains `ref`
+            border
             element={element}
             overlay="always"
             renderMenu={({ onClose }) => (
@@ -57,8 +58,8 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
                     withNewTabOption={withNewTabOption}
                 />
             )}
-            renderBlock={({ isSelected }) => (
-                <BookmarkCard.Container isSelected={isSelected} layout={actualLayout} ref={card}>
+            renderBlock={() => (
+                <BookmarkCard.Container border={false} layout={actualLayout} ref={card}>
                     {showThumbnail && oembed.thumbnail_url && (
                         <BookmarkCard.Thumbnail
                             href={url}
@@ -81,6 +82,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
                     </BookmarkCard.Details>
                 </BookmarkCard.Container>
             )}
+            rounded
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}

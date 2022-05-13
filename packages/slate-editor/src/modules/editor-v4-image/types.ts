@@ -23,7 +23,9 @@ export interface ImageExtensionParameters {
     mediaGalleryTab?: {
         newsroom: NewsroomRef;
     };
-    showLayoutControls?: boolean;
+    withAlignmentOptions?: boolean;
+    withSizeOptions?: boolean;
+    withLayoutOptions?: boolean;
     withNewTabOption?: boolean;
 }
 

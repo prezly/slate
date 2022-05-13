@@ -1,11 +1,12 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
+import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { ReactNode, MouseEvent } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Editor, Transforms } from 'slate';
-import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
+import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 
 import { useSlateDom } from '#lib';
 
@@ -19,6 +20,8 @@ type SlateInternalAttributes = RenderElementProps['attributes'];
 type Layout = 'contained' | 'expanded' | 'full-width';
 
 export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
+    align?: Alignment;
+    border?: boolean;
     /**
      * Children nodes provided by Slate, required for Slate internals.
      */
@@ -30,10 +33,15 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
      * Useful for extremely thin blocks like Divider.
      */
     extendedHitArea?: boolean;
+    /**
+     * Mark the block having an error.
+     */
+    hasError?: boolean;
     layout?: Layout;
     overlay?: OverlayMode;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
+    rounded?: boolean;
     selected?: boolean;
     void?: boolean;
     width?: string;
@@ -41,14 +49,18 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
 
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     {
+        align = Alignment.CENTER,
+        border = false,
         children,
         className,
         element,
         extendedHitArea,
+        hasError,
         layout = 'contained',
         overlay = false,
         renderBlock,
         renderMenu,
+        rounded = false,
         selected,
         void: isVoid,
         width,
@@ -101,8 +113,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             ref={ref}
         >
             <div
-                className={classNames(styles.card, {
-                    [styles.selected]: isSelected,
+                className={classNames(styles.frame, {
+                    [styles.alignLeft]: align === Alignment.LEFT,
+                    [styles.alignCenter]: align === Alignment.CENTER,
+                    [styles.alignRight]: align === Alignment.RIGHT,
                 })}
                 contentEditable={false}
                 ref={setContainer}
@@ -121,7 +135,16 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     </Menu>
                 )}
                 <Overlay className={styles.overlay} selected={isSelected} mode={overlay} />
-                {renderBlock({ isSelected })}
+                <div
+                    className={classNames(styles.content, {
+                        [styles.selected]: isSelected,
+                        [styles.hasError]: hasError,
+                        [styles.border]: border,
+                        [styles.rounded]: rounded,
+                    })}
+                >
+                    {renderBlock({ isSelected })}
+                </div>
             </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}

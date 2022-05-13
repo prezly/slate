@@ -6,7 +6,7 @@
     @include editor-v4-block($void: false);
 
     border: 1px solid $legacy-color-grey-250;
-    border-radius: 2px;
+    border-radius: $border-radius-small;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
 
     &--active {

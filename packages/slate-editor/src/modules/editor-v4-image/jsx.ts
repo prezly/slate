@@ -2,7 +2,7 @@
 
 import type { ImageLayout } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import type { UploadcareStoragePayload } from '@prezly/uploadcare';
+import type { UploadedFile } from '@prezly/uploadcare';
 import type { ReactNode } from 'react';
 import { createHyperscript, createText } from 'slate-hyperscript';
 
@@ -16,7 +16,7 @@ declare global {
         interface IntrinsicElements {
             'h-image': {
                 children?: ReactNode;
-                file: UploadcareStoragePayload;
+                file: UploadedFile;
                 href: string;
                 layout: ImageLayout;
                 width: string;

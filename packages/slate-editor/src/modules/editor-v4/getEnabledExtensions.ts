@@ -75,7 +75,7 @@ export function* getEnabledExtensions({
     }
 
     if (withPressContacts) {
-        yield PressContactsExtension({ containerRef });
+        yield PressContactsExtension();
     }
 
     if (withPlaceholders) {
@@ -104,7 +104,7 @@ export function* getEnabledExtensions({
     }
 
     if (withCoverage) {
-        yield CoverageExtension({ ...withCoverage, containerRef });
+        yield CoverageExtension(withCoverage);
     }
 
     if (withGalleries) {
@@ -132,16 +132,11 @@ export function* getEnabledExtensions({
         yield EmbedExtension({
             ...withEmbeds,
             availableWidth,
-            containerRef,
         });
     }
 
     if (withVideos) {
-        yield VideoExtension({
-            ...withVideos,
-            availableWidth,
-            containerRef,
-        });
+        yield VideoExtension();
     }
 
     if (withWebBookmarks) {

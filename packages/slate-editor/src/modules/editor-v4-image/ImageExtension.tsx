@@ -35,7 +35,9 @@ export const ImageExtension = ({
     onCrop = noop,
     onRemove = noop,
     onReplace = noop,
-    showLayoutControls,
+    withAlignmentOptions = false,
+    withSizeOptions = false,
+    withLayoutOptions = false,
     withNewTabOption = true,
 }: ImageParameters): Extension => ({
     id: IMAGE_EXTENSION_ID,
@@ -127,7 +129,9 @@ export const ImageExtension = ({
                     onCrop={onCrop}
                     onRemove={onRemove}
                     onReplace={onReplace}
-                    showLayoutControls={Boolean(showLayoutControls)}
+                    withAlignmentOptions={withAlignmentOptions}
+                    withSizeOptions={withSizeOptions}
+                    withLayoutOptions={withLayoutOptions}
                     withNewTabOption={withNewTabOption}
                 >
                     {children}

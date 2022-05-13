@@ -1,5 +1,6 @@
 import type { ImageNode } from '@prezly/slate-types';
-import { ImageLayout } from '@prezly/slate-types';
+import { Alignment, ImageLayout } from '@prezly/slate-types';
+import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import type { OptionsGroupOption } from '#components';
@@ -10,13 +11,30 @@ import {
     ImageLayoutContained,
     ImageLayoutExpanded,
     ImageLayoutFullWidth,
+    ImageSizeBestFit,
+    ImageSizeOriginal,
+    ImageSizeSmall,
     Link,
     Reload,
 } from '#icons';
 
+import styles from './ImageMenu.module.scss';
+
 import { STRING_URL_PATTERN } from '#modules/editor-v4-components/LinkMenu';
 
-type FormState = Pick<ImageNode, 'href' | 'layout' | 'new_tab'>;
+export enum Size {
+    SMALL = 'small',
+    BEST_FIT = 'best-fit',
+    ORIGINAL = 'original',
+}
+
+export interface FormState {
+    align: ImageNode['align'];
+    href: ImageNode['href'];
+    layout: ImageNode['layout'];
+    new_tab: ImageNode['new_tab'];
+    size: Size | undefined;
+}
 
 interface Props {
     onChange: (props: Partial<FormState>) => void;
@@ -24,26 +42,79 @@ interface Props {
     onCrop: () => void;
     onRemove: () => void;
     onReplace: () => void;
-    showLayoutControls: boolean;
     value: FormState;
+    withAlignmentOptions: boolean;
+    withSizeOptions: boolean | Size[];
+    withLayoutOptions: boolean;
     withNewTabOption: boolean;
 }
 
-const IMAGE_SIZE_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
+const IMAGE_LAYOUT_OPTIONS: OptionsGroupOption<ImageLayout>[] = [
     {
         value: ImageLayout.CONTAINED,
         label: 'Contained',
-        icon: (props) => <ImageLayoutContained fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        icon: ({ isActive }) => (
+            <ImageLayoutContained
+                className={classNames(styles.icon, { [styles.active]: isActive })}
+            />
+        ),
     },
     {
         value: ImageLayout.EXPANDED,
         label: 'Expanded',
-        icon: (props) => <ImageLayoutExpanded fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        icon: ({ isActive }) => (
+            <ImageLayoutExpanded
+                className={classNames(styles.icon, { [styles.active]: isActive })}
+            />
+        ),
     },
     {
         value: ImageLayout.FULL_WIDTH,
         label: 'Full width',
-        icon: (props) => <ImageLayoutFullWidth fill={props.isActive ? '#F9CA7B' : 'white'} />,
+        icon: ({ isActive }) => (
+            <ImageLayoutFullWidth
+                className={classNames(styles.icon, { [styles.active]: isActive })}
+            />
+        ),
+    },
+];
+
+const IMAGE_SIZE_OPTIONS: OptionsGroupOption<Size>[] = [
+    {
+        value: Size.SMALL,
+        label: 'Small',
+        icon: ({ isActive }) => (
+            <ImageSizeSmall className={classNames(styles.icon, { [styles.active]: isActive })} />
+        ),
+    },
+    {
+        value: Size.BEST_FIT,
+        label: 'Best Fit',
+        icon: ({ isActive }) => (
+            <ImageSizeBestFit className={classNames(styles.icon, { [styles.active]: isActive })} />
+        ),
+    },
+    {
+        value: Size.ORIGINAL,
+        label: 'Original',
+        icon: ({ isActive }) => (
+            <ImageSizeOriginal className={classNames(styles.icon, { [styles.active]: isActive })} />
+        ),
+    },
+];
+
+const IMAGE_ALIGNMENT_OPTIONS: OptionsGroupOption<Alignment>[] = [
+    {
+        value: Alignment.LEFT,
+        label: 'Left',
+    },
+    {
+        value: Alignment.CENTER,
+        label: 'Center',
+    },
+    {
+        value: Alignment.RIGHT,
+        label: 'Right',
     },
 ];
 
@@ -53,8 +124,10 @@ export function ImageMenu({
     onCrop,
     onRemove,
     onReplace,
-    showLayoutControls,
     value,
+    withAlignmentOptions,
+    withSizeOptions,
+    withLayoutOptions,
     withNewTabOption,
 }: Props) {
     const [href, setHref] = useState(value.href);
@@ -91,13 +164,43 @@ export function ImageMenu({
                 </ButtonGroup>
             </Toolbox.Section>
 
-            {showLayoutControls && (
+            {withLayoutOptions && (
                 <Toolbox.Section caption="Image size">
                     <OptionsGroup
                         name="layout"
-                        options={IMAGE_SIZE_OPTIONS}
+                        options={IMAGE_LAYOUT_OPTIONS}
                         selectedValue={value.layout}
-                        onChange={(layout) => onChange({ layout })}
+                        onChange={function (layout) {
+                            const align =
+                                layout === ImageLayout.CONTAINED ? value.align : Alignment.CENTER;
+                            onChange({ layout, align });
+                        }}
+                    />
+                </Toolbox.Section>
+            )}
+
+            {withSizeOptions && (
+                <Toolbox.Section caption="Image size">
+                    <OptionsGroup
+                        name="width"
+                        options={getAvailableSizeOptions(withSizeOptions)}
+                        selectedValue={value.size}
+                        onChange={function (size) {
+                            onChange({ size });
+                        }}
+                    />
+                </Toolbox.Section>
+            )}
+
+            {withAlignmentOptions && (
+                <Toolbox.Section caption="Image alignment" paddingBottom="3">
+                    <OptionsGroup
+                        disabled={value.layout !== ImageLayout.CONTAINED}
+                        name="align"
+                        options={IMAGE_ALIGNMENT_OPTIONS}
+                        selectedValue={value.align}
+                        onChange={(align) => onChange({ align })}
+                        variant="pills"
                     />
                 </Toolbox.Section>
             )}
@@ -152,4 +255,14 @@ function CropButton(props: { onClick: () => void }) {
             Crop
         </Button>
     );
+}
+
+function getAvailableSizeOptions(withSizeOptions: boolean | Size[]): OptionsGroupOption<Size>[] {
+    if (withSizeOptions === false) return [];
+    if (withSizeOptions === true) return IMAGE_SIZE_OPTIONS;
+
+    return IMAGE_SIZE_OPTIONS.map((option) => ({
+        ...option,
+        disabled: !withSizeOptions.includes(option.value),
+    }));
 }

@@ -1,1 +1,0 @@
-export { FloatingPressContactsMenu } from './FloatingPressContactsMenu';

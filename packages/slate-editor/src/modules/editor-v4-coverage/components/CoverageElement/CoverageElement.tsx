@@ -1,20 +1,20 @@
 import type { Coverage } from '@prezly/sdk';
 import type { CoverageNode } from '@prezly/slate-types';
-import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
 import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 
-import { LoadingPlaceholderV2 } from '#components';
-import { Coverage as CoverageIcon } from '#icons';
+import { EditorBlock, ElementPlaceholder, LoadingPlaceholderV2 } from '#components';
+import { ChickenNoSignalIllustration, Coverage as CoverageIcon } from '#icons';
 import { useAsyncFn } from '#lib';
 
-import type { ApiError } from '#modules/api';
+import { HttpCodes } from '#modules/api';
+import { EventsEditor } from '#modules/editor-v4-events';
+
+import { removeCoverage } from '../../lib';
 
 import { CoverageCard } from './CoverageCard';
-import './CoverageElement.scss';
-import { FetchingError } from './FetchingError';
+import styles from './CoverageElement.module.scss';
 
 // GET /v2/coverage/:id endpoint usually responds in 300-1000 ms
 // Depending on whether it has an attachment or URL.
@@ -29,14 +29,14 @@ interface Props extends RenderElementProps {
     fetchCoverage: (id: Coverage['id']) => Promise<Coverage>;
 }
 
-export const CoverageElement: FunctionComponent<Props> = ({
+export function CoverageElement({
     attributes,
     children,
     dateFormat,
     element,
     fetchCoverage,
-}) => {
-    const isSelected = useSelected();
+}: Props) {
+    const editor = useSlateStatic();
     const coverageId = element.coverage.id;
     const [{ error, loading, value: coverage }, loadCoverage] = useAsyncFn(() => {
         return fetchCoverage(coverageId);
@@ -46,47 +46,73 @@ export const CoverageElement: FunctionComponent<Props> = ({
         loadCoverage();
     }, [loadCoverage]);
 
+    function remove() {
+        if (removeCoverage(editor, element)) {
+            EventsEditor.dispatchEvent(editor, 'coverage-removed');
+        }
+    }
+
     return (
-        <div
+        <EditorBlock
             {...attributes}
-            className={classNames('editor-v4-coverage-element', {
-                'editor-v4-coverage-element--active': isSelected,
-                'editor-v4-coverage-element--error': error,
-            })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
-        >
-            <div contentEditable={false}>
-                {error && (
-                    <FetchingError
-                        className="editor-v4-coverage-element__error"
-                        error={error as ApiError}
-                        onRetry={loadCoverage}
+            border={Boolean(coverage)}
+            element={element}
+            renderBlock={function () {
+                if (loading) {
+                    return (
+                        <LoadingPlaceholderV2.Placeholder
+                            className={styles.loadingPlaceholder}
+                            estimatedDuration={ESTIMATED_LOADING_DURATION}
+                        >
+                            {({ percent }) => (
+                                <>
+                                    <LoadingPlaceholderV2.Icon icon={CoverageIcon} />
+                                    <LoadingPlaceholderV2.Description percent={percent}>
+                                        Loading Coverage
+                                    </LoadingPlaceholderV2.Description>
+                                    <LoadingPlaceholderV2.ProgressBar percent={percent} />
+                                </>
+                            )}
+                        </LoadingPlaceholderV2.Placeholder>
+                    );
+                }
+
+                if (coverage) {
+                    return <CoverageCard coverage={coverage} dateFormat={dateFormat} />;
+                }
+
+                if (error && isNotFoundError(error)) {
+                    return (
+                        <ElementPlaceholder
+                            title="The selected coverage no longer exists and will not be displayed"
+                            illustration={<ChickenNoSignalIllustration />}
+                            onDismiss={remove}
+                            onDismissLabel="Remove this coverage"
+                        />
+                    );
+                }
+
+                return (
+                    <ElementPlaceholder
+                        title="We have encountered a problem when loading your coverage"
+                        subtitle="Click to try again"
+                        illustration={<ChickenNoSignalIllustration />}
+                        onClick={loadCoverage}
+                        onClickLabel="Click to try again"
+                        onDismiss={remove}
+                        onDismissLabel="Remove this coverage"
                     />
-                )}
-
-                {loading && (
-                    <LoadingPlaceholderV2.Placeholder
-                        className="editor-v4-coverage-element__loading-placeholder"
-                        estimatedDuration={ESTIMATED_LOADING_DURATION}
-                    >
-                        {({ percent }) => (
-                            <>
-                                <LoadingPlaceholderV2.Icon icon={CoverageIcon} />
-                                <LoadingPlaceholderV2.Description percent={percent}>
-                                    Loading Coverage
-                                </LoadingPlaceholderV2.Description>
-                                <LoadingPlaceholderV2.ProgressBar percent={percent} />
-                            </>
-                        )}
-                    </LoadingPlaceholderV2.Placeholder>
-                )}
-
-                {coverage && <CoverageCard coverage={coverage} dateFormat={dateFormat} />}
-            </div>
-
+                );
+            }}
+            rounded
+            void
+        >
             {/* We have to render children or Slate will fail when trying to find the node. */}
             {children}
-        </div>
+        </EditorBlock>
     );
-};
+}
+
+function isNotFoundError(error: any): boolean {
+    return error && typeof error === 'object' && error.status === HttpCodes.NOT_FOUND;
+}

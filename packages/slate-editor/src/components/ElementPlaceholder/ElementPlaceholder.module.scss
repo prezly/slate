@@ -1,0 +1,48 @@
+@import "styles/variables";
+
+.container {
+    position: relative;
+    background: $grey-100;
+    padding: 50px $spacing-1;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.illustration {
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    font-weight: 600;
+    font-size: $font-size-medium;
+    color: #374151;
+}
+
+.subtitle {
+    font-weight: 500;
+    font-size: $font-size-smaller;
+    color: #9ca3af;
+}
+
+.clickArea {
+    cursor: pointer;
+    opacity: 0;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.closeButton {
+    position: absolute;
+    right: $spacing-1;
+    top: $spacing-1;
+}
