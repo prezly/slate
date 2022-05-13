@@ -24,7 +24,6 @@
 }
 
 .paragraph {
-    padding-left: $spacing-2;
     background-color: $grey-50;
     margin: 0;
     line-height: 160%;
@@ -32,16 +31,19 @@
     min-width: 5em;
 
     &.alignLeft {
+        padding-left: $spacing-2;
         border-left: 2px solid $grey-400;
         text-align: left;
     }
 
     &.alignCenter {
+        padding-left: $spacing-2;
         border-left: 2px solid $grey-400;
         text-align: center;
     }
 
     &.alignRight {
+        padding-right: $spacing-2;
         border-right: 2px solid $grey-400;
         text-align: right;
     }
