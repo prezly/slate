@@ -17,6 +17,10 @@
         }
     }
 
+    &.void {
+        caret-color: transparent;
+    }
+
     &.void > .frame {
         @include editor-v4-void-element;
     }
