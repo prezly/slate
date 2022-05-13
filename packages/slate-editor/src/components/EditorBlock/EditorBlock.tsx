@@ -17,7 +17,11 @@ import { Overlay } from './Overlay';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
-type Layout = 'contained' | 'expanded' | 'full-width';
+enum Layout {
+    CONTAINED = 'contained',
+    EXPANDED = 'expanded',
+    FULL_WIDTH = 'full-width',
+}
 
 export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
     align?: Alignment;
@@ -37,7 +41,7 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
      * Mark the block having an error.
      */
     hasError?: boolean;
-    layout?: Layout;
+    layout?: `${Layout}`;
     overlay?: OverlayMode;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
