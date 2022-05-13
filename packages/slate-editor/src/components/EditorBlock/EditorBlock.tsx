@@ -82,24 +82,26 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 
     const [menuOpen, setMenuOpen] = useState(true);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
-    const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
-    const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
+    const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-    const handleClick = useCallback(
-        function () {
-            openMenu();
+    const handleVoidBlockClick = useCallback(function () {
+        setMenuOpen(true);
+    }, []);
 
-            if (!isVoid) {
-                const path = ReactEditor.findPath(editor, element);
-                Transforms.select(editor, path);
-            }
+    const handleNonVoidBlockClick = useCallback(
+        function (event: MouseEvent) {
+            setMenuOpen(true);
+            event.stopPropagation();
+            const path = ReactEditor.findPath(editor, element);
+            Transforms.select(editor, path);
         },
-        [editor, element, openMenu, isVoid],
+        [editor, element],
     );
 
     useEffect(
         function () {
-            if (isOnlyBlockSelected) setMenuOpen(true);
+            if (isVoid && isOnlyBlockSelected) setMenuOpen(true);
+            if (!isOnlyBlockSelected) setMenuOpen(false);
         },
         [isOnlyBlockSelected],
     );
@@ -114,6 +116,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
             data-element-layout={layout}
+            onClick={isVoid ? undefined : closeMenu}
             ref={ref}
         >
             <div
@@ -124,7 +127,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 })}
                 contentEditable={false}
                 ref={setContainer}
-                onClick={handleClick}
                 style={{ width }}
             >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
@@ -137,7 +139,12 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}
-                <Overlay className={styles.overlay} selected={isSelected} mode={overlay} />
+                <Overlay
+                    className={styles.overlay}
+                    selected={isSelected}
+                    mode={overlay}
+                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
+                />
                 <div
                     className={classNames(styles.content, {
                         [styles.selected]: isSelected,
@@ -145,6 +152,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         [styles.border]: border,
                         [styles.rounded]: rounded,
                     })}
+                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
                 >
                     {renderBlock({ isSelected })}
                 </div>
