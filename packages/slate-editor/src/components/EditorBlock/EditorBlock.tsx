@@ -85,12 +85,11 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const closeMenu = useCallback(() => setMenuOpen(false), []);
 
     const handleBlockClick = useCallback(
-        function (event) {
-            event.stopPropagation();
-
+        function (event: MouseEvent) {
             setMenuOpen(true);
 
             if (!isVoid) {
+                event.stopPropagation();
                 const path = ReactEditor.findPath(editor, element);
                 Transforms.select(editor, path);
             }
@@ -125,7 +124,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
             data-element-layout={layout}
-            onClick={handleTextClick}
+            onClick={!isVoid ? handleTextClick : undefined}
             ref={ref}
         >
             <div
