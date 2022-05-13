@@ -3,8 +3,8 @@ import type { Rect } from 'rangefix';
 import { scrollTo } from './scrollTo';
 
 export interface Options {
-    minBottom: number;
-    minTop: number;
+    minBottom?: number;
+    minTop?: number;
     skipWhenDoesNotFitView?: boolean;
 }
 
@@ -25,7 +25,7 @@ export interface Options {
 export function scrollIntoView(
     parent: HTMLElement,
     rect: ClientRect | Rect,
-    { minBottom, minTop, skipWhenDoesNotFitView = false }: Options,
+    { minTop = 0, minBottom = 0, skipWhenDoesNotFitView = false }: Options,
 ) {
     const { height: parentHeight } = parent.getBoundingClientRect();
     const { height: elementHeight, top: elementTop } = rect;
