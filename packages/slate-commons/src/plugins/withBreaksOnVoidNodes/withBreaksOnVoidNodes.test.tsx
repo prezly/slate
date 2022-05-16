@@ -3,46 +3,41 @@
 import { Editor } from 'slate';
 
 import { jsx } from '../../jsx';
-import { createEditor as createCommonEditor } from '../../test-utils';
 
 import { withBreaksOnVoidNodes } from './withBreaksOnVoidNodes';
 
-export function createEditor(input: JSX.Element) {
-    return withBreaksOnVoidNodes(createCommonEditor(input));
-}
-
 describe('withBreaksOnVoidNodes', () => {
     it('should insert an empty paragraph after the void element when requesting a break', () => {
-        const editor = createEditor(
-            <editor>
-                <h-p>
-                    <h-text>paragraph before</h-text>
-                </h-p>
-                <h-void-element>
-                    <h-text />
+        const editor = (
+            <editor withOverrides={[withBreaksOnVoidNodes]}>
+                <h:paragraph>
+                    <h:text>paragraph before</h:text>
+                </h:paragraph>
+                <h:divider>
+                    <h:text />
                     <cursor />
-                </h-void-element>
-                <h-p>
-                    <h-text>paragraph after</h-text>
-                </h-p>
-            </editor>,
-        );
+                </h:divider>
+                <h:paragraph>
+                    <h:text>paragraph after</h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>paragraph before</h-text>
-                </h-p>
-                <h-void-element>
-                    <h-text />
-                </h-void-element>
-                <h-p>
-                    <h-text />
+                <h:paragraph>
+                    <h:text>paragraph before</h:text>
+                </h:paragraph>
+                <h:divider>
+                    <h:text />
+                </h:divider>
+                <h:paragraph>
+                    <h:text />
                     <cursor />
-                </h-p>
-                <h-p>
-                    <h-text>paragraph after</h-text>
-                </h-p>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>paragraph after</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

@@ -3,7 +3,7 @@ import babel from 'gulp-babel';
 import rename from 'gulp-rename';
 
 const BASE_DIR = './src';
-const TYPESCRIPT_SOURCES = 'src/**/*.{ts,tsx}';
+const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/*.test.{ts,tsx}'];
 
 gulp.task('build:esm', () => buildEsm());
 gulp.task('build:cjs', () => buildCommonjs());

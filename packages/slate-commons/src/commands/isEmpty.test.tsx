@@ -16,9 +16,9 @@ describe('isEmpty', () => {
     it('Considers editor to be empty when it has only one empty block node', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text />
-                </h-p>
+                <h:paragraph>
+                    <h:text />
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -28,12 +28,12 @@ describe('isEmpty', () => {
     it('Considers editor to not be empty when it has multiple empty block nodes', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text />
-                </h-p>
-                <h-p>
-                    <h-text />
-                </h-p>
+                <h:paragraph>
+                    <h:text />
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text />
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -43,9 +43,9 @@ describe('isEmpty', () => {
     it('Considers editor to not be empty when it has only one block node with whitespace', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text> </h-text>
-                </h-p>
+                <h:paragraph>
+                    <h:text> </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -54,9 +54,9 @@ describe('isEmpty', () => {
     it('Considers editor to not be empty when it has text in it', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

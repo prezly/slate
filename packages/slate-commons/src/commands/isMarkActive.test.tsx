@@ -12,12 +12,12 @@ describe('isMarkActive', () => {
     it('Returns "true" when mark is active', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text bold>
+                <h:paragraph>
+                    <h:text bold>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -27,13 +27,13 @@ describe('isMarkActive', () => {
     it('Returns "false" when mark is inactive', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text bold>lorem ipsum</h-text>
-                    <h-text underlined>
+                <h:paragraph>
+                    <h:text bold>lorem ipsum</h:text>
+                    <h:text underlined>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -43,9 +43,9 @@ describe('isMarkActive', () => {
     it('Returns "false" when there is no selection', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

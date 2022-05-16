@@ -3,25 +3,24 @@
 import type { Editor, Node } from 'slate';
 
 import { jsx } from '../jsx';
-import { createEditor } from '../test-utils';
 
 import { insertNodes } from './insertNodes';
 
 describe('insertNodes', () => {
     it('Does nothing when there is no selection', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-            </editor>,
-        );
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -32,25 +31,25 @@ describe('insertNodes', () => {
     });
 
     it('Does nothing when there are no nodes to insert', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -61,37 +60,37 @@ describe('insertNodes', () => {
     });
 
     it('Inserts a new block element', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>
                         dolor
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         insertNodes(
             editor,
             nodes([
-                <h-p>
-                    <h-text>dolor</h-text>
-                </h-p>,
+                <h:paragraph>
+                    <h:text>dolor</h:text>
+                </h:paragraph>,
             ]),
         );
 
@@ -100,39 +99,39 @@ describe('insertNodes', () => {
     });
 
     it('Inserts a new block element with extra paragraph after', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-                <h-p>
-                    <h-text>dolor</h-text>
-                </h-p>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>dolor</h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         insertNodes(
             editor,
             nodes([
-                <h-p>
-                    <h-text>dolor</h-text>
-                </h-p>,
+                <h:paragraph>
+                    <h:text>dolor</h:text>
+                </h:paragraph>,
             ]),
             { ensureEmptyParagraphAfter: true },
         );
@@ -142,42 +141,42 @@ describe('insertNodes', () => {
     });
 
     it('Inserts a new block element with extra paragraph after unless there already is one', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-                <h-p>
-                    <h-text>dolor</h-text>
-                </h-p>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>dolor</h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         insertNodes(
             editor,
             nodes([
-                <h-p>
-                    <h-text>dolor</h-text>
-                </h-p>,
-                <h-p>
-                    <h-text></h-text>
-                </h-p>,
+                <h:paragraph>
+                    <h:text>dolor</h:text>
+                </h:paragraph>,
+                <h:paragraph>
+                    <h:text></h:text>
+                </h:paragraph>,
             ]),
             { ensureEmptyParagraphAfter: true },
         );
@@ -187,46 +186,46 @@ describe('insertNodes', () => {
     });
 
     it('Inserts inline nodes into the current block until encountering a block node', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsumxxx</h-text>
-                    <h-inline-element href="https://example.com">
-                        <h-text>yyy</h-text>
-                    </h-inline-element>
-                    <h-text />
-                </h-p>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsumxxx</h:text>
+                    <h:link href="https://example.com">
+                        <h:text>yyy</h:text>
+                    </h:link>
+                    <h:text />
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>
                         dolorzzz
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         insertNodes(
             editor,
             nodes([
-                <h-text>xxx</h-text>,
-                <h-inline-element href="https://example.com">
-                    <h-text>yyy</h-text>
-                </h-inline-element>,
-                <h-p>
-                    <h-text>dolor</h-text>
-                </h-p>,
-                <h-text>zzz</h-text>,
+                <h:text>xxx</h:text>,
+                <h:link href="https://example.com">
+                    <h:text>yyy</h:text>
+                </h:link>,
+                <h:paragraph>
+                    <h:text>dolor</h:text>
+                </h:paragraph>,
+                <h:text>zzz</h:text>,
             ]),
         );
 
@@ -235,33 +234,33 @@ describe('insertNodes', () => {
     });
 
     it('Inserts a new block element and removes an empty paragraph', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         dolor
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         insertNodes(
             editor,
             nodes([
-                <h-p>
-                    <h-text>dolor</h-text>
-                </h-p>,
+                <h:paragraph>
+                    <h:text>dolor</h:text>
+                </h:paragraph>,
             ]),
         );
 
@@ -270,46 +269,46 @@ describe('insertNodes', () => {
     });
 
     it('Inserts inline nodes into the current empty paragraph until encountering a block node', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>xxx</h-text>
-                    <h-inline-element href="https://example.com">
-                        <h-text>yyy</h-text>
-                    </h-inline-element>
-                    <h-text>zzz</h-text>
-                </h-p>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>xxx</h:text>
+                    <h:link href="https://example.com">
+                        <h:text>yyy</h:text>
+                    </h:link>
+                    <h:text>zzz</h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>
                         doloraaa
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         insertNodes(
             editor,
             nodes([
-                <h-text>xxx</h-text>,
-                <h-inline-element href="https://example.com">
-                    <h-text>yyy</h-text>
-                </h-inline-element>,
-                <h-text>zzz</h-text>,
-                <h-p>
-                    <h-text>dolor</h-text>
-                </h-p>,
-                <h-text>aaa</h-text>,
+                <h:text>xxx</h:text>,
+                <h:link href="https://example.com">
+                    <h:text>yyy</h:text>
+                </h:link>,
+                <h:text>zzz</h:text>,
+                <h:paragraph>
+                    <h:text>dolor</h:text>
+                </h:paragraph>,
+                <h:text>aaa</h:text>,
             ]),
         );
 
@@ -318,42 +317,42 @@ describe('insertNodes', () => {
     });
 
     it('Inserts inline nodes into a new paragraph if void node is focused', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-void-element>
-                    <h-text>
+                <h:divider>
+                    <h:text>
                         <cursor />
-                    </h-text>
-                </h-void-element>
-            </editor>,
-        );
+                    </h:text>
+                </h:divider>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-void-element>
-                    <h-text />
-                </h-void-element>
-                <h-p>
-                    <h-text>xxx</h-text>
-                    <h-inline-element href="https://example.com">
-                        <h-text>yyy</h-text>
-                    </h-inline-element>
-                    <h-text>
+                <h:divider>
+                    <h:text />
+                </h:divider>
+                <h:paragraph>
+                    <h:text>xxx</h:text>
+                    <h:link href="https://example.com">
+                        <h:text>yyy</h:text>
+                    </h:link>
+                    <h:text>
                         zzz
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         insertNodes(
             editor,
             nodes([
-                <h-text>xxx</h-text>,
-                <h-inline-element href="https://example.com">
-                    <h-text>yyy</h-text>
-                </h-inline-element>,
-                <h-text>zzz</h-text>,
+                <h:text>xxx</h:text>,
+                <h:link href="https://example.com">
+                    <h:text>yyy</h:text>
+                </h:link>,
+                <h:text>zzz</h:text>,
             ]),
         );
 
@@ -362,37 +361,37 @@ describe('insertNodes', () => {
     });
 
     it('Inserts text nodes into a new paragraph after void node', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-void-element>
-                    <h-text />
-                </h-void-element>
-                <h-p>
-                    <h-text>lorem</h-text>
-                    <h-text bold>
+                <h:divider>
+                    <h:text />
+                </h:divider>
+                <h:paragraph>
+                    <h:text>lorem</h:text>
+                    <h:text bold>
                         {' ipsum'}
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         insertNodes(editor, [
-            <h-void-element>
-                <h-text />
-            </h-void-element>,
-            <h-text>lorem</h-text>,
-            <h-text bold>{' ipsum'}</h-text>,
+            <h:divider>
+                <h:text />
+            </h:divider>,
+            <h:text>lorem</h:text>,
+            <h:text bold>{' ipsum'}</h:text>,
         ] as unknown as Node[]);
 
         expect(editor.children).toEqual(expected.children);
@@ -400,45 +399,45 @@ describe('insertNodes', () => {
     });
 
     it('Inserts text nodes after inline void node', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
-                    </h-text>
-                </h-p>
-            </editor>,
-        );
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-void-element>
-                    <h-text />
-                </h-void-element>
-                <h-p>
-                    <h-text>lorem</h-text>
-                    <h-inline-void-element href="https://example.com">
-                        <h-text>ipsum</h-text>
-                    </h-inline-void-element>
-                    <h-text bold>
+                <h:divider>
+                    <h:text />
+                </h:divider>
+                <h:paragraph>
+                    <h:text>lorem</h:text>
+                    <h:mention username="elvis">
+                        <h:text></h:text>
+                    </h:mention>
+                    <h:text bold>
                         {' dolor'}
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         insertNodes(
             editor,
             nodes([
-                <h-void-element>
-                    <h-text />
-                </h-void-element>,
-                <h-text>lorem</h-text>,
-                <h-inline-void-element href="https://example.com">
-                    <h-text>ipsum</h-text>
-                </h-inline-void-element>,
-                <h-text bold>{' dolor'}</h-text>,
+                <h:divider>
+                    <h:text />
+                </h:divider>,
+                <h:text>lorem</h:text>,
+                <h:mention username="elvis">
+                    <h:text></h:text>
+                </h:mention>,
+                <h:text bold>{' dolor'}</h:text>,
             ]),
         );
 

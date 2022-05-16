@@ -9,15 +9,15 @@ import { findDescendants } from './findDescendants';
 describe('findDescendants', () => {
     const editor = (
         <editor>
-            <h-p>
-                <h-text>lorem ipsum 1</h-text>
-                <h-text>lorem ipsum 2</h-text>
+            <h:paragraph>
+                <h:text>lorem ipsum 1</h:text>
+                <h:text>lorem ipsum 2</h:text>
 
-                <h-link href="https://example.com">
-                    <h-text>lorem ipsum 3</h-text>
-                    <h-text>lorem ipsum 4</h-text>
-                </h-link>
-            </h-p>
+                <h:link href="https://example.com">
+                    <h:text>lorem ipsum 3</h:text>
+                    <h:text>lorem ipsum 4</h:text>
+                </h:link>
+            </h:paragraph>
         </editor>
     ) as unknown as Editor;
 
@@ -26,10 +26,10 @@ describe('findDescendants', () => {
 
         expect(descendants).toEqual([
             [
-                <h-link href="https://example.com">
-                    <h-text>lorem ipsum 3</h-text>
-                    <h-text>lorem ipsum 4</h-text>
-                </h-link>,
+                <h:link href="https://example.com">
+                    <h:text>lorem ipsum 3</h:text>
+                    <h:text>lorem ipsum 4</h:text>
+                </h:link>,
                 [0, 2],
             ],
         ]);
@@ -40,10 +40,10 @@ describe('findDescendants', () => {
 
         expect(descendants).toEqual([
             [
-                <h-link href="https://example.com">
-                    <h-text>lorem ipsum 3</h-text>
-                    <h-text>lorem ipsum 4</h-text>
-                </h-link>,
+                <h:link href="https://example.com">
+                    <h:text>lorem ipsum 3</h:text>
+                    <h:text>lorem ipsum 4</h:text>
+                </h:link>,
                 [2],
             ],
         ]);
@@ -56,10 +56,10 @@ describe('findDescendants', () => {
         );
 
         expect(descendants).toEqual([
-            [<h-text>lorem ipsum 1</h-text>, [0, 0]],
-            [<h-text>lorem ipsum 2</h-text>, [0, 1]],
-            [<h-text>lorem ipsum 3</h-text>, [0, 2, 0]],
-            [<h-text>lorem ipsum 4</h-text>, [0, 2, 1]],
+            [<h:text>lorem ipsum 1</h:text>, [0, 0]],
+            [<h:text>lorem ipsum 2</h:text>, [0, 1]],
+            [<h:text>lorem ipsum 3</h:text>, [0, 2, 0]],
+            [<h:text>lorem ipsum 4</h:text>, [0, 2, 1]],
         ]);
     });
 
@@ -70,10 +70,10 @@ describe('findDescendants', () => {
         );
 
         expect(descendants).toEqual([
-            [<h-text>lorem ipsum 1</h-text>, [0]],
-            [<h-text>lorem ipsum 2</h-text>, [1]],
-            [<h-text>lorem ipsum 3</h-text>, [2, 0]],
-            [<h-text>lorem ipsum 4</h-text>, [2, 1]],
+            [<h:text>lorem ipsum 1</h:text>, [0]],
+            [<h:text>lorem ipsum 2</h:text>, [1]],
+            [<h:text>lorem ipsum 3</h:text>, [2, 0]],
+            [<h:text>lorem ipsum 4</h:text>, [2, 1]],
         ]);
     });
 });

@@ -1,10 +1,30 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { LINK_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import {
+    LINK_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
+    DIVIDER_NODE_TYPE,
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    MENTION_NODE_TYPE,
+} from '@prezly/slate-types';
 import type { ReactNode } from 'react';
-import { createHyperscript, createText } from 'slate-hyperscript';
+import type { Editor } from 'slate';
+import { createEditor, Element } from 'slate';
+import {
+    createEditor as createEditorFactory,
+    createHyperscript,
+    createText,
+} from 'slate-hyperscript';
 
-import { INLINE_VOID_ELEMENT, SOME_ELEMENT_1, SOME_ELEMENT_2, VOID_ELEMENT } from './test-utils';
+export {
+    LINK_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
+    DIVIDER_NODE_TYPE,
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    MENTION_NODE_TYPE,
+};
 
 declare global {
     namespace JSX {
@@ -24,6 +44,7 @@ declare global {
                 children?: never;
             };
             editor: {
+                withOverrides?: WithOverride[];
                 children?: ReactNode;
             };
             element: {
@@ -46,61 +67,99 @@ declare global {
             selection: {
                 children?: ReactNode;
             };
-            // using 'h-text' instead of 'text' to avoid collision with React typings, see:
+            // using 'h:text' instead of 'text' to avoid collision with React typings, see:
             // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0182cd9094aa081558a3c4bfc970bbdfb71d891d/types/react/index.d.ts#L3136
-            'h-text': {
-                [key: string]: any;
+            'h:text': {
+                bold?: boolean;
+                italic?: boolean;
+                underlined?: boolean;
                 children?: ReactNode;
             };
         }
 
         interface IntrinsicElements {
-            // it's a "link" in our tests - because we have to pick something
-            // but it could have been any other inline element
-            'h-inline-element': {
+            // it could have been any other inline element
+            'h:link': {
                 children?: ReactNode;
                 href: string;
             };
-            // it's a "link" in our tests - because we have to pick something
-            // but it could have been any other inline void element
-            'h-inline-void-element': {
+            // it could have been any other inline void element
+            'h:mention': {
                 children?: ReactNode;
-                href: string;
+                username: string;
             };
-            'h-link': {
-                children?: ReactNode;
-                href: string;
-            };
-            // it's a "divider" in our tests - because we have to pick something
-            // but it could have been any other void element
-            'h-void-element': {
+            // it could have been any other void element
+            'h:divider': {
                 children?: ReactNode;
             };
-            'h-p': {
+            'h:paragraph': {
                 children?: ReactNode;
             };
             // it could have been any other block element
-            'h-some-element-1': {
+            'h:heading-1': {
                 children?: ReactNode;
             };
-            'h-some-element-2': {
+            'h:heading-2': {
                 children?: ReactNode;
             };
         }
     }
 }
 
+type WithOverride = <T extends Editor>(editor: T) => T;
+
+const DEFAULT_OVERRIDES: WithOverride[] = [withVoidNodes, withInlineNodes];
+
 export const jsx = createHyperscript({
     elements: {
-        'h-inline-element': { type: LINK_NODE_TYPE },
-        'h-inline-void-element': { type: INLINE_VOID_ELEMENT },
-        'h-link': { type: LINK_NODE_TYPE },
-        'h-void-element': { type: VOID_ELEMENT },
-        'h-p': { type: PARAGRAPH_NODE_TYPE },
-        'h-some-element-1': { type: SOME_ELEMENT_1 },
-        'h-some-element-2': { type: SOME_ELEMENT_2 },
+        'h:link': { type: LINK_NODE_TYPE },
+        'h:mention': { type: MENTION_NODE_TYPE },
+        'h:divider': { type: DIVIDER_NODE_TYPE },
+        'h:paragraph': { type: PARAGRAPH_NODE_TYPE },
+        'h:heading-1': { type: HEADING_1_NODE_TYPE },
+        'h:heading-2': { type: HEADING_2_NODE_TYPE },
     },
     creators: {
-        'h-text': createText,
+        'h:text': createText,
+        editor: function (tagName, attributes, children) {
+            const { withOverrides = [], ...rest } = attributes;
+
+            const factory = createEditorFactory(function () {
+                return [...DEFAULT_OVERRIDES, ...withOverrides].reduce(
+                    (editor, withOverride) => withOverride(editor),
+                    createEditor(),
+                );
+            });
+
+            return factory(tagName, rest, children);
+        },
     },
 });
+
+function withInlineNodes<T extends Editor>(editor: T): T {
+    const { isInline } = editor;
+
+    editor.isInline = function (element) {
+        return (
+            Element.isElementType(element, LINK_NODE_TYPE) ||
+            Element.isElementType(element, MENTION_NODE_TYPE) ||
+            isInline(element)
+        );
+    };
+
+    return editor;
+}
+
+function withVoidNodes<T extends Editor>(editor: T): T {
+    const { isVoid } = editor;
+
+    editor.isVoid = function (element) {
+        return (
+            Element.isElementType(element, DIVIDER_NODE_TYPE) ||
+            Element.isElementType(element, MENTION_NODE_TYPE) ||
+            isVoid(element)
+        );
+    };
+
+    return editor;
+}
