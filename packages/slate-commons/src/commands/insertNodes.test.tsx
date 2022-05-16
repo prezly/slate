@@ -3,19 +3,18 @@
 import type { Editor, Node } from 'slate';
 
 import { jsx } from '../jsx';
-import { createEditor } from '../test-utils';
 
 import { insertNodes } from './insertNodes';
 
 describe('insertNodes', () => {
     it('Does nothing when there is no selection', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -32,7 +31,7 @@ describe('insertNodes', () => {
     });
 
     it('Does nothing when there are no nodes to insert', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -40,8 +39,8 @@ describe('insertNodes', () => {
                         <cursor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -61,7 +60,7 @@ describe('insertNodes', () => {
     });
 
     it('Inserts a new block element', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -69,8 +68,8 @@ describe('insertNodes', () => {
                         <cursor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -100,7 +99,7 @@ describe('insertNodes', () => {
     });
 
     it('Inserts a new block element with extra paragraph after', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -108,8 +107,8 @@ describe('insertNodes', () => {
                         <cursor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -142,7 +141,7 @@ describe('insertNodes', () => {
     });
 
     it('Inserts a new block element with extra paragraph after unless there already is one', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -150,8 +149,8 @@ describe('insertNodes', () => {
                         <cursor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -187,7 +186,7 @@ describe('insertNodes', () => {
     });
 
     it('Inserts inline nodes into the current block until encountering a block node', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -195,8 +194,8 @@ describe('insertNodes', () => {
                         <cursor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -235,15 +234,15 @@ describe('insertNodes', () => {
     });
 
     it('Inserts a new block element and removes an empty paragraph', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
                         <cursor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -270,15 +269,15 @@ describe('insertNodes', () => {
     });
 
     it('Inserts inline nodes into the current empty paragraph until encountering a block node', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
                         <cursor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -318,15 +317,15 @@ describe('insertNodes', () => {
     });
 
     it('Inserts inline nodes into a new paragraph if void node is focused', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-void-element>
                     <h-text>
                         <cursor />
                     </h-text>
                 </h-void-element>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -362,15 +361,15 @@ describe('insertNodes', () => {
     });
 
     it('Inserts text nodes into a new paragraph after void node', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
                         <cursor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>
@@ -400,15 +399,15 @@ describe('insertNodes', () => {
     });
 
     it('Inserts text nodes after inline void node', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
                         <cursor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>

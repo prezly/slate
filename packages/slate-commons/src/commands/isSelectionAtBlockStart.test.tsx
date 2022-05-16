@@ -1,13 +1,14 @@
 /** @jsx jsx */
 
+import type { Editor } from 'slate';
+
 import { jsx } from '../jsx';
-import { createEditor } from '../test-utils';
 
 import { isSelectionAtBlockStart } from './isSelectionAtBlockStart';
 
 describe('isSelectionAtBlockStart', () => {
     it('Returns true when the cursor is at the start of the block', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -15,14 +16,14 @@ describe('isSelectionAtBlockStart', () => {
                         lorem ipsum
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         expect(isSelectionAtBlockStart(editor)).toBe(true);
     });
 
     it('Returns true when the selection starts at the start of the block', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -31,14 +32,14 @@ describe('isSelectionAtBlockStart', () => {
                         <anchor />
                     </h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         expect(isSelectionAtBlockStart(editor)).toBe(true);
     });
 
     it('Returns true when the selection is at the start of text inside an inline element', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-inline-element href="https://example.com">
@@ -48,14 +49,14 @@ describe('isSelectionAtBlockStart', () => {
                         </h-text>
                     </h-inline-element>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         expect(isSelectionAtBlockStart(editor)).toBe(true);
     });
 
     it('Returns false when the cursor is in the middle of text', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>
@@ -64,14 +65,13 @@ describe('isSelectionAtBlockStart', () => {
                     </h-text>
                     <h-text> ipsum</h-text>
                 </h-p>
-            </editor>,
-        );
-
+            </editor>
+        ) as unknown as Editor;
         expect(isSelectionAtBlockStart(editor)).toBe(false);
     });
 
     it('Returns false when there is another inline element after the cursor', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-inline-element href="https://example.com">
@@ -84,20 +84,20 @@ describe('isSelectionAtBlockStart', () => {
                         <h-text>ipsum</h-text>
                     </h-inline-element>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         expect(isSelectionAtBlockStart(editor)).toBe(false);
     });
 
     it('Returns false when there is no selection', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         expect(isSelectionAtBlockStart(editor)).toBe(false);
     });

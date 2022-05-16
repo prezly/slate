@@ -3,13 +3,12 @@
 import { Editor } from 'slate';
 
 import { jsx } from '../jsx';
-import { createEditor } from '../test-utils';
 
 import { removeChildren } from './removeChildren';
 
 describe('removeChildren', () => {
     it('Removes children from any given element leaving just an empty Text node', () => {
-        const editor = createEditor(
+        const editor = (
             <editor>
                 <h-p>
                     <h-text>aaa</h-text>
@@ -18,8 +17,8 @@ describe('removeChildren', () => {
                     </h-inline-element>
                     <h-text>bbb</h-text>
                 </h-p>
-            </editor>,
-        );
+            </editor>
+        ) as unknown as Editor;
 
         const expected = (
             <editor>

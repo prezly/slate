@@ -3,8 +3,7 @@ import { isElementNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Element } from 'slate';
 
-import { jsx } from '../jsx';
-import { SOME_ELEMENT_1, SOME_ELEMENT_2 } from '../test-utils';
+import { jsx, SOME_ELEMENT_1, SOME_ELEMENT_2 } from '../jsx';
 
 import { removeNode } from './removeNode';
 
