@@ -44,8 +44,8 @@ export function ImageElement({
     const isSelected = useSelected();
     const isVoid = Editor.isVoid(editor, element);
     const isSupportingCaptions = !isVoid;
-    const isCaptionVisible =
-        isSupportingCaptions && (isSelected || !EditorCommands.isNodeEmpty(editor, element));
+    const isCaptionEmpty = EditorCommands.isNodeEmpty(editor, element, true);
+    const isCaptionVisible = isSupportingCaptions && (isSelected || !isCaptionEmpty);
 
     const handleResize = useCallback(
         function (width: ImageNode['width']) {
@@ -133,6 +133,7 @@ export function ImageElement({
             {isSupportingCaptions ? (
                 <div
                     className={classNames(styles.caption, {
+                        [styles.floating]: isCaptionEmpty,
                         [styles.visible]: isCaptionVisible,
                         [styles.alignLeft]: align === Alignment.LEFT,
                         [styles.alignCenter]: align === Alignment.CENTER,

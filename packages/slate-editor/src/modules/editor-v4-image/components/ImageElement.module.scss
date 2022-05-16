@@ -15,6 +15,12 @@
     font-size: $font-size-small;
     word-break: break-word;
 
+    // if caption is empty, we want to display it outside-of-the-flow to not take vertical space.
+    &.floating {
+        position: absolute;
+        width: 100%;
+    }
+
     &.visible {
         height: auto;
     }
