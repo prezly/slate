@@ -16,17 +16,6 @@ export function shouldShowMenuButton(editor: Editor): boolean {
         return false;
     }
 
-    if (!canShowMenuButton(editor, currentNode)) {
-        return false;
-    }
-
-    const text = Node.string(currentNode);
-    return (
-        text.trim() === '' || MENU_TRIGGER_CHARACTERS.some((triggerChar) => triggerChar === text)
-    );
-}
-
-function canShowMenuButton(editor: Editor, currentNode: Node) {
     if (!isParagraphNode(currentNode) && !isHeadingNode(currentNode)) {
         return false;
     }
@@ -35,5 +24,8 @@ function canShowMenuButton(editor: Editor, currentNode: Node) {
         return false;
     }
 
-    return true;
+    const text = Node.string(currentNode);
+    return (
+        text.trim() === '' || MENU_TRIGGER_CHARACTERS.some((triggerChar) => triggerChar === text)
+    );
 }
