@@ -2,9 +2,20 @@
 
 import { LINK_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
-import { createHyperscript, createText } from 'slate-hyperscript';
+import { createEditor } from 'slate';
+import {
+    createEditor as createEditorFactory,
+    createHyperscript,
+    createText,
+} from 'slate-hyperscript';
 
-import { INLINE_VOID_ELEMENT, SOME_ELEMENT_1, SOME_ELEMENT_2, VOID_ELEMENT } from './test-utils';
+import {
+    INLINE_VOID_ELEMENT,
+    SOME_ELEMENT_1,
+    SOME_ELEMENT_2,
+    VOID_ELEMENT,
+    withGenericTestElements,
+} from './test-utils';
 
 declare global {
     namespace JSX {
@@ -102,5 +113,6 @@ export const jsx = createHyperscript({
     },
     creators: {
         'h-text': createText,
+        editor: createEditorFactory(() => withGenericTestElements(createEditor())),
     },
 });

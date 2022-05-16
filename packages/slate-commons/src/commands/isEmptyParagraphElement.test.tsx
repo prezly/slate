@@ -54,6 +54,6 @@ describe('isEmptyParagraphElement', () => {
     });
 
     it('Considers paragraph with void elements as non-empty', () => {
-        expect(isEmptyParagraphElement(editor, editor.children[4], { trim: true })).toBe(true);
+        expect(isEmptyParagraphElement(editor, editor.children[4], { trim: true })).toBe(false);
     });
 });

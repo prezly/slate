@@ -10,7 +10,7 @@ export function isEmptyParagraphElement(
     node?: Node | null,
     options?: Options,
 ): boolean {
-    if (!isParagraphNode(node) || !node) {
+    if (!node || !isParagraphNode(node)) {
         return false;
     }
 
