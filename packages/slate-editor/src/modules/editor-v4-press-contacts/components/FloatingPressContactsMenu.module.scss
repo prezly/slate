@@ -1,0 +1,15 @@
+@use "sass:math";
+@import "styles/variables";
+
+.menu {
+    $search-height: 42px;
+
+    position: relative;
+    top: math.div(-($search-height - $editor-v4-paragraph-line-height), 2);
+
+    .closeButton {
+        position: absolute;
+        top: math.div($search-height - $editor-v4-floating-button-size, 2);
+        left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
+    }
+}

@@ -11,24 +11,25 @@
         margin-top: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
         margin-bottom: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
 
-        > .card {
+        > .frame > .content {
             padding-top: $area-vertical-expansion;
             padding-bottom: $area-vertical-expansion;
         }
     }
 
-    &.void > .card {
+    &.void {
+        caret-color: transparent;
+    }
+
+    &.void > .frame {
         @include editor-v4-void-element;
     }
 }
 
-.card {
+.frame {
+    max-width: 100%;
     white-space: normal;
     position: relative;
-
-    &.selected {
-        @include editor-v4-block-active;
-    }
 
     &.alignLeft {
         margin-left: 0;
@@ -43,6 +44,30 @@
     &.alignRight {
         margin-left: auto;
         margin-right: 0;
+    }
+}
+
+.content {
+    overflow: hidden;
+
+    &.border {
+        border: 1px solid $grey-200;
+
+        &.selected {
+            border-color: $editor-v4-block-focus-color;
+        }
+    }
+
+    &.rounded {
+        border-radius: $border-radius-small;
+    }
+
+    &.hasError {
+        @include editor-v4-block-error;
+    }
+
+    &.selected {
+        @include editor-v4-block-active;
     }
 }
 

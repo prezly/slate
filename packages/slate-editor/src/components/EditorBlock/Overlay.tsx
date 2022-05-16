@@ -9,7 +9,7 @@ interface Props {
     className?: string;
     selected: boolean;
     mode: OverlayMode;
-    onClick?: () => void;
+    onClick?: (event: React.MouseEvent) => void;
 }
 
 export function Overlay({ className, mode, onClick, selected }: Props) {

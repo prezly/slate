@@ -17,10 +17,15 @@ import { Overlay } from './Overlay';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
-type Layout = 'contained' | 'expanded' | 'full-width';
+enum Layout {
+    CONTAINED = 'contained',
+    EXPANDED = 'expanded',
+    FULL_WIDTH = 'full-width',
+}
 
 export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
     align?: Alignment;
+    border?: boolean;
     /**
      * Children nodes provided by Slate, required for Slate internals.
      */
@@ -32,10 +37,15 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
      * Useful for extremely thin blocks like Divider.
      */
     extendedHitArea?: boolean;
-    layout?: Layout;
+    /**
+     * Mark the block having an error.
+     */
+    hasError?: boolean;
+    layout?: `${Layout}`;
     overlay?: OverlayMode;
     renderBlock: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
+    rounded?: boolean;
     selected?: boolean;
     void?: boolean;
     width?: string;
@@ -44,14 +54,17 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     {
         align = Alignment.CENTER,
+        border = false,
         children,
         className,
         element,
         extendedHitArea,
+        hasError,
         layout = 'contained',
         overlay = false,
         renderBlock,
         renderMenu,
+        rounded = false,
         selected,
         void: isVoid,
         width,
@@ -69,24 +82,26 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 
     const [menuOpen, setMenuOpen] = useState(true);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
-    const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
-    const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
+    const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-    const handleClick = useCallback(
-        function () {
-            openMenu();
+    const handleVoidBlockClick = useCallback(function () {
+        setMenuOpen(true);
+    }, []);
 
-            if (!isVoid) {
-                const path = ReactEditor.findPath(editor, element);
-                Transforms.select(editor, path);
-            }
+    const handleNonVoidBlockClick = useCallback(
+        function (event: MouseEvent) {
+            setMenuOpen(true);
+            event.stopPropagation();
+            const path = ReactEditor.findPath(editor, element);
+            Transforms.select(editor, path);
         },
-        [editor, element, openMenu, isVoid],
+        [editor, element],
     );
 
     useEffect(
         function () {
-            if (isOnlyBlockSelected) setMenuOpen(true);
+            if (isVoid && isOnlyBlockSelected) setMenuOpen(true);
+            if (!isOnlyBlockSelected) setMenuOpen(false);
         },
         [isOnlyBlockSelected],
     );
@@ -101,24 +116,22 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             data-slate-type={element.type}
             data-slate-value={JSON.stringify(element)}
             data-element-layout={layout}
+            onClick={isVoid ? undefined : closeMenu}
             ref={ref}
         >
             <div
-                className={classNames(styles.card, {
-                    [styles.selected]: isSelected,
+                className={classNames(styles.frame, {
                     [styles.alignLeft]: align === Alignment.LEFT,
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
                 })}
                 contentEditable={false}
                 ref={setContainer}
-                onClick={handleClick}
                 style={{ width }}
             >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
                     <Menu
                         className={styles.menu}
-                        editorElement={editorElement}
                         open={menuOpen}
                         reference={container}
                         onClick={preventBubbling}
@@ -126,8 +139,23 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}
-                <Overlay className={styles.overlay} selected={isSelected} mode={overlay} />
-                {renderBlock({ isSelected })}
+                <Overlay
+                    className={styles.overlay}
+                    selected={isSelected}
+                    mode={overlay}
+                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
+                />
+                <div
+                    className={classNames(styles.content, {
+                        [styles.selected]: isSelected,
+                        [styles.hasError]: hasError,
+                        [styles.border]: border,
+                        [styles.rounded]: rounded,
+                    })}
+                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
+                >
+                    {renderBlock({ isSelected })}
+                </div>
             </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}

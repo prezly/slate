@@ -10,27 +10,27 @@ describe('moveCursorToPreviousBlock', () => {
     it('Moves the cursor to the previous block', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
                         second block
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-p>
-                <h-p>
-                    <h-text>second block</h-text>
-                </h-p>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>second block</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -43,27 +43,27 @@ describe('moveCursorToPreviousBlock', () => {
     it('Moves the cursor to the start of document if at the first block', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-p>
-                <h-p>
-                    <h-text>second block</h-text>
-                </h-p>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>second block</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
                         lorem ipsum
-                    </h-text>
-                </h-p>
-                <h-p>
-                    <h-text>second block</h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>second block</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

@@ -8,7 +8,7 @@ $editor-v4-heading-two-font-size: 22px;
 $editor-v4-heading-two-line-height: 28px;
 $editor-v4-paragraph-font-size: 16px;
 $editor-v4-paragraph-line-height: 22px;
-$editor-v4-text-color: #333333;
+$editor-v4-text-color: $grey-700;
 $editor-v4-floating-button-size: 24px;
 $editor-v4-floating-button-margin: 12px;
 $editor-v4-embed-element-overlay-z-index: 2;
@@ -41,7 +41,13 @@ $editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index 
 
 @mixin editor-v4-block-active {
     outline: solid 6px $editor-v4-block-focus-color;
-    border-radius: 1px;
+    border-radius: 0;
+}
+
+@mixin editor-v4-block-error {
+    color: $legacy-color-status-error;
+    outline: solid 6px $legacy-color-status-error;
+    border-radius: 0;
 }
 
 /**

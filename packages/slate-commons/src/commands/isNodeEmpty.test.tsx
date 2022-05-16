@@ -9,19 +9,19 @@ import { isNodeEmpty } from './isNodeEmpty';
 describe('isNodeEmpty', () => {
     const editor = (
         <editor>
-            <h-p>
-                <h-text>lorem ipsum</h-text>
-            </h-p>
-            <h-p>
-                <h-text />
-            </h-p>
-            <h-p>
-                <h-text> </h-text>
-            </h-p>
-            <h-text> </h-text>
-            <h-p>
-                <h-void-element />
-            </h-p>
+            <h:paragraph>
+                <h:text>lorem ipsum</h:text>
+            </h:paragraph>
+            <h:paragraph>
+                <h:text />
+            </h:paragraph>
+            <h:paragraph>
+                <h:text> </h:text>
+            </h:paragraph>
+            <h:text> </h:text>
+            <h:paragraph>
+                <h:divider />
+            </h:paragraph>
         </editor>
     ) as unknown as Editor;
 
@@ -35,6 +35,10 @@ describe('isNodeEmpty', () => {
 
     it('Considers paragraph node with text node with whitespace to not be empty', () => {
         expect(isNodeEmpty(editor, editor.children[2])).toBe(false);
+    });
+
+    it('Considers paragraph node with text node with whitespace to be empty, when trim is enabled', () => {
+        expect(isNodeEmpty(editor, editor.children[2], true)).toBe(true);
     });
 
     it('Considers text node with whitespace to not be empty', () => {

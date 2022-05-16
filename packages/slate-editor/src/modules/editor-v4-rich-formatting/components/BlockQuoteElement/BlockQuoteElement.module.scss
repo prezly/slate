@@ -1,0 +1,56 @@
+@import "styles/variables";
+
+.blockQuote {
+    padding: $spacing-3;
+    background-color: $grey-50;
+    max-width: fit-content;
+    position: relative;
+    border-left: none;
+
+    &.alignLeft {
+        margin-left: 0 !important;
+        margin-right: auto !important;
+    }
+
+    &.alignCenter {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    &.alignRight {
+        margin-left: auto !important;
+        margin-right: 0 !important;
+    }
+}
+
+.paragraph {
+    background-color: $grey-50;
+    margin: 0;
+    line-height: 160%;
+    font-weight: 500;
+    min-width: 5em;
+
+    &.alignLeft {
+        padding-left: $spacing-2;
+        border-left: 2px solid $grey-400;
+        text-align: left;
+    }
+
+    &.alignCenter {
+        padding-left: $spacing-2;
+        border-left: 2px solid $grey-400;
+        text-align: center;
+    }
+
+    &.alignRight {
+        padding-right: $spacing-2;
+        border-right: 2px solid $grey-400;
+        text-align: right;
+    }
+}
+
+.paragraph::before {
+    content: attr(data-placeholder);
+    color: $grey-400;
+    position: absolute;
+}

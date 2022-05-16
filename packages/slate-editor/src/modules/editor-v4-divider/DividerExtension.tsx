@@ -12,7 +12,13 @@ export const DividerExtension = (): Extension => ({
     deserialize: {
         element: {
             [DIVIDER_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-            HR: createDivider,
+            HR: (element) => {
+                if (element.getAttribute('data-is-slate')) {
+                    return undefined;
+                }
+
+                return createDivider();
+            },
         },
     },
     id: DIVIDER_EXTENSION_ID,

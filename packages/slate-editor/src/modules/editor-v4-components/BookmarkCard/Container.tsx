@@ -7,16 +7,16 @@ import styles from './BookmarkCard.module.scss';
 type ContainerLayout = 'vertical' | 'horizontal';
 
 interface ContainerProps {
+    border?: boolean;
     layout: ContainerLayout;
-    isSelected: boolean;
 }
 
 export const Container = React.forwardRef<HTMLDivElement, PropsWithChildren<ContainerProps>>(
-    ({ isSelected, layout, children }, ref) => {
+    ({ border = true, layout, children }, ref) => {
         return (
             <div
                 className={classNames(styles.container, {
-                    [styles.selected]: isSelected,
+                    [styles.border]: border,
                     [styles.vertical]: layout === 'vertical',
                     [styles.horizontal]: layout === 'horizontal',
                 })}
