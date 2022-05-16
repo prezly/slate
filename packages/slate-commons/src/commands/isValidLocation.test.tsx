@@ -11,12 +11,12 @@ describe('isValidLocation', () => {
     it('Returns "true" when using the current cursor location', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -26,12 +26,12 @@ describe('isValidLocation', () => {
     it('Returns "true" when using a valid path', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -41,12 +41,12 @@ describe('isValidLocation', () => {
     it('Returns "false" when the path is out of range', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -57,15 +57,15 @@ describe('isValidLocation', () => {
     it('Returns "false" when using a stored path but the node was removed', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>first paragraph</h-text>
-                </h-p>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>first paragraph</h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>
                         second paragraph
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

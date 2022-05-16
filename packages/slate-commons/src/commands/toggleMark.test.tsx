@@ -14,25 +14,25 @@ describe('toggleMark', () => {
     it('Adds the mark when it is inactive', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         <anchor />
                         lorem ipsum
                         <focus />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text bold>
+                <h:paragraph>
+                    <h:text bold>
                         <anchor />
                         lorem ipsum
                         <focus />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -44,25 +44,25 @@ describe('toggleMark', () => {
     it('Removes the mark when it is active', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text bold>
+                <h:paragraph>
+                    <h:text bold>
                         <anchor />
                         lorem ipsum
                         <focus />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         <anchor />
                         lorem ipsum
                         <focus />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

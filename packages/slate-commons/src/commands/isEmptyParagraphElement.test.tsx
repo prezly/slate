@@ -9,19 +9,19 @@ import { isEmptyParagraphElement } from './isEmptyParagraphElement';
 describe('isEmptyParagraphElement', () => {
     const editor = (
         <editor>
-            <h-p>
-                <h-text>lorem ipsum</h-text>
-            </h-p>
-            <h-p>
-                <h-text />
-            </h-p>
-            <h-p>
-                <h-text> </h-text>
-            </h-p>
-            <h-p></h-p>
-            <h-p>
-                <h-divider />
-            </h-p>
+            <h:paragraph>
+                <h:text>lorem ipsum</h:text>
+            </h:paragraph>
+            <h:paragraph>
+                <h:text />
+            </h:paragraph>
+            <h:paragraph>
+                <h:text> </h:text>
+            </h:paragraph>
+            <h:paragraph></h:paragraph>
+            <h:paragraph>
+                <h:divider />
+            </h:paragraph>
         </editor>
     ) as unknown as Editor;
 

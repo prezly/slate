@@ -10,11 +10,11 @@ describe('getPrevChars', () => {
     it('loops left and returns last 2 text characters', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -26,10 +26,10 @@ describe('getPrevChars', () => {
     it('loops left until first void node', () => {
         const editor = (
             <editor>
-                <h-p>
-                    lorem ipsum<h-mention username="elvis"></h-mention>b
+                <h:paragraph>
+                    lorem ipsum<h:mention username="elvis"></h:mention>b
                     <cursor />
-                </h-p>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

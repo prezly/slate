@@ -10,12 +10,12 @@ describe('isSelectionAtBlockEnd', () => {
     it('Returns true when the cursor is at the end of the block', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem ipsum
                         <cursor />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -25,13 +25,13 @@ describe('isSelectionAtBlockEnd', () => {
     it('Returns true when the selection ends at the end of the block', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         <anchor />
                         lorem ipsum
                         <focus />
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -41,14 +41,14 @@ describe('isSelectionAtBlockEnd', () => {
     it('Returns true when the selection is at the end of text inside an inline element', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-link href="https://example.com">
-                        <h-text>
+                <h:paragraph>
+                    <h:link href="https://example.com">
+                        <h:text>
                             lorem ipsum
                             <cursor />
-                        </h-text>
-                    </h-link>
-                </h-p>
+                        </h:text>
+                    </h:link>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -58,13 +58,13 @@ describe('isSelectionAtBlockEnd', () => {
     it('Returns false when the cursor is in the middle of text', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem
                         <cursor />
-                    </h-text>
-                    <h-text> ipsum</h-text>
-                </h-p>
+                    </h:text>
+                    <h:text> ipsum</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -74,17 +74,17 @@ describe('isSelectionAtBlockEnd', () => {
     it('Returns false when there is another inline element after the cursor', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-link href="https://example.com">
-                        <h-text>
+                <h:paragraph>
+                    <h:link href="https://example.com">
+                        <h:text>
                             lorem
                             <cursor />
-                        </h-text>
-                    </h-link>
-                    <h-link href="https://example.com">
-                        <h-text>ipsum</h-text>
-                    </h-link>
-                </h-p>
+                        </h:text>
+                    </h:link>
+                    <h:link href="https://example.com">
+                        <h:text>ipsum</h:text>
+                    </h:link>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -94,9 +94,9 @@ describe('isSelectionAtBlockEnd', () => {
     it('Returns false when there is no selection', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

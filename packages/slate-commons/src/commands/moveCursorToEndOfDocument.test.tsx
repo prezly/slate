@@ -10,20 +10,20 @@ describe('moveCursorToEndOfDocument', () => {
     it('Puts cursor at the end of document when there is no cursor', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                    <h-text>lorem ipsum</h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-p>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -36,21 +36,21 @@ describe('moveCursorToEndOfDocument', () => {
     it('Moves cursor at the end of document', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                    <h-text>lorem ipsum</h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-p>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -63,24 +63,24 @@ describe('moveCursorToEndOfDocument', () => {
     it('Puts cursor at the end of document when there is selection', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
                     <anchor />
-                    <h-text>lorem ipsum</h-text>
+                    <h:text>lorem ipsum</h:text>
                     <focus />
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                    <h-text>lorem ipsum</h-text>
-                    <h-text>lorem ipsum</h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                    <h:text>lorem ipsum</h:text>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-p>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -93,21 +93,21 @@ describe('moveCursorToEndOfDocument', () => {
     it('Does nothing when cursor is already at the end of document', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                    <h-text>lorem ipsum</h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-p>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                    <h-text>lorem ipsum</h-text>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-p>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

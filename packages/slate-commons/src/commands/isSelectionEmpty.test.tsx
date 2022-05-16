@@ -10,9 +10,9 @@ describe('isSelectionEmpty', () => {
     it('Returns "true" when no text is selected', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -22,13 +22,13 @@ describe('isSelectionEmpty', () => {
     it('Returns "false" when just whitespaces are selected', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem
                         <anchor /> <focus />
                         ipsum
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -38,12 +38,12 @@ describe('isSelectionEmpty', () => {
     it('Returns "true" when no text is selected', () => {
         const editor = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         lorem <anchor />
                         <focus /> ipsum
-                    </h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

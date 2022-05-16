@@ -25,43 +25,43 @@ describe('normalizeNestedElement', () => {
     it('should lift element nodes that are only allowed on top level', function () {
         const editor = (
             <editor>
-                <h-p>
-                    <h-p>
-                        <h-text>
+                <h:paragraph>
+                    <h:paragraph>
+                        <h:text>
                             Contrary to popular belief, Lorem Ipsum is not simply random text.
-                        </h-text>
-                    </h-p>
-                    <h-p>
-                        <h-p>
-                            <h-text>
+                        </h:text>
+                    </h:paragraph>
+                    <h:paragraph>
+                        <h:paragraph>
+                            <h:text>
                                 <cursor />
                                 It has roots in a piece of classical Latin literature from 45 BC,
-                            </h-text>
-                        </h-p>
-                    </h-p>
-                </h-p>
-                <h-p>
-                    <h-text>making it over 2000 years old.</h-text>
-                </h-p>
+                            </h:text>
+                        </h:paragraph>
+                    </h:paragraph>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>making it over 2000 years old.</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         Contrary to popular belief, Lorem Ipsum is not simply random text.
-                    </h-text>
-                </h-p>
-                <h-p>
-                    <h-text>
+                    </h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
                         It has roots in a piece of classical Latin literature from 45 BC,
-                    </h-text>
-                </h-p>
-                <h-p>
-                    <h-text>making it over 2000 years old.</h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>making it over 2000 years old.</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -78,43 +78,43 @@ describe('normalizeNestedElement', () => {
     it('should lift element nodes that are not allowed to nest', function () {
         const editor = (
             <editor>
-                <h-p>
-                    <h-p>
-                        <h-text>
+                <h:paragraph>
+                    <h:paragraph>
+                        <h:text>
                             Contrary to popular belief, Lorem Ipsum is not simply random text.
-                        </h-text>
-                    </h-p>
-                    <h-p>
-                        <h-p>
-                            <h-text>
+                        </h:text>
+                    </h:paragraph>
+                    <h:paragraph>
+                        <h:paragraph>
+                            <h:text>
                                 <cursor />
                                 It has roots in a piece of classical Latin literature from 45 BC,
-                            </h-text>
-                        </h-p>
-                    </h-p>
-                </h-p>
-                <h-p>
-                    <h-text>making it over 2000 years old.</h-text>
-                </h-p>
+                            </h:text>
+                        </h:paragraph>
+                    </h:paragraph>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>making it over 2000 years old.</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>
+                <h:paragraph>
+                    <h:text>
                         Contrary to popular belief, Lorem Ipsum is not simply random text.
-                    </h-text>
-                </h-p>
-                <h-p>
-                    <h-text>
+                    </h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>
                         <cursor />
                         It has roots in a piece of classical Latin literature from 45 BC,
-                    </h-text>
-                </h-p>
-                <h-p>
-                    <h-text>making it over 2000 years old.</h-text>
-                </h-p>
+                    </h:text>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>making it over 2000 years old.</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

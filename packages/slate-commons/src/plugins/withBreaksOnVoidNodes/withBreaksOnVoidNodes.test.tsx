@@ -10,34 +10,34 @@ describe('withBreaksOnVoidNodes', () => {
     it('should insert an empty paragraph after the void element when requesting a break', () => {
         const editor = (
             <editor withOverrides={[withBreaksOnVoidNodes]}>
-                <h-p>
-                    <h-text>paragraph before</h-text>
-                </h-p>
-                <h-divider>
-                    <h-text />
+                <h:paragraph>
+                    <h:text>paragraph before</h:text>
+                </h:paragraph>
+                <h:divider>
+                    <h:text />
                     <cursor />
-                </h-divider>
-                <h-p>
-                    <h-text>paragraph after</h-text>
-                </h-p>
+                </h:divider>
+                <h:paragraph>
+                    <h:text>paragraph after</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-p>
-                    <h-text>paragraph before</h-text>
-                </h-p>
-                <h-divider>
-                    <h-text />
-                </h-divider>
-                <h-p>
-                    <h-text />
+                <h:paragraph>
+                    <h:text>paragraph before</h:text>
+                </h:paragraph>
+                <h:divider>
+                    <h:text />
+                </h:divider>
+                <h:paragraph>
+                    <h:text />
                     <cursor />
-                </h-p>
-                <h-p>
-                    <h-text>paragraph after</h-text>
-                </h-p>
+                </h:paragraph>
+                <h:paragraph>
+                    <h:text>paragraph after</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

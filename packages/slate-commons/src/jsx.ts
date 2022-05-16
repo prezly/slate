@@ -67,37 +67,39 @@ declare global {
             selection: {
                 children?: ReactNode;
             };
-            // using 'h-text' instead of 'text' to avoid collision with React typings, see:
+            // using 'h:text' instead of 'text' to avoid collision with React typings, see:
             // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0182cd9094aa081558a3c4bfc970bbdfb71d891d/types/react/index.d.ts#L3136
-            'h-text': {
-                [key: string]: any;
+            'h:text': {
+                bold?: boolean;
+                italic?: boolean;
+                underlined?: boolean;
                 children?: ReactNode;
             };
         }
 
         interface IntrinsicElements {
             // it could have been any other inline element
-            'h-link': {
+            'h:link': {
                 children?: ReactNode;
                 href: string;
             };
             // it could have been any other inline void element
-            'h-mention': {
+            'h:mention': {
                 children?: ReactNode;
                 username: string;
             };
             // it could have been any other void element
-            'h-divider': {
+            'h:divider': {
                 children?: ReactNode;
             };
-            'h-p': {
+            'h:paragraph': {
                 children?: ReactNode;
             };
             // it could have been any other block element
-            'h-heading-1': {
+            'h:heading-1': {
                 children?: ReactNode;
             };
-            'h-heading-2': {
+            'h:heading-2': {
                 children?: ReactNode;
             };
         }
@@ -110,15 +112,15 @@ const DEFAULT_OVERRIDES: WithOverride[] = [withVoidNodes, withInlineNodes];
 
 export const jsx = createHyperscript({
     elements: {
-        'h-link': { type: LINK_NODE_TYPE },
-        'h-mention': { type: MENTION_NODE_TYPE },
-        'h-divider': { type: DIVIDER_NODE_TYPE },
-        'h-p': { type: PARAGRAPH_NODE_TYPE },
-        'h-heading-1': { type: HEADING_1_NODE_TYPE },
-        'h-heading-2': { type: HEADING_2_NODE_TYPE },
+        'h:link': { type: LINK_NODE_TYPE },
+        'h:mention': { type: MENTION_NODE_TYPE },
+        'h:divider': { type: DIVIDER_NODE_TYPE },
+        'h:paragraph': { type: PARAGRAPH_NODE_TYPE },
+        'h:heading-1': { type: HEADING_1_NODE_TYPE },
+        'h:heading-2': { type: HEADING_2_NODE_TYPE },
     },
     creators: {
-        'h-text': createText,
+        'h:text': createText,
         editor: function (tagName, attributes, children) {
             const { withOverrides = [], ...rest } = attributes;
 

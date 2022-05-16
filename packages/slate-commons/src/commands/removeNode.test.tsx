@@ -11,28 +11,28 @@ describe('removeNode', () => {
     it('Removes the element at current cursor location', () => {
         const editor = (
             <editor>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
-                </h-heading-1>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
+                </h:heading-1>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-heading-1>
+                </h:heading-1>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
-                </h-heading-1>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
+                </h:heading-1>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-p>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -50,28 +50,28 @@ describe('removeNode', () => {
     it('Removes the matching element at current cursor location', () => {
         const editor = (
             <editor>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
-                </h-heading-1>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
+                </h:heading-1>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-heading-1>
+                </h:heading-1>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
-                </h-heading-1>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
+                </h:heading-1>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-p>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 
@@ -86,31 +86,31 @@ describe('removeNode', () => {
     it('Does nothing when the element does not match', () => {
         const editor = (
             <editor>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
-                </h-heading-1>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
+                </h:heading-1>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-heading-1>
+                </h:heading-1>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
-                </h-heading-1>
-                <h-p>
-                    <h-text>lorem ipsum</h-text>
-                </h-p>
-                <h-heading-1>
-                    <h-text>lorem ipsum</h-text>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
+                </h:heading-1>
+                <h:paragraph>
+                    <h:text>lorem ipsum</h:text>
+                </h:paragraph>
+                <h:heading-1>
+                    <h:text>lorem ipsum</h:text>
                     <cursor />
-                </h-heading-1>
+                </h:heading-1>
             </editor>
         ) as unknown as Editor;
 
