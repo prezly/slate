@@ -45,7 +45,7 @@ describe('isEmptyParagraphElement', () => {
         expect(isEmptyParagraphElement(editor, editor.children[0], { trim: true })).toBe(false);
     });
 
-    it('Considers paragraph with whitespace only to be empty when whitespace is ignored', () => {
+    it('Considers paragraph with whitespace only to be empty when whitespace is trimmed', () => {
         expect(isEmptyParagraphElement(editor, editor.children[2], { trim: true })).toBe(true);
     });
 

@@ -10,7 +10,7 @@ export { getNextSibling } from './getNextSibling';
 export { getPrevChars } from './getPrevChars';
 export { getPreviousSibling } from './getPreviousSibling';
 export { getUnreachableAncestors } from './getUnreachableAncestors';
-export { hasVoidElements } from './isEmptyParagraphElement';
+export { hasVoidElements } from './hasVoidElements';
 export { insertEmptyParagraph } from './insertEmptyParagraph';
 export { insertNodes } from './insertNodes';
 export { isBlockActive } from './isBlockActive';
