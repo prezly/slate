@@ -2,18 +2,14 @@
 
 import { Editor } from 'slate';
 
-import { createHyperscript } from '../../jsx';
+import { jsx } from '../../jsx';
 
 import { withBreaksOnVoidNodes } from './withBreaksOnVoidNodes';
-
-const jsx = createHyperscript({
-    withOverrides: [withBreaksOnVoidNodes],
-});
 
 describe('withBreaksOnVoidNodes', () => {
     it('should insert an empty paragraph after the void element when requesting a break', () => {
         const editor = (
-            <editor>
+            <editor withOverrides={[withBreaksOnVoidNodes]}>
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>

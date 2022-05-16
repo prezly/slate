@@ -2,13 +2,9 @@
 
 import { Editor } from 'slate';
 
-import { createHyperscript } from '../../jsx';
+import { jsx } from '../../jsx';
 
 import { withUserFriendlyDeleteBehavior } from './withUserFriendlyDeleteBehavior';
-
-const jsx = createHyperscript({
-    withOverrides: [withUserFriendlyDeleteBehavior],
-});
 
 function simulateBackspace(editor: Editor) {
     return Editor.deleteBackward(editor, { unit: 'character' });
@@ -21,7 +17,7 @@ function simulateDelete(editor: Editor) {
 describe('withUserFriendlyDeleteBehavior', () => {
     it('should remove only the empty paragraph, not the void element before it', () => {
         const editor = (
-            <editor>
+            <editor withOverrides={[withUserFriendlyDeleteBehavior]}>
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
@@ -55,7 +51,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
 
     it('should remove the void element, not the focused paragraph block', () => {
         const editor = (
-            <editor>
+            <editor withOverrides={[withUserFriendlyDeleteBehavior]}>
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
@@ -93,7 +89,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
 
     it('should focus the paragraph after when using deleteForward (delete key)', () => {
         const editor = (
-            <editor>
+            <editor withOverrides={[withUserFriendlyDeleteBehavior]}>
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
@@ -129,7 +125,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
 
     it('should remove the currently empty paragraph and focus the element after it when using deleteForward (delete key)', () => {
         const editor = (
-            <editor>
+            <editor withOverrides={[withUserFriendlyDeleteBehavior]}>
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
@@ -171,7 +167,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
 
     it('should have a block above and removing by backspace a node below should move the focus upper', () => {
         const editor = (
-            <editor>
+            <editor withOverrides={[withUserFriendlyDeleteBehavior]}>
                 <h-some-element-1>1</h-some-element-1>
                 <h-p>
                     <h-text />

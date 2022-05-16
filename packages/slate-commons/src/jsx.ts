@@ -11,10 +11,9 @@ import {
 import type { ReactNode } from 'react';
 import type { Editor } from 'slate';
 import { createEditor, Element } from 'slate';
-import type { HyperscriptShorthands } from 'slate-hyperscript';
 import {
     createEditor as createEditorFactory,
-    createHyperscript as createBaseHyperscript,
+    createHyperscript,
     createText,
 } from 'slate-hyperscript';
 
@@ -42,6 +41,7 @@ declare global {
                 children?: never;
             };
             editor: {
+                withOverrides?: WithOverride[];
                 children?: ReactNode;
             };
             element: {
@@ -110,40 +110,34 @@ declare global {
 
 type WithOverride = <T extends Editor>(editor: T) => T;
 
-const DEFAULT_ELEMENTS: HyperscriptShorthands = {
-    'h-inline-element': { type: LINK_NODE_TYPE },
-    'h-inline-void-element': { type: INLINE_VOID_ELEMENT },
-    'h-link': { type: LINK_NODE_TYPE },
-    'h-void-element': { type: VOID_ELEMENT },
-    'h-p': { type: PARAGRAPH_NODE_TYPE },
-    'h-some-element-1': { type: SOME_ELEMENT_1 },
-    'h-some-element-2': { type: SOME_ELEMENT_2 },
-};
-
 const DEFAULT_OVERRIDES: WithOverride[] = [withVoidNodes, withInlineNodes];
 
-export function createHyperscript(
-    options: { elements?: HyperscriptShorthands; withOverrides?: WithOverride[] } = {},
-) {
-    const { elements = {}, withOverrides = [] } = options;
-    return createBaseHyperscript({
-        elements: {
-            ...DEFAULT_ELEMENTS,
-            ...elements,
-        },
-        creators: {
-            'h-text': createText,
-            editor: createEditorFactory(function () {
+export const jsx = createHyperscript({
+    elements: {
+        'h-inline-element': { type: LINK_NODE_TYPE },
+        'h-inline-void-element': { type: INLINE_VOID_ELEMENT },
+        'h-link': { type: LINK_NODE_TYPE },
+        'h-void-element': { type: VOID_ELEMENT },
+        'h-p': { type: PARAGRAPH_NODE_TYPE },
+        'h-some-element-1': { type: SOME_ELEMENT_1 },
+        'h-some-element-2': { type: SOME_ELEMENT_2 },
+    },
+    creators: {
+        'h-text': createText,
+        editor: function (tagName, attributes, children) {
+            const { withOverrides = [], ...rest } = attributes;
+
+            const factory = createEditorFactory(function () {
                 return [...DEFAULT_OVERRIDES, ...withOverrides].reduce(
                     (editor, withOverride) => withOverride(editor),
                     createEditor(),
                 );
-            }),
-        },
-    });
-}
+            });
 
-export const jsx = createHyperscript();
+            return factory(tagName, rest, children);
+        },
+    },
+});
 
 function withInlineNodes<T extends Editor>(editor: T): T {
     const { isInline } = editor;
