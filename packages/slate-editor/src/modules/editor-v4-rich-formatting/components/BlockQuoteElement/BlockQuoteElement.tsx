@@ -4,7 +4,6 @@ import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes } from 'react';
 import React from 'react';
-import { Node } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
@@ -26,7 +25,7 @@ export const BlockQuoteElement: FunctionComponent<Props> = ({
 }) => {
     const editor = useSlateStatic();
     const align = element.align ?? Alignment.LEFT;
-    const isEmpty = !EditorCommands.hasVoidElements(editor, element) && Node.string(element) === '';
+    const showPlaceholder = EditorCommands.isNodeEmpty(editor, element);
 
     return (
         <div>
@@ -42,7 +41,7 @@ export const BlockQuoteElement: FunctionComponent<Props> = ({
                 data-slate-value={JSON.stringify(element)}
             >
                 <p
-                    data-placeholder={isEmpty ? 'Quote' : undefined}
+                    data-placeholder={showPlaceholder ? 'Quote' : undefined}
                     className={classNames(styles.paragraph, className, {
                         [styles.alignLeft]: align === Alignment.LEFT,
                         [styles.alignCenter]: align === Alignment.CENTER,

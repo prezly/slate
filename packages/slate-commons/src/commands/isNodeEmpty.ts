@@ -1,16 +1,16 @@
-import type { Node } from 'slate';
-import { Editor, Text } from 'slate';
+import type { Node, Editor } from 'slate';
+import { Text } from 'slate';
 
-export function isNodeEmpty(editor: Editor, node: Node): boolean {
+import { isVoid } from './isVoid';
+
+export function isNodeEmpty(editor: Editor, node: Node, trim = false): boolean {
     if (Text.isText(node)) {
-        return node.text.length === 0;
+        return trim ? node.text.trim() === '' : node.text === '';
     }
 
-    if (Editor.isEditor(node)) {
-        return (
-            node.children.length <= 1 && node.children.every((child) => isNodeEmpty(editor, child))
-        );
+    if (isVoid(editor, node)) {
+        return false;
     }
 
-    return Editor.isEmpty(editor, node);
+    return node.children.every((child) => isNodeEmpty(editor, child, trim));
 }
