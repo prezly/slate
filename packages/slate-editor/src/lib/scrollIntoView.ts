@@ -3,8 +3,9 @@ import type { Rect } from 'rangefix';
 import { scrollTo } from './scrollTo';
 
 export interface Options {
-    minBottom: number;
-    minTop: number;
+    minBottom?: number;
+    minTop?: number;
+    padding?: number;
     skipWhenDoesNotFitView?: boolean;
 }
 
@@ -25,7 +26,7 @@ export interface Options {
 export function scrollIntoView(
     parent: HTMLElement,
     rect: ClientRect | Rect,
-    { minBottom, minTop, skipWhenDoesNotFitView = false }: Options,
+    { minTop = 0, minBottom = 0, padding = 16, skipWhenDoesNotFitView = false }: Options,
 ) {
     const { height: parentHeight } = parent.getBoundingClientRect();
     const { height: elementHeight, top: elementTop } = rect;
@@ -44,17 +45,20 @@ export function scrollIntoView(
         return;
     }
 
-    const isElementHigherThanParent = elementHeight + minBottom + minTop > parentHeight;
-
-    if (isChildBelowVisibleArea && !isElementHigherThanParent) {
-        const y = parent.scrollTop + elementHeight;
+    if (isChildAboveVisibleArea) {
+        const y = parent.scrollTop + elementTop - minTop - padding;
         scrollTo(parent, parent.scrollLeft, y);
         return;
     }
 
-    if (isChildAboveVisibleArea || isElementHigherThanParent) {
-        const y = parent.scrollTop + elementTop - minTop;
+    if (isChildBelowVisibleArea) {
+        // Scroll to align the BOTTOM EDGE of the element with the viewport,
+        // but disallow the element TOP EDGE to leave the viewport.
+        // This is critical for tall elements, like big galleries.
+        const y = Math.min(
+            parent.scrollTop + elementTop - minTop - padding,
+            parent.scrollTop + elementTop + elementHeight - parentHeight + minBottom + padding,
+        );
         scrollTo(parent, parent.scrollLeft, y);
-        return;
     }
 }
