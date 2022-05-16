@@ -13,10 +13,10 @@ describe('withBreaksOnVoidNodes', () => {
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
-                <h-void-element>
+                <h-divider>
                     <h-text />
                     <cursor />
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text>paragraph after</h-text>
                 </h-p>
@@ -28,9 +28,9 @@ describe('withBreaksOnVoidNodes', () => {
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
-                <h-void-element>
+                <h-divider>
                     <h-text />
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text />
                     <cursor />

@@ -201,9 +201,9 @@ describe('insertNodes', () => {
             <editor>
                 <h-p>
                     <h-text>lorem ipsumxxx</h-text>
-                    <h-inline-element href="https://example.com">
+                    <h-link href="https://example.com">
                         <h-text>yyy</h-text>
-                    </h-inline-element>
+                    </h-link>
                     <h-text />
                 </h-p>
                 <h-p>
@@ -219,9 +219,9 @@ describe('insertNodes', () => {
             editor,
             nodes([
                 <h-text>xxx</h-text>,
-                <h-inline-element href="https://example.com">
+                <h-link href="https://example.com">
                     <h-text>yyy</h-text>
-                </h-inline-element>,
+                </h-link>,
                 <h-p>
                     <h-text>dolor</h-text>
                 </h-p>,
@@ -283,9 +283,9 @@ describe('insertNodes', () => {
             <editor>
                 <h-p>
                     <h-text>xxx</h-text>
-                    <h-inline-element href="https://example.com">
+                    <h-link href="https://example.com">
                         <h-text>yyy</h-text>
-                    </h-inline-element>
+                    </h-link>
                     <h-text>zzz</h-text>
                 </h-p>
                 <h-p>
@@ -301,9 +301,9 @@ describe('insertNodes', () => {
             editor,
             nodes([
                 <h-text>xxx</h-text>,
-                <h-inline-element href="https://example.com">
+                <h-link href="https://example.com">
                     <h-text>yyy</h-text>
-                </h-inline-element>,
+                </h-link>,
                 <h-text>zzz</h-text>,
                 <h-p>
                     <h-text>dolor</h-text>
@@ -319,24 +319,24 @@ describe('insertNodes', () => {
     it('Inserts inline nodes into a new paragraph if void node is focused', () => {
         const editor = (
             <editor>
-                <h-void-element>
+                <h-divider>
                     <h-text>
                         <cursor />
                     </h-text>
-                </h-void-element>
+                </h-divider>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h-void-element>
+                <h-divider>
                     <h-text />
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text>xxx</h-text>
-                    <h-inline-element href="https://example.com">
+                    <h-link href="https://example.com">
                         <h-text>yyy</h-text>
-                    </h-inline-element>
+                    </h-link>
                     <h-text>
                         zzz
                         <cursor />
@@ -349,9 +349,9 @@ describe('insertNodes', () => {
             editor,
             nodes([
                 <h-text>xxx</h-text>,
-                <h-inline-element href="https://example.com">
+                <h-link href="https://example.com">
                     <h-text>yyy</h-text>
-                </h-inline-element>,
+                </h-link>,
                 <h-text>zzz</h-text>,
             ]),
         );
@@ -373,9 +373,9 @@ describe('insertNodes', () => {
 
         const expected = (
             <editor>
-                <h-void-element>
+                <h-divider>
                     <h-text />
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text>lorem</h-text>
                     <h-text bold>
@@ -387,9 +387,9 @@ describe('insertNodes', () => {
         ) as unknown as Editor;
 
         insertNodes(editor, [
-            <h-void-element>
+            <h-divider>
                 <h-text />
-            </h-void-element>,
+            </h-divider>,
             <h-text>lorem</h-text>,
             <h-text bold>{' ipsum'}</h-text>,
         ] as unknown as Node[]);
@@ -411,14 +411,14 @@ describe('insertNodes', () => {
 
         const expected = (
             <editor>
-                <h-void-element>
+                <h-divider>
                     <h-text />
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text>lorem</h-text>
-                    <h-inline-void-element href="https://example.com">
-                        <h-text>ipsum</h-text>
-                    </h-inline-void-element>
+                    <h-mention username="elvis">
+                        <h-text></h-text>
+                    </h-mention>
                     <h-text bold>
                         {' dolor'}
                         <cursor />
@@ -430,13 +430,13 @@ describe('insertNodes', () => {
         insertNodes(
             editor,
             nodes([
-                <h-void-element>
+                <h-divider>
                     <h-text />
-                </h-void-element>,
+                </h-divider>,
                 <h-text>lorem</h-text>,
-                <h-inline-void-element href="https://example.com">
-                    <h-text>ipsum</h-text>
-                </h-inline-void-element>,
+                <h-mention username="elvis">
+                    <h-text></h-text>
+                </h-mention>,
                 <h-text bold>{' dolor'}</h-text>,
             ]),
         );

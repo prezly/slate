@@ -11,15 +11,15 @@ describe('getCurrentNodeEntry', () => {
     it('Returns "null" when editor has no cursor in it', () => {
         const editor = (
             <editor>
-                <h-some-element-1>
+                <h-heading-1>
                     <h-text>lorem ipsum</h-text>
-                </h-some-element-1>
+                </h-heading-1>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                 </h-p>
-                <h-some-element-1>
+                <h-heading-1>
                     <h-text>lorem ipsum</h-text>
-                </h-some-element-1>
+                </h-heading-1>
             </editor>
         ) as unknown as Editor;
 
@@ -30,16 +30,16 @@ describe('getCurrentNodeEntry', () => {
     it('Returns the node and path tuple where cursor is placed in', () => {
         const editor = (
             <editor>
-                <h-some-element-1>
+                <h-heading-1>
                     <h-text>lorem ipsum</h-text>
-                </h-some-element-1>
+                </h-heading-1>
                 <h-p>
                     <h-text>lorem ipsum</h-text>
                     <cursor />
                 </h-p>
-                <h-some-element-1>
+                <h-heading-1>
                     <h-text>lorem ipsum</h-text>
-                </h-some-element-1>
+                </h-heading-1>
             </editor>
         ) as unknown as Editor;
 

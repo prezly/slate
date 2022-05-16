@@ -3,7 +3,7 @@
 import { isElementNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import { jsx, SOME_ELEMENT_1, SOME_ELEMENT_2 } from '../jsx';
+import { jsx, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '../jsx';
 
 import { getNodePath } from './getNodePath';
 
@@ -11,23 +11,23 @@ describe('getNodePath', () => {
     it('Returns the path of matching element', () => {
         const editor = (
             <editor>
-                <h-some-element-1>
+                <h-heading-1>
                     <h-text>lorem ipsum</h-text>
-                </h-some-element-1>
-                <h-some-element-2>
+                </h-heading-1>
+                <h-heading-2>
                     <h-text>lorem ipsum</h-text>
                     <cursor />
-                </h-some-element-2>
-                <h-some-element-1>
+                </h-heading-2>
+                <h-heading-1>
                     <h-text>lorem ipsum</h-text>
-                </h-some-element-1>
+                </h-heading-1>
             </editor>
         ) as unknown as Editor;
 
         const nodePath =
             editor.selection &&
             getNodePath(editor, {
-                match: (node) => isElementNode(node, SOME_ELEMENT_2),
+                match: (node) => isElementNode(node, HEADING_2_NODE_TYPE),
             });
 
         expect(nodePath).toEqual([1]);
@@ -36,23 +36,23 @@ describe('getNodePath', () => {
     it('Returns null if no element matches', () => {
         const editor = (
             <editor>
-                <h-some-element-1>
+                <h-heading-1>
                     <h-text>lorem ipsum</h-text>
-                </h-some-element-1>
-                <h-some-element-2>
+                </h-heading-1>
+                <h-heading-2>
                     <h-text>lorem ipsum</h-text>
                     <cursor />
-                </h-some-element-2>
-                <h-some-element-1>
+                </h-heading-2>
+                <h-heading-1>
                     <h-text>lorem ipsum</h-text>
-                </h-some-element-1>
+                </h-heading-1>
             </editor>
         ) as unknown as Editor;
 
         const nodePath =
             editor.selection &&
             getNodePath(editor, {
-                match: (node) => isElementNode(node, SOME_ELEMENT_1),
+                match: (node) => isElementNode(node, HEADING_1_NODE_TYPE),
             });
 
         expect(nodePath).toBeNull();

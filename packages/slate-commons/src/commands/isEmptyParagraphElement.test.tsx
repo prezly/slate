@@ -20,7 +20,7 @@ describe('isEmptyParagraphElement', () => {
             </h-p>
             <h-p></h-p>
             <h-p>
-                <h-void-element />
+                <h-divider />
             </h-p>
         </editor>
     ) as unknown as Editor;

@@ -21,9 +21,9 @@ describe('withUserFriendlyDeleteBehavior', () => {
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
-                <h-void-element>
+                <h-divider>
                     <h-text />
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text />
                     <cursor />
@@ -36,10 +36,10 @@ describe('withUserFriendlyDeleteBehavior', () => {
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
-                <h-void-element>
+                <h-divider>
                     <h-text />
                     <cursor />
-                </h-void-element>
+                </h-divider>
             </editor>
         ) as unknown as Editor;
 
@@ -55,9 +55,9 @@ describe('withUserFriendlyDeleteBehavior', () => {
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
-                <h-void-element>
+                <h-divider>
                     <h-text />
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text>
                         <cursor />
@@ -93,10 +93,10 @@ describe('withUserFriendlyDeleteBehavior', () => {
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
-                <h-void-element>
+                <h-divider>
                     <h-text />
                     <cursor />
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text>paragraph after</h-text>
                 </h-p>
@@ -134,9 +134,9 @@ describe('withUserFriendlyDeleteBehavior', () => {
                         <cursor />
                     </h-text>
                 </h-p>
-                <h-void-element>
+                <h-divider>
                     <h-text />
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text>paragraph after</h-text>
                 </h-p>
@@ -148,11 +148,11 @@ describe('withUserFriendlyDeleteBehavior', () => {
                 <h-p>
                     <h-text>paragraph before</h-text>
                 </h-p>
-                <h-void-element>
+                <h-divider>
                     <h-text>
                         <cursor />
                     </h-text>
-                </h-void-element>
+                </h-divider>
                 <h-p>
                     <h-text>paragraph after</h-text>
                 </h-p>
@@ -168,7 +168,7 @@ describe('withUserFriendlyDeleteBehavior', () => {
     it('should have a block above and removing by backspace a node below should move the focus upper', () => {
         const editor = (
             <editor withOverrides={[withUserFriendlyDeleteBehavior]}>
-                <h-some-element-1>1</h-some-element-1>
+                <h-heading-1>1</h-heading-1>
                 <h-p>
                     <h-text />
                     <cursor />
@@ -181,9 +181,9 @@ describe('withUserFriendlyDeleteBehavior', () => {
 
         const expected = (
             <editor>
-                <h-some-element-1>
+                <h-heading-1>
                     1<cursor />
-                </h-some-element-1>
+                </h-heading-1>
                 <h-p>
                     <h-text>3</h-text>
                 </h-p>

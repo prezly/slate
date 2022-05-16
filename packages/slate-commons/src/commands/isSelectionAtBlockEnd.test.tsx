@@ -42,12 +42,12 @@ describe('isSelectionAtBlockEnd', () => {
         const editor = (
             <editor>
                 <h-p>
-                    <h-inline-element href="https://example.com">
+                    <h-link href="https://example.com">
                         <h-text>
                             lorem ipsum
                             <cursor />
                         </h-text>
-                    </h-inline-element>
+                    </h-link>
                 </h-p>
             </editor>
         ) as unknown as Editor;
@@ -75,15 +75,15 @@ describe('isSelectionAtBlockEnd', () => {
         const editor = (
             <editor>
                 <h-p>
-                    <h-inline-element href="https://example.com">
+                    <h-link href="https://example.com">
                         <h-text>
                             lorem
                             <cursor />
                         </h-text>
-                    </h-inline-element>
-                    <h-inline-element href="https://example.com">
+                    </h-link>
+                    <h-link href="https://example.com">
                         <h-text>ipsum</h-text>
-                    </h-inline-element>
+                    </h-link>
                 </h-p>
             </editor>
         ) as unknown as Editor;

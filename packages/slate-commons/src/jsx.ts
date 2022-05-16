@@ -17,11 +17,14 @@ import {
     createText,
 } from 'slate-hyperscript';
 
-export const INLINE_ELEMENT = LINK_NODE_TYPE;
-export const INLINE_VOID_ELEMENT = MENTION_NODE_TYPE;
-export const VOID_ELEMENT = DIVIDER_NODE_TYPE;
-export const SOME_ELEMENT_1 = HEADING_1_NODE_TYPE; // must be different than SOME_ELEMENT_2
-export const SOME_ELEMENT_2 = HEADING_2_NODE_TYPE; // must be different than SOME_ELEMENT_1
+export {
+    LINK_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
+    DIVIDER_NODE_TYPE,
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    MENTION_NODE_TYPE,
+};
 
 declare global {
     namespace JSX {
@@ -73,35 +76,28 @@ declare global {
         }
 
         interface IntrinsicElements {
-            // it's a "link" in our tests - because we have to pick something
-            // but it could have been any other inline element
-            'h-inline-element': {
-                children?: ReactNode;
-                href: string;
-            };
-            // it's a "link" in our tests - because we have to pick something
-            // but it could have been any other inline void element
-            'h-inline-void-element': {
-                children?: ReactNode;
-                href: string;
-            };
+            // it could have been any other inline element
             'h-link': {
                 children?: ReactNode;
                 href: string;
             };
-            // it's a "divider" in our tests - because we have to pick something
-            // but it could have been any other void element
-            'h-void-element': {
+            // it could have been any other inline void element
+            'h-mention': {
+                children?: ReactNode;
+                username: string;
+            };
+            // it could have been any other void element
+            'h-divider': {
                 children?: ReactNode;
             };
             'h-p': {
                 children?: ReactNode;
             };
             // it could have been any other block element
-            'h-some-element-1': {
+            'h-heading-1': {
                 children?: ReactNode;
             };
-            'h-some-element-2': {
+            'h-heading-2': {
                 children?: ReactNode;
             };
         }
@@ -114,13 +110,12 @@ const DEFAULT_OVERRIDES: WithOverride[] = [withVoidNodes, withInlineNodes];
 
 export const jsx = createHyperscript({
     elements: {
-        'h-inline-element': { type: LINK_NODE_TYPE },
-        'h-inline-void-element': { type: INLINE_VOID_ELEMENT },
         'h-link': { type: LINK_NODE_TYPE },
-        'h-void-element': { type: VOID_ELEMENT },
+        'h-mention': { type: MENTION_NODE_TYPE },
+        'h-divider': { type: DIVIDER_NODE_TYPE },
         'h-p': { type: PARAGRAPH_NODE_TYPE },
-        'h-some-element-1': { type: SOME_ELEMENT_1 },
-        'h-some-element-2': { type: SOME_ELEMENT_2 },
+        'h-heading-1': { type: HEADING_1_NODE_TYPE },
+        'h-heading-2': { type: HEADING_2_NODE_TYPE },
     },
     creators: {
         'h-text': createText,
@@ -144,8 +139,8 @@ function withInlineNodes<T extends Editor>(editor: T): T {
 
     editor.isInline = function (element) {
         return (
-            Element.isElementType(element, INLINE_ELEMENT) ||
-            Element.isElementType(element, INLINE_VOID_ELEMENT) ||
+            Element.isElementType(element, LINK_NODE_TYPE) ||
+            Element.isElementType(element, MENTION_NODE_TYPE) ||
             isInline(element)
         );
     };
@@ -158,8 +153,8 @@ function withVoidNodes<T extends Editor>(editor: T): T {
 
     editor.isVoid = function (element) {
         return (
-            Element.isElementType(element, VOID_ELEMENT) ||
-            Element.isElementType(element, INLINE_VOID_ELEMENT) ||
+            Element.isElementType(element, DIVIDER_NODE_TYPE) ||
+            Element.isElementType(element, MENTION_NODE_TYPE) ||
             isVoid(element)
         );
     };

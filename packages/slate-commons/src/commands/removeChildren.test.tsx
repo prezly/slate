@@ -12,9 +12,9 @@ describe('removeChildren', () => {
             <editor>
                 <h-p>
                     <h-text>aaa</h-text>
-                    <h-inline-element href="https://example.com">
+                    <h-link href="https://example.com">
                         <h-text>this text has no right being here</h-text>
-                    </h-inline-element>
+                    </h-link>
                     <h-text>bbb</h-text>
                 </h-p>
             </editor>
@@ -24,9 +24,9 @@ describe('removeChildren', () => {
             <editor>
                 <h-p>
                     <h-text>aaa</h-text>
-                    <h-inline-element href="https://example.com">
+                    <h-link href="https://example.com">
                         <h-text />
-                    </h-inline-element>
+                    </h-link>
                     <h-text>bbb</h-text>
                 </h-p>
             </editor>

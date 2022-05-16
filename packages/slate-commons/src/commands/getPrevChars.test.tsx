@@ -27,7 +27,7 @@ describe('getPrevChars', () => {
         const editor = (
             <editor>
                 <h-p>
-                    lorem ipsum<h-inline-void-element href="#"></h-inline-void-element>b
+                    lorem ipsum<h-mention username="elvis"></h-mention>b
                     <cursor />
                 </h-p>
             </editor>
