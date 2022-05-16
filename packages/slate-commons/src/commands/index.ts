@@ -26,6 +26,7 @@ export { isSelectionValid } from './isSelectionValid';
 export { isTopLevelNode } from './isTopLevelNode';
 export { isTopLevelNodeSelected } from './isTopLevelNodeSelected';
 export { isValidLocation } from './isValidLocation';
+export { isVoid } from './isVoid';
 export { makeDirty } from './makeDirty';
 export { moveCursorToEndOfDocument } from './moveCursorToEndOfDocument';
 export { moveCursorToNextBlock } from './moveCursorToNextBlock';
