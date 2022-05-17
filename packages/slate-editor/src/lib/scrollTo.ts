@@ -6,7 +6,7 @@
  */
 export function scrollTo(element: HTMLElement, left: number, top: number) {
     if ('scroll' in element) {
-        element.scroll({ left, top })
+        element.scroll({ left, top });
     } else {
         element.scrollLeft = left;
         element.scrollTop = top;
