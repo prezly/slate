@@ -2,8 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
 import type { Rect } from 'rangefix';
 import RangeFix from 'rangefix';
-import { Editor } from 'slate';
-import { Range } from 'slate';
+import { Editor, Range } from 'slate';
 
 import { getScrollParent } from './getScrollParent';
 import { scrollTo } from './scrollTo';
