@@ -9,6 +9,7 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import classNames from 'classnames';
+import jsonStableStringify from 'json-stable-stringify';
 import type { FunctionComponent } from 'react';
 import React, {
     useCallback,
@@ -21,6 +22,7 @@ import React, {
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
+import { createScrollSelectionIntoViewCallback } from '#lib';
 import { noop } from '#lodash';
 
 import { FloatingStoryEmbedInput } from '#modules/editor-v4-components';
@@ -56,7 +58,6 @@ import {
     handleAddAttachment,
     insertDivider,
     isEditorValueEquivalent,
-    useCursorInView,
 } from './lib';
 import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
 import type { EditorRef, EditorV4Props } from './types';
@@ -110,6 +111,11 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         [setFloatingAddMenuOpen],
     );
 
+    const scrollSelectionIntoView = useCallback(
+        withCursorInView ? createScrollSelectionIntoViewCallback(withCursorInView) : noop,
+        [jsonStableStringify(withCursorInView)],
+    );
+
     const extensions = Array.from(
         getEnabledExtensions({
             availableWidth,
@@ -151,8 +157,6 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
             EditorCommands.focus(editor);
         }
     }, [autoFocus, editor]);
-
-    useCursorInView(editor, withCursorInView);
 
     useImperativeHandle(
         editorRef,
@@ -369,6 +373,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
                     ]}
                     readOnly={readOnly}
                     renderElementDeps={[availableWidth]}
+                    scrollSelectionIntoView={withCursorInView ? scrollSelectionIntoView : undefined}
                     style={contentStyle}
                 />
 

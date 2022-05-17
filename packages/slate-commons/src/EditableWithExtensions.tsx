@@ -65,6 +65,7 @@ export interface Props {
     // Dependencies of `renderLeaf`
     renderLeafDeps?: any[];
     role?: string;
+    scrollSelectionIntoView?: (editor: Editor, domRange: globalThis.Range) => void;
     style?: React.CSSProperties;
 }
 

@@ -76,8 +76,9 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
     value: Value;
     withAlignmentControls: boolean;
     withCursorInView?: {
-        minBottom: number;
-        minTop: number;
+        minBottom?: number;
+        minTop?: number;
+        padding?: number;
     };
     withEmbeds?: EditorV4ExtensionsProps['withEmbeds'] & EmbedParameters;
 }

@@ -23,4 +23,3 @@ export {
 
 export { insertUploadingFile } from './insertUploadingFile';
 export { isEditorValueEquivalent } from './isEditorValueEquivalent';
-export { useCursorInView } from './useCursorInView';
