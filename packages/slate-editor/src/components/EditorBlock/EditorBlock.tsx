@@ -119,6 +119,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             onClick={isVoid ? undefined : closeMenu}
             ref={ref}
         >
+            {/* We have to render children or Slate will fail when trying to find the node. */}
+            {isVoid && children}
             <div
                 className={classNames(styles.frame, {
                     [styles.alignLeft]: align === Alignment.LEFT,
@@ -159,7 +161,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             </div>
 
             {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
+            {!isVoid && children}
         </div>
     );
 });
