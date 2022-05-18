@@ -11,7 +11,7 @@ import { useAsyncFn } from '#lib';
 import { HttpCodes } from '#modules/api';
 import { EventsEditor } from '#modules/editor-v4-events';
 
-import { removeCoverage } from '../../lib';
+import { removeCoverage } from '../lib';
 
 import { CoverageCard } from './CoverageCard';
 import styles from './CoverageElement.module.scss';

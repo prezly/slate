@@ -6,7 +6,7 @@ import { useSlate } from 'slate-react';
 import { FloatingContainer } from '#modules/editor-v4-components';
 import { EventsEditor } from '#modules/editor-v4-events';
 
-import type { SearchProps } from '../../types';
+import type { SearchProps } from '../types';
 
 import styles from './FloatingCoverageMenu.module.scss';
 

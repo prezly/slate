@@ -7,7 +7,7 @@
     position: relative;
     top: math.div(-($input-height - $editor-v4-paragraph-line-height), 2);
 
-    .close-button {
+    .closeButton {
         position: absolute;
         top: math.div($input-height - $editor-v4-floating-button-size, 2);
         left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
