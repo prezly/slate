@@ -1,7 +1,5 @@
-import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
-export function isComponent(
-    icon: ReactNode | ComponentType,
-): icon is ComponentType<HTMLAttributes<SVGElement>> {
+export function isComponent(icon: ReactNode | ComponentType): icon is ComponentType {
     return typeof icon === 'function';
 }

@@ -1,5 +1,5 @@
 import type { Placement } from '@popperjs/core';
-import type { FunctionComponent, RefObject } from 'react';
+import type { FunctionComponent, RefObject, ReactNode } from 'react';
 import React from 'react';
 
 import { ElementPortalV2 } from '../Portals';
@@ -7,6 +7,7 @@ import { ElementPortalV2 } from '../Portals';
 import { Toolbar } from './Toolbar';
 
 export interface Props {
+    children: ReactNode;
     className?: string;
     containerRef: RefObject<HTMLElement>;
     element: HTMLElement;

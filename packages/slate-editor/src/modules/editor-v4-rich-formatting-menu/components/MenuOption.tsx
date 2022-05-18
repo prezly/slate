@@ -1,6 +1,6 @@
 import type { ParagraphNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
 import React from 'react';
 
 import { ParagraphElement } from '#modules/editor-v4-paragraphs';
@@ -10,6 +10,7 @@ import { RichTextElement } from '#modules/editor-v4-rich-formatting';
 import type { Formatting } from '../types';
 
 interface Props {
+    children: ReactNode;
     className?: string;
     formatting: Formatting;
 }

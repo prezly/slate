@@ -87,7 +87,7 @@
         "rangefix": "^0.2.9",
         "react-bootstrap": "=0.32.4",
         "react-custom-scrollbars-2": "^4.4.0",
-        "react-draggable": "^3.3.2",
+        "react-draggable": "^4.4.5",
         "react-overlays": "^0.8.3",
         "react-popper": "^2.2.4",
         "react-portal": "^4.2.1",
@@ -101,7 +101,8 @@
         "validator": "^13.5.2"
     },
     "peerDependencies": {
-        "react": "^16.9.0 || ^17.0.0",
+        "react": "^16.9.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^16.9.0 || ^17.0.0 || ^18.0.0",
         "slate": "^0.77.2",
         "slate-history": "^0.66.0",
         "slate-react": "^0.77.2"
@@ -116,7 +117,7 @@
         "@types/json-stable-stringify": "^1.0.32",
         "@types/lodash": "^4.14.178",
         "@types/lodash-es": "^4.17.5",
-        "@types/react": "^16.14.2",
+        "@types/react": "^16.9.0 || ^17.0.0 || ^18.0.0",
         "@types/react-bootstrap": "^0.32.19",
         "@types/react-overlays": "^0.8.5",
         "@types/react-portal": "^4.0.2",

@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react';
 
 import { useExtrapolatedProgress } from './lib';
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
+export interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
     children: (props: { percent: string }) => ReactNode;
     className?: string;
     estimatedDuration: number;
