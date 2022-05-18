@@ -10,6 +10,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
+        react-version: [16.9.0, 17.0.0, 18.0.0]
 
     steps:
     - uses: actions/checkout@v2
@@ -20,8 +21,9 @@ jobs:
         cache-name: cache-node-modules
       with:
         path: "**/node_modules"
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.react-version }}-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.react-version }}-
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
@@ -32,6 +34,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - run: npm run bootstrap
+
+    - name: Install React ${{ matrix.react-version }}
+      run: npm install react@~${{ matrix.react-version }} react-dom@~${{ matrix.react-version }}
 
     - run: npm run build
 
