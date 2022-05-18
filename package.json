@@ -20,6 +20,7 @@
         "lint": "npm run lint --workspaces",
         "lint:fix": "npm run lint --workspaces -- --fix",
         "test": "npm run test --workspaces",
+        "test:matrix": "for REACT in '16.9.0' '17.0.0' '18.0.0'; do npm rm react react-dom @types/react @types/react-dom && npm install react@~$REACT react-dom@~$REACT @types/react@~$REACT @types/react-dom@~$REACT && npm run clean:build && npm run build && npm run test; done;",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:build": "npm run clean:build --workspaces && rimraf *.tsbuildinfo",
         "clean:node_modules": "npm run clean:node_modules --workspaces && rimraf node_modules/",
