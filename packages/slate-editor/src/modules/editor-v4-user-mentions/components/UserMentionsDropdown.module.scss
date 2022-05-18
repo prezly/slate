@@ -1,10 +1,10 @@
 @import "styles/variables";
 
-.editor-v4-user-mentions-dropdown-option {
+.DropdownOption {
     display: flex;
     align-items: center;
 
-    &__avatar {
+    .avatar {
         margin-right: $spacing-1;
     }
 }
