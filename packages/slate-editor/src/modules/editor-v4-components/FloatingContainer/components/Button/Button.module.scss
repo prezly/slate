@@ -1,7 +1,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.editor-v4-floating-container-button {
+.Button {
     @include button-variant(#767676, $legacy-color-grey-250, transparent);
 
     width: $editor-v4-floating-button-size;
@@ -15,7 +15,7 @@
     border-radius: 4px;
     padding: 0;
 
-    &--variant-green {
+    &.green {
         border: none;
         color: $white;
         background-color: $green-500;
@@ -26,19 +26,19 @@
             background-color: $green-600;
         }
 
-        &.editor-v4-floating-container-button--open {
+        &.open {
             background-color: $green-700;
             box-shadow: inset -1px -2px 3px rgba($white, 0.24),
                 inset 1px 2px 3px rgba($grey-900, 0.16);
         }
     }
 
-    &__icon {
+    .icon {
         transition: transform 0.2s ease-out;
         width: 16px;
         height: 16px;
 
-        .editor-v4-floating-container-button--open & {
+        .open & {
             transform: rotate(45deg);
         }
     }
