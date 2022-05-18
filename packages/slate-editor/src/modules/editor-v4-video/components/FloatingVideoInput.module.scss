@@ -1,28 +1,28 @@
 @use "sass:math";
 @import "styles/variables";
 
-.editor-v4-floating-video-input {
+.FloatingVideoInput {
     $input-height: 34px;
 
     position: relative;
     top: math.div(-($input-height - $editor-v4-paragraph-line-height), 2);
 
-    &__close-button {
+    .close-button {
         position: absolute;
         top: math.div($input-height - $editor-v4-floating-button-size, 2);
         left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
     }
 
-    &__input {
+    .input {
         border-right: none;
     }
 
-    &__addon {
+    .addon {
         padding: 0;
         border: none;
     }
 
-    &__button {
+    .button {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         height: $input-height;
