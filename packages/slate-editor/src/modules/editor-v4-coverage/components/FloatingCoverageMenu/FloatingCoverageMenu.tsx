@@ -1,5 +1,5 @@
 import type { Coverage } from '@prezly/sdk';
-import type { FunctionComponent, ReactNode, RefObject } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import React, { useRef } from 'react';
 import { useSlate } from 'slate-react';
 
@@ -8,7 +8,7 @@ import { EventsEditor } from '#modules/editor-v4-events';
 
 import type { SearchProps } from '../../types';
 
-import './FloatingCoverageMenu.scss';
+import styles from './FloatingCoverageMenu.module.scss';
 
 interface Props {
     availableWidth: number;
@@ -19,14 +19,14 @@ interface Props {
     renderSearch: (searchProps: SearchProps) => ReactNode;
 }
 
-export const FloatingCoverageMenu: FunctionComponent<Props> = ({
+export function FloatingCoverageMenu({
     availableWidth,
     containerRef,
     onClose,
     onRootClose,
     onSubmit,
     renderSearch,
-}) => {
+}: Props) {
     const editor = useSlate();
     const trackedSearchUsed = useRef<boolean>(false);
 
@@ -41,17 +41,13 @@ export const FloatingCoverageMenu: FunctionComponent<Props> = ({
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className="editor-v4-floating-coverage-menu"
+            className={styles.FloatingCoverageMenu}
             containerRef={containerRef}
             onClose={onRootClose}
             open
             show
         >
-            <FloatingContainer.Button
-                className="editor-v4-floating-coverage-menu__close-button"
-                onClick={onClose}
-                open
-            />
+            <FloatingContainer.Button className={styles.closeButton} onClick={onClose} open />
 
             {renderSearch({
                 onChange: handleChange,
@@ -59,4 +55,4 @@ export const FloatingCoverageMenu: FunctionComponent<Props> = ({
             })}
         </FloatingContainer.Container>
     );
-};
+}
