@@ -69,7 +69,6 @@ export function Dropdown<Action>({
 }: Props<Action>) {
     // data
     const groups = groupOptions(options);
-    const hasLabels = options.some((option) => option.isBeta || option.isNew);
 
     const [activeItem, setActiveItem] = useState<HTMLElement | null>(null);
     const scrollarea = useRef<FancyScrollbars | null>(null);
@@ -91,7 +90,6 @@ export function Dropdown<Action>({
     return (
         <div
             className={classNames(style.Dropdown, style.Dropdown, {
-                [style.withLabels]: hasLabels,
                 [style.noResults]: options.length === 0,
                 open,
             })}
