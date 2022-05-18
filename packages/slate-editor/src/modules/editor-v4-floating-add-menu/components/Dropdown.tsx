@@ -12,7 +12,7 @@ import { noop } from '#lodash';
 import { groupOptions, isComponent } from '../lib';
 import type { Option } from '../types';
 
-import './ModernDropdown.scss';
+import style from './Dropdown.module.scss';
 
 interface Props<Action> {
     className?: string;
@@ -90,9 +90,9 @@ export function Dropdown<Action>({
 
     return (
         <div
-            className={classNames('dropdown', 'editor-v4-floating-menu-dropdown', {
-                'editor-v4-floating-menu-dropdown--with-labels': hasLabels,
-                'editor-v4-floating-menu-dropdown--no-results': options.length === 0,
+            className={classNames(style.Dropdown, style.Dropdown, {
+                [style.withLabels]: hasLabels,
+                [style.noResults]: options.length === 0,
                 open,
             })}
         >
@@ -101,46 +101,37 @@ export function Dropdown<Action>({
                 autoHeight
                 autoHeightMin={20}
                 autoHeightMax={1000}
-                className="editor-v4-floating-menu-dropdown__scroll-area"
+                className={style.scrollArea}
                 ref={scrollarea}
                 style={{ ...styles.popper, width: 'auto' }}
             >
                 <ul
-                    className={classNames(
-                        'dropdown-menu',
-                        'editor-v4-floating-menu-dropdown__menu',
-                        className,
-                    )}
+                    className={classNames('dropdown-menu', style.menu, className)}
                     onMouseDown={(event) => event.preventDefault()}
                 >
                     {options.length === 0 && (
                         <MenuItem
-                            className="editor-v4-floating-menu-dropdown__menu-item editor-v4-floating-menu-dropdown__menu-item--no-results"
+                            className={classNames(style.menuItem, style.noResults)}
                             disabled
                             onClick={noop}
                         >
-                            <div className="editor-v4-floating-menu-dropdown__menu-item-icon">
+                            <div className={style.menuItemIcon}>
                                 <WarningCircle />
                             </div>
-                            <div className="editor-v4-floating-menu-dropdown__menu-item-text">
-                                No results
-                            </div>
-                            <BatsIllustration className="editor-v4-floating-menu-dropdown__menu-item-decoration" />
+                            <div className={style.menuItemText}>No results</div>
+                            <BatsIllustration className={style.menuItemDecoration} />
                         </MenuItem>
                     )}
 
                     {groups.map(({ group, options }) => (
                         <Fragment key={`group:${group}`}>
-                            <MenuItem
-                                className="editor-v4-floating-menu-dropdown__menu-group"
-                                header
-                            >
+                            <MenuItem className={style.menuGroup} header>
                                 {group}
                             </MenuItem>
                             {options.map((option) => (
                                 <MenuItem
                                     active={option === selectedOption}
-                                    className="editor-v4-floating-menu-dropdown__menu-item"
+                                    className={style.menuItem}
                                     key={`option:${option.text}`}
                                     onClick={(event) => event.preventDefault()}
                                     onMouseDown={(event) => {
@@ -148,30 +139,25 @@ export function Dropdown<Action>({
                                         onItemClick(option);
                                     }}
                                 >
-                                    <div
-                                        className="editor-v4-floating-menu-dropdown__menu-item-icon"
-                                        data-action={option.action}
-                                    >
+                                    <div className={style.menuItemIcon} data-action={option.action}>
                                         {isComponent(option.icon) ? <option.icon /> : option.icon}
                                     </div>
                                     <div
-                                        className="editor-v4-floating-menu-dropdown__menu-item-text"
+                                        className={style.menuItemText}
                                         ref={option === selectedOption ? setActiveItem : undefined}
                                     >
-                                        <div className="editor-v4-floating-menu-dropdown__menu-item-title">
+                                        <div className={style.menuItemTitle}>
                                             <Highlight search={highlight}>{option.text}</Highlight>
                                         </div>
-                                        <div className="editor-v4-floating-menu-dropdown__menu-item-description">
+                                        <div className={style.menuItemDescription}>
                                             {option.description || ' '}
                                         </div>
                                     </div>
                                     {(option.isBeta || option.isNew) && (
                                         <div
                                             className={classNames(
-                                                'editor-v4-floating-menu-dropdown__menu-item-label',
-                                                option.isBeta
-                                                    ? 'editor-v4-floating-menu-dropdown__menu-item-label--beta'
-                                                    : 'editor-v4-floating-menu-dropdown__menu-item-label--new',
+                                                style.menuItemLabel,
+                                                option.isBeta ? style.beta : style.new,
                                             )}
                                         >
                                             {option.isBeta ? 'testing' : 'new'}

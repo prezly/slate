@@ -1,7 +1,7 @@
 @import "styles/variables";
 @import "styles/mixins";
 
-.editor-v4-floating-menu-dropdown {
+.Dropdown {
     $min-width: 242px;
     $min-width-with-labels: 328px;
 
@@ -15,7 +15,7 @@
     $font-size-small: 11px;
 
     // fancy scrollbars support
-    &__scroll-area {
+    .scrollArea {
         position: absolute;
         background-color: $white;
         border: 1px solid $grey-200;
@@ -26,7 +26,7 @@
         flex-direction: column;
     }
 
-    &__menu {
+    .menu {
         position: initial !important;
         box-shadow: none;
         padding: 0;
@@ -34,12 +34,12 @@
         min-width: $min-width;
         border: none;
 
-        .editor-v4-floating-menu-dropdown.open & {
+        .Dropdown:global(.open) & {
             display: block;
         }
     }
 
-    &__menu-group {
+    .menuGroup {
         padding: $vertical-spacing $horizontal-spacing $vertical-spacing $horizontal-spacing;
         color: $grey-700;
         font-size: $font-size-medium;
@@ -49,7 +49,7 @@
     }
 
     // Override specificity of Bootstrap default .dropdown-menu > li > a style
-    .editor-v4-floating-menu-dropdown__menu-item {
+    .menuItem {
         > a {
             padding: $vertical-spacing $spacing-1 * 2.5 $vertical-spacing $horizontal-spacing;
             display: flex;
@@ -61,7 +61,7 @@
             background-color: $grey-100;
         }
 
-        &.active > a {
+        &:global(.active) > a {
             background-color: $grey-100;
         }
 
@@ -70,7 +70,7 @@
         }
     }
 
-    &__menu-item-icon {
+    .menuItemIcon {
         flex-shrink: 0;
         flex-grow: 0;
         width: $spacing-5;
@@ -100,7 +100,7 @@
         }
     }
 
-    &__menu-item-text {
+    .menuItemText {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -114,7 +114,7 @@
         }
     }
 
-    &__menu-item-title {
+    .menuItemTitle {
         color: $grey-700;
         margin-bottom: $spacing-half;
         font-size: $font-size-medium;
@@ -122,13 +122,13 @@
         font-weight: 600;
     }
 
-    &__menu-item-description {
+    .menuItemDescription {
         color: $grey-500;
         font-size: $font-size-small;
         line-height: 1.2;
     }
 
-    &__menu-item-label {
+    .menuItemLabel {
         padding: 2px 5px;
         border-radius: 4px;
         color: $white;
@@ -139,26 +139,26 @@
         letter-spacing: 0.5px;
         margin-left: $horizontal-spacing * 2;
 
-        &--beta {
+        &.beta {
             background-color: $yellow-500;
         }
 
-        &--new {
+        &.new {
             background-color: $indigo-500;
         }
     }
 
-    &--no-results {
-        .editor-v4-floating-menu-dropdown__menu {
+    &.noResults {
+        .menu {
             padding-bottom: 0;
         }
 
-        .editor-v4-floating-menu-dropdown__menu-item > a {
+        .menuItem > a {
             padding: $spacing-2;
             min-height: $no-results-decoration-height;
         }
 
-        .editor-v4-floating-menu-dropdown__menu-item-icon {
+        .menuItemIcon {
             border: none;
             color: $red-600;
             margin-right: $spacing-1;
@@ -170,14 +170,14 @@
             }
         }
 
-        .editor-v4-floating-menu-dropdown__menu-item-text {
+        .menuItemText {
             color: $green-800;
             font-size: $font-size-medium;
             line-height: 1.4;
             height: 18px;
         }
 
-        .editor-v4-floating-menu-dropdown__menu-item-decoration {
+        .menuItemDecoration {
             position: absolute;
             right: 0;
             top: 0;
