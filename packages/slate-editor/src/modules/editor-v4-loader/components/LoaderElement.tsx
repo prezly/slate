@@ -9,8 +9,8 @@ import { LoadingPlaceholderV2 } from '#components';
 import { Attachment, Bookmark, Embed, Gallery, Image, Video } from '#icons';
 import { useAsyncProgress, useMount, useUnmount } from '#lib';
 
-import { loaderPromiseManager } from '../../lib';
-import type { LoaderContentType, LoaderNode } from '../../types';
+import { loaderPromiseManager } from '../lib';
+import type { LoaderContentType, LoaderNode } from '../types';
 
 import './LoaderElement.scss';
 
