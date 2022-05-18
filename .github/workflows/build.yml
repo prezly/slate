@@ -37,8 +37,10 @@ jobs:
 
     - name: Install React ${{ matrix.react-version }}
       run: |
-        npm install react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} \
-                    @types/react@${{ matrix.react-version }} @types/react-dom@${{ matrix.react-version }}
+          npm install react@${{ matrix.react-version }} \
+                      react-dom@${{ matrix.react-version }} \
+                      @types/react@${{ matrix.react-version }} \
+                      @types/react-dom@${{ matrix.react-version }}
 
     - run: npm run build
       env:
