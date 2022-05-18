@@ -1,7 +1,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.editor-v4 {
+.Editor {
     position: relative;
 
     @include editor-v4-top-elements {
@@ -21,13 +21,5 @@
         &::selection {
             background: #c2e5ff;
         }
-    }
-
-    &__floating-add-menu-icon {
-        $size: 16px;
-
-        width: $size;
-        height: $size;
-        margin-right: $spacing-2;
     }
 }

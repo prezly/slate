@@ -44,7 +44,7 @@ import {
 import { toggleBlock } from '../editor-v4-rich-formatting';
 import { RichFormattingMenu } from '../editor-v4-rich-formatting-menu';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
-import './EditorV4.scss';
+import styles from './EditorV4.module.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
 
@@ -333,7 +333,7 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
 
     return (
-        <div className={classNames('editor-v4', className)} ref={containerRef} style={style}>
+        <div className={classNames(styles.Editor, className)} ref={containerRef} style={style}>
             <Slate
                 editor={editor}
                 onChange={(newValue) => {
