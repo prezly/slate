@@ -87,7 +87,7 @@
         "rangefix": "^0.2.9",
         "react-bootstrap": "=0.32.4",
         "react-custom-scrollbars-2": "^4.4.0",
-        "react-draggable": "^3.3.2",
+        "react-draggable": "^4.4.5",
         "react-overlays": "^0.8.3",
         "react-popper": "^2.2.4",
         "react-portal": "^4.2.1",
