@@ -1,9 +1,9 @@
 @import "styles/variables";
 
-.editor-v4-link-with-tooltip {
+.LinkWithTooltip {
     max-width: 500px !important; // override .tooltip-v2 setting
 
-    &__link {
+    .link {
         color: #ffffff;
         text-decoration: underline;
 

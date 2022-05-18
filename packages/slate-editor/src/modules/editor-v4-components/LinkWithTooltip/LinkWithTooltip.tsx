@@ -1,9 +1,8 @@
-import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import { TooltipV2 } from '#components';
 
-import './LinkWithTooltip.scss';
+import styles from './LinkWithTooltip.module.scss';
 
 // introduced so that the tooltip does not disappear while
 // user is moving their mouse over from target to the tooltip
@@ -18,24 +17,21 @@ interface Props {
     href: string;
 }
 
-export const LinkWithTooltip: FunctionComponent<Props> = ({ children, enabled = true, href }) => (
-    <TooltipV2.Tooltip
-        className="editor-v4-link-with-tooltip"
-        enabled={enabled}
-        hideDelay={HIDE_DELAY}
-        placement="bottom"
-        showDelay={SHOW_DELAY}
-        tooltip={
-            <a
-                className="editor-v4-link-with-tooltip__link"
-                href={href}
-                rel="noreferrer noopener"
-                target="_blank"
-            >
-                {href}
-            </a>
-        }
-    >
-        {children}
-    </TooltipV2.Tooltip>
-);
+export function LinkWithTooltip({ children, enabled = true, href }: Props) {
+    return (
+        <TooltipV2.Tooltip
+            className={styles.LinkWithTooltip}
+            enabled={enabled}
+            hideDelay={HIDE_DELAY}
+            placement="bottom"
+            showDelay={SHOW_DELAY}
+            tooltip={
+                <a className={styles.link} href={href} rel="noreferrer noopener" target="_blank">
+                    {href}
+                </a>
+            }
+        >
+            {children}
+        </TooltipV2.Tooltip>
+    );
+}
