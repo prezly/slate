@@ -31,9 +31,11 @@
     &.alignLeft {
         text-align: left;
     }
+
     &.alignCenter {
         text-align: center;
     }
+
     &.alignRight {
         text-align: right;
     }
@@ -42,15 +44,4 @@
     .ListElement {
         margin: 0;
     }
-}
-
-.ListItemElement {
-    margin: $spacing-1 0;
-}
-
-.ListItemTextElement {
-    color: $editor-v4-text-color;
-    font-weight: 500;
-    font-size: $editor-v4-paragraph-font-size;
-    line-height: $editor-v4-paragraph-line-height;
 }

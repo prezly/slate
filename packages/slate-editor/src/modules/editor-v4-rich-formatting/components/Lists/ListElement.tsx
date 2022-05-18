@@ -5,7 +5,7 @@ import type { HTMLAttributes } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import styles from './Lists.module.scss';
+import styles from './ListElement.module.scss';
 
 interface Props extends HTMLAttributes<HTMLOListElement> {
     attributes?: RenderElementProps['attributes'];
