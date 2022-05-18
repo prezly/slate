@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-lists",
-    "version": "0.36.3",
+    "version": "0.37.0",
     "description": "The best Slate lists extension out there",
     "license": "MIT",
     "type": "module",
@@ -54,7 +54,7 @@
         "slate-react": "^0.77.2"
     },
     "dependencies": {
-        "@prezly/slate-commons": "^0.36.3",
+        "@prezly/slate-commons": "^0.37.0",
         "is-hotkey": "^0.2.0",
         "uuid": "^8.3.0"
     },
