@@ -1,13 +1,13 @@
 @import "styles/variables";
 
-.editor-v4-link-menu {
+.LinkMenu {
     display: flex;
 
-    &__form {
+    .form {
         display: flex;
     }
 
-    &__form-content {
+    .formContent {
         height: $spacing-5;
         display: flex;
         align-items: stretch;
@@ -16,7 +16,7 @@
         border-color: $toolbar-dark-theme-border-color;
     }
 
-    &__input {
+    .input {
         border: 0;
         padding: 0 $spacing-1;
         margin: $spacing-1;
@@ -30,7 +30,7 @@
         }
     }
 
-    input.editor-v4-link-menu__input {
+    input.input {
         // override `.editor-menu input` rule specificity
         font-size: 13px;
     }

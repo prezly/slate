@@ -7,8 +7,7 @@ import { Cross } from '#icons';
 import { useEffectOnce } from '#lib';
 
 import { STRING_URL_PATTERN } from './constants';
-
-import './LinkMenu.scss';
+import styles from './LinkMenu.module.scss';
 
 interface Props {
     canUnlink: boolean;
@@ -35,20 +34,20 @@ export const LinkMenu: FunctionComponent<Props> = ({
 
     return (
         <RootCloseWrapper onRootClose={onClose}>
-            <div className="editor-v4-link-menu">
+            <div className={styles.LinkMenu}>
                 <Menu.ButtonGroup>
                     <Menu.Button onClick={onClose}>
                         <Menu.Icon icon={Cross} />
                     </Menu.Button>
                 </Menu.ButtonGroup>
                 <form
-                    className="editor-v4-link-menu__form"
+                    className={styles.form}
                     onSubmit={(event) => {
                         event.preventDefault();
                         onCreate();
                     }}
                 >
-                    <div className="editor-v4-link-menu__form-content">
+                    <div className={styles.formContent}>
                         <input
                             // `autoFocus` has to be `false` - otherwise page automatically scrolls
                             // to the top the moment `LinkMenu` is mounted (because underlying
@@ -57,7 +56,7 @@ export const LinkMenu: FunctionComponent<Props> = ({
                             // the `autoFocus` behavior with `useEffectOnce` anyway
                             // (for a different reason though).
                             autoFocus={false}
-                            className="editor-v4-link-menu__input"
+                            className={styles.input}
                             name="link"
                             onChange={(event) => onChange(event.target.value)}
                             onMouseDown={(event) => {
