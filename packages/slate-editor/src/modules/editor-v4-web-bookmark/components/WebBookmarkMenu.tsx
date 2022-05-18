@@ -11,7 +11,7 @@ import { Delete, ExternalLink, ItemsLayoutHorizontal, ItemsLayoutVertical } from
 
 import { EventsEditor } from '#modules/editor-v4-events';
 
-import { removeWebBookmark, updateWebBookmark } from '../../transforms';
+import { removeWebBookmark, updateWebBookmark } from '../transforms';
 
 import styles from './WebBookmarkMenu.module.scss';
 
