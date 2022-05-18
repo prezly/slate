@@ -4,9 +4,9 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
-import type { MentionElementType } from '../..';
+import type { MentionElementType } from '../types';
 
-import './MentionElement.scss';
+import styles from './MentionElement.module.scss';
 
 interface Props extends RenderElementProps {
     element: MentionElementType;
@@ -18,8 +18,8 @@ export const MentionElement: FunctionComponent<Props> = ({ attributes, children,
     return (
         <span
             {...attributes}
-            className={classNames('editor-v4-mention-element', {
-                'editor-v4-mention-element--selected': selected,
+            className={classNames(styles.MentionElement, {
+                [styles.selected]: selected,
             })}
             contentEditable={false}
             data-slate-type={element.type}

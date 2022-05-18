@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import classNames from 'classnames';
 import RangeFix from 'rangefix';
 import type { FunctionComponent, ReactNode } from 'react';
 import React, { useEffect, useRef } from 'react';
@@ -8,9 +9,9 @@ import { useSlate } from 'slate-react';
 
 import { ensureChildInView } from '#lib';
 
-import type { Option } from '../../types';
+import type { Option } from '../types';
 
-import './MentionsDropdown.scss';
+import styles from './MentionsDropdown.module.scss';
 
 interface Props<V> {
     index: number;
@@ -62,7 +63,7 @@ export const MentionsDropdown = <V extends object>({
 
     return (
         <ul
-            className="editor-v4-mentions-dropdown dropdown-menu"
+            className={classNames(styles.MentionsDropdown, 'dropdown-menu')}
             onMouseDown={(event) => event.preventDefault()}
             ref={suggestionsPanelRef}
             role="menu"
@@ -70,7 +71,7 @@ export const MentionsDropdown = <V extends object>({
             {options.map((option, optionIndex) => (
                 <MenuItem
                     active={index === optionIndex}
-                    className="editor-v4-mentions-dropdown__item"
+                    className={styles.item}
                     key={option.id}
                     onClick={() => onOptionClick(option)}
                 >

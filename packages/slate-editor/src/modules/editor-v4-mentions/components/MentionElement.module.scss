@@ -1,7 +1,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.editor-v4-mention-element {
+.MentionElement {
     @include editor-v4-void-element;
 
     padding: 0 2px;
@@ -14,7 +14,7 @@
         color: #004492;
     }
 
-    &--selected {
+    &.selected {
         border-color: #004492;
     }
 }
