@@ -1,31 +1,32 @@
-import type { ComponentType, FunctionComponent } from 'react';
+import type { ComponentType, HTMLAttributes } from 'react';
 import React from 'react';
 
 import { useSize } from '#lib';
 
 import type { EditorV4Props } from './types';
 
-export function withAvailableWidth(EditorV4Component: ComponentType<EditorV4Props>) {
-    const WithAvailableWidth: FunctionComponent<EditorV4Props> = ({
-        availableWidth: declaredAvailableWidth,
-        ...props
-    }: EditorV4Props) => {
-        const [sizer, { width: availableWidth }] = useSize(
-            () => <div className="editor-v4-sizer" contentEditable={false} />,
-            { width: declaredAvailableWidth },
-        );
+export function withAvailableWidth(attributes: HTMLAttributes<HTMLDivElement> = {}) {
+    return function (EditorV4Component: ComponentType<EditorV4Props>) {
+        function WithAvailableWidth({
+            availableWidth: declaredAvailableWidth,
+            ...props
+        }: EditorV4Props) {
+            const [sizer, { width: availableWidth }] = useSize(
+                () => <div {...attributes} contentEditable={false} />,
+                { width: declaredAvailableWidth },
+            );
 
-        return (
-            <>
-                {sizer}
+            return (
+                <>
+                    {sizer}
+                    <EditorV4Component availableWidth={availableWidth} {...props} />
+                </>
+            );
+        }
 
-                <EditorV4Component availableWidth={availableWidth} {...props} />
-            </>
-        );
+        const displayName = EditorV4Component.displayName || EditorV4Component.name;
+        WithAvailableWidth.displayName = `withAvailableWidth(${displayName})`;
+
+        return WithAvailableWidth;
     };
-
-    const displayName = EditorV4Component.displayName || EditorV4Component.name;
-    WithAvailableWidth.displayName = `withAvailableWidth(${displayName})`;
-
-    return WithAvailableWidth;
 }

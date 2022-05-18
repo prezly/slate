@@ -511,4 +511,4 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
 };
 
 // eslint-disable-next-line import/no-default-export
-export default withAvailableWidth(withDebounce(EditorV4));
+export default withAvailableWidth({ className: 'editor-v4-sizer' })(withDebounce(EditorV4));
