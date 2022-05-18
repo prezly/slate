@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-        react-version: [16.9.0, 17.0.0, 18.0.0]
+        react-version: [16, 17, 18]
 
     steps:
     - uses: actions/checkout@v2
@@ -36,7 +36,9 @@ jobs:
     - run: npm run bootstrap
 
     - name: Install React ${{ matrix.react-version }}
-      run: npm install react@~${{ matrix.react-version }} react-dom@~${{ matrix.react-version }}
+      run: |
+          npm install react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} \
+                      @types/react@{{ matrix.react-version }} @types/react-dom@{{ matrix.react-version }}
 
     - run: npm run build
 
