@@ -1,7 +1,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.editor-v4-coverage-card {
+.CoverageCard {
     $block-height: 180px;
     $image-size: $block-height;
 
@@ -13,12 +13,12 @@
     justify-content: stretch;
     flex-flow: row;
 
-    &__details {
+    .details {
         padding: (2.5 * $spacing-base) (3 * $spacing-base);
         flex-grow: 1;
     }
 
-    &__thumbnail {
+    .thumbnail {
         background-position: center center;
         background-size: cover;
         flex-grow: 0;
@@ -28,13 +28,13 @@
         max-width: $image-size;
     }
 
-    &__thumbnail-image {
+    .thumbnailImage {
         visibility: hidden;
         width: 100%;
         height: 100%;
     }
 
-    &__title {
+    .title {
         margin: 0 0 $spacing-base 0;
         font-weight: 800;
         line-height: 1.6;
@@ -53,7 +53,7 @@
         }
     }
 
-    &__description {
+    .description {
         color: $grey-500;
         margin: $spacing-base 0;
         line-height: 1.4;
@@ -62,15 +62,15 @@
         @include multi-line-ellipsis(2);
     }
 
-    &__meta {
+    .meta {
         color: $grey-500;
         margin: $spacing-base 0;
         line-height: 1.4;
         font-size: $font-size-small;
     }
 
-    &__author,
-    &__publication-date {
+    .author,
+    .publicationDate {
         &:after {
             content: "/";
             margin: 0 $spacing-1;
@@ -83,7 +83,7 @@
         }
     }
 
-    &__outlet {
+    .outlet {
         display: flex;
         align-items: center;
         color: $grey-700;
@@ -104,13 +104,13 @@
         }
     }
 
-    &__outlet-icon {
+    .outletIcon {
         width: $spacing-base * 2;
         height: $spacing-base * 2;
         margin-right: $spacing-base;
     }
 
-    &__outlet-name {
+    .outletName {
         flex-grow: 1;
     }
 }

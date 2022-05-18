@@ -5,9 +5,8 @@ import React from 'react';
 
 import { formatBytes } from '#lib';
 
+import styles from './CoverageCard.module.scss';
 import { getCoverageImageUrl } from './lib';
-
-import './CoverageBlock.scss';
 
 const IMAGE_HEIGHT = 180;
 
@@ -24,10 +23,10 @@ export const CoverageCard: FunctionComponent<Props> = ({ coverage, dateFormat })
     const href = coverage.attachment_oembed?.url || coverage.url;
 
     return (
-        <div className="editor-v4-coverage-card">
+        <div className={styles.CoverageCard}>
             {imageUrl && <Thumbnail src={imageUrl} href={href} />}
 
-            <div className="editor-v4-coverage-card__details">
+            <div className={styles.details}>
                 <Title coverage={coverage} href={href} />
 
                 <Description coverage={coverage} />
@@ -55,14 +54,10 @@ function Thumbnail(props: { href: string | null; src: string }) {
     return (
         <Tag
             href={href || undefined}
-            className="editor-v4-coverage-card__thumbnail"
+            className={styles.thumbnail}
             style={{ backgroundImage: `url("${src}")` }}
         >
-            <img
-                className="editor-v4-coverage-card__thumbnail-image"
-                src={src}
-                alt="Website preview"
-            />
+            <img className={styles.thumbnailImage} src={src} alt="Website preview" />
         </Tag>
     );
 }
@@ -73,7 +68,7 @@ function Title(props: { coverage: Coverage; href: string | null }) {
     const Tag = href ? 'a' : 'div';
 
     return (
-        <Tag className="editor-v4-coverage-card__title" href={href || undefined}>
+        <Tag className={styles.title} href={href || undefined}>
             {title}
         </Tag>
     );
@@ -85,7 +80,7 @@ function Description(props: { coverage: Coverage }) {
     const description = coverage.attachment_oembed?.description;
 
     if (description) {
-        return <div className="editor-v4-coverage-card__description">{description}</div>;
+        return <div className={styles.description}>{description}</div>;
     }
 
     if (coverage.attachment) {
@@ -103,16 +98,14 @@ function Meta(props: { author: Contact | null; date: string | null; dateFormat: 
     const { author, date, dateFormat } = props;
 
     return (
-        <div className="editor-v4-coverage-card__meta">
+        <div className={styles.meta}>
             {author?.display_name && (
-                <span className="editor-v4-coverage-card__author" title="Author">
+                <span className={styles.author} title="Author">
                     {author?.display_name}
                 </span>
             )}
             {date && (
-                <span className="editor-v4-coverage-card__publication-date">
-                    {moment(date).format(dateFormat)}
-                </span>
+                <span className={styles.publicationDate}>{moment(date).format(dateFormat)}</span>
             )}
         </div>
     );
@@ -122,14 +115,14 @@ function Outlet(props: { contact: Contact }) {
     const { contact } = props;
 
     return (
-        <div className="editor-v4-coverage-card__outlet">
+        <div className={styles.outlet}>
             <img
-                className="editor-v4-coverage-card__outlet-icon"
+                className={styles.outletIcon}
                 src={contact.avatar_url}
                 alt={`${contact.display_name} avatar`}
                 aria-hidden="true"
             />
-            <span className="editor-v4-coverage-card__outlet-name">{contact.display_name}</span>
+            <span className={styles.outletName}>{contact.display_name}</span>
         </div>
     );
 }
