@@ -1,1 +1,0 @@
-export { CoverageCard } from './CoverageCard';

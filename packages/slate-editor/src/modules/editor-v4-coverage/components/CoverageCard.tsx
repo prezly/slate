@@ -1,4 +1,5 @@
 import type { Contact, Coverage } from '@prezly/sdk';
+import { UploadcareImage } from '@prezly/uploadcare';
 import moment from 'moment';
 import type { FunctionComponent } from 'react';
 import React from 'react';
@@ -6,7 +7,6 @@ import React from 'react';
 import { formatBytes } from '#lib';
 
 import styles from './CoverageCard.module.scss';
-import { getCoverageImageUrl } from './lib';
 
 const IMAGE_HEIGHT = 180;
 
@@ -125,4 +125,18 @@ function Outlet(props: { contact: Contact }) {
             <span className={styles.outletName}>{contact.display_name}</span>
         </div>
     );
+}
+
+function getCoverageImageUrl(coverage: Coverage, imageHeight: number): string | null {
+    if (coverage.attachment_oembed && coverage.attachment_oembed.thumbnail_url) {
+        return coverage.attachment_oembed.thumbnail_url;
+    }
+
+    if (UploadcareImage.isPrezlyStoragePayload(coverage.attachment)) {
+        const image = UploadcareImage.createFromPrezlyStoragePayload(coverage.attachment);
+
+        return image.resize(null, imageHeight).cdnUrl;
+    }
+
+    return null;
 }

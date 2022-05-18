@@ -1,1 +1,0 @@
-export { CoverageElement } from './CoverageElement';
