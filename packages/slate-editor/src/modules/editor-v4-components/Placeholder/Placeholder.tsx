@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import classNames from 'classnames';
 import type { FunctionComponent, ReactNode } from 'react';
 import React from 'react';
 import { useSlate } from 'slate-react';
@@ -16,5 +17,7 @@ export const Placeholder: FunctionComponent<Props> = ({ children }) => {
         return null;
     }
 
-    return <div className={styles.Placeholder}>{children}</div>;
+    return (
+        <div className={classNames(styles.Placeholder, 'editor-v4-placeholder')}>{children}</div>
+    );
 };
