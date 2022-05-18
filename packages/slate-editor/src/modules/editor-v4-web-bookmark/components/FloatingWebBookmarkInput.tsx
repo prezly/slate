@@ -1,4 +1,4 @@
-import type { ChangeEvent, FunctionComponent, RefObject } from 'react';
+import type { ChangeEvent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 
@@ -6,7 +6,7 @@ import { useEffectOnce } from '#lib';
 
 import { FloatingContainer } from '#modules/editor-v4-components';
 
-import './FloatingWebBookmarkInput.scss';
+import styles from './FloatingWebBookmarkInput.module.scss';
 
 interface Props {
     availableWidth: number;
@@ -17,14 +17,14 @@ interface Props {
     submitButtonLabel: string;
 }
 
-export const FloatingWebBookmarkInput: FunctionComponent<Props> = ({
+export function FloatingWebBookmarkInput({
     availableWidth,
     containerRef,
     onClose,
     onRootClose,
     onSubmit,
     submitButtonLabel,
-}) => {
+}: Props) {
     const inputRef = useRef<HTMLInputElement>();
     const [url, setUrl] = useState<string>('');
 
@@ -42,17 +42,13 @@ export const FloatingWebBookmarkInput: FunctionComponent<Props> = ({
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className="editor-v4-floating-web-bookmark-input"
+            className={styles.FloatingWebBookmarkInput}
             containerRef={containerRef}
             onClose={onRootClose}
             open
             show
         >
-            <FloatingContainer.Button
-                className="editor-v4-floating-web-bookmark-input__close-button"
-                onClick={onClose}
-                open
-            />
+            <FloatingContainer.Button className={styles.closeButton} onClick={onClose} open />
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
@@ -68,7 +64,7 @@ export const FloatingWebBookmarkInput: FunctionComponent<Props> = ({
                         // the `autoFocus` behavior with `useEffectOnce` anyway
                         // (for a different reason though).
                         autoFocus={false}
-                        className="editor-v4-floating-web-bookmark-input__input"
+                        className={styles.input}
                         inputRef={(ref) => {
                             inputRef.current = ref;
                         }}
@@ -80,10 +76,10 @@ export const FloatingWebBookmarkInput: FunctionComponent<Props> = ({
                         type="url"
                         value={url}
                     />
-                    <InputGroup.Addon className="editor-v4-floating-web-bookmark-input__addon">
+                    <InputGroup.Addon className={styles.addon}>
                         <Button
                             bsStyle="success"
-                            className="editor-v4-floating-web-bookmark-input__button"
+                            className={styles.button}
                             disabled={url.length === 0}
                             type="submit"
                         >
@@ -94,4 +90,4 @@ export const FloatingWebBookmarkInput: FunctionComponent<Props> = ({
             </form>
         </FloatingContainer.Container>
     );
-};
+}
