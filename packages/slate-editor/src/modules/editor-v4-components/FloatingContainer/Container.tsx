@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { FunctionComponent, RefObject } from 'react';
+import type { FunctionComponent, ReactNode, RefObject } from 'react';
 import React from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 import type { Modifier } from 'react-popper';
@@ -10,6 +10,7 @@ import { useCurrentDomNode } from './useCurrentDomNode';
 
 interface Props {
     availableWidth: number;
+    children: ReactNode;
     className?: string;
     containerRef: RefObject<HTMLElement>;
     onClose: () => void;

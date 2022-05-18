@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
 import React from 'react';
 
 export interface Props {
+    children: ReactNode;
     flex?: boolean;
 }
 

@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
 import React from 'react';
 
 import './KeyboardKey.scss';
 
 interface Props {
+    children: ReactNode;
     className?: string;
 }
 
