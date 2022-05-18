@@ -12,7 +12,7 @@ import { useAsyncProgress, useMount, useUnmount } from '#lib';
 import { loaderPromiseManager } from '../lib';
 import type { LoaderContentType, LoaderNode } from '../types';
 
-import './LoaderElement.scss';
+import styles from './LoaderElement.module.scss';
 
 interface Props extends RenderElementProps {
     element: LoaderNode;
@@ -73,8 +73,8 @@ export const LoaderElement: FunctionComponent<Props> = ({
     return (
         <div
             {...attributes}
-            className={classNames('editor-v4-loader-element', {
-                'editor-v4-loader-element--active': isSelected,
+            className={classNames(styles.LoaderElement, {
+                [styles.active]: isSelected,
             })}
             data-slate-type={element.type}
         >

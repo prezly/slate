@@ -1,10 +1,10 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.editor-v4-loader-element {
+.LoaderElement {
     @include editor-v4-block($void: true);
 
-    &--active {
+    &.active {
         @include editor-v4-block-active;
     }
 }
