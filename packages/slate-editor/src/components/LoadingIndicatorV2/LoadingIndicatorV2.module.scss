@@ -1,17 +1,17 @@
 @import "styles/variables";
 
-.loading-indicator-v2 {
+.LoadingIndicator {
     position: relative;
 
-    &__progress,
-    &__head {
+    .progress,
+    .head {
         position: absolute;
         top: 0;
         left: 0;
         transform-origin: 50%;
     }
 
-    &__infinite-progress {
+    .infiniteProgress {
         transform-origin: 50%;
         animation: loading-indicator-v2-infinite-progress infinite 1s linear;
     }
