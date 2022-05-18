@@ -44,10 +44,10 @@ import {
 import { toggleBlock } from '../editor-v4-rich-formatting';
 import { RichFormattingMenu } from '../editor-v4-rich-formatting-menu';
 import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
-import styles from './EditorV4.module.scss';
 import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
 
+import styles from './EditorV4.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';
 import {
     createHandleAddGallery,
