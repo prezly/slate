@@ -84,11 +84,7 @@ function Description(props: { coverage: Coverage }) {
     }
 
     if (coverage.attachment) {
-        return (
-            <div className="editor-v4-coverage-card__description editor-v4-coverage-card__description--secondary">
-                {formatBytes(coverage.attachment.size)}
-            </div>
-        );
+        return <div className={styles.description}>{formatBytes(coverage.attachment.size)}</div>;
     }
 
     return null;
