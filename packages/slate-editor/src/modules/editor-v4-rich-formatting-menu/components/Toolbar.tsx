@@ -17,7 +17,7 @@ import {
 
 import type { Formatting } from '../types';
 
-import { BlockDropdown } from './BlockDropdown';
+import { FormattingDropdown } from './FormattingDropdown';
 
 interface Props {
     // state
@@ -117,7 +117,7 @@ export function Toolbar({
                 </Menu.ButtonGroup>
             )}
 
-            {withRichBlockElements && <BlockDropdown onChange={onFormatting} value={formatting} />}
+            {withRichBlockElements && <FormattingDropdown onChange={onFormatting} value={formatting} />}
         </>
     );
 }

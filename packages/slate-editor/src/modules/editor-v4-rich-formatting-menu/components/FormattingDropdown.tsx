@@ -6,7 +6,7 @@ import { ElementType } from '#modules/editor-v4-rich-formatting';
 
 import type { Formatting } from '../types';
 
-import { MenuOption } from './MenuOption';
+import { DropdownOption } from './DropdownOption';
 
 interface Props {
     onChange: (value: Formatting) => void;
@@ -45,13 +45,13 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
     },
 ];
 
-export function BlockDropdown({ value, onChange }: Props) {
+export function FormattingDropdown({ value, onChange }: Props) {
     return (
         <Dropdown<Formatting>
             id="prezly-editor-toolbar-dropdown"
             onChange={onChange}
             options={OPTIONS}
-            renderOption={MenuOption}
+            renderOption={DropdownOption}
             value={value || undefined}
         />
     );

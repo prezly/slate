@@ -9,7 +9,7 @@ import { RichTextElement } from '#modules/editor-v4-rich-formatting';
 
 import type { Formatting } from '../types';
 
-import styles from './MenuOption.module.scss';
+import styles from './DropdownOption.module.scss';
 
 type Option = Dropdown.Option<Formatting>;
 
@@ -17,16 +17,16 @@ interface Props {
     option: Option;
 }
 
-export function MenuOption({ option }: Props) {
+export function DropdownOption({ option }: Props) {
     if (option.value === 'multiple') {
-        return <div className={classNames(styles.MenuOption)}>{option.label}</div>;
+        return <div className={classNames(styles.DropdownOption)}>{option.label}</div>;
     }
 
     if (option.value === 'paragraph') {
         const mockParagraphElement: ParagraphNode = { children: [], type: 'paragraph' };
         return (
             <ParagraphElement
-                className={classNames(styles.MenuOption, styles.paragraph)}
+                className={classNames(styles.DropdownOption, styles.paragraph)}
                 element={mockParagraphElement}
             >
                 {option.label}
@@ -36,7 +36,7 @@ export function MenuOption({ option }: Props) {
 
     return (
         <RichTextElement
-            className={classNames(styles.MenuOption, {
+            className={classNames(styles.DropdownOption, {
                 [styles.heading1]: option.value === 'heading-one',
                 [styles.heading2]: option.value === 'heading-two',
                 [styles.blockquote]: option.value === 'block-quote',
