@@ -18,7 +18,7 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
     {
         label: 'Paragraph',
         value: PARAGRAPH_NODE_TYPE,
-        render: (option) => (
+        render: ({ option }) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--paragraph"
                 formatting={option.value}
@@ -30,7 +30,7 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
     {
         label: 'Heading 1',
         value: ElementType.HEADING_ONE,
-        render: (option) => (
+        render: ({ option }) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--heading-1"
                 formatting={option.value}
@@ -42,7 +42,7 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
     {
         label: 'Heading 2',
         value: ElementType.HEADING_TWO,
-        render: (option) => (
+        render: ({ option }) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--heading-2"
                 formatting={option.value}
@@ -54,7 +54,7 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
     {
         label: 'Unordered List',
         value: ElementType.BULLETED_LIST,
-        render: (option) => (
+        render: ({ option }) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--unordered-list"
                 formatting={option.value}
@@ -66,7 +66,7 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
     {
         label: 'Ordered List',
         value: ElementType.NUMBERED_LIST,
-        render: (option) => (
+        render: ({ option }) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--ordered-list"
                 formatting={option.value}
@@ -78,7 +78,7 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
     {
         label: '“Quote”',
         value: ElementType.BLOCK_QUOTE,
-        render: (option) => (
+        render: ({ option }) => (
             <MenuOption
                 className="editor-menu-dropdown__menu-option--blockquote"
                 formatting={option.value}

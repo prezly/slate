@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { FunctionComponent, ReactNode } from 'react';
+import type { ComponentType, FunctionComponent } from 'react';
 import React from 'react';
 import type { DropdownProps } from 'react-bootstrap';
 import { Dropdown as BootstrapDropdown, MenuItem } from 'react-bootstrap';
@@ -10,7 +10,7 @@ export namespace Dropdown {
     export interface Option<Value extends string> {
         hidden?: boolean;
         label: string;
-        render?: (option: Option<Value>) => ReactNode;
+        render?: ComponentType<{ option: Option<Value>; selected: boolean }>;
         value: Value;
     }
 
@@ -47,18 +47,25 @@ export function Dropdown<Value extends string = string>({
         >
             <BootstrapDropdown.Toggle>{selectedOption?.label}</BootstrapDropdown.Toggle>
             <BootstrapDropdown.Menu>
-                {visibleOptions.map((option) => (
-                    <MenuItem
-                        className={classNames(styles.MenuItem, {
-                            [styles.selected]: option.value === value,
-                        })}
-                        eventKey={option.value}
-                        key={option.value}
-                    >
-                        {option.render ? option.render(option) : option.label}
-                    </MenuItem>
-                ))}
+                {visibleOptions.map((option) => {
+                    const Render = option.render ?? PlainLabel;
+                    return (
+                        <MenuItem
+                            className={classNames(styles.MenuItem, {
+                                [styles.selected]: option.value === value,
+                            })}
+                            eventKey={option.value}
+                            key={option.value}
+                        >
+                            <Render option={option} selected={option.value === value} />
+                        </MenuItem>
+                    );
+                })}
             </BootstrapDropdown.Menu>
         </BootstrapDropdown>
     );
+}
+
+function PlainLabel(props: { option: { label: string } }) {
+    return <>{props.option.label}</>;
 }
