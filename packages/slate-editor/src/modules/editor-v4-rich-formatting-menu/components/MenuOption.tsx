@@ -1,6 +1,6 @@
 import type { ParagraphNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { FunctionComponent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import React from 'react';
 
 import { ParagraphElement } from '#modules/editor-v4-paragraphs';
@@ -9,26 +9,23 @@ import { RichTextElement } from '#modules/editor-v4-rich-formatting';
 
 import type { Formatting } from '../types';
 
+import styles from './MenuOption.module.scss';
+
 interface Props {
     children: ReactNode;
-    className?: string;
     formatting: Formatting;
 }
 
-export const MenuOption: FunctionComponent<Props> = ({ children, className, formatting }) => {
+export function MenuOption({ children, formatting }: Props) {
     if (formatting === 'multiple') {
-        return (
-            <div className={classNames('editor-menu-dropdown__menu-option', className)}>
-                {children}
-            </div>
-        );
+        return <div className={classNames(styles.MenuOption)}>{children}</div>;
     }
 
     if (formatting === 'paragraph') {
         const mockParagraphElement: ParagraphNode = { children: [], type: formatting };
         return (
             <ParagraphElement
-                className={classNames('editor-menu-dropdown__menu-option', className)}
+                className={classNames(styles.MenuOption, styles.paragraph)}
                 element={mockParagraphElement}
             >
                 {children}
@@ -38,13 +35,19 @@ export const MenuOption: FunctionComponent<Props> = ({ children, className, form
 
     return (
         <RichTextElement
-            className={classNames('editor-menu-dropdown__menu-option', className)}
+            className={classNames(styles.MenuOption, {
+                [styles.heading1]: formatting === 'heading-one',
+                [styles.heading2]: formatting === 'heading-two',
+                [styles.blockquote]: formatting === 'block-quote',
+                [styles.orderedList]: formatting === 'numbered-list',
+                [styles.unorderedList]: formatting === 'bulleted-list',
+            })}
             element={createMockElement(formatting)}
         >
             {children}
         </RichTextElement>
     );
-};
+}
 
 function createMockElement(formatting: Formatting): RichTextElementType {
     return {

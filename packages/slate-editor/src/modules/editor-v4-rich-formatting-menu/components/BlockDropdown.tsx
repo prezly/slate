@@ -18,47 +18,23 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
     {
         label: 'Paragraph',
         value: PARAGRAPH_NODE_TYPE,
-        render: ({ option }) => (
-            <MenuOption
-                className="editor-menu-dropdown__menu-option--paragraph"
-                formatting={option.value}
-            >
-                {option.label}
-            </MenuOption>
-        ),
+        render: ({ option }) => <MenuOption formatting={option.value}>{option.label}</MenuOption>,
     },
     {
         label: 'Heading 1',
         value: ElementType.HEADING_ONE,
-        render: ({ option }) => (
-            <MenuOption
-                className="editor-menu-dropdown__menu-option--heading-1"
-                formatting={option.value}
-            >
-                {option.label}
-            </MenuOption>
-        ),
+        render: ({ option }) => <MenuOption formatting={option.value}>{option.label}</MenuOption>,
     },
     {
         label: 'Heading 2',
         value: ElementType.HEADING_TWO,
-        render: ({ option }) => (
-            <MenuOption
-                className="editor-menu-dropdown__menu-option--heading-2"
-                formatting={option.value}
-            >
-                {option.label}
-            </MenuOption>
-        ),
+        render: ({ option }) => <MenuOption formatting={option.value}>{option.label}</MenuOption>,
     },
     {
         label: 'Unordered List',
         value: ElementType.BULLETED_LIST,
         render: ({ option }) => (
-            <MenuOption
-                className="editor-menu-dropdown__menu-option--unordered-list"
-                formatting={option.value}
-            >
+            <MenuOption formatting={option.value}>
                 <li>{option.label}</li>
             </MenuOption>
         ),
@@ -67,10 +43,7 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
         label: 'Ordered List',
         value: ElementType.NUMBERED_LIST,
         render: ({ option }) => (
-            <MenuOption
-                className="editor-menu-dropdown__menu-option--ordered-list"
-                formatting={option.value}
-            >
+            <MenuOption formatting={option.value}>
                 <li>{option.label}</li>
             </MenuOption>
         ),
@@ -78,14 +51,7 @@ const OPTIONS: Dropdown.Option<Formatting>[] = [
     {
         label: '“Quote”',
         value: ElementType.BLOCK_QUOTE,
-        render: ({ option }) => (
-            <MenuOption
-                className="editor-menu-dropdown__menu-option--blockquote"
-                formatting={option.value}
-            >
-                {option.label}
-            </MenuOption>
-        ),
+        render: ({ option }) => <MenuOption formatting={option.value}>{option.label}</MenuOption>,
     },
 ];
 
