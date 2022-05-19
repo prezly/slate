@@ -3,6 +3,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import React, { forwardRef } from 'react';
 
 import { useExtrapolatedProgress } from './lib';
+import styles from './LoadingPlaceholderV2.module.scss';
 
 export interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
     children: (props: { percent: string }) => ReactNode;
@@ -20,7 +21,7 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
         const percent = `${(100 * extrapolatedProgress).toFixed(0)}%`;
 
         return (
-            <div {...props} className={classNames('loading-placeholder-v2', className)} ref={ref}>
+            <div {...props} className={classNames(styles.LoadingPlaceholder, className)} ref={ref}>
                 {children({ percent })}
             </div>
         );

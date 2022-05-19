@@ -1,14 +1,17 @@
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
 import React from 'react';
+
+import styles from './LoadingPlaceholderV2.module.scss';
 
 export interface Props {
     className?: string;
     percent: string;
 }
 
-export const ProgressBar: FunctionComponent<Props> = ({ className, percent }) => (
-    <div className={classNames('loading-placeholder-v2__progress-bar', className)}>
-        <div className="loading-placeholder-v2__progress-bar-value" style={{ width: percent }} />
-    </div>
-);
+export function ProgressBar({ className, percent }: Props) {
+    return (
+        <div className={classNames(styles.ProgressBar, className)}>
+            <div className={styles.ProgressBarValue} style={{ width: percent }} />
+        </div>
+    );
+}

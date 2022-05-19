@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
 import React from 'react';
+
+import styles from './LoadingPlaceholderV2.module.scss';
 
 export interface Props {
     children: string;
@@ -8,9 +9,11 @@ export interface Props {
     percent: string;
 }
 
-export const Description: FunctionComponent<Props> = ({ children, className, percent }) => (
-    <div className={classNames('loading-placeholder-v2__description', className)}>
-        <span className="loading-placeholder-v2__message">{children}...</span>
-        <span className="loading-placeholder-v2__progress">{percent}</span>
-    </div>
-);
+export function Description({ children, className, percent }: Props) {
+    return (
+        <div className={classNames(styles.Description, className)}>
+            <span className={styles.Message}>{children}...</span>
+            <span className={styles.Progress}>{percent}</span>
+        </div>
+    );
+}

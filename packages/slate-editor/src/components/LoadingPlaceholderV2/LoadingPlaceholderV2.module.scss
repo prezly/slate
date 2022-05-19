@@ -1,6 +1,6 @@
 @import "styles/variables";
 
-.loading-placeholder-v2 {
+.LoadingPlaceholder {
     $horizontal-padding: $spacing-1;
 
     display: flex;
@@ -12,7 +12,7 @@
     background: $legacy-color-grey-100;
     border: 1px solid $legacy-color-grey-500;
 
-    &__icon {
+    .Icon {
         $size: 24px;
 
         width: $size;
@@ -21,7 +21,7 @@
         color: $legacy-color-grey-750;
     }
 
-    &__description {
+    .Description {
         display: flex;
         justify-content: center;
         margin: $spacing-2 0;
@@ -30,12 +30,12 @@
         white-space: nowrap;
     }
 
-    &__message {
+    .Message {
         font-weight: 600;
         color: $legacy-color-type-primary;
     }
 
-    &__progress {
+    .Progress {
         margin-left: $spacing-1-5;
         width: 34px; // constant width to avoid content jump when number of % digits change
         text-align: right;
@@ -43,7 +43,7 @@
         color: $legacy-color-type-secondary;
     }
 
-    &__progress-bar {
+    .ProgressBar {
         max-width: calc(100% - #{2 * $horizontal-padding});
         width: 220px;
         height: 2px;
@@ -51,15 +51,15 @@
         background-color: #c3e5d5;
     }
 
-    &__progress-bar-value {
+    .ProgressBarValue {
         height: 100%;
         background-color: #2ca859;
         transition: width 100ms linear;
     }
 
-    &__icon,
-    &__description,
-    &__progress-bar {
+    .Icon,
+    .Description,
+    .ProgressBar {
         &:first-child {
             margin-top: 0;
         }
