@@ -6,17 +6,19 @@ import { Dropdown as BootstrapDropdown, MenuItem } from 'react-bootstrap';
 
 import './Dropdown.scss';
 
-export interface Option<Value extends string> {
-    hidden?: boolean;
-    label: string;
-    render?: (option: Option<Value>) => ReactNode;
-    value: Value;
-}
+export namespace Dropdown {
+    export interface Option<Value extends string> {
+        hidden?: boolean;
+        label: string;
+        render?: (option: Option<Value>) => ReactNode;
+        value: Value;
+    }
 
-export interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {
-    onChange: (value: Value) => void;
-    options: Option<Value>[];
-    value?: Value;
+    export interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {
+        onChange: (value: Value) => void;
+        options: Option<Value>[];
+        value?: Value;
+    }
 }
 
 export function Dropdown<Value extends string = string>({
@@ -25,7 +27,7 @@ export function Dropdown<Value extends string = string>({
     options,
     value,
     ...props
-}: Props<Value>): ReturnType<FunctionComponent<Props<Value>>> {
+}: Dropdown.Props<Value>): ReturnType<FunctionComponent<Dropdown.Props<Value>>> {
     const selectedOption = options.find((option) => option.value === value);
     const visibleOptions = options.filter(({ hidden }) => !hidden);
 
