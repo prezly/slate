@@ -3,46 +3,44 @@
 .DropdownOption {
     margin: 0;
     font-size: 13px;
-    color: inherit;
 
-    &.paragraph {
-        // Override margin set on `.editor-story p`.
-        margin-bottom: 0 !important;
-    }
-
-    &.heading1 {
+    &.headingOne {
         font-size: 17px;
         font-weight: 700;
     }
 
-    &.heading2 {
+    &.headingTwo {
         font-size: 15px;
         font-weight: 700;
     }
 
-    &.unorderedList,
-    &.orderedList {
+    &.orderedList,
+    &.unorderedList {
         padding-left: $spacing-2;
+        position: relative;
+
+        &::before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+    }
+
+    &.orderedList {
+        &::before {
+            content: '1.';
+        }
     }
 
     &.unorderedList {
-        // Fix broken list style. Breaks because this list
-        // is nested in another list (menu items).
-        list-style-type: disc;
+        &::before {
+            content: '•';
+        }
     }
 
     &.blockquote {
-        padding: 0;
-        background: unset;
-
-        // FIXME: Avoid styling component inner elements
-        > p {
-            padding-left: $spacing-half;
-            font-style: italic;
-
-            &::before {
-                content: unset;
-            }
-        }
+        border-left: 2px solid $grey-400;
+        padding-left: $spacing-1;
     }
 }

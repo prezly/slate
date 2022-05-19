@@ -65,9 +65,8 @@ function DropdownOption(props: { option: Option }) {
     return (
         <div
             className={classNames(styles.DropdownOption, {
-                [styles.paragraph]: value === 'paragraph',
-                [styles.heading1]: value === 'heading-one',
-                [styles.heading2]: value === 'heading-two',
+                [styles.headingOne]: value === 'heading-one',
+                [styles.headingTwo]: value === 'heading-two',
                 [styles.blockquote]: value === 'block-quote',
                 [styles.orderedList]: value === 'numbered-list',
                 [styles.unorderedList]: value === 'bulleted-list',
