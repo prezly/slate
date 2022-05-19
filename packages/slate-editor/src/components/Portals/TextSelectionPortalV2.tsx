@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import RangeFix from 'rangefix';
-import type { FunctionComponent } from 'react';
 import React, { useCallback, useRef, useState } from 'react';
 import type { Editor } from 'slate';
 import { ReactEditor, useSlateStatic } from 'slate-react';
@@ -10,8 +9,8 @@ import { identity } from '#lodash';
 
 import type { Props as BasePortalV2Props } from './BasePortalV2';
 import { BasePortalV2 } from './BasePortalV2';
-import './TextSelectionPortalV2.scss';
 import { convertClientRect } from './convertClientRect';
+import styles from './TextSelectionPortalV2.module.scss';
 
 interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {
     modifySelectionRect?: (rect: ClientRect) => ClientRect | null;
@@ -21,13 +20,13 @@ interface Props extends Omit<BasePortalV2Props, 'getBoundingClientRect'> {
  * TextSelectionPortalV2 is a modification of CursorPortalV2 that uses
  * selection start location as its origin to achieve better UX during editing.
  */
-export const TextSelectionPortalV2: FunctionComponent<Props> = ({
+export function TextSelectionPortalV2({
     children,
     className,
     containerElement,
     modifySelectionRect = identity,
     ...props
-}) => {
+}: Props) {
     const editor = useSlateStatic();
     const lastRect = useRef<ClientRect | null>(null);
     // When making a selection with mouse, it's possible that mouse will be moved so quickly that
@@ -56,8 +55,8 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
         <BasePortalV2
             {...props}
             containerElement={containerElement}
-            className={classNames('text-selection-portal-v2', className, {
-                'text-selection-portal-v2--selecting': isMouseDown && !isMouseDownInPortal,
+            className={classNames(styles.TextSelectionPortal, className, {
+                [styles.selecting]: isMouseDown && !isMouseDownInPortal,
             })}
             getBoundingClientRect={getBoundingClientRect}
             onMouseDown={() => setIsMouseDownInPortal(true)}
@@ -66,7 +65,7 @@ export const TextSelectionPortalV2: FunctionComponent<Props> = ({
             {children}
         </BasePortalV2>
     );
-};
+}
 
 function getSelectionRect(editor: Editor): ClientRect | null {
     if (!editor.selection) return null;
