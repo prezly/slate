@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { FunctionComponent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import React from 'react';
 
 export interface Props {
@@ -7,7 +7,7 @@ export interface Props {
     className?: string;
 }
 
-export const Toolbar: FunctionComponent<Props> = ({ children, className }) => {
+export function Toolbar({ children, className }: Props) {
     return (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div
@@ -17,4 +17,4 @@ export const Toolbar: FunctionComponent<Props> = ({ children, className }) => {
             {children}
         </div>
     );
-};
+}

@@ -7,6 +7,6 @@ export interface Props {
     icon: FunctionComponent<HTMLAttributes<SVGElement>>;
 }
 
-export const Icon: FunctionComponent<Props> = ({ className, icon: IconComponent }) => (
-    <IconComponent className={classNames('editor-menu__icon', className)} />
-);
+export function Icon({ className, icon: IconComponent }: Props) {
+    return <IconComponent className={classNames('editor-menu__icon', className)} />;
+}

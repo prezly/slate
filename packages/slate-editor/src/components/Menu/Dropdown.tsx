@@ -19,13 +19,13 @@ export interface Props<Value extends string> extends Omit<DropdownProps, 'onChan
     value?: Value;
 }
 
-export const Dropdown = <Value extends string = string>({
+export function Dropdown<Value extends string = string>({
     className,
     onChange,
     options,
     value,
     ...props
-}: Props<Value>): ReturnType<FunctionComponent<Props<Value>>> => {
+}: Props<Value>): ReturnType<FunctionComponent<Props<Value>>> {
     const selectedOption = options.find((option) => option.value === value);
     const visibleOptions = options.filter(({ hidden }) => !hidden);
 
@@ -59,4 +59,4 @@ export const Dropdown = <Value extends string = string>({
             </BootstrapDropdown.Menu>
         </BootstrapDropdown>
     );
-};
+}
