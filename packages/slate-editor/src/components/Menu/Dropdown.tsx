@@ -10,13 +10,13 @@ export namespace Dropdown {
     export interface Option<Value extends string> {
         hidden?: boolean;
         label: string;
-        render?: ComponentType<{ option: Option<Value>; selected: boolean }>;
         value: Value;
     }
 
     export interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {
         onChange: (value: Value) => void;
         options: Option<Value>[];
+        renderOption?: ComponentType<{ option: Option<Value>; selected: boolean }>;
         value?: Value;
     }
 }
@@ -25,9 +25,11 @@ export function Dropdown<Value extends string = string>({
     className,
     onChange,
     options,
+    renderOption = PlainLabel,
     value,
     ...props
 }: Dropdown.Props<Value>): ReturnType<FunctionComponent<Dropdown.Props<Value>>> {
+    const RenderOption = renderOption;
     const selectedOption = options.find((option) => option.value === value);
     const visibleOptions = options.filter(({ hidden }) => !hidden);
 
@@ -48,7 +50,6 @@ export function Dropdown<Value extends string = string>({
             <BootstrapDropdown.Toggle>{selectedOption?.label}</BootstrapDropdown.Toggle>
             <BootstrapDropdown.Menu>
                 {visibleOptions.map((option) => {
-                    const Render = option.render ?? PlainLabel;
                     return (
                         <MenuItem
                             className={classNames(styles.MenuItem, {
@@ -57,7 +58,7 @@ export function Dropdown<Value extends string = string>({
                             eventKey={option.value}
                             key={option.value}
                         >
-                            <Render option={option} selected={option.value === value} />
+                            <RenderOption option={option} selected={option.value === value} />
                         </MenuItem>
                     );
                 })}

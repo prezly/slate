@@ -1,8 +1,8 @@
 import type { ParagraphNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
 import React from 'react';
 
+import type { Dropdown } from '#components/Menu';
 import { ParagraphElement } from '#modules/editor-v4-paragraphs';
 import type { RichTextElementType } from '#modules/editor-v4-rich-formatting';
 import { RichTextElement } from '#modules/editor-v4-rich-formatting';
@@ -11,24 +11,25 @@ import type { Formatting } from '../types';
 
 import styles from './MenuOption.module.scss';
 
+type Option = Dropdown.Option<Formatting>;
+
 interface Props {
-    children: ReactNode;
-    formatting: Formatting;
+    option: Option;
 }
 
-export function MenuOption({ children, formatting }: Props) {
-    if (formatting === 'multiple') {
-        return <div className={classNames(styles.MenuOption)}>{children}</div>;
+export function MenuOption({ option }: Props) {
+    if (option.value === 'multiple') {
+        return <div className={classNames(styles.MenuOption)}>{option.label}</div>;
     }
 
-    if (formatting === 'paragraph') {
-        const mockParagraphElement: ParagraphNode = { children: [], type: formatting };
+    if (option.value === 'paragraph') {
+        const mockParagraphElement: ParagraphNode = { children: [], type: 'paragraph' };
         return (
             <ParagraphElement
                 className={classNames(styles.MenuOption, styles.paragraph)}
                 element={mockParagraphElement}
             >
-                {children}
+                {option.label}
             </ParagraphElement>
         );
     }
@@ -36,15 +37,15 @@ export function MenuOption({ children, formatting }: Props) {
     return (
         <RichTextElement
             className={classNames(styles.MenuOption, {
-                [styles.heading1]: formatting === 'heading-one',
-                [styles.heading2]: formatting === 'heading-two',
-                [styles.blockquote]: formatting === 'block-quote',
-                [styles.orderedList]: formatting === 'numbered-list',
-                [styles.unorderedList]: formatting === 'bulleted-list',
+                [styles.heading1]: option.value === 'heading-one',
+                [styles.heading2]: option.value === 'heading-two',
+                [styles.blockquote]: option.value === 'block-quote',
+                [styles.orderedList]: option.value === 'numbered-list',
+                [styles.unorderedList]: option.value === 'bulleted-list',
             })}
-            element={createMockElement(formatting)}
+            element={createMockElement(option.value)}
         >
-            {children}
+            {option.label}
         </RichTextElement>
     );
 }
