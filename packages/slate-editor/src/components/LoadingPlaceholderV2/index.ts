@@ -1,4 +1,1 @@
-export { Description } from './Description';
-export { Icon } from './Icon';
-export { Placeholder } from './Placeholder';
-export { ProgressBar } from './ProgressBar';
+export { Placeholder, Description, Icon, ProgressBar } from './LoadingPlaceholderV2';
