@@ -4,7 +4,7 @@ import React from 'react';
 import type { DropdownProps } from 'react-bootstrap';
 import { Dropdown as BootstrapDropdown, MenuItem } from 'react-bootstrap';
 
-import './Dropdown.scss';
+import styles from './Dropdown.module.scss';
 
 export namespace Dropdown {
     export interface Option<Value extends string> {
@@ -42,15 +42,15 @@ export function Dropdown<Value extends string = string>({
     return (
         <BootstrapDropdown
             {...props}
-            className={classNames('editor-menu-dropdown', className)}
+            className={classNames(styles.Dropdown, className)}
             onSelect={handleSelect}
         >
             <BootstrapDropdown.Toggle>{selectedOption?.label}</BootstrapDropdown.Toggle>
             <BootstrapDropdown.Menu>
                 {visibleOptions.map((option) => (
                     <MenuItem
-                        className={classNames('editor-menu-dropdown__menu-item', {
-                            'editor-menu-dropdown__menu-item--selected': option.value === value,
+                        className={classNames(styles.MenuItem, {
+                            [styles.selected]: option.value === value,
                         })}
                         eventKey={option.value}
                         key={option.value}
