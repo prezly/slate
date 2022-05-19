@@ -2,7 +2,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.editor-menu {
+.Toolbar {
     $font-size: 14px;
 
     display: flex;
@@ -17,7 +17,7 @@
         font-size: $font-size;
     }
 
-    &__link {
+    .Link {
         position: relative;
         display: flex;
         justify-content: center;
@@ -45,7 +45,7 @@
             border-radius: $border-radius-base;
         }
 
-        &--disabled {
+        &.disabled {
             color: $legacy-color-grey-250;
             pointer-events: none;
         }
@@ -55,7 +55,7 @@
         }
     }
 
-    &__button-group {
+    .ButtonGroup {
         border-right: 1px solid;
         border-color: $toolbar-dark-theme-border-color;
 
@@ -71,12 +71,12 @@
             border-right: none;
         }
 
-        &--flex {
+        &.flex {
             display: flex;
             align-items: center;
             padding: 0 $spacing-1;
 
-            .btn {
+            :global(.btn) {
                 margin-left: $spacing-half;
 
                 &:first-child {
@@ -86,7 +86,7 @@
         }
     }
 
-    &__button {
+    .Button {
         @include btn-unstyled;
 
         height: $spacing-base * 5;
@@ -118,18 +118,18 @@
                 background-color: $toolbar-dark-theme-hover-bg;
             }
 
-            &.disabled::before,
+            &:global(.disabled)::before,
             &[disabled]::before {
                 background-color: transparent;
             }
         }
 
-        &--active {
+        &.active {
             fill: $toolbar-dark-theme-icon-color;
             color: $toolbar-dark-theme-icon-active-color;
         }
 
-        &.disabled,
+        &:global(.disabled),
         &[disabled] {
             pointer-events: none;
 
@@ -141,43 +141,43 @@
             }
         }
 
-        &--primary {
+        &.primary {
             color: $toolbar-dark-theme-text-color;
 
-            .editor-menu__icon {
+            .Icon {
                 color: $toolbar-dark-theme-icon-color;
             }
         }
 
-        &--success {
+        &.success {
             color: $toolbar-dark-theme-text-color;
 
-            .editor-menu__icon {
+            .Icon {
                 color: $toolbar-dark-theme-icon-color;
             }
         }
 
-        &--danger {
+        &.danger {
             &,
             &:hover {
                 color: $toolbar-dark-theme-text-color;
 
-                .editor-menu__icon {
+                .Icon {
                     color: $toolbar-dark-theme-icon-color;
                 }
             }
         }
 
-        .svg-icon {
+        .SvgIcon {
             display: block;
         }
 
-        .icon {
+        .Icon {
             font-size: $spacing-2;
         }
     }
 
-    &__icon {
+    .Icon {
         width: $spacing-2;
         height: $spacing-2;
         overflow: visible; // fix for Firefox SVG resizing cutting off bottom 1px
