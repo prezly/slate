@@ -2,7 +2,8 @@ import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React from 'react';
 
-import { Dropdown } from '#components/Menu';
+import { Menu } from '#components';
+
 import { ElementType } from '#modules/editor-v4-rich-formatting';
 
 import type { Formatting } from '../types';
@@ -14,7 +15,7 @@ interface Props {
     value: Formatting | null;
 }
 
-type Option = Dropdown.Option<Formatting>;
+type Option = Menu.Dropdown.Option<Formatting>;
 
 const OPTIONS: Option[] = [
     {
@@ -50,7 +51,7 @@ const OPTIONS: Option[] = [
 
 export function FormattingDropdown({ value, onChange }: Props) {
     return (
-        <Dropdown<Formatting>
+        <Menu.Dropdown<Formatting>
             id="prezly-editor-toolbar-dropdown"
             onChange={onChange}
             options={OPTIONS}

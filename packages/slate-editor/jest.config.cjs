@@ -10,7 +10,6 @@ module.exports = {
     moduleNameMapper: {
         '#lodash': 'lodash-es',
         '#components': `${__dirname}/src/components`,
-        '#components/(.*)': `${__dirname}/src/components/$1`,
         '#icons': `${__dirname}/src/icons`,
         '#lib': `${__dirname}/src/lib`,
         '#modules/(.*)': `${__dirname}/src/modules/$1`,
