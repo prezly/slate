@@ -117,7 +117,9 @@ export function Toolbar({
                 </Menu.ButtonGroup>
             )}
 
-            {withRichBlockElements && <FormattingDropdown onChange={onFormatting} value={formatting} />}
+            {withRichBlockElements && (
+                <FormattingDropdown onChange={onFormatting} value={formatting} />
+            )}
         </>
     );
 }

@@ -29,13 +29,13 @@
 
     &.orderedList {
         &::before {
-            content: '1.';
+            content: "1.";
         }
     }
 
     &.unorderedList {
         &::before {
-            content: '•';
+            content: "•";
         }
     }
 
