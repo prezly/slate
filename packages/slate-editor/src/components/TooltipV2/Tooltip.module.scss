@@ -1,6 +1,6 @@
 @import "styles/variables";
 
-.tooltip-v2 {
+.Tooltip {
     $background-color: $legacy-color-type-primary;
     $foreground-color: #ffffff;
     $arrow-padding: 2px;
@@ -13,7 +13,7 @@
     word-break: break-word;
     text-align: center;
 
-    &__arrow {
+    .Arrow {
         position: absolute;
         width: 2 * $arrow-size; // required by popper
         height: 2 * $arrow-size; // required by popper
@@ -28,7 +28,7 @@
         }
     }
 
-    &__content {
+    .Content {
         padding: $spacing-1 $spacing-1-5;
         background-color: $background-color;
         border-radius: $border-radius-base;
@@ -37,8 +37,8 @@
         line-height: 18px;
     }
 
-    &--top {
-        .tooltip-v2__arrow {
+    &.top {
+        .Arrow {
             bottom: -$arrow-size;
 
             &:after {
@@ -50,8 +50,8 @@
         }
     }
 
-    &--bottom {
-        .tooltip-v2__arrow {
+    &.bottom {
+        .Arrow {
             top: -$arrow-size;
 
             &:after {
@@ -63,8 +63,8 @@
         }
     }
 
-    &--left {
-        .tooltip-v2__arrow {
+    &.left {
+        .Arrow {
             right: -$arrow-size;
 
             &:after {
@@ -76,8 +76,8 @@
         }
     }
 
-    &--right {
-        .tooltip-v2__arrow {
+    &.right {
+        .Arrow {
             left: -$arrow-size;
 
             &:after {

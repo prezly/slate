@@ -1,10 +1,9 @@
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
 import React from 'react';
 
-import './DisabledTriggerOverlay.scss';
+import styles from './DisabledTriggerOverlay.module.scss';
 
-export interface Props {
+interface Props {
     className?: string;
     onHide: () => void;
     onShow: () => void;
@@ -16,10 +15,12 @@ export interface Props {
  * (onMouseOver & onMouseOut events do not fire on disabled elements)
  * It requires parent component to have `position: relative`.
  */
-export const DisabledTriggerOverlay: FunctionComponent<Props> = ({ className, onHide, onShow }) => (
-    <div
-        className={classNames('tooltip-v2-disabled-trigger-overlay', className)}
-        onMouseEnter={onShow}
-        onMouseLeave={onHide}
-    />
-);
+export function DisabledTriggerOverlay({ className, onHide, onShow }: Props) {
+    return (
+        <div
+            className={classNames(styles.DisabledTriggerOverlay, className)}
+            onMouseEnter={onShow}
+            onMouseLeave={onHide}
+        />
+    );
+}
