@@ -32,10 +32,10 @@
         margin: 0;
         min-width: $min-width;
         border: none;
+    }
 
-        .Dropdown:global(.open) & {
-            display: block;
-        }
+    &:global(.open) .Menu {
+        display: block;
     }
 
     .MenuGroup {
