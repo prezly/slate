@@ -26,9 +26,7 @@ export function getAllExtensions() {
             availableWidth: 1000,
             containerRef,
             onFloatingAddMenuToggle: noop,
-            withAttachments: {
-                styled: true,
-            },
+            withAttachments: true,
             withCoverage: {
                 dateFormat: 'YYYY/MM/DD',
                 fetchCoverage: createDelayedResolve(coverage),
