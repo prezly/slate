@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { HTMLAttributes, ReactNode , FunctionComponent } from 'react';
+import type { HTMLAttributes, ReactNode, FunctionComponent } from 'react';
 import React, { forwardRef } from 'react';
 
 import { useExtrapolatedProgress } from './lib';
