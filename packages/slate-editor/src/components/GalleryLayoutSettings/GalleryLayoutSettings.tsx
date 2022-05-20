@@ -3,8 +3,8 @@ import React from 'react';
 
 import { CloseButtonV2 } from '../CloseButtonV2';
 
-import './GalleryLayoutSettings.scss';
 import { GalleryLayoutSetting } from './GalleryLayoutSetting';
+import styles from './GalleryLayoutSettings.module.scss';
 
 interface Props<Padding extends string, Size extends string> {
     className?: string;
@@ -17,7 +17,7 @@ interface Props<Padding extends string, Size extends string> {
     sizeOptions: { label: string; value: Size }[];
 }
 
-export const GalleryLayoutSettings = <Padding extends string, Size extends string>({
+export function GalleryLayoutSettings<Padding extends string, Size extends string>({
     className,
     onClose,
     onPaddingChange,
@@ -26,25 +26,21 @@ export const GalleryLayoutSettings = <Padding extends string, Size extends strin
     paddingOptions,
     size,
     sizeOptions,
-}: Props<Padding, Size>) => {
+}: Props<Padding, Size>) {
     return (
-        <div className={classNames('gallery-layout-settings', className)}>
-            <div className="gallery-layout-settings__header">
-                <h4 className="gallery-layout-settings__title">Layout settings</h4>
+        <div className={classNames(styles.GalleryLayoutSettings, className)}>
+            <div className={styles.Header}>
+                <h4 className={styles.Title}>Layout settings</h4>
 
-                <CloseButtonV2
-                    className="gallery-layout-settings__close-button"
-                    onClick={onClose}
-                    title="Close"
-                />
+                <CloseButtonV2 className={styles.CloseButton} onClick={onClose} title="Close" />
             </div>
 
-            <p className="gallery-layout-settings__description">
+            <p className={styles.Description}>
                 Images in the gallery are positioned automatically for ease of use. You can however
                 adjust some settings:
             </p>
 
-            <div className="gallery-layout-settings__inputs">
+            <div className={styles.Inputs}>
                 <GalleryLayoutSetting<Size>
                     label="Image preview size"
                     name="thumbnail-size"
@@ -63,4 +59,4 @@ export const GalleryLayoutSettings = <Padding extends string, Size extends strin
             </div>
         </div>
     );
-};
+}
