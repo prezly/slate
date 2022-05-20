@@ -1,4 +1,4 @@
-import type { ImageExtensionParameters } from '#modules/editor-v4-image';
+import type { ImageExtensionParameters } from '#extensions/editor-v4-image';
 import type { MediaGalleryOptions } from '#modules/editor-v4-uploadcare';
 
 export function getMediaGalleryParameters(

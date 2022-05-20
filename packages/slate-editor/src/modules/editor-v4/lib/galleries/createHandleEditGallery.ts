@@ -3,14 +3,14 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 
-import { EventsEditor } from '#modules/editor-v4-events';
-import type { GalleriesExtensionParameters } from '#modules/editor-v4-galleries';
+import type { GalleriesExtensionParameters } from '#extensions/editor-v4-galleries';
 import {
     createGallery,
     getCurrentGalleryNodeEntry,
     removeGallery,
-} from '#modules/editor-v4-galleries';
-import { LoaderContentType } from '#modules/editor-v4-loader';
+} from '#extensions/editor-v4-galleries';
+import { LoaderContentType } from '#extensions/editor-v4-loader';
+import { EventsEditor } from '#modules/editor-v4-events';
 import { UploadcareEditor } from '#modules/editor-v4-uploadcare';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '#modules/uploadcare';
 

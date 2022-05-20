@@ -2,10 +2,10 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 
+import type { ImageExtensionParameters } from '#extensions/editor-v4-image';
+import { createImage } from '#extensions/editor-v4-image';
+import { LoaderContentType } from '#extensions/editor-v4-loader';
 import { EventsEditor } from '#modules/editor-v4-events';
-import type { ImageExtensionParameters } from '#modules/editor-v4-image';
-import { createImage } from '#modules/editor-v4-image';
-import { LoaderContentType } from '#modules/editor-v4-loader';
 import { UploadcareEditor } from '#modules/editor-v4-uploadcare';
 
 import { insertUploadingFile } from '../insertUploadingFile';

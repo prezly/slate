@@ -4,8 +4,8 @@ import { Editor, Path } from 'slate';
 
 import { uniq } from '#lodash';
 
-import type { RichTextElementType } from '#modules/editor-v4-rich-formatting';
-import { isRichTextBlockElement } from '#modules/editor-v4-rich-formatting';
+import type { RichTextElementType } from '#extensions/editor-v4-rich-formatting';
+import { isRichTextBlockElement } from '#extensions/editor-v4-rich-formatting';
 
 import type { Formatting } from '../types';
 

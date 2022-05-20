@@ -4,7 +4,7 @@ import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
 import { EventsEditor } from '#modules/editor-v4-events';
-import { getCurrentFileAttachmentElement } from '#modules/editor-v4-file-attachment';
+import { getCurrentFileAttachmentElement } from '#extensions/editor-v4-file-attachment';
 
 export async function handleEditAttachment(editor: Editor, element: Partial<AttachmentNode>) {
     EventsEditor.dispatchEvent(editor, 'attachment-edit-clicked');

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Menu } from '#components';
 
-import { ElementType } from '#modules/editor-v4-rich-formatting';
+import { ElementType } from '#extensions/editor-v4-rich-formatting';
 
 import type { Formatting } from '../types';
 

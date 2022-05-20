@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isLinkNode } from '@prezly/slate-types';
 import { Editor, Element } from 'slate';
 
-import { isRichTextElement } from '#modules/editor-v4-rich-formatting';
+import { isRichTextElement } from '#extensions/editor-v4-rich-formatting';
 
 export function isSelectionSupported(editor: Editor): boolean {
     if (EditorCommands.isSelectionEmpty(editor)) {

@@ -2,15 +2,15 @@ import type ProgressPromise from '@prezly/progress-promise';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Editor, Element } from 'slate';
 
-import { EventsEditor } from '#modules/editor-v4-events';
-import type { LoaderContentType } from '#modules/editor-v4-loader';
+import type { LoaderContentType } from '#extensions/editor-v4-loader';
 import {
     createLoader,
     findLoaderPath,
     loaderPromiseManager,
     removeLoader,
     replaceLoader,
-} from '#modules/editor-v4-loader';
+} from '#extensions/editor-v4-loader';
+import { EventsEditor } from '#modules/editor-v4-events';
 import { UPLOAD_SINGLE_FILE_ERROR_MESSAGE } from '#modules/uploadcare';
 
 interface Parameters<T> {

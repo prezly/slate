@@ -14,9 +14,9 @@ import {
 import { createEditor as makeEditor } from 'slate';
 import { createEditor, createHyperscript } from 'slate-hyperscript';
 
+import { InlineLinksExtension } from '#extensions/editor-v4-inline-links';
+import { RichFormattingExtension } from '#extensions/editor-v4-rich-formatting';
 import { createEditorV4 } from '#modules/editor-v4';
-import { InlineLinksExtension } from '#modules/editor-v4-inline-links';
-import { RichFormattingExtension } from '#modules/editor-v4-rich-formatting';
 
 declare global {
     namespace JSX {

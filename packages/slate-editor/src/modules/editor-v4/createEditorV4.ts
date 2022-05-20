@@ -13,8 +13,8 @@ import { withReact } from 'slate-react';
 
 import { flow } from '#lodash';
 
-import { withImages } from '#modules/editor-v4-image';
-import { withLoaders } from '#modules/editor-v4-loader';
+import { withImages } from '#extensions/editor-v4-image';
+import { withLoaders } from '#extensions/editor-v4-loader';
 
 import {
     withDeserializeHtml,

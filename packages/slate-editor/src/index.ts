@@ -16,11 +16,13 @@ export * from './components';
 export * from './lib';
 export * as Icons from './icons';
 export * from './modules/editor-v4';
-export type { SearchProps as CoverageSearchProps } from './modules/editor-v4-coverage';
-export { createEmbed } from './modules/editor-v4-embed';
-export type { SearchProps as PressContactsSearchProps } from './modules/editor-v4-press-contacts';
-export { JobDescription } from './modules/editor-v4-press-contacts';
-export { ElementType as RichElementType } from './modules/editor-v4-rich-formatting';
+
+export type { SearchProps as CoverageSearchProps } from './extensions/editor-v4-coverage';
+export { createEmbed } from './extensions/editor-v4-embed';
+export type { SearchProps as PressContactsSearchProps } from './extensions/editor-v4-press-contacts';
+export { JobDescription } from './extensions/editor-v4-press-contacts';
+export { ElementType as RichElementType } from './extensions/editor-v4-rich-formatting';
+export type { User } from './extensions/editor-v4-user-mentions';
+
 export type { ResultPromise, UploadcareOptions } from './modules/editor-v4-uploadcare';
 export { withUploadcare } from './modules/editor-v4-uploadcare';
-export type { User } from './modules/editor-v4-user-mentions';

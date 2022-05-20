@@ -2,7 +2,7 @@ import type { Editor } from 'slate';
 
 import * as Icons from '#icons';
 
-import type { Option } from '#modules/editor-v4-floating-add-menu';
+import type { Option } from '#extensions/editor-v4-floating-add-menu';
 import { UploadcareEditor } from '#modules/editor-v4-uploadcare';
 
 import type { EditorV4Props } from '#modules/editor-v4/types';

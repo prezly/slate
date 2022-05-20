@@ -9,6 +9,7 @@
                 "../../../node_modules/@types/lodash-es"
             ],
             "#components": ["components"],
+            "#extensions/*": ["extensions/*"],
             "#icons": ["icons"],
             "#lib/type-utils": ["lib/type-utils"],
             "#lib": ["lib"],

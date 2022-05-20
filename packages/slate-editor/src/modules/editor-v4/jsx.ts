@@ -4,7 +4,7 @@ import { DIVIDER_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 import { createHyperscript, createText } from 'slate-hyperscript';
 
-import { ElementType } from '#modules/editor-v4-rich-formatting';
+import { ElementType } from '#extensions/editor-v4-rich-formatting';
 
 declare global {
     namespace JSX {

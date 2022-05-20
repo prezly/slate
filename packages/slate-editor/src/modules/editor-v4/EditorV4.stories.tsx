@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react';
 import React, { useState } from 'react';
 
-import type { FileAttachmentExtensionParameters } from '#modules/editor-v4-file-attachment';
-import type { Settings as FloatingAddMenuExtensionParameters } from '#modules/editor-v4-floating-add-menu';
-import type { PlaceholderMentionsExtensionParameters } from '#modules/editor-v4-placeholder-mentions';
+import type { FileAttachmentExtensionParameters } from '#extensions/editor-v4-file-attachment';
+import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/editor-v4-floating-add-menu';
+import type { PlaceholderMentionsExtensionParameters } from '#extensions/editor-v4-placeholder-mentions';
 
 import EditorV4 from './EditorV4';
 import { createEmptyValue } from './lib/createEmptyValue';

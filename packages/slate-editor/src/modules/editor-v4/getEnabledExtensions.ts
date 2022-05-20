@@ -3,29 +3,28 @@ import type { RefObject } from 'react';
 
 import { noop } from '#lodash';
 
-import { AutoformatExtension } from '#modules/editor-v4-autoformat';
-import { CoverageExtension } from '#modules/editor-v4-coverage';
-import { DecorateSelectionExtension } from '#modules/editor-v4-decorate-selection';
-import { DividerExtension } from '#modules/editor-v4-divider';
-import { EmbedExtension } from '#modules/editor-v4-embed';
-import { FileAttachmentExtension } from '#modules/editor-v4-file-attachment';
-import { FloatingAddMenuExtension } from '#modules/editor-v4-floating-add-menu';
-import { GalleriesExtension } from '#modules/editor-v4-galleries';
-import { HtmlExtension } from '#modules/editor-v4-html';
-import { ImageExtension } from '#modules/editor-v4-image';
-import { InlineLinksExtension } from '#modules/editor-v4-inline-links';
-import { LoaderExtension } from '#modules/editor-v4-loader';
-import { ParagraphsExtension } from '#modules/editor-v4-paragraphs';
-import { PlaceholderMentionsExtension } from '#modules/editor-v4-placeholder-mentions';
-import { PressContactsExtension } from '#modules/editor-v4-press-contacts';
-import { RichFormattingExtension } from '#modules/editor-v4-rich-formatting';
-import { StoryBookmarkExtension } from '#modules/editor-v4-story-bookmark';
-import { UserMentionsExtension } from '#modules/editor-v4-user-mentions';
-
-import { StoryEmbedExtension } from '../editor-v4-story-embed';
-import { VideoExtension } from '../editor-v4-video';
-import { VoidExtension } from '../editor-v4-void';
-import { WebBookmarkExtension } from '../editor-v4-web-bookmark';
+import { AutoformatExtension } from '#extensions/editor-v4-autoformat';
+import { CoverageExtension } from '#extensions/editor-v4-coverage';
+import { DecorateSelectionExtension } from '#extensions/editor-v4-decorate-selection';
+import { DividerExtension } from '#extensions/editor-v4-divider';
+import { EmbedExtension } from '#extensions/editor-v4-embed';
+import { FileAttachmentExtension } from '#extensions/editor-v4-file-attachment';
+import { FloatingAddMenuExtension } from '#extensions/editor-v4-floating-add-menu';
+import { GalleriesExtension } from '#extensions/editor-v4-galleries';
+import { HtmlExtension } from '#extensions/editor-v4-html';
+import { ImageExtension } from '#extensions/editor-v4-image';
+import { InlineLinksExtension } from '#extensions/editor-v4-inline-links';
+import { LoaderExtension } from '#extensions/editor-v4-loader';
+import { ParagraphsExtension } from '#extensions/editor-v4-paragraphs';
+import { PlaceholderMentionsExtension } from '#extensions/editor-v4-placeholder-mentions';
+import { PressContactsExtension } from '#extensions/editor-v4-press-contacts';
+import { RichFormattingExtension } from '#extensions/editor-v4-rich-formatting';
+import { StoryBookmarkExtension } from '#extensions/editor-v4-story-bookmark';
+import { StoryEmbedExtension } from '#extensions/editor-v4-story-embed';
+import { UserMentionsExtension } from '#extensions/editor-v4-user-mentions';
+import { VideoExtension } from '#extensions/editor-v4-video';
+import { VoidExtension } from '#extensions/editor-v4-void';
+import { WebBookmarkExtension } from '#extensions/editor-v4-web-bookmark';
 
 import { compositeCharactersRules, textStyleRules, blockRules } from './autoformatRules';
 import {

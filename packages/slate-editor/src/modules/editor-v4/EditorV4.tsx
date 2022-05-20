@@ -23,29 +23,28 @@ import { ReactEditor, Slate } from 'slate-react';
 
 import { noop } from '#lodash';
 
-import { FloatingStoryEmbedInput } from '#modules/editor-v4-components';
-import { LoaderContentType } from '#modules/editor-v4-loader';
-import { useFloatingStoryBookmarkInput } from '#modules/editor-v4-story-bookmark';
-import { useFloatingStoryEmbedInput } from '#modules/editor-v4-story-embed';
-
-import { Placeholder } from '../editor-v4-components';
-import { FloatingCoverageMenu, useFloatingCoverageMenu } from '../editor-v4-coverage';
-import { FloatingEmbedInput, useFloatingEmbedInput } from '../editor-v4-embed';
-import type { EditorEventMap } from '../editor-v4-events';
-import { FloatingAddMenu } from '../editor-v4-floating-add-menu';
+import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/editor-v4-coverage';
+import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/editor-v4-embed';
+import { FloatingAddMenu } from '#extensions/editor-v4-floating-add-menu';
+import { LoaderContentType } from '#extensions/editor-v4-loader';
 import {
     PlaceholderMentionsDropdown,
     usePlaceholderMentions,
-} from '../editor-v4-placeholder-mentions';
+} from '#extensions/editor-v4-placeholder-mentions';
 import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
-} from '../editor-v4-press-contacts';
-import { toggleBlock } from '../editor-v4-rich-formatting';
-import { RichFormattingMenu } from '../editor-v4-rich-formatting-menu';
-import { UserMentionsDropdown, useUserMentions } from '../editor-v4-user-mentions';
-import { FloatingVideoInput, useFloatingVideoInput } from '../editor-v4-video';
-import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '../editor-v4-web-bookmark';
+} from '#extensions/editor-v4-press-contacts';
+import { toggleBlock } from '#extensions/editor-v4-rich-formatting';
+import { useFloatingStoryBookmarkInput } from '#extensions/editor-v4-story-bookmark';
+import { useFloatingStoryEmbedInput } from '#extensions/editor-v4-story-embed';
+import { UserMentionsDropdown, useUserMentions } from '#extensions/editor-v4-user-mentions';
+import { FloatingVideoInput, useFloatingVideoInput } from '#extensions/editor-v4-video';
+import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensions/editor-v4-web-bookmark';
+import { Placeholder } from '#modules/editor-v4-components';
+import { FloatingStoryEmbedInput } from '#modules/editor-v4-components';
+import type { EditorEventMap } from '#modules/editor-v4-events';
+import { RichFormattingMenu } from '#modules/editor-v4-rich-formatting-menu';
 
 import styles from './EditorV4.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';

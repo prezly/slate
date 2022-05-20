@@ -10,8 +10,8 @@ import { ReactEditor, useSlate } from 'slate-react';
 
 import { Menu, TextSelectionPortalV2 } from '#components';
 
-import { unwrapLink, wrapInLink } from '#modules/editor-v4-inline-links';
-import { MarkType, toggleBlock } from '#modules/editor-v4-rich-formatting';
+import { unwrapLink, wrapInLink } from '#extensions/editor-v4-inline-links';
+import { MarkType, toggleBlock } from '#extensions/editor-v4-rich-formatting';
 
 import { Toolbar } from './components';
 import {

@@ -1,8 +1,8 @@
 import jsonStableStringify from 'json-stable-stringify';
 import type { Descendant } from 'slate';
 
-import { withoutImageCandidates } from '#modules/editor-v4-image';
-import { withoutLoaders } from '#modules/editor-v4-loader';
+import { withoutImageCandidates } from '#extensions/editor-v4-image';
+import { withoutLoaders } from '#extensions/editor-v4-loader';
 
 import type { Value } from '../types';
 

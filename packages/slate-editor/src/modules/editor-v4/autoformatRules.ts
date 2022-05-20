@@ -8,10 +8,8 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 
-import type { AutoformatRule } from '../editor-v4-autoformat/types';
-import { ElementType } from '../editor-v4-rich-formatting';
-import { toggleBlock } from '../editor-v4-rich-formatting/lib';
-import { MarkType } from '../editor-v4-rich-formatting/types';
+import type { AutoformatRule } from '#extensions/editor-v4-autoformat';
+import { ElementType, MarkType, toggleBlock } from '#extensions/editor-v4-rich-formatting';
 
 export const compositeCharactersRules: AutoformatRule[] = [
     {

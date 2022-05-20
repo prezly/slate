@@ -1,4 +1,4 @@
-import type { Placeholder } from '../editor-v4-placeholder-mentions';
+import type { Placeholder } from '#extensions/editor-v4-placeholder-mentions';
 
 export const salutationPlaceholder: Placeholder = {
     key: 'contact.salutation',

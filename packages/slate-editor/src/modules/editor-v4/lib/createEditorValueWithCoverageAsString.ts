@@ -1,6 +1,6 @@
 import type { Coverage } from '@prezly/sdk';
 
-import { createCoverage } from '#modules/editor-v4-coverage';
+import { createCoverage } from '#extensions/editor-v4-coverage';
 
 import { createEmptyValue } from './createEmptyValue';
 import { serialize } from './serialize';

@@ -12,13 +12,13 @@ import {
 import uploadcare from '@prezly/uploadcare-widget';
 import type { Editor } from 'slate';
 
-import { EventsEditor } from '#modules/editor-v4-events';
 import {
     createFileAttachment,
     FILE_ATTACHMENT_EXTENSION_ID,
-} from '#modules/editor-v4-file-attachment';
-import { createImage, IMAGE_EXTENSION_ID } from '#modules/editor-v4-image';
-import { LOADER_EXTENSION_ID, LoaderContentType } from '#modules/editor-v4-loader';
+} from '#extensions/editor-v4-file-attachment';
+import { createImage, IMAGE_EXTENSION_ID } from '#extensions/editor-v4-image';
+import { LOADER_EXTENSION_ID, LoaderContentType } from '#extensions/editor-v4-loader';
+import { EventsEditor } from '#modules/editor-v4-events';
 
 import { insertUploadingFile } from '../lib';
 
