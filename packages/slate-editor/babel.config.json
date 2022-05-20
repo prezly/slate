@@ -6,6 +6,7 @@
             {
                 "alias": {
                     "#components": "./src/components",
+                    "#extensions": "./src/extensions",
                     "#icons": "./src/icons",
                     "#lib": "./src/lib",
                     "#modules": "./src/modules"

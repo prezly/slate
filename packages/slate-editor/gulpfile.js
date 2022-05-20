@@ -27,6 +27,7 @@ const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/*.test.*', '!**/jsx.ts'];
 const TYPESCRIPT_ALIASES = {
     '#lodash': 'lodash-es',
     '#components': './src/components',
+    '#extensions': './src/extensions',
     '#icons': './src/icons',
     '#lib': './src/lib',
     '#modules': './src/modules',

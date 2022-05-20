@@ -54,9 +54,8 @@ module.exports = {
                 "newlines-between": "always",
                 "pathGroups": [
                     { "pattern": "#*", "group": "external", "position": "after" },
-                    { "pattern": "#*/*", "group": "external", "position": "after" }
+                    { "pattern": "#*/*", "group": "external", "position": "after" },
                 ],
-                "pathGroupsExcludedImportTypes": ["#*", "#*/*"]
             }
         ],
         "@typescript-eslint/consistent-type-imports": "error",

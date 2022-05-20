@@ -15,12 +15,14 @@ declare module 'slate' {
 export * from './components';
 export * from './lib';
 export * as Icons from './icons';
-export * from './modules/editor-v4';
-export type { SearchProps as CoverageSearchProps } from './modules/editor-v4-coverage';
-export { createEmbed } from './modules/editor-v4-embed';
-export type { SearchProps as PressContactsSearchProps } from './modules/editor-v4-press-contacts';
-export { JobDescription } from './modules/editor-v4-press-contacts';
-export { ElementType as RichElementType } from './modules/editor-v4-rich-formatting';
-export type { ResultPromise, UploadcareOptions } from './modules/editor-v4-uploadcare';
-export { withUploadcare } from './modules/editor-v4-uploadcare';
-export type { User } from './modules/editor-v4-user-mentions';
+export * from './modules/editor';
+
+export type { SearchProps as CoverageSearchProps } from './extensions/coverage';
+export { createEmbed } from './extensions/embed';
+export type { SearchProps as PressContactsSearchProps } from './extensions/press-contacts';
+export { JobDescription } from './extensions/press-contacts';
+export { ElementType as RichElementType } from './extensions/rich-formatting';
+export type { User } from './extensions/user-mentions';
+
+export type { ResultPromise, UploadcareOptions } from './modules/uploadcare';
+export { withUploadcare } from './modules/uploadcare';
