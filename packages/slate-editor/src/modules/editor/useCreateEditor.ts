@@ -3,14 +3,14 @@ import type { Extension, OnKeyDown } from '@prezly/slate-commons';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Editor } from 'slate';
-import { createEditor } from 'slate';
+import { createEditor as createSlateEditor } from 'slate';
 
 import { useLatest } from '#lib';
 
 import type { EditorEventMap } from '../events';
 import { withEvents } from '../events';
 
-import { createEditorV4 } from './createEditorV4';
+import { createEditor } from './createEditor';
 
 interface Parameters {
     events: Events<EditorEventMap>;
@@ -47,7 +47,7 @@ export function useCreateEditor({
     const [userPlugins] = useState(plugins);
     const finalPlugins = useMemo(() => [withEvents(events), ...userPlugins], [userPlugins, events]);
     const editor = useMemo(() => {
-        return createEditorV4(createEditor(), getExtensions, finalPlugins);
+        return createEditor(createSlateEditor(), getExtensions, finalPlugins);
     }, [getExtensions, finalPlugins]);
 
     useEffect(() => {

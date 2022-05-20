@@ -13,7 +13,7 @@ import {
 } from '#modules/placeholders';
 import { coverage, createDelayedResolve, oembedInfo } from '#modules/tests';
 
-import { createEditorV4 } from './createEditorV4';
+import { createEditor as createBaseEditor } from './createEditor';
 import { getEnabledExtensions } from './getEnabledExtensions';
 
 const containerRef = createRef<HTMLElement>();
@@ -77,5 +77,5 @@ export function getAllExtensions() {
 }
 
 export function createEditor(input: JSX.Element) {
-    return createEditorV4(input as unknown as Editor, getAllExtensions, [withEvents(events)]);
+    return createBaseEditor(input as unknown as Editor, getAllExtensions, [withEvents(events)]);
 }

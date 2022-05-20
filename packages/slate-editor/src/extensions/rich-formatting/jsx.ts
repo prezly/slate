@@ -11,10 +11,10 @@ import {
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
-import { createEditor as makeEditor } from 'slate';
-import { createEditor, createHyperscript } from 'slate-hyperscript';
+import { createEditor as createSlateEditor } from 'slate';
+import { createEditor as createEditorFactory, createHyperscript } from 'slate-hyperscript';
 
-import { createEditorV4 } from '#modules/editor';
+import { createEditor } from '#modules/editor';
 
 import { RichFormattingExtension } from './RichFormattingExtension';
 
@@ -39,6 +39,6 @@ export const jsx = createHyperscript({
         'li-text': { type: LIST_ITEM_TEXT_NODE_TYPE },
     },
     creators: {
-        editor: createEditor(() => createEditorV4(makeEditor(), () => extensions)),
+        editor: createEditorFactory(() => createEditor(createSlateEditor(), () => extensions)),
     },
 });

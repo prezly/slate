@@ -25,7 +25,7 @@ import {
     withVoids,
 } from './plugins';
 
-export function createEditorV4(
+export function createEditor(
     baseEditor: Editor,
     getExtensions: () => Extension[],
     plugins: WithOverrides[] = [],

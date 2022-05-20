@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace,@typescript-eslint/no-unused-vars */
 import { LINK_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import { createEditor as makeEditor } from 'slate';
-import { createHyperscript, createEditor } from 'slate-hyperscript';
+import { createEditor as createSlateEditor } from 'slate';
+import { createHyperscript, createEditor as createEditorFactory } from 'slate-hyperscript';
 
-import { createEditorV4 } from '#modules/editor';
+import { createEditor } from '#modules/editor';
 
 import { InlineLinksExtension } from './InlineLinksExtension';
 
@@ -24,6 +24,6 @@ export const jsx = createHyperscript({
         paragraph: { type: PARAGRAPH_NODE_TYPE },
     },
     creators: {
-        editor: createEditor(() => createEditorV4(makeEditor(), () => extensions)),
+        editor: createEditorFactory(() => createEditor(createSlateEditor(), () => extensions)),
     },
 });

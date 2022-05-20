@@ -15,7 +15,7 @@ function readTestFile(filepath: string): string {
     return fs.readFileSync(absoluteFilepath, 'utf-8');
 }
 
-describe('editor - deleteForward - selection maintenance', () => {
+describe('Editor - deleteForward - selection maintenance', () => {
     it('Should focus the list after the paragraph when using deleteForward (Del key) ', () => {
         const editor = createEditor(
             <editor>
@@ -65,7 +65,7 @@ describe('editor - deleteForward - selection maintenance', () => {
     });
 });
 
-describe('editor - inserting block nodes after lists', () => {
+describe('Editor - inserting block nodes after lists', () => {
     it('Insterts block node after a list node (and not within the list)', () => {
         const editor = createEditor(
             <editor>
@@ -111,7 +111,7 @@ describe('editor - inserting block nodes after lists', () => {
     });
 });
 
-describe('editor - pasting', () => {
+describe('Editor - pasting', () => {
     it('Deserializes Google Docs reference document', () => {
         const editor = createEditor(
             <editor>
@@ -343,7 +343,7 @@ describe('editor - pasting', () => {
     });
 });
 
-describe('editor - withRootElements', () => {
+describe('Editor - withRootElements', () => {
     it('Lifts up nested paragraphs', () => {
         const editor = createEditor(
             <editor>

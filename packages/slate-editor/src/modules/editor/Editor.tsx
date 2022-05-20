@@ -46,7 +46,7 @@ import { FloatingStoryEmbedInput } from '#modules/components';
 import type { EditorEventMap } from '#modules/events';
 import { RichFormattingMenu } from '#modules/rich-formatting-menu';
 
-import styles from './EditorV4.module.scss';
+import styles from './Editor.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';
 import {
     createHandleAddGallery,
@@ -64,7 +64,7 @@ import { usePendingOperation } from './usePendingOperation';
 import { withAvailableWidth } from './withAvailableWidth';
 import { withDebounce } from './withDebounce';
 
-const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
+const Editor: FunctionComponent<EditorV4Props> = (props) => {
     const {
         align,
         availableWidth,
@@ -510,4 +510,4 @@ const EditorV4: FunctionComponent<EditorV4Props> = (props) => {
 };
 
 // eslint-disable-next-line import/no-default-export
-export default withAvailableWidth({ className: 'editor-sizer' })(withDebounce(EditorV4));
+export default withAvailableWidth({ className: 'editor-sizer' })(withDebounce(Editor));

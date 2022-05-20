@@ -5,13 +5,13 @@ import type { FileAttachmentExtensionParameters } from '#extensions/file-attachm
 import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
 import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
 
-import EditorV4 from './EditorV4';
+import Editor from './Editor';
 import { createEmptyValue } from './lib/createEmptyValue';
 import type { Value } from './types';
 
 export default {
     title: 'Components/Editor',
-    component: EditorV4,
+    component: Editor,
 };
 
 interface IBaseProps {
@@ -37,7 +37,7 @@ const BaseTemplate = (args: IBaseProps) => {
     const [value, setValue] = useState<Value>(createEmptyValue());
 
     return (
-        <EditorV4
+        <Editor
             {...args}
             placeholder="Start typing..."
             availableWidth={680}
@@ -77,7 +77,7 @@ const WithPlaceholdersTemplate = (
     const [value, setValue] = useState<Value>(createEmptyValue());
 
     return (
-        <EditorV4
+        <Editor
             {...args}
             placeholder="Start typing..."
             availableWidth={680}
