@@ -6,9 +6,10 @@ import React from 'react';
 import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
+import { EditorBlock } from '#components';
 import { noop } from '#lodash';
 
-import { FileAttachmentElement } from './components';
+import { FileAttachment, FileAttachmentMenu } from './components';
 import { FILE_ATTACHMENT_EXTENSION_ID } from './constants';
 import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
 
@@ -31,14 +32,24 @@ export const FileAttachmentExtension = ({
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isAttachmentNode(element)) {
             return (
-                <FileAttachmentElement
-                    attributes={attributes}
+                <EditorBlock
+                    {...attributes}
+                    border
                     element={element}
-                    onEdit={onEdit}
-                    onRemove={onRemove}
+                    renderBlock={() => <FileAttachment element={element} />}
+                    renderMenu={({ onClose }) => (
+                        <FileAttachmentMenu
+                            element={element}
+                            onEdit={onEdit}
+                            onRemove={onRemove}
+                            onClose={onClose}
+                        />
+                    )}
+                    rounded
+                    void
                 >
                     {children}
-                </FileAttachmentElement>
+                </EditorBlock>
             );
         }
 
