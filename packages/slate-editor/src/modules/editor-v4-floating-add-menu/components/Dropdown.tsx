@@ -12,7 +12,7 @@ import { noop } from '#lodash';
 import { groupOptions, isComponent } from '../lib';
 import type { Option } from '../types';
 
-import style from './Dropdown.module.scss';
+import styles from './Dropdown.module.scss';
 
 interface Props<Action> {
     className?: string;
@@ -72,7 +72,7 @@ export function Dropdown<Action>({
 
     const [activeItem, setActiveItem] = useState<HTMLElement | null>(null);
     const scrollarea = useRef<FancyScrollbars | null>(null);
-    const { attributes, styles } = usePopper(
+    const { attributes, styles: inlineStyles } = usePopper(
         referenceElement,
         scrollarea.current?.container,
         POPPER_CONFIG,
@@ -89,8 +89,8 @@ export function Dropdown<Action>({
 
     return (
         <div
-            className={classNames(style.Dropdown, style.Dropdown, {
-                [style.noResults]: options.length === 0,
+            className={classNames(styles.Dropdown, styles.Dropdown, {
+                [styles.noResults]: options.length === 0,
                 open,
             })}
         >
@@ -99,37 +99,37 @@ export function Dropdown<Action>({
                 autoHeight
                 autoHeightMin={20}
                 autoHeightMax={1000}
-                className={style.ScrollArea}
+                className={styles.ScrollArea}
                 ref={scrollarea}
-                style={{ ...styles.popper, width: 'auto' }}
+                style={{ ...inlineStyles.popper, width: 'auto' }}
             >
                 <ul
-                    className={classNames('dropdown-menu', style.Menu, className)}
+                    className={classNames('dropdown-menu', styles.Menu, className)}
                     onMouseDown={(event) => event.preventDefault()}
                 >
                     {options.length === 0 && (
                         <MenuItem
-                            className={classNames(style.MenuItem, style.noResults)}
+                            className={classNames(styles.MenuItem, styles.noResults)}
                             disabled
                             onClick={noop}
                         >
-                            <div className={style.MenuItemIcon}>
+                            <div className={styles.MenuItemIcon}>
                                 <WarningCircle />
                             </div>
-                            <div className={style.MenuItemText}>No results</div>
-                            <BatsIllustration className={style.MenuItemDecoration} />
+                            <div className={styles.MenuItemText}>No results</div>
+                            <BatsIllustration className={styles.MenuItemDecoration} />
                         </MenuItem>
                     )}
 
                     {groups.map(({ group, options }) => (
                         <Fragment key={`group:${group}`}>
-                            <MenuItem className={style.MenuGroup} header>
+                            <MenuItem className={styles.MenuGroup} header>
                                 {group}
                             </MenuItem>
                             {options.map((option) => (
                                 <MenuItem
                                     active={option === selectedOption}
-                                    className={style.MenuItem}
+                                    className={styles.MenuItem}
                                     key={`option:${option.text}`}
                                     onClick={(event) => event.preventDefault()}
                                     onMouseDown={(event) => {
@@ -137,25 +137,25 @@ export function Dropdown<Action>({
                                         onItemClick(option);
                                     }}
                                 >
-                                    <div className={style.MenuItemIcon} data-action={option.action}>
+                                    <div className={styles.MenuItemIcon} data-action={option.action}>
                                         {isComponent(option.icon) ? <option.icon /> : option.icon}
                                     </div>
                                     <div
-                                        className={style.MenuItemText}
+                                        className={styles.MenuItemText}
                                         ref={option === selectedOption ? setActiveItem : undefined}
                                     >
-                                        <div className={style.MenuItemTitle}>
+                                        <div className={styles.MenuItemTitle}>
                                             <Highlight search={highlight}>{option.text}</Highlight>
                                         </div>
-                                        <div className={style.MenuItemDescription}>
+                                        <div className={styles.MenuItemDescription}>
                                             {option.description || ' '}
                                         </div>
                                     </div>
                                     {(option.isBeta || option.isNew) && (
                                         <div
                                             className={classNames(
-                                                style.MenuItemLabel,
-                                                option.isBeta ? style.beta : style.new,
+                                                styles.MenuItemLabel,
+                                                option.isBeta ? styles.beta : styles.new,
                                             )}
                                         >
                                             {option.isBeta ? 'testing' : 'new'}
