@@ -8,19 +8,13 @@ import { EditorBlock } from '#components';
 import { FileAttachment } from './FileAttachment';
 import { FileAttachmentMenu } from './FileAttachmentMenu';
 
-interface FileAttachmentElementProps extends RenderElementProps {
+interface Props extends RenderElementProps {
     element: AttachmentNode;
     onEdit: (editor: Editor, element: Partial<AttachmentNode>) => void;
     onRemove: (editor: Editor, element: AttachmentNode) => void;
 }
 
-export function FileAttachmentElement({
-    element,
-    attributes,
-    onEdit,
-    onRemove,
-    children,
-}: FileAttachmentElementProps) {
+export function FileAttachmentElement({ element, attributes, onEdit, onRemove, children }: Props) {
     return (
         <EditorBlock
             {...attributes}
