@@ -1,12 +1,12 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.thumbnail {
+.Thumbnail {
     height: 0;
     position: relative;
 }
 
-.thumbnailImage {
+.ThumbnailImage {
     position: absolute;
     left: 0;
     top: 0;
@@ -16,7 +16,7 @@
     width: 100%;
 }
 
-.thumbnailPlaceholder {
+.ThumbnailPlaceholder {
     max-width: 100%;
     height: 0;
     background: $grey-500;
@@ -24,7 +24,7 @@
     opacity: 0.24;
 }
 
-.playButtonOverlay {
+.PlayButtonOverlay {
     position: absolute;
     left: 0;
     top: 0;
@@ -35,7 +35,7 @@
     justify-content: center;
 }
 
-.playButtonIcon {
+.PlayButtonIcon {
     width: 80px;
     height: 80px;
     color: $white;
@@ -43,7 +43,7 @@
     border: 6px solid rgba($white, 0.4);
     border-radius: 80px;
 
-    .container:hover & {
+    .Container:hover & {
         fill: $indigo-500;
     }
 }

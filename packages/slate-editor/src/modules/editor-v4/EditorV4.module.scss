@@ -1,0 +1,25 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.Editor {
+    position: relative;
+
+    @include editor-v4-top-elements {
+        margin-left: auto;
+        margin-right: auto;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    [data-slate-editor="true"] * {
+        &::selection {
+            background: #c2e5ff;
+        }
+    }
+}

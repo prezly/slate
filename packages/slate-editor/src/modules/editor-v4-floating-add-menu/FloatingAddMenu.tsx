@@ -18,7 +18,6 @@ import { KeyboardKey, TooltipV2 } from '#components';
 import { FloatingContainer } from '#modules/editor-v4-components';
 
 import { Input, Dropdown } from './components';
-import './FloatingAddMenu.scss';
 import styles from './FloatingAddMenu.module.scss';
 import {
     isMenuHotkey,

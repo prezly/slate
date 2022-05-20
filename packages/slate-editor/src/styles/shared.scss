@@ -72,17 +72,6 @@ $editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index 
         }
     }
 
-    .editor-v4-gallery-element,
-    .editor-v4-image-element {
-        &--expanded {
-            max-width: $width + 140px;
-        }
-
-        &--full-width {
-            max-width: 100%;
-        }
-    }
-
     .editor-v4-placeholder {
         max-width: $width;
         margin: 0 auto;

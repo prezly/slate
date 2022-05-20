@@ -1,0 +1,7 @@
+@import "styles/variables";
+
+.LoadingPlaceholder {
+    $block-height: 180px;
+
+    height: $block-height;
+}

@@ -1,11 +1,12 @@
 import classNames from 'classnames';
-import type { FunctionComponent, ReactNode, RefObject } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import React from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 import type { Modifier } from 'react-popper';
 
 import { ElementPortalV2 } from '#components';
 
+import styles from './FloatingContainer.module.scss';
 import { useCurrentDomNode } from './useCurrentDomNode';
 
 interface Props {
@@ -51,7 +52,7 @@ const RESIZE_TO_COVER: Modifier<string> = {
 
 const MODIFIERS = [POSITION_TO_COVER, RESIZE_TO_COVER];
 
-export const Container: FunctionComponent<Props> = ({
+export function Container({
     availableWidth,
     children,
     className,
@@ -60,7 +61,7 @@ export const Container: FunctionComponent<Props> = ({
     open,
     pointerEvents,
     show,
-}) => {
+}: Props) {
     const currentDomElement = useCurrentDomNode({ withFallbackToLastExistingNode: open });
     const canShow = open || show;
 
@@ -78,9 +79,8 @@ export const Container: FunctionComponent<Props> = ({
         >
             <RootCloseWrapper onRootClose={onClose}>
                 <div
-                    className={classNames('editor-v4-floating-container', className, {
-                        'editor-v4-floating-container--uninitialized':
-                            typeof availableWidth === 'undefined',
+                    className={classNames(styles.FloatingContainer, className, {
+                        [styles.uninitialized]: typeof availableWidth === 'undefined',
                     })}
                 >
                     {children}
@@ -88,4 +88,4 @@ export const Container: FunctionComponent<Props> = ({
             </RootCloseWrapper>
         </ElementPortalV2>
     );
-};
+}

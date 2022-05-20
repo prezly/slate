@@ -1,4 +1,4 @@
-import type { ChangeEvent, FunctionComponent, RefObject } from 'react';
+import type { ChangeEvent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 
@@ -6,7 +6,7 @@ import { useEffectOnce } from '#lib';
 
 import { FloatingContainer } from '#modules/editor-v4-components';
 
-import './FloatingVideoInput.scss';
+import styles from './FloatingVideoInput.module.scss';
 
 interface Props {
     availableWidth: number;
@@ -17,14 +17,14 @@ interface Props {
     submitButtonLabel: string;
 }
 
-export const FloatingVideoInput: FunctionComponent<Props> = ({
+export function FloatingVideoInput({
     availableWidth,
     containerRef,
     onClose,
     onRootClose,
     onSubmit,
     submitButtonLabel,
-}) => {
+}: Props) {
     const inputRef = useRef<HTMLInputElement>();
     const [url, setUrl] = useState<string>('');
 
@@ -42,17 +42,13 @@ export const FloatingVideoInput: FunctionComponent<Props> = ({
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className="editor-v4-floating-video-input"
+            className={styles.FloatingVideoInput}
             containerRef={containerRef}
             onClose={onRootClose}
             open
             show
         >
-            <FloatingContainer.Button
-                className="editor-v4-floating-video-input__close-button"
-                onClick={onClose}
-                open
-            />
+            <FloatingContainer.Button className={styles.CloseButton} onClick={onClose} open />
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
@@ -68,7 +64,7 @@ export const FloatingVideoInput: FunctionComponent<Props> = ({
                         // the `autoFocus` behavior with `useEffectOnce` anyway
                         // (for a different reason though).
                         autoFocus={false}
-                        className="editor-v4-floating-video-input__input"
+                        className={styles.Input}
                         inputRef={(ref) => {
                             inputRef.current = ref;
                         }}
@@ -80,10 +76,10 @@ export const FloatingVideoInput: FunctionComponent<Props> = ({
                         type="url"
                         value={url}
                     />
-                    <InputGroup.Addon className="editor-v4-floating-video-input__addon">
+                    <InputGroup.Addon className={styles.Addon}>
                         <Button
                             bsStyle="success"
-                            className="editor-v4-floating-video-input__button"
+                            className={styles.Button}
                             disabled={url.length === 0}
                             type="submit"
                         >
@@ -94,4 +90,4 @@ export const FloatingVideoInput: FunctionComponent<Props> = ({
             </form>
         </FloatingContainer.Container>
     );
-};
+}

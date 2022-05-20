@@ -1,14 +1,14 @@
 import classNames from 'classnames';
-import type { FunctionComponent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import React from 'react';
 
-import './KeyboardKey.scss';
+import styles from './KeyboardKey.module.scss';
 
 interface Props {
     children: ReactNode;
     className?: string;
 }
 
-export const KeyboardKey: FunctionComponent<Props> = ({ children, className }) => (
-    <kbd className={classNames('keyboard-key', className)}>{children}</kbd>
-);
+export function KeyboardKey({ children, className }: Props) {
+    return <kbd className={classNames(styles.KeyboardKey, className)}>{children}</kbd>;
+}

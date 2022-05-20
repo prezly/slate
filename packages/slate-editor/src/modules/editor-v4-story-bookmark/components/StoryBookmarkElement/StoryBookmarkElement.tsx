@@ -14,6 +14,7 @@ import type { StoryBookmarkExtensionParameters } from '../../types';
 import { StoryBookmarkMenu } from '../StoryBookmarkMenu';
 
 import { StoryBookmarkBlock } from './StoryBookmarkBlock';
+import styles from './StoryBookmarkElement.module.scss';
 
 interface Props extends RenderElementProps {
     element: StoryBookmarkNode;
@@ -78,7 +79,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                 if (loading) {
                     return (
                         <LoadingPlaceholderV2.Placeholder
-                            className="editor-v4-coverage-element__loading-placeholder"
+                            className={styles.LoadingPlaceholder}
                             estimatedDuration={ESTIMATED_LOADING_DURATION}
                         >
                             {({ percent }) => (

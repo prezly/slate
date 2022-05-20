@@ -1,0 +1,24 @@
+@import "styles/variables";
+
+.HeadingElement {
+    color: $editor-v4-text-color;
+    font-weight: bold;
+
+    &.headingOne {
+        margin-top: $editor-v4-block-spacing-vertical;
+        margin-bottom: $spacing-3;
+        font-size: $editor-v4-heading-one-font-size;
+        line-height: $editor-v4-heading-one-line-height;
+    }
+
+    &.headingTwo {
+        margin-top: $spacing-3;
+        margin-bottom: $spacing-3;
+        font-size: $editor-v4-heading-two-font-size;
+        line-height: $editor-v4-heading-two-line-height;
+    }
+
+    strong {
+        font-weight: 900;
+    }
+}

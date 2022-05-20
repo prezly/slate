@@ -1,0 +1,10 @@
+@import "styles/variables";
+
+.DropdownOption {
+    display: flex;
+    align-items: center;
+
+    .Avatar {
+        margin-right: $spacing-1;
+    }
+}

@@ -6,7 +6,7 @@ import { useEffectOnce } from '#lib';
 
 import { FloatingContainer } from '#modules/editor-v4-components';
 
-import './FloatingEmbedInput.scss';
+import styles from './FloatingEmbedInput.module.scss';
 
 interface Props {
     availableWidth: number;
@@ -42,17 +42,13 @@ export function FloatingEmbedInput({
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className="editor-v4-floating-embed-input"
+            className={styles.FloatingEmbedInput}
             containerRef={containerRef}
             onClose={onRootClose}
             open
             show
         >
-            <FloatingContainer.Button
-                className="editor-v4-floating-embed-input__close-button"
-                onClick={onClose}
-                open
-            />
+            <FloatingContainer.Button className={styles.CloseButton} onClick={onClose} open />
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
@@ -68,7 +64,7 @@ export function FloatingEmbedInput({
                         // the `autoFocus` behavior with `useEffectOnce` anyway
                         // (for a different reason though).
                         autoFocus={false}
-                        className="editor-v4-floating-embed-input__input"
+                        className={styles.Input}
                         inputRef={(ref) => {
                             inputRef.current = ref;
                         }}
@@ -80,10 +76,10 @@ export function FloatingEmbedInput({
                         type="url"
                         value={url}
                     />
-                    <InputGroup.Addon className="editor-v4-floating-embed-input__addon">
+                    <InputGroup.Addon className={styles.Addon}>
                         <Button
                             bsStyle="success"
-                            className="editor-v4-floating-embed-input__button"
+                            className={styles.Button}
                             disabled={url.length === 0}
                             type="submit"
                         >

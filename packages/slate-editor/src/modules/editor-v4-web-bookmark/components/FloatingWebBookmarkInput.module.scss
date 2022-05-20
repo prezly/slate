@@ -1,0 +1,30 @@
+@use "sass:math";
+@import "styles/variables";
+
+.FloatingWebBookmarkInput {
+    $input-height: 34px;
+
+    position: relative;
+    top: math.div(-($input-height - $editor-v4-paragraph-line-height), 2);
+
+    .CloseButton {
+        position: absolute;
+        top: math.div($input-height - $editor-v4-floating-button-size, 2);
+        left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
+    }
+
+    .Input {
+        border-right: none;
+    }
+
+    .Addon {
+        padding: 0;
+        border: none;
+    }
+
+    .Button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        height: $input-height;
+    }
+}

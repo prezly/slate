@@ -1,0 +1,5 @@
+.TextSelectionPortal {
+    &.selecting {
+        pointer-events: none;
+    }
+}

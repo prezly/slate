@@ -14,6 +14,7 @@ import {
     DEFAULT_PREVENT_OVERFLOW_MODIFIER,
     DEFAULT_SHOW_DELAY,
 } from './constants';
+import styles from './Tooltip.module.scss';
 
 interface ChildrenProps {
     /**
@@ -72,7 +73,11 @@ export const Tooltip: FunctionComponent<Props> = ({
     const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
     const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
     const [arrowElement, setArrowElement] = useState<HTMLDivElement | null>(null);
-    const { attributes, styles, update } = usePopper(referenceElement, popperElement, {
+    const {
+        attributes,
+        styles: inlineStyles,
+        update,
+    } = usePopper(referenceElement, popperElement, {
         placement,
         modifiers: [
             { name: 'arrow', options: { element: arrowElement } },
@@ -102,9 +107,7 @@ export const Tooltip: FunctionComponent<Props> = ({
             },
         ],
     });
-    const computedPlacement = attributes.popper
-        ? attributes.popper['data-popper-placement']
-        : placement;
+    const computedPlacement = attributes.popper?.['data-popper-placement'] ?? placement;
 
     const isMounted = useMountedState();
 
@@ -127,24 +130,24 @@ export const Tooltip: FunctionComponent<Props> = ({
                 <Portal>
                     <div
                         {...attributes.popper}
-                        className={classNames('tooltip-v2', className, {
-                            'tooltip-v2--top': computedPlacement === 'top',
-                            'tooltip-v2--bottom': computedPlacement === 'bottom',
-                            'tooltip-v2--left': computedPlacement === 'left',
-                            'tooltip-v2--right': computedPlacement === 'right',
+                        className={classNames(styles.Tooltip, className, {
+                            [styles.top]: computedPlacement === 'top',
+                            [styles.bottom]: computedPlacement === 'bottom',
+                            [styles.left]: computedPlacement === 'left',
+                            [styles.right]: computedPlacement === 'right',
                         })}
                         onMouseEnter={onShow}
                         onMouseLeave={onHide}
                         ref={setPopperElement}
-                        style={styles.popper}
+                        style={inlineStyles.popper}
                     >
                         <div
-                            className="tooltip-v2__arrow"
+                            className={styles.Arrow}
                             ref={setArrowElement}
-                            style={styles.arrow}
+                            style={inlineStyles.arrow}
                         />
 
-                        <div className="tooltip-v2__content" id={id}>
+                        <div className={styles.Content} id={id}>
                             {tooltip}
                         </div>
                     </div>

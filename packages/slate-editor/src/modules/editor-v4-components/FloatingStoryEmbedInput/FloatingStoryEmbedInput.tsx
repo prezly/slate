@@ -23,17 +23,13 @@ export function FloatingStoryEmbedInput({
     return (
         <FloatingContainer.Container
             availableWidth={availableWidth}
-            className={styles['editor-v4-floating-story-embed-input']}
+            className={styles.FloatingStoryEmbedInput}
             containerRef={containerRef}
             onClose={onRootClose}
             open
             show
         >
-            <FloatingContainer.Button
-                className={styles['editor-v4-floating-story-embed-input__close-button']}
-                onClick={onClose}
-                open
-            />
+            <FloatingContainer.Button className={styles.CloseButton} onClick={onClose} open />
             {renderInput()}
         </FloatingContainer.Container>
     );

@@ -22,7 +22,7 @@ export function VideoElement({ attributes, children, element }: Props) {
             element={element}
             overlay="autohide"
             renderBlock={() => (
-                <div className={styles.container}>
+                <div className={styles.Container}>
                     {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
                         <HtmlInjection
                             html={oembed.html}
@@ -56,14 +56,14 @@ function Thumbnail(props: { src?: string; width?: number; height?: number }) {
 
     const paddingBottom = width && height ? `${Math.round((100 * height) / width)}%` : undefined;
     return (
-        <div className={styles.thumbnail} style={{ paddingBottom }}>
-            <img className={styles.thumbnailImage} src={src} alt="Video thumbnail" />
+        <div className={styles.Thumbnail} style={{ paddingBottom }}>
+            <img className={styles.ThumbnailImage} src={src} alt="Video thumbnail" />
         </div>
     );
 }
 
 function ThumbnailPlaceholder() {
-    return <div className={styles.thumbnailPlaceholder} />;
+    return <div className={styles.ThumbnailPlaceholder} />;
 }
 
 function ExternalLink(props: { href: string; className?: string; children?: ReactNode }) {
@@ -76,8 +76,8 @@ function ExternalLink(props: { href: string; className?: string; children?: Reac
 
 function PlayButtonOverlay(props: { href: string }) {
     return (
-        <ExternalLink href={props.href} className={styles.playButtonOverlay}>
-            <PlayButton className={styles.playButtonIcon} />
+        <ExternalLink href={props.href} className={styles.PlayButtonOverlay}>
+            <PlayButton className={styles.PlayButtonIcon} />
         </ExternalLink>
     );
 }

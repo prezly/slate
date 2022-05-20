@@ -1,4 +1,3 @@
-import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import { useUniqueId } from '#lib';
@@ -36,13 +35,7 @@ function getClipPoints(clip: number) {
     return `16,16 16,0 32,0 32,32 0,32 0,0 ${x},0`;
 }
 
-export const ClippedRing: FunctionComponent<Props> = ({
-    className,
-    clip,
-    color,
-    height,
-    width,
-}) => {
+export function ClippedRing({ className, clip, color, height, width }: Props) {
     const maskId = useUniqueId('clipped-ring-mask-');
     const points = getClipPoints(clip);
 
@@ -64,4 +57,4 @@ export const ClippedRing: FunctionComponent<Props> = ({
             <circle cx="16" cy="16" fill="#FFFFFF" r="10" />
         </svg>
     );
-};
+}

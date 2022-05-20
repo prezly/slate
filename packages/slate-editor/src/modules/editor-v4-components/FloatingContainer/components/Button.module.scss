@@ -1,0 +1,45 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.Button {
+    @include button-variant(#767676, $legacy-color-grey-250, transparent);
+
+    width: $editor-v4-floating-button-size;
+    height: $editor-v4-floating-button-size;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    font-size: 11px;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0;
+
+    &.green {
+        border: none;
+        color: $white;
+        background-color: $green-500;
+        box-shadow: inset 2px 4px 4px rgba($white, 0.16), inset -1px -2px 4px rgba($grey-900, 0.16);
+
+        &:hover {
+            color: $white;
+            background-color: $green-600;
+        }
+
+        &.open {
+            background-color: $green-700;
+            box-shadow: inset -1px -2px 3px rgba($white, 0.24),
+                inset 1px 2px 3px rgba($grey-900, 0.16);
+        }
+    }
+
+    .Icon {
+        transition: transform 0.2s ease-out;
+        width: 16px;
+        height: 16px;
+
+        .open & {
+            transform: rotate(45deg);
+        }
+    }
+}
