@@ -14,14 +14,13 @@ import type { FileAttachmentParameters } from './types';
 export const FileAttachmentExtension = ({
     onEdit = noop,
     onRemove = noop,
-    styled,
 }: FileAttachmentParameters): Extension => ({
+    id: FILE_ATTACHMENT_EXTENSION_ID,
     deserialize: {
         element: {
             [ATTACHMENT_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
-    id: FILE_ATTACHMENT_EXTENSION_ID,
     normalizers: [normalizeRedundantFileAttachmentAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isAttachmentNode(element)) {
@@ -29,7 +28,6 @@ export const FileAttachmentExtension = ({
                 <FileAttachmentElement
                     attributes={attributes}
                     element={element}
-                    styled={styled}
                     onEdit={onEdit}
                     onRemove={onRemove}
                 >

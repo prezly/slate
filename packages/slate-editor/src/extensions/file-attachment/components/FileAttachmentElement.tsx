@@ -10,7 +10,6 @@ import { FileAttachmentMenu } from './FileAttachmentMenu';
 
 interface FileAttachmentElementProps extends RenderElementProps {
     element: AttachmentNode;
-    styled: boolean;
     onEdit: (editor: Editor, element: Partial<AttachmentNode>) => void;
     onRemove: (editor: Editor, element: AttachmentNode) => void;
 }
@@ -21,14 +20,13 @@ export function FileAttachmentElement({
     onEdit,
     onRemove,
     children,
-    styled,
 }: FileAttachmentElementProps) {
     return (
         <EditorBlock
             {...attributes}
             border
             element={element}
-            renderBlock={() => <FileAttachment styled={styled} element={element} />}
+            renderBlock={() => <FileAttachment element={element} />}
             renderMenu={({ onClose }) => (
                 <FileAttachmentMenu
                     element={element}
