@@ -4,11 +4,7 @@ import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly
 import type { Editor } from 'slate';
 
 import type { GalleriesExtensionParameters } from '#extensions/galleries';
-import {
-    createGallery,
-    getCurrentGalleryNodeEntry,
-    removeGallery,
-} from '#extensions/galleries';
+import { createGallery, getCurrentGalleryNodeEntry, removeGallery } from '#extensions/galleries';
 import { LoaderContentType } from '#extensions/loader';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';

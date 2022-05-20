@@ -12,10 +12,7 @@ import {
 import uploadcare from '@prezly/uploadcare-widget';
 import type { Editor } from 'slate';
 
-import {
-    createFileAttachment,
-    FILE_ATTACHMENT_EXTENSION_ID,
-} from '#extensions/file-attachment';
+import { createFileAttachment, FILE_ATTACHMENT_EXTENSION_ID } from '#extensions/file-attachment';
 import { createImage, IMAGE_EXTENSION_ID } from '#extensions/image';
 import { LOADER_EXTENSION_ID, LoaderContentType } from '#extensions/loader';
 import { EventsEditor } from '#modules/events';

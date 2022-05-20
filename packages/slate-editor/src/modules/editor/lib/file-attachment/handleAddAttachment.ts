@@ -2,9 +2,9 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareFile } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 
-import { EventsEditor } from '#modules/events';
 import { createFileAttachment } from '#extensions/file-attachment';
 import { LoaderContentType } from '#extensions/loader';
+import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
 import { insertUploadingFile } from '../insertUploadingFile';
