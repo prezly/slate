@@ -3,7 +3,7 @@
 .history
 build/
 dist/
-coverage/
+packages/*/coverage/
 node_modules/
 *.eslintcache
 *.tsbuildinfo

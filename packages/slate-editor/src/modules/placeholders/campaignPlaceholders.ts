@@ -1,4 +1,4 @@
-import type { Placeholder } from '#extensions/editor-v4-placeholder-mentions';
+import type { Placeholder } from '#extensions/placeholder-mentions';
 
 /**
  * Available placeholders for "computed values" in campaign-like editors (campaign and pitch editors
