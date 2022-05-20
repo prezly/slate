@@ -137,7 +137,10 @@ export function Dropdown<Action>({
                                         onItemClick(option);
                                     }}
                                 >
-                                    <div className={styles.MenuItemIcon} data-action={option.action}>
+                                    <div
+                                        className={styles.MenuItemIcon}
+                                        data-action={option.action}
+                                    >
                                         {isComponent(option.icon) ? <option.icon /> : option.icon}
                                     </div>
                                     <div
