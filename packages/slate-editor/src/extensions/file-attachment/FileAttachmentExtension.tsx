@@ -1,7 +1,9 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
+import type { AttachmentNode } from '@prezly/slate-types';
 import { ATTACHMENT_NODE_TYPE, isAttachmentNode } from '@prezly/slate-types';
 import React from 'react';
+import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { noop } from '#lodash';
@@ -9,12 +11,16 @@ import { noop } from '#lodash';
 import { FileAttachmentElement } from './components';
 import { FILE_ATTACHMENT_EXTENSION_ID } from './constants';
 import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
-import type { FileAttachmentParameters } from './types';
+
+export interface Parameters {
+    onEdit: (editor: Editor, element: Partial<AttachmentNode>) => void;
+    onRemove?: (editor: Editor, element: AttachmentNode) => void;
+}
 
 export const FileAttachmentExtension = ({
     onEdit = noop,
     onRemove = noop,
-}: FileAttachmentParameters): Extension => ({
+}: Parameters): Extension => ({
     id: FILE_ATTACHMENT_EXTENSION_ID,
     deserialize: {
         element: {

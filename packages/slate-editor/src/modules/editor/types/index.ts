@@ -7,7 +7,6 @@ import type { Editor, Element } from 'slate';
 import type { AutoformatParameters } from '#extensions/autoformat';
 import type { CoverageExtensionParameters } from '#extensions/coverage';
 import type { EmbedExtensionConfiguration } from '#extensions/embed';
-import type { FileAttachmentExtensionParameters } from '#extensions/file-attachment';
 import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionParameters } from '#extensions/galleries';
 import type { ImageExtensionParameters } from '#extensions/image';
@@ -30,7 +29,7 @@ export interface EditorRef {
 
 export interface EditorV4ExtensionsProps {
     availableWidth: number;
-    withAttachments?: FileAttachmentExtensionParameters;
+    withAttachments?: boolean;
     withCoverage?: CoverageExtensionParameters;
     withEmbeds?: EmbedExtensionConfiguration;
     withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
