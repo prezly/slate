@@ -4,8 +4,6 @@ import React from 'react';
 import { Download } from '#icons';
 import { formatBytes } from '#lib';
 
-import { isUsingCustomTitle } from '../../lib';
-
 import styles from './FileAttachment.module.scss';
 
 interface Props {
@@ -33,4 +31,8 @@ export function FileAttachment({ element }: Props) {
             </div>
         </div>
     );
+}
+
+function isUsingCustomTitle(element: AttachmentNode): boolean {
+    return Boolean(element.description);
 }
