@@ -52,6 +52,20 @@
 
         &:hover {
             color: $toolbar-dark-theme-text-hover-color;
+
+            &::before {
+                // Trick to display smaller hover background square,
+                // while keeping the button area as big as possible (for a11y)
+                content: "";
+                display: block;
+                position: absolute;
+                left: $spacing-base;
+                top: $spacing-base;
+                bottom: $spacing-base;
+                right: $spacing-base;
+                border-radius: $border-radius-base;
+                background-color: $toolbar-dark-theme-hover-bg;
+            }
         }
 
         :global(.caret) {
