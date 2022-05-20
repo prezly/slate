@@ -13,12 +13,12 @@
     justify-content: stretch;
     flex-flow: row;
 
-    .details {
+    .Details {
         padding: (2.5 * $spacing-base) (3 * $spacing-base);
         flex-grow: 1;
     }
 
-    .thumbnail {
+    .Thumbnail {
         background-position: center center;
         background-size: cover;
         flex-grow: 0;
@@ -28,13 +28,13 @@
         max-width: $image-size;
     }
 
-    .thumbnailImage {
+    .ThumbnailImage {
         visibility: hidden;
         width: 100%;
         height: 100%;
     }
 
-    .title {
+    .Title {
         margin: 0 0 $spacing-base 0;
         font-weight: 800;
         line-height: 1.6;
@@ -53,7 +53,7 @@
         }
     }
 
-    .description {
+    .Description {
         color: $grey-500;
         margin: $spacing-base 0;
         line-height: 1.4;
@@ -62,15 +62,15 @@
         @include multi-line-ellipsis(2);
     }
 
-    .meta {
+    .Meta {
         color: $grey-500;
         margin: $spacing-base 0;
         line-height: 1.4;
         font-size: $font-size-small;
     }
 
-    .author,
-    .publicationDate {
+    .Author,
+    .PublicationDate {
         &:after {
             content: "/";
             margin: 0 $spacing-1;
@@ -83,7 +83,7 @@
         }
     }
 
-    .outlet {
+    .Outlet {
         display: flex;
         align-items: center;
         color: $grey-700;
@@ -104,13 +104,13 @@
         }
     }
 
-    .outletIcon {
+    .OutletIcon {
         width: $spacing-base * 2;
         height: $spacing-base * 2;
         margin-right: $spacing-base;
     }
 
-    .outletName {
+    .OutletName {
         flex-grow: 1;
     }
 }

@@ -79,7 +79,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                 if (loading) {
                     return (
                         <LoadingPlaceholderV2.Placeholder
-                            className={styles.loadingPlaceholder}
+                            className={styles.LoadingPlaceholder}
                             estimatedDuration={ESTIMATED_LOADING_DURATION}
                         >
                             {({ percent }) => (

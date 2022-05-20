@@ -14,7 +14,7 @@
     $font-size-small: 11px;
 
     // fancy scrollbars support
-    .scrollArea {
+    .ScrollArea {
         position: absolute;
         background-color: $white;
         border: 1px solid $grey-200;
@@ -25,7 +25,7 @@
         flex-direction: column;
     }
 
-    .menu {
+    .Menu {
         position: initial !important;
         box-shadow: none;
         padding: 0;
@@ -38,7 +38,7 @@
         }
     }
 
-    .menuGroup {
+    .MenuGroup {
         padding: $vertical-spacing $horizontal-spacing $vertical-spacing $horizontal-spacing;
         color: $grey-700;
         font-size: $font-size-medium;
@@ -48,7 +48,7 @@
     }
 
     // Override specificity of Bootstrap default .dropdown-menu > li > a style
-    .menuItem {
+    .MenuItem {
         > a {
             padding: $vertical-spacing $spacing-1 * 2.5 $vertical-spacing $horizontal-spacing;
             display: flex;
@@ -69,7 +69,7 @@
         }
     }
 
-    .menuItemIcon {
+    .MenuItemIcon {
         flex-shrink: 0;
         flex-grow: 0;
         width: $spacing-5;
@@ -99,7 +99,7 @@
         }
     }
 
-    .menuItemText {
+    .MenuItemText {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -113,7 +113,7 @@
         }
     }
 
-    .menuItemTitle {
+    .MenuItemTitle {
         color: $grey-700;
         margin-bottom: $spacing-half;
         font-size: $font-size-medium;
@@ -121,13 +121,13 @@
         font-weight: 600;
     }
 
-    .menuItemDescription {
+    .MenuItemDescription {
         color: $grey-500;
         font-size: $font-size-small;
         line-height: 1.2;
     }
 
-    .menuItemLabel {
+    .MenuItemLabel {
         padding: 2px 5px;
         border-radius: 4px;
         color: $white;
@@ -148,16 +148,16 @@
     }
 
     &.noResults {
-        .menu {
+        .Menu {
             padding-bottom: 0;
         }
 
-        .menuItem > a {
+        .MenuItem > a {
             padding: $spacing-2;
             min-height: $no-results-decoration-height;
         }
 
-        .menuItemIcon {
+        .MenuItemIcon {
             border: none;
             color: $red-600;
             margin-right: $spacing-1;
@@ -169,14 +169,14 @@
             }
         }
 
-        .menuItemText {
+        .MenuItemText {
             color: $green-800;
             font-size: $font-size-medium;
             line-height: 1.4;
             height: 18px;
         }
 
-        .menuItemDecoration {
+        .MenuItemDecoration {
             position: absolute;
             right: 0;
             top: 0;

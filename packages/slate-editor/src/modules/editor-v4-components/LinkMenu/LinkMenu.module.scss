@@ -3,11 +3,11 @@
 .LinkMenu {
     display: flex;
 
-    .form {
+    .Form {
         display: flex;
     }
 
-    .formContent {
+    .FormContent {
         height: $spacing-5;
         display: flex;
         align-items: stretch;
@@ -16,7 +16,7 @@
         border-color: $toolbar-dark-theme-border-color;
     }
 
-    .input {
+    .Input {
         border: 0;
         padding: 0 $spacing-1;
         margin: $spacing-1;
@@ -30,7 +30,7 @@
         }
     }
 
-    input.input {
+    input.Input {
         // override `.editor-menu input` rule specificity
         font-size: 13px;
     }

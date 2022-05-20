@@ -7,22 +7,22 @@
     position: relative;
     top: math.div(-($input-height - $editor-v4-paragraph-line-height), 2);
 
-    .closeButton {
+    .CloseButton {
         position: absolute;
         top: math.div($input-height - $editor-v4-floating-button-size, 2);
         left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
     }
 
-    .input {
+    .Input {
         border-right: none;
     }
 
-    .addon {
+    .Addon {
         padding: 0;
         border: none;
     }
 
-    .button {
+    .Button {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         height: $input-height;

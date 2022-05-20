@@ -41,13 +41,13 @@ export const LinkMenu: FunctionComponent<Props> = ({
                     </Menu.Button>
                 </Menu.ButtonGroup>
                 <form
-                    className={styles.form}
+                    className={styles.Form}
                     onSubmit={(event) => {
                         event.preventDefault();
                         onCreate();
                     }}
                 >
-                    <div className={styles.formContent}>
+                    <div className={styles.FormContent}>
                         <input
                             // `autoFocus` has to be `false` - otherwise page automatically scrolls
                             // to the top the moment `LinkMenu` is mounted (because underlying
@@ -56,7 +56,7 @@ export const LinkMenu: FunctionComponent<Props> = ({
                             // the `autoFocus` behavior with `useEffectOnce` anyway
                             // (for a different reason though).
                             autoFocus={false}
-                            className={styles.input}
+                            className={styles.Input}
                             name="link"
                             onChange={(event) => onChange(event.target.value)}
                             onMouseDown={(event) => {

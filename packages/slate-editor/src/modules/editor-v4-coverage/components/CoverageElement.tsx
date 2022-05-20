@@ -61,7 +61,7 @@ export function CoverageElement({
                 if (loading) {
                     return (
                         <LoadingPlaceholderV2.Placeholder
-                            className={styles.loadingPlaceholder}
+                            className={styles.LoadingPlaceholder}
                             estimatedDuration={ESTIMATED_LOADING_DURATION}
                         >
                             {({ percent }) => (

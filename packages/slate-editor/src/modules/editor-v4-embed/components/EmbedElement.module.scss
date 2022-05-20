@@ -1,15 +1,15 @@
 @import "styles/variables";
 
-.loadingPlaceholder {
+.LoadingPlaceholder {
     margin-bottom: $spacing-3;
 }
 
-.error {
+.Error {
     padding: $spacing-2 $spacing-1;
     text-align: center;
 }
 
-.content {
+.Content {
     &.video {
         > div:only-child {
             margin: 0 auto;

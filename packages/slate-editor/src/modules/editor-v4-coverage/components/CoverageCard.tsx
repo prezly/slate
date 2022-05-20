@@ -26,7 +26,7 @@ export const CoverageCard: FunctionComponent<Props> = ({ coverage, dateFormat })
         <div className={styles.CoverageCard}>
             {imageUrl && <Thumbnail src={imageUrl} href={href} />}
 
-            <div className={styles.details}>
+            <div className={styles.Details}>
                 <Title coverage={coverage} href={href} />
 
                 <Description coverage={coverage} />
@@ -54,10 +54,10 @@ function Thumbnail(props: { href: string | null; src: string }) {
     return (
         <Tag
             href={href || undefined}
-            className={styles.thumbnail}
+            className={styles.Thumbnail}
             style={{ backgroundImage: `url("${src}")` }}
         >
-            <img className={styles.thumbnailImage} src={src} alt="Website preview" />
+            <img className={styles.ThumbnailImage} src={src} alt="Website preview" />
         </Tag>
     );
 }
@@ -68,7 +68,7 @@ function Title(props: { coverage: Coverage; href: string | null }) {
     const Tag = href ? 'a' : 'div';
 
     return (
-        <Tag className={styles.title} href={href || undefined}>
+        <Tag className={styles.Title} href={href || undefined}>
             {title}
         </Tag>
     );
@@ -80,11 +80,11 @@ function Description(props: { coverage: Coverage }) {
     const description = coverage.attachment_oembed?.description;
 
     if (description) {
-        return <div className={styles.description}>{description}</div>;
+        return <div className={styles.Description}>{description}</div>;
     }
 
     if (coverage.attachment) {
-        return <div className={styles.description}>{formatBytes(coverage.attachment.size)}</div>;
+        return <div className={styles.Description}>{formatBytes(coverage.attachment.size)}</div>;
     }
 
     return null;
@@ -94,14 +94,14 @@ function Meta(props: { author: Contact | null; date: string | null; dateFormat: 
     const { author, date, dateFormat } = props;
 
     return (
-        <div className={styles.meta}>
+        <div className={styles.Meta}>
             {author?.display_name && (
-                <span className={styles.author} title="Author">
+                <span className={styles.Author} title="Author">
                     {author?.display_name}
                 </span>
             )}
             {date && (
-                <span className={styles.publicationDate}>{moment(date).format(dateFormat)}</span>
+                <span className={styles.PublicationDate}>{moment(date).format(dateFormat)}</span>
             )}
         </div>
     );
@@ -111,14 +111,14 @@ function Outlet(props: { contact: Contact }) {
     const { contact } = props;
 
     return (
-        <div className={styles.outlet}>
+        <div className={styles.Outlet}>
             <img
-                className={styles.outletIcon}
+                className={styles.OutletIcon}
                 src={contact.avatar_url}
                 alt={`${contact.display_name} avatar`}
                 aria-hidden="true"
             />
-            <span className={styles.outletName}>{contact.display_name}</span>
+            <span className={styles.OutletName}>{contact.display_name}</span>
         </div>
     );
 }

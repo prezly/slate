@@ -31,7 +31,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
             tabIndex={-1}
             type="button"
         >
-            <Add className={styles.icon} />
+            <Add className={styles.Icon} />
         </button>
     ),
 );

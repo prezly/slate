@@ -26,7 +26,7 @@ export function LinkWithTooltip({ children, enabled = true, href }: Props) {
             placement="bottom"
             showDelay={SHOW_DELAY}
             tooltip={
-                <a className={styles.link} href={href} rel="noreferrer noopener" target="_blank">
+                <a className={styles.Link} href={href} rel="noreferrer noopener" target="_blank">
                     {href}
                 </a>
             }

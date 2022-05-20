@@ -29,7 +29,7 @@ export function FloatingStoryEmbedInput({
             open
             show
         >
-            <FloatingContainer.Button className={styles.closeButton} onClick={onClose} open />
+            <FloatingContainer.Button className={styles.CloseButton} onClick={onClose} open />
             {renderInput()}
         </FloatingContainer.Container>
     );

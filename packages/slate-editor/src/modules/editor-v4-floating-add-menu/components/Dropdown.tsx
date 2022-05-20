@@ -99,37 +99,37 @@ export function Dropdown<Action>({
                 autoHeight
                 autoHeightMin={20}
                 autoHeightMax={1000}
-                className={style.scrollArea}
+                className={style.ScrollArea}
                 ref={scrollarea}
                 style={{ ...styles.popper, width: 'auto' }}
             >
                 <ul
-                    className={classNames('dropdown-menu', style.menu, className)}
+                    className={classNames('dropdown-menu', style.Menu, className)}
                     onMouseDown={(event) => event.preventDefault()}
                 >
                     {options.length === 0 && (
                         <MenuItem
-                            className={classNames(style.menuItem, style.noResults)}
+                            className={classNames(style.MenuItem, style.noResults)}
                             disabled
                             onClick={noop}
                         >
-                            <div className={style.menuItemIcon}>
+                            <div className={style.MenuItemIcon}>
                                 <WarningCircle />
                             </div>
-                            <div className={style.menuItemText}>No results</div>
-                            <BatsIllustration className={style.menuItemDecoration} />
+                            <div className={style.MenuItemText}>No results</div>
+                            <BatsIllustration className={style.MenuItemDecoration} />
                         </MenuItem>
                     )}
 
                     {groups.map(({ group, options }) => (
                         <Fragment key={`group:${group}`}>
-                            <MenuItem className={style.menuGroup} header>
+                            <MenuItem className={style.MenuGroup} header>
                                 {group}
                             </MenuItem>
                             {options.map((option) => (
                                 <MenuItem
                                     active={option === selectedOption}
-                                    className={style.menuItem}
+                                    className={style.MenuItem}
                                     key={`option:${option.text}`}
                                     onClick={(event) => event.preventDefault()}
                                     onMouseDown={(event) => {
@@ -137,24 +137,24 @@ export function Dropdown<Action>({
                                         onItemClick(option);
                                     }}
                                 >
-                                    <div className={style.menuItemIcon} data-action={option.action}>
+                                    <div className={style.MenuItemIcon} data-action={option.action}>
                                         {isComponent(option.icon) ? <option.icon /> : option.icon}
                                     </div>
                                     <div
-                                        className={style.menuItemText}
+                                        className={style.MenuItemText}
                                         ref={option === selectedOption ? setActiveItem : undefined}
                                     >
-                                        <div className={style.menuItemTitle}>
+                                        <div className={style.MenuItemTitle}>
                                             <Highlight search={highlight}>{option.text}</Highlight>
                                         </div>
-                                        <div className={style.menuItemDescription}>
+                                        <div className={style.MenuItemDescription}>
                                             {option.description || ' '}
                                         </div>
                                     </div>
                                     {(option.isBeta || option.isNew) && (
                                         <div
                                             className={classNames(
-                                                style.menuItemLabel,
+                                                style.MenuItemLabel,
                                                 option.isBeta ? style.beta : style.new,
                                             )}
                                         >

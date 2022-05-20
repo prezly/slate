@@ -48,7 +48,7 @@ export function FloatingWebBookmarkInput({
             open
             show
         >
-            <FloatingContainer.Button className={styles.closeButton} onClick={onClose} open />
+            <FloatingContainer.Button className={styles.CloseButton} onClick={onClose} open />
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
@@ -64,7 +64,7 @@ export function FloatingWebBookmarkInput({
                         // the `autoFocus` behavior with `useEffectOnce` anyway
                         // (for a different reason though).
                         autoFocus={false}
-                        className={styles.input}
+                        className={styles.Input}
                         inputRef={(ref) => {
                             inputRef.current = ref;
                         }}
@@ -76,10 +76,10 @@ export function FloatingWebBookmarkInput({
                         type="url"
                         value={url}
                     />
-                    <InputGroup.Addon className={styles.addon}>
+                    <InputGroup.Addon className={styles.Addon}>
                         <Button
                             bsStyle="success"
-                            className={styles.button}
+                            className={styles.Button}
                             disabled={url.length === 0}
                             type="submit"
                         >

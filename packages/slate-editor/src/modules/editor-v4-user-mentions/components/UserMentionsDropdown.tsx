@@ -34,7 +34,7 @@ function DropdownOption(props: { option: Option<User> }) {
     return (
         <div className={styles.DropdownOption}>
             <Avatar
-                className={styles.avatar}
+                className={styles.Avatar}
                 name={value.name}
                 size="small"
                 src={value.avatar_url}

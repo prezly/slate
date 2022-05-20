@@ -40,7 +40,7 @@ export function EmbedElement({
                     return (
                         <ImageWithLoadingPlaceholderV2
                             availableWidth={availableWidth}
-                            className={styles.loadingPlaceholder}
+                            className={styles.LoadingPlaceholder}
                             renderLoadingState={({ percent }) => (
                                 <>
                                     <LoadingPlaceholderV2.Icon icon={Embed} />
@@ -57,7 +57,7 @@ export function EmbedElement({
 
                 if (isInvalid) {
                     return (
-                        <div className={styles.error}>
+                        <div className={styles.Error}>
                             There was a problem loading the requested URL.
                         </div>
                     );
@@ -65,7 +65,7 @@ export function EmbedElement({
 
                 return (
                     <HtmlInjection
-                        className={classNames(styles.content, {
+                        className={classNames(styles.Content, {
                             [styles.video]: element.oembed.type === 'video',
                         })}
                         html={element.oembed.html ?? ''}

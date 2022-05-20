@@ -27,7 +27,7 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
         value: BookmarkCardLayout.VERTICAL,
         icon: ({ isActive }) => (
             <ItemsLayoutVertical
-                className={classNames(styles.optionIcon, { [styles.active]: isActive })}
+                className={classNames(styles.OptionIcon, { [styles.active]: isActive })}
             />
         ),
     },
@@ -36,7 +36,7 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
         value: BookmarkCardLayout.HORIZONTAL,
         icon: ({ isActive }) => (
             <ItemsLayoutHorizontal
-                className={classNames(styles.optionIcon, { [styles.active]: isActive })}
+                className={classNames(styles.OptionIcon, { [styles.active]: isActive })}
             />
         ),
     },

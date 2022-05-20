@@ -71,7 +71,7 @@ export const MentionsDropdown = <V extends object>({
             {options.map((option, optionIndex) => (
                 <MenuItem
                     active={index === optionIndex}
-                    className={styles.item}
+                    className={styles.Item}
                     key={option.id}
                     onClick={() => onOptionClick(option)}
                 >
