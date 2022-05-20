@@ -62,6 +62,7 @@ module.exports = {
         "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/no-inferrable-types": "warn"
     },
     "overrides": [

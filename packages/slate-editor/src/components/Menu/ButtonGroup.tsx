@@ -1,18 +1,22 @@
 import classNames from 'classnames';
-import type { FunctionComponent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import React from 'react';
+
+import styles from './Menu.module.scss';
 
 export interface Props {
     children: ReactNode;
     flex?: boolean;
 }
 
-export const ButtonGroup: FunctionComponent<Props> = ({ children, flex }) => (
-    <div
-        className={classNames('editor-menu__button-group', {
-            'editor-menu__button-group--flex': flex,
-        })}
-    >
-        {children}
-    </div>
-);
+export function ButtonGroup({ children, flex }: Props) {
+    return (
+        <div
+            className={classNames(styles.ButtonGroup, {
+                [styles.flex]: flex,
+            })}
+        >
+            {children}
+        </div>
+    );
+}

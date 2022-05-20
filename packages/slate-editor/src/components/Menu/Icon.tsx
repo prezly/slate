@@ -2,11 +2,13 @@ import classNames from 'classnames';
 import type { FunctionComponent, HTMLAttributes } from 'react';
 import React from 'react';
 
+import styles from './Menu.module.scss';
+
 export interface Props {
     className?: string;
     icon: FunctionComponent<HTMLAttributes<SVGElement>>;
 }
 
-export const Icon: FunctionComponent<Props> = ({ className, icon: IconComponent }) => (
-    <IconComponent className={classNames('editor-menu__icon', className)} />
-);
+export function Icon({ className, icon: IconComponent }: Props) {
+    return <IconComponent className={classNames(styles.Icon, className)} />;
+}

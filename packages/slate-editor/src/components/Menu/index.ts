@@ -9,4 +9,3 @@ export { Link } from './Link';
 export { SpaLink } from './SpaLink';
 
 export { Dropdown } from './Dropdown';
-export type { Option as DropdownOption } from './Dropdown';

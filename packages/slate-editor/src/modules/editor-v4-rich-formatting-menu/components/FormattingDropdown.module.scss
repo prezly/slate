@@ -1,0 +1,46 @@
+@import "styles/variables";
+
+.DropdownOption {
+    margin: 0;
+    font-size: 13px;
+
+    &.headingOne {
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    &.headingTwo {
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    &.orderedList,
+    &.unorderedList {
+        padding-left: $spacing-2;
+        position: relative;
+
+        &::before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+    }
+
+    &.orderedList {
+        &::before {
+            content: "1.";
+        }
+    }
+
+    &.unorderedList {
+        &::before {
+            content: "•";
+        }
+    }
+
+    &.blockquote {
+        border-left: 2px solid $grey-400;
+        padding-left: $spacing-1;
+    }
+}

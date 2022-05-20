@@ -1,5 +1,5 @@
 import type { Placement } from '@popperjs/core';
-import type { FunctionComponent, RefObject, ReactNode } from 'react';
+import type { RefObject, ReactNode } from 'react';
 import React from 'react';
 
 import { ElementPortalV2 } from '../Portals';
@@ -14,18 +14,20 @@ export interface Props {
     placement?: Placement;
 }
 
-export const FloatingMenu: FunctionComponent<Props> = ({
+export function FloatingMenu({
     children,
     className,
     containerRef,
     element,
     placement = 'top-end',
-}) => (
-    <ElementPortalV2
-        containerElement={containerRef.current}
-        referenceElement={element}
-        placement={placement}
-    >
-        <Toolbar className={className}>{children}</Toolbar>
-    </ElementPortalV2>
-);
+}: Props) {
+    return (
+        <ElementPortalV2
+            containerElement={containerRef.current}
+            referenceElement={element}
+            placement={placement}
+        >
+            <Toolbar className={className}>{children}</Toolbar>
+        </ElementPortalV2>
+    );
+}

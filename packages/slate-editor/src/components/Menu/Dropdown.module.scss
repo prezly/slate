@@ -1,7 +1,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.editor-menu-dropdown {
+.Dropdown {
     display: inline-block;
     width: 180px;
     vertical-align: top;
@@ -13,8 +13,8 @@
     }
 
     &,
-    &.open {
-        .dropdown-toggle {
+    &:global(.open) {
+        :global(.dropdown-toggle) {
             &,
             &:hover,
             &:focus {
@@ -25,7 +25,7 @@
         }
     }
 
-    &.open {
+    &:global(.open) {
         &:after {
             content: "";
             position: absolute;
@@ -38,7 +38,7 @@
         }
     }
 
-    .dropdown-toggle {
+    :global(.dropdown-toggle) {
         width: 100%;
         height: 40px;
         padding: 0 $spacing-2;
@@ -52,9 +52,23 @@
 
         &:hover {
             color: $toolbar-dark-theme-text-hover-color;
+
+            &::before {
+                // Trick to display smaller hover background square,
+                // while keeping the button area as big as possible (for a11y)
+                content: "";
+                display: block;
+                position: absolute;
+                left: $spacing-base;
+                top: $spacing-base;
+                bottom: $spacing-base;
+                right: $spacing-base;
+                border-radius: $border-radius-base;
+                background-color: $toolbar-dark-theme-hover-bg;
+            }
         }
 
-        .caret {
+        :global(.caret) {
             position: absolute;
             top: 50%;
             right: $spacing-2;
@@ -64,7 +78,7 @@
         }
     }
 
-    .dropdown-menu {
+    :global(.dropdown-menu) {
         width: 181px; // we need +1 px to align with the toggle button
         margin: 0 0 0 -1px;
         overflow: auto;
@@ -79,7 +93,7 @@
         }
     }
 
-    .editor-menu-dropdown__menu-item {
+    .MenuItem {
         margin-bottom: 0;
         min-height: 34px;
         // Workaround to center the text inside a fixed-height container.
@@ -115,7 +129,7 @@
             }
         }
 
-        &--selected > a {
+        &.selected > a {
             color: $toolbar-dark-theme-icon-active-color;
 
             &::before {
@@ -131,55 +145,5 @@
                 background-color: $toolbar-dark-theme-hover-bg;
             }
         }
-    }
-
-    .editor-menu-dropdown__menu-option {
-        margin: 0;
-        font-size: 13px;
-        color: inherit;
-
-        &--paragraph {
-            // Override margin set on `.editor-story p`.
-            margin-bottom: 0 !important;
-        }
-
-        &--heading-1 {
-            font-size: 17px;
-            font-weight: 700;
-        }
-
-        &--heading-2 {
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        &--unordered-list,
-        &--ordered-list {
-            padding-left: $spacing-2;
-        }
-
-        &--unordered-list {
-            // Fix broken list style. Breaks because this list
-            // is nested in another list (menu items).
-            list-style-type: disc;
-        }
-
-        &--blockquote {
-            padding: 0;
-            background: unset;
-        }
-
-        &--blockquote > p {
-            padding-left: $spacing-half;
-            font-style: italic;
-        }
-
-        &--blockquote > p::before {
-            content: unset;
-        }
-    }
-
-    .editor-menu-dropdown__menu-item--selected .editor-menu-dropdown__menu-option {
-        color: $toolbar-dark-theme-icon-active-color;
     }
 }
