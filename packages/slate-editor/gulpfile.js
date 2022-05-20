@@ -125,8 +125,8 @@ function buildTypes(files = JS_DELIVERABLE_SOURCES) {
                     (contents, [alias, real]) => {
                         const relative = path.relative(path.dirname(file.path), path.resolve(real));
                         return contents
-                            .replace(`from '${alias}`, `from '${relative}`)
-                            .replace(`import("${alias}`, `import("${relative}`);
+                            .replaceAll(`from '${alias}`, `from '${relative}`)
+                            .replaceAll(`import("${alias}`, `import("${relative}`);
                     },
                     file.contents.toString('utf-8'),
                 );
