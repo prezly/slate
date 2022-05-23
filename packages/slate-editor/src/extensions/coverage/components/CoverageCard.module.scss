@@ -5,7 +5,7 @@
     $block-height: 180px;
     $image-size: $block-height;
 
-    @include editor-v4-void-element();
+    @include editor-void-element();
 
     max-height: $block-height;
     color: $grey-700;

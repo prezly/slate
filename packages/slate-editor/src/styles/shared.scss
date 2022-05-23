@@ -1,20 +1,20 @@
 @import "./colors";
 
-$editor-v4-block-focus-color: $yellow-300;
-$editor-v4-block-spacing-vertical: 44px;
-$editor-v4-heading-one-font-size: 28px;
-$editor-v4-heading-one-line-height: 34px;
-$editor-v4-heading-two-font-size: 22px;
-$editor-v4-heading-two-line-height: 28px;
-$editor-v4-paragraph-font-size: 16px;
-$editor-v4-paragraph-line-height: 22px;
-$editor-v4-text-color: $grey-700;
-$editor-v4-floating-button-size: 24px;
-$editor-v4-floating-button-margin: 12px;
-$editor-v4-embed-element-overlay-z-index: 2;
-$editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index + 1;
+$editor-block-focus-color: $yellow-300;
+$editor-block-spacing-vertical: 44px;
+$editor-heading-one-font-size: 28px;
+$editor-heading-one-line-height: 34px;
+$editor-heading-two-font-size: 22px;
+$editor-heading-two-line-height: 28px;
+$editor-paragraph-font-size: 16px;
+$editor-paragraph-line-height: 22px;
+$editor-text-color: $grey-700;
+$editor-floating-button-size: 24px;
+$editor-floating-button-margin: 12px;
+$editor-embed-element-overlay-z-index: 2;
+$editor-floating-container-z-index: $editor-embed-element-overlay-z-index + 1;
 
-@mixin editor-v4-void-element() {
+@mixin editor-void-element() {
     /*
      * Selection in Slate 0.50+ does not work as expected if a void block is selectable.
      * It could lead to an error when Slate is resolving the node which crashes the editor.
@@ -27,24 +27,24 @@ $editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index 
     user-select: none;
 }
 
-@mixin editor-v4-block($void) {
+@mixin editor-block($void) {
     @if $void != true and $void != false {
-        @error "editor-v4-block: $void must be either true or false, got #{$void}.";
+        @error "editor-block: $void must be either true or false, got #{$void}.";
     }
 
-    margin: $editor-v4-block-spacing-vertical 0;
+    margin: $editor-block-spacing-vertical 0;
 
     @if $void == true {
-        @include editor-v4-void-element;
+        @include editor-void-element;
     }
 }
 
-@mixin editor-v4-block-active {
-    outline: solid 6px $editor-v4-block-focus-color;
+@mixin editor-block-active {
+    outline: solid 6px $editor-block-focus-color;
     border-radius: 0;
 }
 
-@mixin editor-v4-block-error {
+@mixin editor-block-error {
     color: $legacy-color-status-error;
     outline: solid 6px $legacy-color-status-error;
     border-radius: 0;
@@ -53,14 +53,14 @@ $editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index 
 /**
  * Do not use this mixin outside of this file
  */
-@mixin editor-v4-top-elements {
+@mixin editor-top-elements {
     [data-slate-editor="true"] > * {
         @content;
     }
 }
 
-@mixin editor-v4-width($width) {
-    @include editor-v4-top-elements {
+@mixin editor-width($width) {
+    @include editor-top-elements {
         max-width: $width;
 
         &[data-element-layout="expanded"] {
@@ -72,12 +72,12 @@ $editor-v4-floating-container-z-index: $editor-v4-embed-element-overlay-z-index 
         }
     }
 
-    .editor-v4-placeholder {
+    .editor-placeholder {
         max-width: $width;
         margin: 0 auto;
     }
 
-    .editor-v4-sizer {
+    .editor-sizer {
         max-width: $width;
     }
 }

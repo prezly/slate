@@ -372,7 +372,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
                 />
 
                 {!hasCustomPlaceholder && (
-                    <Placeholder className="editor-v4-placeholder">{placeholder}</Placeholder>
+                    <Placeholder className="editor-placeholder">{placeholder}</Placeholder>
                 )}
 
                 {withFloatingAddMenu && (

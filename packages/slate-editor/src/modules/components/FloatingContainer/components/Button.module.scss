@@ -4,8 +4,8 @@
 .Button {
     @include button-variant(#767676, $legacy-color-grey-250, transparent);
 
-    width: $editor-v4-floating-button-size;
-    height: $editor-v4-floating-button-size;
+    width: $editor-floating-button-size;
+    height: $editor-floating-button-size;
     display: flex;
     justify-content: center;
     align-items: center;

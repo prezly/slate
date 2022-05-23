@@ -4,7 +4,7 @@
 .Editor {
     position: relative;
 
-    @include editor-v4-top-elements {
+    @include editor-top-elements {
         margin-left: auto;
         margin-right: auto;
 

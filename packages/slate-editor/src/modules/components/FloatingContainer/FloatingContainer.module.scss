@@ -1,7 +1,7 @@
 @import "styles/variables";
 
 .FloatingContainer {
-    z-index: $editor-v4-floating-container-z-index;
+    z-index: $editor-floating-container-z-index;
 
     &.uninitialized {
         // Do not show the floating container until its' width is known

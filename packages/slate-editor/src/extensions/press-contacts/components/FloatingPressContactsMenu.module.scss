@@ -5,11 +5,11 @@
     $search-height: 42px;
 
     position: relative;
-    top: math.div(-($search-height - $editor-v4-paragraph-line-height), 2);
+    top: math.div(-($search-height - $editor-paragraph-line-height), 2);
 
     .closeButton {
         position: absolute;
-        top: math.div($search-height - $editor-v4-floating-button-size, 2);
-        left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
+        top: math.div($search-height - $editor-floating-button-size, 2);
+        left: -($editor-floating-button-size + $editor-floating-button-margin);
     }
 }

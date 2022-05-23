@@ -7,36 +7,36 @@
     &--paragraph {
         .input,
         .placeholder {
-            font-size: $editor-v4-paragraph-font-size;
-            line-height: $editor-v4-paragraph-line-height;
+            font-size: $editor-paragraph-font-size;
+            line-height: $editor-paragraph-line-height;
         }
 
         .button {
-            top: math.div($editor-v4-paragraph-line-height - $editor-v4-floating-button-size, 2);
+            top: math.div($editor-paragraph-line-height - $editor-floating-button-size, 2);
         }
     }
 
     &--heading-one {
         .input,
         .placeholder {
-            font-size: $editor-v4-heading-one-font-size;
-            line-height: $editor-v4-heading-one-line-height;
+            font-size: $editor-heading-one-font-size;
+            line-height: $editor-heading-one-line-height;
         }
 
         .button {
-            top: math.div($editor-v4-heading-one-line-height - $editor-v4-floating-button-size, 2);
+            top: math.div($editor-heading-one-line-height - $editor-floating-button-size, 2);
         }
     }
 
     &--heading-two {
         .input,
         .placeholder {
-            font-size: $editor-v4-heading-two-font-size;
-            line-height: $editor-v4-heading-two-line-height;
+            font-size: $editor-heading-two-font-size;
+            line-height: $editor-heading-two-line-height;
         }
 
         .button {
-            top: math.div($editor-v4-heading-two-line-height - $editor-v4-floating-button-size, 2);
+            top: math.div($editor-heading-two-line-height - $editor-floating-button-size, 2);
         }
     }
 }
@@ -49,7 +49,7 @@
 
 .button {
     position: absolute;
-    left: -($editor-v4-floating-button-size + $editor-v4-floating-button-margin);
+    left: -($editor-floating-button-size + $editor-floating-button-margin);
     pointer-events: all;
 }
 

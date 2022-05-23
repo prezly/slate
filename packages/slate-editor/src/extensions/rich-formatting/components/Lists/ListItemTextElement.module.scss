@@ -1,8 +1,8 @@
 @import "styles/variables";
 
 .ListItemTextElement {
-    color: $editor-v4-text-color;
+    color: $editor-text-color;
     font-weight: 500;
-    font-size: $editor-v4-paragraph-font-size;
-    line-height: $editor-v4-paragraph-line-height;
+    font-size: $editor-paragraph-font-size;
+    line-height: $editor-paragraph-line-height;
 }

@@ -2,14 +2,14 @@
 @import "styles/variables";
 
 .outer {
-    @include editor-v4-block($void: false);
+    @include editor-block($void: false);
     position: relative;
 
     &.extendedHitArea {
         $area-vertical-expansion: $spacing-3; // x2 if counted in both directions: up & down
 
-        margin-top: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
-        margin-bottom: $editor-v4-block-spacing-vertical - $area-vertical-expansion;
+        margin-top: $editor-block-spacing-vertical - $area-vertical-expansion;
+        margin-bottom: $editor-block-spacing-vertical - $area-vertical-expansion;
 
         > .frame > .content {
             padding-top: $area-vertical-expansion;
@@ -22,7 +22,7 @@
     }
 
     &.void > .frame {
-        @include editor-v4-void-element;
+        @include editor-void-element;
     }
 }
 
@@ -54,7 +54,7 @@
         border: 1px solid $grey-200;
 
         &.selected {
-            border-color: $editor-v4-block-focus-color;
+            border-color: $editor-block-focus-color;
         }
     }
 
@@ -63,24 +63,24 @@
     }
 
     &.hasError {
-        @include editor-v4-block-error;
+        @include editor-block-error;
     }
 
     &.selected {
-        @include editor-v4-block-active;
+        @include editor-block-active;
     }
 }
 
 .overlay {
-    z-index: $editor-v4-embed-element-overlay-z-index;
+    z-index: $editor-embed-element-overlay-z-index;
 }
 
 .menu {
-    z-index: $editor-v4-embed-element-overlay-z-index + 2;
+    z-index: $editor-embed-element-overlay-z-index + 2;
 }
 
 .resizeButton {
-    z-index: $editor-v4-embed-element-overlay-z-index + 1;
+    z-index: $editor-embed-element-overlay-z-index + 1;
     position: absolute;
 
     &.left {

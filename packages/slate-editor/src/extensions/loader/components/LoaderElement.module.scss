@@ -2,9 +2,9 @@
 @import "styles/variables";
 
 .LoaderElement {
-    @include editor-v4-block($void: true);
+    @include editor-block($void: true);
 
     &.active {
-        @include editor-v4-block-active;
+        @include editor-block-active;
     }
 }

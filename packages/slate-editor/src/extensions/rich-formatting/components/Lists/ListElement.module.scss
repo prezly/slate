@@ -4,9 +4,9 @@
     margin: $spacing-2 0;
     padding: 0;
     padding-left: $spacing-4;
-    color: $editor-v4-text-color;
-    font-size: $editor-v4-paragraph-font-size;
-    line-height: $editor-v4-paragraph-line-height;
+    color: $editor-text-color;
+    font-size: $editor-paragraph-font-size;
+    line-height: $editor-paragraph-line-height;
 
     &.bulleted {
         list-style-type: disc;
