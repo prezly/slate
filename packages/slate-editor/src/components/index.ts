@@ -1,6 +1,7 @@
 export { Avatar } from './Avatar';
 export { CloseButtonV2 } from './CloseButtonV2';
 export { EditorBlock, ResizableEditorBlock } from './EditorBlock';
+export { FancyScrollbars } from './FancyScrollbars';
 export { HtmlInjection } from './HtmlInjection';
 export { ImageSizeWarning } from './ImageSizeWarning';
 export { ImageWithLoadingPlaceholderV2 } from './ImageWithLoadingPlaceholderV2';
@@ -10,7 +11,7 @@ export { LoadingPlaceholder } from './LoadingPlaceholder';
 export * as Menu from './Menu';
 export { MultilineEllipsis } from './MultilineEllipsis';
 export { ElementPortalV2, TextSelectionPortalV2 } from './Portals';
-export { FancyScrollbars } from './FancyScrollbars';
+export { ResponsiveLoadingPlaceholder } from './ResponsiveLoadingPlaceholder';
 export * as TooltipV2 from './TooltipV2';
 export * as Toolbox from './Toolbox';
 export { ElementPlaceholder } from './ElementPlaceholder';

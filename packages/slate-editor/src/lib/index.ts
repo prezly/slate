@@ -8,6 +8,7 @@ export { ensureRangeInView } from './ensureRangeInView';
 export { formatBytes } from './formatBytes';
 export { getScrollParent } from './getScrollParent';
 export { isHtmlElement } from './isHtmlElement';
+export { mergeRefs } from './mergeRefs';
 export { Observable } from './Observable';
 export { scrollIntoView } from './scrollIntoView';
 export { scrollTo } from './scrollTo';

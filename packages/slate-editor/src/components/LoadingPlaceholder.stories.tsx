@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
-import { LoadingPlaceholder, VStack } from '#components';
+import { LoadingPlaceholder, ResponsiveLoadingPlaceholder, VStack } from '#components';
 import { Image } from '#icons';
 
 export default {
@@ -119,6 +119,63 @@ function ApproxProgressTemplate(args: { estimatedDuration: number; description: 
 export const ApproxProgress = ApproxProgressTemplate.bind({});
 // @ts-ignore
 ApproxProgress.args = {
+    description: 'Loading image',
+    estimatedDuration: 1000,
+};
+
+function ResponsiveTemplate(args: { estimatedDuration: number; description: string }) {
+    const [key, setKey] = useState('id-0');
+
+    function restart() {
+        setKey(`id-${new Date().getTime()}`);
+    }
+
+    return (
+        <VStack spacing="2">
+            <div>
+                <button onClick={restart}>Restart</button>
+            </div>
+            <div>
+                <ResponsiveLoadingPlaceholder
+                    key={key}
+                    {...args}
+                    icon={false}
+                    description={false}
+                    style={{ resize: 'both', overflow: 'auto' }}
+                />
+            </div>
+            <div>
+                <ResponsiveLoadingPlaceholder
+                    key={key}
+                    {...args}
+                    icon={false}
+                    style={{ resize: 'both', overflow: 'auto' }}
+                />
+            </div>
+            <div>
+                <ResponsiveLoadingPlaceholder
+                    key={key}
+                    {...args}
+                    icon={Image}
+                    description={false}
+                    style={{ resize: 'both', overflow: 'auto' }}
+                />
+            </div>
+            <div>
+                <ResponsiveLoadingPlaceholder
+                    key={key}
+                    {...args}
+                    icon={Image}
+                    style={{ resize: 'both', overflow: 'auto' }}
+                />
+            </div>
+        </VStack>
+    );
+}
+
+export const Responsive = ResponsiveTemplate.bind({});
+// @ts-ignore
+Responsive.args = {
     description: 'Loading image',
     estimatedDuration: 1000,
 };

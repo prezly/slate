@@ -7,7 +7,7 @@ import { clamp } from '#lodash';
 
 import styles from './LoadingPlaceholder.module.scss';
 
-interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+export interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
     className?: string;
     description: false | string;
     estimatedDuration?: number;
