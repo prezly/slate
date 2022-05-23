@@ -1,1 +1,0 @@
-export { GalleryLayoutSettings } from './GalleryLayoutSettings';
