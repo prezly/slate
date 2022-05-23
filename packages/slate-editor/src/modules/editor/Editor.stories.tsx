@@ -1,7 +1,6 @@
 import type { CSSProperties } from 'react';
 import React, { useState } from 'react';
 
-import type { FileAttachmentExtensionParameters } from '#extensions/file-attachment';
 import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
 import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
 
@@ -23,7 +22,7 @@ interface IBaseProps {
         minBottom: number;
         minTop: number;
     };
-    withAttachments?: FileAttachmentExtensionParameters;
+    withAttachments?: boolean;
     withRichFormatting?: {
         menu?: boolean;
         blocks?: boolean;
@@ -51,6 +50,7 @@ export const Base = BaseTemplate.bind({}) as any;
 Base.args = {
     className: '',
     withAlignmentControls: true,
+    withAttachments: true,
     withAutoformat: true,
     style: { marginLeft: '3rem' },
     withCursorInView: undefined,
@@ -65,9 +65,6 @@ Base.args = {
             placement: 'left',
             title: 'Add content to your story',
         },
-    },
-    withAttachments: {
-        styled: true,
     },
 } as IBaseProps;
 
@@ -91,6 +88,7 @@ export const WithPlaceholders = WithPlaceholdersTemplate.bind({}) as any;
 WithPlaceholders.args = {
     className: '',
     withAlignmentControls: true,
+    withAttachments: true,
     withAutoformat: true,
     style: { marginLeft: '3rem' },
     withCursorInView: undefined,
@@ -104,9 +102,6 @@ WithPlaceholders.args = {
             placement: 'left',
             title: 'Add content to your story',
         },
-    },
-    withAttachments: {
-        styled: true,
     },
     withPlaceholders: {
         placeholders: [

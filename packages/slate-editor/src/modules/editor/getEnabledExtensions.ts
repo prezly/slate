@@ -96,7 +96,6 @@ export function* getEnabledExtensions({
 
     if (withAttachments) {
         yield FileAttachmentExtension({
-            ...withAttachments,
             onEdit: handleEditAttachment,
             onRemove: handleRemoveAttachment,
         });
