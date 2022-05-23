@@ -9,9 +9,9 @@ import styles from './LoadingPlaceholder.module.scss';
 
 export interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
     className?: string;
-    description: false | string;
+    icon?: false | ComponentType<{ className?: string }>;
+    description?: false | string;
     estimatedDuration?: number;
-    icon: false | ComponentType<{ className?: string }>;
     /**
      * 0 ≤ progress ≤ 100
      */
