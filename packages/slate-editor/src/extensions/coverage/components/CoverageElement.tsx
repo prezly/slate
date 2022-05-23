@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
-import { EditorBlock, ElementPlaceholder, LoadingPlaceholderV2 } from '#components';
+import { EditorBlock, ElementPlaceholder, LoadingPlaceholder } from '#components';
 import { ChickenNoSignalIllustration, Coverage as CoverageIcon } from '#icons';
 import { useAsyncFn } from '#lib';
 
@@ -60,20 +60,12 @@ export function CoverageElement({
             renderBlock={function () {
                 if (loading) {
                     return (
-                        <LoadingPlaceholderV2.Placeholder
+                        <LoadingPlaceholder
                             className={styles.LoadingPlaceholder}
+                            icon={CoverageIcon}
+                            description="Loading Coverage"
                             estimatedDuration={ESTIMATED_LOADING_DURATION}
-                        >
-                            {({ percent }) => (
-                                <>
-                                    <LoadingPlaceholderV2.Icon icon={CoverageIcon} />
-                                    <LoadingPlaceholderV2.Description percent={percent}>
-                                        Loading Coverage
-                                    </LoadingPlaceholderV2.Description>
-                                    <LoadingPlaceholderV2.ProgressBar percent={percent} />
-                                </>
-                            )}
-                        </LoadingPlaceholderV2.Placeholder>
+                        />
                     );
                 }
 
