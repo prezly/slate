@@ -2,30 +2,12 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.file-attachment-element {
-    @include editor-v4-block($void: false);
-
-    border: 1px solid $legacy-color-grey-250;
-    border-radius: $border-radius-small;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
-
-    &--active {
-        @include editor-v4-block-active;
-    }
-
-    &--unstyled {
-        box-shadow: none;
-    }
-}
-
-.content {
-    @include editor-v4-void-element();
-
+.FileAttachment {
     display: flex;
     align-items: center;
 }
 
-.icon-container {
+.IconContainer {
     $size: 48px;
 
     width: $size;
@@ -39,19 +21,19 @@
     justify-content: center;
 }
 
-.icon {
+.Icon {
     $size: 22px;
 
     height: $size;
     width: $size;
 }
 
-.details {
+.Details {
     flex: 1;
     padding: $spacing-3;
 }
 
-.title {
+.Title {
     color: $legacy-color-type-primary;
     font-size: 24px;
     line-height: 1;
@@ -59,15 +41,9 @@
     cursor: default;
 }
 
-.subtitle {
+.Subtitle {
     color: $legacy-color-type-secondary;
     font-size: 15px;
     line-height: math.div(22, 15);
     cursor: default;
-}
-
-.text {
-    &--unstyled {
-        color: #000000;
-    }
 }
