@@ -116,7 +116,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                             <div>
                                 <ResizeButton
                                     className={classNames(
-                                        styles.resizeButton,
+                                        styles.ResizeButton,
                                         isInvertedResizing ? styles.left : styles.right,
                                     )}
                                     position={isInvertedResizing ? 'left' : 'right'}

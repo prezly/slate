@@ -1,7 +1,7 @@
 @import "styles/mixins";
 @import "styles/variables";
 
-.outer {
+.EditorBlock {
     @include editor-block($void: false);
     position: relative;
 
@@ -26,10 +26,11 @@
     }
 }
 
-.frame {
+.Frame {
     max-width: 100%;
     white-space: normal;
     position: relative;
+    caret-color: initial;
 
     &.alignLeft {
         margin-left: 0;
@@ -47,7 +48,7 @@
     }
 }
 
-.content {
+.Content {
     overflow: hidden;
 
     &.border {
@@ -71,15 +72,15 @@
     }
 }
 
-.overlay {
+.Overlay {
     z-index: $editor-embed-element-overlay-z-index;
 }
 
-.menu {
+.Menu {
     z-index: $editor-embed-element-overlay-z-index + 2;
 }
 
-.resizeButton {
+.ResizeButton {
     z-index: $editor-embed-element-overlay-z-index + 1;
     position: absolute;
 
