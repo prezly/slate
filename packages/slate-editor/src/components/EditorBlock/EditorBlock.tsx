@@ -109,7 +109,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     return (
         <div
             {...attributes}
-            className={classNames(className, styles.outer, {
+            className={classNames(className, styles.EditorBlock, {
                 [styles.void]: isVoid,
                 [styles.extendedHitArea]: extendedHitArea,
             })}
@@ -122,7 +122,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             {/* We have to render children or Slate will fail when trying to find the node. */}
             {isVoid && children}
             <div
-                className={classNames(styles.frame, {
+                className={classNames(styles.Frame, {
                     [styles.alignLeft]: align === Alignment.LEFT,
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
@@ -133,7 +133,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && (
                     <Menu
-                        className={styles.menu}
+                        className={styles.Menu}
                         open={menuOpen}
                         reference={container}
                         onClick={preventBubbling}
@@ -142,13 +142,13 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     </Menu>
                 )}
                 <Overlay
-                    className={styles.overlay}
+                    className={styles.Overlay}
                     selected={isSelected}
                     mode={overlay}
                     onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
                 />
                 <div
-                    className={classNames(styles.content, {
+                    className={classNames(styles.Content, {
                         [styles.selected]: isSelected,
                         [styles.hasError]: hasError,
                         [styles.border]: border,
