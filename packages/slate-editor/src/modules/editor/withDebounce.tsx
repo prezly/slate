@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import { debounce } from '#lodash';
 
 import { serialize } from './lib';
-import type { EditorV4Props } from './types';
+import type { EditorProps } from './types';
 
-interface Props extends EditorV4Props {
-    EditorV4Component: ComponentType<EditorV4Props>;
+interface Props extends EditorProps {
+    editorComponent: ComponentType<EditorProps>;
 }
 
 interface State {
@@ -16,7 +16,7 @@ interface State {
 
 const NOTIFY_ON_CHANGE_DELAY = 400;
 
-class DebouncedEditorV4 extends Component<Props, State> {
+class DebouncedEditor extends Component<Props, State> {
     // Cache previously reported external string value.
     // Needed to easily detect if `value` property change has originated from an external update
     // or an internal update reported with onChange() callback.
@@ -64,10 +64,10 @@ class DebouncedEditorV4 extends Component<Props, State> {
     }, NOTIFY_ON_CHANGE_DELAY);
 
     render() {
-        const { EditorV4Component, ...props } = this.props;
+        const { editorComponent: EditorComponent, ...props } = this.props;
 
         return (
-            <EditorV4Component
+            <EditorComponent
                 {...props}
                 onChange={this.handleEditorChange}
                 value={this.state.localValue}
@@ -76,12 +76,12 @@ class DebouncedEditorV4 extends Component<Props, State> {
     }
 }
 
-export function withDebounce(EditorV4Component: ComponentType<EditorV4Props>) {
-    const WithDebounce: FunctionComponent<EditorV4Props> = (props: EditorV4Props) => (
-        <DebouncedEditorV4 EditorV4Component={EditorV4Component} {...props} />
+export function withDebounce(EditorComponent: ComponentType<EditorProps>) {
+    const WithDebounce: FunctionComponent<EditorProps> = (props: EditorProps) => (
+        <DebouncedEditor editorComponent={EditorComponent} {...props} />
     );
 
-    const displayName = EditorV4Component.displayName || EditorV4Component.name;
+    const displayName = EditorComponent.displayName || EditorComponent.name;
     WithDebounce.displayName = `withDebounce(${displayName})`;
 
     return WithDebounce;

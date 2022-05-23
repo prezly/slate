@@ -35,9 +35,9 @@ import {
     handleRemoveAttachment,
     handleRemoveImage,
 } from './lib';
-import type { EditorV4ExtensionsProps } from './types';
+import type { EditorExtensionsProps } from './types';
 
-interface Parameters extends EditorV4ExtensionsProps {
+interface Parameters extends EditorExtensionsProps {
     containerRef: RefObject<HTMLElement>;
     onFloatingAddMenuToggle: (show?: boolean) => void;
     onOperationEnd?: () => void;

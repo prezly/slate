@@ -27,7 +27,7 @@ export interface EditorRef {
     isValueEquivalentTo: (otherValue: string) => boolean;
 }
 
-export interface EditorV4ExtensionsProps {
+export interface EditorExtensionsProps {
     availableWidth: number;
     withAttachments?: boolean;
     withCoverage?: CoverageExtensionParameters;
@@ -53,7 +53,7 @@ export interface EditorV4ExtensionsProps {
 
 export type Value = Element[];
 
-export interface EditorV4Props extends EditorV4ExtensionsProps {
+export interface EditorProps extends EditorExtensionsProps {
     align?: Alignment;
     autoFocus?: boolean;
     className?: string;
@@ -77,7 +77,7 @@ export interface EditorV4Props extends EditorV4ExtensionsProps {
         minBottom: number;
         minTop: number;
     };
-    withEmbeds?: EditorV4ExtensionsProps['withEmbeds'] & EmbedParameters;
+    withEmbeds?: EditorExtensionsProps['withEmbeds'] & EmbedParameters;
 }
 
 interface EmbedParameters {

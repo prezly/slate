@@ -6,11 +6,11 @@ import { Editor, Range } from 'slate';
 
 import { ensureElementInView, ensureRangeInView } from '#lib';
 
-import type { EditorV4Props } from '../types';
+import type { EditorProps } from '../types';
 
 function useMemoizedWithCursorInView(
-    withCursorInView: EditorV4Props['withCursorInView'],
-): EditorV4Props['withCursorInView'] {
+    withCursorInView: EditorProps['withCursorInView'],
+): EditorProps['withCursorInView'] {
     // I know what I'm doing:
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return useMemo(() => withCursorInView, [jsonStableStringify(withCursorInView)]);
@@ -18,7 +18,7 @@ function useMemoizedWithCursorInView(
 
 function ensureCursorInView(
     editor: Editor,
-    withCursorInView: EditorV4Props['withCursorInView'],
+    withCursorInView: EditorProps['withCursorInView'],
 ): void {
     if (!withCursorInView || !editor.selection) {
         return;
@@ -69,7 +69,7 @@ function ensureCursorInView(
 
 export function useCursorInView(
     editor: Editor,
-    withCursorInView: EditorV4Props['withCursorInView'],
+    withCursorInView: EditorProps['withCursorInView'],
 ): void {
     // We have to memoize it - otherwise the useLayoutEffect would kick in too often (e.g. on re-render)
     const memoizedWithCursorInView = useMemoizedWithCursorInView(withCursorInView);

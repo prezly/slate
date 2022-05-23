@@ -9,5 +9,5 @@ export {
     deserialize,
     isEditorValueEquivalent,
 } from './lib';
-export type { EditorRef, EditorV4Props } from './types';
+export type { EditorRef, EditorProps } from './types';
 export { useEditorEvents } from './useEditorEvents';

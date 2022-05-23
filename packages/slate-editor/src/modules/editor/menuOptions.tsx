@@ -5,7 +5,7 @@ import * as Icons from '#icons';
 import type { Option } from '#extensions/floating-add-menu';
 import { UploadcareEditor } from '#modules/uploadcare';
 
-import type { EditorV4Props } from '#modules/editor/types';
+import type { EditorProps } from '#modules/editor/types';
 
 export enum MenuAction {
     ADD_ATTACHMENT = 'add_attachment',
@@ -41,7 +41,7 @@ enum Group {
 }
 
 type Params = Pick<
-    EditorV4Props,
+    EditorProps,
     | 'withAttachments'
     | 'withCoverage'
     | 'withEmbeds'

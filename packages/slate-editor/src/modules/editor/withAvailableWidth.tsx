@@ -3,14 +3,14 @@ import React from 'react';
 
 import { useSize } from '#lib';
 
-import type { EditorV4Props } from './types';
+import type { EditorProps } from './types';
 
 export function withAvailableWidth(attributes: HTMLAttributes<HTMLDivElement> = {}) {
-    return function (EditorV4Component: ComponentType<EditorV4Props>) {
+    return function (EditorComponent: ComponentType<EditorProps>) {
         function WithAvailableWidth({
             availableWidth: declaredAvailableWidth,
             ...props
-        }: EditorV4Props) {
+        }: EditorProps) {
             const [sizer, { width: availableWidth }] = useSize(
                 () => <div {...attributes} contentEditable={false} />,
                 { width: declaredAvailableWidth },
@@ -19,12 +19,12 @@ export function withAvailableWidth(attributes: HTMLAttributes<HTMLDivElement> = 
             return (
                 <>
                     {sizer}
-                    <EditorV4Component availableWidth={availableWidth} {...props} />
+                    <EditorComponent availableWidth={availableWidth} {...props} />
                 </>
             );
         }
 
-        const displayName = EditorV4Component.displayName || EditorV4Component.name;
+        const displayName = EditorComponent.displayName || EditorComponent.name;
         WithAvailableWidth.displayName = `withAvailableWidth(${displayName})`;
 
         return WithAvailableWidth;

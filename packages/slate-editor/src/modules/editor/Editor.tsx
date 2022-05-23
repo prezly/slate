@@ -58,13 +58,13 @@ import {
     useCursorInView,
 } from './lib';
 import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
-import type { EditorRef, EditorV4Props } from './types';
+import type { EditorRef, EditorProps } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { usePendingOperation } from './usePendingOperation';
 import { withAvailableWidth } from './withAvailableWidth';
 import { withDebounce } from './withDebounce';
 
-const Editor: FunctionComponent<EditorV4Props> = (props) => {
+const Editor: FunctionComponent<EditorProps> = (props) => {
     const {
         align,
         availableWidth,
