@@ -5,7 +5,6 @@ export { dataUriToFile } from './dataUriToFile';
 export { ensureChildInView } from './ensureChildInView';
 export { ensureElementInView } from './ensureElementInView';
 export { ensureRangeInView } from './ensureRangeInView';
-export { estimateProgress } from './estimateProgress';
 export { formatBytes } from './formatBytes';
 export { getScrollParent } from './getScrollParent';
 export { isHtmlElement } from './isHtmlElement';
