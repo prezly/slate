@@ -1,4 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
+import type { Alignment } from '@prezly/slate-types';
 import type { RefObject } from 'react';
 
 import { noop } from '#lodash';
@@ -39,12 +40,18 @@ import type { EditorProps } from './types';
 
 type Parameters = {
     containerRef: RefObject<HTMLElement>;
+    // Content area properties
+    availableWidth: number;
+    blockAlignment: Alignment;
+    blockMaxWidth: number;
+    contentAlignment: Alignment;
+    contentMaxWidth: number;
+    // Callbacks
     onFloatingAddMenuToggle: (show?: boolean) => void;
     onOperationEnd?: () => void;
     onOperationStart?: () => void;
 } & Pick<
     EditorProps,
-    | 'availableWidth'
     | 'withAttachments'
     | 'withCoverage'
     | 'withEmbeds'
@@ -64,7 +71,11 @@ type Parameters = {
 
 export function* getEnabledExtensions({
     availableWidth,
+    blockAlignment,
+    blockMaxWidth,
     containerRef,
+    contentAlignment,
+    contentMaxWidth,
     onFloatingAddMenuToggle,
     onOperationEnd = noop,
     onOperationStart = noop,

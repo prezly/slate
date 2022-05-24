@@ -65,8 +65,13 @@ import { withDebounce } from './withDebounce';
 
 const Editor: FunctionComponent<EditorProps> = (props) => {
     const {
-        align,
+        // Content are properties
         availableWidth,
+        contentAlignment = Alignment.LEFT,
+        contentMaxWidth = availableWidth,
+        blockAlignment = contentAlignment,
+        blockMaxWidth = contentMaxWidth,
+
         autoFocus,
         className,
         contentStyle,
@@ -111,6 +116,10 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
     const extensions = Array.from(
         getEnabledExtensions({
             availableWidth,
+            contentAlignment,
+            contentMaxWidth,
+            blockAlignment,
+            blockMaxWidth,
             containerRef,
             onOperationEnd,
             onOperationStart,
@@ -409,7 +418,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
                     <RichFormattingMenu
                         availableWidth={availableWidth}
                         containerElement={containerRef.current}
-                        defaultAlignment={align ?? Alignment.LEFT}
+                        defaultAlignment={contentAlignment}
                         withAlignment={withAlignmentControls}
                         withLinks={Boolean(withRichFormatting.links)}
                         withRichBlockElements={Boolean(withRichFormatting.blocks)}
