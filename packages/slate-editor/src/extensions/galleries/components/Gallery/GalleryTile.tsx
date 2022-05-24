@@ -9,13 +9,14 @@ import { ImageSizeWarning, ImageWithLoadingPlaceholder } from '#components';
 import styles from './GalleryTile.module.scss';
 
 interface Props {
-    className?: string;
-    height: number;
     image: UploadcareImage;
-    style?: CSSProperties;
     url: string;
     width: number;
+    height: number;
     withBorderRadius: boolean;
+    // Generic
+    style?: CSSProperties;
+    className?: string;
 }
 
 interface State {
@@ -77,7 +78,7 @@ export class GalleryTile extends Component<Props, State> {
 
         return (
             <div
-                className={classNames(styles.galleryTile, className, {
+                className={classNames(styles.GalleryTile, className, {
                     [styles.withBorderRadius]: withBorderRadius,
                 })}
                 ref={this.ref}
@@ -85,7 +86,7 @@ export class GalleryTile extends Component<Props, State> {
             >
                 {!this.state.loaded && (
                     <ImageWithLoadingPlaceholder
-                        className={classNames(styles.image, {
+                        className={classNames(styles.Image, {
                             [styles.loaded]: this.state.loaded,
                         })}
                         onLoad={this.handleOnLoad}
@@ -95,7 +96,7 @@ export class GalleryTile extends Component<Props, State> {
                     />
                 )}
                 {!isUploadcareImageSizeValid(image) && (
-                    <ImageSizeWarning className={styles.sizeWarning} />
+                    <ImageSizeWarning className={styles.SizeWarning} />
                 )}
             </div>
         );

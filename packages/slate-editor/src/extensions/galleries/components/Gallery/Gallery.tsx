@@ -63,7 +63,7 @@ export class Gallery extends Component<Props> {
         const calculatedLayout = calculateLayout({ idealHeight, images, viewportWidth });
 
         return (
-            <div className={classNames(styles.gallery, className)} {...props}>
+            <div className={classNames(styles.Gallery, className)} {...props}>
                 <div
                     ref={this.imagesContainerRef}
                     style={{
@@ -71,20 +71,18 @@ export class Gallery extends Component<Props> {
                     }}
                 >
                     {calculatedLayout.map((row, index) => (
-                        <div className={styles.row} key={index}>
+                        <div className={styles.Row} key={index}>
                             {row.map(({ width, height, image }) => {
                                 const preview = image.resize(maxViewportWidth);
 
                                 return (
                                     <GalleryTile
-                                        height={height}
-                                        image={image}
                                         key={image.uuid}
-                                        style={{
-                                            margin,
-                                        }}
+                                        image={image}
                                         url={preview.cdnUrl}
                                         width={width}
+                                        height={height}
+                                        style={{ margin }}
                                         withBorderRadius={margin > 0}
                                     />
                                 );
