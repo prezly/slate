@@ -19,6 +19,8 @@ import type { VideoExtensionParameters } from '#extensions/video';
 import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
 import type { EditorEventMap } from '#modules/events';
 
+import type { useCursorInView } from '../lib';
+
 export interface EditorRef {
     events: Events<EditorEventMap>;
     focus: () => void;
@@ -54,10 +56,7 @@ export interface EditorProps {
     withAttachments?: boolean;
     withAutoformat?: boolean | AutoformatParameters;
     withCoverage?: CoverageExtensionParameters;
-    withCursorInView?: {
-        minBottom: number;
-        minTop: number;
-    };
+    withCursorInView?: Parameters<typeof useCursorInView>[1];
     withEmbeds?: EmbedExtensionConfiguration & {
         menuOptions?: {
             embed?: boolean;

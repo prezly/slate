@@ -41,8 +41,7 @@ import { useFloatingStoryEmbedInput } from '#extensions/story-embed';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
 import { FloatingVideoInput, useFloatingVideoInput } from '#extensions/video';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensions/web-bookmark';
-import { Placeholder } from '#modules/components';
-import { FloatingStoryEmbedInput } from '#modules/components';
+import { FloatingStoryEmbedInput, Placeholder } from '#modules/components';
 import type { EditorEventMap } from '#modules/events';
 import { RichFormattingMenu } from '#modules/rich-formatting-menu';
 
@@ -58,7 +57,7 @@ import {
     useCursorInView,
 } from './lib';
 import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
-import type { EditorRef, EditorProps } from './types';
+import type { EditorProps, EditorRef } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { usePendingOperation } from './usePendingOperation';
 import { withAvailableWidth } from './withAvailableWidth';
@@ -151,7 +150,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         }
     }, [autoFocus, editor]);
 
-    useCursorInView(editor, withCursorInView);
+    useCursorInView(editor, withCursorInView || false);
 
     useImperativeHandle(
         editorRef,
@@ -410,7 +409,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
                     <RichFormattingMenu
                         availableWidth={availableWidth}
                         containerElement={containerRef.current}
-                        defaultAlignment={align || Alignment.LEFT}
+                        defaultAlignment={align ?? Alignment.LEFT}
                         withAlignment={withAlignmentControls}
                         withLinks={Boolean(withRichFormatting.links)}
                         withRichBlockElements={Boolean(withRichFormatting.blocks)}
