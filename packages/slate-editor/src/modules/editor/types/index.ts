@@ -27,33 +27,11 @@ export interface EditorRef {
     isValueEquivalentTo: (otherValue: string) => boolean;
 }
 
-export interface EditorExtensionsProps {
-    availableWidth: number;
-    withAttachments?: boolean;
-    withCoverage?: CoverageExtensionParameters;
-    withEmbeds?: EmbedExtensionConfiguration;
-    withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
-    withGalleries?: GalleriesExtensionParameters;
-    withImages?: ImageExtensionParameters;
-    withPlaceholders?: PlaceholderMentionsExtensionParameters;
-    withPressContacts?: PressContactsExtensionParameters;
-    withRichFormatting?: {
-        menu?: boolean;
-        blocks?: boolean;
-        links?: boolean;
-        withNewTabOption?: boolean;
-    };
-    withUserMentions?: UserMentionsExtensionParameters;
-    withVideos?: VideoExtensionParameters;
-    withWebBookmarks?: WebBookmarkExtensionParameters;
-    withAutoformat?: boolean | AutoformatParameters;
-    withStoryEmbeds?: StoryEmbedExtensionParameters;
-    withStoryBookmarks?: StoryBookmarkExtensionParameters;
-}
-
 export type Value = Element[];
 
-export interface EditorProps extends EditorExtensionsProps {
+export interface EditorProps {
+    availableWidth: number;
+
     align?: Alignment;
     autoFocus?: boolean;
     className?: string;
@@ -73,20 +51,37 @@ export interface EditorProps extends EditorExtensionsProps {
     style?: CSSProperties;
     value: Value;
     withAlignmentControls: boolean;
+    withAttachments?: boolean;
+    withAutoformat?: boolean | AutoformatParameters;
+    withCoverage?: CoverageExtensionParameters;
     withCursorInView?: {
         minBottom: number;
         minTop: number;
     };
-    withEmbeds?: EditorExtensionsProps['withEmbeds'] & EmbedParameters;
-}
-
-interface EmbedParameters {
-    menuOptions: {
-        embed?: boolean;
-        link?: boolean;
-        socialPost?: boolean;
-        video?: boolean;
+    withEmbeds?: EmbedExtensionConfiguration & {
+        menuOptions?: {
+            embed?: boolean;
+            link?: boolean;
+            socialPost?: boolean;
+            video?: boolean;
+        };
     };
+    withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
+    withGalleries?: GalleriesExtensionParameters;
+    withImages?: ImageExtensionParameters;
+    withPlaceholders?: PlaceholderMentionsExtensionParameters;
+    withPressContacts?: PressContactsExtensionParameters;
+    withRichFormatting?: {
+        menu?: boolean;
+        blocks?: boolean;
+        links?: boolean;
+        withNewTabOption?: boolean;
+    };
+    withStoryBookmarks?: StoryBookmarkExtensionParameters;
+    withStoryEmbeds?: StoryEmbedExtensionParameters;
+    withUserMentions?: UserMentionsExtensionParameters;
+    withVideos?: VideoExtensionParameters;
+    withWebBookmarks?: WebBookmarkExtensionParameters;
 }
 
 export * from './Fragment';

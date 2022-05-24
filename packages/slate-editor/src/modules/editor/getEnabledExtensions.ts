@@ -35,14 +35,32 @@ import {
     handleRemoveAttachment,
     handleRemoveImage,
 } from './lib';
-import type { EditorExtensionsProps } from './types';
+import type { EditorProps } from './types';
 
-interface Parameters extends EditorExtensionsProps {
+type Parameters = {
     containerRef: RefObject<HTMLElement>;
     onFloatingAddMenuToggle: (show?: boolean) => void;
     onOperationEnd?: () => void;
     onOperationStart?: () => void;
-}
+} & Pick<
+    EditorProps,
+    | 'availableWidth'
+    | 'withAttachments'
+    | 'withCoverage'
+    | 'withEmbeds'
+    | 'withFloatingAddMenu'
+    | 'withGalleries'
+    | 'withImages'
+    | 'withPlaceholders'
+    | 'withPressContacts'
+    | 'withRichFormatting'
+    | 'withUserMentions'
+    | 'withVideos'
+    | 'withWebBookmarks'
+    | 'withAutoformat'
+    | 'withStoryEmbeds'
+    | 'withStoryBookmarks'
+>;
 
 export function* getEnabledExtensions({
     availableWidth,
