@@ -100,6 +100,6 @@ describe('calculateLayout', () => {
             row.forEach(({ width, height, image }) => {
                 expect(width / height).toBeCloseTo(image.aspectRatio);
             });
-        })
+        });
     });
 });

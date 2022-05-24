@@ -17,7 +17,15 @@ interface Props {
     withBorderRadius: boolean;
 }
 
-export function GalleryTile({ className, image, url, width, height, margin, withBorderRadius }: Props) {
+export function GalleryTile({
+    className,
+    image,
+    url,
+    width,
+    height,
+    margin,
+    withBorderRadius,
+}: Props) {
     return (
         <div
             className={classNames(styles.GalleryTile, className, {

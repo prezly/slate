@@ -18,8 +18,15 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     maxViewportWidth?: number;
 }
 
-export function Gallery(props: Props) {
-    const { className, images, maxViewportWidth = 800, padding, size, width, ...attributes } = props;
+export function Gallery({
+    className,
+    images,
+    maxViewportWidth = 800,
+    padding,
+    size,
+    width,
+    ...attributes
+}: Props) {
     const margin = IMAGE_PADDING[padding];
     const idealHeight = IMAGE_SIZE[size] + 2 * margin;
     const calculatedLayout = calculateLayout({
