@@ -1,7 +1,7 @@
 import type { Coverage } from '@prezly/sdk';
 import type { ReactNode } from 'react';
 
-export interface CoverageExtensionParameters {
+export interface CoverageExtensionConfiguration {
     /**
      * Moment.js-compatible format
      */

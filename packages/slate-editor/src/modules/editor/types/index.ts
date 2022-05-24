@@ -5,7 +5,7 @@ import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { Editor, Element } from 'slate';
 
 import type { AutoformatParameters } from '#extensions/autoformat';
-import type { CoverageExtensionParameters } from '#extensions/coverage';
+import type { CoverageExtensionConfiguration } from '#extensions/coverage';
 import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
@@ -74,7 +74,7 @@ export interface EditorProps {
     withAlignmentControls: boolean;
     withAttachments?: boolean;
     withAutoformat?: boolean | AutoformatParameters;
-    withCoverage?: CoverageExtensionParameters;
+    withCoverage?: CoverageExtensionConfiguration;
     withCursorInView?: Parameters<typeof useCursorInView>[1];
     withEmbeds?: EmbedExtensionConfiguration & {
         menuOptions?: {
