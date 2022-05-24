@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import { EditorBlock, HtmlInjection, ImageWithLoadingPlaceholderV2 } from '#components';
+import { EditorBlock, HtmlInjection, ImageWithLoadingPlaceholder } from '#components';
 import { Embed } from '#icons';
 
 import styles from './EmbedElement.module.scss';
@@ -27,7 +27,7 @@ export function EmbedElement({ attributes, children, element, showAsScreenshot }
             renderBlock={function () {
                 if (isUsingScreenshots && element.oembed.screenshot_url) {
                     return (
-                        <ImageWithLoadingPlaceholderV2
+                        <ImageWithLoadingPlaceholder
                             src={element.oembed.screenshot_url}
                             icon={Embed}
                             description="Loading embed"

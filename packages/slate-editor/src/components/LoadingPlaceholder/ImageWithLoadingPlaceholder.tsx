@@ -4,7 +4,7 @@ import React, { forwardRef, useEffect } from 'react';
 
 import { useImage, useLatest } from '#lib';
 
-import styles from './ImageWithLoadingPlaceholderV2.module.scss';
+import styles from './ImageWithLoadingPlaceholder.module.scss';
 import type { Props as LoadingPlaceholderProps } from './LoadingPlaceholder';
 import { LoadingPlaceholder } from './LoadingPlaceholder';
 
@@ -30,7 +30,7 @@ const LOADING_CALLBACK_DEBOUNCE = 50;
 // 2 seconds seems like a reasonable average.
 const ESTIMATED_LOADING_DURATION = 2000;
 
-export const ImageWithLoadingPlaceholderV2 = forwardRef<HTMLDivElement, Props>((props, ref) => {
+export const ImageWithLoadingPlaceholder = forwardRef<HTMLDivElement, Props>((props, ref) => {
     const {
         // Placeholder
         icon = false,
@@ -95,4 +95,4 @@ export const ImageWithLoadingPlaceholderV2 = forwardRef<HTMLDivElement, Props>((
     );
 });
 
-ImageWithLoadingPlaceholderV2.displayName = 'ImageWithLoadingPlaceholderV2';
+ImageWithLoadingPlaceholder.displayName = 'ImageWithLoadingPlaceholder';

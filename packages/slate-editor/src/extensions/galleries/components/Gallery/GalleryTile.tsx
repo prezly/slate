@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import type { CSSProperties } from 'react';
 import React, { Component, createRef } from 'react';
 
-import { ImageSizeWarning, ImageWithLoadingPlaceholderV2 } from '#components';
+import { ImageSizeWarning, ImageWithLoadingPlaceholder } from '#components';
 
 import styles from './GalleryTile.module.scss';
 
@@ -84,7 +84,7 @@ export class GalleryTile extends Component<Props, State> {
                 style={this.getStyle()}
             >
                 {!this.state.loaded && (
-                    <ImageWithLoadingPlaceholderV2
+                    <ImageWithLoadingPlaceholder
                         className={classNames(styles.image, {
                             [styles.loaded]: this.state.loaded,
                         })}
