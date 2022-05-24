@@ -8,7 +8,7 @@ import type { AutoformatParameters } from '#extensions/autoformat';
 import type { CoverageExtensionParameters } from '#extensions/coverage';
 import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
-import type { GalleriesExtensionParameters } from '#extensions/galleries';
+import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { ImageExtensionConfiguration } from '#extensions/image';
 import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
 import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
@@ -85,7 +85,7 @@ export interface EditorProps {
         };
     };
     withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
-    withGalleries?: GalleriesExtensionParameters;
+    withGalleries?: GalleriesExtensionConfiguration;
     withImages?: ImageExtensionConfiguration;
     withPlaceholders?: PlaceholderMentionsExtensionParameters;
     withPressContacts?: PressContactsExtensionParameters;

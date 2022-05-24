@@ -39,7 +39,6 @@ import {
 import type { EditorProps } from './types';
 
 type Parameters = {
-    containerRef: RefObject<HTMLElement>;
     // Content area properties
     availableWidth: number;
     blockAlignment: Alignment;
@@ -73,7 +72,6 @@ export function* getEnabledExtensions({
     availableWidth,
     blockAlignment,
     blockMaxWidth,
-    containerRef,
     contentAlignment,
     contentMaxWidth,
     onFloatingAddMenuToggle,
@@ -137,7 +135,6 @@ export function* getEnabledExtensions({
     if (withGalleries) {
         yield GalleriesExtension({
             availableWidth,
-            containerRef,
             onEdit: createHandleEditGallery(withGalleries),
         });
     }

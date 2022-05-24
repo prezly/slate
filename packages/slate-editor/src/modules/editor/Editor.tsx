@@ -120,7 +120,6 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
             contentMaxWidth,
             blockAlignment,
             blockMaxWidth,
-            containerRef,
             onOperationEnd,
             onOperationStart,
             onFloatingAddMenuToggle,
