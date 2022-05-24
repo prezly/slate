@@ -15,7 +15,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> 
     /**
      * 0 ≤ progress ≤ 100
      */
-    progress?: number;
+    progress?: 'auto' | number;
 }
 
 export const LoadingPlaceholder = forwardRef<HTMLDivElement, Props>((props, ref) => {
@@ -24,11 +24,11 @@ export const LoadingPlaceholder = forwardRef<HTMLDivElement, Props>((props, ref)
         icon = false,
         description = false,
         estimatedDuration = undefined,
-        progress: reportedProgress = undefined,
+        progress: reportedProgress = 'auto',
         ...attributes
     } = props;
     const approxProgress = useInfiniteProgress(estimatedDuration);
-    const progress = clamp(reportedProgress ?? approxProgress, 0, 100);
+    const progress = clamp(reportedProgress === 'auto' ? approxProgress : reportedProgress, 0, 100);
 
     return (
         <div {...attributes} className={classNames(styles.LoadingPlaceholder, className)} ref={ref}>
