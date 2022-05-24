@@ -40,9 +40,7 @@ export function GalleryTile({
                     height: '100%',
                 }}
             />
-            {withSizeWarning && (
-                <ImageSizeWarning className={styles.SizeWarning} />
-            )}
+            {withSizeWarning && <ImageSizeWarning className={styles.SizeWarning} />}
         </div>
     );
 }
