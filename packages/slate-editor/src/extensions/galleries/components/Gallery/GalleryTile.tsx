@@ -1,5 +1,3 @@
-import type { UploadcareImage } from '@prezly/uploadcare';
-import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import React from 'react';
 
@@ -9,22 +7,22 @@ import styles from './GalleryTile.module.scss';
 
 interface Props {
     className?: string;
-    image: UploadcareImage;
     url: string;
     width: number;
     height: number;
     margin: number;
     withBorderRadius: boolean;
+    withSizeWarning?: boolean;
 }
 
 export function GalleryTile({
     className,
-    image,
     url,
     width,
     height,
     margin,
     withBorderRadius,
+    withSizeWarning = false,
 }: Props) {
     return (
         <div
@@ -42,7 +40,7 @@ export function GalleryTile({
                     height: '100%',
                 }}
             />
-            {!isUploadcareImageSizeValid(image) && (
+            {withSizeWarning && (
                 <ImageSizeWarning className={styles.SizeWarning} />
             )}
         </div>

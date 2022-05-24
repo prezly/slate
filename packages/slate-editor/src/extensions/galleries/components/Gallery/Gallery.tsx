@@ -1,5 +1,6 @@
 import type { GalleryNode } from '@prezly/slate-types';
 import type { UploadcareImage } from '@prezly/uploadcare';
+import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
 import React from 'react';
@@ -47,12 +48,12 @@ export function Gallery({
                             return (
                                 <GalleryTile
                                     key={image.uuid}
-                                    image={image}
                                     url={preview.cdnUrl}
                                     width={width}
                                     height={height}
                                     margin={margin}
                                     withBorderRadius={margin > 0}
+                                    withSizeWarning={!isUploadcareImageSizeValid(image)}
                                 />
                             );
                         })}
