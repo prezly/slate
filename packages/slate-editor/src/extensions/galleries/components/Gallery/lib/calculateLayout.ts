@@ -8,6 +8,7 @@ interface Parameters<Image extends BaseImage> {
     idealHeight: number;
     images: Image[];
     viewportWidth: number;
+    margin?: number;
 }
 
 interface Cell<Image extends BaseImage> {
@@ -22,6 +23,7 @@ export function calculateLayout<Image extends BaseImage>({
     idealHeight,
     images,
     viewportWidth,
+    margin = 0,
 }: Parameters<Image>): Layout<Image> {
     if (idealHeight <= 0 || viewportWidth <= 0 || images.length === 0) {
         return [];
@@ -37,24 +39,25 @@ export function calculateLayout<Image extends BaseImage>({
     const partition = linearPartition(weights, rowsCount);
     const computedRows: Layout<Image> = [];
 
-    let index = 0;
+    let offset = 0;
     partition.forEach((row) => {
-        const rowBuffer = row.map((_, rowImageIndex) => images[index + rowImageIndex]);
+        const rowBuffer = row.map((_, rowImageIndex) => images[offset + rowImageIndex]);
         const aspectRatioSum = rowBuffer.reduce((sum, image) => sum + image.aspectRatio, 0);
-        let widthSum = 0;
+        let widthUsed = 0;
         const computedRow: Cell<Image>[] = [];
+        const contentWidth = viewportWidth - (rowBuffer.length - 1) * margin;
 
         rowBuffer.forEach((image, rowImageIndex) => {
             const width =
                 rowImageIndex === rowBuffer.length - 1
-                    ? viewportWidth - widthSum
-                    : (viewportWidth / aspectRatioSum) * image.aspectRatio;
-            const height = viewportWidth / aspectRatioSum;
-            widthSum += width;
+                    ? contentWidth - widthUsed
+                    : (contentWidth * image.aspectRatio) / aspectRatioSum;
+            const height = contentWidth / aspectRatioSum;
+            widthUsed += width;
             computedRow.push({ width, height, image });
         });
         computedRows.push(computedRow);
-        index += row.length;
+        offset += row.length;
     });
 
     return computedRows;

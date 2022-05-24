@@ -26,6 +26,7 @@ export function Gallery(props: Props) {
         idealHeight,
         images,
         viewportWidth: width,
+        margin,
     });
 
     return (
