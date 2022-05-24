@@ -8,11 +8,11 @@ import { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlateStatic } from 'slate-react';
 
-import { ResizableEditorBlock } from '#components';
+import { ImageWithLoadingPlaceholder, ResizableEditorBlock } from '#components';
+import { Image } from '#icons';
 
 import { removeImage, updateImage } from '../transforms';
 
-import { Image } from './Image';
 import styles from './ImageElement.module.scss';
 import type { FormState } from './ImageMenu';
 import { ImageMenu, Size } from './ImageMenu';
@@ -27,6 +27,10 @@ interface Props extends RenderElementProps {
     withLayoutOptions: boolean;
     withNewTabOption: boolean;
 }
+
+// Image can be of any size, which can increase loading time.
+// 2 seconds seems like a reasonable average.
+const ESTIMATED_LOADING_DURATION = 2000;
 
 export function ImageElement({
     attributes,
@@ -76,6 +80,7 @@ export function ImageElement({
     );
 
     const image = UploadcareImage.createFromPrezlyStoragePayload(element.file).preview();
+    const { width, height } = image.dimensions;
     const layout = withLayoutOptions
         ? element.layout ?? ImageLayout.CONTAINED
         : ImageLayout.CONTAINED;
@@ -102,7 +107,16 @@ export function ImageElement({
             layout={layout}
             onResize={handleResize}
             overlay="always"
-            renderBlock={() => <Image className={styles.image} image={image} />}
+            renderBlock={() => (
+                <ImageWithLoadingPlaceholder
+                    src={image.preview().format().cdnUrl}
+                    imageWidth={width}
+                    imageHeight={height}
+                    icon={Image}
+                    description="Loading Image"
+                    estimatedDuration={ESTIMATED_LOADING_DURATION}
+                />
+            )}
             renderMenu={({ onClose }) => (
                 <ImageMenu
                     onChange={handleUpdate}
