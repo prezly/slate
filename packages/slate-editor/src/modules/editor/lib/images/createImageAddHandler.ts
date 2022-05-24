@@ -2,7 +2,7 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 
-import type { ImageExtensionParameters } from '#extensions/image';
+import type { ImageExtensionConfiguration } from '#extensions/image';
 import { createImage } from '#extensions/image';
 import { LoaderContentType } from '#extensions/loader';
 import { EventsEditor } from '#modules/events';
@@ -12,7 +12,7 @@ import { insertUploadingFile } from '../insertUploadingFile';
 
 import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-export function createImageAddHandler(params: ImageExtensionParameters) {
+export function createImageAddHandler(params: ImageExtensionConfiguration) {
     return async function (editor: Editor): Promise<void> {
         EventsEditor.dispatchEvent(editor, 'image-add-clicked');
 

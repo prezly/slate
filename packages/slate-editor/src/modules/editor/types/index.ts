@@ -9,7 +9,7 @@ import type { CoverageExtensionParameters } from '#extensions/coverage';
 import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionParameters } from '#extensions/galleries';
-import type { ImageExtensionParameters } from '#extensions/image';
+import type { ImageExtensionConfiguration } from '#extensions/image';
 import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
 import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
@@ -86,7 +86,7 @@ export interface EditorProps {
     };
     withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
     withGalleries?: GalleriesExtensionParameters;
-    withImages?: ImageExtensionParameters;
+    withImages?: ImageExtensionConfiguration;
     withPlaceholders?: PlaceholderMentionsExtensionParameters;
     withPressContacts?: PressContactsExtensionParameters;
     withRichFormatting?: {
