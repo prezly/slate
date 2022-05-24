@@ -31,7 +31,15 @@ export const LoadingPlaceholder = forwardRef<HTMLDivElement, Props>((props, ref)
     const progress = clamp(reportedProgress === 'auto' ? approxProgress : reportedProgress, 0, 100);
 
     return (
-        <div {...attributes} className={classNames(styles.LoadingPlaceholder, className)} ref={ref}>
+        <div
+            {...attributes}
+            style={{
+                height: 240,
+                ...attributes.style,
+            }}
+            className={classNames(styles.LoadingPlaceholder, className)}
+            ref={ref}
+        >
             {icon && <Icon component={icon} />}
             {description && <Description progress={progress}>{description}</Description>}
             <ProgressBar progress={progress} />

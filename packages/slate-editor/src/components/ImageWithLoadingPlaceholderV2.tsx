@@ -1,19 +1,22 @@
-import type { CSSProperties, ImgHTMLAttributes, ReactNode, Ref } from 'react';
-import React from 'react';
-import { forwardRef, useEffect, useState } from 'react';
+import classNames from 'classnames';
+import type { HTMLAttributes, ImgHTMLAttributes } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 
-import { useDebounce, useImage, useLatest } from '#lib';
-import { noop } from '#lodash';
+import { useImage, useLatest } from '#lib';
 
-import * as LoadingPlaceholderV2 from './LoadingPlaceholderV2';
+import styles from './ImageWithLoadingPlaceholderV2.module.scss';
+import type { Props as LoadingPlaceholderProps } from './LoadingPlaceholder';
+import { LoadingPlaceholder } from './LoadingPlaceholder';
 
-interface Props extends ImgHTMLAttributes<HTMLImageElement> {
-    availableWidth: number;
-    height?: number;
-    onIsLoadingChange?: (isLoading: boolean) => void;
-    renderLoadingState: (props: { percent: string }) => ReactNode;
+interface Props
+    extends Omit<HTMLAttributes<HTMLDivElement>, 'placeholder'>,
+        Pick<LoadingPlaceholderProps, 'icon' | 'description' | 'estimatedDuration' | 'progress'>,
+        Pick<ImgHTMLAttributes<HTMLImageElement>, 'alt'> {
     src: string;
-    width?: number;
+    imageWidth: number;
+    imageHeight: number;
+    onStartLoading?: () => void;
+    onLoad?: () => void;
 }
 
 /**
@@ -21,94 +24,75 @@ interface Props extends ImgHTMLAttributes<HTMLImageElement> {
  * We don't have to show the loading state as loading from cache is very fast.
  * But still, it takes some time.
  */
-const IS_LOADING_CHANGE_DEBOUNCE = 50;
+const LOADING_CALLBACK_DEBOUNCE = 50;
 
 // Image can be of any size, which can increase loading time.
 // 2 seconds seems like a reasonable average.
 const ESTIMATED_LOADING_DURATION = 2000;
 
-const getPlaceholderStyle = ({
-    availableWidth,
-    height,
-    style,
-    width,
-}: Pick<Props, 'availableWidth' | 'height' | 'style' | 'width'>): CSSProperties | undefined => {
-    if (
-        typeof availableWidth !== 'number' ||
-        typeof height !== 'number' ||
-        typeof width !== 'number'
-    ) {
-        return style;
-    }
+export const ImageWithLoadingPlaceholderV2 = forwardRef<HTMLDivElement, Props>((props, ref) => {
+    const {
+        // Placeholder
+        icon = false,
+        description = false,
+        estimatedDuration = ESTIMATED_LOADING_DURATION,
+        progress: reportedProgress = 'auto',
+        // Image
+        src,
+        alt,
+        imageWidth,
+        imageHeight,
+        onStartLoading,
+        onLoad,
+        ...attributes
+    } = props;
+    const aspectRatio = imageHeight ? imageWidth / imageHeight : undefined;
+    const callbacks = useLatest({ onStartLoading, onLoad });
+    const { loading, progress, url } = useImage(src);
 
-    const aspectRatio = height / width;
-    const finalWidth = Math.min(width, availableWidth);
-    const finalHeight = finalWidth * aspectRatio;
-
-    return {
-        ...style,
-        height: finalHeight,
-        width: finalWidth,
-    };
-};
-
-export const ImageWithLoadingPlaceholderV2 = forwardRef<HTMLElement, Props>(
-    (
-        {
-            availableWidth,
-            className,
-            height,
-            onIsLoadingChange = noop,
-            renderLoadingState,
-            src,
-            style,
-            width,
-            ...props
+    useEffect(
+        function () {
+            if (loading) {
+                const timeout = setTimeout(
+                    () => callbacks.current.onStartLoading?.(),
+                    LOADING_CALLBACK_DEBOUNCE,
+                );
+                return () => clearTimeout(timeout);
+            }
+            if (url !== undefined) {
+                callbacks.current.onLoad?.();
+            }
+            return;
         },
-        ref,
-    ) => {
-        const onIsLoadingChangeRef = useLatest(onIsLoadingChange);
-        const [isLoadingDebounced, setIsLoadingDebounced] = useState(false);
-        const { loading, progress, url } = useImage(src);
+        [loading, url],
+    );
 
-        useEffect(() => {
-            setIsLoadingDebounced(loading);
-        }, [loading]);
+    return (
+        <div
+            {...attributes}
+            className={classNames(styles.ImageWithLoadingPlaceholder, attributes.className)}
+            style={{
+                aspectRatio: aspectRatio ? String(aspectRatio) : undefined,
+                backgroundImage: url ? `url("${url}")` : undefined,
+                ...attributes.style,
+            }}
+            ref={ref}
+        >
+            {url && <img className={styles.Image} src={url} alt={alt} />}
 
-        useDebounce(
-            () => {
-                onIsLoadingChangeRef.current(isLoadingDebounced);
-            },
-            IS_LOADING_CHANGE_DEBOUNCE,
-            [isLoadingDebounced],
-        );
-
-        if (loading) {
-            return (
-                <LoadingPlaceholderV2.Placeholder
-                    className={className}
-                    estimatedDuration={ESTIMATED_LOADING_DURATION}
-                    progress={progress / 100}
-                    ref={ref as Ref<HTMLDivElement>}
-                    style={getPlaceholderStyle({ availableWidth, height, style, width })}
-                >
-                    {renderLoadingState}
-                </LoadingPlaceholderV2.Placeholder>
-            );
-        }
-
-        return (
-            <img
-                {...props}
-                className={className}
-                height={height}
-                ref={ref as Ref<HTMLImageElement>}
-                src={url}
-                style={style}
-                width={width}
-            />
-        );
-    },
-);
+            {loading && (
+                <LoadingPlaceholder
+                    className={styles.Placeholder}
+                    icon={icon}
+                    description={description}
+                    progress={reportedProgress === 'auto' ? progress : reportedProgress}
+                    estimatedDuration={estimatedDuration}
+                    ref={ref}
+                    style={{ width: '100%', height: '100%' }}
+                />
+            )}
+        </div>
+    );
+});
 
 ImageWithLoadingPlaceholderV2.displayName = 'ImageWithLoadingPlaceholderV2';

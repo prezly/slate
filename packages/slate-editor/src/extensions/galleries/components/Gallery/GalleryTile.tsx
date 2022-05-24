@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import type { CSSProperties } from 'react';
 import React, { Component, createRef } from 'react';
 
-import { ImageSizeWarning, ImageWithLoadingPlaceholderV2, LoadingPlaceholderV2 } from '#components';
+import { ImageSizeWarning, ImageWithLoadingPlaceholderV2 } from '#components';
 
 import styles from './GalleryTile.module.scss';
 
@@ -19,8 +19,8 @@ interface Props {
 }
 
 interface State {
+    loaded: boolean;
     horizontalMargin: number;
-    isLoading: boolean;
     verticalMargin: number;
 }
 
@@ -31,8 +31,8 @@ export class GalleryTile extends Component<Props, State> {
     };
 
     state = {
+        loaded: false,
         horizontalMargin: 0,
-        isLoading: false,
         verticalMargin: 0,
     };
 
@@ -42,7 +42,7 @@ export class GalleryTile extends Component<Props, State> {
         this.updateMargins();
     }
 
-    handleIsLoadingChange = (isLoading: boolean) => this.setState({ isLoading });
+    handleOnLoad = () => this.setState({ loaded: true });
 
     updateMargins = () => {
         if (this.ref.current === null) {
@@ -72,27 +72,28 @@ export class GalleryTile extends Component<Props, State> {
     };
 
     render() {
-        const { className, image, url, width, withBorderRadius } = this.props;
+        const { className, image, url, withBorderRadius } = this.props;
+        const { width, height } = image.dimensions;
 
         return (
             <div
                 className={classNames(styles.galleryTile, className, {
-                    [styles.hidden]: !this.state.isLoading,
                     [styles.withBorderRadius]: withBorderRadius,
                 })}
                 ref={this.ref}
                 style={this.getStyle()}
             >
-                <ImageWithLoadingPlaceholderV2
-                    availableWidth={width}
-                    className={styles.image}
-                    onIsLoadingChange={this.handleIsLoadingChange}
-                    renderLoadingState={({ percent }) => (
-                        <LoadingPlaceholderV2.ProgressBar percent={percent} />
-                    )}
-                    src={url}
-                />
-
+                {!this.state.loaded && (
+                    <ImageWithLoadingPlaceholderV2
+                        className={classNames(styles.image, {
+                            [styles.loaded]: this.state.loaded,
+                        })}
+                        onLoad={this.handleOnLoad}
+                        src={url}
+                        imageWidth={width}
+                        imageHeight={height}
+                    />
+                )}
                 {!isUploadcareImageSizeValid(image) && (
                     <ImageSizeWarning className={styles.sizeWarning} />
                 )}
