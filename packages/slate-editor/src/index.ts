@@ -3,11 +3,25 @@ import type { ElementNode, TextNode } from '@prezly/slate-types';
 import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
+import type { TableEditor } from 'slate-tables/lib';
+import type { TableCellNode, TableNode, TableRowNode } from 'slate-tables/lib/nodes';
+
+interface MyTableNode extends TableNode {
+    type: 'table';
+}
+
+interface MyTableRowNode extends TableRowNode {
+    type: 'table-row';
+}
+
+interface MyTableCellNode extends TableCellNode {
+    type: 'table-cell';
+}
 
 declare module 'slate' {
     interface CustomTypes {
-        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor;
-        Element: ElementNode;
+        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor & TableEditor;
+        Element: ElementNode | MyTableNode | MyTableRowNode | MyTableCellNode;
         Text: TextNode;
     }
 }
