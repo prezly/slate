@@ -4,9 +4,8 @@ import { RootCloseWrapper } from 'react-overlays';
 
 import { Menu } from '#components';
 import { Cross } from '#icons';
-import { useEffectOnce } from '#lib';
+import { HREF_REGEXP, useEffectOnce } from '#lib';
 
-import { HREF_REGEXP } from './constants';
 import styles from './LinkMenu.module.scss';
 
 interface Props {

@@ -17,10 +17,9 @@ import {
     Link,
     Reload,
 } from '#icons';
+import { HREF_REGEXP } from '#lib';
 
 import styles from './ImageMenu.module.scss';
-
-import { HREF_REGEXP } from '#modules/components';
 
 export enum Size {
     SMALL = 'small',

@@ -5,8 +5,7 @@ import { RootCloseWrapper } from 'react-overlays';
 
 import { Button, Input, Toggle, Toolbox, VStack } from '#components';
 import { Delete, Link } from '#icons';
-
-import { HREF_REGEXP } from '#modules/components';
+import { HREF_REGEXP } from '#lib';
 
 interface Props {
     node: LinkNode | null;
