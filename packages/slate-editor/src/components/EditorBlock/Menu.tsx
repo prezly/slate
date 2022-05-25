@@ -12,7 +12,6 @@ interface Props {
     children: ReactNode;
     className?: string;
     onClick?: (event: MouseEvent) => void;
-    open: boolean;
     reference: HTMLElement;
 }
 
@@ -92,11 +91,7 @@ export class Menu extends Component<Props> {
     };
 
     render() {
-        const { children, className, onClick, open } = this.props;
-
-        if (!open) {
-            return null;
-        }
+        const { children, className, onClick } = this.props;
 
         return (
             <Popper
