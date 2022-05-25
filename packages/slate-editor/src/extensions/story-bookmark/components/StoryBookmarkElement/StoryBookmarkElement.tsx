@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
-import { EditorBlock, ElementPlaceholder, LoadingPlaceholderV2 } from '#components';
+import { EditorBlock, ElementPlaceholder, LoadingPlaceholder } from '#components';
 import { ChickenNoSignalIllustration, ComponentStoryBookmark } from '#icons';
 import { useAsyncFn } from '#lib';
 
@@ -78,20 +78,12 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
             renderBlock={() => {
                 if (loading) {
                     return (
-                        <LoadingPlaceholderV2.Placeholder
+                        <LoadingPlaceholder
                             className={styles.LoadingPlaceholder}
+                            icon={ComponentStoryBookmark}
+                            description="Loading Story bookmark"
                             estimatedDuration={ESTIMATED_LOADING_DURATION}
-                        >
-                            {({ percent }) => (
-                                <>
-                                    <LoadingPlaceholderV2.Icon icon={ComponentStoryBookmark} />
-                                    <LoadingPlaceholderV2.Description percent={percent}>
-                                        Loading Story bookmark
-                                    </LoadingPlaceholderV2.Description>
-                                    <LoadingPlaceholderV2.ProgressBar percent={percent} />
-                                </>
-                            )}
-                        </LoadingPlaceholderV2.Placeholder>
+                        />
                     );
                 }
 

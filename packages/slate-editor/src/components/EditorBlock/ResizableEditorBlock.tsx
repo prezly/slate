@@ -4,12 +4,11 @@ import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import type { DraggableEventHandler } from 'react-draggable';
 import * as Draggable from 'react-draggable';
 
-import { useLatest, useSize } from '#lib';
+import { mergeRefs, useLatest, useSize } from '#lib';
 
 import type { Props as EditorBlockProps } from './EditorBlock';
 import { EditorBlock } from './EditorBlock';
 import styles from './EditorBlock.module.scss';
-import { mergeRefs } from './lib';
 import { ResizeButton } from './ResizeButton';
 import type { SizeString } from './Size';
 import { clamp, convert, Size, toPixels, toString, unit, Unit } from './Size';

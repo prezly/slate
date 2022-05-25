@@ -5,6 +5,7 @@ export { useAsyncProgressFn } from './useAsyncProgressFn';
 export { useDelayedTooltip } from './useDelayedTooltip';
 export { useElapsed } from './useElapsed';
 export { useImage } from './useImage';
+export { useInfiniteProgress } from './useInfiniteProgress';
 export { useIsMouseDown } from './useIsMouseDown';
 export { useResizeObserver } from './useResizeObserver';
 export { useSlateDom } from './useSlateDom';

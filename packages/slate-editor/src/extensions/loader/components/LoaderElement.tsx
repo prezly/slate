@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
 
-import { LoadingPlaceholderV2 } from '#components';
+import { LoadingPlaceholder } from '#components';
 import { Attachment, Bookmark, Embed, Gallery, Image, Video } from '#icons';
 import { useAsyncProgress, useMount, useUnmount } from '#lib';
 
@@ -78,21 +78,13 @@ export const LoaderElement: FunctionComponent<Props> = ({
             })}
             data-slate-type={element.type}
         >
-            <LoadingPlaceholderV2.Placeholder
+            <LoadingPlaceholder
                 contentEditable={false}
+                icon={ICONS[element.contentType]}
+                description={element.message}
                 estimatedDuration={ESTIMATED_DURATIONS[element.contentType]}
-                progress={progress / 100}
-            >
-                {({ percent }) => (
-                    <>
-                        <LoadingPlaceholderV2.Icon icon={ICONS[element.contentType]} />
-                        <LoadingPlaceholderV2.Description percent={percent}>
-                            {element.message}
-                        </LoadingPlaceholderV2.Description>
-                        <LoadingPlaceholderV2.ProgressBar percent={percent} />
-                    </>
-                )}
-            </LoadingPlaceholderV2.Placeholder>
+                progress={progress}
+            />
 
             {/* We have to render children or Slate will fail when trying to find the node. */}
             {children}
