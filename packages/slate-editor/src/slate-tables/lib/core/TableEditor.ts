@@ -21,6 +21,7 @@ export namespace TableEditor {
     export const insertColumn = TableCommands.insertColumn;
     export const insertRow = TableCommands.insertRow;
     export const insertTable = TableCommands.insertTable;
+    export const mergeCell = TableCommands.mergeCell;
     export const removeColumn = TableCommands.removeColumn;
     export const removeRow = TableCommands.removeRow;
     export const removeTable = TableCommands.removeTable;
@@ -42,6 +43,22 @@ export namespace TableEditor {
 
     export function insertRowBelow(editor: Editor, location?: Location) {
         return TableCommands.insertRow(editor, location, 'bellow');
+    }
+
+    export function mergeCellAbove(editor: Editor, location?: Location) {
+        return TableCommands.mergeCell(editor, location, 'above');
+    }
+
+    export function mergeCellBelow(editor: Editor, location?: Location) {
+        return TableCommands.mergeCell(editor, location, 'bellow');
+    }
+
+    export function mergeCellLeft(editor: Editor, location?: Location) {
+        return TableCommands.mergeCell(editor, location, 'left');
+    }
+
+    export function mergeCellRight(editor: Editor, location?: Location) {
+        return TableCommands.mergeCell(editor, location, 'right');
     }
 
     export function splitCellAbove(editor: Editor, location?: Location) {

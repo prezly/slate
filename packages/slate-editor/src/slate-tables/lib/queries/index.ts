@@ -1,1 +1,1 @@
-export * from './isInTable'
+export * from './isInTable';

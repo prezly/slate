@@ -1,7 +1,8 @@
 import type { NodeEntry, Path } from 'slate';
 
 import type { Matrix, TableEditor } from '../../core';
-import type { TableCellNode } from '../../nodes';
+import { TableCellNode } from '../../nodes';
+import { compareNumbers } from '../../utils/comparators';
 
 import type { GridWithSpansCell } from './createGridWithSpans';
 import type { MatrixRow } from './MatrixRow';
@@ -52,5 +53,19 @@ export class MatrixCell {
 
     get cellBelow() {
         return this.row.rowBelow?.cells.at(this.x);
+    }
+
+    compareWidth(otherCell: MatrixCell) {
+        const thisRowSpan = TableCellNode.getCellColspan(this.node);
+        const otherRowSpan = TableCellNode.getCellColspan(otherCell.node);
+
+        return compareNumbers(thisRowSpan, otherRowSpan);
+    }
+
+    compareHeight(otherCell: MatrixCell) {
+        const thisColSpan = TableCellNode.getCellRowspan(this.node);
+        const otherColSpan = TableCellNode.getCellRowspan(otherCell.node);
+
+        return compareNumbers(thisColSpan, otherColSpan);
     }
 }

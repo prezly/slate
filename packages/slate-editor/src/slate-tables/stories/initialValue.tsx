@@ -6,7 +6,6 @@ import type { Descendant } from 'slate';
 import { jsx } from './hyperscript';
 
 export const initialValue = [
-    <h-paragraph>First</h-paragraph>,
     <h-table border>
         <h-tr>
             <h-td colSpan={2} rowSpan={3}>

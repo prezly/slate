@@ -1,12 +1,12 @@
 .withBorders {
-	border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 .withBorders tr,
 .withBorders td {
-	border: 1px solid black;
+    border: 1px solid black;
 }
 
 .withBorders td {
-	min-width: 40px;
+    min-width: 40px;
 }
