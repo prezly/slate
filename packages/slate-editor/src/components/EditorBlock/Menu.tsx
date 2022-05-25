@@ -44,7 +44,7 @@ const MODIFIERS: Modifier<string>[] = [
             mainAxis: false,
             rootBoundary: 'document',
             padding: {
-                right: 4,
+                right: 12,
             },
         },
     },
