@@ -8,7 +8,8 @@ const Letter =
 export const STRING_URL_PATTERN =
     // placeholder validation
     `${
-        '%.*%|' +
+        '%release\\.url%|' +
+        '%release\\.shorturl%|' +
         // mailto: validation
         'mailto:[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*|'
     }${
