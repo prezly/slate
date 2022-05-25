@@ -6,7 +6,7 @@ import { RootCloseWrapper } from 'react-overlays';
 import { Button, Input, Toggle, Toolbox, VStack } from '#components';
 import { Delete, Link } from '#icons';
 
-import { STRING_URL_PATTERN } from '#modules/components/LinkMenu';
+import { HREF_REGEXP } from '#modules/components';
 
 interface Props {
     node: LinkNode | null;
@@ -58,7 +58,7 @@ export function LinkMenu({
                                             value={href}
                                             onChange={setHref}
                                             icon={Link}
-                                            pattern={STRING_URL_PATTERN}
+                                            pattern={HREF_REGEXP.source}
                                             placeholder="Paste link"
                                             type="url"
                                         />

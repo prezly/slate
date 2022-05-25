@@ -20,7 +20,7 @@ import {
 
 import styles from './ImageMenu.module.scss';
 
-import { STRING_URL_PATTERN } from '#modules/components/LinkMenu';
+import { HREF_REGEXP } from '#modules/components';
 
 export enum Size {
     SMALL = 'small',
@@ -214,7 +214,7 @@ export function ImageMenu({
                             value={href}
                             onChange={onHrefChange}
                             icon={Link}
-                            pattern={STRING_URL_PATTERN}
+                            pattern={HREF_REGEXP.source}
                             placeholder="Paste link"
                         />
                     </VStack>

@@ -6,7 +6,7 @@ import { Menu } from '#components';
 import { Cross } from '#icons';
 import { useEffectOnce } from '#lib';
 
-import { STRING_URL_PATTERN } from './constants';
+import { HREF_REGEXP } from './constants';
 import styles from './LinkMenu.module.scss';
 
 interface Props {
@@ -64,7 +64,7 @@ export const LinkMenu: FunctionComponent<Props> = ({
                                 // the onMouseDown event, which causes the click not to focus the input.
                                 event.stopPropagation();
                             }}
-                            pattern={STRING_URL_PATTERN}
+                            pattern={HREF_REGEXP.source}
                             placeholder="Enter your URL & press Enter"
                             ref={inputRef}
                             title="Please input a valid URL"
