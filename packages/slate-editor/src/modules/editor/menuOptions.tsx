@@ -160,7 +160,7 @@ export function* generateFloatingAddMenuOptions(
             action: MenuAction.ADD_ATTACHMENT,
             icon: Icons.ComponentAttachment,
             group: Group.MEDIA_CONTENT,
-            text: 'Attachment',
+            text: 'File Attachment',
             description: 'Insert an attachment',
         };
     }
