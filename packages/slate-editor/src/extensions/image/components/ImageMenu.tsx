@@ -17,7 +17,7 @@ import {
     Link,
     Reload,
 } from '#icons';
-import { HREF_REGEXP } from '#lib';
+import {HREF_REGEXP, normalizeHref, useUnmount} from '#lib';
 
 import styles from './ImageMenu.module.scss';
 
@@ -148,6 +148,12 @@ export function ImageMenu({
         [value.href],
     );
 
+    useUnmount(function () {
+        if (href) {
+            onChange({ href: normalizeHref(href) });
+        }
+    });
+
     return (
         <>
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
@@ -215,6 +221,7 @@ export function ImageMenu({
                             icon={Link}
                             pattern={HREF_REGEXP.source}
                             placeholder="Paste link"
+                            title="Please input a valid URL"
                         />
                     </VStack>
 

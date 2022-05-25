@@ -1,6 +1,6 @@
 export const URL_PLACEHOLDER_REGEXP = new RegExp('%release\\.url%|%release\\.shorturl%');
 export const MAILTO_REGEXP = new RegExp(
-    'mailto:[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*|',
+    'mailto:[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*',
 );
 /**
  * @see https://regex101.com/r/W0NkQE/2
@@ -18,8 +18,42 @@ export const URL_WITH_OPTIONAL_PROTOCOL_REGEXP = new RegExp(
 );
 
 export const HREF_REGEXP = new RegExp(
-    `^(?:${URL_PLACEHOLDER_REGEXP.source})|(?:${MAILTO_REGEXP.source})|(?:${URL_WITH_OPTIONAL_PROTOCOL_REGEXP})$`,
+    `(?:${URL_PLACEHOLDER_REGEXP.source})|(?:${MAILTO_REGEXP.source})|(?:${URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source})`,
 );
+
+/**
+ * Make sure that URLs without protocol automatically get "http://" prefix.
+ * @param href
+ */
+export function normalizeHref(href: string): string {
+    if (full(URL_WITHOUT_PROTOCOL_REGEXP).test(href)) {
+        return `http://${href}`;
+    }
+    return href;
+}
+
+/**
+ * Convert an unbound RegExp object to the same pattern, bound to the string start and end boundaries.
+ *
+ * Examples:
+ *    "/Hello/"    => "/^Hello$/"
+ *    "/\.png$/"   => "/^\.png$/"
+ *    "/^on(\w+)/" => "/^on(\w+)$/"
+ */
+function full(regexp: RegExp): RegExp {
+    const isLeftBound = regexp.source.startsWith('^');
+    const isRightBound = regexp.source.endsWith('$');
+    if (isLeftBound && isRightBound) {
+        return regexp;
+    }
+    if (isLeftBound) {
+        return new RegExp(`(?:${regexp.source})$`, regexp.flags);
+    }
+    if (isRightBound) {
+        return new RegExp(`^(?:${regexp.source})`, regexp.flags);
+    }
+    return new RegExp(`^(?:${regexp.source})$`, regexp.flags);
+}
 
 function UnicodeRegExp(pattern: string, flags = ''): RegExp {
     if (isUnicodeRegExpSupported()) {
