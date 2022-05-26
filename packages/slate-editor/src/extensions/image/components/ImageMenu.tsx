@@ -17,7 +17,7 @@ import {
     Link,
     Reload,
 } from '#icons';
-import {HREF_REGEXP, normalizeHref, useUnmount} from '#lib';
+import { HREF_REGEXP, normalizeHref } from '#lib';
 
 import styles from './ImageMenu.module.scss';
 
@@ -135,24 +135,20 @@ export function ImageMenu({
         function (href: string, valid: boolean) {
             setHref(href);
             if (valid) {
-                onChange({ href });
+                onChange({ href: normalizeHref(href) });
             }
         },
-        [setHref],
+        [onChange],
     );
 
     useEffect(
         function () {
-            setHref(value.href);
+            if (normalizeHref(value.href) !== normalizeHref(href)) {
+                setHref(value.href);
+            }
         },
         [value.href],
     );
-
-    useUnmount(function () {
-        if (href) {
-            onChange({ href: normalizeHref(href) });
-        }
-    });
 
     return (
         <>
