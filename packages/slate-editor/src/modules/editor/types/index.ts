@@ -59,6 +59,7 @@ export interface EditorProps {
     contentStyle?: CSSProperties;
     decorate?: Decorate;
     editorRef?: RefObject<EditorRef>;
+    id?: string;
     onChange: (value: Value) => void;
     onIsOperationPendingChange?: (isOperationPending: boolean) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
