@@ -98,7 +98,7 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
         onKeyDownDeps,
     );
     const combinedRenderElement = useMemo(
-        () => combineRenderElement(extensions, renderElementList),
+        () => combineRenderElement(editor, extensions, renderElementList),
         renderElementDeps,
     );
     const combinedRenderLeaf = useCallback(
