@@ -15,3 +15,4 @@ export { scrollTo } from './scrollTo';
 export * from './isDeletingEvent';
 export * from './stripTags';
 export * as utils from './utils';
+export { HREF_REGEXP, URL_WITH_OPTIONAL_PROTOCOL_REGEXP, normalizeHref } from './urls';
