@@ -62,6 +62,7 @@ export const ImageExtension = ({
             },
         },
     },
+    isRichBlock: isImageNode,
     normalizers: [
         normalizeRedundantImageAttributes,
         normalizeChildren,

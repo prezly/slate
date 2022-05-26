@@ -1,3 +1,5 @@
+import type { Node } from 'slate';
+
 import type { DecorateFactory } from './DecorateFactory';
 import type { DeserializeHtml } from './DeserializeHtml';
 import type { Normalize } from './Normalize';
@@ -8,10 +10,11 @@ import type { RenderLeaf } from './RenderLeaf';
 import type { WithOverrides } from './WithOverrides';
 
 export interface Extension {
+    id: string;
     decorate?: DecorateFactory;
     deserialize?: DeserializeHtml;
-    id: string;
     inlineTypes?: string[];
+    isRichBlock?: (node: Node) => boolean;
     normalizers?: Normalize[];
     onDOMBeforeInput?: OnDOMBeforeInput;
     onKeyDown?: OnKeyDown | null;

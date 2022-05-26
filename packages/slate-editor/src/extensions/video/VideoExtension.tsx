@@ -9,12 +9,13 @@ import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib
 
 export function VideoExtension(): Extension {
     return {
+        id: VIDEO_EXTENSION_ID,
         deserialize: {
             element: {
                 [VIDEO_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
             },
         },
-        id: VIDEO_EXTENSION_ID,
+        isRichBlock: isVideoNode,
         normalizers: [normalizeRedundantVideoAttributes],
         renderElement: ({ attributes, children, element }) => {
             if (isVideoNode(element)) {

@@ -10,12 +10,13 @@ import { normalizeRedundantStoryEmbedAttributes, parseSerializedElement } from '
 import type { StoryEmbedExtensionParameters } from './types';
 
 export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): Extension => ({
+    id: STORY_EMBED_EXTENSION_ID,
     deserialize: {
         element: {
             [STORY_EMBED_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
-    id: STORY_EMBED_EXTENSION_ID,
+    isRichBlock: isStoryEmbedNode,
     normalizers: [normalizeRedundantStoryEmbedAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isStoryEmbedNode(element)) {

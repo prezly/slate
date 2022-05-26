@@ -17,6 +17,7 @@ export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Ex
             [COVERAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
+    isRichBlock: isCoverageNode,
     normalizers: [normalizeRedundantCoverageAttributes],
     renderElement: ({ attributes, children, element }) => {
         if (isCoverageNode(element)) {

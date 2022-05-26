@@ -14,6 +14,7 @@ export const PressContactsExtension = (): Extension => ({
             [CONTACT_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
+    isRichBlock: isContactNode,
     normalizers: [normalizeRedundantPressContactAttributes],
     renderElement: ({ attributes, children, element }) => {
         if (isContactNode(element)) {
