@@ -7,7 +7,16 @@ export function combineRenderElement(
     extensions: Extension[],
     renderElementList: RenderElement[],
 ) {
-    return function combinedRenderElement(props: RenderElementProps) {
+    return function combinedRenderElement({ attributes, children, element }: RenderElementProps) {
+        const props = {
+            attributes: {
+                'data-slate-type': (element as any).type,
+                'data-slate-value': JSON.stringify(element),
+                ...attributes,
+            },
+            children,
+            element,
+        };
         for (const renderElement of renderElementList) {
             const ret = renderElement(props);
             if (ret) return ret;

@@ -22,8 +22,6 @@ export function HeadingElement({ attributes, children, className, element, ...pr
                 [styles.headingOne]: element.type === HEADING_1_NODE_TYPE,
                 [styles.headingTwo]: element.type === HEADING_2_NODE_TYPE,
             })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
             style={{ textAlign: element.align }}
         >
             {children}

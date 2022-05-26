@@ -7,8 +7,6 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
-import { ElementType } from '../../types';
-
 import styles from './BlockQuoteElement.module.scss';
 
 interface Props extends HTMLAttributes<HTMLQuoteElement> {
@@ -37,8 +35,6 @@ export const BlockQuoteElement: FunctionComponent<Props> = ({
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
                 })}
-                data-slate-type={ElementType.BLOCK_QUOTE}
-                data-slate-value={JSON.stringify(element)}
             >
                 <p
                     data-placeholder={showPlaceholder ? 'Quote' : undefined}

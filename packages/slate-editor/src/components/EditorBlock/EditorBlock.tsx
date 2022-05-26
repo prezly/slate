@@ -113,8 +113,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 [styles.void]: isVoid,
                 [styles.extendedHitArea]: extendedHitArea,
             })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
             data-element-layout={layout}
             onClick={isVoid ? undefined : closeMenu}
             ref={ref}

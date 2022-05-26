@@ -36,8 +36,6 @@ export function ListElement({ attributes, children, className, element, ...props
                 [styles.alignCenter]: element.align === Alignment.CENTER,
                 [styles.alignRight]: element.align === Alignment.RIGHT,
             })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
         >
             {children}
         </List>
