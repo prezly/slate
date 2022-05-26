@@ -7,7 +7,6 @@ import type {
     RenderElement,
     RenderLeaf,
 } from '@prezly/slate-commons';
-import type { FunctionComponent } from 'react';
 import React, { useCallback, useMemo } from 'react';
 import type { Editor } from 'slate';
 import type { ReactEditor } from 'slate-react';
@@ -23,6 +22,7 @@ import {
 } from './lib';
 
 export interface Props {
+    className?: string;
     decorate?: Decorate;
     editor: Editor & ReactEditor;
     /**
@@ -68,7 +68,7 @@ export interface Props {
     style?: React.CSSProperties;
 }
 
-export const EditableWithExtensions: FunctionComponent<Props> = ({
+export function EditableWithExtensions({
     decorate,
     editor,
     extensions = [],
@@ -81,7 +81,7 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
     renderLeaf: renderLeafList = [],
     renderLeafDeps = [],
     ...props
-}) => {
+}: Props) {
     const combinedDecorate: Decorate = useMemo(
         function () {
             const decorateFns = createExtensionsDecorators(editor, extensions);
@@ -116,4 +116,4 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
             renderLeaf={combinedRenderLeaf}
         />
     );
-};
+}
