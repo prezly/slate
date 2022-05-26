@@ -62,6 +62,7 @@ declare global {
                 children?: ReactNode;
             };
             'h-text': {
+                bold?: boolean
                 children?: ReactNode;
             };
         }

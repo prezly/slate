@@ -1,10 +1,9 @@
 import type { Location } from 'slate';
 import { Editor } from 'slate';
-import { Path, Transforms } from 'slate';
-import { HistoryEditor } from 'slate-history';
+import { Transforms } from 'slate';
 
-import { TableEditor, Traverse } from '../core';
-import { TableCellNode, TableRowNode } from '../nodes';
+import { Traverse } from '../core';
+import { TableCellNode } from '../nodes';
 import type { CellSides } from '../utils/types';
 
 export function mergeCell(

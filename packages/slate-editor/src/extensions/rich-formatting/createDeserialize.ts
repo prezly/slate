@@ -88,7 +88,7 @@ export function createDeserialize(parameters: { blocks: boolean }): DeserializeH
     };
 
     if (parameters.blocks) {
-        Object.assign(deserialize.element, {
+        Object.assign(deserialize.element ?? {}, {
             [ElementType.BLOCK_QUOTE]: createDeserializeElement(parseSerializedElement),
             [ElementType.BULLETED_LIST]: createDeserializeElement(parseSerializedElement),
             [ElementType.HEADING_ONE]: createDeserializeElement(parseSerializedElement),

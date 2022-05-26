@@ -40,7 +40,7 @@ function RenderTable({
         Nodes.TableCellNode.isTableCellNode(editor, element)
     ) {
         return (
-            <TableElement attributes={attributes} element={element} {...params}>
+            <TableElement attributes={attributes} element={element} editor={editor} {...params}>
                 {children}
             </TableElement>
         );

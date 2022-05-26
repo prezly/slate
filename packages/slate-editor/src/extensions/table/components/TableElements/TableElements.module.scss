@@ -1,0 +1,12 @@
+.Table {
+    &.withBorders {
+        tr,
+        td {
+            border: 1px solid black;
+        }
+    }
+
+    td {
+        min-width: 40px;
+    }
+}

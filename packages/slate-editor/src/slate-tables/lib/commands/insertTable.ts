@@ -11,7 +11,7 @@ export function insertTable(
         return false;
     }
 
-    Transforms.insertNodes(editor, TableNode.createTableNode(editor, 2, 2), { at: location });
+    Transforms.insertNodes(editor, TableNode.createTableNode(editor, 3, 3), { at: location });
 
     const [, newTablePath] = Editor.next(editor, { at: location }) ?? [];
 
