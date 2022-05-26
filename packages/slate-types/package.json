@@ -48,7 +48,7 @@
     },
     "dependencies": {
         "@prezly/sdk": "^6.12.1",
-        "@prezly/uploads": "^0.2.1",
+        "@prezly/uploads": "^0.3.2",
         "is-plain-object": "^5.0.0"
     }
 }
