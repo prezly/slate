@@ -11,13 +11,13 @@ interface Parameters<Image extends BaseImage> {
     margin?: number;
 }
 
-interface Cell<Image extends BaseImage> {
+interface Tile<Image extends BaseImage> {
     height: number;
     image: Image;
     width: number;
 }
 
-type Layout<Image extends BaseImage> = Cell<Image>[][];
+type Layout<Image extends BaseImage> = Tile<Image>[][];
 
 export function calculateLayout<Image extends BaseImage>({
     idealHeight,
@@ -44,15 +44,16 @@ export function calculateLayout<Image extends BaseImage>({
         const rowBuffer = row.map((_, rowImageIndex) => images[offset + rowImageIndex]);
         const aspectRatioSum = rowBuffer.reduce((sum, image) => sum + image.aspectRatio, 0);
         let widthUsed = 0;
-        const computedRow: Cell<Image>[] = [];
+        const computedRow: Tile<Image>[] = [];
         const contentWidth = viewportWidth - (rowBuffer.length - 1) * margin;
 
         rowBuffer.forEach((image, rowImageIndex) => {
-            const width =
+            const width = Math.round(
                 rowImageIndex === rowBuffer.length - 1
                     ? contentWidth - widthUsed
-                    : (contentWidth * image.aspectRatio) / aspectRatioSum;
-            const height = contentWidth / aspectRatioSum;
+                    : (contentWidth * image.aspectRatio) / aspectRatioSum,
+            );
+            const height = Math.round(contentWidth / aspectRatioSum);
             widthUsed += width;
             computedRow.push({ width, height, image });
         });
