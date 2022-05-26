@@ -1,6 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
-import type { RefObject } from 'react';
 
 import { noop } from '#lodash';
 
