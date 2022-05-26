@@ -9,7 +9,7 @@ import { useSlateStatic } from 'slate-react';
 
 import styles from './BlockQuoteElement.module.scss';
 
-interface Props extends HTMLAttributes<HTMLQuoteElement> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
     attributes?: RenderElementProps['attributes'];
     element: QuoteNode;
 }
@@ -23,22 +23,21 @@ export const BlockQuoteElement: FunctionComponent<Props> = ({
 }) => {
     const editor = useSlateStatic();
     const align = element.align ?? Alignment.LEFT;
-    const showPlaceholder = EditorCommands.isNodeEmpty(editor, element);
+    const isEmpty = EditorCommands.isNodeEmpty(editor, element);
 
     return (
-        <div>
+        <div {...attributes} {...props} className={classNames(className, styles.BlockQuoteElement)}>
             <blockquote
-                {...attributes}
-                {...props}
-                className={classNames(className, styles.blockQuote, {
+                className={classNames(className, styles.Quote, {
                     [styles.alignLeft]: align === Alignment.LEFT,
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
                 })}
             >
                 <p
-                    data-placeholder={showPlaceholder ? 'Quote' : undefined}
-                    className={classNames(styles.paragraph, className, {
+                    data-placeholder="Quote"
+                    className={classNames(styles.Content, className, {
+                        [styles.empty]: isEmpty,
                         [styles.alignLeft]: align === Alignment.LEFT,
                         [styles.alignCenter]: align === Alignment.CENTER,
                         [styles.alignRight]: align === Alignment.RIGHT,
