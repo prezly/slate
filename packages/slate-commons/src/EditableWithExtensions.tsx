@@ -7,10 +7,10 @@ import { Editable } from 'slate-react';
 
 import {
     combineDecorate,
+    combineRenderElement,
     createExtensionsDecorators,
     onDOMBeforeInputExtensions,
     onKeyDownExtensions,
-    renderElementExtensions,
     renderLeafExtensions,
 } from './lib';
 import type {
@@ -90,6 +90,11 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
         [decorate, editor, extensions],
     );
 
+    const combinedRenderElement = useMemo(
+        () => combineRenderElement(extensions, renderElementList),
+        renderElementDeps,
+    );
+
     return (
         <Editable
             {...props}
@@ -102,10 +107,7 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
                 onKeyDownExtensions(editor, extensions, onKeyDownList),
                 onKeyDownDeps,
             )}
-            renderElement={useCallback(
-                renderElementExtensions(extensions, renderElementList),
-                renderElementDeps,
-            )}
+            renderElement={combinedRenderElement}
             renderLeaf={useCallback(
                 renderLeafExtensions(extensions, renderLeafList),
                 renderLeafDeps,
