@@ -1,7 +1,6 @@
+import type { Extension, RenderElement } from '@prezly/slate-commons';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
-
-import type { Extension, RenderElement } from '../types';
 
 export function combineRenderElement(
     extensions: Extension[],

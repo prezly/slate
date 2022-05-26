@@ -1,4 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import type {
+    Decorate,
+    Extension,
+    OnDOMBeforeInput,
+    OnKeyDown,
+    RenderElement,
+    RenderLeaf,
+} from '@prezly/slate-commons';
 import type { FunctionComponent } from 'react';
 import React, { useCallback, useMemo } from 'react';
 import type { Editor } from 'slate';
@@ -13,14 +21,6 @@ import {
     onKeyDownExtensions,
     renderLeafExtensions,
 } from './lib';
-import type {
-    Decorate,
-    Extension,
-    OnDOMBeforeInput,
-    OnKeyDown,
-    RenderElement,
-    RenderLeaf,
-} from './types';
 
 export interface Props {
     decorate?: Decorate;

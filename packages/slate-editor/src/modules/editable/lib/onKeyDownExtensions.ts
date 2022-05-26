@@ -1,7 +1,6 @@
+import type { Extension, OnKeyDown } from '@prezly/slate-commons';
 import type { KeyboardEvent } from 'react';
 import type { Editor } from 'slate';
-
-import type { Extension, OnKeyDown } from '../types';
 
 export function onKeyDownExtensions(
     editor: Editor,

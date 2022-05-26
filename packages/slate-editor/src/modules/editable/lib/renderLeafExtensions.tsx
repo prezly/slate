@@ -1,7 +1,6 @@
+import type { Extension, RenderLeaf } from '@prezly/slate-commons';
 import React from 'react';
 import type { RenderLeafProps } from 'slate-react';
-
-import type { Extension, RenderLeaf } from '../types';
 
 export function renderLeafExtensions(extensions: Extension[], renderLeafList: RenderLeaf[]) {
     return function (leafProps: RenderLeafProps) {

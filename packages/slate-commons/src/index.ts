@@ -1,4 +1,3 @@
-export { EditableWithExtensions } from './EditableWithExtensions';
 export * as EditorCommands from './commands';
 export {
     createDeserializeElement,

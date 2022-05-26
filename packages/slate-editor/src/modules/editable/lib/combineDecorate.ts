@@ -1,4 +1,4 @@
-import type { Decorate } from '../types';
+import type { Decorate } from '@prezly/slate-commons';
 
 export function combineDecorate(decorateFns: Decorate[]): Decorate {
     return function (entry) {

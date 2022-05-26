@@ -1,5 +1,5 @@
 import { Events } from '@prezly/events';
-import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
 import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
 import {
     Alignment,
@@ -43,6 +43,7 @@ import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions
 import { FloatingVideoInput, useFloatingVideoInput } from '#extensions/video';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensions/web-bookmark';
 import { FloatingStoryEmbedInput, Placeholder } from '#modules/components';
+import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
 import { RichFormattingMenu } from '#modules/rich-formatting-menu';
 

@@ -1,6 +1,5 @@
+import type { Extension, OnDOMBeforeInput } from '@prezly/slate-commons';
 import type { ReactEditor } from 'slate-react';
-
-import type { Extension, OnDOMBeforeInput } from '../types';
 
 export function onDOMBeforeInputExtensions(
     editor: ReactEditor,
