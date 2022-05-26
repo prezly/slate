@@ -27,29 +27,6 @@ $editor-floating-container-z-index: $editor-embed-element-overlay-z-index + 1;
     user-select: none;
 }
 
-@mixin editor-block($void) {
-    @if $void != true and $void != false {
-        @error "editor-block: $void must be either true or false, got #{$void}.";
-    }
-
-    margin: $editor-block-spacing-vertical 0;
-
-    @if $void == true {
-        @include editor-void-element;
-    }
-}
-
-@mixin editor-block-active {
-    outline: solid 6px $editor-block-focus-color;
-    border-radius: 0;
-}
-
-@mixin editor-block-error {
-    color: $legacy-color-status-error;
-    outline: solid 6px $legacy-color-status-error;
-    border-radius: 0;
-}
-
 /**
  * Do not use this mixin outside of this file
  */
