@@ -2,7 +2,7 @@ import type { ChangeEvent, RefObject } from 'react';
 import React, { useRef, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 
-import { useEffectOnce } from '#lib';
+import { normalizeHref, URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useEffectOnce } from '#lib';
 
 import { FloatingContainer } from '#modules/components';
 
@@ -52,7 +52,7 @@ export function FloatingWebBookmarkInput({
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
-                    onSubmit(url);
+                    onSubmit(normalizeHref(url));
                 }}
             >
                 <InputGroup>
@@ -73,7 +73,8 @@ export function FloatingWebBookmarkInput({
                         }
                         placeholder="Enter your URL to insert & press Enter (e.g. https://www.prezly.com/)"
                         required
-                        type="url"
+                        pattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
+                        title="Input valid URL"
                         value={url}
                     />
                     <InputGroup.Addon className={styles.Addon}>
