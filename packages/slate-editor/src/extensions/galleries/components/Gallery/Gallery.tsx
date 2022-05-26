@@ -39,27 +39,31 @@ export function Gallery({
 
     return (
         <div {...attributes} className={classNames(styles.Gallery, className)}>
-            <div style={{ margin: -margin }}>
-                {calculatedLayout.map((row, index) => (
-                    <div className={styles.Row} key={index}>
-                        {row.map(({ width, height, image }) => {
-                            const preview = image.resize(maxViewportWidth);
+            {calculatedLayout.map((row, index) => (
+                <div
+                    key={index}
+                    className={styles.Row}
+                    style={{ marginTop: index === 0 ? 0 : margin }}
+                >
+                    {row.map((tile) => {
+                        const preview = tile.image.resize(maxViewportWidth);
 
-                            return (
-                                <GalleryTile
-                                    key={image.uuid}
-                                    url={preview.cdnUrl}
-                                    width={width}
-                                    height={height}
-                                    margin={margin}
-                                    withBorderRadius={margin > 0}
-                                    withSizeWarning={!isUploadcareImageSizeValid(image)}
-                                />
-                            );
-                        })}
-                    </div>
-                ))}
-            </div>
+                        return (
+                            <GalleryTile
+                                key={tile.image.uuid}
+                                url={preview.cdnUrl}
+                                imageWidth={tile.width}
+                                imageHeight={tile.height}
+                                style={{
+                                    width: `${((100 * tile.width) / width).toFixed(3)}%`,
+                                }}
+                                withBorderRadius={margin > 0}
+                                withSizeWarning={!isUploadcareImageSizeValid(tile.image)}
+                            />
+                        );
+                    })}
+                </div>
+            ))}
         </div>
     );
 }
