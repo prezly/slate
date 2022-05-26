@@ -15,11 +15,11 @@ import { Editable } from 'slate-react';
 
 import {
     combineDecorate,
+    combineOnDOMBeforeInput,
+    combineOnKeyDown,
     combineRenderElement,
+    combineRenderLeaf,
     createExtensionsDecorators,
-    onDOMBeforeInputExtensions,
-    onKeyDownExtensions,
-    renderLeafExtensions,
 } from './lib';
 
 export interface Props {
@@ -89,29 +89,31 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
         },
         [decorate, editor, extensions],
     );
-
+    const combinedOnDOMBeforeInput = useCallback(
+        combineOnDOMBeforeInput(editor, extensions, onDOMBeforeInputList),
+        onDOMBeforeInputDeps,
+    );
+    const combinedOnKeyDown = useCallback(
+        combineOnKeyDown(editor, extensions, onKeyDownList),
+        onKeyDownDeps,
+    );
     const combinedRenderElement = useMemo(
         () => combineRenderElement(extensions, renderElementList),
         renderElementDeps,
+    );
+    const combinedRenderLeaf = useCallback(
+        combineRenderLeaf(extensions, renderLeafList),
+        renderLeafDeps,
     );
 
     return (
         <Editable
             {...props}
             decorate={combinedDecorate}
-            onDOMBeforeInput={useCallback(
-                onDOMBeforeInputExtensions(editor, extensions, onDOMBeforeInputList),
-                onDOMBeforeInputDeps,
-            )}
-            onKeyDown={useCallback(
-                onKeyDownExtensions(editor, extensions, onKeyDownList),
-                onKeyDownDeps,
-            )}
+            onDOMBeforeInput={combinedOnDOMBeforeInput}
+            onKeyDown={combinedOnKeyDown}
             renderElement={combinedRenderElement}
-            renderLeaf={useCallback(
-                renderLeafExtensions(extensions, renderLeafList),
-                renderLeafDeps,
-            )}
+            renderLeaf={combinedRenderLeaf}
         />
     );
 };
