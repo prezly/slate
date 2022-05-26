@@ -49,6 +49,7 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
     selected?: boolean;
     void?: boolean;
     width?: string;
+    contentEditable?: boolean;
 }
 
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
@@ -68,6 +69,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         selected,
         void: isVoid,
         width,
+        contentEditable,
         ...attributes
     },
     ref,
@@ -127,7 +129,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
                 })}
-                contentEditable={false}
+                contentEditable={contentEditable}
+                suppressContentEditableWarning={true}
                 ref={setContainer}
                 style={{ width }}
             >

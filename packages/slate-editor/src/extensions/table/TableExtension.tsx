@@ -1,7 +1,9 @@
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { ReactEditor, useSlateStatic } from 'slate-react';
+import { ReactEditor } from 'slate-react';
+
+import { createParagraph } from '#extensions/paragraphs';
 
 import { withTableEditor, Nodes } from '../../slate-tables';
 
@@ -12,39 +14,33 @@ import type { TableExtensionParameters } from './types';
 export function TableExtension(params: TableExtensionParameters): Extension {
     return {
         id: TABLE_EXTENSION_ID,
-        renderElement: (props: RenderElementProps) => {
-            return <RenderTable {...props} params={params} />;
+        renderElement: (props: RenderElementProps, editor) => {
+            if (
+                Nodes.TableNode.isTableNode(editor, props.element) ||
+                Nodes.TableRowNode.isTableRowNode(editor, props.element) ||
+                Nodes.TableCellNode.isTableCellNode(editor, props.element)
+            ) {
+                return (
+                    <TableElement
+                        attributes={props.attributes}
+                        element={props.element}
+                        editor={editor}
+                        {...params}
+                    >
+                        {props.children}
+                    </TableElement>
+                );
+            }
+
+            return undefined;
         },
-        rootTypes: ['table'],
+        rootTypes: ['table', 'paragraph'],
         withOverrides: (editor) => {
             return withTableEditor(editor, {
                 focusEditor: ReactEditor.focus,
                 tableNodeTypes: { table: 'table', row: 'table-row', cell: 'table-cell' },
-                createContentNode: () => ({ text: '' }),
+                createContentNode: () => createParagraph({ children: [{ text: '' }] }),
             });
         },
     };
-}
-
-function RenderTable({
-    attributes,
-    children,
-    element,
-    params,
-}: RenderElementProps & { params: TableExtensionParameters }) {
-    const editor = useSlateStatic();
-
-    if (
-        Nodes.TableNode.isTableNode(editor, element) ||
-        Nodes.TableRowNode.isTableRowNode(editor, element) ||
-        Nodes.TableCellNode.isTableCellNode(editor, element)
-    ) {
-        return (
-            <TableElement attributes={attributes} element={element} editor={editor} {...params}>
-                {children}
-            </TableElement>
-        );
-    }
-
-    return null;
 }

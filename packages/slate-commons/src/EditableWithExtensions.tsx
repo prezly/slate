@@ -103,7 +103,7 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
                 onKeyDownDeps,
             )}
             renderElement={useCallback(
-                renderElementExtensions(extensions, renderElementList),
+                renderElementExtensions(extensions, renderElementList, editor),
                 renderElementDeps,
             )}
             renderLeaf={useCallback(

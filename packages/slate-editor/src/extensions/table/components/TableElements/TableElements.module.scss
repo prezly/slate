@@ -1,4 +1,6 @@
 .Table {
+    width: 100%;
+
     &.withBorders {
         tr,
         td {
@@ -8,5 +10,6 @@
 
     td {
         min-width: 40px;
+        min-height: 40px;
     }
 }

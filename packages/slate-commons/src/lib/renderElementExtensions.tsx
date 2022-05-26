@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import type { Extension, RenderElement } from '../types';
@@ -6,6 +7,7 @@ import type { Extension, RenderElement } from '../types';
 export function renderElementExtensions(
     extensions: Extension[],
     renderElementList: RenderElement[],
+    editor: Editor
 ) {
     return function (elementProps: RenderElementProps) {
         let element;
@@ -20,7 +22,7 @@ export function renderElementExtensions(
         }
 
         extensions.some(({ renderElement }) => {
-            element = renderElement && renderElement(elementProps);
+            element = renderElement && renderElement(elementProps, editor);
             return !!element;
         });
 

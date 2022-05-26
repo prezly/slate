@@ -31,7 +31,7 @@ export namespace TableNode {
     export function update(
         editor: Editor,
         props: Partial<Omit<TableNode, 'children' | 'type'>>,
-        location: Location,
+        location: Location | undefined = editor.selection ?? undefined,
     ) {
         Transforms.setNodes<TableNode>(editor, props, {
             at: location,

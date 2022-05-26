@@ -1,3 +1,4 @@
+import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 /**
@@ -5,4 +6,4 @@ import type { RenderElementProps } from 'slate-react';
  * Element properties are for contiguous, semantic elements in the document.
  * Return undefined in case the criteria for rendering isn't met
  */
-export type RenderElement = (props: RenderElementProps) => JSX.Element | undefined;
+export type RenderElement = (props: RenderElementProps, editor: Editor) => JSX.Element | undefined;
