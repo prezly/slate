@@ -12,6 +12,7 @@ export enum MenuAction {
     ADD_CONTACT = 'add_contact',
     ADD_COVERAGE = 'add_coverage',
     ADD_DIVIDER = 'add_divider',
+    ADD_TABLE = 'add_table',
     ADD_EMBED = 'add_embed',
     /**
      * @deprecated Will be replaced with `add_web_bookmark`
@@ -112,6 +113,15 @@ export function* generateFloatingAddMenuOptions(
         group: Group.BASICS,
         text: 'Divider',
         description: 'Divide blocks with a line',
+    };
+
+    yield {
+        action: MenuAction.ADD_TABLE,
+        icon: Icons.ComponentStoryBookmark,
+        group: Group.BASICS,
+        text: 'Table',
+        description: 'Add table',
+        isBeta: true,
     };
 
     if (withImages && UploadcareEditor.isUploadcareEditor(editor)) {

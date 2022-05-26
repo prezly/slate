@@ -21,6 +21,7 @@ import { PressContactsExtension } from '#extensions/press-contacts';
 import { RichFormattingExtension } from '#extensions/rich-formatting';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
 import { StoryEmbedExtension } from '#extensions/story-embed';
+import { TableExtension } from '#extensions/table';
 import { UserMentionsExtension } from '#extensions/user-mentions';
 import { VideoExtension } from '#extensions/video';
 import { VoidExtension } from '#extensions/void';
@@ -93,6 +94,8 @@ export function* getEnabledExtensions({
     if (withRichFormatting?.links) {
         yield InlineLinksExtension();
     }
+
+    yield TableExtension({});
 
     if (withAttachments) {
         yield FileAttachmentExtension({

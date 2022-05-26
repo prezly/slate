@@ -54,6 +54,7 @@ import {
     createOnCut,
     handleAddAttachment,
     insertDivider,
+    insertTable,
     isEditorValueEquivalent,
     useCursorInView,
 } from './lib';
@@ -270,6 +271,9 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         }
         if (action === MenuAction.ADD_DIVIDER) {
             return insertDivider(editor);
+        }
+        if (action === MenuAction.ADD_TABLE) {
+            return insertTable(editor);
         }
         if (action === MenuAction.ADD_EMBED) {
             return openFloatingEmbedInput('Add embed', {
