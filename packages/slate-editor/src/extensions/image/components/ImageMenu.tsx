@@ -17,10 +17,9 @@ import {
     Link,
     Reload,
 } from '#icons';
+import { HREF_REGEXP, normalizeHref } from '#lib';
 
 import styles from './ImageMenu.module.scss';
-
-import { STRING_URL_PATTERN } from '#modules/components/LinkMenu';
 
 export enum Size {
     SMALL = 'small',
@@ -136,15 +135,17 @@ export function ImageMenu({
         function (href: string, valid: boolean) {
             setHref(href);
             if (valid) {
-                onChange({ href });
+                onChange({ href: normalizeHref(href) });
             }
         },
-        [setHref],
+        [onChange],
     );
 
     useEffect(
         function () {
-            setHref(value.href);
+            if (normalizeHref(value.href) !== normalizeHref(href)) {
+                setHref(value.href);
+            }
         },
         [value.href],
     );
@@ -214,8 +215,9 @@ export function ImageMenu({
                             value={href}
                             onChange={onHrefChange}
                             icon={Link}
-                            pattern={STRING_URL_PATTERN}
+                            pattern={HREF_REGEXP.source}
                             placeholder="Paste link"
+                            title="Please input a valid URL"
                         />
                     </VStack>
 

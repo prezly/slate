@@ -13,7 +13,6 @@ declare module 'slate' {
 }
 
 export * from './components';
-export * from './lib';
 export * as Icons from './icons';
 export * from './modules/editor';
 

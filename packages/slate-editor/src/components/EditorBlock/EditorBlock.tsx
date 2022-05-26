@@ -131,13 +131,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 ref={setContainer}
                 style={{ width }}
             >
-                {isOnlyBlockSelected && renderMenu && container && editorElement && (
-                    <Menu
-                        className={styles.Menu}
-                        open={menuOpen}
-                        reference={container}
-                        onClick={preventBubbling}
-                    >
+                {isOnlyBlockSelected && renderMenu && container && editorElement && menuOpen && (
+                    <Menu className={styles.Menu} reference={container} onClick={preventBubbling}>
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}

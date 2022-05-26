@@ -53,15 +53,15 @@ export function ImageElement({
 
     const handleResize = useCallback(
         function (width: ImageNode['width']) {
-            updateImage(editor, { width });
+            updateImage(editor, element, { width });
         },
-        [editor],
+        [editor, element],
     );
 
     const handleCrop = useCallback(() => onCrop(editor, element), [editor, element]);
     const handleRemove = useCallback(
         function () {
-            const removedElement = removeImage(editor);
+            const removedElement = removeImage(editor, element);
             if (removedElement) onRemove(editor, removedElement);
         },
         [editor, element],
@@ -71,10 +71,10 @@ export function ImageElement({
         function (patch: Partial<FormState>) {
             const { size, ...rest } = patch;
             if (size !== undefined) {
-                updateImage(editor, { ...rest, width: fromSizeOption(element, size) });
+                updateImage(editor, element, { ...rest, width: fromSizeOption(element, size) });
                 return;
             }
-            updateImage(editor, patch);
+            updateImage(editor, element, patch);
         },
         [editor, element],
     );
