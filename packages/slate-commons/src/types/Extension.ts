@@ -16,7 +16,7 @@ export interface Extension {
     isInline?: (node: Node) => boolean;
     isRichBlock?: (node: Node) => boolean;
     isVoid?: (node: Node) => boolean;
-    normalizers?: Normalize[];
+    normalizeNode?: Normalize | Normalize[];
     onDOMBeforeInput?: OnDOMBeforeInput;
     onKeyDown?: OnKeyDown | null;
     renderElement?: RenderElement;

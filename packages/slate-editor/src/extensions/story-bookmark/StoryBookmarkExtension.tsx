@@ -18,7 +18,7 @@ export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters)
     },
     isRichBlock: isStoryBookmarkNode,
     isVoid: isStoryBookmarkNode,
-    normalizers: [normalizeRedundantStoryBookmarkAttributes],
+    normalizeNode: normalizeRedundantStoryBookmarkAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isStoryBookmarkNode(element)) {
             return (

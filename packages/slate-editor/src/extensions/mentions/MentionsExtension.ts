@@ -7,15 +7,15 @@ import type { MentionElementType } from './types';
 
 interface Options<T extends string> {
     id: Extension['id'];
-    normalizers: Extension['normalizers'];
+    type: T;
+    normalizeNode?: Extension['normalizeNode'];
     parseSerializedElement: (serialized: string) => MentionElementType | undefined;
     renderElement: Extension['renderElement'];
-    type: T;
 }
 
 export function MentionsExtension<T extends string>({
     id,
-    normalizers,
+    normalizeNode,
     parseSerializedElement,
     renderElement,
     type,
@@ -33,7 +33,7 @@ export function MentionsExtension<T extends string>({
         id,
         isInline: isMention,
         isVoid: isMention,
-        normalizers,
+        normalizeNode,
         renderElement,
     };
 }

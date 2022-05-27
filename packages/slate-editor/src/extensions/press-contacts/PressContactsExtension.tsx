@@ -16,7 +16,7 @@ export const PressContactsExtension = (): Extension => ({
     },
     isRichBlock: isContactNode,
     isVoid: isContactNode,
-    normalizers: [normalizeRedundantPressContactAttributes],
+    normalizeNode: normalizeRedundantPressContactAttributes,
     renderElement: ({ attributes, children, element }) => {
         if (isContactNode(element)) {
             return (

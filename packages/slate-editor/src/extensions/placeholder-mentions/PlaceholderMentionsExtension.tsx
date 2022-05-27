@@ -12,7 +12,7 @@ export const PlaceholderMentionsExtension = (): Extension =>
     MentionsExtension({
         id: PLACEHOLDER_MENTIONS_EXTENSION_ID,
         type: PLACEHOLDER_NODE_TYPE,
-        normalizers: [normalizeRedundantPlaceholderMentionAttributes],
+        normalizeNode: normalizeRedundantPlaceholderMentionAttributes,
         parseSerializedElement,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isPlaceholderNode(element)) {

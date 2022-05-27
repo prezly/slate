@@ -22,7 +22,7 @@ export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters)
     },
     isRichBlock: isEmbedNode,
     isVoid: isEmbedNode,
-    normalizers: [normalizeRedundantEmbedAttributes],
+    normalizeNode: normalizeRedundantEmbedAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isEmbedNode(element)) {
             return (

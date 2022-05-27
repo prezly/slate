@@ -12,7 +12,7 @@ export const UserMentionsExtension = (): Extension =>
     MentionsExtension({
         id: USER_MENTIONS_EXTENSION_ID,
         type: MENTION_NODE_TYPE,
-        normalizers: [normalizeRedundantUserMentionAttributes],
+        normalizeNode: normalizeRedundantUserMentionAttributes,
         parseSerializedElement,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isMentionNode(element)) {

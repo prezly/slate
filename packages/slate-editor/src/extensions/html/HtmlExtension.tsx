@@ -16,7 +16,7 @@ export const HtmlExtension = (): Extension => ({
     },
     id: HTML_EXTENSION_ID,
     isVoid: isHtmlNode,
-    normalizers: [normalizeRedundantHtmlBlockAttributes],
+    normalizeNode: normalizeRedundantHtmlBlockAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isHtmlNode(element)) {
             return (

@@ -23,7 +23,7 @@ export const WebBookmarkExtension = ({
     },
     isRichBlock: isBookmarkNode,
     isVoid: isBookmarkNode,
-    normalizers: [normalizeRedundantWebBookmarkAttributes],
+    normalizeNode: [normalizeRedundantWebBookmarkAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isBookmarkNode(element)) {
             return (

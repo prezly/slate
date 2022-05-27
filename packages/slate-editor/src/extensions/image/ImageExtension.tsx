@@ -70,7 +70,7 @@ export const ImageExtension = ({
         }
         return isImageCandidateElement(node) || isImageNode(node);
     },
-    normalizers: [
+    normalizeNode: [
         normalizeRedundantImageAttributes,
         normalizeChildren,
         // normalizeImageCandidate needs to be last because it removes the image candidate element

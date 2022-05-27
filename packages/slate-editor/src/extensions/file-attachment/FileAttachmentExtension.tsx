@@ -30,7 +30,7 @@ export const FileAttachmentExtension = ({
     },
     isRichBlock: isAttachmentNode,
     isVoid: isAttachmentNode,
-    normalizers: [normalizeRedundantFileAttachmentAttributes],
+    normalizeNode: normalizeRedundantFileAttachmentAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isAttachmentNode(element)) {
             return (

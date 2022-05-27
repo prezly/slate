@@ -17,7 +17,7 @@ export function VideoExtension(): Extension {
         },
         isRichBlock: isVideoNode,
         isVoid: isVideoNode,
-        normalizers: [normalizeRedundantVideoAttributes],
+        normalizeNode: normalizeRedundantVideoAttributes,
         renderElement: ({ attributes, children, element }) => {
             if (isVideoNode(element)) {
                 return (

@@ -18,7 +18,7 @@ export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): 
     },
     isRichBlock: isStoryEmbedNode,
     isVoid: isStoryEmbedNode,
-    normalizers: [normalizeRedundantStoryEmbedAttributes],
+    normalizeNode: normalizeRedundantStoryEmbedAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isStoryEmbedNode(element)) {
             return (

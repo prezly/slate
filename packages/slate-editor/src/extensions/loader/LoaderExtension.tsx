@@ -14,7 +14,7 @@ export const LoaderExtension = ({
     id: LOADER_EXTENSION_ID,
     isRichBlock: isLoaderElement,
     isVoid: isLoaderElement,
-    normalizers: [normalizeRedundantLoaderAttributes],
+    normalizeNode: normalizeRedundantLoaderAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isLoaderElement(element)) {
             return (

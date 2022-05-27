@@ -33,7 +33,7 @@ export const InlineLinksExtension = (): Extension => ({
         },
     },
     isInline: isLinkNode,
-    normalizers: [normalizeEmptyLink, normalizeNestedLink, normalizeRedundantLinkAttributes],
+    normalizeNode: [normalizeEmptyLink, normalizeNestedLink, normalizeRedundantLinkAttributes],
     onKeyDown: function (event, editor) {
         escapeLinksBoundaries(event, editor);
     },

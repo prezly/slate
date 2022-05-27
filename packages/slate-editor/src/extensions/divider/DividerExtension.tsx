@@ -23,7 +23,7 @@ export const DividerExtension = (): Extension => ({
     },
     id: DIVIDER_EXTENSION_ID,
     isVoid: isDividerNode,
-    normalizers: [normalizeRedundantDividerAttributes],
+    normalizeNode: normalizeRedundantDividerAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isDividerNode(element)) {
             return (
