@@ -81,6 +81,23 @@
         outline: solid 6px $editor-block-focus-color;
         border-radius: 0;
     }
+
+    &.fullWidth.selected {
+        outline: none;
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            outline: solid 6px $editor-block-focus-color;
+            outline-offset: -6px;
+        }
+    }
 }
 
 .Overlay {

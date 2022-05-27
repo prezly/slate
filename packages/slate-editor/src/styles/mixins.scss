@@ -3,8 +3,6 @@
  * to modify editor blocks core properties (width, alignment, etc).
  */
 
-@import "./variables";
-
 @mixin editor-styles {
     [data-slate-editor] {
         @content;
@@ -49,7 +47,7 @@
     $width: "auto",
     $rich-width: $width,
     $expanded-width: $rich-width + 140px,
-    $full-width: calc(100% - #{$spacing-4})
+    $full-width: 100%
 ) {
     @include editor-styles {
         @include editor-block-styles {
