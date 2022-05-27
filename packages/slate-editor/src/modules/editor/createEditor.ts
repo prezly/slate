@@ -19,7 +19,8 @@ import { withLoaders } from '#extensions/loader';
 import {
     withDeserializeHtml,
     withFilePasting,
-    withNonEmptyValue, withRichBlocks,
+    withNonEmptyValue,
+    withRichBlocks,
     withRootElements,
     withSlatePasting,
     withVoids,

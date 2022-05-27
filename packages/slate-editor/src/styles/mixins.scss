@@ -15,30 +15,30 @@
     @if ($type == null) {
         > [data-slate-block] {
             @if ($layout == null) {
-                @content
+                @content;
             } @else {
                 &[data-slate-block-layout="#{$layout}"] {
-                    @content
+                    @content;
                 }
             }
         }
-    } @else if ($type == 'rich' or $type == 'regular') {
+    } @else if ($type == "rich" or $type == "regular") {
         > [data-slate-block="rich"] {
             @if ($layout == null) {
-                @content
+                @content;
             } @else {
                 &[data-slate-block-layout="#{$layout}"] {
-                    @content
+                    @content;
                 }
             }
         }
     } @else {
         > [data-slate-type="#{$type}"] {
             @if ($layout == null) {
-                @content
+                @content;
             } @else {
                 &[data-slate-block-layout="#{$layout}"] {
-                    @content
+                    @content;
                 }
             }
         }
@@ -46,7 +46,7 @@
 }
 
 @mixin editor-width(
-    $width: 'auto',
+    $width: "auto",
     $rich-width: $width,
     $expanded-width: $rich-width + 140px,
     $full-width: calc(100% - #{$spacing-4})
@@ -55,25 +55,25 @@
         @include editor-block-styles {
             margin-left: auto;
             margin-right: auto;
-            @if ($width != 'auto') {
+            @if ($width != "auto") {
                 max-width: $width;
             }
         }
 
-        @if (width != 'auto') {
-            @include editor-block-styles($type: 'rich') {
+        @if (width != "auto") {
+            @include editor-block-styles($type: "rich") {
                 max-width: $rich-width;
             }
         }
 
-        @if $expanded-width != 'auto' {
-            @include editor-block-styles($layout: 'expanded') {
+        @if $expanded-width != "auto" {
+            @include editor-block-styles($layout: "expanded") {
                 max-width: $expanded-width;
             }
         }
 
-        @if $full-width != 'auto' {
-            @include editor-block-styles($layout: 'full-width') {
+        @if $full-width != "auto" {
+            @include editor-block-styles($layout: "full-width") {
                 max-width: $full-width;
             }
         }
