@@ -1,5 +1,4 @@
 import { Events } from '@prezly/events';
-import { createRef } from 'react';
 import type { Editor } from 'slate';
 
 import { noop } from '#lodash';
@@ -16,15 +15,12 @@ import { coverage, createDelayedResolve, oembedInfo } from '#modules/tests';
 import { createEditor as createBaseEditor } from './createEditor';
 import { getEnabledExtensions } from './getEnabledExtensions';
 
-const containerRef = createRef<HTMLElement>();
-
 const events = new Events<EditorEventMap>();
 
 export function getAllExtensions() {
     return Array.from(
         getEnabledExtensions({
             availableWidth: 1000,
-            containerRef,
             onFloatingAddMenuToggle: noop,
             withAttachments: true,
             withCoverage: {
