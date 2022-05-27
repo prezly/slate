@@ -65,5 +65,5 @@ $editor-paragraph-line-height: 22px;
 $editor-text-color: $grey-700;
 $editor-floating-button-size: 24px;
 $editor-floating-button-margin: 12px;
-$editor-embed-element-overlay-z-index: 2;
-$editor-floating-container-z-index: $editor-embed-element-overlay-z-index + 1;
+$editor-block-overlay-z-index: 10;
+$editor-floating-container-z-index: $editor-block-overlay-z-index + 1;
