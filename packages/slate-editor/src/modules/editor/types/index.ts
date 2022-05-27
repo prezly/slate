@@ -32,29 +32,9 @@ export interface EditorRef {
 export type Value = Element[];
 
 export interface EditorProps {
-    // Content area properties
-    availableWidth: number;
-    /**
-     * Implied alignment for editor content (default: 'left')
-     */
-    contentAlignment?: Alignment;
-    /**
-     * Override content column max width (default: `availableWidth`)
-     * @see availableWidth
-     */
-    contentMaxWidth?: number;
-    /**
-     * Override default alignment for block elements (default: `contentAlignment`)
-     * @see contentAlignment
-     */
-    blockAlignment?: Alignment;
-    /**
-     * Override content column max width for block elements (default: `contentMaxWidth`)
-     * @see contentMaxWidth
-     */
-    blockMaxWidth?: number;
-
+    align?: Alignment;
     autoFocus?: boolean;
+    availableWidth: number;
     className?: string;
     contentStyle?: CSSProperties;
     decorate?: Decorate;

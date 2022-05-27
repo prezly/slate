@@ -1,5 +1,4 @@
 import type { Extension } from '@prezly/slate-commons';
-import type { Alignment } from '@prezly/slate-types';
 
 import { noop } from '#lodash';
 
@@ -38,13 +37,7 @@ import {
 import type { EditorProps } from './types';
 
 type Parameters = {
-    // Content area properties
     availableWidth: number;
-    blockAlignment: Alignment;
-    blockMaxWidth: number;
-    contentAlignment: Alignment;
-    contentMaxWidth: number;
-    // Callbacks
     onFloatingAddMenuToggle: (show?: boolean) => void;
     onOperationEnd?: () => void;
     onOperationStart?: () => void;
@@ -69,10 +62,6 @@ type Parameters = {
 
 export function* getEnabledExtensions({
     availableWidth,
-    blockAlignment,
-    blockMaxWidth,
-    contentAlignment,
-    contentMaxWidth,
     onFloatingAddMenuToggle,
     onOperationEnd = noop,
     onOperationStart = noop,
