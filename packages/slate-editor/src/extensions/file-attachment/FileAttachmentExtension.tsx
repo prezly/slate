@@ -29,6 +29,7 @@ export const FileAttachmentExtension = ({
         },
     },
     isRichBlock: isAttachmentNode,
+    isVoid: isAttachmentNode,
     normalizers: [normalizeRedundantFileAttachmentAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isAttachmentNode(element)) {
@@ -57,5 +58,4 @@ export const FileAttachmentExtension = ({
         return undefined;
     },
     rootTypes: [ATTACHMENT_NODE_TYPE],
-    voidTypes: [ATTACHMENT_NODE_TYPE],
 });

@@ -19,6 +19,7 @@ import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
 import {
     createImageCandidate,
     getAncestorAnchor,
+    isImageCandidateElement,
     normalizeChildren,
     normalizeImageCandidate,
     normalizeRedundantImageAttributes,
@@ -63,6 +64,12 @@ export const ImageExtension = ({
         },
     },
     isRichBlock: isImageNode,
+    isVoid: (node) => {
+        if (captions) {
+            return isImageCandidateElement(node);
+        }
+        return isImageCandidateElement(node) || isImageNode(node);
+    },
     normalizers: [
         normalizeRedundantImageAttributes,
         normalizeChildren,
@@ -149,5 +156,4 @@ export const ImageExtension = ({
         return undefined;
     },
     rootTypes: [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
-    voidTypes: captions ? [IMAGE_CANDIDATE_TYPE] : [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
 });

@@ -21,6 +21,7 @@ export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters)
         },
     },
     isRichBlock: isEmbedNode,
+    isVoid: isEmbedNode,
     normalizers: [normalizeRedundantEmbedAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isEmbedNode(element)) {
@@ -41,5 +42,4 @@ export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters)
         return undefined;
     },
     rootTypes: [EMBED_TYPE],
-    voidTypes: [EMBED_TYPE],
 });

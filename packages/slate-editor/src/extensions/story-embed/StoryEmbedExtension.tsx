@@ -17,6 +17,7 @@ export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): 
         },
     },
     isRichBlock: isStoryEmbedNode,
+    isVoid: isStoryEmbedNode,
     normalizers: [normalizeRedundantStoryEmbedAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isStoryEmbedNode(element)) {
@@ -32,5 +33,4 @@ export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): 
         return undefined;
     },
     rootTypes: [STORY_EMBED_NODE_TYPE],
-    voidTypes: [STORY_EMBED_NODE_TYPE],
 });

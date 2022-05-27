@@ -22,6 +22,7 @@ export const WebBookmarkExtension = ({
         },
     },
     isRichBlock: isBookmarkNode,
+    isVoid: isBookmarkNode,
     normalizers: [normalizeRedundantWebBookmarkAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isBookmarkNode(element)) {
@@ -41,5 +42,4 @@ export const WebBookmarkExtension = ({
         return undefined;
     },
     rootTypes: [BOOKMARK_NODE_TYPE],
-    voidTypes: [BOOKMARK_NODE_TYPE],
 });

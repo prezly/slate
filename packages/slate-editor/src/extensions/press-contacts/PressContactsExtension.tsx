@@ -15,6 +15,7 @@ export const PressContactsExtension = (): Extension => ({
         },
     },
     isRichBlock: isContactNode,
+    isVoid: isContactNode,
     normalizers: [normalizeRedundantPressContactAttributes],
     renderElement: ({ attributes, children, element }) => {
         if (isContactNode(element)) {
@@ -28,5 +29,4 @@ export const PressContactsExtension = (): Extension => ({
         return undefined;
     },
     rootTypes: [CONTACT_NODE_TYPE],
-    voidTypes: [CONTACT_NODE_TYPE],
 });

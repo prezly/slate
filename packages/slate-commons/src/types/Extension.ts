@@ -15,6 +15,7 @@ export interface Extension {
     deserialize?: DeserializeHtml;
     inlineTypes?: string[];
     isRichBlock?: (node: Node) => boolean;
+    isVoid?: (node: Node) => boolean;
     normalizers?: Normalize[];
     onDOMBeforeInput?: OnDOMBeforeInput;
     onKeyDown?: OnKeyDown | null;
@@ -28,5 +29,4 @@ export interface Extension {
      * they will be lifted up to the root of the editor.
      */
     rootTypes?: string[];
-    voidTypes?: string[];
 }

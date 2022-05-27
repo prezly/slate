@@ -22,6 +22,7 @@ export const DividerExtension = (): Extension => ({
         },
     },
     id: DIVIDER_EXTENSION_ID,
+    isVoid: isDividerNode,
     normalizers: [normalizeRedundantDividerAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isDividerNode(element)) {
@@ -35,5 +36,4 @@ export const DividerExtension = (): Extension => ({
         return undefined;
     },
     rootTypes: [DIVIDER_NODE_TYPE],
-    voidTypes: [DIVIDER_NODE_TYPE],
 });

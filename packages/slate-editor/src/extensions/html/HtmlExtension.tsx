@@ -15,6 +15,7 @@ export const HtmlExtension = (): Extension => ({
         },
     },
     id: HTML_EXTENSION_ID,
+    isVoid: isHtmlNode,
     normalizers: [normalizeRedundantHtmlBlockAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isHtmlNode(element)) {
@@ -28,5 +29,4 @@ export const HtmlExtension = (): Extension => ({
         return undefined;
     },
     rootTypes: [HTML_NODE_TYPE],
-    voidTypes: [HTML_NODE_TYPE],
 });

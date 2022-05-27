@@ -18,13 +18,13 @@ export function withInlineVoid(getExtensions: () => Extension[]) {
         };
 
         editor.isVoid = (element) => {
-            const anyElement: Record<string, unknown> = element as unknown as Record<
-                string,
-                unknown
-            >;
-            const extensions = getExtensions();
-            const voidTypes = extensions.flatMap((extension) => extension.voidTypes || []);
-            return voidTypes.includes(anyElement.type as string) ? true : isVoid(element);
+            for (const { isVoid } of getExtensions()) {
+                if (isVoid?.(element)) {
+                    return true;
+                }
+            }
+
+            return isVoid(element);
         };
 
         return editor;

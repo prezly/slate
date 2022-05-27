@@ -11,6 +11,7 @@ import { normalizeRedundantPlaceholderMentionAttributes, parseSerializedElement 
 export const PlaceholderMentionsExtension = (): Extension =>
     MentionsExtension({
         id: PLACEHOLDER_MENTIONS_EXTENSION_ID,
+        type: PLACEHOLDER_NODE_TYPE,
         normalizers: [normalizeRedundantPlaceholderMentionAttributes],
         parseSerializedElement,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
@@ -25,5 +26,4 @@ export const PlaceholderMentionsExtension = (): Extension =>
 
             return undefined;
         },
-        type: PLACEHOLDER_NODE_TYPE,
     });

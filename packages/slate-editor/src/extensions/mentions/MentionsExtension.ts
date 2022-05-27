@@ -1,5 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
+import type { Node } from 'slate';
+import { Element } from 'slate';
 
 import type { MentionElementType } from './types';
 
@@ -18,6 +20,10 @@ export function MentionsExtension<T extends string>({
     renderElement,
     type,
 }: Options<T>): Extension {
+    function isMention(node: Node) {
+        return Element.isElementType(node, type);
+    }
+
     return {
         deserialize: {
             element: {
@@ -26,8 +32,8 @@ export function MentionsExtension<T extends string>({
         },
         id,
         inlineTypes: [type],
+        isVoid: isMention,
         normalizers,
         renderElement,
-        voidTypes: [type],
     };
 }
