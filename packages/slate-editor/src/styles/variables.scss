@@ -1,6 +1,5 @@
 @import "./colors";
 @import "./legacy-colors";
-@import "./shared";
 
 $spacing-base: 8px; // 8
 $spacing-half: 0.5 * $spacing-base; // 4
@@ -54,3 +53,17 @@ $toolbar-dark-theme-icon-color: rgba(#fff, 0.6);
 $toolbar-dark-theme-icon-active-color: $color-dark-ui-accent;
 $toolbar-dark-theme-hover-bg: rgba(#fff, 0.12);
 $toolbar-dark-theme-focus-outline: $indigo-200;
+
+$editor-block-focus-color: $yellow-300;
+$editor-block-spacing-vertical: 44px;
+$editor-heading-one-font-size: 28px;
+$editor-heading-one-line-height: 34px;
+$editor-heading-two-font-size: 22px;
+$editor-heading-two-line-height: 28px;
+$editor-paragraph-font-size: 16px;
+$editor-paragraph-line-height: 22px;
+$editor-text-color: $grey-700;
+$editor-floating-button-size: 24px;
+$editor-floating-button-margin: 12px;
+$editor-embed-element-overlay-z-index: 2;
+$editor-floating-container-z-index: $editor-embed-element-overlay-z-index + 1;
