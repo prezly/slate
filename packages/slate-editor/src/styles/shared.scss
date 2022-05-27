@@ -14,7 +14,11 @@ $editor-floating-button-margin: 12px;
 $editor-embed-element-overlay-z-index: 2;
 $editor-floating-container-z-index: $editor-embed-element-overlay-z-index + 1;
 
-@mixin editor-width($width: 'auto') {
+@mixin editor-width(
+    $width: 'auto',
+    $rich-block-width: $width,
+    $expanded-width: $rich-block-width + 140px
+) {
     [data-slate-editor] {
         > [data-slate-block] {
             margin-left: auto;
@@ -23,13 +27,17 @@ $editor-floating-container-z-index: $editor-embed-element-overlay-z-index + 1;
 
             &[data-slate-block-layout="expanded"] {
                 @if $width != 'auto' {
-                    max-width: calc($width + 140px);
+                    max-width: $expanded-width;
                 }
             }
 
             &[data-slate-block-layout="full-width"] {
                 max-width: calc(100% - $spacing-4);
             }
+        }
+
+        > [data-slate-block="rich"] {
+            max-width: $rich-block-width;
         }
     }
 }
