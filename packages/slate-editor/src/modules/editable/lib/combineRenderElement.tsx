@@ -13,7 +13,7 @@ export function combineRenderElement(
         const props = {
             attributes: {
                 'data-slate-block': detectBlockType(editor, element),
-                'data-slate-type': (element as any).type,
+                'data-slate-type': element.type,
                 'data-slate-value': JSON.stringify(element),
                 ...attributes,
             },
