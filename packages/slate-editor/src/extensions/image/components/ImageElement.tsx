@@ -106,7 +106,7 @@ export function ImageElement({
             element={element}
             layout={layout}
             onResize={handleResize}
-            overlay="always"
+            overlay={false}
             renderBlock={() => (
                 <ImageWithLoadingPlaceholder
                     src={image.preview().format().cdnUrl}
