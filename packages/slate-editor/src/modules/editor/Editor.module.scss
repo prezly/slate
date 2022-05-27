@@ -11,17 +11,7 @@
     }
 
     > [data-slate-block] {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 680px;
-
-        &[data-slate-block-layout="expanded"] {
-            max-width: 680px + 140px;
-        }
-
-        &[data-slate-block-layout="full-width"] {
-            max-width: calc(100% - $spacing-4);
-        }
+        margin: $editor-block-spacing-vertical 0;
 
         &:first-child {
             margin-top: 0;

@@ -13,3 +13,23 @@ $editor-floating-button-size: 24px;
 $editor-floating-button-margin: 12px;
 $editor-embed-element-overlay-z-index: 2;
 $editor-floating-container-z-index: $editor-embed-element-overlay-z-index + 1;
+
+@mixin editor-width($width: 'auto') {
+    [data-slate-editor] {
+        > [data-slate-block] {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: $width;
+
+            &[data-slate-block-layout="expanded"] {
+                @if $width != 'auto' {
+                    max-width: calc($width + 140px);
+                }
+            }
+
+            &[data-slate-block-layout="full-width"] {
+                max-width: calc(100% - $spacing-4);
+            }
+        }
+    }
+}
