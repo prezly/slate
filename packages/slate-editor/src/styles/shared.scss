@@ -14,30 +14,77 @@ $editor-floating-button-margin: 12px;
 $editor-embed-element-overlay-z-index: 2;
 $editor-floating-container-z-index: $editor-embed-element-overlay-z-index + 1;
 
-@mixin editor-width(
-    $width: 'auto',
-    $rich-block-width: $width,
-    $expanded-width: $rich-block-width + 140px
-) {
+@mixin editor-styles {
     [data-slate-editor] {
-        > [data-slate-block] {
-            margin-left: auto;
-            margin-right: auto;
-            max-width: $width;
+        @content;
+    }
+}
 
-            &[data-slate-block-layout="expanded"] {
-                @if $width != 'auto' {
-                    max-width: $expanded-width;
+@mixin editor-block-styles($type: null, $layout: null) {
+    @if ($type == null) {
+        > [data-slate-block] {
+            @if ($layout == null) {
+                @content
+            } @else {
+                &[data-slate-block-layout="#{$layout}"] {
+                    @content
                 }
             }
+        }
+    } @else if ($type == 'rich' or $type == 'regular') {
+        > [data-slate-block="rich"] {
+            @if ($layout == null) {
+                @content
+            } @else {
+                &[data-slate-block-layout="#{$layout}"] {
+                    @content
+                }
+            }
+        }
+    } @else {
+        > [data-slate-type="#{$type}"] {
+            @if ($layout == null) {
+                @content
+            } @else {
+                &[data-slate-block-layout="#{$layout}"] {
+                    @content
+                }
+            }
+        }
+    }
+}
 
-            &[data-slate-block-layout="full-width"] {
-                max-width: calc(100% - $spacing-4);
+@mixin editor-width(
+    $width: 'auto',
+    $rich-width: $width,
+    $expanded-width: $rich-width + 140px,
+    $full-width: calc(100% - #{$spacing-4})
+) {
+    @include editor-styles {
+        @include editor-block-styles {
+            margin-left: auto;
+            margin-right: auto;
+            @if ($width != 'auto') {
+                max-width: $width;
             }
         }
 
-        > [data-slate-block="rich"] {
-            max-width: $rich-block-width;
+        @if (width != 'auto') {
+            @include editor-block-styles($type: 'rich') {
+                max-width: $rich-width;
+            }
+        }
+
+        @if $expanded-width != 'auto' {
+            @include editor-block-styles($layout: 'expanded') {
+                max-width: $expanded-width;
+            }
+        }
+
+        @if $full-width != 'auto' {
+            @include editor-block-styles($layout: 'full-width') {
+                max-width: $full-width;
+            }
         }
     }
 }
