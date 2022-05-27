@@ -3,10 +3,25 @@
 
 .Editor {
     position: relative;
+}
 
-    @include editor-top-elements {
+.Editable {
+    *::selection {
+        background: #c2e5ff;
+    }
+
+    > [data-slate-block] {
         margin-left: auto;
         margin-right: auto;
+        max-width: 680px;
+
+        &[data-slate-block-layout="expanded"] {
+            max-width: 680px + 140px;
+        }
+
+        &[data-slate-block-layout="full-width"] {
+            max-width: calc(100% - $spacing-4);
+        }
 
         &:first-child {
             margin-top: 0;
@@ -16,10 +31,6 @@
             margin-bottom: 0;
         }
     }
-
-    [data-slate-editor="true"] * {
-        &::selection {
-            background: #c2e5ff;
-        }
-    }
 }
+
+

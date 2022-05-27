@@ -113,7 +113,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 [styles.void]: isVoid,
                 [styles.extendedHitArea]: extendedHitArea,
             })}
-            data-element-layout={layout}
+            data-slate-block-layout={layout}
             onClick={isVoid ? undefined : closeMenu}
             ref={ref}
         >

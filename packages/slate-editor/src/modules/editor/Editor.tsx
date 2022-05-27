@@ -356,6 +356,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
                 value={value}
             >
                 <EditableWithExtensions
+                    className={styles.Editable}
                     decorate={decorate}
                     editor={editor}
                     extensions={extensions}
