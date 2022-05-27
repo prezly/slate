@@ -14,10 +14,10 @@
             "default": "./build/cjs/index.cjs"
         },
         "./styles.css": "./build/styles/styles.css",
-        "./styles/mixins": {
+        "./styles/mixins.scss": {
             "sass": "./build/styles/mixins.scss"
         },
-        "./styles/variables": {
+        "./styles/variables.scss": {
             "sass": "./build/styles/variables.scss"
         }
     },
