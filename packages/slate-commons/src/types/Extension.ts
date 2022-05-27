@@ -13,7 +13,7 @@ export interface Extension {
     id: string;
     decorate?: DecorateFactory;
     deserialize?: DeserializeHtml;
-    inlineTypes?: string[];
+    isInline?: (node: Node) => boolean;
     isRichBlock?: (node: Node) => boolean;
     isVoid?: (node: Node) => boolean;
     normalizers?: Normalize[];

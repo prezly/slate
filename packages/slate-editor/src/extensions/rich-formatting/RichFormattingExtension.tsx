@@ -22,7 +22,6 @@ interface Parameters {
 export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
     id: RICH_FORMATTING_EXTENSION_ID,
     deserialize: createDeserialize({ blocks }),
-    inlineTypes: [],
     normalizers: [normalizeRedundantRichTextAttributes],
     onKeyDown: createOnKeyDownHandler({ blocks }),
     renderElement: ({ attributes, children, element }: RenderElementProps) => {

@@ -8,18 +8,18 @@ export function withInlineVoid(getExtensions: () => Extension[]) {
         const { isInline, isVoid } = editor;
 
         editor.isInline = (element) => {
-            const anyElement: Record<string, unknown> = element as unknown as Record<
-                string,
-                unknown
-            >;
-            const extensions = getExtensions();
-            const inlineTypes = extensions.flatMap((extension) => extension.inlineTypes || []);
-            return inlineTypes.includes(anyElement.type as string) ? true : isInline(element);
+            for (const extension of getExtensions()) {
+                if (extension.isInline?.(element)) {
+                    return true;
+                }
+            }
+
+            return isInline(element);
         };
 
         editor.isVoid = (element) => {
-            for (const { isVoid } of getExtensions()) {
-                if (isVoid?.(element)) {
+            for (const extension of getExtensions()) {
+                if (extension.isVoid?.(element)) {
                     return true;
                 }
             }

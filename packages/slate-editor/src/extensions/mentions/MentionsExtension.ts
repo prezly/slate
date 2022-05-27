@@ -31,7 +31,7 @@ export function MentionsExtension<T extends string>({
             },
         },
         id,
-        inlineTypes: [type],
+        isInline: isMention,
         isVoid: isMention,
         normalizers,
         renderElement,
