@@ -33,7 +33,7 @@ export interface Props {
      * - renderElement
      * - renderLeaf
      * - onDOMBeforeInput
-     * - onKeyDown
+     * - onKeyDown.ts
      */
     extensions?: Extension[];
     onCut?: (event: React.ClipboardEvent<HTMLDivElement>) => void;
@@ -44,7 +44,7 @@ export interface Props {
      * Handlers when we press a key
      */
     onKeyDown?: OnKeyDown[];
-    // Dependencies of `onKeyDown`
+    // Dependencies of `onKeyDown.ts`
     onKeyDownDeps?: any[];
     placeholder?: string;
     readOnly?: boolean;

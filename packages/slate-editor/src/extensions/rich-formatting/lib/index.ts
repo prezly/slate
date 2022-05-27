@@ -5,4 +5,4 @@ export { isRichTextElement } from './isRichTextElement';
 export { normalizeRedundantRichTextAttributes } from './normalizeRedundantRichTextAttributes';
 export { parseSerializedElement } from './parseSerializedElement';
 export { toggleBlock } from './toggleBlock';
-export { withResetRichFormattingOnBreak } from './withResetRichFormattingOnBreak';
+export { withResetFormattingOnBreak } from './withResetFormattingOnBreak';

@@ -6,7 +6,7 @@ import type { Editor } from 'slate';
 
 import { isRichTextBlockElement } from './isRichTextBlockElement';
 
-export function withResetRichFormattingOnBreak<T extends Editor>(editor: T): T {
+export function withResetFormattingOnBreak<T extends Editor>(editor: T): T {
     const { insertBreak } = editor;
 
     editor.insertBreak = () => {

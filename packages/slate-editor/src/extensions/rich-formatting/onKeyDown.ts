@@ -1,5 +1,4 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { onKeyDown as onListsKeyDown } from '@prezly/slate-lists';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 import { Editor } from 'slate';
@@ -12,7 +11,7 @@ const MARK_HOTKEYS: { hotkey: string; mark: MarkType }[] = [
     { hotkey: 'mod+u', mark: MarkType.UNDERLINED },
 ];
 
-function marksOnKeyDown(event: KeyboardEvent, editor: Editor) {
+export function onHotkeyDoMarks(event: KeyboardEvent, editor: Editor) {
     return MARK_HOTKEYS.forEach(({ hotkey, mark }) => {
         if (isHotkey(hotkey, event.nativeEvent)) {
             event.preventDefault();
@@ -21,20 +20,13 @@ function marksOnKeyDown(event: KeyboardEvent, editor: Editor) {
     });
 }
 
-function softBreakOnKeyDown(event: KeyboardEvent, editor: Editor) {
+export function onShiftEnterDoSoftBreak(event: KeyboardEvent, editor: Editor) {
     if (isHotkey('shift+enter', event.nativeEvent) && !event.isDefaultPrevented()) {
         event.preventDefault();
         Editor.insertText(editor, '\n');
     }
 }
 
-export function createOnKeyDownHandler(parameters: { blocks: boolean }) {
-    return (event: KeyboardEvent, editor: Editor) => {
-        softBreakOnKeyDown(event, editor);
-        marksOnKeyDown(event, editor);
-
-        if (parameters.blocks) {
-            onListsKeyDown(editor, event);
-        }
-    };
+export function onBackspaceResetFormatting(event: KeyboardEvent, editor: Editor) {
+    // TODO
 }
