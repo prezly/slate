@@ -36,7 +36,7 @@ export function onBackspaceResetFormattingAtDocumentStart(event: KeyboardEvent, 
     if (
         isDeletingEventBackward(event) &&
         selection !== null &&
-        isBeginningOfDocumentFocused(selection)
+        isDocumentStart(selection)
     ) {
         if (isFocused(editor, isRichBlock)) {
             Transforms.setNodes(
@@ -51,11 +51,11 @@ export function onBackspaceResetFormattingAtDocumentStart(event: KeyboardEvent, 
     }
 }
 
-function isBeginningOfDocumentFocused(selection: Range): boolean {
+function isDocumentStart(selection: Range): boolean {
     return (
         Range.isCollapsed(selection) &&
         selection.focus.offset === 0 &&
-        // Any node at path [0, ..., 0] is considered the beginning
+        // Any node at path [0, ..., 0] is considered the start of the document
         selection.focus.path.every((index) => index === 0)
     );
 }
