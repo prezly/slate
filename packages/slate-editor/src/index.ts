@@ -4,18 +4,6 @@ import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
-import type { RichBlocksAwareEditor } from '#modules/editor';
-
-export type Editor = BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor;
-
-declare module 'slate' {
-    interface CustomTypes {
-        Editor: Editor;
-        Element: ElementNode;
-        Text: TextNode;
-    }
-}
-
 export * from './components';
 export * as Icons from './icons';
 export * from './modules/editor';
@@ -30,3 +18,16 @@ export type { User } from './extensions/user-mentions';
 
 export type { ResultPromise, UploadcareOptions } from './modules/uploadcare';
 export { withUploadcare } from './modules/uploadcare';
+
+
+import type { RichBlocksAwareEditor } from './modules/editor';
+
+export type Editor = BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor;
+
+declare module 'slate' {
+    interface CustomTypes {
+        Editor: Editor;
+        Element: ElementNode;
+        Text: TextNode;
+    }
+}
