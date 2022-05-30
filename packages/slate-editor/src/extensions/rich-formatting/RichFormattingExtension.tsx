@@ -1,5 +1,5 @@
 import type { Extension, WithOverrides } from '@prezly/slate-commons';
-import { onKeyDown as onHotkeysDoListsFormatting } from '@prezly/slate-lists';
+import { onKeyDown as onKeyboardDoListsFormatting } from '@prezly/slate-lists';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
@@ -32,10 +32,10 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
     onKeyDown: (event: KeyboardEvent, editor: Editor) => {
         OnKeyDown.onHotkeyDoMarks(event, editor);
         OnKeyDown.onShiftEnterDoSoftBreak(event, editor);
-        OnKeyDown.onBackspaceResetFormatting(event, editor);
+        OnKeyDown.onBackspaceResetFormattingAtDocumentStart(event, editor);
 
         if (blocks) {
-            onHotkeysDoListsFormatting(editor, event);
+            onKeyboardDoListsFormatting(editor, event);
         }
     },
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
