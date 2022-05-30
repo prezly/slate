@@ -11,7 +11,8 @@ import { normalizeRedundantUserMentionAttributes, parseSerializedElement } from 
 export const UserMentionsExtension = (): Extension =>
     MentionsExtension({
         id: USER_MENTIONS_EXTENSION_ID,
-        normalizers: [normalizeRedundantUserMentionAttributes],
+        type: MENTION_NODE_TYPE,
+        normalizeNode: normalizeRedundantUserMentionAttributes,
         parseSerializedElement,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isMentionNode(element)) {
@@ -25,5 +26,4 @@ export const UserMentionsExtension = (): Extension =>
 
             return undefined;
         },
-        type: MENTION_NODE_TYPE,
     });

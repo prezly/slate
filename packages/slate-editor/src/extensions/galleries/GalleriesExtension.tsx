@@ -26,7 +26,8 @@ export const GalleriesExtension = ({ availableWidth, onEdit }: Parameters): Exte
         },
     },
     isRichBlock: isGalleryNode,
-    normalizers: [normalizeInvalidGallery, normalizeRedundantGalleryAttributes],
+    isVoid: isGalleryNode,
+    normalizeNode: [normalizeInvalidGallery, normalizeRedundantGalleryAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isGalleryNode(element)) {
             return (
@@ -44,5 +45,4 @@ export const GalleriesExtension = ({ availableWidth, onEdit }: Parameters): Exte
         return undefined;
     },
     rootTypes: [GALLERY_NODE_TYPE],
-    voidTypes: [GALLERY_NODE_TYPE],
 });
