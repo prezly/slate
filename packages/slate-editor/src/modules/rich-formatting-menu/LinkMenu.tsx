@@ -5,8 +5,7 @@ import { RootCloseWrapper } from 'react-overlays';
 
 import { Button, Input, Toggle, Toolbox, VStack } from '#components';
 import { Delete, Link } from '#icons';
-
-import { STRING_URL_PATTERN } from '#modules/components/LinkMenu';
+import { HREF_REGEXP, normalizeHref } from '#lib';
 
 interface Props {
     node: LinkNode | null;
@@ -31,7 +30,7 @@ export function LinkMenu({
     const [new_tab, setNewTab] = useState(node?.new_tab ?? true);
 
     function handleSave() {
-        onChange({ href, new_tab });
+        onChange({ href: normalizeHref(href), new_tab });
     }
 
     return (
@@ -58,9 +57,9 @@ export function LinkMenu({
                                             value={href}
                                             onChange={setHref}
                                             icon={Link}
-                                            pattern={STRING_URL_PATTERN}
+                                            pattern={HREF_REGEXP.source}
                                             placeholder="Paste link"
-                                            type="url"
+                                            title="Please input a valid URL"
                                         />
                                     </VStack>
 

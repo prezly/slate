@@ -13,7 +13,8 @@ export const LoaderExtension = ({
 }: LoaderParameters): Extension => ({
     id: LOADER_EXTENSION_ID,
     isRichBlock: isLoaderElement,
-    normalizers: [normalizeRedundantLoaderAttributes],
+    isVoid: isLoaderElement,
+    normalizeNode: normalizeRedundantLoaderAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isLoaderElement(element)) {
             return (
@@ -31,5 +32,4 @@ export const LoaderExtension = ({
         return undefined;
     },
     rootTypes: [LOADER_TYPE],
-    voidTypes: [LOADER_TYPE],
 });

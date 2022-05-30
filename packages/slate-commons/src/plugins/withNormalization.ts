@@ -8,7 +8,7 @@ export function withNormalization(getExtensions: () => Extension[]) {
         const { normalizeNode } = editor;
 
         editor.normalizeNode = (entry) => {
-            const normalizers = getExtensions().flatMap((extension) => extension.normalizers || []);
+            const normalizers = getExtensions().flatMap(({ normalizeNode = [] }) => normalizeNode);
 
             for (const normalizer of normalizers) {
                 const normalized = normalizer(editor, entry);

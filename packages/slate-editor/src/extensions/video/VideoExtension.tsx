@@ -16,7 +16,8 @@ export function VideoExtension(): Extension {
             },
         },
         isRichBlock: isVideoNode,
-        normalizers: [normalizeRedundantVideoAttributes],
+        isVoid: isVideoNode,
+        normalizeNode: normalizeRedundantVideoAttributes,
         renderElement: ({ attributes, children, element }) => {
             if (isVideoNode(element)) {
                 return (
@@ -29,6 +30,5 @@ export function VideoExtension(): Extension {
             return undefined;
         },
         rootTypes: [VIDEO_NODE_TYPE],
-        voidTypes: [VIDEO_NODE_TYPE],
     };
 }

@@ -18,7 +18,8 @@ export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Ex
         },
     },
     isRichBlock: isCoverageNode,
-    normalizers: [normalizeRedundantCoverageAttributes],
+    isVoid: isCoverageNode,
+    normalizeNode: normalizeRedundantCoverageAttributes,
     renderElement: ({ attributes, children, element }) => {
         if (isCoverageNode(element)) {
             return (
@@ -36,5 +37,4 @@ export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Ex
         return undefined;
     },
     rootTypes: [COVERAGE_NODE_TYPE],
-    voidTypes: [COVERAGE_NODE_TYPE],
 });

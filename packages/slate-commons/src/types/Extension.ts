@@ -13,9 +13,10 @@ export interface Extension {
     id: string;
     decorate?: DecorateFactory;
     deserialize?: DeserializeHtml;
-    inlineTypes?: string[];
+    isInline?: (node: Node) => boolean;
     isRichBlock?: (node: Node) => boolean;
-    normalizers?: Normalize[];
+    isVoid?: (node: Node) => boolean;
+    normalizeNode?: Normalize | Normalize[];
     onDOMBeforeInput?: OnDOMBeforeInput;
     onKeyDown?: OnKeyDown | null;
     renderElement?: RenderElement;
@@ -28,5 +29,4 @@ export interface Extension {
      * they will be lifted up to the root of the editor.
      */
     rootTypes?: string[];
-    voidTypes?: string[];
 }

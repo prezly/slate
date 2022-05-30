@@ -11,7 +11,6 @@ import { MentionsExtension } from './MentionsExtension';
 const PlaceholderMentionsExtension = () =>
     MentionsExtension({
         id: 'MentionsExtension',
-        normalizers: [],
         parseSerializedElement: JSON.parse,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isPlaceholderNode(element)) {

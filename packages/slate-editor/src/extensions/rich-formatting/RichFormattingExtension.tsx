@@ -27,8 +27,7 @@ interface Parameters {
 export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
     id: RICH_FORMATTING_EXTENSION_ID,
     deserialize: createDeserialize({ blocks }),
-    inlineTypes: [],
-    normalizers: [normalizeRedundantRichTextAttributes],
+    normalizeNode: normalizeRedundantRichTextAttributes,
     onKeyDown: (event: KeyboardEvent, editor: Editor) => {
         OnKeyDown.onHotkeyDoMarks(event, editor);
         OnKeyDown.onShiftEnterDoSoftBreak(event, editor);

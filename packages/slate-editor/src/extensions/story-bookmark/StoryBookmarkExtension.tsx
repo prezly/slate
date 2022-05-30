@@ -17,7 +17,8 @@ export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters)
         },
     },
     isRichBlock: isStoryBookmarkNode,
-    normalizers: [normalizeRedundantStoryBookmarkAttributes],
+    isVoid: isStoryBookmarkNode,
+    normalizeNode: normalizeRedundantStoryBookmarkAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isStoryBookmarkNode(element)) {
             return (
@@ -30,5 +31,4 @@ export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters)
         return undefined;
     },
     rootTypes: [STORY_BOOKMARK_NODE_TYPE],
-    voidTypes: [STORY_BOOKMARK_NODE_TYPE],
 });

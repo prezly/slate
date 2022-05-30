@@ -57,7 +57,9 @@
 }
 
 .Content {
+    position: relative;
     overflow: hidden;
+    z-index: $editor-block-overlay-z-index - 1;
 
     &.border {
         border: 1px solid $grey-200;
@@ -81,18 +83,35 @@
         outline: solid 6px $editor-block-focus-color;
         border-radius: 0;
     }
+
+    &.fullWidth.selected {
+        outline: none;
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            outline: solid 6px $editor-block-focus-color;
+            outline-offset: -6px;
+        }
+    }
 }
 
 .Overlay {
-    z-index: $editor-embed-element-overlay-z-index;
+    z-index: $editor-block-overlay-z-index;
 }
 
 .Menu {
-    z-index: $editor-embed-element-overlay-z-index + 2;
+    z-index: $editor-block-overlay-z-index + 2;
 }
 
 .ResizeButton {
-    z-index: $editor-embed-element-overlay-z-index + 1;
+    z-index: $editor-block-overlay-z-index + 1;
     position: absolute;
 
     &.left {
