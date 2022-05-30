@@ -21,11 +21,9 @@ export { withUploadcare } from './modules/uploadcare';
 
 import type { RichBlocksAwareEditor } from './modules/editor';
 
-export type Editor = BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor;
-
 declare module 'slate' {
     interface CustomTypes {
-        Editor: Editor;
+        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor;
         Element: ElementNode;
         Text: TextNode;
     }
