@@ -1,17 +1,22 @@
-import type { Extension } from '@prezly/slate-commons';
+import type { Extension, WithOverrides } from '@prezly/slate-commons';
+import { onKeyDown as onKeyboardDoListsFormatting } from '@prezly/slate-lists';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import type { KeyboardEvent } from 'react';
 import React from 'react';
+import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
+
+import { flow, identity } from '#lodash';
 
 import { RichTextElement, Text } from './components';
 import { RICH_FORMATTING_EXTENSION_ID } from './constants';
 import { createDeserialize } from './createDeserialize';
-import { createOnKeyDownHandler } from './createOnKeyDownHandler';
 import {
     isRichTextElement,
     normalizeRedundantRichTextAttributes,
-    withResetRichFormattingOnBreak,
+    withResetFormattingOnBreak,
 } from './lib';
+import * as OnKeyDown from './onKeyDown';
 import { ElementType } from './types';
 import { withListsFormatting } from './withListsFormatting';
 
@@ -23,7 +28,15 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
     id: RICH_FORMATTING_EXTENSION_ID,
     deserialize: createDeserialize({ blocks }),
     normalizeNode: normalizeRedundantRichTextAttributes,
-    onKeyDown: createOnKeyDownHandler({ blocks }),
+    onKeyDown: (event: KeyboardEvent, editor: Editor) => {
+        OnKeyDown.onHotkeyDoMarks(event, editor);
+        OnKeyDown.onShiftEnterDoSoftBreak(event, editor);
+        OnKeyDown.onBackspaceResetFormattingAtDocumentStart(event, editor);
+
+        if (blocks) {
+            onKeyboardDoListsFormatting(editor, event);
+        }
+    },
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (blocks && isRichTextElement(element)) {
             return (
@@ -43,6 +56,10 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
         ElementType.HEADING_TWO,
     ],
     withOverrides(editor) {
-        return withResetRichFormattingOnBreak(blocks ? withListsFormatting(editor) : editor);
+        const overrides: WithOverrides[] = [
+            withResetFormattingOnBreak,
+            blocks ? withListsFormatting : identity,
+        ];
+        return flow(overrides)(editor);
     },
 });
