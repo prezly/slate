@@ -146,6 +146,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         [styles.hasError]: hasError,
                         [styles.border]: border,
                         [styles.rounded]: rounded,
+                        [styles.fullWidth]: layout === Layout.FULL_WIDTH,
                     })}
                     onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
                 >
