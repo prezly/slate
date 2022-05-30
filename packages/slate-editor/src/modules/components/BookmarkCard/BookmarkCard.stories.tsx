@@ -74,7 +74,8 @@ export function Vertical(props: { showUrl: boolean }) {
 }
 
 export function Minimal() {
-    const url = 'https://www.facebook.com/PrezlyPR/posts/pfbid0zinDzc7t9pLwkEtdVAbcZgoeZ792csmyVGgUgz2eFB1fjz3yoYbuvbenXPJSN4tDl?__cft__[0]=AZUWtBN4H5i0AnIfCYHAwa3J0rXPydGcCaAJ4R9IvZCdTWLp_dbPZ3lNcVFKMONxsPfV3CATYts4iXNLvNU0dvsMJskip5faSIg35v-gFL8CMGCCE_SD2kLtjmFFvbx2RyJ3rw-sREgFrp9NheKji-SzfhQMR0UNzICq2e18tYJ3p_tRWGS-3Z-u5X7gA89Ox1U&__tn__=%2CO%2CP-R';
+    const url =
+        'https://www.facebook.com/PrezlyPR/posts/pfbid0zinDzc7t9pLwkEtdVAbcZgoeZ792csmyVGgUgz2eFB1fjz3yoYbuvbenXPJSN4tDl?__cft__[0]=AZUWtBN4H5i0AnIfCYHAwa3J0rXPydGcCaAJ4R9IvZCdTWLp_dbPZ3lNcVFKMONxsPfV3CATYts4iXNLvNU0dvsMJskip5faSIg35v-gFL8CMGCCE_SD2kLtjmFFvbx2RyJ3rw-sREgFrp9NheKji-SzfhQMR0UNzICq2e18tYJ3p_tRWGS-3Z-u5X7gA89Ox1U&__tn__=%2CO%2CP-R';
     return (
         <div style={{ width: 680 }}>
             <BookmarkCard.Container border layout="vertical">
