@@ -4,8 +4,6 @@ import type { HTMLAttributes } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
-import { ElementType } from '../../types';
-
 import styles from './ListItemElement.module.scss';
 
 interface Props extends HTMLAttributes<HTMLLIElement> {
@@ -13,15 +11,9 @@ interface Props extends HTMLAttributes<HTMLLIElement> {
     element: ListItemNode;
 }
 
-export function ListItemElement({ attributes, children, className, element, ...props }: Props) {
+export function ListItemElement({ attributes, children, className, ...props }: Props) {
     return (
-        <li
-            {...attributes}
-            {...props}
-            className={classNames(styles.ListItemElement, className)}
-            data-slate-type={ElementType.LIST_ITEM}
-            data-slate-value={JSON.stringify(element)}
-        >
+        <li {...attributes} {...props} className={classNames(styles.ListItemElement, className)}>
             {children}
         </li>
     );

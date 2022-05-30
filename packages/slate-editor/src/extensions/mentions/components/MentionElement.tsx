@@ -12,7 +12,7 @@ interface Props extends RenderElementProps {
     element: MentionElementType;
 }
 
-export const MentionElement: FunctionComponent<Props> = ({ attributes, children, element }) => {
+export const MentionElement: FunctionComponent<Props> = ({ attributes, children }) => {
     const selected = useSelected();
 
     return (
@@ -22,8 +22,6 @@ export const MentionElement: FunctionComponent<Props> = ({ attributes, children,
                 [styles.selected]: selected,
             })}
             contentEditable={false}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
         >
             {children}
         </span>

@@ -1,12 +1,17 @@
-@import "styles/mixins";
+@import "styles/helpers";
 @import "styles/variables";
 
 .Editor {
     position: relative;
+}
 
-    @include editor-top-elements {
-        margin-left: auto;
-        margin-right: auto;
+.Editable {
+    *::selection {
+        background: #c2e5ff;
+    }
+
+    > [data-slate-block] {
+        margin: $editor-block-spacing-vertical 0;
 
         &:first-child {
             margin-top: 0;
@@ -14,12 +19,6 @@
 
         &:last-child {
             margin-bottom: 0;
-        }
-    }
-
-    [data-slate-editor="true"] * {
-        &::selection {
-            background: #c2e5ff;
         }
     }
 }

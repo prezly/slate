@@ -1,6 +1,5 @@
+import type { Decorate, Extension } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
-
-import type { Decorate, Extension } from '../types';
 
 export function createExtensionsDecorators<E extends Editor>(
     editor: E,

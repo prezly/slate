@@ -1,8 +1,7 @@
-@import "styles/mixins";
+@import "styles/helpers";
 @import "styles/variables";
 
 .EditorBlock {
-    @include editor-block($void: false);
     position: relative;
 
     &.extendedHitArea {
@@ -22,7 +21,16 @@
     }
 
     &.void > .frame {
-        @include editor-void-element;
+        /**
+         * Selection in Slate 0.50+ does not work as expected if a void block is selectable.
+         * It could lead to an error when Slate is resolving the node which crashes the editor.
+         *
+         * Also, it's not possible to drag a node when it's selectable.
+         *
+         * see: https://app.clubhouse.io/prezly/story/19824/weird-selection-after-editing-an-attachment-or-image-or-gallery
+         * see: https://app.clubhouse.io/prezly/story/20456/error-cannot-resolve-a-dom-node-from-slate-node-text
+         */
+        user-select: none;
     }
 }
 
@@ -64,11 +72,14 @@
     }
 
     &.hasError {
-        @include editor-block-error;
+        color: $legacy-color-status-error;
+        outline: solid 6px $legacy-color-status-error;
+        border-radius: 0;
     }
 
     &.selected {
-        @include editor-block-active;
+        outline: solid 6px $editor-block-focus-color;
+        border-radius: 0;
     }
 }
 

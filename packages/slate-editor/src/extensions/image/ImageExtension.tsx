@@ -24,11 +24,17 @@ import {
     normalizeRedundantImageAttributes,
     parseSerializedElement,
 } from './lib';
-import type { ImageCandidateNode, ImageParameters } from './types';
+import type { ImageCandidateNode, ImageExtensionConfiguration } from './types';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
 
 let lastBackspaceTimestamp = 0;
+
+interface Parameters extends ImageExtensionConfiguration {
+    onCrop?: (editor: Editor, element: ImageNode) => void;
+    onRemove?: (editor: Editor, element: ImageNode) => void;
+    onReplace?: (editor: Editor, element: ImageNode) => void;
+}
 
 export const ImageExtension = ({
     captions,
@@ -39,7 +45,7 @@ export const ImageExtension = ({
     withSizeOptions = false,
     withLayoutOptions = false,
     withNewTabOption = true,
-}: ImageParameters): Extension => ({
+}: Parameters): Extension => ({
     id: IMAGE_EXTENSION_ID,
     deserialize: {
         element: {
@@ -56,6 +62,7 @@ export const ImageExtension = ({
             },
         },
     },
+    isRichBlock: isImageNode,
     normalizers: [
         normalizeRedundantImageAttributes,
         normalizeChildren,

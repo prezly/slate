@@ -1,8 +1,7 @@
+import type { Extension, OnDOMBeforeInput } from '@prezly/slate-commons';
 import type { ReactEditor } from 'slate-react';
 
-import type { Extension, OnDOMBeforeInput } from '../types';
-
-export function onDOMBeforeInputExtensions(
+export function combineOnDOMBeforeInput(
     editor: ReactEditor,
     extensions: Extension[],
     onDOMBeforeInputList: OnDOMBeforeInput[],
@@ -13,9 +12,7 @@ export function onDOMBeforeInputExtensions(
         });
 
         extensions.forEach(({ onDOMBeforeInput }) => {
-            if (onDOMBeforeInput) {
-                onDOMBeforeInput(event, editor);
-            }
+            onDOMBeforeInput?.(event, editor);
         });
     };
 }

@@ -1,73 +1,81 @@
+/**
+ * Public mixins intended to be used by external package consumers
+ * to modify editor blocks core properties (width, alignment, etc).
+ */
+
 @import "./variables";
 
-@mixin ellipsis {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}
-
-@mixin multi-line-ellipsis($lines) {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: $lines;
-    -webkit-box-orient: vertical;
-}
-
-@mixin btn-unstyled {
-    padding: 0;
-    border: none;
-    outline: none;
-    font: inherit;
-    color: inherit;
-    background: none;
-}
-
-@mixin img-responsive {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
-
-@mixin button-variant($color, $background, $border) {
-    color: $color;
-    background-color: $background;
-    border-color: $border;
-
-    &:focus,
-    &.focus {
-        color: $color;
-        background-color: darken($background, 10%);
-        border-color: darken($border, 25%);
+@mixin editor-styles {
+    [data-slate-editor] {
+        @content;
     }
-    &:hover {
-        color: $color;
-        background-color: darken($background, 10%);
-        border-color: darken($border, 12%);
-    }
-    &:active,
-    &.active {
-        color: $color;
-        background-color: darken($background, 10%);
-        border-color: darken($border, 12%);
+}
 
-        &:hover,
-        &:focus,
-        &.focus {
-            color: $color;
-            background-color: darken($background, 17%);
-            border-color: darken($border, 25%);
+@mixin editor-block-styles($type: null, $layout: null) {
+    @if ($type == null) {
+        > [data-slate-block] {
+            @if ($layout == null) {
+                @content;
+            } @else {
+                &[data-slate-block-layout="#{$layout}"] {
+                    @content;
+                }
+            }
+        }
+    } @else if ($type == "rich" or $type == "regular") {
+        > [data-slate-block="rich"] {
+            @if ($layout == null) {
+                @content;
+            } @else {
+                &[data-slate-block-layout="#{$layout}"] {
+                    @content;
+                }
+            }
+        }
+    } @else {
+        > [data-slate-type="#{$type}"] {
+            @if ($layout == null) {
+                @content;
+            } @else {
+                &[data-slate-block-layout="#{$layout}"] {
+                    @content;
+                }
+            }
         }
     }
-    &:active,
-    &.active,
-    &.disabled,
-    &[disabled] {
-        &:hover,
-        &:focus,
-        &.focus {
-            background-color: $background;
-            border-color: $border;
+}
+
+@mixin editor-width(
+    $width: "auto",
+    $rich-width: $width,
+    $expanded-width: $rich-width + 140px,
+    $full-width: calc(100% - #{$spacing-4})
+) {
+    @include editor-styles {
+        @include editor-block-styles {
+            margin-left: auto;
+            margin-right: auto;
+            @if ($width != "auto") {
+                max-width: $width;
+            }
+        }
+
+        @if (width != "auto") {
+            @include editor-block-styles($type: "rich") {
+                max-width: $rich-width;
+            }
+        }
+
+        @if $expanded-width != "auto" {
+            @include editor-block-styles($layout: "expanded") {
+                max-width: $expanded-width;
+            }
+        }
+
+        @if $full-width != "auto" {
+            @include editor-block-styles($layout: "full-width") {
+                max-width: $full-width;
+            }
         }
     }
 }

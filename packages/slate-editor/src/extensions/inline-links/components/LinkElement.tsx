@@ -25,11 +25,7 @@ export function LinkElement({ attributes, children, element }: Props) {
         // Using a wrapping `span` to avoid a rare Slate bug which occurs as
         // a failed `ReactEditor.toSlateNode` in Slate's Editable onClick handler.
         // For more details, see https://github.com/prezly/prezly/pull/8016#discussion_r454190469
-        <span
-            {...attributes}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
-        >
+        <span {...attributes}>
             <LinkWithTooltip href={element.href}>
                 {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
                     <a

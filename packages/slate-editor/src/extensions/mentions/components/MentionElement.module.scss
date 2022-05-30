@@ -1,8 +1,17 @@
-@import "styles/mixins";
+@import "styles/helpers";
 @import "styles/variables";
 
 .MentionElement {
-    @include editor-void-element;
+    /*
+     * Selection in Slate 0.50+ does not work as expected if a void block is selectable.
+     * It could lead to an error when Slate is resolving the node which crashes the editor.
+     *
+     * Also, it's not possible to drag a node when it's selectable.
+     *
+     * see: https://app.clubhouse.io/prezly/story/19824/weird-selection-after-editing-an-attachment-or-image-or-gallery
+     * see: https://app.clubhouse.io/prezly/story/20456/error-cannot-resolve-a-dom-node-from-slate-node-text
+     */
+    user-select: none;
 
     padding: 0 2px;
     background-color: $legacy-alert-info-bg;

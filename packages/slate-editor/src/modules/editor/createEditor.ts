@@ -20,6 +20,7 @@ import {
     withDeserializeHtml,
     withFilePasting,
     withNonEmptyValue,
+    withRichBlocks,
     withRootElements,
     withSlatePasting,
     withVoids,
@@ -52,6 +53,7 @@ export function createEditor(
         withSlatePasting,
         withImages,
         withFilePasting(getExtensions),
+        withRichBlocks(getExtensions),
         ...overrides,
         ...plugins,
     ])(baseEditor);

@@ -4,9 +4,11 @@ import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
+import type { RichBlocksAwareEditor } from '#modules/editor';
+
 declare module 'slate' {
     interface CustomTypes {
-        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor;
+        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor;
         Element: ElementNode;
         Text: TextNode;
     }
@@ -15,6 +17,7 @@ declare module 'slate' {
 export * from './components';
 export * as Icons from './icons';
 export * from './modules/editor';
+export { EditableWithExtensions } from './modules/editable';
 
 export type { SearchProps as CoverageSearchProps } from './extensions/coverage';
 export { createEmbed } from './extensions/embed';

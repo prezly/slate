@@ -1,9 +1,8 @@
+import type { Extension, OnKeyDown } from '@prezly/slate-commons';
 import type { KeyboardEvent } from 'react';
 import type { Editor } from 'slate';
 
-import type { Extension, OnKeyDown } from '../types';
-
-export function onKeyDownExtensions(
+export function combineOnKeyDown(
     editor: Editor,
     extensions: Extension[],
     onKeyDownList: OnKeyDown[],
@@ -14,9 +13,7 @@ export function onKeyDownExtensions(
         });
 
         extensions.forEach(({ onKeyDown }) => {
-            if (onKeyDown) {
-                onKeyDown(event, editor);
-            }
+            onKeyDown?.(event, editor);
         });
     };
 }

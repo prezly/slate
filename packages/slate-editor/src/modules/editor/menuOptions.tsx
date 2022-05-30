@@ -144,7 +144,7 @@ export function* generateFloatingAddMenuOptions(
         };
     }
 
-    if (withEmbeds?.menuOptions.socialPost) {
+    if (withEmbeds?.menuOptions?.socialPost) {
         yield {
             action: MenuAction.ADD_EMBED_SOCIAL,
             icon: Icons.ComponentSocialPost,
@@ -176,7 +176,7 @@ export function* generateFloatingAddMenuOptions(
         };
     }
 
-    if (withEmbeds?.menuOptions.embed) {
+    if (withEmbeds?.menuOptions?.embed) {
         yield {
             action: MenuAction.ADD_EMBED,
             icon: Icons.ComponentEmbed,

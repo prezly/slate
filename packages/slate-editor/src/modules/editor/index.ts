@@ -9,5 +9,6 @@ export {
     deserialize,
     isEditorValueEquivalent,
 } from './lib';
+export type { RichBlocksAwareEditor } from './plugins';
 export type { EditorRef, EditorProps } from './types';
 export { useEditorEvents } from './useEditorEvents';

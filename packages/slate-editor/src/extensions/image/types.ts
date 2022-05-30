@@ -1,6 +1,6 @@
 import type { NewsroomRef } from '@prezly/sdk';
-import type { ElementNode, ImageNode } from '@prezly/slate-types';
-import type { Editor, Text } from 'slate';
+import type { ElementNode } from '@prezly/slate-types';
+import type { Text } from 'slate';
 
 import type { IMAGE_CANDIDATE_TYPE } from './constants';
 
@@ -18,7 +18,7 @@ export interface ImageCandidateNode extends ElementNode {
     src: string;
 }
 
-export interface ImageExtensionParameters {
+export interface ImageExtensionConfiguration {
     captions?: boolean;
     mediaGalleryTab?: {
         newsroom: NewsroomRef;
@@ -27,10 +27,4 @@ export interface ImageExtensionParameters {
     withSizeOptions?: boolean;
     withLayoutOptions?: boolean;
     withNewTabOption?: boolean;
-}
-
-export interface ImageParameters extends ImageExtensionParameters {
-    onCrop?: (editor: Editor, element: ImageNode) => void;
-    onRemove?: (editor: Editor, element: ImageNode) => void;
-    onReplace?: (editor: Editor, element: ImageNode) => void;
 }

@@ -1,5 +1,5 @@
 import { Events } from '@prezly/events';
-import { EditableWithExtensions, EditorCommands } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
 import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
 import {
     Alignment,
@@ -41,8 +41,8 @@ import { useFloatingStoryEmbedInput } from '#extensions/story-embed';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
 import { FloatingVideoInput, useFloatingVideoInput } from '#extensions/video';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensions/web-bookmark';
-import { Placeholder } from '#modules/components';
-import { FloatingStoryEmbedInput } from '#modules/components';
+import { FloatingStoryEmbedInput, Placeholder } from '#modules/components';
+import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
 import { RichFormattingMenu } from '#modules/rich-formatting-menu';
 
@@ -58,7 +58,7 @@ import {
     useCursorInView,
 } from './lib';
 import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
-import type { EditorRef, EditorProps } from './types';
+import type { EditorProps, EditorRef } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { usePendingOperation } from './usePendingOperation';
 import { withAvailableWidth } from './withAvailableWidth';
@@ -73,6 +73,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         contentStyle,
         decorate,
         editorRef,
+        id,
         onChange,
         onIsOperationPendingChange,
         onKeyDown = noop,
@@ -112,7 +113,6 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
     const extensions = Array.from(
         getEnabledExtensions({
             availableWidth,
-            containerRef,
             onOperationEnd,
             onOperationStart,
             onFloatingAddMenuToggle,
@@ -151,7 +151,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         }
     }, [autoFocus, editor]);
 
-    useCursorInView(editor, withCursorInView);
+    useCursorInView(editor, withCursorInView || false);
 
     useImperativeHandle(
         editorRef,
@@ -332,7 +332,12 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
 
     return (
-        <div className={classNames(styles.Editor, className)} ref={containerRef} style={style}>
+        <div
+            id={id}
+            className={classNames(styles.Editor, className)}
+            ref={containerRef}
+            style={style}
+        >
             <Slate
                 editor={editor}
                 onChange={(newValue) => {
@@ -351,6 +356,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
                 value={value}
             >
                 <EditableWithExtensions
+                    className={styles.Editable}
                     decorate={decorate}
                     editor={editor}
                     extensions={extensions}
@@ -410,7 +416,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
                     <RichFormattingMenu
                         availableWidth={availableWidth}
                         containerElement={containerRef.current}
-                        defaultAlignment={align || Alignment.LEFT}
+                        defaultAlignment={align ?? Alignment.LEFT}
                         withAlignment={withAlignmentControls}
                         withLinks={Boolean(withRichFormatting.links)}
                         withRichBlockElements={Boolean(withRichFormatting.blocks)}
