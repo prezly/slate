@@ -6,9 +6,11 @@ import type { ReactEditor } from 'slate-react';
 
 import type { RichBlocksAwareEditor } from '#modules/editor';
 
+export type Editor = BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor;
+
 declare module 'slate' {
     interface CustomTypes {
-        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor;
+        Editor: Editor;
         Element: ElementNode;
         Text: TextNode;
     }
