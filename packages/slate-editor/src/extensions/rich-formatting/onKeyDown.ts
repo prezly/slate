@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isHeadingNode, isQuoteNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import type { Node, Path} from 'slate';
+import type { Node, Path, Point } from 'slate';
 import { Editor, Range, Transforms } from 'slate';
 
 import { isDeletingEventBackward } from '#lib';
@@ -36,7 +36,8 @@ export function onBackspaceResetFormattingAtDocumentStart(event: KeyboardEvent, 
     if (
         isDeletingEventBackward(event) &&
         selection !== null &&
-        isDocumentStart(selection)
+        Range.isCollapsed(selection) &&
+        isDocumentStart(selection.focus)
     ) {
         if (isFocused(editor, isRichBlock)) {
             Transforms.setNodes(
@@ -51,12 +52,11 @@ export function onBackspaceResetFormattingAtDocumentStart(event: KeyboardEvent, 
     }
 }
 
-function isDocumentStart(selection: Range): boolean {
+function isDocumentStart(focus: Point): boolean {
     return (
-        Range.isCollapsed(selection) &&
-        selection.focus.offset === 0 &&
+        focus.offset === 0 &&
         // Any node at path [0, ..., 0] is considered the start of the document
-        selection.focus.path.every((index) => index === 0)
+        focus.path.every((index) => index === 0)
     );
 }
 
