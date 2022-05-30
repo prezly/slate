@@ -72,3 +72,15 @@ export function Vertical(props: { showUrl: boolean }) {
         </div>
     );
 }
+
+export function Minimal() {
+    return (
+        <div style={{ width: 680 }}>
+            <BookmarkCard.Container border layout="vertical">
+                <BookmarkCard.Details href={info.url}>
+                    <BookmarkCard.Provider showUrl url={info.url} />
+                </BookmarkCard.Details>
+            </BookmarkCard.Container>
+        </div>
+    );
+}
