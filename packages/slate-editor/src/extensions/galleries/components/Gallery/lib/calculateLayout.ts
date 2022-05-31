@@ -41,6 +41,8 @@ export function calculateLayout<Image extends BaseImage>({
 
     let offset = 0;
     partition.forEach((row) => {
+        if (row.length === 0) return;
+
         const rowBuffer = row.map((_, rowImageIndex) => images[offset + rowImageIndex]);
         const aspectRatioSum = rowBuffer.reduce((sum, image) => sum + image.aspectRatio, 0);
         let widthUsed = 0;
