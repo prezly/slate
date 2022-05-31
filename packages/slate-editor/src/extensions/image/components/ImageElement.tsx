@@ -109,7 +109,7 @@ export function ImageElement({
             overlay={false}
             renderBlock={() => (
                 <ImageWithLoadingPlaceholder
-                    src={image.preview().format().cdnUrl}
+                    src={image.isGif() ? image.cdnUrl : image.format().cdnUrl}
                     imageWidth={width}
                     imageHeight={height}
                     icon={Image}
