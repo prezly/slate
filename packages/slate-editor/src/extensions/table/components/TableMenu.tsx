@@ -44,9 +44,6 @@ export function TableMenu({ element, editor, onClose }: Props) {
                 </Toggle>
             </Toolbox.Section>
             <button onClick={() => TableEditor.insertTable(editor)}>Insert table</button>{' '}
-            <button onClick={() => TableEditor.removeTable(editor)} disabled={isNotInTable}>
-                Remove table
-            </button>
             <span> | </span>
             <button onClick={() => TableEditor.insertRowAbove(editor)} disabled={isNotInTable}>
                 Insert row above
@@ -98,7 +95,7 @@ export function TableMenu({ element, editor, onClose }: Props) {
                     variant="clear-faded"
                     icon={Delete}
                     fullWidth
-                    onClick={() => TableEditor.removeTable(editor)}
+                    onClick={() => TableEditor.removeTable(editor, element)}
                 >
                     Remove table
                 </Button>

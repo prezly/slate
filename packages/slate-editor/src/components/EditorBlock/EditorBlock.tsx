@@ -29,7 +29,7 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
     /**
      * Children nodes provided by Slate, required for Slate internals.
      */
-    children: ReactNode;
+    children?: ReactNode;
     className?: string;
     element: ElementNode;
     /**
@@ -49,7 +49,6 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
     selected?: boolean;
     void?: boolean;
     width?: string;
-    contentEditable?: boolean;
 }
 
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
@@ -69,7 +68,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         selected,
         void: isVoid,
         width,
-        contentEditable,
         ...attributes
     },
     ref,
@@ -129,8 +127,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
                 })}
-                contentEditable={contentEditable}
-                suppressContentEditableWarning={true}
+                contentEditable={false}
                 ref={setContainer}
                 style={{ width }}
             >
