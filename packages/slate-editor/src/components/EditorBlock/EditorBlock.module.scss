@@ -5,14 +5,9 @@
     position: relative;
 
     &.extendedHitArea {
-        $area-vertical-expansion: $spacing-3; // x2 if counted in both directions: up & down
-
-        margin-top: $editor-block-spacing-vertical - $area-vertical-expansion;
-        margin-bottom: $editor-block-spacing-vertical - $area-vertical-expansion;
-
-        > .frame > .content {
-            padding-top: $area-vertical-expansion;
-            padding-bottom: $area-vertical-expansion;
+        > .Frame > .Content {
+            padding-top: $spacing-3;
+            padding-bottom: $spacing-3;
         }
     }
 
@@ -20,7 +15,7 @@
         caret-color: transparent;
     }
 
-    &.void > .frame {
+    &.void > .Frame {
         /**
          * Selection in Slate 0.50+ does not work as expected if a void block is selectable.
          * It could lead to an error when Slate is resolving the node which crashes the editor.

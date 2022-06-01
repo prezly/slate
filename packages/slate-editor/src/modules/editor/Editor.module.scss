@@ -11,8 +11,6 @@
     }
 
     > [data-slate-block] {
-        margin: $editor-block-spacing-vertical 0;
-
         &:first-child {
             margin-top: 0;
         }
@@ -20,5 +18,23 @@
         &:last-child {
             margin-bottom: 0;
         }
+    }
+
+    > [data-slate-block="rich"] {
+        margin: $spacing-6 0;
+    }
+
+    > [data-slate-block="regular"] {
+        margin: $spacing-2 0;
+    }
+
+    > [data-slate-type="heading-one"],
+    > [data-slate-type="heading-two"] {
+        margin-top: $spacing-4;
+    }
+
+    > [data-slate-type="divider"] {
+        /** Compensating .extendedHitArea visual expansion */
+        margin: $spacing-3 0;
     }
 }
