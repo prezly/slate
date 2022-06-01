@@ -15,5 +15,5 @@ export function isSelectionSupported(editor: Editor): boolean {
         }),
     );
 
-    return nodeEntries.every(([node]) => isRichTextElement(node) || isLinkNode(node));
+    return nodeEntries.some(([node]) => isRichTextElement(node) || isLinkNode(node));
 }

@@ -40,6 +40,7 @@ export function TableExtension(params: TableExtensionParameters): Extension {
                         rowSpan={element.rowSpan}
                         contentEditable
                         suppressContentEditableWarning={true}
+                        style={{ whiteSpace: 'pre' }}
                     >
                         {children}
                     </td>
@@ -53,7 +54,7 @@ export function TableExtension(params: TableExtensionParameters): Extension {
             return withTableEditor(editor, {
                 focusEditor: ReactEditor.focus,
                 tableNodeTypes: { table: 'table', row: 'table-row', cell: 'table-cell' },
-                createContentNode: () => createParagraph({ children: [{ text: 'eee' }] }),
+                createContentNode: () => createParagraph({ children: [{ text: '' }] }),
             });
         },
     };

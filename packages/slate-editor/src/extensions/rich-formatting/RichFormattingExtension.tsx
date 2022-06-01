@@ -37,12 +37,7 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
         return undefined;
     },
     renderLeaf: Text,
-    rootTypes: [
-        PARAGRAPH_NODE_TYPE,
-        ElementType.BLOCK_QUOTE,
-        ElementType.HEADING_ONE,
-        ElementType.HEADING_TWO,
-    ],
+    rootTypes: [ElementType.BLOCK_QUOTE, ElementType.HEADING_ONE, ElementType.HEADING_TWO],
     withOverrides(editor) {
         return withResetRichFormattingOnBreak(blocks ? withListsFormatting(editor) : editor);
     },
