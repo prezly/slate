@@ -43,4 +43,16 @@
     .ListElement {
         margin: 0;
     }
+
+    &.numbered .numbered {
+        list-style-type: lower-latin;
+    }
+
+    &.numbered .numbered .numbered {
+        list-style-type: lower-roman;
+    }
+
+    &.numbered .numbered .numbered .numbered {
+        list-style-type: decimal;
+    }
 }
