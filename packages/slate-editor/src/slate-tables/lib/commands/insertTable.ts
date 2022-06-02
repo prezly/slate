@@ -1,4 +1,4 @@
-import type { Location , Editor} from 'slate';
+import type { Location, Editor } from 'slate';
 import { Transforms } from 'slate';
 
 import { TableNode } from '../nodes';
