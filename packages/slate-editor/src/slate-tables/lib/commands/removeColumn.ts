@@ -18,10 +18,10 @@ export function removeColumn(
         return false;
     }
 
-    const { activeColumn, matrix } = traverse;
+    const { activeColumn } = traverse;
 
     if (traverse.matrix.width === 1) {
-        return TableEditor.removeTable(editor, matrix.node);
+        return TableEditor.removeTable(editor);
     }
 
     const cellToFocus = traverse.activeCell.cellRight ?? traverse.activeCell.cellLeft;

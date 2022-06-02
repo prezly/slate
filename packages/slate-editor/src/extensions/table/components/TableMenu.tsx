@@ -1,9 +1,9 @@
 import React from 'react';
 import type { Editor } from 'slate';
 
-import { Toggle } from '#components';
+import { ButtonGroup, InfoText, Toggle } from '#components';
 import { Button, Toolbox } from '#components';
-import { Delete, ExternalLink } from '#icons';
+import { Delete } from '#icons';
 
 import { Nodes } from '../../../slate-tables';
 import { TableEditor } from '../../../slate-tables';
@@ -15,25 +15,12 @@ interface Props {
 }
 
 export function TableMenu({ element, editor, onClose }: Props) {
-    const isNotInTable = !TableEditor.isInTable(editor);
-
     return (
         <Toolbox.Panel>
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Web bookmark settings
+                Table settings
             </Toolbox.Header>
-            <Toolbox.Section noPadding>
-                <Button
-                    type="link"
-                    variant="clear"
-                    href="#"
-                    icon={ExternalLink}
-                    iconPosition="right"
-                    fullWidth
-                >
-                    View
-                </Button>
-            </Toolbox.Section>
+
             <Toolbox.Section caption="Flags">
                 <Toggle
                     name="borders"
@@ -61,59 +48,160 @@ export function TableMenu({ element, editor, onClose }: Props) {
                     First column is a header
                 </Toggle>
             </Toolbox.Section>
-            <button onClick={() => TableEditor.insertTable(editor)}>Insert table</button>{' '}
-            <span> | </span>
-            <button onClick={() => TableEditor.insertRowAbove(editor)} disabled={isNotInTable}>
-                Insert row above
-            </button>{' '}
-            <button onClick={() => TableEditor.insertRowBelow(editor)} disabled={isNotInTable}>
-                Insert row below
-            </button>{' '}
-            <button onClick={() => TableEditor.removeRow(editor)} disabled={isNotInTable}>
-                Remove row
-            </button>{' '}
-            <span> | </span>
-            <button onClick={() => TableEditor.insertColumnLeft(editor)} disabled={isNotInTable}>
-                Insert column left
-            </button>{' '}
-            <button onClick={() => TableEditor.insertColumnRight(editor)} disabled={isNotInTable}>
-                Insert column right
-            </button>{' '}
-            <button onClick={() => TableEditor.removeColumn(editor)} disabled={isNotInTable}>
-                Remove column
-            </button>{' '}
-            <span> | </span>
-            <button onClick={() => TableEditor.splitCellLeft(editor)} disabled={isNotInTable}>
-                Split cell left
-            </button>{' '}
-            <button onClick={() => TableEditor.splitCellAbove(editor)} disabled={isNotInTable}>
-                Split cell above
-            </button>{' '}
-            <button onClick={() => TableEditor.splitCellRight(editor)} disabled={isNotInTable}>
-                Split cell right
-            </button>{' '}
-            <button onClick={() => TableEditor.splitCellBelow(editor)} disabled={isNotInTable}>
-                Split cell below
-            </button>{' '}
-            <span> | </span>
-            <button onClick={() => TableEditor.mergeCellLeft(editor)} disabled={isNotInTable}>
-                Merge cell left
-            </button>{' '}
-            <button onClick={() => TableEditor.mergeCellAbove(editor)} disabled={isNotInTable}>
-                Merge cell above
-            </button>{' '}
-            <button onClick={() => TableEditor.mergeCellRight(editor)} disabled={isNotInTable}>
-                Merge cell right
-            </button>{' '}
-            <button onClick={() => TableEditor.mergeCellBelow(editor)} disabled={isNotInTable}>
-                Merge cell below
-            </button>{' '}
+
+            <Toolbox.Section caption="Rows">
+                <ButtonGroup>
+                    {[
+                        <Button
+                            key="edit"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.insertRowAbove(editor)}
+                        >
+                            Insert above
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.insertRowBelow(editor)}
+                        >
+                            Insert below
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.removeRow(editor)}
+                        >
+                            Remove
+                        </Button>,
+                    ]}
+                </ButtonGroup>
+            </Toolbox.Section>
+
+            <Toolbox.Section caption="Columns">
+                <ButtonGroup>
+                    {[
+                        <Button
+                            key="edit"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.insertColumnLeft(editor)}
+                        >
+                            Insert above
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.insertColumnRight(editor)}
+                        >
+                            Insert below
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.removeColumn(editor)}
+                        >
+                            Remove
+                        </Button>,
+                    ]}
+                </ButtonGroup>
+            </Toolbox.Section>
+
+            <Toolbox.Section>
+                <InfoText>
+                    Actions below can work incorrectly. Use them in plain table to see what they
+                    aimed to do.
+                </InfoText>
+            </Toolbox.Section>
+
+            <Toolbox.Section caption="Merge cells">
+                <ButtonGroup>
+                    {[
+                        <Button
+                            key="edit"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.mergeCellLeft(editor)}
+                        >
+                            Left
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.mergeCellAbove(editor)}
+                        >
+                            Above
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.mergeCellRight(editor)}
+                        >
+                            Right
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.mergeCellBelow(editor)}
+                        >
+                            Below
+                        </Button>,
+                    ]}
+                </ButtonGroup>
+            </Toolbox.Section>
+
+            <Toolbox.Section caption="Split cells">
+                <ButtonGroup>
+                    {[
+                        <Button
+                            key="edit"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.splitCellLeft(editor)}
+                        >
+                            Left
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.splitCellAbove(editor)}
+                        >
+                            Above
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.splitCellRight(editor)}
+                        >
+                            Right
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.splitCellBelow(editor)}
+                        >
+                            Below
+                        </Button>,
+                    ]}
+                </ButtonGroup>
+            </Toolbox.Section>
+
             <Toolbox.Footer>
                 <Button
                     variant="clear-faded"
                     icon={Delete}
                     fullWidth
-                    onClick={() => TableEditor.removeTable(editor, element)}
+                    onClick={() => TableEditor.removeTable(editor)}
                 >
                     Remove table
                 </Button>

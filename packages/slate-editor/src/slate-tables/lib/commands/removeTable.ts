@@ -1,11 +1,27 @@
-import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor } from 'slate';
+import type { Location , Editor} from 'slate';
+import { Transforms } from 'slate';
 
-import type { TableNode } from '../nodes';
+import { Traverse } from '../core';
 
-export function removeTable(editor: Editor, table: TableNode) {
-    return EditorCommands.removeNode<TableNode>(editor, {
-        at: [],
-        match: (node) => node === table,
-    });
+export function removeTable(
+    editor: Editor,
+    location: Location | undefined = editor.selection ?? undefined,
+) {
+    if (!location) {
+        return false;
+    }
+
+    const traverse = Traverse.create(editor, location);
+
+    if (!traverse) {
+        return false;
+    }
+
+    const { matrix } = traverse;
+
+    editor.focusEditor(editor);
+
+    Transforms.removeNodes(editor, { at: matrix.path });
+
+    return true;
 }

@@ -19,7 +19,7 @@ export function removeRow(
     }
 
     if (traverse.matrix.height === 1) {
-        return TableEditor.removeTable(editor, traverse.matrix.node);
+        return TableEditor.removeTable(editor);
     }
 
     const { activeRow } = traverse;

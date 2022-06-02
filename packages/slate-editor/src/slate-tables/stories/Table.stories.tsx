@@ -71,9 +71,9 @@ export function Base() {
         <div>
             <div>
                 <button onClick={() => TableEditor.insertTable(editor)}>Insert table</button>{' '}
-                {/* <button onClick={() => TableEditor.removeTable(editor)} disabled={isNotInTable}>
+                <button onClick={() => TableEditor.removeTable(editor)} disabled={isNotInTable}>
                     Remove table
-                </button> */}
+                </button>
                 <span> | </span>
                 <button onClick={() => TableEditor.insertRowAbove(editor)} disabled={isNotInTable}>
                     Insert row above
