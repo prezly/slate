@@ -9,8 +9,8 @@ export type TableHeader = 'first_row' | 'first_column';
 export interface TableNode extends BaseElement {
     type: string;
     children: TableRowNode[];
-    border: boolean;
-    header: TableHeader[];
+    border?: boolean;
+    header?: TableHeader[];
 }
 
 export namespace TableNode {
@@ -63,10 +63,10 @@ export namespace TableNode {
             return false;
         }
 
-        const hasHeaderType = traverse.matrix.node.header.some((h) => h === headerType);
+        const hasHeaderType = traverse.matrix.node.header?.some((h) => h === headerType);
         const newHeader = hasHeaderType
-            ? traverse.matrix.node.header.filter((h) => h !== headerType)
-            : [...traverse.matrix.node.header, headerType];
+            ? traverse.matrix.node.header?.filter((h) => h !== headerType)
+            : [...(traverse.matrix.node.header ?? []), headerType];
 
         Transforms.setNodes<TableNode>(
             editor,

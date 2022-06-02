@@ -31,7 +31,7 @@ export function TableMenu({ element, editor, onClose }: Props) {
                 </Toggle>
                 <Toggle
                     name="header-row"
-                    value={element.header.some((h) => h === 'first_row')}
+                    value={element.header?.some((h) => h === 'first_row')}
                     onChange={() =>
                         Nodes.TableNode.toggleTableHeader(editor, undefined, 'first_row')
                     }
@@ -40,7 +40,7 @@ export function TableMenu({ element, editor, onClose }: Props) {
                 </Toggle>
                 <Toggle
                     name="header-column"
-                    value={element.header.some((h) => h === 'first_column')}
+                    value={element.header?.some((h) => h === 'first_column')}
                     onChange={() =>
                         Nodes.TableNode.toggleTableHeader(editor, undefined, 'first_column')
                     }

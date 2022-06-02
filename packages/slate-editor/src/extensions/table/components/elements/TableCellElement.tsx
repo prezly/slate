@@ -14,7 +14,7 @@ export function TableCellElement({ attributes, element, children }: Props) {
     const ctx = React.useContext(TableContext);
 
     const isHeaderCell = React.useMemo(() => {
-        const shouldCheckFirstRow = ctx.table.header.some((h) => h === 'first_row');
+        const shouldCheckFirstRow = ctx.table.header?.some((h) => h === 'first_row');
 
         if (shouldCheckFirstRow) {
             const isCurrentCellInFirstRow = ctx.table.children?.[0].children?.some(
@@ -26,7 +26,7 @@ export function TableCellElement({ attributes, element, children }: Props) {
             }
         }
 
-        const shouldCheckFirstColumn = ctx.table.header.some((h) => h === 'first_column');
+        const shouldCheckFirstColumn = ctx.table.header?.some((h) => h === 'first_column');
 
         if (shouldCheckFirstColumn) {
             const isCurrentCellInFirstColumn = ctx.table.children.some(
