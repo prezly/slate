@@ -4,7 +4,7 @@ import { Editor } from 'slate';
 
 import { jsx } from '../jsx';
 
-describe('withResetRichFormattingOnBreak', () => {
+describe.skip('withResetRichFormattingOnBreak', () => {
     it('Inserts a new default paragraph when inserting a break inside a heading', () => {
         const editor = (
             <editor>
