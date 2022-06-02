@@ -45,8 +45,8 @@ export function Base() {
             return (
                 <td
                     {...props.attributes}
-                    colSpan={props.element.colSpan}
-                    rowSpan={props.element.rowSpan}
+                    colSpan={props.element.colspan}
+                    rowSpan={props.element.rowspan}
                 >
                     {props.children}
                 </td>

@@ -1,12 +1,16 @@
 import type { BaseElement, Editor, Location, Node, NodeEntry } from 'slate';
 import { Element, Transforms } from 'slate';
 
+import { Traverse } from '../core';
+
 import { TableRowNode } from './TableRowNode';
 
+export type TableHeader = 'first_row' | 'first_column';
 export interface TableNode extends BaseElement {
     type: string;
     children: TableRowNode[];
-    border?: boolean;
+    border: boolean;
+    header: TableHeader[];
 }
 
 export namespace TableNode {
@@ -25,7 +29,12 @@ export namespace TableNode {
         const rows = Array.from(Array(rowsCount)).map(() =>
             TableRowNode.createTableRowNode(editor, {}, columnsCount),
         );
-        return { type: editor.tableNodeTypes.table, children: rows, border: true };
+        return {
+            type: editor.tableNodeTypes.table,
+            children: rows,
+            border: true,
+            header: ['first_row'],
+        };
     }
 
     export function update(
@@ -37,5 +46,37 @@ export namespace TableNode {
             at: location,
             match: (n) => isTableNode(editor, n),
         });
+    }
+
+    export function toggleTableHeader(
+        editor: Editor,
+        location: Location | undefined = editor.selection ?? undefined,
+        headerType: TableHeader,
+    ) {
+        if (!location) {
+            return false;
+        }
+
+        const traverse = Traverse.create(editor, location);
+
+        if (!traverse) {
+            return false;
+        }
+
+        const hasHeaderType = traverse.matrix.node.header.some((h) => h === headerType);
+        const newHeader = hasHeaderType
+            ? traverse.matrix.node.header.filter((h) => h !== headerType)
+            : [...traverse.matrix.node.header, headerType];
+
+        Transforms.setNodes<TableNode>(
+            editor,
+            { header: newHeader },
+            {
+                at: location,
+                match: (n) => n === traverse.matrix.node,
+            },
+        );
+
+        return true;
     }
 }

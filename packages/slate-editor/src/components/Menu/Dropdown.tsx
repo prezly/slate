@@ -32,7 +32,7 @@ export function Dropdown<Value extends string = string>({
     const RenderOption = renderOption;
     const selectedOption = options.find((option) => option.value === value);
     const visibleOptions = options.filter(({ hidden }) => !hidden);
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     function handleSelect(newValue: any) {
         if (value !== newValue) {

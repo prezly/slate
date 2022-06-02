@@ -41,7 +41,7 @@ export function mergeCell(
             TableCellNode.update(
                 editor,
                 {
-                    rowSpan: TableCellNode.calculateCellRowSpan(
+                    rowspan: TableCellNode.calculateCellRowSpan(
                         otherCell.node,
                         '+',
                         TableCellNode.getCellRowspan(activeCell.node),
@@ -61,7 +61,7 @@ export function mergeCell(
             TableCellNode.update(
                 editor,
                 {
-                    rowSpan: TableCellNode.calculateCellRowSpan(
+                    rowspan: TableCellNode.calculateCellRowSpan(
                         activeCell.node,
                         '+',
                         TableCellNode.getCellRowspan(otherCell.node),
@@ -95,7 +95,7 @@ export function mergeCell(
             TableCellNode.update(
                 editor,
                 {
-                    colSpan: TableCellNode.calculateCellColSpan(
+                    colspan: TableCellNode.calculateCellColSpan(
                         otherCell.node,
                         '+',
                         TableCellNode.getCellColspan(activeCell.node),
@@ -115,7 +115,7 @@ export function mergeCell(
             TableCellNode.update(
                 editor,
                 {
-                    colSpan: TableCellNode.calculateCellColSpan(
+                    colspan: TableCellNode.calculateCellColSpan(
                         activeCell.node,
                         '+',
                         TableCellNode.getCellColspan(otherCell.node),

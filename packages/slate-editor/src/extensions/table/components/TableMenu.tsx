@@ -34,13 +34,31 @@ export function TableMenu({ element, editor, onClose }: Props) {
                     View
                 </Button>
             </Toolbox.Section>
-            <Toolbox.Section caption="Preview image">
+            <Toolbox.Section caption="Flags">
                 <Toggle
                     name="borders"
                     value={element.border}
                     onChange={() => Nodes.TableNode.update(editor, { border: !element.border })}
                 >
                     With borders
+                </Toggle>
+                <Toggle
+                    name="header-row"
+                    value={element.header.some((h) => h === 'first_row')}
+                    onChange={() =>
+                        Nodes.TableNode.toggleTableHeader(editor, undefined, 'first_row')
+                    }
+                >
+                    First row is a header
+                </Toggle>
+                <Toggle
+                    name="header-column"
+                    value={element.header.some((h) => h === 'first_column')}
+                    onChange={() =>
+                        Nodes.TableNode.toggleTableHeader(editor, undefined, 'first_column')
+                    }
+                >
+                    First column is a header
                 </Toggle>
             </Toolbox.Section>
             <button onClick={() => TableEditor.insertTable(editor)}>Insert table</button>{' '}

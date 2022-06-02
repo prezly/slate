@@ -7,7 +7,7 @@ import { createParagraph } from '#extensions/paragraphs';
 
 import { withTableEditor, Nodes } from '../../slate-tables';
 
-import { TableElement } from './components';
+import { TableElement, TableCellElement } from './components';
 import { TABLE_EXTENSION_ID } from './constants';
 import type { TableExtensionParameters } from './types';
 
@@ -34,16 +34,14 @@ export function TableExtension(params: TableExtensionParameters): Extension {
 
             if (Nodes.TableCellNode.isTableCellNode(editor, element)) {
                 return (
-                    <td
-                        {...attributes}
-                        colSpan={element.colSpan}
-                        rowSpan={element.rowSpan}
-                        contentEditable
-                        suppressContentEditableWarning={true}
-                        style={{ whiteSpace: 'pre' }}
+                    <TableCellElement
+                        attributes={attributes}
+                        element={element}
+                        editor={editor}
+                        {...params}
                     >
                         {children}
-                    </td>
+                    </TableCellElement>
                 );
             }
 

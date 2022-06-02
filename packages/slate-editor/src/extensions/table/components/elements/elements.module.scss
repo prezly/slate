@@ -3,13 +3,21 @@
 
     &.withBorders {
         tr,
-        td {
+        td,
+        th {
             border: 1px solid black;
         }
     }
 
-    td {
+    td,
+    th {
         min-width: 40px;
         min-height: 40px;
+    }
+
+    th {
+        [data-slate-type="paragraph"] {
+            font-weight: bold;
+        }
     }
 }

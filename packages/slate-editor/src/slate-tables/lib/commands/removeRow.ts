@@ -29,7 +29,7 @@ export function removeRow(
         if (TableCellNode.getCellRowspan(cell.node) > 1) {
             TableCellNode.update(
                 editor,
-                { rowSpan: TableCellNode.calculateCellRowSpan(cell.node, '-', 1) },
+                { rowspan: TableCellNode.calculateCellRowSpan(cell.node, '-', 1) },
                 cell.nodePath,
             );
         }

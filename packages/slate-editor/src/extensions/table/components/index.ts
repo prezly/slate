@@ -1,1 +1,1 @@
-export * from './TableElements';
+export * from './elements';

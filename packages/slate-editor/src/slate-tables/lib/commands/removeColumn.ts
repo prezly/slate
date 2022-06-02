@@ -30,7 +30,7 @@ export function removeColumn(
         if (TableCellNode.getCellColspan(cell.node) > 1) {
             TableCellNode.update(
                 editor,
-                { colSpan: TableCellNode.calculateCellColSpan(cell.node, '-', 1) },
+                { colspan: TableCellNode.calculateCellColSpan(cell.node, '-', 1) },
                 cell.nodePath,
             );
         } else {

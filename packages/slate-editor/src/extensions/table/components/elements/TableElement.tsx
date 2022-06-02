@@ -8,7 +8,8 @@ import { EditorBlock } from '#components';
 
 import { TableMenu } from '../TableMenu';
 
-import styles from './TableElements.module.scss';
+import styles from './elements.module.scss';
+import { TableContext } from './TableContext';
 
 interface Props extends RenderElementProps {
     element: TableNode;
@@ -27,13 +28,15 @@ export function TableElement({ attributes, element, editor, children }: Props) {
             )}
             renderBlock={() => {
                 return (
-                    <table
-                        className={classNames(styles.Table, {
-                            [styles.withBorders]: element.border,
-                        })}
-                    >
-                        <tbody>{children}</tbody>
-                    </table>
+                    <TableContext.Provider value={{ table: element }}>
+                        <table
+                            className={classNames(styles.Table, {
+                                [styles.withBorders]: element.border,
+                            })}
+                        >
+                            <tbody>{children}</tbody>
+                        </table>
+                    </TableContext.Provider>
                 );
             }}
             void

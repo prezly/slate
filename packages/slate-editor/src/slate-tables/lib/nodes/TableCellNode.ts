@@ -7,8 +7,8 @@ import type { TableEditor } from '../core';
 
 export interface TableCellNode extends BaseElement {
     type: string;
-    rowSpan?: number;
-    colSpan?: number;
+    rowspan?: number;
+    colspan?: number;
 }
 
 export namespace TableCellNode {
@@ -32,8 +32,8 @@ export namespace TableCellNode {
         children: Descendant[] = [editor.createContentNode()],
     ): TableCellNode {
         return {
-            colSpan: getCellColspan(undefined),
-            rowSpan: getCellRowspan(undefined),
+            colspan: getCellColspan(undefined),
+            rowspan: getCellRowspan(undefined),
             ...props,
             type: editor.tableNodeTypes.cell,
             children,
@@ -41,11 +41,11 @@ export namespace TableCellNode {
     }
 
     export function getCellColspan(cell: TableCellNode | undefined) {
-        return cell?.colSpan ?? 1;
+        return cell?.colspan ?? 1;
     }
 
     export function getCellRowspan(cell: TableCellNode | undefined) {
-        return cell?.rowSpan ?? 1;
+        return cell?.rowspan ?? 1;
     }
 
     export function calculateCellRowSpan(

@@ -34,7 +34,7 @@ export function splitCell(
 
             TableCellNode.update(
                 editor,
-                { colSpan: TableCellNode.calculateCellColSpan(activeCell.node, '+', 1) },
+                { colspan: TableCellNode.calculateCellColSpan(activeCell.node, '+', 1) },
                 matrixCell.nodePath,
             );
         });
@@ -50,7 +50,7 @@ export function splitCell(
         activeRow.cells.forEach((matrixCell) => {
             TableCellNode.update(
                 editor,
-                { rowSpan: TableCellNode.calculateCellRowSpan(matrixCell.node, '+', 1) },
+                { rowspan: TableCellNode.calculateCellRowSpan(matrixCell.node, '+', 1) },
                 matrixCell.nodePath,
             );
         });
@@ -62,10 +62,10 @@ export function splitCell(
         if (activeRow.isFirst) {
             const childrenWithNewEmptyCell = activeRow.node.children.map((c) =>
                 c === activeCell.node
-                    ? TableCellNode.createTableCellNode(editor, { ...c, rowSpan: 1 })
+                    ? TableCellNode.createTableCellNode(editor, { ...c, rowspan: 1 })
                     : TableCellNode.createTableCellNode(
                           editor,
-                          { ...c, rowSpan: TableCellNode.calculateCellRowSpan(c, '+', 1) },
+                          { ...c, rowspan: TableCellNode.calculateCellRowSpan(c, '+', 1) },
                           c.children,
                       ),
             );
@@ -88,7 +88,7 @@ export function splitCell(
                 if (c.node !== activeCell.node) {
                     TableCellNode.update(
                         editor,
-                        { rowSpan: TableCellNode.calculateCellRowSpan(c.node, '+', 1) },
+                        { rowspan: TableCellNode.calculateCellRowSpan(c.node, '+', 1) },
                         c.nodePath,
                     );
                 }
@@ -97,7 +97,7 @@ export function splitCell(
             Transforms.insertNodes(
                 editor,
                 TableRowNode.createTableRowNode(editor, {}, [
-                    TableCellNode.createTableCellNode(editor, { ...activeCell.node, rowSpan: 1 }),
+                    TableCellNode.createTableCellNode(editor, { ...activeCell.node, rowspan: 1 }),
                 ]),
                 { at: activeRow.path },
             );
