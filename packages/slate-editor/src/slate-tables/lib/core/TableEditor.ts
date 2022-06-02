@@ -25,7 +25,7 @@ export namespace TableEditor {
     export const removeColumn = TableCommands.removeColumn;
     export const removeRow = TableCommands.removeRow;
     export const removeTable = TableCommands.removeTable;
-    export const splitCell = TableCommands.splitCell;
+    export const addCell = TableCommands.addCell;
 
     export const isInTable = TableQueries.isInTable;
 
@@ -61,19 +61,19 @@ export namespace TableEditor {
         return TableCommands.mergeCell(editor, location, 'right');
     }
 
-    export function splitCellAbove(editor: Editor, location?: Location) {
-        return TableCommands.splitCell(editor, location, 'above');
+    export function addCellAbove(editor: Editor, location?: Location) {
+        return TableCommands.addCell(editor, location, 'above');
     }
 
-    export function splitCellBelow(editor: Editor, location?: Location) {
-        return TableCommands.splitCell(editor, location, 'bellow');
+    export function addCellBelow(editor: Editor, location?: Location) {
+        return TableCommands.addCell(editor, location, 'bellow');
     }
 
-    export function splitCellLeft(editor: Editor, location?: Location) {
-        return TableCommands.splitCell(editor, location, 'left');
+    export function addCellLeft(editor: Editor, location?: Location) {
+        return TableCommands.addCell(editor, location, 'left');
     }
 
-    export function splitCellRight(editor: Editor, location?: Location) {
-        return TableCommands.splitCell(editor, location, 'right');
+    export function addCellRight(editor: Editor, location?: Location) {
+        return TableCommands.addCell(editor, location, 'right');
     }
 }

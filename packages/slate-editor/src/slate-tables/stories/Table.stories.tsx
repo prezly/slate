@@ -101,17 +101,17 @@ export function Base() {
                     Remove column
                 </button>{' '}
                 <span> | </span>
-                <button onClick={() => TableEditor.splitCellLeft(editor)} disabled={isNotInTable}>
-                    Split cell left
+                <button onClick={() => TableEditor.addCellLeft(editor)} disabled={isNotInTable}>
+                    Add cell left
                 </button>{' '}
-                <button onClick={() => TableEditor.splitCellAbove(editor)} disabled={isNotInTable}>
-                    Split cell above
+                <button onClick={() => TableEditor.addCellAbove(editor)} disabled={isNotInTable}>
+                    Add cell above
                 </button>{' '}
-                <button onClick={() => TableEditor.splitCellRight(editor)} disabled={isNotInTable}>
-                    Split cell right
+                <button onClick={() => TableEditor.addCellRight(editor)} disabled={isNotInTable}>
+                    Add cell right
                 </button>{' '}
-                <button onClick={() => TableEditor.splitCellBelow(editor)} disabled={isNotInTable}>
-                    Split cell below
+                <button onClick={() => TableEditor.addCellBelow(editor)} disabled={isNotInTable}>
+                    Add cell below
                 </button>{' '}
                 <span> | </span>
                 <button onClick={() => TableEditor.mergeCellLeft(editor)} disabled={isNotInTable}>

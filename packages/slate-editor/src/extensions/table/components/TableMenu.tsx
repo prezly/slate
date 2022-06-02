@@ -157,14 +157,14 @@ export function TableMenu({ element, editor, onClose }: Props) {
                 </ButtonGroup>
             </Toolbox.Section>
 
-            <Toolbox.Section caption="Split cells">
+            <Toolbox.Section caption="Add cell">
                 <ButtonGroup>
                     {[
                         <Button
                             key="edit"
                             variant="clear"
                             fullWidth
-                            onClick={() => TableEditor.splitCellLeft(editor)}
+                            onClick={() => TableEditor.addCellLeft(editor)}
                         >
                             Left
                         </Button>,
@@ -172,7 +172,7 @@ export function TableMenu({ element, editor, onClose }: Props) {
                             key="view"
                             variant="clear"
                             fullWidth
-                            onClick={() => TableEditor.splitCellAbove(editor)}
+                            onClick={() => TableEditor.addCellAbove(editor)}
                         >
                             Above
                         </Button>,
@@ -180,7 +180,7 @@ export function TableMenu({ element, editor, onClose }: Props) {
                             key="view"
                             variant="clear"
                             fullWidth
-                            onClick={() => TableEditor.splitCellRight(editor)}
+                            onClick={() => TableEditor.addCellRight(editor)}
                         >
                             Right
                         </Button>,
@@ -188,7 +188,7 @@ export function TableMenu({ element, editor, onClose }: Props) {
                             key="view"
                             variant="clear"
                             fullWidth
-                            onClick={() => TableEditor.splitCellBelow(editor)}
+                            onClick={() => TableEditor.addCellBelow(editor)}
                         >
                             Below
                         </Button>,

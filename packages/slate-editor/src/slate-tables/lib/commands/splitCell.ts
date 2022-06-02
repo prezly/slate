@@ -5,7 +5,7 @@ import { Traverse } from '../core';
 import { TableCellNode, TableRowNode } from '../nodes';
 import type { CellSides } from '../utils/types';
 
-export function splitCell(
+export function addCell(
     editor: Editor,
     location: Location | undefined = editor.selection ?? undefined,
     side: CellSides,
