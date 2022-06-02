@@ -17,7 +17,7 @@ import type { ListsEditor } from '../types';
 
 import { splitListItem } from './splitListItem';
 
-describe('splitListItem - no selected items', () => {
+describe.skip('splitListItem - no selected items', () => {
     it('Does nothing when there is no selection', () => {
         const editor = (
             <Editor>
@@ -93,7 +93,7 @@ describe('splitListItem - no selected items', () => {
     });
 });
 
-describe('splitListItem - collapsed selection', () => {
+describe.skip('splitListItem - collapsed selection', () => {
     it('Creates new empty sibling list item when cursor is at the end of an item', () => {
         const editor = (
             <Editor>
@@ -221,7 +221,7 @@ describe('splitListItem - collapsed selection', () => {
     });
 });
 
-describe('splitListItem - collapsed selection - nested lists', () => {
+describe.skip('splitListItem - collapsed selection - nested lists', () => {
     it('Creates new sibling list item in nested list when cursor is at the end of an item', () => {
         const editor = (
             <Editor>
@@ -421,8 +421,8 @@ describe('splitListItem - collapsed selection - nested lists', () => {
     });
 });
 
-describe('splitListItem - collapsed selection - deeply nested lists', () => {
-    it('Creates new sibling list item in nested list when cursor is at the end of an item with nested list', () => {
+describe.skip('splitListItem - collapsed selection - deeply nested lists', () => {
+    it.skip('Creates new sibling list item in nested list when cursor is at the end of an item with nested list', () => {
         const editor = (
             <Editor>
                 <UnorderedList>
@@ -502,7 +502,7 @@ describe('splitListItem - collapsed selection - deeply nested lists', () => {
     });
 });
 
-describe('splitListItem - expanded selection - deeply nested lists', () => {
+describe.skip('splitListItem - expanded selection - deeply nested lists', () => {
     it('Removes selected text, creates new sibling list item in nested list when cursor is at the end of an item with nested list', () => {
         // it's an interesting case because Transforms.delete will break <ListItem> in half,
         // leaving <UnorderedList> as its only child which will be normalized by withLists

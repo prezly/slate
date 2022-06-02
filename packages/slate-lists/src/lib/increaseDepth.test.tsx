@@ -509,7 +509,7 @@ describe('increaseDepth - multiple items selected', () => {
 });
 
 describe('increaseDepth - multiple items and paragraphs selected', () => {
-    it('Converts paragraphs into lists items and merges them together', () => {
+    it.skip('Converts paragraphs into lists items and merges them together', () => {
         const editor = (
             <Editor>
                 <Paragraph>

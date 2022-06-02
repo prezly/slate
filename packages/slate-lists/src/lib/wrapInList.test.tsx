@@ -100,7 +100,7 @@ describe('wrapInList - selection with wrappable nodes', () => {
 });
 
 describe('wrapInList - selection with lists and wrappable nodes', () => {
-    it('Converts wrappable nodes into lists items and merges them together', () => {
+    it.skip('Converts wrappable nodes into lists items and merges them together', () => {
         const editor = (
             <Editor>
                 <Paragraph>
@@ -161,7 +161,7 @@ describe('wrapInList - selection with lists and wrappable nodes', () => {
 });
 
 describe('wrapInList - selection with lists, wrappable & unwrappable nodes', () => {
-    it('Converts wrappable nodes into lists items and merges them together, but leaves out unwrappable nodes', () => {
+    it.skip('Converts wrappable nodes into lists items and merges them together, but leaves out unwrappable nodes', () => {
         const editor = (
             <Editor>
                 <Paragraph>
