@@ -14,6 +14,7 @@ import type { ListsEditor, ListsSchema } from './types';
 
 type Normalizer = (editor: ListsEditor, entry: NodeEntry) => boolean;
 
+// @ts-expect-error test
 const LIST_NORMALIZERS: Normalizer[] = [
     normalizeList,
     normalizeListChildren,

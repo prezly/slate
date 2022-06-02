@@ -6,15 +6,15 @@ import type { ReactEditor } from 'slate-react';
 import type { TableEditor } from 'slate-tables/lib';
 import type { TableCellNode, TableNode, TableRowNode } from 'slate-tables/lib/nodes';
 
-interface MyTableNode extends TableNode {
+export interface MyTableNode extends TableNode {
     type: 'table';
 }
 
-interface MyTableRowNode extends TableRowNode {
+export interface MyTableRowNode extends TableRowNode {
     type: 'table-row';
 }
 
-interface MyTableCellNode extends TableCellNode {
+export interface MyTableCellNode extends TableCellNode {
     type: 'table-cell';
 }
 
