@@ -24,8 +24,6 @@ export function removeColumn(
         return TableEditor.removeTable(editor);
     }
 
-    const cellToFocus = traverse.activeCell.cellRight ?? traverse.activeCell.cellLeft;
-
     activeColumn.uniqCells.forEach((cell) => {
         if (TableCellNode.getCellColspan(cell.node) > 1) {
             TableCellNode.update(
@@ -39,13 +37,6 @@ export function removeColumn(
     });
 
     editor.focusEditor(editor);
-
-    if (cellToFocus) {
-        Transforms.select(editor, {
-            path: cellToFocus.nodePath,
-            offset: 0,
-        });
-    }
 
     return true;
 }

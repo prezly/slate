@@ -23,9 +23,7 @@ export function insertColumn(
     const { activeColumn } = traverse;
     const anchorColumn = side === 'left' ? activeColumn : activeColumn.columnRight ?? activeColumn;
 
-    let firstCellInNewColumnPath: Path | undefined = undefined;
-
-    anchorColumn.cells.forEach((columnCell, cellIndex) => {
+    anchorColumn.cells.forEach((columnCell) => {
         const at =
             side === 'left'
                 ? columnCell.virtualPathWithRow
@@ -33,21 +31,10 @@ export function insertColumn(
                 ? Path.next(columnCell.virtualPathWithRow)
                 : columnCell.virtualPathWithRow;
 
-        if (cellIndex === 0) {
-            firstCellInNewColumnPath = at;
-        }
-
         Transforms.insertNodes(editor, TableCellNode.createTableCellNode(editor), { at });
     });
 
     editor.focusEditor(editor);
-
-    if (firstCellInNewColumnPath) {
-        Transforms.select(editor, {
-            path: firstCellInNewColumnPath,
-            offset: 0,
-        });
-    }
 
     return true;
 }

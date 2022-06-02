@@ -89,7 +89,7 @@ export function TableMenu({ element, editor, onClose }: Props) {
                             fullWidth
                             onClick={() => TableEditor.insertColumnLeft(editor)}
                         >
-                            Insert above
+                            Insert left
                         </Button>,
                         <Button
                             key="view"
@@ -97,7 +97,7 @@ export function TableMenu({ element, editor, onClose }: Props) {
                             fullWidth
                             onClick={() => TableEditor.insertColumnRight(editor)}
                         >
-                            Insert below
+                            Insert right
                         </Button>,
                         <Button
                             key="view"

@@ -23,7 +23,6 @@ export function removeRow(
     }
 
     const { activeRow } = traverse;
-    const cellToFocus = traverse.activeCell.cellBelow ?? traverse.activeCell.cellAbove;
 
     activeRow.uniqCells.forEach((cell) => {
         if (TableCellNode.getCellRowspan(cell.node) > 1) {
@@ -38,13 +37,6 @@ export function removeRow(
     Transforms.removeNodes(editor, { at: activeRow.path });
 
     editor.focusEditor(editor);
-
-    if (cellToFocus) {
-        Transforms.select(editor, {
-            path: cellToFocus.nodePath,
-            offset: 0,
-        });
-    }
 
     return true;
 }

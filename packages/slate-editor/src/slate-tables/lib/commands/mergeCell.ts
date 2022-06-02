@@ -51,7 +51,6 @@ export function mergeCell(
             );
 
             editor.focusEditor(editor);
-            Transforms.select(editor, endOfAboveCell);
 
             Transforms.removeNodes(editor, { at: activeCell.nodePath });
         } else {
@@ -71,7 +70,6 @@ export function mergeCell(
             );
 
             editor.focusEditor(editor);
-            Transforms.select(editor, endOfActiveCell);
 
             Transforms.removeNodes(editor, { at: otherCell.nodePath });
         }
@@ -105,7 +103,6 @@ export function mergeCell(
             );
 
             editor.focusEditor(editor);
-            Transforms.select(editor, endOfLeftCell);
 
             Transforms.removeNodes(editor, { at: activeCell.nodePath });
         } else {
@@ -125,7 +122,6 @@ export function mergeCell(
             );
 
             editor.focusEditor(editor);
-            Transforms.select(editor, endOfActiveCell);
 
             Transforms.removeNodes(editor, { at: otherCell.nodePath });
         }

@@ -1,5 +1,5 @@
 import type { Editor, Location } from 'slate';
-import { Node, Path, Transforms } from 'slate';
+import { Path, Transforms } from 'slate';
 
 import { Traverse } from '../core';
 import { TableRowNode, TableCellNode } from '../nodes';
@@ -38,18 +38,7 @@ export function insertRow(
 
     Transforms.insertNodes(editor, newRow, { at });
 
-    const firstCell = Node.children(editor, at).next();
-
     editor.focusEditor(editor);
-
-    if (firstCell.value) {
-        const [, firstCellPath] = firstCell.value;
-
-        Transforms.select(editor, {
-            path: firstCellPath,
-            offset: 0,
-        });
-    }
 
     return true;
 }
