@@ -3,18 +3,19 @@ import type { ElementNode, TextNode } from '@prezly/slate-types';
 import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
-import type { TableEditor } from 'slate-tables/lib';
-import type { TableCellNode, TableNode, TableRowNode } from 'slate-tables/lib/nodes';
 
-export interface MyTableNode extends TableNode {
+import type { RichBlocksAwareEditor } from './modules/editor';
+import type { TableEditor, Nodes } from './slate-tables';
+
+export interface MyTableNode extends Nodes.TableNode {
     type: 'table';
 }
 
-export interface MyTableRowNode extends TableRowNode {
+export interface MyTableRowNode extends Nodes.TableRowNode {
     type: 'table-row';
 }
 
-export interface MyTableCellNode extends TableCellNode {
+export interface MyTableCellNode extends Nodes.TableCellNode {
     type: 'table-cell';
 }
 
@@ -33,12 +34,15 @@ export type { User } from './extensions/user-mentions';
 export type { ResultPromise, UploadcareOptions } from './modules/uploadcare';
 export { withUploadcare } from './modules/uploadcare';
 
-import type { RichBlocksAwareEditor } from './modules/editor';
-
 declare module 'slate' {
     interface CustomTypes {
-        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor & TableEditor;
-        Element: ElementNode & MyTableNode & MyTableRowNode & MyTableCellNode;
+        Editor: BaseEditor &
+            ReactEditor &
+            HistoryEditor &
+            ListsEditor &
+            RichBlocksAwareEditor &
+            TableEditor;
+        Element: ElementNode;
         Text: TextNode;
     }
 }
