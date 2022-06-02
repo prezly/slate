@@ -41,7 +41,7 @@ export function createGridWithSpans(editor: Editor, [, tablePath]: NodeEntry<Tab
             const cellRowspan = TableCellNode.getCellRowspan(cell);
 
             for (let spanIdx = rowIdx; spanIdx < rowIdx + cellRowspan; spanIdx++) {
-                if (!grid.at(spanIdx)?.cells) {
+                if (!grid[spanIdx]?.cells) {
                     grid[spanIdx] = { entry: [row, rowPath], cells: [] };
                 }
 
@@ -51,7 +51,7 @@ export function createGridWithSpans(editor: Editor, [, tablePath]: NodeEntry<Tab
                     // Insert cell at first empty position
                     let i = 0;
 
-                    while (grid.at(spanIdx)?.cells.at(colIdx + colSpanIdx + i)) {
+                    while (grid[spanIdx]?.cells[colIdx + colSpanIdx + i]) {
                         i++;
                     }
 

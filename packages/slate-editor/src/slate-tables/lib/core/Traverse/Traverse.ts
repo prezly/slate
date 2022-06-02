@@ -69,7 +69,7 @@ export class Traverse {
                             activeCell = cell;
 
                             if (!activeColumn) {
-                                activeColumn = matrix.columns.at(cellIndex);
+                                activeColumn = matrix.columns[cellIndex];
                             }
                         }
                     });

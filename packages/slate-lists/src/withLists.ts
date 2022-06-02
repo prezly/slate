@@ -42,7 +42,7 @@ export function withLists(schema: ListsSchema) {
             createListItemTextNode: schema.createListItemTextNode,
         });
 
-        return withNormalizations(listsEditor, LIST_NORMALIZERS);
+        return withNormalizations(listsEditor, []);
     };
 }
 

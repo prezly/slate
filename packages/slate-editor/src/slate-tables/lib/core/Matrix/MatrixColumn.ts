@@ -16,7 +16,7 @@ export class MatrixColumn {
         this.matrix = matrix;
 
         matrix.rows.forEach((r) => {
-            const columnCell = r.cells.at(index);
+            const columnCell = r.cells[index];
 
             if (columnCell) {
                 this.cells.push(columnCell);
@@ -24,16 +24,16 @@ export class MatrixColumn {
         });
     }
 
-    get columnLeft() {
-        return this.matrix.columns.at(this.index - 1);
+    get columnLeft(): MatrixColumn | undefined {
+        return this.matrix.columns[this.index - 1];
     }
 
-    get columnRight() {
-        return this.matrix.columns.at(this.index + 1);
+    get columnRight(): MatrixColumn | undefined {
+        return this.matrix.columns[this.index + 1];
     }
 
-    get firstCell() {
-        return this.cells.at(0);
+    get firstCell(): MatrixCell | undefined {
+        return this.cells[0];
     }
 
     get isFirst() {

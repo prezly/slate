@@ -32,6 +32,7 @@ export function Dropdown<Value extends string = string>({
     const RenderOption = renderOption;
     const selectedOption = options.find((option) => option.value === value);
     const visibleOptions = options.filter(({ hidden }) => !hidden);
+    const [open, setOpen] = React.useState(true);
 
     function handleSelect(newValue: any) {
         if (value !== newValue) {
@@ -44,6 +45,12 @@ export function Dropdown<Value extends string = string>({
     return (
         <BootstrapDropdown
             {...props}
+            open={open}
+            onToggle={(value, _, source) => {
+                if (source.source !== 'rootClose') {
+                    setOpen(value);
+                }
+            }}
             className={classNames(styles.Dropdown, className)}
             onSelect={handleSelect}
         >

@@ -19,7 +19,7 @@ export class Matrix {
 
         this.rows = grid.map((gridRow, index) => new MatrixRow(editor, gridRow, index, this));
 
-        this.columns = Array.from(new Array(this.rows.at(0)?.cells.length)).map(
+        this.columns = Array.from(new Array(this.rows[0]?.cells.length)).map(
             (_, columnIndex) => new MatrixColumn(editor, columnIndex, this),
         );
     }

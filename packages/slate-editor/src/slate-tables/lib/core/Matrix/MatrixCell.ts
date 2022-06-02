@@ -39,20 +39,20 @@ export class MatrixCell {
         this.x = x;
     }
 
-    get cellLeft() {
-        return this.row.cells.at(this.x - 1);
+    get cellLeft(): MatrixCell | undefined {
+        return this.row.cells[this.x - 1];
     }
 
-    get cellRight() {
-        return this.row.cells.at(this.x + 1);
+    get cellRight(): MatrixCell | undefined {
+        return this.row.cells[this.x + 1];
     }
 
-    get cellAbove() {
-        return this.row.rowAbove?.cells.at(this.x);
+    get cellAbove(): MatrixCell | undefined {
+        return this.row.rowAbove?.cells[this.x];
     }
 
-    get cellBelow() {
-        return this.row.rowBelow?.cells.at(this.x);
+    get cellBelow(): MatrixCell | undefined {
+        return this.row.rowBelow?.cells[this.x];
     }
 
     compareWidth(otherCell: MatrixCell) {
