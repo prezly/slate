@@ -1,7 +1,6 @@
 @import "styles/variables";
 
 .ListElement {
-    margin: $spacing-2 0;
     padding: 0;
     padding-left: $spacing-4;
     color: $editor-text-color;
@@ -43,5 +42,17 @@
     // nested lists
     .ListElement {
         margin: 0;
+    }
+
+    &.numbered .numbered {
+        list-style-type: lower-latin;
+    }
+
+    &.numbered .numbered .numbered {
+        list-style-type: lower-roman;
+    }
+
+    &.numbered .numbered .numbered .numbered {
+        list-style-type: decimal;
     }
 }

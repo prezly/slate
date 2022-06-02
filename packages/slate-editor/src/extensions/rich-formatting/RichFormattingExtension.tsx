@@ -1,17 +1,21 @@
-import type { Extension } from '@prezly/slate-commons';
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import type { Extension, WithOverrides } from '@prezly/slate-commons';
+import { onKeyDown as onKeyboardDoListsFormatting } from '@prezly/slate-lists';
+import type { KeyboardEvent } from 'react';
 import React from 'react';
+import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
+
+import { flow, identity } from '#lodash';
 
 import { RichTextElement, Text } from './components';
 import { RICH_FORMATTING_EXTENSION_ID } from './constants';
 import { createDeserialize } from './createDeserialize';
-import { createOnKeyDownHandler } from './createOnKeyDownHandler';
 import {
     isRichTextElement,
     normalizeRedundantRichTextAttributes,
-    withResetRichFormattingOnBreak,
+    withResetFormattingOnBreak,
 } from './lib';
+import * as OnKeyDown from './onKeyDown';
 import { ElementType } from './types';
 import { withListsFormatting } from './withListsFormatting';
 
@@ -22,9 +26,16 @@ interface Parameters {
 export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
     id: RICH_FORMATTING_EXTENSION_ID,
     deserialize: createDeserialize({ blocks }),
-    inlineTypes: [],
-    normalizers: [normalizeRedundantRichTextAttributes],
-    onKeyDown: createOnKeyDownHandler({ blocks }),
+    normalizeNode: normalizeRedundantRichTextAttributes,
+    onKeyDown: (event: KeyboardEvent, editor: Editor) => {
+        OnKeyDown.onHotkeyDoMarks(event, editor);
+        OnKeyDown.onShiftEnterDoSoftBreak(event, editor);
+        OnKeyDown.onBackspaceResetFormattingAtDocumentStart(event, editor);
+
+        if (blocks) {
+            onKeyboardDoListsFormatting(editor, event);
+        }
+    },
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (blocks && isRichTextElement(element)) {
             return (
@@ -39,6 +50,10 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
     renderLeaf: Text,
     rootTypes: [ElementType.BLOCK_QUOTE, ElementType.HEADING_ONE, ElementType.HEADING_TWO],
     withOverrides(editor) {
-        return withResetRichFormattingOnBreak(blocks ? withListsFormatting(editor) : editor);
+        const overrides: WithOverrides[] = [
+            withResetFormattingOnBreak,
+            blocks ? withListsFormatting : identity,
+        ];
+        return flow(overrides)(editor);
     },
 });

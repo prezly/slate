@@ -1,24 +1,30 @@
-@import "styles/mixins";
+@import "styles/helpers";
 @import "styles/variables";
 
-.image {
-    display: block;
-    width: 100%;
-}
-
-.caption {
+.Caption {
     height: 0;
     margin: 0 auto;
-    padding: 12px 0 0;
+    padding: $spacing-2 0 0;
     color: #767676;
     font-style: italic;
     font-size: $font-size-small;
     word-break: break-word;
 
     // if caption is empty, we want to display it outside-of-the-flow to not take vertical space.
-    &.floating {
+    &.empty {
         position: absolute;
         width: 100%;
+    }
+
+    &.withPlaceholder {
+        &::before {
+            content: attr(data-placeholder);
+            position: absolute;
+            pointer-events: none;
+            left: 0;
+            right: 0;
+            opacity: 0.5;
+        }
     }
 
     &.visible {

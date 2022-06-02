@@ -14,13 +14,15 @@ interface Parameters extends EmbedExtensionConfiguration {
 }
 
 export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters): Extension => ({
+    id: EMBED_EXTENSION_ID,
     deserialize: {
         element: {
             [EMBED_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
-    id: EMBED_EXTENSION_ID,
-    normalizers: [normalizeRedundantEmbedAttributes],
+    isRichBlock: isEmbedNode,
+    isVoid: isEmbedNode,
+    normalizeNode: normalizeRedundantEmbedAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isEmbedNode(element)) {
             return (
@@ -40,5 +42,4 @@ export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters)
         return undefined;
     },
     rootTypes: [EMBED_TYPE],
-    voidTypes: [EMBED_TYPE],
 });

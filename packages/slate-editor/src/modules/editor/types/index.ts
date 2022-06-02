@@ -5,11 +5,11 @@ import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { Editor, Element } from 'slate';
 
 import type { AutoformatParameters } from '#extensions/autoformat';
-import type { CoverageExtensionParameters } from '#extensions/coverage';
+import type { CoverageExtensionConfiguration } from '#extensions/coverage';
 import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
-import type { GalleriesExtensionParameters } from '#extensions/galleries';
-import type { ImageExtensionParameters } from '#extensions/image';
+import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
+import type { ImageExtensionConfiguration } from '#extensions/image';
 import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
 import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
@@ -19,6 +19,8 @@ import type { VideoExtensionParameters } from '#extensions/video';
 import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
 import type { EditorEventMap } from '#modules/events';
 
+import type { useCursorInView } from '../lib';
+
 export interface EditorRef {
     events: Events<EditorEventMap>;
     focus: () => void;
@@ -27,39 +29,17 @@ export interface EditorRef {
     isValueEquivalentTo: (otherValue: string) => boolean;
 }
 
-export interface EditorExtensionsProps {
-    availableWidth: number;
-    withAttachments?: boolean;
-    withCoverage?: CoverageExtensionParameters;
-    withEmbeds?: EmbedExtensionConfiguration;
-    withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
-    withGalleries?: GalleriesExtensionParameters;
-    withImages?: ImageExtensionParameters;
-    withPlaceholders?: PlaceholderMentionsExtensionParameters;
-    withPressContacts?: PressContactsExtensionParameters;
-    withRichFormatting?: {
-        menu?: boolean;
-        blocks?: boolean;
-        links?: boolean;
-        withNewTabOption?: boolean;
-    };
-    withUserMentions?: UserMentionsExtensionParameters;
-    withVideos?: VideoExtensionParameters;
-    withWebBookmarks?: WebBookmarkExtensionParameters;
-    withAutoformat?: boolean | AutoformatParameters;
-    withStoryEmbeds?: StoryEmbedExtensionParameters;
-    withStoryBookmarks?: StoryBookmarkExtensionParameters;
-}
-
 export type Value = Element[];
 
-export interface EditorProps extends EditorExtensionsProps {
+export interface EditorProps {
     align?: Alignment;
     autoFocus?: boolean;
+    availableWidth: number;
     className?: string;
     contentStyle?: CSSProperties;
     decorate?: Decorate;
     editorRef?: RefObject<EditorRef>;
+    id?: string;
     onChange: (value: Value) => void;
     onIsOperationPendingChange?: (isOperationPending: boolean) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
@@ -73,20 +53,34 @@ export interface EditorProps extends EditorExtensionsProps {
     style?: CSSProperties;
     value: Value;
     withAlignmentControls: boolean;
-    withCursorInView?: {
-        minBottom: number;
-        minTop: number;
+    withAttachments?: boolean;
+    withAutoformat?: boolean | AutoformatParameters;
+    withCoverage?: CoverageExtensionConfiguration;
+    withCursorInView?: Parameters<typeof useCursorInView>[1];
+    withEmbeds?: EmbedExtensionConfiguration & {
+        menuOptions?: {
+            embed?: boolean;
+            link?: boolean;
+            socialPost?: boolean;
+            video?: boolean;
+        };
     };
-    withEmbeds?: EditorExtensionsProps['withEmbeds'] & EmbedParameters;
-}
-
-interface EmbedParameters {
-    menuOptions: {
-        embed?: boolean;
-        link?: boolean;
-        socialPost?: boolean;
-        video?: boolean;
+    withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
+    withGalleries?: GalleriesExtensionConfiguration;
+    withImages?: ImageExtensionConfiguration;
+    withPlaceholders?: PlaceholderMentionsExtensionParameters;
+    withPressContacts?: PressContactsExtensionParameters;
+    withRichFormatting?: {
+        menu?: boolean;
+        blocks?: boolean;
+        links?: boolean;
+        withNewTabOption?: boolean;
     };
+    withStoryBookmarks?: StoryBookmarkExtensionParameters;
+    withStoryEmbeds?: StoryEmbedExtensionParameters;
+    withUserMentions?: UserMentionsExtensionParameters;
+    withVideos?: VideoExtensionParameters;
+    withWebBookmarks?: WebBookmarkExtensionParameters;
 }
 
 export * from './Fragment';

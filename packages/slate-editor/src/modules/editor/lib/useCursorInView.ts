@@ -1,26 +1,30 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
 import jsonStableStringify from 'json-stable-stringify';
-import { useLayoutEffect, useMemo } from 'react';
+import { useLayoutEffect } from 'react';
 import { Editor, Range } from 'slate';
 
 import { ensureElementInView, ensureRangeInView } from '#lib';
 
-import type { EditorProps } from '../types';
-
-function useMemoizedWithCursorInView(
-    withCursorInView: EditorProps['withCursorInView'],
-): EditorProps['withCursorInView'] {
-    // I know what I'm doing:
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    return useMemo(() => withCursorInView, [jsonStableStringify(withCursorInView)]);
+export interface Parameters {
+    minTop?: number;
+    minBottom?: number;
 }
 
-function ensureCursorInView(
-    editor: Editor,
-    withCursorInView: EditorProps['withCursorInView'],
-): void {
-    if (!withCursorInView || !editor.selection) {
+export function useCursorInView(editor: Editor, parameters: false | Parameters = false): void {
+    useLayoutEffect(() => {
+        if (!parameters) return;
+
+        try {
+            ensureCursorInView(editor, parameters);
+        } catch (error) {
+            // Ignore all cursor-related errors. They sometimes come from Slate.
+        }
+    }, [editor, editor.selection, jsonStableStringify(parameters)]);
+}
+
+function ensureCursorInView(editor: Editor, parameters: Parameters): void {
+    if (!editor.selection) {
         return;
     }
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
@@ -53,32 +57,16 @@ function ensureCursorInView(
          */
         const domElement = EditorCommands.toDomNode(editor, currentNode);
         ensureElementInView(domElement, {
-            minBottom: withCursorInView.minBottom,
-            minTop: withCursorInView.minTop,
+            minBottom: parameters.minBottom,
+            minTop: parameters.minTop,
         });
         return;
     }
 
     const domRange = EditorCommands.toDomRange(editor, editor.selection);
     ensureRangeInView(domRange, {
-        minBottom: withCursorInView.minBottom,
-        minTop: withCursorInView.minTop,
+        minBottom: parameters.minBottom,
+        minTop: parameters.minTop,
         skipWhenDoesNotFitView: true,
     });
-}
-
-export function useCursorInView(
-    editor: Editor,
-    withCursorInView: EditorProps['withCursorInView'],
-): void {
-    // We have to memoize it - otherwise the useLayoutEffect would kick in too often (e.g. on re-render)
-    const memoizedWithCursorInView = useMemoizedWithCursorInView(withCursorInView);
-
-    useLayoutEffect(() => {
-        try {
-            ensureCursorInView(editor, memoizedWithCursorInView);
-        } catch (error) {
-            // Ignore all cursor-related errors. They sometimes come from Slate.
-        }
-    }, [editor, editor.selection, memoizedWithCursorInView]);
 }

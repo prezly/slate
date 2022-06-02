@@ -18,17 +18,10 @@ interface MyTableCellNode extends TableCellNode {
     type: 'table-cell';
 }
 
-declare module 'slate' {
-    interface CustomTypes {
-        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor & TableEditor;
-        Element: ElementNode | MyTableNode | MyTableRowNode | MyTableCellNode;
-        Text: TextNode;
-    }
-}
-
 export * from './components';
 export * as Icons from './icons';
 export * from './modules/editor';
+export { EditableWithExtensions } from './modules/editable';
 
 export type { SearchProps as CoverageSearchProps } from './extensions/coverage';
 export { createEmbed } from './extensions/embed';
@@ -39,3 +32,13 @@ export type { User } from './extensions/user-mentions';
 
 export type { ResultPromise, UploadcareOptions } from './modules/uploadcare';
 export { withUploadcare } from './modules/uploadcare';
+
+import type { RichBlocksAwareEditor } from './modules/editor';
+
+declare module 'slate' {
+    interface CustomTypes {
+        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor & TableEditor;
+        Element: ElementNode & MyTableNode & MyTableRowNode & MyTableCellNode;
+        Text: TextNode;
+    }
+}

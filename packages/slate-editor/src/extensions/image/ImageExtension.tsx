@@ -19,16 +19,23 @@ import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
 import {
     createImageCandidate,
     getAncestorAnchor,
+    isImageCandidateElement,
     normalizeChildren,
     normalizeImageCandidate,
     normalizeRedundantImageAttributes,
     parseSerializedElement,
 } from './lib';
-import type { ImageCandidateNode, ImageParameters } from './types';
+import type { ImageCandidateNode, ImageExtensionConfiguration } from './types';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
 
 let lastBackspaceTimestamp = 0;
+
+interface Parameters extends ImageExtensionConfiguration {
+    onCrop?: (editor: Editor, element: ImageNode) => void;
+    onRemove?: (editor: Editor, element: ImageNode) => void;
+    onReplace?: (editor: Editor, element: ImageNode) => void;
+}
 
 export const ImageExtension = ({
     captions,
@@ -39,7 +46,7 @@ export const ImageExtension = ({
     withSizeOptions = false,
     withLayoutOptions = false,
     withNewTabOption = true,
-}: ImageParameters): Extension => ({
+}: Parameters): Extension => ({
     id: IMAGE_EXTENSION_ID,
     deserialize: {
         element: {
@@ -56,7 +63,14 @@ export const ImageExtension = ({
             },
         },
     },
-    normalizers: [
+    isRichBlock: isImageNode,
+    isVoid: (node) => {
+        if (captions) {
+            return isImageCandidateElement(node);
+        }
+        return isImageCandidateElement(node) || isImageNode(node);
+    },
+    normalizeNode: [
         normalizeRedundantImageAttributes,
         normalizeChildren,
         // normalizeImageCandidate needs to be last because it removes the image candidate element
@@ -142,5 +156,4 @@ export const ImageExtension = ({
         return undefined;
     },
     rootTypes: [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
-    voidTypes: captions ? [IMAGE_CANDIDATE_TYPE] : [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
 });

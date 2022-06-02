@@ -1,18 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import type { FunctionComponent } from 'react';
-import React, { useCallback, useMemo } from 'react';
-import type { Editor } from 'slate';
-import type { ReactEditor } from 'slate-react';
-import { Editable } from 'slate-react';
-
-import {
-    combineDecorate,
-    createExtensionsDecorators,
-    onDOMBeforeInputExtensions,
-    onKeyDownExtensions,
-    renderElementExtensions,
-    renderLeafExtensions,
-} from './lib';
 import type {
     Decorate,
     Extension,
@@ -20,9 +6,23 @@ import type {
     OnKeyDown,
     RenderElement,
     RenderLeaf,
-} from './types';
+} from '@prezly/slate-commons';
+import React, { useCallback, useMemo } from 'react';
+import type { Editor } from 'slate';
+import type { ReactEditor } from 'slate-react';
+import { Editable } from 'slate-react';
+
+import {
+    combineDecorate,
+    combineOnDOMBeforeInput,
+    combineOnKeyDown,
+    combineRenderElement,
+    combineRenderLeaf,
+    createExtensionsDecorators,
+} from './lib';
 
 export interface Props {
+    className?: string;
     decorate?: Decorate;
     editor: Editor & ReactEditor;
     /**
@@ -33,7 +33,7 @@ export interface Props {
      * - renderElement
      * - renderLeaf
      * - onDOMBeforeInput
-     * - onKeyDown
+     * - onKeyDown.ts
      */
     extensions?: Extension[];
     onCut?: (event: React.ClipboardEvent<HTMLDivElement>) => void;
@@ -44,7 +44,7 @@ export interface Props {
      * Handlers when we press a key
      */
     onKeyDown?: OnKeyDown[];
-    // Dependencies of `onKeyDown`
+    // Dependencies of `onKeyDown.ts`
     onKeyDownDeps?: any[];
     placeholder?: string;
     readOnly?: boolean;
@@ -68,7 +68,7 @@ export interface Props {
     style?: React.CSSProperties;
 }
 
-export const EditableWithExtensions: FunctionComponent<Props> = ({
+export function EditableWithExtensions({
     decorate,
     editor,
     extensions = [],
@@ -81,7 +81,7 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
     renderLeaf: renderLeafList = [],
     renderLeafDeps = [],
     ...props
-}) => {
+}: Props) {
     const combinedDecorate: Decorate = useMemo(
         function () {
             const decorateFns = createExtensionsDecorators(editor, extensions);
@@ -89,27 +89,31 @@ export const EditableWithExtensions: FunctionComponent<Props> = ({
         },
         [decorate, editor, extensions],
     );
+    const combinedOnDOMBeforeInput = useCallback(
+        combineOnDOMBeforeInput(editor, extensions, onDOMBeforeInputList),
+        onDOMBeforeInputDeps,
+    );
+    const combinedOnKeyDown = useCallback(
+        combineOnKeyDown(editor, extensions, onKeyDownList),
+        onKeyDownDeps,
+    );
+    const combinedRenderElement = useMemo(
+        () => combineRenderElement(editor, extensions, renderElementList),
+        renderElementDeps,
+    );
+    const combinedRenderLeaf = useCallback(
+        combineRenderLeaf(extensions, renderLeafList),
+        renderLeafDeps,
+    );
 
     return (
         <Editable
             {...props}
             decorate={combinedDecorate}
-            onDOMBeforeInput={useCallback(
-                onDOMBeforeInputExtensions(editor, extensions, onDOMBeforeInputList),
-                onDOMBeforeInputDeps,
-            )}
-            onKeyDown={useCallback(
-                onKeyDownExtensions(editor, extensions, onKeyDownList),
-                onKeyDownDeps,
-            )}
-            renderElement={useCallback(
-                renderElementExtensions(extensions, renderElementList, editor),
-                renderElementDeps,
-            )}
-            renderLeaf={useCallback(
-                renderLeafExtensions(extensions, renderLeafList),
-                renderLeafDeps,
-            )}
+            onDOMBeforeInput={combinedOnDOMBeforeInput}
+            onKeyDown={combinedOnKeyDown}
+            renderElement={combinedRenderElement}
+            renderLeaf={combinedRenderLeaf}
         />
     );
-};
+}

@@ -15,13 +15,15 @@ interface WebBookmarkExtensionParameters {
 export const WebBookmarkExtension = ({
     withNewTabOption = true,
 }: WebBookmarkExtensionParameters): Extension => ({
+    id: WEB_BOOKMARK_EXTENSION_ID,
     deserialize: {
         element: {
             [BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
-    id: WEB_BOOKMARK_EXTENSION_ID,
-    normalizers: [normalizeRedundantWebBookmarkAttributes],
+    isRichBlock: isBookmarkNode,
+    isVoid: isBookmarkNode,
+    normalizeNode: [normalizeRedundantWebBookmarkAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isBookmarkNode(element)) {
             return (
@@ -40,5 +42,4 @@ export const WebBookmarkExtension = ({
         return undefined;
     },
     rootTypes: [BOOKMARK_NODE_TYPE],
-    voidTypes: [BOOKMARK_NODE_TYPE],
 });

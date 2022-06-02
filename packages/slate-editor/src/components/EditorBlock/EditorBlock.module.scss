@@ -1,19 +1,13 @@
-@import "styles/mixins";
+@import "styles/helpers";
 @import "styles/variables";
 
 .EditorBlock {
-    @include editor-block($void: false);
     position: relative;
 
     &.extendedHitArea {
-        $area-vertical-expansion: $spacing-3; // x2 if counted in both directions: up & down
-
-        margin-top: $editor-block-spacing-vertical - $area-vertical-expansion;
-        margin-bottom: $editor-block-spacing-vertical - $area-vertical-expansion;
-
-        > .frame > .content {
-            padding-top: $area-vertical-expansion;
-            padding-bottom: $area-vertical-expansion;
+        > .Frame > .Content {
+            padding-top: $spacing-3;
+            padding-bottom: $spacing-3;
         }
     }
 
@@ -21,8 +15,17 @@
         caret-color: transparent;
     }
 
-    &.void > .frame {
-        @include editor-void-element;
+    &.void > .Frame {
+        /**
+         * Selection in Slate 0.50+ does not work as expected if a void block is selectable.
+         * It could lead to an error when Slate is resolving the node which crashes the editor.
+         *
+         * Also, it's not possible to drag a node when it's selectable.
+         *
+         * see: https://app.clubhouse.io/prezly/story/19824/weird-selection-after-editing-an-attachment-or-image-or-gallery
+         * see: https://app.clubhouse.io/prezly/story/20456/error-cannot-resolve-a-dom-node-from-slate-node-text
+         */
+        user-select: none;
     }
 }
 
@@ -49,7 +52,9 @@
 }
 
 .Content {
+    position: relative;
     overflow: hidden;
+    z-index: $editor-block-overlay-z-index - 1;
 
     &.border {
         border: 1px solid $grey-200;
@@ -64,24 +69,44 @@
     }
 
     &.hasError {
-        @include editor-block-error;
+        color: $legacy-color-status-error;
+        outline: solid 6px $legacy-color-status-error;
+        border-radius: 0;
     }
 
     &.selected {
-        @include editor-block-active;
+        outline: solid 6px $editor-block-focus-color;
+        border-radius: 0;
+    }
+
+    &.fullWidth.selected {
+        outline: none;
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            outline: solid 6px $editor-block-focus-color;
+            outline-offset: -6px;
+        }
     }
 }
 
 .Overlay {
-    z-index: $editor-embed-element-overlay-z-index;
+    z-index: $editor-block-overlay-z-index;
 }
 
 .Menu {
-    z-index: $editor-embed-element-overlay-z-index + 2;
+    z-index: $editor-block-overlay-z-index + 2;
 }
 
 .ResizeButton {
-    z-index: $editor-embed-element-overlay-z-index + 1;
+    z-index: $editor-block-overlay-z-index + 1;
     position: absolute;
 
     &.left {

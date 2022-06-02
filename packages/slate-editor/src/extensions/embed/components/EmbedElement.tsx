@@ -6,6 +6,8 @@ import type { RenderElementProps } from 'slate-react';
 import { EditorBlock, HtmlInjection, ImageWithLoadingPlaceholder } from '#components';
 import { Embed } from '#icons';
 
+import { BookmarkCard } from '#modules/components';
+
 import styles from './EmbedElement.module.scss';
 
 interface Props extends RenderElementProps {
@@ -42,6 +44,16 @@ export function EmbedElement({ attributes, children, element, showAsScreenshot }
                         <div className={styles.Error}>
                             There was a problem loading the requested URL.
                         </div>
+                    );
+                }
+
+                if (element.oembed.type === 'link') {
+                    return (
+                        <BookmarkCard.Container border layout="vertical">
+                            <BookmarkCard.Details href={element.url}>
+                                <BookmarkCard.Provider showUrl url={element.url} />
+                            </BookmarkCard.Details>
+                        </BookmarkCard.Container>
                     );
                 }
 

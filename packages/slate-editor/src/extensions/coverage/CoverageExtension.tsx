@@ -6,9 +6,9 @@ import React from 'react';
 import { CoverageElement } from './components';
 import { COVERAGE_EXTENSION_ID } from './constants';
 import { normalizeRedundantCoverageAttributes, parseSerializedElement } from './lib';
-import type { CoverageExtensionParameters } from './types';
+import type { CoverageExtensionConfiguration } from './types';
 
-export interface Parameters extends CoverageExtensionParameters {}
+export interface Parameters extends CoverageExtensionConfiguration {}
 
 export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Extension => ({
     id: COVERAGE_EXTENSION_ID,
@@ -17,7 +17,9 @@ export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Ex
             [COVERAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
-    normalizers: [normalizeRedundantCoverageAttributes],
+    isRichBlock: isCoverageNode,
+    isVoid: isCoverageNode,
+    normalizeNode: normalizeRedundantCoverageAttributes,
     renderElement: ({ attributes, children, element }) => {
         if (isCoverageNode(element)) {
             return (
@@ -35,5 +37,4 @@ export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Ex
         return undefined;
     },
     rootTypes: [COVERAGE_NODE_TYPE],
-    voidTypes: [COVERAGE_NODE_TYPE],
 });

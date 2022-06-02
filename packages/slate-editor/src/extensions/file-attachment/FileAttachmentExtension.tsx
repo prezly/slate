@@ -28,7 +28,9 @@ export const FileAttachmentExtension = ({
             [ATTACHMENT_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
-    normalizers: [normalizeRedundantFileAttachmentAttributes],
+    isRichBlock: isAttachmentNode,
+    isVoid: isAttachmentNode,
+    normalizeNode: normalizeRedundantFileAttachmentAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isAttachmentNode(element)) {
             return (
@@ -56,5 +58,4 @@ export const FileAttachmentExtension = ({
         return undefined;
     },
     rootTypes: [ATTACHMENT_NODE_TYPE],
-    voidTypes: [ATTACHMENT_NODE_TYPE],
 });

@@ -23,7 +23,9 @@ enum Layout {
     FULL_WIDTH = 'full-width',
 }
 
-export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
+export interface Props
+    extends Omit<RenderElementProps, 'attributes' | 'children'>,
+        SlateInternalAttributes {
     align?: Alignment;
     border?: boolean;
     /**
@@ -113,9 +115,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 [styles.void]: isVoid,
                 [styles.extendedHitArea]: extendedHitArea,
             })}
-            data-slate-type={element.type}
-            data-slate-value={JSON.stringify(element)}
-            data-element-layout={layout}
+            data-slate-block-layout={layout}
             onClick={isVoid ? undefined : closeMenu}
             ref={ref}
         >
@@ -148,6 +148,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         [styles.hasError]: hasError,
                         [styles.border]: border,
                         [styles.rounded]: rounded,
+                        [styles.fullWidth]: layout === Layout.FULL_WIDTH,
                     })}
                     onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
                 >

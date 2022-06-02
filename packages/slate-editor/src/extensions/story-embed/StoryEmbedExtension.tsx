@@ -10,13 +10,15 @@ import { normalizeRedundantStoryEmbedAttributes, parseSerializedElement } from '
 import type { StoryEmbedExtensionParameters } from './types';
 
 export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): Extension => ({
+    id: STORY_EMBED_EXTENSION_ID,
     deserialize: {
         element: {
             [STORY_EMBED_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
-    id: STORY_EMBED_EXTENSION_ID,
-    normalizers: [normalizeRedundantStoryEmbedAttributes],
+    isRichBlock: isStoryEmbedNode,
+    isVoid: isStoryEmbedNode,
+    normalizeNode: normalizeRedundantStoryEmbedAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isStoryEmbedNode(element)) {
             return (
@@ -31,5 +33,4 @@ export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): 
         return undefined;
     },
     rootTypes: [STORY_EMBED_NODE_TYPE],
-    voidTypes: [STORY_EMBED_NODE_TYPE],
 });

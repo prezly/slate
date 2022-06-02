@@ -1,13 +1,13 @@
-import type { GalleriesExtensionParameters } from '#extensions/galleries';
+import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { MediaGalleryOptions } from '#modules/uploadcare';
 
 export function getMediaGalleryParameters(
-    withGalleries: GalleriesExtensionParameters,
+    config: GalleriesExtensionConfiguration,
 ): MediaGalleryOptions<true> | MediaGalleryOptions<false> {
-    if (withGalleries.mediaGalleryTab) {
+    if (config.mediaGalleryTab) {
         return {
             mediaGalleryTab: true,
-            newsroom: withGalleries.mediaGalleryTab.newsroom,
+            newsroom: config.mediaGalleryTab.newsroom,
         };
     }
 

@@ -1,13 +1,16 @@
-@import "styles/mixins";
+@import "styles/helpers";
 @import "styles/variables";
 
 .Editor {
     position: relative;
+}
 
-    @include editor-top-elements {
-        margin-left: auto;
-        margin-right: auto;
+.Editable {
+    *::selection {
+        background: #c2e5ff;
+    }
 
+    > [data-slate-block] {
         &:first-child {
             margin-top: 0;
         }
@@ -17,9 +20,21 @@
         }
     }
 
-    [data-slate-editor="true"] * {
-        &::selection {
-            background: #c2e5ff;
-        }
+    > [data-slate-block="rich"] {
+        margin: $spacing-6 0;
+    }
+
+    > [data-slate-block="regular"] {
+        margin: $spacing-2 0;
+    }
+
+    > [data-slate-type="heading-one"],
+    > [data-slate-type="heading-two"] {
+        margin-top: $spacing-4;
+    }
+
+    > [data-slate-type="divider"] {
+        /** Compensating .extendedHitArea visual expansion */
+        margin: $spacing-3 0;
     }
 }

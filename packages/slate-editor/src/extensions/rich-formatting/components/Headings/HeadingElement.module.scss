@@ -5,15 +5,11 @@
     font-weight: bold;
 
     &.headingOne {
-        margin-top: $editor-block-spacing-vertical;
-        margin-bottom: $spacing-3;
         font-size: $editor-heading-one-font-size;
         line-height: $editor-heading-one-line-height;
     }
 
     &.headingTwo {
-        margin-top: $spacing-3;
-        margin-bottom: $spacing-3;
         font-size: $editor-heading-two-font-size;
         line-height: $editor-heading-two-line-height;
     }

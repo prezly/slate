@@ -3,7 +3,7 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 
-import type { GalleriesExtensionParameters } from '#extensions/galleries';
+import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import { createGallery, getCurrentGalleryNodeEntry, removeGallery } from '#extensions/galleries';
 import { LoaderContentType } from '#extensions/loader';
 import { EventsEditor } from '#modules/events';
@@ -14,7 +14,7 @@ import { insertUploadingFile } from '../insertUploadingFile';
 
 import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
-export function createHandleEditGallery(withGalleries: GalleriesExtensionParameters) {
+export function createHandleEditGallery(config: GalleriesExtensionConfiguration) {
     return async function (editor: Editor) {
         const galleryNodeEntry = getCurrentGalleryNodeEntry(editor);
 
@@ -30,7 +30,7 @@ export function createHandleEditGallery(withGalleries: GalleriesExtensionParamet
         });
 
         const filePromises = await UploadcareEditor.upload(editor, {
-            ...getMediaGalleryParameters(withGalleries),
+            ...getMediaGalleryParameters(config),
             captions: true,
             files,
             imagesOnly: true,

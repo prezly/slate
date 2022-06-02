@@ -1,4 +1,4 @@
-@import "styles/mixins";
+@import "styles/helpers";
 @import "styles/variables";
 
 .container {
@@ -135,4 +135,7 @@
 
 .providerName {
     flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -1,5 +1,4 @@
 import type { Extension } from '@prezly/slate-commons';
-import type { RefObject } from 'react';
 
 import { noop } from '#lodash';
 
@@ -36,18 +35,34 @@ import {
     handleRemoveAttachment,
     handleRemoveImage,
 } from './lib';
-import type { EditorExtensionsProps } from './types';
+import type { EditorProps } from './types';
 
-interface Parameters extends EditorExtensionsProps {
-    containerRef: RefObject<HTMLElement>;
+type Parameters = {
+    availableWidth: number;
     onFloatingAddMenuToggle: (show?: boolean) => void;
     onOperationEnd?: () => void;
     onOperationStart?: () => void;
-}
+} & Pick<
+    EditorProps,
+    | 'withAttachments'
+    | 'withCoverage'
+    | 'withEmbeds'
+    | 'withFloatingAddMenu'
+    | 'withGalleries'
+    | 'withImages'
+    | 'withPlaceholders'
+    | 'withPressContacts'
+    | 'withRichFormatting'
+    | 'withUserMentions'
+    | 'withVideos'
+    | 'withWebBookmarks'
+    | 'withAutoformat'
+    | 'withStoryEmbeds'
+    | 'withStoryBookmarks'
+>;
 
 export function* getEnabledExtensions({
     availableWidth,
-    containerRef,
     onFloatingAddMenuToggle,
     onOperationEnd = noop,
     onOperationStart = noop,
@@ -111,7 +126,6 @@ export function* getEnabledExtensions({
     if (withGalleries) {
         yield GalleriesExtension({
             availableWidth,
-            containerRef,
             onEdit: createHandleEditGallery(withGalleries),
         });
     }

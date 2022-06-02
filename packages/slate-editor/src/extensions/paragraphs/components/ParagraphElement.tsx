@@ -1,5 +1,4 @@
 import type { ParagraphNode } from '@prezly/slate-types';
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
 import React from 'react';
@@ -18,8 +17,6 @@ export function ParagraphElement({ attributes, children, className, element, ...
             {...attributes}
             {...props}
             className={classNames(styles.ParagraphElement, className)}
-            data-slate-type={PARAGRAPH_NODE_TYPE}
-            data-slate-value={JSON.stringify(element)}
             style={{ textAlign: element.align }}
         >
             {children}

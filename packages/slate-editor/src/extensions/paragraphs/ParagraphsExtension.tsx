@@ -15,7 +15,7 @@ import {
 export const ParagraphsExtension = (): Extension => ({
     deserialize,
     id: PARAGRAPHS_EXTENSION_ID,
-    normalizers: [
+    normalizeNode: [
         normalizeOrphanText,
         normalizeRedundantParagraphAttributes,
         normalizeUnknownElement,

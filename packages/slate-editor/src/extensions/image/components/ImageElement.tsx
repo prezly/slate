@@ -50,6 +50,7 @@ export function ImageElement({
     const isSupportingCaptions = !isVoid;
     const isCaptionEmpty = EditorCommands.isNodeEmpty(editor, element, true);
     const isCaptionVisible = isSupportingCaptions && (isSelected || !isCaptionEmpty);
+    const isCaptionPlaceholderVisible = isSupportingCaptions && isCaptionEmpty && isSelected;
 
     const handleResize = useCallback(
         function (width: ImageNode['width']) {
@@ -106,10 +107,10 @@ export function ImageElement({
             element={element}
             layout={layout}
             onResize={handleResize}
-            overlay="always"
+            overlay={false}
             renderBlock={() => (
                 <ImageWithLoadingPlaceholder
-                    src={image.preview().format().cdnUrl}
+                    src={image.isGif() ? image.cdnUrl : image.format().cdnUrl}
                     imageWidth={width}
                     imageHeight={height}
                     icon={Image}
@@ -146,13 +147,15 @@ export function ImageElement({
         >
             {isSupportingCaptions ? (
                 <div
-                    className={classNames(styles.caption, {
-                        [styles.floating]: isCaptionEmpty,
+                    className={classNames(styles.Caption, {
+                        [styles.empty]: isCaptionEmpty,
+                        [styles.withPlaceholder]: isCaptionPlaceholderVisible,
                         [styles.visible]: isCaptionVisible,
                         [styles.alignLeft]: align === Alignment.LEFT,
                         [styles.alignCenter]: align === Alignment.CENTER,
                         [styles.alignRight]: align === Alignment.RIGHT,
                     })}
+                    data-placeholder="Image caption"
                 >
                     {children}
                 </div>

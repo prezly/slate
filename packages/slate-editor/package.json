@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-editor",
-    "version": "0.39.1",
+    "version": "0.40.6",
     "description": "The Prezly Slate Editor",
     "license": "MIT",
     "type": "module",
@@ -14,13 +14,10 @@
             "default": "./build/cjs/index.cjs"
         },
         "./styles.css": "./build/styles/styles.css",
-        "./styles/mixins": {
+        "./styles/mixins.scss": {
             "sass": "./build/styles/mixins.scss"
         },
-        "./styles/shared": {
-            "sass": "./build/styles/shared.scss"
-        },
-        "./styles/variables": {
+        "./styles/variables.scss": {
             "sass": "./build/styles/variables.scss"
         }
     },
@@ -71,10 +68,10 @@
         "@prezly/linear-partition": "^1.0.2",
         "@prezly/progress-promise": "^1.0.1",
         "@prezly/sdk": "^6.12.1",
-        "@prezly/slate-commons": "^0.39.1",
-        "@prezly/slate-lists": "^0.39.1",
-        "@prezly/slate-types": "^0.39.1",
-        "@prezly/uploadcare": "^2.3.2",
+        "@prezly/slate-commons": "^0.40.6",
+        "@prezly/slate-lists": "^0.40.6",
+        "@prezly/slate-types": "^0.40.6",
+        "@prezly/uploadcare": "^2.3.3",
         "@prezly/uploadcare-widget": "^3.16.1",
         "@udecode/plate-core": "^9.0.0",
         "classnames": "^2.3.1",

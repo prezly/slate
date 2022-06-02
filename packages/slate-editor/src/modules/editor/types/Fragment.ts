@@ -87,7 +87,7 @@ function isKnownNode(node: unknown): node is KnownNode {
         const isKnown = validator(node);
 
         if (Element.isElement(node)) {
-            return isKnown && isFragment(node.children);
+            return isKnown && isFragment((node as any).children);
         }
 
         return isKnown;

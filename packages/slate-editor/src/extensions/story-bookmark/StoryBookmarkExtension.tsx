@@ -10,13 +10,15 @@ import { normalizeRedundantStoryBookmarkAttributes, parseSerializedElement } fro
 import type { StoryBookmarkExtensionParameters } from './types';
 
 export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters): Extension => ({
+    id: STORY_BOOKMARK_EXTENSION_ID,
     deserialize: {
         element: {
             [STORY_BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
-    id: STORY_BOOKMARK_EXTENSION_ID,
-    normalizers: [normalizeRedundantStoryBookmarkAttributes],
+    isRichBlock: isStoryBookmarkNode,
+    isVoid: isStoryBookmarkNode,
+    normalizeNode: normalizeRedundantStoryBookmarkAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isStoryBookmarkNode(element)) {
             return (
@@ -29,5 +31,4 @@ export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters)
         return undefined;
     },
     rootTypes: [STORY_BOOKMARK_NODE_TYPE],
-    voidTypes: [STORY_BOOKMARK_NODE_TYPE],
 });
