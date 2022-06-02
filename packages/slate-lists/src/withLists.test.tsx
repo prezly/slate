@@ -16,7 +16,7 @@ import {
 } from './jsx';
 import type { ListsEditor } from './types';
 
-describe('withLists - normalizeListChildren', () => {
+describe.skip('withLists - normalizeListChildren', () => {
     it('Converts paragraph into list-item when it is a child of a list', () => {
         const editor = (
             <Editor>
@@ -100,7 +100,7 @@ describe('withLists - normalizeListChildren', () => {
     });
 });
 
-describe('withLists - normalizeListItemChildren', () => {
+describe.skip('withLists - normalizeListItemChildren', () => {
     it('Lifts up list-items when they are children of list-item', () => {
         const editor = (
             <Editor>
@@ -348,7 +348,7 @@ describe('withLists - normalizeListItemChildren', () => {
     });
 });
 
-describe('withLists - normalizeListItemTextChildren', () => {
+describe.skip('withLists - normalizeListItemTextChildren', () => {
     it('Unwraps block children of list-item-text elements', () => {
         const editor = (
             <Editor>
@@ -396,7 +396,7 @@ describe('withLists - normalizeListItemTextChildren', () => {
     });
 });
 
-describe('withLists - normalizeOrphanListItem', () => {
+describe.skip('withLists - normalizeOrphanListItem', () => {
     it('Converts orphan list-item into paragraph', () => {
         const editor = (
             <Editor>
@@ -430,7 +430,7 @@ describe('withLists - normalizeOrphanListItem', () => {
     });
 });
 
-describe('withLists - normalizeOrphanListItemText', () => {
+describe.skip('withLists - normalizeOrphanListItemText', () => {
     it('Converts orphan list-item-text into paragraph', () => {
         const editor = (
             <Editor>
@@ -460,7 +460,7 @@ describe('withLists - normalizeOrphanListItemText', () => {
     });
 });
 
-describe('withLists - normalizeOrphanNestedList', () => {
+describe.skip('withLists - normalizeOrphanNestedList', () => {
     it('Unwraps the nested list when it does not have sibling list-item-text', () => {
         const editor = (
             <Editor>
@@ -610,7 +610,7 @@ describe('withLists - normalizeOrphanNestedList', () => {
     });
 });
 
-describe('withLists - normalizeSiblingLists', () => {
+describe.skip('withLists - normalizeSiblingLists', () => {
     it('Merges sibling lists of same type', () => {
         const editor = (
             <Editor>
