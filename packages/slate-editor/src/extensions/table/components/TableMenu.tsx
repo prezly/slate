@@ -157,6 +157,45 @@ export function TableMenu({ element, editor, onClose }: Props) {
                 </ButtonGroup>
             </Toolbox.Section>
 
+            <Toolbox.Section caption="Divide cell">
+                <ButtonGroup>
+                    {[
+                        <Button
+                            key="edit"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.divideCellLeft(editor)}
+                        >
+                            Left
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.divideCellAbove(editor)}
+                        >
+                            Above
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.divideCellRight(editor)}
+                        >
+                            Right
+                        </Button>,
+                        <Button
+                            key="view"
+                            variant="clear"
+                            fullWidth
+                            onClick={() => TableEditor.divideCellBelow(editor)}
+                        >
+                            Below
+                        </Button>,
+                    ]}
+                </ButtonGroup>
+            </Toolbox.Section>
+
             <Toolbox.Section caption="Add cell">
                 <ButtonGroup>
                     {[
