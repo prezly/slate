@@ -126,6 +126,19 @@ export function Base() {
                 <button onClick={() => TableEditor.mergeCellBelow(editor)} disabled={isNotInTable}>
                     Merge cell below
                 </button>{' '}
+                <span> | </span>
+                <button onClick={() => TableEditor.divideCellLeft(editor)} disabled={isNotInTable}>
+                    Divide cell left
+                </button>{' '}
+                <button onClick={() => TableEditor.divideCellAbove(editor)} disabled={isNotInTable}>
+                    Divide cell above
+                </button>{' '}
+                <button onClick={() => TableEditor.divideCellRight(editor)} disabled={isNotInTable}>
+                    Divide cell right
+                </button>{' '}
+                <button onClick={() => TableEditor.divideCellBelow(editor)} disabled={isNotInTable}>
+                    Divide cell below
+                </button>{' '}
             </div>
 
             <Slate editor={editor} value={value} onChange={setValue}>

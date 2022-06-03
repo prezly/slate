@@ -55,6 +55,16 @@ export class MatrixCell {
         return this.row.rowBelow?.cells[this.x];
     }
 
+    get cellBelowReal(): MatrixCell | undefined {
+        const rowBelow: MatrixCell | undefined = this.row.rowBelow?.cells[this.x];
+
+        if (rowBelow?.isVirtual) {
+            return rowBelow.cellBelowReal;
+        }
+
+        return rowBelow;
+    }
+
     compareWidth(otherCell: MatrixCell) {
         const thisRowSpan = TableCellNode.getCellColspan(this.node);
         const otherRowSpan = TableCellNode.getCellColspan(otherCell.node);
