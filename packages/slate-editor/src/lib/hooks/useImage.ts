@@ -8,11 +8,11 @@ interface State {
     error?: Error;
     loading: boolean;
     progress: number;
-    url?: string;
+    loaded: boolean;
 }
 
 export function useImage(src: string): State {
-    const getPromise = useCallback(() => fetchImageWithProgress(src).then(() => src), [src]);
+    const getPromise = useCallback(() => fetchImageWithProgress(src), [src]);
     const { error, loading, progress, value } = useAsyncProgress(getPromise);
-    return { error, loading, progress, url: value };
+    return { error, loading, progress, loaded: Boolean(value) };
 }
