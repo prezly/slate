@@ -1,5 +1,6 @@
 import type { Location } from 'slate';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
+import { Path } from 'slate';
 import { Transforms } from 'slate';
 
 import { Traverse } from '../core';
@@ -82,54 +83,38 @@ export function divideCell(
     }
 
     if (side === 'left' || side === 'right') {
-        const otherCell = side === 'left' ? activeCell.cellLeft : activeCell.cellRight;
+        const currentColSpan = TableCellNode.getCellColspan(activeCell.node);
 
-        if (!otherCell) {
+        if (currentColSpan <= 1) {
             return false;
         }
 
-        if (activeCell.compareHeight(otherCell) !== 0) {
-            return false;
-        }
+        TableCellNode.update(
+            editor,
+            { colspan: TableCellNode.calculateCellColSpan(activeCell.node, '-', 1) },
+            activeCell.nodePath,
+        );
 
         if (side === 'left') {
-            const endOfLeftCell = Editor.end(editor, otherCell.nodePath);
-            Transforms.insertNodes(editor, activeCell.node.children, { at: endOfLeftCell });
-
-            TableCellNode.update(
+            Transforms.insertNodes(
                 editor,
+                [TableCellNode.createTableCellNode(editor, { ...activeCell.node, colspan: 1 })],
                 {
-                    colspan: TableCellNode.calculateCellColSpan(
-                        otherCell.node,
-                        '+',
-                        TableCellNode.getCellColspan(activeCell.node),
-                    ),
+                    at: activeCell.nodePath,
                 },
-                otherCell.nodePath,
             );
 
             editor.focusEditor(editor);
-
-            Transforms.removeNodes(editor, { at: activeCell.nodePath });
         } else {
-            const endOfActiveCell = Editor.end(editor, activeCell.nodePath);
-            Transforms.insertNodes(editor, otherCell.node.children, { at: endOfActiveCell });
-
-            TableCellNode.update(
+            Transforms.insertNodes(
                 editor,
+                [TableCellNode.createTableCellNode(editor, { ...activeCell.node, colspan: 1 })],
                 {
-                    colspan: TableCellNode.calculateCellColSpan(
-                        activeCell.node,
-                        '+',
-                        TableCellNode.getCellColspan(otherCell.node),
-                    ),
+                    at: Path.next(activeCell.nodePath),
                 },
-                activeCell.nodePath,
             );
 
             editor.focusEditor(editor);
-
-            Transforms.removeNodes(editor, { at: otherCell.nodePath });
         }
     }
 
