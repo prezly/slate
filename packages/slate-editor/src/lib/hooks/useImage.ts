@@ -12,7 +12,7 @@ interface State {
 }
 
 export function useImage(src: string): State {
-    const getPromise = useCallback(() => createImageProgressPromise(src), [src]);
+    const getPromise = useCallback(() => createImageProgressPromise(src).then(() => src), [src]);
     const { error, loading, progress, value } = useAsyncProgress(getPromise);
     return { error, loading, progress, url: value };
 }
