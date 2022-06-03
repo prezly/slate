@@ -1,18 +1,21 @@
 import { useCallback } from 'react';
 
-import { createImageProgressPromise } from '../createImageProgressPromise';
+import { fetchImageWithProgress } from '../fetchImageWithProgress';
 
 import { useAsyncProgress } from './useAsyncProgress';
+
+type OriginalURIOrBlobDataURI = string;
 
 interface State {
     error?: Error;
     loading: boolean;
     progress: number;
-    url?: string;
+    loaded: boolean;
+    url: OriginalURIOrBlobDataURI | undefined;
 }
 
 export function useImage(src: string): State {
-    const getPromise = useCallback(() => createImageProgressPromise(src), [src]);
-    const { error, loading, progress, value } = useAsyncProgress(getPromise);
-    return { error, loading, progress, url: value };
+    const fetchImage = useCallback(() => fetchImageWithProgress(src), [src]);
+    const { error, loading, progress, value } = useAsyncProgress(fetchImage);
+    return { error, loading, progress, loaded: Boolean(value), url: value };
 }

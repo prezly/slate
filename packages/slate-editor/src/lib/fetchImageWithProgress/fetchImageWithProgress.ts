@@ -1,7 +1,7 @@
 import { ProgressPromise } from '@prezly/progress-promise';
 
-import { createFetchImageProgressPromise } from './createFetchImageProgressPromise';
-import { createXmlHttpImageProgressPromise } from './createXmlHttpImageProgressPromise';
+import { fetchImageWithReadableStream } from './fetchImageWithReadableStream';
+import { fetchImageWithXmlHttpRequest } from './fetchImageWithXmlHttpRequest';
 
 const CORS_ENABLED_ORIGINS = ['https://cdn.uc.assets.prezly.com'];
 
@@ -10,12 +10,12 @@ const isReadableStreamSupported = (() => {
         // eslint-disable-next-line no-new
         new ReadableStream({});
         return true;
-    } catch (error) {
+    } catch {
         return false;
     }
 })();
 
-export function createImageProgressPromise(src: string): ProgressPromise<string, number> {
+export function fetchImageWithProgress(src: string): ProgressPromise<string, number> {
     const { origin } = new URL(src);
 
     // There are at least 2 ways of tracking loading progress:
@@ -25,15 +25,15 @@ export function createImageProgressPromise(src: string): ProgressPromise<string,
     // constructor support has been added in Edge 79. So for browsers that don't support it
     // we default to XMLHttpRequest.
 
-    // Unfortunately AJAX call to download an imagedoes not work if there's CORS policy involved.
+    // Unfortunately AJAX call to download an image does not work if there's CORS policy involved.
     // So we use fetch/XMLHttpRequest only for domains we're sure about.
-    // For the rest of domains, we fallback to default Image behavior.
+    // For the rest of domains, we fall back to the default progress-less preloading behavior.
     if (CORS_ENABLED_ORIGINS.includes(origin)) {
         if (isReadableStreamSupported) {
-            return createFetchImageProgressPromise(src);
+            return fetchImageWithReadableStream(src);
         }
 
-        return createXmlHttpImageProgressPromise(src);
+        return fetchImageWithXmlHttpRequest(src);
     }
 
     return new ProgressPromise((resolve, reject) => {

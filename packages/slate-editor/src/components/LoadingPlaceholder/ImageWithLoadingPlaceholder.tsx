@@ -48,7 +48,7 @@ export const ImageWithLoadingPlaceholder = forwardRef<HTMLDivElement, Props>((pr
     } = props;
     const aspectRatio = imageHeight ? imageWidth / imageHeight : undefined;
     const callbacks = useLatest({ onStartLoading, onLoad });
-    const { loading, progress, url } = useImage(src);
+    const { loading, progress, loaded: isLoaded } = useImage(src);
 
     useEffect(
         function () {
@@ -59,12 +59,12 @@ export const ImageWithLoadingPlaceholder = forwardRef<HTMLDivElement, Props>((pr
                 );
                 return () => clearTimeout(timeout);
             }
-            if (url !== undefined) {
+            if (isLoaded) {
                 callbacks.current.onLoad?.();
             }
             return;
         },
-        [loading, url],
+        [loading, isLoaded],
     );
 
     return (
@@ -73,12 +73,12 @@ export const ImageWithLoadingPlaceholder = forwardRef<HTMLDivElement, Props>((pr
             className={classNames(styles.ImageWithLoadingPlaceholder, attributes.className)}
             style={{
                 aspectRatio: aspectRatio ? String(aspectRatio) : undefined,
-                backgroundImage: url ? `url("${url}")` : undefined,
+                backgroundImage: isLoaded ? `url("${src}")` : undefined,
                 ...attributes.style,
             }}
             ref={ref}
         >
-            {url && <img className={styles.Image} src={url} alt={alt} />}
+            {isLoaded && <img className={styles.Image} src={src} alt={alt} />}
 
             {loading && (
                 <LoadingPlaceholder
