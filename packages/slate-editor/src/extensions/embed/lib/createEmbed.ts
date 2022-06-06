@@ -1,12 +1,11 @@
 import type { OEmbedInfo } from '@prezly/sdk';
 import type { EmbedNode } from '@prezly/slate-types';
+import { EMBED_NODE_TYPE } from '@prezly/slate-types';
 import { v4 as uuidV4 } from 'uuid';
-
-import { EMBED_TYPE } from '../constants';
 
 export function createEmbed(oembed: OEmbedInfo, url: string): EmbedNode {
     return {
-        type: EMBED_TYPE,
+        type: EMBED_NODE_TYPE,
         children: [{ text: '' }],
         oembed,
         url,
