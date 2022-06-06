@@ -1,4 +1,4 @@
-import type ProgressPromise from '@prezly/progress-promise';
+import type { ProgressPromise } from '@prezly/progress-promise';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Editor, Element } from 'slate';
 

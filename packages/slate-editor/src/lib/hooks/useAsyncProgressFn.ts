@@ -40,7 +40,7 @@ export function useAsyncProgressFn<T>(
 
         setState({
             loading: true,
-            progress: promise.getProgress(),
+            progress: 0,
         });
 
         return promise.then(
