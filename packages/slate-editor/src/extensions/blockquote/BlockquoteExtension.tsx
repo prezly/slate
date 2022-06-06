@@ -2,6 +2,8 @@ import type { Extension } from '@prezly/slate-commons';
 import { isQuoteNode, QUOTE_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 
+import { withResetFormattingOnBreak } from '#lib';
+
 import { BlockQuoteElement } from './components';
 import { normalizeRedundantAttributes } from './lib';
 
@@ -28,5 +30,6 @@ export function BlockquoteExtension(): Extension {
             return undefined;
         },
         rootTypes: [QUOTE_NODE_TYPE],
+        withOverrides: withResetFormattingOnBreak(isQuoteNode),
     };
 }
