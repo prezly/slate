@@ -1,6 +1,5 @@
 import type { Extension, WithOverrides } from '@prezly/slate-commons';
 import { onKeyDown as onKeyboardDoListsFormatting } from '@prezly/slate-lists';
-import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
 import type { Editor } from 'slate';
@@ -51,7 +50,6 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
     },
     renderLeaf: Text,
     rootTypes: [
-        PARAGRAPH_NODE_TYPE,
         ElementType.BLOCK_QUOTE,
         ElementType.HEADING_ONE,
         ElementType.HEADING_TWO,
