@@ -3,6 +3,7 @@ import type { Extension } from '@prezly/slate-commons';
 import { noop } from '#lodash';
 
 import { AutoformatExtension } from '#extensions/autoformat';
+import { BlockquoteExtension } from '#extensions/blockquote';
 import { CoverageExtension } from '#extensions/coverage';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
 import { DividerExtension } from '#extensions/divider';
@@ -98,6 +99,10 @@ export function* getEnabledExtensions({
 
     if (withUserMentions) {
         yield UserMentionsExtension();
+    }
+
+    if (withRichFormatting?.blocks) {
+        yield BlockquoteExtension();
     }
 
     if (withRichFormatting) {

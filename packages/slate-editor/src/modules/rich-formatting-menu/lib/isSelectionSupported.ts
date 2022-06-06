@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isLinkNode } from '@prezly/slate-types';
+import { isLinkNode, isQuoteNode } from '@prezly/slate-types';
 import { Editor, Element } from 'slate';
 
 import { isRichTextElement } from '#extensions/rich-formatting';
@@ -15,5 +15,7 @@ export function isSelectionSupported(editor: Editor): boolean {
         }),
     );
 
-    return nodeEntries.every(([node]) => isRichTextElement(node) || isLinkNode(node));
+    return nodeEntries.every(
+        ([node]) => isRichTextElement(node) || isLinkNode(node) || isQuoteNode(node),
+    );
 }

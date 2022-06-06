@@ -3,7 +3,6 @@ import type {
     ListNode,
     ListItemNode,
     ListItemTextNode,
-    QuoteNode,
     ElementNode,
 } from '@prezly/slate-types';
 
@@ -27,12 +26,7 @@ export enum MarkType {
     SUPERSCRIPT = 'superscript',
 }
 
-export type RichTextElementType =
-    | HeadingNode
-    | ListNode
-    | ListItemNode
-    | ListItemTextNode
-    | QuoteNode;
+export type RichTextElementType = HeadingNode | ListNode | ListItemNode | ListItemTextNode;
 
 export interface LinkCandidateNode extends ElementNode {
     type: ElementType.LINK_CANDIDATE;

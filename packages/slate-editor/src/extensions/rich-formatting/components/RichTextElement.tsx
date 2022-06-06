@@ -5,7 +5,6 @@ import type { RenderElementProps } from 'slate-react';
 import type { RichTextElementType } from '../types';
 import { ElementType } from '../types';
 
-import { BlockQuoteElement } from './BlockQuoteElement';
 import { HeadingElement } from './Headings';
 import { ListElement, ListItemElement, ListItemTextElement } from './Lists';
 
@@ -21,12 +20,6 @@ export const RichTextElement: FunctionComponent<Props> = ({
     ...props
 }) => {
     switch (element.type) {
-        case ElementType.BLOCK_QUOTE:
-            return (
-                <BlockQuoteElement {...props} attributes={attributes} element={element}>
-                    {children}
-                </BlockQuoteElement>
-            );
         case ElementType.HEADING_ONE:
         case ElementType.HEADING_TWO:
             return (

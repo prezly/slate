@@ -8,7 +8,6 @@ import { ElementType } from './types';
 export function createDeserialize(parameters: { blocks: boolean }): DeserializeHtml {
     const deserialize: DeserializeHtml = {
         element: {
-            [ElementType.BLOCK_QUOTE]: () => ({ type: PARAGRAPH_NODE_TYPE }),
             [ElementType.BULLETED_LIST]: () => ({ type: PARAGRAPH_NODE_TYPE }),
             [ElementType.HEADING_ONE]: () => ({ type: PARAGRAPH_NODE_TYPE }),
             [ElementType.HEADING_TWO]: () => ({ type: PARAGRAPH_NODE_TYPE }),
@@ -16,7 +15,6 @@ export function createDeserialize(parameters: { blocks: boolean }): DeserializeH
             [ElementType.LIST_ITEM]: () => ({ type: PARAGRAPH_NODE_TYPE }),
             [ElementType.LIST_ITEM_TEXT]: () => ({ type: PARAGRAPH_NODE_TYPE }),
             [ElementType.NUMBERED_LIST]: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            BLOCKQUOTE: () => ({ type: PARAGRAPH_NODE_TYPE }),
             BR: () => ({ type: PARAGRAPH_NODE_TYPE }),
             H1: () => ({ type: PARAGRAPH_NODE_TYPE }),
             H2: () => ({ type: PARAGRAPH_NODE_TYPE }),
@@ -89,14 +87,12 @@ export function createDeserialize(parameters: { blocks: boolean }): DeserializeH
 
     if (parameters.blocks) {
         Object.assign(deserialize.element, {
-            [ElementType.BLOCK_QUOTE]: createDeserializeElement(parseSerializedElement),
             [ElementType.BULLETED_LIST]: createDeserializeElement(parseSerializedElement),
             [ElementType.HEADING_ONE]: createDeserializeElement(parseSerializedElement),
             [ElementType.HEADING_TWO]: createDeserializeElement(parseSerializedElement),
             [ElementType.LIST_ITEM]: createDeserializeElement(parseSerializedElement),
             [ElementType.LIST_ITEM_TEXT]: createDeserializeElement(parseSerializedElement),
             [ElementType.NUMBERED_LIST]: createDeserializeElement(parseSerializedElement),
-            BLOCKQUOTE: () => ({ type: ElementType.BLOCK_QUOTE }),
             DIV: (element: HTMLDivElement) => {
                 if (element.parentNode?.nodeName === 'LI') {
                     return { type: ElementType.LIST_ITEM_TEXT };
