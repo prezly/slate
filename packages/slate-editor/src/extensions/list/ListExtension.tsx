@@ -13,7 +13,7 @@ import {
 } from '@prezly/slate-types';
 import React from 'react';
 
-import { ElementType } from '#extensions/rich-formatting';
+import { ElementType } from '#extensions/text-styling';
 
 import { ListElement, ListItemElement, ListItemTextElement } from './components';
 import { normalizeRedundantAttributes, parseList, parseListItem, parseListItemText } from './lib';

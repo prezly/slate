@@ -15,7 +15,7 @@ import { createEditor as createSlateEditor } from 'slate';
 import { createEditor as createEditorFactory, createHyperscript } from 'slate-hyperscript';
 
 import { InlineLinksExtension } from '#extensions/inline-links';
-import { RichFormattingExtension } from '#extensions/rich-formatting';
+import { TextStylingExtension } from '#extensions/text-styling';
 import { createEditor } from '#modules/editor';
 
 declare global {
@@ -24,7 +24,7 @@ declare global {
     }
 }
 
-const extensions = [InlineLinksExtension(), RichFormattingExtension({ blocks: true })];
+const extensions = [InlineLinksExtension(), TextStylingExtension({ blocks: true })];
 
 export const jsx = createHyperscript({
     elements: {

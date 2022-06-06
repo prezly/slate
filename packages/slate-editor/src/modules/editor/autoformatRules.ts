@@ -9,7 +9,7 @@ import {
 } from '@prezly/slate-types';
 
 import type { AutoformatRule } from '#extensions/autoformat';
-import { ElementType, MarkType } from '#extensions/rich-formatting';
+import { ElementType, MarkType } from '#extensions/text-styling';
 import { toggleBlock } from '#modules/rich-formatting-menu';
 
 export const compositeCharactersRules: AutoformatRule[] = [

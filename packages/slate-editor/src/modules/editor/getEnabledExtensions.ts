@@ -20,10 +20,10 @@ import { LoaderExtension } from '#extensions/loader';
 import { ParagraphsExtension } from '#extensions/paragraphs';
 import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
 import { PressContactsExtension } from '#extensions/press-contacts';
-import { RichFormattingExtension } from '#extensions/rich-formatting';
 import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
 import { StoryEmbedExtension } from '#extensions/story-embed';
+import { TextStylingExtension } from '#extensions/text-styling';
 import { UserMentionsExtension } from '#extensions/user-mentions';
 import { VideoExtension } from '#extensions/video';
 import { VoidExtension } from '#extensions/void';
@@ -112,7 +112,7 @@ export function* getEnabledExtensions({
     }
 
     if (withRichFormatting) {
-        yield RichFormattingExtension();
+        yield TextStylingExtension();
     }
 
     if (withRichFormatting?.links) {

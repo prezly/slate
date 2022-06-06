@@ -1,4 +1,4 @@
-import { ElementType } from '#extensions/rich-formatting';
+import { ElementType } from '#extensions/text-styling';
 
 function isListItemText(element: Element): boolean {
     return (

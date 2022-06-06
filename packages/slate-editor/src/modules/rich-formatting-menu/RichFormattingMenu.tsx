@@ -11,7 +11,7 @@ import { ReactEditor, useSlate } from 'slate-react';
 import { Menu, TextSelectionPortalV2 } from '#components';
 
 import { unwrapLink, wrapInLink } from '#extensions/inline-links';
-import { MarkType } from '#extensions/rich-formatting';
+import { MarkType } from '#extensions/text-styling';
 import { toggleBlock } from '#modules/rich-formatting-menu';
 
 import { Toolbar } from './components';

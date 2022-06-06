@@ -13,7 +13,7 @@ export type { SearchProps as CoverageSearchProps } from './extensions/coverage';
 export { createEmbed } from './extensions/embed';
 export type { SearchProps as PressContactsSearchProps } from './extensions/press-contacts';
 export { JobDescription } from './extensions/press-contacts';
-export { ElementType as RichElementType } from './extensions/rich-formatting';
+export { ElementType as RichElementType } from './extensions/text-styling';
 export type { User } from './extensions/user-mentions';
 
 export type { ResultPromise, UploadcareOptions } from './modules/uploadcare';

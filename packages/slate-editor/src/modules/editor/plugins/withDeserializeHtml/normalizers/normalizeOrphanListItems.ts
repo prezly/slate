@@ -1,4 +1,4 @@
-import { ElementType } from '#extensions/rich-formatting';
+import { ElementType } from '#extensions/text-styling';
 
 function isListItem(element: Element): boolean {
     if (element.nodeName === 'LI') {

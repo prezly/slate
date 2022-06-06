@@ -16,7 +16,7 @@ import { createEditor as createEditorFactory, createHyperscript } from 'slate-hy
 
 import { createEditor } from '#modules/editor';
 
-import { RichFormattingExtension } from './RichFormattingExtension';
+import { TextStylingExtension } from './TextStylingExtension';
 
 declare global {
     namespace JSX {
@@ -24,7 +24,7 @@ declare global {
     }
 }
 
-const extensions = [RichFormattingExtension({ blocks: true })];
+const extensions = [TextStylingExtension({ blocks: true })];
 
 export const jsx = createHyperscript({
     elements: {
