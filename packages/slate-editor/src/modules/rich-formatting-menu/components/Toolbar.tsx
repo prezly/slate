@@ -39,8 +39,11 @@ interface Props {
     onFormatting: (formatting: Formatting) => void;
     // features
     withAlignment: boolean;
-    withLinks: boolean;
-    withRichBlockElements: boolean;
+    withBlockquotes: boolean;
+    withHeadings: boolean;
+    withInlineLinks: boolean;
+    withLists: boolean;
+    withParagraphs: boolean;
 }
 
 export function Toolbar({
@@ -63,8 +66,11 @@ export function Toolbar({
     onFormatting,
     // features
     withAlignment,
-    withLinks,
-    withRichBlockElements,
+    withBlockquotes,
+    withInlineLinks,
+    withHeadings,
+    withLists,
+    withParagraphs,
 }: Props) {
     return (
         <>
@@ -109,7 +115,7 @@ export function Toolbar({
                 </Menu.ButtonGroup>
             )}
 
-            {withLinks && (
+            {withInlineLinks && (
                 <Menu.ButtonGroup>
                     <Menu.Button active={isLink} onClick={onLink}>
                         <Menu.Icon icon={Link} />
@@ -117,8 +123,15 @@ export function Toolbar({
                 </Menu.ButtonGroup>
             )}
 
-            {withRichBlockElements && (
-                <FormattingDropdown onChange={onFormatting} value={formatting} />
+            {(withBlockquotes || withHeadings || withLists || withParagraphs) && (
+                <FormattingDropdown
+                    onChange={onFormatting}
+                    value={formatting}
+                    withBlockquotes={withBlockquotes}
+                    withHeadings={withHeadings}
+                    withLists={withLists}
+                    withParagraphs={withParagraphs}
+                />
             )}
         </>
     );

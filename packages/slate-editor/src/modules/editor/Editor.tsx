@@ -82,22 +82,28 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         style,
         value,
         withAlignmentControls,
-        withAttachments,
-        withAutoformat,
-        withCoverage,
-        withCursorInView,
-        withEmbeds,
-        withFloatingAddMenu,
-        withGalleries,
-        withImages,
-        withPlaceholders,
-        withPressContacts,
-        withRichFormatting,
-        withUserMentions,
-        withVideos,
-        withWebBookmarks,
-        withStoryEmbeds,
-        withStoryBookmarks,
+        withAttachments = false,
+        withAutoformat = false,
+        withBlockquotes = false,
+        withCoverage = false,
+        withCursorInView = false,
+        withDivider = false,
+        withEmbeds = false,
+        withFloatingAddMenu = false,
+        withGalleries = false,
+        withHeadings = false,
+        withImages = false,
+        withInlineLinks = false,
+        withLists = false,
+        withPlaceholders = false,
+        withPressContacts = false,
+        withRichFormattingMenu = false,
+        withStoryBookmarks = false,
+        withStoryEmbeds = false,
+        withTextStyling = false,
+        withUserMentions = false,
+        withVideos = false,
+        withWebBookmarks = false,
     } = props;
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -116,18 +122,23 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
             onOperationStart,
             onFloatingAddMenuToggle,
             withAttachments,
+            withAutoformat,
+            withBlockquotes,
             withCoverage,
+            withDivider,
             withEmbeds,
             withFloatingAddMenu,
             withGalleries,
+            withHeadings,
             withImages,
+            withInlineLinks,
+            withLists,
             withPlaceholders,
             withPressContacts,
-            withRichFormatting,
+            withTextStyling,
             withUserMentions,
             withVideos,
             withWebBookmarks,
-            withAutoformat,
             withStoryEmbeds,
             withStoryBookmarks,
         }),
@@ -167,8 +178,8 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         }),
     );
 
-    const placeholders = usePlaceholderMentions(withPlaceholders);
-    const userMentions = useUserMentions(withUserMentions);
+    const placeholders = usePlaceholderMentions(withPlaceholders || undefined);
+    const userMentions = useUserMentions(withUserMentions || undefined);
     const [
         { isOpen: isFloatingWebBookmarkInputOpen, submitButtonLabel: webBookmarkSubmitButtonLabel },
         {
@@ -177,7 +188,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
             rootClose: rootCloseFloatingWebBookmarkInput,
             submit: submitFloatingWebBookmarkInput,
         },
-    ] = useFloatingWebBookmarkInput(editor, withWebBookmarks?.fetchOembed);
+    ] = useFloatingWebBookmarkInput(editor, (withWebBookmarks || undefined)?.fetchOembed);
     const [
         { isOpen: isFloatingVideoInputOpen, submitButtonLabel: videoSubmitButtonLabel },
         {
@@ -186,7 +197,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
             rootClose: rootCloseFloatingVideoInput,
             submit: submitFloatingVideoInput,
         },
-    ] = useFloatingVideoInput(editor, withVideos?.fetchOembed);
+    ] = useFloatingVideoInput(editor, (withVideos || undefined)?.fetchOembed);
     const [
         { isOpen: isFloatingCoverageMenuOpen },
         {
@@ -204,7 +215,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
             rootClose: rootCloseFloatingEmbedInput,
             submit: submitFloatingEmbedInput,
         },
-    ] = useFloatingEmbedInput(editor, withEmbeds?.fetchOembed);
+    ] = useFloatingEmbedInput(editor, (withEmbeds || undefined)?.fetchOembed);
 
     const [
         { isOpen: isFloatingStoryEmbedInputOpen },
@@ -244,7 +255,23 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         onKeyDownList.push(userMentions.onKeyDown);
     }
 
-    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, props));
+    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, {
+        withAttachments,
+        withBlockquotes,
+        withCoverage: Boolean(withCoverage),
+        withDivider,
+        withEmbedSocial: Boolean(withEmbeds),
+        withEmbeds: Boolean(withEmbeds),
+        withGalleries: Boolean(withGalleries),
+        withHeadings,
+        withImages: Boolean(withImages),
+        withParagraphs: true,
+        withPressContacts: Boolean(withPressContacts),
+        withStoryBookmarks: Boolean(withStoryBookmarks),
+        withStoryEmbeds: Boolean(withStoryEmbeds),
+        withVideos: Boolean(withVideos),
+        withWebBookmarks: Boolean(withWebBookmarks),
+    }));
     const handleMenuAction = (action: MenuAction) => {
         if (action === MenuAction.ADD_PARAGRAPH) {
             return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);
@@ -411,15 +438,18 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
                     />
                 )}
 
-                {withRichFormatting && withRichFormatting.menu && (
+                {withRichFormattingMenu && (
                     <RichFormattingMenu
                         availableWidth={availableWidth}
                         containerElement={containerRef.current}
                         defaultAlignment={align ?? Alignment.LEFT}
                         withAlignment={withAlignmentControls}
-                        withLinks={Boolean(withRichFormatting.links)}
-                        withRichBlockElements={Boolean(withRichFormatting.blocks)}
-                        withNewTabOption={withRichFormatting.withNewTabOption}
+                        withBlockquotes={withBlockquotes}
+                        withHeadings={withHeadings}
+                        withInlineLinks={withInlineLinks}
+                        withLists={withLists}
+                        withNewTabOption={Boolean(withRichFormattingMenu.withNewTabOption)}
+                        withParagraphs
                     />
                 )}
 

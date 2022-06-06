@@ -46,20 +46,25 @@ type Parameters = {
     onOperationEnd?: () => void;
     onOperationStart?: () => void;
 } & Pick<
-    EditorProps,
+    Required<EditorProps>,
     | 'withAttachments'
+    | 'withAutoformat'
+    | 'withBlockquotes'
     | 'withCoverage'
+    | 'withDivider'
     | 'withEmbeds'
     | 'withFloatingAddMenu'
     | 'withGalleries'
+    | 'withHeadings'
     | 'withImages'
+    | 'withInlineLinks'
+    | 'withLists'
     | 'withPlaceholders'
     | 'withPressContacts'
-    | 'withRichFormatting'
+    | 'withTextStyling'
     | 'withUserMentions'
     | 'withVideos'
     | 'withWebBookmarks'
-    | 'withAutoformat'
     | 'withStoryEmbeds'
     | 'withStoryBookmarks'
 >;
@@ -70,18 +75,23 @@ export function* getEnabledExtensions({
     onOperationEnd = noop,
     onOperationStart = noop,
     withAttachments,
+    withAutoformat,
+    withBlockquotes,
     withCoverage,
+    withDivider,
     withEmbeds,
     withFloatingAddMenu,
     withGalleries,
+    withHeadings,
     withImages,
+    withInlineLinks,
+    withLists,
     withPlaceholders,
     withPressContacts,
-    withRichFormatting,
+    withTextStyling,
     withUserMentions,
     withVideos,
     withWebBookmarks,
-    withAutoformat,
     withStoryEmbeds,
     withStoryBookmarks,
 }: Parameters): Generator<Extension> {
@@ -89,8 +99,28 @@ export function* getEnabledExtensions({
     yield ParagraphsExtension();
     yield SoftBreakExtension();
 
+    if (withBlockquotes) {
+        yield BlockquoteExtension();
+    }
+
+    if (withDivider) {
+        yield DividerExtension();
+    }
+
     if (withFloatingAddMenu) {
         yield FloatingAddMenuExtension(onFloatingAddMenuToggle);
+    }
+
+    if (withHeadings) {
+        yield HeadingExtension();
+    }
+
+    if (withInlineLinks) {
+        yield InlineLinksExtension();
+    }
+
+    if (withLists) {
+        yield ListExtension();
     }
 
     if (withPressContacts) {
@@ -101,22 +131,12 @@ export function* getEnabledExtensions({
         yield PlaceholderMentionsExtension();
     }
 
-    if (withUserMentions) {
-        yield UserMentionsExtension();
-    }
-
-    if (withRichFormatting?.blocks) {
-        yield BlockquoteExtension();
-        yield HeadingExtension();
-        yield ListExtension();
-    }
-
-    if (withRichFormatting) {
+    if (withTextStyling) {
         yield TextStylingExtension();
     }
 
-    if (withRichFormatting?.links) {
-        yield InlineLinksExtension();
+    if (withUserMentions) {
+        yield UserMentionsExtension();
     }
 
     if (withAttachments) {
@@ -167,6 +187,7 @@ export function* getEnabledExtensions({
 
     if (withAutoformat) {
         const defaultRules = [
+            // FIXME
             ...(withRichFormatting?.blocks ? blockRules : []),
             ...(withRichFormatting ? textStyleRules : []),
             ...compositeCharactersRules,
@@ -182,8 +203,6 @@ export function* getEnabledExtensions({
     if (withStoryBookmarks) {
         yield StoryBookmarkExtension(withStoryBookmarks);
     }
-
-    yield DividerExtension();
 
     yield LoaderExtension({ onOperationEnd, onOperationStart });
 
