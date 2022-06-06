@@ -17,7 +17,6 @@ export const RichFormattingExtension = (): Extension => ({
     normalizeNode: normalizeRedundantRichTextAttributes,
     onKeyDown: (event: KeyboardEvent, editor: Editor) => {
         OnKeyDown.onHotkeyDoMarks(event, editor);
-        OnKeyDown.onShiftEnterDoSoftBreak(event, editor);
         OnKeyDown.onBackspaceResetFormattingAtDocumentStart(event, editor);
     },
     renderLeaf: Text,

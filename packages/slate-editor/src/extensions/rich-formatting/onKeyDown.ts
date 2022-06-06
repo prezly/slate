@@ -24,13 +24,6 @@ export function onHotkeyDoMarks(event: KeyboardEvent, editor: Editor) {
     });
 }
 
-export function onShiftEnterDoSoftBreak(event: KeyboardEvent, editor: Editor) {
-    if (isHotkey('shift+enter', event.nativeEvent) && !event.isDefaultPrevented()) {
-        event.preventDefault();
-        Editor.insertText(editor, '\n');
-    }
-}
-
 export function onBackspaceResetFormattingAtDocumentStart(event: KeyboardEvent, editor: Editor) {
     const { selection } = editor;
     if (

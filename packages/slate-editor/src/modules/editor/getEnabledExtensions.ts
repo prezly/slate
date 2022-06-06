@@ -21,6 +21,7 @@ import { ParagraphsExtension } from '#extensions/paragraphs';
 import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
 import { PressContactsExtension } from '#extensions/press-contacts';
 import { RichFormattingExtension } from '#extensions/rich-formatting';
+import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
 import { StoryEmbedExtension } from '#extensions/story-embed';
 import { UserMentionsExtension } from '#extensions/user-mentions';
@@ -86,6 +87,7 @@ export function* getEnabledExtensions({
 }: Parameters): Generator<Extension> {
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
+    yield SoftBreakExtension();
 
     if (withFloatingAddMenu) {
         yield FloatingAddMenuExtension(onFloatingAddMenuToggle);
