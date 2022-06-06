@@ -1,4 +1,3 @@
-import { ProgressPromise } from '@prezly/progress-promise';
 import type { FunctionComponent, HTMLAttributes } from 'react';
 import React, { useCallback } from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -56,10 +55,9 @@ export const LoaderElement: FunctionComponent<Props> = ({
 }) => {
     const { id } = element;
     const getPromise = useCallback(() => loaderPromiseManager.getPromise(id), [id]);
-    const promise = getPromise();
     const { progress } = useAsyncProgress(getPromise, {
         loading: true,
-        progress: promise instanceof ProgressPromise ? promise.getProgress() : 0,
+        progress: 0,
     });
 
     useMount(onMount);
