@@ -3,7 +3,7 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import { HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE, isHeadingNode } from '@prezly/slate-types';
 import React from 'react';
 
-import { withResetFormattingOnBreak } from '#lib';
+import { onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak } from '#lib';
 
 import { HeadingElement } from './components';
 import { normalizeRedundantAttributes, parseHeadingElement } from './lib';
@@ -26,6 +26,9 @@ export function HeadingExtension(): Extension {
             },
         },
         normalizeNode: [normalizeRedundantAttributes],
+        onKeyDown(event, editor) {
+            onBackspaceResetFormattingAtDocumentStart(editor, isHeadingNode, event);
+        },
         renderElement({ attributes, children, element }) {
             if (isHeadingNode(element)) {
                 return (

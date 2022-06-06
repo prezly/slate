@@ -10,6 +10,7 @@ export { getScrollParent } from './getScrollParent';
 export { isHtmlElement } from './isHtmlElement';
 export { mergeRefs } from './mergeRefs';
 export { Observable } from './Observable';
+export { onBackspaceResetFormattingAtDocumentStart } from './onBackspaceResetFormattingAtDocumentStart';
 export { scrollIntoView } from './scrollIntoView';
 export { scrollTo } from './scrollTo';
 export * from './isDeletingEvent';
