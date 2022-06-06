@@ -74,6 +74,7 @@ export const ImageWithLoadingPlaceholder = forwardRef<HTMLDivElement, Props>((pr
             style={{
                 aspectRatio: aspectRatio ? String(aspectRatio) : undefined,
                 backgroundImage: isLoaded ? `url("${src}")` : undefined,
+                paddingBottom: aspectRatio ? `${(100/aspectRatio).toFixed(2)}%` : undefined,
                 ...attributes.style,
             }}
             ref={ref}
