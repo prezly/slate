@@ -7,9 +7,9 @@ import type { ReactNode } from 'react';
 import { createHyperscript, createText } from 'slate-hyperscript';
 
 import type { LoaderNode } from '#extensions/loader';
-import { LOADER_TYPE } from '#extensions/loader';
+import { LOADER_NODE_TYPE } from '#extensions/loader';
 
-import { IMAGE_CANDIDATE_TYPE } from './constants';
+import { IMAGE_CANDIDATE_NODE_TYPE } from './constants';
 
 declare global {
     namespace JSX {
@@ -42,8 +42,8 @@ declare global {
 export const jsx = createHyperscript({
     elements: {
         'h-image': { type: IMAGE_NODE_TYPE },
-        'h-image-candidate': { type: IMAGE_CANDIDATE_TYPE },
-        'h-loader': { type: LOADER_TYPE },
+        'h-image-candidate': { type: IMAGE_CANDIDATE_NODE_TYPE },
+        'h-loader': { type: LOADER_NODE_TYPE },
         'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
     creators: {

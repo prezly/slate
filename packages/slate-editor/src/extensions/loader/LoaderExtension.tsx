@@ -3,15 +3,17 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { LoaderElement } from './components';
-import { LOADER_EXTENSION_ID, LOADER_TYPE } from './constants';
+import { LOADER_NODE_TYPE } from './constants';
 import { isLoaderElement, normalizeRedundantLoaderAttributes } from './lib';
 import type { LoaderParameters } from './types';
+
+export const EXTENSION_ID = 'LoaderExtension';
 
 export const LoaderExtension = ({
     onOperationEnd,
     onOperationStart,
 }: LoaderParameters): Extension => ({
-    id: LOADER_EXTENSION_ID,
+    id: EXTENSION_ID,
     isRichBlock: isLoaderElement,
     isVoid: isLoaderElement,
     normalizeNode: normalizeRedundantLoaderAttributes,
@@ -31,5 +33,5 @@ export const LoaderExtension = ({
 
         return undefined;
     },
-    rootTypes: [LOADER_TYPE],
+    rootTypes: [LOADER_NODE_TYPE],
 });

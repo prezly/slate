@@ -5,10 +5,12 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { DividerElement } from './components';
-import { DIVIDER_EXTENSION_ID } from './constants';
 import { createDivider, normalizeRedundantDividerAttributes, parseSerializedElement } from './lib';
 
+export const EXTENSION_ID = 'DividerExtension';
+
 export const DividerExtension = (): Extension => ({
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [DIVIDER_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
@@ -21,7 +23,6 @@ export const DividerExtension = (): Extension => ({
             },
         },
     },
-    id: DIVIDER_EXTENSION_ID,
     isVoid: isDividerNode,
     normalizeNode: normalizeRedundantDividerAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {

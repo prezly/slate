@@ -1,5 +1,5 @@
-export { WEB_BOOKMARK_EXTENSION_ID } from './constants';
+export { WebBookmarkExtension, EXTENSION_ID } from './WebBookmarkExtension';
+
 export { FloatingWebBookmarkInput } from './components';
-export { WebBookmarkExtension } from './WebBookmarkExtension';
 export { createWebBookmark, useFloatingWebBookmarkInput } from './lib';
 export type { WebBookmarkExtensionParameters } from './types';

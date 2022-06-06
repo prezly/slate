@@ -5,12 +5,13 @@ import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement, MentionsExtension } from '#extensions/mentions';
 
-import { USER_MENTIONS_EXTENSION_ID } from './constants';
 import { normalizeRedundantUserMentionAttributes, parseSerializedElement } from './lib';
+
+export const EXTENSION_ID = 'UserMentionsExtension';
 
 export const UserMentionsExtension = (): Extension =>
     MentionsExtension({
-        id: USER_MENTIONS_EXTENSION_ID,
+        id: EXTENSION_ID,
         type: MENTION_NODE_TYPE,
         normalizeNode: normalizeRedundantUserMentionAttributes,
         parseSerializedElement,

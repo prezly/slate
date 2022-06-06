@@ -4,14 +4,15 @@ import { COVERAGE_NODE_TYPE, isCoverageNode } from '@prezly/slate-types';
 import React from 'react';
 
 import { CoverageElement } from './components';
-import { COVERAGE_EXTENSION_ID } from './constants';
 import { normalizeRedundantCoverageAttributes, parseSerializedElement } from './lib';
 import type { CoverageExtensionConfiguration } from './types';
+
+export const EXTENSION_ID = 'CoverageExtension';
 
 export interface Parameters extends CoverageExtensionConfiguration {}
 
 export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Extension => ({
-    id: COVERAGE_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [COVERAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),

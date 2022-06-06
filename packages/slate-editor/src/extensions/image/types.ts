@@ -2,7 +2,7 @@ import type { NewsroomRef } from '@prezly/sdk';
 import type { ElementNode } from '@prezly/slate-types';
 import type { Text } from 'slate';
 
-import type { IMAGE_CANDIDATE_TYPE } from './constants';
+import type { IMAGE_CANDIDATE_NODE_TYPE } from './constants';
 
 /**
  * Image Candidate Element is just an ephemeral node which exists inbetween deserialization
@@ -11,7 +11,7 @@ import type { IMAGE_CANDIDATE_TYPE } from './constants';
  * and normalization (which is responsible for converting these nodes into actual images).
  */
 export interface ImageCandidateNode extends ElementNode {
-    type: typeof IMAGE_CANDIDATE_TYPE;
+    type: typeof IMAGE_CANDIDATE_NODE_TYPE;
     children: Text[];
     /** empty string if no URL */
     href: string;

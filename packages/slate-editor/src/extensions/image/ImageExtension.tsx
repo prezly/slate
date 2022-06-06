@@ -15,7 +15,7 @@ import { noop } from '#lodash';
 import { createParagraph } from '#extensions/paragraphs';
 
 import { ImageElement } from './components';
-import { IMAGE_CANDIDATE_TYPE, IMAGE_EXTENSION_ID } from './constants';
+import { IMAGE_CANDIDATE_NODE_TYPE } from './constants';
 import {
     createImageCandidate,
     getAncestorAnchor,
@@ -37,6 +37,8 @@ interface Parameters extends ImageExtensionConfiguration {
     onReplace?: (editor: Editor, element: ImageNode) => void;
 }
 
+export const EXTENSION_ID = 'ImageExtension';
+
 export const ImageExtension = ({
     captions,
     onCrop = noop,
@@ -47,7 +49,7 @@ export const ImageExtension = ({
     withLayoutOptions = false,
     withNewTabOption = true,
 }: Parameters): Extension => ({
-    id: IMAGE_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [IMAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
@@ -155,5 +157,5 @@ export const ImageExtension = ({
 
         return undefined;
     },
-    rootTypes: [IMAGE_CANDIDATE_TYPE, IMAGE_NODE_TYPE],
+    rootTypes: [IMAGE_CANDIDATE_NODE_TYPE, IMAGE_NODE_TYPE],
 });

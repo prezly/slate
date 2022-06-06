@@ -4,7 +4,6 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { ParagraphElement } from './components';
-import { PARAGRAPHS_EXTENSION_ID } from './constants';
 import { deserialize } from './deserialize';
 import {
     normalizeOrphanText,
@@ -12,9 +11,11 @@ import {
     normalizeUnknownElement,
 } from './lib';
 
+export const EXTENSION_ID = 'ParagraphsExtension';
+
 export const ParagraphsExtension = (): Extension => ({
+    id: EXTENSION_ID,
     deserialize,
-    id: PARAGRAPHS_EXTENSION_ID,
     normalizeNode: [
         normalizeOrphanText,
         normalizeRedundantParagraphAttributes,

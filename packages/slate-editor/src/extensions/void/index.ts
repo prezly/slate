@@ -1,2 +1,1 @@
-export * from './constants';
-export * from './VoidExtension';
+export { VoidExtension, EXTENSION_ID } from './VoidExtension';

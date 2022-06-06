@@ -12,9 +12,9 @@ import {
 import uploadcare from '@prezly/uploadcare-widget';
 import type { Editor } from 'slate';
 
-import { createFileAttachment, FILE_ATTACHMENT_EXTENSION_ID } from '#extensions/file-attachment';
-import { createImage, IMAGE_EXTENSION_ID } from '#extensions/image';
-import { LOADER_EXTENSION_ID, LoaderContentType } from '#extensions/loader';
+import { createFileAttachment, EXTENSION_ID as FILE_ATTACHMENT_EXTENSION_ID } from '#extensions/file-attachment';
+import { createImage, EXTENSION_ID } from '#extensions/image';
+import { EXTENSION_ID as LOADER_EXTENSION_ID, LoaderContentType } from '#extensions/loader';
 import { EventsEditor } from '#modules/events';
 
 import { insertUploadingFile } from '../lib';
@@ -34,7 +34,7 @@ function canPasteFiles(extensions: Extension[], data: DataTransfer): boolean {
         return false;
     }
 
-    const isImageExtensionEnabled = extensions.some(({ id }) => id === IMAGE_EXTENSION_ID);
+    const isImageExtensionEnabled = extensions.some(({ id }) => id === EXTENSION_ID);
     const isFileAttachmentExtensionEnabled = extensions.some(
         ({ id }) => id === FILE_ATTACHMENT_EXTENSION_ID,
     );
@@ -61,7 +61,7 @@ export function withFilePasting(getExtensions: () => Extension[]) {
             }
 
             const files = Array.from(data.files);
-            const isImageExtensionEnabled = extensions.some(({ id }) => id === IMAGE_EXTENSION_ID);
+            const isImageExtensionEnabled = extensions.some(({ id }) => id === EXTENSION_ID);
             const isFileAttachmentExtensionEnabled = extensions.some(
                 ({ id }) => id === FILE_ATTACHMENT_EXTENSION_ID,
             );

@@ -9,7 +9,6 @@ import type { RenderElementProps } from 'slate-react';
 import { flow, identity } from '#lodash';
 
 import { RichTextElement, Text } from './components';
-import { RICH_FORMATTING_EXTENSION_ID } from './constants';
 import { createDeserialize } from './createDeserialize';
 import {
     isRichTextElement,
@@ -24,8 +23,10 @@ interface Parameters {
     blocks: boolean;
 }
 
+export const EXTENSION_ID = 'RichFormattingExtension';
+
 export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
-    id: RICH_FORMATTING_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: createDeserialize({ blocks }),
     normalizeNode: normalizeRedundantRichTextAttributes,
     onKeyDown: (event: KeyboardEvent, editor: Editor) => {

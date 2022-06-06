@@ -1,3 +1,1 @@
-export const LOADER_EXTENSION_ID = 'LoaderExtension';
-
-export const LOADER_TYPE = 'loader';
+export const LOADER_NODE_TYPE = 'loader';

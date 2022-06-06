@@ -5,12 +5,13 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { StoryBookmarkElement } from './components';
-import { STORY_BOOKMARK_EXTENSION_ID } from './constants';
 import { normalizeRedundantStoryBookmarkAttributes, parseSerializedElement } from './lib';
 import type { StoryBookmarkExtensionParameters } from './types';
 
+export const EXTENSION_ID = 'StoryBookmarkExtension';
+
 export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters): Extension => ({
-    id: STORY_BOOKMARK_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [STORY_BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),

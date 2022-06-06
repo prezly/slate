@@ -1,3 +1,3 @@
-export { DIVIDER_EXTENSION_ID } from './constants';
-export { DividerExtension } from './DividerExtension';
+export { DividerExtension, EXTENSION_ID } from './DividerExtension';
+
 export { createDivider } from './lib';

@@ -6,7 +6,6 @@ import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { GalleryElement } from './components';
-import { GALLERIES_EXTENSION_ID } from './constants';
 import {
     normalizeInvalidGallery,
     normalizeRedundantGalleryAttributes,
@@ -18,8 +17,10 @@ interface Parameters {
     onEdit: (editor: Editor) => void;
 }
 
+export const EXTENSION_ID = 'GalleriesExtension';
+
 export const GalleriesExtension = ({ availableWidth, onEdit }: Parameters): Extension => ({
-    id: GALLERIES_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [GALLERY_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
