@@ -35,7 +35,6 @@ import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
 } from '#extensions/press-contacts';
-import { toggleBlock } from '#extensions/rich-formatting';
 import { useFloatingStoryBookmarkInput } from '#extensions/story-bookmark';
 import { useFloatingStoryEmbedInput } from '#extensions/story-embed';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
@@ -44,7 +43,7 @@ import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensio
 import { FloatingStoryEmbedInput, Placeholder } from '#modules/components';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
-import { RichFormattingMenu } from '#modules/rich-formatting-menu';
+import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';

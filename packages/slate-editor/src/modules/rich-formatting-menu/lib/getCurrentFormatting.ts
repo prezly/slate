@@ -1,24 +1,18 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { QuoteNode } from '@prezly/slate-types';
-import { isHeadingNode, isQuoteNode } from '@prezly/slate-types';
 import type { Node } from 'slate';
 import { Editor, Path } from 'slate';
 
 import { uniq } from '#lodash';
 
-import type { RichTextElementType } from '#extensions/rich-formatting';
-import { isRichTextBlockElement } from '#extensions/rich-formatting';
-
 import type { Formatting } from '../types';
+
+import type { RichFormattedTextElement } from './isRichFormattedTextElement';
+import { isRichFormattedTextElement } from './isRichFormattedTextElement';
 
 const ROOT_PATH: Path = [];
 
-function findParentBlock(
-    editor: Editor,
-    node: Node,
-    path: Path,
-): RichTextElementType | QuoteNode | null {
-    if (isRichTextBlockElement(node) || isHeadingNode(node) || isQuoteNode(node)) {
+function findParentBlock(editor: Editor, node: Node, path: Path): RichFormattedTextElement | null {
+    if (isRichFormattedTextElement(node)) {
         return node;
     }
 
@@ -39,7 +33,7 @@ export function getCurrentFormatting(editor: Editor): Formatting | null {
     const leafNodes = Array.from(Editor.nodes(editor, { at: editor.selection, mode: 'lowest' }));
     const richTextBlocks = leafNodes
         .map(([node, path]) => findParentBlock(editor, node, path))
-        .filter<RichTextElementType>(isRichTextBlockElement);
+        .filter((node): node is RichFormattedTextElement => Boolean(node));
 
     const blockTypes = uniq(richTextBlocks.map((node) => node.type));
 
