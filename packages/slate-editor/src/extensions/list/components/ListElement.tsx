@@ -3,21 +3,18 @@ import { Alignment, BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE } from '@pr
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import styles from './ListElement.module.scss';
 
 interface Props extends HTMLAttributes<HTMLOListElement> {
-    attributes?: RenderElementProps['attributes'];
     element: ListNode;
 }
 
-export function ListElement({ attributes, children, className, element, ...props }: Props) {
+export function ListElement({ children, className, element, ...props }: Props) {
     const List = element.type === BULLETED_LIST_NODE_TYPE ? 'ul' : 'ol';
 
     return (
         <List
-            {...attributes}
             {...props}
             className={classNames(className, styles.ListElement, {
                 [styles.bulleted]: element.type === BULLETED_LIST_NODE_TYPE,

@@ -15,6 +15,7 @@ import { HeadingExtension } from '#extensions/heading';
 import { HtmlExtension } from '#extensions/html';
 import { ImageExtension } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
+import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
 import { ParagraphsExtension } from '#extensions/paragraphs';
 import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
@@ -105,13 +106,13 @@ export function* getEnabledExtensions({
     if (withRichFormatting?.blocks) {
         yield BlockquoteExtension();
         yield HeadingExtension();
+        yield ListExtension();
     }
 
     if (withRichFormatting) {
-        yield RichFormattingExtension({
-            blocks: Boolean(withRichFormatting.blocks),
-        });
+        yield RichFormattingExtension();
     }
+
     if (withRichFormatting?.links) {
         yield InlineLinksExtension();
     }

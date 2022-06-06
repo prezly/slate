@@ -1,24 +1,19 @@
 import type { DeserializeHtml } from '@prezly/slate-commons';
-import { createDeserializeElement } from '@prezly/slate-commons';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 
-import { detectMarks, parseSerializedElement } from './lib';
+import { detectMarks } from './lib';
 import { ElementType } from './types';
 
-export function createDeserialize(parameters: { blocks: boolean }): DeserializeHtml {
-    const deserialize: DeserializeHtml = {
+export function createDeserialize(): DeserializeHtml {
+    return {
         element: {
-            [ElementType.BULLETED_LIST]: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            [ElementType.HEADING_ONE]: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            [ElementType.HEADING_TWO]: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            [ElementType.LINK]: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            [ElementType.LIST_ITEM]: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            [ElementType.LIST_ITEM_TEXT]: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            [ElementType.NUMBERED_LIST]: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            [ElementType.HEADING_ONE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+            [ElementType.HEADING_TWO]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+            [ElementType.LINK]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
             BR: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            LI: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            OL: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            UL: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            LI: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+            OL: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+            UL: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
         },
         leaf: {
             A: detectMarks,
@@ -78,32 +73,4 @@ export function createDeserialize(parameters: { blocks: boolean }): DeserializeH
             WBR: detectMarks,
         },
     };
-
-    if (parameters.blocks) {
-        Object.assign(deserialize.element, {
-            [ElementType.BULLETED_LIST]: createDeserializeElement(parseSerializedElement),
-            [ElementType.LIST_ITEM]: createDeserializeElement(parseSerializedElement),
-            [ElementType.LIST_ITEM_TEXT]: createDeserializeElement(parseSerializedElement),
-            [ElementType.NUMBERED_LIST]: createDeserializeElement(parseSerializedElement),
-            DIV: (element: HTMLDivElement) => {
-                if (element.parentNode?.nodeName === 'LI') {
-                    return { type: ElementType.LIST_ITEM_TEXT };
-                }
-
-                return { type: PARAGRAPH_NODE_TYPE };
-            },
-            LI: () => ({ type: ElementType.LIST_ITEM }),
-            OL: () => ({ type: ElementType.NUMBERED_LIST }),
-            P: (element: HTMLParagraphElement) => {
-                if (element.parentNode?.nodeName === 'LI') {
-                    return { type: ElementType.LIST_ITEM_TEXT };
-                }
-
-                return { type: PARAGRAPH_NODE_TYPE };
-            },
-            UL: () => ({ type: ElementType.BULLETED_LIST }),
-        });
-    }
-
-    return deserialize;
 }

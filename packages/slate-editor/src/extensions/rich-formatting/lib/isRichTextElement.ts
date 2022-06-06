@@ -9,9 +9,9 @@ import type { RichTextElementType } from '../types';
 
 export function isRichTextElement(node: unknown): node is RichTextElementType {
     return (
-        isListNode(node) ||
-        isListItemNode(node) ||
-        isListItemTextNode(node) ||
+        isListNode(node) || // FIXME
+        isListItemNode(node) || // FIXME
+        isListItemTextNode(node) || // FIXME
         isHeadingNode(node) // FIXME: isHeadingNode()
     );
 }

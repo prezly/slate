@@ -11,7 +11,7 @@ export function deserialize(value: string): Element[] {
     try {
         const parsed = JSON.parse(value);
         if (!Node.isNodeList(parsed.children)) {
-            throw new TypeError('editor/deserialize: parsed value is not a Node list');
+            throw new TypeError('editor/deserialize: parse value is not a Node list');
         }
         return parsed.children;
     } catch (error) {

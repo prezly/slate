@@ -3,6 +3,6 @@ import { isHeadingNode, isListNode, isParagraphNode, isQuoteNode } from '@prezly
 import type { RichTextElementType } from '../types';
 
 export function isRichTextBlockElement(node: unknown): node is RichTextElementType {
-    // FIXME: isQuoteNode(), isHeadingNode()
+    // FIXME: isQuoteNode(), isHeadingNode(), isListNode
     return isParagraphNode(node) || isQuoteNode(node) || isListNode(node) || isHeadingNode(node);
 }

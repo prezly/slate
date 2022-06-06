@@ -1,20 +1,21 @@
 import type { ListsEditor, ListsSchema } from '@prezly/slate-lists';
 import { ListType, withLists, withListsReact } from '@prezly/slate-lists';
+import type { ListItemNode, ListItemTextNode } from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
+    NUMBERED_LIST_NODE_TYPE,
     isHeadingNode,
     isListItemNode,
     isListItemTextNode,
     isListNode,
     isParagraphNode,
     isQuoteNode,
-    LIST_ITEM_NODE_TYPE,
-    LIST_ITEM_TEXT_NODE_TYPE,
-    NUMBERED_LIST_NODE_TYPE,
 } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
 import { createParagraph } from '#extensions/paragraphs';
+
+import { createList, createListItem, createListItemText } from './lib';
 
 const SCHEMA: ListsSchema = {
     isConvertibleToListTextNode(node) {
@@ -36,22 +37,18 @@ const SCHEMA: ListsSchema = {
         return createParagraph(props);
     },
     createListNode(type: ListType = ListType.UNORDERED, { children } = {}) {
-        return {
+        return createList({
             type: type === ListType.ORDERED ? NUMBERED_LIST_NODE_TYPE : BULLETED_LIST_NODE_TYPE,
-            children: children ?? [this.createListItemNode()],
-        };
+            children: children as ListItemNode[],
+        });
     },
     createListItemNode({ children } = {}) {
-        return {
-            type: LIST_ITEM_NODE_TYPE,
-            children: children ?? [this.createListItemTextNode()],
-        };
+        return createListItem({
+            children: children as [ListItemTextNode],
+        });
     },
     createListItemTextNode({ children } = {}) {
-        return {
-            type: LIST_ITEM_TEXT_NODE_TYPE,
-            children: children ?? [{ text: '' }],
-        };
+        return createListItemText({ children });
     },
 };
 
