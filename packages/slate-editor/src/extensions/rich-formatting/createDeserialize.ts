@@ -16,12 +16,6 @@ export function createDeserialize(parameters: { blocks: boolean }): DeserializeH
             [ElementType.LIST_ITEM_TEXT]: () => ({ type: PARAGRAPH_NODE_TYPE }),
             [ElementType.NUMBERED_LIST]: () => ({ type: PARAGRAPH_NODE_TYPE }),
             BR: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            H1: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            H2: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            H3: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            H4: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            H5: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            H6: () => ({ type: PARAGRAPH_NODE_TYPE }),
             LI: () => ({ type: PARAGRAPH_NODE_TYPE }),
             OL: () => ({ type: PARAGRAPH_NODE_TYPE }),
             UL: () => ({ type: PARAGRAPH_NODE_TYPE }),
@@ -88,8 +82,6 @@ export function createDeserialize(parameters: { blocks: boolean }): DeserializeH
     if (parameters.blocks) {
         Object.assign(deserialize.element, {
             [ElementType.BULLETED_LIST]: createDeserializeElement(parseSerializedElement),
-            [ElementType.HEADING_ONE]: createDeserializeElement(parseSerializedElement),
-            [ElementType.HEADING_TWO]: createDeserializeElement(parseSerializedElement),
             [ElementType.LIST_ITEM]: createDeserializeElement(parseSerializedElement),
             [ElementType.LIST_ITEM_TEXT]: createDeserializeElement(parseSerializedElement),
             [ElementType.NUMBERED_LIST]: createDeserializeElement(parseSerializedElement),
@@ -100,12 +92,6 @@ export function createDeserialize(parameters: { blocks: boolean }): DeserializeH
 
                 return { type: PARAGRAPH_NODE_TYPE };
             },
-            H1: () => ({ type: ElementType.HEADING_ONE }),
-            H2: () => ({ type: ElementType.HEADING_TWO }),
-            H3: () => ({ type: ElementType.HEADING_TWO }),
-            H4: () => ({ type: ElementType.HEADING_TWO }),
-            H5: () => ({ type: ElementType.HEADING_TWO }),
-            H6: () => ({ type: ElementType.HEADING_TWO }),
             LI: () => ({ type: ElementType.LIST_ITEM }),
             OL: () => ({ type: ElementType.NUMBERED_LIST }),
             P: (element: HTMLParagraphElement) => {

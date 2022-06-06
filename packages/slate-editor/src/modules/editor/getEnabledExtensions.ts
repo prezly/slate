@@ -11,6 +11,7 @@ import { EmbedExtension } from '#extensions/embed';
 import { FileAttachmentExtension } from '#extensions/file-attachment';
 import { FloatingAddMenuExtension } from '#extensions/floating-add-menu';
 import { GalleriesExtension } from '#extensions/galleries';
+import { HeadingExtension } from '#extensions/heading';
 import { HtmlExtension } from '#extensions/html';
 import { ImageExtension } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
@@ -103,6 +104,7 @@ export function* getEnabledExtensions({
 
     if (withRichFormatting?.blocks) {
         yield BlockquoteExtension();
+        yield HeadingExtension();
     }
 
     if (withRichFormatting) {

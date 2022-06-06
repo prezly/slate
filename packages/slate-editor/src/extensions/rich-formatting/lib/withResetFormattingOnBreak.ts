@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import { EditorCommands } from '@prezly/slate-commons';
-import { isListNode, isQuoteNode } from '@prezly/slate-types';
+import { isHeadingNode, isListNode, isQuoteNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
 import { isRichTextBlockElement } from './isRichTextBlockElement';
@@ -18,7 +18,9 @@ export function withResetFormattingOnBreak<T extends Editor>(editor: T): T {
         const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
         if (
-            (isRichTextBlockElement(currentNode) || isQuoteNode(currentNode)) && // FIXME: isQuoteNode
+            (isRichTextBlockElement(currentNode) ||
+                isQuoteNode(currentNode) || // FIXME: isQuoteNode
+                isHeadingNode(currentNode)) && // FIXME: isHeadingNode
             !isListNode(currentNode) &&
             EditorCommands.isSelectionAtBlockEnd(editor)
         ) {

@@ -5,7 +5,6 @@ import type { RenderElementProps } from 'slate-react';
 import type { RichTextElementType } from '../types';
 import { ElementType } from '../types';
 
-import { HeadingElement } from './Headings';
 import { ListElement, ListItemElement, ListItemTextElement } from './Lists';
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -20,13 +19,6 @@ export const RichTextElement: FunctionComponent<Props> = ({
     ...props
 }) => {
     switch (element.type) {
-        case ElementType.HEADING_ONE:
-        case ElementType.HEADING_TWO:
-            return (
-                <HeadingElement {...props} attributes={attributes} element={element}>
-                    {children}
-                </HeadingElement>
-            );
         case ElementType.BULLETED_LIST:
         case ElementType.NUMBERED_LIST:
             return (

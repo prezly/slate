@@ -15,7 +15,6 @@ import {
     withResetFormattingOnBreak,
 } from './lib';
 import * as OnKeyDown from './onKeyDown';
-import { ElementType } from './types';
 import { withListsFormatting } from './withListsFormatting';
 
 interface Parameters {
@@ -49,10 +48,6 @@ export const RichFormattingExtension = ({ blocks }: Parameters): Extension => ({
         return undefined;
     },
     renderLeaf: Text,
-    rootTypes: [
-        ElementType.HEADING_ONE,
-        ElementType.HEADING_TWO,
-    ],
     withOverrides(editor) {
         const overrides: WithOverrides[] = [
             withResetFormattingOnBreak,

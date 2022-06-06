@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { QuoteNode } from '@prezly/slate-types';
-import { isQuoteNode } from '@prezly/slate-types';
+import { isHeadingNode, isQuoteNode } from '@prezly/slate-types';
 import type { Node } from 'slate';
 import { Editor, Path } from 'slate';
 
@@ -18,7 +18,7 @@ function findParentBlock(
     node: Node,
     path: Path,
 ): RichTextElementType | QuoteNode | null {
-    if (isRichTextBlockElement(node) || isQuoteNode(node)) {
+    if (isRichTextBlockElement(node) || isHeadingNode(node) || isQuoteNode(node)) {
         return node;
     }
 

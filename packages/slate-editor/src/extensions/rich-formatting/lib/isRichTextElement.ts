@@ -12,6 +12,6 @@ export function isRichTextElement(node: unknown): node is RichTextElementType {
         isListNode(node) ||
         isListItemNode(node) ||
         isListItemTextNode(node) ||
-        isHeadingNode(node)
+        isHeadingNode(node) // FIXME: isHeadingNode()
     );
 }
