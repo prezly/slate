@@ -10,28 +10,22 @@ export type MarksDeserializer = (
     children: DeserializeHTMLChildren[],
 ) => Descendant[] | null;
 
-export function createMarksDeserializer(deserializers: DeserializeMarks): MarksDeserializer {
+export function createMarksDeserializer(deserialize: DeserializeMarks): MarksDeserializer {
     return function (node, children) {
-        const type = node.getAttribute('data-slate-type') || node.nodeName;
+        const props = deserialize(node) || {};
 
-        if (deserializers[type]) {
-            const props = deserializers[type](node) || {};
-
-            return children.reduce<Descendant[]>((array, child) => {
-                if (!child) {
-                    return array;
-                }
-
-                if (Element.isElement(child)) {
-                    array.push(child);
-                } else {
-                    array.push(createText('text', props, [child]));
-                }
-
+        return children.reduce<Descendant[]>((array, child) => {
+            if (!child) {
                 return array;
-            }, []);
-        }
+            }
 
-        return null;
+            if (Element.isElement(child)) {
+                array.push(child);
+            } else {
+                array.push(createText('text', props, [child]));
+            }
+
+            return array;
+        }, []);
     };
 }

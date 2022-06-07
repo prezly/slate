@@ -4,6 +4,8 @@ import { EMBED_NODE_TYPE, isEmbedNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { EmbedElement } from './components';
 import { normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
 import type { EmbedExtensionConfiguration } from './types';
@@ -17,9 +19,9 @@ export const EXTENSION_ID = 'EmbedExtension';
 export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [EMBED_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-        },
+        }),
     },
     isRichBlock: isEmbedNode,
     isVoid: isEmbedNode,

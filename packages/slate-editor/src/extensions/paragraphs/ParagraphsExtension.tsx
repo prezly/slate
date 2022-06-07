@@ -11,6 +11,8 @@ import {
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { ParagraphElement } from './components';
 import {
     normalizeOrphanText,
@@ -24,10 +26,10 @@ export const EXTENSION_ID = 'ParagraphsExtension';
 export const ParagraphsExtension = (): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [PARAGRAPH_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-        },
-        elementFallback: {
+        }),
+        elementFallback: composeElementDeserializer({
             [HEADING_1_NODE_TYPE]: paragraph,
             [HEADING_2_NODE_TYPE]: paragraph,
             [LINK_NODE_TYPE]: paragraph,
@@ -46,7 +48,7 @@ export const ParagraphsExtension = (): Extension => ({
             H4: paragraph,
             H5: paragraph,
             H6: paragraph,
-        },
+        }),
     },
     normalizeNode: [
         normalizeOrphanText,

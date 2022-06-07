@@ -26,6 +26,7 @@ import {
     parseSerializedElement,
 } from './lib';
 import type { ImageCandidateNode, ImageExtensionConfiguration } from './types';
+import { composeElementDeserializer } from '#modules/html-deserialization';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
 
@@ -51,7 +52,7 @@ export const ImageExtension = ({
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [IMAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
             IMG: (element: HTMLElement): ImageCandidateNode | undefined => {
                 const imageElement = element as HTMLImageElement;
@@ -63,7 +64,7 @@ export const ImageExtension = ({
 
                 return createImageCandidate(imageElement.src);
             },
-        },
+        }),
     },
     isRichBlock: isImageNode,
     isVoid: (node) => {

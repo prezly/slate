@@ -1,8 +1,17 @@
-import type { DeserializeElement } from './DeserializeElement';
-import type { DeserializeMarks } from './DeserializeMarks';
-
 export interface DeserializeHtml {
     element?: DeserializeElement;
     elementFallback?: DeserializeElement;
     marks?: DeserializeMarks;
 }
+
+export type DeserializeElement = <T extends HTMLElement>(element: T) => ElementProperties | undefined;
+export type DeserializeMarks = (element: HTMLElement) => LeafProperties | undefined;
+
+type ElementProperties = {
+    type: string;
+    [key: string]: any;
+};
+
+type LeafProperties = {
+    [key: string]: any;
+};

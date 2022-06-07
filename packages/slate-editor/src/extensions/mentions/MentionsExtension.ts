@@ -3,6 +3,8 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import type { Node } from 'slate';
 import { Element } from 'slate';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import type { MentionElementType } from './types';
 
 interface Options<T extends string> {
@@ -26,9 +28,9 @@ export function MentionsExtension<T extends string>({
 
     return {
         deserialize: {
-            element: {
+            element: composeElementDeserializer({
                 [type]: createDeserializeElement(parseSerializedElement),
-            },
+            }),
         },
         id,
         isInline: isMention,

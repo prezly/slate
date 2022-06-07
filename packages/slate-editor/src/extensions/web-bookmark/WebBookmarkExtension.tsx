@@ -4,6 +4,8 @@ import { BOOKMARK_NODE_TYPE, isBookmarkNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { WebBookmarkElement } from './components';
 import { normalizeRedundantWebBookmarkAttributes, parseSerializedElement } from './lib';
 
@@ -18,9 +20,9 @@ export const WebBookmarkExtension = ({
 }: WebBookmarkExtensionParameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-        },
+        }),
     },
     isRichBlock: isBookmarkNode,
     isVoid: isBookmarkNode,

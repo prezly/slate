@@ -3,8 +3,11 @@ import { isGoogleDocsWrapper } from '@prezly/slate-commons';
 import type { Descendant, Element } from 'slate';
 import { jsx } from 'slate-hyperscript';
 
-import { combineElementDeserializerConfig } from './combineElementDeserializerConfig';
-import { combineMarksDeserializersConfig } from './combineMarksDeserializersConfig';
+import {
+    combineExtensionsElementDeserializers,
+    combineExtensionsMarkDeserializers,
+} from '#modules/html-deserialization';
+
 import { createElementsDeserializer } from './createElementsDeserializer';
 import { createMarksDeserializer } from './createMarksDeserializer';
 import { createTextDeserializer } from './createTextDeserializer';
@@ -13,10 +16,12 @@ type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
 export function createDeserializer(extensions: Extension[], onError: (error: unknown) => void) {
     const deserializeElement = createElementsDeserializer(
-        combineElementDeserializerConfig(extensions),
+        combineExtensionsElementDeserializers(extensions),
         onError,
     );
-    const deserializeMarks = createMarksDeserializer(combineMarksDeserializersConfig(extensions));
+    const deserializeMarks = createMarksDeserializer(
+        combineExtensionsMarkDeserializers(extensions),
+    );
     const deserializeText = createTextDeserializer(deserializeMarks);
 
     function deserialize(

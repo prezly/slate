@@ -5,6 +5,8 @@ import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { LinkElement } from './components';
 import {
     escapeLinksBoundaries,
@@ -19,7 +21,7 @@ export const EXTENSION_ID = 'InlineLinksExtension';
 export const InlineLinksExtension = (): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [LINK_NODE_TYPE]: createDeserializeElement(parseSerializedLinkElement),
             A: (element: HTMLElement): Omit<LinkNode, 'children'> | undefined => {
                 if (element instanceof HTMLAnchorElement && element.textContent) {
@@ -32,7 +34,7 @@ export const InlineLinksExtension = (): Extension => ({
 
                 return undefined;
             },
-        },
+        }),
     },
     isInline: isLinkNode,
     normalizeNode: [normalizeEmptyLink, normalizeNestedLink, normalizeRedundantLinkAttributes],
