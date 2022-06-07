@@ -36,9 +36,7 @@ export function getAllExtensions() {
                 showAsScreenshot: false,
             },
             withFloatingAddMenu: true,
-            withGalleries: {
-
-            },
+            withGalleries: {},
             withHeadings: true,
             withImages: {
                 captions: true,
