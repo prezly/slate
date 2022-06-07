@@ -20,16 +20,20 @@ export function combineDeserializers(base: DeserializeElement, override: Deseria
     return Object.keys(override).reduce((result, tagName) => {
         return {
             ...result,
-            [tagName]: combine(result[tagName], override[tagName]),
+            [tagName]: combine(base[tagName], override[tagName]),
         };
     }, base);
 }
 
 type Deserializer = DeserializeElement[string];
 
-function combine(base: Deserializer, override: Deserializer | undefined): Deserializer {
-    if (override) {
+function combine(base: Deserializer | undefined, override: Deserializer | undefined): Deserializer {
+    if (override && base) {
         return (element) => override(element) ?? base(element);
     }
-    return base;
+    return override ?? base ?? noop;
+}
+
+function noop() {
+    return undefined;
 }
