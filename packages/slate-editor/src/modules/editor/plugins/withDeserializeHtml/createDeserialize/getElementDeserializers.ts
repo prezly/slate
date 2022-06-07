@@ -16,22 +16,20 @@ export function getElementDeserializers(extensions: Extension[]): DeserializeEle
     return combineDeserializers(elementFallbacks, elements);
 }
 
-export function combineDeserializers(
-    base: DeserializeElement,
-    additional: DeserializeElement,
-): DeserializeElement {
-    return Object.keys(additional).reduce(
-        (result, tagName): DeserializeElement => {
-            const previous = result[tagName];
-            const override = additional[tagName];
-            if (previous) {
-                return {
-                    ...result,
-                    [tagName]: (element) => override(element) ?? previous(element),
-                };
-            }
-            return { ...result, [tagName]: override };
-        },
-        base,
-    );
+export function combineDeserializers(base: DeserializeElement, override: DeserializeElement) {
+    return Object.keys(override).reduce((result, tagName) => {
+        return {
+            ...result,
+            [tagName]: combine(result[tagName], override[tagName]),
+        };
+    }, base);
+}
+
+type Deserializer = DeserializeElement[string];
+
+function combine(base: Deserializer, override: Deserializer | undefined): Deserializer {
+    if (override) {
+        return (element) => override(element) ?? base(element);
+    }
+    return base;
 }
