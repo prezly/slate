@@ -1,24 +1,18 @@
 import type { DeserializeHtml } from '@prezly/slate-commons';
-import {
-    HEADING_1_NODE_TYPE,
-    HEADING_2_NODE_TYPE,
-    LINK_NODE_TYPE,
-    PARAGRAPH_NODE_TYPE,
-} from '@prezly/slate-types';
 
 import { detectMarks } from './lib';
 
 export function createDeserialize(): DeserializeHtml {
     return {
-        element: {
-            [HEADING_1_NODE_TYPE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            [HEADING_2_NODE_TYPE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            [LINK_NODE_TYPE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            BR: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            LI: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            OL: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            UL: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-        },
+        // element: {
+            // [HEADING_1_NODE_TYPE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+            // [HEADING_2_NODE_TYPE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+            // [LINK_NODE_TYPE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+            // BR: () => ({ type: PARAGRAPH_NODE_TYPE }),
+            // LI: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+            // OL: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+            // UL: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
+        // },
         leaf: {
             A: detectMarks,
             ABBR: detectMarks,
