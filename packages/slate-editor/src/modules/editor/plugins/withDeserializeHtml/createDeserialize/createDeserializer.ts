@@ -6,13 +6,18 @@ import { jsx } from 'slate-hyperscript';
 import { createElementsDeserializer } from './createElementsDeserializer';
 import { createMarksDeserializer } from './createMarksDeserializer';
 import { createTextDeserializer } from './createTextDeserializer';
+import { getElementDeserializers } from './getElementDeserializers';
+import { getLeafDeserializers } from './getLeafDeserializers';
 
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
 export function createDeserializer(extensions: Extension[], onError: (error: unknown) => void) {
-    const deserializeElement = createElementsDeserializer(extensions, onError);
-    const deserializeMarks = createMarksDeserializer(extensions);
-    const deserializeText = createTextDeserializer(extensions);
+    const deserializeElement = createElementsDeserializer(
+        getElementDeserializers(extensions),
+        onError,
+    );
+    const deserializeMarks = createMarksDeserializer(getLeafDeserializers(extensions));
+    const deserializeText = createTextDeserializer(deserializeMarks);
 
     function deserialize(
         node: HTMLElement | ChildNode,
