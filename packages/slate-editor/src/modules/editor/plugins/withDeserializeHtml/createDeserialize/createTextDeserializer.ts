@@ -13,8 +13,8 @@ export function createTextDeserializer(deserializeMarks: MarksDeserializer): Tex
         }
 
         // Temporarily wrap text node into a <span> so that deserializeHtmlToMarks
-        // can run leaf deserializations on it. This is to handle situations where a text node
-        // is not a child of a leaf node (e.g. Link).
+        // can run leaf deserialization on it. This is to handle situations where
+        // a text node is not a child of a leaf node (e.g. Link).
         const span = document.createElement('span');
         span.appendChild(node.cloneNode(true));
         const { restore } = temporarilyReplaceNode(node, span);
