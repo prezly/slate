@@ -4,7 +4,7 @@ import type { Editor } from 'slate';
 
 import { Text } from './components';
 import { createDeserialize } from './createDeserialize';
-import * as OnKeyDown from './onKeyDown';
+import { onHotkeyDoMarks } from './onKeyDown';
 
 export const EXTENSION_ID = 'TextStylingExtension';
 
@@ -13,7 +13,7 @@ export function TextStylingExtension(): Extension {
         id: EXTENSION_ID,
         deserialize: createDeserialize(),
         onKeyDown: (event: KeyboardEvent, editor: Editor) => {
-            OnKeyDown.onHotkeyDoMarks(event, editor);
+            onHotkeyDoMarks(event, editor);
         },
         renderLeaf: Text,
     };

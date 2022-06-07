@@ -1,4 +1,4 @@
-import { MarkType } from '../../types';
+import { MarkType } from '../types';
 
 import { detectMark } from './detectMark';
 import { isBold } from './isBold';
