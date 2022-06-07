@@ -8,7 +8,6 @@ export type DeserializeElement = <T extends HTMLElement>(element: T) => ElementP
 export type DeserializeMarks = (element: HTMLElement) => LeafProperties | undefined;
 
 type ElementProperties = {
-    type: string;
     [key: string]: any;
 };
 
