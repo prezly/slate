@@ -79,6 +79,10 @@ export function FormattingDropdown({
         return reject(OPTIONS, ({ value }) => MAP[value] === false);
     }, [withBlockquotes, withHeadings, withLists, withParagraphs]);
 
+    if (options.filter(({ hidden }) => !hidden).length <= 1) {
+        return null;
+    }
+
     return (
         <Menu.Dropdown<Formatting>
             id="prezly-editor-toolbar-dropdown"
