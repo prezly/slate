@@ -1,25 +1,32 @@
 /* eslint-disable no-param-reassign */
 
-import type { DeserializeLeafValue, Extension } from '@prezly/slate-commons';
+import type { DeserializeLeaf, Extension } from '@prezly/slate-commons';
 
-export function getLeafDeserializers(
-    extensions: Extension[],
-): Record<string, DeserializeLeafValue[]> {
-    return extensions.reduce<Record<string, DeserializeLeafValue[]>>((deserializers, extension) => {
-        const leaf = extension.deserialize?.leaf;
+type Deserializer = DeserializeLeaf[string];
 
-        if (!leaf) {
-            return deserializers;
-        }
-
-        Object.keys(leaf || {}).forEach((tag) => {
-            if (!deserializers[tag]) {
-                deserializers[tag] = [leaf[tag]];
-            } else {
-                deserializers[tag].push(leaf[tag]);
-            }
-        });
-
-        return deserializers;
+export function getLeafDeserializers(extensions: Extension[]): DeserializeLeaf {
+    return extensions.reduce((deserializers, extension) => {
+        return combineDeserializers(deserializers, extension.deserialize?.leaf ?? {});
     }, {});
+}
+
+function combineDeserializers(base: DeserializeLeaf, override: DeserializeLeaf): DeserializeLeaf {
+    return Object.keys(override).reduce(function (result, tagName) {
+        return {
+            ...result,
+            [tagName]: combine(base[tagName], override[tagName]),
+        };
+    }, base);
+}
+
+function combine(base: Deserializer | undefined, override: Deserializer | undefined): Deserializer {
+    if (base && override) {
+        // Merge all resulting node properties together
+        return (node) => ({ ...base(node), ...override(node) });
+    }
+    return override ?? base ?? noop;
+}
+
+function noop() {
+    return undefined;
 }

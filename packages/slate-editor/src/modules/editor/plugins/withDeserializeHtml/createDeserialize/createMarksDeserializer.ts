@@ -1,4 +1,4 @@
-import type { DeserializeLeafValue } from '@prezly/slate-commons';
+import type { DeserializeLeaf } from '@prezly/slate-commons';
 import type { Descendant } from 'slate';
 import { Element } from 'slate';
 import { createText } from 'slate-hyperscript';
@@ -10,21 +10,12 @@ export type MarksDeserializer = (
     children: DeserializeHTMLChildren[],
 ) => Descendant[] | null;
 
-export function createMarksDeserializer(
-    deserializers: Record<string, DeserializeLeafValue[]>,
-): MarksDeserializer {
+export function createMarksDeserializer(deserializers: DeserializeLeaf): MarksDeserializer {
     return function (node, children) {
         const type = node.getAttribute('data-slate-type') || node.nodeName;
 
         if (deserializers[type]) {
-            const props = deserializers[type].reduce((result, tag) => {
-                const attributes = tag(node);
-                if (attributes) {
-                    return { ...result, ...attributes };
-                }
-
-                return result;
-            }, {});
+            const props = deserializers[type](node) || {};
 
             return children.reduce<Descendant[]>((array, child) => {
                 if (!child) {
