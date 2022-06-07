@@ -12,8 +12,6 @@ import React, { useMemo } from 'react';
 import { Menu } from '#components';
 import { reject } from '#lodash';
 
-import { ElementType } from '#extensions/text-styling';
-
 import type { Formatting } from '../types';
 
 import styles from './FormattingDropdown.module.scss';
@@ -41,23 +39,23 @@ const OPTIONS: Option[] = [
     },
     {
         label: 'Heading 1',
-        value: ElementType.HEADING_ONE,
+        value: HEADING_1_NODE_TYPE,
     },
     {
         label: 'Heading 2',
-        value: ElementType.HEADING_TWO,
+        value: HEADING_2_NODE_TYPE,
     },
     {
         label: 'Unordered List',
-        value: ElementType.BULLETED_LIST,
+        value: BULLETED_LIST_NODE_TYPE,
     },
     {
         label: 'Ordered List',
-        value: ElementType.NUMBERED_LIST,
+        value: NUMBERED_LIST_NODE_TYPE,
     },
     {
         label: '“Quote”',
-        value: ElementType.BLOCK_QUOTE,
+        value: QUOTE_NODE_TYPE,
     },
 ];
 

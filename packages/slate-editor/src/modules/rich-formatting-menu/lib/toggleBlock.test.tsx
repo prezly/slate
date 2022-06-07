@@ -1,9 +1,9 @@
 /** @jsx jsx */
 
+import { HEADING_2_NODE_TYPE } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
 import { jsx } from '../jsx';
-import { ElementType } from '../types';
 
 import { toggleBlock } from './toggleBlock';
 
@@ -33,7 +33,7 @@ describe('toggleBlock', () => {
             </editor>
         ) as unknown as Editor;
 
-        toggleBlock(editor, ElementType.HEADING_TWO);
+        toggleBlock(editor, HEADING_2_NODE_TYPE);
 
         expect(editor.children).toEqual(expected.children);
     });

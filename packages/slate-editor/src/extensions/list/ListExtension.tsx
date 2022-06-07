@@ -13,8 +13,6 @@ import {
 } from '@prezly/slate-types';
 import React from 'react';
 
-import { ElementType } from '#extensions/text-styling';
-
 import { ListElement, ListItemElement, ListItemTextElement } from './components';
 import { normalizeRedundantAttributes, parseList, parseListItem, parseListItemText } from './lib';
 import { withListsFormatting } from './withListsFormatting';
@@ -42,7 +40,7 @@ export function ListExtension(): Extension {
                 },
                 DIV: (element: HTMLElement) => {
                     if (element.parentNode?.nodeName === 'LI') {
-                        return { type: ElementType.LIST_ITEM_TEXT };
+                        return { type: LIST_ITEM_TEXT_NODE_TYPE };
                     }
 
                     return { type: PARAGRAPH_NODE_TYPE }; // FIXME

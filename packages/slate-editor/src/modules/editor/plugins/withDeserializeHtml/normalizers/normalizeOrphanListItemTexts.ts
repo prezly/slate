@@ -1,9 +1,7 @@
-import { ElementType } from '#extensions/text-styling';
+import { LIST_ITEM_TEXT_NODE_TYPE } from '@prezly/slate-types';
 
 function isListItemText(element: Element): boolean {
-    return (
-        element instanceof HTMLElement && element.dataset.slateType === ElementType.LIST_ITEM_TEXT
-    );
+    return element instanceof HTMLElement && element.dataset.slateType === LIST_ITEM_TEXT_NODE_TYPE;
 }
 
 export function normalizeOrphanListItemTexts(document: Document): Document {

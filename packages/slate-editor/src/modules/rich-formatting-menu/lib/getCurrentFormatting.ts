@@ -29,7 +29,7 @@ export function getCurrentFormatting(editor: Editor): Formatting | null {
         return null;
     }
 
-    // Find lowest nodes, work our way back to a RichTextElementType parent.
+    // Find lowest nodes, work our way back to a RichFormattedTextElement parent.
     const leafNodes = Array.from(Editor.nodes(editor, { at: editor.selection, mode: 'lowest' }));
     const richTextBlocks = leafNodes
         .map(([node, path]) => findParentBlock(editor, node, path))

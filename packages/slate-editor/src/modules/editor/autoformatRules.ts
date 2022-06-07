@@ -9,7 +9,7 @@ import {
 } from '@prezly/slate-types';
 
 import type { AutoformatRule } from '#extensions/autoformat';
-import { ElementType, MarkType } from '#extensions/text-styling';
+import { MarkType } from '#extensions/text-styling';
 import { toggleBlock } from '#modules/rich-formatting-menu';
 
 export const COMPOSITE_CHARACTERS_RULES: AutoformatRule[] = [
@@ -89,7 +89,7 @@ export const DIVIDER_RULES: AutoformatRule[] = [
 export const LIST_RULES: AutoformatRule[] = [
     {
         mode: 'block',
-        type: ElementType.NUMBERED_LIST,
+        type: NUMBERED_LIST_NODE_TYPE,
         match: '1.',
         format: (editor) => {
             return toggleBlock<ListNode>(editor, NUMBERED_LIST_NODE_TYPE);
@@ -97,7 +97,7 @@ export const LIST_RULES: AutoformatRule[] = [
     },
     {
         mode: 'block',
-        type: ElementType.BULLETED_LIST,
+        type: BULLETED_LIST_NODE_TYPE,
         match: ['-', '*'],
         format: (editor) => {
             return toggleBlock<ListNode>(editor, BULLETED_LIST_NODE_TYPE);
@@ -108,7 +108,7 @@ export const LIST_RULES: AutoformatRule[] = [
 export const HEADING_RULES: AutoformatRule[] = [
     {
         mode: 'block',
-        type: ElementType.HEADING_ONE,
+        type: HEADING_1_NODE_TYPE,
         match: '#',
         format: (editor) => {
             return toggleBlock<HeadingNode>(editor, HEADING_1_NODE_TYPE);
@@ -116,7 +116,7 @@ export const HEADING_RULES: AutoformatRule[] = [
     },
     {
         mode: 'block',
-        type: ElementType.HEADING_TWO,
+        type: HEADING_2_NODE_TYPE,
         match: '##',
         format: (editor) => {
             return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
