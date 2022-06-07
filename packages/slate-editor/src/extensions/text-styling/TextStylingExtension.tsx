@@ -10,15 +10,6 @@ export function TextStylingExtension(): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
-            // element: {
-            //    [HEADING_1_NODE_TYPE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            //    [HEADING_2_NODE_TYPE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            //    [LINK_NODE_TYPE]: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            //    BR: () => ({ type: PARAGRAPH_NODE_TYPE }),
-            //    LI: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            //    OL: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            //    UL: () => ({ type: PARAGRAPH_NODE_TYPE }), // FIXME
-            // },
             leaf: {
                 A: detectMarks,
                 ABBR: detectMarks,

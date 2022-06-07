@@ -9,7 +9,6 @@ import {
     isListNode,
     isListItemNode,
     isListItemTextNode,
-    PARAGRAPH_NODE_TYPE,
 } from '@prezly/slate-types';
 import React from 'react';
 
@@ -35,15 +34,13 @@ export function ListExtension(): Extension {
                     if (element.parentNode?.nodeName === 'LI') {
                         return { type: LIST_ITEM_TEXT_NODE_TYPE };
                     }
-
-                    return { type: PARAGRAPH_NODE_TYPE }; // FIXME
+                    return undefined;
                 },
                 DIV: (element: HTMLElement) => {
                     if (element.parentNode?.nodeName === 'LI') {
                         return { type: LIST_ITEM_TEXT_NODE_TYPE };
                     }
-
-                    return { type: PARAGRAPH_NODE_TYPE }; // FIXME
+                    return undefined;
                 },
             },
         },
