@@ -11,7 +11,7 @@ const MARK_HOTKEYS = [
     { hotkey: isHotkey('mod+u'), mark: MarkType.UNDERLINED },
 ];
 
-export function onHotkeyDoMarks(event: KeyboardEvent, editor: Editor) {
+export function onKeyDown(event: KeyboardEvent, editor: Editor) {
     return MARK_HOTKEYS.forEach(({ hotkey, mark }) => {
         if (hotkey(event.nativeEvent)) {
             event.preventDefault();
