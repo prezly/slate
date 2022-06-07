@@ -1,3 +1,5 @@
-import type { DeserializeLeafValue } from './DeserializeLeafValue';
+type LeafProperties = Record<string, any>;
 
-export type DeserializeLeaf = Record<string, DeserializeLeafValue>;
+type DeserializeLeafFn = (element: HTMLElement) => LeafProperties | undefined;
+
+export type DeserializeLeaf = Record<string, DeserializeLeafFn>;
