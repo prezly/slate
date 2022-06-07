@@ -16,7 +16,7 @@ import {
     createFileAttachment,
     EXTENSION_ID as FILE_ATTACHMENT_EXTENSION_ID,
 } from '#extensions/file-attachment';
-import { createImage, EXTENSION_ID } from '#extensions/image';
+import { createImage, EXTENSION_ID as IMAGE_EXTENSION_ID } from '#extensions/image';
 import { EXTENSION_ID as LOADER_EXTENSION_ID, LoaderContentType } from '#extensions/loader';
 import { EventsEditor } from '#modules/events';
 
@@ -37,7 +37,7 @@ function canPasteFiles(extensions: Extension[], data: DataTransfer): boolean {
         return false;
     }
 
-    const isImageExtensionEnabled = extensions.some(({ id }) => id === EXTENSION_ID);
+    const isImageExtensionEnabled = extensions.some(({ id }) => id === IMAGE_EXTENSION_ID);
     const isFileAttachmentExtensionEnabled = extensions.some(
         ({ id }) => id === FILE_ATTACHMENT_EXTENSION_ID,
     );
@@ -64,7 +64,7 @@ export function withFilePasting(getExtensions: () => Extension[]) {
             }
 
             const files = Array.from(data.files);
-            const isImageExtensionEnabled = extensions.some(({ id }) => id === EXTENSION_ID);
+            const isImageExtensionEnabled = extensions.some(({ id }) => id === IMAGE_EXTENSION_ID);
             const isFileAttachmentExtensionEnabled = extensions.some(
                 ({ id }) => id === FILE_ATTACHMENT_EXTENSION_ID,
             );
