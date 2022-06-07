@@ -1,4 +1,8 @@
 import type { Extension } from '@prezly/slate-commons';
+import type { ParagraphNode, TextNode } from '@prezly/slate-types';
+import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import type { Node } from 'slate';
+import { Element, Text } from 'slate';
 
 import { noop } from '#lodash';
 
@@ -6,6 +10,7 @@ import { AutoformatExtension } from '#extensions/autoformat';
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { CoverageExtension } from '#extensions/coverage';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
+import { DefaultDeserializationExtension } from '#extensions/default-deserialization';
 import { DividerExtension } from '#extensions/divider';
 import { EmbedExtension } from '#extensions/embed';
 import { FileAttachmentExtension } from '#extensions/file-attachment';
@@ -17,7 +22,7 @@ import { ImageExtension } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
-import { ParagraphsExtension } from '#extensions/paragraphs';
+import { createParagraph, ParagraphsExtension } from '#extensions/paragraphs';
 import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
 import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
@@ -218,4 +223,20 @@ export function* getEnabledExtensions({
     yield VoidExtension();
 
     yield HtmlExtension();
+
+    // This has to be last
+    yield DefaultDeserializationExtension({
+        deserializeBlockElement() {
+            return { type: PARAGRAPH_NODE_TYPE };
+        },
+        createNode(props: Partial<Node>): ParagraphNode | TextNode | undefined {
+            if (Element.isElement(props)) {
+                return createParagraph(props);
+            }
+            if (Text.isText(props)) {
+                return props;
+            }
+            return undefined;
+        },
+    });
 }
