@@ -59,14 +59,16 @@ export interface EditorProps {
     withCoverage?: false | CoverageExtensionConfiguration;
     withCursorInView?: false | Parameters<typeof useCursorInView>[1];
     withDivider?: boolean;
-    withEmbeds?: false | EmbedExtensionConfiguration & {
-        menuOptions?: {
-            embed?: boolean;
-            link?: boolean;
-            socialPost?: boolean;
-            video?: boolean;
-        };
-    };
+    withEmbeds?:
+        | false
+        | (EmbedExtensionConfiguration & {
+              menuOptions?: {
+                  embed?: boolean;
+                  link?: boolean;
+                  socialPost?: boolean;
+                  video?: boolean;
+              };
+          });
     withFloatingAddMenu?: false | FloatingAddMenuExtensionParameters;
     withGalleries?: false | GalleriesExtensionConfiguration;
     withHeadings?: boolean;
@@ -75,9 +77,11 @@ export interface EditorProps {
     withLists?: boolean;
     withPlaceholders?: false | PlaceholderMentionsExtensionParameters;
     withPressContacts?: false | PressContactsExtensionParameters;
-    withRichFormattingMenu?: false | {
-        withNewTabOption?: boolean;
-    };
+    withRichFormattingMenu?:
+        | false
+        | {
+              withNewTabOption?: boolean;
+          };
     withStoryBookmarks?: false | StoryBookmarkExtensionParameters;
     withStoryEmbeds?: false | StoryEmbedExtensionParameters;
     withTextStyling?: boolean;

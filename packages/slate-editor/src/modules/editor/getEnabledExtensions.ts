@@ -29,7 +29,14 @@ import { VideoExtension } from '#extensions/video';
 import { VoidExtension } from '#extensions/void';
 import { WebBookmarkExtension } from '#extensions/web-bookmark';
 
-import { COMPOSITE_CHARACTERS_RULES, TEXT_STYLE_RULES, DIVIDER_RULES, HEADING_RULES, LIST_RULES, BLOCKQUOTE_RULES } from './autoformatRules';
+import {
+    BLOCKQUOTE_RULES,
+    COMPOSITE_CHARACTERS_RULES,
+    DIVIDER_RULES,
+    HEADING_RULES,
+    LIST_RULES,
+    TEXT_STYLE_RULES,
+} from './autoformatRules';
 import {
     createHandleEditGallery,
     createImageEditHandler,

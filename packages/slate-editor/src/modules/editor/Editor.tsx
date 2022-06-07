@@ -255,23 +255,25 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         onKeyDownList.push(userMentions.onKeyDown);
     }
 
-    const menuOptions = Array.from(generateFloatingAddMenuOptions(editor, {
-        withAttachments,
-        withBlockquotes,
-        withCoverage: Boolean(withCoverage),
-        withDivider,
-        withEmbedSocial: Boolean(withEmbeds),
-        withEmbeds: Boolean(withEmbeds),
-        withGalleries: Boolean(withGalleries),
-        withHeadings,
-        withImages: Boolean(withImages),
-        withParagraphs: true,
-        withPressContacts: Boolean(withPressContacts),
-        withStoryBookmarks: Boolean(withStoryBookmarks),
-        withStoryEmbeds: Boolean(withStoryEmbeds),
-        withVideos: Boolean(withVideos),
-        withWebBookmarks: Boolean(withWebBookmarks),
-    }));
+    const menuOptions = Array.from(
+        generateFloatingAddMenuOptions(editor, {
+            withAttachments,
+            withBlockquotes,
+            withCoverage: Boolean(withCoverage),
+            withDivider,
+            withEmbedSocial: Boolean(withEmbeds),
+            withEmbeds: Boolean(withEmbeds),
+            withGalleries: Boolean(withGalleries),
+            withHeadings,
+            withImages: Boolean(withImages),
+            withParagraphs: true,
+            withPressContacts: Boolean(withPressContacts),
+            withStoryBookmarks: Boolean(withStoryBookmarks),
+            withStoryEmbeds: Boolean(withStoryEmbeds),
+            withVideos: Boolean(withVideos),
+            withWebBookmarks: Boolean(withWebBookmarks),
+        }),
+    );
     const handleMenuAction = (action: MenuAction) => {
         if (action === MenuAction.ADD_PARAGRAPH) {
             return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);

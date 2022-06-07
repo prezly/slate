@@ -1,5 +1,10 @@
 import type { DeserializeHtml } from '@prezly/slate-commons';
-import {HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE, LINK_NODE_TYPE, PARAGRAPH_NODE_TYPE} from '@prezly/slate-types';
+import {
+    HEADING_1_NODE_TYPE,
+    HEADING_2_NODE_TYPE,
+    LINK_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
+} from '@prezly/slate-types';
 
 import { detectMarks } from './lib';
 

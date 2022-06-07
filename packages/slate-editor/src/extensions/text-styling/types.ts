@@ -5,4 +5,3 @@ export enum MarkType {
     SUBSCRIPT = 'subscript',
     SUPERSCRIPT = 'superscript',
 }
-

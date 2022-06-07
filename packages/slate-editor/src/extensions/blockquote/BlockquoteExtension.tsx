@@ -2,7 +2,7 @@ import type { Extension } from '@prezly/slate-commons';
 import { isQuoteNode, QUOTE_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 
-import {onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak} from '#lib';
+import { onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak } from '#lib';
 
 import { BlockQuoteElement } from './components';
 import { normalizeRedundantAttributes } from './lib';

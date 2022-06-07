@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { KeyboardEvent } from 'react';
-import type { Node, Path, Point} from 'slate';
+import type { Node, Path, Point } from 'slate';
 import { Editor, Range, Transforms } from 'slate';
 
 import { isDeletingEventBackward } from './isDeletingEvent';

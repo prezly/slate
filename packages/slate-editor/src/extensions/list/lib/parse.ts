@@ -9,7 +9,9 @@ import {
 
 import { createList, createListItem, createListItemText } from './create';
 
-export function parseList(serialized: string): ListNode | ListItemNode | ListItemTextNode | undefined {
+export function parseList(
+    serialized: string,
+): ListNode | ListItemNode | ListItemTextNode | undefined {
     const parsed = JSON.parse(serialized);
 
     if (isListNode(parsed, NUMBERED_LIST_NODE_TYPE)) {
