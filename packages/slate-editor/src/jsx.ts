@@ -14,9 +14,11 @@ import {
 import { createEditor as createSlateEditor } from 'slate';
 import { createEditor as createEditorFactory, createHyperscript } from 'slate-hyperscript';
 
+import { BlockquoteExtension } from '#extensions/blockquote';
+import { HeadingExtension } from '#extensions/heading';
+import { InlineLinksExtension } from '#extensions/inline-links';
+import { ListExtension } from '#extensions/list';
 import { createEditor } from '#modules/editor';
-
-import { TextStylingExtension } from './TextStylingExtension';
 
 declare global {
     namespace JSX {
@@ -24,7 +26,12 @@ declare global {
     }
 }
 
-const extensions = [TextStylingExtension({ blocks: true })];
+const extensions = [
+    BlockquoteExtension(),
+    HeadingExtension(),
+    InlineLinksExtension(),
+    ListExtension(),
+];
 
 export const jsx = createHyperscript({
     elements: {
