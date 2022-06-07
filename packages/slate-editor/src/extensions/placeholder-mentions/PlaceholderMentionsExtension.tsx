@@ -5,12 +5,13 @@ import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement, MentionsExtension } from '#extensions/mentions';
 
-import { PLACEHOLDER_MENTIONS_EXTENSION_ID } from './constants';
 import { normalizeRedundantPlaceholderMentionAttributes, parseSerializedElement } from './lib';
+
+export const EXTENSION_ID = 'PlaceholderMentionsExtension';
 
 export const PlaceholderMentionsExtension = (): Extension =>
     MentionsExtension({
-        id: PLACEHOLDER_MENTIONS_EXTENSION_ID,
+        id: EXTENSION_ID,
         type: PLACEHOLDER_NODE_TYPE,
         normalizeNode: normalizeRedundantPlaceholderMentionAttributes,
         parseSerializedElement,

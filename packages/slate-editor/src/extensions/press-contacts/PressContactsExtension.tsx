@@ -4,11 +4,12 @@ import { CONTACT_NODE_TYPE, isContactNode } from '@prezly/slate-types';
 import React from 'react';
 
 import { PressContactElement } from './components';
-import { PRESS_CONTACTS_EXTENSION_ID } from './constants';
 import { normalizeRedundantPressContactAttributes, parseSerializedElement } from './lib';
 
+export const EXTENSION_ID = 'PressContactExtension';
+
 export const PressContactsExtension = (): Extension => ({
-    id: PRESS_CONTACTS_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [CONTACT_NODE_TYPE]: createDeserializeElement(parseSerializedElement),

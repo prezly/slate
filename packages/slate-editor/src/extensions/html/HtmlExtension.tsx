@@ -5,16 +5,17 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { HtmlElement } from './components';
-import { HTML_EXTENSION_ID } from './constants';
 import { normalizeRedundantHtmlBlockAttributes, parseSerializedElement } from './lib';
 
+export const EXTENSION_ID = 'HtmlExtension';
+
 export const HtmlExtension = (): Extension => ({
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [HTML_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
-    id: HTML_EXTENSION_ID,
     isVoid: isHtmlNode,
     normalizeNode: normalizeRedundantHtmlBlockAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {

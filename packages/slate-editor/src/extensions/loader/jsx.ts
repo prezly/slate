@@ -4,7 +4,7 @@ import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 import { createHyperscript, createText } from 'slate-hyperscript';
 
-import { LOADER_TYPE } from './constants';
+import { LOADER_NODE_TYPE } from './constants';
 import type { LoaderNode } from './types';
 
 declare global {
@@ -25,7 +25,7 @@ declare global {
 
 export const jsx = createHyperscript({
     elements: {
-        'h-loader': { type: LOADER_TYPE },
+        'h-loader': { type: LOADER_NODE_TYPE },
         'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
     creators: {

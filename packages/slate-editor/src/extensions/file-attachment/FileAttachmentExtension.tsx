@@ -10,7 +10,6 @@ import { EditorBlock } from '#components';
 import { noop } from '#lodash';
 
 import { FileAttachment, FileAttachmentMenu } from './components';
-import { FILE_ATTACHMENT_EXTENSION_ID } from './constants';
 import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
 
 export interface Parameters {
@@ -18,11 +17,13 @@ export interface Parameters {
     onRemove?: (editor: Editor, element: AttachmentNode) => void;
 }
 
+export const EXTENSION_ID = 'FileAttachmentExtension';
+
 export const FileAttachmentExtension = ({
     onEdit = noop,
     onRemove = noop,
 }: Parameters): Extension => ({
-    id: FILE_ATTACHMENT_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [ATTACHMENT_NODE_TYPE]: createDeserializeElement(parseSerializedElement),

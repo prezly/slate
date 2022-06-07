@@ -14,8 +14,10 @@ import {
     parseSerializedLinkElement,
 } from './lib';
 
+export const EXTENSION_ID = 'InlineLinksExtension';
+
 export const InlineLinksExtension = (): Extension => ({
-    id: 'InlineLinksExtension',
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [LINK_NODE_TYPE]: createDeserializeElement(parseSerializedLinkElement),

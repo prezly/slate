@@ -7,11 +7,11 @@ import { isDeletingEvent } from '#lib';
 
 import { createParagraph } from '#extensions/paragraphs';
 
-import { VOID_EXTENSION_ID } from './constants';
+export const EXTENSION_ID = 'VoidExtension';
 
 export function VoidExtension(): Extension {
     return {
-        id: VOID_EXTENSION_ID,
+        id: EXTENSION_ID,
         onKeyDown: (event, editor) => {
             const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
 

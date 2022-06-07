@@ -5,12 +5,13 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { StoryEmbedElement } from './components';
-import { STORY_EMBED_EXTENSION_ID } from './constants';
 import { normalizeRedundantStoryEmbedAttributes, parseSerializedElement } from './lib';
 import type { StoryEmbedExtensionParameters } from './types';
 
+export const EXTENSION_ID = 'StoryEmbedExtension';
+
 export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): Extension => ({
-    id: STORY_EMBED_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [STORY_EMBED_NODE_TYPE]: createDeserializeElement(parseSerializedElement),

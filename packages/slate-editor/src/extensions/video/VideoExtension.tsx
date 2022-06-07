@@ -4,12 +4,13 @@ import { isVideoNode, VIDEO_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 
 import { VideoElement } from './components';
-import { VIDEO_EXTENSION_ID } from './constants';
 import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib';
+
+export const EXTENSION_ID = 'VideoExtension';
 
 export function VideoExtension(): Extension {
     return {
-        id: VIDEO_EXTENSION_ID,
+        id: EXTENSION_ID,
         deserialize: {
             element: {
                 [VIDEO_NODE_TYPE]: createDeserializeElement(parseSerializedElement),

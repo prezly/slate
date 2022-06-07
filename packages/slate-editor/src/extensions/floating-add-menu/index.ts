@@ -1,3 +1,4 @@
+export { FloatingAddMenuExtension, EXTENSION_ID } from './FloatingAddMenuExtension';
+
 export { FloatingAddMenu } from './FloatingAddMenu';
-export { FloatingAddMenuExtension } from './FloatingAddMenuExtension';
 export type { Settings, Option } from './types';

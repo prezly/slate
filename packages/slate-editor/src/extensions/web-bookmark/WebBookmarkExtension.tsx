@@ -5,17 +5,18 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { WebBookmarkElement } from './components';
-import { WEB_BOOKMARK_EXTENSION_ID } from './constants';
 import { normalizeRedundantWebBookmarkAttributes, parseSerializedElement } from './lib';
 
 interface WebBookmarkExtensionParameters {
     withNewTabOption?: boolean;
 }
 
+export const EXTENSION_ID = 'WebBookmarkExtension';
+
 export const WebBookmarkExtension = ({
     withNewTabOption = true,
 }: WebBookmarkExtensionParameters): Extension => ({
-    id: WEB_BOOKMARK_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: {
         element: {
             [BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),

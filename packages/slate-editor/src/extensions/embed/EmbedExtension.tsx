@@ -1,11 +1,10 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
-import { isEmbedNode } from '@prezly/slate-types';
+import { EMBED_NODE_TYPE, isEmbedNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { EmbedElement } from './components';
-import { EMBED_EXTENSION_ID, EMBED_TYPE } from './constants';
 import { normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
 import type { EmbedExtensionConfiguration } from './types';
 
@@ -13,11 +12,13 @@ interface Parameters extends EmbedExtensionConfiguration {
     availableWidth: number;
 }
 
+export const EXTENSION_ID = 'EmbedExtension';
+
 export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters): Extension => ({
-    id: EMBED_EXTENSION_ID,
+    id: EXTENSION_ID,
     deserialize: {
         element: {
-            [EMBED_TYPE]: createDeserializeElement(parseSerializedElement),
+            [EMBED_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         },
     },
     isRichBlock: isEmbedNode,
@@ -41,5 +42,5 @@ export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters)
 
         return undefined;
     },
-    rootTypes: [EMBED_TYPE],
+    rootTypes: [EMBED_NODE_TYPE],
 });
