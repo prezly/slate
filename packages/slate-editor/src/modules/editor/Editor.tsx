@@ -411,7 +411,11 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
 
                 {withFloatingAddMenu && (
                     <FloatingAddMenu
-                        {...withFloatingAddMenu}
+                        tooltip={
+                            typeof withFloatingAddMenu === 'object'
+                                ? withFloatingAddMenu.tooltip
+                                : undefined
+                        }
                         open={isFloatingAddMenuOpen}
                         availableWidth={availableWidth}
                         containerRef={containerRef}
@@ -450,7 +454,11 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
                         withHeadings={withHeadings}
                         withInlineLinks={withInlineLinks}
                         withLists={withLists}
-                        withNewTabOption={Boolean(withRichFormattingMenu.withNewTabOption)}
+                        withNewTabOption={Boolean(
+                            typeof withRichFormattingMenu === 'object'
+                                ? withRichFormattingMenu.withNewTabOption
+                                : false,
+                        )}
                         withParagraphs
                     />
                 )}

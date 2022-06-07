@@ -69,7 +69,7 @@ export interface EditorProps {
                   video?: boolean;
               };
           });
-    withFloatingAddMenu?: false | FloatingAddMenuExtensionParameters;
+    withFloatingAddMenu?: boolean | FloatingAddMenuExtensionParameters;
     withGalleries?: false | GalleriesExtensionConfiguration;
     withHeadings?: boolean;
     withImages?: false | ImageExtensionConfiguration;
@@ -78,7 +78,7 @@ export interface EditorProps {
     withPlaceholders?: false | PlaceholderMentionsExtensionParameters;
     withPressContacts?: false | PressContactsExtensionParameters;
     withRichFormattingMenu?:
-        | false
+        | boolean
         | {
               withNewTabOption?: boolean;
           };

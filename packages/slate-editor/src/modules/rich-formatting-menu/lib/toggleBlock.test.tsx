@@ -3,7 +3,7 @@
 import { HEADING_2_NODE_TYPE } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import { jsx } from '../jsx';
+import { jsx } from '../../../jsx';
 
 import { toggleBlock } from './toggleBlock';
 
