@@ -33,8 +33,8 @@ export const ParagraphsExtension = (): Extension => ({
             [LINK_NODE_TYPE]: paragraph,
             [QUOTE_NODE_TYPE]: paragraph,
             P: paragraph, // It has to be in the fallbacks, to allow other extensions to parse specific P tags hierarchies.
+            DIV: paragraph, // It has to be in the fallbacks, to allow other extensions to parse specific P tags hierarchies.
             BLOCKQUOTE: paragraph,
-            DIV: paragraph,
             BR: paragraph,
             OL: paragraph,
             UL: paragraph,
