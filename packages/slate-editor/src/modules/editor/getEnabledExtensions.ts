@@ -3,6 +3,7 @@ import type { Extension } from '@prezly/slate-commons';
 import { noop } from '#lodash';
 
 import { AutoformatExtension } from '#extensions/autoformat';
+import { BlockquoteExtension } from '#extensions/blockquote';
 import { CoverageExtension } from '#extensions/coverage';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
 import { DividerExtension } from '#extensions/divider';
@@ -10,22 +11,32 @@ import { EmbedExtension } from '#extensions/embed';
 import { FileAttachmentExtension } from '#extensions/file-attachment';
 import { FloatingAddMenuExtension } from '#extensions/floating-add-menu';
 import { GalleriesExtension } from '#extensions/galleries';
+import { HeadingExtension } from '#extensions/heading';
 import { HtmlExtension } from '#extensions/html';
 import { ImageExtension } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
+import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
 import { ParagraphsExtension } from '#extensions/paragraphs';
 import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
 import { PressContactsExtension } from '#extensions/press-contacts';
-import { RichFormattingExtension } from '#extensions/rich-formatting';
+import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
 import { StoryEmbedExtension } from '#extensions/story-embed';
+import { TextStylingExtension } from '#extensions/text-styling';
 import { UserMentionsExtension } from '#extensions/user-mentions';
 import { VideoExtension } from '#extensions/video';
 import { VoidExtension } from '#extensions/void';
 import { WebBookmarkExtension } from '#extensions/web-bookmark';
 
-import { compositeCharactersRules, textStyleRules, blockRules } from './autoformatRules';
+import {
+    BLOCKQUOTE_RULES,
+    COMPOSITE_CHARACTERS_RULES,
+    DIVIDER_RULES,
+    HEADING_RULES,
+    LIST_RULES,
+    TEXT_STYLE_RULES,
+} from './autoformatRules';
 import {
     createHandleEditGallery,
     createImageEditHandler,
@@ -42,20 +53,25 @@ type Parameters = {
     onOperationEnd?: () => void;
     onOperationStart?: () => void;
 } & Pick<
-    EditorProps,
+    Required<EditorProps>,
     | 'withAttachments'
+    | 'withAutoformat'
+    | 'withBlockquotes'
     | 'withCoverage'
+    | 'withDivider'
     | 'withEmbeds'
     | 'withFloatingAddMenu'
     | 'withGalleries'
+    | 'withHeadings'
     | 'withImages'
+    | 'withInlineLinks'
+    | 'withLists'
     | 'withPlaceholders'
     | 'withPressContacts'
-    | 'withRichFormatting'
+    | 'withTextStyling'
     | 'withUserMentions'
     | 'withVideos'
     | 'withWebBookmarks'
-    | 'withAutoformat'
     | 'withStoryEmbeds'
     | 'withStoryBookmarks'
 >;
@@ -66,26 +82,52 @@ export function* getEnabledExtensions({
     onOperationEnd = noop,
     onOperationStart = noop,
     withAttachments,
+    withAutoformat,
+    withBlockquotes,
     withCoverage,
+    withDivider,
     withEmbeds,
     withFloatingAddMenu,
     withGalleries,
+    withHeadings,
     withImages,
+    withInlineLinks,
+    withLists,
     withPlaceholders,
     withPressContacts,
-    withRichFormatting,
+    withTextStyling,
     withUserMentions,
     withVideos,
     withWebBookmarks,
-    withAutoformat,
     withStoryEmbeds,
     withStoryBookmarks,
 }: Parameters): Generator<Extension> {
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
+    yield SoftBreakExtension();
+
+    if (withBlockquotes) {
+        yield BlockquoteExtension();
+    }
+
+    if (withDivider) {
+        yield DividerExtension();
+    }
 
     if (withFloatingAddMenu) {
         yield FloatingAddMenuExtension(onFloatingAddMenuToggle);
+    }
+
+    if (withHeadings) {
+        yield HeadingExtension();
+    }
+
+    if (withInlineLinks) {
+        yield InlineLinksExtension();
+    }
+
+    if (withLists) {
+        yield ListExtension();
     }
 
     if (withPressContacts) {
@@ -96,17 +138,12 @@ export function* getEnabledExtensions({
         yield PlaceholderMentionsExtension();
     }
 
-    if (withUserMentions) {
-        yield UserMentionsExtension();
+    if (withTextStyling) {
+        yield TextStylingExtension();
     }
 
-    if (withRichFormatting) {
-        yield RichFormattingExtension({
-            blocks: Boolean(withRichFormatting.blocks),
-        });
-    }
-    if (withRichFormatting?.links) {
-        yield InlineLinksExtension();
+    if (withUserMentions) {
+        yield UserMentionsExtension();
     }
 
     if (withAttachments) {
@@ -157,9 +194,12 @@ export function* getEnabledExtensions({
 
     if (withAutoformat) {
         const defaultRules = [
-            ...(withRichFormatting?.blocks ? blockRules : []),
-            ...(withRichFormatting ? textStyleRules : []),
-            ...compositeCharactersRules,
+            ...(withBlockquotes ? BLOCKQUOTE_RULES : []),
+            ...(withDivider ? DIVIDER_RULES : []),
+            ...(withHeadings ? HEADING_RULES : []),
+            ...(withLists ? LIST_RULES : []),
+            ...(withTextStyling ? TEXT_STYLE_RULES : []),
+            ...COMPOSITE_CHARACTERS_RULES,
         ];
         const rules = withAutoformat === true ? defaultRules : withAutoformat.rules;
         yield AutoformatExtension({ rules });
@@ -172,8 +212,6 @@ export function* getEnabledExtensions({
     if (withStoryBookmarks) {
         yield StoryBookmarkExtension(withStoryBookmarks);
     }
-
-    yield DividerExtension();
 
     yield LoaderExtension({ onOperationEnd, onOperationStart });
 

@@ -55,32 +55,39 @@ export interface EditorProps {
     withAlignmentControls: boolean;
     withAttachments?: boolean;
     withAutoformat?: boolean | AutoformatParameters;
-    withCoverage?: CoverageExtensionConfiguration;
-    withCursorInView?: Parameters<typeof useCursorInView>[1];
-    withEmbeds?: EmbedExtensionConfiguration & {
-        menuOptions?: {
-            embed?: boolean;
-            link?: boolean;
-            socialPost?: boolean;
-            video?: boolean;
-        };
-    };
-    withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
-    withGalleries?: GalleriesExtensionConfiguration;
-    withImages?: ImageExtensionConfiguration;
-    withPlaceholders?: PlaceholderMentionsExtensionParameters;
-    withPressContacts?: PressContactsExtensionParameters;
-    withRichFormatting?: {
-        menu?: boolean;
-        blocks?: boolean;
-        links?: boolean;
-        withNewTabOption?: boolean;
-    };
-    withStoryBookmarks?: StoryBookmarkExtensionParameters;
-    withStoryEmbeds?: StoryEmbedExtensionParameters;
-    withUserMentions?: UserMentionsExtensionParameters;
-    withVideos?: VideoExtensionParameters;
-    withWebBookmarks?: WebBookmarkExtensionParameters;
+    withBlockquotes?: boolean;
+    withCoverage?: false | CoverageExtensionConfiguration;
+    withCursorInView?: false | Parameters<typeof useCursorInView>[1];
+    withDivider?: boolean;
+    withEmbeds?:
+        | false
+        | (EmbedExtensionConfiguration & {
+              menuOptions?: {
+                  embed?: boolean;
+                  link?: boolean;
+                  socialPost?: boolean;
+                  video?: boolean;
+              };
+          });
+    withFloatingAddMenu?: boolean | FloatingAddMenuExtensionParameters;
+    withGalleries?: false | GalleriesExtensionConfiguration;
+    withHeadings?: boolean;
+    withImages?: false | ImageExtensionConfiguration;
+    withInlineLinks?: boolean;
+    withLists?: boolean;
+    withPlaceholders?: false | PlaceholderMentionsExtensionParameters;
+    withPressContacts?: false | PressContactsExtensionParameters;
+    withRichFormattingMenu?:
+        | boolean
+        | {
+              withNewTabOption?: boolean;
+          };
+    withStoryBookmarks?: false | StoryBookmarkExtensionParameters;
+    withStoryEmbeds?: false | StoryEmbedExtensionParameters;
+    withTextStyling?: boolean;
+    withUserMentions?: false | UserMentionsExtensionParameters;
+    withVideos?: false | VideoExtensionParameters;
+    withWebBookmarks?: false | WebBookmarkExtensionParameters;
 }
 
 export * from './Fragment';

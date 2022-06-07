@@ -1,7 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
-import type { FunctionComponent } from 'react';
 import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
 import { Editor, Range, Transforms } from 'slate';
@@ -11,7 +10,8 @@ import { ReactEditor, useSlate } from 'slate-react';
 import { Menu, TextSelectionPortalV2 } from '#components';
 
 import { unwrapLink, wrapInLink } from '#extensions/inline-links';
-import { MarkType, toggleBlock } from '#extensions/rich-formatting';
+import { MarkType } from '#extensions/text-styling';
+import { toggleBlock } from '#modules/rich-formatting-menu';
 
 import { Toolbar } from './components';
 import {
@@ -29,9 +29,12 @@ interface Props {
     containerElement: HTMLElement | null;
     defaultAlignment: Alignment;
     withAlignment: boolean;
-    withRichBlockElements: boolean;
-    withLinks: boolean;
-    withNewTabOption?: boolean;
+    withBlockquotes: boolean;
+    withHeadings: boolean;
+    withInlineLinks: boolean;
+    withLists: boolean;
+    withNewTabOption: boolean;
+    withParagraphs: boolean;
 }
 
 const TOOLBAR_OFFSET_MODIFIER: Modifier<'offset'> = {
@@ -48,15 +51,18 @@ const LINK_MENU_OFFSET_MODIFIER: Modifier<'offset'> = {
     },
 };
 
-export const RichFormattingMenu: FunctionComponent<Props> = ({
+export function RichFormattingMenu({
     availableWidth,
     containerElement,
     defaultAlignment,
     withAlignment,
-    withLinks,
-    withRichBlockElements,
-    withNewTabOption = true,
-}) => {
+    withBlockquotes,
+    withHeadings,
+    withInlineLinks,
+    withLists,
+    withNewTabOption,
+    withParagraphs,
+}: Props) {
     const editor = useSlate();
 
     if (!HistoryEditor.isHistoryEditor(editor)) {
@@ -156,7 +162,12 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
         [editor.selection],
     );
 
-    if (withLinks && linkRange?.current && editor.selection && Range.isExpanded(editor.selection)) {
+    if (
+        withInlineLinks &&
+        linkRange?.current &&
+        editor.selection &&
+        Range.isExpanded(editor.selection)
+    ) {
         return (
             <TextSelectionPortalV2
                 containerElement={containerElement}
@@ -215,13 +226,16 @@ export const RichFormattingMenu: FunctionComponent<Props> = ({
                     onLink={handleLinkButtonClick}
                     // features
                     withAlignment={withAlignment}
-                    withLinks={withLinks}
-                    withRichBlockElements={withRichBlockElements}
+                    withBlockquotes={withBlockquotes}
+                    withHeadings={withHeadings}
+                    withInlineLinks={withInlineLinks}
+                    withLists={withLists}
+                    withParagraphs={withParagraphs}
                 />
             </Menu.Toolbar>
         </TextSelectionPortalV2>
     );
-};
+}
 
 function getCurrentLinkNode(editor: Editor, options: { at: Range }): LinkNode | null {
     const entries = Array.from(Editor.nodes(editor, { match: isLinkNode, at: options.at }));

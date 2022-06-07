@@ -39,7 +39,6 @@ export function withDeserializeHtml(
 
         editor.insertData = function (dataTransfer) {
             const data = debugDataOverride ? createDataTransfer(debugDataOverride) : dataTransfer;
-            const html = data.getData('text/html');
             const slateFragment = data.getData('application/x-slate-fragment');
 
             EventsEditor.dispatchEvent(editor, 'paste', {
@@ -48,7 +47,14 @@ export function withDeserializeHtml(
                 slateVersion: process.env.SLATE_VERSION,
             });
 
-            if (html && !slateFragment) {
+            if (slateFragment) {
+                insertData(data);
+                return;
+            }
+
+            const html = data.getData('text/html');
+
+            if (html) {
                 const rtf = data.getData('text/rtf');
                 const cleanHtml = tryCleanDocx(html, rtf, handleError);
                 const extensions = getExtensions();

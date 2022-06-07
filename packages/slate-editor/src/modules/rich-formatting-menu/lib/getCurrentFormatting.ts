@@ -4,15 +4,13 @@ import { Editor, Path } from 'slate';
 
 import { uniq } from '#lodash';
 
-import type { RichTextElementType } from '#extensions/rich-formatting';
-import { isRichTextBlockElement } from '#extensions/rich-formatting';
-
-import type { Formatting } from '../types';
+import { isRichFormattedTextElement } from '../types';
+import type { Formatting, RichFormattedTextElement } from '../types';
 
 const ROOT_PATH: Path = [];
 
-function findParentBlock(editor: Editor, node: Node, path: Path): RichTextElementType | null {
-    if (isRichTextBlockElement(node)) {
+function findParentBlock(editor: Editor, node: Node, path: Path): RichFormattedTextElement | null {
+    if (isRichFormattedTextElement(node)) {
         return node;
     }
 
@@ -29,11 +27,11 @@ export function getCurrentFormatting(editor: Editor): Formatting | null {
         return null;
     }
 
-    // Find lowest nodes, work our way back to a RichTextElementType parent.
+    // Find lowest nodes, work our way back to a RichFormattedTextElement parent.
     const leafNodes = Array.from(Editor.nodes(editor, { at: editor.selection, mode: 'lowest' }));
     const richTextBlocks = leafNodes
         .map(([node, path]) => findParentBlock(editor, node, path))
-        .filter<RichTextElementType>(isRichTextBlockElement);
+        .filter((node): node is RichFormattedTextElement => Boolean(node));
 
     const blockTypes = uniq(richTextBlocks.map((node) => node.type));
 

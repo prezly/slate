@@ -1,11 +1,11 @@
-import { ElementType } from '#extensions/rich-formatting';
+import { LIST_ITEM_NODE_TYPE } from '@prezly/slate-types';
 
 function isListItem(element: Element): boolean {
     if (element.nodeName === 'LI') {
         return true;
     }
 
-    return element instanceof HTMLElement && element.dataset.slateType === ElementType.LIST_ITEM;
+    return element instanceof HTMLElement && element.dataset.slateType === LIST_ITEM_NODE_TYPE;
 }
 
 export function normalizeOrphanListItems(document: Document): Document {

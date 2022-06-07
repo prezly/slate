@@ -23,19 +23,27 @@ export function getAllExtensions() {
             availableWidth: 1000,
             onFloatingAddMenuToggle: noop,
             withAttachments: true,
+            withAutoformat: true,
+            withBlockquotes: true,
             withCoverage: {
                 dateFormat: 'YYYY/MM/DD',
                 fetchCoverage: createDelayedResolve(coverage),
                 renderSearch: () => null,
             },
+            withDivider: true,
             withEmbeds: {
                 fetchOembed: createDelayedResolve(oembedInfo),
                 showAsScreenshot: false,
             },
+            withFloatingAddMenu: true,
+            withGalleries: {},
+            withHeadings: true,
             withImages: {
                 captions: true,
                 withLayoutOptions: true,
             },
+            withInlineLinks: true,
+            withLists: true,
             withPlaceholders: {
                 placeholders: [
                     ...campaignPlaceholders,
@@ -47,11 +55,15 @@ export function getAllExtensions() {
                 newsroomSettingsUrl: '',
                 renderSearch: () => null,
             },
-            withRichFormatting: {
-                blocks: true,
-                links: true,
-                menu: true,
+            withStoryBookmarks: {
+                loadStory: () => Promise.reject(),
+                renderInput: () => null,
             },
+            withStoryEmbeds: {
+                render: () => null,
+                renderInput: () => null,
+            },
+            withTextStyling: true,
             withUserMentions: {
                 users: [
                     {
@@ -65,6 +77,12 @@ export function getAllExtensions() {
                         name: 'Jane Doe',
                     },
                 ],
+            },
+            withVideos: {
+                fetchOembed: createDelayedResolve(oembedInfo),
+            },
+            withWebBookmarks: {
+                fetchOembed: createDelayedResolve(oembedInfo),
             },
         }),
     );

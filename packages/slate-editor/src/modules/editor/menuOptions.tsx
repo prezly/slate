@@ -5,8 +5,6 @@ import * as Icons from '#icons';
 import type { Option } from '#extensions/floating-add-menu';
 import { UploadcareEditor } from '#modules/uploadcare';
 
-import type { EditorProps } from '#modules/editor/types';
-
 export enum MenuAction {
     ADD_ATTACHMENT = 'add_attachment',
     ADD_CONTACT = 'add_contact',
@@ -40,38 +38,45 @@ enum Group {
     PREZLY_CONTENT = 'Prezly content',
 }
 
-type Params = Pick<
-    EditorProps,
-    | 'withAttachments'
-    | 'withCoverage'
-    | 'withEmbeds'
-    | 'withGalleries'
-    | 'withImages'
-    | 'withPressContacts'
-    | 'withRichFormatting'
-    | 'withStoryEmbeds'
-    | 'withStoryBookmarks'
-    | 'withVideos'
-    | 'withWebBookmarks'
->;
+interface Params {
+    withAttachments: boolean;
+    withBlockquotes: boolean;
+    withCoverage: boolean;
+    withDivider: boolean;
+    withEmbeds: boolean;
+    withEmbedSocial: boolean;
+    withGalleries: boolean;
+    withHeadings: boolean;
+    withImages: boolean;
+    withParagraphs: boolean;
+    withPressContacts: boolean;
+    withStoryEmbeds: boolean;
+    withStoryBookmarks: boolean;
+    withVideos: boolean;
+    withWebBookmarks: boolean;
+}
 
 export function* generateFloatingAddMenuOptions(
     editor: Editor,
     {
         withAttachments,
+        withBlockquotes,
         withCoverage,
+        withDivider,
         withEmbeds,
+        withEmbedSocial,
         withGalleries,
+        withHeadings,
         withImages,
+        withParagraphs,
         withPressContacts,
-        withRichFormatting,
         withStoryEmbeds,
         withStoryBookmarks,
         withVideos,
         withWebBookmarks,
     }: Params,
 ): Generator<Option<MenuAction>> {
-    if (withRichFormatting && withRichFormatting.blocks) {
+    if (withHeadings) {
         yield {
             icon: Icons.ComponentH1,
             action: MenuAction.ADD_HEADING_1,
@@ -88,15 +93,17 @@ export function* generateFloatingAddMenuOptions(
         };
     }
 
-    yield {
-        icon: Icons.ComponentText,
-        action: MenuAction.ADD_PARAGRAPH,
-        group: Group.BASICS,
-        text: 'Text',
-        description: 'Start writing plain text',
-    };
+    if (withParagraphs) {
+        yield {
+            icon: Icons.ComponentText,
+            action: MenuAction.ADD_PARAGRAPH,
+            group: Group.BASICS,
+            text: 'Text',
+            description: 'Start writing plain text',
+        };
+    }
 
-    if (withRichFormatting?.blocks) {
+    if (withBlockquotes) {
         yield {
             icon: Icons.ComponentQuote,
             action: MenuAction.ADD_QUOTE,
@@ -106,13 +113,15 @@ export function* generateFloatingAddMenuOptions(
         };
     }
 
-    yield {
-        icon: Icons.ComponentDivider,
-        action: MenuAction.ADD_DIVIDER,
-        group: Group.BASICS,
-        text: 'Divider',
-        description: 'Divide blocks with a line',
-    };
+    if (withDivider) {
+        yield {
+            icon: Icons.ComponentDivider,
+            action: MenuAction.ADD_DIVIDER,
+            group: Group.BASICS,
+            text: 'Divider',
+            description: 'Divide blocks with a line',
+        };
+    }
 
     if (withImages && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
@@ -144,7 +153,7 @@ export function* generateFloatingAddMenuOptions(
         };
     }
 
-    if (withEmbeds?.menuOptions?.socialPost) {
+    if (withEmbedSocial) {
         yield {
             action: MenuAction.ADD_EMBED_SOCIAL,
             icon: Icons.ComponentSocialPost,
@@ -176,7 +185,7 @@ export function* generateFloatingAddMenuOptions(
         };
     }
 
-    if (withEmbeds?.menuOptions?.embed) {
+    if (withEmbeds) {
         yield {
             action: MenuAction.ADD_EMBED,
             icon: Icons.ComponentEmbed,
