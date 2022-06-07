@@ -4,10 +4,8 @@ import { Editor, Path } from 'slate';
 
 import { uniq } from '#lodash';
 
-import type { Formatting } from '../types';
-
-import type { RichFormattedTextElement } from './isRichFormattedTextElement';
-import { isRichFormattedTextElement } from './isRichFormattedTextElement';
+import { isRichFormattedTextElement } from '../types';
+import type { Formatting, RichFormattedTextElement } from '../types';
 
 const ROOT_PATH: Path = [];
 

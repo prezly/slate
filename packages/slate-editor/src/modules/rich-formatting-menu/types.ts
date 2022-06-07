@@ -1,5 +1,10 @@
-import type { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
+import type { HeadingNode, ListNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
+import { isHeadingNode, isListNode, isParagraphNode, isQuoteNode } from '@prezly/slate-types';
+import type { Node } from 'slate';
 
-import type { ElementType } from '#extensions/text-styling';
+export type RichFormattedTextElement = ParagraphNode | HeadingNode | QuoteNode | ListNode;
+export type Formatting = RichFormattedTextElement['type'] | 'multiple';
 
-export type Formatting = typeof PARAGRAPH_NODE_TYPE | ElementType | 'multiple';
+export function isRichFormattedTextElement(node: Node): node is RichFormattedTextElement {
+    return isParagraphNode(node) || isHeadingNode(node) || isQuoteNode(node) || isListNode(node);
+}
