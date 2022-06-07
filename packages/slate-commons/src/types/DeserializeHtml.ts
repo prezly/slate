@@ -4,7 +4,9 @@ export interface DeserializeHtml {
     marks?: DeserializeMarks;
 }
 
-export type DeserializeElement = <T extends HTMLElement>(element: T) => ElementProperties | undefined;
+export type DeserializeElement = <T extends HTMLElement>(
+    element: T,
+) => ElementProperties | undefined;
 export type DeserializeMarks = (element: HTMLElement) => LeafProperties | undefined;
 
 type ElementProperties = {
