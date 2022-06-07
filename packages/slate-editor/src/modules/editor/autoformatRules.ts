@@ -12,7 +12,7 @@ import type { AutoformatRule } from '#extensions/autoformat';
 import { ElementType, MarkType } from '#extensions/text-styling';
 import { toggleBlock } from '#modules/rich-formatting-menu';
 
-export const compositeCharactersRules: AutoformatRule[] = [
+export const COMPOSITE_CHARACTERS_RULES: AutoformatRule[] = [
     {
         mode: 'text',
         match: ['(tm)', '(TM)'],
@@ -60,7 +60,7 @@ export const compositeCharactersRules: AutoformatRule[] = [
     },
 ];
 
-export const textStyleRules: AutoformatRule[] = [
+export const TEXT_STYLE_RULES: AutoformatRule[] = [
     {
         mode: 'mark',
         type: MarkType.BOLD,
@@ -78,12 +78,15 @@ export const textStyleRules: AutoformatRule[] = [
     },
 ];
 
-export const blockRules: AutoformatRule[] = [
+export const DIVIDER_RULES: AutoformatRule[] = [
     {
         mode: 'block',
         type: DIVIDER_NODE_TYPE,
         match: '---',
     },
+];
+
+export const LIST_RULES: AutoformatRule[] = [
     {
         mode: 'block',
         type: ElementType.NUMBERED_LIST,
@@ -100,6 +103,9 @@ export const blockRules: AutoformatRule[] = [
             return toggleBlock<ListNode>(editor, BULLETED_LIST_NODE_TYPE);
         },
     },
+];
+
+export const HEADING_RULES: AutoformatRule[] = [
     {
         mode: 'block',
         type: ElementType.HEADING_ONE,
@@ -116,6 +122,9 @@ export const blockRules: AutoformatRule[] = [
             return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
         },
     },
+];
+
+export const BLOCKQUOTE_RULES: AutoformatRule[] = [
     {
         mode: 'block',
         type: QUOTE_NODE_TYPE,

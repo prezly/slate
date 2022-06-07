@@ -29,7 +29,7 @@ import { VideoExtension } from '#extensions/video';
 import { VoidExtension } from '#extensions/void';
 import { WebBookmarkExtension } from '#extensions/web-bookmark';
 
-import { compositeCharactersRules, textStyleRules, blockRules } from './autoformatRules';
+import { COMPOSITE_CHARACTERS_RULES, TEXT_STYLE_RULES, DIVIDER_RULES, HEADING_RULES, LIST_RULES, BLOCKQUOTE_RULES } from './autoformatRules';
 import {
     createHandleEditGallery,
     createImageEditHandler,
@@ -187,10 +187,12 @@ export function* getEnabledExtensions({
 
     if (withAutoformat) {
         const defaultRules = [
-            // FIXME
-            ...(withRichFormatting?.blocks ? blockRules : []),
-            ...(withRichFormatting ? textStyleRules : []),
-            ...compositeCharactersRules,
+            ...(withBlockquotes ? BLOCKQUOTE_RULES : []),
+            ...(withDivider ? DIVIDER_RULES : []),
+            ...(withHeadings ? HEADING_RULES : []),
+            ...(withLists ? LIST_RULES : []),
+            ...(withTextStyling ? TEXT_STYLE_RULES : []),
+            ...COMPOSITE_CHARACTERS_RULES,
         ];
         const rules = withAutoformat === true ? defaultRules : withAutoformat.rules;
         yield AutoformatExtension({ rules });
