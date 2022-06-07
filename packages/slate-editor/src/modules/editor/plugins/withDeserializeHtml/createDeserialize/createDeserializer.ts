@@ -7,7 +7,7 @@ import { createElementsDeserializer } from './createElementsDeserializer';
 import { createMarksDeserializer } from './createMarksDeserializer';
 import { createTextDeserializer } from './createTextDeserializer';
 import { getElementDeserializers } from './getElementDeserializers';
-import { getLeafDeserializers } from './getLeafDeserializers';
+import { getMarksDeserializers } from './getMarksDeserializers';
 
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
@@ -16,7 +16,7 @@ export function createDeserializer(extensions: Extension[], onError: (error: unk
         getElementDeserializers(extensions),
         onError,
     );
-    const deserializeMarks = createMarksDeserializer(getLeafDeserializers(extensions));
+    const deserializeMarks = createMarksDeserializer(getMarksDeserializers(extensions));
     const deserializeText = createTextDeserializer(deserializeMarks);
 
     function deserialize(

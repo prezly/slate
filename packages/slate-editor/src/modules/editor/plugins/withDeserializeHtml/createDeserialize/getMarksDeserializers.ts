@@ -1,16 +1,16 @@
 /* eslint-disable no-param-reassign */
 
-import type { DeserializeLeaf, Extension } from '@prezly/slate-commons';
+import type { DeserializeMarks, Extension } from '@prezly/slate-commons';
 
-type Deserializer = DeserializeLeaf[string];
+type Deserializer = DeserializeMarks[string];
 
-export function getLeafDeserializers(extensions: Extension[]): DeserializeLeaf {
+export function getMarksDeserializers(extensions: Extension[]): DeserializeMarks {
     return extensions.reduce((deserializers, extension) => {
-        return combineDeserializers(deserializers, extension.deserialize?.leaf ?? {});
+        return combineDeserializers(deserializers, extension.deserialize?.marks ?? {});
     }, {});
 }
 
-function combineDeserializers(base: DeserializeLeaf, override: DeserializeLeaf): DeserializeLeaf {
+function combineDeserializers(base: DeserializeMarks, override: DeserializeMarks): DeserializeMarks {
     return Object.keys(override).reduce(function (result, tagName) {
         return {
             ...result,
