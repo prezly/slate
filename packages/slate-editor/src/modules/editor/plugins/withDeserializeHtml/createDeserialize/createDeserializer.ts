@@ -3,20 +3,20 @@ import { isGoogleDocsWrapper } from '@prezly/slate-commons';
 import type { Descendant, Element } from 'slate';
 import { jsx } from 'slate-hyperscript';
 
+import { combineElementDeserializerConfig } from './combineElementDeserializerConfig';
+import { combineMarksDeserializersConfig } from './combineMarksDeserializersConfig';
 import { createElementsDeserializer } from './createElementsDeserializer';
 import { createMarksDeserializer } from './createMarksDeserializer';
 import { createTextDeserializer } from './createTextDeserializer';
-import { getElementDeserializers } from './getElementDeserializers';
-import { getMarksDeserializers } from './getMarksDeserializers';
 
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
 
 export function createDeserializer(extensions: Extension[], onError: (error: unknown) => void) {
     const deserializeElement = createElementsDeserializer(
-        getElementDeserializers(extensions),
+        combineElementDeserializerConfig(extensions),
         onError,
     );
-    const deserializeMarks = createMarksDeserializer(getMarksDeserializers(extensions));
+    const deserializeMarks = createMarksDeserializer(combineMarksDeserializersConfig(extensions));
     const deserializeText = createTextDeserializer(deserializeMarks);
 
     function deserialize(

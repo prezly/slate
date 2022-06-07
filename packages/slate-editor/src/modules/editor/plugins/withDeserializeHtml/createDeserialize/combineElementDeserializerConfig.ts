@@ -1,6 +1,6 @@
 import type { DeserializeElement, Extension } from '@prezly/slate-commons';
 
-export function getElementDeserializers(extensions: Extension[]): DeserializeElement {
+export function combineElementDeserializerConfig(extensions: Extension[]): DeserializeElement {
     const elementFallbacks = extensions.reduce(
         (deserializers, extension) =>
             combineDeserializers(deserializers, extension.deserialize?.elementFallback ?? {}),
@@ -20,14 +20,17 @@ export function combineDeserializers(base: DeserializeElement, override: Deseria
     return Object.keys(override).reduce((result, tagName) => {
         return {
             ...result,
-            [tagName]: combine(base[tagName], override[tagName]),
+            [tagName]: combineFunctions(base[tagName], override[tagName]),
         };
     }, base);
 }
 
 type Deserializer = DeserializeElement[string];
 
-function combine(base: Deserializer | undefined, override: Deserializer | undefined): Deserializer {
+function combineFunctions(
+    base: Deserializer | undefined,
+    override: Deserializer | undefined,
+): Deserializer {
     if (override && base) {
         return (element) => override(element) ?? base(element);
     }

@@ -4,22 +4,28 @@ import type { DeserializeMarks, Extension } from '@prezly/slate-commons';
 
 type Deserializer = DeserializeMarks[string];
 
-export function getMarksDeserializers(extensions: Extension[]): DeserializeMarks {
+export function combineMarksDeserializersConfig(extensions: Extension[]): DeserializeMarks {
     return extensions.reduce((deserializers, extension) => {
         return combineDeserializers(deserializers, extension.deserialize?.marks ?? {});
     }, {});
 }
 
-function combineDeserializers(base: DeserializeMarks, override: DeserializeMarks): DeserializeMarks {
+function combineDeserializers(
+    base: DeserializeMarks,
+    override: DeserializeMarks,
+): DeserializeMarks {
     return Object.keys(override).reduce(function (result, tagName) {
         return {
             ...result,
-            [tagName]: combine(base[tagName], override[tagName]),
+            [tagName]: combineFunctions(base[tagName], override[tagName]),
         };
     }, base);
 }
 
-function combine(base: Deserializer | undefined, override: Deserializer | undefined): Deserializer {
+function combineFunctions(
+    base: Deserializer | undefined,
+    override: Deserializer | undefined,
+): Deserializer {
     if (base && override) {
         // Merge all resulting node properties together
         return (node) => ({ ...base(node), ...override(node) });
