@@ -14,7 +14,9 @@ export function createDeserializer(extensions: Extension[], onError: (error: unk
     const deserializeMarks = createMarksDeserializer(extensions);
     const deserializeText = createTextDeserializer(extensions);
 
-    function deserialize(node: HTMLElement | ChildNode): string | Element | DeserializeHTMLChildren[] | null {
+    function deserialize(
+        node: HTMLElement | ChildNode,
+    ): string | Element | DeserializeHTMLChildren[] | null {
         const children = Array.from(node.childNodes).flatMap(deserialize);
 
         if (node.nodeType === Node.TEXT_NODE && node.parentNode?.nodeName !== 'BODY') {
