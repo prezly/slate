@@ -10,7 +10,7 @@ interface Attributes extends Record<string, any> {
     type: string;
 }
 
-export function deserializeHtmlToElement(
+export function createElementsDeserializer(
     extensions: Extension[],
     onError: (error: unknown) => void,
 ) {

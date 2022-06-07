@@ -1,11 +1,11 @@
 import type { Extension } from '@prezly/slate-commons';
 import type { Descendant } from 'slate';
 
-import { deserializeHtmlToMarks } from './deserializeHtmlToMarks';
+import { createMarksDeserializer } from './createMarksDeserializer';
 import { replaceCarriageReturnWithLineFeed } from './replaceCarriageReturnWithLineFeed';
 import { temporarilyReplaceNode } from './temporarilyReplaceNode';
 
-export function deserializeText(extensions: Extension[]) {
+export function createTextDeserializer(extensions: Extension[]) {
     return function (node: Text): Descendant[] | null {
         if (!node.textContent) {
             return null;
@@ -18,7 +18,7 @@ export function deserializeText(extensions: Extension[]) {
         span.appendChild(node.cloneNode(true));
         const { restore } = temporarilyReplaceNode(node, span);
 
-        const result = deserializeHtmlToMarks(extensions)(span, [
+        const result = createMarksDeserializer(extensions)(span, [
             replaceCarriageReturnWithLineFeed(node.textContent),
         ]);
 
