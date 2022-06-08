@@ -22,11 +22,14 @@ export function withNodesHierarchy(schema: NodesHierarchySchema) {
 
             const [normalizers, fallback] = schemaEntry;
 
-            const hasSomeNormalizerApplied = normalizers.some((normalizer) => {
-                const isNormalized = normalizer(editor, [node, path]);
+            let hasSomeNormalizerApplied = false;
 
-                if (!isNormalized) {
-                    return fallback?.(editor, [node, path]);
+            normalizers.forEach((normalizer) => {
+                const isNormalized =
+                    normalizer(editor, [node, path]) || fallback?.(editor, [node, path]);
+
+                if (isNormalized) {
+                    hasSomeNormalizerApplied = true;
                 }
 
                 return isNormalized;
