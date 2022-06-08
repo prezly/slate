@@ -1,9 +1,6 @@
 export type { Decorate } from './Decorate';
 export type { DecorateFactory } from './DecorateFactory';
-export type { DeserializeElement } from './DeserializeElement';
-export type { DeserializeHtml } from './DeserializeHtml';
-export type { DeserializeLeaf } from './DeserializeLeaf';
-export type { DeserializeLeafValue } from './DeserializeLeafValue';
+export type { DeserializeHtml, DeserializeElement, DeserializeMarks } from './DeserializeHtml';
 export type { Extension } from './Extension';
 export type { Normalize } from './Normalize';
 export type { OnDOMBeforeInput } from './OnDOMBeforeInput';

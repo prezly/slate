@@ -9,6 +9,8 @@ import type { RenderElementProps } from 'slate-react';
 import { EditorBlock } from '#components';
 import { noop } from '#lodash';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { FileAttachment, FileAttachmentMenu } from './components';
 import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
 
@@ -25,9 +27,9 @@ export const FileAttachmentExtension = ({
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [ATTACHMENT_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-        },
+        }),
     },
     isRichBlock: isAttachmentNode,
     isVoid: isAttachmentNode,

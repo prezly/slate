@@ -4,6 +4,8 @@ import { STORY_BOOKMARK_NODE_TYPE, isStoryBookmarkNode } from '@prezly/slate-typ
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { StoryBookmarkElement } from './components';
 import { normalizeRedundantStoryBookmarkAttributes, parseSerializedElement } from './lib';
 import type { StoryBookmarkExtensionParameters } from './types';
@@ -13,9 +15,9 @@ export const EXTENSION_ID = 'StoryBookmarkExtension';
 export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [STORY_BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-        },
+        }),
     },
     isRichBlock: isStoryBookmarkNode,
     isVoid: isStoryBookmarkNode,

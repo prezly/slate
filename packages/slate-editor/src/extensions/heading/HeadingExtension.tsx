@@ -5,6 +5,8 @@ import React from 'react';
 
 import { onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak } from '#lib';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { HeadingElement } from './components';
 import { normalizeRedundantAttributes, parseHeadingElement } from './lib';
 
@@ -14,7 +16,7 @@ export function HeadingExtension(): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
-            element: {
+            element: composeElementDeserializer({
                 [HEADING_1_NODE_TYPE]: createDeserializeElement(parseHeadingElement),
                 [HEADING_2_NODE_TYPE]: createDeserializeElement(parseHeadingElement),
                 H1: () => ({ type: HEADING_1_NODE_TYPE }),
@@ -23,7 +25,7 @@ export function HeadingExtension(): Extension {
                 H4: () => ({ type: HEADING_2_NODE_TYPE }),
                 H5: () => ({ type: HEADING_2_NODE_TYPE }),
                 H6: () => ({ type: HEADING_2_NODE_TYPE }),
-            },
+            }),
         },
         normalizeNode: [normalizeRedundantAttributes],
         onKeyDown(event, editor) {

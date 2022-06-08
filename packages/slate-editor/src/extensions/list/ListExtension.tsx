@@ -15,6 +15,7 @@ import React from 'react';
 import { ListElement, ListItemElement, ListItemTextElement } from './components';
 import { normalizeRedundantAttributes, parseList, parseListItem, parseListItemText } from './lib';
 import { withListsFormatting } from './withListsFormatting';
+import { composeElementDeserializer } from '#modules/html-deserialization';
 
 export const EXTENSION_ID = 'ListExtension';
 
@@ -22,7 +23,7 @@ export function ListExtension(): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
-            element: {
+            element: composeElementDeserializer({
                 [BULLETED_LIST_NODE_TYPE]: createDeserializeElement(parseList),
                 [NUMBERED_LIST_NODE_TYPE]: createDeserializeElement(parseList),
                 [LIST_ITEM_NODE_TYPE]: createDeserializeElement(parseListItem),
@@ -42,7 +43,7 @@ export function ListExtension(): Extension {
                     }
                     return undefined;
                 },
-            },
+            }),
         },
         normalizeNode: [normalizeRedundantAttributes],
         onKeyDown(event, editor) {

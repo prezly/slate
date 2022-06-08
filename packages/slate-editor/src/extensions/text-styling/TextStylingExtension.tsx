@@ -1,5 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 
+import { composeMarksDeserializer } from '#modules/html-deserialization';
+
 import { Text } from './components';
 import { detectMarks } from './lib';
 import { onKeyDown } from './onKeyDown';
@@ -10,7 +12,7 @@ export function TextStylingExtension(): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
-            leaf: {
+            marks: composeMarksDeserializer({
                 A: detectMarks,
                 ABBR: detectMarks,
                 ACRONYM: detectMarks,
@@ -66,7 +68,7 @@ export function TextStylingExtension(): Extension {
                 VAR: detectMarks,
                 VIDEO: detectMarks,
                 WBR: detectMarks,
-            },
+            }),
         },
         onKeyDown,
         renderLeaf: Text,

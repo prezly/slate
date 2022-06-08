@@ -3,6 +3,8 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import { isVideoNode, VIDEO_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { VideoElement } from './components';
 import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib';
 
@@ -12,9 +14,9 @@ export function VideoExtension(): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
-            element: {
+            element: composeElementDeserializer({
                 [VIDEO_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-            },
+            }),
         },
         isRichBlock: isVideoNode,
         isVoid: isVideoNode,

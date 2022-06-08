@@ -4,6 +4,8 @@ import React from 'react';
 
 import { onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak } from '#lib';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { BlockQuoteElement } from './components';
 import { normalizeRedundantAttributes } from './lib';
 
@@ -13,10 +15,10 @@ export function BlockquoteExtension(): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
-            element: {
+            element: composeElementDeserializer({
                 [QUOTE_NODE_TYPE]: () => ({ type: QUOTE_NODE_TYPE }),
                 BLOCKQUOTE: () => ({ type: QUOTE_NODE_TYPE }),
-            },
+            }),
         },
         normalizeNode: [normalizeRedundantAttributes],
         onKeyDown(event, editor) {

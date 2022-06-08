@@ -5,6 +5,8 @@ import React from 'react';
 import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { GalleryElement } from './components';
 import {
     normalizeInvalidGallery,
@@ -22,9 +24,9 @@ export const EXTENSION_ID = 'GalleriesExtension';
 export const GalleriesExtension = ({ availableWidth, onEdit }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [GALLERY_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-        },
+        }),
     },
     isRichBlock: isGalleryNode,
     isVoid: isGalleryNode,
