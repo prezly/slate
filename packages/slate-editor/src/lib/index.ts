@@ -1,5 +1,6 @@
 export * from './hooks';
 export { convertToHtml } from './convertToHtml';
+export { createDataTransfer } from './createDataTransfer';
 export { fetchImageWithProgress } from './fetchImageWithProgress';
 export { dataUriToFile } from './dataUriToFile';
 export { ensureChildInView } from './ensureChildInView';

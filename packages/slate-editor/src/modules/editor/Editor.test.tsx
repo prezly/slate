@@ -5,8 +5,10 @@ import fs from 'fs';
 import path from 'path';
 import { Editor } from 'slate';
 
+import { createDataTransfer } from '#lib';
+
 import { jsx } from './jsx';
-import { createDataTransfer, insertDivider } from './lib';
+import { insertDivider } from './lib';
 import { createEditor } from './test-utils';
 
 function readTestFile(filepath: string): string {

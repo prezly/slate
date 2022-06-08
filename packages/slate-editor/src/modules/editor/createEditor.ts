@@ -22,7 +22,6 @@ import {
     withNonEmptyValue,
     withRichBlocks,
     withRootElements,
-    withSlatePasting,
     withVoids,
 } from './plugins';
 
@@ -50,7 +49,6 @@ export function createEditor(
         withLoaders,
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
-        withSlatePasting,
         withImages,
         withFilePasting(getExtensions),
         withRichBlocks(getExtensions),

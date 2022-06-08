@@ -1,4 +1,3 @@
-export { createDataTransfer } from './createDataTransfer';
 export { createEditorValueWithCoverageAsString } from './createEditorValueWithCoverageAsString';
 export { createEmptyEditorValueAsString } from './createEmptyEditorValueAsString';
 export { createEmptyValue } from './createEmptyValue';
