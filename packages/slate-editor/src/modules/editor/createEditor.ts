@@ -13,8 +13,6 @@ import { withReact } from 'slate-react';
 
 import { flow } from '#lodash';
 
-import { withLoaders } from '#extensions/loader';
-
 import {
     withDeserializeHtml,
     withFilePasting,
@@ -45,7 +43,6 @@ export function createEditor(
         withBreaksOnVoidNodes,
         withInlineVoid(getExtensions),
         withNormalization(getExtensions),
-        withLoaders,
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
         withFilePasting(getExtensions),

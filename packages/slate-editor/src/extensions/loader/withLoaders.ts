@@ -6,7 +6,7 @@ import type { LoaderNode } from './types';
 
 /*
  * Only loaders that have unresolved promises scheduled to dispose of them are allowed
- * in the editor. Other nodes will never be automatically replaced so it's our job to
+ * in the editor. Other nodes will never be automatically replaced, so it's our job to
  * prevent them from re-appearing in the editor.
  */
 function isLoaderAllowed({ id }: LoaderNode): boolean {
