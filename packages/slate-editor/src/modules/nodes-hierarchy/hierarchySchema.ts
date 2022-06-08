@@ -19,7 +19,6 @@ import {
 
 import { LOADER_NODE_TYPE } from '#extensions/loader';
 
-
 import { rootNodeOnly } from './normilizers';
 import type { NodesHierarchySchema } from './types';
 
