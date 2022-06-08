@@ -1,1 +1,1 @@
-export { createDeserialize } from './createDeserialize';
+export { createDeserializer } from './createDeserializer';

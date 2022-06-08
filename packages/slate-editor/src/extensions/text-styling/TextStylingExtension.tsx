@@ -10,7 +10,7 @@ export function TextStylingExtension(): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
-            leaf: {
+            marks: {
                 A: detectMarks,
                 ABBR: detectMarks,
                 ACRONYM: detectMarks,

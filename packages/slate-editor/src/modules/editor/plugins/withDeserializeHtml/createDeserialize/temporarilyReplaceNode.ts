@@ -5,9 +5,7 @@ export function temporarilyReplaceNode(node: Node, replacement: Node): { restore
 
     return {
         restore() {
-            if (replacement.parentNode) {
-                replacement.parentNode.replaceChild(node, replacement);
-            }
+            replacement.parentNode?.replaceChild(node, replacement);
         },
     };
 }

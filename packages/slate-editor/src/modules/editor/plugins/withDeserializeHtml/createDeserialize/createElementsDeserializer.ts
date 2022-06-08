@@ -1,28 +1,30 @@
-import type { Extension } from '@prezly/slate-commons';
+import type { DeserializeElement } from '@prezly/slate-commons';
 import type { Descendant, Element } from 'slate';
 import { jsx } from 'slate-hyperscript';
 
-import { getElementDeserializers } from './getElementDeserializers';
-
 type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
+
+export type ElementsDeserializer = (
+    node: HTMLElement,
+    children: DeserializeHTMLChildren[],
+) => Element | null;
 
 interface Attributes extends Record<string, any> {
     type: string;
 }
 
-export function deserializeHtmlToElement(
-    extensions: Extension[],
+export function createElementsDeserializer(
+    deserializers: DeserializeElement,
     onError: (error: unknown) => void,
-) {
-    return function (node: HTMLElement, children: DeserializeHTMLChildren[]): Element | null {
+): ElementsDeserializer {
+    return function (node, children) {
         const type = node.getAttribute('data-slate-type') || node.nodeName;
-        const elementDeserializers = getElementDeserializers(extensions);
 
-        if (elementDeserializers[type]) {
+        if (deserializers[type]) {
             let attributes: Attributes | undefined;
 
             try {
-                attributes = elementDeserializers[type](node);
+                attributes = deserializers[type](node);
             } catch (error) {
                 onError(error);
             }

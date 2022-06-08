@@ -17,7 +17,7 @@ import { createEditorWithChildren, uploadedImage, withNormalization } from '#mod
 import { normalizeInvalidGallery } from './normalizeInvalidGallery';
 
 describe('normalizeInvalidGallery', () => {
-    it('it should remove malformed GalleryNode elements', function () {
+    it('should remove malformed GalleryNode elements', function () {
         const input = [
             { type: PARAGRAPH_NODE_TYPE, children: [{ text: 'Hello' }] } as ParagraphNode,
             {

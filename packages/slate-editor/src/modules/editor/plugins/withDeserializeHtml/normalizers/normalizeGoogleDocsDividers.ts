@@ -3,7 +3,7 @@ import { isGoogleDocsWrapper } from '@prezly/slate-commons';
 /**
  * <hr> copied from google docs have invalid structure: <p><hr /></p>
  * It gets interpreted by DOMParser as <p/><hr/></p>.
- * That's why we have to clean it up. See `google-docs-divider.html`.
+ * That's why we have to clean it up. See `05.google-docs-divider.html`.
  */
 function normalizeGoogleDocsDivider(document: Document): boolean {
     const hr = document.querySelector('hr');

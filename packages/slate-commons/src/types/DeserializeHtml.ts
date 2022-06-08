@@ -1,8 +1,8 @@
 import type { DeserializeElement } from './DeserializeElement';
-import type { DeserializeLeaf } from './DeserializeLeaf';
+import type { DeserializeMarks } from './DeserializeMarks';
 
 export interface DeserializeHtml {
     element?: DeserializeElement;
     elementFallback?: DeserializeElement;
-    leaf?: DeserializeLeaf;
+    marks?: DeserializeMarks;
 }

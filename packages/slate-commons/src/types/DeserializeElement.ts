@@ -1,11 +1,8 @@
-export type DeserializeElement = Record<
-    string,
-    <T extends HTMLElement>(
-        element: T,
-    ) =>
-        | {
-              type: string;
-              [key: string]: any;
-          }
-        | undefined
->;
+type ElementProperties = {
+    type: string;
+    [key: string]: any;
+};
+
+type DeserializeElementFn = <T extends HTMLElement>(element: T) => ElementProperties | undefined;
+
+export type DeserializeElement = Record<string, DeserializeElementFn>;

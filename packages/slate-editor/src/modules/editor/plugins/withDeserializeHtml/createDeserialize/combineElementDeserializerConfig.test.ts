@@ -1,4 +1,4 @@
-import { combineDeserializers } from './getElementDeserializers';
+import { combineDeserializers } from './combineElementDeserializerConfig';
 
 describe('combineDeserializers', () => {
     it('should combine same-tag-name serializers into a single function', () => {
