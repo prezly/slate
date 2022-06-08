@@ -1,7 +1,16 @@
 import type { Node } from 'slate';
 
-export function decodeSlateFragment(fragment: string): Node[] {
-    const decoded = JSON.parse(decodeURIComponent(window.atob(fragment)));
-    const nodes = Array.isArray(decoded) ? decoded : [decoded];
-    return nodes;
+export function decodeSlateFragment(fragment: string): Node[] | undefined {
+    try {
+        const data = JSON.parse(decodeURIComponent(window.atob(fragment)));
+        if (Array.isArray(data)) {
+            return data;
+        }
+        if (data !== null && typeof data === 'object') {
+            return [data];
+        }
+        return undefined;
+    } catch {
+        return undefined;
+    }
 }
