@@ -4,6 +4,8 @@ import { DIVIDER_NODE_TYPE, isDividerNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { DividerElement } from './components';
 import { createDivider, normalizeRedundantDividerAttributes, parseSerializedElement } from './lib';
 
@@ -12,7 +14,7 @@ export const EXTENSION_ID = 'DividerExtension';
 export const DividerExtension = (): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [DIVIDER_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
             HR: (element) => {
                 if (element.getAttribute('data-is-slate')) {
@@ -21,7 +23,7 @@ export const DividerExtension = (): Extension => ({
 
                 return createDivider();
             },
-        },
+        }),
     },
     isVoid: isDividerNode,
     normalizeNode: normalizeRedundantDividerAttributes,

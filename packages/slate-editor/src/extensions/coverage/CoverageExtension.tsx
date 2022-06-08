@@ -3,6 +3,8 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import { COVERAGE_NODE_TYPE, isCoverageNode } from '@prezly/slate-types';
 import React from 'react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { CoverageElement } from './components';
 import { normalizeRedundantCoverageAttributes, parseSerializedElement } from './lib';
 import type { CoverageExtensionConfiguration } from './types';
@@ -14,9 +16,9 @@ export interface Parameters extends CoverageExtensionConfiguration {}
 export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
-        element: {
+        element: composeElementDeserializer({
             [COVERAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-        },
+        }),
     },
     isRichBlock: isCoverageNode,
     isVoid: isCoverageNode,
