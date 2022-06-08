@@ -1,5 +1,6 @@
 import { decodeSlateFragment } from '@prezly/slate-commons';
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
+import { Transforms } from 'slate';
 
 import { createDataTransfer } from '#lib';
 
@@ -16,7 +17,7 @@ export function withSlatePasting<T extends Editor>(editor: T) {
             const isPrezlyFragment = isFragment(fragment);
 
             if (isPrezlyFragment) {
-                Editor.insertFragment(editor, fragment);
+                Transforms.insertNodes(editor, fragment);
             } else {
                 editor.insertData(withoutSlateFragmentAttribute(data));
             }
