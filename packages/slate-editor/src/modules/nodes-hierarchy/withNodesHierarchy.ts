@@ -20,22 +20,15 @@ export function withNodesHierarchy(schema: NodesHierarchySchema) {
                 return normalizeNode(entry);
             }
 
-            const [normalizers, fallback] = schemaEntry;
-
-            let hasSomeNormalizerApplied = false;
-
-            normalizers.forEach((normalizer) => {
-                const isNormalized =
-                    normalizer(editor, [node, path]) || fallback?.(editor, [node, path]);
+            for (const normalizer of schemaEntry) {
+                const isNormalized = normalizer(editor, [node, path]);
 
                 if (isNormalized) {
-                    hasSomeNormalizerApplied = true;
+                    return;
                 }
-            });
-
-            if (!hasSomeNormalizerApplied) {
-                normalizeNode(entry);
             }
+
+            normalizeNode(entry);
         };
 
         return editor;
