@@ -31,12 +31,10 @@ export function withNodesHierarchy(schema: NodesHierarchySchema) {
                 if (isNormalized) {
                     hasSomeNormalizerApplied = true;
                 }
-
-                return isNormalized;
             });
 
             if (!hasSomeNormalizerApplied) {
-                return normalizeNode(entry);
+                normalizeNode(entry);
             }
         };
 
