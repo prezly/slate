@@ -4,7 +4,7 @@ import { Transforms } from 'slate';
 
 import { createDataTransfer } from '#lib';
 
-import { isFragment } from './isFragment';
+import { isFragment as isValidFragment } from './isFragment';
 
 export function withSlatePasting<T extends Editor>(editor: T) {
     const { insertData } = editor;
@@ -14,9 +14,8 @@ export function withSlatePasting<T extends Editor>(editor: T) {
 
         if (slateFragment) {
             const fragment = decodeSlateFragment(slateFragment);
-            const isPrezlyFragment = isFragment(fragment);
 
-            if (isPrezlyFragment) {
+            if (isValidFragment(fragment)) {
                 Transforms.insertNodes(editor, fragment);
             } else {
                 editor.insertData(withoutSlateFragmentAttribute(data));
