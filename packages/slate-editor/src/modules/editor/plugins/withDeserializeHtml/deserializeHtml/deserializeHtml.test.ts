@@ -39,28 +39,28 @@ describe('deserializeHtml', () => {
         expect(deserializeHtml(extensions, input, handleError)).toMatchObject(JSON.parse(expected));
     });
 
-    it('it should deserialize a "paragraph"', () => {
+    it('should deserialize a "paragraph"', () => {
         const input = readTestFile('04.paragraph.html');
         const expected = readTestFile('04.paragraph.json');
 
         expect(deserializeHtml(extensions, input, handleError)).toMatchObject(JSON.parse(expected));
     });
 
-    it('it should deserialize a nested "divider" (Google Docs)', () => {
+    it('should deserialize a nested "divider" (Google Docs)', () => {
         const input = readTestFile('05.google-docs-divider.html');
         const expected = readTestFile('05.google-docs-divider.json');
 
         expect(deserializeHtml(extensions, input, handleError)).toMatchObject(JSON.parse(expected));
     });
 
-    it('it should deserialize a mix of "paragraphs" and "quotes"', () => {
+    it('should deserialize a mix of "paragraphs" and "quotes"', () => {
         const input = readTestFile('06.paragraphs-and-quotes.html');
         const expected = readTestFile('06.paragraphs-and-quotes.json');
 
         expect(deserializeHtml(extensions, input, handleError)).toMatchObject(JSON.parse(expected));
     });
 
-    it('it should deserialize nested "lists"', () => {
+    it('should deserialize nested "lists"', () => {
         const input = readTestFile('07.nested-lists.html');
         const expected = readTestFile('07.nested-lists.json');
 
