@@ -1,8 +1,7 @@
-import { decodeSlateFragment } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
-import { createDataTransfer } from '#lib';
+import { createDataTransfer, decodeSlateFragment } from '#lib';
 
 import { isFragment as isValidFragment } from './isFragment';
 
