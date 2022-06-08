@@ -32,7 +32,6 @@ export function BlockquoteExtension(): Extension {
             }
             return undefined;
         },
-        rootTypes: [QUOTE_NODE_TYPE],
         withOverrides: withResetFormattingOnBreak(isQuoteNode),
     };
 }

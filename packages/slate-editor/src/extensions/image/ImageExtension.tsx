@@ -15,7 +15,6 @@ import { noop } from '#lodash';
 import { createParagraph } from '#extensions/paragraphs';
 
 import { ImageElement } from './components';
-import { IMAGE_CANDIDATE_NODE_TYPE } from './constants';
 import {
     createImageCandidate,
     getAncestorAnchor,
@@ -157,5 +156,4 @@ export const ImageExtension = ({
 
         return undefined;
     },
-    rootTypes: [IMAGE_CANDIDATE_NODE_TYPE, IMAGE_NODE_TYPE],
 });

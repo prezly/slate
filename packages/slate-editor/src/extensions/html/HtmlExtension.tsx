@@ -29,5 +29,4 @@ export const HtmlExtension = (): Extension => ({
 
         return undefined;
     },
-    rootTypes: [HTML_NODE_TYPE],
 });

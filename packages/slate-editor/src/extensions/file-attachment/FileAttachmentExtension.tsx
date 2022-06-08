@@ -58,5 +58,4 @@ export const FileAttachmentExtension = ({
 
         return undefined;
     },
-    rootTypes: [ATTACHMENT_NODE_TYPE],
 });

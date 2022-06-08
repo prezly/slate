@@ -37,5 +37,4 @@ export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Ex
 
         return undefined;
     },
-    rootTypes: [COVERAGE_NODE_TYPE],
 });

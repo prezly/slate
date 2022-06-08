@@ -29,5 +29,4 @@ export const PressContactsExtension = (): Extension => ({
 
         return undefined;
     },
-    rootTypes: [CONTACT_NODE_TYPE],
 });

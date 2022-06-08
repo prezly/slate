@@ -39,7 +39,6 @@ export function HeadingExtension(): Extension {
             }
             return undefined;
         },
-        rootTypes: [HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE],
         withOverrides: withResetFormattingOnBreak(isHeadingNode),
     };
 }

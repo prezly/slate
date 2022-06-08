@@ -42,5 +42,4 @@ export const WebBookmarkExtension = ({
 
         return undefined;
     },
-    rootTypes: [BOOKMARK_NODE_TYPE],
 });

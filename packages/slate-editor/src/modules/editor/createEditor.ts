@@ -13,15 +13,16 @@ import { withReact } from 'slate-react';
 
 import { flow } from '#lodash';
 
+
 import { withImages } from '#extensions/image';
 import { withLoaders } from '#extensions/loader';
+import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
 import {
     withDeserializeHtml,
     withFilePasting,
     withNonEmptyValue,
     withRichBlocks,
-    withRootElements,
     withSlatePasting,
     withVoids,
 } from './plugins';
@@ -40,9 +41,7 @@ export function createEditor(
         withHistory,
         withNonEmptyValue,
         withVoids,
-        // withRootElements needs to be before specific plugins, so that other plugins
-        // can override it with more specific normalizations that will take precedence
-        withRootElements(getExtensions),
+        withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,
         withInlineVoid(getExtensions),

@@ -36,5 +36,4 @@ export const DividerExtension = (): Extension => ({
 
         return undefined;
     },
-    rootTypes: [DIVIDER_NODE_TYPE],
 });

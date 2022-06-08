@@ -30,6 +30,5 @@ export function VideoExtension(): Extension {
 
             return undefined;
         },
-        rootTypes: [VIDEO_NODE_TYPE],
     };
 }
