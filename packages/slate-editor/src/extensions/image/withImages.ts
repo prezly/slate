@@ -14,7 +14,7 @@ export function withImages<T extends Editor>(editor: T): T {
         if (editor.selection && Range.isCollapsed(editor.selection)) {
             const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-            // Fix copying sole, captionless image nodes when captions are enabled
+            // Fix copying single captionless image nodes when captions are enabled
             if (
                 currentNode &&
                 isImageNode(currentNode) &&

@@ -13,7 +13,6 @@ import { withReact } from 'slate-react';
 
 import { flow } from '#lodash';
 
-import { withImages } from '#extensions/image';
 import { withLoaders } from '#extensions/loader';
 
 import {
@@ -49,7 +48,6 @@ export function createEditor(
         withLoaders,
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
-        withImages,
         withFilePasting(getExtensions),
         withRichBlocks(getExtensions),
         ...overrides,
