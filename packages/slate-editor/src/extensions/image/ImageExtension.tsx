@@ -13,6 +13,7 @@ import { isDeletingEvent, isDeletingEventBackward } from '#lib';
 import { noop } from '#lodash';
 
 import { createParagraph } from '#extensions/paragraphs';
+import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ImageElement } from './components';
 import {
@@ -25,7 +26,6 @@ import {
     parseSerializedElement,
 } from './lib';
 import type { ImageCandidateNode, ImageExtensionConfiguration } from './types';
-import { composeElementDeserializer } from '#modules/html-deserialization';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
 

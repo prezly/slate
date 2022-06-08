@@ -13,7 +13,6 @@ import { withReact } from 'slate-react';
 
 import { flow } from '#lodash';
 
-
 import { withImages } from '#extensions/image';
 import { withLoaders } from '#extensions/loader';
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';

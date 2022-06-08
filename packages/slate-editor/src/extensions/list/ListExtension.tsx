@@ -12,10 +12,11 @@ import {
 } from '@prezly/slate-types';
 import React from 'react';
 
+import { composeElementDeserializer } from '#modules/html-deserialization';
+
 import { ListElement, ListItemElement, ListItemTextElement } from './components';
 import { normalizeRedundantAttributes, parseList, parseListItem, parseListItemText } from './lib';
 import { withListsFormatting } from './withListsFormatting';
-import { composeElementDeserializer } from '#modules/html-deserialization';
 
 export const EXTENSION_ID = 'ListExtension';
 
