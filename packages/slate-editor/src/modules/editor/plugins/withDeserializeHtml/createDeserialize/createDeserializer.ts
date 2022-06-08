@@ -1,6 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
-import { isGoogleDocsWrapper } from '@prezly/slate-commons';
 import type { Descendant } from 'slate';
+
+import { isGoogleDocsWrapper } from '#lib';
 
 import {
     combineExtensionsElementDeserializers,

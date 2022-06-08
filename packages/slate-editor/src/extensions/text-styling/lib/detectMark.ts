@@ -1,4 +1,4 @@
-import { isGoogleDocsWrapper } from '@prezly/slate-commons';
+import { isGoogleDocsWrapper } from '#lib';
 
 export function detectMark(
     element: HTMLElement,
