@@ -12,7 +12,11 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { createEditor as createSlateEditor } from 'slate';
-import { createEditor as createEditorFactory, createHyperscript } from 'slate-hyperscript';
+import {
+    createEditor as createEditorFactory,
+    createHyperscript,
+    createText,
+} from 'slate-hyperscript';
 
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { HeadingExtension } from '#extensions/heading';
@@ -47,5 +51,6 @@ export const jsx = createHyperscript({
     },
     creators: {
         editor: createEditorFactory(() => createEditor(createSlateEditor(), () => extensions)),
+        'h-text': createText,
     },
 });
