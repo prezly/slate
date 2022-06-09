@@ -22,7 +22,8 @@ module.exports = {
         "import",
         "react",
         "react-hooks",
-        "jsx-a11y"
+        "jsx-a11y",
+        "sort-keys-fix"
     ],
     "settings": {
         "react": {

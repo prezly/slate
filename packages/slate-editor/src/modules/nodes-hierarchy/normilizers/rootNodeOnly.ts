@@ -1,8 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { ElementNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { Editor, ElementEntry } from 'slate';
 
-export function rootNodeOnly(editor: Editor, entry: NodeEntry<ElementNode>): boolean {
+export function rootNodeOnly(editor: Editor, entry: ElementEntry): boolean {
     return EditorCommands.normalizeNestedElement(editor, entry, disallowAnyParent);
 }
 

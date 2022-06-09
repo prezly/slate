@@ -14,13 +14,7 @@ export function withNodesHierarchy(schema: NodesHierarchySchema) {
                 return normalizeNode(entry);
             }
 
-            const schemaEntry = schema[node.type];
-
-            if (!schemaEntry) {
-                return normalizeNode(entry);
-            }
-
-            for (const normalizer of schemaEntry) {
+            for (const normalizer of schema[node.type] ?? []) {
                 const isNormalized = normalizer(editor, [node, path]);
 
                 if (isNormalized) {
