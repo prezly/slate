@@ -1,30 +1,18 @@
-import type { Descendant } from 'slate';
+import type { Text } from 'slate';
 
-import type { MarksDeserializer } from './createMarksDeserializer';
-import { replaceCarriageReturnWithLineFeed } from './replaceCarriageReturnWithLineFeed';
-import { temporarilyReplaceNode } from './temporarilyReplaceNode';
+import type { HTMLText } from './dom';
 
-export type TextDeserializer = (node: Text) => Descendant[] | null;
+export type TextDeserializer = (node: HTMLText) => Text[];
 
-export function createTextDeserializer(deserializeMarks: MarksDeserializer): TextDeserializer {
-    return function (node: Text): Descendant[] | null {
-        if (!node.textContent) {
-            return null;
+export function createTextDeserializer(cleanup: (text: string) => string): TextDeserializer {
+    return function (node) {
+        // Cleanup
+        const text = cleanup(node.textContent ?? '');
+
+        if (text) {
+            return [{ text }];
         }
 
-        // Temporarily wrap text node into a <span> so that deserializeHtmlToMarks
-        // can run leaf deserialization on it. This is to handle situations where
-        // a text node is not a child of a leaf node (e.g. Link).
-        const span = document.createElement('span');
-        span.appendChild(node.cloneNode(true));
-        const { restore } = temporarilyReplaceNode(node, span);
-
-        const result = deserializeMarks(span, [
-            replaceCarriageReturnWithLineFeed(node.textContent),
-        ]);
-
-        restore();
-
-        return result;
+        return [];
     };
 }

@@ -1,31 +1,38 @@
 import type { DeserializeMarks } from '@prezly/slate-commons';
 import type { Descendant } from 'slate';
-import { Element } from 'slate';
-import { createText } from 'slate-hyperscript';
+import { Element, Text } from 'slate';
 
-type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
-
-export type MarksDeserializer = (
-    node: HTMLElement,
-    children: DeserializeHTMLChildren[],
-) => Descendant[] | null;
+export type MarksDeserializer = (node: HTMLElement, children: Descendant[]) => Descendant[];
 
 export function createMarksDeserializer(deserialize: DeserializeMarks): MarksDeserializer {
     return function (node, children) {
-        const props = deserialize(node) || {};
+        const props = deserialize(node) ?? {};
 
-        return children.reduce<Descendant[]>((array, child) => {
-            if (!child) {
-                return array;
-            }
+        if (Object.keys(props).length === 0) {
+            return children;
+        }
 
-            if (Element.isElement(child)) {
-                array.push(child);
-            } else {
-                array.push(createText('text', props, [child]));
-            }
-
-            return array;
-        }, []);
+        return children.map((child) => applyStylingProps(child, props));
     };
+}
+
+/**
+ * Recursively apply the given style marks to all descendant Text nodes.
+ */
+function applyStylingProps<T extends Descendant>(node: T, styles: Record<string, any>): T {
+    if (Text.isText(node)) {
+        const { text, ...props } = node;
+        return { ...props, ...styles, text } as T;
+    }
+
+    if (Element.isElement(node)) {
+        const { children, ...props } = node;
+
+        return {
+            ...props,
+            children: children.map((child) => applyStylingProps(child, styles)),
+        } as T;
+    }
+
+    return node;
 }

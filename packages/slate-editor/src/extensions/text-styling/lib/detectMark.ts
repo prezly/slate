@@ -1,4 +1,4 @@
-import { isGoogleDocsWrapper } from '@prezly/slate-commons';
+import { isGoogleDocsWrapper } from '#lib';
 
 export function detectMark(
     element: HTMLElement,
@@ -8,13 +8,5 @@ export function detectMark(
         return false;
     }
 
-    if (hasMark(element)) {
-        return true;
-    }
-
-    if (element.parentElement) {
-        return detectMark(element.parentElement, hasMark);
-    }
-
-    return false;
+    return hasMark(element);
 }

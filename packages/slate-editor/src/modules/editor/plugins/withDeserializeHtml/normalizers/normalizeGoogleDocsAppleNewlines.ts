@@ -1,4 +1,4 @@
-import { isGoogleDocsWrapper } from '@prezly/slate-commons';
+import { isGoogleDocsWrapper } from '#lib';
 
 /**
  * Google Docs adds an extra <br class="Apple-interchange-newline"> at the end of HTML

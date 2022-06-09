@@ -1,4 +1,4 @@
-import { isGoogleDocsWrapper } from '@prezly/slate-commons';
+import { isGoogleDocsWrapper } from '#lib';
 
 /**
  * <hr> copied from google docs have invalid structure: <p><hr /></p>

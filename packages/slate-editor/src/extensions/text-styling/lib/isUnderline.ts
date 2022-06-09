@@ -1,9 +1,5 @@
 export function isUnderline(element: HTMLElement): boolean {
     const textDecoration = element.style.getPropertyValue('text-decoration');
 
-    if (textDecoration) {
-        return textDecoration.includes('underline');
-    }
-
-    return element.tagName === 'U';
+    return element.tagName === 'U' || textDecoration.includes('underline');
 }
