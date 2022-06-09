@@ -25,7 +25,6 @@ export const ParagraphsExtension = (): Extension => ({
         elementFallback: composeElementDeserializer({
             P: paragraph, // It has to be in the fallbacks, to allow other extensions to parse specific P tags hierarchies.
             DIV: paragraph, // It has to be in the fallbacks, to allow other extensions to parse specific DIV tags hierarchies.
-            FONT: paragraph, // FIXME
             BR: paragraph,
         }),
     },
