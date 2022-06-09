@@ -13,6 +13,7 @@ import { createMarksDeserializer } from './createMarksDeserializer';
 import { createTextDeserializer } from './createTextDeserializer';
 import type { HTMLNode } from './dom';
 import { isHTMLElement, isHTMLText } from './dom';
+import { replaceCarriageReturnWithLineFeed } from './replaceCarriageReturnWithLineFeed';
 
 export function createDeserializer(extensions: Extension[], onError: (error: unknown) => void) {
     const deserializeElement = createElementsDeserializer(
@@ -22,7 +23,7 @@ export function createDeserializer(extensions: Extension[], onError: (error: unk
     const deserializeMarks = createMarksDeserializer(
         combineExtensionsMarkDeserializers(extensions),
     );
-    const deserializeText = createTextDeserializer();
+    const deserializeText = createTextDeserializer(replaceCarriageReturnWithLineFeed);
 
     return function deserialize(node: HTMLNode): Descendant[] {
         if (isHTMLText(node) && node.parentNode?.nodeName !== 'BODY') {

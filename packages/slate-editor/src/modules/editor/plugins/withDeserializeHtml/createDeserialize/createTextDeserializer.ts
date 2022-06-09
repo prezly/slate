@@ -1,14 +1,13 @@
 import type { Text } from 'slate';
 
 import type { HTMLText } from './dom';
-import { replaceCarriageReturnWithLineFeed } from './replaceCarriageReturnWithLineFeed';
 
 export type TextDeserializer = (node: HTMLText) => Text[];
 
-export function createTextDeserializer(): TextDeserializer {
+export function createTextDeserializer(cleanup: (text: string) => string): TextDeserializer {
     return function (node) {
         // Cleanup
-        const text = replaceCarriageReturnWithLineFeed(node.textContent ?? '');
+        const text = cleanup(node.textContent ?? '');
 
         if (text) {
             return [{ text }];
