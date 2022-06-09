@@ -1,8 +1,6 @@
 export * as EditorCommands from './commands';
 export {
     createDeserializeElement,
-    decodeSlateFragment,
-    encodeSlateFragment,
     isGoogleDocsWrapper,
     nodeIdManager,
     useSavedSelection,

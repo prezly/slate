@@ -13,16 +13,12 @@ import { withReact } from 'slate-react';
 
 import { flow } from '#lodash';
 
-import { withImages } from '#extensions/image';
-import { withLoaders } from '#extensions/loader';
-
 import {
     withDeserializeHtml,
     withFilePasting,
     withNonEmptyValue,
     withRichBlocks,
     withRootElements,
-    withSlatePasting,
     withVoids,
 } from './plugins';
 
@@ -47,11 +43,8 @@ export function createEditor(
         withBreaksOnVoidNodes,
         withInlineVoid(getExtensions),
         withNormalization(getExtensions),
-        withLoaders,
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
-        withSlatePasting,
-        withImages,
         withFilePasting(getExtensions),
         withRichBlocks(getExtensions),
         ...overrides,

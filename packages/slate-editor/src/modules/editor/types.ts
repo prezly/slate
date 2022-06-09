@@ -19,7 +19,7 @@ import type { VideoExtensionParameters } from '#extensions/video';
 import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
 import type { EditorEventMap } from '#modules/events';
 
-import type { useCursorInView } from '../lib';
+import type { useCursorInView } from './lib';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
@@ -89,5 +89,3 @@ export interface EditorProps {
     withVideos?: false | VideoExtensionParameters;
     withWebBookmarks?: false | WebBookmarkExtensionParameters;
 }
-
-export * from './Fragment';

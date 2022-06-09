@@ -1,7 +1,10 @@
 export * from './hooks';
 export { convertToHtml } from './convertToHtml';
+export { createDataTransfer } from './createDataTransfer';
 export { fetchImageWithProgress } from './fetchImageWithProgress';
 export { dataUriToFile } from './dataUriToFile';
+export { decodeSlateFragment } from './decodeSlateFragment';
+export { encodeSlateFragment } from './encodeSlateFragment';
 export { ensureChildInView } from './ensureChildInView';
 export { ensureElementInView } from './ensureElementInView';
 export { ensureRangeInView } from './ensureRangeInView';

@@ -13,6 +13,7 @@ import { isDeletingEvent, isDeletingEventBackward } from '#lib';
 import { noop } from '#lodash';
 
 import { createParagraph } from '#extensions/paragraphs';
+import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ImageElement } from './components';
 import { IMAGE_CANDIDATE_NODE_TYPE } from './constants';
@@ -26,7 +27,7 @@ import {
     parseSerializedElement,
 } from './lib';
 import type { ImageCandidateNode, ImageExtensionConfiguration } from './types';
-import { composeElementDeserializer } from '#modules/html-deserialization';
+import { withImages } from './withImages';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
 
@@ -159,4 +160,5 @@ export const ImageExtension = ({
         return undefined;
     },
     rootTypes: [IMAGE_CANDIDATE_NODE_TYPE, IMAGE_NODE_TYPE],
+    withOverrides: withImages,
 });

@@ -4,4 +4,3 @@ export { createImage, getCurrentImageNodeEntry, isImageCandidateElement } from '
 export { withoutImageCandidates } from './serialization';
 export { removeImage } from './transforms';
 export type { ImageExtensionConfiguration } from './types';
-export { withImages } from './withImages';
