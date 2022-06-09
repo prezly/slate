@@ -17,7 +17,7 @@ export function withSlatePasting<T extends Editor>(editor: T) {
             if (isValidFragment(fragment)) {
                 Transforms.insertNodes(editor, fragment);
             } else {
-                editor.insertData(withoutSlateFragmentAttribute(data));
+                editor.insertData(withoutSlateFragmentData(data));
             }
 
             return;
@@ -29,7 +29,7 @@ export function withSlatePasting<T extends Editor>(editor: T) {
     return editor;
 }
 
-function withoutSlateFragmentAttribute(data: DataTransfer): DataTransfer {
+function withoutSlateFragmentData(data: DataTransfer): DataTransfer {
     const types = data.types.filter((type) => type !== 'application/x-slate-fragment');
     const dataMap = Object.fromEntries(types.map((type) => [type, data.getData(type)]));
     return createDataTransfer(dataMap);
