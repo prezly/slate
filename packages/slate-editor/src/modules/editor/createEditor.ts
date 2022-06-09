@@ -19,7 +19,6 @@ import {
     withNonEmptyValue,
     withRichBlocks,
     withRootElements,
-    withVoids,
 } from './plugins';
 
 export function createEditor(
@@ -35,7 +34,6 @@ export function createEditor(
         withReact,
         withHistory,
         withNonEmptyValue,
-        withVoids,
         // withRootElements needs to be before specific plugins, so that other plugins
         // can override it with more specific normalizations that will take precedence
         withRootElements(getExtensions),
