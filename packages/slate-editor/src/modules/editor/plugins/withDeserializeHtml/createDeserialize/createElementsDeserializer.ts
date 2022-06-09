@@ -1,13 +1,9 @@
 import type { DeserializeElement } from '@prezly/slate-commons';
 import type { Descendant, Element } from 'slate';
-import { jsx } from 'slate-hyperscript';
 
-type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
+import type { HTMLElement } from './dom';
 
-export type ElementsDeserializer = (
-    node: HTMLElement,
-    children: DeserializeHTMLChildren[],
-) => Element | null;
+export type ElementsDeserializer = (node: HTMLElement, children: Descendant[]) => Element | null;
 
 export function createElementsDeserializer(
     deserialize: DeserializeElement,
@@ -24,7 +20,7 @@ export function createElementsDeserializer(
 
         if (typeof attributes === 'undefined') {
             // The deserializer did not manage to deserialize this `node`.
-            // Appearently the `node` did not match constraints enforced by
+            // Apparently, the `node` did not match constraints enforced by
             // particular deserializer.
             // Just because a deserializer for a particular `type` (e.g. "DIV")
             // exists, it does not mean we want to deserialize it.
@@ -33,13 +29,16 @@ export function createElementsDeserializer(
             return null;
         }
 
-        let descendants = children as (Descendant | null)[];
-        const validDescendants = descendants.filter((descendant) => descendant !== null);
-
-        if (validDescendants.length === 0) {
-            descendants = [{ text: '' }];
-        }
-
-        return jsx('element', attributes, descendants);
+        return {
+            ...attributes,
+            children: withAtLeastOneTextNode(children),
+        } as Element;
     };
+}
+
+function withAtLeastOneTextNode(children: Descendant[]): Descendant[] {
+    if (children.length === 0) {
+        return [{ text: '' }];
+    }
+    return children;
 }

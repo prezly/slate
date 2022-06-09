@@ -9,8 +9,7 @@ export function withRichBlocks(getExtensions: () => Extension[]) {
     return function <T extends BaseEditor>(editor: T): T & RichBlocksAwareEditor {
         function isRichBlock(node: Node) {
             for (const extension of getExtensions()) {
-                const ret = extension.isRichBlock?.(node);
-                if (ret) return ret;
+                if (extension.isRichBlock?.(node)) return true;
             }
             return false;
         }

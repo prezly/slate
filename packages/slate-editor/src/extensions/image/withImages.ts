@@ -1,11 +1,9 @@
-/* eslint-disable no-param-reassign */
-
-import { EditorCommands, encodeSlateFragment } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
 import { Editor, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { convertToHtml } from '#lib';
+import { convertToHtml, encodeSlateFragment } from '#lib';
 
 export function withImages<T extends Editor>(editor: T): T {
     const { insertData, setFragmentData } = editor;
@@ -14,7 +12,7 @@ export function withImages<T extends Editor>(editor: T): T {
         if (editor.selection && Range.isCollapsed(editor.selection)) {
             const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-            // Fix copying sole, captionless image nodes when captions are enabled
+            // Fix copying single captionless image nodes when captions are enabled
             if (
                 currentNode &&
                 isImageNode(currentNode) &&

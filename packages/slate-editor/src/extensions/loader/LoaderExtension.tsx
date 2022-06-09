@@ -5,6 +5,7 @@ import type { RenderElementProps } from 'slate-react';
 import { LoaderElement } from './components';
 import { isLoaderElement, normalizeRedundantLoaderAttributes } from './lib';
 import type { LoaderParameters } from './types';
+import { withLoaders } from './withLoaders';
 
 export const EXTENSION_ID = 'LoaderExtension';
 
@@ -32,4 +33,5 @@ export const LoaderExtension = ({
 
         return undefined;
     },
+    withOverrides: withLoaders,
 });

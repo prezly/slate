@@ -1,9 +1,5 @@
 export function isSuperscript(element: HTMLElement): boolean {
     const verticalAlign = element.style.getPropertyValue('vertical-align');
 
-    if (verticalAlign) {
-        return verticalAlign === 'super';
-    }
-
-    return element.tagName === 'SUP';
+    return element.tagName === 'SUP' || verticalAlign === 'super';
 }

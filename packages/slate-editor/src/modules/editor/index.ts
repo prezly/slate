@@ -1,7 +1,6 @@
 export { default as Editor } from './Editor';
 export { createEditor } from './createEditor';
 export {
-    createDataTransfer,
     createEmptyValue,
     createEmptyEditorValueAsString,
     createEditorValueWithCoverageAsString,

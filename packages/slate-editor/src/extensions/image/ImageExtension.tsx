@@ -26,6 +26,7 @@ import {
     parseSerializedElement,
 } from './lib';
 import type { ImageCandidateNode, ImageExtensionConfiguration } from './types';
+import { withImages } from './withImages';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
 
@@ -157,4 +158,5 @@ export const ImageExtension = ({
 
         return undefined;
     },
+    withOverrides: withImages,
 });

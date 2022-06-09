@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-commons",
-    "version": "0.40.8",
+    "version": "0.42.0",
     "description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
     "license": "MIT",
     "type": "module",
@@ -50,12 +50,12 @@
     },
     "peerDependencies": {
         "react": "^16.9.0 || ^17.0.0 || ^18.0.0",
-        "slate": "^0.77.2",
+        "slate": "^0.81.0",
         "slate-history": "^0.66.0",
-        "slate-react": "^0.77.2"
+        "slate-react": "^0.81.0"
     },
     "dependencies": {
-        "@prezly/slate-types": "^0.40.8",
+        "@prezly/slate-types": "^0.42.0",
         "uuid": "^8.3.0"
     },
     "devDependencies": {

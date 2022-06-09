@@ -1,12 +1,16 @@
 export * from './hooks';
 export { convertToHtml } from './convertToHtml';
+export { createDataTransfer } from './createDataTransfer';
 export { fetchImageWithProgress } from './fetchImageWithProgress';
 export { dataUriToFile } from './dataUriToFile';
+export { decodeSlateFragment } from './decodeSlateFragment';
+export { encodeSlateFragment } from './encodeSlateFragment';
 export { ensureChildInView } from './ensureChildInView';
 export { ensureElementInView } from './ensureElementInView';
 export { ensureRangeInView } from './ensureRangeInView';
 export { formatBytes } from './formatBytes';
 export { getScrollParent } from './getScrollParent';
+export { isGoogleDocsWrapper } from './isGoogleDocsWrapper';
 export { isHtmlElement } from './isHtmlElement';
 export { mergeRefs } from './mergeRefs';
 export { Observable } from './Observable';

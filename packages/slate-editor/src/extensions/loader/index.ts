@@ -6,4 +6,3 @@ export { withoutLoaders } from './serialization';
 export { removeLoader, replaceLoader } from './transforms';
 export type { LoaderNode } from './types';
 export { LoaderContentType } from './types';
-export { withLoaders } from './withLoaders';

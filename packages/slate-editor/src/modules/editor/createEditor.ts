@@ -13,18 +13,9 @@ import { withReact } from 'slate-react';
 
 import { flow } from '#lodash';
 
-import { withImages } from '#extensions/image';
-import { withLoaders } from '#extensions/loader';
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
-import {
-    withDeserializeHtml,
-    withFilePasting,
-    withNonEmptyValue,
-    withRichBlocks,
-    withSlatePasting,
-    withVoids,
-} from './plugins';
+import { withDeserializeHtml, withFilePasting, withNonEmptyValue, withRichBlocks } from './plugins';
 
 export function createEditor(
     baseEditor: Editor,
@@ -39,17 +30,13 @@ export function createEditor(
         withReact,
         withHistory,
         withNonEmptyValue,
-        withVoids,
         withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,
         withInlineVoid(getExtensions),
         withNormalization(getExtensions),
-        withLoaders,
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
-        withSlatePasting,
-        withImages,
         withFilePasting(getExtensions),
         withRichBlocks(getExtensions),
         ...overrides,

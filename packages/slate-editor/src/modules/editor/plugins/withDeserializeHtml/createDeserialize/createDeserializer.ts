@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
-import { isGoogleDocsWrapper } from '@prezly/slate-commons';
-import type { Descendant, Element } from 'slate';
-import { jsx } from 'slate-hyperscript';
+import type { Descendant } from 'slate';
+
+import { isGoogleDocsWrapper } from '#lib';
 
 import {
     combineExtensionsElementDeserializers,
@@ -11,8 +11,9 @@ import {
 import { createElementsDeserializer } from './createElementsDeserializer';
 import { createMarksDeserializer } from './createMarksDeserializer';
 import { createTextDeserializer } from './createTextDeserializer';
-
-type DeserializeHTMLChildren = ChildNode | Descendant | string | null;
+import type { HTMLNode } from './dom';
+import { isHTMLElement, isHTMLText } from './dom';
+import { replaceCarriageReturnWithLineFeed } from './replaceCarriageReturnWithLineFeed';
 
 export function createDeserializer(extensions: Extension[], onError: (error: unknown) => void) {
     const deserializeElement = createElementsDeserializer(
@@ -22,38 +23,31 @@ export function createDeserializer(extensions: Extension[], onError: (error: unk
     const deserializeMarks = createMarksDeserializer(
         combineExtensionsMarkDeserializers(extensions),
     );
-    const deserializeText = createTextDeserializer(deserializeMarks);
+    const deserializeText = createTextDeserializer(replaceCarriageReturnWithLineFeed);
 
-    function deserialize(
-        node: HTMLElement | ChildNode,
-    ): string | Element | DeserializeHTMLChildren[] | null {
-        const children = Array.from(node.childNodes).flatMap(deserialize);
-
-        if (node.nodeType === Node.TEXT_NODE && node.parentNode?.nodeName !== 'BODY') {
-            return deserializeText(node as Text);
+    return function deserialize(node: HTMLNode): Descendant[] {
+        if (isHTMLText(node) && node.parentNode?.nodeName !== 'BODY') {
+            return deserializeText(node);
         }
 
-        if (node.nodeType !== Node.ELEMENT_NODE) {
-            return null;
+        if (isHTMLElement(node)) {
+            const children = deserializeMarks(
+                node,
+                Array.from(node.childNodes).flatMap(deserialize),
+            );
+
+            if (node.nodeName === 'BODY' || isGoogleDocsWrapper(node)) {
+                return children;
+            }
+
+            const element = deserializeElement(node, children);
+            if (element) {
+                return [element];
+            }
+
+            return children;
         }
 
-        const htmlElement = node as HTMLElement;
-        if (htmlElement.nodeName === 'BODY' || isGoogleDocsWrapper(htmlElement)) {
-            return jsx('fragment', {}, children);
-        }
-
-        const element = deserializeElement(htmlElement, children);
-        if (element) {
-            return element;
-        }
-
-        const marks = deserializeMarks(htmlElement, children);
-        if (marks) {
-            return marks;
-        }
-
-        return children;
-    }
-
-    return (node: HTMLElement) => deserialize(node) as Descendant[];
+        return [];
+    };
 }
