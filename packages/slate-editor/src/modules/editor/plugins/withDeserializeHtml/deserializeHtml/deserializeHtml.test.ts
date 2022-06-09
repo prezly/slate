@@ -66,4 +66,18 @@ describe('deserializeHtml', () => {
 
         expect(deserializeHtml(extensions, input, handleError)).toMatchObject(JSON.parse(expected));
     });
+
+    it('should deserialize marks to all descendant text nodes recursively', () => {
+        const input = readTestFile('08.recursive-marks.html');
+        const expected = readTestFile('08.recursive-marks.json');
+
+        expect(deserializeHtml(extensions, input, handleError)).toMatchObject(JSON.parse(expected));
+    });
+
+    it('should deserialize marks from styles applied on the element itself', () => {
+        const input = readTestFile('09.elements-with-text-styling.html');
+        const expected = readTestFile('09.elements-with-text-styling.json');
+
+        expect(deserializeHtml(extensions, input, handleError)).toMatchObject(JSON.parse(expected));
+    });
 });

@@ -31,7 +31,10 @@ export function createDeserializer(extensions: Extension[], onError: (error: unk
         }
 
         if (isHTMLElement(node)) {
-            const children = Array.from(node.childNodes).flatMap(deserialize);
+            const children = deserializeMarks(
+                node,
+                Array.from(node.childNodes).flatMap(deserialize),
+            );
 
             if (node.nodeName === 'BODY' || isGoogleDocsWrapper(node)) {
                 return children;
@@ -42,7 +45,7 @@ export function createDeserializer(extensions: Extension[], onError: (error: unk
                 return [element];
             }
 
-            return deserializeMarks(node, children);
+            return children;
         }
 
         return [];
