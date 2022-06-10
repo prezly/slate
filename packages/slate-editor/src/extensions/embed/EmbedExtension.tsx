@@ -44,5 +44,4 @@ export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters)
 
         return undefined;
     },
-    rootTypes: [EMBED_NODE_TYPE],
 });

@@ -16,7 +16,6 @@ import { createParagraph } from '#extensions/paragraphs';
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ImageElement } from './components';
-import { IMAGE_CANDIDATE_NODE_TYPE } from './constants';
 import {
     createImageCandidate,
     getAncestorAnchor,
@@ -159,6 +158,5 @@ export const ImageExtension = ({
 
         return undefined;
     },
-    rootTypes: [IMAGE_CANDIDATE_NODE_TYPE, IMAGE_NODE_TYPE],
     withOverrides: withImages,
 });

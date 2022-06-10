@@ -78,6 +78,7 @@
         "eslint-plugin-jsx-a11y": "^6.5.1",
         "eslint-plugin-react": "^7.27.0",
         "eslint-plugin-react-hooks": "^4.3.0",
+        "eslint-plugin-sort-keys-fix": "^1.1.2",
         "gulp": "^4.0.2",
         "gulp-babel": "^8.0.0",
         "gulp-concat": "^2.6.1",

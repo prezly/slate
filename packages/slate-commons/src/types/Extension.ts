@@ -22,11 +22,4 @@ export interface Extension {
     renderElement?: RenderElement;
     renderLeaf?: RenderLeaf;
     withOverrides?: WithOverrides;
-
-    /**
-     * Array of types of elements that can appear ONLY at the root of the editor value.
-     * If they appear somewhere deeper, nested (e.g. when pasting content from various sources)
-     * they will be lifted up to the root of the editor.
-     */
-    rootTypes?: string[];
 }

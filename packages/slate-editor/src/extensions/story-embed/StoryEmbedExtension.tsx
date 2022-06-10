@@ -35,5 +35,4 @@ export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): 
 
         return undefined;
     },
-    rootTypes: [STORY_EMBED_NODE_TYPE],
 });

@@ -3,7 +3,6 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { LoaderElement } from './components';
-import { LOADER_NODE_TYPE } from './constants';
 import { isLoaderElement, normalizeRedundantLoaderAttributes } from './lib';
 import type { LoaderParameters } from './types';
 import { withLoaders } from './withLoaders';
@@ -34,6 +33,5 @@ export const LoaderExtension = ({
 
         return undefined;
     },
-    rootTypes: [LOADER_NODE_TYPE],
     withOverrides: withLoaders,
 });

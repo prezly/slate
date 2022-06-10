@@ -33,5 +33,4 @@ export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters)
 
         return undefined;
     },
-    rootTypes: [STORY_BOOKMARK_NODE_TYPE],
 });

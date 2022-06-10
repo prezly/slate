@@ -47,5 +47,4 @@ export const GalleriesExtension = ({ availableWidth, onEdit }: Parameters): Exte
 
         return undefined;
     },
-    rootTypes: [GALLERY_NODE_TYPE],
 });

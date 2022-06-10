@@ -45,7 +45,6 @@ export const ParagraphsExtension = (): Extension => ({
 
         return undefined;
     },
-    rootTypes: [PARAGRAPH_NODE_TYPE],
 });
 
 function paragraph() {
