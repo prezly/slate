@@ -154,10 +154,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         plugins,
     });
 
-    // useEffect(() => {
-    //     editor.children = value;
-    // }, [value]);
-
     useEffect(() => {
         if (autoFocus) {
             EditorCommands.focus(editor);
