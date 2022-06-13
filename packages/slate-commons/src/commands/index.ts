@@ -35,6 +35,7 @@ export { normalizeNestedElement } from './normalizeNestedElement';
 export { normalizeRedundantAttributes } from './normalizeRedundantAttributes';
 export { removeChildren } from './removeChildren';
 export { removeNode } from './removeNode';
+export { resetNodes } from './resetNodes';
 export { saveSelection } from './saveSelection';
 export { toDomNode } from './toDomNode';
 export { toDomRange } from './toDomRange';
