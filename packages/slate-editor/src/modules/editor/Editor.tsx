@@ -59,9 +59,9 @@ import {
 import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
 import type { EditorProps, EditorRef } from './types';
 import { useCreateEditor } from './useCreateEditor';
+import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
 import { withAvailableWidth } from './withAvailableWidth';
-import { withDebounce } from './withDebounce';
 
 const Editor: FunctionComponent<EditorProps> = (props) => {
     const {
@@ -73,7 +73,6 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         decorate,
         editorRef,
         id,
-        onChange,
         onIsOperationPendingChange,
         onKeyDown = noop,
         placeholder,
@@ -359,6 +358,8 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
 
+    const onChange = useOnChange(props.onChange);
+
     return (
         <div
             id={id}
@@ -555,4 +556,4 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
 };
 
 // eslint-disable-next-line import/no-default-export
-export default withAvailableWidth({ className: 'editor-sizer' })(withDebounce(Editor));
+export default withAvailableWidth({ className: 'editor-sizer' })(Editor);
