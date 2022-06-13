@@ -38,10 +38,10 @@ const BaseTemplate = (args: IBaseProps) => {
     return (
         <Editor
             {...args}
-            placeholder="Start typing..."
             availableWidth={680}
+            initialValue={value}
             onChange={setValue}
-            value={value}
+            placeholder="Start typing..."
         />
     );
 };
@@ -76,10 +76,10 @@ const WithPlaceholdersTemplate = (
     return (
         <Editor
             {...args}
-            placeholder="Start typing..."
             availableWidth={680}
+            initialValue={value}
             onChange={setValue}
-            value={value}
+            placeholder="Start typing..."
         />
     );
 };

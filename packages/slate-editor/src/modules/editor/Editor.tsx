@@ -54,7 +54,6 @@ import {
     createOnCut,
     handleAddAttachment,
     insertDivider,
-    isEditorValueEquivalent,
     useCursorInView,
 } from './lib';
 import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
@@ -72,13 +71,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         contentStyle,
         decorate,
         id,
+        initialValue,
         onIsOperationPendingChange,
         onKeyDown = noop,
         placeholder,
         plugins,
         readOnly,
         style,
-        value,
         withAlignmentControls,
         withAttachments = false,
         withAutoformat = false,
@@ -155,11 +154,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         plugins,
     });
 
-    useEffect(() => {
-        if (!isEqual(editor.children, value)) {
-            editor.children = value;
-        }
-    }, [value]);
+    // useEffect(() => {
+    //     editor.children = value;
+    // }, [value]);
 
     useEffect(() => {
         if (autoFocus) {
@@ -176,11 +173,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             focus: () => EditorCommands.focus(editor),
             isEmpty: () => EditorCommands.isEmpty(editor),
             isFocused: () => ReactEditor.isFocused(editor),
-            /**
-             * @deprecated Please use isEditorValueEquivalent directly instead
-             */
-            isValueEquivalentTo: (otherValue: string): boolean =>
-                isEditorValueEquivalent(value, otherValue),
         }),
     );
 
@@ -390,7 +382,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     placeholders.onChange(editor);
                     userMentions.onChange(editor);
                 }}
-                value={value}
+                value={initialValue}
             >
                 <EditableWithExtensions
                     className={styles.Editable}
