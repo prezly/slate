@@ -26,6 +26,7 @@ export interface EditorRef {
     focus: () => void;
     isEmpty: () => boolean;
     isFocused: () => boolean;
+    isModified: () => boolean;
     resetValue: (value: Value) => void;
 }
 

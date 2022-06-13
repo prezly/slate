@@ -21,7 +21,7 @@ import React, {
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { useSize } from '#lib';
+import { useGetSet, useSize } from '#lib';
 import { isEqual, noop } from '#lodash';
 
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
@@ -71,7 +71,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         contentStyle,
         decorate,
         id,
-        initialValue,
         onIsOperationPendingChange,
         onKeyDown = noop,
         placeholder,
@@ -109,6 +108,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     );
 
     const events = useMemo(() => new Events<EditorEventMap>(), []);
+    const [getInitialValue, setInitialValue] = useGetSet(() => props.initialValue); // Mimic Slate's treating of `value` to check for `isModified`
     const containerRef = useRef<HTMLDivElement>(null);
     const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
     // [+] menu
@@ -169,7 +169,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             focus: () => EditorCommands.focus(editor),
             isEmpty: () => EditorCommands.isEmpty(editor),
             isFocused: () => ReactEditor.isFocused(editor),
-            resetValue: (value) => EditorCommands.resetNodes(editor, value, editor.selection),
+            isModified: () => !isEqual(getInitialValue(), editor.children),
+            resetValue: (value) => {
+                setInitialValue(value);
+                EditorCommands.resetNodes(editor, value, editor.selection);
+            },
         }),
     );
 
@@ -379,7 +383,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     placeholders.onChange(editor);
                     userMentions.onChange(editor);
                 }}
-                value={initialValue}
+                value={getInitialValue()}
             >
                 <EditableWithExtensions
                     className={styles.Editable}

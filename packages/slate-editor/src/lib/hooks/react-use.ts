@@ -10,6 +10,7 @@
 import _useAsyncFn from 'react-use/lib/useAsyncFn.js';
 import _useDebounce from 'react-use/lib/useDebounce.js';
 import _useEffectOnce from 'react-use/lib/useEffectOnce.js';
+import _useGetSet from 'react-use/lib/useGetSet.js';
 import _useLatest from 'react-use/lib/useLatest.js';
 import _useMount from 'react-use/lib/useMount.js';
 import _useMountedState from 'react-use/lib/useMountedState.js';
@@ -30,6 +31,7 @@ function unwrap<T>(module: T | { __esModule: boolean; default: T }): T {
 const useAsyncFn = unwrap(_useAsyncFn);
 const useDebounce = unwrap(_useDebounce);
 const useEffectOnce = unwrap(_useEffectOnce);
+const useGetSet = unwrap(_useGetSet);
 const useLatest = unwrap(_useLatest);
 const useMount = unwrap(_useMount);
 const useMountedState = unwrap(_useMountedState);
@@ -44,6 +46,7 @@ export {
     useAsyncFn,
     useDebounce,
     useEffectOnce,
+    useGetSet,
     useLatest,
     useMount,
     useMountedState,
