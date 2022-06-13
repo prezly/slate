@@ -9,5 +9,5 @@ export {
     isEditorValueEquivalent,
 } from './lib';
 export type { RichBlocksAwareEditor } from './plugins';
-export type { EditorRef, EditorProps } from './types';
+export type { EditorRef, EditorProps, Value } from './types';
 export { useEditorEvents } from './useEditorEvents';
