@@ -1,4 +1,4 @@
-export { default as Editor } from './Editor';
+export { Editor } from './Editor';
 export { createEditor } from './createEditor';
 export {
     createEmptyValue,

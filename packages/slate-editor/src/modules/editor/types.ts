@@ -1,7 +1,7 @@
 import type { Events } from '@prezly/events';
 import type { Decorate } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
-import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react';
+import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
 import type { Editor, Element } from 'slate';
 
 import type { AutoformatParameters } from '#extensions/autoformat';
@@ -38,7 +38,6 @@ export interface EditorProps {
     className?: string;
     contentStyle?: CSSProperties;
     decorate?: Decorate;
-    editorRef?: RefObject<EditorRef>;
     id?: string;
     onChange: (value: Value) => void;
     onIsOperationPendingChange?: (isOperationPending: boolean) => void;

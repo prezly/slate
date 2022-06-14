@@ -9,8 +9,8 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
 import React, {
+    forwardRef,
     useCallback,
     useEffect,
     useImperativeHandle,
@@ -63,7 +63,7 @@ import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
 
-const Editor: FunctionComponent<EditorProps> = (props) => {
+export const Editor = forwardRef<EditorRef, EditorProps>((props, ref) => {
     const {
         align,
         availableWidth: declaredAvailableWidth,
@@ -71,7 +71,6 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         className,
         contentStyle,
         decorate,
-        editorRef,
         id,
         onIsOperationPendingChange,
         onKeyDown = noop,
@@ -169,7 +168,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
     useCursorInView(editor, withCursorInView || false);
 
     useImperativeHandle(
-        editorRef,
+        ref,
         (): EditorRef => ({
             events,
             focus: () => EditorCommands.focus(editor),
@@ -560,7 +559,4 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
             </Slate>
         </div>
     );
-};
-
-// eslint-disable-next-line import/no-default-export
-export default Editor;
+});
