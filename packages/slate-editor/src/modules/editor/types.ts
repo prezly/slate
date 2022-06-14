@@ -34,7 +34,7 @@ export type Value = Element[];
 export interface EditorProps {
     align?: Alignment;
     autoFocus?: boolean;
-    availableWidth: number;
+    availableWidth?: number;
     className?: string;
     contentStyle?: CSSProperties;
     decorate?: Decorate;

@@ -21,6 +21,7 @@ import React, {
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
+import { useSize } from '#lib';
 import { noop } from '#lodash';
 
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
@@ -61,12 +62,11 @@ import type { EditorProps, EditorRef } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
-import { withAvailableWidth } from './withAvailableWidth';
 
 const Editor: FunctionComponent<EditorProps> = (props) => {
     const {
         align,
-        availableWidth,
+        availableWidth: declaredAvailableWidth,
         autoFocus,
         className,
         contentStyle,
@@ -104,6 +104,12 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
         withVideos = false,
         withWebBookmarks = false,
     } = props;
+
+    const [sizer, { width: availableWidth }] = useSize(
+        () => <div className="editor-sizer" contentEditable={false} />,
+        { width: declaredAvailableWidth },
+    );
+
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
     const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
@@ -367,6 +373,7 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
             ref={containerRef}
             style={style}
         >
+            {sizer}
             <Slate
                 editor={editor}
                 onChange={(newValue) => {
@@ -556,4 +563,4 @@ const Editor: FunctionComponent<EditorProps> = (props) => {
 };
 
 // eslint-disable-next-line import/no-default-export
-export default withAvailableWidth({ className: 'editor-sizer' })(Editor);
+export default Editor;
