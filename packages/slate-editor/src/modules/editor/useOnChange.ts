@@ -18,9 +18,7 @@ export function useOnChange(onChange: OnChange): OnChange {
             if (!isEqual(prev.current, value)) {
                 prev.current = value;
                 props.current.onChange(value);
-                return;
             }
-            return;
         },
         [props, prev],
     );
