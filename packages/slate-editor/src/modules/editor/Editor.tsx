@@ -63,7 +63,7 @@ import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
 
-export const Editor = forwardRef<EditorRef, EditorProps>((props, ref) => {
+export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
     const {
         align,
         availableWidth: declaredAvailableWidth,
@@ -168,7 +168,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, ref) => {
     useCursorInView(editor, withCursorInView || false);
 
     useImperativeHandle(
-        ref,
+        forwardedRef,
         (): EditorRef => ({
             events,
             focus: () => EditorCommands.focus(editor),
