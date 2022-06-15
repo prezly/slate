@@ -9,8 +9,8 @@ import { jsx } from '../../../jsx';
 
 import { allowChildren } from './allowChildren';
 
-describe('withNodesHierarchy', () => {
-    it('Can unwrap node inside list', () => {
+describe('allowChildren', () => {
+    it('Can convert root nodes into paragraphs', () => {
         const normilizer = allowChildren(
             (node) => ParagraphNode.isParagraphNode(node),
             (editor, node, path) => {
@@ -42,39 +42,34 @@ describe('withNodesHierarchy', () => {
             },
         );
 
-        const original = (
-            <editor
-                plugins={[
-                    (editor) => {
-                        editor.normalizeNode = ([node, path]) => {
-                            return normilizer(editor, [node as any, path]);
-                        };
-
-                        return editor;
-                    },
-                ]}
-            >
+        const editor = (
+            <editor-pure>
                 <link>
-                    <paragraph>
-                        <h-text>inside link</h-text>
-                    </paragraph>
+                    <h-text>inside link</h-text>
                 </link>
                 <blockquote>
-                    <h-text>inside link</h-text>
+                    <h-text>inside quote</h-text>
                 </blockquote>
-            </editor>
+            </editor-pure>
         ) as unknown as Editor;
 
+        editor.normalizeNode = ([node, path]) => {
+            return normilizer(editor, [node as any, path]);
+        };
+
         const expected = (
-            <editor>
+            <editor-pure>
                 <paragraph>
                     <h-text>inside link</h-text>
                 </paragraph>
-            </editor>
+                <paragraph>
+                    <h-text>inside quote</h-text>
+                </paragraph>
+            </editor-pure>
         ) as unknown as Editor;
 
-        Editor.normalize(original, { force: true });
+        Editor.normalize(editor, { force: true });
 
-        expect(original.children).toEqual(expected.children);
+        expect(editor.children).toEqual(expected.children);
     });
 });

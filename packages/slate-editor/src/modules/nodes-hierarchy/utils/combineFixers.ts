@@ -1,9 +1,9 @@
 import type { HierarchyFixer } from '../types';
 
 export function combineFixers(fixers: HierarchyFixer[]): HierarchyFixer {
-    return (node, path) => {
+    return (editor, node, path) => {
         for (const fix of fixers) {
-            const isFixed = fix(node, path);
+            const isFixed = fix(editor, node, path);
 
             if (isFixed) {
                 return true;

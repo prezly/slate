@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import type { WithOverrides } from '@prezly/slate-commons';
 import {
     BULLETED_LIST_NODE_TYPE,
     HEADING_1_NODE_TYPE,
@@ -19,6 +18,7 @@ import {
     createHyperscript,
     createText,
 } from 'slate-hyperscript';
+import { withReact } from 'slate-react';
 
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { HeadingExtension } from '#extensions/heading';
@@ -31,7 +31,9 @@ declare global {
         interface IntrinsicElements {
             editor: {
                 children?: ReactNode;
-                plugins?: WithOverrides[];
+            };
+            'editor-pure': {
+                children?: ReactNode;
             };
         }
     }
@@ -58,6 +60,7 @@ export const jsx = createHyperscript({
     },
     creators: {
         editor: createEditorFactory(() => createEditor(createSlateEditor(), () => extensions)),
+        'editor-pure': createEditorFactory(() => withReact(createSlateEditor())),
         'h-text': createText,
     },
 });
