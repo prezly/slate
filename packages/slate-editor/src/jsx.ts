@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
+import type { WithOverrides } from '@prezly/slate-commons';
 import {
     BULLETED_LIST_NODE_TYPE,
     HEADING_1_NODE_TYPE,
@@ -11,6 +12,7 @@ import {
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
+import type { ReactNode } from 'react';
 import { createEditor as createSlateEditor } from 'slate';
 import {
     createEditor as createEditorFactory,
@@ -26,7 +28,12 @@ import { createEditor } from '#modules/editor';
 
 declare global {
     namespace JSX {
-        interface IntrinsicElements {}
+        interface IntrinsicElements {
+            editor: {
+                children?: ReactNode;
+                plugins?: WithOverrides[];
+            };
+        }
     }
 }
 
