@@ -22,14 +22,19 @@ import type { Node } from 'slate';
 import { isImageCandidateElement } from '#extensions/image';
 import { isLoaderElement } from '#extensions/loader';
 
-import { squashNestedElement } from './fixers';
+import { convertToParagraph, squashNestedElement } from './fixers';
 import { allowChildren } from './normilizers';
 import type { NodesHierarchySchema } from './types';
 import { combineFixers } from './utils';
 
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
-    [DocumentNode.TYPE]: [allowChildren(isAllowedOnTopLevel, combineFixers([squashNestedElement]))],
+    [DocumentNode.TYPE]: [
+        allowChildren(
+            isAllowedOnTopLevel,
+            combineFixers([squashNestedElement, convertToParagraph]),
+        ),
+    ],
 };
 
 // TODO: Move to content-format-js repo
