@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
 import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
 
-import Editor from './Editor';
+import { Editor } from './Editor';
 import { createEmptyValue } from './lib/createEmptyValue';
 import type { Value } from './types';
 
