@@ -1,35 +1,23 @@
 /** @jsx jsx */
 
-import { LinkNode, ParagraphNode, QuoteNode } from '@prezly/content-format';
+import { ParagraphNode } from '@prezly/content-format';
 import { Editor, Transforms } from 'slate';
 
-import { createParagraph } from '#extensions/paragraphs';
+import { createBlockquote } from '#extensions/blockquote';
 
 import { jsx } from '../../../jsx';
 
-import { allowChildren } from './allowChildren';
+import { forbidChildren } from './forbidChildren';
 
-describe('allowChildren', () => {
-    it('can convert root nodes into paragraphs', () => {
-        const normilizer = allowChildren(
+describe('forbidChildren', () => {
+    it('can convert forbidden paragraph into quote', () => {
+        const normilizer = forbidChildren(
             (node) => ParagraphNode.isParagraphNode(node),
             (editor, node, path) => {
-                if (LinkNode.isLinkNode(node)) {
+                if (ParagraphNode.isParagraphNode(node)) {
                     Transforms.setNodes(
                         editor,
-                        createParagraph({ children: node.children as any }),
-                        {
-                            at: path,
-                        },
-                    );
-
-                    return true;
-                }
-
-                if (QuoteNode.isQuoteNode(node)) {
-                    Transforms.setNodes(
-                        editor,
-                        createParagraph({ children: node.children as any }),
+                        createBlockquote({ children: node.children as any }),
                         {
                             at: path,
                         },
@@ -62,15 +50,15 @@ describe('allowChildren', () => {
 
         const expected = (
             <editor-pure>
-                <paragraph>
+                <blockquote>
                     <h-text>inside paragraph</h-text>
-                </paragraph>
-                <paragraph>
+                </blockquote>
+                <link>
                     <h-text>inside link</h-text>
-                </paragraph>
-                <paragraph>
+                </link>
+                <blockquote>
                     <h-text>inside quote</h-text>
-                </paragraph>
+                </blockquote>
             </editor-pure>
         ) as unknown as Editor;
 
