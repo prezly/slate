@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { LinkNode, ParagraphNode, QuoteNode } from '@prezly/content-format';
-import { Editor, Transforms } from 'slate';
+import { Editor, Transforms, Element } from 'slate';
 
 import { createParagraph } from '#extensions/paragraphs';
 
@@ -44,33 +44,41 @@ describe('allowChildren', () => {
 
         const editor = (
             <editor-pure>
-                <paragraph>
-                    <h-text>inside paragraph</h-text>
-                </paragraph>
-                <link>
-                    <h-text>inside link</h-text>
-                </link>
-                <blockquote>
-                    <h-text>inside quote</h-text>
-                </blockquote>
+                <document>
+                    <paragraph>
+                        <h-text>inside paragraph</h-text>
+                    </paragraph>
+                    <link>
+                        <h-text>inside link</h-text>
+                    </link>
+                    <blockquote>
+                        <h-text>inside quote</h-text>
+                    </blockquote>
+                </document>
             </editor-pure>
         ) as unknown as Editor;
 
         editor.normalizeNode = ([node, path]) => {
+            if (!Element.isElement(node)) {
+                return false;
+            }
+
             return normilizer(editor, [node as any, path]);
         };
 
         const expected = (
             <editor-pure>
-                <paragraph>
-                    <h-text>inside paragraph</h-text>
-                </paragraph>
-                <paragraph>
-                    <h-text>inside link</h-text>
-                </paragraph>
-                <paragraph>
-                    <h-text>inside quote</h-text>
-                </paragraph>
+                <document>
+                    <paragraph>
+                        <h-text>inside paragraph</h-text>
+                    </paragraph>
+                    <paragraph>
+                        <h-text>inside link</h-text>
+                    </paragraph>
+                    <paragraph>
+                        <h-text>inside quote</h-text>
+                    </paragraph>
+                </document>
             </editor-pure>
         ) as unknown as Editor;
 

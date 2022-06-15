@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { ParagraphNode } from '@prezly/content-format';
-import { Editor, Transforms } from 'slate';
+import { Editor, Transforms, Element } from 'slate';
 
 import { createBlockquote } from '#extensions/blockquote';
 
@@ -32,33 +32,41 @@ describe('forbidChildren', () => {
 
         const editor = (
             <editor-pure>
-                <paragraph>
-                    <h-text>inside paragraph</h-text>
-                </paragraph>
-                <link>
-                    <h-text>inside link</h-text>
-                </link>
-                <blockquote>
-                    <h-text>inside quote</h-text>
-                </blockquote>
+                <document>
+                    <paragraph>
+                        <h-text>inside paragraph</h-text>
+                    </paragraph>
+                    <link>
+                        <h-text>inside link</h-text>
+                    </link>
+                    <blockquote>
+                        <h-text>inside quote</h-text>
+                    </blockquote>
+                </document>
             </editor-pure>
         ) as unknown as Editor;
 
         editor.normalizeNode = ([node, path]) => {
+            if (!Element.isElement(node)) {
+                return false;
+            }
+
             return normilizer(editor, [node as any, path]);
         };
 
         const expected = (
             <editor-pure>
-                <blockquote>
-                    <h-text>inside paragraph</h-text>
-                </blockquote>
-                <link>
-                    <h-text>inside link</h-text>
-                </link>
-                <blockquote>
-                    <h-text>inside quote</h-text>
-                </blockquote>
+                <document>
+                    <blockquote>
+                        <h-text>inside paragraph</h-text>
+                    </blockquote>
+                    <link>
+                        <h-text>inside link</h-text>
+                    </link>
+                    <blockquote>
+                        <h-text>inside quote</h-text>
+                    </blockquote>
+                </document>
             </editor-pure>
         ) as unknown as Editor;
 
