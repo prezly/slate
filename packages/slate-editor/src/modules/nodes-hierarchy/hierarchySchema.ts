@@ -1,47 +1,57 @@
 import {
-    ATTACHMENT_NODE_TYPE,
-    BOOKMARK_NODE_TYPE,
-    CONTACT_NODE_TYPE,
-    COVERAGE_NODE_TYPE,
-    DIVIDER_NODE_TYPE,
-    EMBED_NODE_TYPE,
-    GALLERY_NODE_TYPE,
-    HEADING_1_NODE_TYPE,
-    HEADING_2_NODE_TYPE,
-    HTML_NODE_TYPE,
-    IMAGE_NODE_TYPE,
-    PARAGRAPH_NODE_TYPE,
-    QUOTE_NODE_TYPE,
-    STORY_BOOKMARK_NODE_TYPE,
-    STORY_EMBED_NODE_TYPE,
-    VIDEO_NODE_TYPE,
-} from '@prezly/slate-types';
+    DocumentNode,
+    AttachmentNode,
+    BookmarkNode,
+    ContactNode,
+    CoverageNode,
+    DividerNode,
+    EmbedNode,
+    GalleryNode,
+    HeadingNode,
+    HtmlNode,
+    ImageNode,
+    ParagraphNode,
+    QuoteNode,
+    StoryBookmarkNode,
+    StoryEmbedNode,
+    VideoNode,
+    ListNode,
+} from '@prezly/content-format';
+import type { Node } from 'slate';
 
-import { LOADER_NODE_TYPE } from '#extensions/loader';
+import { isImageCandidateElement } from '#extensions/image';
+import { isLoaderElement } from '#extensions/loader';
 
-import { rootNodeOnly } from './normilizers';
+import { squashNestedElement } from './fixers';
+import { allowChildren } from './normilizers';
 import type { NodesHierarchySchema } from './types';
-
-import { IMAGE_CANDIDATE_NODE_TYPE } from '#extensions/image/constants';
+import { combineFixers } from './utils';
 
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
-    [ATTACHMENT_NODE_TYPE]: [rootNodeOnly],
-    [BOOKMARK_NODE_TYPE]: [rootNodeOnly],
-    [CONTACT_NODE_TYPE]: [rootNodeOnly],
-    [COVERAGE_NODE_TYPE]: [rootNodeOnly],
-    [DIVIDER_NODE_TYPE]: [rootNodeOnly],
-    [EMBED_NODE_TYPE]: [rootNodeOnly],
-    [GALLERY_NODE_TYPE]: [rootNodeOnly],
-    [HEADING_1_NODE_TYPE]: [rootNodeOnly],
-    [HEADING_2_NODE_TYPE]: [rootNodeOnly],
-    [HTML_NODE_TYPE]: [rootNodeOnly],
-    [IMAGE_CANDIDATE_NODE_TYPE]: [rootNodeOnly],
-    [IMAGE_NODE_TYPE]: [rootNodeOnly],
-    [LOADER_NODE_TYPE]: [rootNodeOnly],
-    [PARAGRAPH_NODE_TYPE]: [rootNodeOnly],
-    [QUOTE_NODE_TYPE]: [rootNodeOnly],
-    [STORY_BOOKMARK_NODE_TYPE]: [rootNodeOnly],
-    [STORY_EMBED_NODE_TYPE]: [rootNodeOnly],
-    [VIDEO_NODE_TYPE]: [rootNodeOnly],
+    [DocumentNode.TYPE]: [allowChildren(isAllowedOnTopLevel, combineFixers([squashNestedElement]))],
 };
+
+// TODO: Move to content-format-js repo
+function isAllowedOnTopLevel(node: Node) {
+    return (
+        AttachmentNode.isAttachmentNode(node) ||
+        BookmarkNode.isBookmarkNode(node) ||
+        ContactNode.isContactNode(node) ||
+        CoverageNode.isCoverageNode(node) ||
+        DividerNode.isDividerNode(node) ||
+        EmbedNode.isEmbedNode(node) ||
+        GalleryNode.isGalleryNode(node) ||
+        HeadingNode.isHeadingNode(node) ||
+        HtmlNode.isHtmlNode(node) ||
+        ImageNode.isImageNode(node) ||
+        isImageCandidateElement(node) ||
+        isLoaderElement(node) ||
+        ParagraphNode.isParagraphNode(node) ||
+        QuoteNode.isQuoteNode(node) ||
+        StoryBookmarkNode.isStoryBookmarkNode(node) ||
+        StoryEmbedNode.isStoryEmbedNode(node) ||
+        VideoNode.isVideoNode(node) ||
+        ListNode.isListNode(node)
+    );
+}
