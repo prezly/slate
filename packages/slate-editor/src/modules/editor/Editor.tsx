@@ -22,7 +22,7 @@ import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
 import { useSize } from '#lib';
-import { noop } from '#lodash';
+import { isEqual, noop } from '#lodash';
 
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
@@ -156,7 +156,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     useEffect(() => {
-        editor.children = value;
+        if (!isEqual(editor.children, value)) {
+            editor.children = value;
+        }
     }, [value]);
 
     useEffect(() => {
