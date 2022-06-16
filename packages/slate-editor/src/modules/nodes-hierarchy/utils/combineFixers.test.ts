@@ -17,7 +17,7 @@ describe('combineFixers', () => {
             },
         ]);
 
-        fix(null as any, null as any, []);
+        fix(null as any, null as any);
 
         expect(checker).toEqual(1);
     });
@@ -38,7 +38,7 @@ describe('combineFixers', () => {
             },
         ]);
 
-        fix(null as any, null as any, []);
+        fix(null as any, null as any);
 
         expect(checker).toEqual(1);
     });
@@ -59,7 +59,7 @@ describe('combineFixers', () => {
             },
         ]);
 
-        fix(null as any, null as any, []);
+        fix(null as any, null as any);
 
         expect(checker).toEqual(1);
     });
@@ -79,7 +79,7 @@ describe('combineFixers', () => {
             },
         ]);
 
-        fix(null as any, null as any, []);
+        fix(null as any, null as any);
 
         expect(checker).toEqual(0);
     });
