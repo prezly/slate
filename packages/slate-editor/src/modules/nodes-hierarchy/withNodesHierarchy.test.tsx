@@ -8,37 +8,33 @@ describe('withNodesHierarchy', () => {
     it('can unwrap node inside list', () => {
         const editor = (
             <editor>
-                <document>
-                    <ul>
-                        <li>
-                            <li-text>1</li-text>
-                        </li>
-                        <li>
-                            <li-text>2</li-text>
-                        </li>
-                        <li>
-                            <blockquote>3</blockquote>
-                        </li>
-                    </ul>
-                </document>
+                <ul>
+                    <li>
+                        <li-text>1</li-text>
+                    </li>
+                    <li>
+                        <li-text>2</li-text>
+                    </li>
+                    <li>
+                        <blockquote>3</blockquote>
+                    </li>
+                </ul>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <document>
-                    <ul>
-                        <li>
-                            <li-text>1</li-text>
-                        </li>
-                        <li>
-                            <li-text>2</li-text>
-                        </li>
-                        <li>
-                            <li-text>3</li-text>
-                        </li>
-                    </ul>
-                </document>
+                <ul>
+                    <li>
+                        <li-text>1</li-text>
+                    </li>
+                    <li>
+                        <li-text>2</li-text>
+                    </li>
+                    <li>
+                        <li-text>3</li-text>
+                    </li>
+                </ul>
             </editor>
         ) as unknown as Editor;
 

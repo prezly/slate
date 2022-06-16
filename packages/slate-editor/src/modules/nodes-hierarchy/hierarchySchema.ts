@@ -1,5 +1,4 @@
 import {
-    DocumentNode,
     AttachmentNode,
     BookmarkNode,
     ContactNode,
@@ -17,28 +16,30 @@ import {
     VideoNode,
     ListNode,
 } from '@prezly/content-format';
-import type { Node } from 'slate';
+import { Text } from 'slate';
+import type { NodeEntry } from 'slate';
 
 import { isImageCandidateElement } from '#extensions/image';
 import { isLoaderElement } from '#extensions/loader';
 
 import { convertToParagraph, squashNestedElement } from './fixers';
 import { allowChildren } from './normilizers';
+import { EditorRootNode } from './types';
 import type { NodesHierarchySchema } from './types';
 import { combineFixers } from './utils';
 
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
-    [DocumentNode.TYPE]: [
+    [EditorRootNode]: [
         allowChildren(
             isAllowedOnTopLevel,
             combineFixers([squashNestedElement, convertToParagraph]),
         ),
     ],
+    [ParagraphNode.TYPE]: [allowChildren(Text.isText, combineFixers([squashNestedElement]))],
 };
 
-// TODO: Move to content-format-js repo
-function isAllowedOnTopLevel(node: Node) {
+function isAllowedOnTopLevel([node]: NodeEntry) {
     return (
         AttachmentNode.isAttachmentNode(node) ||
         BookmarkNode.isBookmarkNode(node) ||

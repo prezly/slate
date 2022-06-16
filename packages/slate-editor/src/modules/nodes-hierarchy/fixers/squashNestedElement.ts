@@ -1,8 +1,8 @@
-import { ComposedElement } from '@prezly/content-format';
+import { isElementNode } from '@prezly/slate-types';
 import { Editor, Element, Transforms } from 'slate';
-import type { Node, Path } from 'slate';
+import type { NodeEntry } from 'slate';
 
-export function squashNestedElement(editor: Editor, node: Node, path: Path) {
+export function squashNestedElement(editor: Editor, [node, path]: NodeEntry) {
     const ancestor = Editor.above(editor, { at: path });
     if (!ancestor) {
         return false;
@@ -15,9 +15,9 @@ export function squashNestedElement(editor: Editor, node: Node, path: Path) {
     }
 
     if (
-        ('type' in node && ComposedElement.isComposedElement(ancestorNode, node.type)) ||
         Editor.isInline(editor, node) ||
-        Editor.isVoid(editor, node)
+        Editor.isVoid(editor, node) ||
+        isElementNode(ancestorNode, (node as any).type)
     ) {
         if (ancestorNode.children.length === 1) {
             Transforms.unwrapNodes(editor, { at: ancestorPath, voids: true });

@@ -13,7 +13,7 @@ describe('allowChildren', () => {
     it('can convert root nodes into paragraphs', () => {
         const normilizer = allowChildren(
             (node) => ParagraphNode.isParagraphNode(node),
-            (editor, node, path) => {
+            (editor, [node, path]) => {
                 if (LinkNode.isLinkNode(node)) {
                     Transforms.setNodes(
                         editor,
@@ -44,17 +44,15 @@ describe('allowChildren', () => {
 
         const editor = (
             <editor-pure>
-                <document>
-                    <paragraph>
-                        <h-text>inside paragraph</h-text>
-                    </paragraph>
-                    <link>
-                        <h-text>inside link</h-text>
-                    </link>
-                    <blockquote>
-                        <h-text>inside quote</h-text>
-                    </blockquote>
-                </document>
+                <paragraph>
+                    <h-text>inside paragraph</h-text>
+                </paragraph>
+                <link>
+                    <h-text>inside link</h-text>
+                </link>
+                <blockquote>
+                    <h-text>inside quote</h-text>
+                </blockquote>
             </editor-pure>
         ) as unknown as Editor;
 
@@ -68,17 +66,15 @@ describe('allowChildren', () => {
 
         const expected = (
             <editor-pure>
-                <document>
-                    <paragraph>
-                        <h-text>inside paragraph</h-text>
-                    </paragraph>
-                    <paragraph>
-                        <h-text>inside link</h-text>
-                    </paragraph>
-                    <paragraph>
-                        <h-text>inside quote</h-text>
-                    </paragraph>
-                </document>
+                <paragraph>
+                    <h-text>inside paragraph</h-text>
+                </paragraph>
+                <paragraph>
+                    <h-text>inside link</h-text>
+                </paragraph>
+                <paragraph>
+                    <h-text>inside quote</h-text>
+                </paragraph>
             </editor-pure>
         ) as unknown as Editor;
 

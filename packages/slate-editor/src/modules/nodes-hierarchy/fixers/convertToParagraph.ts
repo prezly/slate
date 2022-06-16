@@ -1,9 +1,9 @@
 import { Text, Transforms } from 'slate';
-import type { Node, Path, Editor, Descendant } from 'slate';
+import type { Editor, Descendant, NodeEntry } from 'slate';
 
 import { createParagraph } from '#extensions/paragraphs';
 
-export function convertToParagraph(editor: Editor, node: Node, path: Path) {
+export function convertToParagraph(editor: Editor, [node, path]: NodeEntry) {
     let children: Descendant[] = [];
 
     if ('children' in node) {
