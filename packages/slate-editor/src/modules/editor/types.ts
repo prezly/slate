@@ -26,6 +26,9 @@ export interface EditorRef {
     focus: () => void;
     isEmpty: () => boolean;
     isFocused: () => boolean;
+    /**
+     * Check if the editor value is different from the `initialValue` document.
+     */
     isModified: () => boolean;
     resetValue: (value: Value) => void;
 }
