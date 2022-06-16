@@ -33,7 +33,7 @@ import {
     STORY_EMBED_NODE_TYPE,
     VIDEO_NODE_TYPE,
 } from '@prezly/slate-types';
-import { Editor, Text } from 'slate';
+import { Text } from 'slate';
 import type { NodeEntry } from 'slate';
 
 import { isImageCandidateElement } from '#extensions/image';

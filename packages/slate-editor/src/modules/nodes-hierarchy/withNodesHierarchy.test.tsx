@@ -339,8 +339,6 @@ describe('withNodesHierarchy', () => {
 
         Editor.normalize(editor, { force: true });
 
-        debugger
-
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
