@@ -3,6 +3,7 @@ import type { NodeEntry } from 'slate';
 
 export function unwrapNode(editor: Editor, [, path]: NodeEntry) {
     const ancestor = Editor.above(editor, { at: path });
+
     if (!ancestor) {
         return false;
     }
