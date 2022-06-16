@@ -12,7 +12,7 @@ import { allowChildren } from './allowChildren';
 describe('allowChildren', () => {
     it('can convert root nodes into paragraphs', () => {
         const normilizer = allowChildren(
-            (node) => ParagraphNode.isParagraphNode(node),
+            ([node]) => ParagraphNode.isParagraphNode(node),
             (editor, [node, path]) => {
                 if (LinkNode.isLinkNode(node)) {
                     Transforms.setNodes(
@@ -56,12 +56,8 @@ describe('allowChildren', () => {
             </editor-pure>
         ) as unknown as Editor;
 
-        editor.normalizeNode = ([node, path]) => {
-            if (!Element.isElement(node)) {
-                return false;
-            }
-
-            return normilizer(editor, [node as any, path]);
+        editor.normalizeNode = ([, path]) => {
+            return normilizer(editor, path);
         };
 
         const expected = (

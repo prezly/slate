@@ -22,7 +22,7 @@ import type { NodeEntry } from 'slate';
 import { isImageCandidateElement } from '#extensions/image';
 import { isLoaderElement } from '#extensions/loader';
 
-import { convertToParagraph, squashNestedElement } from './fixers';
+import { convertToParagraph, liftNode, unwrapNode } from './fixers';
 import { allowChildren } from './normilizers';
 import { EditorRootNode } from './types';
 import type { NodesHierarchySchema } from './types';
@@ -33,10 +33,10 @@ export const hierarchySchema: NodesHierarchySchema = {
     [EditorRootNode]: [
         allowChildren(
             isAllowedOnTopLevel,
-            combineFixers([squashNestedElement, convertToParagraph]),
+            combineFixers([liftNode, unwrapNode, convertToParagraph]),
         ),
     ],
-    [ParagraphNode.TYPE]: [allowChildren(Text.isText, combineFixers([squashNestedElement]))],
+    [ParagraphNode.TYPE]: [allowChildren(Text.isText, combineFixers([liftNode, unwrapNode]))],
 };
 
 function isAllowedOnTopLevel([node]: NodeEntry) {

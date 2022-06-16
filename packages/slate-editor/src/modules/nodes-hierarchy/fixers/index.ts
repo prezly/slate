@@ -1,2 +1,3 @@
 export * from './convertToParagraph';
-export * from './squashNestedElement';
+export * from './liftNode';
+export * from './unwrapNode';

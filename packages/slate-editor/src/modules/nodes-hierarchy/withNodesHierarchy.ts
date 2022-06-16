@@ -33,7 +33,7 @@ function getSchemaNormalizers(node: Node, schema: NodesHierarchySchema) {
     }
 
     if ('type' in node) {
-        return schema[node.type];
+        return schema[node.type] ?? [];
     }
 
     return [];
