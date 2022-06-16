@@ -15,6 +15,7 @@ import {
     StoryEmbedNode,
     VideoNode,
     ListNode,
+    LinkNode,
 } from '@prezly/content-format';
 import { Text } from 'slate';
 import type { NodeEntry } from 'slate';
@@ -36,7 +37,12 @@ export const hierarchySchema: NodesHierarchySchema = {
             combineFixers([liftNode, unwrapNode, convertToParagraph]),
         ),
     ],
-    [ParagraphNode.TYPE]: [allowChildren(Text.isText, combineFixers([liftNode, unwrapNode]))],
+    [ParagraphNode.TYPE]: [
+        allowChildren(
+            ([node]) => Text.isText(node) || LinkNode.isLinkNode(node),
+            combineFixers([liftNode, unwrapNode]),
+        ),
+    ],
 };
 
 function isAllowedOnTopLevel([node]: NodeEntry) {
