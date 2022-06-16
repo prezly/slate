@@ -63,7 +63,6 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
-        "@prezly/content-format": "^0.56.0",
         "@prezly/docx-cleaner": "^0.5.1",
         "@prezly/events": "^2.0.3",
         "@prezly/linear-partition": "^1.0.3",

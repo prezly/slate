@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
-import { LinkNode, ParagraphNode, QuoteNode } from '@prezly/content-format';
-import { Editor, Transforms, Element } from 'slate';
+import { isLinkNode, isParagraphNode, isQuoteNode } from '@prezly/slate-types';
+import { Editor, Transforms } from 'slate';
 
 import { createParagraph } from '#extensions/paragraphs';
 
@@ -12,9 +12,9 @@ import { allowChildren } from './allowChildren';
 describe('allowChildren', () => {
     it('can convert root nodes into paragraphs', () => {
         const normilizer = allowChildren(
-            ([node]) => ParagraphNode.isParagraphNode(node),
+            ([node]) => isParagraphNode(node),
             (editor, [node, path]) => {
-                if (LinkNode.isLinkNode(node)) {
+                if (isLinkNode(node)) {
                     Transforms.setNodes(
                         editor,
                         createParagraph({ children: node.children as any }),
@@ -26,7 +26,7 @@ describe('allowChildren', () => {
                     return true;
                 }
 
-                if (QuoteNode.isQuoteNode(node)) {
+                if (isQuoteNode(node)) {
                     Transforms.setNodes(
                         editor,
                         createParagraph({ children: node.children as any }),

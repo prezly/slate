@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { DocumentNode } from '@prezly/content-format';
 import {
     BULLETED_LIST_NODE_TYPE,
     HEADING_1_NODE_TYPE,
@@ -36,9 +35,6 @@ declare global {
             'editor-pure': {
                 children?: ReactNode;
             };
-            document: {
-                children?: ReactNode;
-            };
         }
     }
 }
@@ -52,7 +48,6 @@ const extensions = [
 
 export const jsx = createHyperscript({
     elements: {
-        document: { type: DocumentNode.TYPE },
         paragraph: { type: PARAGRAPH_NODE_TYPE },
         link: { type: LINK_NODE_TYPE },
         blockquote: { type: QUOTE_NODE_TYPE },

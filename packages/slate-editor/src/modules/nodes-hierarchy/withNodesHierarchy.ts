@@ -10,7 +10,6 @@ export function withNodesHierarchy(schema: NodesHierarchySchema) {
 
         editor.normalizeNode = (entry) => {
             const [node, path] = entry;
-            debugger
             const normalizers = getSchemaNormalizers(node, schema);
 
             for (const normalizer of normalizers) {
