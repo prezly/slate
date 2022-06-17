@@ -5,7 +5,10 @@ import type {
     BookmarkNode,
     ContactNode,
     CoverageNode,
+    DividerNode,
     ElementNode,
+    EmbedNode,
+    GalleryNode,
 } from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
@@ -30,7 +33,10 @@ import { withReact } from 'slate-react';
 
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { createCoverage } from '#extensions/coverage';
+import { createDivider } from '#extensions/divider';
+import { createEmbed } from '#extensions/embed';
 import { createFileAttachment } from '#extensions/file-attachment';
+import { createGallery } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { ListExtension } from '#extensions/list';
@@ -43,16 +49,15 @@ type JsxElement<T extends ElementNode> = Omit<T, 'type' | 'children'> & { childr
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            editor: {
-                children?: ReactNode;
-            };
-            'editor-pure': {
-                children?: ReactNode;
-            };
+            editor: { children?: ReactNode };
+            'editor-pure': { children?: ReactNode };
             attachment: JsxElement<AttachmentNode>;
             bookmark: JsxElement<BookmarkNode>;
             contact: JsxElement<ContactNode>;
             coverage: JsxElement<CoverageNode>;
+            divider: JsxElement<DividerNode>;
+            'embed-node': JsxElement<EmbedNode>;
+            gallery: JsxElement<GalleryNode>;
         }
     }
 }
@@ -85,12 +90,22 @@ export const jsx = createHyperscript({
         bookmark: initCreator((props: BookmarkNode) => createWebBookmark(props)),
         contact: initCreator((props: ContactNode) => createPressContact(props.contact)),
         coverage: initCreator((props: CoverageNode) => createCoverage(props.coverage.id, props)),
+        divider: initCreator(() => createDivider()),
+        'embed-node': initCreator((props: EmbedNode) => createEmbed(props.oembed, props.url)),
+        gallery: initCreator((props: GalleryNode) => createGallery(props)),
         'h-text': createText,
     },
 });
 
 function initCreator<T>(creator: (props: T) => T): HyperscriptCreators[string] {
     return (_, props) => {
-        return creator(props as any);
+        const node = creator(props as any);
+
+        // In some creators uuid is not overridable and can different from time to time
+        if ('uuid' in node && 'uuid' in props) {
+            (node as any).uuid = (props as any).uuid;
+        }
+
+        return node;
     };
 }
