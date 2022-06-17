@@ -49,7 +49,7 @@ function createReadableStream(response: Response, onProgress: (progress: number)
 /**
  * Based on https://github.com/AnthumChris/fetch-progress-indicators/blob/3fd300c/fetch-basic/supported-browser.js
  */
-export function fetchImageWithReadableStream(src: string): ProgressPromise<string, number> {
+export function fetchImageWithReadableStream(src: string): ProgressPromise<string> {
     return new ProgressPromise((resolve, reject, progress) => {
         fetch(src)
             .then((response) => {

@@ -15,7 +15,7 @@ const isReadableStreamSupported = (() => {
     }
 })();
 
-export function fetchImageWithProgress(src: string): ProgressPromise<string, number> {
+export function fetchImageWithProgress(src: string): ProgressPromise<string> {
     const { origin } = new URL(src);
 
     // There are at least 2 ways of tracking loading progress:
