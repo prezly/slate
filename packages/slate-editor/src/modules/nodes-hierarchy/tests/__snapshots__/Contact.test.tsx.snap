@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / Contact should be kept after normalization 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "contact": Object {
+      "avatar_url": "https://cdn.uc.assets.prezly.com/9297a18a-5c16-4ccf-a653-e5fbb1bbdb56/-/crop/220x220/0,5/-/preview/-/scale_crop/128x128/-/format/auto/",
+      "company": "company",
+      "description": "description",
+      "email": "bill@prezly.com",
+      "facebook": "facebook",
+      "id": 255335,
+      "mobile": "mobile",
+      "name": "Bill Blankenship",
+      "phone": "phone",
+      "twitter": "twitter",
+      "uuid": "cfff4936-22bf-4c9a-81aa-cbf2f5fd6192",
+      "website": "website",
+    },
+    "type": "contact",
+    "uuid": "cfff4936-22bf-4c9a-81aa-cbf2f5fd6192",
+  },
+]
+`;

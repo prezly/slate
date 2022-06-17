@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import type { AttachmentNode, ElementNode } from '@prezly/slate-types';
+import type {
+    AttachmentNode,
+    BookmarkNode,
+    ContactNode,
+    CoverageNode,
+    ElementNode,
+} from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
     HEADING_1_NODE_TYPE,
@@ -23,10 +29,13 @@ import {
 import { withReact } from 'slate-react';
 
 import { BlockquoteExtension } from '#extensions/blockquote';
+import { createCoverage } from '#extensions/coverage';
 import { createFileAttachment } from '#extensions/file-attachment';
 import { HeadingExtension } from '#extensions/heading';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { ListExtension } from '#extensions/list';
+import { createPressContact } from '#extensions/press-contacts';
+import { createWebBookmark } from '#extensions/web-bookmark';
 import { createEditor } from '#modules/editor';
 
 type JsxElement<T extends ElementNode> = Omit<T, 'type' | 'children'> & { children?: ReactNode };
@@ -34,13 +43,16 @@ type JsxElement<T extends ElementNode> = Omit<T, 'type' | 'children'> & { childr
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            attachment: JsxElement<AttachmentNode>;
             editor: {
                 children?: ReactNode;
             };
             'editor-pure': {
                 children?: ReactNode;
             };
+            attachment: JsxElement<AttachmentNode>;
+            bookmark: JsxElement<BookmarkNode>;
+            contact: JsxElement<ContactNode>;
+            coverage: JsxElement<CoverageNode>;
         }
     }
 }
@@ -54,7 +66,6 @@ const extensions = [
 
 export const jsx = createHyperscript({
     elements: {
-        // attachment: { type: ATTACHMENT_NODE_TYPE },
         paragraph: { type: PARAGRAPH_NODE_TYPE },
         link: { type: LINK_NODE_TYPE },
         blockquote: { type: QUOTE_NODE_TYPE },
@@ -71,6 +82,9 @@ export const jsx = createHyperscript({
         attachment: initCreator((props: AttachmentNode) =>
             createFileAttachment(props.file, props.description),
         ),
+        bookmark: initCreator((props: BookmarkNode) => createWebBookmark(props)),
+        contact: initCreator((props: ContactNode) => createPressContact(props.contact)),
+        coverage: initCreator((props: CoverageNode) => createCoverage(props.coverage.id, props)),
         'h-text': createText,
     },
 });

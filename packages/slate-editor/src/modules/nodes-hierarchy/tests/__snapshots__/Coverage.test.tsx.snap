@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / Coverage should be kept after normalization 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "coverage": Object {
+      "id": 1,
+    },
+    "layout": "horizontal",
+    "new_tab": true,
+    "show_thumbnail": true,
+    "type": "coverage",
+    "uuid": "cfff4936-22bf-4c9a-81aa-cbf2f5fd6192",
+  },
+]
+`;
