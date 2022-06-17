@@ -6,7 +6,7 @@ export {
     createEditorValueWithCoverageAsString,
     serialize,
     deserialize,
-    isEditorValueEquivalent,
+    isEditorValueEqual,
 } from './lib';
 export type { RichBlocksAwareEditor } from './plugins';
 export type { EditorRef, EditorProps, Value } from './types';

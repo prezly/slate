@@ -25,6 +25,7 @@ export interface EditorRef {
     events: Events<EditorEventMap>;
     focus: () => void;
     isEmpty: () => boolean;
+    isEqualTo: (value: Value) => void;
     isFocused: () => boolean;
     /**
      * Check if the editor value is different from the `initialValue` document.
