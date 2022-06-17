@@ -9,6 +9,8 @@ import type {
     ElementNode,
     EmbedNode,
     GalleryNode,
+    HeadingNode,
+    HtmlNode,
 } from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
@@ -38,6 +40,8 @@ import { createEmbed } from '#extensions/embed';
 import { createFileAttachment } from '#extensions/file-attachment';
 import { createGallery } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
+import { createHeading } from '#extensions/heading';
+import { createHtmlBlock } from '#extensions/html';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { ListExtension } from '#extensions/list';
 import { createPressContact } from '#extensions/press-contacts';
@@ -58,6 +62,9 @@ declare global {
             divider: JsxElement<DividerNode>;
             'embed-node': JsxElement<EmbedNode>;
             gallery: JsxElement<GalleryNode>;
+            'h:h1': JsxElement<HeadingNode>;
+            'h:h2': JsxElement<HeadingNode>;
+            'h:html': JsxElement<HtmlNode>;
         }
     }
 }
@@ -93,6 +100,13 @@ export const jsx = createHyperscript({
         divider: initCreator(() => createDivider()),
         'embed-node': initCreator((props: EmbedNode) => createEmbed(props.oembed, props.url)),
         gallery: initCreator((props: GalleryNode) => createGallery(props)),
+        'h:h1': initCreator((props: HeadingNode) =>
+            createHeading({ ...props, type: 'heading-one' }),
+        ),
+        'h:h2': initCreator((props: HeadingNode) =>
+            createHeading({ ...props, type: 'heading-two' }),
+        ),
+        'h:html': initCreator((props: HtmlNode) => createHtmlBlock(props)),
         'h-text': createText,
     },
 });
