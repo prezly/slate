@@ -12,6 +12,9 @@ import type {
     HeadingNode,
     HtmlNode,
     ImageNode,
+    ListItemNode,
+    ListItemTextNode,
+    ListNode,
     ParagraphNode,
     QuoteNode,
     StoryBookmarkNode,
@@ -63,6 +66,8 @@ import { createVideoBookmark } from '#extensions/video';
 import { createWebBookmark } from '#extensions/web-bookmark';
 import { createEditor } from '#modules/editor';
 
+import { createList, createListItem, createListItemText } from '#extensions/list/lib';
+
 type HElement<T extends ElementNode> = Omit<T, 'type' | 'children'>;
 
 interface HElements {
@@ -79,8 +84,12 @@ interface HElements {
     'h:h2': PropsWithChildren<HElement<HeadingNode>>;
     'h:html': HElement<HtmlNode>;
     'h:image-candidate': HElement<ImageCandidateNode>;
-    'h:image': HElement<ImageNode>;
+    'h:image': PropsWithChildren<HElement<ImageNode>>;
     'h:loader': HElement<LoaderNode>;
+    'h:ol': PropsWithChildren<HElement<ListNode>>;
+    'h:ul': PropsWithChildren<HElement<ListNode>>;
+    'h:li': PropsWithChildren<HElement<ListItemNode>>;
+    'h:li-text': PropsWithChildren<HElement<ListItemTextNode>>;
     'h:paragraph': PropsWithChildren<HElement<ParagraphNode>>;
     'h:quote': PropsWithChildren<HElement<QuoteNode>>;
     'h:story-bookmark': HElement<StoryBookmarkNode>;
@@ -122,6 +131,10 @@ const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
     ),
     'h:image': initCreator((props: ImageNode) => createImage(props)),
     'h:loader': initCreator((props: LoaderNode) => createLoader(props)),
+    'h:ol': initCreator((props: ListNode) => createList({ ...props, type: 'numbered-list' })),
+    'h:ul': initCreator((props: ListNode) => createList({ ...props, type: 'bulleted-list' })),
+    'h:li': initCreator((props: ListItemNode) => createListItem(props)),
+    'h:li-text': initCreator((props: ListItemTextNode) => createListItemText(props)),
     'h:paragraph': initCreator((props: ParagraphNode) => createParagraph(props)),
     'h:quote': initCreator((props: QuoteNode) => createBlockquote(props)),
     'h:story-bookmark': initCreator((props: StoryBookmarkNode) => createStoryBookmark(props)),
@@ -147,7 +160,8 @@ export const jsx = createHyperscript({
 
 function initCreator<T>(creator: (props: T) => T): HyperscriptCreators[string] {
     return (_, props, children) => {
-        const node = creator({ ...props, children } as any);
+        const propsWithChildren = children.length > 0 ? { ...props, children } : props;
+        const node = creator(propsWithChildren as any);
 
         // In some creators uuid is not overridable and can different from time to time
         if ('uuid' in node && 'uuid' in props) {

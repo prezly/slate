@@ -27,7 +27,9 @@ describe('nodes-hierarchy / Image', () => {
                         original_height: 900,
                         effects: [],
                     }}
-                />
+                >
+                    <h-text>Caption</h-text>
+                </h:image>
             </editor>
         ) as unknown as Editor;
 
@@ -51,7 +53,9 @@ describe('nodes-hierarchy / Image', () => {
                         original_height: 900,
                         effects: [],
                     }}
-                />
+                >
+                    <h-text>Caption</h-text>
+                </h:image>
             </editor>
         ) as unknown as Editor;
 

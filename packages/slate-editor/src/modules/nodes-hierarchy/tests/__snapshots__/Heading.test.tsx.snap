@@ -6,7 +6,7 @@ Array [
     "align": "left",
     "children": Array [
       Object {
-        "text": "",
+        "text": "First",
       },
     ],
     "type": "heading-one",
@@ -15,7 +15,7 @@ Array [
     "align": undefined,
     "children": Array [
       Object {
-        "text": "",
+        "text": "Second",
       },
     ],
     "type": "heading-two",

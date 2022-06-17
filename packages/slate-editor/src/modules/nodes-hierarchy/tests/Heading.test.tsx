@@ -9,15 +9,23 @@ describe('nodes-hierarchy / Heading', () => {
     it('should be kept after normalization', () => {
         const editor = (
             <editor>
-                <h:h1 align={Alignment.LEFT}>First</h:h1>
-                <h:h2>Second</h:h2>
+                <h:h1 align={Alignment.LEFT}>
+                    <h-text>First</h-text>
+                </h:h1>
+                <h:h2>
+                    <h-text>Second</h-text>
+                </h:h2>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h:h1 align={Alignment.LEFT}>First</h:h1>
-                <h:h2>Second</h:h2>
+                <h:h1 align={Alignment.LEFT}>
+                    <h-text>First</h-text>
+                </h:h1>
+                <h:h2>
+                    <h-text>Second</h-text>
+                </h:h2>
             </editor>
         ) as unknown as Editor;
 
