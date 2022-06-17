@@ -10,16 +10,19 @@ import { fixSelection } from './isValidSelection';
 export function resetNodes(editor: Editor, nodes: Node[], selection?: Selection): void {
     const children = [...editor.children];
 
-    for (let i = 0; i < children.length; i++) {
-        const node = children[i];
-        editor.apply({ type: 'remove_node', path: [0], node });
-    }
+    Editor.withoutNormalizing(editor, () => {
+        for (let i = 0; i < children.length; i++) {
+            const node = children[i];
+            editor.apply({ type: 'remove_node', path: [0], node });
+        }
 
-    for (let i = 0; i < nodes.length; i++) {
-        editor.apply({ type: 'insert_node', path: [i], node: nodes[i] });
-    }
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            editor.apply({ type: 'insert_node', path: [i], node });
+        }
 
-    if (selection) {
-        Transforms.select(editor, fixSelection(editor, selection) ?? Editor.end(editor, []));
-    }
+        if (selection) {
+            Transforms.select(editor, fixSelection(editor, selection) ?? Editor.end(editor, []));
+        }
+    });
 }
