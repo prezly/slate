@@ -12,6 +12,9 @@ import type {
     HeadingNode,
     HtmlNode,
     ImageNode,
+    ParagraphNode,
+    QuoteNode,
+    StoryBookmarkNode,
 } from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
@@ -34,7 +37,7 @@ import {
 } from 'slate-hyperscript';
 import { withReact } from 'slate-react';
 
-import { BlockquoteExtension } from '#extensions/blockquote';
+import { BlockquoteExtension, createBlockquote } from '#extensions/blockquote';
 import { createCoverage } from '#extensions/coverage';
 import { createDivider } from '#extensions/divider';
 import { createEmbed } from '#extensions/embed';
@@ -49,7 +52,9 @@ import { InlineLinksExtension } from '#extensions/inline-links';
 import { ListExtension } from '#extensions/list';
 import type { LoaderNode } from '#extensions/loader';
 import { createLoader } from '#extensions/loader';
+import { createParagraph } from '#extensions/paragraphs';
 import { createPressContact } from '#extensions/press-contacts';
+import { createStoryBookmark } from '#extensions/story-bookmark';
 import { createWebBookmark } from '#extensions/web-bookmark';
 import { createEditor } from '#modules/editor';
 
@@ -73,6 +78,9 @@ declare global {
             'h:image-candidate': JsxElement<ImageCandidateNode>;
             'h:image': JsxElement<ImageNode>;
             'h:loader': JsxElement<LoaderNode>;
+            'h:paragraph': JsxElement<ParagraphNode>;
+            'h:quote': JsxElement<QuoteNode>;
+            'h:story-bookmark': JsxElement<StoryBookmarkNode>;
         }
     }
 }
@@ -120,13 +128,16 @@ export const jsx = createHyperscript({
         ),
         'h:image': initCreator((props: ImageNode) => createImage(props)),
         'h:loader': initCreator((props: LoaderNode) => createLoader(props)),
+        'h:paragraph': initCreator((props: ParagraphNode) => createParagraph(props)),
+        'h:quote': initCreator((props: QuoteNode) => createBlockquote(props)),
+        'h:story-bookmark': initCreator((props: StoryBookmarkNode) => createStoryBookmark(props)),
         'h-text': createText,
     },
 });
 
 function initCreator<T>(creator: (props: T) => T): HyperscriptCreators[string] {
-    return (_, props) => {
-        const node = creator(props as any);
+    return (_, props, children) => {
+        const node = creator({ ...props, children } as any);
 
         // In some creators uuid is not overridable and can different from time to time
         if ('uuid' in node && 'uuid' in props) {

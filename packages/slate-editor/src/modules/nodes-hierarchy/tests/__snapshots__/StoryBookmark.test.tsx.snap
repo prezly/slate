@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / StoryBookmark should be kept after normalization 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "layout": "horizontal",
+    "new_tab": true,
+    "show_thumbnail": true,
+    "story": Object {
+      "uuid": "f0c7c0f8-7e67-4402-b07e-4db2f8c4f439",
+    },
+    "type": "story-bookmark",
+    "uuid": "e4fe5597-6bfc-4db9-bd2b-c5823586b9dc",
+  },
+]
+`;
