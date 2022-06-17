@@ -1,10 +1,9 @@
-import type { Editor, NodeEntry } from 'slate';
 import { Node } from 'slate';
 
-import type { HierarchyFixer, HierarchyNormalizer } from '../types';
+import type { HierarchyFixer, HierarchyNormalizer, HierarchyNodeQuery } from '../types';
 
 export function allowChildren(
-    isAllowed: (entry: NodeEntry, editor: Editor) => boolean,
+    isAllowed: HierarchyNodeQuery,
     fix: HierarchyFixer,
 ): HierarchyNormalizer {
     return (editor, path) => {
