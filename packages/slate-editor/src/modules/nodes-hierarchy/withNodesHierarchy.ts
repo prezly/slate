@@ -1,7 +1,7 @@
 import type { Node } from 'slate';
 import { Editor } from 'slate';
 
-import { EditorRootNode } from './types';
+import { EDITOR_NODE_TYPE } from './types';
 import type { NodesHierarchySchema, HierarchyNormalizer } from './types';
 
 export function withNodesHierarchy(schema: NodesHierarchySchema) {
@@ -31,7 +31,7 @@ function getSchemaNormalizers(node: Node, schema: NodesHierarchySchema) {
     let res: HierarchyNormalizer[] | undefined = undefined;
 
     if (Editor.isEditor(node)) {
-        res = schema[EditorRootNode];
+        res = schema[EDITOR_NODE_TYPE];
     } else if ('type' in node) {
         res = schema[node.type];
     }

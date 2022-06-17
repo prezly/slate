@@ -157,7 +157,7 @@ describe('Editor - pasting', () => {
         expect(editor.children).toMatchObject(JSON.parse(expected));
     });
 
-    it.skip('Does not merge sibling divs into p', () => {
+    it('Does not merge sibling divs into p', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
@@ -168,14 +168,13 @@ describe('Editor - pasting', () => {
             </editor>,
         );
 
-        const expected = readTestFile('expected/divs.json');
         const dataTransfer = createDataTransfer({
             'text/html': readTestFile('input/divs.html'),
         });
 
         editor.insertData(dataTransfer);
 
-        expect(editor.children).toEqual(JSON.parse(expected));
+        expect(editor.children).toMatchSnapshot();
     });
 
     it('Deserializes paragraph nested in quote', () => {

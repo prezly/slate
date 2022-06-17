@@ -32,6 +32,8 @@ import {
     STORY_BOOKMARK_NODE_TYPE,
     STORY_EMBED_NODE_TYPE,
     VIDEO_NODE_TYPE,
+    isMentionNode,
+    isPlaceholderNode,
 } from '@prezly/slate-types';
 import { Text } from 'slate';
 import type { NodeEntry } from 'slate';
@@ -41,7 +43,7 @@ import { isLoaderElement, LOADER_NODE_TYPE } from '#extensions/loader';
 
 import { convertToParagraph, liftNode, unwrapNode } from './fixers';
 import { allowChildren } from './normilizers';
-import { EditorRootNode } from './types';
+import { EDITOR_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
 import { combineFixers } from './utils';
 
@@ -56,13 +58,13 @@ export const hierarchySchema: NodesHierarchySchema = {
     [CONTACT_NODE_TYPE]: [allowChildren(isEmptyTextChild, combineFixers([liftNode, unwrapNode]))],
     [COVERAGE_NODE_TYPE]: [allowChildren(isEmptyTextChild, combineFixers([liftNode, unwrapNode]))],
     [DIVIDER_NODE_TYPE]: [allowChildren(isEmptyTextChild, combineFixers([liftNode, unwrapNode]))],
-    [EMBED_NODE_TYPE]: [allowChildren(isEmptyTextChild, combineFixers([liftNode, unwrapNode]))],
-    [EditorRootNode]: [
+    [EDITOR_NODE_TYPE]: [
         allowChildren(
             isAllowedOnTopLevel,
             combineFixers([liftNode, unwrapNode, convertToParagraph]),
         ),
     ],
+    [EMBED_NODE_TYPE]: [allowChildren(isEmptyTextChild, combineFixers([liftNode, unwrapNode]))],
     [GALLERY_NODE_TYPE]: [allowChildren(isEmptyTextChild, combineFixers([liftNode, unwrapNode]))],
     [HEADING_1_NODE_TYPE]: [
         allowChildren(
@@ -84,7 +86,11 @@ export const hierarchySchema: NodesHierarchySchema = {
     [LOADER_NODE_TYPE]: [allowChildren(isEmptyTextChild, combineFixers([liftNode, unwrapNode]))],
     [PARAGRAPH_NODE_TYPE]: [
         allowChildren(
-            ([node]) => Text.isText(node) || isLinkNode(node),
+            ([node]) =>
+                Text.isText(node) ||
+                isLinkNode(node) ||
+                isMentionNode(node) ||
+                isPlaceholderNode(node),
             combineFixers([liftNode, unwrapNode]),
         ),
     ],

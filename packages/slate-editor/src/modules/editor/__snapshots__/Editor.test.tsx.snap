@@ -1,0 +1,384 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Editor - pasting Does not merge sibling divs into p 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "text": "Bonjour Sylvain, ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "J'espère que vous allez bien ?",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "Je me permets de vous contacter car je souhaitais vous proposer de vous entretenir avec ",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "bold": true,
+            "text": "Bernhard Ney",
+          },
+        ],
+        "href": "https://www.linkedin.com/in/bernhardney/",
+        "new_tab": true,
+        "type": "link",
+      },
+      Object {
+        "bold": true,
+        "text": ", Directeur International de ",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "bold": true,
+            "text": "COMATCH",
+          },
+        ],
+        "href": "https://www.comatch.com/fr/",
+        "new_tab": true,
+        "type": "link",
+      },
+      Object {
+        "bold": true,
+        "text": ", premier réseau de consultants et experts indépendants en Europe. ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "A la veille du reconfinement, je vous propose de faire le point avec lui sur l'industrie du conseil et le métier de consultant, qui passe traditionnellement beaucoup de temps en déplacement pour rencontrer ses clients et réaliser ses missions. Voici quelques sujets que vous pourriez aborder avec Bernhard:",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "Quel est le rôle des plateformes d'intermédiation dans ce contexte ?",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "Quels impacts sur les activités de conseil et l'industrie du conseil indépendant?  ",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "Comment les entreprises et les consultants se sont-ils adaptés pour poursuivre les missions?  ",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "Comment le conseil la consommation de conseil va-t'elle évoluer à l'avenir ? Plus de flexibilité, plus d'indépendants, les cabinets de conseil seront-ils toujours compétitifs?",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "Comment bien travailler avec un consultant à distance ? ",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+    ],
+    "type": "bulleted-list",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "A cette occasion, il pourra également dévoiler les résultats de l'étude \\"",
+      },
+      Object {
+        "italic": true,
+        "text": "L’ADN du consultant indépendant en 2020 : Résilience et flexibilité en temps de crise\\"",
+      },
+      Object {
+        "text": " (enquête réalisé avant et après le début de la crise), sur les limites et tendances du conseil indépendant en cette période d'incertitudes économiques. ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "bold": true,
+        "text": "Ce pourrait également être l'occasion de faire le point sur COMATCH, son modèle et sa présence en France. ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "bold": true,
+        "text": "COMATCH en bref",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "Le rôle de COMATCH est de mettre les entreprises - de la PME au grand groupes - en relation avec les profils adaptés à leurs besoins. Chacun des 10,000 profils internationaux inscrits sur le réseau a suivi un processus de sélection rigoureux pour assurer le meilleur service aux clients. Aujourd'hui le réseau enregistre plus de 10000 consultants principalement d'Europe et des Etats-Unis, mais également d'Asie ou encore d'Amérique du Sud. ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "COMATCH répond ainsi à la quête de réactivité et de flexibilité des entreprises dans leur recherche en compétences externes et notamment dans le contexte actuel. ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": " ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "Est-ce que cette proposition vous intéresse ?",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": " ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "Dans l'attente de votre retour, je vous souhaite une excellente fin de journée.",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": " ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "Bien cordialement,",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": " ",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "Noémie Diaz de Cerio",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
