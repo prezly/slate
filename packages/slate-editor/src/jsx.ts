@@ -11,6 +11,7 @@ import type {
     GalleryNode,
     HeadingNode,
     HtmlNode,
+    ImageNode,
 } from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
@@ -42,8 +43,12 @@ import { createGallery } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
 import { createHeading } from '#extensions/heading';
 import { createHtmlBlock } from '#extensions/html';
+import { createImage, createImageCandidate } from '#extensions/image';
+import type { ImageCandidateNode } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { ListExtension } from '#extensions/list';
+import type { LoaderNode } from '#extensions/loader';
+import { createLoader } from '#extensions/loader';
 import { createPressContact } from '#extensions/press-contacts';
 import { createWebBookmark } from '#extensions/web-bookmark';
 import { createEditor } from '#modules/editor';
@@ -65,6 +70,9 @@ declare global {
             'h:h1': JsxElement<HeadingNode>;
             'h:h2': JsxElement<HeadingNode>;
             'h:html': JsxElement<HtmlNode>;
+            'h:image-candidate': JsxElement<ImageCandidateNode>;
+            'h:image': JsxElement<ImageNode>;
+            'h:loader': JsxElement<LoaderNode>;
         }
     }
 }
@@ -107,6 +115,11 @@ export const jsx = createHyperscript({
             createHeading({ ...props, type: 'heading-two' }),
         ),
         'h:html': initCreator((props: HtmlNode) => createHtmlBlock(props)),
+        'h:image-candidate': initCreator((props: ImageCandidateNode) =>
+            createImageCandidate(props.src, props.href),
+        ),
+        'h:image': initCreator((props: ImageNode) => createImage(props)),
+        'h:loader': initCreator((props: LoaderNode) => createLoader(props)),
         'h-text': createText,
     },
 });
