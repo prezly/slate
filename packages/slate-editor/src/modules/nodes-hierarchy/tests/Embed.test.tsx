@@ -8,7 +8,7 @@ describe('nodes-hierarchy / Embed', () => {
     it('should be kept after normalization', () => {
         const editor = (
             <editor>
-                <embed-node
+                <h:embed
                     url="https://github.com/prezly/slate/pull/218"
                     uuid="7ff80f6a-83f6-4d5b-82e2-cd1735309c11"
                     oembed={{
@@ -34,7 +34,7 @@ describe('nodes-hierarchy / Embed', () => {
 
         const expected = (
             <editor>
-                <embed-node
+                <h:embed
                     url="https://github.com/prezly/slate/pull/218"
                     uuid="7ff80f6a-83f6-4d5b-82e2-cd1735309c11"
                     oembed={{

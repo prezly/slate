@@ -8,7 +8,7 @@ describe('nodes-hierarchy / Attachment', () => {
     it('should be kept after normalization', () => {
         const editor = (
             <editor>
-                <attachment
+                <h:attachment
                     description="one"
                     file={{
                         filename: 'example.pdf',
@@ -23,7 +23,7 @@ describe('nodes-hierarchy / Attachment', () => {
 
         const expected = (
             <editor>
-                <attachment
+                <h:attachment
                     description="one"
                     file={{
                         filename: 'example.pdf',

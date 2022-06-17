@@ -9,7 +9,7 @@ describe('nodes-hierarchy / Gallery', () => {
     it('should be kept after normalization', () => {
         const editor = (
             <editor>
-                <gallery
+                <h:gallery
                     uuid={'d697805c-7e8a-4627-b919-59097fbce50a'}
                     layout={GalleryLayout.CONTAINED}
                     padding={GalleryPadding.M}
@@ -48,7 +48,7 @@ describe('nodes-hierarchy / Gallery', () => {
 
         const expected = (
             <editor>
-                <gallery
+                <h:gallery
                     uuid={'d697805c-7e8a-4627-b919-59097fbce50a'}
                     layout={GalleryLayout.CONTAINED}
                     padding={GalleryPadding.M}

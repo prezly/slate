@@ -8,13 +8,13 @@ describe('nodes-hierarchy / Divider', () => {
     it('should be kept after normalization', () => {
         const editor = (
             <editor>
-                <divider />
+                <h:divider />
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <divider />
+                <h:divider />
             </editor>
         ) as unknown as Editor;
 

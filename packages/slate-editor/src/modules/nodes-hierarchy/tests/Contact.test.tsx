@@ -8,7 +8,7 @@ describe('nodes-hierarchy / Contact', () => {
     it('should be kept after normalization', () => {
         const editor = (
             <editor>
-                <contact
+                <h:contact
                     uuid="cfff4936-22bf-4c9a-81aa-cbf2f5fd6192"
                     contact={{
                         id: 255335,
@@ -31,7 +31,7 @@ describe('nodes-hierarchy / Contact', () => {
 
         const expected = (
             <editor>
-                <contact
+                <h:contact
                     uuid="cfff4936-22bf-4c9a-81aa-cbf2f5fd6192"
                     contact={{
                         id: 255335,

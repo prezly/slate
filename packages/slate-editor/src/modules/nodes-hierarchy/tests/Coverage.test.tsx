@@ -9,7 +9,7 @@ describe('nodes-hierarchy / Coverage', () => {
     it('should be kept after normalization', () => {
         const editor = (
             <editor>
-                <coverage
+                <h:coverage
                     coverage={{ id: 1 }}
                     layout={CoverageLayout.HORIZONTAL}
                     new_tab
@@ -21,7 +21,7 @@ describe('nodes-hierarchy / Coverage', () => {
 
         const expected = (
             <editor>
-                <coverage
+                <h:coverage
                     coverage={{ id: 1 }}
                     layout={CoverageLayout.HORIZONTAL}
                     new_tab

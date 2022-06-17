@@ -9,7 +9,7 @@ describe('nodes-hierarchy / Bookmark', () => {
     it('should be kept after normalization', () => {
         const editor = (
             <editor>
-                <bookmark
+                <h:bookmark
                     layout={BookmarkCardLayout.HORIZONTAL}
                     new_tab
                     show_thumbnail
@@ -32,7 +32,7 @@ describe('nodes-hierarchy / Bookmark', () => {
 
         const expected = (
             <editor>
-                <bookmark
+                <h:bookmark
                     layout={BookmarkCardLayout.HORIZONTAL}
                     new_tab
                     show_thumbnail

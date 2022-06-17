@@ -19,8 +19,8 @@ export function createWebBookmark(props: RequiredProps & Partial<OptionalProps>)
         layout: BookmarkCardLayout.HORIZONTAL,
         new_tab: false,
         show_thumbnail: true,
-        children: [{ text: '' }],
         ...props,
+        children: [{ text: '' }],
         type: BOOKMARK_NODE_TYPE, // disallowed to override type
     });
 }
