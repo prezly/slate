@@ -12,7 +12,11 @@ interface Props extends HTMLAttributes<HTMLSpanElement> {
 export const ListItemTextElement = forwardRef<HTMLSpanElement, Props>(
     ({ children, className, ...props }, ref) => {
         return (
-            <span {...props} className={classNames(styles.ListItemTextElement, className)} ref={ref}>
+            <span
+                {...props}
+                className={classNames(styles.ListItemTextElement, className)}
+                ref={ref}
+            >
                 {children}
             </span>
         );
