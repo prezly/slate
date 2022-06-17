@@ -15,8 +15,8 @@ function withoutExtraAttributes<T extends VideoNode>(node: T): VideoNode {
 export function createVideoBookmark(props: RequiredProps): VideoNode {
     return withoutExtraAttributes({
         uuid: uuidV4(),
-        children: [{ text: '' }],
         ...props,
+        children: [{ text: '' }],
         type: VIDEO_NODE_TYPE, // disallowed to override type
     });
 }

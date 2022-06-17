@@ -15,6 +15,8 @@ import type {
     ParagraphNode,
     QuoteNode,
     StoryBookmarkNode,
+    StoryEmbedNode,
+    VideoNode,
 } from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
@@ -55,6 +57,8 @@ import { createLoader } from '#extensions/loader';
 import { createParagraph } from '#extensions/paragraphs';
 import { createPressContact } from '#extensions/press-contacts';
 import { createStoryBookmark } from '#extensions/story-bookmark';
+import { createStoryEmbed } from '#extensions/story-embed';
+import { createVideoBookmark } from '#extensions/video';
 import { createWebBookmark } from '#extensions/web-bookmark';
 import { createEditor } from '#modules/editor';
 
@@ -81,6 +85,8 @@ declare global {
             'h:paragraph': JsxElement<ParagraphNode>;
             'h:quote': JsxElement<QuoteNode>;
             'h:story-bookmark': JsxElement<StoryBookmarkNode>;
+            'h:story-embed': JsxElement<StoryEmbedNode>;
+            'h:video': JsxElement<VideoNode>;
         }
     }
 }
@@ -131,6 +137,8 @@ export const jsx = createHyperscript({
         'h:paragraph': initCreator((props: ParagraphNode) => createParagraph(props)),
         'h:quote': initCreator((props: QuoteNode) => createBlockquote(props)),
         'h:story-bookmark': initCreator((props: StoryBookmarkNode) => createStoryBookmark(props)),
+        'h:story-embed': initCreator((props: StoryEmbedNode) => createStoryEmbed(props)),
+        'h:video': initCreator((props: VideoNode) => createVideoBookmark(props)),
         'h-text': createText,
     },
 });
