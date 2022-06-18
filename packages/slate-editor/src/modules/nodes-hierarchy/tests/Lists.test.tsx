@@ -91,4 +91,53 @@ describe('nodes-hierarchy / Lists', () => {
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
+
+    it('can unwrap blockquote inside list item', () => {
+        const editor = (
+            <editor>
+                <ul>
+                    <li>
+                        <li-text>
+                            <h-text>1</h-text>
+                        </li-text>
+                    </li>
+                    <li>
+                        <h-text>2</h-text>
+                    </li>
+                    <li>
+                        <blockquote>
+                            <h-text>3</h-text>
+                        </blockquote>
+                    </li>
+                </ul>
+            </editor>
+        ) as unknown as Editor;
+
+        const expected = (
+            <editor>
+                <ul>
+                    <li>
+                        <li-text>
+                            <h-text>1</h-text>
+                        </li-text>
+                    </li>
+                    <li>
+                        <li-text>
+                            <h-text>2</h-text>
+                        </li-text>
+                    </li>
+                    <li>
+                        <li-text>
+                            <h-text>3</h-text>
+                        </li-text>
+                    </li>
+                </ul>
+            </editor>
+        ) as unknown as Editor;
+
+        Editor.normalize(editor, { force: true });
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+    });
 });
