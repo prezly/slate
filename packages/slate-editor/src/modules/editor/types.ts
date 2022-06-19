@@ -14,12 +14,14 @@ import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeho
 import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
+import type { TableExtensionParameters } from '#extensions/table';
 import type { UserMentionsExtensionParameters } from '#extensions/user-mentions';
 import type { VideoExtensionParameters } from '#extensions/video';
 import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
 import type { EditorEventMap } from '#modules/events';
 
 import type { useCursorInView } from './lib';
+
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
@@ -83,6 +85,7 @@ export interface EditorProps {
           };
     withStoryBookmarks?: false | StoryBookmarkExtensionParameters;
     withStoryEmbeds?: false | StoryEmbedExtensionParameters;
+    withTables?: false | TableExtensionParameters;
     withTextStyling?: boolean;
     withUserMentions?: false | UserMentionsExtensionParameters;
     withVideos?: false | VideoExtensionParameters;

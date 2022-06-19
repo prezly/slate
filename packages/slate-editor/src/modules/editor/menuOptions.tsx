@@ -10,6 +10,7 @@ export enum MenuAction {
     ADD_CONTACT = 'add_contact',
     ADD_COVERAGE = 'add_coverage',
     ADD_DIVIDER = 'add_divider',
+    ADD_TABLE = 'add_table',
     ADD_EMBED = 'add_embed',
     /**
      * @deprecated Will be replaced with `add_web_bookmark`
@@ -43,6 +44,7 @@ interface Params {
     withBlockquotes: boolean;
     withCoverage: boolean;
     withDivider: boolean;
+    withTables: boolean;
     withEmbeds: boolean;
     withEmbedSocial: boolean;
     withGalleries: boolean;
@@ -63,6 +65,7 @@ export function* generateFloatingAddMenuOptions(
         withBlockquotes,
         withCoverage,
         withDivider,
+        withTables,
         withEmbeds,
         withEmbedSocial,
         withGalleries,
@@ -120,6 +123,17 @@ export function* generateFloatingAddMenuOptions(
             group: Group.BASICS,
             text: 'Divider',
             description: 'Divide blocks with a line',
+        };
+    }
+
+    if (withTables) {
+        yield {
+            action: MenuAction.ADD_TABLE,
+            icon: Icons.ComponentTable,
+            group: Group.BASICS,
+            text: 'Table',
+            description: 'Add a table to your Story',
+            isBeta: true,
         };
     }
 

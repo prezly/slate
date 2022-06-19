@@ -23,6 +23,7 @@ import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
 import { StoryEmbedExtension } from '#extensions/story-embed';
+import { TableExtension } from '#extensions/table';
 import { TextStylingExtension } from '#extensions/text-styling';
 import { UserMentionsExtension } from '#extensions/user-mentions';
 import { VideoExtension } from '#extensions/video';
@@ -69,6 +70,7 @@ type Parameters = {
     | 'withPlaceholders'
     | 'withPressContacts'
     | 'withTextStyling'
+    | 'withTables'
     | 'withUserMentions'
     | 'withVideos'
     | 'withWebBookmarks'
@@ -96,6 +98,7 @@ export function* getEnabledExtensions({
     withPlaceholders,
     withPressContacts,
     withTextStyling,
+    withTables,
     withUserMentions,
     withVideos,
     withWebBookmarks,
@@ -203,6 +206,10 @@ export function* getEnabledExtensions({
         ];
         const rules = withAutoformat === true ? defaultRules : withAutoformat.rules;
         yield AutoformatExtension({ rules });
+    }
+
+    if (withTables) {
+        yield TableExtension(withTables);
     }
 
     if (withStoryEmbeds) {

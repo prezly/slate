@@ -7,12 +7,16 @@ import type { TableEditor } from '../TableEditor';
 export function insertTable(
     editor: TableEditor,
     location: Location | undefined = editor.selection ?? undefined,
+    rowsCount?: number,
+    columnsCount?: number,
 ) {
     if (!location) {
         return false;
     }
 
-    Transforms.insertNodes(editor, TableNode.createTableNode(editor, 3, 3), { at: location });
+    Transforms.insertNodes(editor, TableNode.createTableNode(editor, rowsCount, columnsCount), {
+        at: location,
+    });
 
     editor.focusEditor();
 
