@@ -28,6 +28,7 @@ export namespace TableEditor {
 
     export const isInTable = TableQueries.isInTable;
 
+    export const createTableNode = TableNode.createTableNode;
     export const updateTable = TableNode.update;
     export const toggleTableHeader = TableNode.toggleTableHeader;
 
