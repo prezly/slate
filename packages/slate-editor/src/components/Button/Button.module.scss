@@ -60,15 +60,6 @@
         background-color: transparent;
     }
 
-    &--full-width {
-        width: 100%;
-        padding: $spacing-2 - $border-size;
-    }
-
-    &--round {
-        border-radius: 6px;
-    }
-
     &--primary {
         background: rgba(255, 255, 255, 0.16);
         color: $white;
@@ -128,6 +119,19 @@
             text-decoration: underline;
             text-underline-position: under;
         }
+    }
+
+    &--full-width {
+        width: 100%;
+        padding: $spacing-2 - $border-size;
+    }
+
+    &--round {
+        border-radius: 6px;
+    }
+
+    &--noPadding {
+        padding: 0;
     }
 }
 
