@@ -1,4 +1,4 @@
-import { omit } from 'lodash-es';
+import omit from 'lodash/omit';
 import type { BaseElement, Descendant, Location, Node, NodeEntry } from 'slate';
 import { Element, Transforms } from 'slate';
 

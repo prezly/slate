@@ -1,4 +1,4 @@
-import { set } from 'lodash-es';
+import set from 'lodash/set';
 import type { NodeEntry } from 'slate';
 import { Node, Path } from 'slate';
 
