@@ -1,10 +1,10 @@
 import type { Location } from 'slate';
 import { Transforms } from 'slate';
 
-import { TableNode } from '../nodes';
+import { Traverse } from '../core';
 import type { TableEditor } from '../TableEditor';
 
-export function insertTable(
+export function removeTable(
     editor: TableEditor,
     location: Location | undefined = editor.selection ?? undefined,
 ) {
@@ -12,9 +12,17 @@ export function insertTable(
         return false;
     }
 
-    Transforms.insertNodes(editor, TableNode.createTableNode(editor, 3, 3), { at: location });
+    const traverse = Traverse.create(editor, location);
+
+    if (!traverse) {
+        return false;
+    }
+
+    const { matrix } = traverse;
 
     editor.focusEditor();
+
+    Transforms.removeNodes(editor, { at: matrix.path });
 
     return true;
 }
