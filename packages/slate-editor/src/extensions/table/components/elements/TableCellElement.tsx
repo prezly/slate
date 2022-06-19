@@ -2,6 +2,7 @@ import type { TableCellNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import styles from './elements.module.scss';
 import { TableContext } from './TableContext';
 
 interface Props extends RenderElementProps {
@@ -32,11 +33,11 @@ export function TableCellElement({ attributes, element, children }: Props) {
     return (
         <Cell
             {...attributes}
+            className={styles.TableCell}
             colSpan={element.colspan}
             rowSpan={element.rowspan}
             contentEditable
             suppressContentEditableWarning={true}
-            style={{ whiteSpace: 'pre' }}
         >
             {children}
         </Cell>

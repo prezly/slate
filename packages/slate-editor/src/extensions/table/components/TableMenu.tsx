@@ -79,7 +79,7 @@ export function TableMenu({ element, onClose }: Props) {
                         noPadding
                         onClick={() => TableEditor.insertColumnLeft(editor)}
                     >
-                        Above
+                        Left
                     </Button>
                     <Button
                         icon={Add}
@@ -89,7 +89,7 @@ export function TableMenu({ element, onClose }: Props) {
                         noPadding
                         onClick={() => TableEditor.insertColumnRight(editor)}
                     >
-                        Below
+                        Right
                     </Button>
                     <Button
                         icon={Delete}

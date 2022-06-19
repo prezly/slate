@@ -14,7 +14,7 @@ import { ReactEditor } from 'slate-react';
 
 import { createParagraph } from '#extensions/paragraphs';
 
-import { TableElement, TableCellElement } from './components';
+import { TableElement, TableRow, TableCellElement } from './components';
 import { TABLE_EXTENSION_ID } from './constants';
 import type { TableExtensionParameters } from './types';
 
@@ -31,7 +31,11 @@ export function TableExtension(params: TableExtensionParameters): Extension {
             }
 
             if (isTableRowNode(element)) {
-                return <tr {...attributes}>{children}</tr>;
+                return (
+                    <TableRow attributes={attributes} element={element}>
+                        {children}
+                    </TableRow>
+                );
             }
 
             if (isTableCellNode(element)) {

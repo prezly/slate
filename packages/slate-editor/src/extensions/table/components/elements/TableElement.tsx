@@ -18,7 +18,6 @@ export function TableElement({ attributes, element, children }: Props) {
     return (
         <EditorBlock
             {...attributes} // contains `ref`
-            border
             element={element}
             overlay={false}
             renderMenu={({ onClose }) => <TableMenu onClose={onClose} element={element} />}
@@ -27,7 +26,7 @@ export function TableElement({ attributes, element, children }: Props) {
                     <TableContext.Provider value={{ table: element }}>
                         <table
                             className={classNames(styles.Table, {
-                                [styles.withBorders]: element.border,
+                                [styles['Table--withBorders']]: element.border,
                             })}
                         >
                             <tbody>{children}</tbody>
