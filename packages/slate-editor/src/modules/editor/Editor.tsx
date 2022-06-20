@@ -21,8 +21,8 @@ import React, {
 import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { useSize } from '#lib';
-import { isEqual, noop } from '#lodash';
+import { useFunction, useSize } from '#lib';
+import { noop } from '#lodash';
 
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
@@ -54,11 +54,11 @@ import {
     createOnCut,
     handleAddAttachment,
     insertDivider,
-    isEditorValueEquivalent,
+    isEditorValueEqual,
     useCursorInView,
 } from './lib';
 import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
-import type { EditorProps, EditorRef } from './types';
+import type { EditorProps, EditorRef, Value } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
@@ -72,13 +72,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         contentStyle,
         decorate,
         id,
+        initialValue,
         onIsOperationPendingChange,
         onKeyDown = noop,
         placeholder,
         plugins,
         readOnly,
         style,
-        value,
         withAlignmentControls,
         withAttachments = false,
         withAutoformat = false,
@@ -118,6 +118,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         (shouldOpen?: boolean) => setFloatingAddMenuOpen((isOpen) => shouldOpen ?? !isOpen),
         [setFloatingAddMenuOpen],
     );
+    const getInitialValue = useFunction(() => initialValue);
 
     const extensions = Array.from(
         getEnabledExtensions({
@@ -156,12 +157,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     useEffect(() => {
-        if (!isEqual(editor.children, value)) {
-            editor.children = value;
-        }
-    }, [value]);
-
-    useEffect(() => {
         if (autoFocus) {
             EditorCommands.focus(editor);
         }
@@ -175,12 +170,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             events,
             focus: () => EditorCommands.focus(editor),
             isEmpty: () => EditorCommands.isEmpty(editor),
+            isEqualTo: (value) => isEditorValueEqual(value, editor.children as Value),
             isFocused: () => ReactEditor.isFocused(editor),
-            /**
-             * @deprecated Please use isEditorValueEquivalent directly instead
-             */
-            isValueEquivalentTo: (otherValue: string): boolean =>
-                isEditorValueEquivalent(value, otherValue),
+            isModified: () => !isEditorValueEqual(getInitialValue(), editor.children as Value),
+            resetValue: (value) => {
+                EditorCommands.resetNodes(editor, value, editor.selection);
+            },
         }),
     );
 
@@ -390,7 +385,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     placeholders.onChange(editor);
                     userMentions.onChange(editor);
                 }}
-                value={value}
+                value={initialValue}
             >
                 <EditableWithExtensions
                     className={styles.Editable}

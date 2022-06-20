@@ -3,7 +3,7 @@ import { ProgressPromise } from '@prezly/progress-promise';
 /**
  * Based on https://stackoverflow.com/a/22593907
  */
-export function fetchImageWithXmlHttpRequest(src: string): ProgressPromise<string, number> {
+export function fetchImageWithXmlHttpRequest(src: string): ProgressPromise<string> {
     return new ProgressPromise((resolve, reject, progress) => {
         const xhr = new XMLHttpRequest();
 
