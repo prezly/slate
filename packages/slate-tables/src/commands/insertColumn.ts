@@ -25,13 +25,7 @@ export function insertColumn(
     const anchorColumn = side === 'left' ? activeColumn : activeColumn.columnRight ?? activeColumn;
 
     anchorColumn.cells.forEach((columnCell) => {
-        const at =
-            side === 'left'
-                ? columnCell.virtualPathWithRow
-                : activeColumn === anchorColumn
-                ? Path.next(columnCell.virtualPathWithRow)
-                : columnCell.virtualPathWithRow;
-
+        const at = side === 'left' ? columnCell.path : Path.next(columnCell.path);
         Transforms.insertNodes(editor, TableCellNode.createTableCellNode(editor), { at });
     });
 

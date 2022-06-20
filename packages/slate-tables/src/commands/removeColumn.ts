@@ -25,15 +25,15 @@ export function removeColumn(
         return TableEditor.removeTable(editor);
     }
 
-    activeColumn.uniqCells.forEach((cell) => {
+    activeColumn.cells.forEach((cell) => {
         if (TableCellNode.getCellColspan(cell.node) > 1) {
             TableCellNode.update(
                 editor,
                 { colspan: TableCellNode.calculateCellColSpan(cell.node, '-', 1) },
-                cell.nodePath,
+                cell.path,
             );
         } else {
-            Transforms.removeNodes(editor, { at: cell.nodePath });
+            Transforms.removeNodes(editor, { at: cell.path });
         }
     });
 

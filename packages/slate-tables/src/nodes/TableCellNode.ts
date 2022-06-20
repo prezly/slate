@@ -1,4 +1,3 @@
-import omit from 'lodash/omit';
 import type { BaseElement, Descendant, Location, Node, NodeEntry } from 'slate';
 import { Element, Transforms } from 'slate';
 
@@ -82,7 +81,8 @@ export namespace TableCellNode {
         props: Partial<Omit<TableCellNode, 'children' | 'type'>>,
         location: Location,
     ) {
-        const fixedProps = omit(props, 'type', 'children');
+        const { type, children, ...fixedProps } = props as TableCellNode;
+
         Transforms.setNodes<TableCellNode>(editor, fixedProps, {
             at: location,
             match: (n) => isTableCellNode(editor, n),

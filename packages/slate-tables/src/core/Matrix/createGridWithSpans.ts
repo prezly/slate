@@ -1,6 +1,5 @@
-import set from 'lodash/set';
 import type { NodeEntry } from 'slate';
-import { Node, Path } from 'slate';
+import { Node } from 'slate';
 
 import type { TableNode } from '../../nodes';
 import { TableRowNode, TableCellNode } from '../../nodes';
@@ -13,8 +12,6 @@ export interface GridWithSpansRow {
 
 export interface GridWithSpansCell {
     entry: NodeEntry<TableCellNode>;
-    virtualPathWithColumn: Path;
-    virtualPathWithRow: Path;
     isVirtual: boolean;
 }
 
@@ -60,22 +57,13 @@ export function createGridWithSpans(editor: TableEditor, [, tablePath]: NodeEntr
                     const y = spanIdx;
                     const x = colIdx + colSpanIdx + i;
 
-                    const rowPathIndex = Path.parent(cellPath).pop() ?? 0;
-                    const nodePath = cellPath.slice().pop() ?? 0;
-
                     const matrixCell: GridWithSpansCell = {
                         entry: [cell, cellPath],
                         isVirtual: fakeCell,
-                        virtualPathWithColumn: [...tablePath, rowPathIndex, x],
-                        virtualPathWithRow: [
-                            ...tablePath,
-                            y,
-                            fakeCell ? Math.max(nodePath - cellColspan, 0) : nodePath,
-                        ],
                     };
 
-                    set(grid, [y, 'entry'], [row, rowPath]);
-                    set(grid, [y, 'cells', x], matrixCell);
+                    grid[y].entry = [row, rowPath];
+                    grid[y].cells[x] = matrixCell;
                 }
             }
 

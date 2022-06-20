@@ -1,5 +1,3 @@
-import uniqBy from 'lodash/uniqBy';
-
 import type { TableEditor } from '../../TableEditor';
 
 import type { Matrix } from './Matrix';
@@ -30,21 +28,5 @@ export class MatrixColumn {
 
     get columnRight(): MatrixColumn | undefined {
         return this.matrix.columns[this.index + 1];
-    }
-
-    get firstCell(): MatrixCell | undefined {
-        return this.cells[0];
-    }
-
-    get isFirst() {
-        return this.index === 0;
-    }
-
-    get isLast() {
-        return this.index === this.matrix.width - 1;
-    }
-
-    get uniqCells() {
-        return uniqBy(this.cells, (c) => c.node);
     }
 }

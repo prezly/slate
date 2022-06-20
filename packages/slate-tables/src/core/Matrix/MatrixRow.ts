@@ -1,4 +1,3 @@
-import uniqBy from 'lodash/uniqBy';
 import type { NodeEntry } from 'slate';
 
 import type { TableRowNode } from '../../nodes';
@@ -23,7 +22,7 @@ export class MatrixRow {
         this.matrix = matrix;
 
         this.cells = gridRow.cells.map(
-            (gridCell, x) => new MatrixCell(editor, gridCell, y, x, this, matrix),
+            (gridCell) => new MatrixCell(editor, gridCell, this, matrix),
         );
     }
 
@@ -33,13 +32,5 @@ export class MatrixRow {
 
     get rowBelow() {
         return this.matrix.rows[this.y + 1];
-    }
-
-    get isFirst() {
-        return this.rowAbove === undefined;
-    }
-
-    get uniqCells() {
-        return uniqBy(this.cells, (c) => c.node);
     }
 }

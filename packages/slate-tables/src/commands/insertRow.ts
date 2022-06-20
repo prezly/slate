@@ -34,9 +34,7 @@ export function insertRow(
 
     const newRow = TableRowNode.createTableRowNode(editor, {}, cellsToAdd);
 
-    const at =
-        anchorRow === activeRow && side === 'bellow' ? Path.next(anchorRow.path) : anchorRow.path;
-
+    const at = side === 'bellow' ? Path.next(anchorRow.path) : anchorRow.path;
     Transforms.insertNodes(editor, newRow, { at });
 
     editor.focusEditor();

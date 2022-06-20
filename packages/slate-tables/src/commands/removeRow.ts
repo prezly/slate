@@ -25,12 +25,12 @@ export function removeRow(
 
     const { activeRow } = traverse;
 
-    activeRow.uniqCells.forEach((cell) => {
+    activeRow.cells.forEach((cell) => {
         if (TableCellNode.getCellRowspan(cell.node) > 1) {
             TableCellNode.update(
                 editor,
                 { rowspan: TableCellNode.calculateCellRowSpan(cell.node, '-', 1) },
-                cell.nodePath,
+                cell.path,
             );
         }
     });
