@@ -23,5 +23,5 @@ export {
 export * from './table';
 
 export { insertUploadingFile } from './insertUploadingFile';
-export { isEditorValueEquivalent } from './isEditorValueEquivalent';
+export { isEditorValueEqual } from './isEditorValueEqual';
 export { useCursorInView } from './useCursorInView';

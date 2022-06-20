@@ -16,7 +16,7 @@ import { UPLOAD_SINGLE_FILE_ERROR_MESSAGE } from '#modules/uploadcare';
 interface Parameters<T> {
     createElement: (file: T) => Element;
     ensureEmptyParagraphAfter: boolean;
-    filePromise: ProgressPromise<T>;
+    filePromise: ProgressPromise<T, any>;
     loaderContentType: LoaderContentType;
     loaderMessage: string;
 }

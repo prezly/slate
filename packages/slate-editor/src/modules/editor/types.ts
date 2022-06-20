@@ -26,8 +26,13 @@ export interface EditorRef {
     events: Events<EditorEventMap>;
     focus: () => void;
     isEmpty: () => boolean;
+    isEqualTo: (value: Value) => void;
     isFocused: () => boolean;
-    isValueEquivalentTo: (otherValue: string) => boolean;
+    /**
+     * Check if the editor value is different from the `initialValue` document.
+     */
+    isModified: () => boolean;
+    resetValue: (value: Value) => void;
 }
 
 export type Value = Element[];
@@ -40,6 +45,7 @@ export interface EditorProps {
     contentStyle?: CSSProperties;
     decorate?: Decorate;
     id?: string;
+    initialValue: Value;
     onChange: (value: Value) => void;
     onIsOperationPendingChange?: (isOperationPending: boolean) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
@@ -51,7 +57,6 @@ export interface EditorProps {
     plugins?: (<T extends Editor>(editor: T) => T)[];
     readOnly?: boolean;
     style?: CSSProperties;
-    value: Value;
     withAlignmentControls: boolean;
     withAttachments?: boolean;
     withAutoformat?: boolean | AutoformatParameters;

@@ -43,7 +43,6 @@
         "packages/*"
     ],
     "dependencies": {
-        "@prezly/progress-promise": "^2.0.1",
         "react": "^16.9.0 || ^17.0.0 || ^18.0.0",
         "react-bootstrap": "=0.32.4",
         "react-dom": "^16.9.0 || ^17.0.0 || ^18.0.0",
