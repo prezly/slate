@@ -22,7 +22,7 @@ import { LOADER_NODE_TYPE } from '#extensions/loader';
 
 import { convertToParagraph, liftNode, unwrapSameTypeChild, unwrapNode } from './fixers';
 import { allowChildren } from './normilizers';
-import { isAllowedOnTopLevel, isEmptyTextChild, isInlineContent, isPlainText } from './quiries';
+import { isAllowedOnTopLevel, isEmptyTextNode, isInlineNode, isTextNode } from './queries';
 import { EDITOR_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
 import { combineFixers } from './utils';
@@ -32,19 +32,19 @@ import { IMAGE_CANDIDATE_NODE_TYPE } from '#extensions/image/constants';
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
     [ATTACHMENT_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [BOOKMARK_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [CONTACT_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [COVERAGE_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [DIVIDER_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [EDITOR_NODE_TYPE]: [
         allowChildren(
@@ -53,35 +53,35 @@ export const hierarchySchema: NodesHierarchySchema = {
         ),
     ],
     [EMBED_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [GALLERY_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [HEADING_1_NODE_TYPE]: [
-        allowChildren(isInlineContent, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [HEADING_2_NODE_TYPE]: [
-        allowChildren(isInlineContent, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [HTML_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [IMAGE_CANDIDATE_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [IMAGE_NODE_TYPE]: [
-        allowChildren(isPlainText, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [LOADER_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [PARAGRAPH_NODE_TYPE]: [
-        allowChildren(isInlineContent, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [QUOTE_NODE_TYPE]: [
         allowChildren(
-            isInlineContent,
+            isInlineNode,
             combineFixers([
                 (editor, [node, path]) => isParagraphNode(node) && unwrapNode(editor, [node, path]),
                 unwrapSameTypeChild,
@@ -91,12 +91,12 @@ export const hierarchySchema: NodesHierarchySchema = {
         ),
     ],
     [STORY_BOOKMARK_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [STORY_EMBED_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [VIDEO_NODE_TYPE]: [
-        allowChildren(isEmptyTextChild, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
 };

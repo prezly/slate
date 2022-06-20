@@ -105,6 +105,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.16.12",
+        "@jest/globals": "^28.1.1",
         "@storybook/addon-actions": "^6.4.17",
         "@storybook/addon-essentials": "^6.4.17",
         "@storybook/addon-links": "^6.4.17",

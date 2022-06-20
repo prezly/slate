@@ -73,6 +73,9 @@ type HElement<T extends ElementNode> = Omit<T, 'type' | 'children'>;
 interface HElements {
     editor: PropsWithChildren<Record<string, unknown>>;
     'editor-pure': PropsWithChildren<Record<string, unknown>>;
+    'h:text': PropsWithChildren<Omit<TextNode, 'text'>>;
+    // TODO: Remove usage of h-text in all tests
+    'h-text': PropsWithChildren<Omit<TextNode, 'text'>>;
     'h:attachment': HElement<AttachmentNode>;
     'h:bookmark': HElement<BookmarkNode>;
     'h:contact': HElement<ContactNode>;
@@ -95,7 +98,6 @@ interface HElements {
     'h:story-bookmark': HElement<StoryBookmarkNode>;
     'h:story-embed': HElement<StoryEmbedNode>;
     'h:video': HElement<VideoNode>;
-    'h-text': PropsWithChildren<Omit<TextNode, 'text'>>;
 }
 
 declare global {
@@ -114,6 +116,8 @@ const extensions = [
 const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
     editor: createEditorFactory(() => createEditor(createSlateEditor(), () => extensions)),
     'editor-pure': createEditorFactory(() => withReact(createSlateEditor())),
+    'h:text': createText,
+    'h-text': createText,
     'h:attachment': initCreator((props: AttachmentNode) =>
         createFileAttachment(props.file, props.description),
     ),
@@ -140,7 +144,6 @@ const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
     'h:story-bookmark': initCreator((props: StoryBookmarkNode) => createStoryBookmark(props)),
     'h:story-embed': initCreator((props: StoryEmbedNode) => createStoryEmbed(props)),
     'h:video': initCreator((props: VideoNode) => createVideoBookmark(props)),
-    'h-text': createText,
 };
 
 export const jsx = createHyperscript({

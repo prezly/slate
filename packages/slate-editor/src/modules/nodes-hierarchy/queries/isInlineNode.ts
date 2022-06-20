@@ -2,6 +2,6 @@ import { isLinkNode, isMentionNode, isPlaceholderNode } from '@prezly/slate-type
 import { Text } from 'slate';
 import type { NodeEntry } from 'slate';
 
-export function isInlineContent([node]: NodeEntry) {
+export function isInlineNode([node]: NodeEntry) {
     return Text.isText(node) || isLinkNode(node) || isMentionNode(node) || isPlaceholderNode(node);
 }

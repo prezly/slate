@@ -10,13 +10,13 @@ describe('nodes-hierarchy / Quote', () => {
         const editor = (
             <editor>
                 <h:quote align={Alignment.LEFT}>
-                    <h-text>Left</h-text>
+                    <h:text>Left</h:text>
                 </h:quote>
                 <h:quote align={Alignment.CENTER}>
-                    <h-text>Center</h-text>
+                    <h:text>Center</h:text>
                 </h:quote>
                 <h:quote align={Alignment.RIGHT}>
-                    <h-text>Right</h-text>
+                    <h:text>Right</h:text>
                 </h:quote>
             </editor>
         ) as unknown as Editor;
@@ -24,13 +24,13 @@ describe('nodes-hierarchy / Quote', () => {
         const expected = (
             <editor>
                 <h:quote align={Alignment.LEFT}>
-                    <h-text>Left</h-text>
+                    <h:text>Left</h:text>
                 </h:quote>
                 <h:quote align={Alignment.CENTER}>
-                    <h-text>Center</h-text>
+                    <h:text>Center</h:text>
                 </h:quote>
                 <h:quote align={Alignment.RIGHT}>
-                    <h-text>Right</h-text>
+                    <h:text>Right</h:text>
                 </h:quote>
             </editor>
         ) as unknown as Editor;

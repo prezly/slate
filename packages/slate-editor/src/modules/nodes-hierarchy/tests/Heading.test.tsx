@@ -10,10 +10,10 @@ describe('nodes-hierarchy / Heading', () => {
         const editor = (
             <editor>
                 <h:h1 align={Alignment.LEFT}>
-                    <h-text>First</h-text>
+                    <h:text>First</h:text>
                 </h:h1>
                 <h:h2>
-                    <h-text>Second</h-text>
+                    <h:text>Second</h:text>
                 </h:h2>
             </editor>
         ) as unknown as Editor;
@@ -21,10 +21,10 @@ describe('nodes-hierarchy / Heading', () => {
         const expected = (
             <editor>
                 <h:h1 align={Alignment.LEFT}>
-                    <h-text>First</h-text>
+                    <h:text>First</h:text>
                 </h:h1>
                 <h:h2>
-                    <h-text>Second</h-text>
+                    <h:text>Second</h:text>
                 </h:h2>
             </editor>
         ) as unknown as Editor;

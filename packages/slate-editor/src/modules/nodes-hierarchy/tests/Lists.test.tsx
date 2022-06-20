@@ -12,34 +12,34 @@ describe('nodes-hierarchy / Lists', () => {
                 <h:ol align={Alignment.LEFT}>
                     <h:li>
                         <h:li-text>
-                            <h-text>First</h-text>
+                            <h:text>First</h:text>
                         </h:li-text>
                     </h:li>
                     <h:li>
                         <h:li-text>
-                            <h-text>Second</h-text>
+                            <h:text>Second</h:text>
                         </h:li-text>
                     </h:li>
                     <h:li>
                         <h:li-text>
-                            <h-text>Third</h-text>
+                            <h:text>Third</h:text>
                         </h:li-text>
                     </h:li>
                 </h:ol>
                 <h:ul align={Alignment.LEFT}>
                     <h:li>
                         <h:li-text>
-                            <h-text>First</h-text>
+                            <h:text>First</h:text>
                         </h:li-text>
                     </h:li>
                     <h:li>
                         <h:li-text>
-                            <h-text>Second</h-text>
+                            <h:text>Second</h:text>
                         </h:li-text>
                     </h:li>
                     <h:li>
                         <h:li-text>
-                            <h-text>Third</h-text>
+                            <h:text>Third</h:text>
                         </h:li-text>
                     </h:li>
                 </h:ul>
@@ -51,34 +51,34 @@ describe('nodes-hierarchy / Lists', () => {
                 <h:ol align={Alignment.LEFT}>
                     <h:li>
                         <h:li-text>
-                            <h-text>First</h-text>
+                            <h:text>First</h:text>
                         </h:li-text>
                     </h:li>
                     <h:li>
                         <h:li-text>
-                            <h-text>Second</h-text>
+                            <h:text>Second</h:text>
                         </h:li-text>
                     </h:li>
                     <h:li>
                         <h:li-text>
-                            <h-text>Third</h-text>
+                            <h:text>Third</h:text>
                         </h:li-text>
                     </h:li>
                 </h:ol>
                 <h:ul align={Alignment.LEFT}>
                     <h:li>
                         <h:li-text>
-                            <h-text>First</h-text>
+                            <h:text>First</h:text>
                         </h:li-text>
                     </h:li>
                     <h:li>
                         <h:li-text>
-                            <h-text>Second</h-text>
+                            <h:text>Second</h:text>
                         </h:li-text>
                     </h:li>
                     <h:li>
                         <h:li-text>
-                            <h-text>Third</h-text>
+                            <h:text>Third</h:text>
                         </h:li-text>
                     </h:li>
                 </h:ul>
@@ -98,15 +98,15 @@ describe('nodes-hierarchy / Lists', () => {
                 <ul>
                     <li>
                         <li-text>
-                            <h-text>1</h-text>
+                            <h:text>1</h:text>
                         </li-text>
                     </li>
                     <li>
-                        <h-text>2</h-text>
+                        <h:text>2</h:text>
                     </li>
                     <li>
                         <blockquote>
-                            <h-text>3</h-text>
+                            <h:text>3</h:text>
                         </blockquote>
                     </li>
                 </ul>
@@ -118,17 +118,17 @@ describe('nodes-hierarchy / Lists', () => {
                 <ul>
                     <li>
                         <li-text>
-                            <h-text>1</h-text>
+                            <h:text>1</h:text>
                         </li-text>
                     </li>
                     <li>
                         <li-text>
-                            <h-text>2</h-text>
+                            <h:text>2</h:text>
                         </li-text>
                     </li>
                     <li>
                         <li-text>
-                            <h-text>3</h-text>
+                            <h:text>3</h:text>
                         </li-text>
                     </li>
                 </ul>

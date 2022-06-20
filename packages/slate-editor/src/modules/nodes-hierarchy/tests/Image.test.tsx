@@ -28,7 +28,7 @@ describe('nodes-hierarchy / Image', () => {
                         effects: [],
                     }}
                 >
-                    <h-text>Caption</h-text>
+                    <h:text>Caption</h:text>
                 </h:image>
             </editor>
         ) as unknown as Editor;
@@ -54,7 +54,7 @@ describe('nodes-hierarchy / Image', () => {
                         effects: [],
                     }}
                 >
-                    <h-text>Caption</h-text>
+                    <h:text>Caption</h:text>
                 </h:image>
             </editor>
         ) as unknown as Editor;
