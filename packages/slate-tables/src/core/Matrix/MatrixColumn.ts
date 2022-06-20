@@ -1,5 +1,3 @@
-import type { TableEditor } from '../../TableEditor';
-
 import type { Matrix } from './Matrix';
 import type { MatrixCell } from './MatrixCell';
 
@@ -9,7 +7,7 @@ export class MatrixColumn {
     private readonly index: number;
     private readonly matrix: Matrix;
 
-    constructor(_editor: TableEditor, index: number, matrix: Matrix) {
+    constructor(index: number, matrix: Matrix) {
         this.index = index;
         this.matrix = matrix;
 

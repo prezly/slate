@@ -1,7 +1,6 @@
 import type { NodeEntry } from 'slate';
 
 import type { TableRowNode } from '../../nodes';
-import type { TableEditor } from '../../TableEditor';
 
 import type { GridWithSpansRow } from './createGridWithSpans';
 import type { Matrix } from './Matrix';
@@ -15,15 +14,13 @@ export class MatrixRow {
     private readonly y: number;
     private readonly matrix: Matrix;
 
-    constructor(editor: TableEditor, gridRow: GridWithSpansRow, y: number, matrix: Matrix) {
+    constructor(gridRow: GridWithSpansRow, y: number, matrix: Matrix) {
         this.node = gridRow.entry[0];
         this.path = gridRow.entry[1];
         this.y = y;
         this.matrix = matrix;
 
-        this.cells = gridRow.cells.map(
-            (gridCell) => new MatrixCell(editor, gridCell, this, matrix),
-        );
+        this.cells = gridRow.cells.map((gridCell) => new MatrixCell(gridCell, this, matrix));
     }
 
     get rowAbove() {

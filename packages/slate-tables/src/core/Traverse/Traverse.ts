@@ -12,17 +12,12 @@ export class Traverse {
     public activeColumn: MatrixColumn;
     public activeCell: MatrixCell;
 
-    // @ts-expect-error temp
-    private editor: TableEditor;
-
     private constructor(
-        editor: TableEditor,
         matrix: Matrix,
         activeRow: MatrixRow,
         activeColumn: MatrixColumn,
         activeCell: MatrixCell,
     ) {
-        this.editor = editor;
         this.matrix = matrix;
         this.activeRow = activeRow;
         this.activeColumn = activeColumn;
@@ -77,7 +72,7 @@ export class Traverse {
                 });
 
                 if (activeRow && activeColumn && activeCell) {
-                    return new Traverse(editor, matrix, activeRow, activeColumn, activeCell);
+                    return new Traverse(matrix, activeRow, activeColumn, activeCell);
                 }
             }
         }

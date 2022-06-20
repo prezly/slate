@@ -1,7 +1,6 @@
 import type { NodeEntry } from 'slate';
 
 import { TableCellNode } from '../../nodes';
-import type { TableEditor } from '../../TableEditor';
 import { compareNumbers } from '../../utils/comparators';
 
 import type { GridWithSpansCell } from './createGridWithSpans';
@@ -15,7 +14,7 @@ export class MatrixCell {
     public readonly isVirtual: boolean;
     public readonly row: MatrixRow;
 
-    constructor(_editor: TableEditor, gridCell: GridWithSpansCell, row: MatrixRow, matrix: Matrix) {
+    constructor(gridCell: GridWithSpansCell, row: MatrixRow, matrix: Matrix) {
         this.node = gridCell.entry[0];
         this.path = gridCell.entry[1];
         this.isVirtual = gridCell.isVirtual;

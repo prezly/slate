@@ -18,10 +18,10 @@ export class Matrix {
         this.path = path;
         const grid = createGridWithSpans(editor, [node, path]);
 
-        this.rows = grid.map((gridRow, index) => new MatrixRow(editor, gridRow, index, this));
+        this.rows = grid.map((gridRow, index) => new MatrixRow(gridRow, index, this));
 
         this.columns = Array.from(new Array(this.rows[0]?.cells.length)).map(
-            (_, columnIndex) => new MatrixColumn(editor, columnIndex, this),
+            (_, columnIndex) => new MatrixColumn(columnIndex, this),
         );
     }
 
