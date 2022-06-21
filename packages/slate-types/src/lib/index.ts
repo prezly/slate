@@ -1,2 +1,1 @@
-export type { AlignableNode } from './isAlignableElement';
-export { isAlignableElement } from './isAlignableElement';
+export { type AlignableNode, isAlignableElement } from './isAlignableElement';
