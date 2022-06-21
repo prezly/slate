@@ -13,6 +13,7 @@ export class ElementPortalV2 extends Component<Props> {
     };
 
     render() {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { children, referenceElement, ...props } = this.props;
         return (
             <BasePortalV2 {...props} getBoundingClientRect={this.getBoundingClientRect}>
