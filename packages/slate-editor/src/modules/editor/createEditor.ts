@@ -15,7 +15,13 @@ import { flow } from '#lodash';
 
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
-import { withDeserializeHtml, withFilePasting, withNonEmptyValue, withRichBlocks } from './plugins';
+import {
+    withDeserializeHtml,
+    withFilePasting,
+    withNonEmptyValue,
+    withRichBlocks,
+    withSerialization,
+} from './plugins';
 
 export function createEditor(
     baseEditor: Editor,
@@ -39,6 +45,7 @@ export function createEditor(
         withDeserializeHtml(getExtensions),
         withFilePasting(getExtensions),
         withRichBlocks(getExtensions),
+        withSerialization(getExtensions),
         ...overrides,
         ...plugins,
     ])(baseEditor);

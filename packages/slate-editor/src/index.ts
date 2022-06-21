@@ -4,6 +4,7 @@ import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
+export * from '@prezly/slate-types';
 export * from './components';
 export * as Icons from './icons';
 export * from './modules/editor';
@@ -18,11 +19,16 @@ export {
 export type { User } from './extensions/user-mentions';
 export { type ResultPromise, type UploadcareOptions, withUploadcare } from './modules/uploadcare';
 
-import type { RichBlocksAwareEditor } from './modules/editor';
+import type { RichBlocksAwareEditor, SerializingEditor } from './modules/editor';
 
 declare module 'slate' {
     interface CustomTypes {
-        Editor: BaseEditor & ReactEditor & HistoryEditor & ListsEditor & RichBlocksAwareEditor;
+        Editor: BaseEditor &
+            ReactEditor &
+            HistoryEditor &
+            ListsEditor &
+            RichBlocksAwareEditor &
+            SerializingEditor;
         Element: ElementNode;
         Text: TextNode;
     }
