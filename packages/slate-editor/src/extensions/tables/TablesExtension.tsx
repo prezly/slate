@@ -13,12 +13,13 @@ import type { RenderElementProps } from 'slate-react';
 import { createParagraph } from '#extensions/paragraphs';
 
 import { TableElement, TableRow, TableCellElement } from './components';
-import { TABLE_EXTENSION_ID } from './constants';
 import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
+
+export const EXTENSION_ID = TablesExtension.name;
 
 export function TablesExtension(): Extension {
     return {
-        id: TABLE_EXTENSION_ID,
+        id: EXTENSION_ID,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isTableNode(element)) {
                 return (

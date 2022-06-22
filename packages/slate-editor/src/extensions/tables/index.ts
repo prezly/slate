@@ -1,1 +1,1 @@
-export * from './TablesExtension';
+export { TablesExtension, EXTENSION_ID } from './TablesExtension';
