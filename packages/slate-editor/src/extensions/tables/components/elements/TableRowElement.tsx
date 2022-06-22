@@ -19,10 +19,7 @@ export function TableRowElement({ element, attributes, children }: Props) {
     }
 
     const isHeaderRow = React.useMemo(() => {
-        return (
-            table.header?.some((h) => h === 'first_row') &&
-            table.children.findIndex((row) => row === element) === 0
-        );
+        return table.header?.includes('first_row') && table.children[0] === element;
     }, [table, element]);
 
     return (

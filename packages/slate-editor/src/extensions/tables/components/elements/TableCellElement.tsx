@@ -18,19 +18,7 @@ export function TableCellElement({ attributes, element, children }: Props) {
     }
 
     const isHeaderCell = React.useMemo(() => {
-        const shouldCheckFirstRow = table.header?.some((h) => h === 'first_row');
-
-        if (shouldCheckFirstRow) {
-            const isCurrentCellInFirstRow = table.children?.[0].children?.some(
-                (cell) => cell === element,
-            );
-
-            if (isCurrentCellInFirstRow) {
-                return isCurrentCellInFirstRow;
-            }
-        }
-
-        return false;
+        return table.header?.includes('first_row') && table.children[0]?.children.includes(element);
     }, [table, element]);
 
     const Cell = isHeaderCell ? 'th' : 'td';
