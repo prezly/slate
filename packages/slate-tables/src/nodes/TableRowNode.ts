@@ -15,13 +15,13 @@ export namespace TableRowNode {
         props?: Partial<Omit<TableRowNode, 'children'> & { children: TableCellNode[] | number }>,
     ): TableRowNode {
         const { children, ...rest } = props ?? {};
-        return {
+        return editor.createTableRowNode({
             ...rest,
             children:
                 typeof children === 'number'
                     ? Array.from(Array(children)).map(() => TableCellNode.createTableCell(editor))
                     : children ?? [],
-        };
+        });
     }
 
     export function update(
