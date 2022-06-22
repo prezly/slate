@@ -1,5 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-import { withTableEditor } from '@prezly/slate-tables';
+import { withTables } from '@prezly/slate-tables';
 import {
     isTableNode,
     isTableRowNode,
@@ -49,7 +49,7 @@ export function TableExtension(params: TableExtensionParameters): Extension {
             return undefined;
         },
         withOverrides: (editor) => {
-            return withTableEditor(editor, {
+            return withTables(editor, {
                 focusEditor: () => ReactEditor.focus(editor),
                 tableNodeTypes: {
                     table: TABLE_NODE_TYPE,
@@ -58,6 +58,7 @@ export function TableExtension(params: TableExtensionParameters): Extension {
                 },
                 createContentNode: () => createParagraph({ children: [{ text: '' }] }),
             });
+      
         },
     };
 }
