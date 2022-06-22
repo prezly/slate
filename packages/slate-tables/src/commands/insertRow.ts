@@ -1,5 +1,5 @@
-import type { Location } from 'slate';
-import { Path, Transforms } from 'slate';
+import { type Location, Path, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 import { Traverse } from '../core';
 import { TableRowNode, TableCellNode } from '../nodes';
@@ -37,7 +37,7 @@ export function insertRow(
     const at = side === 'bellow' ? Path.next(anchorRow.path) : anchorRow.path;
     Transforms.insertNodes(editor, newRow, { at });
 
-    editor.focusEditor();
+    ReactEditor.focus(editor);
 
     return true;
 }

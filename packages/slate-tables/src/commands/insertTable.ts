@@ -1,5 +1,5 @@
-import type { Location } from 'slate';
-import { Transforms } from 'slate';
+import { type Location, Transforms } from 'slate';
+import { ReactEditor } from "slate-react";
 
 import { TableNode } from '../nodes';
 import type { TablesEditor } from '../TablesEditor';
@@ -18,7 +18,7 @@ export function insertTable(
         at: location,
     });
 
-    editor.focusEditor();
+    ReactEditor.focus(editor);
 
     return true;
 }

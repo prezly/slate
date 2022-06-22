@@ -1,5 +1,5 @@
-import type { Location } from 'slate';
-import { Path, Transforms } from 'slate';
+import { type Location, Path, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
@@ -29,7 +29,7 @@ export function insertColumn(
         Transforms.insertNodes(editor, TableCellNode.createTableCellNode(editor), { at });
     });
 
-    editor.focusEditor();
+    ReactEditor.focus(editor);
 
     return true;
 }

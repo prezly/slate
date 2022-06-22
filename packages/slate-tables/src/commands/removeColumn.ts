@@ -1,5 +1,5 @@
-import type { Location } from 'slate';
-import { Transforms } from 'slate';
+import { type Location, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
@@ -37,7 +37,7 @@ export function removeColumn(
         }
     });
 
-    editor.focusEditor();
+    ReactEditor.focus(editor);
 
     return true;
 }

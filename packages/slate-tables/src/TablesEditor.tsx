@@ -1,4 +1,5 @@
-import type { BaseEditor, Element, Location } from 'slate';
+import type { Element, Location } from 'slate';
+import type { ReactEditor } from 'slate-react';
 
 import * as TableCommands from './commands';
 import { TableNode } from './nodes';
@@ -13,10 +14,9 @@ export interface TableNodeType {
 export interface TablesSchema {
     tableNodeTypes: TableNodeType;
     createContentNode: () => Element | { text: '' };
-    focusEditor: () => void;
 }
 
-export interface TablesEditor extends TablesSchema, BaseEditor {}
+export interface TablesEditor extends TablesSchema, ReactEditor {}
 
 export namespace TablesEditor {
     export const insertTable = TableCommands.insertTable;
