@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / Loader should be kept after normalization 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "contentType": "image",
+    "id": "23c253d5-5a72-4033-a877-8db73775cab0",
+    "message": "Uploading Image",
+    "type": "loader",
+  },
+]
+`;

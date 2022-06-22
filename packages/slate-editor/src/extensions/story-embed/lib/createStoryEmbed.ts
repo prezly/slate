@@ -20,8 +20,8 @@ export function createStoryEmbed(props: RequiredProps & Partial<OptionalProps>):
     return withoutExtraAttributes({
         appearance: StoryEmbedAppearance.INTRO,
         position: StoryEmbedPosition.LEFT,
-        children: [{ text: '' }],
         ...props,
+        children: [{ text: '' }],
         type: STORY_EMBED_NODE_TYPE, // disallowed to override type
     });
 }

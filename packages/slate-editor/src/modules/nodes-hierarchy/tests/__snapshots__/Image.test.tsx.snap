@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / Image should be kept after normalization 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "href": "image-candidate-href",
+    "src": "image-candidate-src",
+    "type": "image-block-candidate",
+  },
+  Object {
+    "align": "center",
+    "children": Array [
+      Object {
+        "text": "Caption",
+      },
+    ],
+    "file": Object {
+      "effects": Array [],
+      "filename": "png-transparent-pink-cross-stroke-ink-brush-pen-red-ink-brush-ink-leave-the-material-text.png",
+      "mime_type": "image/png",
+      "original_height": 900,
+      "original_width": 920,
+      "size": 41346,
+      "uuid": "c849afb1-57cc-48c2-ab31-10b5e1555a33",
+      "version": 2,
+    },
+    "href": "",
+    "layout": "contained",
+    "new_tab": true,
+    "type": "image-block",
+    "width": "100%",
+  },
+]
+`;

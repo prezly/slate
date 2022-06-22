@@ -80,4 +80,11 @@ describe('deserializeHtml', () => {
 
         expect(deserializeHtml(extensions, input, handleError)).toMatchObject(JSON.parse(expected));
     });
+
+    it('should deserialize contents of unknown elements too', () => {
+        const input = readTestFile('10.unknown-elements.html');
+        const expected = readTestFile('10.unknown-elements.json');
+
+        expect(deserializeHtml(extensions, input, handleError)).toMatchObject(JSON.parse(expected));
+    });
 });

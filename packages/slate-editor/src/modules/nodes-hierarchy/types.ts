@@ -1,6 +1,12 @@
-import type { ElementNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { Editor, Path, NodeEntry } from 'slate';
 
-export type HierarchyNormalizer = (editor: Editor, [node, path]: NodeEntry<ElementNode>) => boolean;
+export type HierarchyNormalizer = (editor: Editor, path: Path) => boolean;
+export type HierarchyNodeQuery = (entry: NodeEntry, editor: Editor) => boolean;
+export type HierarchyFixer = (editor: Editor, entry: NodeEntry) => boolean;
 
-export type NodesHierarchySchema = Record<string, HierarchyNormalizer[]>;
+export const EDITOR_NODE_TYPE = Symbol('EDITOR');
+
+export type NodesHierarchySchema = { [EDITOR_NODE_TYPE]: HierarchyNormalizer[] } & Record<
+    string,
+    HierarchyNormalizer[]
+>;

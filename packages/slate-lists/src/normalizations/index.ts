@@ -1,4 +1,3 @@
-export { normalizeList } from './normalizeList';
 export { normalizeListChildren } from './normalizeListChildren';
 export { normalizeListItemChildren } from './normalizeListItemChildren';
 export { normalizeListItemTextChildren } from './normalizeListItemTextChildren';
