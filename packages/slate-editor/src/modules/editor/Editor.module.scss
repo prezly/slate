@@ -21,7 +21,7 @@
         }
     }
 
-    > [data-slate-block="hidden"] + [data-slate-block]{
+    > [data-slate-block="hidden"] + [data-slate-block] {
         margin-top: 0 !important;
     }
 

@@ -25,9 +25,7 @@ export function InitialEntryPointExtension(): Extension {
         ],
         renderElement: ({ attributes, children, element }) => {
             if (isEntryPoint(element)) {
-                return (
-                    <EntryPointElement {...attributes}>{children}</EntryPointElement>
-                );
+                return <EntryPointElement {...attributes}>{children}</EntryPointElement>;
             }
             return undefined;
         },
