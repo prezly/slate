@@ -16,16 +16,9 @@ export namespace TableCellNode {
         editor: TablesEditor,
         props?: Partial<TableCellNode>,
     ): TableCellNode {
-        const {
-            children,
-            colspan = IMPLIED_COLSPAN,
-            rowspan = IMPLIED_ROWSPAN,
-            ...rest
-        } = props ?? {};
+        const { children, ...rest } = props ?? {};
         return editor.createTableCellNode({
             ...rest,
-            colspan,
-            rowspan,
             children: children ?? [editor.createContentNode()],
         });
     }

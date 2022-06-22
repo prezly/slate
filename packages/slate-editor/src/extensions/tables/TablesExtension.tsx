@@ -14,12 +14,18 @@ import { createParagraph } from '#extensions/paragraphs';
 
 import { TableElement, TableRowElement, TableCellElement } from './components';
 import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
+import {
+    normalizeCellAttributes,
+    normalizeRowAttributes,
+    normalizeTableAttributes,
+} from './normalization';
 
 export const EXTENSION_ID = TablesExtension.name;
 
 export function TablesExtension(): Extension {
     return {
         id: EXTENSION_ID,
+        normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isTableNode(element)) {
                 return (
