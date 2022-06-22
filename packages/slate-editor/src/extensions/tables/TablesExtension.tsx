@@ -12,7 +12,7 @@ import type { RenderElementProps } from 'slate-react';
 
 import { createParagraph } from '#extensions/paragraphs';
 
-import { TableElement, TableRow, TableCellElement } from './components';
+import { TableElement, TableRowElement, TableCellElement } from './components';
 import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
 
 export const EXTENSION_ID = TablesExtension.name;
@@ -31,9 +31,9 @@ export function TablesExtension(): Extension {
 
             if (isTableRowNode(element)) {
                 return (
-                    <TableRow attributes={attributes} element={element}>
+                    <TableRowElement attributes={attributes} element={element}>
                         {children}
-                    </TableRow>
+                    </TableRowElement>
                 );
             }
 

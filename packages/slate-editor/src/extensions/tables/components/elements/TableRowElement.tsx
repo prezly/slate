@@ -10,7 +10,7 @@ interface Props extends RenderElementProps {
     element: TableRowNode;
 }
 
-export function TableRow({ element, attributes, children }: Props) {
+export function TableRowElement({ element, attributes, children }: Props) {
     const ctx = React.useContext(TableContext);
 
     const isHeaderRow = React.useMemo(() => {
