@@ -6,13 +6,13 @@ import { type TableCellNode, type TableRowNode, TableNode } from './nodes';
 import * as TableQueries from './queries';
 
 export interface TablesSchema {
+    createContentNode: () => Element | { text: '' };
     createTableNode: <T extends TableNode>(props: Partial<T>) => T;
     createTableRowNode: <T extends TableRowNode>(props: Partial<T>) => T;
     createTableCellNode: <T extends TableCellNode>(props: Partial<T>) => T;
     isTableNode: <T extends TableNode>(node: Node) => node is T;
     isTableRowNode: <T extends TableRowNode>(node: Node) => node is T;
     isTableCellNode: <T extends TableCellNode>(node: Node) => node is T;
-    createContentNode: () => Element | { text: '' };
 }
 
 export interface TablesEditor extends TablesSchema, ReactEditor {}
