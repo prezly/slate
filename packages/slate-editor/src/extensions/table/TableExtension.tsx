@@ -1,21 +1,20 @@
 import type { Extension } from '@prezly/slate-commons';
 import { withTables } from '@prezly/slate-tables';
 import {
+    type TableNode,
+    type TableRowNode,
     isTableNode,
     isTableRowNode,
     isTableCellNode,
-    TABLE_NODE_TYPE,
-    TABLE_ROW_NODE_TYPE,
-    TABLE_CELL_NODE_TYPE,
 } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { ReactEditor } from 'slate-react';
 
 import { createParagraph } from '#extensions/paragraphs';
 
 import { TableElement, TableRow, TableCellElement } from './components';
 import { TABLE_EXTENSION_ID } from './constants';
+import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
 import type { TableExtensionParameters } from './types';
 
 export function TableExtension(params: TableExtensionParameters): Extension {
@@ -50,15 +49,14 @@ export function TableExtension(params: TableExtensionParameters): Extension {
         },
         withOverrides: (editor) => {
             return withTables(editor, {
-                focusEditor: () => ReactEditor.focus(editor),
-                tableNodeTypes: {
-                    table: TABLE_NODE_TYPE,
-                    row: TABLE_ROW_NODE_TYPE,
-                    cell: TABLE_CELL_NODE_TYPE,
-                },
-                createContentNode: () => createParagraph({ children: [{ text: '' }] }),
+                createContentNode: createParagraph,
+                createTableNode: (props) => createTableNode(props as Partial<TableNode>),
+                createTableRowNode: (props) => createTableRowNode(props as Partial<TableRowNode>),
+                createTableCellNode,
+                isTableNode,
+                isTableRowNode,
+                isTableCellNode,
             });
-      
         },
     };
 }

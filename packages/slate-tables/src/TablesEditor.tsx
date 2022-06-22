@@ -7,12 +7,12 @@ import * as TableQueries from './queries';
 
 export interface TablesSchema {
     createContentNode: () => Element | { text: '' };
-    createTableNode: <T extends TableNode>(props: Partial<T>) => T;
-    createTableRowNode: <T extends TableRowNode>(props: Partial<T>) => T;
-    createTableCellNode: <T extends TableCellNode>(props: Partial<T>) => T;
-    isTableNode: <T extends TableNode>(node: Node) => node is T;
-    isTableRowNode: <T extends TableRowNode>(node: Node) => node is T;
-    isTableCellNode: <T extends TableCellNode>(node: Node) => node is T;
+    createTableNode: (props: Partial<TableNode>) => TableNode;
+    createTableRowNode: (props: Partial<TableRowNode>) => TableRowNode;
+    createTableCellNode: (props: Partial<TableCellNode>) => TableCellNode;
+    isTableNode: (node: Node) => node is TableNode;
+    isTableRowNode: (node: Node) => node is TableRowNode;
+    isTableCellNode: (node: Node) => node is TableCellNode;
 }
 
 export interface TablesEditor extends TablesSchema, ReactEditor {}
