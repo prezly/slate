@@ -23,7 +23,7 @@ import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
 import { StoryEmbedExtension } from '#extensions/story-embed';
-import { TableExtension } from '#extensions/table';
+import { TablesExtension } from '#extensions/tables';
 import { TextStylingExtension } from '#extensions/text-styling';
 import { UserMentionsExtension } from '#extensions/user-mentions';
 import { VideoExtension } from '#extensions/video';
@@ -209,7 +209,7 @@ export function* getEnabledExtensions({
     }
 
     if (withTables) {
-        yield TableExtension(withTables);
+        yield TablesExtension(withTables);
     }
 
     if (withStoryEmbeds) {

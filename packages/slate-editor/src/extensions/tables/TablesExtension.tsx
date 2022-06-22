@@ -17,7 +17,7 @@ import { TABLE_EXTENSION_ID } from './constants';
 import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
 import type { TableExtensionParameters } from './types';
 
-export function TableExtension(params: TableExtensionParameters): Extension {
+export function TablesExtension(params: TableExtensionParameters): Extension {
     return {
         id: TABLE_EXTENSION_ID,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {

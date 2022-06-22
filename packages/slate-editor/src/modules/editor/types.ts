@@ -14,7 +14,7 @@ import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeho
 import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
-import type { TableExtensionParameters } from '#extensions/table';
+import type { TableExtensionParameters } from '#extensions/tables';
 import type { UserMentionsExtensionParameters } from '#extensions/user-mentions';
 import type { VideoExtensionParameters } from '#extensions/video';
 import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
