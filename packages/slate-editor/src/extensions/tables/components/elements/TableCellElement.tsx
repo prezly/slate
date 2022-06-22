@@ -12,6 +12,11 @@ interface Props extends RenderElementProps {
 export function TableCellElement({ attributes, element, children }: Props) {
     const { table } = React.useContext(TableContext);
 
+    if (!table) {
+        console.warn(`${TableCellElement.name} requires wrapping in TableContext.`);
+        return null;
+    }
+
     const isHeaderCell = React.useMemo(() => {
         const shouldCheckFirstRow = table.header?.some((h) => h === 'first_row');
 
