@@ -565,3 +565,5 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         </div>
     );
 });
+
+Editor.displayName = 'Editor';

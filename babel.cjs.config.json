@@ -1,7 +1,11 @@
 {
     "extends": "./babel.config.json",
     "presets": [
-        ["@babel/env", { "useBuiltIns": false, "modules": "commonjs" }]
+        ["@babel/env", {
+            "useBuiltIns": false,
+            "modules": "commonjs",
+            "targets": "> 0.25%, not dead"
+        }]
     ],
     "plugins": [
         [
