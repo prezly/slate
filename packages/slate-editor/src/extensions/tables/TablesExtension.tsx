@@ -50,8 +50,16 @@ export function TablesExtension(): Extension {
         withOverrides: (editor) => {
             return withTables(editor, {
                 createContentNode: createParagraph,
-                createTableNode: (props) => createTableNode(props as Partial<TableNode>),
-                createTableRowNode: (props) => createTableRowNode(props as Partial<TableRowNode>),
+                createTableNode: ({ children, ...props }) =>
+                    createTableNode({
+                        ...props,
+                        children: children as TableNode['children'] | undefined,
+                    }),
+                createTableRowNode: ({ children, ...props }) =>
+                    createTableRowNode({
+                        ...props,
+                        children: children as TableRowNode['children'] | undefined,
+                    }),
                 createTableCellNode,
                 isTableNode,
                 isTableRowNode,
