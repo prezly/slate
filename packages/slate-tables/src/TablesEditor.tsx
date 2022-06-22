@@ -5,14 +5,7 @@ import * as TableCommands from './commands';
 import { type TableCellNode, type TableRowNode, TableNode } from './nodes';
 import * as TableQueries from './queries';
 
-export interface TableNodeType {
-    table: string;
-    row: string;
-    cell: string;
-}
-
 export interface TablesSchema {
-    tableNodeTypes: TableNodeType;
     createTableNode: <T extends TableNode>(props: Partial<T>) => T;
     createTableRowNode: <T extends TableRowNode>(props: Partial<T>) => T;
     createTableCellNode: <T extends TableCellNode>(props: Partial<T>) => T;
