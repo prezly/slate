@@ -1,5 +1,5 @@
 import { type Location, Transforms } from 'slate';
-import { ReactEditor } from "slate-react";
+import { ReactEditor } from 'slate-react';
 
 import { TableNode } from '../nodes';
 import type { TablesEditor } from '../TablesEditor';
