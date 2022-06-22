@@ -10,7 +10,7 @@ export * as Icons from './icons';
 export * from './modules/editor';
 export { EditableWithExtensions } from './modules/editable';
 
-export type { SearchProps as CoverageSearchProps } from './extensions/coverage';
+export { type SearchProps as CoverageSearchProps, createCoverage } from './extensions/coverage';
 export { createEmbed } from './extensions/embed';
 export {
     type SearchProps as PressContactsSearchProps,
