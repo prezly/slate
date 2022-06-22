@@ -11,14 +11,14 @@ interface Props extends RenderElementProps {
 }
 
 export function TableRowElement({ element, attributes, children }: Props) {
-    const ctx = React.useContext(TableContext);
+    const { table } = React.useContext(TableContext);
 
     const isHeaderRow = React.useMemo(() => {
         return (
-            ctx.table.header?.some((h) => h === 'first_row') &&
-            ctx.table.children.findIndex((row) => row === element) === 0
+            table.header?.some((h) => h === 'first_row') &&
+            table.children.findIndex((row) => row === element) === 0
         );
-    }, [ctx.table, element]);
+    }, [table, element]);
 
     return (
         <tr

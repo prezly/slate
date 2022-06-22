@@ -10,13 +10,13 @@ interface Props extends RenderElementProps {
 }
 
 export function TableCellElement({ attributes, element, children }: Props) {
-    const ctx = React.useContext(TableContext);
+    const { table } = React.useContext(TableContext);
 
     const isHeaderCell = React.useMemo(() => {
-        const shouldCheckFirstRow = ctx.table.header?.some((h) => h === 'first_row');
+        const shouldCheckFirstRow = table.header?.some((h) => h === 'first_row');
 
         if (shouldCheckFirstRow) {
-            const isCurrentCellInFirstRow = ctx.table.children?.[0].children?.some(
+            const isCurrentCellInFirstRow = table.children?.[0].children?.some(
                 (cell) => cell === element,
             );
 
@@ -26,7 +26,7 @@ export function TableCellElement({ attributes, element, children }: Props) {
         }
 
         return false;
-    }, [ctx.table, element]);
+    }, [table, element]);
 
     const Cell = isHeaderCell ? 'th' : 'td';
 
