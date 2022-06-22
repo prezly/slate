@@ -21,6 +21,10 @@
         }
     }
 
+    > [data-slate-block="hidden"] + [data-slate-block]{
+        margin-top: 0 !important;
+    }
+
     > [data-slate-block="rich"] {
         margin: $spacing-6 0;
     }
