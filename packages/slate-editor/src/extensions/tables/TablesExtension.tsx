@@ -15,15 +15,14 @@ import { createParagraph } from '#extensions/paragraphs';
 import { TableElement, TableRow, TableCellElement } from './components';
 import { TABLE_EXTENSION_ID } from './constants';
 import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
-import type { TableExtensionParameters } from './types';
 
-export function TablesExtension(params: TableExtensionParameters): Extension {
+export function TablesExtension(): Extension {
     return {
         id: TABLE_EXTENSION_ID,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isTableNode(element)) {
                 return (
-                    <TableElement attributes={attributes} element={element} {...params}>
+                    <TableElement attributes={attributes} element={element}>
                         {children}
                     </TableElement>
                 );
@@ -39,7 +38,7 @@ export function TablesExtension(params: TableExtensionParameters): Extension {
 
             if (isTableCellNode(element)) {
                 return (
-                    <TableCellElement attributes={attributes} element={element} {...params}>
+                    <TableCellElement attributes={attributes} element={element}>
                         {children}
                     </TableCellElement>
                 );

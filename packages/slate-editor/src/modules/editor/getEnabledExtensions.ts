@@ -209,7 +209,7 @@ export function* getEnabledExtensions({
     }
 
     if (withTables) {
-        yield TablesExtension(withTables);
+        yield TablesExtension();
     }
 
     if (withStoryEmbeds) {
