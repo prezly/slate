@@ -13,6 +13,9 @@ export interface TableNodeType {
 
 export interface TablesSchema {
     tableNodeTypes: TableNodeType;
+    createTableNode: <T extends TableNode>(props: Partial<T>) => T;
+    createTableRowNode: <T extends TableRowNode>(props: Partial<T>) => T;
+    createTableCellNode: <T extends TableCellNode>(props: Partial<T>) => T;
     isTableNode: <T extends TableNode>(node: Node) => node is T;
     isTableRowNode: <T extends TableRowNode>(node: Node) => node is T;
     isTableCellNode: <T extends TableCellNode>(node: Node) => node is T;
@@ -29,7 +32,7 @@ export namespace TablesEditor {
 
     export const isInTable = TableQueries.isInTable;
 
-    export const createTableNode = TableNode.createTableNode;
+    export const createTable = TableNode.createTable;
     export const updateTable = TableNode.update;
     export const toggleTableHeader = TableNode.toggleTableHeader;
 

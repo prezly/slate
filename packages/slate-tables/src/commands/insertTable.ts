@@ -14,7 +14,7 @@ export function insertTable(
         return false;
     }
 
-    Transforms.insertNodes(editor, TableNode.createTableNode(editor, rowsCount, columnsCount), {
+    Transforms.insertNodes(editor, TableNode.createTable(editor, rowsCount, columnsCount), {
         at: location,
     });
 

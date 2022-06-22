@@ -32,7 +32,7 @@ export function insertRow(
         }
     }, 0);
 
-    const newRow = TableRowNode.createTableRowNode(editor, {}, cellsToAdd);
+    const newRow = TableRowNode.createTableRow(editor, { children: cellsToAdd });
 
     const at = side === 'bellow' ? Path.next(anchorRow.path) : anchorRow.path;
     Transforms.insertNodes(editor, newRow, { at });

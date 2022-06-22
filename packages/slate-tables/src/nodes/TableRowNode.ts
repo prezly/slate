@@ -6,31 +6,27 @@ import type { TablesEditor } from '../TablesEditor';
 import { TableCellNode } from './TableCellNode';
 
 export interface TableRowNode extends BaseElement {
-    type: string;
     children: TableCellNode[];
 }
 
 export namespace TableRowNode {
-    export function createTableRowNode(
+    export function createTableRow(
         editor: TablesEditor,
-        props?: Omit<TableRowNode, 'type' | 'children'>,
-        children: TableCellNode[] | number = 1,
+        props?: Partial<Omit<TableRowNode, 'children'> & { children: TableCellNode[] | number }>,
     ): TableRowNode {
+        const { children, ...rest } = props ?? {};
         return {
-            ...props,
-            type: editor.tableNodeTypes.row,
+            ...rest,
             children:
                 typeof children === 'number'
-                    ? Array.from(Array(children)).map(() =>
-                          TableCellNode.createTableCellNode(editor),
-                      )
-                    : children,
+                    ? Array.from(Array(children)).map(() => TableCellNode.createTableCell(editor))
+                    : children ?? [],
         };
     }
 
     export function update(
         editor: TablesEditor,
-        props: Partial<Omit<TableRowNode, 'children' | 'type'>>,
+        props: Partial<Omit<TableRowNode, 'children'>>,
         location: Location,
     ) {
         Transforms.setNodes<TableRowNode>(editor, props, {

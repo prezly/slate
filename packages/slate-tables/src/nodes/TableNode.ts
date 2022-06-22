@@ -7,33 +7,28 @@ import type { TablesEditor } from '../TablesEditor';
 import { TableRowNode } from './TableRowNode';
 
 export type TableHeader = 'first_row' | 'first_column';
+
 export interface TableNode extends BaseElement {
-    type: string;
     children: TableRowNode[];
     border?: boolean;
     header?: TableHeader[];
 }
 
 export namespace TableNode {
-    export function createTableNode(
-        editor: TablesEditor,
-        rowsCount = 2,
-        columnsCount = 2,
-    ): TableNode {
+    export function createTable(editor: TablesEditor, rowsCount = 2, columnsCount = 2): TableNode {
         const rows = Array.from(Array(rowsCount)).map(() =>
-            TableRowNode.createTableRowNode(editor, {}, columnsCount),
+            TableRowNode.createTableRow(editor, { children: columnsCount }),
         );
-        return {
-            type: editor.tableNodeTypes.table,
-            children: rows,
-            border: true,
+        return editor.createTableNode({
             header: ['first_row'],
-        };
+            border: true,
+            children: rows,
+        });
     }
 
     export function update(
         editor: TablesEditor,
-        props: Partial<Omit<TableNode, 'children' | 'type'>>,
+        props: Partial<Omit<TableNode, 'children'>>,
         location: Location | undefined = editor.selection ?? undefined,
     ) {
         Transforms.setNodes<TableNode>(editor, props, {

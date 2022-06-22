@@ -26,7 +26,7 @@ export function insertColumn(
 
     anchorColumn.cells.forEach((columnCell) => {
         const at = side === 'left' ? columnCell.path : Path.next(columnCell.path);
-        Transforms.insertNodes(editor, TableCellNode.createTableCellNode(editor), { at });
+        Transforms.insertNodes(editor, TableCellNode.createTableCell(editor), { at });
     });
 
     ReactEditor.focus(editor);

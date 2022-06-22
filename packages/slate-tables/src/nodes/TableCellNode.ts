@@ -1,35 +1,41 @@
-import type { BaseElement, Descendant, Location } from 'slate';
+import type { BaseElement, Location } from 'slate';
 import { Transforms } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
 
 export interface TableCellNode extends BaseElement {
-    type: string;
     rowspan?: number;
     colspan?: number;
 }
 
+const IMPLIED_COLSPAN = 1;
+const IMPLIED_ROWSPAN = 1;
+
 export namespace TableCellNode {
-    export function createTableCellNode(
+    export function createTableCell(
         editor: TablesEditor,
-        props?: Omit<TableCellNode, 'type' | 'children'>,
-        children: Descendant[] = [editor.createContentNode()],
+        props?: Partial<TableCellNode>,
     ): TableCellNode {
-        return {
-            colspan: getCellColspan(undefined),
-            rowspan: getCellRowspan(undefined),
-            ...props,
-            type: editor.tableNodeTypes.cell,
+        const {
             children,
-        };
+            colspan = IMPLIED_COLSPAN,
+            rowspan = IMPLIED_ROWSPAN,
+            ...rest
+        } = props ?? {};
+        return editor.createTableCellNode({
+            ...rest,
+            colspan,
+            rowspan,
+            children: children ?? [editor.createContentNode()],
+        });
     }
 
     export function getCellColspan(cell: TableCellNode | undefined) {
-        return cell?.colspan ?? 1;
+        return cell?.colspan ?? IMPLIED_COLSPAN;
     }
 
     export function getCellRowspan(cell: TableCellNode | undefined) {
-        return cell?.rowspan ?? 1;
+        return cell?.rowspan ?? IMPLIED_ROWSPAN;
     }
 
     export function calculateCellRowSpan(
@@ -64,12 +70,10 @@ export namespace TableCellNode {
 
     export function update(
         editor: TablesEditor,
-        props: Partial<Omit<TableCellNode, 'children' | 'type'>>,
+        props: Partial<Omit<TableCellNode, 'children'>>,
         location: Location,
     ) {
-        const { type, children, ...fixedProps } = props as TableCellNode;
-
-        Transforms.setNodes<TableCellNode>(editor, fixedProps, {
+        Transforms.setNodes<TableCellNode>(editor, props, {
             at: location,
             match: (node) => editor.isTableCellNode(node),
         });
