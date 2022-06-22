@@ -18,8 +18,6 @@ export interface TableSchema {
 
 export interface TableEditor extends TableSchema, BaseEditor {}
 
-export interface TableEditor extends TableSchema, BaseEditor {}
-
 export namespace TableEditor {
     export const insertTable = TableCommands.insertTable;
     export const removeColumn = TableCommands.removeColumn;
