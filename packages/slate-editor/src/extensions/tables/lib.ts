@@ -9,8 +9,6 @@ import {
 
 export function createTableNode(props: Partial<Omit<TableNode, 'type'>>): TableNode {
     return {
-        header: ['first_row'],
-        border: true,
         children: [],
         ...props,
         type: TABLE_NODE_TYPE,
