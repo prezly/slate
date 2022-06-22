@@ -2,10 +2,10 @@ import type { Location } from 'slate';
 import { Transforms } from 'slate';
 
 import { Traverse } from '../core';
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 
 export function removeTable(
-    editor: TableEditor,
+    editor: TablesEditor,
     location: Location | undefined = editor.selection ?? undefined,
 ) {
     if (!location) {

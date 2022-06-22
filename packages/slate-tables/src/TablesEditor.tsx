@@ -10,15 +10,15 @@ export interface TableNodeType {
     cell: string;
 }
 
-export interface TableSchema {
+export interface TablesSchema {
     tableNodeTypes: TableNodeType;
     createContentNode: () => Element | { text: '' };
     focusEditor: () => void;
 }
 
-export interface TableEditor extends TableSchema, BaseEditor {}
+export interface TablesEditor extends TablesSchema, BaseEditor {}
 
-export namespace TableEditor {
+export namespace TablesEditor {
     export const insertTable = TableCommands.insertTable;
     export const removeColumn = TableCommands.removeColumn;
     export const removeRow = TableCommands.removeRow;
@@ -30,19 +30,19 @@ export namespace TableEditor {
     export const updateTable = TableNode.update;
     export const toggleTableHeader = TableNode.toggleTableHeader;
 
-    export function insertColumnLeft(editor: TableEditor, location?: Location) {
+    export function insertColumnLeft(editor: TablesEditor, location?: Location) {
         return TableCommands.insertColumn(editor, location, 'left');
     }
 
-    export function insertColumnRight(editor: TableEditor, location?: Location) {
+    export function insertColumnRight(editor: TablesEditor, location?: Location) {
         return TableCommands.insertColumn(editor, location, 'right');
     }
 
-    export function insertRowAbove(editor: TableEditor, location?: Location) {
+    export function insertRowAbove(editor: TablesEditor, location?: Location) {
         return TableCommands.insertRow(editor, location, 'above');
     }
 
-    export function insertRowBelow(editor: TableEditor, location?: Location) {
+    export function insertRowBelow(editor: TablesEditor, location?: Location) {
         return TableCommands.insertRow(editor, location, 'bellow');
     }
 }

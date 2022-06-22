@@ -1,4 +1,4 @@
-import { TableEditor } from '@prezly/slate-tables';
+import { TablesEditor } from '@prezly/slate-tables';
 import type { TableNode } from '@prezly/slate-types';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
@@ -25,14 +25,14 @@ export function TableMenu({ element, onClose }: Props) {
                 <Toggle
                     name="borders"
                     value={element.border}
-                    onChange={() => TableEditor.updateTable(editor, { border: !element.border })}
+                    onChange={() => TablesEditor.updateTable(editor, { border: !element.border })}
                 >
                     With borders
                 </Toggle>
                 <Toggle
                     name="header-row"
                     value={element.header?.some((h) => h === 'first_row')}
-                    onChange={() => TableEditor.toggleTableHeader(editor, undefined, 'first_row')}
+                    onChange={() => TablesEditor.toggleTableHeader(editor, undefined, 'first_row')}
                 >
                     First row as header
                 </Toggle>
@@ -46,7 +46,7 @@ export function TableMenu({ element, onClose }: Props) {
                         fullWidth
                         round
                         noPadding
-                        onClick={() => TableEditor.insertRowAbove(editor)}
+                        onClick={() => TablesEditor.insertRowAbove(editor)}
                     >
                         Above
                     </Button>
@@ -56,7 +56,7 @@ export function TableMenu({ element, onClose }: Props) {
                         fullWidth
                         round
                         noPadding
-                        onClick={() => TableEditor.insertRowBelow(editor)}
+                        onClick={() => TablesEditor.insertRowBelow(editor)}
                     >
                         Below
                     </Button>
@@ -64,7 +64,7 @@ export function TableMenu({ element, onClose }: Props) {
                         icon={Delete}
                         variant="primary"
                         round
-                        onClick={() => TableEditor.removeRow(editor)}
+                        onClick={() => TablesEditor.removeRow(editor)}
                     />
                 </HStack>
             </Toolbox.Section>
@@ -77,7 +77,7 @@ export function TableMenu({ element, onClose }: Props) {
                         fullWidth
                         round
                         noPadding
-                        onClick={() => TableEditor.insertColumnLeft(editor)}
+                        onClick={() => TablesEditor.insertColumnLeft(editor)}
                     >
                         Left
                     </Button>
@@ -87,7 +87,7 @@ export function TableMenu({ element, onClose }: Props) {
                         fullWidth
                         round
                         noPadding
-                        onClick={() => TableEditor.insertColumnRight(editor)}
+                        onClick={() => TablesEditor.insertColumnRight(editor)}
                     >
                         Right
                     </Button>
@@ -95,7 +95,7 @@ export function TableMenu({ element, onClose }: Props) {
                         icon={Delete}
                         variant="primary"
                         round
-                        onClick={() => TableEditor.removeColumn(editor)}
+                        onClick={() => TablesEditor.removeColumn(editor)}
                     />
                 </HStack>
             </Toolbox.Section>
@@ -105,7 +105,7 @@ export function TableMenu({ element, onClose }: Props) {
                     variant="clear-faded"
                     icon={Delete}
                     fullWidth
-                    onClick={() => TableEditor.removeTable(editor)}
+                    onClick={() => TablesEditor.removeTable(editor)}
                 >
                     Remove table
                 </Button>

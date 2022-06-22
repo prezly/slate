@@ -3,7 +3,7 @@ import { Node } from 'slate';
 
 import type { TableNode } from '../../nodes';
 import { TableRowNode, TableCellNode } from '../../nodes';
-import type { TableEditor } from '../../TableEditor';
+import type { TablesEditor } from '../../TablesEditor';
 
 export interface GridWithSpansRow {
     entry: NodeEntry<TableRowNode>;
@@ -15,7 +15,7 @@ export interface GridWithSpansCell {
     isVirtual: boolean;
 }
 
-export function createGridWithSpans(editor: TableEditor, [, tablePath]: NodeEntry<TableNode>) {
+export function createGridWithSpans(editor: TablesEditor, [, tablePath]: NodeEntry<TableNode>) {
     const grid: GridWithSpansRow[] = [];
 
     const rows = Array.from(Node.children(editor, tablePath));

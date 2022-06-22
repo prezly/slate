@@ -2,10 +2,10 @@ import type { Location } from 'slate';
 import { Transforms } from 'slate';
 
 import { TableNode } from '../nodes';
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 
 export function insertTable(
-    editor: TableEditor,
+    editor: TablesEditor,
     location: Location | undefined = editor.selection ?? undefined,
     rowsCount?: number,
     columnsCount?: number,

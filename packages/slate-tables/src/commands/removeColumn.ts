@@ -3,10 +3,10 @@ import { Transforms } from 'slate';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
-import { TableEditor } from '../TableEditor';
+import { TablesEditor } from '../TablesEditor';
 
 export function removeColumn(
-    editor: TableEditor,
+    editor: TablesEditor,
     location: Location | undefined = editor.selection ?? undefined,
 ) {
     if (!location) {
@@ -22,7 +22,7 @@ export function removeColumn(
     const { activeColumn } = traverse;
 
     if (traverse.matrix.width === 1) {
-        return TableEditor.removeTable(editor);
+        return TablesEditor.removeTable(editor);
     }
 
     activeColumn.cells.forEach((cell) => {

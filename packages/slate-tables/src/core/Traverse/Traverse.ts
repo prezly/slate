@@ -4,7 +4,7 @@ import { Editor, Node } from 'slate';
 import type { MatrixRow, MatrixColumn, MatrixCell } from '../../core';
 import { Matrix } from '../../core';
 import { TableNode, TableRowNode, TableCellNode } from '../../nodes';
-import type { TableEditor } from '../../TableEditor';
+import type { TablesEditor } from '../../TablesEditor';
 
 export class Traverse {
     public matrix: Matrix;
@@ -24,7 +24,7 @@ export class Traverse {
         this.activeCell = activeCell;
     }
 
-    static create(editor: TableEditor, cellLocation: Location) {
+    static create(editor: TablesEditor, cellLocation: Location) {
         const cellPath = Editor.path(editor, cellLocation);
         const ancestors = Node.ancestors(editor, cellPath, { reverse: true });
 

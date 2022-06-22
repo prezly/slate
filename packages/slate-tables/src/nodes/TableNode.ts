@@ -2,7 +2,7 @@ import type { BaseElement, Location, Node, NodeEntry } from 'slate';
 import { Element, Transforms } from 'slate';
 
 import { Traverse } from '../core';
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 
 import { TableRowNode } from './TableRowNode';
 
@@ -15,19 +15,19 @@ export interface TableNode extends BaseElement {
 }
 
 export namespace TableNode {
-    export function isTableNode(editor: TableEditor, value: Node | undefined): value is TableNode {
+    export function isTableNode(editor: TablesEditor, value: Node | undefined): value is TableNode {
         return Element.isElementType<TableNode>(value, editor.tableNodeTypes.table);
     }
 
     export function isTableNodeEntry(
-        editor: TableEditor,
+        editor: TablesEditor,
         value: NodeEntry<Node> | undefined,
     ): value is NodeEntry<TableNode> {
         return isTableNode(editor, value?.[0]);
     }
 
     export function createTableNode(
-        editor: TableEditor,
+        editor: TablesEditor,
         rowsCount = 2,
         columnsCount = 2,
     ): TableNode {
@@ -43,7 +43,7 @@ export namespace TableNode {
     }
 
     export function update(
-        editor: TableEditor,
+        editor: TablesEditor,
         props: Partial<Omit<TableNode, 'children' | 'type'>>,
         location: Location | undefined = editor.selection ?? undefined,
     ) {
@@ -54,7 +54,7 @@ export namespace TableNode {
     }
 
     export function toggleTableHeader(
-        editor: TableEditor,
+        editor: TablesEditor,
         location: Location | undefined = editor.selection ?? undefined,
         headerType: TableHeader,
     ) {

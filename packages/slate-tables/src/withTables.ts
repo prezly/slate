@@ -1,8 +1,8 @@
 import type { Editor } from 'slate';
 
-import type { TableEditor, TableSchema } from './TableEditor';
+import type { TablesEditor, TablesSchema } from './TablesEditor';
 
-export function withTables<T extends TableEditor>(editor: TableEditor, schema: TableSchema) {
+export function withTables<T extends TablesEditor>(editor: TablesEditor, schema: TablesSchema) {
     return Object.assign(editor, {
         ...schema,
     }) as T & Editor;

@@ -3,11 +3,11 @@ import { Path, Transforms } from 'slate';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 import type { HorizontalSides } from '../utils/types';
 
 export function insertColumn(
-    editor: TableEditor,
+    editor: TablesEditor,
     location: Location | undefined = editor.selection ?? undefined,
     side: HorizontalSides,
 ) {

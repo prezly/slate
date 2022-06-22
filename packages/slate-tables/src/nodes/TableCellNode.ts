@@ -1,7 +1,7 @@
 import type { BaseElement, Descendant, Location, Node, NodeEntry } from 'slate';
 import { Element, Transforms } from 'slate';
 
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 
 export interface TableCellNode extends BaseElement {
     type: string;
@@ -11,21 +11,21 @@ export interface TableCellNode extends BaseElement {
 
 export namespace TableCellNode {
     export function isTableCellNode(
-        editor: TableEditor,
+        editor: TablesEditor,
         value: Node | undefined,
     ): value is TableCellNode {
         return Element.isElementType<TableCellNode>(value, editor.tableNodeTypes.cell);
     }
 
     export function isTableCellNodeEntry(
-        editor: TableEditor,
+        editor: TablesEditor,
         value: NodeEntry<Node> | undefined,
     ): value is NodeEntry<TableCellNode> {
         return isTableCellNode(editor, value?.[0]);
     }
 
     export function createTableCellNode(
-        editor: TableEditor,
+        editor: TablesEditor,
         props?: Omit<TableCellNode, 'type' | 'children'>,
         children: Descendant[] = [editor.createContentNode()],
     ): TableCellNode {
@@ -77,7 +77,7 @@ export namespace TableCellNode {
     }
 
     export function update(
-        editor: TableEditor,
+        editor: TablesEditor,
         props: Partial<Omit<TableCellNode, 'children' | 'type'>>,
         location: Location,
     ) {
