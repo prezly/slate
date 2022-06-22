@@ -52,8 +52,8 @@ export namespace TableNode {
             return false;
         }
 
-        const hasHeaderType = traverse.matrix.node.header?.some((h) => h === headerType);
-        const newHeader = hasHeaderType
+        const isAlreadyEnabled = traverse.matrix.node.header?.includes(headerType);
+        const newHeader = isAlreadyEnabled
             ? traverse.matrix.node.header?.filter((h) => h !== headerType)
             : [...(traverse.matrix.node.header ?? []), headerType];
 
