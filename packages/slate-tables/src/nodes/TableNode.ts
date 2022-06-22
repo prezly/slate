@@ -15,13 +15,19 @@ export interface TableNode extends BaseElement {
 }
 
 export namespace TableNode {
-    export function createTable(editor: TablesEditor, rowsCount = 2, columnsCount = 2): TableNode {
+    export function createTable(
+        editor: TablesEditor,
+        props?: Partial<Omit<TableNode, 'children'>> & {
+            rowsCount?: number;
+            columnsCount?: number;
+        },
+    ): TableNode {
+        const { rowsCount = 2, columnsCount = 2, ...rest } = props ?? {};
         const rows = Array.from(Array(rowsCount)).map(() =>
             TableRowNode.createTableRow(editor, { children: columnsCount }),
         );
         return editor.createTableNode({
-            header: ['first_row'],
-            border: true,
+            ...rest,
             children: rows,
         });
     }

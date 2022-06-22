@@ -10,7 +10,12 @@ export function insertTable(editor: Editor) {
         return;
     }
 
-    TablesEditor.insertTable(editor, undefined, 3, 3);
+    TablesEditor.insertTable(editor, undefined, {
+        header: ['first_row'],
+        border: true,
+        rowsCount: 3,
+        columnsCount: 3,
+    });
 
     Transforms.removeNodes(editor, { match: (node) => node === currentNode });
 }
