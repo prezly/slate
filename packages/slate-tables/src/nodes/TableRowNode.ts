@@ -1,5 +1,5 @@
 import type { BaseElement, Location, Node, NodeEntry } from 'slate';
-import { Element, Transforms } from 'slate';
+import { Transforms } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
 
@@ -11,18 +11,11 @@ export interface TableRowNode extends BaseElement {
 }
 
 export namespace TableRowNode {
-    export function isTableRowNode(
-        editor: TablesEditor,
-        value: Node | undefined,
-    ): value is TableRowNode {
-        return Element.isElementType<TableRowNode>(value, editor.tableNodeTypes.row);
-    }
-
     export function isTableRowNodeEntry(
         editor: TablesEditor,
         value: NodeEntry<Node> | undefined,
     ): value is NodeEntry<TableRowNode> {
-        return isTableRowNode(editor, value?.[0]);
+        return value !== undefined && editor.isTableRowNode(value[0]);
     }
 
     export function createTableRowNode(
@@ -49,7 +42,7 @@ export namespace TableRowNode {
     ) {
         Transforms.setNodes<TableRowNode>(editor, props, {
             at: location,
-            match: (n) => isTableRowNode(editor, n),
+            match: (node) => editor.isTableRowNode(node),
         });
     }
 }

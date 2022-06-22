@@ -1,8 +1,8 @@
-import type { Element, Location } from 'slate';
+import type { Element, Location, Node } from 'slate';
 import type { ReactEditor } from 'slate-react';
 
 import * as TableCommands from './commands';
-import { TableNode } from './nodes';
+import { type TableCellNode, type TableRowNode, TableNode } from './nodes';
 import * as TableQueries from './queries';
 
 export interface TableNodeType {
@@ -13,6 +13,9 @@ export interface TableNodeType {
 
 export interface TablesSchema {
     tableNodeTypes: TableNodeType;
+    isTableNode: <T extends TableNode>(node: Node) => node is T;
+    isTableRowNode: <T extends TableRowNode>(node: Node) => node is T;
+    isTableCellNode: <T extends TableCellNode>(node: Node) => node is T;
     createContentNode: () => Element | { text: '' };
 }
 
