@@ -1,4 +1,4 @@
-import type { Element, Location, Node } from 'slate';
+import type { Element, Location, Node, Text } from 'slate';
 import type { ReactEditor } from 'slate-react';
 
 import * as TableCommands from './commands';
@@ -6,7 +6,7 @@ import { type TableCellNode, type TableRowNode, TableNode } from './nodes';
 import * as TableQueries from './queries';
 
 export interface TablesSchema {
-    createContentNode: () => Element | { text: '' };
+    createContentNode: () => Element | Text;
     createTableNode: (props: Partial<TableNode>) => TableNode;
     createTableRowNode: (props: Partial<TableRowNode>) => TableRowNode;
     createTableCellNode: (props: Partial<TableCellNode>) => TableCellNode;
