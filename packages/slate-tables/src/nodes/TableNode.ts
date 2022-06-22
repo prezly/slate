@@ -1,4 +1,4 @@
-import type { BaseElement, Location, Node, NodeEntry } from 'slate';
+import type { BaseElement, Location } from 'slate';
 import { Transforms } from 'slate';
 
 import { Traverse } from '../core';
@@ -15,13 +15,6 @@ export interface TableNode extends BaseElement {
 }
 
 export namespace TableNode {
-    export function isTableNodeEntry(
-        editor: TablesEditor,
-        value: NodeEntry<Node> | undefined,
-    ): value is NodeEntry<TableNode> {
-        return value !== undefined && editor.isTableNode(value[0]);
-    }
-
     export function createTableNode(
         editor: TablesEditor,
         rowsCount = 2,

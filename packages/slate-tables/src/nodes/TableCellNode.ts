@@ -1,4 +1,4 @@
-import type { BaseElement, Descendant, Location, Node, NodeEntry } from 'slate';
+import type { BaseElement, Descendant, Location } from 'slate';
 import { Transforms } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
@@ -10,13 +10,6 @@ export interface TableCellNode extends BaseElement {
 }
 
 export namespace TableCellNode {
-    export function isTableCellNodeEntry(
-        editor: TablesEditor,
-        value: NodeEntry<Node> | undefined,
-    ): value is NodeEntry<TableCellNode> {
-        return value !== undefined && editor.isTableCellNode(value[0]);
-    }
-
     export function createTableCellNode(
         editor: TablesEditor,
         props?: Omit<TableCellNode, 'type' | 'children'>,
