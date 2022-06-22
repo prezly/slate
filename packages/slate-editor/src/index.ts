@@ -11,12 +11,12 @@ export { EditableWithExtensions } from './modules/editable';
 
 export type { SearchProps as CoverageSearchProps } from './extensions/coverage';
 export { createEmbed } from './extensions/embed';
-export type { SearchProps as PressContactsSearchProps } from './extensions/press-contacts';
-export { JobDescription } from './extensions/press-contacts';
+export {
+    type SearchProps as PressContactsSearchProps,
+    JobDescription,
+} from './extensions/press-contacts';
 export type { User } from './extensions/user-mentions';
-
-export type { ResultPromise, UploadcareOptions } from './modules/uploadcare';
-export { withUploadcare } from './modules/uploadcare';
+export { type ResultPromise, type UploadcareOptions, withUploadcare } from './modules/uploadcare';
 
 import type { RichBlocksAwareEditor } from './modules/editor';
 
