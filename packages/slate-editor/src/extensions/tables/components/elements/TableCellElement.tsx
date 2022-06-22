@@ -1,4 +1,4 @@
-import type { TableCellNode } from '@prezly/slate-types';
+import type { TableCellNode, TableNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
@@ -18,7 +18,10 @@ export function TableCellElement({ attributes, element, children }: Props) {
     }
 
     const isHeaderCell = React.useMemo(() => {
-        return table.header?.includes('first_row') && table.children[0]?.children.includes(element);
+        return (
+            (table.header?.includes('first_row') && isFirstRow(table, element)) ||
+            (table.header?.includes('first_column') && isFirstColumn(table, element))
+        );
     }, [table, element]);
 
     const Cell = isHeaderCell ? 'th' : 'td';
@@ -35,4 +38,12 @@ export function TableCellElement({ attributes, element, children }: Props) {
             {children}
         </Cell>
     );
+}
+
+function isFirstRow(table: TableNode, cell: TableCellNode): boolean {
+    return table.children[0]?.children.includes(cell);
+}
+
+function isFirstColumn(table: TableNode, cell: TableCellNode): boolean {
+    return table.children.some((row) => row.children[0] === cell);
 }

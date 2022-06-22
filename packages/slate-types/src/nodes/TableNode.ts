@@ -4,7 +4,7 @@ export const TABLE_NODE_TYPE = 'table';
 export const TABLE_ROW_NODE_TYPE = 'table-row';
 export const TABLE_CELL_NODE_TYPE = 'table-cell';
 
-export type TableHeader = 'first_row';
+export type TableHeader = 'first_row' | 'first_column';
 
 export interface TableNode extends ElementNode {
     type: typeof TABLE_NODE_TYPE;
