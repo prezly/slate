@@ -1,13 +1,13 @@
-import type { Location } from 'slate';
-import { Path, Transforms } from 'slate';
+import { type Location, Path, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 import { Traverse } from '../core';
 import { TableRowNode, TableCellNode } from '../nodes';
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 import type { VerticalSides } from '../utils/types';
 
 export function insertRow(
-    editor: TableEditor,
+    editor: TablesEditor,
     location: Location | undefined = editor.selection ?? undefined,
     side: VerticalSides,
 ) {
@@ -32,12 +32,12 @@ export function insertRow(
         }
     }, 0);
 
-    const newRow = TableRowNode.createTableRowNode(editor, {}, cellsToAdd);
+    const newRow = TableRowNode.createTableRow(editor, { children: cellsToAdd });
 
     const at = side === 'bellow' ? Path.next(anchorRow.path) : anchorRow.path;
     Transforms.insertNodes(editor, newRow, { at });
 
-    editor.focusEditor();
+    ReactEditor.focus(editor);
 
     return true;
 }

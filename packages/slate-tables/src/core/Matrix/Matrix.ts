@@ -1,7 +1,7 @@
 import type { NodeEntry } from 'slate';
 
 import type { TableNode } from '../../nodes';
-import type { TableEditor } from '../../TableEditor';
+import type { TablesEditor } from '../../TablesEditor';
 
 import { createGridWithSpans } from './createGridWithSpans';
 import { MatrixColumn } from './MatrixColumn';
@@ -13,7 +13,7 @@ export class Matrix {
     public rows: MatrixRow[];
     public columns: MatrixColumn[];
 
-    constructor(editor: TableEditor, [node, path]: NodeEntry<TableNode>) {
+    constructor(editor: TablesEditor, [node, path]: NodeEntry<TableNode>) {
         this.node = node;
         this.path = path;
         const grid = createGridWithSpans(editor, [node, path]);

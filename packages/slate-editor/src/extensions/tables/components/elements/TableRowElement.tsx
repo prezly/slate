@@ -10,15 +10,17 @@ interface Props extends RenderElementProps {
     element: TableRowNode;
 }
 
-export function TableRow({ element, attributes, children }: Props) {
-    const ctx = React.useContext(TableContext);
+export function TableRowElement({ element, attributes, children }: Props) {
+    const { table } = React.useContext(TableContext);
+
+    if (!table) {
+        console.warn(`${TableRowElement.name} requires wrapping in TableContext.`);
+        return null;
+    }
 
     const isHeaderRow = React.useMemo(() => {
-        return (
-            ctx.table.header?.some((h) => h === 'first_row') &&
-            ctx.table.children.findIndex((row) => row === element) === 0
-        );
-    }, [ctx.table, element]);
+        return table.header?.includes('first_row') && table.children[0] === element;
+    }, [table, element]);
 
     return (
         <tr

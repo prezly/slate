@@ -2,9 +2,9 @@ import type { Location } from 'slate';
 import { Node } from 'slate';
 
 import { Traverse } from '../core';
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 
-export function isInTable(editor: TableEditor, location: Location | null = editor.selection) {
+export function isInTable(editor: TablesEditor, location: Location | null = editor.selection) {
     if (!location) {
         return false;
     }

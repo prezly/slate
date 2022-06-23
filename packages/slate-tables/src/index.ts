@@ -1,2 +1,2 @@
-export * from './TableEditor';
-export * from './withTableEditor';
+export * from './TablesEditor';
+export * from './withTables';

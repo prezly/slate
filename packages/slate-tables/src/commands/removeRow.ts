@@ -1,12 +1,12 @@
-import type { Location } from 'slate';
-import { Transforms } from 'slate';
+import { type Location, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
-import { TableEditor } from '../TableEditor';
+import { TablesEditor } from '../TablesEditor';
 
 export function removeRow(
-    editor: TableEditor,
+    editor: TablesEditor,
     location: Location | undefined = editor.selection ?? undefined,
 ) {
     if (!location) {
@@ -20,7 +20,7 @@ export function removeRow(
     }
 
     if (traverse.matrix.height === 1) {
-        return TableEditor.removeTable(editor);
+        return TablesEditor.removeTable(editor);
     }
 
     const { activeRow } = traverse;
@@ -37,7 +37,7 @@ export function removeRow(
 
     Transforms.removeNodes(editor, { at: activeRow.path });
 
-    editor.focusEditor();
+    ReactEditor.focus(editor);
 
     return true;
 }

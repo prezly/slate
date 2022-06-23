@@ -1,13 +1,13 @@
-import type { Location } from 'slate';
-import { Path, Transforms } from 'slate';
+import { type Location, Path, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 import type { HorizontalSides } from '../utils/types';
 
 export function insertColumn(
-    editor: TableEditor,
+    editor: TablesEditor,
     location: Location | undefined = editor.selection ?? undefined,
     side: HorizontalSides,
 ) {
@@ -26,10 +26,10 @@ export function insertColumn(
 
     anchorColumn.cells.forEach((columnCell) => {
         const at = side === 'left' ? columnCell.path : Path.next(columnCell.path);
-        Transforms.insertNodes(editor, TableCellNode.createTableCellNode(editor), { at });
+        Transforms.insertNodes(editor, TableCellNode.createTableCell(editor), { at });
     });
 
-    editor.focusEditor();
+    ReactEditor.focus(editor);
 
     return true;
 }

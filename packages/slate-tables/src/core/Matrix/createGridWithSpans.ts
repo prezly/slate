@@ -2,8 +2,8 @@ import type { NodeEntry } from 'slate';
 import { Node } from 'slate';
 
 import type { TableNode } from '../../nodes';
-import { TableRowNode, TableCellNode } from '../../nodes';
-import type { TableEditor } from '../../TableEditor';
+import { type TableRowNode, TableCellNode } from '../../nodes';
+import type { TablesEditor } from '../../TablesEditor';
 
 export interface GridWithSpansRow {
     entry: NodeEntry<TableRowNode>;
@@ -15,14 +15,14 @@ export interface GridWithSpansCell {
     isVirtual: boolean;
 }
 
-export function createGridWithSpans(editor: TableEditor, [, tablePath]: NodeEntry<TableNode>) {
+export function createGridWithSpans(editor: TablesEditor, [, tablePath]: NodeEntry<TableNode>) {
     const grid: GridWithSpansRow[] = [];
 
     const rows = Array.from(Node.children(editor, tablePath));
     let rowIdx = 0;
 
     rows.forEach(([row, rowPath]) => {
-        if (!TableRowNode.isTableRowNode(editor, row)) {
+        if (!editor.isTableRowNode(row)) {
             return;
         }
 
@@ -30,7 +30,7 @@ export function createGridWithSpans(editor: TableEditor, [, tablePath]: NodeEntr
         let colIdx = 0;
 
         cells.forEach(([cell, cellPath]) => {
-            if (!TableCellNode.isTableCellNode(editor, cell)) {
+            if (!editor.isTableCellNode(cell)) {
                 return;
             }
 

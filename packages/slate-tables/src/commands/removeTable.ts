@@ -1,11 +1,11 @@
-import type { Location } from 'slate';
-import { Transforms } from 'slate';
+import { type Location, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 import { Traverse } from '../core';
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 
 export function removeTable(
-    editor: TableEditor,
+    editor: TablesEditor,
     location: Location | undefined = editor.selection ?? undefined,
 ) {
     if (!location) {
@@ -20,7 +20,7 @@ export function removeTable(
 
     const { matrix } = traverse;
 
-    editor.focusEditor();
+    ReactEditor.focus(editor);
 
     Transforms.removeNodes(editor, { at: matrix.path });
 

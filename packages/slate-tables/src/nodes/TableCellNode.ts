@@ -1,49 +1,34 @@
-import type { BaseElement, Descendant, Location, Node, NodeEntry } from 'slate';
-import { Element, Transforms } from 'slate';
+import type { BaseElement, Location } from 'slate';
+import { Transforms } from 'slate';
 
-import type { TableEditor } from '../TableEditor';
+import type { TablesEditor } from '../TablesEditor';
 
 export interface TableCellNode extends BaseElement {
-    type: string;
     rowspan?: number;
     colspan?: number;
 }
 
+const IMPLIED_COLSPAN = 1;
+const IMPLIED_ROWSPAN = 1;
+
 export namespace TableCellNode {
-    export function isTableCellNode(
-        editor: TableEditor,
-        value: Node | undefined,
-    ): value is TableCellNode {
-        return Element.isElementType<TableCellNode>(value, editor.tableNodeTypes.cell);
-    }
-
-    export function isTableCellNodeEntry(
-        editor: TableEditor,
-        value: NodeEntry<Node> | undefined,
-    ): value is NodeEntry<TableCellNode> {
-        return isTableCellNode(editor, value?.[0]);
-    }
-
-    export function createTableCellNode(
-        editor: TableEditor,
-        props?: Omit<TableCellNode, 'type' | 'children'>,
-        children: Descendant[] = [editor.createContentNode()],
+    export function createTableCell(
+        editor: TablesEditor,
+        props?: Partial<TableCellNode>,
     ): TableCellNode {
-        return {
-            colspan: getCellColspan(undefined),
-            rowspan: getCellRowspan(undefined),
-            ...props,
-            type: editor.tableNodeTypes.cell,
-            children,
-        };
+        const { children, ...rest } = props ?? {};
+        return editor.createTableCellNode({
+            ...rest,
+            children: children ?? [editor.createContentNode()],
+        });
     }
 
     export function getCellColspan(cell: TableCellNode | undefined) {
-        return cell?.colspan ?? 1;
+        return cell?.colspan ?? IMPLIED_COLSPAN;
     }
 
     export function getCellRowspan(cell: TableCellNode | undefined) {
-        return cell?.rowspan ?? 1;
+        return cell?.rowspan ?? IMPLIED_ROWSPAN;
     }
 
     export function calculateCellRowSpan(
@@ -77,15 +62,13 @@ export namespace TableCellNode {
     }
 
     export function update(
-        editor: TableEditor,
-        props: Partial<Omit<TableCellNode, 'children' | 'type'>>,
+        editor: TablesEditor,
+        props: Partial<Omit<TableCellNode, 'children'>>,
         location: Location,
     ) {
-        const { type, children, ...fixedProps } = props as TableCellNode;
-
-        Transforms.setNodes<TableCellNode>(editor, fixedProps, {
+        Transforms.setNodes<TableCellNode>(editor, props, {
             at: location,
-            match: (n) => isTableCellNode(editor, n),
+            match: (node) => editor.isTableCellNode(node),
         });
     }
 }

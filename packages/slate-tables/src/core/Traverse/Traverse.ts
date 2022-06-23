@@ -3,8 +3,8 @@ import { Editor, Node } from 'slate';
 
 import type { MatrixRow, MatrixColumn, MatrixCell } from '../../core';
 import { Matrix } from '../../core';
-import { TableNode, TableRowNode, TableCellNode } from '../../nodes';
-import type { TableEditor } from '../../TableEditor';
+import type { TableNode, TableRowNode, TableCellNode } from '../../nodes';
+import type { TablesEditor } from '../../TablesEditor';
 
 export class Traverse {
     public matrix: Matrix;
@@ -24,7 +24,7 @@ export class Traverse {
         this.activeCell = activeCell;
     }
 
-    static create(editor: TableEditor, cellLocation: Location) {
+    static create(editor: TablesEditor, cellLocation: Location) {
         const cellPath = Editor.path(editor, cellLocation);
         const ancestors = Node.ancestors(editor, cellPath, { reverse: true });
 
@@ -32,17 +32,17 @@ export class Traverse {
         let currentRowEntry: NodeEntry<TableRowNode> | undefined = undefined;
         let currentCellEntry: NodeEntry<TableCellNode> | undefined = undefined;
 
-        for (const ancestor of ancestors) {
-            if (TableNode.isTableNodeEntry(editor, ancestor)) {
-                currentTableEntry = ancestor;
+        for (const [node, path] of ancestors) {
+            if (editor.isTableNode(node)) {
+                currentTableEntry = [node, path];
             }
 
-            if (TableRowNode.isTableRowNodeEntry(editor, ancestor)) {
-                currentRowEntry = ancestor;
+            if (editor.isTableRowNode(node)) {
+                currentRowEntry = [node, path];
             }
 
-            if (TableCellNode.isTableCellNodeEntry(editor, ancestor)) {
-                currentCellEntry = ancestor;
+            if (editor.isTableCellNode(node)) {
+                currentCellEntry = [node, path];
             }
 
             if (currentTableEntry && currentRowEntry && currentCellEntry) {

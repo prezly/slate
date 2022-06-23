@@ -2,7 +2,7 @@ import type { TableNode } from '@prezly/slate-types';
 import React from 'react';
 
 interface Props {
-    table: TableNode;
+    table: TableNode | null;
 }
 
-export const TableContext = React.createContext(undefined as unknown as Props);
+export const TableContext = React.createContext<Props>({ table: null });
