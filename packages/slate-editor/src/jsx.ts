@@ -19,6 +19,9 @@ import type {
     QuoteNode,
     StoryBookmarkNode,
     StoryEmbedNode,
+    TableCellNode,
+    TableNode,
+    TableRowNode,
     TextNode,
     VideoNode,
 } from '@prezly/slate-types';
@@ -55,6 +58,7 @@ import { createHtmlBlock } from '#extensions/html';
 import { createImage, createImageCandidate } from '#extensions/image';
 import type { ImageCandidateNode } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
+import { createList, createListItem, createListItemText } from '#extensions/list';
 import { ListExtension } from '#extensions/list';
 import type { LoaderNode } from '#extensions/loader';
 import { createLoader } from '#extensions/loader';
@@ -62,11 +66,10 @@ import { createParagraph } from '#extensions/paragraphs';
 import { createPressContact } from '#extensions/press-contacts';
 import { createStoryBookmark } from '#extensions/story-bookmark';
 import { createStoryEmbed } from '#extensions/story-embed';
+import { createTableNode, createTableRowNode, createTableCellNode } from '#extensions/tables';
 import { createVideoBookmark } from '#extensions/video';
 import { createWebBookmark } from '#extensions/web-bookmark';
 import { createEditor } from '#modules/editor';
-
-import { createList, createListItem, createListItemText } from '#extensions/list/lib';
 
 type HElement<T extends ElementNode> = Omit<T, 'type' | 'children'>;
 
@@ -98,6 +101,9 @@ interface HElements {
     'h:story-bookmark': HElement<StoryBookmarkNode>;
     'h:story-embed': HElement<StoryEmbedNode>;
     'h:video': HElement<VideoNode>;
+    'h:table': PropsWithChildren<HElement<TableNode>>;
+    'h:tr': PropsWithChildren<HElement<TableRowNode>>;
+    'h:td': PropsWithChildren<HElement<TableCellNode>>;
 }
 
 declare global {
@@ -144,6 +150,9 @@ const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
     'h:story-bookmark': initCreator((props: StoryBookmarkNode) => createStoryBookmark(props)),
     'h:story-embed': initCreator((props: StoryEmbedNode) => createStoryEmbed(props)),
     'h:video': initCreator((props: VideoNode) => createVideoBookmark(props)),
+    'h:table': initCreator((props: TableNode) => createTableNode(props)),
+    'h:tr': initCreator((props: TableRowNode) => createTableRowNode(props)),
+    'h:td': initCreator((props: TableCellNode) => createTableCellNode(props)),
 };
 
 export const jsx = createHyperscript({
