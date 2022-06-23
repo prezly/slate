@@ -11,6 +11,7 @@ interface ButtonBaseProps {
     iconPosition?: 'left' | 'right';
     fullWidth?: boolean;
     round?: boolean;
+    noPadding?: boolean;
     disabled?: boolean;
 }
 
@@ -31,6 +32,7 @@ export function Button({
     fullWidth,
     type,
     round,
+    noPadding,
     disabled,
     children,
     ...attributes
@@ -59,6 +61,7 @@ export function Button({
                 [styles['button--underlined']]: variant === 'underlined',
                 [styles['button--full-width']]: fullWidth,
                 [styles['button--round']]: round,
+                [styles['button--noPadding']]: noPadding,
                 [styles['disabled']]: disabled,
             }),
             type: type !== 'link' ? type : undefined,

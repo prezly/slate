@@ -64,6 +64,7 @@ export function getAllExtensions() {
                 renderInput: () => null,
             },
             withTextStyling: true,
+            withTables: true,
             withUserMentions: {
                 users: [
                     {
