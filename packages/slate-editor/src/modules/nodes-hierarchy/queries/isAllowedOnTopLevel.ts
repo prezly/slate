@@ -14,6 +14,7 @@ import {
     isQuoteNode,
     isStoryBookmarkNode,
     isStoryEmbedNode,
+    isTableNode,
     isVideoNode,
 } from '@prezly/slate-types';
 import type { NodeEntry } from 'slate';
@@ -40,6 +41,7 @@ export function isAllowedOnTopLevel([node]: NodeEntry) {
         isStoryBookmarkNode(node) ||
         isStoryEmbedNode(node) ||
         isVideoNode(node) ||
-        isListNode(node)
+        isListNode(node) ||
+        isTableNode(node)
     );
 }
