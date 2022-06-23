@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { Events } from '@prezly/events';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
@@ -54,6 +55,7 @@ import {
     createOnCut,
     handleAddAttachment,
     insertDivider,
+    insertTable,
     isEditorValueEqual,
     useCursorInView,
 } from './lib';
@@ -99,6 +101,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withStoryBookmarks = false,
         withStoryEmbeds = false,
         withTextStyling = false,
+        withTables = false,
         withUserMentions = false,
         withVideos = false,
         withWebBookmarks = false,
@@ -141,6 +144,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withPlaceholders,
             withPressContacts,
             withTextStyling,
+            withTables,
             withUserMentions,
             withVideos,
             withWebBookmarks,
@@ -263,6 +267,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withBlockquotes,
             withCoverage: Boolean(withCoverage),
             withDivider,
+            withTables: Boolean(withTables),
             withEmbedSocial: Boolean(withEmbeds),
             withEmbeds: Boolean(withEmbeds),
             withGalleries: Boolean(withGalleries),
@@ -300,6 +305,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }
         if (action === MenuAction.ADD_DIVIDER) {
             return insertDivider(editor);
+        }
+        if (action === MenuAction.ADD_TABLE) {
+            return insertTable(editor);
         }
         if (action === MenuAction.ADD_EMBED) {
             return openFloatingEmbedInput('Add embed', {

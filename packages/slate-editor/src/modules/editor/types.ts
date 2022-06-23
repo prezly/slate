@@ -88,6 +88,7 @@ export interface EditorProps {
           };
     withStoryBookmarks?: false | StoryBookmarkExtensionParameters;
     withStoryEmbeds?: false | StoryEmbedExtensionParameters;
+    withTables?: boolean;
     withTextStyling?: boolean;
     withUserMentions?: false | UserMentionsExtensionParameters;
     withVideos?: false | VideoExtensionParameters;

@@ -15,6 +15,8 @@ export {
     handleRemoveImage,
 } from './images';
 
+export * from './table';
+
 export { insertUploadingFile } from './insertUploadingFile';
 export { isEditorValueEqual } from './isEditorValueEqual';
 export { useCursorInView } from './useCursorInView';

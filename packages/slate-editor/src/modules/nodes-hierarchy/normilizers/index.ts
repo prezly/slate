@@ -1,1 +1,1 @@
-export * from './rootNodeOnly';
+export * from './allowChildren';

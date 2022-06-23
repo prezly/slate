@@ -1,4 +1,5 @@
 import type { ListsEditor } from '@prezly/slate-lists';
+import type { TablesEditor } from '@prezly/slate-tables';
 import type { ElementNode, TextNode } from '@prezly/slate-types';
 import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
@@ -28,7 +29,8 @@ declare module 'slate' {
             HistoryEditor &
             ListsEditor &
             RichBlocksAwareEditor &
-            SerializingEditor;
+            SerializingEditor &
+            TablesEditor;
         Element: ElementNode;
         Text: TextNode;
     }

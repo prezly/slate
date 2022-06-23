@@ -1,0 +1,57 @@
+{
+    "name": "@prezly/slate-tables",
+    "version": "0.47.1",
+    "description": "The best Slate tables extension out there",
+    "license": "MIT",
+    "type": "module",
+    "main": "build/cjs/index.cjs",
+    "module": "build/esm/index.mjs",
+    "types": "build/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./build/types/index.d.ts",
+            "import": "./build/esm/index.mjs",
+            "default": "./build/cjs/index.cjs"
+        }
+    },
+    "files": [
+        "build",
+        "src"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/prezly/slate.git"
+    },
+    "bugs": {
+        "url": "https://github.com/prezly/slate/issues"
+    },
+    "homepage": "https://github.com/prezly/slate#readme",
+    "scripts": {
+        "lint": "eslint ./src --ext=.ts,.tsx",
+        "build": "NODE_ENV=production npm run build:all",
+        "build:dev": "NODE_ENV=development npm run build:all",
+        "build:all": "npm run build:types && npm run build:esm && npm run build:cjs",
+        "build:types": "tsc --build ./tsconfig.build.json",
+        "build:esm": "gulp build:esm",
+        "build:cjs": "gulp build:cjs",
+        "watch": "concurrently --kill-others --names 'd.ts, esm, cjs' 'npm run watch:types' 'npm run watch:esm' 'npm run watch:cjs'",
+        "watch:types": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.build.json --watch --pretty",
+        "watch:esm": "gulp watch:esm",
+        "watch:cjs": "gulp watch:cjs",
+        "test": "npm run test:unit && npm run test:build",
+        "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.cjs --rootDir ./ --no-cache --coverage",
+        "test:build": "npm run test:esm && npm run test:cjs && npm run test:types",
+        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.mjs'; \" ",
+        "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" ",
+        "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",
+        "clean": "npm run clean:build && npm run clean:node_modules",
+        "clean:node_modules": "rimraf node_modules/",
+        "clean:build": "rimraf build/ *.tsbuildinfo"
+    },
+    "peerDependencies": {
+        "react": "^16.9.0 || ^17.0.0 || ^18.0.0",
+        "slate": "^0.81.0",
+        "slate-react": "^0.81.0"
+    },
+    "gitHead": "f2c3badd9a0039fbd3952ff688d0bbdd9892d809"
+}

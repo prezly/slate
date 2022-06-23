@@ -1,0 +1,32 @@
+@import "styles/variables";
+
+.Table {
+    width: 100%;
+    border-collapse: collapse;
+    // TODO: Workaround to avoid column resizing when you type text in cell
+    table-layout: fixed;
+
+    &--withBorders {
+        .TableRow,
+        .TableCell {
+            border: 1px solid $grey-300;
+        }
+    }
+}
+
+.TableRow {
+    color: $grey-700;
+    font-size: $font-size-small;
+
+    &--header {
+        background: $grey-100;
+        font-weight: 600;
+    }
+}
+
+.TableCell {
+    min-width: 40px;
+    min-height: 40px;
+    padding: $spacing-1-5;
+    outline: none !important;
+}

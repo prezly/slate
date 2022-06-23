@@ -1,7 +1,6 @@
 import type { Editor, NodeEntry } from 'slate';
 
 import {
-    normalizeList,
     normalizeListChildren,
     normalizeListItemChildren,
     normalizeListItemTextChildren,
@@ -15,7 +14,6 @@ import type { ListsEditor, ListsSchema } from './types';
 type Normalizer = (editor: ListsEditor, entry: NodeEntry) => boolean;
 
 const LIST_NORMALIZERS: Normalizer[] = [
-    normalizeList,
     normalizeListChildren,
     normalizeListItemChildren,
     normalizeListItemTextChildren,

@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / Lists should be kept after normalization 1`] = `
+Array [
+  Object {
+    "align": "left",
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "First",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "Second",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "Third",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+    ],
+    "type": "numbered-list",
+  },
+  Object {
+    "align": "left",
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "First",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "Second",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "Third",
+              },
+            ],
+            "type": "list-item-text",
+          },
+        ],
+        "type": "list-item",
+      },
+    ],
+    "type": "bulleted-list",
+  },
+]
+`;

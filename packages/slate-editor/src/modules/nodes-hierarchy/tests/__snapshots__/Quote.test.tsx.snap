@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / Quote should be kept after normalization 1`] = `
+Array [
+  Object {
+    "align": "left",
+    "children": Array [
+      Object {
+        "text": "Left",
+      },
+    ],
+    "type": "block-quote",
+  },
+  Object {
+    "align": "center",
+    "children": Array [
+      Object {
+        "text": "Center",
+      },
+    ],
+    "type": "block-quote",
+  },
+  Object {
+    "align": "right",
+    "children": Array [
+      Object {
+        "text": "Right",
+      },
+    ],
+    "type": "block-quote",
+  },
+]
+`;

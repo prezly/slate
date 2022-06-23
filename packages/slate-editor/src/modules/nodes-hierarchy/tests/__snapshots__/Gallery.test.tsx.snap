@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / Gallery should be kept after normalization 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "text": "",
+      },
+    ],
+    "images": Array [
+      Object {
+        "caption": "one",
+        "file": Object {
+          "effects": Array [],
+          "filename": "grapefruit-slice-332-332 (1).jpg",
+          "mime_type": "image/jpeg",
+          "original_height": 332,
+          "original_width": 332,
+          "size": 18122,
+          "uuid": "e4e225e9-fa83-4613-918a-66cd2efc3b2b",
+          "version": 2,
+        },
+      },
+      Object {
+        "caption": "two",
+        "file": Object {
+          "effects": Array [],
+          "filename": "best-fishes.png",
+          "mime_type": "image/png",
+          "original_height": 870,
+          "original_width": 870,
+          "size": 851619,
+          "uuid": "0752828b-5595-41c8-b8a0-4b0c8abe8d8a",
+          "version": 2,
+        },
+      },
+    ],
+    "layout": "contained",
+    "padding": "M",
+    "thumbnail_size": "L",
+    "type": "gallery",
+    "uuid": "d697805c-7e8a-4627-b919-59097fbce50a",
+  },
+]
+`;

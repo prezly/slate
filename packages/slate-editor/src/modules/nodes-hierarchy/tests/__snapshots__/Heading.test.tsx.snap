@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / Heading should be kept after normalization 1`] = `
+Array [
+  Object {
+    "align": "left",
+    "children": Array [
+      Object {
+        "text": "First",
+      },
+    ],
+    "type": "heading-one",
+  },
+  Object {
+    "align": undefined,
+    "children": Array [
+      Object {
+        "text": "Second",
+      },
+    ],
+    "type": "heading-two",
+  },
+]
+`;

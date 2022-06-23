@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes-hierarchy / Tables should be kept after normalization 1`] = `
+Array [
+  Object {
+    "border": true,
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "1",
+              },
+            ],
+            "type": "table-cell",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "text": "2",
+              },
+            ],
+            "type": "table-cell",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "text": "3",
+              },
+            ],
+            "type": "table-cell",
+          },
+        ],
+        "type": "table-row",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "4",
+              },
+            ],
+            "type": "table-cell",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "text": "5",
+              },
+            ],
+            "type": "table-cell",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "text": "6",
+              },
+            ],
+            "type": "table-cell",
+          },
+        ],
+        "type": "table-row",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "text": "7",
+              },
+            ],
+            "type": "table-cell",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "text": "8",
+              },
+            ],
+            "type": "table-cell",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "text": "9",
+              },
+            ],
+            "type": "table-cell",
+          },
+        ],
+        "type": "table-row",
+      },
+    ],
+    "header": Array [
+      "first_row",
+    ],
+    "type": "table",
+  },
+]
+`;
