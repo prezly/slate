@@ -17,10 +17,14 @@ export function isHeaderCell(
     const isLocation = Location.isLocation(locationOrCell);
 
     if (isEditor || isLocation || locationOrCell === null) {
-        if (isEditor && isLocation) {
-            const traverse = Traverse.create(editorOrTable, locationOrCell);
-            table = traverse?.matrix.node;
-            cell = traverse?.activeCell.node;
+        if (isEditor) {
+            const location = locationOrCell ?? editorOrTable.selection;
+
+            if (Location.isLocation(location)) {
+                const traverse = Traverse.create(editorOrTable, location);
+                table = traverse?.matrix.node;
+                cell = traverse?.activeCell.node;
+            }
         }
     } else {
         table = editorOrTable;

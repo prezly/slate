@@ -227,7 +227,7 @@ export function RichFormattingMenu({
                     onLink={handleLinkButtonClick}
                     // features
                     withBoldFormat={
-                        TablesEditor.isInTable(editor) ? TablesEditor.isHeaderCell(editor) : true
+                        TablesEditor.isInTable(editor) ? !TablesEditor.isHeaderCell(editor) : true
                     }
                     withAlignment={withAlignment}
                     withBlockquotes={withBlockquotes && !TablesEditor.isInTable(editor)}
