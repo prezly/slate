@@ -4,7 +4,7 @@ import type { TableRowNode } from '../../nodes';
 
 import type { GridWithSpansRow } from './createGridWithSpans';
 import type { Matrix } from './Matrix';
-import { MatrixCell } from './MatrixCell';
+import type { MatrixCell } from './MatrixCell';
 
 export class MatrixRow {
     public readonly node: NodeEntry<TableRowNode>[0];
@@ -14,13 +14,12 @@ export class MatrixRow {
     private readonly y: number;
     private readonly matrix: Matrix;
 
-    constructor(gridRow: GridWithSpansRow, y: number, matrix: Matrix) {
+    constructor(gridRow: GridWithSpansRow, y: number, matrix: Matrix, cells: MatrixCell[]) {
         this.node = gridRow.entry[0];
         this.path = gridRow.entry[1];
         this.y = y;
         this.matrix = matrix;
-
-        this.cells = gridRow.cells.map((gridCell) => new MatrixCell(gridCell, this, matrix));
+        this.cells = cells;
     }
 
     get rowAbove() {

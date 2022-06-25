@@ -39,6 +39,7 @@ interface Props {
     onFormatting: (formatting: Formatting) => void;
     // features
     withAlignment: boolean;
+    withBoldFormat: boolean;
     withBlockquotes: boolean;
     withHeadings: boolean;
     withInlineLinks: boolean;
@@ -66,6 +67,7 @@ export function Toolbar({
     onFormatting,
     // features
     withAlignment,
+    withBoldFormat = true,
     withBlockquotes,
     withInlineLinks,
     withHeadings,
@@ -75,9 +77,11 @@ export function Toolbar({
     return (
         <>
             <Menu.ButtonGroup>
-                <Menu.Button active={isBold} onClick={onBold}>
-                    <Menu.Icon icon={FormatBold} />
-                </Menu.Button>
+                {withBoldFormat && (
+                    <Menu.Button active={isBold} onClick={onBold}>
+                        <Menu.Icon icon={FormatBold} />
+                    </Menu.Button>
+                )}
                 <Menu.Button active={isItalic} onClick={onItalic}>
                     <Menu.Icon icon={FormatItalic} />
                 </Menu.Button>

@@ -24,14 +24,14 @@ export function TableMenu({ element, onClose }: Props) {
             <Toolbox.Section caption="Layout">
                 <Toggle
                     name="borders"
-                    value={element.border}
+                    value={Boolean(element.border)}
                     onChange={() => TablesEditor.updateTable(editor, { border: !element.border })}
                 >
                     With borders
                 </Toggle>
                 <Toggle
                     name="header-row"
-                    value={element.header?.some((h) => h === 'first_row')}
+                    value={Boolean(element.header?.some((h) => h === 'first_row'))}
                     onChange={() => TablesEditor.toggleTableHeader(editor, undefined, 'first_row')}
                 >
                     First row as header

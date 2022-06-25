@@ -1,4 +1,6 @@
-import type { TableCellNode, TableNode } from '@prezly/slate-types';
+import { TablesEditor } from '@prezly/slate-tables';
+import type { TableCellNode } from '@prezly/slate-types';
+import classNames from 'classnames';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
@@ -17,19 +19,19 @@ export function TableCellElement({ attributes, element, children }: Props) {
         return null;
     }
 
-    const isHeaderCell = React.useMemo(() => {
-        return (
-            (table.header?.includes('first_row') && isFirstRow(table, element)) ||
-            (table.header?.includes('first_column') && isFirstColumn(table, element))
-        );
-    }, [table, element]);
+    const isHeaderCell = React.useMemo(
+        () => TablesEditor.isHeaderCell(table, element),
+        [table, element],
+    );
 
     const Cell = isHeaderCell ? 'th' : 'td';
 
     return (
         <Cell
             {...attributes}
-            className={styles.TableCell}
+            className={classNames(styles.TableCell, {
+                [styles['TableCell--header']]: isHeaderCell,
+            })}
             colSpan={element.colspan}
             rowSpan={element.rowspan}
             contentEditable
@@ -38,12 +40,4 @@ export function TableCellElement({ attributes, element, children }: Props) {
             {children}
         </Cell>
     );
-}
-
-function isFirstRow(table: TableNode, cell: TableCellNode): boolean {
-    return table.children[0]?.children.includes(cell);
-}
-
-function isFirstColumn(table: TableNode, cell: TableCellNode): boolean {
-    return table.children.some((row) => row.children[0] === cell);
 }
