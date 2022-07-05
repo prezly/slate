@@ -5,6 +5,7 @@ import { compareNumbers } from '../../utils/comparators';
 
 import type { GridWithSpansCell } from './createGridWithSpans';
 import type { Matrix } from './Matrix';
+import type { MatrixColumn } from './MatrixColumn';
 import type { MatrixRow } from './MatrixRow';
 
 export class MatrixCell {
@@ -13,13 +14,15 @@ export class MatrixCell {
     public readonly matrix: Matrix;
     public readonly isVirtual: boolean;
     public readonly row: MatrixRow;
+    public readonly column: MatrixColumn;
 
-    constructor(gridCell: GridWithSpansCell, row: MatrixRow, matrix: Matrix) {
+    constructor(gridCell: GridWithSpansCell, matrix: Matrix, row: MatrixRow, column: MatrixColumn) {
         this.node = gridCell.entry[0];
         this.path = gridCell.entry[1];
         this.isVirtual = gridCell.isVirtual;
-        this.row = row;
         this.matrix = matrix;
+        this.row = row;
+        this.column = column;
     }
 
     compareWidth(otherCell: MatrixCell) {

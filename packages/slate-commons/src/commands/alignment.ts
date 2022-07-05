@@ -1,6 +1,6 @@
 import type { AlignableNode, Alignment } from '@prezly/slate-types';
 import { isAlignableElement } from '@prezly/slate-types';
-import type { Node, Path } from 'slate';
+import type { Node } from 'slate';
 import { Editor, Transforms } from 'slate';
 
 export function getAlignment(editor: Editor, defaultAlignment: Alignment): Alignment[] {
@@ -26,6 +26,6 @@ export function toggleAlignment(editor: Editor, align: Alignment | undefined): v
     Transforms.setNodes<AlignableNode>(editor, { align }, { match: isTopLevelAlignableElement });
 }
 
-function isTopLevelAlignableElement(node: Node, path: Path): node is AlignableNode {
-    return path.length === 1 && isAlignableElement(node);
+function isTopLevelAlignableElement(node: Node): node is AlignableNode {
+    return isAlignableElement(node);
 }

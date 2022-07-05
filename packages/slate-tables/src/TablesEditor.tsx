@@ -23,6 +23,7 @@ export namespace TablesEditor {
     export const removeRow = TableCommands.removeRow;
     export const removeTable = TableCommands.removeTable;
 
+    export const isHeaderCell = TableQueries.isHeaderCell;
     export const isInTable = TableQueries.isInTable;
 
     export const createTable = TableNode.createTable;

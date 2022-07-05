@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { TablesEditor } from '@prezly/slate-tables';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
@@ -225,9 +226,12 @@ export function RichFormattingMenu({
                     onFormatting={handleFormattingChange}
                     onLink={handleLinkButtonClick}
                     // features
+                    withBoldFormat={
+                        TablesEditor.isInTable(editor) ? !TablesEditor.isHeaderCell(editor) : true
+                    }
                     withAlignment={withAlignment}
-                    withBlockquotes={withBlockquotes}
-                    withHeadings={withHeadings}
+                    withBlockquotes={withBlockquotes && !TablesEditor.isInTable(editor)}
+                    withHeadings={withHeadings && !TablesEditor.isInTable(editor)}
                     withInlineLinks={withInlineLinks}
                     withLists={withLists}
                     withParagraphs={withParagraphs}

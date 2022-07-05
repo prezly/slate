@@ -28,9 +28,14 @@ export class Traverse {
         const cellPath = Editor.path(editor, cellLocation);
         const ancestors = Node.ancestors(editor, cellPath, { reverse: true });
 
+        const cellNode = Node.get(editor, cellPath);
         let currentTableEntry: NodeEntry<TableNode> | undefined = undefined;
         let currentRowEntry: NodeEntry<TableRowNode> | undefined = undefined;
-        let currentCellEntry: NodeEntry<TableCellNode> | undefined = undefined;
+        let currentCellEntry: NodeEntry<TableCellNode> | undefined = editor.isTableCellNode(
+            cellNode,
+        )
+            ? [cellNode, cellPath]
+            : undefined;
 
         for (const [node, path] of ancestors) {
             if (editor.isTableNode(node)) {
