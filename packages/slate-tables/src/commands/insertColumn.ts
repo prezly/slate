@@ -36,5 +36,9 @@ export function insertColumn(
 
     ReactEditor.focus(editor);
 
+    if (firstCellInNewColumnPath) {
+        Transforms.select(editor, firstCellInNewColumnPath);
+    }
+
     return true;
 }

@@ -39,6 +39,7 @@ export function insertRow(
     ReactEditor.focus(editor);
 
     const [, firstCellInNewRowPath] = Node.first(editor, at);
+    Transforms.select(editor, firstCellInNewRowPath);
 
     return true;
 }
