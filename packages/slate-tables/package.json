@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-tables",
-    "version": "0.47.3",
+    "version": "0.47.4",
     "description": "The best Slate tables extension out there",
     "license": "MIT",
     "type": "module",
