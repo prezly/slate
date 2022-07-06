@@ -92,4 +92,87 @@ describe('nodes-hierarchy / Tables', () => {
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
+
+    it('should remove bold mark when text is inside table cell', () => {
+        const editor = (
+            <editor>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:text bold>
+                                <cursor />1
+                            </h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>2</h:text>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as Editor;
+
+        const expected = (
+            <editor>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:text>
+                                <cursor />1
+                            </h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>2</h:text>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as Editor;
+
+        Editor.normalize(editor, { force: true });
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+    });
+
+    it('should remove bold mark when text is inside paragraph inside table cell', () => {
+        const editor = (
+            <editor>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text bold>
+                                    <cursor />1
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:text>2</h:text>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as Editor;
+
+        const expected = (
+            <editor>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>1</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:text>2</h:text>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as Editor;
+
+        Editor.normalize(editor, { force: true });
+
+        expect(editor.children).toEqual(expected.children);
+    });
 });
