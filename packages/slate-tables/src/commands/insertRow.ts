@@ -1,4 +1,4 @@
-import { type Location, Path, Transforms } from 'slate';
+import { type Location, Path, Transforms, Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { Traverse } from '../core';
@@ -22,9 +22,8 @@ export function insertRow(
     }
 
     const { activeRow } = traverse;
-    const anchorRow = side === 'above' ? activeRow : activeRow.rowBelow ?? activeRow;
 
-    const cellsToAdd = anchorRow.cells.reduce((acc, c) => {
+    const cellsToAdd = activeRow.cells.reduce((acc, c) => {
         if (c.isVirtual && TableCellNode.getCellRowspan(c.node) > 1) {
             return acc;
         } else {
@@ -34,10 +33,12 @@ export function insertRow(
 
     const newRow = TableRowNode.createTableRow(editor, { children: cellsToAdd });
 
-    const at = side === 'bellow' ? Path.next(anchorRow.path) : anchorRow.path;
+    const at = side === 'bellow' ? Path.next(activeRow.path) : activeRow.path;
     Transforms.insertNodes(editor, newRow, { at });
 
     ReactEditor.focus(editor);
+
+    const [, firstCellInNewRowPath] = Node.first(editor, at);
 
     return true;
 }
