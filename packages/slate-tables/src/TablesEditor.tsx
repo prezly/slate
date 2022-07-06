@@ -1,4 +1,4 @@
-import type { Element, Location, Node, Text } from 'slate';
+import type { Editor, Element, Location, Node, Text } from 'slate';
 import type { ReactEditor } from 'slate-react';
 
 import * as TableCommands from './commands';
@@ -44,5 +44,9 @@ export namespace TablesEditor {
 
     export function insertRowBelow(editor: TablesEditor, location?: Location) {
         return TableCommands.insertRow(editor, location, 'bellow');
+    }
+
+    export function isTablesEditor(editor: Editor): editor is TablesEditor {
+        return 'isTableCellNode' in editor;
     }
 }
