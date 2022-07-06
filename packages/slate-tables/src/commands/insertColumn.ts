@@ -22,14 +22,23 @@ export function insertColumn(
     }
 
     const { activeColumn } = traverse;
-    const anchorColumn = side === 'left' ? activeColumn : activeColumn.columnRight ?? activeColumn;
+    let firstCellInNewColumnPath: Path | undefined = undefined;
 
-    anchorColumn.cells.forEach((columnCell) => {
+    activeColumn.cells.forEach((columnCell, index) => {
         const at = side === 'left' ? columnCell.path : Path.next(columnCell.path);
+
+        if (index === 0) {
+            firstCellInNewColumnPath = at;
+        }
+
         Transforms.insertNodes(editor, TableCellNode.createTableCell(editor), { at });
     });
 
     ReactEditor.focus(editor);
+
+    if (firstCellInNewColumnPath) {
+        Transforms.select(editor, firstCellInNewColumnPath);
+    }
 
     return true;
 }
