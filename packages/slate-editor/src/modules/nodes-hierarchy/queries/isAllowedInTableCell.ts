@@ -1,6 +1,6 @@
 import { isListNode, isParagraphNode } from '@prezly/slate-types';
-import type { NodeEntry } from 'slate';
+import type { Node } from 'slate';
 
-export function isAllowedInTableCell([node]: NodeEntry) {
+export function isAllowedInTableCell(node: Node) {
     return isParagraphNode(node) || isListNode(node);
 }

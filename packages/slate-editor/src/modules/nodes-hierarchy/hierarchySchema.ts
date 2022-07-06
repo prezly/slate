@@ -1,4 +1,3 @@
-import type { TextNode } from '@prezly/slate-types';
 import {
     isParagraphNode,
     ATTACHMENT_NODE_TYPE,
@@ -23,18 +22,23 @@ import {
     TABLE_CELL_NODE_TYPE,
     isTableCellNode,
 } from '@prezly/slate-types';
-import { Text, Transforms } from 'slate';
+import { Text } from 'slate';
 
 import { LOADER_NODE_TYPE } from '#extensions/loader';
 
-import { convertToParagraph, liftNode, unwrapSameTypeChild, unwrapNode } from './fixers';
+import {
+    convertToParagraph,
+    liftNode,
+    unwrapSameTypeChild,
+    unwrapNode,
+    optimizeTextInsideTableCell,
+} from './fixers';
 import { allowChildren, isInside } from './normilizers';
 import {
     isAllowedInTableCell,
     isAllowedOnTopLevel,
     isEmptyTextNode,
     isInlineNode,
-    isTextNode,
 } from './queries';
 import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
@@ -84,7 +88,7 @@ export const hierarchySchema: NodesHierarchySchema = {
         allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [IMAGE_NODE_TYPE]: [
-        allowChildren(isTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(Text.isText, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
     [LOADER_NODE_TYPE]: [
         allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
@@ -109,34 +113,22 @@ export const hierarchySchema: NodesHierarchySchema = {
     [STORY_EMBED_NODE_TYPE]: [
         allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],
-    // [TABLE_CELL_NODE_TYPE]: [
-    //     allowChildren(
-    //         isAllowedInTableCell,
-    //         combineFixers([unwrapSameTypeChild, liftNode, unwrapNode, convertToParagraph]),
-    //     ),
-    // ],
-    // [TABLE_NODE_TYPE]: [
-    //     allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
-    // ],
-    // [TABLE_ROW_NODE_TYPE]: [
-    //     allowChildren(
-    //         isTableCellNode,
-    //         combineFixers([unwrapSameTypeChild, liftNode, unwrapNode, convertToParagraph]),
-    //     ),
-    // ],
-    [TEXT_NODE_TYPE]: [
-        isInside(
-            ([node]) => isTableCellNode(node),
-            (editor, [node]) => {
-                if (Text.isText(node) && node.bold) {
-                    Transforms.unsetNodes<TextNode>(editor, 'bold', { match: (n) => n === node });
-                    return true;
-                }
-
-                return false;
-            },
+    [TABLE_CELL_NODE_TYPE]: [
+        allowChildren(
+            isAllowedInTableCell,
+            combineFixers([unwrapSameTypeChild, liftNode, unwrapNode, convertToParagraph]),
         ),
     ],
+    [TABLE_NODE_TYPE]: [
+        allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+    ],
+    [TABLE_ROW_NODE_TYPE]: [
+        allowChildren(
+            isTableCellNode,
+            combineFixers([unwrapSameTypeChild, liftNode, unwrapNode, convertToParagraph]),
+        ),
+    ],
+    [TEXT_NODE_TYPE]: [isInside(isTableCellNode, optimizeTextInsideTableCell)],
     [VIDEO_NODE_TYPE]: [
         allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
     ],

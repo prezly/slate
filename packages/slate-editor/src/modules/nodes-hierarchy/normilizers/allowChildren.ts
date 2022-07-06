@@ -11,7 +11,9 @@ export function allowChildren(
 
         if ('children' in node) {
             for (const entry of Node.children(editor, path)) {
-                if (!isAllowed(entry, editor)) {
+                const [node] = entry;
+
+                if (!isAllowed(node, editor)) {
                     return fix(editor, entry);
                 }
             }
