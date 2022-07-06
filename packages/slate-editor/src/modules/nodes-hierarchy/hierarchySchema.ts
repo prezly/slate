@@ -1,3 +1,4 @@
+import type { TextNode } from '@prezly/slate-types';
 import {
     isParagraphNode,
     ATTACHMENT_NODE_TYPE,
@@ -16,14 +17,26 @@ import {
     STORY_BOOKMARK_NODE_TYPE,
     STORY_EMBED_NODE_TYPE,
     VIDEO_NODE_TYPE,
+    TABLE_NODE_TYPE,
+    isTableRowNode,
+    TABLE_ROW_NODE_TYPE,
+    TABLE_CELL_NODE_TYPE,
+    isTableCellNode,
 } from '@prezly/slate-types';
+import { Text, Transforms } from 'slate';
 
 import { LOADER_NODE_TYPE } from '#extensions/loader';
 
 import { convertToParagraph, liftNode, unwrapSameTypeChild, unwrapNode } from './fixers';
-import { allowChildren } from './normilizers';
-import { isAllowedOnTopLevel, isEmptyTextNode, isInlineNode, isTextNode } from './queries';
-import { EDITOR_NODE_TYPE } from './types';
+import { allowChildren, isInside } from './normilizers';
+import {
+    isAllowedInTableCell,
+    isAllowedOnTopLevel,
+    isEmptyTextNode,
+    isInlineNode,
+    isTextNode,
+} from './queries';
+import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
 import { combineFixers } from './utils';
 
@@ -95,6 +108,34 @@ export const hierarchySchema: NodesHierarchySchema = {
     ],
     [STORY_EMBED_NODE_TYPE]: [
         allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+    ],
+    // [TABLE_CELL_NODE_TYPE]: [
+    //     allowChildren(
+    //         isAllowedInTableCell,
+    //         combineFixers([unwrapSameTypeChild, liftNode, unwrapNode, convertToParagraph]),
+    //     ),
+    // ],
+    // [TABLE_NODE_TYPE]: [
+    //     allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+    // ],
+    // [TABLE_ROW_NODE_TYPE]: [
+    //     allowChildren(
+    //         isTableCellNode,
+    //         combineFixers([unwrapSameTypeChild, liftNode, unwrapNode, convertToParagraph]),
+    //     ),
+    // ],
+    [TEXT_NODE_TYPE]: [
+        isInside(
+            ([node]) => isTableCellNode(node),
+            (editor, [node]) => {
+                if (Text.isText(node) && node.bold) {
+                    Transforms.unsetNodes<TextNode>(editor, 'bold', { match: (n) => n === node });
+                    return true;
+                }
+
+                return false;
+            },
+        ),
     ],
     [VIDEO_NODE_TYPE]: [
         allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
