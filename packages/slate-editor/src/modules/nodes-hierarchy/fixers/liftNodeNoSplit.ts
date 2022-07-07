@@ -1,7 +1,10 @@
 import { Editor, Element, Path, Transforms } from 'slate';
 import type { NodeEntry } from 'slate';
 
-export function liftNode(editor: Editor, [, path]: NodeEntry, noParentSplit?: boolean) {
+/**
+ * This fixer just moves node up, without parent node splitting
+ */
+export function liftNodeNoSplit(editor: Editor, [, path]: NodeEntry) {
     const ancestor = Editor.above(editor, { at: path });
 
     if (!ancestor) {
@@ -14,11 +17,7 @@ export function liftNode(editor: Editor, [, path]: NodeEntry, noParentSplit?: bo
         return false;
     }
 
-    if (noParentSplit) {
-        Transforms.moveNodes(editor, { at: path, to: Path.parent(path), voids: true });
-    } else {
-        Transforms.liftNodes(editor, { at: path, voids: true });
-    }
+    Transforms.moveNodes(editor, { at: path, to: Path.parent(path), voids: true });
 
     return true;
 }

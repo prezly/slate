@@ -28,7 +28,8 @@ import { LOADER_NODE_TYPE } from '#extensions/loader';
 
 import {
     convertToParagraph,
-    liftNode,
+    liftNodeWithSplit,
+    liftNodeNoSplit,
     unwrapSameTypeChild,
     unwrapNode,
     optimizeTextInsideTableCell,
@@ -49,52 +50,94 @@ import { IMAGE_CANDIDATE_NODE_TYPE } from '#extensions/image/constants';
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
     [ATTACHMENT_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [BOOKMARK_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [CONTACT_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [COVERAGE_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [DIVIDER_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [EDITOR_NODE_TYPE]: [
         allowChildren(
             isAllowedOnTopLevel,
-            combineFixers([unwrapSameTypeChild, liftNode, unwrapNode, convertToParagraph]),
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode, convertToParagraph]),
         ),
     ],
     [EMBED_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [GALLERY_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [HEADING_1_NODE_TYPE]: [
-        allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isInlineNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [HEADING_2_NODE_TYPE]: [
-        allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isInlineNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [HTML_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [IMAGE_CANDIDATE_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [IMAGE_NODE_TYPE]: [
-        allowChildren(Text.isText, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            Text.isText,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [LOADER_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [PARAGRAPH_NODE_TYPE]: [
-        allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isInlineNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [QUOTE_NODE_TYPE]: [
         allowChildren(
@@ -102,41 +145,46 @@ export const hierarchySchema: NodesHierarchySchema = {
             combineFixers([
                 (editor, [node, path]) => isParagraphNode(node) && unwrapNode(editor, [node, path]),
                 unwrapSameTypeChild,
-                liftNode,
+                liftNodeWithSplit,
                 unwrapNode,
             ]),
         ),
     ],
     [STORY_BOOKMARK_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [STORY_EMBED_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
     [TABLE_CELL_NODE_TYPE]: [
         allowChildren(
             isAllowedInTableCell,
-            combineFixers([unwrapSameTypeChild, liftNode, unwrapNode, convertToParagraph]),
+            combineFixers([unwrapSameTypeChild, liftNodeNoSplit, unwrapNode, convertToParagraph]),
         ),
     ],
     [TABLE_NODE_TYPE]: [
         allowChildren(
             isTableRowNode,
-            combineFixers([
-                unwrapSameTypeChild,
-                (editor, entry) => liftNode(editor, entry, true),
-                unwrapNode,
-            ]),
+            combineFixers([unwrapSameTypeChild, liftNodeNoSplit, unwrapNode]),
         ),
     ],
     [TABLE_ROW_NODE_TYPE]: [
         allowChildren(
             isTableCellNode,
-            combineFixers([unwrapSameTypeChild, liftNode, unwrapNode, convertToParagraph]),
+            combineFixers([unwrapSameTypeChild, liftNodeNoSplit, unwrapNode, convertToParagraph]),
         ),
     ],
     [TEXT_NODE_TYPE]: [isInside(isTableCellNode, optimizeTextInsideTableCell)],
     [VIDEO_NODE_TYPE]: [
-        allowChildren(isEmptyTextNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isEmptyTextNode,
+            combineFixers([unwrapSameTypeChild, liftNodeWithSplit, unwrapNode]),
+        ),
     ],
 };

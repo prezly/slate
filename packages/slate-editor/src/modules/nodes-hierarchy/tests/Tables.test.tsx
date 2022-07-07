@@ -102,8 +102,17 @@ describe('nodes-hierarchy / Tables', () => {
                         <h:td>
                             <h:text>1</h:text>
                         </h:td>
+                        <h:td>
+                            <h:text>2</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>3</h:text>
+                        </h:td>
                     </h:tr>
                     <h:tr>
+                        <h:td>
+                            <h:text>4</h:text>
+                        </h:td>
                         <h:td>
                             <h:image
                                 align={Alignment.CENTER}
@@ -125,7 +134,21 @@ describe('nodes-hierarchy / Tables', () => {
                             >
                                 <h:text>Caption</h:text>
                             </h:image>
-                            <h:text>2</h:text>
+                            <h:text>5</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>6</h:text>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:text>7</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>8</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>9</h:text>
                         </h:td>
                     </h:tr>
                 </h:table>
@@ -159,10 +182,33 @@ describe('nodes-hierarchy / Tables', () => {
                         <h:td>
                             <h:text>1</h:text>
                         </h:td>
+                        <h:td>
+                            <h:text>2</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>3</h:text>
+                        </h:td>
                     </h:tr>
                     <h:tr>
                         <h:td>
-                            <h:text>2</h:text>
+                            <h:text>4</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>5</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>6</h:text>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:text>7</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>8</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>9</h:text>
                         </h:td>
                     </h:tr>
                 </h:table>
