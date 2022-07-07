@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-types",
-    "version": "0.47.5",
+    "version": "0.47.6",
     "description": "TypeScript definitions for Slate document structure used at Prezly",
     "license": "MIT",
     "type": "module",
@@ -40,7 +40,7 @@
         "test:cjs": "node build/cjs/index.cjs",
         "test:types": "tsc --noEmit build/types/index.d.ts",
         "clean": "npm run clean:build && npm run clean:node_modules",
-        "clean:node_modules": "rimraf node_modules/",
+        "clean:node_modules": "rimraf node_modules/ package-lock.json",
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {

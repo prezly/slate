@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-tables",
-    "version": "0.47.5",
+    "version": "0.47.6",
     "description": "The best Slate tables extension out there",
     "license": "MIT",
     "type": "module",
@@ -45,7 +45,7 @@
         "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" ",
         "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",
         "clean": "npm run clean:build && npm run clean:node_modules",
-        "clean:node_modules": "rimraf node_modules/",
+        "clean:node_modules": "rimraf node_modules/ package-lock.json",
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {

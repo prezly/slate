@@ -2,12 +2,12 @@
 
 .selection {
     border-radius: 4px;
-    box-shadow: 0px 2px 0px 1px #c7d2fe, 0px -2px 0px 1px #c7d2fe;
-    color: #3630a3;
+    box-shadow: 0px 2px 0px 1px $editor-selection-bg, 0px -2px 0px 1px $editor-selection-bg;
+    color: $editor-selection-color;
 
     &,
     &::selection,
     & *::selection {
-        background: #c7d2fe !important;
+        background: $editor-selection-bg !important;
     }
 }
