@@ -32,8 +32,8 @@ const ALLOWED_CELL_ATTRIBUTES: { [key in keyof TableCellNode]: boolean } = {
 
 export function normalizeTableAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
     if (isTableNode(node)) {
-        if (node.border === false) {
-            Transforms.unsetNodes<TableNode>(editor, 'border', { at: path });
+        if (!node.border) {
+            Transforms.setNodes<TableNode>(editor, { border: true }, { at: path });
             return true;
         }
         if (node.header !== undefined && node.header.length === 0) {
