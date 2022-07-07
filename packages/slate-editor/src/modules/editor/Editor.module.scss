@@ -7,7 +7,8 @@
 
 .Editable {
     *::selection {
-        background: #c2e5ff;
+        background: $editor-selection-bg;
+        color: $editor-selection-color;
     }
 
     > [data-slate-block] {
