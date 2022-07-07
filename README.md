@@ -27,19 +27,18 @@ Prezly-specific packages mention Prezly in the description. All other packages s
 # Development
 
 In order to try changes made to the packages with the main application, 
-link these packages to global npm prefix by running `npm link` in every of the sub-package folders:
+link the root package to global npm prefix by running `npm link` in the root:
 
 ```sh
-ls packages | xargs -I{} sh -c 'cd packages/{} && npm link'
+npm link
 ```
 
-Then link these packages to the main app with `npm link PACKAGE_NAME`:
+Then link the root package and its sub-packages to the main app with `npm link @prezly/slate`:
 
 ```sh
-npm link @prezly/slate-types \
-         @prezly/slate-commons \
-         @prezly/slate-lists \
-         @prezly/slate-editor
+npm link @prezly/slate
+rm -rf node_modules/@prezly/slate-{types,commons,lists,tables,editor}
+ln -sf node_modules/@prezly/slate/packages/* node_modules/@prezly/
 ```
 
 There's an `npm` task configured in our main application to simplify this routine:
