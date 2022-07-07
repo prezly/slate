@@ -9,7 +9,7 @@ import {
 } from '@prezly/slate-types';
 import { type Editor, type NodeEntry, Transforms } from 'slate';
 
-import { isEqual } from '#lodash';
+import { isEqual, uniq } from '#lodash';
 
 const ALLOWED_TABLE_ATTRIBUTES: { [key in keyof TableNode]: boolean } = {
     type: true,
@@ -41,9 +41,9 @@ export function normalizeTableAttributes(editor: Editor, [node, path]: NodeEntry
             return true;
         }
         if (node.header && node.header.length > 2) {
-            const sortedHeader = [...node.header].sort();
-            if (!isEqual(sortedHeader, node.header)) {
-                Transforms.setNodes<TableNode>(editor, { header: sortedHeader }, { at: path });
+            const normalizedHeader = uniq([...node.header].sort());
+            if (!isEqual(normalizedHeader, node.header)) {
+                Transforms.setNodes<TableNode>(editor, { header: normalizedHeader }, { at: path });
                 return true;
             }
         }
