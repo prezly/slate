@@ -1,5 +1,5 @@
 {
-    "name": "prezly-slate",
+    "name": "@prezly/slate",
     "description": "Prezly software built upon Slate",
     "license": "MIT",
     "private": true,
