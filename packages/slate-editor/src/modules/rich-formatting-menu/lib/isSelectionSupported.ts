@@ -1,8 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isLinkNode } from '@prezly/slate-types';
 import { Editor, Element } from 'slate';
 
-import { isRichFormattedTextElement } from '../types';
+import { findRichFormattingTextParent } from './findRichFormattingTextParent';
 
 export function isSelectionSupported(editor: Editor): boolean {
     if (EditorCommands.isSelectionEmpty(editor)) {
@@ -12,8 +11,10 @@ export function isSelectionSupported(editor: Editor): boolean {
     const nodeEntries = Array.from(
         Editor.nodes<Element>(editor, {
             match: (node) => Element.isElement(node),
+            mode: 'lowest',
         }),
     );
 
-    return nodeEntries.every(([node]) => isRichFormattedTextElement(node) || isLinkNode(node));
+    // Every selected element is either formattable, or a child of a formattable element
+    return nodeEntries.every((entry) => Boolean(findRichFormattingTextParent(editor, entry)));
 }
