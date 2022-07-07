@@ -45,7 +45,7 @@
         "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" ",
         "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",
         "clean": "npm run clean:build && npm run clean:node_modules",
-        "clean:node_modules": "rimraf node_modules/",
+        "clean:node_modules": "rimraf node_modules/ package-lock.json",
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {

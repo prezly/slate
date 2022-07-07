@@ -50,7 +50,7 @@
         "watch:cjs": "gulp watch:cjs",
         "watch:sass": "gulp watch:sass",
         "clean": "npm run clean:build && npm run clean:node_modules",
-        "clean:node_modules": "rimraf node_modules/",
+        "clean:node_modules": "rimraf node_modules/ package-lock.json",
         "clean:build": "rimraf build/* *.tsbuildinfo .css-modules/*",
         "test": "npm run test:unit && npm run test:build",
         "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage",
