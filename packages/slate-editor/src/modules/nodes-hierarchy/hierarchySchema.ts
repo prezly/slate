@@ -120,7 +120,14 @@ export const hierarchySchema: NodesHierarchySchema = {
         ),
     ],
     [TABLE_NODE_TYPE]: [
-        allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNode, unwrapNode])),
+        allowChildren(
+            isTableRowNode,
+            combineFixers([
+                unwrapSameTypeChild,
+                (editor, entry) => liftNode(editor, entry, true),
+                unwrapNode,
+            ]),
+        ),
     ],
     [TABLE_ROW_NODE_TYPE]: [
         allowChildren(
