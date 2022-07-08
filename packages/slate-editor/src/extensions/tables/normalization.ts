@@ -9,7 +9,7 @@ import {
 } from '@prezly/slate-types';
 import { type Editor, type NodeEntry, Transforms } from 'slate';
 
-import { isEqual } from '#lodash';
+import { isEqual, uniq } from '#lodash';
 
 const ALLOWED_TABLE_ATTRIBUTES: { [key in keyof TableNode]: boolean } = {
     type: true,
@@ -32,8 +32,8 @@ const ALLOWED_CELL_ATTRIBUTES: { [key in keyof TableCellNode]: boolean } = {
 
 export function normalizeTableAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
     if (isTableNode(node)) {
-        if (node.border === false) {
-            Transforms.unsetNodes<TableNode>(editor, 'border', { at: path });
+        if (!node.border) {
+            Transforms.setNodes<TableNode>(editor, { border: true }, { at: path });
             return true;
         }
         if (node.header !== undefined && node.header.length === 0) {
@@ -41,9 +41,9 @@ export function normalizeTableAttributes(editor: Editor, [node, path]: NodeEntry
             return true;
         }
         if (node.header && node.header.length > 2) {
-            const sortedHeader = [...node.header].sort();
-            if (!isEqual(sortedHeader, node.header)) {
-                Transforms.setNodes<TableNode>(editor, { header: sortedHeader }, { at: path });
+            const normalizedHeader = uniq([...node.header].sort());
+            if (!isEqual(normalizedHeader, node.header)) {
+                Transforms.setNodes<TableNode>(editor, { header: normalizedHeader }, { at: path });
                 return true;
             }
         }
