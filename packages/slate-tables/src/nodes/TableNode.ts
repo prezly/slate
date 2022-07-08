@@ -73,7 +73,7 @@ export namespace TableNode {
             },
         );
 
-        // When we mark text in cell as bold and then mark the first row as header the normalization is not called 
+        // When we mark text in cell as bold and then mark the first row as header the normalization is not called
         // and bold mark still present in cell content
         Editor.normalize(editor, { force: true });
 

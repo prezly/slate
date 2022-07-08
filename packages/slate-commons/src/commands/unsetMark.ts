@@ -1,5 +1,5 @@
 import { Transforms } from 'slate';
-import type { Text , NodeEntry} from 'slate';
+import type { Text, NodeEntry } from 'slate';
 import type { Editor } from 'slate';
 
 export function unsetMark<T extends Text>(
