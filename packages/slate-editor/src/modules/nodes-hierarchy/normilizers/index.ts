@@ -1,2 +1,2 @@
 export * from './allowChildren';
-export * from './isInside';
+export * from './disallowMark';

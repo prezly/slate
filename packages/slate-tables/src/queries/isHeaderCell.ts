@@ -1,6 +1,5 @@
-import { Editor, Location } from 'slate';
+import { Editor, Location, Node } from 'slate';
 
-import { Traverse } from '../core';
 import type { TableCellNode, TableNode } from '../nodes';
 import type { TablesEditor } from '../TablesEditor';
 
@@ -10,35 +9,58 @@ export function isHeaderCell(
     editorOrTable: TablesEditor | TableNode,
     locationOrCell?: (Location | null) | TableCellNode,
 ) {
-    let table: TableNode | undefined;
-    let cell: TableCellNode | undefined;
+    const { tableNode, cellNode } = findTableAndCellNodes(editorOrTable, locationOrCell);
+
+    if (tableNode && cellNode) {
+        return (
+            (tableNode.header?.includes('first_row') && isFirstRow(tableNode, cellNode)) ||
+            (tableNode.header?.includes('first_column') && isFirstColumn(tableNode, cellNode))
+        );
+    }
+
+    return false;
+}
+
+function findTableAndCellNodes(
+    editorOrTable: TablesEditor | TableNode,
+    locationOrCell?: (Location | null) | TableCellNode,
+) {
+    let tableNode: TableNode | undefined;
+    let cellNode: TableCellNode | undefined;
 
     const isEditor = Editor.isEditor(editorOrTable);
     const isLocation = Location.isLocation(locationOrCell);
 
     if (isEditor || isLocation || locationOrCell === null) {
         if (isEditor) {
-            const location = locationOrCell ?? editorOrTable.selection;
+            const editor = editorOrTable;
+            const location = locationOrCell ?? editor.selection;
 
             if (Location.isLocation(location)) {
-                const traverse = Traverse.create(editorOrTable, location);
-                table = traverse?.matrix.node;
-                cell = traverse?.activeCell.node;
+                for (const [currentNodeToCheck] of Node.levels(
+                    editor,
+                    Editor.path(editor, location),
+                )) {
+                    if (editor.isTableNode(currentNodeToCheck)) {
+                        tableNode = currentNodeToCheck;
+                    }
+
+                    if (editor.isTableCellNode(currentNodeToCheck)) {
+                        cellNode = currentNodeToCheck;
+                    }
+
+                    if (tableNode && cellNode) {
+                        break;
+                    }
+                }
             }
         }
     } else {
-        table = editorOrTable;
-        cell = locationOrCell;
+        tableNode = editorOrTable;
+        cellNode = locationOrCell;
     }
 
-    if (table && cell) {
-        return (
-            (table.header?.includes('first_row') && isFirstRow(table, cell)) ||
-            (table.header?.includes('first_column') && isFirstColumn(table, cell))
-        );
-    }
-
-    return false;
+    return { tableNode, cellNode };
 }
 
 function isFirstRow(table: TableNode, cell: TableCellNode): boolean {

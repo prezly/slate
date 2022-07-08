@@ -1,3 +1,4 @@
+import { TablesEditor } from '@prezly/slate-tables';
 import {
     isParagraphNode,
     ATTACHMENT_NODE_TYPE,
@@ -32,14 +33,14 @@ import {
     liftNodeNoSplit,
     unwrapSameTypeChild,
     unwrapNode,
-    optimizeTextInsideTableCell,
 } from './fixers';
-import { allowChildren, isInside } from './normilizers';
+import { allowChildren, disallowMark } from './normilizers';
 import {
     isAllowedInTableCell,
     isAllowedOnTopLevel,
     isEmptyTextNode,
     isInlineNode,
+    isDescendantOf,
 } from './queries';
 import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
@@ -180,7 +181,12 @@ export const hierarchySchema: NodesHierarchySchema = {
             combineFixers([unwrapSameTypeChild, liftNodeNoSplit, unwrapNode, convertToParagraph]),
         ),
     ],
-    [TEXT_NODE_TYPE]: [isInside(isTableCellNode, optimizeTextInsideTableCell)],
+    [TEXT_NODE_TYPE]: [
+        disallowMark(
+            'bold',
+            isDescendantOf((_, path, editor) => TablesEditor.isHeaderCell(editor, path)),
+        ),
+    ],
     [VIDEO_NODE_TYPE]: [
         allowChildren(
             isEmptyTextNode,

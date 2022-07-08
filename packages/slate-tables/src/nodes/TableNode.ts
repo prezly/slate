@@ -1,4 +1,5 @@
 import type { BaseElement, Location } from 'slate';
+import { Editor } from 'slate';
 import { Transforms } from 'slate';
 
 import { Traverse } from '../core';
@@ -71,6 +72,10 @@ export namespace TableNode {
                 match: (n) => n === traverse.matrix.node,
             },
         );
+
+        // When we mark text in cell as bold and then mark the first row as header the normalization is not called 
+        // and bold mark still present in cell content
+        Editor.normalize(editor, { force: true });
 
         return true;
     }
