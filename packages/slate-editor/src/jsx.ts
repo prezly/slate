@@ -66,7 +66,12 @@ import { createParagraph } from '#extensions/paragraphs';
 import { createPressContact } from '#extensions/press-contacts';
 import { createStoryBookmark } from '#extensions/story-bookmark';
 import { createStoryEmbed } from '#extensions/story-embed';
-import { createTableNode, createTableRowNode, createTableCellNode } from '#extensions/tables';
+import {
+    createTableNode,
+    createTableRowNode,
+    createTableCellNode,
+    TablesExtension,
+} from '#extensions/tables';
 import { createVideoBookmark } from '#extensions/video';
 import { createWebBookmark } from '#extensions/web-bookmark';
 import { createEditor } from '#modules/editor';
@@ -117,6 +122,7 @@ const extensions = [
     HeadingExtension(),
     InlineLinksExtension(),
     ListExtension(),
+    TablesExtension(),
 ];
 
 const creators: Record<keyof HElements, HyperscriptCreators[string]> = {

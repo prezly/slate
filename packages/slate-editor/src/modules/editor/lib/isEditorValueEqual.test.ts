@@ -1,5 +1,5 @@
-import { isEditorValueEqual } from './isEditorValueEqual';
 import { deserialize } from './deserialize';
+import { isEditorValueEqual } from './isEditorValueEqual';
 
 describe('slate-editor - isEditorValueEqual', () => {
     it('should consider structural equality', () => {

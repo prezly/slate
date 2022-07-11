@@ -1,7 +1,10 @@
 import { Editor, Element, Transforms } from 'slate';
 import type { NodeEntry } from 'slate';
 
-export function liftNode(editor: Editor, [, path]: NodeEntry) {
+/**
+ * This fixer can split parent node
+ */
+export function liftNodeWithSplit(editor: Editor, [, path]: NodeEntry) {
     const ancestor = Editor.above(editor, { at: path });
 
     if (!ancestor) {
