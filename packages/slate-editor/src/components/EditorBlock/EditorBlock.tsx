@@ -144,7 +144,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
                 })}
-                contentEditable={Boolean(renderEditableFrame)}
+                contentEditable={renderReadOnlyFrame ? false : undefined}
                 suppressContentEditableWarning={true}
                 ref={setContainer}
                 style={{ width }}

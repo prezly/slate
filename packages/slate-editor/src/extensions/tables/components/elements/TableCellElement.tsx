@@ -34,8 +34,6 @@ export function TableCellElement({ attributes, element, children }: Props) {
             })}
             colSpan={element.colspan}
             rowSpan={element.rowspan}
-            contentEditable
-            suppressContentEditableWarning={true}
         >
             {children}
         </Cell>
