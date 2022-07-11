@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import { Events } from '@prezly/events';
 import { EditorCommands } from '@prezly/slate-commons';
+import { TablesEditor } from '@prezly/slate-tables';
 import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
 import {
     Alignment,
@@ -306,7 +307,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return insertDivider(editor);
         }
         if (action === MenuAction.ADD_TABLE) {
-            return insertTable(editor);
+            return TablesEditor.isTablesEditor(editor) && insertTable(editor);
         }
         if (action === MenuAction.ADD_EMBED) {
             return openFloatingEmbedInput('Add embed', {

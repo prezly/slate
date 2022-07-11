@@ -15,6 +15,10 @@ interface Props {
 export function TableMenu({ element, onClose }: Props) {
     const editor = useSlateStatic();
 
+    if (!TablesEditor.isTablesEditor(editor)) {
+        return null;
+    }
+
     return (
         <Toolbox.Panel>
             <Toolbox.Header withCloseButton onCloseClick={onClose}>

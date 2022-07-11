@@ -194,6 +194,9 @@ export function RichFormattingMenu({
         return null;
     }
 
+    const isInsideTable = TablesEditor.isTablesEditor(editor) && TablesEditor.isInTable(editor);
+    const isInsideTableHeader = isInsideTable && TablesEditor.isHeaderCell(editor);
+
     return (
         <TextSelectionPortalV2
             containerElement={containerElement}
@@ -226,12 +229,10 @@ export function RichFormattingMenu({
                     onFormatting={handleFormattingChange}
                     onLink={handleLinkButtonClick}
                     // features
-                    withBoldFormat={
-                        TablesEditor.isInTable(editor) ? !TablesEditor.isHeaderCell(editor) : true
-                    }
+                    withBoldFormat={!isInsideTableHeader}
                     withAlignment={withAlignment}
-                    withBlockquotes={withBlockquotes && !TablesEditor.isInTable(editor)}
-                    withHeadings={withHeadings && !TablesEditor.isInTable(editor)}
+                    withBlockquotes={withBlockquotes && !isInsideTable}
+                    withHeadings={withHeadings && !isInsideTable}
                     withInlineLinks={withInlineLinks}
                     withLists={withLists}
                     withParagraphs={withParagraphs}
