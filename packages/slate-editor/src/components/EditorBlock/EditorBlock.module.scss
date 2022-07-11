@@ -56,6 +56,10 @@
     overflow: hidden;
     z-index: $editor-block-overlay-z-index - 1;
 
+    &.editable {
+        white-space: pre-wrap;
+    }
+
     &.border {
         border: 1px solid $grey-200;
 

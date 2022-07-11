@@ -7,7 +7,7 @@ import * as Draggable from 'react-draggable';
 import { mergeRefs, useLatest, useSize } from '#lib';
 
 import type { Props as EditorBlockProps } from './EditorBlock';
-import { EditorBlock } from './EditorBlock';
+import { EditorBlock, renderInjectionPoint } from './EditorBlock';
 import styles from './EditorBlock.module.scss';
 import { ResizeButton } from './ResizeButton';
 import type { SizeString } from './Size';
@@ -27,9 +27,10 @@ const HUNDRED_PERCENT = Size(100, Unit.PERCENTS);
 export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, ref) => {
     const {
         align,
-        children,
         onResize,
-        renderBlock,
+        renderBelowFrame,
+        renderEditableFrame,
+        renderReadOnlyFrame,
         renderMenu,
         resizable = true,
         width,
@@ -97,34 +98,45 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         [width, containerWidth, constrainSize],
     );
 
+    function renderFrame(props: { isSelected: boolean }) {
+        return (
+            <>
+                {renderInjectionPoint(renderReadOnlyFrame ?? renderEditableFrame, props)}
+                {resizable && props.isSelected && (
+                    <Draggable.DraggableCore
+                        offsetParent={blockElement ?? undefined}
+                        onDrag={handleResizeEvent}
+                        onStart={handleResizingStarted}
+                        onStop={handleResizingFinished}
+                    >
+                        <div contentEditable={false}>
+                            <ResizeButton
+                                className={classNames(
+                                    styles.ResizeButton,
+                                    isInvertedResizing ? styles.left : styles.right,
+                                )}
+                                position={isInvertedResizing ? 'left' : 'right'}
+                            />
+                        </div>
+                    </Draggable.DraggableCore>
+                )}
+            </>
+        );
+    }
+
     return (
         <EditorBlock
             {...attributes}
             align={align}
             ref={mergeRefs(setBlockElement, ref)}
-            renderBlock={({ isSelected }) => (
+            renderBelowFrame={({ isSelected }) => (
                 <>
-                    {renderBlock({ isSelected })}
-                    {resizable && isSelected && (
-                        <Draggable.DraggableCore
-                            offsetParent={blockElement ?? undefined}
-                            onDrag={handleResizeEvent}
-                            onStart={handleResizingStarted}
-                            onStop={handleResizingFinished}
-                        >
-                            <div>
-                                <ResizeButton
-                                    className={classNames(
-                                        styles.ResizeButton,
-                                        isInvertedResizing ? styles.left : styles.right,
-                                    )}
-                                    position={isInvertedResizing ? 'left' : 'right'}
-                                />
-                            </div>
-                        </Draggable.DraggableCore>
-                    )}
+                    {sizer}
+                    {renderInjectionPoint(renderBelowFrame, { isSelected })}
                 </>
             )}
+            renderEditableFrame={renderEditableFrame ? renderFrame : undefined}
+            renderReadOnlyFrame={renderReadOnlyFrame ? renderFrame : undefined}
             renderMenu={isResizing ? undefined : renderMenu}
             selected={isResizing || undefined}
             width={
@@ -132,10 +144,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                     ? toString(convert(Size(pixelWidth, Unit.PIXELS), unit(width), containerWidth))
                     : width
             }
-        >
-            {sizer}
-            {children}
-        </EditorBlock>
+        />
     );
 });
 

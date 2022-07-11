@@ -41,7 +41,9 @@ export const FileAttachmentExtension = ({
                     {...attributes}
                     border
                     element={element}
-                    renderBlock={() => <FileAttachment element={element} />}
+                    // We have to render children or Slate will fail when trying to find the node.
+                    renderAboveFrame={children}
+                    renderReadOnlyFrame={() => <FileAttachment element={element} />}
                     renderMenu={({ onClose }) => (
                         <FileAttachmentMenu
                             element={element}
@@ -52,9 +54,7 @@ export const FileAttachmentExtension = ({
                     )}
                     rounded
                     void
-                >
-                    {children}
-                </EditorBlock>
+                />
             );
         }
 
