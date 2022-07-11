@@ -12,19 +12,21 @@ export function toggleBlock<T extends ElementNode>(editor: Editor, type: T['type
         return;
     }
 
-    if (type === BULLETED_LIST_NODE_TYPE) {
+    if (type === BULLETED_LIST_NODE_TYPE && ListsEditor.isListsEditor(editor)) {
         ListsEditor.wrapInList(editor, ListType.UNORDERED);
         ListsEditor.setListType(editor, ListType.UNORDERED);
         return;
     }
 
-    if (type === NUMBERED_LIST_NODE_TYPE) {
+    if (type === NUMBERED_LIST_NODE_TYPE && ListsEditor.isListsEditor(editor)) {
         ListsEditor.wrapInList(editor, ListType.ORDERED);
         ListsEditor.setListType(editor, ListType.ORDERED);
         return;
     }
 
-    ListsEditor.unwrapList(editor);
+    if (ListsEditor.isListsEditor(editor)) {
+        ListsEditor.unwrapList(editor);
+    }
 
     if (path && EditorCommands.isCursorInEmptyParagraph(editor, { trim: true })) {
         EditorCommands.removeChildren(editor, [currentNode, path]);
