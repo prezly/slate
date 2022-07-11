@@ -47,8 +47,6 @@ export interface Props
     renderBelowFrame?: FunctionComponent<{ isSelected: boolean }> | ReactNode;
     renderEditableFrame?: FunctionComponent<{ isSelected: boolean }>;
     renderReadOnlyFrame?: FunctionComponent<{ isSelected: boolean }>;
-    // renderEditableFrame: ...
-    // renderReadOnlyFrame: ...
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
     rounded?: boolean;
     selected?: boolean;
