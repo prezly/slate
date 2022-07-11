@@ -17,12 +17,12 @@ import {
     isTableNode,
     isVideoNode,
 } from '@prezly/slate-types';
-import type { NodeEntry } from 'slate';
+import type { Node } from 'slate';
 
 import { isImageCandidateElement } from '#extensions/image';
 import { isLoaderElement } from '#extensions/loader';
 
-export function isAllowedOnTopLevel([node]: NodeEntry) {
+export function isAllowedOnTopLevel(node: Node) {
     return (
         isBookmarkNode(node) ||
         isAttachmentNode(node) ||
