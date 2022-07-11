@@ -17,11 +17,10 @@ export function DividerElement({ attributes, children, element }: PropsWithChild
             {...attributes} // contains `ref`
             element={element}
             extendedHitArea
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
             renderReadOnlyFrame={() => <hr data-is-slate className={styles.divider} />}
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 }

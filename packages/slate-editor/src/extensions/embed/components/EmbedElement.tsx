@@ -26,6 +26,8 @@ export function EmbedElement({ attributes, children, element, showAsScreenshot }
             element={element}
             hasError={isInvalid}
             overlay="autohide"
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
             renderReadOnlyFrame={function () {
                 if (isUsingScreenshots && element.oembed.screenshot_url) {
                     return (
@@ -69,9 +71,6 @@ export function EmbedElement({ attributes, children, element, showAsScreenshot }
             }}
             rounded
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 }

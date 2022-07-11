@@ -21,6 +21,8 @@ export function VideoElement({ attributes, children, element }: Props) {
             {...attributes}
             element={element}
             overlay="autohide"
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
             renderReadOnlyFrame={() => (
                 <div className={styles.Container}>
                     {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
@@ -41,10 +43,7 @@ export function VideoElement({ attributes, children, element }: Props) {
                 </div>
             )}
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 }
 

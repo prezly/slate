@@ -27,8 +27,8 @@ const HUNDRED_PERCENT = Size(100, Unit.PERCENTS);
 export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, ref) => {
     const {
         align,
-        children,
         onResize,
+        renderBelowFrame,
         renderEditableFrame,
         renderReadOnlyFrame,
         renderMenu,
@@ -129,6 +129,12 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
             {...attributes}
             align={align}
             ref={mergeRefs(setBlockElement, ref)}
+            renderBelowFrame={({ isSelected }) => (
+                <>
+                    {sizer}
+                    {renderInjectionPoint(renderBelowFrame, { isSelected })}
+                </>
+            )}
             renderEditableFrame={renderEditableFrame ? renderFrame : undefined}
             renderReadOnlyFrame={renderReadOnlyFrame ? renderFrame : undefined}
             renderMenu={isResizing ? undefined : renderMenu}
@@ -138,10 +144,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                     ? toString(convert(Size(pixelWidth, Unit.PIXELS), unit(width), containerWidth))
                     : width
             }
-        >
-            {sizer}
-            {children}
-        </EditorBlock>
+        />
     );
 });
 

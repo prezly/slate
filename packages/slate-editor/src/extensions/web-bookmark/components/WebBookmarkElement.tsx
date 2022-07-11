@@ -58,6 +58,8 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
                     withNewTabOption={withNewTabOption}
                 />
             )}
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
             renderReadOnlyFrame={() => (
                 <BookmarkCard.Container border={false} layout={actualLayout} ref={card}>
                     {showThumbnail && oembed.thumbnail_url && (
@@ -84,9 +86,6 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
             )}
             rounded
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 };

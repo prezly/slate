@@ -67,6 +67,8 @@ export const LoaderElement: FunctionComponent<Props> = ({
         <EditorBlock
             {...attributes}
             element={element}
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
             renderReadOnlyFrame={() => (
                 <LoadingPlaceholder
                     contentEditable={false}
@@ -77,9 +79,6 @@ export const LoaderElement: FunctionComponent<Props> = ({
                 />
             )}
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 };

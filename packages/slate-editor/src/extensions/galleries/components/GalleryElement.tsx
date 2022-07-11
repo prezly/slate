@@ -23,6 +23,8 @@ export function GalleryElement({ availableWidth, attributes, children, element, 
             {...attributes}
             element={element}
             layout={element.layout}
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
             renderReadOnlyFrame={() => (
                 <>
                     {sizer}
@@ -40,9 +42,7 @@ export function GalleryElement({ availableWidth, attributes, children, element, 
                 <GalleryMenu element={element} onEdit={onEdit} onClose={onClose} />
             )}
             void
-        >
-            {children}
-        </EditorBlock>
+        />
     );
 }
 

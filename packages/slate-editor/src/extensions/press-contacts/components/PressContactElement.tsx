@@ -20,6 +20,8 @@ export function PressContactElement({ attributes, children, element }: Props) {
             {...attributes}
             border
             element={element}
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
             renderReadOnlyFrame={() => (
                 <div className={styles.wrapper}>
                     {element.contact.avatar_url && (
@@ -49,10 +51,7 @@ export function PressContactElement({ attributes, children, element }: Props) {
             )}
             rounded
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 }
 

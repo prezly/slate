@@ -35,8 +35,6 @@ export function TableElement({ attributes, element, children }: Props) {
                 );
             }}
             void
-        >
-            {null}
-        </EditorBlock>
+        />
     );
 }

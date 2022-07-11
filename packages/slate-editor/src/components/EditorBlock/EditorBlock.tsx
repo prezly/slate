@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { ComponentType, MouseEvent, ReactNode } from 'react';
+import type {ComponentType, MouseEvent, ReactNode} from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
@@ -33,16 +33,14 @@ type RenderFrameProps =
           renderReadOnlyFrame: ComponentType<{ isSelected: boolean }>;
       };
 
-export type Props = Omit<RenderElementProps, 'attributes'> &
+export type Props = Omit<RenderElementProps, 'attributes' | 'children'> &
     SlateInternalAttributes &
     RenderFrameProps & {
         align?: Alignment;
         border?: boolean;
-        /**
-         * Children nodes provided by Slate, required for Slate internals.
-         */
-        children: ReactNode;
+        children?: undefined;
         className?: string;
+        decorateFrame?: ComponentType<{ children: ReactNode; frame: ReactNode }>;
         element: ElementNode;
         /**
          * Expand hit area and visual focused area when element is selected.
@@ -55,6 +53,10 @@ export type Props = Omit<RenderElementProps, 'attributes'> &
         hasError?: boolean;
         layout?: `${Layout}`;
         overlay?: OverlayMode;
+        renderAboveFrame?: ComponentType<{ isSelected: boolean }> | ReactNode;
+        renderBelowFrame?: ComponentType<{ isSelected: boolean }> | ReactNode;
+        // renderEditableFrame: ...
+        // renderReadOnlyFrame: ...
         renderMenu?: (props: { onClose: () => void }) => ReactNode;
         rounded?: boolean;
         selected?: boolean;
@@ -73,6 +75,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         hasError,
         layout = 'contained',
         overlay = false,
+        renderAboveFrame,
+        renderBelowFrame,
         renderEditableFrame,
         renderReadOnlyFrame,
         renderMenu,
@@ -84,6 +88,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     },
     ref,
 ) {
+    if (typeof children !== 'undefined') {
+        throw new Error('EditorBlock does not accept the `children` property.');
+    }
+
     const editor = useSlateStatic();
     const editorElement = useSlateDom(editor);
     const isNodeSelected = useSelected();
@@ -129,8 +137,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             onClick={isVoid ? undefined : closeMenu}
             ref={ref}
         >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {isVoid && children}
+            {renderInjectionPoint(renderAboveFrame, { isSelected })}
             <div
                 className={classNames(styles.Frame, {
                     [styles.alignLeft]: align === Alignment.LEFT,
@@ -168,9 +175,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     })}
                 </div>
             </div>
-
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {!isVoid && children}
+            {renderInjectionPoint(renderBelowFrame, { isSelected })}
         </div>
     );
 });
