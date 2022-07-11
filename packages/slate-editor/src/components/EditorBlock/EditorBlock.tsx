@@ -23,46 +23,38 @@ enum Layout {
     FULL_WIDTH = 'full-width',
 }
 
-type RenderFrameProps =
-    | {
-          renderEditableFrame: FunctionComponent<{ isSelected: boolean }>;
-          renderReadOnlyFrame?: never;
-      }
-    | {
-          renderEditableFrame?: never;
-          renderReadOnlyFrame: FunctionComponent<{ isSelected: boolean }>;
-      };
-
-export type Props = Omit<RenderElementProps, 'attributes' | 'children'> &
-    SlateInternalAttributes &
-    RenderFrameProps & {
-        align?: Alignment;
-        border?: boolean;
-        children?: undefined;
-        className?: string;
-        decorateFrame?: FunctionComponent<{ children: ReactNode; frame: ReactNode }>;
-        element: ElementNode;
-        /**
-         * Expand hit area and visual focused area when element is selected.
-         * Useful for extremely thin blocks like Divider.
-         */
-        extendedHitArea?: boolean;
-        /**
-         * Mark the block having an error.
-         */
-        hasError?: boolean;
-        layout?: `${Layout}`;
-        overlay?: OverlayMode;
-        renderAboveFrame?: FunctionComponent<{ isSelected: boolean }> | ReactNode;
-        renderBelowFrame?: FunctionComponent<{ isSelected: boolean }> | ReactNode;
-        // renderEditableFrame: ...
-        // renderReadOnlyFrame: ...
-        renderMenu?: (props: { onClose: () => void }) => ReactNode;
-        rounded?: boolean;
-        selected?: boolean;
-        void?: boolean;
-        width?: string;
-    };
+export interface Props
+    extends Omit<RenderElementProps, 'attributes' | 'children'>,
+        SlateInternalAttributes {
+    align?: Alignment;
+    border?: boolean;
+    children?: undefined;
+    className?: string;
+    decorateFrame?: FunctionComponent<{ children: ReactNode; frame: ReactNode }>;
+    element: ElementNode;
+    /**
+     * Expand hit area and visual focused area when element is selected.
+     * Useful for extremely thin blocks like Divider.
+     */
+    extendedHitArea?: boolean;
+    /**
+     * Mark the block having an error.
+     */
+    hasError?: boolean;
+    layout?: `${Layout}`;
+    overlay?: OverlayMode;
+    renderAboveFrame?: FunctionComponent<{ isSelected: boolean }> | ReactNode;
+    renderBelowFrame?: FunctionComponent<{ isSelected: boolean }> | ReactNode;
+    renderEditableFrame?: FunctionComponent<{ isSelected: boolean }>;
+    renderReadOnlyFrame?: FunctionComponent<{ isSelected: boolean }>;
+    // renderEditableFrame: ...
+    // renderReadOnlyFrame: ...
+    renderMenu?: (props: { onClose: () => void }) => ReactNode;
+    rounded?: boolean;
+    selected?: boolean;
+    void?: boolean;
+    width?: string;
+}
 
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     {
@@ -90,6 +82,12 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 ) {
     if (typeof children !== 'undefined') {
         throw new Error('EditorBlock does not accept the `children` property.');
+    }
+
+    if (renderEditableFrame && renderReadOnlyFrame) {
+        throw new Error(
+            'EditorBlock expects either `renderEditableFrame` or `renderReadOnlyFrame`, but not both.',
+        );
     }
 
     const editor = useSlateStatic();

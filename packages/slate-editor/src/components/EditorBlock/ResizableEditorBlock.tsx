@@ -13,13 +13,13 @@ import { ResizeButton } from './ResizeButton';
 import type { SizeString } from './Size';
 import { clamp, convert, Size, toPixels, toString, unit, Unit } from './Size';
 
-type Props = EditorBlockProps & {
+interface Props extends EditorBlockProps {
     onResize: (width: SizeString) => void;
     resizable?: boolean;
     width: SizeString;
     minWidth?: string;
     maxWidth?: string;
-};
+}
 
 const ZERO_PIXELS = Size(0, Unit.PIXELS);
 const HUNDRED_PERCENT = Size(100, Unit.PERCENTS);
