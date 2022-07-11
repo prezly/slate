@@ -187,9 +187,5 @@ function preventBubbling(event: MouseEvent) {
 }
 
 export function renderInjectionPoint<P>(value: ReactNode | FunctionComponent<P>, props: P): ReactNode {
-    return isComponent(value) ? value(props) : value;
-}
-
-function isComponent<P>(value: ReactNode | FunctionComponent<P>): value is FunctionComponent<P> {
-    return typeof value === 'function';
+    return typeof value === 'function' ? value(props) : value;
 }
