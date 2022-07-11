@@ -7,19 +7,19 @@ import * as Draggable from 'react-draggable';
 import { mergeRefs, useLatest, useSize } from '#lib';
 
 import type { Props as EditorBlockProps } from './EditorBlock';
-import { EditorBlock } from './EditorBlock';
+import { EditorBlock, renderInjectionPoint } from './EditorBlock';
 import styles from './EditorBlock.module.scss';
 import { ResizeButton } from './ResizeButton';
 import type { SizeString } from './Size';
 import { clamp, convert, Size, toPixels, toString, unit, Unit } from './Size';
 
-interface Props extends EditorBlockProps {
+type Props = EditorBlockProps & {
     onResize: (width: SizeString) => void;
     resizable?: boolean;
     width: SizeString;
     minWidth?: string;
     maxWidth?: string;
-}
+};
 
 const ZERO_PIXELS = Size(0, Unit.PIXELS);
 const HUNDRED_PERCENT = Size(100, Unit.PERCENTS);
@@ -29,7 +29,8 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         align,
         children,
         onResize,
-        renderFrame,
+        renderEditableFrame,
+        renderReadOnlyFrame,
         renderMenu,
         resizable = true,
         width,
@@ -97,34 +98,39 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         [width, containerWidth, constrainSize],
     );
 
+    function renderFrame(props: { isSelected: boolean }) {
+        return (
+            <>
+                {renderInjectionPoint(renderReadOnlyFrame ?? renderEditableFrame, props)}
+                {resizable && props.isSelected && (
+                    <Draggable.DraggableCore
+                        offsetParent={blockElement ?? undefined}
+                        onDrag={handleResizeEvent}
+                        onStart={handleResizingStarted}
+                        onStop={handleResizingFinished}
+                    >
+                        <div contentEditable={false}>
+                            <ResizeButton
+                                className={classNames(
+                                    styles.ResizeButton,
+                                    isInvertedResizing ? styles.left : styles.right,
+                                )}
+                                position={isInvertedResizing ? 'left' : 'right'}
+                            />
+                        </div>
+                    </Draggable.DraggableCore>
+                )}
+            </>
+        );
+    }
+
     return (
         <EditorBlock
             {...attributes}
             align={align}
             ref={mergeRefs(setBlockElement, ref)}
-            renderFrame={({ isSelected }) => (
-                <>
-                    {renderFrame({ isSelected })}
-                    {resizable && isSelected && (
-                        <Draggable.DraggableCore
-                            offsetParent={blockElement ?? undefined}
-                            onDrag={handleResizeEvent}
-                            onStart={handleResizingStarted}
-                            onStop={handleResizingFinished}
-                        >
-                            <div>
-                                <ResizeButton
-                                    className={classNames(
-                                        styles.ResizeButton,
-                                        isInvertedResizing ? styles.left : styles.right,
-                                    )}
-                                    position={isInvertedResizing ? 'left' : 'right'}
-                                />
-                            </div>
-                        </Draggable.DraggableCore>
-                    )}
-                </>
-            )}
+            renderEditableFrame={renderEditableFrame ? renderFrame : undefined}
+            renderReadOnlyFrame={renderReadOnlyFrame ? renderFrame : undefined}
             renderMenu={isResizing ? undefined : renderMenu}
             selected={isResizing || undefined}
             width={

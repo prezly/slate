@@ -75,7 +75,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                       )
                     : undefined
             }
-            renderFrame={() => {
+            renderReadOnlyFrame={() => {
                 if (loading) {
                     return (
                         <LoadingPlaceholder

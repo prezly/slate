@@ -67,7 +67,7 @@ export const LoaderElement: FunctionComponent<Props> = ({
         <EditorBlock
             {...attributes}
             element={element}
-            renderFrame={() => (
+            renderReadOnlyFrame={() => (
                 <LoadingPlaceholder
                     contentEditable={false}
                     icon={ICONS[element.contentType]}

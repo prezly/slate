@@ -20,7 +20,7 @@ export function PressContactElement({ attributes, children, element }: Props) {
             {...attributes}
             border
             element={element}
-            renderFrame={() => (
+            renderReadOnlyFrame={() => (
                 <div className={styles.wrapper}>
                     {element.contact.avatar_url && (
                         <Avatar

@@ -15,7 +15,7 @@ export function HtmlElement({ attributes, children, element }: PropsWithChildren
             {...attributes} // contains `ref`
             element={element}
             extendedHitArea
-            renderFrame={() => <pre>{element.content}</pre>}
+            renderReadOnlyFrame={() => <pre>{element.content}</pre>}
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}

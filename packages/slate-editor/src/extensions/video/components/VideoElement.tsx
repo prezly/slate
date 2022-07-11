@@ -21,7 +21,7 @@ export function VideoElement({ attributes, children, element }: Props) {
             {...attributes}
             element={element}
             overlay="autohide"
-            renderFrame={() => (
+            renderReadOnlyFrame={() => (
                 <div className={styles.Container}>
                     {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
                         <HtmlInjection

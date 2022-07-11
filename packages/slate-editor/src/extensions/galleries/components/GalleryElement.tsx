@@ -23,7 +23,7 @@ export function GalleryElement({ availableWidth, attributes, children, element, 
             {...attributes}
             element={element}
             layout={element.layout}
-            renderFrame={() => (
+            renderReadOnlyFrame={() => (
                 <>
                     {sizer}
                     <Gallery

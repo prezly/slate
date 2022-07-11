@@ -17,7 +17,7 @@ export function DividerElement({ attributes, children, element }: PropsWithChild
             {...attributes} // contains `ref`
             element={element}
             extendedHitArea
-            renderFrame={() => <hr data-is-slate className={styles.divider} />}
+            renderReadOnlyFrame={() => <hr data-is-slate className={styles.divider} />}
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}

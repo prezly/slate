@@ -18,7 +18,7 @@ export const StoryEmbedElement: FunctionComponent<Props> = ({
     attributes,
     children,
     element,
-    render,
+    render: Render,
 }) => {
     const editor = useSlateStatic();
 
@@ -36,14 +36,14 @@ export const StoryEmbedElement: FunctionComponent<Props> = ({
             element={element}
             overlay="always"
             renderMenu={undefined}
-            renderFrame={({ isSelected }) =>
-                render({
-                    isSelected,
-                    element,
-                    onChange,
-                    onRemove,
-                })
-            }
+            renderReadOnlyFrame={({ isSelected }) => (
+                <Render
+                    isSelected={isSelected}
+                    element={element}
+                    onChange={onChange}
+                    onRemove={onRemove}
+                />
+            )}
             void
         >
             {/* We have to render children or Slate will fail when trying to find the node. */}

@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { MouseEvent, ReactNode } from 'react';
+import type { ComponentType, MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
@@ -23,33 +23,44 @@ enum Layout {
     FULL_WIDTH = 'full-width',
 }
 
-export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
-    align?: Alignment;
-    border?: boolean;
-    /**
-     * Children nodes provided by Slate, required for Slate internals.
-     */
-    children: ReactNode;
-    className?: string;
-    element: ElementNode;
-    /**
-     * Expand hit area and visual focused area when element is selected.
-     * Useful for extremely thin blocks like Divider.
-     */
-    extendedHitArea?: boolean;
-    /**
-     * Mark the block having an error.
-     */
-    hasError?: boolean;
-    layout?: `${Layout}`;
-    overlay?: OverlayMode;
-    renderFrame: (props: { isSelected: boolean }) => ReactNode;
-    renderMenu?: (props: { onClose: () => void }) => ReactNode;
-    rounded?: boolean;
-    selected?: boolean;
-    void?: boolean;
-    width?: string;
-}
+type RenderFrameProps =
+    | {
+          renderEditableFrame: ComponentType<{ isSelected: boolean }>;
+          renderReadOnlyFrame?: never;
+      }
+    | {
+          renderEditableFrame?: never;
+          renderReadOnlyFrame: ComponentType<{ isSelected: boolean }>;
+      };
+
+export type Props = Omit<RenderElementProps, 'attributes'> &
+    SlateInternalAttributes &
+    RenderFrameProps & {
+        align?: Alignment;
+        border?: boolean;
+        /**
+         * Children nodes provided by Slate, required for Slate internals.
+         */
+        children: ReactNode;
+        className?: string;
+        element: ElementNode;
+        /**
+         * Expand hit area and visual focused area when element is selected.
+         * Useful for extremely thin blocks like Divider.
+         */
+        extendedHitArea?: boolean;
+        /**
+         * Mark the block having an error.
+         */
+        hasError?: boolean;
+        layout?: `${Layout}`;
+        overlay?: OverlayMode;
+        renderMenu?: (props: { onClose: () => void }) => ReactNode;
+        rounded?: boolean;
+        selected?: boolean;
+        void?: boolean;
+        width?: string;
+    };
 
 export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     {
@@ -62,7 +73,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         hasError,
         layout = 'contained',
         overlay = false,
-        renderFrame,
+        renderEditableFrame,
+        renderReadOnlyFrame,
         renderMenu,
         rounded = false,
         selected,
@@ -125,7 +137,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
                 })}
-                contentEditable={false}
+                contentEditable={Boolean(renderEditableFrame)}
+                suppressContentEditableWarning={true}
                 ref={setContainer}
                 style={{ width }}
             >
@@ -150,7 +163,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     })}
                     onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
                 >
-                    {renderFrame({ isSelected })}
+                    {renderInjectionPoint(renderEditableFrame ?? renderReadOnlyFrame, {
+                        isSelected,
+                    })}
                 </div>
             </div>
 
@@ -164,4 +179,12 @@ EditorBlock.displayName = 'EditorBlock';
 
 function preventBubbling(event: MouseEvent) {
     event.stopPropagation();
+}
+
+export function renderInjectionPoint<P>(Value: ReactNode | ComponentType<P>, props: P): ReactNode {
+    return isComponent(Value) ? <Value {...props} /> : Value;
+}
+
+function isComponent<P>(value: ReactNode | ComponentType<P>): value is ComponentType<P> {
+    return typeof value === 'function';
 }
