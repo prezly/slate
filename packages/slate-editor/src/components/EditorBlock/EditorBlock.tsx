@@ -28,7 +28,7 @@ export interface Props
         SlateInternalAttributes {
     align?: Alignment;
     border?: boolean;
-    children?: undefined;
+    children?: never;
     className?: string;
     decorateFrame?: FunctionComponent<{ children: ReactNode; frame: ReactNode }>;
     element: ElementNode;
