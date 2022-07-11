@@ -5,11 +5,11 @@ export interface StoryEmbedExtensionParameters {
     renderInput: (props: {
         onSubmit: (props: Pick<StoryEmbedNode, 'story'> & Partial<StoryEmbedNode>) => void;
         onClose: () => void;
-    }) => ReactElement | undefined;
+    }) => ReactElement | null;
     render: (props: {
         isSelected: boolean;
         element: StoryEmbedNode;
         onChange: (props: Partial<StoryEmbedNode>) => void;
         onRemove: () => void;
-    }) => ReactElement | undefined;
+    }) => ReactElement | null;
 }
