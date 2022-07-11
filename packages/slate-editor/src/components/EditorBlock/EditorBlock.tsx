@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { FunctionComponent, MouseEvent, ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
@@ -29,7 +29,6 @@ export interface Props
     align?: Alignment;
     border?: boolean;
     className?: string;
-    decorateFrame?: FunctionComponent<{ children: ReactNode; frame: ReactNode }>;
     element: ElementNode;
     /**
      * Expand hit area and visual focused area when element is selected.
