@@ -20,4 +20,12 @@ export class MatrixColumn {
     get columnRight(): MatrixColumn | undefined {
         return this.matrix.columns[this.x + 1];
     }
+
+    get isFirst() {
+        return this.x === 0;
+    }
+
+    get isLast() {
+        return this.matrix.width - 1 === this.x;
+    }
 }

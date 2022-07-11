@@ -20,6 +20,7 @@ export function removeColumn(
     }
 
     const { activeColumn } = traverse;
+    const { columnLeft } = activeColumn;
 
     if (traverse.matrix.width === 1) {
         return TablesEditor.removeTable(editor);
@@ -36,6 +37,19 @@ export function removeColumn(
             Transforms.removeNodes(editor, { at: cell.path });
         }
     });
+
+    let anchorFocusColumn = activeColumn;
+
+    if (activeColumn.isLast && columnLeft) {
+        anchorFocusColumn = columnLeft;
+    }
+
+    const firstCell = anchorFocusColumn.cells.at(0);
+
+    if (firstCell) {
+        Transforms.select(editor, firstCell.path);
+        Transforms.collapse(editor, { edge: 'start' });
+    }
 
     ReactEditor.focus(editor);
 
