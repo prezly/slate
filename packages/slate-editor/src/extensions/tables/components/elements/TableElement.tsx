@@ -34,7 +34,6 @@ export function TableElement({ attributes, element, children }: Props) {
                     </TableContext.Provider>
                 );
             }}
-            void
         />
     );
 }

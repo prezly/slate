@@ -8,7 +8,7 @@ import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 
-import { useSlateDom } from '#lib';
+import { useFunction, useSlateDom } from '#lib';
 
 import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
@@ -104,23 +104,19 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
     const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-    const handleVoidBlockClick = useCallback(function () {
+    const handleFrameClick = useFunction(function (event: MouseEvent) {
         setMenuOpen(true);
-    }, []);
 
-    const handleNonVoidBlockClick = useCallback(
-        function (event: MouseEvent) {
-            setMenuOpen(true);
-            event.stopPropagation();
+        event.stopPropagation();
+
+        if (!isSelected) {
             const path = ReactEditor.findPath(editor, element);
             Transforms.select(editor, path);
-        },
-        [editor, element],
-    );
+        }
+    });
 
     useEffect(
         function () {
-            if (isVoid && isOnlyBlockSelected) setMenuOpen(true);
             if (!isOnlyBlockSelected) setMenuOpen(false);
         },
         [isOnlyBlockSelected],
@@ -134,7 +130,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 [styles.extendedHitArea]: extendedHitArea,
             })}
             data-slate-block-layout={layout}
-            onClick={isVoid ? undefined : closeMenu}
+            onClick={closeMenu}
             ref={ref}
         >
             {renderInjectionPoint(renderAboveFrame, { isSelected })}
@@ -158,17 +154,18 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     className={styles.Overlay}
                     selected={isSelected}
                     mode={overlay}
-                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
+                    onClick={handleFrameClick}
                 />
                 <div
                     className={classNames(styles.Content, {
+                        [styles.editable]: Boolean(renderEditableFrame),
                         [styles.selected]: isSelected,
                         [styles.hasError]: hasError,
                         [styles.border]: border,
                         [styles.rounded]: rounded,
                         [styles.fullWidth]: layout === Layout.FULL_WIDTH,
                     })}
-                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
+                    onClick={handleFrameClick}
                 >
                     {renderInjectionPoint(renderEditableFrame ?? renderReadOnlyFrame, {
                         isSelected,
@@ -186,6 +183,9 @@ function preventBubbling(event: MouseEvent) {
     event.stopPropagation();
 }
 
-export function renderInjectionPoint<P>(value: ReactNode | FunctionComponent<P>, props: P): ReactNode {
+export function renderInjectionPoint<P>(
+    value: ReactNode | FunctionComponent<P>,
+    props: P,
+): ReactNode {
     return typeof value === 'function' ? value(props) : value;
 }
