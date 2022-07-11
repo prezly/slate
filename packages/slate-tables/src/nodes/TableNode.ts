@@ -50,7 +50,7 @@ export namespace TableNode {
         headerType: TableHeader,
     ) {
         if (!location) {
-            return false;
+            return undefined;
         }
 
         const traverse = Traverse.create(editor, location);
@@ -77,6 +77,6 @@ export namespace TableNode {
         // and bold mark still present in cell content
         Editor.normalize(editor, { force: true });
 
-        return true;
+        return { newValue: !isAlreadyEnabled, headerType };
     }
 }
