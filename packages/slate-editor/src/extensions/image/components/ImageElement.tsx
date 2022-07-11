@@ -108,7 +108,7 @@ export function ImageElement({
             layout={layout}
             onResize={handleResize}
             overlay={false}
-            renderBlock={() => (
+            renderFrame={() => (
                 <ImageWithLoadingPlaceholder
                     src={image.isGif() ? image.cdnUrl : image.format().cdnUrl}
                     imageWidth={width}

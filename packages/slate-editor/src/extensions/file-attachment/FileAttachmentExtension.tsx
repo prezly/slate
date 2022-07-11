@@ -41,7 +41,7 @@ export const FileAttachmentExtension = ({
                     {...attributes}
                     border
                     element={element}
-                    renderBlock={() => <FileAttachment element={element} />}
+                    renderFrame={() => <FileAttachment element={element} />}
                     renderMenu={({ onClose }) => (
                         <FileAttachmentMenu
                             element={element}

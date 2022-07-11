@@ -57,7 +57,7 @@ export function CoverageElement({
             {...attributes}
             border={Boolean(coverage)}
             element={element}
-            renderBlock={function () {
+            renderFrame={function () {
                 if (loading) {
                     return (
                         <LoadingPlaceholder

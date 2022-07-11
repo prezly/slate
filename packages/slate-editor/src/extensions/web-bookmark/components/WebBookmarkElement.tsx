@@ -58,7 +58,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
                     withNewTabOption={withNewTabOption}
                 />
             )}
-            renderBlock={() => (
+            renderFrame={() => (
                 <BookmarkCard.Container border={false} layout={actualLayout} ref={card}>
                     {showThumbnail && oembed.thumbnail_url && (
                         <BookmarkCard.Thumbnail

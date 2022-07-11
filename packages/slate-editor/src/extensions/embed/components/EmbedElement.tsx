@@ -26,7 +26,7 @@ export function EmbedElement({ attributes, children, element, showAsScreenshot }
             element={element}
             hasError={isInvalid}
             overlay="autohide"
-            renderBlock={function () {
+            renderFrame={function () {
                 if (isUsingScreenshots && element.oembed.screenshot_url) {
                     return (
                         <ImageWithLoadingPlaceholder

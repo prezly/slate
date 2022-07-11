@@ -29,7 +29,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         align,
         children,
         onResize,
-        renderBlock,
+        renderFrame,
         renderMenu,
         resizable = true,
         width,
@@ -102,9 +102,9 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
             {...attributes}
             align={align}
             ref={mergeRefs(setBlockElement, ref)}
-            renderBlock={({ isSelected }) => (
+            renderFrame={({ isSelected }) => (
                 <>
-                    {renderBlock({ isSelected })}
+                    {renderFrame({ isSelected })}
                     {resizable && isSelected && (
                         <Draggable.DraggableCore
                             offsetParent={blockElement ?? undefined}

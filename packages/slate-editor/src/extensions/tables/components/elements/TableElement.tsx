@@ -21,7 +21,7 @@ export function TableElement({ attributes, element, children }: Props) {
             element={element}
             overlay={false}
             renderMenu={({ onClose }) => <TableMenu onClose={onClose} element={element} />}
-            renderBlock={() => {
+            renderFrame={() => {
                 return (
                     <TableContext.Provider value={{ table: element }}>
                         <table

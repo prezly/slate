@@ -36,7 +36,7 @@ export const StoryEmbedElement: FunctionComponent<Props> = ({
             element={element}
             overlay="always"
             renderMenu={undefined}
-            renderBlock={({ isSelected }) =>
+            renderFrame={({ isSelected }) =>
                 render({
                     isSelected,
                     element,

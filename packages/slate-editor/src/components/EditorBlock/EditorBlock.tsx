@@ -43,7 +43,7 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
     hasError?: boolean;
     layout?: `${Layout}`;
     overlay?: OverlayMode;
-    renderBlock: (props: { isSelected: boolean }) => ReactNode;
+    renderFrame: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
     rounded?: boolean;
     selected?: boolean;
@@ -62,7 +62,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         hasError,
         layout = 'contained',
         overlay = false,
-        renderBlock,
+        renderFrame,
         renderMenu,
         rounded = false,
         selected,
@@ -150,7 +150,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     })}
                     onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
                 >
-                    {renderBlock({ isSelected })}
+                    {renderFrame({ isSelected })}
                 </div>
             </div>
 

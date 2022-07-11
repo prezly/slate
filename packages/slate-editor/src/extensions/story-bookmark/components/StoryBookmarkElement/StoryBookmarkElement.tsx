@@ -75,7 +75,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                       )
                     : undefined
             }
-            renderBlock={() => {
+            renderFrame={() => {
                 if (loading) {
                     return (
                         <LoadingPlaceholder
