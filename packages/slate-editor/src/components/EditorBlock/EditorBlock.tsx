@@ -42,10 +42,10 @@ export interface Props
     hasError?: boolean;
     layout?: `${Layout}`;
     overlay?: OverlayMode;
-    renderAboveFrame?: FunctionComponent<{ isSelected: boolean }> | ReactNode;
-    renderBelowFrame?: FunctionComponent<{ isSelected: boolean }> | ReactNode;
-    renderEditableFrame?: FunctionComponent<{ isSelected: boolean }>;
-    renderReadOnlyFrame?: FunctionComponent<{ isSelected: boolean }>;
+    renderAboveFrame?: ((props: { isSelected: boolean }) => ReactNode) | ReactNode;
+    renderBelowFrame?: ((props: { isSelected: boolean }) => ReactNode) | ReactNode;
+    renderEditableFrame?: (props: { isSelected: boolean }) => ReactNode;
+    renderReadOnlyFrame?: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
     rounded?: boolean;
     selected?: boolean;
@@ -174,7 +174,7 @@ function preventBubbling(event: MouseEvent) {
 }
 
 export function renderInjectionPoint<P>(
-    value: ReactNode | FunctionComponent<P>,
+    value: ((props: P) => ReactNode) | ReactNode,
     props: P,
 ): ReactNode {
     return typeof value === 'function' ? value(props) : value;

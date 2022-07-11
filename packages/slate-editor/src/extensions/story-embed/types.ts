@@ -1,15 +1,15 @@
 import type { StoryEmbedNode } from '@prezly/slate-types';
-import type { FunctionComponent } from 'react';
+import type { ReactElement } from 'react';
 
 export interface StoryEmbedExtensionParameters {
-    renderInput: FunctionComponent<{
+    renderInput: (props: {
         onSubmit: (props: Pick<StoryEmbedNode, 'story'> & Partial<StoryEmbedNode>) => void;
         onClose: () => void;
-    }>;
-    render: FunctionComponent<{
+    }) => ReactElement | undefined;
+    render: (props: {
         isSelected: boolean;
         element: StoryEmbedNode;
         onChange: (props: Partial<StoryEmbedNode>) => void;
         onRemove: () => void;
-    }>;
+    }) => ReactElement | undefined;
 }
