@@ -28,7 +28,6 @@ export interface Props
         SlateInternalAttributes {
     align?: Alignment;
     border?: boolean;
-    children?: never;
     className?: string;
     decorateFrame?: FunctionComponent<{ children: ReactNode; frame: ReactNode }>;
     element: ElementNode;
@@ -58,7 +57,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     {
         align = Alignment.CENTER,
         border = false,
-        children,
         className,
         element,
         extendedHitArea,
@@ -78,10 +76,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     },
     ref,
 ) {
-    if (typeof children !== 'undefined') {
-        throw new Error('EditorBlock does not accept the `children` property.');
-    }
-
     if (renderEditableFrame && renderReadOnlyFrame) {
         throw new Error(
             'EditorBlock expects either `renderEditableFrame` or `renderReadOnlyFrame`, but not both.',
