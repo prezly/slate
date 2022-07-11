@@ -525,12 +525,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         containerRef={containerRef}
                         onClose={closeFloatingStoryEmbedInput}
                         onRootClose={rootCloseFloatingStoryEmbedInput}
-                        renderInput={() => (
-                            <withStoryEmbeds.renderInput
-                                onSubmit={submitFloatingStoryEmbedInput}
-                                onClose={closeFloatingStoryEmbedInput}
-                            />
-                        )}
+                        renderInput={() =>
+                            withStoryEmbeds.renderInput({
+                                onSubmit: submitFloatingStoryEmbedInput,
+                                onClose: closeFloatingStoryEmbedInput,
+                            })
+                        }
                     />
                 )}
 

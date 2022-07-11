@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type {ComponentType, MouseEvent, ReactNode} from 'react';
+import type { FunctionComponent, MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
@@ -25,12 +25,12 @@ enum Layout {
 
 type RenderFrameProps =
     | {
-          renderEditableFrame: ComponentType<{ isSelected: boolean }>;
+          renderEditableFrame: FunctionComponent<{ isSelected: boolean }>;
           renderReadOnlyFrame?: never;
       }
     | {
           renderEditableFrame?: never;
-          renderReadOnlyFrame: ComponentType<{ isSelected: boolean }>;
+          renderReadOnlyFrame: FunctionComponent<{ isSelected: boolean }>;
       };
 
 export type Props = Omit<RenderElementProps, 'attributes' | 'children'> &
@@ -40,7 +40,7 @@ export type Props = Omit<RenderElementProps, 'attributes' | 'children'> &
         border?: boolean;
         children?: undefined;
         className?: string;
-        decorateFrame?: ComponentType<{ children: ReactNode; frame: ReactNode }>;
+        decorateFrame?: FunctionComponent<{ children: ReactNode; frame: ReactNode }>;
         element: ElementNode;
         /**
          * Expand hit area and visual focused area when element is selected.
@@ -53,8 +53,8 @@ export type Props = Omit<RenderElementProps, 'attributes' | 'children'> &
         hasError?: boolean;
         layout?: `${Layout}`;
         overlay?: OverlayMode;
-        renderAboveFrame?: ComponentType<{ isSelected: boolean }> | ReactNode;
-        renderBelowFrame?: ComponentType<{ isSelected: boolean }> | ReactNode;
+        renderAboveFrame?: FunctionComponent<{ isSelected: boolean }> | ReactNode;
+        renderBelowFrame?: FunctionComponent<{ isSelected: boolean }> | ReactNode;
         // renderEditableFrame: ...
         // renderReadOnlyFrame: ...
         renderMenu?: (props: { onClose: () => void }) => ReactNode;
@@ -186,10 +186,10 @@ function preventBubbling(event: MouseEvent) {
     event.stopPropagation();
 }
 
-export function renderInjectionPoint<P>(Value: ReactNode | ComponentType<P>, props: P): ReactNode {
-    return isComponent(Value) ? <Value {...props} /> : Value;
+export function renderInjectionPoint<P>(value: ReactNode | FunctionComponent<P>, props: P): ReactNode {
+    return isComponent(value) ? value(props) : value;
 }
 
-function isComponent<P>(value: ReactNode | ComponentType<P>): value is ComponentType<P> {
+function isComponent<P>(value: ReactNode | FunctionComponent<P>): value is FunctionComponent<P> {
     return typeof value === 'function';
 }
