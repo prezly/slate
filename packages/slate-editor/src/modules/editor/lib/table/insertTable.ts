@@ -1,9 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import { type Editor, Transforms } from 'slate';
 
-export function insertTable(editor: Editor) {
+export function insertTable(editor: Editor & TablesEditor) {
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (!currentNode) {

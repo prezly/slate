@@ -98,7 +98,10 @@ export const hierarchySchema: NodesHierarchySchema = {
     [TEXT_NODE_TYPE]: [
         disallowMark(
             'bold',
-            isDescendantOf((_, path, editor) => TablesEditor.isHeaderCell(editor, path)),
+            isDescendantOf(
+                (_, path, editor) =>
+                    TablesEditor.isTablesEditor(editor) && TablesEditor.isHeaderCell(editor, path),
+            ),
         ),
     ],
     [VIDEO_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
