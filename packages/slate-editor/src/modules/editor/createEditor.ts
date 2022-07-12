@@ -12,7 +12,6 @@ import type { Editor } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
 
-
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
 import {

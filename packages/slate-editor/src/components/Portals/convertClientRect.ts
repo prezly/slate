@@ -1,7 +1,6 @@
 import { noop } from 'lodash-es';
 import type { Rect } from 'rangefix';
 
-
 export type PureRect = ReturnType<typeof convertClientRect>;
 
 /**

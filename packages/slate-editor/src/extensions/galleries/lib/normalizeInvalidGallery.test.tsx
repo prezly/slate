@@ -11,7 +11,6 @@ import {
 import { omit } from 'lodash-es';
 import { Editor } from 'slate';
 
-
 import { createEditorWithChildren, uploadedImage, withNormalization } from '#modules/tests';
 
 import { normalizeInvalidGallery } from './normalizeInvalidGallery';

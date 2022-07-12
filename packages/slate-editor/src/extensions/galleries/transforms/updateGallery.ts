@@ -4,7 +4,6 @@ import { pick } from 'lodash-es';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
-
 export function updateGallery(
     editor: Editor,
     changes: Partial<Pick<GalleryNode, 'images' | 'layout' | 'padding' | 'thumbnail_size'>>,

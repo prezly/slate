@@ -2,7 +2,6 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { uniq } from 'lodash-es';
 import { Editor } from 'slate';
 
-
 import type { Formatting, RichFormattedTextElement } from '../types';
 
 import { findRichFormattingTextParent } from './findRichFormattingTextParent';

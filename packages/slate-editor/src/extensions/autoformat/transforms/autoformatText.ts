@@ -3,7 +3,6 @@ import type { Editor, Point, Range } from 'slate';
 import { Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 
-
 import type { AutoformatTextRule } from '../types';
 import { getMatchPoints } from '../utils/getMatchPoints';
 import { getMatchRange } from '../utils/getMatchRange';

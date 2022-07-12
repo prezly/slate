@@ -10,7 +10,6 @@ import {
 import { isEqual, uniq } from 'lodash-es';
 import { type Editor, type NodeEntry, Transforms } from 'slate';
 
-
 const ALLOWED_TABLE_ATTRIBUTES: { [key in keyof TableNode]: boolean } = {
     type: true,
     header: true,

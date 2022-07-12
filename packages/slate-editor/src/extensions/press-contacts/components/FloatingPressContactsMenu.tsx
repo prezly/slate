@@ -6,7 +6,6 @@ import React, { useMemo } from 'react';
 import type { Editor } from 'slate';
 import { useSlate } from 'slate-react';
 
-
 import { FloatingContainer } from '#modules/components';
 import type { EditorEventMap } from '#modules/events';
 import { EventsEditor } from '#modules/events';
