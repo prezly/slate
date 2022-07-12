@@ -7,10 +7,10 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import classNames from 'classnames';
+import { reject } from 'lodash-es';
 import React, { useMemo } from 'react';
 
 import { Menu } from '#components';
-import { reject } from '#lodash';
 
 import type { Formatting } from '../types';
 

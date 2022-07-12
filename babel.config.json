@@ -11,7 +11,6 @@
     ],
     "plugins": [
         ["babel-plugin-transform-remove-imports",{ "test": "(?<!module)\\.scss$" }],
-        ["babel-plugin-module-resolver", { "alias": { "#lodash": "lodash-es" } }, "lodash-conditional-dependency"],
         ["babel-plugin-add-import-extension", { "extension": "js" }]
     ]
 }

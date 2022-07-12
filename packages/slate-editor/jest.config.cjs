@@ -8,7 +8,6 @@ module.exports = {
         },
     },
     moduleNameMapper: {
-        '#lodash': 'lodash-es',
         '#components': `${__dirname}/src/components`,
         '#extensions/(.*)': `${__dirname}/src/extensions/$1`,
         '#icons': `${__dirname}/src/icons`,

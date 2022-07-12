@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { noop } from 'lodash-es';
 import maxSize from 'popper-max-size-modifier';
 import type { ReactNode } from 'react';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
@@ -7,7 +8,6 @@ import { usePopper } from 'react-popper';
 
 import { FancyScrollbars } from '#components';
 import { BatsIllustration, WarningCircle } from '#icons';
-import { noop } from '#lodash';
 
 import { groupOptions, isComponent } from '../lib';
 import type { Option } from '../types';

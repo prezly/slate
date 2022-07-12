@@ -3,6 +3,7 @@ import { createDeserializeElement, EditorCommands, withoutNodes } from '@prezly/
 import type { ImageNode, ParagraphNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
+import { noop } from 'lodash-es';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
 import type { Editor } from 'slate';
@@ -10,7 +11,6 @@ import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { isDeletingEvent, isDeletingEventBackward } from '#lib';
-import { noop } from '#lodash';
 
 import { createParagraph } from '#extensions/paragraphs';
 import { composeElementDeserializer } from '#modules/html-deserialization';

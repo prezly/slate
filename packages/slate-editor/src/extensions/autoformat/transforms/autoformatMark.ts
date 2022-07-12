@@ -1,9 +1,9 @@
 import { getText, removeMark } from '@udecode/plate-core';
+import { castArray } from 'lodash-es';
 import type { Editor, Point, Range } from 'slate';
 import { Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 
-import { castArray } from '#lodash';
 
 import type { AutoformatMarkRule } from '../types';
 import { getMatchPoints } from '../utils/getMatchPoints';

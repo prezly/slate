@@ -2,12 +2,12 @@ import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import type { AttachmentNode } from '@prezly/slate-types';
 import { ATTACHMENT_NODE_TYPE, isAttachmentNode } from '@prezly/slate-types';
+import { noop } from 'lodash-es';
 import React from 'react';
 import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
-import { noop } from '#lodash';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 

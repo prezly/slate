@@ -11,6 +11,7 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import classNames from 'classnames';
+import { noop } from 'lodash-es';
 import React, {
     forwardRef,
     useCallback,
@@ -24,7 +25,6 @@ import type { Element } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
 import { useFunction, useSize } from '#lib';
-import { noop } from '#lodash';
 
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';

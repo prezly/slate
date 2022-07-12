@@ -1,11 +1,11 @@
 import type { Events } from '@prezly/events';
 import type { PressContact } from '@prezly/slate-types';
+import { once } from 'lodash-es';
 import type { ReactNode, RefObject } from 'react';
 import React, { useMemo } from 'react';
 import type { Editor } from 'slate';
 import { useSlate } from 'slate-react';
 
-import { once } from '#lodash';
 
 import { FloatingContainer } from '#modules/components';
 import type { EditorEventMap } from '#modules/events';

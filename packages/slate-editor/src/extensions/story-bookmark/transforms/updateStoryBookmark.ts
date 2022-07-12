@@ -1,9 +1,9 @@
 import type { StoryBookmarkNode } from '@prezly/slate-types';
 import { isStoryBookmarkNode } from '@prezly/slate-types';
+import { pick } from 'lodash-es';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
-import { pick } from '#lodash';
 
 export function updateStoryBookmark(
     editor: Editor,

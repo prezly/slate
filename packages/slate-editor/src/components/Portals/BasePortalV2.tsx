@@ -1,5 +1,6 @@
 import type { Placement, VirtualElement } from '@popperjs/core';
 import classNames from 'classnames';
+import { isEqual } from 'lodash-es';
 import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 import React from 'react';
 import { useRef, useState } from 'react';
@@ -8,7 +9,6 @@ import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 
 import { useMountedState, useRafLoop } from '#lib';
-import { isEqual } from '#lodash';
 
 import portalStyles from './BasePortalV2.module.scss';
 

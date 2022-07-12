@@ -24,7 +24,6 @@ const SCSS_COMPONENTS = [SCSS_SOURCES, `!${SCSS_DECLARATIONS}`];
 const SCSS_MODULES = ['src/**/*.module.scss'];
 const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/*.test.*', '!**/jsx.ts'];
 const TYPESCRIPT_ALIASES = {
-    '#lodash': 'lodash-es',
     '#components': './src/components',
     '#extensions': './src/extensions',
     '#icons': './src/icons',
