@@ -36,12 +36,12 @@ export class MatrixCell {
         this.x = x;
     }
 
-    get cellAbove() {
-        return this.column.cells.at(this.y - 1);
+    get cellAbove(): MatrixCell | undefined {
+        return this.column.cells[this.y - 1];
     }
 
-    get cellBelow() {
-        return this.column.cells.at(this.y + 1);
+    get cellBelow(): MatrixCell | undefined {
+        return this.column.cells[this.y + 1];
     }
 
     compareWidth(otherCell: MatrixCell) {
