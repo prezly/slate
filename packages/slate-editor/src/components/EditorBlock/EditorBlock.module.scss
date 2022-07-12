@@ -53,8 +53,15 @@
 
 .Content {
     position: relative;
-    overflow: hidden;
     z-index: $editor-block-overlay-z-index - 1;
+
+    &.overflowHidden {
+        overflow: hidden;
+    }
+
+    &.overflowVisible {
+        overflow: visible;
+    }
 
     &.editable {
         white-space: pre-wrap;

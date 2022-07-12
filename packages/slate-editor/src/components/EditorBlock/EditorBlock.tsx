@@ -40,6 +40,7 @@ export interface Props
      */
     hasError?: boolean;
     layout?: `${Layout}`;
+    overflow?: 'visible' | 'hidden';
     overlay?: OverlayMode;
     renderAboveFrame?: ((props: { isSelected: boolean }) => ReactNode) | ReactNode;
     renderBelowFrame?: ((props: { isSelected: boolean }) => ReactNode) | ReactNode;
@@ -61,6 +62,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         extendedHitArea,
         hasError,
         layout = 'contained',
+        overflow = 'hidden',
         overlay = false,
         renderAboveFrame,
         renderBelowFrame,
@@ -147,12 +149,14 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 />
                 <div
                     className={classNames(styles.Content, {
-                        [styles.editable]: Boolean(renderEditableFrame),
-                        [styles.selected]: isSelected,
-                        [styles.hasError]: hasError,
                         [styles.border]: border,
-                        [styles.rounded]: rounded,
+                        [styles.editable]: Boolean(renderEditableFrame),
                         [styles.fullWidth]: layout === Layout.FULL_WIDTH,
+                        [styles.hasError]: hasError,
+                        [styles.overflowHidden]: overflow === 'hidden',
+                        [styles.overflowVisible]: overflow === 'visible',
+                        [styles.rounded]: rounded,
+                        [styles.selected]: isSelected,
                     })}
                     onClick={handleFrameClick}
                 >
