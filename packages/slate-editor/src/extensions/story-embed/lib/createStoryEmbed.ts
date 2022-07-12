@@ -18,8 +18,8 @@ function withoutExtraAttributes<T extends StoryEmbedNode>(node: T): StoryEmbedNo
 
 export function createStoryEmbed(props: RequiredProps & Partial<OptionalProps>): StoryEmbedNode {
     return withoutExtraAttributes({
-        appearance: StoryEmbedAppearance.INTRO,
-        position: StoryEmbedPosition.LEFT,
+        appearance: StoryEmbedAppearance.FULL,
+        position: StoryEmbedPosition.CENTER,
         ...props,
         children: [{ text: '' }],
         type: STORY_EMBED_NODE_TYPE, // disallowed to override type
