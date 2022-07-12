@@ -1,6 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { ListsEditor, onKeyDown } from '@prezly/slate-lists';
+import { TablesEditor } from '@prezly/slate-tables';
 import {
     BULLETED_LIST_NODE_TYPE,
     NUMBERED_LIST_NODE_TYPE,
@@ -49,6 +50,14 @@ export function ListExtension(): Extension {
         normalizeNode: [normalizeRedundantAttributes],
         onKeyDown(event, editor) {
             if (ListsEditor.isListsEditor(editor)) {
+                if (
+                    TablesEditor.isTablesEditor(editor) &&
+                    TablesEditor.isInTable(editor) &&
+                    !ListsEditor.isInList(editor, editor.selection?.anchor.path)
+                ) {
+                    return;
+                }
+
                 onKeyDown(editor, event);
             }
         },
