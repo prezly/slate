@@ -36,6 +36,7 @@ export const StoryEmbedElement: FunctionComponent<Props> = ({
             element={element}
             layout="full-width"
             overlay="always"
+            overflow="visible"
             renderMenu={undefined}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
