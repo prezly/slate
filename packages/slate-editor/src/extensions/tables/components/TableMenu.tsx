@@ -32,16 +32,16 @@ export function TableMenu({ element, onClose }: Props) {
                     name="header-row"
                     value={Boolean(element.header?.some((h) => h === 'first_row'))}
                     onChange={() => {
-                        const toggled = TablesEditor.toggleTableHeader(
+                        const header = TablesEditor.toggleTableHeader(
                             editor,
                             undefined,
                             'first_row',
                         );
 
-                        if (toggled) {
+                        if (header) {
                             EventsEditor.dispatchEvent(editor, 'table-toggle-header', {
-                                headerType: toggled.headerType,
-                                newValue: toggled.newValue,
+                                headerType: 'first_row',
+                                newValue: header.includes('first_row'),
                             });
                         }
                     }}
