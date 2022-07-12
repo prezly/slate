@@ -44,6 +44,10 @@ export class MatrixCell {
         return this.column.cells[this.y + 1];
     }
 
+    get nextCell(): MatrixCell | undefined {
+        return this.row.cells.at(this.x + 1) ?? this.matrix.columns.at(0)?.cells.at(this.y + 1);
+    }
+
     compareWidth(otherCell: MatrixCell) {
         const thisRowSpan = TableCellNode.getCellColspan(this.node);
         const otherRowSpan = TableCellNode.getCellColspan(otherCell.node);

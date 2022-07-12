@@ -1,11 +1,11 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import type { BasePoint } from 'slate';
+import type { Location, BasePoint } from 'slate';
 import { Editor, Path } from 'slate';
 import { Transforms } from 'slate';
 
-import type { TablesEditor } from '../TablesEditor';
+import { TablesEditor } from '../TablesEditor';
 
 import { Traverse } from './Traverse';
 
@@ -14,25 +14,29 @@ export function onKeyDown(event: KeyboardEvent<Element>, editor: TablesEditor) {
         return;
     }
 
-    let locationToSelect: BasePoint | undefined | null = null;
+    let locationToSelect: Location | undefined | null = null;
 
     if (isHotkey('up', event)) {
-        locationToSelect = getPointOnUpPress(editor);
+        locationToSelect = onUpPress(editor);
     }
 
     if (isHotkey('down', event)) {
-        locationToSelect = getPointOnDownPress(editor);
+        locationToSelect = onDownPress(editor);
+    }
+
+    if (isHotkey('tab', event)) {
+        locationToSelect = onTabPress(editor);
+        event.preventDefault();
     }
 
     if (locationToSelect) {
         Transforms.select(editor, locationToSelect);
-        Transforms.collapse(editor);
         event.stopPropagation();
         event.preventDefault();
     }
 }
 
-function getPointOnUpPress(editor: TablesEditor) {
+function onUpPress(editor: TablesEditor): BasePoint | null | undefined {
     if (!editor.selection) {
         return undefined;
     }
@@ -71,7 +75,7 @@ function getPointOnUpPress(editor: TablesEditor) {
     return undefined;
 }
 
-function getPointOnDownPress(editor: TablesEditor) {
+function onDownPress(editor: TablesEditor): BasePoint | null | undefined {
     if (!editor.selection) {
         return undefined;
     }
@@ -108,4 +112,25 @@ function getPointOnDownPress(editor: TablesEditor) {
     }
 
     return undefined;
+}
+
+function onTabPress(editor: TablesEditor): Location | null | undefined {
+    if (!editor.selection) {
+        return undefined;
+    }
+
+    const traverse = Traverse.create(editor, editor.selection);
+
+    if (!traverse) {
+        return undefined;
+    }
+
+    const { activeCell } = traverse;
+
+    if (activeCell.row.isLast && activeCell.column.isLast) {
+        TablesEditor.insertRowBelow(editor);
+        return undefined;
+    }
+
+    return activeCell.nextCell?.path;
 }
