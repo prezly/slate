@@ -53,5 +53,12 @@
         "slate": "^0.81.0",
         "slate-react": "^0.81.0"
     },
+    "dependencies": {
+        "@prezly/slate-commons": "^0.47.8",
+        "is-hotkey": "^0.2.0"
+    },
+    "devDependencies": {
+        "@types/is-hotkey": "^0.1.7"
+    },
     "gitHead": "f2c3badd9a0039fbd3952ff688d0bbdd9892d809"
 }

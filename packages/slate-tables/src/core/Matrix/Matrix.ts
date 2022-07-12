@@ -31,7 +31,7 @@ export class Matrix {
                     this.columns.push(matrixColumn);
                 }
 
-                const matrixCell = new MatrixCell(gridCell, this, matrixRow, matrixColumn);
+                const matrixCell = new MatrixCell(gridCell, this, matrixRow, matrixColumn, y, x);
                 matrixRow.cells.push(matrixCell);
                 matrixColumn.cells.push(matrixCell);
             });
