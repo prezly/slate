@@ -4,14 +4,12 @@
     "description": "The best Slate lists extension out there",
     "license": "MIT",
     "type": "module",
-    "main": "build/cjs/index.cjs",
-    "module": "build/esm/index.mjs",
+    "main": "build/esm/index.js",
     "types": "build/types/index.d.ts",
     "exports": {
         ".": {
             "types": "./build/types/index.d.ts",
-            "import": "./build/esm/index.mjs",
-            "default": "./build/cjs/index.cjs"
+            "default": "./build/esm/index.js"
         }
     },
     "files": [
@@ -30,19 +28,16 @@
         "lint": "eslint ./src --ext=.ts,.tsx",
         "build": "NODE_ENV=production npm run build:all",
         "build:dev": "NODE_ENV=development npm run build:all",
-        "build:all": "npm run build:types && npm run build:esm && npm run build:cjs",
+        "build:all": "npm run build:types && npm run build:esm",
         "build:types": "tsc --build ./tsconfig.build.json",
         "build:esm": "gulp build:esm",
-        "build:cjs": "gulp build:cjs",
-        "watch": "concurrently --kill-others --names 'd.ts, esm, cjs' 'npm run watch:types' 'npm run watch:esm' 'npm run watch:cjs'",
+        "watch": "concurrently --kill-others --names 'd.ts, esm' 'npm run watch:types' 'npm run watch:esm'",
         "watch:types": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.build.json --watch --pretty",
         "watch:esm": "gulp watch:esm",
-        "watch:cjs": "gulp watch:cjs",
         "test": "npm run test:unit && npm run test:build",
         "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.cjs --rootDir ./ --no-cache --coverage",
-        "test:build": "npm run test:esm && npm run test:cjs && npm run test:types",
-        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.mjs'; \" ",
-        "test:cjs": "node -e \" require('../../mockDOM.cjs'); require('./build/cjs/index.cjs'); \" ",
+        "test:build": "npm run test:esm && npm run test:types",
+        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.js'; \" ",
         "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",
         "clean": "npm run clean:build && npm run clean:node_modules",
         "clean:node_modules": "rimraf node_modules/ package-lock.json",

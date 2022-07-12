@@ -1,6 +1,5 @@
 import autoprefixer from 'autoprefixer';
 import branch from 'branch-pipe';
-import fs from 'fs';
 import gulp from 'gulp';
 import babel from 'gulp-babel';
 import concat from 'gulp-concat';
@@ -39,17 +38,11 @@ const SVG_ICONS = 'src/**/*.svg';
  */
 const JS_DELIVERABLE_SOURCES = [...TYPESCRIPT_SOURCES, ...SCSS_MODULES, SVG_ICONS];
 
-const babelConfig = JSON.parse(fs.readFileSync('./babel.config.json', { encoding: 'utf-8' }));
-const babelCommonjsConfig = { ...babelConfig, extends: '../../babel.cjs.config.json' };
-const babelEsmConfig = { ...babelConfig, extends: '../../babel.esm.config.json' };
-
 gulp.task('build:esm', () => buildEsm());
-gulp.task('build:cjs', () => buildCommonjs());
 gulp.task('build:sass', () => buildSass());
 gulp.task('build:types', () => buildTypes());
 
 gulp.task('watch:esm', watch(JS_DELIVERABLE_SOURCES, 'build:esm', buildEsm));
-gulp.task('watch:cjs', watch(JS_DELIVERABLE_SOURCES, 'build:cjs', buildCommonjs));
 gulp.task('watch:sass', watch(SCSS_SOURCES, 'build:sass', buildSass));
 
 function buildEsm(files = JS_DELIVERABLE_SOURCES) {
@@ -69,31 +62,8 @@ function buildEsm(files = JS_DELIVERABLE_SOURCES) {
                     .pipe(gulp.dest('.css-modules/')),
             ]),
         )
-        .pipe(babel(babelEsmConfig))
-        .pipe(rename((file) => (file.extname = '.mjs')))
+        .pipe(babel({ extends: './babel.config.json' }))
         .pipe(gulp.dest('build/esm/'));
-}
-
-function buildCommonjs(files = JS_DELIVERABLE_SOURCES) {
-    return gulp
-        .src(files, { base: BASE_DIR })
-        .pipe(
-            branch.obj((stream) => [
-                // Keep .ts sources files in the stream
-                stream.pipe(filter(TYPESCRIPT_SOURCES)),
-                // Keep .svg icons in the stream
-                stream.pipe(filter(SVG_ICONS)).pipe(rename((file) => (file.extname = '.svg.svg'))),
-                // Generate TS class maps for CSS modules
-                stream
-                    .pipe(filter(SCSS_COMPONENTS))
-                    .pipe(processSass())
-                    .pipe(filter('*.ts'))
-                    .pipe(gulp.dest('.css-modules/')),
-            ]),
-        )
-        .pipe(babel(babelCommonjsConfig))
-        .pipe(rename((file) => (file.extname = '.cjs')))
-        .pipe(gulp.dest('build/cjs/'));
 }
 
 function buildTypes(files = JS_DELIVERABLE_SOURCES) {
