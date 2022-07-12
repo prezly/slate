@@ -1,6 +1,6 @@
 import type { Listener } from '@prezly/events';
 import type { Coverage } from '@prezly/sdk';
-import type { PressContact } from '@prezly/slate-types';
+import type { PressContact, TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
 export type EditorEventMap = {
@@ -122,6 +122,18 @@ export type EditorEventMap = {
     'story-bookmark-removed': {
         uuid: string;
     };
+    'table-insert': never;
+    'table-toggle-header': {
+        headerType: TableHeader;
+        newValue: boolean;
+    };
+    'table-insert-row-above': never;
+    'table-insert-row-below': never;
+    'table-remove-row': never;
+    'table-insert-column-left': never;
+    'table-insert-column-right': never;
+    'table-remove-column': never;
+    'table-remove': never;
 };
 
 export type EditorEventHandlers = {
