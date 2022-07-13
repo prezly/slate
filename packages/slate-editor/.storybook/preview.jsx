@@ -1,3 +1,5 @@
+import React from 'react';
+
 import '../build/styles/styles.css';
 
 export const parameters = {

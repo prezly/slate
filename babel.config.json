@@ -12,5 +12,13 @@
     "plugins": [
         ["babel-plugin-transform-remove-imports",{ "test": "(?<!module)\\.scss$" }],
         ["babel-plugin-add-import-extension", { "extension": "js" }]
+    ],
+    "overrides": [
+        {
+            "test": "**/.storybook/*",
+            "plugins": [
+                ["babel-plugin-add-import-extension", false]
+            ]
+        }
     ]
 }
