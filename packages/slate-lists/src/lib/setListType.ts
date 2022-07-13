@@ -1,6 +1,5 @@
 import { nodeIdManager } from '@prezly/slate-commons';
-import type { ListNode } from '@prezly/slate-types';
-import { Transforms } from 'slate';
+import { type Element, Transforms } from 'slate';
 
 import type { ListType, ListsEditor } from '../types';
 
@@ -27,7 +26,7 @@ export function setListType(editor: ListsEditor, listType: ListType): void {
         }
 
         const [listNode, listPath] = listEntry;
-        Transforms.setNodes(editor, editor.createListNode(listType, listNode as ListNode), {
+        Transforms.setNodes(editor, editor.createListNode(listType, listNode as Element), {
             at: listPath,
         });
     });
