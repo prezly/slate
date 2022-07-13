@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { Editor } from 'slate';
+import { isTableCellNode } from '@prezly/slate-types';
+import { Editor, Range, Point } from 'slate';
 
 import { saveSelection } from '../../commands';
 
@@ -9,6 +10,21 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
     const { deleteBackward, deleteForward } = editor;
 
     editor.deleteBackward = (unit) => {
+        if (editor.selection && Range.isCollapsed(editor.selection)) {
+            const [cell] = Editor.nodes(editor, {
+                match: (n) => !Editor.isEditor(n) && isTableCellNode(n),
+            });
+
+            if (cell) {
+                const [, cellPath] = cell;
+                const start = Editor.start(editor, cellPath);
+
+                if (Point.equals(editor.selection.anchor, start)) {
+                    return;
+                }
+            }
+        }
+
         const previousBlockSelection = saveSelection(
             editor,
             (location) => Editor.before(editor, location) ?? location,
@@ -25,6 +41,21 @@ export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
     };
 
     editor.deleteForward = (unit) => {
+        if (editor.selection && Range.isCollapsed(editor.selection)) {
+            const [cell] = Editor.nodes(editor, {
+                match: (n) => !Editor.isEditor(n) && isTableCellNode(n),
+            });
+
+            if (cell) {
+                const [, cellPath] = cell;
+                const end = Editor.end(editor, cellPath);
+
+                if (Point.equals(editor.selection.anchor, end)) {
+                    return;
+                }
+            }
+        }
+
         const selectionBeforeDeleting = saveSelection(editor);
 
         const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: false, unit });
