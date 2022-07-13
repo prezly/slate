@@ -1,4 +1,4 @@
-import type { BaseEditor, Descendant, Element, Node } from 'slate';
+import type { BaseEditor, Element, Node } from 'slate';
 
 export enum ListType {
     ORDERED = 'ol',
@@ -16,13 +16,13 @@ export interface ListsSchema {
 
     isListItemTextNode(node: Node): boolean;
 
-    createDefaultTextNode(props?: { children?: Descendant[] }): Element;
+    createDefaultTextNode(props?: Partial<Element>): Element;
 
-    createListNode(type?: ListType, props?: { children?: Descendant[] }): Element;
+    createListNode(type?: ListType, props?: Partial<Element>): Element;
 
-    createListItemNode(props?: { children?: Descendant[] }): Element;
+    createListItemNode(props?: Partial<Element>): Element;
 
-    createListItemTextNode(props?: { children?: Descendant[] }): Element;
+    createListItemTextNode(props?: Partial<Element>): Element;
 }
 
 export interface ListsEditor extends ListsSchema, BaseEditor {}

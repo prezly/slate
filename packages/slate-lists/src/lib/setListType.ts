@@ -1,4 +1,4 @@
-import { Editor, Node, Transforms } from 'slate';
+import { type Element, Editor, Node, Transforms } from 'slate';
 
 import type { ListType, ListsEditor } from '../types';
 
@@ -20,7 +20,7 @@ export function setListType(editor: ListsEditor, listType: ListType): void {
         const node = path ? Node.get(editor, path) : null;
 
         if (node && path) {
-            Transforms.setNodes(editor, editor.createListNode(listType), {
+            Transforms.setNodes(editor, editor.createListNode(listType, node as Element), {
                 at: path,
             });
         }
