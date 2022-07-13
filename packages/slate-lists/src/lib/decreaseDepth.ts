@@ -1,4 +1,5 @@
-import { EditorCommands, nodeIdManager } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
+import { Editor } from 'slate';
 
 import type { ListsEditor } from '../types';
 
@@ -15,23 +16,18 @@ export function decreaseDepth(editor: ListsEditor): void {
     }
 
     const listItemsInRange = getListItemsInRange(editor, editor.selection);
-    const unreachableListItems = EditorCommands.getUnreachableAncestors(listItemsInRange);
+
     // When calling `decreaseListItemDepth` the paths and references to "list-items"
     // can change, so we need a way of marking the "list-items" scheduled for transformation.
-    const unreachableListItemsIds = unreachableListItems.map((listItem) => {
-        return nodeIdManager.assign(editor, listItem);
-    });
+    const refs = EditorCommands.getUnreachableAncestors(listItemsInRange).map(([_, path]) =>
+        Editor.pathRef(editor, path),
+    );
 
-    unreachableListItemsIds.forEach((id) => {
-        const listItemEntry = nodeIdManager.get(editor, id);
-        nodeIdManager.unassign(editor, id);
-
-        if (!listItemEntry) {
-            // It should never happen.
-            return;
+    refs.forEach((ref) => {
+        if (ref.current) {
+            decreaseListItemDepth(editor, ref.current);
         }
 
-        const [, listItemEntryPath] = listItemEntry;
-        decreaseListItemDepth(editor, listItemEntryPath);
+        ref.unref();
     });
 }
