@@ -1,4 +1,5 @@
-import { EditorCommands, nodeIdManager } from '@prezly/slate-commons';
+import { EditorCommands } from '@prezly/slate-commons';
+import { Editor } from 'slate';
 
 import type { ListsEditor } from '../types';
 import { ListType } from '../types';
@@ -21,26 +22,20 @@ export function increaseDepth(editor: ListsEditor): void {
         const previousListItem = EditorCommands.getPreviousSibling(editor, listItemPath);
         return previousListItem !== null;
     });
-    const unreachableListItems = EditorCommands.getUnreachableAncestors(indentableListItemsInRange);
+
     // When calling `increaseListItemDepth` the paths and references to list items
     // can change, so we need a way of marking the list items scheduled for transformation.
-    const unreachableListItemsIds = unreachableListItems.map((listItem) => {
-        return nodeIdManager.assign(editor, listItem);
-    });
+    const refs = EditorCommands.getUnreachableAncestors(indentableListItemsInRange).map(
+        ([_, path]) => Editor.pathRef(editor, path),
+    );
 
     // Before we indent "list-items", we want to convert every non list-related block in selection to a "list".
     wrapInList(editor, ListType.UNORDERED);
 
-    unreachableListItemsIds.forEach((id) => {
-        const listItemEntry = nodeIdManager.get(editor, id);
-        nodeIdManager.unassign(editor, id);
-
-        if (!listItemEntry) {
-            // It should never happen.
-            return;
+    refs.forEach((ref) => {
+        if (ref.current) {
+            increaseListItemDepth(editor, ref.current);
         }
-
-        const [, listItemEntryPath] = listItemEntry;
-        increaseListItemDepth(editor, listItemEntryPath);
+        ref.unref();
     });
 }
