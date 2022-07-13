@@ -1,6 +1,6 @@
 import type { AlignableNode, Alignment } from '@prezly/slate-types';
 import { isAlignableElement, isTableCellNode } from '@prezly/slate-types';
-import type {Node, NodeEntry, Path} from 'slate';
+import type { Node, NodeEntry, Path } from 'slate';
 import { Editor, Transforms } from 'slate';
 
 export function getAlignment(editor: Editor, defaultAlignment: Alignment): Alignment[] {
