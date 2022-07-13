@@ -1,7 +1,11 @@
 import { Editor, Element, Transforms } from 'slate';
-import type { NodeEntry } from 'slate';
+import type { NodeEntry , Ancestor } from 'slate';
 
-export function unwrapNode(editor: Editor, [, path]: NodeEntry) {
+export function unwrapNode(
+    editor: Editor,
+    [node, path]: NodeEntry,
+    shouldUnwrap: (entry: NodeEntry, ancestor: NodeEntry<Ancestor>) => boolean = () => true,
+) {
     const ancestor = Editor.above(editor, { at: path });
 
     if (!ancestor) {
@@ -14,7 +18,10 @@ export function unwrapNode(editor: Editor, [, path]: NodeEntry) {
         return false;
     }
 
-    Transforms.unwrapNodes(editor, { at: path });
+    if (shouldUnwrap([node, path], ancestor)) {
+        Transforms.unwrapNodes(editor, { at: path });
+        return true;
+    }
 
-    return true;
+    return false;
 }

@@ -30,10 +30,11 @@ import {
     convertToParagraph,
     liftNodeWithSplit,
     liftNodeNoSplit,
-    unwrapSameTypeChild,
     unwrapNode,
+    unwrapSameTypeChild,
+    unwrapTableNodeChild,
 } from './fixers';
-import { allowChildren, disallowMark, unwrapOneColumnRowTable } from './normilizers';
+import { allowChildren, disallowMark } from './normilizers';
 import {
     isAllowedInTableCell,
     isAllowedOnTopLevel,
@@ -83,7 +84,12 @@ export const hierarchySchema: NodesHierarchySchema = {
     [TABLE_CELL_NODE_TYPE]: [
         allowChildren(
             isAllowedInTableCell,
-            combineFixers([unwrapNode, liftNodeNoSplit, convertToParagraph]),
+            combineFixers([
+                unwrapTableNodeChild,
+                unwrapSameTypeChild,
+                liftNodeNoSplit,
+                convertToParagraph,
+            ]),
         ),
     ],
     [TABLE_NODE_TYPE]: [
