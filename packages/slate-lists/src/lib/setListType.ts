@@ -1,5 +1,4 @@
-import { nodeIdManager } from '@prezly/slate-commons';
-import { type Element, Transforms } from 'slate';
+import { Editor, type Element, Node, Transforms } from 'slate';
 
 import type { ListType, ListsEditor } from '../types';
 
@@ -14,20 +13,18 @@ export function setListType(editor: ListsEditor, listType: ListType): void {
     }
 
     const lists = getListsInRange(editor, editor.selection);
-    const listsIds = lists.map((list) => nodeIdManager.assign(editor, list));
+    const refs = lists.map(([_, path]) => Editor.pathRef(editor, path));
 
-    listsIds.forEach((id) => {
-        const listEntry = nodeIdManager.get(editor, id);
-        nodeIdManager.unassign(editor, id);
+    refs.forEach((ref) => {
+        const path = ref.current;
+        const node = path ? Node.get(editor, path) : null;
 
-        if (!listEntry) {
-            // It should never happen.
-            return;
+        if (node && path) {
+            Transforms.setNodes(editor, editor.createListNode(listType, node as Element), {
+                at: path,
+            });
         }
 
-        const [listNode, listPath] = listEntry;
-        Transforms.setNodes(editor, editor.createListNode(listType, listNode as Element), {
-            at: listPath,
-        });
+        ref.unref();
     });
 }
