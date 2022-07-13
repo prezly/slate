@@ -83,11 +83,10 @@ export const hierarchySchema: NodesHierarchySchema = {
     [TABLE_CELL_NODE_TYPE]: [
         allowChildren(
             isAllowedInTableCell,
-            combineFixers([unwrapSameTypeChild, liftNodeNoSplit, convertToParagraph]),
+            combineFixers([unwrapNode, liftNodeNoSplit, convertToParagraph]),
         ),
     ],
     [TABLE_NODE_TYPE]: [
-        unwrapOneColumnRowTable(),
         allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNodeNoSplit])),
     ],
     [TABLE_ROW_NODE_TYPE]: [

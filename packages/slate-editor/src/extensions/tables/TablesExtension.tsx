@@ -31,7 +31,7 @@ export function TablesExtension(): Extension {
         deserialize: {
             element: composeElementDeserializer({
                 TABLE: (): TableNode | undefined => {
-                    return createTableNode({ border: true, header: ['first_row'] });
+                    return createTableNode({});
                 },
                 TR: (): TableRowNode | undefined => {
                     return createTableRowNode({});
