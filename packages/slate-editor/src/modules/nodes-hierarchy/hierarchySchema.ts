@@ -33,7 +33,7 @@ import {
     unwrapSameTypeChild,
     unwrapNode,
 } from './fixers';
-import { allowChildren, disallowMark } from './normilizers';
+import { allowChildren, disallowMark, unwrapOneColumnRowTable } from './normilizers';
 import {
     isAllowedInTableCell,
     isAllowedOnTopLevel,
@@ -87,6 +87,7 @@ export const hierarchySchema: NodesHierarchySchema = {
         ),
     ],
     [TABLE_NODE_TYPE]: [
+        unwrapOneColumnRowTable(),
         allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNodeNoSplit])),
     ],
     [TABLE_ROW_NODE_TYPE]: [
