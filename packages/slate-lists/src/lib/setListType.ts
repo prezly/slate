@@ -1,4 +1,4 @@
-import { Editor, type Element, Node, Transforms } from 'slate';
+import { type Element, Editor, Node, Transforms } from 'slate';
 
 import type { ListType, ListsEditor } from '../types';
 
