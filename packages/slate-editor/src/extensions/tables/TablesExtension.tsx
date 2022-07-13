@@ -1,5 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { withTables } from '@prezly/slate-tables';
+import type { TableCellNode } from '@prezly/slate-types';
 import {
     type TableNode,
     type TableRowNode,
@@ -11,6 +12,7 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { createParagraph } from '#extensions/paragraphs';
+import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { TableElement, TableRowElement, TableCellElement } from './components';
 import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
@@ -26,6 +28,19 @@ export function TablesExtension(): Extension {
     return {
         id: EXTENSION_ID,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
+        deserialize: {
+            element: composeElementDeserializer({
+                TABLE: (): TableNode | undefined => {
+                    return createTableNode({ border: true, header: ['first_row'] });
+                },
+                TR: (): TableRowNode | undefined => {
+                    return createTableRowNode({});
+                },
+                TD: (): TableCellNode | undefined => {
+                    return createTableCellNode({});
+                },
+            }),
+        },
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isTableNode(element)) {
                 return (
