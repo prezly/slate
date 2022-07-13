@@ -1,5 +1,5 @@
 import { Editor, Element, Transforms } from 'slate';
-import type { NodeEntry , Ancestor } from 'slate';
+import type { NodeEntry, Ancestor } from 'slate';
 
 export function unwrapNode(
     editor: Editor,
