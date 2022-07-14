@@ -4,6 +4,7 @@ import {
     TablesEditor,
     onKeyDown,
     withTablesDeleteBehavior,
+    withTablesCopyPasteBehavior,
 } from '@prezly/slate-tables';
 import {
     type TableNode,
@@ -64,24 +65,26 @@ export function TablesExtension(): Extension {
             return undefined;
         },
         withOverrides: (editor) => {
-            return withTablesDeleteBehavior(
-                withTables(editor, {
-                    createContentNode: createParagraph,
-                    createTableNode: ({ children, ...props }) =>
-                        createTableNode({
-                            ...props,
-                            children: children as TableNode['children'] | undefined,
-                        }),
-                    createTableRowNode: ({ children, ...props }) =>
-                        createTableRowNode({
-                            ...props,
-                            children: children as TableRowNode['children'] | undefined,
-                        }),
-                    createTableCellNode,
-                    isTableNode,
-                    isTableRowNode,
-                    isTableCellNode,
-                }),
+            return withTablesCopyPasteBehavior(
+                withTablesDeleteBehavior(
+                    withTables(editor, {
+                        createContentNode: createParagraph,
+                        createTableNode: ({ children, ...props }) =>
+                            createTableNode({
+                                ...props,
+                                children: children as TableNode['children'] | undefined,
+                            }),
+                        createTableRowNode: ({ children, ...props }) =>
+                            createTableRowNode({
+                                ...props,
+                                children: children as TableRowNode['children'] | undefined,
+                            }),
+                        createTableCellNode,
+                        isTableNode,
+                        isTableRowNode,
+                        isTableCellNode,
+                    }),
+                ),
             );
         },
     };
