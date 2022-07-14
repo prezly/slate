@@ -1,4 +1,3 @@
-import { nodeIdManager } from '@prezly/slate-commons';
 import { Editor, Element, Transforms } from 'slate';
 
 import type { ListsEditor } from '../types';
@@ -30,24 +29,17 @@ export function wrapInList(editor: ListsEditor, listType: ListType): void {
         }),
     );
 
-    const nonListEntriesIds = nonListEntries.map((nonListEntry) => {
-        return nodeIdManager.assign(editor, nonListEntry);
-    });
+    const refs = nonListEntries.map(([_, path]) => Editor.pathRef(editor, path));
 
-    nonListEntriesIds.forEach((id) => {
-        const nonListEntry = nodeIdManager.get(editor, id);
-        nodeIdManager.unassign(editor, id);
-
-        if (!nonListEntry) {
-            // It should never happen.
-            return;
+    refs.forEach((ref) => {
+        const path = ref.current;
+        if (path) {
+            Editor.withoutNormalizing(editor, () => {
+                Transforms.setNodes(editor, editor.createListItemTextNode(), { at: path });
+                Transforms.wrapNodes(editor, editor.createListItemNode(), { at: path });
+                Transforms.wrapNodes(editor, editor.createListNode(listType), { at: path });
+            });
         }
-
-        const [, nonListEntryPath] = nonListEntry;
-        Editor.withoutNormalizing(editor, () => {
-            Transforms.setNodes(editor, editor.createListItemTextNode(), { at: nonListEntryPath });
-            Transforms.wrapNodes(editor, editor.createListItemNode(), { at: nonListEntryPath });
-            Transforms.wrapNodes(editor, editor.createListNode(listType), { at: nonListEntryPath });
-        });
+        ref.unref();
     });
 }
