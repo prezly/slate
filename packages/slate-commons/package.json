@@ -60,6 +60,5 @@
     },
     "devDependencies": {
         "@types/uuid": "^8.3.0"
-    },
-    "gitHead": "f2c3badd9a0039fbd3952ff688d0bbdd9892d809"
+    }
 }

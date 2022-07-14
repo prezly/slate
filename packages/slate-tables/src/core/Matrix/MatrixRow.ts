@@ -29,4 +29,12 @@ export class MatrixRow {
     get rowBelow() {
         return this.matrix.rows[this.y + 1];
     }
+
+    get isFirst() {
+        return this.rowAbove === undefined;
+    }
+
+    get isLast() {
+        return this.rowBelow === undefined;
+    }
 }

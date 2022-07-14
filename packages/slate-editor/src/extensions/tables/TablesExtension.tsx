@@ -1,5 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-import { withTables } from '@prezly/slate-tables';
+import { withTables, TablesEditor, onKeyDown } from '@prezly/slate-tables';
 import {
     type TableNode,
     type TableRowNode,
@@ -26,6 +26,11 @@ export function TablesExtension(): Extension {
     return {
         id: EXTENSION_ID,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
+        onKeyDown: (event, editor) => {
+            if (TablesEditor.isTablesEditor(editor)) {
+                onKeyDown(event, editor);
+            }
+        },
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isTableNode(element)) {
                 return (
