@@ -9,7 +9,6 @@
     "include": ["./src"],
     "exclude": ["node_modules"],
     "references": [
-        { "path": "../slate-types/tsconfig.json" },
         { "path": "../slate-commons/tsconfig.build.json" }
     ]
 }

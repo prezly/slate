@@ -15,14 +15,37 @@ export class MatrixCell {
     public readonly isVirtual: boolean;
     public readonly row: MatrixRow;
     public readonly column: MatrixColumn;
+    public readonly y: number;
+    public readonly x: number;
 
-    constructor(gridCell: GridWithSpansCell, matrix: Matrix, row: MatrixRow, column: MatrixColumn) {
+    constructor(
+        gridCell: GridWithSpansCell,
+        matrix: Matrix,
+        row: MatrixRow,
+        column: MatrixColumn,
+        y: number,
+        x: number,
+    ) {
         this.node = gridCell.entry[0];
         this.path = gridCell.entry[1];
         this.isVirtual = gridCell.isVirtual;
         this.matrix = matrix;
         this.row = row;
         this.column = column;
+        this.y = y;
+        this.x = x;
+    }
+
+    get cellAbove(): MatrixCell | undefined {
+        return this.column.cells[this.y - 1];
+    }
+
+    get cellBelow(): MatrixCell | undefined {
+        return this.column.cells[this.y + 1];
+    }
+
+    get nextCell(): MatrixCell | undefined {
+        return this.row.cells.at(this.x + 1) ?? this.matrix.columns.at(0)?.cells.at(this.y + 1);
     }
 
     compareWidth(otherCell: MatrixCell) {

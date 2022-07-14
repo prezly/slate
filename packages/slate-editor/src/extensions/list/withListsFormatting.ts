@@ -1,6 +1,6 @@
 import type { ListsEditor, ListsSchema } from '@prezly/slate-lists';
 import { ListType, withLists, withListsReact } from '@prezly/slate-lists';
-import type { ListItemNode, ListItemTextNode } from '@prezly/slate-types';
+import type { ListItemNode, ListNode } from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
     NUMBERED_LIST_NODE_TYPE,
@@ -36,19 +36,19 @@ const SCHEMA: ListsSchema = {
     createDefaultTextNode(props = {}) {
         return createParagraph(props);
     },
-    createListNode(type: ListType = ListType.UNORDERED, { children } = {}) {
+    createListNode(type: ListType = ListType.UNORDERED, props = {}) {
         return createList({
+            ...(props as Partial<ListNode>),
             type: type === ListType.ORDERED ? NUMBERED_LIST_NODE_TYPE : BULLETED_LIST_NODE_TYPE,
-            children: children as ListItemNode[],
         });
     },
-    createListItemNode({ children } = {}) {
+    createListItemNode(props = {}) {
         return createListItem({
-            children: children as [ListItemTextNode],
+            ...(props as Partial<ListItemNode>),
         });
     },
-    createListItemTextNode({ children } = {}) {
-        return createListItemText({ children });
+    createListItemTextNode(props = {}) {
+        return createListItemText(props);
     },
 };
 

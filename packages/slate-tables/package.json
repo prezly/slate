@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-tables",
-    "version": "0.48.0",
+    "version": "0.49.1",
     "description": "The best Slate tables extension out there",
     "license": "MIT",
     "type": "module",
@@ -53,5 +53,11 @@
         "slate": "^0.81.0",
         "slate-react": "^0.81.0"
     },
-    "gitHead": "f2c3badd9a0039fbd3952ff688d0bbdd9892d809"
+    "dependencies": {
+        "@prezly/slate-commons": "^0.49.1",
+        "is-hotkey": "^0.2.0"
+    },
+    "devDependencies": {
+        "@types/is-hotkey": "^0.1.7"
+    }
 }
