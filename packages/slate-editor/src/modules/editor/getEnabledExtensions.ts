@@ -14,7 +14,7 @@ import { GalleriesExtension } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
 import { HtmlExtension } from '#extensions/html';
 import { ImageExtension } from '#extensions/image';
-import { InitialEntryPointExtension } from '#extensions/initial-entry-point';
+import { EntryPointsExtension } from '#extensions/entry-points';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
@@ -227,5 +227,5 @@ export function* getEnabledExtensions({
 
     yield HtmlExtension();
 
-    yield InitialEntryPointExtension();
+    yield EntryPointsExtension();
 }

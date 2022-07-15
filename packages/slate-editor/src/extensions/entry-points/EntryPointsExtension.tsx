@@ -11,9 +11,9 @@ import {
     insertInitialEntryPoint,
 } from './normalization';
 
-export const EXTENSION_ID = InitialEntryPointExtension.name;
+export const EXTENSION_ID = EntryPointsExtension.name;
 
-export function InitialEntryPointExtension(): Extension {
+export function EntryPointsExtension(): Extension {
     return {
         id: EXTENSION_ID,
         normalizeNode: [
