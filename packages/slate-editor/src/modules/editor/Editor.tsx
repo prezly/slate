@@ -175,9 +175,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             events,
             focus: () => EditorCommands.focus(editor),
             isEmpty: () => EditorCommands.isEmpty(editor),
-            isEqualTo: (value) => isEditorValueEqual(value, editor.children as Value),
+            isEqualTo: (value) => isEditorValueEqual(editor, value, editor.children as Value),
             isFocused: () => ReactEditor.isFocused(editor),
-            isModified: () => !isEditorValueEqual(getInitialValue(), editor.children as Value),
+            isModified: () =>
+                !isEditorValueEqual(editor, getInitialValue(), editor.children as Value),
             resetValue: (value) => {
                 EditorCommands.resetNodes(editor, value, editor.selection);
             },
@@ -369,7 +370,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
 
-    const onChange = useOnChange(props.onChange);
+    const onChange = useOnChange((value) => {
+        props.onChange(editor.serialize(value) as Value);
+    });
 
     return (
         <div

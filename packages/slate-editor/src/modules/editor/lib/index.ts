@@ -1,10 +1,5 @@
-export { createEditorValueWithCoverageAsString } from './createEditorValueWithCoverageAsString';
-export { createEmptyEditorValueAsString } from './createEmptyEditorValueAsString';
 export { createEmptyValue } from './createEmptyValue';
 export { createOnCut } from './createOnCut';
-
-export { serialize } from './serialize';
-export { deserialize } from './deserialize';
 
 export { insertDivider } from './divider';
 export {

@@ -7,6 +7,7 @@ import type { OnDOMBeforeInput } from './OnDOMBeforeInput';
 import type { OnKeyDown } from './OnKeyDown';
 import type { RenderElement } from './RenderElement';
 import type { RenderLeaf } from './RenderLeaf';
+import type { Serialize } from './Serialize';
 import type { WithOverrides } from './WithOverrides';
 
 export interface Extension {
@@ -21,5 +22,6 @@ export interface Extension {
     onKeyDown?: OnKeyDown | null;
     renderElement?: RenderElement;
     renderLeaf?: RenderLeaf;
+    serialize?: Serialize;
     withOverrides?: WithOverrides;
 }

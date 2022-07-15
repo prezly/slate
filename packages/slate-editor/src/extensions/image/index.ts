@@ -6,6 +6,5 @@ export {
     getCurrentImageNodeEntry,
     isImageCandidateElement,
 } from './lib';
-export { withoutImageCandidates } from './serialization';
 export { removeImage } from './transforms';
 export type { ImageExtensionConfiguration, ImageCandidateNode } from './types';

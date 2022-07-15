@@ -3,12 +3,13 @@ import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
+export * from '@prezly/slate-types';
 export * from './components';
 export * as Icons from './icons';
 export * from './modules/editor';
 export { EditableWithExtensions } from './modules/editable';
 
-export type { SearchProps as CoverageSearchProps } from './extensions/coverage';
+export { type SearchProps as CoverageSearchProps, createCoverage } from './extensions/coverage';
 export { createEmbed } from './extensions/embed';
 export {
     type SearchProps as PressContactsSearchProps,
@@ -17,11 +18,15 @@ export {
 export type { User } from './extensions/user-mentions';
 export { type ResultPromise, type UploadcareOptions, withUploadcare } from './modules/uploadcare';
 
-import type { RichBlocksAwareEditor } from './modules/editor';
+import type { RichBlocksAwareEditor, SerializingEditor } from './modules/editor';
 
 declare module 'slate' {
     interface CustomTypes {
-        Editor: BaseEditor & ReactEditor & HistoryEditor & RichBlocksAwareEditor;
+        Editor: BaseEditor &
+            ReactEditor &
+            HistoryEditor &
+            RichBlocksAwareEditor &
+            SerializingEditor;
         Element: ElementNode;
         Text: TextNode;
     }
