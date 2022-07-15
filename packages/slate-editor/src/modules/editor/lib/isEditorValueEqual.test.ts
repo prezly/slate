@@ -6,7 +6,7 @@ import { createEditor } from '#modules/editor';
 
 import { isEditorValueEqual } from './isEditorValueEqual';
 
-describe('slate-editor - isEditorValueEqual', () => {
+describe('isEditorValueEqual', () => {
     it('should return true for equivalent values', () => {
         const editor = createEditor(createSlateEditor(), () => []);
 
