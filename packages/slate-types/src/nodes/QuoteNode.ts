@@ -8,6 +8,6 @@ export interface QuoteNode extends ElementNode, Alignable {
     type: typeof QUOTE_NODE_TYPE;
 }
 
-export function isQuoteNode(value: any): value is QuoteNode {
+export function isQuoteNode(value: unknown): value is QuoteNode {
     return isElementNode<QuoteNode>(value, QUOTE_NODE_TYPE);
 }

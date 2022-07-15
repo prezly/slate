@@ -3,7 +3,7 @@ import React from 'react';
 import type { Element } from 'slate';
 
 import { EntryPointElement } from './EntryPointElement';
-import { isEntryPoint } from './EntryPointNode';
+import { EntryPointNode } from './EntryPointNode';
 import {
     convertAdditionalEntryPoints,
     convertNonEmptyInitialEntryPoint,
@@ -33,11 +33,11 @@ export function EntryPointsExtension({ createDefaultTextElement }: ExtensionPara
             },
         ],
         renderElement: ({ attributes, children, element }) => {
-            if (isEntryPoint(element)) {
+            if (EntryPointNode.isEntryPoint(element)) {
                 return <EntryPointElement {...attributes}>{children}</EntryPointElement>;
             }
             return undefined;
         },
-        serialize: (nodes) => withoutNodes(nodes, isEntryPoint),
+        serialize: (nodes) => withoutNodes(nodes, EntryPointNode.isEntryPoint),
     };
 }
