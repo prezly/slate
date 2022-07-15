@@ -12,7 +12,7 @@ import { allowChildren } from './allowChildren';
 describe('allowChildren', () => {
     it('can convert root nodes into paragraphs', () => {
         const normilizer = allowChildren(
-            ([node]) => isParagraphNode(node),
+            (node) => isParagraphNode(node),
             (editor, [node, path]) => {
                 if (isLinkNode(node)) {
                     Transforms.setNodes(

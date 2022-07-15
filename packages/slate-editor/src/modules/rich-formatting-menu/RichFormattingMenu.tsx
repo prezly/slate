@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { TablesEditor } from '@prezly/slate-tables';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
@@ -193,6 +194,9 @@ export function RichFormattingMenu({
         return null;
     }
 
+    const isInsideTable = TablesEditor.isTablesEditor(editor) && TablesEditor.isInTable(editor);
+    const isInsideTableHeader = isInsideTable && TablesEditor.isHeaderCell(editor);
+
     return (
         <TextSelectionPortalV2
             containerElement={containerElement}
@@ -225,9 +229,10 @@ export function RichFormattingMenu({
                     onFormatting={handleFormattingChange}
                     onLink={handleLinkButtonClick}
                     // features
+                    withBoldFormat={!isInsideTableHeader}
                     withAlignment={withAlignment}
-                    withBlockquotes={withBlockquotes}
-                    withHeadings={withHeadings}
+                    withBlockquotes={withBlockquotes && !isInsideTable}
+                    withHeadings={withHeadings && !isInsideTable}
                     withInlineLinks={withInlineLinks}
                     withLists={withLists}
                     withParagraphs={withParagraphs}

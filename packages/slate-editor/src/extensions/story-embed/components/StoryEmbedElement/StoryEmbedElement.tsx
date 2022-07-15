@@ -34,9 +34,13 @@ export const StoryEmbedElement: FunctionComponent<Props> = ({
         <EditorBlock
             {...attributes} // contains `ref`
             element={element}
+            layout="full-width"
             overlay="always"
+            overflow="visible"
             renderMenu={undefined}
-            renderBlock={({ isSelected }) =>
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
+            renderReadOnlyFrame={({ isSelected }) =>
                 render({
                     isSelected,
                     element,
@@ -45,9 +49,6 @@ export const StoryEmbedElement: FunctionComponent<Props> = ({
                 })
             }
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 };

@@ -412,9 +412,9 @@ withLists(schema: ListsSchema) => (<T extends Editor>(editor: T) => T & ListsEdi
 withListsReact<T extends ReactEditor & ListsEditor>(editor: T): T
 ```
 
-### [`Lists`](src/Lists.ts)
+### [`ListsEditor`](src/index.ts)
 
-`Lists` is a namespace export with all list-related editor utility functions. 
+`ListsEditor` is a namespace export with all list-related editor utility functions. 
 Most of them require an instance of [`ListsEditor`](#ListsEditor) as the first argument.  
 
 Here are the functions methods:

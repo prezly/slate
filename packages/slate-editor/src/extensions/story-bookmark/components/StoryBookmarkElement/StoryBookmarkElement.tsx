@@ -75,7 +75,9 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                       )
                     : undefined
             }
-            renderBlock={() => {
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
+            renderReadOnlyFrame={() => {
                 if (loading) {
                     return (
                         <LoadingPlaceholder
@@ -101,9 +103,6 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                 );
             }}
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 }

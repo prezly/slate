@@ -16,8 +16,8 @@ import { ListType } from '../types';
 
 import { setListType } from './setListType';
 
-describe('setListType - no selection', () => {
-    it('Does nothing when there is no selection', () => {
+describe('setListType', () => {
+    it('should do nothing when there is no selection', () => {
         const editor = (
             <Editor>
                 <UnorderedList>
@@ -47,10 +47,8 @@ describe('setListType - no selection', () => {
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
-});
 
-describe('setListType - selection with paragraphs and lists of multiple types', () => {
-    it('Changes lists types in selection', () => {
+    it('should set lists types in selection', () => {
         const editor = (
             <Editor>
                 <UnorderedList>

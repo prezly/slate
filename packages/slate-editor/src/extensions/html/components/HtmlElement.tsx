@@ -15,11 +15,10 @@ export function HtmlElement({ attributes, children, element }: PropsWithChildren
             {...attributes} // contains `ref`
             element={element}
             extendedHitArea
-            renderBlock={() => <pre>{element.content}</pre>}
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
+            renderReadOnlyFrame={() => <pre>{element.content}</pre>}
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 }

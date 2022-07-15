@@ -1,17 +1,18 @@
 import { Editor, Path, Point } from 'slate';
 
+import type { Edge } from './findLeafPath';
 import { findLeafPath } from './findLeafPath';
 
-export function findLeafPoint(editor: Editor, point: Point): Point | null {
-    const path = findLeafPath(editor, point.path);
+export function findLeafPoint(editor: Editor, point: Point, edge: Edge = 'highest'): Point | null {
+    const path = findLeafPath(editor, point.path, edge);
 
     if (!path) {
         return null;
     }
 
-    if (Path.equals(point.path, path)) {
-        const [, end] = Editor.edges(editor, path);
+    const [, end] = Editor.edges(editor, path);
 
+    if (Path.equals(point.path, path)) {
         if (Point.isAfter(point, end)) {
             return end;
         }
@@ -19,10 +20,10 @@ export function findLeafPoint(editor: Editor, point: Point): Point | null {
         return point;
     }
 
+    const offset = Math.min(point.offset, end.offset);
+
     return {
-        // If the path has changed, we have no way of knowing the new expected `offset`
-        // so we may as well guess that it's 0.
-        offset: 0,
+        offset,
         path,
     };
 }

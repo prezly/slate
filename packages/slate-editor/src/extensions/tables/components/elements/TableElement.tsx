@@ -21,7 +21,7 @@ export function TableElement({ attributes, element, children }: Props) {
             element={element}
             overlay={false}
             renderMenu={({ onClose }) => <TableMenu onClose={onClose} element={element} />}
-            renderBlock={() => {
+            renderEditableFrame={() => {
                 return (
                     <TableContext.Provider value={{ table: element }}>
                         <table
@@ -34,9 +34,6 @@ export function TableElement({ attributes, element, children }: Props) {
                     </TableContext.Provider>
                 );
             }}
-            void
-        >
-            {null}
-        </EditorBlock>
+        />
     );
 }

@@ -1,4 +1,5 @@
 export { getAlignment, toggleAlignment } from './alignment';
+export { findLeafPoint } from './findLeafPoint';
 export { findDescendants } from './findDescendants';
 export { focus } from './focus';
 export { getCurrentDomNode } from './getCurrentDomNode';
@@ -40,3 +41,4 @@ export { saveSelection } from './saveSelection';
 export { toDomNode } from './toDomNode';
 export { toDomRange } from './toDomRange';
 export { toggleMark } from './toggleMark';
+export { unsetMark } from './unsetMark';

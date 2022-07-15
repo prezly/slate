@@ -8,7 +8,7 @@ import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 
-import { useSlateDom } from '#lib';
+import { useFunction, useSlateDom } from '#lib';
 
 import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
@@ -23,13 +23,11 @@ enum Layout {
     FULL_WIDTH = 'full-width',
 }
 
-export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInternalAttributes {
+export interface Props
+    extends Omit<RenderElementProps, 'attributes' | 'children'>,
+        SlateInternalAttributes {
     align?: Alignment;
     border?: boolean;
-    /**
-     * Children nodes provided by Slate, required for Slate internals.
-     */
-    children: ReactNode;
     className?: string;
     element: ElementNode;
     /**
@@ -42,8 +40,12 @@ export interface Props extends Omit<RenderElementProps, 'attributes'>, SlateInte
      */
     hasError?: boolean;
     layout?: `${Layout}`;
+    overflow?: 'visible' | 'hidden';
     overlay?: OverlayMode;
-    renderBlock: (props: { isSelected: boolean }) => ReactNode;
+    renderAboveFrame?: ((props: { isSelected: boolean }) => ReactNode) | ReactNode;
+    renderBelowFrame?: ((props: { isSelected: boolean }) => ReactNode) | ReactNode;
+    renderEditableFrame?: (props: { isSelected: boolean }) => ReactNode;
+    renderReadOnlyFrame?: (props: { isSelected: boolean }) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
     rounded?: boolean;
     selected?: boolean;
@@ -55,14 +57,17 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     {
         align = Alignment.CENTER,
         border = false,
-        children,
         className,
         element,
         extendedHitArea,
         hasError,
         layout = 'contained',
+        overflow = 'hidden',
         overlay = false,
-        renderBlock,
+        renderAboveFrame,
+        renderBelowFrame,
+        renderEditableFrame,
+        renderReadOnlyFrame,
         renderMenu,
         rounded = false,
         selected,
@@ -72,6 +77,12 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     },
     ref,
 ) {
+    if (renderEditableFrame && renderReadOnlyFrame) {
+        throw new Error(
+            'EditorBlock expects either `renderEditableFrame` or `renderReadOnlyFrame`, but not both.',
+        );
+    }
+
     const editor = useSlateStatic();
     const editorElement = useSlateDom(editor);
     const isNodeSelected = useSelected();
@@ -84,23 +95,19 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
     const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-    const handleVoidBlockClick = useCallback(function () {
+    const handleFrameClick = useFunction(function (event: MouseEvent) {
         setMenuOpen(true);
-    }, []);
 
-    const handleNonVoidBlockClick = useCallback(
-        function (event: MouseEvent) {
-            setMenuOpen(true);
-            event.stopPropagation();
+        event.stopPropagation();
+
+        if (!isSelected) {
             const path = ReactEditor.findPath(editor, element);
             Transforms.select(editor, path);
-        },
-        [editor, element],
-    );
+        }
+    });
 
     useEffect(
         function () {
-            if (isVoid && isOnlyBlockSelected) setMenuOpen(true);
             if (!isOnlyBlockSelected) setMenuOpen(false);
         },
         [isOnlyBlockSelected],
@@ -114,18 +121,18 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 [styles.extendedHitArea]: extendedHitArea,
             })}
             data-slate-block-layout={layout}
-            onClick={isVoid ? undefined : closeMenu}
+            onClick={closeMenu}
             ref={ref}
         >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {isVoid && children}
+            {renderInjectionPoint(renderAboveFrame, { isSelected })}
             <div
                 className={classNames(styles.Frame, {
                     [styles.alignLeft]: align === Alignment.LEFT,
                     [styles.alignCenter]: align === Alignment.CENTER,
                     [styles.alignRight]: align === Alignment.RIGHT,
                 })}
-                contentEditable={false}
+                contentEditable={renderReadOnlyFrame ? false : undefined}
+                suppressContentEditableWarning={true}
                 ref={setContainer}
                 style={{ width }}
             >
@@ -138,24 +145,27 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     className={styles.Overlay}
                     selected={isSelected}
                     mode={overlay}
-                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
+                    onClick={handleFrameClick}
                 />
                 <div
                     className={classNames(styles.Content, {
-                        [styles.selected]: isSelected,
-                        [styles.hasError]: hasError,
                         [styles.border]: border,
-                        [styles.rounded]: rounded,
+                        [styles.editable]: Boolean(renderEditableFrame),
                         [styles.fullWidth]: layout === Layout.FULL_WIDTH,
+                        [styles.hasError]: hasError,
+                        [styles.overflowHidden]: overflow === 'hidden',
+                        [styles.overflowVisible]: overflow === 'visible',
+                        [styles.rounded]: rounded,
+                        [styles.selected]: isSelected,
                     })}
-                    onClick={isVoid ? handleVoidBlockClick : handleNonVoidBlockClick}
+                    onClick={handleFrameClick}
                 >
-                    {renderBlock({ isSelected })}
+                    {renderInjectionPoint(renderEditableFrame ?? renderReadOnlyFrame, {
+                        isSelected,
+                    })}
                 </div>
             </div>
-
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {!isVoid && children}
+            {renderInjectionPoint(renderBelowFrame, { isSelected })}
         </div>
     );
 });
@@ -164,4 +174,11 @@ EditorBlock.displayName = 'EditorBlock';
 
 function preventBubbling(event: MouseEvent) {
     event.stopPropagation();
+}
+
+export function renderInjectionPoint<P>(
+    value: ((props: P) => ReactNode) | ReactNode,
+    props: P,
+): ReactNode {
+    return typeof value === 'function' ? value(props) : value;
 }

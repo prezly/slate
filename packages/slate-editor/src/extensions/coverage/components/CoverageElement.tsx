@@ -57,7 +57,9 @@ export function CoverageElement({
             {...attributes}
             border={Boolean(coverage)}
             element={element}
-            renderBlock={function () {
+            // We have to render children or Slate will fail when trying to find the node.
+            renderAboveFrame={children}
+            renderReadOnlyFrame={function () {
                 if (loading) {
                     return (
                         <LoadingPlaceholder
@@ -98,10 +100,7 @@ export function CoverageElement({
             }}
             rounded
             void
-        >
-            {/* We have to render children or Slate will fail when trying to find the node. */}
-            {children}
-        </EditorBlock>
+        />
     );
 }
 

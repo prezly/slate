@@ -17,11 +17,6 @@
 .TableRow {
     color: $grey-700;
     font-size: $font-size-small;
-
-    &--header {
-        background: $grey-100;
-        font-weight: 600;
-    }
 }
 
 .TableCell {
@@ -29,4 +24,12 @@
     min-height: 40px;
     padding: $spacing-1-5;
     outline: none !important;
+
+    &--header {
+        background: $grey-100;
+
+        > [data-slate-type="paragraph"] {
+            font-weight: 600;
+        }
+    }
 }

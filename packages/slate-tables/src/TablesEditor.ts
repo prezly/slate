@@ -1,4 +1,4 @@
-import type { Element, Location, Node, Text } from 'slate';
+import type { Editor, Element, Location, Node, Text } from 'slate';
 import type { ReactEditor } from 'slate-react';
 
 import * as TableCommands from './commands';
@@ -23,6 +23,7 @@ export namespace TablesEditor {
     export const removeRow = TableCommands.removeRow;
     export const removeTable = TableCommands.removeTable;
 
+    export const isHeaderCell = TableQueries.isHeaderCell;
     export const isInTable = TableQueries.isInTable;
 
     export const createTable = TableNode.createTable;
@@ -43,5 +44,9 @@ export namespace TablesEditor {
 
     export function insertRowBelow(editor: TablesEditor, location?: Location) {
         return TableCommands.insertRow(editor, location, 'bellow');
+    }
+
+    export function isTablesEditor(editor: Editor): editor is TablesEditor {
+        return 'isTableCellNode' in editor;
     }
 }

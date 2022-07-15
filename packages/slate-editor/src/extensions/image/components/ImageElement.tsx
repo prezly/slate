@@ -108,7 +108,25 @@ export function ImageElement({
             layout={layout}
             onResize={handleResize}
             overlay={false}
-            renderBlock={() => (
+            renderAboveFrame={isSupportingCaptions ? undefined : children}
+            renderBelowFrame={
+                isSupportingCaptions && (
+                    <div
+                        className={classNames(styles.Caption, {
+                            [styles.empty]: isCaptionEmpty,
+                            [styles.withPlaceholder]: isCaptionPlaceholderVisible,
+                            [styles.visible]: isCaptionVisible,
+                            [styles.alignLeft]: align === Alignment.LEFT,
+                            [styles.alignCenter]: align === Alignment.CENTER,
+                            [styles.alignRight]: align === Alignment.RIGHT,
+                        })}
+                        data-placeholder="Image caption"
+                    >
+                        {children}
+                    </div>
+                )
+            }
+            renderReadOnlyFrame={() => (
                 <ImageWithLoadingPlaceholder
                     src={image.isGif() ? image.cdnUrl : image.format().cdnUrl}
                     imageWidth={width}
@@ -144,25 +162,7 @@ export function ImageElement({
             width={isResizable ? element.width : '100%'}
             minWidth="100px"
             maxWidth={`${image.width}px`}
-        >
-            {isSupportingCaptions ? (
-                <div
-                    className={classNames(styles.Caption, {
-                        [styles.empty]: isCaptionEmpty,
-                        [styles.withPlaceholder]: isCaptionPlaceholderVisible,
-                        [styles.visible]: isCaptionVisible,
-                        [styles.alignLeft]: align === Alignment.LEFT,
-                        [styles.alignCenter]: align === Alignment.CENTER,
-                        [styles.alignRight]: align === Alignment.RIGHT,
-                    })}
-                    data-placeholder="Image caption"
-                >
-                    {children}
-                </div>
-            ) : (
-                children
-            )}
-        </ResizableEditorBlock>
+        />
     );
 }
 

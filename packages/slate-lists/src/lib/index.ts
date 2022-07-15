@@ -11,6 +11,7 @@ export { increaseDepth } from './increaseDepth';
 export { increaseListItemDepth } from './increaseListItemDepth';
 export { isCursorAtStartOfListItem } from './isCursorAtStartOfListItem';
 export { isCursorInEmptyListItem } from './isCursorInEmptyListItem';
+export { isInList } from './isInList';
 export { listItemContainsText } from './listItemContainsText';
 export { mergeListWithPreviousSiblingList } from './mergeListWithPreviousSiblingList';
 export { moveListItemsToAnotherList } from './moveListItemsToAnotherList';

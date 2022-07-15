@@ -183,7 +183,7 @@ export function* generateFloatingAddMenuOptions(
             action: MenuAction.ADD_ATTACHMENT,
             icon: Icons.ComponentAttachment,
             group: Group.MEDIA_CONTENT,
-            text: 'File Attachment',
+            text: 'File attachment',
             description: 'Insert an attachment',
         };
     }
@@ -235,7 +235,7 @@ export function* generateFloatingAddMenuOptions(
             action: MenuAction.ADD_STORY_EMBED,
             icon: Icons.ComponentWebBookmark,
             group: Group.PREZLY_CONTENT,
-            text: 'Story Embed',
+            text: 'Story embed',
             description: 'Insert Prezly story content',
             isBeta: true,
         };

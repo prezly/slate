@@ -1,5 +1,10 @@
 import type { Extension } from '@prezly/slate-commons';
-import { withTables } from '@prezly/slate-tables';
+import {
+    withTables,
+    TablesEditor,
+    onKeyDown,
+    withTablesDeleteBehavior,
+} from '@prezly/slate-tables';
 import {
     type TableNode,
     type TableRowNode,
@@ -26,6 +31,11 @@ export function TablesExtension(): Extension {
     return {
         id: EXTENSION_ID,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
+        onKeyDown: (event, editor) => {
+            if (TablesEditor.isTablesEditor(editor)) {
+                onKeyDown(event, editor);
+            }
+        },
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isTableNode(element)) {
                 return (
@@ -54,23 +64,25 @@ export function TablesExtension(): Extension {
             return undefined;
         },
         withOverrides: (editor) => {
-            return withTables(editor, {
-                createContentNode: createParagraph,
-                createTableNode: ({ children, ...props }) =>
-                    createTableNode({
-                        ...props,
-                        children: children as TableNode['children'] | undefined,
-                    }),
-                createTableRowNode: ({ children, ...props }) =>
-                    createTableRowNode({
-                        ...props,
-                        children: children as TableRowNode['children'] | undefined,
-                    }),
-                createTableCellNode,
-                isTableNode,
-                isTableRowNode,
-                isTableCellNode,
-            });
+            return withTablesDeleteBehavior(
+                withTables(editor, {
+                    createContentNode: createParagraph,
+                    createTableNode: ({ children, ...props }) =>
+                        createTableNode({
+                            ...props,
+                            children: children as TableNode['children'] | undefined,
+                        }),
+                    createTableRowNode: ({ children, ...props }) =>
+                        createTableRowNode({
+                            ...props,
+                            children: children as TableRowNode['children'] | undefined,
+                        }),
+                    createTableCellNode,
+                    isTableNode,
+                    isTableRowNode,
+                    isTableCellNode,
+                }),
+            );
         },
     };
 }

@@ -1,4 +1,5 @@
 import type { BaseElement, Location } from 'slate';
+import { Editor } from 'slate';
 import { Transforms } from 'slate';
 
 import { Traverse } from '../core';
@@ -49,13 +50,13 @@ export namespace TableNode {
         headerType: TableHeader,
     ) {
         if (!location) {
-            return false;
+            return undefined;
         }
 
         const traverse = Traverse.create(editor, location);
 
         if (!traverse) {
-            return false;
+            return undefined;
         }
 
         const isAlreadyEnabled = traverse.matrix.node.header?.includes(headerType);
@@ -72,6 +73,10 @@ export namespace TableNode {
             },
         );
 
-        return true;
+        // When we mark text in cell as bold and then mark the first row as header the normalization is not called
+        // and bold mark still present in cell content
+        Editor.normalize(editor, { force: true });
+
+        return newHeader;
     }
 }

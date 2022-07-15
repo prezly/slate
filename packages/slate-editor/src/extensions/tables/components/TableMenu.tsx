@@ -7,6 +7,8 @@ import { HStack, Toggle } from '#components';
 import { Button, Toolbox } from '#components';
 import { Delete, Add } from '#icons';
 
+import { EventsEditor } from '#modules/events';
+
 interface Props {
     element: TableNode;
     onClose: () => void;
@@ -14,6 +16,10 @@ interface Props {
 
 export function TableMenu({ element, onClose }: Props) {
     const editor = useSlateStatic();
+
+    if (!TablesEditor.isTablesEditor(editor)) {
+        return null;
+    }
 
     return (
         <Toolbox.Panel>
@@ -23,16 +29,22 @@ export function TableMenu({ element, onClose }: Props) {
 
             <Toolbox.Section caption="Layout">
                 <Toggle
-                    name="borders"
-                    value={element.border}
-                    onChange={() => TablesEditor.updateTable(editor, { border: !element.border })}
-                >
-                    With borders
-                </Toggle>
-                <Toggle
                     name="header-row"
-                    value={element.header?.some((h) => h === 'first_row')}
-                    onChange={() => TablesEditor.toggleTableHeader(editor, undefined, 'first_row')}
+                    value={Boolean(element.header?.some((h) => h === 'first_row'))}
+                    onChange={() => {
+                        const header = TablesEditor.toggleTableHeader(
+                            editor,
+                            undefined,
+                            'first_row',
+                        );
+
+                        if (header) {
+                            EventsEditor.dispatchEvent(editor, 'table-toggle-header', {
+                                headerType: 'first_row',
+                                newValue: header.includes('first_row'),
+                            });
+                        }
+                    }}
                 >
                     First row as header
                 </Toggle>
@@ -46,7 +58,10 @@ export function TableMenu({ element, onClose }: Props) {
                         fullWidth
                         round
                         noPadding
-                        onClick={() => TablesEditor.insertRowAbove(editor)}
+                        onClick={() => {
+                            TablesEditor.insertRowAbove(editor);
+                            EventsEditor.dispatchEvent(editor, 'table-insert-row-above');
+                        }}
                     >
                         Above
                     </Button>
@@ -56,7 +71,10 @@ export function TableMenu({ element, onClose }: Props) {
                         fullWidth
                         round
                         noPadding
-                        onClick={() => TablesEditor.insertRowBelow(editor)}
+                        onClick={() => {
+                            TablesEditor.insertRowBelow(editor);
+                            EventsEditor.dispatchEvent(editor, 'table-insert-row-below');
+                        }}
                     >
                         Below
                     </Button>
@@ -64,7 +82,10 @@ export function TableMenu({ element, onClose }: Props) {
                         icon={Delete}
                         variant="primary"
                         round
-                        onClick={() => TablesEditor.removeRow(editor)}
+                        onClick={() => {
+                            TablesEditor.removeRow(editor);
+                            EventsEditor.dispatchEvent(editor, 'table-remove-row');
+                        }}
                     />
                 </HStack>
             </Toolbox.Section>
@@ -77,7 +98,10 @@ export function TableMenu({ element, onClose }: Props) {
                         fullWidth
                         round
                         noPadding
-                        onClick={() => TablesEditor.insertColumnLeft(editor)}
+                        onClick={() => {
+                            TablesEditor.insertColumnLeft(editor);
+                            EventsEditor.dispatchEvent(editor, 'table-insert-column-left');
+                        }}
                     >
                         Left
                     </Button>
@@ -87,7 +111,10 @@ export function TableMenu({ element, onClose }: Props) {
                         fullWidth
                         round
                         noPadding
-                        onClick={() => TablesEditor.insertColumnRight(editor)}
+                        onClick={() => {
+                            TablesEditor.insertColumnRight(editor);
+                            EventsEditor.dispatchEvent(editor, 'table-insert-column-right');
+                        }}
                     >
                         Right
                     </Button>
@@ -95,7 +122,10 @@ export function TableMenu({ element, onClose }: Props) {
                         icon={Delete}
                         variant="primary"
                         round
-                        onClick={() => TablesEditor.removeColumn(editor)}
+                        onClick={() => {
+                            TablesEditor.removeColumn(editor);
+                            EventsEditor.dispatchEvent(editor, 'table-remove-column');
+                        }}
                     />
                 </HStack>
             </Toolbox.Section>
@@ -105,7 +135,10 @@ export function TableMenu({ element, onClose }: Props) {
                     variant="clear-faded"
                     icon={Delete}
                     fullWidth
-                    onClick={() => TablesEditor.removeTable(editor)}
+                    onClick={() => {
+                        TablesEditor.removeTable(editor);
+                        EventsEditor.dispatchEvent(editor, 'table-remove');
+                    }}
                 >
                     Remove table
                 </Button>
