@@ -8,17 +8,17 @@ import { CoverageExtension } from '#extensions/coverage';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
 import { DividerExtension } from '#extensions/divider';
 import { EmbedExtension } from '#extensions/embed';
+import { EntryPointsExtension } from '#extensions/entry-points';
 import { FileAttachmentExtension } from '#extensions/file-attachment';
 import { FloatingAddMenuExtension } from '#extensions/floating-add-menu';
 import { GalleriesExtension } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
 import { HtmlExtension } from '#extensions/html';
 import { ImageExtension } from '#extensions/image';
-import { EntryPointsExtension } from '#extensions/entry-points';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
-import { ParagraphsExtension } from '#extensions/paragraphs';
+import { createParagraph, ParagraphsExtension } from '#extensions/paragraphs';
 import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
 import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
@@ -227,5 +227,5 @@ export function* getEnabledExtensions({
 
     yield HtmlExtension();
 
-    yield EntryPointsExtension();
+    yield EntryPointsExtension({ createDefaultTextElement: createParagraph });
 }

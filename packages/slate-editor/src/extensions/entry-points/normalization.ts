@@ -4,6 +4,8 @@ import { isEqual, reject } from '#lodash';
 
 import { createEntryPoint, isEntryPoint } from './EntryPointNode';
 
+export type ElementFactory = (props?: Partial<Element>) => Element;
+
 export function insertInitialEntryPoint(editor: Editor, [node, path]: NodeEntry): boolean {
     if (path.length === 0 && Editor.isEditor(node)) {
         const [firstNode] = node.children;
@@ -30,10 +32,14 @@ export function deleteUnnecessaryInitialEntryPoint(
     return false;
 }
 
-export function convertNonEmptyInitialEntryPoint(editor: Editor, [node, path]: NodeEntry): boolean {
+export function convertNonEmptyInitialEntryPoint(
+    editor: Editor,
+    [node, path]: NodeEntry,
+    createDefaultTextElement: ElementFactory,
+): boolean {
     if (isEntryPoint(node)) {
         if (node.children.length !== 1 || !isEqual(node.children, [{ text: '' }])) {
-            Transforms.setNodes(editor, editor.createDefaultTextNode(), {
+            Transforms.setNodes(editor, createDefaultTextElement(), {
                 match: isEntryPoint,
                 at: path,
             });
@@ -43,11 +49,15 @@ export function convertNonEmptyInitialEntryPoint(editor: Editor, [node, path]: N
     return false;
 }
 
-export function convertAdditionalEntryPoints(editor: Editor, [node, path]: NodeEntry): boolean {
+export function convertAdditionalEntryPoints(
+    editor: Editor,
+    [node, path]: NodeEntry,
+    createDefaultTextElement: ElementFactory,
+): boolean {
     if (Editor.isEditor(node)) {
         for (const [index, child] of node.children.entries()) {
             if (index > 0 && isEntryPoint(child)) {
-                Transforms.setNodes(editor, editor.createDefaultTextNode(), {
+                Transforms.setNodes(editor, createDefaultTextElement(), {
                     match: isEntryPoint,
                     at: [...path, index],
                 });
