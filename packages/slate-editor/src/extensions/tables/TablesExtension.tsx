@@ -4,6 +4,7 @@ import {
     TablesEditor,
     onKeyDown,
     withTablesDeleteBehavior,
+    withTablesCopyPasteBehavior,
 } from '@prezly/slate-tables';
 import {
     type TableNode,
@@ -14,6 +15,8 @@ import {
 } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
+
+import { flow } from '#lodash';
 
 import { createParagraph } from '#extensions/paragraphs';
 
@@ -64,25 +67,25 @@ export function TablesExtension(): Extension {
             return undefined;
         },
         withOverrides: (editor) => {
-            return withTablesDeleteBehavior(
-                withTables(editor, {
-                    createContentNode: createParagraph,
-                    createTableNode: ({ children, ...props }) =>
-                        createTableNode({
-                            ...props,
-                            children: children as TableNode['children'] | undefined,
-                        }),
-                    createTableRowNode: ({ children, ...props }) =>
-                        createTableRowNode({
-                            ...props,
-                            children: children as TableRowNode['children'] | undefined,
-                        }),
-                    createTableCellNode,
-                    isTableNode,
-                    isTableRowNode,
-                    isTableCellNode,
-                }),
-            );
+            const tablesEditor = withTables(editor, {
+                createContentNode: createParagraph,
+                createTableNode: ({ children, ...props }) =>
+                    createTableNode({
+                        ...props,
+                        children: children as TableNode['children'] | undefined,
+                    }),
+                createTableRowNode: ({ children, ...props }) =>
+                    createTableRowNode({
+                        ...props,
+                        children: children as TableRowNode['children'] | undefined,
+                    }),
+                createTableCellNode,
+                isTableNode,
+                isTableRowNode,
+                isTableCellNode,
+            });
+
+            return flow([withTablesCopyPasteBehavior, withTablesDeleteBehavior])(tablesEditor);
         },
     };
 }
