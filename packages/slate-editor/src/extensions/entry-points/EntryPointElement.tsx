@@ -15,7 +15,7 @@ export const EntryPointElement = forwardRef<HTMLDivElement, Props>(
             <div
                 {...props}
                 data-slate-block="hidden"
-                className={classNames(styles.InitialEntryPointElement, className, {
+                className={classNames(styles.EntryPointElement, className, {
                     [styles.focused]: isFocused,
                 })}
                 contentEditable={isFocused}
