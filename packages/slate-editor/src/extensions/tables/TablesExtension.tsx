@@ -35,14 +35,27 @@ export function TablesExtension(): Extension {
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
         deserialize: {
             element: composeElementDeserializer({
-                TABLE: (): TableNode | undefined => {
+                TABLE: (): TableNode => {
                     return createTableNode({});
                 },
-                TR: (): TableRowNode | undefined => {
+                TR: (): TableRowNode => {
                     return createTableRowNode({});
                 },
-                TD: (): TableCellNode | undefined => {
-                    return createTableCellNode({});
+                TD: (element: HTMLElement): TableCellNode => {
+                    const td = element as HTMLTableCellElement;
+
+                    return createTableCellNode({
+                        colspan: td.colSpan,
+                        rowspan: td.rowSpan,
+                    });
+                },
+                TH: (element: HTMLElement): TableCellNode => {
+                    const td = element as HTMLTableCellElement;
+
+                    return createTableCellNode({
+                        colspan: td.colSpan,
+                        rowspan: td.rowSpan,
+                    });
                 },
             }),
         },

@@ -4,7 +4,7 @@ import type { NodeEntry, Ancestor } from 'slate';
 export function unwrapNode(
     editor: Editor,
     [node, path]: NodeEntry,
-    shouldUnwrap: (entry: NodeEntry, ancestor: NodeEntry<Ancestor>) => boolean = () => true,
+    match: (entry: NodeEntry, ancestor: NodeEntry<Ancestor>) => boolean = () => true,
 ) {
     const ancestor = Editor.above(editor, { at: path });
 
@@ -18,7 +18,7 @@ export function unwrapNode(
         return false;
     }
 
-    if (shouldUnwrap([node, path], ancestor)) {
+    if (match([node, path], ancestor)) {
         Transforms.unwrapNodes(editor, { at: path });
         return true;
     }
