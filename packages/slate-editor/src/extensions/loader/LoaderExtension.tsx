@@ -1,4 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
+import { type Extension, withoutNodes } from '@prezly/slate-commons';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
@@ -33,5 +33,6 @@ export const LoaderExtension = ({
 
         return undefined;
     },
+    serialize: (nodes) => withoutNodes(nodes, isLoaderElement),
     withOverrides: withLoaders,
 });

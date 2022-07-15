@@ -1,5 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement, EditorCommands } from '@prezly/slate-commons';
+import { createDeserializeElement, EditorCommands, withoutNodes } from '@prezly/slate-commons';
 import type { ImageNode, ParagraphNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
@@ -158,5 +158,6 @@ export const ImageExtension = ({
 
         return undefined;
     },
+    serialize: (nodes) => withoutNodes(nodes, isImageCandidateElement),
     withOverrides: withImages,
 });

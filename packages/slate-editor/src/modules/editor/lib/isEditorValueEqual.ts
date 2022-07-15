@@ -1,7 +1,9 @@
+import type { Editor } from 'slate';
+
+import { isEqual } from '#lodash';
+
 import type { Value } from '../types';
 
-import { serialize } from './serialize';
-
-export function isEditorValueEqual(a: Value, b: Value): boolean {
-    return a === b || serialize(a) === serialize(b);
+export function isEditorValueEqual(editor: Editor, a: Value, b: Value): boolean {
+    return a === b || isEqual(editor.serialize(a), editor.serialize(b));
 }
