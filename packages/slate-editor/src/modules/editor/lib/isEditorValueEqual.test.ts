@@ -1,10 +1,26 @@
-import { deserialize } from './deserialize';
+import { createEditor as createSlateEditor } from 'slate';
+
+import { createEditor } from '#modules/editor';
+
 import { isEditorValueEqual } from './isEditorValueEqual';
 
 describe('slate-editor - isEditorValueEqual', () => {
     it('should consider structural equality', () => {
-        const a = '{ "type": "document", "children": [] }';
-        const b = '{ "children": [], "type": "document" }';
-        expect(isEditorValueEqual(deserialize(a), deserialize(b))).toBe(true);
+        const editor = createEditor(createSlateEditor(), () => []);
+
+        const a = [
+            {
+                type: 'paragraph',
+                children: [{ text: 'Hello', bold: true }],
+            },
+        ];
+        const b = [
+            {
+                children: [{ bold: true, text: 'Hello' }],
+                type: 'paragraph',
+            },
+        ];
+
+        expect(isEditorValueEqual(editor, a, b)).toBe(true);
     });
 });
