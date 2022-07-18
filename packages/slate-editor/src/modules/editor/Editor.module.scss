@@ -6,6 +6,11 @@
 }
 
 .Editable {
+    $regular-block-v-spacing: $spacing-2;
+    $rich-block-v-spacing: $spacing-6;
+    $heading-block-top-spacing: $spacing-4;
+    $heading-block-bottom-spacing: $regular-block-v-spacing;
+
     *::selection {
         background: $editor-selection-bg;
         color: $editor-selection-color;
@@ -21,25 +26,48 @@
         }
     }
 
-    > [data-slate-block="hidden"] + [data-slate-block] {
-        margin-top: 0 !important;
-    }
-
     > [data-slate-block="rich"] {
-        margin: $spacing-6 0;
+        margin: $rich-block-v-spacing 0;
     }
 
     > [data-slate-block="regular"] {
-        margin: $spacing-2 0;
+        margin: $regular-block-v-spacing 0;
     }
 
     > [data-slate-type="heading-one"],
     > [data-slate-type="heading-two"] {
-        margin-top: $spacing-4;
+        margin: $heading-block-top-spacing 0 $heading-block-bottom-spacing;
     }
+
+    // DIVIDER BLOCK
 
     > [data-slate-type="divider"] {
         /** Compensating .extendedHitArea visual expansion */
         margin: $editor-block-extended-hit-area-vertical-size 0;
+    }
+
+    // ENTRY POINT BLOCK
+
+    > [data-slate-type="entry_point"] {
+        margin: 0;
+
+        + [data-slate-block] {
+            margin-top: 0;
+        }
+    }
+
+    > [data-slate-block="regular"] + [data-slate-type="entry_point"] {
+        margin-top: - $regular-block-v-spacing;
+    }
+
+    > [data-slate-block="rich"] + [data-slate-type="entry_point"] {
+        margin-top: - $rich-block-v-spacing;
+    }
+
+    > [data-slate-type="heading-one"],
+    > [data-slate-type="heading-two"] {
+        + [data-slate-type="entry_point"] {
+            margin-top: - $heading-block-top-spacing;
+        }
     }
 }

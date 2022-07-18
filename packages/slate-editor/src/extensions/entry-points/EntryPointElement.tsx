@@ -3,6 +3,7 @@ import React, { type HTMLAttributes, type ReactNode, forwardRef } from 'react';
 import { useSelected } from 'slate-react';
 
 import styles from './EntryPointElement.module.scss';
+import { EntryPointNode } from './EntryPointNode';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     children: ReactNode;
@@ -14,7 +15,7 @@ export const EntryPointElement = forwardRef<HTMLDivElement, Props>(
         return (
             <div
                 {...props}
-                data-slate-block="hidden"
+                data-slate-block={EntryPointNode.TYPE}
                 className={classNames(styles.EntryPointElement, className, {
                     [styles.focused]: isFocused,
                 })}

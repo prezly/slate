@@ -11,7 +11,7 @@
             content: "";
             display: block;
             position: absolute;
-            top: -2px;
+            top: 0;
             width: 20px;
             border-top: 1px solid rgb(40, 42, 48);
             animation: 1.1s steps(2, start) 0s infinite normal none running cursor-blink;
@@ -21,6 +21,14 @@
                     visibility: hidden;
                 }
             }
+        }
+
+        &:first-child::after {
+            top: -2px;
+        }
+
+        &:last-child::after {
+            top: 2px;
         }
     }
 }
