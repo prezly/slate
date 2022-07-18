@@ -57,17 +57,17 @@
     }
 
     > [data-slate-block="regular"] + [data-slate-type="entry_point"] {
-        margin-top: - $regular-block-v-spacing;
+        margin-top: -$regular-block-v-spacing;
     }
 
     > [data-slate-block="rich"] + [data-slate-type="entry_point"] {
-        margin-top: - $rich-block-v-spacing;
+        margin-top: -$rich-block-v-spacing;
     }
 
     > [data-slate-type="heading-one"],
     > [data-slate-type="heading-two"] {
         + [data-slate-type="entry_point"] {
-            margin-top: - $heading-block-top-spacing;
+            margin-top: -$heading-block-top-spacing;
         }
     }
 }
