@@ -9,6 +9,7 @@ import {
 import {
     type TableNode,
     type TableRowNode,
+    type TableCellNode,
     isTableNode,
     isTableRowNode,
     isTableCellNode,
@@ -19,6 +20,7 @@ import type { RenderElementProps } from 'slate-react';
 import { flow } from '#lodash';
 
 import { createParagraph } from '#extensions/paragraphs';
+import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { TableElement, TableRowElement, TableCellElement } from './components';
 import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
@@ -34,6 +36,32 @@ export function TablesExtension(): Extension {
     return {
         id: EXTENSION_ID,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
+        deserialize: {
+            element: composeElementDeserializer({
+                TABLE: (): TableNode => {
+                    return createTableNode({});
+                },
+                TR: (): TableRowNode => {
+                    return createTableRowNode({});
+                },
+                TD: (element: HTMLElement): TableCellNode => {
+                    const td = element as HTMLTableCellElement;
+
+                    return createTableCellNode({
+                        colspan: td.colSpan,
+                        rowspan: td.rowSpan,
+                    });
+                },
+                TH: (element: HTMLElement): TableCellNode => {
+                    const td = element as HTMLTableCellElement;
+
+                    return createTableCellNode({
+                        colspan: td.colSpan,
+                        rowspan: td.rowSpan,
+                    });
+                },
+            }),
+        },
         onKeyDown: (event, editor) => {
             if (TablesEditor.isTablesEditor(editor)) {
                 onKeyDown(event, editor);
