@@ -1,7 +1,7 @@
 import type { ElementNode } from '@prezly/slate-types';
 import { isElementNode } from '@prezly/slate-types';
 
-const ENTRY_POINT_NODE_TYPE = '__entry_point';
+const ENTRY_POINT_NODE_TYPE = 'entry_point';
 
 export interface EntryPointNode extends ElementNode {
     type: typeof ENTRY_POINT_NODE_TYPE;
