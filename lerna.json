@@ -5,5 +5,5 @@
     "publishConfig": {
         "access": "public"
     },
-    "version": "0.50.0-entrypoints.0"
+    "version": "0.50.1"
 }

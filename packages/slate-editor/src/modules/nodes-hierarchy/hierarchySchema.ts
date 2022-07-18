@@ -30,8 +30,9 @@ import {
     convertToParagraph,
     liftNodeWithSplit,
     liftNodeNoSplit,
-    unwrapSameTypeChild,
     unwrapNode,
+    unwrapSameTypeChild,
+    unwrapTableNodeChild,
 } from './fixers';
 import { allowChildren, disallowMark } from './normilizers';
 import {
@@ -83,7 +84,12 @@ export const hierarchySchema: NodesHierarchySchema = {
     [TABLE_CELL_NODE_TYPE]: [
         allowChildren(
             isAllowedInTableCell,
-            combineFixers([unwrapSameTypeChild, liftNodeNoSplit, convertToParagraph]),
+            combineFixers([
+                unwrapTableNodeChild,
+                unwrapSameTypeChild,
+                liftNodeNoSplit,
+                convertToParagraph,
+            ]),
         ),
     ],
     [TABLE_NODE_TYPE]: [

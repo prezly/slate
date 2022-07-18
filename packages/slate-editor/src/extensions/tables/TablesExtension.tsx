@@ -4,10 +4,12 @@ import {
     TablesEditor,
     onKeyDown,
     withTablesDeleteBehavior,
+    withTablesCopyPasteBehavior,
 } from '@prezly/slate-tables';
 import {
     type TableNode,
     type TableRowNode,
+    type TableCellNode,
     isTableNode,
     isTableRowNode,
     isTableCellNode,
@@ -15,7 +17,10 @@ import {
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import { flow } from '#lodash';
+
 import { createParagraph } from '#extensions/paragraphs';
+import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { TableElement, TableRowElement, TableCellElement } from './components';
 import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
@@ -32,6 +37,32 @@ export function TablesExtension(): Extension {
         id: EXTENSION_ID,
         isRichBlock: isTableNode,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
+        deserialize: {
+            element: composeElementDeserializer({
+                TABLE: (): TableNode => {
+                    return createTableNode({});
+                },
+                TR: (): TableRowNode => {
+                    return createTableRowNode({});
+                },
+                TD: (element: HTMLElement): TableCellNode => {
+                    const td = element as HTMLTableCellElement;
+
+                    return createTableCellNode({
+                        colspan: td.colSpan,
+                        rowspan: td.rowSpan,
+                    });
+                },
+                TH: (element: HTMLElement): TableCellNode => {
+                    const td = element as HTMLTableCellElement;
+
+                    return createTableCellNode({
+                        colspan: td.colSpan,
+                        rowspan: td.rowSpan,
+                    });
+                },
+            }),
+        },
         onKeyDown: (event, editor) => {
             if (TablesEditor.isTablesEditor(editor)) {
                 onKeyDown(event, editor);
@@ -65,25 +96,25 @@ export function TablesExtension(): Extension {
             return undefined;
         },
         withOverrides: (editor) => {
-            return withTablesDeleteBehavior(
-                withTables(editor, {
-                    createContentNode: createParagraph,
-                    createTableNode: ({ children, ...props }) =>
-                        createTableNode({
-                            ...props,
-                            children: children as TableNode['children'] | undefined,
-                        }),
-                    createTableRowNode: ({ children, ...props }) =>
-                        createTableRowNode({
-                            ...props,
-                            children: children as TableRowNode['children'] | undefined,
-                        }),
-                    createTableCellNode,
-                    isTableNode,
-                    isTableRowNode,
-                    isTableCellNode,
-                }),
-            );
+            const tablesEditor = withTables(editor, {
+                createContentNode: createParagraph,
+                createTableNode: ({ children, ...props }) =>
+                    createTableNode({
+                        ...props,
+                        children: children as TableNode['children'] | undefined,
+                    }),
+                createTableRowNode: ({ children, ...props }) =>
+                    createTableRowNode({
+                        ...props,
+                        children: children as TableRowNode['children'] | undefined,
+                    }),
+                createTableCellNode,
+                isTableNode,
+                isTableRowNode,
+                isTableCellNode,
+            });
+
+            return flow([withTablesCopyPasteBehavior, withTablesDeleteBehavior])(tablesEditor);
         },
     };
 }
