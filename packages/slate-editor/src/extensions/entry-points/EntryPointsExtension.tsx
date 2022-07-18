@@ -5,6 +5,7 @@ import type { Element } from 'slate';
 import { EntryPointElement } from './EntryPointElement';
 import { EntryPointNode } from './EntryPointNode';
 import {
+    convertAdditionalEntryPoints,
     convertNonEmptyEntryPoints,
     deleteNestedEntryPoints,
     deleteUnnecessaryEntryPoints,
@@ -26,6 +27,9 @@ export function EntryPointsExtension({ createDefaultTextElement }: ExtensionPara
             insertTrailingEntryPoint,
             deleteUnnecessaryEntryPoints,
             deleteNestedEntryPoints,
+            function (editor, entry) {
+                return convertAdditionalEntryPoints(editor, entry, createDefaultTextElement);
+            },
             function (editor, entry) {
                 return convertNonEmptyEntryPoints(editor, entry, createDefaultTextElement);
             },

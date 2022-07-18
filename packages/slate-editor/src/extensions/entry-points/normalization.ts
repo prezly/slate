@@ -75,8 +75,11 @@ export function convertAdditionalEntryPoints(
     createDefaultTextElement: ElementFactory,
 ): boolean {
     if (Editor.isEditor(node)) {
+        const first = 0;
+        const last = node.children.length - 1;
+
         for (const [index, child] of node.children.entries()) {
-            if (index > 0 && isEntryPoint(child)) {
+            if (index !== first && index !== last && isEntryPoint(child)) {
                 Transforms.setNodes(editor, createDefaultTextElement(), {
                     match: isEntryPoint,
                     at: [...path, index],
