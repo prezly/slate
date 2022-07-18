@@ -24,7 +24,7 @@ export function insertTrailingEntryPoint(editor: Editor, [node, path]: NodeEntry
         const [lastNode] = node.children.slice(-1);
         if (lastNode && !isEntryPoint(lastNode) && isTrailingEntryPointRequired(editor)) {
             Transforms.insertNodes(editor, createEntryPoint(), {
-                at: Editor.end(editor, []),
+                at: [node.children.length],
             });
             return true;
         }
