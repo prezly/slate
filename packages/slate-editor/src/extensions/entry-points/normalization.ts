@@ -6,41 +6,61 @@ import { EntryPointNode } from './EntryPointNode';
 
 export type ElementFactory = (props?: Partial<Element>) => Element;
 
-export function insertInitialEntryPoint(editor: Editor, [node, path]: NodeEntry): boolean {
+const { createEntryPoint, isEntryPoint } = EntryPointNode;
+
+export function insertLeadingEntryPoint(editor: Editor, [node, path]: NodeEntry): boolean {
     if (path.length === 0 && Editor.isEditor(node)) {
         const [firstNode] = node.children;
-        if (!EntryPointNode.isEntryPoint(firstNode) && isInitialEntryPointRequired(editor)) {
-            Transforms.insertNodes(editor, EntryPointNode.createEntryPoint(), { at: [0] });
+        if (firstNode && !isEntryPoint(firstNode) && isLeadingEntryPointRequired(editor)) {
+            Transforms.insertNodes(editor, createEntryPoint(), { at: [0] });
             return true;
         }
     }
     return false;
 }
 
-export function deleteUnnecessaryInitialEntryPoint(
-    editor: Editor,
-    [node, path]: NodeEntry,
-): boolean {
+export function insertTrailingEntryPoint(editor: Editor, [node, path]: NodeEntry): boolean {
+    if (path.length === 0 && Editor.isEditor(node)) {
+        const [lastNode] = node.children.slice(-1);
+        if (lastNode && !isEntryPoint(lastNode) && isTrailingEntryPointRequired(editor)) {
+            Transforms.insertNodes(editor, createEntryPoint(), {
+                at: Editor.end(editor, []),
+            });
+            return true;
+        }
+    }
+    return false;
+}
+
+export function deleteUnnecessaryEntryPoints(editor: Editor, [node, path]: NodeEntry): boolean {
     if (path.length === 0 && Editor.isEditor(node)) {
         const [firstNode] = node.children;
-        if (EntryPointNode.isEntryPoint(firstNode) && !isInitialEntryPointRequired(editor)) {
-            console.log('Transforms.delete()', { at: [0] });
+        if (firstNode && isEntryPoint(firstNode) && !isLeadingEntryPointRequired(editor)) {
             Transforms.delete(editor, { at: [0] });
             return true;
         }
+
+        const [lastNode] = node.children.slice(-1);
+        if (lastNode && isEntryPoint(lastNode) && !isTrailingEntryPointRequired(editor)) {
+            Transforms.delete(editor, { at: [node.children.length - 1] });
+            return true;
+        }
     }
     return false;
 }
 
-export function convertNonEmptyInitialEntryPoint(
+export function convertNonEmptyEntryPoints(
     editor: Editor,
     [node, path]: NodeEntry,
     createDefaultTextElement: ElementFactory,
 ): boolean {
-    if (EntryPointNode.isEntryPoint(node)) {
-        if (node.children.length !== 1 || !isEqual(node.children, [{ text: '' }])) {
+    if (isEntryPoint(node)) {
+        if (
+            node.children.length > 1 ||
+            (node.children.length === 1 && !isEqual(node.children, [{ text: '' }]))
+        ) {
             Transforms.setNodes(editor, createDefaultTextElement(), {
-                match: EntryPointNode.isEntryPoint,
+                match: isEntryPoint,
                 at: path,
             });
             return true;
@@ -56,9 +76,9 @@ export function convertAdditionalEntryPoints(
 ): boolean {
     if (Editor.isEditor(node)) {
         for (const [index, child] of node.children.entries()) {
-            if (index > 0 && EntryPointNode.isEntryPoint(child)) {
+            if (index > 0 && isEntryPoint(child)) {
                 Transforms.setNodes(editor, createDefaultTextElement(), {
-                    match: EntryPointNode.isEntryPoint,
+                    match: isEntryPoint,
                     at: [...path, index],
                 });
                 return true;
@@ -69,10 +89,10 @@ export function convertAdditionalEntryPoints(
     return false;
 }
 
-export function deleteNestedInitialEntryPoint(editor: Editor, [node, path]: NodeEntry): boolean {
+export function deleteNestedEntryPoints(editor: Editor, [node, path]: NodeEntry): boolean {
     if (path.length > 0 && Element.isElement(node)) {
         for (const [index, child] of node.children.entries()) {
-            if (EntryPointNode.isEntryPoint(child)) {
+            if (isEntryPoint(child)) {
                 Transforms.delete(editor, {
                     at: [...path, index],
                 });
@@ -83,10 +103,22 @@ export function deleteNestedInitialEntryPoint(editor: Editor, [node, path]: Node
     return false;
 }
 
-function isInitialEntryPointRequired(editor: Editor): boolean {
-    const [firstNode] = reject(editor.children, EntryPointNode.isEntryPoint);
+function isLeadingEntryPointRequired(editor: Editor): boolean {
+    const [firstNode] = reject(editor.children, isEntryPoint);
 
     return (
-        Element.isElement(firstNode) && (editor.isRichBlock(firstNode) || editor.isVoid(firstNode))
+        firstNode &&
+        Element.isElement(firstNode) &&
+        (editor.isRichBlock(firstNode) || editor.isVoid(firstNode))
+    );
+}
+
+function isTrailingEntryPointRequired(editor: Editor): boolean {
+    const [lastNode] = reject(editor.children, isEntryPoint).slice(-1);
+
+    return (
+        lastNode &&
+        Element.isElement(lastNode) &&
+        (editor.isRichBlock(lastNode) || editor.isVoid(lastNode))
     );
 }

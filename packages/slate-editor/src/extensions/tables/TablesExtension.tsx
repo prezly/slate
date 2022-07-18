@@ -30,6 +30,7 @@ export const EXTENSION_ID = TablesExtension.name;
 export function TablesExtension(): Extension {
     return {
         id: EXTENSION_ID,
+        isRichBlock: isTableNode,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
         onKeyDown: (event, editor) => {
             if (TablesEditor.isTablesEditor(editor)) {

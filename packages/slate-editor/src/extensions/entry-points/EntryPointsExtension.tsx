@@ -5,11 +5,11 @@ import type { Element } from 'slate';
 import { EntryPointElement } from './EntryPointElement';
 import { EntryPointNode } from './EntryPointNode';
 import {
-    convertAdditionalEntryPoints,
-    convertNonEmptyInitialEntryPoint,
-    deleteNestedInitialEntryPoint,
-    deleteUnnecessaryInitialEntryPoint,
-    insertInitialEntryPoint,
+    convertNonEmptyEntryPoints,
+    deleteNestedEntryPoints,
+    deleteUnnecessaryEntryPoints,
+    insertLeadingEntryPoint,
+    insertTrailingEntryPoint,
 } from './normalization';
 
 export const EXTENSION_ID = EntryPointsExtension.name;
@@ -22,14 +22,12 @@ export function EntryPointsExtension({ createDefaultTextElement }: ExtensionPara
     return {
         id: EXTENSION_ID,
         normalizeNode: [
-            insertInitialEntryPoint,
-            deleteUnnecessaryInitialEntryPoint,
-            deleteNestedInitialEntryPoint,
+            insertLeadingEntryPoint,
+            insertTrailingEntryPoint,
+            deleteUnnecessaryEntryPoints,
+            deleteNestedEntryPoints,
             function (editor, entry) {
-                return convertNonEmptyInitialEntryPoint(editor, entry, createDefaultTextElement);
-            },
-            function (editor, entry) {
-                return convertAdditionalEntryPoints(editor, entry, createDefaultTextElement);
+                return convertNonEmptyEntryPoints(editor, entry, createDefaultTextElement);
             },
         ],
         renderElement: ({ attributes, children, element }) => {
