@@ -6,8 +6,8 @@
 
     &.extendedHitArea {
         > .Frame > .Content {
-            padding-top: $spacing-3;
-            padding-bottom: $spacing-3;
+            padding-top: $editor-block-extended-hit-area-vertical-size;
+            padding-bottom: $editor-block-extended-hit-area-vertical-size;
         }
     }
 
