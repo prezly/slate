@@ -6,12 +6,12 @@ import { insertBlockAbove, insertBlockBelow } from './lib';
 
 export const EXTENSION_ID = InsertBlockHotkeyExtension.name;
 
+const isModEnter = isHotkey('mod+enter');
+const isShiftModEnter = isHotkey('shift+mod+enter');
+
 interface Parameters {
     createDefaultElement: (props?: Partial<Element>) => Element;
 }
-
-const isModEnter = isHotkey('mod+enter');
-const isShiftModEnter = isHotkey('shift+mod+enter');
 
 export function InsertBlockHotkeyExtension({ createDefaultElement }: Parameters): Extension {
     return {
