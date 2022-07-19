@@ -17,7 +17,7 @@ import { ImageExtension } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
-import { ParagraphsExtension } from '#extensions/paragraphs';
+import {createParagraph, ParagraphsExtension} from '#extensions/paragraphs';
 import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
 import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
@@ -47,6 +47,7 @@ import {
     handleRemoveImage,
 } from './lib';
 import type { EditorProps } from './types';
+import {InsertBlockHotkeyExtension} from "#extensions/insert-block-hotkey";
 
 type Parameters = {
     availableWidth: number;
@@ -108,6 +109,7 @@ export function* getEnabledExtensions({
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
     yield SoftBreakExtension();
+    yield InsertBlockHotkeyExtension({ createDefaultElement: createParagraph });
 
     if (withBlockquotes) {
         yield BlockquoteExtension();
