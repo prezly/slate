@@ -34,7 +34,7 @@ export enum MenuAction {
 }
 
 enum Group {
-    BASICS = 'Basics',
+    TEXT_N_LAYOUT = 'Text & layout',
     MEDIA_CONTENT = 'Media content',
     PREZLY_CONTENT = 'Prezly content',
 }
@@ -83,14 +83,14 @@ export function* generateFloatingAddMenuOptions(
         yield {
             icon: Icons.ComponentH1,
             action: MenuAction.ADD_HEADING_1,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Heading 1',
             description: 'Big section heading',
         };
         yield {
             icon: Icons.ComponentH2,
             action: MenuAction.ADD_HEADING_2,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Heading 2',
             description: 'Medium section heading',
         };
@@ -100,7 +100,7 @@ export function* generateFloatingAddMenuOptions(
         yield {
             icon: Icons.ComponentText,
             action: MenuAction.ADD_PARAGRAPH,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Text',
             description: 'Start writing plain text',
         };
@@ -110,7 +110,7 @@ export function* generateFloatingAddMenuOptions(
         yield {
             icon: Icons.ComponentQuote,
             action: MenuAction.ADD_QUOTE,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Quote',
             description: 'Highlighted text section',
         };
@@ -120,7 +120,7 @@ export function* generateFloatingAddMenuOptions(
         yield {
             icon: Icons.ComponentDivider,
             action: MenuAction.ADD_DIVIDER,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Divider',
             description: 'Divide blocks with a line',
         };
@@ -130,7 +130,7 @@ export function* generateFloatingAddMenuOptions(
         yield {
             action: MenuAction.ADD_TABLE,
             icon: Icons.ComponentTable,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Table',
             description: 'Add a table to your Story',
             isBeta: true,
