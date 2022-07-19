@@ -9,11 +9,11 @@ export function insertBlockBelow(editor: Editor, createElement: () => Element): 
 }
 
 function insertBlock(editor: Editor, createElement: () => Element, offset: number): boolean {
-    if (!editor.selection) return false;
+    const path = editor.selection?.focus.path ?? [];
 
-    const [index] = editor.selection.focus.path;
+    if (path.length === 0) return false;
 
-    if (!index) return false;
+    const [index] = path;
 
     Transforms.insertNodes(editor, createElement(), { at: [index + offset] });
     Transforms.select(editor, [index + offset]);
