@@ -13,7 +13,7 @@ import type { Modifier } from 'react-popper';
 import { Node, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
-import { KeyboardKey, TooltipV2 } from '#components';
+import { Key, TooltipV2 } from '#components';
 
 import { FloatingContainer } from '#modules/components';
 
@@ -165,7 +165,7 @@ export function FloatingAddMenu<Action>({
             </TooltipV2.Tooltip>
             {!open && !hasOnlySpaces(text) && (
                 <p className={styles.placeholder}>
-                    Type or press <KeyboardKey>/</KeyboardKey> to add content
+                    Click the green <Key>+</Key> button to add images and other content
                 </p>
             )}
             {open && (

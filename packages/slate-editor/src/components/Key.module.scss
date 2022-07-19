@@ -1,7 +1,7 @@
 @use "sass:math";
 @import "styles/variables";
 
-.KeyboardKey {
+.Key {
     $size: 1.25em; // 20px : 16px
     $spacing-half: 0.25em; // 4px : 16px
     $border-width: 1px;

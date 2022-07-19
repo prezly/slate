@@ -4,7 +4,7 @@ export { EditorBlock, ResizableEditorBlock } from './EditorBlock';
 export { FancyScrollbars } from './FancyScrollbars';
 export { HtmlInjection } from './HtmlInjection';
 export { ImageSizeWarning } from './ImageSizeWarning';
-export { KeyboardKey } from './KeyboardKey';
+export { Key } from './Key';
 export { LoadingIndicatorV2 } from './LoadingIndicatorV2';
 export {
     LoadingPlaceholder,
