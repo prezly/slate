@@ -58,7 +58,26 @@ interface Params {
     withWebBookmarks: boolean;
 }
 
-export function* generateFloatingAddMenuOptions(
+/**
+ * Keeping track of suggestions ordering in one place.
+ */
+const Suggested: Partial<Record<MenuAction, number>> = {
+    [MenuAction.ADD_IMAGE]: 1,
+    [MenuAction.ADD_CONTACT]: 2,
+    [MenuAction.ADD_ATTACHMENT]: 3,
+    [MenuAction.ADD_WEB_BOOKMARK]: 4,
+    [MenuAction.ADD_VIDEO]: 5,
+};
+
+export function generateFloatingAddMenuOptions(
+    editor: Editor,
+    params: Params,
+): Option<MenuAction>[] {
+    const options = Array.from(generateOptions(editor, params));
+    return options.map((option) => ({ ...option, suggested: Suggested[option.action] }));
+}
+
+function* generateOptions(
     editor: Editor,
     {
         withAttachments,
@@ -78,7 +97,7 @@ export function* generateFloatingAddMenuOptions(
         withVideos,
         withWebBookmarks,
     }: Params,
-): Generator<Option<MenuAction>> {
+): Generator<Omit<Option<MenuAction>, 'suggested'>> {
     if (withHeadings) {
         yield {
             icon: Icons.ComponentH1,
