@@ -29,9 +29,9 @@ export function useMenuToggle(
             }
 
             if (willOpen) {
-                params.current.callbacks.onOpen && params.current.callbacks.onOpen();
+                params.current.callbacks.onOpen?.();
             } else {
-                params.current.callbacks.onClose && params.current.callbacks.onClose();
+                params.current.callbacks.onClose?.();
             }
 
             params.current.onChange(willOpen);

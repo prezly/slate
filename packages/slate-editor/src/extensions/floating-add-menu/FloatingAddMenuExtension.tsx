@@ -12,19 +12,19 @@ function isTriggerInput(event: KeyboardEvent) {
 
 export const EXTENSION_ID = 'FloatingAddMenuExtension';
 
-export function FloatingAddMenuExtension(toggleMenu: (open?: boolean) => void): Extension {
+export function FloatingAddMenuExtension(toggleMenu: (open: boolean) => void): Extension {
     return {
         id: EXTENSION_ID,
         onKeyDown(event, editor) {
             if (isMenuHotkey(event) && shouldShowMenuButton(editor)) {
                 event.preventDefault();
                 event.stopPropagation();
-                toggleMenu();
+                toggleMenu(true);
                 return;
             }
 
             if (isTriggerInput(event) && shouldShowMenuButton(editor)) {
-                toggleMenu();
+                toggleMenu(true);
                 return;
             }
         },

@@ -121,7 +121,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     // [+] menu
     const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
     const onFloatingAddMenuToggle = useCallback(
-        (shouldOpen?: boolean) => setFloatingAddMenuOpen((isOpen) => shouldOpen ?? !isOpen),
+        function (shouldOpen: boolean) {
+            setFloatingAddMenuOpen(shouldOpen);
+            EventsEditor.dispatchEvent(
+                editor,
+                shouldOpen ? 'add-button-menu-opened' : 'add-button-menu-closed',
+            );
+        },
         [setFloatingAddMenuOpen],
     );
     const getInitialValue = useFunction(() => initialValue);
