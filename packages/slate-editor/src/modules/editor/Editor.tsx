@@ -291,7 +291,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }),
     );
 
-    const handleMenuAction = (option: Option<MenuAction>) => {
+    const handleMenuAction = useFunction((option: Option<MenuAction>) => {
         const { action, text } = option;
 
         EventsEditor.dispatchEvent(editor, 'add-button-menu-option-click', {
@@ -381,7 +381,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             });
         }
         return;
-    };
+    });
+    const handleMenuFilter = useFunction((query: string, resultsCount: number) => {
+        EventsEditor.dispatchEvent(editor, 'add-button-menu-filtered', { query, resultsCount });
+    });
 
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
@@ -452,6 +455,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onActivate={handleMenuAction}
+                        onFilter={handleMenuFilter}
                         onToggle={onFloatingAddMenuToggle}
                         options={menuOptions}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}

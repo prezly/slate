@@ -8,7 +8,7 @@ import {
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { Node, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
@@ -36,6 +36,7 @@ interface Props<Action> extends Settings {
     open: boolean;
     options: Option<Action>[];
     onActivate: (option: Option<Action>) => void;
+    onFilter?: (query: string, resultsCount: number) => void;
     onToggle: (isShown: boolean) => void;
     showTooltipByDefault: boolean;
 }
@@ -55,6 +56,7 @@ export function FloatingAddMenu<Action>({
     availableWidth,
     containerRef,
     onActivate,
+    onFilter,
     onToggle,
     open,
     options,
@@ -87,6 +89,13 @@ export function FloatingAddMenu<Action>({
             resetSelectedOption();
         },
     });
+
+    useEffect(
+        function () {
+            onFilter?.(query, filteredOptions.length);
+        },
+        [query, filteredOptions.length],
+    );
 
     function onSelect(option: Option<Action>) {
         menu.close();
