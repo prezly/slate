@@ -8,7 +8,7 @@ export interface Option<Action> {
     text: string;
     group: string;
     description: string;
-    suggested?: Order | false,
+    suggested?: Order | false;
     // labels
     isBeta?: boolean;
     isNew?: boolean;
