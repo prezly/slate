@@ -15,9 +15,10 @@ import { HeadingExtension } from '#extensions/heading';
 import { HtmlExtension } from '#extensions/html';
 import { ImageExtension } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
+import { InsertBlockHotkeyExtension } from '#extensions/insert-block-hotkey';
 import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
-import { ParagraphsExtension } from '#extensions/paragraphs';
+import { createParagraph, ParagraphsExtension } from '#extensions/paragraphs';
 import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
 import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
@@ -108,6 +109,7 @@ export function* getEnabledExtensions({
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
     yield SoftBreakExtension();
+    yield InsertBlockHotkeyExtension({ createDefaultElement: createParagraph });
 
     if (withBlockquotes) {
         yield BlockquoteExtension();
