@@ -1,7 +1,7 @@
 import { type Editor, type Element, Transforms } from 'slate';
 
 enum Direction {
-    // Note: the indexes here are used as index offsets. Watch out when you decide to modify them.
+    // Note: The enum values are used as index offsets. Watch out when you decide to modify them.
     ABOVE = 0,
     BELOW = 1,
 }
