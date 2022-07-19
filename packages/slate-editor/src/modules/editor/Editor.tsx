@@ -29,6 +29,7 @@ import { noop } from '#lodash';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
+import type { Option } from '#extensions/floating-add-menu';
 import { LoaderContentType } from '#extensions/loader';
 import {
     PlaceholderMentionsDropdown,
@@ -46,6 +47,7 @@ import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensio
 import { FloatingStoryEmbedInput, Placeholder } from '#modules/components';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
+import { EventsEditor } from '#modules/events';
 import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
@@ -282,7 +284,15 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withWebBookmarks: Boolean(withWebBookmarks),
         }),
     );
-    const handleMenuAction = (action: MenuAction) => {
+
+    const handleMenuAction = (option: Option<MenuAction>) => {
+        const { action, text } = option;
+
+        EventsEditor.dispatchEvent(editor, 'add-button-menu-option-click', {
+            action,
+            title: text,
+        });
+
         if (action === MenuAction.ADD_PARAGRAPH) {
             return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);
         }

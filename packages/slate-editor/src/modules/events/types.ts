@@ -4,6 +4,10 @@ import type { PressContact, TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
 export type EditorEventMap = {
+    'add-button-menu-option-click': {
+        title: string;
+        action: string;
+    };
     'attachment-add-clicked': never;
     'attachment-added': {
         description: string;
