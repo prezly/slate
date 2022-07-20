@@ -1,7 +1,7 @@
 import type { Option } from '../types';
 
 interface Group<T> {
-    group?: string;
+    group: string;
     options: T[];
 }
 
@@ -15,8 +15,8 @@ export function groupOptions<Action>(options: Option<Action>[]): Group<Option<Ac
     });
 }
 
-function collectGroups<Action>(options: Option<Action>[]): (string | undefined)[] {
-    const groups: (string | undefined)[] = [];
+function collectGroups<Action>(options: Option<Action>[]): string[] {
+    const groups: string[] = [];
 
     options.forEach(function (option) {
         if (!groups.includes(option.group)) {

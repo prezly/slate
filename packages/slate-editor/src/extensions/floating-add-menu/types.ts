@@ -1,11 +1,14 @@
 import type { ComponentType, ReactNode } from 'react';
 
+type Order = number;
+
 export interface Option<Action> {
     action: Action;
     icon: ReactNode | ComponentType;
     text: string;
-    group?: string;
-    description?: string;
+    group: string;
+    description: string;
+    suggested?: Order | false;
     // labels
     isBeta?: boolean;
     isNew?: boolean;

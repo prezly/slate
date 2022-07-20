@@ -21,6 +21,7 @@ import { Input, Dropdown } from './components';
 import styles from './FloatingAddMenu.module.scss';
 import {
     isMenuHotkey,
+    prependSuggestions,
     shouldShowMenuButton,
     sortBetaOptionsLast,
     useEditorSelectionMemory,
@@ -68,11 +69,15 @@ export function FloatingAddMenu<Action>({
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
     const [input, setInput] = useState('');
     const [rememberEditorSelection, restoreEditorSelection] = useEditorSelectionMemory();
+
     const [query, filteredOptions] = useKeyboardFiltering(input, sortBetaOptionsLast(options));
+    const displayedOptions =
+        query.length === 0 ? prependSuggestions(filteredOptions, 'Suggestions') : filteredOptions;
     const [selectedOption, onKeyDown, resetSelectedOption] = useKeyboardNavigation(
-        filteredOptions,
+        displayedOptions,
         onSelect,
     );
+
     const menu = useMenuToggle(open, onToggle, {
         onOpen() {
             // If there's only one component, do not bother with the dropdown at all,
@@ -115,7 +120,7 @@ export function FloatingAddMenu<Action>({
          * was already returning no results => close the menu, preserving input.
          */
         if (isSpacebar(event)) {
-            if (filteredOptions.length === 0) {
+            if (displayedOptions.length === 0) {
                 event.preventDefault();
                 event.stopPropagation();
                 Transforms.insertText(editor, `${input} `);
@@ -193,7 +198,7 @@ export function FloatingAddMenu<Action>({
                     <Dropdown
                         className={styles.dropdown}
                         highlight={query}
-                        options={filteredOptions}
+                        options={displayedOptions}
                         onItemClick={onSelect}
                         open={open}
                         referenceElement={inputElement}

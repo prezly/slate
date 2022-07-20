@@ -103,6 +103,7 @@ export class Menu extends Component<Props> {
             >
                 {({ ref, style, arrowProps, placement }) => (
                     <Toolbox.Panel
+                        contentEditable={false}
                         className={classNames(className, styles.menu)}
                         ref={ref}
                         style={style}

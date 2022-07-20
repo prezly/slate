@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import type { ScrollbarProps } from 'react-custom-scrollbars-2';
-import { Scrollbars } from 'react-custom-scrollbars-2';
+import { type ScrollbarProps, Scrollbars } from 'react-custom-scrollbars-2';
 
 import styles from './FancyScrollbars.module.scss';
 
@@ -29,18 +28,18 @@ export class FancyScrollbars extends Component<Props> {
             return;
         }
 
-        const childHeight = child.getBoundingClientRect().height;
-        const parentHeight = parent.getBoundingClientRect().height;
-
         const isChildAboveVisibleArea = child.offsetTop < parent.scrollTop;
-        const isChildBelowVisibleArea =
-            child.offsetTop + childHeight > parent.scrollTop + parentHeight;
 
         if (isChildAboveVisibleArea) {
             const y = child.offsetTop - margin;
             this.scrollbars?.scrollTop(y);
             return;
         }
+
+        const childHeight = child.getBoundingClientRect().height;
+        const parentHeight = parent.getBoundingClientRect().height;
+        const isChildBelowVisibleArea =
+            child.offsetTop + childHeight > parent.scrollTop + parentHeight;
 
         if (isChildBelowVisibleArea) {
             const y = child.offsetTop + childHeight + margin - parentHeight;
@@ -84,17 +83,24 @@ export class FancyScrollbars extends Component<Props> {
 }
 
 function getScrollParent(element: HTMLElement): HTMLElement | null {
-    if (element == null) {
-        return null;
-    }
+    let current = element;
 
-    if (element.scrollHeight > element.clientHeight) {
-        return element;
-    }
+    do {
+        const parent = current.parentElement;
 
-    if (element.parentElement) {
-        return getScrollParent(element.parentElement);
-    }
+        if (parent === null) return null;
+
+        if (parent.scrollHeight > parent.clientHeight && isScrollable(parent)) {
+            return parent;
+        }
+
+        current = parent;
+    } while (current);
 
     return null;
+}
+
+function isScrollable(element: HTMLElement): boolean {
+    const overflowY = window.getComputedStyle(element).overflowY;
+    return overflowY !== 'visible' && overflowY !== 'hidden';
 }
