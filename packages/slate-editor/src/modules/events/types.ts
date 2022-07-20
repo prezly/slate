@@ -4,6 +4,18 @@ import type { PressContact, TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
 export type EditorEventMap = {
+    'add-button-menu-opened': never;
+    'add-button-menu-closed': never;
+    'add-button-menu-filtered': {
+        query: string;
+        resultsCount: number;
+    };
+    'add-button-menu-option-click': {
+        title: string;
+        action: string;
+        suggested: boolean;
+        query: string;
+    };
     'attachment-add-clicked': never;
     'attachment-added': {
         description: string;

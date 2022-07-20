@@ -51,7 +51,7 @@ import type { EditorProps } from './types';
 
 type Parameters = {
     availableWidth: number;
-    onFloatingAddMenuToggle: (show?: boolean) => void;
+    onFloatingAddMenuToggle: (show: boolean) => void;
     onOperationEnd?: () => void;
     onOperationStart?: () => void;
 } & Pick<

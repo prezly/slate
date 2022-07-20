@@ -29,6 +29,7 @@ import { noop } from '#lodash';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
+import type { Option } from '#extensions/floating-add-menu';
 import { LoaderContentType } from '#extensions/loader';
 import {
     PlaceholderMentionsDropdown,
@@ -46,6 +47,7 @@ import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensio
 import { FloatingStoryEmbedInput, Placeholder } from '#modules/components';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
+import { EventsEditor } from '#modules/events';
 import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
@@ -119,7 +121,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     // [+] menu
     const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
     const onFloatingAddMenuToggle = useCallback(
-        (shouldOpen?: boolean) => setFloatingAddMenuOpen((isOpen) => shouldOpen ?? !isOpen),
+        function (shouldOpen: boolean) {
+            setFloatingAddMenuOpen(shouldOpen);
+            EventsEditor.dispatchEvent(
+                editor,
+                shouldOpen ? 'add-button-menu-opened' : 'add-button-menu-closed',
+            );
+        },
         [setFloatingAddMenuOpen],
     );
     const getInitialValue = useFunction(() => initialValue);
@@ -281,7 +289,15 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withWebBookmarks: Boolean(withWebBookmarks),
     });
 
-    const handleMenuAction = (action: MenuAction) => {
+    const handleMenuAction = useFunction((option: Option<MenuAction>, query: string) => {
+        const { action, text, suggested } = option;
+
+        EventsEditor.dispatchEvent(editor, 'add-button-menu-option-click', {
+            action,
+            title: text,
+            suggested: typeof suggested === 'number',
+            query,
+        });
         if (action === MenuAction.ADD_PARAGRAPH) {
             return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);
         }
@@ -364,7 +380,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             });
         }
         return;
-    };
+    });
+    const handleMenuFilter = useFunction((query: string, resultsCount: number) => {
+        EventsEditor.dispatchEvent(editor, 'add-button-menu-filtered', { query, resultsCount });
+    });
 
     const hasCustomPlaceholder =
         withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
@@ -435,6 +454,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         onActivate={handleMenuAction}
+                        onFilter={handleMenuFilter}
                         onToggle={onFloatingAddMenuToggle}
                         options={menuOptions}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
