@@ -44,35 +44,38 @@
 }
 
 @mixin editor-width(
-    $width: "auto",
-    $rich-width: $width,
-    $expanded-width: $rich-width + 140px,
-    $full-width: 100%
+    $block-width: "auto",
+    $rich-block-width: "inherit",
+    $expanded-block-width: "inherit",
+    $full-width-block-width: 100%
 ) {
     @include editor-styles {
         @include editor-block-styles {
             margin-left: auto;
             margin-right: auto;
-            @if ($width != "auto") {
-                max-width: $width;
-            }
+            max-width: $block-width;
         }
 
-        @if (width != "auto") {
+        @if $rich-block-width != "inherit" {
             @include editor-block-styles($type: "rich") {
-                max-width: $rich-width;
+                max-width: $rich-block-width;
             }
         }
 
-        @if $expanded-width != "auto" {
+        @if $expanded-block-width != "inherit" {
             @include editor-block-styles($layout: "expanded") {
-                max-width: $expanded-width;
+                max-width: $expanded-block-width;
             }
         }
 
-        @if $full-width != "auto" {
+        @if $full-width-block-width != "inherit" {
             @include editor-block-styles($layout: "full-width") {
-                max-width: $full-width;
+                max-width: $full-width-block-width;
+                width: $full-width-block-width;
+
+                @if $full-width-block-width != "auto" {
+                    margin-left: calc((100% - $full-width-block-width) * 0.5);
+                }
             }
         }
     }
