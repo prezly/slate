@@ -11,6 +11,15 @@
             ],
             "inputs": ["src/**/*", "gulpfile.js"]
         },
+        "build:dev": {
+            "dependsOn": [
+                "^build:dev"
+            ],
+            "outputs": [
+                "build/**"
+            ],
+            "inputs": ["src/**/*", "gulpfile.js"]
+        },
         "watch": {
             "dependsOn": ["build"],
             "cache": false

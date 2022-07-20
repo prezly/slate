@@ -15,6 +15,7 @@
     "scripts": {
         "bootstrap": "npm ci --legacy-peer-deps",
         "build": "turbo run build",
+        "build:dev": "turbo run build:dev",
         "check": "npm run prettier && npm run test",
         "watch": "turbo run watch",
         "lint": "npm run lint --workspaces",
