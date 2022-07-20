@@ -34,7 +34,7 @@
         "build:esm": "gulp build:esm",
         "build:sass": "gulp build:sass",
         "watch": "concurrently --restart-tries 5 --kill-others --names 'd.ts,esm ,sass' 'npm run watch:types' 'npm run watch:esm' 'npm run watch:sass'",
-        "watch:types": "tsc --build ./tsconfig.build.json --preserveWatchOutput --watch",
+        "watch:types": "tsc-fancy --project ./tsconfig.build.json --preserveWatchOutput --watch",
         "watch:esm": "gulp watch:esm",
         "watch:sass": "gulp watch:sass",
         "clean": "npm run clean:build && npm run clean:node_modules",
