@@ -289,7 +289,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withWebBookmarks: Boolean(withWebBookmarks),
     });
 
-
     const handleMenuAction = useFunction((option: Option<MenuAction>, query: string) => {
         const { action, text, suggested } = option;
 
