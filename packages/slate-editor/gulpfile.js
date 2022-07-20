@@ -41,8 +41,8 @@ gulp.task('build:esm', () => buildEsm());
 gulp.task('build:sass', () => buildSass());
 gulp.task('build:types', () => buildTypes());
 
-gulp.task('watch:esm', watch(JS_DELIVERABLE_SOURCES, 'build:esm', buildEsm));
-gulp.task('watch:sass', watch(SCSS_SOURCES, 'build:sass', buildSass));
+gulp.task('watch:esm', () => watch(JS_DELIVERABLE_SOURCES, buildEsm));
+gulp.task('watch:sass', () => watch(SCSS_SOURCES, buildSass));
 
 function buildEsm(files = JS_DELIVERABLE_SOURCES) {
     return gulp
@@ -176,19 +176,16 @@ function processSass() {
 
 /**
  * @param {string|string[]} files
- * @param {string} build
  * @param {(string)=>void} incremental
  * @returns {Function}
  */
-function watch(files, build, incremental) {
-    return gulp.series(build, function () {
-        return gulp
-            .watch(files)
-            .on('ready', () => console.log('Watching files'))
-            .on('all', (event, path) => console.log(`[${event}] ${path}`))
-            .on('add', (path) => incremental(path))
-            .on('change', (path) => incremental(path));
-    });
+function watch(files, incremental) {
+    return gulp
+        .watch(files)
+        .on('ready', () => console.log('Watching files'))
+        .on('all', (event, path) => console.log(`[${event}] ${path}`))
+        .on('add', (path) => incremental(path))
+        .on('change', (path) => incremental(path));
 }
 
 /**
