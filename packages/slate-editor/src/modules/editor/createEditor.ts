@@ -7,11 +7,10 @@ import {
 } from '@prezly/slate-commons';
 import type { Extension } from '@prezly/slate-commons';
 import type { WithOverrides } from '@prezly/slate-commons';
+import { flow } from 'lodash-es';
 import type { Editor } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
-
-import { flow } from '#lodash';
 
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 

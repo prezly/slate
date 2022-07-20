@@ -1,9 +1,9 @@
 import classNames from 'classnames';
+import { clamp } from 'lodash-es';
 import type { HTMLAttributes, ComponentType } from 'react';
 import React, { forwardRef } from 'react';
 
 import { useInfiniteProgress } from '#lib';
-import { clamp } from '#lodash';
 
 import styles from './LoadingPlaceholder.module.scss';
 

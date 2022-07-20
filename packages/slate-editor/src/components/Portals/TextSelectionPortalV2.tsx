@@ -1,11 +1,11 @@
 import classNames from 'classnames';
+import { identity } from 'lodash-es';
 import RangeFix from 'rangefix';
 import React, { useCallback, useRef, useState } from 'react';
 import type { Editor } from 'slate';
 import { ReactEditor, useSlateStatic } from 'slate-react';
 
 import { useIsMouseDown } from '#lib';
-import { identity } from '#lodash';
 
 import type { Props as BasePortalV2Props } from './BasePortalV2';
 import { BasePortalV2 } from './BasePortalV2';

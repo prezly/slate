@@ -1,7 +1,7 @@
+import { isEqual } from 'lodash-es';
 import { useCallback, useRef } from 'react';
 
 import { useLatest } from '#lib';
-import { isEqual } from '#lodash';
 
 import type { Value } from './types';
 

@@ -1,6 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-
-import { noop } from '#lodash';
+import { noop } from 'lodash-es';
 
 import { AutoformatExtension } from '#extensions/autoformat';
 import { BlockquoteExtension } from '#extensions/blockquote';

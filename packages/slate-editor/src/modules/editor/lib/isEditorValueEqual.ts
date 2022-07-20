@@ -1,6 +1,5 @@
+import { isEqual } from 'lodash-es';
 import type { Editor } from 'slate';
-
-import { isEqual } from '#lodash';
 
 import type { Value } from '../types';
 

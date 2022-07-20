@@ -1,6 +1,5 @@
 import type { GalleryNode } from '@prezly/slate-types';
-
-import { isEqual, shuffle } from '#lodash';
+import { isEqual, shuffle } from 'lodash-es';
 
 export function shuffleImages(images: GalleryNode['images']): GalleryNode['images'] {
     if (images.length <= 1) {

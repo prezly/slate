@@ -8,9 +8,8 @@ import {
     GalleryPadding,
     PARAGRAPH_NODE_TYPE,
 } from '@prezly/slate-types';
+import { omit } from 'lodash-es';
 import { Editor } from 'slate';
-
-import { omit } from '#lodash';
 
 import { createEditorWithChildren, uploadedImage, withNormalization } from '#modules/tests';
 

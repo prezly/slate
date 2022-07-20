@@ -1,5 +1,5 @@
 module.exports = {
-    stories: ['../build/cjs/**/*.stories.@(cjs)'],
+    stories: ['../build/esm/**/*.stories.@(js)'],
     addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
     framework: '@storybook/react',
     features: {

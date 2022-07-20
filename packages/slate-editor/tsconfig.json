@@ -4,10 +4,6 @@
         "rootDirs": ["./src", "./.css-modules"],
         "baseUrl": "./src",
         "paths": {
-            "#lodash": [
-                "../node_modules/@types/lodash-es",
-                "../../../node_modules/@types/lodash-es"
-            ],
             "#components": ["components"],
             "#extensions/*": ["extensions/*"],
             "#icons": ["icons"],

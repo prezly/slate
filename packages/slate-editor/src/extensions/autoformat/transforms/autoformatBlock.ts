@@ -6,11 +6,10 @@ import {
     setNodes,
     someNode,
 } from '@udecode/plate-core';
+import { castArray } from 'lodash-es';
 import type { Range } from 'slate';
 import { Editor, Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
-
-import { castArray } from '#lodash';
 
 import type { AutoformatBlockRule } from '../types';
 import { getMatchRange } from '../utils/getMatchRange';
