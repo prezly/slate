@@ -16,9 +16,4 @@
     "files": ["./src/@types/svg.d.ts"],
     "exclude": ["node_modules"],
     "include": ["./src", ".css-modules/**/*.module.scss.ts"],
-    "references": [
-        { "path": "../slate-types/tsconfig.json" },
-        { "path": "../slate-commons/tsconfig.build.json" },
-        { "path": "../slate-lists/tsconfig.build.json" }
-    ]
 }

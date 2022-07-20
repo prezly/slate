@@ -5,7 +5,4 @@
         "target": "es6"
     },
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
-    "references": [
-        { "path": "../slate-types/tsconfig.json" }
-    ]
 }
