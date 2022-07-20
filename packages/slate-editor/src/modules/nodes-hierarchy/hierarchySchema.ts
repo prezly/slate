@@ -1,4 +1,4 @@
-import { TablesEditor } from '@prezly/slate-tables';
+import { TablesEditor, TablesNormalization } from '@prezly/slate-tables';
 import {
     ATTACHMENT_NODE_TYPE,
     BOOKMARK_NODE_TYPE,
@@ -34,13 +34,7 @@ import {
     unwrapSameTypeChild,
     unwrapTableNodeChild,
 } from './fixers';
-import {
-    allowChildren,
-    disallowMark,
-    removeEmptyRow,
-    restoreAbsentCells,
-    normalizeTableData,
-} from './normilizers';
+import { allowChildren, disallowMark } from './normilizers';
 import {
     isAllowedInTableCell,
     isAllowedOnTopLevel,
@@ -100,9 +94,14 @@ export const hierarchySchema: NodesHierarchySchema = {
     ],
     [TABLE_NODE_TYPE]: [
         allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNodeNoSplit])),
-        removeEmptyRow,
-        normalizeTableData,
-        restoreAbsentCells,
+        (editor, path) =>
+            TablesEditor.isTablesEditor(editor) && TablesNormalization.removeEmptyRow(editor, path),
+        (editor, path) =>
+            TablesEditor.isTablesEditor(editor) &&
+            TablesNormalization.normalizeTableData(editor, path),
+        (editor, path) =>
+            TablesEditor.isTablesEditor(editor) &&
+            TablesNormalization.restoreAbsentCells(editor, path),
     ],
     [TABLE_ROW_NODE_TYPE]: [
         allowChildren(

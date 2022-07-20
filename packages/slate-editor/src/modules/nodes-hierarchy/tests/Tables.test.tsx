@@ -320,6 +320,8 @@ describe('nodes-hierarchy / Tables', () => {
                             <h:text>3</h:text>
                         </h:td>
                     </h:tr>
+                    <h:tr></h:tr>
+                    <h:tr></h:tr>
                 </h:table>
             </editor>
         ) as unknown as Editor;
@@ -476,7 +478,6 @@ describe('nodes-hierarchy / Tables', () => {
             </editor>
         ) as unknown as Editor;
 
-        debugger;
         Editor.normalize(editor, { force: true });
 
         expect(editor.children).toEqual(expected.children);

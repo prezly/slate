@@ -1,15 +1,14 @@
-import { TablesEditor } from '@prezly/slate-tables';
-import type { TableRowNode } from '@prezly/slate-types';
-import { isTableCellNode, isTableNode, isTableRowNode } from '@prezly/slate-types';
 import { times } from 'lodash-es';
 import { Node, Transforms } from 'slate';
 import { Path } from 'slate';
-import type { Editor } from 'slate';
 
-export function restoreAbsentCells(editor: Editor, path: Path) {
+import type { TableRowNode } from '../nodes';
+import { TablesEditor } from '../TablesEditor';
+
+export function restoreAbsentCells(editor: TablesEditor, path: Path) {
     const table = Node.get(editor, path);
 
-    if (!isTableNode(table) || !TablesEditor.isTablesEditor(editor)) {
+    if (!editor.isTableNode(table)) {
         return false;
     }
 
@@ -24,7 +23,7 @@ export function restoreAbsentCells(editor: Editor, path: Path) {
     }, 0);
 
     for (const [row, rowPath] of Node.children(editor, path)) {
-        if (isTableRowNode(row)) {
+        if (editor.isTableRowNode(row)) {
             const rowSize = calculateWholeRowSize(row);
             const absentCellsQuantity = maxWidth - rowSize;
 
@@ -38,7 +37,7 @@ export function restoreAbsentCells(editor: Editor, path: Path) {
                 if (lastNodeInRowEntry) {
                     const [lastNode, lastNodePath] = lastNodeInRowEntry;
 
-                    if (isTableCellNode(lastNode)) {
+                    if (editor.isTableCellNode(lastNode)) {
                         Transforms.insertNodes(editor, newCells as any, {
                             at: Path.next(lastNodePath),
                         });

@@ -1,14 +1,14 @@
-import { TablesEditor } from '@prezly/slate-tables';
-import { isTableCellNode, isTableNode, isTableRowNode } from '@prezly/slate-types';
 import { omit } from 'lodash-es';
 import type { Path } from 'slate';
 import { Node, Transforms } from 'slate';
 import { Editor } from 'slate';
 
-export function normalizeTableData(editor: Editor, path: Path) {
+import { TablesEditor } from '../TablesEditor';
+
+export function normalizeTableData(editor: TablesEditor, path: Path) {
     const table = Node.get(editor, path);
 
-    if (!isTableNode(table) || !TablesEditor.isTablesEditor(editor)) {
+    if (!editor.isTableNode(table)) {
         return false;
     }
 
@@ -17,7 +17,7 @@ export function normalizeTableData(editor: Editor, path: Path) {
     let rowIdx = 0;
 
     table.children.forEach((row) => {
-        if (!isTableRowNode(row)) {
+        if (!editor.isTableRowNode(row)) {
             return;
         }
 
@@ -25,7 +25,7 @@ export function normalizeTableData(editor: Editor, path: Path) {
         let colIdx = 0;
 
         cells.forEach((cell) => {
-            if (!isTableCellNode(cell)) {
+            if (!editor.isTableCellNode(cell)) {
                 return;
             }
 
