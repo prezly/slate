@@ -1,6 +1,7 @@
 .next/
 .idea/
 .history
+.turbo
 build/
 dist/
 packages/*/coverage/

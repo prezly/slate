@@ -29,9 +29,7 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
-        "build": "NODE_ENV=production npm run build:all",
-        "build:dev": "NODE_ENV=development npm run build:all",
-        "build:all": "npm run build:sass && npm run build:esm && npm run build:types",
+        "build": "npm run build:sass && npm run build:esm && npm run build:types",
         "build:types": "gulp build:types",
         "build:esm": "gulp build:esm",
         "build:sass": "gulp build:sass",
