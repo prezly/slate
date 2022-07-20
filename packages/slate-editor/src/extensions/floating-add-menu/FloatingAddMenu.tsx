@@ -14,6 +14,7 @@ import { Node, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
 import { Key, TooltipV2 } from '#components';
+import { useSize } from '#lib';
 
 import { FloatingContainer } from '#modules/components';
 
@@ -62,6 +63,7 @@ export function FloatingAddMenu<Action>({
     tooltip,
 }: Props<Action>) {
     const editor = useSlate();
+    const [sizer, { width: containerWidth }] = useSize(Sizer);
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
     const [input, setInput] = useState('');
@@ -119,6 +121,7 @@ export function FloatingAddMenu<Action>({
         onKeyDown(event);
     }
 
+    const isNarrowContainer = (containerWidth ?? 1000) < 480;
     const isParagraph = isParagraphNode(currentNode);
     const isHeading1 = isHeadingNode(currentNode, HEADING_1_NODE_TYPE);
     const isHeading2 = isHeadingNode(currentNode, HEADING_2_NODE_TYPE);
@@ -163,11 +166,7 @@ export function FloatingAddMenu<Action>({
                     />
                 )}
             </TooltipV2.Tooltip>
-            {!open && !hasOnlySpaces(text) && (
-                <p className={styles.placeholder}>
-                    Click the green <Key>+</Key> button to add images and other content
-                </p>
-            )}
+            {!open && !hasOnlySpaces(text) && <Placeholder narrow={isNarrowContainer} />}
             {open && (
                 <>
                     <Input
@@ -192,10 +191,26 @@ export function FloatingAddMenu<Action>({
                     />
                 </>
             )}
+            {sizer}
         </FloatingContainer.Container>
     );
 }
 
 function hasOnlySpaces(text: string) {
     return text.length !== 0 && text.trim().length === 0;
+}
+
+function Placeholder(props: { narrow: boolean }) {
+    if (props.narrow) {
+        return <p className={styles.placeholder}>Click the green + button to add content</p>;
+    }
+    return (
+        <p className={styles.placeholder}>
+            Click the green <Key>+</Key> button to add images and other content
+        </p>
+    );
+}
+
+function Sizer() {
+    return <div />;
 }
