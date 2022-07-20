@@ -7,7 +7,7 @@ import type { Editor, Element } from 'slate';
 import type { AutoformatParameters } from '#extensions/autoformat';
 import type { CoverageExtensionConfiguration } from '#extensions/coverage';
 import type { EmbedExtensionConfiguration } from '#extensions/embed';
-import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
+import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { ImageExtensionConfiguration } from '#extensions/image';
 import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
@@ -73,7 +73,7 @@ export interface EditorProps {
                   video?: boolean;
               };
           });
-    withFloatingAddMenu?: boolean | FloatingAddMenuExtensionParameters;
+    withFloatingAddMenu?: boolean | FloatingAddMenuExtensionConfiguration;
     withGalleries?: false | GalleriesExtensionConfiguration;
     withHeadings?: boolean;
     withImages?: false | ImageExtensionConfiguration;
