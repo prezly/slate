@@ -26,9 +26,7 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
-        "build": "NODE_ENV=production npm run build:all",
-        "build:dev": "NODE_ENV=development npm run build:all",
-        "build:all": "npm run build:types && npm run build:esm",
+        "build": "npm run build:types && npm run build:esm",
         "build:types": "tsc --build ./tsconfig.build.json",
         "build:esm": "babel ./src --ignore='**/*.test.tsx','**/*.test.ts' --config-file=../../babel.config.json --extensions=.ts,.tsx --source-root=./src --out-dir=./build/esm/",
         "watch": "concurrently --kill-others --names 'd.ts,esm ' 'npm run watch:types' 'npm run watch:esm'",

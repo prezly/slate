@@ -4,16 +4,8 @@
     "pipeline": {
         "build": {
             "dependsOn": [
+                "$NODE_ENV",
                 "^build"
-            ],
-            "outputs": [
-                "build/**"
-            ],
-            "inputs": ["src/**/*", "gulpfile.js"]
-        },
-        "build:dev": {
-            "dependsOn": [
-                "^build:dev"
             ],
             "outputs": [
                 "build/**"
