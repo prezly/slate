@@ -12,19 +12,18 @@ export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): 
 
             if (cellEntry && isRangeInsideCell(editor.selection, cellEntry)) {
                 const [cell, cellPath] = cellEntry;
+                const { focus, anchor } = editor.selection;
 
-                const rangeRelativeToCell: Range = {
+                return Node.fragment(cell, {
                     anchor: {
-                        offset: editor.selection.anchor.offset,
-                        path: Path.relative(editor.selection.anchor.path, cellPath),
+                        offset: anchor.offset,
+                        path: Path.relative(anchor.path, cellPath),
                     },
                     focus: {
-                        offset: editor.selection.focus.offset,
-                        path: Path.relative(editor.selection.focus.path, cellPath),
+                        offset: focus.offset,
+                        path: Path.relative(focus.path, cellPath),
                     },
-                };
-
-                return Node.fragment(cell, rangeRelativeToCell);
+                });
             }
         }
 
