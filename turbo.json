@@ -13,7 +13,10 @@
             "inputs": ["src/**/*", "gulpfile.js"]
         },
         "watch": {
-            "dependsOn": ["build"],
+            "dependsOn": [
+                "$NODE_ENV",
+                "build"
+            ],
             "cache": false
         },
         "test": {
