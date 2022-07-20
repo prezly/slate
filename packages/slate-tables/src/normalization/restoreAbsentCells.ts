@@ -38,7 +38,7 @@ export function restoreAbsentCells(editor: TablesEditor, path: Path) {
                     const [lastNode, lastNodePath] = lastNodeInRowEntry;
 
                     if (editor.isTableCellNode(lastNode)) {
-                        Transforms.insertNodes(editor, newCells as any, {
+                        Transforms.insertNodes(editor, newCells, {
                             at: Path.next(lastNodePath),
                         });
                         return true;

@@ -52,7 +52,7 @@ export function normalizeTableData(editor: TablesEditor, path: Path) {
                     const x = colIdx + colSpanIdx + i;
 
                     if (fakeCell) {
-                        grid.children[y].children[x] = TablesEditor.createTableCell(editor) as any;
+                        grid.children[y].children[x] = TablesEditor.createTableCell(editor);
                         hasChanges = true;
                     } else {
                         let pureCell = cell;
