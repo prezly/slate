@@ -14,9 +14,9 @@ export interface Option<Action> {
     isNew?: boolean;
 }
 
-export interface Settings {
+export interface ExtensionConfiguration {
     tooltip?: {
         placement: 'top' | 'right' | 'bottom' | 'left';
-        title: string;
+        content: ReactNode;
     };
 }

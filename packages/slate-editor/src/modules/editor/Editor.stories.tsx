@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import React, { useState } from 'react';
 
-import type { Settings as FloatingAddMenuExtensionParameters } from '#extensions/floating-add-menu';
+import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
 import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
 
 import { Editor } from './Editor';
@@ -29,7 +29,7 @@ interface IBaseProps {
         links?: boolean;
         withNewTabOption?: boolean;
     };
-    withFloatingAddMenu?: FloatingAddMenuExtensionParameters;
+    withFloatingAddMenu?: FloatingAddMenuExtensionConfiguration;
 }
 
 const BaseTemplate = (args: IBaseProps) => {
@@ -63,7 +63,7 @@ Base.args = {
     withFloatingAddMenu: {
         tooltip: {
             placement: 'left',
-            title: 'Add content to your story',
+            content: 'Add content to your story',
         },
     },
 } as IBaseProps;
@@ -100,7 +100,7 @@ WithPlaceholders.args = {
     withFloatingAddMenu: {
         tooltip: {
             placement: 'left',
-            title: 'Add content to your story',
+            content: 'Add content to your story',
         },
     },
     withPlaceholders: {

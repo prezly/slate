@@ -30,9 +30,9 @@ import {
     useKeyboardNavigation,
     useMenuToggle,
 } from './lib';
-import type { Option, Settings } from './types';
+import type { Option, ExtensionConfiguration } from './types';
 
-interface Props<Action> extends Settings {
+interface Props<Action> extends ExtensionConfiguration {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
     open: boolean;
@@ -161,7 +161,7 @@ export function FloatingAddMenu<Action>({
                 enabled={tooltip && !open}
                 flip={TOOLTIP_FLIP_MODIFIER}
                 placement={tooltip?.placement}
-                tooltip={tooltip?.title}
+                tooltip={tooltip?.content}
             >
                 {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
                     <FloatingContainer.Button
