@@ -1,5 +1,6 @@
 import { TablesEditor } from '@prezly/slate-tables';
 import { isTableCellNode, isTableNode, isTableRowNode } from '@prezly/slate-types';
+import { omit } from 'lodash-es';
 import type { Path } from 'slate';
 import { Node, Transforms } from 'slate';
 import { Editor } from 'slate';
@@ -54,10 +55,14 @@ export function normalizeTableData(editor: Editor, path: Path) {
                         grid.children[y].children[x] = TablesEditor.createTableCell(editor) as any;
                         hasChanges = true;
                     } else {
-                        const { colspan, rowspan, ...pureCell } = cell;
+                        let pureCell = cell;
 
-                        if (colspan || rowspan) {
-                            hasChanges = true;
+                        if ('colspan' in pureCell) {
+                            pureCell = omit(pureCell, 'colspan');
+                        }
+
+                        if ('rowspan' in pureCell) {
+                            pureCell = omit(pureCell, 'rowspan');
                         }
 
                         grid.children[y].children[x] = pureCell;

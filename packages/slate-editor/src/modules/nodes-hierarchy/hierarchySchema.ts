@@ -34,7 +34,13 @@ import {
     unwrapSameTypeChild,
     unwrapTableNodeChild,
 } from './fixers';
-import { allowChildren, disallowMark, normalizeTableData } from './normilizers';
+import {
+    allowChildren,
+    disallowMark,
+    removeEmptyRow,
+    restoreAbsentCells,
+    normalizeTableData,
+} from './normilizers';
 import {
     isAllowedInTableCell,
     isAllowedOnTopLevel,
@@ -94,6 +100,8 @@ export const hierarchySchema: NodesHierarchySchema = {
     ],
     [TABLE_NODE_TYPE]: [
         allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNodeNoSplit])),
+        removeEmptyRow,
+        restoreAbsentCells,
         normalizeTableData,
     ],
     [TABLE_ROW_NODE_TYPE]: [
