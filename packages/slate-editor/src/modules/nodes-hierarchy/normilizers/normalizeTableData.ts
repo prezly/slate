@@ -1,51 +1,83 @@
-import { Matrix, TablesEditor } from '@prezly/slate-tables';
-import { isTableNode, isTableRowNode } from '@prezly/slate-types';
+import { TablesEditor } from '@prezly/slate-tables';
+import { isTableCellNode, isTableNode, isTableRowNode } from '@prezly/slate-types';
+import type { Path } from 'slate';
 import { Node, Transforms } from 'slate';
-import type { Editor, Path } from 'slate';
+import { Editor } from 'slate';
 
 export function normalizeTableData(editor: Editor, path: Path) {
-    const node = Node.get(editor, path);
+    const table = Node.get(editor, path);
 
-    if (isTableNode(node) && TablesEditor.isTablesEditor(editor)) {
-        const matrix = new Matrix(editor, [node, path]);
-        let hasChanges = false;
+    if (!isTableNode(table) || !TablesEditor.isTablesEditor(editor)) {
+        return false;
+    }
 
-        matrix.rows.forEach((row, i) => {
-            const currentRow = node.children.at(i);
+    const grid: typeof table = { ...table, children: [] };
+    let hasChanges = false;
+    let rowIdx = 0;
 
-            if (currentRow && isTableRowNode(currentRow)) {
-                let lengthDiff = row.cells.length - currentRow.children.length;
+    table.children.forEach((row) => {
+        if (!isTableRowNode(row)) {
+            return;
+        }
 
-                while (lengthDiff > 0) {
-                    const newCell = TablesEditor.createTableCell(editor);
-                    currentRow.children.push(newCell as any);
-                    hasChanges = true;
-                    lengthDiff--;
+        const cells = row.children;
+        let colIdx = 0;
+
+        cells.forEach((cell) => {
+            if (!isTableCellNode(cell)) {
+                return;
+            }
+
+            let colSpanIdx = 0;
+            const cellRowspan = cell.rowspan ?? 1;
+
+            for (let spanIdx = rowIdx; spanIdx < rowIdx + cellRowspan; spanIdx++) {
+                if (!grid.children[spanIdx]) {
+                    grid.children[spanIdx] = { ...row, children: [] };
+                }
+
+                const cellColspan = cell.colspan ?? 1;
+
+                for (colSpanIdx = 0; colSpanIdx < cellColspan; colSpanIdx++) {
+                    // Insert cell at first empty position
+                    let i = 0;
+
+                    while (grid.children[spanIdx]?.children[colIdx + colSpanIdx + i]) {
+                        i++;
+                    }
+
+                    const fakeCell = colSpanIdx > 0 || spanIdx !== rowIdx;
+                    const y = spanIdx;
+                    const x = colIdx + colSpanIdx + i;
+
+                    if (fakeCell) {
+                        grid.children[y].children[x] = TablesEditor.createTableCell(editor) as any;
+                        hasChanges = true;
+                    } else {
+                        const { colspan, rowspan, ...pureCell } = cell;
+
+                        if (colspan || rowspan) {
+                            hasChanges = true;
+                        }
+
+                        grid.children[y].children[x] = pureCell;
+                    }
                 }
             }
+
+            colIdx += colSpanIdx;
         });
 
-        node.children.forEach((row) =>
-            row.children.forEach((cell) => {
-                if (cell.colspan) {
-                    delete cell.colspan;
-                    hasChanges = true;
-                }
+        rowIdx += 1;
+    });
 
-                if (cell.rowspan) {
-                    delete cell.rowspan;
-                    hasChanges = true;
-                }
-            }),
-        );
+    if (hasChanges) {
+        Editor.withoutNormalizing(editor, () => {
+            Transforms.removeNodes(editor, { at: path, match: (n) => n === table });
+        });
 
-        if (hasChanges) {
-            Transforms.setNodes(editor, node, {
-                at: path,
-                match: isTableNode,
-            });
-            return true;
-        }
+        Transforms.insertNodes(editor, grid, { at: path });
+        return true;
     }
 
     return false;
