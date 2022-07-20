@@ -36,7 +36,7 @@ interface Props<Action> extends Settings {
     containerRef: RefObject<HTMLElement>;
     open: boolean;
     options: Option<Action>[];
-    onActivate: (option: Option<Action>) => void;
+    onActivate: (option: Option<Action>, query: string) => void;
     onFilter?: (query: string, resultsCount: number) => void;
     onToggle: (isShown: boolean) => void;
     showTooltipByDefault: boolean;
@@ -104,7 +104,7 @@ export function FloatingAddMenu<Action>({
 
     function onSelect(option: Option<Action>) {
         menu.close();
-        onActivate(option);
+        onActivate(option, query);
     }
 
     function handleKeyDown(event: KeyboardEvent) {

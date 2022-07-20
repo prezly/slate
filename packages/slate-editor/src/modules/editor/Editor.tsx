@@ -290,12 +290,14 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
 
-    const handleMenuAction = useFunction((option: Option<MenuAction>) => {
-        const { action, text } = option;
+    const handleMenuAction = useFunction((option: Option<MenuAction>, query: string) => {
+        const { action, text, suggested } = option;
 
         EventsEditor.dispatchEvent(editor, 'add-button-menu-option-click', {
             action,
             title: text,
+            suggested: typeof suggested === 'number',
+            query,
         });
         if (action === MenuAction.ADD_PARAGRAPH) {
             return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);

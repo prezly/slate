@@ -13,6 +13,8 @@ export type EditorEventMap = {
     'add-button-menu-option-click': {
         title: string;
         action: string;
+        suggested: boolean;
+        query: string;
     };
     'attachment-add-clicked': never;
     'attachment-added': {
