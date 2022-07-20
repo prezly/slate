@@ -101,8 +101,8 @@ export const hierarchySchema: NodesHierarchySchema = {
     [TABLE_NODE_TYPE]: [
         allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNodeNoSplit])),
         removeEmptyRow,
-        restoreAbsentCells,
         normalizeTableData,
+        restoreAbsentCells,
     ],
     [TABLE_ROW_NODE_TYPE]: [
         allowChildren(
