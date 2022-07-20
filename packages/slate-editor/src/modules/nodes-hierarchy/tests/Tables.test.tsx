@@ -303,4 +303,129 @@ describe('nodes-hierarchy / Tables', () => {
 
         expect(editor.children).toEqual(expected.children);
     });
+
+    it('should remove colspan', () => {
+        const editor = (
+            <editor>
+                <h:table border>
+                    <h:tr>
+                        <h:td>
+                            <h:text>1</h:text>
+                        </h:td>
+                        <h:td colspan={2}>
+                            <h:text>2</h:text>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:text>3</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>4</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>5</h:text>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as Editor;
+
+        const expected = (
+            <editor>
+                <h:table border>
+                    <h:tr>
+                        <h:td>
+                            <h:text>1</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>2</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text></h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:text>3</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>4</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>5</h:text>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as Editor;
+
+        Editor.normalize(editor, { force: true });
+
+        expect(editor.children).toEqual(expected.children);
+    });
+
+    it('should remove rowspan', () => {
+        const editor = (
+            <editor>
+                <h:table border>
+                    <h:tr>
+                        <h:td rowspan={2}>
+                            <h:text>1</h:text>
+                        </h:td>
+                        <h:td colspan={2}>
+                            <h:text>2</h:text>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:text>4</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>5</h:text>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as Editor;
+
+        const expected = (
+            <editor>
+                <h:table border>
+                    <h:tr>
+                        <h:td>
+                            <h:text>1</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>2</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text></h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text></h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:text>4</h:text>
+                        </h:td>
+                        <h:td>
+                            <h:text>5</h:text>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as Editor;
+
+        Editor.normalize(editor, { force: true });
+
+        expect(editor.children).toEqual(expected.children);
+    });
 });
