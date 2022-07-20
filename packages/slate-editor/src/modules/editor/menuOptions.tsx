@@ -34,7 +34,7 @@ export enum MenuAction {
 }
 
 enum Group {
-    BASICS = 'Basics',
+    TEXT_N_LAYOUT = 'Text & layout',
     MEDIA_CONTENT = 'Media content',
     PREZLY_CONTENT = 'Prezly content',
 }
@@ -58,7 +58,26 @@ interface Params {
     withWebBookmarks: boolean;
 }
 
-export function* generateFloatingAddMenuOptions(
+/**
+ * Keeping track of suggestions ordering in one place.
+ */
+const Suggested: Partial<Record<MenuAction, number>> = {
+    [MenuAction.ADD_IMAGE]: 1,
+    [MenuAction.ADD_CONTACT]: 2,
+    [MenuAction.ADD_ATTACHMENT]: 3,
+    [MenuAction.ADD_WEB_BOOKMARK]: 4,
+    [MenuAction.ADD_VIDEO]: 5,
+};
+
+export function generateFloatingAddMenuOptions(
+    editor: Editor,
+    params: Params,
+): Option<MenuAction>[] {
+    const options = Array.from(generateOptions(editor, params));
+    return options.map((option) => ({ ...option, suggested: Suggested[option.action] }));
+}
+
+function* generateOptions(
     editor: Editor,
     {
         withAttachments,
@@ -78,19 +97,19 @@ export function* generateFloatingAddMenuOptions(
         withVideos,
         withWebBookmarks,
     }: Params,
-): Generator<Option<MenuAction>> {
+): Generator<Omit<Option<MenuAction>, 'suggested'>> {
     if (withHeadings) {
         yield {
             icon: Icons.ComponentH1,
             action: MenuAction.ADD_HEADING_1,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Heading 1',
             description: 'Big section heading',
         };
         yield {
             icon: Icons.ComponentH2,
             action: MenuAction.ADD_HEADING_2,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Heading 2',
             description: 'Medium section heading',
         };
@@ -100,7 +119,7 @@ export function* generateFloatingAddMenuOptions(
         yield {
             icon: Icons.ComponentText,
             action: MenuAction.ADD_PARAGRAPH,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Text',
             description: 'Start writing plain text',
         };
@@ -110,7 +129,7 @@ export function* generateFloatingAddMenuOptions(
         yield {
             icon: Icons.ComponentQuote,
             action: MenuAction.ADD_QUOTE,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Quote',
             description: 'Highlighted text section',
         };
@@ -120,7 +139,7 @@ export function* generateFloatingAddMenuOptions(
         yield {
             icon: Icons.ComponentDivider,
             action: MenuAction.ADD_DIVIDER,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Divider',
             description: 'Divide blocks with a line',
         };
@@ -130,7 +149,7 @@ export function* generateFloatingAddMenuOptions(
         yield {
             action: MenuAction.ADD_TABLE,
             icon: Icons.ComponentTable,
-            group: Group.BASICS,
+            group: Group.TEXT_N_LAYOUT,
             text: 'Table',
             description: 'Add a table to your Story',
             isBeta: true,
