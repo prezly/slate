@@ -57,3 +57,9 @@
 .button {
     pointer-events: all;
 }
+
+.placeholder {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
