@@ -4,9 +4,9 @@ import { Node, Text } from 'slate';
 
 export type Edge = 'highest' | 'lowest';
 
-export function findLeafPath(editor: Editor, path: Path, edge: Edge = 'highest'): Path | null {
+export function findLeafPath(editor: Editor, path: Path, edge: Edge = 'highest'): Path | undefined {
     if (!Node.has(editor, path)) {
-        return null;
+        return undefined;
     }
 
     const node = Node.get(editor, path);
