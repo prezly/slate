@@ -1,6 +1,6 @@
-import type { Location, NodeEntry, Range } from 'slate';
-import { Editor, Node, Path } from 'slate';
+import { type NodeEntry, type Range, Node, Path } from 'slate';
 
+import { findParentCell } from '../queries';
 import type { TablesEditor } from '../TablesEditor';
 
 export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): T {
@@ -38,14 +38,4 @@ function isRangeInsideCell(selection: Range, [, cellPath]: NodeEntry<Node>) {
         Path.isCommon(cellPath, selection.anchor.path) &&
         Path.isCommon(cellPath, selection.focus.path)
     );
-}
-
-function findParentCell(editor: TablesEditor, at: Location) {
-    for (const entry of Editor.levels(editor, { at })) {
-        if (editor.isTableCellNode(entry[0])) {
-            return entry;
-        }
-    }
-
-    return undefined;
 }
