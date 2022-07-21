@@ -96,6 +96,7 @@ module.exports = {
         overrideNoExtraneousDependenciesRule('slate-types'),
         overrideNoExtraneousDependenciesRule('slate-commons'),
         overrideNoExtraneousDependenciesRule('slate-lists'),
+        overrideNoExtraneousDependenciesRule('slate-tables'),
         overrideNoExtraneousDependenciesRule('slate-editor'),
     ]
 }
