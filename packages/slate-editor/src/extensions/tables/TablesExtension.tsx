@@ -28,6 +28,7 @@ import {
     normalizeRowAttributes,
     normalizeTableAttributes,
 } from './normalization';
+import { onClipboardHotkey } from './onKeyDown';
 
 export const EXTENSION_ID = TablesExtension.name;
 
@@ -64,6 +65,7 @@ export function TablesExtension(): Extension {
         onKeyDown: (event, editor) => {
             if (TablesEditor.isTablesEditor(editor)) {
                 onKeyDown(event, editor);
+                onClipboardHotkey(event, editor);
             }
         },
         renderElement: ({ attributes, children, element }: RenderElementProps) => {

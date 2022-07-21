@@ -23,6 +23,7 @@ export namespace TablesEditor {
     export const removeRow = TableCommands.removeRow;
     export const removeTable = TableCommands.removeTable;
 
+    export const findParentTable = TableQueries.findParentTable;
     export const isHeaderCell = TableQueries.isHeaderCell;
     export const isInTable = TableQueries.isInTable;
 

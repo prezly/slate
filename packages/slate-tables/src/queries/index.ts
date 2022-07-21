@@ -1,2 +1,3 @@
-export * from './isHeaderCell';
-export * from './isInTable';
+export { findParentTable } from './findParentTable';
+export { isHeaderCell } from './isHeaderCell';
+export { isInTable } from './isInTable';
