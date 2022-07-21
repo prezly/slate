@@ -3,7 +3,7 @@ import type { Path } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
 
-export function removeEmptyRow(editor: TablesEditor, path: Path) {
+export function removeEmptyRows(editor: TablesEditor, path: Path) {
     const table = Node.get(editor, path);
 
     if (!editor.isTableNode(table)) {

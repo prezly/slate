@@ -5,7 +5,7 @@ import { Editor } from 'slate';
 
 import { TablesEditor } from '../TablesEditor';
 
-export function normalizeTableData(editor: TablesEditor, path: Path) {
+export function splitMergedCells(editor: TablesEditor, path: Path) {
     const table = Node.get(editor, path);
 
     if (!editor.isTableNode(table)) {

@@ -1,3 +1,3 @@
-export * from './normalizeTableData';
-export * from './removeEmptyRow';
-export * from './restoreAbsentCells';
+export * from './splitMergedCells';
+export * from './removeEmptyRows';
+export * from './insertMissingCells';

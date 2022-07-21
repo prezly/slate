@@ -95,13 +95,14 @@ export const hierarchySchema: NodesHierarchySchema = {
     [TABLE_NODE_TYPE]: [
         allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNodeNoSplit])),
         (editor, path) =>
-            TablesEditor.isTablesEditor(editor) && TablesNormalization.removeEmptyRow(editor, path),
+            TablesEditor.isTablesEditor(editor) &&
+            TablesNormalization.removeEmptyRows(editor, path),
         (editor, path) =>
             TablesEditor.isTablesEditor(editor) &&
-            TablesNormalization.normalizeTableData(editor, path),
+            TablesNormalization.splitMergedCells(editor, path),
         (editor, path) =>
             TablesEditor.isTablesEditor(editor) &&
-            TablesNormalization.restoreAbsentCells(editor, path),
+            TablesNormalization.insertMissingCells(editor, path),
     ],
     [TABLE_ROW_NODE_TYPE]: [
         allowChildren(

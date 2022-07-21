@@ -5,7 +5,7 @@ import { Path } from 'slate';
 import type { TableRowNode } from '../nodes';
 import { TablesEditor } from '../TablesEditor';
 
-export function restoreAbsentCells(editor: TablesEditor, path: Path) {
+export function insertMissingCells(editor: TablesEditor, path: Path) {
     const table = Node.get(editor, path);
 
     if (!editor.isTableNode(table)) {
@@ -13,7 +13,7 @@ export function restoreAbsentCells(editor: TablesEditor, path: Path) {
     }
 
     const maxWidth = table.children.reduce((max, row) => {
-        const rowSize = calculateWholeRowSize(row);
+        const rowSize = calculateRowWidth(row);
 
         if (rowSize > max) {
             return rowSize;
@@ -24,7 +24,7 @@ export function restoreAbsentCells(editor: TablesEditor, path: Path) {
 
     for (const [row, rowPath] of Node.children(editor, path)) {
         if (editor.isTableRowNode(row)) {
-            const rowSize = calculateWholeRowSize(row);
+            const rowSize = calculateRowWidth(row);
             const absentCellsQuantity = maxWidth - rowSize;
 
             if (absentCellsQuantity > 0) {
@@ -51,6 +51,6 @@ export function restoreAbsentCells(editor: TablesEditor, path: Path) {
     return false;
 }
 
-function calculateWholeRowSize(row: TableRowNode) {
+function calculateRowWidth(row: TableRowNode) {
     return row.children.reduce((size, cell) => size + (cell.colspan ?? 1), 0);
 }
