@@ -18,6 +18,7 @@ import { InsertBlockHotkeyExtension } from '#extensions/insert-block-hotkey';
 import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
 import { createParagraph, ParagraphsExtension } from '#extensions/paragraphs';
+import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
 import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
@@ -226,4 +227,6 @@ export function* getEnabledExtensions({
     yield VoidExtension();
 
     yield HtmlExtension();
+
+    yield PasteSlateContentExtension();
 }
