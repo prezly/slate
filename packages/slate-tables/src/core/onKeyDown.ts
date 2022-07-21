@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 import type { Location, BasePoint } from 'slate';
-import { Editor, Path } from 'slate';
+import { Editor } from 'slate';
 import { Transforms } from 'slate';
 
 import { TablesEditor } from '../TablesEditor';
@@ -49,27 +49,32 @@ function onUpPress(editor: TablesEditor): BasePoint | null | undefined {
 
     const { activeCell, matrix } = traverse;
 
-    if (activeCell.row.isFirst) {
-        return Editor.before(editor, matrix.path, { unit: 'block' });
-    }
+    const [cellStart] = Editor.edges(editor, activeCell.path);
 
-    const [, firstNodePath] = Editor.first(editor, activeCell.path);
+    const isCursorOnFirstLine = EditorCommands.isCursorOnEdgeOfContainer(
+        editor,
+        cellStart,
+        editor.selection.anchor,
+        'top',
+    );
 
-    if (!Path.equals(editor.selection.anchor.path, firstNodePath)) {
-        return undefined;
-    }
+    if (isCursorOnFirstLine) {
+        if (activeCell.row.isFirst) {
+            return Editor.before(editor, matrix.path, { unit: 'block' });
+        }
 
-    const { cellAbove } = activeCell;
+        const { cellAbove } = activeCell;
 
-    if (cellAbove) {
-        return EditorCommands.findLeafPoint(
-            editor,
-            {
-                path: cellAbove.path,
-                offset: editor.selection.anchor.offset,
-            },
-            'lowest',
-        );
+        if (cellAbove) {
+            return EditorCommands.findLeafPoint(
+                editor,
+                {
+                    path: cellAbove.path,
+                    offset: 0,
+                },
+                'lowest',
+            );
+        }
     }
 
     return undefined;
@@ -88,27 +93,32 @@ function onDownPress(editor: TablesEditor): BasePoint | null | undefined {
 
     const { activeCell, matrix } = traverse;
 
-    if (activeCell.row.isLast) {
-        return Editor.after(editor, matrix.path, { unit: 'block' });
-    }
+    const [, cellEnd] = Editor.edges(editor, activeCell.path);
 
-    const [, lastNodePath] = Editor.last(editor, activeCell.path);
+    const isCursorOnLastLine = EditorCommands.isCursorOnEdgeOfContainer(
+        editor,
+        cellEnd,
+        editor.selection.anchor,
+        'bottom',
+    );
 
-    if (!Path.equals(editor.selection.anchor.path, lastNodePath)) {
-        return undefined;
-    }
+    if (isCursorOnLastLine) {
+        if (activeCell.row.isLast) {
+            return Editor.after(editor, matrix.path, { unit: 'block' });
+        }
 
-    const { cellBelow } = activeCell;
+        const { cellBelow } = activeCell;
 
-    if (cellBelow) {
-        return EditorCommands.findLeafPoint(
-            editor,
-            {
-                path: cellBelow.path,
-                offset: editor.selection.anchor.offset,
-            },
-            'highest',
-        );
+        if (cellBelow) {
+            return EditorCommands.findLeafPoint(
+                editor,
+                {
+                    path: cellBelow.path,
+                    offset: 0,
+                },
+                'highest',
+            );
+        }
     }
 
     return undefined;

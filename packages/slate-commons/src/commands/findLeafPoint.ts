@@ -20,7 +20,10 @@ export function findLeafPoint(editor: Editor, point: Point, edge: Edge = 'highes
         return point;
     }
 
-    const offset = Math.min(point.offset, end.offset);
+    const offset =
+        edge === 'highest'
+            ? Math.min(point.offset, end.offset)
+            : Math.max(point.offset, end.offset);
 
     return {
         offset,
