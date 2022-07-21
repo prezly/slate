@@ -148,7 +148,7 @@ export type EditorEventMap = {
     'table-insert-column-right': never;
     'table-remove-column': never;
     'table-remove': never;
-}
+};
 
 export type EditorEventHandlers = {
     [key in keyof EditorEventMap]: Listener<EditorEventMap[key]>;
