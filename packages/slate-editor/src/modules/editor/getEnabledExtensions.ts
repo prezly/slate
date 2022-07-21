@@ -210,7 +210,7 @@ export function* getEnabledExtensions({
     }
 
     if (withTables) {
-        yield TablesExtension();
+        yield TablesExtension({ createDefaultElement: createParagraph });
     }
 
     if (withStoryEmbeds) {

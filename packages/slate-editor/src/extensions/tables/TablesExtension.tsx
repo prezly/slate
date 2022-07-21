@@ -16,9 +16,9 @@ import {
 } from '@prezly/slate-types';
 import { flow } from 'lodash-es';
 import React from 'react';
+import type { Element } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
-import { createParagraph } from '#extensions/paragraphs';
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { TableElement, TableRowElement, TableCellElement } from './components';
@@ -32,7 +32,11 @@ import { onClipboardHotkey } from './onKeyDown';
 
 export const EXTENSION_ID = TablesExtension.name;
 
-export function TablesExtension(): Extension {
+interface Parameters {
+    createDefaultElement: (props?: Partial<Element>) => Element;
+}
+
+export function TablesExtension({ createDefaultElement }: Parameters): Extension {
     return {
         id: EXTENSION_ID,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
@@ -65,7 +69,7 @@ export function TablesExtension(): Extension {
         onKeyDown: (event, editor) => {
             if (TablesEditor.isTablesEditor(editor)) {
                 onKeyDown(event, editor);
-                onClipboardHotkey(event, editor);
+                onClipboardHotkey(event, editor, createDefaultElement);
             }
         },
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
@@ -97,7 +101,7 @@ export function TablesExtension(): Extension {
         },
         withOverrides: (editor) => {
             const tablesEditor = withTables(editor, {
-                createContentNode: createParagraph,
+                createContentNode: createDefaultElement,
                 createTableNode: ({ children, ...props }) =>
                     createTableNode({
                         ...props,
