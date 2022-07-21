@@ -50,7 +50,7 @@ import type { EditorProps } from './types';
 
 type Parameters = {
     availableWidth: number;
-    onFloatingAddMenuToggle: (show: boolean) => void;
+    onFloatingAddMenuToggle: (show: boolean, trigger: 'input' | 'hotkey') => void;
     onOperationEnd?: () => void;
     onOperationStart?: () => void;
 } & Pick<
@@ -119,7 +119,9 @@ export function* getEnabledExtensions({
     }
 
     if (withFloatingAddMenu) {
-        yield FloatingAddMenuExtension(onFloatingAddMenuToggle);
+        yield FloatingAddMenuExtension({
+            onOpen: (trigger) => onFloatingAddMenuToggle(true, trigger),
+        });
     }
 
     if (withHeadings) {
