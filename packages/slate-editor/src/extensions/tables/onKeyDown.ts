@@ -6,7 +6,11 @@ import { type Element, Editor, Range, Transforms } from 'slate';
 const isClipboardCopy = isHotkey(['mod+c', 'ctrl+insert']);
 const isClipboardCut = isHotkey(['mod+x', 'shift+delete']);
 
-export function onClipboardHotkey(event: KeyboardEvent, editor: Editor & TablesEditor, createDefaultElement: () => Element) {
+export function onClipboardHotkey(
+    event: KeyboardEvent,
+    editor: Editor & TablesEditor,
+    createDefaultElement: () => Element,
+) {
     const selection = editor.selection;
 
     if (!selection || Range.isExpanded(selection)) return;
