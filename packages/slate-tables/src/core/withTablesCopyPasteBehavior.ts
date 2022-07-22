@@ -1,6 +1,6 @@
 import { type Range, Node, Path } from 'slate';
 
-import { findParentCell, findParentTable } from '../queries';
+import { findParentCell } from '../queries';
 import type { TablesEditor } from '../TablesEditor';
 
 export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): T {
@@ -24,12 +24,6 @@ export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): 
                         path: Path.relative(focus.path, cellPath),
                     },
                 });
-            }
-
-            const tableEntry = findParentTable(editor);
-
-            if (tableEntry && isRangeInside(editor.selection, tableEntry[1])) {
-                return [tableEntry[0]];
             }
         }
 
