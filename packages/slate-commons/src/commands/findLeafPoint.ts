@@ -24,7 +24,10 @@ export function findLeafPoint(
         return point;
     }
 
-    const offset = Math.min(point.offset, end.offset);
+    const offset =
+        edge === 'highest'
+            ? Math.min(point.offset, end.offset)
+            : Math.max(point.offset, end.offset);
 
     return { offset, path };
 }
