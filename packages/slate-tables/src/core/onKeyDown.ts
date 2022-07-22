@@ -47,7 +47,7 @@ function onUpPress(editor: TablesEditor): Point | undefined {
 
     const { activeCell, matrix } = traverse;
 
-    const [cellStart] = Editor.edges(editor, activeCell.path);
+    const cellStart = Editor.start(editor, activeCell.path);
 
     const isCursorOnFirstLine = EditorCommands.isCursorOnFirstLine(
         editor,
@@ -90,7 +90,7 @@ function onDownPress(editor: TablesEditor): Point | undefined {
 
     const { activeCell, matrix } = traverse;
 
-    const [, cellEnd] = Editor.edges(editor, activeCell.path);
+    const cellEnd = Editor.end(editor, activeCell.path);
 
     const isCursorOnLastLine = EditorCommands.isCursorOnLastLine(
         editor,
