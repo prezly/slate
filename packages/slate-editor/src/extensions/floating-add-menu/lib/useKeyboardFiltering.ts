@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { MENU_TRIGGER_CHARACTERS } from './isMenuHotkey';
 
 interface Option {
+    group: string;
     text: string;
     description?: string;
 }
@@ -27,5 +28,22 @@ export function useKeyboardFiltering<T extends Option>(input: string, options: T
 function filter<T extends Option>(options: T[], query: string): T[] {
     if (!query) return options;
 
-    return options.filter(({ text }) => text.toLowerCase().includes(query.toLowerCase()));
+    const lowercaseQuery = query.toLowerCase().trimStart();
+
+    const relevanceOrderedOptions = [
+        ...options.filter(({ text }) => ` ${text.toLowerCase()}`.includes(` ${lowercaseQuery}`)),
+        ...options.filter(({ text }) => text.toLowerCase().includes(lowercaseQuery)),
+    ];
+
+    return keepGroups(deduplicate(relevanceOrderedOptions));
+}
+
+function deduplicate<T>(items: T[]): T[] {
+    return items.filter((item, index, self) => self.indexOf(item) === index);
+}
+
+function keepGroups<T extends Option>(options: T[]): T[] {
+    const groups = deduplicate(options.map((option) => option.group));
+
+    return groups.flatMap((group) => options.filter((option) => option.group === group));
 }
