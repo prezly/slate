@@ -1,11 +1,11 @@
-import * as TablesNormalization from './normalization';
+import * as normalization from './normalization';
 import type { TablesEditor } from './TablesEditor';
 
 const normalizers = [
-    TablesNormalization.removeEmptyRows,
-    TablesNormalization.splitRowSpanCells,
-    TablesNormalization.splitColSpanCells,
-    TablesNormalization.insertMissingCells,
+    normalization.removeEmptyRows,
+    normalization.splitRowSpanCells,
+    normalization.splitColSpanCells,
+    normalization.insertMissingCells,
 ];
 
 export function withNormalization(editor: TablesEditor) {

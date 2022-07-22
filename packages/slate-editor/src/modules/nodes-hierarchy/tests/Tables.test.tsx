@@ -412,7 +412,7 @@ describe('nodes-hierarchy / Tables', () => {
         expect(editor.children).toEqual(expected.children);
     });
 
-    it('should restore absent cells when colspan exceeds real cells', () => {
+    it('should insert absent cells when colspan exceeds real cells', () => {
         const editor = (
             <editor>
                 <h:table border>
