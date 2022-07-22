@@ -21,6 +21,10 @@ export function isCursorOnEdgeOfContainer(
     const a = getPointRect(editor, container);
     const b = getPointRect(editor, cursor);
 
+    if (!a || !b) {
+        return false;
+    }
+
     switch (edge) {
         case 'top':
             return a.at(0)?.top === b.at(0)?.top;
@@ -31,9 +35,16 @@ export function isCursorOnEdgeOfContainer(
 
 function getPointRect(editor: ReactEditor, point: Point) {
     const range = Editor.range(editor, { ...point, offset: Math.max(point.offset, 0) });
-    return getRangeRect(editor, range);
+    try {
+        return getRangeRect(editor, range);
+    } catch {
+        return undefined;
+    }
 }
 
+/**
+ * @throws error when `ReactEditor.toDOMRange()` cannot match range to a DOM node
+ */
 function getRangeRect(editor: ReactEditor, range: Range) {
     const domRange = ReactEditor.toDOMRange(editor, range);
     const rects = domRange.getClientRects();
