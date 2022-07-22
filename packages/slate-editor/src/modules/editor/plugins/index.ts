@@ -1,3 +1,4 @@
+export { type DefaultTextBlockEditor, withDefaultTextBlock } from './withDefaultTextBlock';
 export { withDeserializeHtml } from './withDeserializeHtml';
 export { withFilePasting } from './withFilePasting';
 export { withNonEmptyValue } from './withNonEmptyValue';

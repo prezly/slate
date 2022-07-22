@@ -12,9 +12,11 @@ import type { Editor } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
 
+import { createParagraph } from '#extensions/paragraphs';
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
 import {
+    withDefaultTextBlock,
     withDeserializeHtml,
     withFilePasting,
     withNonEmptyValue,
@@ -38,6 +40,7 @@ export function createEditor(
         withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,
+        withDefaultTextBlock(createParagraph),
         withInlineVoid(getExtensions),
         withNormalization(getExtensions),
         withUserFriendlyDeleteBehavior,
