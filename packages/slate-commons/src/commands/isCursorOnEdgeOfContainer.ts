@@ -4,14 +4,26 @@ import { ReactEditor } from 'slate-react';
 
 export type ContainerEdge = 'top' | 'bottom';
 
+export function isCursorOnFirstLine(editor: ReactEditor, container: Point, cursor: Point): boolean {
+    return isCursorOnEdgeOfContainer(editor, container, cursor, 'top');
+}
+
+export function isCursorOnLastLine(editor: ReactEditor, container: Point, cursor: Point): boolean {
+    return isCursorOnEdgeOfContainer(editor, container, cursor, 'bottom');
+}
+
 export function isCursorOnEdgeOfContainer(
     editor: ReactEditor,
     container: Point,
-    child: Point,
+    cursor: Point,
     edge: ContainerEdge,
 ) {
     const a = getPointRect(editor, container);
-    const b = getPointRect(editor, child);
+    const b = getPointRect(editor, cursor);
+
+    if (!a || !b) {
+        return false;
+    }
 
     switch (edge) {
         case 'top':
@@ -23,9 +35,16 @@ export function isCursorOnEdgeOfContainer(
 
 function getPointRect(editor: ReactEditor, point: Point) {
     const range = Editor.range(editor, { ...point, offset: Math.max(point.offset, 0) });
-    return getRangeRect(editor, range);
+    try {
+        return getRangeRect(editor, range);
+    } catch {
+        return undefined;
+    }
 }
 
+/**
+ * @throws error when `ReactEditor.toDOMRange()` cannot match range to a DOM node
+ */
 function getRangeRect(editor: ReactEditor, range: Range) {
     const domRange = ReactEditor.toDOMRange(editor, range);
     const rects = domRange.getClientRects();

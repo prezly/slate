@@ -47,13 +47,12 @@ function onUpPress(editor: TablesEditor): Point | undefined {
 
     const { activeCell, matrix } = traverse;
 
-    const [cellStart] = Editor.edges(editor, activeCell.path);
+    const cellStart = Editor.start(editor, activeCell.path);
 
-    const isCursorOnFirstLine = EditorCommands.isCursorOnEdgeOfContainer(
+    const isCursorOnFirstLine = EditorCommands.isCursorOnFirstLine(
         editor,
         cellStart,
         editor.selection.anchor,
-        'top',
     );
 
     if (isCursorOnFirstLine) {
@@ -91,13 +90,12 @@ function onDownPress(editor: TablesEditor): Point | undefined {
 
     const { activeCell, matrix } = traverse;
 
-    const [, cellEnd] = Editor.edges(editor, activeCell.path);
+    const cellEnd = Editor.end(editor, activeCell.path);
 
-    const isCursorOnLastLine = EditorCommands.isCursorOnEdgeOfContainer(
+    const isCursorOnLastLine = EditorCommands.isCursorOnLastLine(
         editor,
         cellEnd,
         editor.selection.anchor,
-        'bottom',
     );
 
     if (isCursorOnLastLine) {
