@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { MouseEvent, ReactNode } from 'react';
+import type { HTMLAttributes, MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
@@ -11,7 +11,6 @@ import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import { useFunction, useSlateDom } from '#lib';
 
 import styles from './EditorBlock.module.scss';
-import { EntryPoint } from './EntryPoint';
 import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
@@ -193,6 +192,24 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 });
 
 EditorBlock.displayName = 'EditorBlock';
+
+function EntryPoint({
+    className,
+    title = 'Click to insert a new paragraph',
+    ...props
+}: HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div
+            {...props}
+            className={classNames(className, styles.EntryPoint)}
+            contentEditable={false}
+            role="button"
+            title={title}
+        >
+            {title}
+        </div>
+    );
+}
 
 function preventBubbling(event: MouseEvent) {
     event.stopPropagation();

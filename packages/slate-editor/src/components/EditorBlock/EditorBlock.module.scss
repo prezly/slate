@@ -34,13 +34,29 @@ $editor-block-outline-width: 6px;
 .EntryPoint {
     position: absolute;
     width: 100%;
+    cursor: vertical-text;
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+    height: $spacing-1;
+
+    &:hover {
+        &:before {
+            content: " ";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            border-top: 1px dashed #aaa;
+        }
+    }
 
     &.top {
-        top: - $spacing-1 - $editor-block-outline-width;
+        top: -$spacing-1 - $editor-block-outline-width;
     }
 
     &.bottom {
-        bottom: - $spacing-1 - $editor-block-outline-width;
+        bottom: -$spacing-1 - $editor-block-outline-width;
     }
 }
 
