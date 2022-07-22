@@ -2,6 +2,7 @@
 @import "styles/variables";
 
 $editor-block-outline-width: 6px;
+$editor-block-entry-point-height: $spacing-3;
 
 .EditorBlock {
     position: relative;
@@ -38,7 +39,7 @@ $editor-block-outline-width: 6px;
     color: transparent;
     font-size: 0;
     line-height: 0;
-    height: $spacing-1;
+    height: $editor-block-entry-point-height;
 
     &:hover {
         &:before {
@@ -52,11 +53,11 @@ $editor-block-outline-width: 6px;
     }
 
     &.top {
-        top: -$spacing-1 - $editor-block-outline-width;
+        top: -$editor-block-entry-point-height - $editor-block-outline-width;
     }
 
     &.bottom {
-        bottom: -$spacing-1 - $editor-block-outline-width;
+        bottom: -$editor-block-entry-point-height - $editor-block-outline-width;
     }
 }
 
