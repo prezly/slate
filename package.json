@@ -17,7 +17,7 @@
         "build": "NODE_ENV=production turbo run build",
         "build:dev": "NODE_ENV=development turbo run build",
         "check": "npm run prettier && npm run test",
-        "watch": "turbo run watch",
+        "watch": "NODE_ENV=development turbo run watch",
         "lint": "npm run lint --workspaces",
         "lint:fix": "npm run lint --workspaces -- --fix",
         "test": "turbo run test",

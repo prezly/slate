@@ -23,10 +23,10 @@
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
         "build": "npm run build:types && npm run build:esm",
-        "build:types": "tsc --build .",
+        "build:types": "tsc --project .",
         "build:esm": "babel ./src --ignore='**/*.test.tsx','**/*.test.ts' --config-file=../../babel.config.json --extensions=.ts,.tsx --source-root=./src --out-dir=./build/esm/",
         "watch": "NODE_ENV=development concurrently --kill-others --names 'd.ts,esm ' 'npm run watch:types' 'npm run watch:esm'",
-        "watch:types": "tsc-fancy --preserveConsoleOutput --build . --watch --pretty",
+        "watch:types": "tsc-fancy --preserveConsoleOutput --project . --watch --pretty",
         "watch:esm": "npm run build:esm -- --watch",
         "test": "npm run test:build",
         "test:build": "npm run test:esm && npm run test:types",

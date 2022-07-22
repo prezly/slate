@@ -27,10 +27,10 @@
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
         "build": "npm run build:types && npm run build:esm",
-        "build:types": "tsc --build ./tsconfig.build.json",
+        "build:types": "tsc --project ./tsconfig.build.json",
         "build:esm": "babel ./src --ignore='**/*.test.tsx','**/*.test.ts' --config-file=../../babel.config.json --extensions=.ts,.tsx --source-root=./src --out-dir=./build/esm/",
         "watch": "concurrently --kill-others --names 'd.ts,esm ' 'npm run watch:types' 'npm run watch:esm'",
-        "watch:types": "tsc-fancy --preserveConsoleOutput --build ./tsconfig.build.json --watch --pretty",
+        "watch:types": "tsc-fancy --preserveConsoleOutput --project ./tsconfig.build.json --watch --pretty",
         "watch:esm": "npm run build:esm -- --watch",
         "test": "npm run test:unit && npm run test:build",
         "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.cjs --rootDir ./ --no-cache --coverage",

@@ -122,7 +122,7 @@ const extensions = [
     HeadingExtension(),
     InlineLinksExtension(),
     ListExtension(),
-    TablesExtension(),
+    TablesExtension({ createDefaultElement: createParagraph }),
 ];
 
 const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
