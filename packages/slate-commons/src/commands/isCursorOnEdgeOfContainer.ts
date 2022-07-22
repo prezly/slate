@@ -4,14 +4,22 @@ import { ReactEditor } from 'slate-react';
 
 export type ContainerEdge = 'top' | 'bottom';
 
+export function isCursorOnFirstLine(editor: ReactEditor, container: Point, cursor: Point): boolean {
+    return isCursorOnEdgeOfContainer(editor, container, cursor, 'top');
+}
+
+export function isCursorOnLastLine(editor: ReactEditor, container: Point, cursor: Point): boolean {
+    return isCursorOnEdgeOfContainer(editor, container, cursor, 'bottom');
+}
+
 export function isCursorOnEdgeOfContainer(
     editor: ReactEditor,
     container: Point,
-    child: Point,
+    cursor: Point,
     edge: ContainerEdge,
 ) {
     const a = getPointRect(editor, container);
-    const b = getPointRect(editor, child);
+    const b = getPointRect(editor, cursor);
 
     switch (edge) {
         case 'top':

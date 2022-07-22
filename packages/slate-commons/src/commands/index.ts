@@ -16,7 +16,12 @@ export { insertEmptyParagraph } from './insertEmptyParagraph';
 export { insertNodes } from './insertNodes';
 export { isBlockActive } from './isBlockActive';
 export { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
-export { isCursorOnEdgeOfContainer, type ContainerEdge } from './isCursorOnEdgeOfContainer';
+export {
+    isCursorOnFirstLine,
+    isCursorOnLastLine,
+    isCursorOnEdgeOfContainer,
+    type ContainerEdge,
+} from './isCursorOnEdgeOfContainer';
 export { isEmpty } from './isEmpty';
 export { isEmptyParagraphElement } from './isEmptyParagraphElement';
 export { isMarkActive } from './isMarkActive';
