@@ -4,7 +4,9 @@ import type { PressContact, TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
 export type EditorEventMap = {
-    'add-button-menu-opened': never;
+    'add-button-menu-opened': {
+        trigger: 'click' | 'hotkey' | 'input';
+    };
     'add-button-menu-closed': never;
     'add-button-menu-filtered': {
         query: string;

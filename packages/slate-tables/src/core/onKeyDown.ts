@@ -1,9 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import type { Location, BasePoint } from 'slate';
-import { Editor } from 'slate';
-import { Transforms } from 'slate';
+import { type Location, type Point, Editor, Transforms } from 'slate';
 
 import { TablesEditor } from '../TablesEditor';
 
@@ -14,7 +12,7 @@ export function onKeyDown(event: KeyboardEvent<Element>, editor: TablesEditor) {
         return;
     }
 
-    let locationToSelect: Location | undefined | null = null;
+    let locationToSelect: Location | undefined = undefined;
 
     if (isHotkey('up', event)) {
         locationToSelect = onUpPress(editor);
@@ -36,7 +34,7 @@ export function onKeyDown(event: KeyboardEvent<Element>, editor: TablesEditor) {
     }
 }
 
-function onUpPress(editor: TablesEditor): BasePoint | null | undefined {
+function onUpPress(editor: TablesEditor): Point | undefined {
     if (!editor.selection) {
         return undefined;
     }
@@ -80,7 +78,7 @@ function onUpPress(editor: TablesEditor): BasePoint | null | undefined {
     return undefined;
 }
 
-function onDownPress(editor: TablesEditor): BasePoint | null | undefined {
+function onDownPress(editor: TablesEditor): Point | undefined {
     if (!editor.selection) {
         return undefined;
     }
@@ -124,7 +122,7 @@ function onDownPress(editor: TablesEditor): BasePoint | null | undefined {
     return undefined;
 }
 
-function onTabPress(editor: TablesEditor): Location | null | undefined {
+function onTabPress(editor: TablesEditor): Location | undefined {
     if (!editor.selection) {
         return undefined;
     }
