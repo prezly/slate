@@ -3,7 +3,8 @@ import type { TablesEditor } from './TablesEditor';
 
 const normalizers = [
     TablesNormalization.removeEmptyRows,
-    TablesNormalization.splitMergedCells,
+    TablesNormalization.splitRowSpanCells,
+    TablesNormalization.splitColSpanCells,
     TablesNormalization.insertMissingCells,
 ];
 
