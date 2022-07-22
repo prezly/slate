@@ -39,6 +39,7 @@ interface Parameters {
 export function TablesExtension({ createDefaultElement }: Parameters): Extension {
     return {
         id: EXTENSION_ID,
+        isRichBlock: isTableNode,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
         deserialize: {
             element: composeElementDeserializer({
