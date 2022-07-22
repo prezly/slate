@@ -8,6 +8,7 @@ import {
     normalizeOrphanListItems,
     normalizeOrphanListItemTexts,
     normalizeSlackLineBreaks,
+    normalizeUselessBodyTags,
     normalizeZeroWidthSpaces,
 } from '../normalizers';
 
@@ -17,6 +18,7 @@ const normalizers = [
     normalizeOrphanListItems,
     normalizeOrphanListItemTexts,
     normalizeSlackLineBreaks,
+    normalizeUselessBodyTags,
     normalizeZeroWidthSpaces,
 ];
 
