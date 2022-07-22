@@ -1,6 +1,6 @@
-import type { Location, NodeEntry, Range } from 'slate';
-import { Editor, Node, Path } from 'slate';
+import { type Range, Node, Path } from 'slate';
 
+import { findParentCell } from '../queries';
 import type { TablesEditor } from '../TablesEditor';
 
 export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): T {
@@ -8,23 +8,22 @@ export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): 
 
     editor.getFragment = () => {
         if (editor.selection) {
-            const cellEntry = findParentCell(editor, editor.selection);
+            const cellEntry = findParentCell(editor);
 
-            if (cellEntry && isRangeInsideCell(editor.selection, cellEntry)) {
+            if (cellEntry && isRangeInside(editor.selection, cellEntry[1])) {
                 const [cell, cellPath] = cellEntry;
+                const { focus, anchor } = editor.selection;
 
-                const rangeRelativeToCell: Range = {
+                return Node.fragment(cell, {
                     anchor: {
-                        offset: editor.selection.anchor.offset,
-                        path: Path.relative(editor.selection.anchor.path, cellPath),
+                        offset: anchor.offset,
+                        path: Path.relative(anchor.path, cellPath),
                     },
                     focus: {
-                        offset: editor.selection.focus.offset,
-                        path: Path.relative(editor.selection.focus.path, cellPath),
+                        offset: focus.offset,
+                        path: Path.relative(focus.path, cellPath),
                     },
-                };
-
-                return Node.fragment(cell, rangeRelativeToCell);
+                });
             }
         }
 
@@ -34,19 +33,6 @@ export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): 
     return editor;
 }
 
-function isRangeInsideCell(selection: Range, [, cellPath]: NodeEntry<Node>) {
-    return (
-        Path.isCommon(cellPath, selection.anchor.path) &&
-        Path.isCommon(cellPath, selection.focus.path)
-    );
-}
-
-function findParentCell(editor: TablesEditor, at: Location) {
-    for (const entry of Editor.levels(editor, { at })) {
-        if (editor.isTableCellNode(entry[0])) {
-            return entry;
-        }
-    }
-
-    return undefined;
+function isRangeInside(selection: Range, path: Path) {
+    return Path.isCommon(path, selection.anchor.path) && Path.isCommon(path, selection.focus.path);
 }
