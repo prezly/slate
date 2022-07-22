@@ -4,13 +4,14 @@ import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import { Editor, Transforms } from 'slate';
+import { Editor, Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 
 import { useFunction, useSlateDom } from '#lib';
 
 import styles from './EditorBlock.module.scss';
+import { EntryPoint } from './EntryPoint';
 import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
@@ -106,6 +107,19 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         }
     });
 
+    const handleTopEntryPointClick = useFunction(function () {
+        const path = ReactEditor.findPath(editor, element);
+        Transforms.insertNodes(editor, editor.createDefaultTextBlock(), { at: path, select: true });
+    });
+
+    const handleBottomEntryPointClick = useFunction(function () {
+        const path = ReactEditor.findPath(editor, element);
+        Transforms.insertNodes(editor, editor.createDefaultTextBlock(), {
+            at: Path.next(path),
+            select: true,
+        });
+    });
+
     useEffect(
         function () {
             if (!isOnlyBlockSelected) setMenuOpen(false);
@@ -124,6 +138,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             onClick={closeMenu}
             ref={ref}
         >
+            <EntryPoint
+                className={classNames(styles.EntryPoint, styles.top)}
+                onClick={handleTopEntryPointClick}
+            />
             {renderInjectionPoint(renderAboveFrame, { isSelected })}
             <div
                 className={classNames(styles.Frame, {
@@ -166,6 +184,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 </div>
             </div>
             {renderInjectionPoint(renderBelowFrame, { isSelected })}
+            <EntryPoint
+                className={classNames(styles.EntryPoint, styles.bottom)}
+                onClick={handleBottomEntryPointClick}
+            />
         </div>
     );
 });
