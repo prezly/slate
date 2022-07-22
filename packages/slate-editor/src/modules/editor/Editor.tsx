@@ -121,12 +121,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     // [+] menu
     const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
     const onFloatingAddMenuToggle = useCallback(
-        function (shouldOpen: boolean) {
+        function (shouldOpen: boolean, trigger: 'click' | 'hotkey' | 'input') {
             setFloatingAddMenuOpen(shouldOpen);
-            EventsEditor.dispatchEvent(
-                editor,
-                shouldOpen ? 'add-button-menu-opened' : 'add-button-menu-closed',
-            );
+            if (shouldOpen) {
+                EventsEditor.dispatchEvent(editor, 'add-button-menu-opened', { trigger });
+            } else {
+                EventsEditor.dispatchEvent(editor, 'add-button-menu-closed');
+            }
         },
         [setFloatingAddMenuOpen],
     );
@@ -455,7 +456,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         containerRef={containerRef}
                         onActivate={handleMenuAction}
                         onFilter={handleMenuFilter}
-                        onToggle={onFloatingAddMenuToggle}
+                        onToggle={(toggle) => onFloatingAddMenuToggle(toggle, 'click')}
                         options={menuOptions}
                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
                     />
