@@ -50,7 +50,11 @@ $editor-block-outline-width: 6px;
             left: 0;
             right: 0;
             top: 50%;
-            border-top: 1px dashed #cccccc;
+
+            // To demonstrate both variations: with and without border
+            .EditorBlock[data-slate-type="bookmark"] & {
+                border-top: 1px dashed #cccccc;
+            }
         }
     }
 
