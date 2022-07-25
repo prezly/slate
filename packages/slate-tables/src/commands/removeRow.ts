@@ -37,6 +37,15 @@ export function removeRow(
 
     Transforms.removeNodes(editor, { at: activeRow.path });
 
+    const anchorFocusRow = activeRow.rowBelow ?? activeRow;
+
+    const firstCell = anchorFocusRow.rowAbove.cells.at(0);
+
+    if (firstCell) {
+        Transforms.select(editor, firstCell.path);
+        Transforms.collapse(editor, { edge: 'start' });
+    }
+
     ReactEditor.focus(editor);
 
     return true;
