@@ -200,11 +200,11 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     })}
                 </div>
             </div>
-            {renderInjectionPoint(renderBelowFrame, { isSelected })}
             <EntryPoint
                 className={classNames(styles.EntryPoint, styles.bottom)}
                 onClick={handleBottomEntryPointClick}
             />
+            {renderInjectionPoint(renderBelowFrame, { isSelected })}
         </div>
     );
 });
