@@ -2,7 +2,6 @@
 @import "styles/variables";
 
 $editor-block-outline-width: 6px;
-$editor-block-entry-point-height: $spacing-3;
 
 .EditorBlock {
     position: relative;
@@ -33,13 +32,16 @@ $editor-block-entry-point-height: $spacing-3;
 }
 
 .EntryPoint {
+    $height: $spacing-2;
+    $offset: $height + $spacing-2;
+
     position: absolute;
     width: 100%;
     cursor: vertical-text;
     color: transparent;
     font-size: 0;
     line-height: 0;
-    height: $editor-block-entry-point-height;
+    height: $height;
 
     &:hover {
         &:before {
@@ -48,16 +50,32 @@ $editor-block-entry-point-height: $spacing-3;
             left: 0;
             right: 0;
             top: 50%;
-            border-top: 1px dashed #aaa;
+            border-top: 1px dashed #cccccc;
         }
     }
 
     &.top {
-        top: -$editor-block-entry-point-height - $editor-block-outline-width;
+        top: -$offset;
     }
 
     &.bottom {
-        bottom: -$editor-block-entry-point-height - $editor-block-outline-width;
+        bottom: -$offset;
+    }
+
+    .extendedHitArea & {
+        $offset: $height;
+
+        &.top {
+            top: -$offset;
+        }
+
+        &.bottom {
+            bottom: -$offset;
+        }
+    }
+
+    .EditorBlock + .EditorBlock &.top {
+        display: none;
     }
 }
 
