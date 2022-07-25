@@ -111,12 +111,14 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         }
     });
 
-    const handleTopEntryPointClick = useFunction(function () {
+    const handleTopEntryPointClick = useFunction(function (event: MouseEvent) {
+        preventBubbling(event);
         const path = ReactEditor.findPath(editor, element);
         Transforms.insertNodes(editor, editor.createDefaultTextBlock(), { at: path, select: true });
     });
 
-    const handleBottomEntryPointClick = useFunction(function () {
+    const handleBottomEntryPointClick = useFunction(function (event: MouseEvent) {
+        preventBubbling(event);
         const path = ReactEditor.findPath(editor, element);
         Transforms.insertNodes(editor, editor.createDefaultTextBlock(), {
             at: Path.next(path),
