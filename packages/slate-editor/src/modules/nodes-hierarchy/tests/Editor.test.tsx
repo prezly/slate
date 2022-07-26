@@ -11,7 +11,9 @@ describe('nodes-hierarchy / Editor', () => {
         const expected = (
             <editor>
                 <h:paragraph>
-                    <h:text />
+                    <h:text>
+                        <cursor />
+                    </h:text>
                 </h:paragraph>
             </editor>
         ) as unknown as Editor;

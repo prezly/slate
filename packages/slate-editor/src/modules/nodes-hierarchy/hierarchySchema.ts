@@ -22,7 +22,7 @@ import {
     TABLE_CELL_NODE_TYPE,
     isTableCellNode,
 } from '@prezly/slate-types';
-import { Text } from 'slate';
+import { Text, Transforms } from 'slate';
 
 import { LOADER_NODE_TYPE } from '#extensions/loader';
 
@@ -49,7 +49,15 @@ export const hierarchySchema: NodesHierarchySchema = {
     [COVERAGE_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [DIVIDER_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [EDITOR_NODE_TYPE]: [
-        mustHaveChildren(fixers.insertParagraph),
+        mustHaveChildren((editor, [node, path]) => {
+            const isFixed = fixers.insertParagraph(editor, [node, path]);
+
+            if (isFixed) {
+                Transforms.select(editor, path);
+            }
+
+            return isFixed;
+        }),
         allowChildren(
             isAllowedOnTopLevel,
             combineFixers([

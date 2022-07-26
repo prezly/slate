@@ -14,12 +14,7 @@ import { withReact } from 'slate-react';
 
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
-import {
-    withDeserializeHtml,
-    withFilePasting,
-    withRichBlocks,
-    withSerialization,
-} from './plugins';
+import { withDeserializeHtml, withFilePasting, withRichBlocks, withSerialization } from './plugins';
 
 export function createEditor(
     baseEditor: Editor,

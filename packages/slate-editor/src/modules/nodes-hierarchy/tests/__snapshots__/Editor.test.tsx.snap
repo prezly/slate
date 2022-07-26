@@ -3,7 +3,6 @@
 exports[`nodes-hierarchy / Editor should insert paragraph in empty editor 1`] = `
 Array [
   Object {
-    "align": undefined,
     "children": Array [
       Object {
         "text": "",
