@@ -11,7 +11,10 @@
 
     // Apparently, these font-sizes are non-standard. We normally use 14px and 12px.
     $font-size-medium: 13px;
+    $line-height-medium: 15px;
+
     $font-size-small: 11px;
+    $line-height-small: 15px;
 
     // fancy scrollbars support
     .ScrollArea {
@@ -70,10 +73,12 @@
     }
 
     .MenuItemIcon {
+        $size: $spacing-4;
+
         flex-shrink: 0;
         flex-grow: 0;
-        width: $spacing-5;
-        height: $spacing-5;
+        width: $size;
+        height: $size;
         margin-right: $horizontal-spacing;
         border: 1px solid $grey-300;
         border-radius: $border-radius-base;
@@ -96,6 +101,8 @@
         > svg {
             margin: -1px; // compensate border width
             display: block;
+            width: $size;
+            height: $size;
         }
     }
 
@@ -115,16 +122,16 @@
 
     .MenuItemTitle {
         color: $grey-700;
-        margin-bottom: $spacing-half;
+        margin-bottom: 2px;
         font-size: $font-size-medium;
-        line-height: 1.4;
+        line-height: $line-height-medium;
         font-weight: 600;
     }
 
     .MenuItemDescription {
         color: $grey-500;
         font-size: $font-size-small;
-        line-height: 1.2;
+        line-height: $line-height-small;
     }
 
     .MenuItemLabel {
