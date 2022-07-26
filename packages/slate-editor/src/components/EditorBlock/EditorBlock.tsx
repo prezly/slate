@@ -11,6 +11,8 @@ import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 
 import { useFunction, useSlateDom } from '#lib';
 
+import { EventsEditor } from '#modules/events';
+
 import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
@@ -200,6 +202,10 @@ function EntryPoint(props: { element: ElementNode; position: 'top' | 'bottom'; t
         Transforms.insertNodes(editor, editor.createDefaultTextBlock(), {
             at: position === 'top' ? path : Path.next(path),
             select: true,
+        });
+
+        EventsEditor.dispatchEvent(editor, 'empty-paragraph-inserted', {
+            trigger: 'area-around-block',
         });
     });
 
