@@ -3,7 +3,7 @@ import type { ElementNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
-import type { HTMLAttributes, MouseEvent, ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
@@ -111,21 +111,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         }
     });
 
-    const handleTopEntryPointClick = useFunction(function (event: MouseEvent) {
-        preventBubbling(event);
-        const path = ReactEditor.findPath(editor, element);
-        Transforms.insertNodes(editor, editor.createDefaultTextBlock(), { at: path, select: true });
-    });
-
-    const handleBottomEntryPointClick = useFunction(function (event: MouseEvent) {
-        preventBubbling(event);
-        const path = ReactEditor.findPath(editor, element);
-        Transforms.insertNodes(editor, editor.createDefaultTextBlock(), {
-            at: Path.next(path),
-            select: true,
-        });
-    });
-
     useEffect(
         function () {
             if (!isOnlyBlockSelected) setMenuOpen(false);
@@ -155,10 +140,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             onClick={closeMenu}
             ref={ref}
         >
-            <EntryPoint
-                className={classNames(styles.EntryPoint, styles.top)}
-                onClick={handleTopEntryPointClick}
-            />
+            <EntryPoint element={element} position="top" />
             {renderInjectionPoint(renderAboveFrame, { isSelected })}
             <div
                 className={classNames(styles.Frame, {
@@ -200,10 +182,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     })}
                 </div>
             </div>
-            <EntryPoint
-                className={classNames(styles.EntryPoint, styles.bottom)}
-                onClick={handleBottomEntryPointClick}
-            />
+            <EntryPoint element={element} position="bottom" />
             {renderInjectionPoint(renderBelowFrame, { isSelected })}
         </div>
     );
@@ -211,17 +190,28 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 
 EditorBlock.displayName = 'EditorBlock';
 
-function EntryPoint({
-    className,
-    title = 'Click to insert a new paragraph',
-    ...props
-}: HTMLAttributes<HTMLDivElement>) {
+function EntryPoint(props: { element: ElementNode; position: 'top' | 'bottom'; title?: string }) {
+    const { element, position, title = 'Click to insert a new paragraph' } = props;
+
+    const editor = useSlateStatic();
+    const handleClick = useFunction((event: MouseEvent) => {
+        preventBubbling(event);
+        const path = ReactEditor.findPath(editor, element);
+        Transforms.insertNodes(editor, editor.createDefaultTextBlock(), {
+            at: position === 'top' ? path : Path.next(path),
+            select: true,
+        });
+    });
+
     return (
         <div
-            {...props}
             data-block-entry-point={true}
-            className={classNames(className, styles.EntryPoint)}
+            className={classNames(styles.EntryPoint, {
+                top: position === 'top',
+                bottom: position === 'bottom',
+            })}
             contentEditable={false}
+            onClick={handleClick}
             role="button"
             title={title}
         >
