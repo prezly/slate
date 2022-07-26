@@ -19,7 +19,6 @@ import {
     withDefaultTextBlock,
     withDeserializeHtml,
     withFilePasting,
-    withNonEmptyValue,
     withRichBlocks,
     withSerialization,
 } from './plugins';
@@ -36,7 +35,6 @@ export function createEditor(
     return flow([
         withReact,
         withHistory,
-        withNonEmptyValue,
         withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,

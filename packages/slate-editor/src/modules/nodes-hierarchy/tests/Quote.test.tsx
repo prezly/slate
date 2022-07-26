@@ -41,4 +41,25 @@ describe('nodes-hierarchy / Quote', () => {
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
+
+    it('should insert text node when there are no children', () => {
+        const editor = (
+            <editor>
+                <h:quote align={Alignment.LEFT} />
+            </editor>
+        ) as unknown as Editor;
+
+        const expected = (
+            <editor>
+                <h:quote align={Alignment.LEFT}>
+                    <h:text />
+                </h:quote>
+            </editor>
+        ) as unknown as Editor;
+
+        Editor.normalize(editor, { force: true });
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+    });
 });
