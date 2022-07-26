@@ -99,26 +99,6 @@ export type EditorEventMap = {
         pastedLength: number;
         slateVersion: string | undefined;
     };
-    'video-dialog-opened': {
-        selectedItemText: string;
-    };
-    'video-dialog-submitted': {
-        selectedItemText: string;
-        url: string;
-    };
-    'video-removed': {
-        uuid: string;
-    };
-    'web-bookmark-dialog-opened': {
-        selectedItemText: string;
-    };
-    'web-bookmark-dialog-submitted': {
-        selectedItemText: string;
-        url: string;
-    };
-    'web-bookmark-removed': {
-        uuid: string;
-    };
     'story-embed-dialog-opened': {
         selectedItemText: string;
     };
@@ -148,6 +128,26 @@ export type EditorEventMap = {
     'table-insert-column-right': never;
     'table-remove-column': never;
     'table-remove': never;
+    'video-dialog-opened': {
+        selectedItemText: string;
+    };
+    'video-dialog-submitted': {
+        selectedItemText: string;
+        url: string;
+    };
+    'video-removed': {
+        uuid: string;
+    };
+    'web-bookmark-dialog-opened': {
+        selectedItemText: string;
+    };
+    'web-bookmark-dialog-submitted': {
+        selectedItemText: string;
+        url: string;
+    };
+    'web-bookmark-removed': {
+        uuid: string;
+    };
 };
 
 export type EditorEventHandlers = {
