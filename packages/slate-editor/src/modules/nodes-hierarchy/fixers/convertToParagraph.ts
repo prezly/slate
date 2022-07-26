@@ -12,6 +12,10 @@ export function convertToParagraph(editor: Editor, [node, path]: NodeEntry) {
         children.push(node);
     }
 
+    if (children.length === 0) {
+        children.push({ text: '' });
+    }
+
     Transforms.setNodes(editor, createParagraph({ children }), {
         at: path,
     });

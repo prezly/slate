@@ -33,8 +33,9 @@ import {
     unwrapNode,
     unwrapSameTypeChild,
     unwrapTableNodeChild,
+    insertParagraph,
 } from './fixers';
-import { allowChildren, disallowMark } from './normilizers';
+import { allowChildren, disallowMark, mustHaveChildren } from './normilizers';
 import {
     isAllowedInTableCell,
     isAllowedOnTopLevel,
@@ -56,6 +57,7 @@ export const hierarchySchema: NodesHierarchySchema = {
     [COVERAGE_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
     [DIVIDER_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
     [EDITOR_NODE_TYPE]: [
+        mustHaveChildren(insertParagraph),
         allowChildren(
             isAllowedOnTopLevel,
             combineFixers([unwrapSameTypeChild, liftNodeNoSplit, convertToParagraph]),
@@ -76,9 +78,13 @@ export const hierarchySchema: NodesHierarchySchema = {
     ],
     [LOADER_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
     [PARAGRAPH_NODE_TYPE]: [
+        // mustHaveChildren(createTextNode),
         allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNodeWithSplit])),
     ],
-    [QUOTE_NODE_TYPE]: [allowChildren(isInlineNode, combineFixers([unwrapNode, liftNodeNoSplit]))],
+    [QUOTE_NODE_TYPE]: [
+        // mustHaveChildren(createTextNode),
+        allowChildren(isInlineNode, combineFixers([unwrapNode, liftNodeNoSplit])),
+    ],
     [STORY_BOOKMARK_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
     [STORY_EMBED_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
     [TABLE_CELL_NODE_TYPE]: [
