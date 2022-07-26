@@ -146,6 +146,16 @@ describe('nodes-hierarchy / Tables', () => {
                                 <h:text></h:text>
                             </h:paragraph>
                         </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text></h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text></h:text>
+                            </h:paragraph>
+                        </h:td>
                     </h:tr>
                 </h:table>
             </editor>

@@ -2,7 +2,7 @@ import type { Editor, Element, Location, Node, Text } from 'slate';
 import type { ReactEditor } from 'slate-react';
 
 import * as TableCommands from './commands';
-import { TableCellNode, type TableRowNode, TableNode } from './nodes';
+import { TableCellNode, TableRowNode, TableNode } from './nodes';
 import * as TableQueries from './queries';
 
 export interface TablesSchema {
@@ -32,6 +32,7 @@ export namespace TablesEditor {
     export const updateTable = TableNode.update;
     export const toggleTableHeader = TableNode.toggleTableHeader;
     export const createTableCell = TableCellNode.createTableCell;
+    export const createTableRow = TableRowNode.createTableRow;
 
     export function insertColumnLeft(editor: TablesEditor, location?: Location) {
         return TableCommands.insertColumn(editor, location, 'left');

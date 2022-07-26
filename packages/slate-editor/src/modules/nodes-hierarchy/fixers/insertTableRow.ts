@@ -1,23 +1,17 @@
+import { TablesEditor } from '@prezly/slate-tables';
 import { Transforms } from 'slate';
 import type { NodeEntry } from 'slate';
 import type { Editor } from 'slate';
 
-import { createParagraph } from '#extensions/paragraphs';
-import { createTableCellNode, createTableRowNode } from '#extensions/tables';
-
 export function insertTableRow(editor: Editor, [node, path]: NodeEntry) {
-    Transforms.insertNodes(
-        editor,
-        [
-            createTableRowNode({
-                children: [createTableCellNode({ children: [createParagraph()] })],
-            }),
-        ],
-        {
+    if (TablesEditor.isTablesEditor(editor)) {
+        Transforms.insertNodes(editor, [TablesEditor.createTableRow(editor, { children: 3 })], {
             at: path,
             match: (n) => n === node,
-        },
-    );
+        });
 
-    return true;
+        return true;
+    }
+
+    return false;
 }

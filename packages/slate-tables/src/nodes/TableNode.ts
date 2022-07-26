@@ -1,4 +1,4 @@
-import type { BaseElement, Location } from 'slate';
+import type { Element, Location } from 'slate';
 import { Editor } from 'slate';
 import { Transforms } from 'slate';
 
@@ -9,7 +9,7 @@ import { TableRowNode } from './TableRowNode';
 
 export type TableHeader = 'first_row' | 'first_column';
 
-export interface TableNode extends BaseElement {
+export interface TableNode extends Element {
     children: TableRowNode[];
     border?: boolean;
     header?: TableHeader[];

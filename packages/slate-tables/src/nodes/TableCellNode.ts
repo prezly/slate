@@ -1,9 +1,9 @@
-import type { BaseElement, Location } from 'slate';
+import type { Element, Location } from 'slate';
 import { Transforms } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
 
-export interface TableCellNode extends BaseElement {
+export interface TableCellNode extends Element {
     rowspan?: number;
     colspan?: number;
 }
