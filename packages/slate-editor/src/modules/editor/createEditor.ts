@@ -14,13 +14,7 @@ import { withReact } from 'slate-react';
 
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
-import {
-    withDeserializeHtml,
-    withFilePasting,
-    withNonEmptyValue,
-    withRichBlocks,
-    withSerialization,
-} from './plugins';
+import { withDeserializeHtml, withFilePasting, withRichBlocks, withSerialization } from './plugins';
 
 export function createEditor(
     baseEditor: Editor,
@@ -34,7 +28,6 @@ export function createEditor(
     return flow([
         withReact,
         withHistory,
-        withNonEmptyValue,
         withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,

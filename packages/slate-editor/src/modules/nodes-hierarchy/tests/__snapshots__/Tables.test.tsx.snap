@@ -10,7 +10,12 @@ Array [
           Object {
             "children": Array [
               Object {
-                "text": "1",
+                "children": Array [
+                  Object {
+                    "text": "1",
+                  },
+                ],
+                "type": "paragraph",
               },
             ],
             "type": "table-cell",
@@ -18,7 +23,12 @@ Array [
           Object {
             "children": Array [
               Object {
-                "text": "2",
+                "children": Array [
+                  Object {
+                    "text": "2",
+                  },
+                ],
+                "type": "paragraph",
               },
             ],
             "type": "table-cell",
@@ -26,36 +36,12 @@ Array [
           Object {
             "children": Array [
               Object {
-                "text": "3",
-              },
-            ],
-            "type": "table-cell",
-          },
-        ],
-        "type": "table-row",
-      },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "text": "4",
-              },
-            ],
-            "type": "table-cell",
-          },
-          Object {
-            "children": Array [
-              Object {
-                "text": "5",
-              },
-            ],
-            "type": "table-cell",
-          },
-          Object {
-            "children": Array [
-              Object {
-                "text": "6",
+                "children": Array [
+                  Object {
+                    "text": "3",
+                  },
+                ],
+                "type": "paragraph",
               },
             ],
             "type": "table-cell",
@@ -68,7 +54,12 @@ Array [
           Object {
             "children": Array [
               Object {
-                "text": "7",
+                "children": Array [
+                  Object {
+                    "text": "4",
+                  },
+                ],
+                "type": "paragraph",
               },
             ],
             "type": "table-cell",
@@ -76,7 +67,12 @@ Array [
           Object {
             "children": Array [
               Object {
-                "text": "8",
+                "children": Array [
+                  Object {
+                    "text": "5",
+                  },
+                ],
+                "type": "paragraph",
               },
             ],
             "type": "table-cell",
@@ -84,7 +80,57 @@ Array [
           Object {
             "children": Array [
               Object {
-                "text": "9",
+                "children": Array [
+                  Object {
+                    "text": "6",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "table-cell",
+          },
+        ],
+        "type": "table-row",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "children": Array [
+                  Object {
+                    "text": "7",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "table-cell",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "children": Array [
+                  Object {
+                    "text": "8",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "table-cell",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "align": "center",
+                "children": Array [
+                  Object {
+                    "text": "9",
+                  },
+                ],
+                "type": "paragraph",
               },
             ],
             "type": "table-cell",

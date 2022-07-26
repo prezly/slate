@@ -1,4 +1,7 @@
 export * from './convertToParagraph';
+export * from './insertParagraph';
+export * from './insertTableRow';
+export * from './insertTextNode';
 export * from './liftNodeNoSplit';
 export * from './liftNodeWithSplit';
 export * from './unwrapNode';
