@@ -73,6 +73,7 @@ export interface EditorProps {
                   video?: boolean;
               };
           });
+    withEntryPointsAroundBlocks?: boolean;
     withFloatingAddMenu?: boolean | FloatingAddMenuExtensionConfiguration;
     withGalleries?: false | GalleriesExtensionConfiguration;
     withHeadings?: boolean;

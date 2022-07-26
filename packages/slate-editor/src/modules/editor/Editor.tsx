@@ -92,6 +92,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withCursorInView = false,
         withDivider = false,
         withEmbeds = false,
+        withEntryPointsAroundBlocks = false,
         withFloatingAddMenu = false,
         withGalleries = false,
         withHeadings = false,
@@ -419,7 +420,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 value={initialValue}
             >
                 <EditableWithExtensions
-                    className={styles.Editable}
+                    className={classNames(styles.Editable, {
+                        [styles.withEntryPoints]: withEntryPointsAroundBlocks,
+                    })}
                     decorate={decorate}
                     editor={editor}
                     extensions={extensions}

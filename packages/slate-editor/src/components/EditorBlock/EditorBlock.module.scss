@@ -1,6 +1,8 @@
 @import "styles/helpers";
 @import "styles/variables";
 
+$editor-block-outline-width: 6px;
+
 .EditorBlock {
     position: relative;
 
@@ -26,6 +28,53 @@
          * see: https://app.clubhouse.io/prezly/story/20456/error-cannot-resolve-a-dom-node-from-slate-node-text
          */
         user-select: none;
+    }
+}
+
+.EntryPoint {
+    $height: $spacing-2;
+    $offset: $height + $spacing-2;
+
+    position: absolute;
+    width: 100%;
+    cursor: vertical-text;
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+    height: $height;
+
+    &:hover {
+        &:before {
+            content: " ";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+        }
+    }
+
+    &.top {
+        top: -$offset;
+    }
+
+    &.bottom {
+        bottom: -$offset;
+    }
+
+    .extendedHitArea & {
+        $offset: $height;
+
+        &.top {
+            top: -$offset;
+        }
+
+        &.bottom {
+            bottom: -$offset;
+        }
+    }
+
+    .EditorBlock + .EditorBlock &.top {
+        display: none;
     }
 }
 
@@ -86,7 +135,7 @@
     }
 
     &.selected {
-        outline: solid 6px $editor-block-focus-color;
+        outline: solid $editor-block-outline-width $editor-block-focus-color;
         border-radius: 0;
     }
 
