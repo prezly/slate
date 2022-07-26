@@ -26,16 +26,8 @@ import { Text } from 'slate';
 
 import { LOADER_NODE_TYPE } from '#extensions/loader';
 
-import {
-    convertToParagraph,
-    liftNodeWithSplit,
-    liftNodeNoSplit,
-    unwrapNode,
-    unwrapSameTypeChild,
-    unwrapTableNodeChild,
-    insertParagraph,
-} from './fixers';
-import { allowChildren, disallowMark, mustHaveChildren } from './normilizers';
+import * as fixers from './fixers';
+import { allowChildren, disallowMark, mustHaveChildren, removeWhenNoChildren } from './normilizers';
 import {
     isAllowedInTableCell,
     isAllowedOnTopLevel,
@@ -51,60 +43,85 @@ import { IMAGE_CANDIDATE_NODE_TYPE } from '#extensions/image/constants';
 
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
-    [ATTACHMENT_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
-    [BOOKMARK_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
-    [CONTACT_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
-    [COVERAGE_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
-    [DIVIDER_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
+    [ATTACHMENT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [BOOKMARK_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [CONTACT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [COVERAGE_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [DIVIDER_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [EDITOR_NODE_TYPE]: [
-        mustHaveChildren(insertParagraph),
+        mustHaveChildren(fixers.insertParagraph),
         allowChildren(
             isAllowedOnTopLevel,
-            combineFixers([unwrapSameTypeChild, liftNodeNoSplit, convertToParagraph]),
+            combineFixers([
+                fixers.unwrapSameTypeChild,
+                fixers.liftNodeNoSplit,
+                fixers.convertToParagraph,
+            ]),
         ),
     ],
-    [EMBED_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
-    [GALLERY_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
+    [EMBED_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [GALLERY_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [HEADING_1_NODE_TYPE]: [
-        allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNodeWithSplit])),
+        allowChildren(
+            isInlineNode,
+            combineFixers([fixers.unwrapSameTypeChild, fixers.liftNodeWithSplit]),
+        ),
     ],
     [HEADING_2_NODE_TYPE]: [
-        allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNodeWithSplit])),
+        allowChildren(
+            isInlineNode,
+            combineFixers([fixers.unwrapSameTypeChild, fixers.liftNodeWithSplit]),
+        ),
     ],
-    [HTML_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
-    [IMAGE_CANDIDATE_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
+    [HTML_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [IMAGE_CANDIDATE_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [IMAGE_NODE_TYPE]: [
-        allowChildren(Text.isText, combineFixers([unwrapSameTypeChild, liftNodeNoSplit])),
+        allowChildren(
+            Text.isText,
+            combineFixers([fixers.unwrapSameTypeChild, fixers.liftNodeNoSplit]),
+        ),
     ],
-    [LOADER_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
+    [LOADER_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [PARAGRAPH_NODE_TYPE]: [
-        // mustHaveChildren(createTextNode),
-        allowChildren(isInlineNode, combineFixers([unwrapSameTypeChild, liftNodeWithSplit])),
+        allowChildren(
+            isInlineNode,
+            combineFixers([fixers.unwrapSameTypeChild, fixers.liftNodeWithSplit]),
+        ),
     ],
     [QUOTE_NODE_TYPE]: [
-        // mustHaveChildren(createTextNode),
-        allowChildren(isInlineNode, combineFixers([unwrapNode, liftNodeNoSplit])),
+        allowChildren(isInlineNode, combineFixers([fixers.unwrapNode, fixers.liftNodeNoSplit])),
     ],
-    [STORY_BOOKMARK_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
-    [STORY_EMBED_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
+    [STORY_BOOKMARK_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [STORY_EMBED_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [TABLE_CELL_NODE_TYPE]: [
+        mustHaveChildren(fixers.insertParagraph),
         allowChildren(
             isAllowedInTableCell,
             combineFixers([
-                unwrapTableNodeChild,
-                unwrapSameTypeChild,
-                liftNodeNoSplit,
-                convertToParagraph,
+                fixers.unwrapTableNodeChild,
+                fixers.unwrapSameTypeChild,
+                (editor, [node, path]) =>
+                    Text.isText(node) ? false : fixers.liftNodeNoSplit(editor, [node, path]),
+                fixers.convertToParagraph,
             ]),
         ),
     ],
     [TABLE_NODE_TYPE]: [
-        allowChildren(isTableRowNode, combineFixers([unwrapSameTypeChild, liftNodeNoSplit])),
+        mustHaveChildren(fixers.insertTableRow),
+        allowChildren(
+            isTableRowNode,
+            combineFixers([fixers.unwrapSameTypeChild, fixers.liftNodeNoSplit]),
+        ),
     ],
     [TABLE_ROW_NODE_TYPE]: [
+        removeWhenNoChildren(),
         allowChildren(
             isTableCellNode,
-            combineFixers([unwrapSameTypeChild, liftNodeNoSplit, convertToParagraph]),
+            combineFixers([
+                fixers.unwrapSameTypeChild,
+                fixers.liftNodeNoSplit,
+                fixers.convertToParagraph,
+            ]),
         ),
     ],
     [TEXT_NODE_TYPE]: [
@@ -116,5 +133,5 @@ export const hierarchySchema: NodesHierarchySchema = {
             ),
         ),
     ],
-    [VIDEO_NODE_TYPE]: [allowChildren(isEmptyTextNode, liftNodeNoSplit)],
+    [VIDEO_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
 };

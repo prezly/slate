@@ -11,6 +11,6 @@ export function mustHaveChildren(fix: HierarchyFixer): HierarchyNormalizer {
             return fix(editor, [node, at]);
         }
 
-        return true;
+        return false;
     };
 }

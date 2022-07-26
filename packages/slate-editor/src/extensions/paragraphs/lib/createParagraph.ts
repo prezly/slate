@@ -4,9 +4,14 @@ import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 type Props = Partial<Pick<ParagraphNode, 'children' | 'align'>>;
 
 export function createParagraph({ children, align }: Props = {}): ParagraphNode {
-    return {
+    const paragraph: ParagraphNode = {
         type: PARAGRAPH_NODE_TYPE,
-        align,
         children: children ?? [{ text: '' }],
     };
+
+    if (align !== undefined) {
+        paragraph.align = align;
+    }
+
+    return paragraph;
 }
