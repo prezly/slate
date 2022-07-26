@@ -219,6 +219,7 @@ function EntryPoint({
     return (
         <div
             {...props}
+            data-block-entry-point={true}
             className={classNames(className, styles.EntryPoint)}
             contentEditable={false}
             role="button"
