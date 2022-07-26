@@ -60,6 +60,7 @@ export type EditorEventMap = {
     'embed-removed': {
         uuid: string;
     };
+    'empty-paragraph-inserted': { trigger: 'hotkey' | 'area-around-block' };
     error: unknown;
     'files-pasted': {
         filesCount: number;

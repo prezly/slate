@@ -1,6 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
-import type { Element } from 'slate';
+import { noop } from 'lodash-es';
+import type { Editor, Element } from 'slate';
 
 import { insertBlockAbove, insertBlockBelow } from './lib';
 
@@ -11,19 +12,25 @@ const isShiftModEnter = isHotkey('shift+mod+enter');
 
 interface Parameters {
     createDefaultElement: (props?: Partial<Element>) => Element;
+    onInserted?: (editor: Editor) => void;
 }
 
-export function InsertBlockHotkeyExtension({ createDefaultElement }: Parameters): Extension {
+export function InsertBlockHotkeyExtension({
+    createDefaultElement,
+    onInserted = noop,
+}: Parameters): Extension {
     return {
         id: EXTENSION_ID,
         onKeyDown: (event, editor) => {
             if (isShiftModEnter(event) && insertBlockAbove(editor, createDefaultElement)) {
                 event.preventDefault();
+                onInserted(editor);
                 return;
             }
 
             if (isModEnter(event) && insertBlockBelow(editor, createDefaultElement)) {
                 event.preventDefault();
+                onInserted(editor);
                 return;
             }
         },

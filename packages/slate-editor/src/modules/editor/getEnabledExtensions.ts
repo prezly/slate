@@ -30,6 +30,7 @@ import { UserMentionsExtension } from '#extensions/user-mentions';
 import { VideoExtension } from '#extensions/video';
 import { VoidExtension } from '#extensions/void';
 import { WebBookmarkExtension } from '#extensions/web-bookmark';
+import { EventsEditor } from '#modules/events';
 
 import {
     BLOCKQUOTE_RULES,
@@ -109,7 +110,11 @@ export function* getEnabledExtensions({
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
     yield SoftBreakExtension();
-    yield InsertBlockHotkeyExtension({ createDefaultElement: createParagraph });
+    yield InsertBlockHotkeyExtension({
+        createDefaultElement: createParagraph,
+        onInserted: (editor) =>
+            EventsEditor.dispatchEvent(editor, 'empty-paragraph-inserted', { trigger: 'hotkey' }),
+    });
 
     if (withBlockquotes) {
         yield BlockquoteExtension();
