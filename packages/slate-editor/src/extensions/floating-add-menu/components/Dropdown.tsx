@@ -36,7 +36,10 @@ const POPPER_CONFIG: Parameters<typeof usePopper>[2] = {
         },
         {
             name: 'flip',
-            enabled: false,
+            enabled: true,
+            options: {
+                fallbackPlacements: ['top-start'],
+            },
         },
         maxSize,
         {
