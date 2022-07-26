@@ -130,24 +130,23 @@ describe('nodes-hierarchy / Tables', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('should insert absent nodes in empty table', () => {
+    it('should remove table when it has no rows', () => {
         const editor = (
             <editor>
-                <h:table border header={['first_row']} />
+                <h:table border />
+                <h:table border header={['first_row']}>
+                    <h:paragraph>
+                        <h:text>Inside</h:text>
+                    </h:paragraph>
+                </h:table>
             </editor>
         ) as unknown as Editor;
 
         const expected = (
             <editor>
-                <h:table border header={['first_row']}>
-                    <h:tr>
-                        <h:td>
-                            <h:paragraph>
-                                <h:text></h:text>
-                            </h:paragraph>
-                        </h:td>
-                    </h:tr>
-                </h:table>
+                <h:paragraph>
+                    <h:text>Inside</h:text>
+                </h:paragraph>
             </editor>
         ) as unknown as Editor;
 

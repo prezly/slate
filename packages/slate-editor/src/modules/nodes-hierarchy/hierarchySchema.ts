@@ -115,7 +115,7 @@ export const hierarchySchema: NodesHierarchySchema = {
         ),
     ],
     [TABLE_NODE_TYPE]: [
-        mustHaveChildren(fixers.insertTableRow),
+        removeWhenNoChildren(),
         allowChildren(
             isTableRowNode,
             combineFixers([fixers.unwrapSameTypeChild, fixers.liftNodeNoSplit]),
