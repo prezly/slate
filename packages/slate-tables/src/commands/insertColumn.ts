@@ -1,4 +1,4 @@
-import { type Location, Path, Transforms } from 'slate';
+import { type Location, Path, Transforms, Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { Traverse } from '../core';
@@ -24,15 +24,20 @@ export function insertColumn(
     const { activeColumn } = traverse;
     let firstCellInNewColumnPath: Path | undefined = undefined;
 
-    activeColumn.cells.forEach((columnCell, index) => {
-        const at = side === 'left' ? columnCell.path : Path.next(columnCell.path);
+    // As we insert cells one by one Slate calls normalization which insert empty cells
+    Editor.withoutNormalizing(editor, () => {
+        activeColumn.cells.forEach((columnCell, index) => {
+            const at = side === 'left' ? columnCell.path : Path.next(columnCell.path);
 
-        if (index === 0) {
-            firstCellInNewColumnPath = at;
-        }
+            if (index === 0) {
+                firstCellInNewColumnPath = at;
+            }
 
-        Transforms.insertNodes(editor, TableCellNode.createTableCell(editor), { at });
+            Transforms.insertNodes(editor, TableCellNode.createTableCell(editor), { at });
+        });
     });
+
+    Editor.normalize(editor);
 
     ReactEditor.focus(editor);
 
