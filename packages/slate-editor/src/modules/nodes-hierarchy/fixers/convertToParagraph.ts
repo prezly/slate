@@ -1,5 +1,5 @@
 import { Text, Transforms } from 'slate';
-import type { Editor, Descendant, NodeEntry } from 'slate';
+import type { Editor, NodeEntry } from 'slate';
 
 import { createParagraph } from '#extensions/paragraphs';
 
@@ -9,19 +9,7 @@ export function convertToParagraph(editor: Editor, [node, path]: NodeEntry) {
         return true;
     }
 
-    let children: Descendant[] = [];
-
-    if ('children' in node) {
-        children = node.children;
-    } else if (Text.isText(node)) {
-        children.push(node);
-    }
-
-    if (children.length === 0) {
-        children.push({ text: '' });
-    }
-
-    Transforms.setNodes(editor, createParagraph({ children }), {
+    Transforms.setNodes(editor, createParagraph({}), {
         at: path,
     });
 
