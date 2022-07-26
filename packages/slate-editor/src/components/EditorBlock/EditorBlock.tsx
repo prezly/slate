@@ -213,8 +213,8 @@ function EntryPoint(props: { element: ElementNode; position: 'top' | 'bottom'; t
         <div
             data-block-entry-point={true}
             className={classNames(styles.EntryPoint, {
-                top: position === 'top',
-                bottom: position === 'bottom',
+                [styles.top]: position === 'top',
+                [styles.bottom]: position === 'bottom',
             })}
             contentEditable={false}
             onClick={handleClick}
