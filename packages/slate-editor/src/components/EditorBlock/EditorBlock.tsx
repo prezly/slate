@@ -204,7 +204,9 @@ function EntryPoint(props: { element: ElementNode; position: 'top' | 'bottom'; t
             select: true,
         });
 
-        EventsEditor.dispatchEvent(editor, 'empty-paragraph-inserted', { trigger: 'area-around-block' });
+        EventsEditor.dispatchEvent(editor, 'empty-paragraph-inserted', {
+            trigger: 'area-around-block',
+        });
     });
 
     return (
