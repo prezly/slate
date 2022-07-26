@@ -6,6 +6,7 @@ import { createParagraph } from '#extensions/paragraphs';
 export function convertToParagraph(editor: Editor, [node, path]: NodeEntry) {
     if (Text.isText(node)) {
         Transforms.wrapNodes(editor, createParagraph(), { at: path });
+        return true;
     }
 
     let children: Descendant[] = [];

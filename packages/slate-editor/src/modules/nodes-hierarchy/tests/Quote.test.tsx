@@ -6,7 +6,7 @@ import { Editor } from 'slate';
 import { jsx } from '../../../jsx';
 
 describe('nodes-hierarchy / Quote', () => {
-    it.skip('should be kept after normalization', () => {
+    it('should be kept after normalization', () => {
         const editor = (
             <editor>
                 <h:quote align={Alignment.LEFT}>
@@ -43,8 +43,6 @@ describe('nodes-hierarchy / Quote', () => {
     });
 
     it('should insert text node when there are no children', () => {
-        debugger;
-
         const editor = (
             <editor>
                 <h:quote align={Alignment.LEFT} />
@@ -59,7 +57,7 @@ describe('nodes-hierarchy / Quote', () => {
             </editor>
         ) as unknown as Editor;
 
-        // Editor.normalize(editor, { force: true });
+        Editor.normalize(editor, { force: true });
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
