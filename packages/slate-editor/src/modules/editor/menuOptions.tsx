@@ -64,9 +64,9 @@ interface Params {
 const Suggested: Partial<Record<MenuAction, number>> = {
     [MenuAction.ADD_IMAGE]: 1,
     [MenuAction.ADD_CONTACT]: 2,
-    [MenuAction.ADD_ATTACHMENT]: 3,
-    [MenuAction.ADD_WEB_BOOKMARK]: 4,
-    [MenuAction.ADD_VIDEO]: 5,
+    [MenuAction.ADD_GALLERY]: 3,
+    [MenuAction.ADD_DIVIDER]: 4,
+    [MenuAction.ADD_ATTACHMENT]: 5,
 };
 
 export function generateFloatingAddMenuOptions(
