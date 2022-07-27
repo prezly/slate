@@ -24,6 +24,21 @@ interface Props<Action> {
     selectedOption: Option<Action>;
 }
 
+const STEPS = [528, 480, 432, 384, 336, 304];
+const [MIN_HEIGHT] = [...STEPS].reverse();
+
+/**
+ * @see MT-5210
+ */
+function discreteHeight(height: number): number {
+    for (const step of STEPS) {
+        if (height > step) {
+            return step;
+        }
+    }
+    return MIN_HEIGHT;
+}
+
 const POPPER_CONFIG: Parameters<typeof usePopper>[2] = {
     placement: 'bottom-start',
     modifiers: [
@@ -48,6 +63,27 @@ const POPPER_CONFIG: Parameters<typeof usePopper>[2] = {
                 padding: 16,
             },
         } as typeof maxSize,
+        {
+            name: 'tweakMaxSize',
+            enabled: true,
+            phase: 'beforeWrite',
+            requires: ['flip', 'maxSize'],
+            fn({ state }) {
+                // The `flip` modifier provides this data
+                const { _skip: flip = false } = state.modifiersData.flip as { _skip: boolean };
+                // The `maxSize` modifier provides this data
+                const { height } = state.modifiersData.maxSize as { height: number };
+
+                const maxHeight = flip ? MIN_HEIGHT : discreteHeight(height);
+
+                state.styles.popper = {
+                    ...state.styles.popper,
+                    minHeight: `${maxHeight}px`,
+                    height: `${maxHeight}px`,
+                    maxHeight: `${maxHeight}px`,
+                };
+            },
+        },
         {
             name: 'applyMaxSize',
             enabled: true,
