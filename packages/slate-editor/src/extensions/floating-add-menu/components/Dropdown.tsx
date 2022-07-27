@@ -84,16 +84,6 @@ const POPPER_CONFIG: Parameters<typeof usePopper>[2] = {
                 };
             },
         },
-        {
-            name: 'applyMaxSize',
-            enabled: true,
-            phase: 'beforeWrite',
-            requires: ['maxSize'],
-            fn({ state }) {
-                // The `maxSize` modifier provides this data
-                state.styles.popper.maxHeight = `${state.modifiersData.maxSize.height}px`;
-            },
-        },
     ],
 };
 
