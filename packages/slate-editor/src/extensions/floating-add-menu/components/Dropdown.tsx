@@ -78,8 +78,6 @@ const POPPER_CONFIG: Parameters<typeof usePopper>[2] = {
 
                 state.styles.popper = {
                     ...state.styles.popper,
-                    minHeight: `${maxHeight}px`,
-                    height: `${maxHeight}px`,
                     maxHeight: `${maxHeight}px`,
                 };
             },
