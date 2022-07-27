@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { noop } from 'lodash-es';
 import maxSize from 'popper-max-size-modifier';
 import type { ReactNode } from 'react';
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useLayoutEffect, useState } from 'react';
 import { MenuItem } from 'react-bootstrap';
 import { usePopper } from 'react-popper';
 
@@ -84,16 +84,6 @@ const POPPER_CONFIG: Parameters<typeof usePopper>[2] = {
                 };
             },
         },
-        {
-            name: 'applyMaxSize',
-            enabled: true,
-            phase: 'beforeWrite',
-            requires: ['maxSize'],
-            fn({ state }) {
-                // The `maxSize` modifier provides this data
-                state.styles.popper.maxHeight = `${state.modifiersData.maxSize.height}px`;
-            },
-        },
     ],
 };
 
@@ -110,21 +100,27 @@ export function Dropdown<Action>({
     const groups = groupOptions(options);
 
     const [activeItem, setActiveItem] = useState<HTMLElement | null>(null);
-    const scrollarea = useRef<FancyScrollbars | null>(null);
-    const { attributes, styles: inlineStyles } = usePopper(
-        referenceElement,
-        scrollarea.current?.container,
-        POPPER_CONFIG,
-    );
+    const [scrollarea, setScrollarea] = useState<FancyScrollbars | null>(null);
+    const {
+        attributes,
+        styles: inlineStyles,
+        forceUpdate,
+    } = usePopper(referenceElement, scrollarea?.container, POPPER_CONFIG);
 
     useEffect(
         function () {
             if (activeItem) {
-                scrollarea.current?.ensureVisible(activeItem, 32);
+                scrollarea?.ensureVisible(activeItem, 32);
             }
         },
         [activeItem, scrollarea],
     );
+
+    useLayoutEffect(() => {
+        if (scrollarea) {
+            forceUpdate?.();
+        }
+    }, [scrollarea, forceUpdate]);
 
     return (
         <div
@@ -139,7 +135,7 @@ export function Dropdown<Action>({
                 autoHeightMin={20}
                 autoHeightMax={1000}
                 className={styles.ScrollArea}
-                ref={scrollarea}
+                ref={setScrollarea}
                 style={{ ...inlineStyles.popper, width: 'auto' }}
             >
                 <ul
