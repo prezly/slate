@@ -165,14 +165,18 @@
         }
 
         .MenuItemIcon {
+            $size: 14px;
+
             border: none;
             color: $red-600;
             margin-right: $spacing-1;
-            width: 14px;
-            height: 14px;
+            width: $size;
+            height: $size;
 
             > svg {
                 margin: 0;
+                width: $size;
+                height: $size;
             }
         }
 
