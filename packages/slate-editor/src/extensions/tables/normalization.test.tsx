@@ -1,5 +1,4 @@
 /** @jsx jsx */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import { Editor, Node } from 'slate';
 

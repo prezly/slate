@@ -20,7 +20,6 @@ export abstract class UploadcareEditor {
     }
 
     static isUploadcareEditor = (value: unknown): value is UploadcareEditor => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return Editor.isEditor(value) && typeof value[UPLOADCARE_PROPERTY] !== 'undefined';
     };
