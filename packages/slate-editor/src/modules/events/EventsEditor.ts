@@ -16,7 +16,6 @@ export abstract class EventsEditor {
     }
 
     static isEventsEditor = (value: unknown): value is EventsEditor => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return Editor.isEditor(value) && value[EVENTS_PROPERTY] instanceof Events;
     };

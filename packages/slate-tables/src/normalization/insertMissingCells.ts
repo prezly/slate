@@ -12,15 +12,11 @@ export function insertMissingCells(editor: TablesEditor, path: Path) {
         return false;
     }
 
-    const maxWidth = table.children.reduce((max, row) => {
-        const rowSize = calculateRowWidth(row);
-
-        if (rowSize > max) {
-            return rowSize;
-        }
-
-        return max;
-    }, 0);
+    const maxWidth = Math.max(
+        ...table.children.map((node) =>
+            editor.isTableRowNode(node) ? calculateRowWidth(node) : 0,
+        ),
+    );
 
     for (const [row, rowPath] of Node.children(editor, path)) {
         if (editor.isTableRowNode(row)) {
