@@ -152,7 +152,7 @@ function* generateOptions(
             group: Group.TEXT_N_LAYOUT,
             text: 'Table',
             description: 'Add a table to your Story',
-            isBeta: true,
+            isNew: true,
         };
     }
 
