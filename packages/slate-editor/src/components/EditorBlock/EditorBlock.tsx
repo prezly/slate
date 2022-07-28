@@ -5,15 +5,14 @@ import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import { Editor, Path, Transforms } from 'slate';
+import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 
 import { useFunction, useSlateDom } from '#lib';
 
-import { EventsEditor } from '#modules/events';
-
 import styles from './EditorBlock.module.scss';
+import { EntryPoint } from './EntryPoint';
 import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
@@ -142,7 +141,11 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             onClick={closeMenu}
             ref={ref}
         >
-            <EntryPoint element={element} position="top" />
+            <EntryPoint
+                className={`${styles.EntryPoint} ${styles.top}`}
+                element={element}
+                position="top"
+            />
             {renderInjectionPoint(renderAboveFrame, { isSelected })}
             <div
                 className={classNames(styles.Frame, {
@@ -184,47 +187,17 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     })}
                 </div>
             </div>
-            <EntryPoint element={element} position="bottom" />
+            <EntryPoint
+                className={`${styles.EntryPoint} ${styles.bottom}`}
+                element={element}
+                position="bottom"
+            />
             {renderInjectionPoint(renderBelowFrame, { isSelected })}
         </div>
     );
 });
 
 EditorBlock.displayName = 'EditorBlock';
-
-function EntryPoint(props: { element: ElementNode; position: 'top' | 'bottom'; title?: string }) {
-    const { element, position, title = 'Click to insert a new paragraph' } = props;
-
-    const editor = useSlateStatic();
-    const handleClick = useFunction((event: MouseEvent) => {
-        preventBubbling(event);
-        const path = ReactEditor.findPath(editor, element);
-        Transforms.insertNodes(editor, editor.createDefaultTextBlock(), {
-            at: position === 'top' ? path : Path.next(path),
-            select: true,
-        });
-
-        EventsEditor.dispatchEvent(editor, 'empty-paragraph-inserted', {
-            trigger: 'area-around-block',
-        });
-    });
-
-    return (
-        <div
-            data-block-entry-point={true}
-            className={classNames(styles.EntryPoint, {
-                [styles.top]: position === 'top',
-                [styles.bottom]: position === 'bottom',
-            })}
-            contentEditable={false}
-            onClick={handleClick}
-            role="button"
-            title={title}
-        >
-            {title}
-        </div>
-    );
-}
 
 function preventBubbling(event: MouseEvent) {
     event.stopPropagation();
