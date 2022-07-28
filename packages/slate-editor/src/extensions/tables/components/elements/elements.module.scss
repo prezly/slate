@@ -3,8 +3,7 @@
 .Table {
     width: 100%;
     border-collapse: collapse;
-    // TODO: Workaround to avoid column resizing when you type text in cell
-    table-layout: fixed;
+    table-layout: auto;
 
     &--withBorders {
         .TableRow,
