@@ -13,7 +13,9 @@ export function insertMissingCells(editor: TablesEditor, path: Path) {
     }
 
     const maxWidth = Math.max(
-        ...table.children.map((node) => editor.isTableRowNode(node) ? calculateRowWidth(node) : 0),
+        ...table.children.map((node) =>
+            editor.isTableRowNode(node) ? calculateRowWidth(node) : 0,
+        ),
     );
 
     for (const [row, rowPath] of Node.children(editor, path)) {
