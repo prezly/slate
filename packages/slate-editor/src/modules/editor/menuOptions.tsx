@@ -131,7 +131,7 @@ function* generateOptions(
             action: MenuAction.ADD_QUOTE,
             group: Group.TEXT_N_LAYOUT,
             text: 'Quote',
-            description: 'Highlighted text section',
+            description: 'Highlight a text section',
         };
     }
 
@@ -151,7 +151,7 @@ function* generateOptions(
             icon: Icons.ComponentTable,
             group: Group.TEXT_N_LAYOUT,
             text: 'Table',
-            description: 'Add a table to your Story',
+            description: 'Insert a table',
             isNew: true,
         };
     }
@@ -192,7 +192,7 @@ function* generateOptions(
             icon: Icons.ComponentSocialPost,
             group: Group.MEDIA_CONTENT,
             text: 'Social post',
-            description: 'Insert a social media URL',
+            description: 'Embed a social media link',
             isBeta: true,
         };
     }
@@ -203,7 +203,7 @@ function* generateOptions(
             icon: Icons.ComponentAttachment,
             group: Group.MEDIA_CONTENT,
             text: 'File attachment',
-            description: 'Insert an attachment',
+            description: 'Upload or link a file',
         };
     }
 
@@ -213,7 +213,7 @@ function* generateOptions(
             icon: Icons.ComponentWebBookmark,
             group: Group.MEDIA_CONTENT,
             text: 'Website bookmark',
-            description: 'Insert a website bookmark',
+            description: 'Insert a visual website link',
             isNew: true,
         };
     }
@@ -224,7 +224,7 @@ function* generateOptions(
             icon: Icons.ComponentEmbed,
             group: Group.MEDIA_CONTENT,
             text: 'Embed',
-            description: 'Insert embedded content',
+            description: 'Insert embeddable content',
             isBeta: true,
         };
     }
