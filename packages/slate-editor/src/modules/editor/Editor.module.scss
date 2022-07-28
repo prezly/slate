@@ -39,6 +39,16 @@
         margin: $spacing-3 0;
     }
 
+    [data-editor-block-menu] {
+        display: none;
+    }
+
+    &.withBlockMenu {
+        [data-editor-block-menu] {
+            display: block;
+        }
+    }
+
     [data-block-entry-point] {
         display: none;
     }

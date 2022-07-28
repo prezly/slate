@@ -59,6 +59,7 @@ export interface EditorProps {
     withAlignmentControls: boolean;
     withAttachments?: boolean;
     withAutoformat?: boolean | AutoformatParameters;
+    withBlockMenu?: boolean;
     withBlockquotes?: boolean;
     withCoverage?: false | CoverageExtensionConfiguration;
     withCursorInView?: false | Parameters<typeof useCursorInView>[1];
