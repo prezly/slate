@@ -1,0 +1,43 @@
+@import "styles/variables";
+
+.ThreeDotsMenu {
+    $size: $spacing-3;
+
+    display: none;
+    position: absolute;
+    top: 0;
+    left: - $size - $editor-block-focus-outline-width - $spacing-half;
+
+    &.show {
+        display: block;
+    }
+
+    &.open {
+        opacity: 1.0 !important;
+    }
+
+    :global(.caret) {
+        display: none;
+    }
+
+    .Button {
+        width: $size;
+        height: $size;
+        padding: 0;
+        background: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        color: $grey-500;
+    }
+
+    .Icon {
+        display: block;
+        width: $size;
+        height: $size;
+    }
+
+    .Dropdown {
+        position: absolute;
+        top: $size + $spacing-half;
+    }
+}

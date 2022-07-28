@@ -1,8 +1,6 @@
 @import "styles/helpers";
 @import "styles/variables";
 
-$editor-block-outline-width: 6px;
-
 .EditorBlock {
     position: relative;
 
@@ -135,7 +133,7 @@ $editor-block-outline-width: 6px;
     }
 
     &.selected {
-        outline: solid $editor-block-outline-width $editor-block-focus-color;
+        outline: solid $editor-block-focus-outline-width $editor-block-focus-color;
         border-radius: 0;
     }
 
@@ -177,5 +175,19 @@ $editor-block-outline-width: 6px;
     &.right {
         right: $spacing-1;
         bottom: $spacing-1;
+    }
+}
+
+.ThreeDotsMenu {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    z-index: $editor-block-overlay-z-index + 3;
+
+    .EditorBlock:hover & {
+        opacity: 0.5;
+    }
+
+    &:hover {
+        opacity: 1.0 !important;
     }
 }

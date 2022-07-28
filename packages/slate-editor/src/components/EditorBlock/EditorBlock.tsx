@@ -16,6 +16,7 @@ import { EntryPoint } from './EntryPoint';
 import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
+import { ThreeDotsMenu } from './ThreeDotsMenu';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
@@ -158,6 +159,11 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 ref={setContainer}
                 style={{ width }}
             >
+                <ThreeDotsMenu
+                    className={styles.ThreeDotsMenu}
+                    element={element}
+                    show={isOnlyBlockSelected}
+                />
                 {isOnlyBlockSelected && renderMenu && container && editorElement && menuOpen && (
                     <Menu className={styles.Menu} reference={container} onClick={preventBubbling}>
                         {renderMenu({ onClose: closeMenu })}
