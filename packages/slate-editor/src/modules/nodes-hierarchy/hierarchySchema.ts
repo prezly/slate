@@ -109,7 +109,7 @@ export const hierarchySchema: NodesHierarchySchema = {
                 fixers.unwrapTableNodeChild,
                 fixers.unwrapSameTypeChild,
                 (editor, [node, path]) =>
-                    Text.isText(node) ? false : fixers.liftNodeNoSplit(editor, [node, path]),
+                    isInlineNode(node) ? false : fixers.liftNodeNoSplit(editor, [node, path]),
                 fixers.convertToParagraph,
             ]),
         ),
