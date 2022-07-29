@@ -11,7 +11,7 @@ import { useFunction, useUniqueId } from '#lib';
 
 import { EventsEditor } from '#modules/events';
 
-import styles from './ThreeDotsMenu.module.scss';
+import styles from './StandardMenu.module.scss';
 
 interface Props {
     className?: string;
@@ -19,10 +19,10 @@ interface Props {
     show: boolean;
 }
 
-export function ThreeDotsMenu({ className, element, show }: Props) {
+export function StandardMenu({ className, element, show }: Props) {
     const editor = useSlateStatic();
     const [open, setOpen] = useState(false);
-    const id = useUniqueId('editor-block-three-dots-menu-');
+    const id = useUniqueId('editor-block-standard-menu-');
 
     function handleClick(position: 'above' | 'below', event: MouseEvent) {
         event.stopPropagation();
@@ -38,14 +38,14 @@ export function ThreeDotsMenu({ className, element, show }: Props) {
     }
 
     return (
-        <div className={classNames(styles.ThreeDotsMenu, className, {
+        <div className={classNames(styles.StandardMenu, className, {
             [styles.show]: show,
             [styles.open]: open,
         })}>
             <DropdownButton
                 className={styles.Button}
                 contentEditable={false}
-                data-editor-block-menu={true}
+                data-editor-block-standard-menu={true}
                 id={id}
                 onClick={() => setOpen(!open)}
                 open={open}

@@ -178,7 +178,7 @@
     }
 }
 
-.ThreeDotsMenu {
+.StandardMenu {
     transition: opacity 0.3s ease-in-out;
     opacity: 0;
     z-index: $editor-block-overlay-z-index + 3;

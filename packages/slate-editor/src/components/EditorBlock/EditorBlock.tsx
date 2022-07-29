@@ -16,7 +16,7 @@ import { EntryPoint } from './EntryPoint';
 import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
-import { ThreeDotsMenu } from './ThreeDotsMenu';
+import { StandardMenu } from './StandardMenu';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
 
@@ -159,8 +159,8 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 ref={setContainer}
                 style={{ width }}
             >
-                <ThreeDotsMenu
-                    className={styles.ThreeDotsMenu}
+                <StandardMenu
+                    className={styles.StandardMenu}
                     element={element}
                     show={isOnlyBlockSelected}
                 />
