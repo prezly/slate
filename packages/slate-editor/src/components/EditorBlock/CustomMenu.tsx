@@ -6,7 +6,7 @@ import { Popper } from 'react-popper';
 
 import { Toolbox } from '#components';
 
-import styles from './Menu.module.scss';
+import styles from './CustomMenu.module.scss';
 
 interface Props {
     children: ReactNode;
@@ -66,7 +66,7 @@ const MODIFIERS: Modifier<string>[] = [
     },
 ];
 
-export class Menu extends Component<Props> {
+export class CustomMenu extends Component<Props> {
     private getVirtualReferenceClientRect = (): ClientRect => {
         const container = this.props.reference.getBoundingClientRect();
         const rect = {

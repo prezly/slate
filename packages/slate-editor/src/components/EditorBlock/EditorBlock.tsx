@@ -11,9 +11,9 @@ import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 
 import { useFunction, useSlateDom } from '#lib';
 
+import { CustomMenu } from './CustomMenu';
 import styles from './EditorBlock.module.scss';
 import { EntryPoint } from './EntryPoint';
-import { Menu } from './Menu';
 import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
 import { StandardMenu } from './StandardMenu';
@@ -165,9 +165,13 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     show={isOnlyBlockSelected}
                 />
                 {isOnlyBlockSelected && renderMenu && container && editorElement && menuOpen && (
-                    <Menu className={styles.Menu} reference={container} onClick={preventBubbling}>
+                    <CustomMenu
+                        className={styles.CustomMenu}
+                        reference={container}
+                        onClick={preventBubbling}
+                    >
                         {renderMenu({ onClose: closeMenu })}
-                    </Menu>
+                    </CustomMenu>
                 )}
                 <Overlay
                     className={styles.Overlay}
