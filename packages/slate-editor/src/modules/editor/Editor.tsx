@@ -87,7 +87,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withAlignmentControls,
         withAttachments = false,
         withAutoformat = false,
-        withBlockMenu = false,
+        withBlockStandardMenu = false,
         withBlockquotes = false,
         withCoverage = false,
         withCursorInView = false,
@@ -422,7 +422,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             >
                 <EditableWithExtensions
                     className={classNames(styles.Editable, {
-                        [styles.withBlockMenu]: withBlockMenu,
+                        [styles.withBlockStandardMenu]: withBlockStandardMenu,
                         [styles.withEntryPoints]: withEntryPointsAroundBlocks,
                     })}
                     decorate={decorate}
