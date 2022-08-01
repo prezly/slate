@@ -922,4 +922,85 @@ describe('extensions / Tables', () => {
         TablesEditor.toggleTableHeader(editor, undefined, 'first_row');
         expect(editor.children).toEqual(expectedWithoutHeader.children);
     });
+
+    it('can insert text in cell', () => {
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    1
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        const expected = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    1hello
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        editor.insertText('hello');
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+    });
 });
