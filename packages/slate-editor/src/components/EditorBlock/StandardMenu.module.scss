@@ -12,10 +12,6 @@
         display: block;
     }
 
-    &.open {
-        opacity: 1.0 !important;
-    }
-
     :global(.caret) {
         display: none;
     }

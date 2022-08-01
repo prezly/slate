@@ -4,7 +4,7 @@ import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { MouseEvent, ReactNode } from 'react';
-import React, { forwardRef, useCallback, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
@@ -94,16 +94,23 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         Array.from(Editor.nodes(editor, { match: EditorCommands.isTopLevelNode })).length === 1;
     const isSelected = selected ?? isNodeSelected;
 
-    const [menuOpen, setMenuOpen] = useState(true);
+    const [menuOpen, setMenuOpen] = useState<'none' | 'custom' | 'standard'>('none');
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
-    const closeMenu = useCallback(() => {
-        setMenuOpen(false);
+    // const openStandardMenu = useFunction(() => setMenuOpen('standard'));
+    const toggleStandardMenu = useFunction(() =>
+        setMenuOpen((menu) => (menu === 'standard' ? 'none' : 'standard')),
+    );
+    const openCustomMenu = useFunction(() => setMenuOpen('custom'));
+    const closeMenus = useFunction(() => setMenuOpen('none'));
+
+    const handleContentClick = useFunction(() => {
+        closeMenus();
         ReactEditor.focus(editor);
-    }, [editor]);
+    });
 
     const handleFrameClick = useFunction(function (event: MouseEvent) {
-        setMenuOpen(true);
+        openCustomMenu();
 
         event.stopPropagation();
 
@@ -115,7 +122,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 
     useEffect(
         function () {
-            if (!isOnlyBlockSelected) setMenuOpen(false);
+            if (!isOnlyBlockSelected) setMenuOpen('none');
         },
         [isOnlyBlockSelected],
     );
@@ -123,13 +130,14 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     useEffect(() => {
         const onEsc = (e: KeyboardEvent) => {
             if (isHotkey('esc', e)) {
-                closeMenu();
+                closeMenus();
+                ReactEditor.focus(editor);
             }
         };
 
         document.addEventListener('keydown', onEsc);
         return () => document.removeEventListener('keydown', onEsc);
-    }, [closeMenu]);
+    }, [closeMenus, editor]);
 
     return (
         <div
@@ -139,7 +147,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 [styles.extendedHitArea]: extendedHitArea,
             })}
             data-slate-block-layout={layout}
-            onClick={closeMenu}
+            onClick={handleContentClick}
             ref={ref}
         >
             <EntryPoint
@@ -162,17 +170,23 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 <StandardMenu
                     className={styles.StandardMenu}
                     element={element}
-                    show={isOnlyBlockSelected}
+                    onClick={toggleStandardMenu}
+                    onDismiss={closeMenus}
+                    open={menuOpen === 'standard'}
                 />
-                {isOnlyBlockSelected && renderMenu && container && editorElement && menuOpen && (
-                    <CustomMenu
-                        className={styles.CustomMenu}
-                        reference={container}
-                        onClick={preventBubbling}
-                    >
-                        {renderMenu({ onClose: closeMenu })}
-                    </CustomMenu>
-                )}
+                {isOnlyBlockSelected &&
+                    renderMenu &&
+                    container &&
+                    editorElement &&
+                    menuOpen === 'custom' && (
+                        <CustomMenu
+                            className={styles.CustomMenu}
+                            reference={container}
+                            onClick={preventBubbling}
+                        >
+                            {renderMenu({ onClose: closeMenus })}
+                        </CustomMenu>
+                    )}
                 <Overlay
                     className={styles.Overlay}
                     selected={isSelected}
