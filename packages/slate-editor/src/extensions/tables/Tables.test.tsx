@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jest } from '@jest/globals';
+import { ListsEditor, ListType } from '@prezly/slate-lists';
 import { TablesEditor } from '@prezly/slate-tables';
 import { ReactEditor } from 'slate-react';
 
@@ -999,6 +1000,91 @@ describe('extensions / Tables', () => {
         ) as unknown as TablesEditor;
 
         editor.insertText('hello');
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+    });
+
+    it('can insert list in cell', () => {
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    1
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor & ListsEditor;
+
+        const expected = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:ol>
+                                <h:li>
+                                    <h:li-text>
+                                        <h:text>
+                                            1
+                                            <cursor />
+                                        </h:text>
+                                    </h:li-text>
+                                </h:li>
+                            </h:ol>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        ListsEditor.wrapInList(editor, ListType.ORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
