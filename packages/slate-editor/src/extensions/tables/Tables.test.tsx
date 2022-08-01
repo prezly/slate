@@ -490,4 +490,317 @@ describe('extensions / Tables', () => {
         expect(editor.selection).toEqual(expected.selection);
         expect(ReactEditor.focus).toBeCalledTimes(1);
     });
+
+    it('should insert column left', () => {
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    1
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>5</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>6</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        const expected = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>1</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text></h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>5</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>6</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        TablesEditor.insertColumnLeft(editor);
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+        expect(ReactEditor.focus).toBeCalledTimes(1);
+    });
+
+    it('should insert column right', () => {
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    1
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>5</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>6</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        const expected = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>1</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text></h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>5</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>6</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        TablesEditor.insertColumnRight(editor);
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+        expect(ReactEditor.focus).toBeCalledTimes(1);
+    });
+
+    it('should remove column', () => {
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    1
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>5</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>6</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        const expected = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    <cursor />2
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>5</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>6</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        TablesEditor.removeColumn(editor);
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+        expect(ReactEditor.focus).toBeCalledTimes(1);
+    });
 });
