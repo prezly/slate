@@ -803,4 +803,123 @@ describe('extensions / Tables', () => {
         expect(editor.selection).toEqual(expected.selection);
         expect(ReactEditor.focus).toBeCalledTimes(1);
     });
+
+    it('should toggle first row header type', () => {
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    1
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        const expectedWithHeader = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border header={['first_row']}>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    1
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        const expectedWithoutHeader = (
+            <editor>
+                <h:paragraph>
+                    <h:text>Above</h:text>
+                </h:paragraph>
+                <h:table border>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>
+                                    1
+                                    <cursor />
+                                </h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>2</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                    <h:tr>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>3</h:text>
+                            </h:paragraph>
+                        </h:td>
+                        <h:td>
+                            <h:paragraph>
+                                <h:text>4</h:text>
+                            </h:paragraph>
+                        </h:td>
+                    </h:tr>
+                </h:table>
+            </editor>
+        ) as unknown as TablesEditor;
+
+        TablesEditor.toggleTableHeader(editor, undefined, 'first_row');
+        expect(editor.children).toEqual(expectedWithHeader.children);
+
+        TablesEditor.toggleTableHeader(editor, undefined, 'first_row');
+        expect(editor.children).toEqual(expectedWithoutHeader.children);
+    });
 });
