@@ -8,6 +8,7 @@ export interface Option<Action> {
     text: string;
     group: string;
     description: string;
+    keywords?: string[];
     suggested?: Order | false;
     // labels
     isBeta?: boolean;

@@ -5,6 +5,7 @@ import { MENU_TRIGGER_CHARACTERS } from './isMenuHotkey';
 interface Option {
     group: string;
     text: string;
+    keywords?: string[];
     description?: string;
 }
 
@@ -33,6 +34,9 @@ function filter<T extends Option>(options: T[], query: string): T[] {
     const relevanceOrderedOptions = [
         ...options.filter(({ text }) => ` ${text.toLowerCase()}`.includes(` ${lowercaseQuery}`)),
         ...options.filter(({ text }) => text.toLowerCase().includes(lowercaseQuery)),
+        ...options.filter(({ keywords }) =>
+            keywords ? keywords.some((keyword) => keyword.includes(lowercaseQuery)) : false,
+        ),
     ];
 
     return keepGroups(deduplicate(relevanceOrderedOptions));
