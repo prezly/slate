@@ -213,6 +213,7 @@ function* generateOptions(
             icon: Icons.ComponentWebBookmark,
             group: Group.MEDIA_CONTENT,
             text: 'Website bookmark',
+            keywords: ['link'],
             description: 'Insert a visual website link',
             isNew: true,
         };
