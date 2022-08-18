@@ -5,8 +5,8 @@ import type { ListsEditor } from '../types';
 import { ListType } from '../types';
 
 import { getListItemsInRange } from './getListItemsInRange';
-import { getUnreachableAncestors } from './getUnreachableAncestors';
 import { increaseListItemDepth } from './increaseListItemDepth';
+import { pickSubtreesRoots } from './pickSubtreesRoots';
 import { wrapInList } from './wrapInList';
 
 /**
@@ -26,7 +26,7 @@ export function increaseDepth(editor: ListsEditor): void {
 
     // When calling `increaseListItemDepth` the paths and references to list items
     // can change, so we need a way of marking the list items scheduled for transformation.
-    const refs = getUnreachableAncestors(indentableListItemsInRange).map(([_, path]) =>
+    const refs = pickSubtreesRoots(indentableListItemsInRange).map(([_, path]) =>
         Editor.pathRef(editor, path),
     );
 
