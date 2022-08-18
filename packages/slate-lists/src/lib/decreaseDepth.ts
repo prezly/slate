@@ -1,10 +1,10 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import { Editor } from 'slate';
 
 import type { ListsEditor } from '../types';
 
 import { decreaseListItemDepth } from './decreaseListItemDepth';
 import { getListItemsInRange } from './getListItemsInRange';
+import { getUnreachableAncestors } from './getUnreachableAncestors';
 
 /**
  * Decreases nesting depth of all "list-items" in the current selection.
@@ -19,7 +19,7 @@ export function decreaseDepth(editor: ListsEditor): void {
 
     // When calling `decreaseListItemDepth` the paths and references to "list-items"
     // can change, so we need a way of marking the "list-items" scheduled for transformation.
-    const refs = EditorCommands.getUnreachableAncestors(listItemsInRange).map(([_, path]) =>
+    const refs = getUnreachableAncestors(listItemsInRange).map(([_, path]) =>
         Editor.pathRef(editor, path),
     );
 
