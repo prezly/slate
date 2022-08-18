@@ -10,7 +10,7 @@ import { getParentList } from './getParentList';
  */
 export function getListsInRange(
     editor: ListsEditor,
-    at: Range | null | undefined,
+    at: Range | null,
 ): NodeEntry<Element>[] {
     const listItemsInRange = getListItemsInRange(editor, at);
     const lists = listItemsInRange
