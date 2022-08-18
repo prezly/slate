@@ -17,8 +17,8 @@ import type { ListsEditor } from '../types';
 
 import { decreaseDepth } from './decreaseDepth';
 
-describe('decreaseDepth - no selected items', () => {
-    it('Does nothing when there is no selection', () => {
+describe('decreaseDepth', () => {
+    it('should do nothing when there is no selection', () => {
         const editor = (
             <Editor>
                 <UnorderedList>
@@ -48,10 +48,53 @@ describe('decreaseDepth - no selected items', () => {
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
-});
 
-describe('decreaseDepth - single item selected', () => {
-    it('Converts list item to a paragraph when there is no grandparent list', () => {
+    it('should do nothing when there are no list items is the selection', () => {
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+                <Paragraph>
+                    <Text>
+                        <Anchor />
+                        this is a paragraph
+                        <Focus />
+                    </Text>
+                </Paragraph>
+            </Editor>
+        ) as unknown as ListsEditor;
+
+        const expected = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text>lorem ipsum</Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+                <Paragraph>
+                    <Text>
+                        <Anchor />
+                        this is a paragraph
+                        <Focus />
+                    </Text>
+                </Paragraph>
+            </Editor>
+        ) as unknown as ListsEditor;
+
+        decreaseDepth(editor);
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+    });
+
+    it('should convert the selected list item to a paragraph when there is no grandparent list', () => {
         const editor = (
             <Editor>
                 <UnorderedList>
@@ -84,7 +127,7 @@ describe('decreaseDepth - single item selected', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Moves list-item to the grandparent list', () => {
+    it('should move the selected list-item to the grandparent list', () => {
         const editor = (
             <Editor>
                 <UnorderedList>
@@ -145,7 +188,7 @@ describe('decreaseDepth - single item selected', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Moves list-item to the grandparent list and removes the parent list if empty', () => {
+    it('should move the selected list item to the grandparent list and removes the parent list if empty', () => {
         const editor = (
             <Editor>
                 <UnorderedList>
@@ -194,7 +237,7 @@ describe('decreaseDepth - single item selected', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Moves list-item to the grandparent list and moves succeeding siblings into a new nested list', () => {
+    it('should move the selected list-item to the grandparent list and succeeding siblings into a new nested list', () => {
         const editor = (
             <Editor>
                 <UnorderedList>
@@ -277,7 +320,7 @@ describe('decreaseDepth - single item selected', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Converts list-item into a paragraph, moves it out of the list and moves succeeding siblings into a new list', () => {
+    it('should convert the selected list-item into a paragraph, move it out of the list and move succeeding siblings into a new list', () => {
         const editor = (
             <Editor>
                 <UnorderedList>
@@ -357,10 +400,8 @@ describe('decreaseDepth - single item selected', () => {
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
-});
 
-describe('decreaseDepth - multiple items selected', () => {
-    it('Decreases depth of all list items in selection that have no list items ancesors in selection', () => {
+    it('should decrease depth of all selected list items in selection that have no list items ancestors in selection', () => {
         const editor = (
             <Editor>
                 <UnorderedList>
