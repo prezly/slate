@@ -20,7 +20,7 @@ import { decreaseDepth } from './decreaseDepth';
 describe('decreaseDepth', () => {
     it('should do nothing when there is no selection', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -32,7 +32,7 @@ describe('decreaseDepth', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -51,7 +51,7 @@ describe('decreaseDepth', () => {
 
     it('should do nothing when there are no list items is the selection', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -70,7 +70,7 @@ describe('decreaseDepth', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -96,7 +96,7 @@ describe('decreaseDepth', () => {
 
     it('should convert the selected list item to a paragraph when there is no grandparent list', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -111,7 +111,7 @@ describe('decreaseDepth', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <Paragraph>
                     <Text>
                         lorem ipsum
@@ -129,7 +129,7 @@ describe('decreaseDepth', () => {
 
     it('should move the selected list-item to the grandparent list', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -156,7 +156,7 @@ describe('decreaseDepth', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -190,7 +190,7 @@ describe('decreaseDepth', () => {
 
     it('should move the selected list item to the grandparent list and removes the parent list if empty', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -212,7 +212,7 @@ describe('decreaseDepth', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -239,7 +239,7 @@ describe('decreaseDepth', () => {
 
     it('should move the selected list-item to the grandparent list and succeeding siblings into a new nested list', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -276,7 +276,7 @@ describe('decreaseDepth', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -322,7 +322,7 @@ describe('decreaseDepth', () => {
 
     it('should convert the selected list-item into a paragraph, move it out of the list and move succeeding siblings into a new list', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -359,7 +359,7 @@ describe('decreaseDepth', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -403,7 +403,7 @@ describe('decreaseDepth', () => {
 
     it('should decrease depth of all selected list items in selection that have no list items ancestors in selection', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -496,7 +496,7 @@ describe('decreaseDepth', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -594,35 +594,35 @@ describe('decreaseDepth', () => {
 
     it('should convert list items to paragraphs', () => {
         const editor = (
-            <Editor>
-                <UL>
-                    <LI>
-                        <LIText>
+            <Editor normalizeNode={noop}>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
                             <Text>
                                 <Focus />
                                 Hello
                             </Text>
-                        </LIText>
-                    </LI>
-                    <LI>
-                        <LIText>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
                             <Text>World</Text>
-                        </LIText>
-                    </LI>
-                    <LI>
-                        <LIText>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
                             <Text>
                                 Here I am
                                 <Anchor />
                             </Text>
-                        </LIText>
-                    </LI>
-                </UL>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
             </Editor>
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <Paragraph>
                     <Text>
                         <Focus />
@@ -649,3 +649,7 @@ describe('decreaseDepth', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 });
+
+function noop() {
+    return null;
+}
