@@ -1,15 +1,14 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, Element, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
-import { getListType } from '../lib';
+import { getListType, getPrevSibling } from '../lib';
 import type { ListsEditor } from '../types';
 
 /**
  * Increases nesting depth of "list-item" at a given Path.
  */
 export function increaseListItemDepth(editor: ListsEditor, listItemPath: Path): void {
-    const previousListItem = EditorCommands.getPreviousSibling(editor, listItemPath);
+    const previousListItem = getPrevSibling(editor, listItemPath);
 
     if (!previousListItem) {
         // The existence of previous "list-item" is necessary and sufficient for the operation to be possible.

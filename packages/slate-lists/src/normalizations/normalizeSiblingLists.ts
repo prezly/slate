@@ -1,6 +1,6 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import type { Node, NodeEntry } from 'slate';
 
+import { getNextSibling } from '../lib';
 import { mergeListWithPreviousSiblingList } from '../transformations';
 import type { ListsEditor } from '../types';
 
@@ -16,7 +16,7 @@ export function normalizeSiblingLists(editor: ListsEditor, entry: NodeEntry<Node
     }
 
     const [, path] = entry;
-    const nextSibling = EditorCommands.getNextSibling(editor, path);
+    const nextSibling = getNextSibling(editor, path);
 
     if (!nextSibling) {
         return false;

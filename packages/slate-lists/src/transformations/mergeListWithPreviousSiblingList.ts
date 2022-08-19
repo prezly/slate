@@ -1,8 +1,7 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import type { Node, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
 
-import { getListType, getParentListItem } from '../lib';
+import { getListType, getParentListItem, getPrevSibling } from '../lib';
 import type { ListsEditor } from '../types';
 
 export function mergeListWithPreviousSiblingList(
@@ -14,7 +13,7 @@ export function mergeListWithPreviousSiblingList(
         return false;
     }
 
-    const previousSibling = EditorCommands.getPreviousSibling(editor, path);
+    const previousSibling = getPrevSibling(editor, path);
 
     if (!previousSibling) {
         // Nothing to merge with.

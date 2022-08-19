@@ -1,9 +1,8 @@
-import { EditorCommands } from '@prezly/slate-commons';
-
 import type { ListsEditor } from '../types';
 
 import { getListItemsInRange } from './getListItemsInRange';
 import { getParentListItem } from './getParentListItem';
+import { getPrevSibling } from './getPrevSibling';
 import { isCursorAtStartOfListItem } from './isCursorAtStartOfListItem';
 
 /**
@@ -18,6 +17,6 @@ export function canDeleteBackward(editor: ListsEditor): boolean {
 
     const [[, listItemPath]] = listItemsInSelection;
     const isInNestedList = getParentListItem(editor, listItemPath) !== null;
-    const isFirstListItem = EditorCommands.getPreviousSibling(editor, listItemPath) === null;
+    const isFirstListItem = getPrevSibling(editor, listItemPath) === null;
     return isInNestedList || !isFirstListItem || !isCursorAtStartOfListItem(editor);
 }
