@@ -21,9 +21,9 @@ API inspired by https://github.com/GitbookIO/slate-edit-list.
 
 ## Demo
 
-Live: ttps://veu8mp.csb.app/
+Live: [https://ocbkit.csb.app/](https://ocbkit.csb.app/)
 
-Source code: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-options-forked-veu8mp
+Source code: https://codesandbox.io/s/prezly-slate-lists-demo-ocbkit?file=/src/MyEditor.tsx
 
 ## Features
 
@@ -65,7 +65,7 @@ import { Node } from 'slate';
 
 interface ListNode {
     children: ListItemNode[];
-    type: 'bulleted-list' | 'numbered-list'; // depends on your ListsSchema 
+    type: 'ordered-list' | 'unordered-list'; // depends on your ListsSchema 
 }
 
 interface ListItemNode {
@@ -98,262 +98,564 @@ yarn add @prezly/slate-lists
 
 ## User guide
 
+### 0. Basic Editor
+
 Let's start with a minimal Slate + React example which we will be adding lists support to. 
 Nothing interesting here just yet.
 
-Live example: https://codesandbox.io/s/prezlyslate-lists-user-guide-0-initial-state-9gmff?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-0-basic-editor-veu8mp?file=/src/MyEditor.tsx
 
 ```tsx
 import { useMemo, useState } from 'react';
-import { createEditor, Node } from 'slate';
-import { Editable, Slate, withReact } from 'slate-react';
+import { createEditor, BaseElement, Descendant } from 'slate';
+import { withHistory } from 'slate-history';
+import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
 
-const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
+declare module 'slate' {
+    interface CustomTypes {
+        Element: { type: Type } & BaseElement;
+    }
+}
 
-export const MyEditor = () => {
+enum Type {
+    PARAGRAPH = 'paragraph',
+}
+
+function renderElement({ element, attributes, children }: RenderElementProps) {
+    switch (element.type) {
+        case Type.PARAGRAPH:
+            return <p {...attributes}>{children}</p>;
+    }
+}
+
+const initialValue: Descendant[] = [{ type: Type.PARAGRAPH, children: [{ text: 'Hello world!' }] }];
+
+export function MyEditor() {
     const [value, setValue] = useState(initialValue);
-    const editor = useMemo(() => withReact(createEditor()), []);
+    const editor = useMemo(() => withHistory(withReact(createEditor() as ReactEditor)), []);
 
     return (
         <Slate editor={editor} value={value} onChange={setValue}>
-            <Editable />
+            <Editable renderElement={renderElement} />
         </Slate>
     );
-};
+}
+
 ```
 
-### Define [`ListsSchema`](src/types.ts)
+### 1. Define Lists Model
 
-First you're going to want to define schema that will be passed to the extension. 
-Just create an object matching the [`ListsSchema`](src/types.ts) interface.
+First, you're going to want to define the model to power the lists functionality.
 
-Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-options-forked-cnew1g?file=/src/MyEditor.tsx
+You'll need at least three additional node types:
+
+1. List Node
+2. List Item Node
+3. List Item Text Node
+
+Additionally, you may want to split List Node into two types: ordered list and unordered list. Or alternatively,
+achieve the split with an additional node property (like `listNode: ListType`).
+
+In this example, for the sake of simplicity, we'll use two different node types:
+
+1. Ordered List Node
+2. Unordered List Node
+
+Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-list-nodes-model-qyepe4?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
--import { createEditor, Node } from 'slate';
-+import { createEditor, Element, Node } from 'slate';
- import { Editable, Slate, withReact } from 'slate-react';
-+import { type ListsSchema, ListType } from '@prezly/slate-lists';
-+
-+const schema: ListsSchema = {
-+  isConvertibleToListTextNode(node) {
-+    return Element.isElementType(node, 'paragraph');
-+  },
-+  isDefaultTextNode(node) {
-+    return Element.isElementType(node, 'paragraph');
-+  },
-+  isListNode(node, type?) {
-+    if (type === ListType.UNORDERED) return Element.isElementType(node, 'bulleted-list');
-+    if (type === ListType.ORDERED) return Element.isElementType(node, 'numbered-list');
-+    return Element.isElementType(node, 'bulleted-list') || Element.isElementType(node, 'numbered-list');
-+  },
-+  isListItemNode(node) {
-+    return Element.isElementType(node, 'list-item');
-+  },
-+  isListItemTextNode(node) {
-+    return Element.isElementType(node, 'list-item-text');
-+  },
-+  createDefaultTextNode({ children } = {}) {
-+    return { 
-+      type: 'paragraph', 
-+      children: children ?? [{ text: '' }],
-+    };
-+  },
-+  createListNode(type = ListType.UNORDERED, { children } = {}) {
-+    return {
-+      type: type === ListType.UNORDERED ? 'bulleted-list' : 'numbered-list',
-+      children: children ?? [this.createListItemNode()],
-+    };
-+  },
-+  createListItemNode({ children } = {}) {
-+    return {
-+      type: 'list-item',
-+      children: children ?? [this.createListItemTextNode()],
-+    };
-+  },
-+  createListItemTextNode({ children } = {}) {
-+    return {
-+      type: 'list-item-text',
-+      children: children ?? [{ text: '' }],
-+    };
-+  },
-+};
+ import { createEditor, BaseElement, Descendant } from 'slate';
+ import { withHistory } from 'slate-history';
+ import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
 
- const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
-
- export const MyEditor = () => {
+ declare module 'slate' {
+     interface CustomTypes {
+         Element: { type: Type } & BaseElement;
+     }
+ }
+ 
+ enum Type {
+     PARAGRAPH = 'paragraph',
++    ORDERED_LIST = 'ordered-list',
++    UNORDERED_LIST = 'unordered-list',
++    LIST_ITEM = 'list-item',
++    LIST_ITEM_TEXT = 'list-item-text',
+ }
+ 
+ function renderElement({ element, attributes, children }: RenderElementProps) {
+     switch (element.type) {
+         case Type.PARAGRAPH:
+             return <p {...attributes}>{children}</p>;
++        case Type.ORDERED_LIST:
++            return <ol {...attributes}>{children}</ol>;
++        case Type.UNORDERED_LIST:
++            return <ul {...attributes}>{children}</ul>;
++        case Type.LIST_ITEM:
++            return <li {...attributes}>{children}</li>;
++        case Type.LIST_ITEM_TEXT:
++            return <div {...attributes}>{children}</div>;
+     }
+ }
+ 
+ const initialValue: Descendant[] = [
+     { type: Type.PARAGRAPH, children: [{ text: 'Hello world!' }] },
++    {
++        type: Type.ORDERED_LIST,
++        children: [
++            {
++                type: Type.LIST_ITEM,
++                children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'One' }] }],
++            },
++            {
++                type: Type.LIST_ITEM,
++                children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Two' }] }],
++            },
++            {
++                type: Type.LIST_ITEM,
++                children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Three' }] }],
++            },
++        ],
++    },
++    {
++        type: Type.UNORDERED_LIST,
++        children: [
++            {
++                type: Type.LIST_ITEM,
++                children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Red' }] }],
++            },
++            {
++                type: Type.LIST_ITEM,
++                children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Green' }] }],
++            },
++            {
++                type: Type.LIST_ITEM,
++                children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Blue' }] }],
++            },
++        ],
++    },
+ ];
+ 
+ export function MyEditor() {
      const [value, setValue] = useState(initialValue);
-     const editor = useMemo(() => withReact(createEditor()), []);
+     const editor = useMemo(() => withHistory(withReact(createEditor() as ReactEditor)), []);
 
      return (
          <Slate editor={editor} value={value} onChange={setValue}>
-             <Editable />
+             <Editable renderElement={renderElement} />
          </Slate>
      );
- };
+ }
 ```
 
-### Use [`withLists`](src/lib/withLists.ts) plugin
+### 2. Define lists plugin schema and connect [`withLists`](src/lib/withLists.ts) plugin to your model
 
 [`withLists`](src/lib/withLists.ts) is a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) 
 that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) 
 which enforce [schema](#Schema) constraints and recover from unsupported structures.
 
-Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-options-forked-llr5kw?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withlists-plugin-r2xscj?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
- import { createEditor, Node } from 'slate';
- import { createEditor, Element, Node } from 'slate';
- import { Editable, Slate, withReact } from 'slate-react';
--import { type ListsSchema, ListType } from '@prezly/slate-lists';
-+import { type ListsSchema, ListType, withLists } from '@prezly/slate-lists';
+ import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
+ import { withHistory } from 'slate-history';
+ import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
++import { ListType, withLists } from '@prezly/slate-lists';
  
- const schema: ListsSchema = {
-   isConvertibleToListTextNode(node) {
-     return Element.isElementType(node, 'paragraph');
-   },
-   isDefaultTextNode(node) {
-     return Element.isElementType(node, 'paragraph');
-   },
-   isListNode(node, type?) {
-     if (type === ListType.UNORDERED) return Element.isElementType(node, 'bulleted-list');
-     if (type === ListType.ORDERED) return Element.isElementType(node, 'numbered-list');
-     return Element.isElementType(node, 'ordered-list') || Element.isElementType(node, 'numbered-list');
-   },
-   isListItemNode(node) {
-     return Element.isElementType(node, 'list-item');
-   },
-   isListItemTextNode(node) {
-     return Element.isElementType(node, 'list-item-text');
-   },
-   createDefaultTextNode({ children } = {}) {
-     return { 
-       type: 'paragraph', 
-       children: children ?? [{ text: '' }],
-     };
-   },
-   createListNode(type = ListType.UNORDERED, { children } = {}) {
-     return {
-       type: type === ListType.UNORDERED ? 'bulleted-list' : 'numbered-list',
-       children: children ?? [this.createListItemNode()],
-     };
-   },
-   createListItemNode({ children } = {}) {
-     return {
-       type: 'list-item',
-       children: children ?? [this.createListItemTextNode()],
-     };
-   },
-   createListItemTextNode({ children } = {}) {
-     return {
-       type: 'list-item-text',
-       children: children ?? [{ text: '' }],
-     };
-   },
- };
-
- const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
-
- export const MyEditor = () => {
+ declare module 'slate' {
+     interface CustomTypes {
+         Element: { type: Type } & BaseElement;
+     }
+ }
+ 
+ enum Type {
+     PARAGRAPH = 'paragraph',
+     ORDERED_LIST = 'ordered-list',
+     UNORDERED_LIST = 'unordered-list',
+     LIST_ITEM = 'list-item',
+     LIST_ITEM_TEXT = 'list-item-text',
+ }
+ 
++const withListsPlugin = withLists({
++    isConvertibleToListTextNode(node: Node) {
++        return Element.isElementType(node, Type.PARAGRAPH);
++    },
++    isDefaultTextNode(node: Node) {
++        return Element.isElementType(node, Type.PARAGRAPH);
++    },
++    isListNode(node: Node, type?: ListType) {
++        if (type) {
++            return Element.isElementType(node, type);
++        }
++        return (
++            Element.isElementType(node, Type.ORDERED_LIST) ||
++            Element.isElementType(node, Type.UNORDERED_LIST)
++        );
++    },
++    isListItemNode(node: Node) {
++        return Element.isElementType(node, Type.LIST_ITEM);
++    },
++    isListItemTextNode(node: Node) {
++        return Element.isElementType(node, Type.LIST_ITEM_TEXT);
++    },
++    createDefaultTextNode(props = {}) {
++        return { children: [{ text: '' }], ...props, type: Type.PARAGRAPH };
++    },
++    createListNode(type: ListType = ListType.UNORDERED, props = {}) {
++        const nodeType = type === ListType.ORDERED_LIST ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
++        return { children: [{ text: '' }], ...props, type: nodeType };
++    },
++    createListItemNode(props = {}) {
++        return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM };
++    },
++    createListItemTextNode(props = {}) {
++        return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
++    },
++});
+ 
+ function renderElement({ element, attributes, children }: RenderElementProps) {
+     switch (element.type) {
+         case Type.PARAGRAPH:
+             return <p {...attributes}>{children}</p>;
+         case Type.ORDERED_LIST:
+             return <ol {...attributes}>{children}</ol>;
+         case Type.UNORDERED_LIST:
+             return <ul {...attributes}>{children}</ul>;
+         case Type.LIST_ITEM:
+             return <li {...attributes}>{children}</li>;
+         case Type.LIST_ITEM_TEXT:
+             return <div {...attributes}>{children}</div>;
+     }
+ }
+ 
+ const initialValue: Descendant[] = [
+     { type: Type.PARAGRAPH, children: [{ text: 'Hello world!' }] },
+     {
+         type: Type.ORDERED_LIST,
+         children: [
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'One' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Two' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Three' }] }],
+             },
+         ],
+     },
+     {
+         type: Type.UNORDERED_LIST,
+         children: [
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Red' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Green' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Blue' }] }],
+             },
+         ],
+     },
+ ];
+ 
+ export function MyEditor() {
      const [value, setValue] = useState(initialValue);
--    const editor = useMemo(() => withReact(createEditor()), []);
-+    const editor = useMemo(function() {
-+       const baseEditor = withReact(createEditor());
-+       return withLists(schema)(baseEditor);
-+    }, []);
-
++    const editor = useMemo(() => withListsPlugin(withHistory(withReact(createEditor() as ReactEditor))), []);
+ 
      return (
          <Slate editor={editor} value={value} onChange={setValue}>
-             <Editable />
+             <Editable renderElement={renderElement} />
          </Slate>
      );
- };
+ }
 ```
 
-### Use [`withListsReact`](src/lib/withListsReact.ts) plugin
+### 3. Use [`withListsReact`](src/lib/withListsReact.ts) plugin
 
 [`withListsReact`](src/lib/withListsReact.ts) is useful on the client-side - 
 it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) - that overrides `editor.setFragmentData`. 
 It enables `Range.prototype.cloneContents` monkey patch to improve copying behavior in some edge cases.
 
-Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-define-options-forked-pe7y8e?file=/src/MyEditor.tsx
+Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-3-add-withlistsreact-plugin-t81im0?file=/src/MyEditor.tsx
 
 ```diff
  import { useMemo, useState } from 'react';
- import { createEditor, Node } from 'slate';
- import { createEditor, Element, Node } from 'slate';
- import { Editable, Slate, withReact } from 'slate-react';
--import { type ListsSchema, ListType, withLists } from '@prezly/slate-lists';
-+import { type ListsSchema, ListType, withLists, withListsReact } from '@prezly/slate-lists';
+ import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
+ import { withHistory } from 'slate-history';
+ import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
++import { ListType, withLists, withListsReact } from '@prezly/slate-lists';
  
- const schema: ListsSchema = {
-   isConvertibleToListTextNode(node) {
-     return Element.isElementType(node, 'paragraph');
-   },
-   isDefaultTextNode(node) {
-     return Element.isElementType(node, 'paragraph');
-   },
-   isListNode(node, type?) {
-     if (type === ListType.UNORDERED) return Element.isElementType(node, 'bulleted-list');
-     if (type === ListType.ORDERED) return Element.isElementType(node, 'numbered-list');
-     return Element.isElementType(node, 'ordered-list') || Element.isElementType(node, 'numbered-list');
-   },
-   isListItemNode(node) {
-     return Element.isElementType(node, 'list-item');
-   },
-   isListItemTextNode(node) {
-     return Element.isElementType(node, 'list-item-text');
-   },
-   createDefaultTextNode({ children } = {}) {
-     return { 
-       type: 'paragraph', 
-       children: children ?? [{ text: '' }],
-     };
-   },
-   createListNode(type = ListType.UNORDERED, { children } = {}) {
-     return {
-       type: type === ListType.UNORDERED ? 'bulleted-list' : 'numbered-list',
-       children: children ?? [this.createListItemNode()],
-     };
-   },
-   createListItemNode({ children } = {}) {
-     return {
-       type: 'list-item',
-       children: children ?? [this.createListItemTextNode()],
-     };
-   },
-   createListItemTextNode({ children } = {}) {
-     return {
-       type: 'list-item-text',
-       children: children ?? [{ text: '' }],
-     };
-   },
- };
-
- const initialValue: Node[] = [{ type: 'paragraph', children: [{ text: 'Hello world!' }] }];
-
- export const MyEditor = () => {
+ declare module 'slate' {
+     interface CustomTypes {
+         Element: { type: Type } & BaseElement;
+     }
+ }
+ 
+ enum Type {
+     PARAGRAPH = 'paragraph',
+     ORDERED_LIST = 'ordered-list',
+     UNORDERED_LIST = 'unordered-list',
+     LIST_ITEM = 'list-item',
+     LIST_ITEM_TEXT = 'list-item-text',
+ }
+ 
+ const withListsPlugin = withLists({
+     isConvertibleToListTextNode(node: Node) {
+         return Element.isElementType(node, Type.PARAGRAPH);
+     },
+     isDefaultTextNode(node: Node) {
+         return Element.isElementType(node, Type.PARAGRAPH);
+     },
+     isListNode(node: Node, type: ListType) {
+         if (type) {
+             return Element.isElementType(node, type);
+         }
+         return (
+             Element.isElementType(node, Type.ORDERED_LIST) ||
+             Element.isElementType(node, Type.UNORDERED_LIST)
+         );
+     },
+     isListItemNode(node: Node) {
+         return Element.isElementType(node, Type.LIST_ITEM);
+     },
+     isListItemTextNode(node: Node) {
+         return Element.isElementType(node, Type.LIST_ITEM_TEXT);
+     },
+     createDefaultTextNode(props = {}) {
+         return { children: [{ text: '' }], ...props, type: Type.PARAGRAPH };
+     },
+     createListNode(type: ListType = ListType.UNORDERED, props = {}) {
+         const nodeType = type === ListType.ORDERED_LIST ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
+         return { children: [{ text: '' }], ...props, type: nodeType };
+     },
+     createListItemNode(props = {}) {
+         return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM };
+     },
+     createListItemTextNode(props = {}) {
+         return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
+     },
+ });
+ 
+ function renderElement({ element, attributes, children }: RenderElementProps) {
+     switch (element.type) {
+         case Type.PARAGRAPH:
+             return <p {...attributes}>{children}</p>;
+         case Type.ORDERED_LIST:
+             return <ol {...attributes}>{children}</ol>;
+         case Type.UNORDERED_LIST:
+             return <ul {...attributes}>{children}</ul>;
+         case Type.LIST_ITEM:
+             return <li {...attributes}>{children}</li>;
+         case Type.LIST_ITEM_TEXT:
+             return <div {...attributes}>{children}</div>;
+     }
+ }
+ 
+ const initialValue: Descendant[] = [
+     { type: Type.PARAGRAPH, children: [{ text: 'Hello world!' }] },
+     {
+         type: Type.ORDERED_LIST,
+         children: [
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'One' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Two' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Three' }] }],
+             },
+         ],
+     },
+     {
+         type: Type.UNORDERED_LIST,
+         children: [
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Red' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Green' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Blue' }] }],
+             },
+         ],
+     },
+ ];
+ 
+ export function MyEditor() {
      const [value, setValue] = useState(initialValue);
-     const editor = useMemo(() => withReact(createEditor()), []);
-     const editor = useMemo(function() {
-        const baseEditor = withReact(createEditor());
--       return withLists(schema)(baseEditor);
-+       return withListsReact(withLists(schema)(baseEditor));
-     }, []);
-
+     const editor = useMemo(
++        () => withListsReact(withListsPlugin(withHistory(withReact(createEditor() as ReactEditor)))),
+         [],
+     );
+ 
      return (
          <Slate editor={editor} value={value} onChange={setValue}>
-             <Editable />
+             <Editable renderElement={renderElement} />
          </Slate>
      );
- };
+ }
 ```
+
+### 4. Add `onKeyDown` handler
+
+`@prezly/slate-lists` comes with a pre-defined `onKeyDown` handler to implement keyboard interactions for lists.
+For example, pressing `Tab` in a list will indent the current list item one level deeper. 
+Pressing `Shift+Tab` will raise the current list item one level up.
+
+Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkeydown-handler-5wpqxv?file=/src/MyEditor.tsx
+
+```diff
+ import { useMemo, useState } from 'react';
+ import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
+ import { withHistory } from 'slate-history';
+ import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
++import { ListType, onKeyDown, withLists, withListsReact } from '@prezly/slate-lists';
+ 
+ declare module 'slate' {
+     interface CustomTypes {
+         Element: { type: Type } & BaseElement;
+     }
+ }
+ 
+ enum Type {
+     PARAGRAPH = 'paragraph',
+     ORDERED_LIST = 'ordered-list',
+     UNORDERED_LIST = 'unordered-list',
+     LIST_ITEM = 'list-item',
+     LIST_ITEM_TEXT = 'list-item-text',
+ }
+ 
+ const withListsPlugin = withLists({
+     isConvertibleToListTextNode(node: Node) {
+         return Element.isElementType(node, Type.PARAGRAPH);
+     },
+     isDefaultTextNode(node: Node) {
+         return Element.isElementType(node, Type.PARAGRAPH);
+     },
+     isListNode(node: Node, type: ListType) {
+         if (type) {
+             return Element.isElementType(node, type);
+         }
+         return (
+             Element.isElementType(node, Type.ORDERED_LIST) ||
+             Element.isElementType(node, Type.UNORDERED_LIST)
+         );
+     },
+     isListItemNode(node: Node) {
+         return Element.isElementType(node, Type.LIST_ITEM);
+     },
+     isListItemTextNode(node: Node) {
+         return Element.isElementType(node, Type.LIST_ITEM_TEXT);
+     },
+     createDefaultTextNode(props = {}) {
+         return { children: [{ text: '' }], ...props, type: Type.PARAGRAPH };
+     },
+     createListNode(type: ListType = ListType.UNORDERED, props = {}) {
+           const nodeType = type === ListType.ORDERED_LIST ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
+           return { children: [{ text: '' }], ...props, type: nodeType };
+     },
+     createListItemNode(props = {}) {
+         return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM };
+     },
+     createListItemTextNode(props = {}) {
+         return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
+     },
+ });
+ 
+ function renderElement({ element, attributes, children }: RenderElementProps) {
+     switch (element.type) {
+         case Type.PARAGRAPH:
+             return <p {...attributes}>{children}</p>;
+         case Type.ORDERED_LIST:
+             return <ol {...attributes}>{children}</ol>;
+         case Type.UNORDERED_LIST:
+             return <ul {...attributes}>{children}</ul>;
+         case Type.LIST_ITEM:
+             return <li {...attributes}>{children}</li>;
+         case Type.LIST_ITEM_TEXT:
+             return <div {...attributes}>{children}</div>;
+         default:
+             return <div {...attributes}>{children}</div>;
+     }
+ }
+ 
+ const initialValue: Descendant[] = [
+     { type: Type.PARAGRAPH, children: [{ text: 'Hello world!' }] },
+     {
+         type: Type.ORDERED_LIST,
+         children: [
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'One' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Two' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Three' }] }],
+             },
+         ],
+     },
+     {
+         type: Type.UNORDERED_LIST,
+         children: [
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Red' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Green' }] }],
+             },
+             {
+                 type: Type.LIST_ITEM,
+                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Blue' }] }],
+             },
+         ],
+     },
+ ];
+ 
+ export function MyEditor() {
+     const [value, setValue] = useState(initialValue);
+     const editor = useMemo(
+         () => withListsReact(withListsPlugin(withHistory(withReact(createEditor() as ReactEditor)))),
+         [],
+     );
+ 
+     return (
+         <Slate editor={editor} value={value} onChange={setValue}>
+             <Editable
++                onKeyDown={(event) => onKeyDown(editor, event)}
+                 renderElement={renderElement}
+             />
+         </Slate>
+     );
+ }
+```
+
 
 ### Good to go
 
-Now you can use the [API exposed on the `Lists` functions](#Lists).
+Now you can use the [API exposed on the `ListsEditor` functions](#ListsEditor).
 
 Be sure to check the [complete usage example](#Demo).
 
