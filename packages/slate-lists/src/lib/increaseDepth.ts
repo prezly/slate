@@ -18,25 +18,27 @@ export function increaseDepth(editor: ListsEditor): void {
         return;
     }
 
-    const listItemsInRange = getListItemsInRange(editor, editor.selection);
-    const indentableListItemsInRange = listItemsInRange.filter(([, listItemPath]) => {
+    const listItems = getListItemsInRange(editor, editor.selection);
+    const indentableListItems = listItems.filter(([, listItemPath]) => {
         const previousListItem = EditorCommands.getPreviousSibling(editor, listItemPath);
         return previousListItem !== null;
     });
 
     // When calling `increaseListItemDepth` the paths and references to list items
     // can change, so we need a way of marking the list items scheduled for transformation.
-    const refs = pickSubtreesRoots(indentableListItemsInRange).map(([_, path]) =>
+    const refs = pickSubtreesRoots(indentableListItems).map(([_, path]) =>
         Editor.pathRef(editor, path),
     );
 
-    // Before we indent "list-items", we want to convert every non list-related block in selection to a "list".
-    wrapInList(editor, ListType.UNORDERED);
+    Editor.withoutNormalizing(editor, () => {
+        // Before we indent "list-items", we want to convert every non list-related block in selection to a "list".
+        wrapInList(editor, ListType.UNORDERED);
 
-    refs.forEach((ref) => {
-        if (ref.current) {
-            increaseListItemDepth(editor, ref.current);
-        }
-        ref.unref();
+        refs.forEach((ref) => {
+            if (ref.current) {
+                increaseListItemDepth(editor, ref.current);
+            }
+            ref.unref();
+        });
     });
 }
