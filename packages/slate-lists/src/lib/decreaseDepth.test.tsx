@@ -591,4 +591,61 @@ describe('decreaseDepth', () => {
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
+
+    it('should convert list items to paragraphs', () => {
+        const editor = (
+            <Editor>
+                <UL>
+                    <LI>
+                        <LIText>
+                            <Text>
+                                <Focus />
+                                Hello
+                            </Text>
+                        </LIText>
+                    </LI>
+                    <LI>
+                        <LIText>
+                            <Text>World</Text>
+                        </LIText>
+                    </LI>
+                    <LI>
+                        <LIText>
+                            <Text>
+                                Here I am
+                                <Anchor />
+                            </Text>
+                        </LIText>
+                    </LI>
+                </UL>
+            </Editor>
+        ) as unknown as ListsEditor;
+
+        const expected = (
+            <Editor>
+                <Paragraph>
+                    <Text>
+                        <Focus />
+                        Hello
+                    </Text>
+                </Paragraph>
+                <Paragraph>
+                    <Text>World</Text>
+                </Paragraph>
+                <Paragraph>
+                    <Text>
+                        Here I am
+                        <Anchor />
+                    </Text>
+                </Paragraph>
+            </Editor>
+        ) as unknown as ListsEditor;
+
+        decreaseDepth(editor, [0, 0]);
+        decreaseDepth(editor, [1, 0]);
+        decreaseDepth(editor, [2, 0]);
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+    });
 });

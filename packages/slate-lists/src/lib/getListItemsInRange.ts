@@ -1,27 +1,27 @@
-import type { Element, NodeEntry } from 'slate';
-import { Editor, Path, Range } from 'slate';
+import type { Element, Location, NodeEntry } from 'slate';
+import { Editor, Path, Point, Range } from 'slate';
 
 import type { ListsEditor } from '../types';
 
 /**
  * Returns all "list-items" in a given Range.
  */
-export function getListItemsInRange(editor: ListsEditor, at: Range | null): NodeEntry<Element>[] {
+export function getListItemsInRange(editor: ListsEditor, at: Location | null = editor.selection): NodeEntry<Element>[] {
     if (!at) {
         return [];
     }
 
-    const rangeStartPoint = Range.start(at);
-    const listItemsInSelection = Editor.nodes(editor, {
+    const start = getLocationStart(at);
+    const listItems = Editor.nodes(editor, {
         at,
         match: editor.isListItemNode,
     });
 
-    return Array.from(listItemsInSelection).filter(([, path]) => {
-        const [, grandparent] = Path.ancestors(rangeStartPoint.path, { reverse: true });
+    return Array.from(listItems).filter(([, path]) => {
+        const [, grandparent] = Path.ancestors(start, { reverse: true });
         const rangeIsGrandhild = Path.equals(path, grandparent);
-        const rangeIsDescendant = Path.isDescendant(rangeStartPoint.path, path);
-        const rangeStartsAfter = Path.isAfter(rangeStartPoint.path, path);
+        const rangeIsDescendant = Path.isDescendant(start, path);
+        const rangeStartsAfter = Path.isAfter(start, path);
 
         if (rangeIsDescendant) {
             // There's just one case where we want to include a "list-item" that is
@@ -40,4 +40,14 @@ export function getListItemsInRange(editor: ListsEditor, at: Range | null): Node
 
         return !rangeStartsAfter;
     }) as NodeEntry<Element>[];
+}
+
+function getLocationStart(location: Location): Path {
+    if (Range.isRange(location)) {
+        return Range.start(location).path;
+    }
+    if (Point.isPoint(location)) {
+        return location.path;
+    }
+    return location;
 }
