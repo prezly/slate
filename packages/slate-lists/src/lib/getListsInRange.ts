@@ -8,10 +8,7 @@ import { getParentList } from './getParentList';
 /**
  * Get all lists in the given Range.
  */
-export function getListsInRange(
-    editor: ListsEditor,
-    at: Range | null | undefined,
-): NodeEntry<Element>[] {
+export function getListsInRange(editor: ListsEditor, at: Range | null): NodeEntry<Element>[] {
     const listItemsInRange = getListItemsInRange(editor, at);
     const lists = listItemsInRange
         .map(([, listItemPath]) => getParentList(editor, listItemPath))
