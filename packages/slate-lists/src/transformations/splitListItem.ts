@@ -1,8 +1,7 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, Node, Path, Range, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
-import { getListItemsInRange } from '../lib';
+import { getCursorPositionInNode, getListItemsInRange } from '../lib';
 import type { ListsEditor } from '../types';
 
 /**
@@ -32,11 +31,7 @@ export function splitListItem(editor: ListsEditor): void {
     const cursorPoint = editor.selection.anchor;
     const [[listItemNode, listItemPath]] = listItemsInSelection;
     const listItemTextPath = [...listItemPath, TEXT_PATH_INDEX];
-    const { isEnd, isStart } = EditorCommands.getCursorPositionInNode(
-        editor,
-        cursorPoint,
-        listItemTextPath,
-    );
+    const { isEnd, isStart } = getCursorPositionInNode(editor, cursorPoint, listItemTextPath);
 
     if (isStart) {
         const newListItem = editor.createListItemNode({

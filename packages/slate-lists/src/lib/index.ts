@@ -1,4 +1,5 @@
 export { canDeleteBackward } from './canDeleteBackward';
+export { getCursorPositionInNode } from './getCursorPositionInNode';
 export { getListItemsInRange } from './getListItemsInRange';
 export { getListsInRange } from './getListsInRange';
 export { getListType } from './getListType';

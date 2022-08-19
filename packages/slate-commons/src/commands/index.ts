@@ -4,7 +4,6 @@ export { findDescendants } from './findDescendants';
 export { focus } from './focus';
 export { getCurrentDomNode } from './getCurrentDomNode';
 export { getCurrentNodeEntry } from './getCurrentNodeEntry';
-export { getCursorPositionInNode } from './getCursorPositionInNode';
 export { getEditorRange } from './getEditorRange';
 export { getNodePath } from './getNodePath';
 export { getNextSibling } from './getNextSibling';
