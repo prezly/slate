@@ -495,7 +495,7 @@ isCursorAtStartOfListItem(editor: ListsEditor) => boolean
 /**
  * Returns true if given "list-item" node contains a non-empty "list-item-text" node.
  */
-listItemContainsText(editor: ListsEditor, node: Node) => boolean
+isListItemContainingText(editor: ListsEditor, node: Node) => boolean
 
 /**
  * Moves all "list-items" from one "list" to the end of another "list".

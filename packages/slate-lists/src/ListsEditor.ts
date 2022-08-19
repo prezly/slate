@@ -11,7 +11,7 @@ import {
     isCursorAtStartOfListItem,
     isCursorInEmptyListItem,
     isInList,
-    listItemContainsText,
+    isListItemContainingText,
 } from './lib';
 import {
     decreaseDepth,
@@ -49,7 +49,7 @@ export const ListsEditor = {
     isCursorAtStartOfListItem,
     isCursorInEmptyListItem,
     isInList,
-    listItemContainsText,
+    isListItemContainingText,
     mergeListWithPreviousSiblingList,
     moveListItemsToAnotherList,
     moveListToListItem,

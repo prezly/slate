@@ -8,5 +8,5 @@ export { getParentListItem } from './getParentListItem';
 export { isCursorAtStartOfListItem } from './isCursorAtStartOfListItem';
 export { isCursorInEmptyListItem } from './isCursorInEmptyListItem';
 export { isInList } from './isInList';
-export { listItemContainsText } from './listItemContainsText';
+export { isListItemContainingText } from './isListItemContainingText';
 export { pickSubtreesRoots } from './pickSubtreesRoots';

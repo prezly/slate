@@ -3,7 +3,7 @@ import { Range } from 'slate';
 import type { ListsEditor } from '../types';
 
 import { getListItemsInRange } from './getListItemsInRange';
-import { listItemContainsText } from './listItemContainsText';
+import { isListItemContainingText } from './isListItemContainingText';
 
 /**
  * Returns true when editor has collapsed selection and the cursor is in an empty "list-item".
@@ -21,5 +21,5 @@ export function isCursorInEmptyListItem(editor: ListsEditor): boolean {
 
     const [[listItemNode]] = listItemsInSelection;
 
-    return !listItemContainsText(editor, listItemNode);
+    return !isListItemContainingText(editor, listItemNode);
 }
