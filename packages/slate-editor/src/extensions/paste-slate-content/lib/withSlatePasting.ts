@@ -15,7 +15,7 @@ export function withSlatePasting<T extends Editor>(editor: T) {
             const fragment = decodeSlateFragment(slateFragment);
 
             if (isValidFragment(fragment)) {
-                Transforms.insertNodes(editor, fragment);
+                Transforms.insertFragment(editor, fragment);
             } else {
                 editor.insertData(withoutSlateFragmentData(data));
             }
