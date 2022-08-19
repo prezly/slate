@@ -12,6 +12,7 @@ import {
     Cursor,
     Anchor,
     Focus,
+    noop,
 } from '../jsx';
 import type { ListsEditor } from '../types';
 
@@ -649,7 +650,3 @@ describe('decreaseDepth', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 });
-
-function noop() {
-    return null;
-}

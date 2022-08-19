@@ -114,3 +114,7 @@ function withInlineElements<T extends Slate.Editor>(
     };
     return editor;
 }
+
+export function noop() {
+    return null;
+}
