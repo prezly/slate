@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Node, NodeEntry } from 'slate';
 
-import { mergeListWithPreviousSiblingList } from '../lib';
+import { mergeListWithPreviousSiblingList } from '../transformations';
 import type { ListsEditor } from '../types';
 
 /**

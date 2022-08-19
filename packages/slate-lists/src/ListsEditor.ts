@@ -2,20 +2,22 @@ import type { Editor } from 'slate';
 
 import {
     canDeleteBackward,
-    decreaseDepth,
-    decreaseListItemDepth,
     getListItemsInRange,
     getListsInRange,
     getListType,
     getNestedList,
     getParentList,
     getParentListItem,
-    increaseDepth,
-    increaseListItemDepth,
     isCursorAtStartOfListItem,
     isCursorInEmptyListItem,
     isInList,
     listItemContainsText,
+} from './lib';
+import {
+    decreaseDepth,
+    decreaseListItemDepth,
+    increaseDepth,
+    increaseListItemDepth,
     mergeListWithPreviousSiblingList,
     moveListItemsToAnotherList,
     moveListToListItem,
@@ -23,7 +25,7 @@ import {
     splitListItem,
     unwrapList,
     wrapInList,
-} from './lib';
+} from './transformations';
 import type { ListsEditor as Type } from './types';
 
 export type ListsEditor = Type; // Workaround name collision

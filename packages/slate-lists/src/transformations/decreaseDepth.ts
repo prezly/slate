@@ -1,11 +1,10 @@
 import type { Location } from 'slate';
 import { Editor } from 'slate';
 
+import { getListItemsInRange, pickSubtreesRoots } from '../lib';
 import type { ListsEditor } from '../types';
 
 import { decreaseListItemDepth } from './decreaseListItemDepth';
-import { getListItemsInRange } from './getListItemsInRange';
-import { pickSubtreesRoots } from './pickSubtreesRoots';
 
 /**
  * Decreases nesting depth of all "list-items" in the current selection.

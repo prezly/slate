@@ -1,12 +1,11 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { Editor } from 'slate';
 
+import { getListItemsInRange, pickSubtreesRoots } from '../lib';
 import type { ListsEditor } from '../types';
 import { ListType } from '../types';
 
-import { getListItemsInRange } from './getListItemsInRange';
 import { increaseListItemDepth } from './increaseListItemDepth';
-import { pickSubtreesRoots } from './pickSubtreesRoots';
 import { wrapInList } from './wrapInList';
 
 /**

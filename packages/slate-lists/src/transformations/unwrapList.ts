@@ -1,9 +1,9 @@
 import { Editor } from 'slate';
 
+import { getListItemsInRange } from '../lib';
 import type { ListsEditor } from '../types';
 
 import { decreaseDepth } from './decreaseDepth';
-import { getListItemsInRange } from './getListItemsInRange';
 
 /**
  * Unwraps all "list-items" in the current selection.

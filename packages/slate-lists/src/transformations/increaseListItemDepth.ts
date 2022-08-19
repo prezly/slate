@@ -2,9 +2,8 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, Element, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
+import { getListType } from '../lib';
 import type { ListsEditor } from '../types';
-
-import { getListType } from './getListType';
 
 /**
  * Increases nesting depth of "list-item" at a given Path.

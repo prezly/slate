@@ -3,14 +3,8 @@ import type { KeyboardEvent } from 'react';
 import { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import {
-    canDeleteBackward,
-    decreaseDepth,
-    getListItemsInRange,
-    increaseDepth,
-    isCursorInEmptyListItem,
-    splitListItem,
-} from './lib';
+import { canDeleteBackward, getListItemsInRange, isCursorInEmptyListItem } from './lib';
+import { decreaseDepth, increaseDepth, splitListItem } from './transformations';
 import type { ListsEditor } from './types';
 
 export function onKeyDown(editor: ListsEditor & ReactEditor, event: KeyboardEvent) {

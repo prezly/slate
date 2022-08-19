@@ -2,10 +2,8 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Node, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
 
+import { getListType, getParentListItem } from '../lib';
 import type { ListsEditor } from '../types';
-
-import { getListType } from './getListType';
-import { getParentListItem } from './getParentListItem';
 
 export function mergeListWithPreviousSiblingList(
     editor: ListsEditor,

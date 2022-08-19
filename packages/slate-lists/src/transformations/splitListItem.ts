@@ -2,9 +2,8 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, Node, Path, Range, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
+import { getListItemsInRange } from '../lib';
 import type { ListsEditor } from '../types';
-
-import { getListItemsInRange } from './getListItemsInRange';
 
 /**
  * Collapses the current selection (by removing everything in it) and if the cursor

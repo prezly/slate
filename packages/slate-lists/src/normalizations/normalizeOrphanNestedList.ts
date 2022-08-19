@@ -2,7 +2,8 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { NodeEntry } from 'slate';
 import { Node, Transforms } from 'slate';
 
-import { getNestedList, moveListItemsToAnotherList, moveListToListItem } from '../lib';
+import { getNestedList } from '../lib';
+import { moveListItemsToAnotherList, moveListToListItem } from '../transformations';
 import type { ListsEditor } from '../types';
 
 /**
