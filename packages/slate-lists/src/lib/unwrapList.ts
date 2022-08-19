@@ -1,4 +1,4 @@
-import { Editor } from "slate";
+import { Editor } from 'slate';
 
 import type { ListsEditor } from '../types';
 
@@ -19,7 +19,9 @@ export function unwrapList(editor: ListsEditor): void {
             decreaseDepth(editor);
 
             if (iterations > 1000) {
-                throw new Error('Too many iterations. Most likely there is a bug causing an infinite loop.');
+                throw new Error(
+                    'Too many iterations. Most likely there is a bug causing an infinite loop.',
+                );
             }
         }
     });

@@ -20,9 +20,7 @@ export function decreaseDepth(editor: ListsEditor, at: Location | null = editor.
 
     // When calling `decreaseListItemDepth` the paths and references to "list-items"
     // can change, so we need a way of marking the "list-items" scheduled for transformation.
-    const refs = pickSubtreesRoots(listItems).map(([_, path]) =>
-        Editor.pathRef(editor, path),
-    );
+    const refs = pickSubtreesRoots(listItems).map(([_, path]) => Editor.pathRef(editor, path));
 
     refs.forEach((ref) => {
         if (ref.current) {

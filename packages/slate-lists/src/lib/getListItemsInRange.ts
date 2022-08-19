@@ -6,7 +6,10 @@ import type { ListsEditor } from '../types';
 /**
  * Returns all "list-items" in a given Range.
  */
-export function getListItemsInRange(editor: ListsEditor, at: Location | null = editor.selection): NodeEntry<Element>[] {
+export function getListItemsInRange(
+    editor: ListsEditor,
+    at: Location | null = editor.selection,
+): NodeEntry<Element>[] {
     if (!at) {
         return [];
     }
