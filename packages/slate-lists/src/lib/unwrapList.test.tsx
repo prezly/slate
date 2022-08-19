@@ -12,6 +12,7 @@ import {
     Cursor,
     Focus,
     Anchor,
+    noop,
 } from '../jsx';
 import type { ListsEditor } from '../types';
 
@@ -20,7 +21,7 @@ import { unwrapList } from './unwrapList';
 describe('unwrapList', () => {
     it('should do nothing when there is no selection', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -32,7 +33,7 @@ describe('unwrapList', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -51,7 +52,7 @@ describe('unwrapList', () => {
 
     it('should convert the only selected list item into a paragraph', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -66,7 +67,7 @@ describe('unwrapList', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <Paragraph>
                     <Text>
                         lorem
@@ -84,7 +85,7 @@ describe('unwrapList', () => {
 
     it('should convert middle list item into a paragraph', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -109,7 +110,7 @@ describe('unwrapList', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -141,7 +142,7 @@ describe('unwrapList', () => {
 
     it('should convert nested middle list item into a paragraph', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -183,7 +184,7 @@ describe('unwrapList', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -232,11 +233,14 @@ describe('unwrapList', () => {
 
     it('should convert a multi-item list into paragraphs', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
-                            <Text><Focus/>Hello</Text>
+                            <Text>
+                                <Focus />
+                                Hello
+                            </Text>
                         </ListItemText>
                     </ListItem>
                     <ListItem>
@@ -246,7 +250,10 @@ describe('unwrapList', () => {
                     </ListItem>
                     <ListItem>
                         <ListItemText>
-                            <Text>Here I am<Anchor/></Text>
+                            <Text>
+                                Here I am
+                                <Anchor />
+                            </Text>
                         </ListItemText>
                     </ListItem>
                 </UnorderedList>
@@ -254,15 +261,21 @@ describe('unwrapList', () => {
         ) as unknown as ListsEditor;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={noop}>
                 <Paragraph>
-                    <Text><Focus/>Hello</Text>
+                    <Text>
+                        <Focus />
+                        Hello
+                    </Text>
                 </Paragraph>
                 <Paragraph>
                     <Text>World</Text>
                 </Paragraph>
                 <Paragraph>
-                    <Text>Here I am<Anchor/></Text>
+                    <Text>
+                        Here I am
+                        <Anchor />
+                    </Text>
                 </Paragraph>
             </Editor>
         ) as unknown as ListsEditor;
