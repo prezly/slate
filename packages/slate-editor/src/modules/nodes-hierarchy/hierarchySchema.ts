@@ -63,6 +63,7 @@ export const hierarchySchema: NodesHierarchySchema = {
             combineFixers([
                 fixers.unwrapSameTypeChild,
                 fixers.liftNodeNoSplit,
+                fixers.wrapSiblingTextNodesIntoParagraph,
                 fixers.convertToParagraph,
             ]),
         ),

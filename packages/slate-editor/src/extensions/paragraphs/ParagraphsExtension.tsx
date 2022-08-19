@@ -8,7 +8,6 @@ import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ParagraphElement } from './components';
 import {
-    normalizeOrphanText,
     normalizeRedundantParagraphAttributes,
     normalizeUnknownElement,
     parseSerializedElement,
@@ -28,11 +27,7 @@ export const ParagraphsExtension = (): Extension => ({
             BR: paragraph,
         }),
     },
-    normalizeNode: [
-        normalizeOrphanText,
-        normalizeRedundantParagraphAttributes,
-        normalizeUnknownElement,
-    ],
+    normalizeNode: [normalizeRedundantParagraphAttributes, normalizeUnknownElement],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isParagraphNode(element)) {
             return (
