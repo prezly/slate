@@ -25,16 +25,16 @@ export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
     const previousSiblings = parentListNode.children.slice(0, listItemIndex);
     const nextSiblings = parentListNode.children.slice(listItemIndex + 1);
 
-    // We have to move all subsequent sibling "list-items" into a new "list" that will be
-    // nested in the "list-item" we're trying to move.
-    nextSiblings.forEach(() => {
-        // The next sibling path is always the same, because once we move out the next sibling,
-        // another one will take its place.
-        const nextSiblingPath = [...parentListPath, listItemIndex + 1];
-        increaseListItemDepth(editor, nextSiblingPath);
-    });
-
     Editor.withoutNormalizing(editor, () => {
+        // We have to move all subsequent sibling "list-items" into a new "list" that will be
+        // nested in the "list-item" we're trying to move.
+        nextSiblings.forEach(() => {
+            // The next sibling path is always the same, because once we move out the next sibling,
+            // another one will take its place.
+            const nextSiblingPath = [...parentListPath, listItemIndex + 1];
+            increaseListItemDepth(editor, nextSiblingPath);
+        });
+
         if (parentListItem) {
             // Move the "list-item" to the grandparent "list".
             const [, parentListItemPath] = parentListItem;
@@ -56,7 +56,7 @@ export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
             if (Node.has(editor, listItemNestedListPath)) {
                 Transforms.setNodes(
                     editor,
-                    editor.createListNode(getListType(editor, parentListNode)),
+                    editor.createListNode(getListType(editor, parentListNode), { children: [] }),
                     { at: listItemNestedListPath },
                 );
                 Transforms.liftNodes(editor, { at: listItemNestedListPath });

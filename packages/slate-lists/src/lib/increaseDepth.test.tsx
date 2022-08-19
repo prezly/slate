@@ -556,6 +556,8 @@ describe('increaseDepth - multiple items and paragraphs selected', () => {
                             </Text>
                         </ListItemText>
                     </ListItem>
+                </UnorderedList>
+                <UnorderedList>
                     <ListItem>
                         <ListItemText>
                             <Text>bbb</Text>
@@ -573,6 +575,8 @@ describe('increaseDepth - multiple items and paragraphs selected', () => {
                             </ListItem>
                         </UnorderedList>
                     </ListItem>
+                </UnorderedList>
+                <UnorderedList>
                     <ListItem>
                         <ListItemText>
                             <Text>
