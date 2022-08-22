@@ -63,6 +63,7 @@ import { ListExtension } from '#extensions/list';
 import type { LoaderNode } from '#extensions/loader';
 import { createLoader } from '#extensions/loader';
 import { createParagraph } from '#extensions/paragraphs';
+import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import { createPressContact } from '#extensions/press-contacts';
 import { createStoryBookmark } from '#extensions/story-bookmark';
 import { createStoryEmbed } from '#extensions/story-embed';
@@ -122,6 +123,7 @@ const extensions = [
     HeadingExtension(),
     InlineLinksExtension(),
     ListExtension(),
+    PasteSlateContentExtension(),
     TablesExtension({ createDefaultElement: createParagraph }),
 ];
 
