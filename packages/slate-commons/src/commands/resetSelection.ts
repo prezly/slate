@@ -1,4 +1,4 @@
-import type { Editor } from 'slate';
+import { Editor } from 'slate';
 import { Transforms } from 'slate';
 
 import { findLeafLocation } from './findLeafLocation';
@@ -8,8 +8,11 @@ export function resetSelection(editor: Editor) {
     const locationLeaf = findLeafLocation(editor, [0]);
 
     if (locationLeaf && isValidLocation(editor, locationLeaf)) {
-        Transforms.select(editor, locationLeaf);
-        Transforms.collapse(editor, { edge: 'start' });
+        Editor.withoutNormalizing(editor, () => {
+            Transforms.select(editor, locationLeaf);
+            Transforms.collapse(editor, { edge: 'start' });
+        });
+
         return true;
     }
 
