@@ -184,6 +184,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         (): EditorRef => ({
             events,
             focus: () => EditorCommands.focus(editor),
+            clearSelection: () => EditorCommands.resetSelection(editor),
             isEmpty: () => EditorCommands.isEmpty(editor),
             isEqualTo: (value) => isEditorValueEqual(editor, value, editor.children as Value),
             isFocused: () => ReactEditor.isFocused(editor),

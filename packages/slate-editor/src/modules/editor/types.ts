@@ -24,6 +24,7 @@ import type { useCursorInView } from './lib';
 export interface EditorRef {
     events: Events<EditorEventMap>;
     focus: () => void;
+    clearSelection: () => void;
     isEmpty: () => boolean;
     isEqualTo: (value: Value) => void;
     isFocused: () => boolean;
