@@ -1,8 +1,7 @@
 import { type Element, Editor, Node, Transforms } from 'slate';
 
+import { getListsInRange } from '../lib';
 import type { ListType, ListsEditor } from '../types';
-
-import { getListsInRange } from './getListsInRange';
 
 /**
  * Sets "type" of all "list" nodes in the current selection.

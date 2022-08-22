@@ -1,8 +1,8 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import { Range } from 'slate';
 
 import type { ListsEditor } from '../types';
 
+import { getCursorPositionInNode } from './getCursorPositionInNode';
 import { getListItemsInRange } from './getListItemsInRange';
 
 /**
@@ -20,11 +20,7 @@ export function isCursorAtStartOfListItem(editor: ListsEditor): boolean {
     }
 
     const [[, listItemPath]] = listItemsInSelection;
-    const { isStart } = EditorCommands.getCursorPositionInNode(
-        editor,
-        editor.selection.anchor,
-        listItemPath,
-    );
+    const { isStart } = getCursorPositionInNode(editor, editor.selection.anchor, listItemPath);
 
     return isStart;
 }

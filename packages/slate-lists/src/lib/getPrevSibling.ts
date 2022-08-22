@@ -1,7 +1,6 @@
-import type { Editor, NodeEntry } from 'slate';
-import { Node, Path } from 'slate';
+import { type Editor, type NodeEntry, Node, Path } from 'slate';
 
-export function getPreviousSibling(editor: Editor, path: Path): NodeEntry<Node> | null {
+export function getPrevSibling(editor: Editor, path: Path): NodeEntry | null {
     let previousSiblingPath: Path;
 
     try {

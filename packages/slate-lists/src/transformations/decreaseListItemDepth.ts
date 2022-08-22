@@ -1,11 +1,9 @@
 import { Editor, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
+import { getListType, getParentList, getParentListItem } from '../lib';
 import type { ListsEditor } from '../types';
 
-import { getListType } from './getListType';
-import { getParentList } from './getParentList';
-import { getParentListItem } from './getParentListItem';
 import { increaseListItemDepth } from './increaseListItemDepth';
 
 /**

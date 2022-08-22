@@ -1,8 +1,8 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import type { NodeEntry } from 'slate';
 import { Node, Transforms } from 'slate';
 
-import { getNestedList, moveListItemsToAnotherList, moveListToListItem } from '../lib';
+import { getNestedList, getPrevSibling } from '../lib';
+import { moveListItemsToAnotherList, moveListToListItem } from '../transformations';
 import type { ListsEditor } from '../types';
 
 /**
@@ -32,7 +32,7 @@ export function normalizeOrphanNestedList(
         return false;
     }
 
-    const previousListItem = EditorCommands.getPreviousSibling(editor, path);
+    const previousListItem = getPrevSibling(editor, path);
 
     if (previousListItem) {
         const [, previousListItemPath] = previousListItem;

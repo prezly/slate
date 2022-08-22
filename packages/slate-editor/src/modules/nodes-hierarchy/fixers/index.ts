@@ -6,3 +6,4 @@ export * from './liftNodeWithSplit';
 export * from './unwrapNode';
 export * from './unwrapSameTypeChild';
 export * from './unwrapTableNodeChild';
+export * from './wrapSiblingTextNodesIntoParagraph';
