@@ -17,7 +17,11 @@ export const UNORDERED_LIST_TYPE = ListType.UNORDERED;
 export const LIST_ITEM_TYPE = 'li';
 export const LIST_ITEM_TEXT_TYPE = 'li-text';
 
-export const Editor = 'editor' as any as ComponentType<{ children: ReactNode }>;
+export const Editor = 'editor' as any as ComponentType<
+    Partial<Omit<Slate.BaseEditor, 'children'>> & {
+        children: ReactNode;
+    }
+>;
 export const Untyped = 'untyped' as any as ComponentType<{ children?: ReactNode }>;
 export const Anchor = 'anchor' as any as ComponentType<AllOrNothing<Slate.BasePoint>>;
 export const Focus = 'focus' as any as ComponentType<AllOrNothing<Slate.BasePoint>>;
@@ -109,4 +113,8 @@ function withInlineElements<T extends Slate.Editor>(
         return types.some((type) => Element.isElementType(node, type)) || isInline(node);
     };
     return editor;
+}
+
+export function noop() {
+    return null;
 }
