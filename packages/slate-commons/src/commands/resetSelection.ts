@@ -5,7 +5,7 @@ import { findLeafLocation } from './findLeafLocation';
 import { isValidLocation } from './isValidLocation';
 
 export function resetSelection(editor: Editor) {
-    const locationLeaf = location && findLeafLocation(editor, [0]);
+    const locationLeaf = findLeafLocation(editor, [0]);
 
     if (locationLeaf && isValidLocation(editor, locationLeaf)) {
         Transforms.select(editor, locationLeaf);
