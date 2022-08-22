@@ -10,7 +10,7 @@ export function withSlatePasting<T extends Editor>(editor: T) {
 
     editor.insertData = (data) => {
         const slateFragment = data.getData('application/x-slate-fragment');
-        
+
         if (slateFragment) {
             const fragment = decodeSlateFragment(slateFragment);
 

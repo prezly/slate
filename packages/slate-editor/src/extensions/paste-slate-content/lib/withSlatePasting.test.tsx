@@ -1,18 +1,9 @@
 /** @jsx jsx */
 import type { Editor } from 'slate';
-import { createEditor as createSlateEditor } from 'slate';
-import type { ReactEditor } from 'slate-react';
-import { withReact } from 'slate-react';
 
 import { createDataTransfer } from '#lib';
 
 import { jsx } from '../../../jsx';
-
-import { withSlatePasting } from './withSlatePasting';
-
-function createEditor(): Editor & ReactEditor {
-    return withSlatePasting(withReact(createSlateEditor()));
-}
 
 function encodeFragment(fragment: any): string {
     return window.btoa(encodeURIComponent(JSON.stringify(fragment)));
@@ -32,10 +23,31 @@ const FRAGMENT: object[] = [
 const SINGLE_NODE_FRAGMENT: object = FRAGMENT[0];
 
 describe('withSlatePasting', () => {
-    it('should pick up "application/x-slate-fragment" content from the DataTransfer object, if any', () => {
-        const editor = createEditor();
+    it('should pick up "application/x-slate-fragment" content when editor is empty', () => {
+        const editor = (<editor />) as unknown as Editor;
 
-        editor.children = [];
+        expect(editor.children).toEqual([]);
+        expect(editor.selection).toBeNull();
+
+        editor.insertData(
+            createDataTransfer({
+                'application/x-slate-fragment': encodeFragment(FRAGMENT),
+            }),
+        );
+
+        expect(editor.children).toMatchObject(FRAGMENT);
+    });
+
+    it('should pick up "application/x-slate-fragment" content from the DataTransfer object, if any', () => {
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>
+                        <cursor />
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         editor.insertData(
             createDataTransfer({
@@ -47,9 +59,15 @@ describe('withSlatePasting', () => {
     });
 
     it('should support single-object "application/x-slate-fragment" content', () => {
-        const editor = createEditor();
-
-        editor.children = [];
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>
+                        <cursor />
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         editor.insertData(
             createDataTransfer({
@@ -81,9 +99,15 @@ describe('withSlatePasting', () => {
     });
 
     it('should gracefully handle "application/x-slate-fragment" content containing non-node data', () => {
-        const editor = createEditor();
-
-        editor.children = [];
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>
+                        <cursor />
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         editor.insertData(
             createDataTransfer({
@@ -93,7 +117,16 @@ describe('withSlatePasting', () => {
             }),
         );
 
-        expect(editor.children).toEqual([]);
+        expect(editor.children).toEqual([
+            {
+                children: [
+                    {
+                        text: '',
+                    },
+                ],
+                type: 'paragraph',
+            },
+        ]);
     });
 
     const UNEXPECTED_FRAGMENT_VALUES = {
@@ -105,9 +138,15 @@ describe('withSlatePasting', () => {
 
     for (const [type, value] of Object.entries(UNEXPECTED_FRAGMENT_VALUES)) {
         it(`should gracefully handle "application/x-slate-fragment" content containing ${type} value`, () => {
-            const editor = createEditor();
-
-            editor.children = [];
+            const editor = (
+                <editor>
+                    <h:paragraph>
+                        <h:text>
+                            <cursor />
+                        </h:text>
+                    </h:paragraph>
+                </editor>
+            ) as unknown as Editor;
 
             editor.insertData(
                 createDataTransfer({
@@ -115,14 +154,29 @@ describe('withSlatePasting', () => {
                 }),
             );
 
-            expect(editor.children).toEqual([]);
+            expect(editor.children).toEqual([
+                {
+                    children: [
+                        {
+                            text: '',
+                        },
+                    ],
+                    type: 'paragraph',
+                },
+            ]);
         });
     }
 
     it(`should gracefully handle "application/x-slate-fragment" content containing undecodable value`, () => {
-        const editor = createEditor();
-
-        editor.children = [];
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>
+                        <cursor />
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         editor.insertData(
             createDataTransfer({
@@ -130,6 +184,15 @@ describe('withSlatePasting', () => {
             }),
         );
 
-        expect(editor.children).toEqual([]);
+        expect(editor.children).toEqual([
+            {
+                children: [
+                    {
+                        text: '',
+                    },
+                ],
+                type: 'paragraph',
+            },
+        ]);
     });
 });
