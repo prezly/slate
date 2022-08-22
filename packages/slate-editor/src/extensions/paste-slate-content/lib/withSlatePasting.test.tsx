@@ -1,9 +1,12 @@
+/** @jsx jsx */
 import type { Editor } from 'slate';
 import { createEditor as createSlateEditor } from 'slate';
 import type { ReactEditor } from 'slate-react';
 import { withReact } from 'slate-react';
 
 import { createDataTransfer } from '#lib';
+
+import { jsx } from '../../../jsx';
 
 import { withSlatePasting } from './withSlatePasting';
 
@@ -47,6 +50,26 @@ describe('withSlatePasting', () => {
         const editor = createEditor();
 
         editor.children = [];
+
+        editor.insertData(
+            createDataTransfer({
+                'application/x-slate-fragment': encodeFragment(SINGLE_NODE_FRAGMENT),
+            }),
+        );
+
+        expect(editor.children).toMatchObject([SINGLE_NODE_FRAGMENT]);
+    });
+
+    it('should support single-object "application/x-slate-fragment" and do not create useless paragraphs when selection is inside some node', () => {
+        const editor = (
+            <editor>
+                <h:paragraph>
+                    <h:text>
+                        <cursor />
+                    </h:text>
+                </h:paragraph>
+            </editor>
+        ) as unknown as Editor;
 
         editor.insertData(
             createDataTransfer({
