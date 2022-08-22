@@ -1,6 +1,6 @@
 import type { LinkNode } from '@prezly/slate-types';
 import React from 'react';
-import { Editor, Transforms } from 'slate';
+import { Editor, Range, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSlateStatic } from 'slate-react';
 
@@ -15,10 +15,12 @@ interface Props extends RenderElementProps {
 export function LinkElement({ attributes, children, element }: Props) {
     const editor = useSlateStatic();
 
-    function onClick() {
-        const path = ReactEditor.findPath(editor, element);
-        const range = Editor.range(editor, path);
-        Transforms.select(editor, range);
+    function onMouseUp() {
+        if (editor.selection && Range.isCollapsed(editor.selection)) {
+            const path = ReactEditor.findPath(editor, element);
+            const range = Editor.range(editor, path);
+            Transforms.select(editor, range);
+        }
     }
 
     return (
@@ -34,7 +36,7 @@ export function LinkElement({ attributes, children, element }: Props) {
                         href={element.href}
                         onBlur={onHide}
                         onFocus={onShow}
-                        onClick={onClick}
+                        onMouseUp={onMouseUp}
                         onMouseEnter={onShow}
                         onMouseLeave={onHide}
                         ref={setReferenceElement}
