@@ -4,6 +4,7 @@ import { Editor, Transforms } from 'slate';
 
 import { createDataTransfer, decodeSlateFragment } from '#lib';
 
+import type { Fragment as SlateFragment } from './isFragment';
 import { isFragment as isValidFragment } from './isFragment';
 
 export function withSlatePasting<T extends Editor>(editor: T) {
@@ -16,9 +17,7 @@ export function withSlatePasting<T extends Editor>(editor: T) {
             const fragment = decodeSlateFragment(slateFragment);
 
             if (isValidFragment(fragment)) {
-                const [[imageNode]] = Editor.nodes(editor, { match: isImageNode });
-                if (imageNode && EditorCommands.isNodeEmpty(editor, imageNode)) {
-                    Transforms.insertNodes(editor, fragment, { at: editor.selection?.anchor.path });
+                if (handlePastingIntoImageCaption(editor, fragment)) {
                     return;
                 }
 
@@ -44,4 +43,15 @@ function withoutSlateFragmentData(data: DataTransfer): DataTransfer {
     const types = data.types.filter((type) => type !== 'application/x-slate-fragment');
     const dataMap = Object.fromEntries(types.map((type) => [type, data.getData(type)]));
     return createDataTransfer(dataMap);
+}
+
+function handlePastingIntoImageCaption(editor: Editor, fragment: SlateFragment) {
+    const [imageNode] = Array.from(Editor.nodes(editor, { match: isImageNode })).at(0) ?? [];
+
+    if (imageNode && EditorCommands.isNodeEmpty(editor, imageNode)) {
+        Transforms.insertNodes(editor, fragment, { at: editor.selection?.anchor.path });
+        return true;
+    }
+
+    return false;
 }
