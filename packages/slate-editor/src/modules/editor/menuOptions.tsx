@@ -104,6 +104,7 @@ function* generateOptions(
             action: MenuAction.ADD_HEADING_1,
             group: Group.TEXT_N_LAYOUT,
             text: 'Heading 1',
+            keywords: ['title'],
             description: 'Big section heading',
         };
         yield {
@@ -111,6 +112,7 @@ function* generateOptions(
             action: MenuAction.ADD_HEADING_2,
             group: Group.TEXT_N_LAYOUT,
             text: 'Heading 2',
+            keywords: ['title', 'subtitle'],
             description: 'Medium section heading',
         };
     }
@@ -131,6 +133,7 @@ function* generateOptions(
             action: MenuAction.ADD_QUOTE,
             group: Group.TEXT_N_LAYOUT,
             text: 'Quote',
+            keywords: ['citation'],
             description: 'Highlight a text section',
         };
     }
@@ -141,6 +144,7 @@ function* generateOptions(
             action: MenuAction.ADD_DIVIDER,
             group: Group.TEXT_N_LAYOUT,
             text: 'Divider',
+            keywords: ['line', 'separator'],
             description: 'Divide blocks with a line',
         };
     }
@@ -162,6 +166,7 @@ function* generateOptions(
             icon: Icons.ComponentImage,
             group: Group.MEDIA_CONTENT,
             text: 'Image',
+            keywords: ['photo', 'picture'],
             description: 'Place an image',
         };
     }
@@ -246,6 +251,7 @@ function* generateOptions(
             icon: Icons.ComponentContact,
             group: Group.PREZLY_CONTENT,
             text: 'Contact',
+            keywords: ['signature'],
             description: 'Add your newsroom contacts',
         };
     }
