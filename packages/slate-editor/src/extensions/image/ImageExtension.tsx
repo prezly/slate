@@ -20,7 +20,6 @@ import {
     createImageCandidate,
     getAncestorAnchor,
     isImageCandidateElement,
-    normalizeChildren,
     normalizeImageCandidate,
     normalizeRedundantImageAttributes,
     parseSerializedElement,
@@ -75,7 +74,6 @@ export const ImageExtension = ({
     },
     normalizeNode: [
         normalizeRedundantImageAttributes,
-        normalizeChildren,
         // normalizeImageCandidate needs to be last because it removes the image candidate element
         normalizeImageCandidate,
     ],
