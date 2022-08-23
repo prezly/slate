@@ -34,6 +34,7 @@ import {
     isEmptyTextNode,
     isInlineNode,
     isDescendantOf,
+    isTextualNode,
 } from './queries';
 import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
@@ -87,7 +88,11 @@ export const hierarchySchema: NodesHierarchySchema = {
     [IMAGE_NODE_TYPE]: [
         allowChildren(
             Text.isText,
-            combineFixers([fixers.unwrapSameTypeChild, fixers.liftNodeNoSplit]),
+            combineFixers([
+                fixers.unwrapImageNodeChild,
+                fixers.unwrapSameTypeChild,
+                fixers.liftNodeNoSplit,
+            ]),
         ),
     ],
     [LOADER_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],

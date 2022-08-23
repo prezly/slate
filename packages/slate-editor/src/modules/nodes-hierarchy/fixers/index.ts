@@ -3,6 +3,7 @@ export * from './insertParagraph';
 export * from './insertTextNode';
 export * from './liftNodeNoSplit';
 export * from './liftNodeWithSplit';
+export * from './unwrapImageNodeChild';
 export * from './unwrapNode';
 export * from './unwrapSameTypeChild';
 export * from './unwrapTableNodeChild';
