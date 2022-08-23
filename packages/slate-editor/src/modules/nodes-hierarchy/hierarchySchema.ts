@@ -34,7 +34,6 @@ import {
     isEmptyTextNode,
     isInlineNode,
     isDescendantOf,
-    isTextualNode,
 } from './queries';
 import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
