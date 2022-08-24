@@ -1,5 +1,4 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isImageNode } from '@prezly/slate-types';
 import { Editor, Transforms } from 'slate';
 
 import { createDataTransfer, decodeSlateFragment } from '#lib';
@@ -17,7 +16,7 @@ export function withSlatePasting<T extends Editor>(editor: T) {
             const fragment = decodeSlateFragment(slateFragment);
 
             if (isValidFragment(fragment)) {
-                if (handlePastingIntoImageCaption(editor, fragment)) {
+                if (handlePastingIntoRichBlock(editor, fragment)) {
                     return;
                 }
 
@@ -45,10 +44,15 @@ function withoutSlateFragmentData(data: DataTransfer): DataTransfer {
     return createDataTransfer(dataMap);
 }
 
-function handlePastingIntoImageCaption(editor: Editor, fragment: SlateFragment) {
-    const [imageNode] = Array.from(Editor.nodes(editor, { match: isImageNode })).at(0) ?? [];
+function handlePastingIntoRichBlock(editor: Editor, fragment: SlateFragment) {
+    const nodesAbove = Editor.nodes(editor, { match: (node) => Editor.isBlock(editor, node) });
+    const [nearestBlock] = Array.from(nodesAbove).at(-1) ?? [];
 
-    if (imageNode && EditorCommands.isNodeEmpty(editor, imageNode)) {
+    if (
+        nearestBlock &&
+        editor.isRichBlock(nearestBlock) &&
+        EditorCommands.isNodeEmpty(editor, nearestBlock)
+    ) {
         Transforms.insertNodes(editor, fragment, { at: editor.selection?.anchor.path });
         return true;
     }
