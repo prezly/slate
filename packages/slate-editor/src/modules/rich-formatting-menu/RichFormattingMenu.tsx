@@ -4,7 +4,7 @@ import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
-import { Editor, Range, Transforms } from 'slate';
+import { Editor, Path, Range, Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
 
@@ -117,8 +117,12 @@ export function RichFormattingMenu({
 
         if (rangeRef.current) {
             const hasLink = getCurrentLinkNode(editor, { at: rangeRef.current });
+            const selectedOnlyLink = Path.equals(
+                rangeRef.current.anchor.path,
+                rangeRef.current.focus.path,
+            );
 
-            if (hasLink) {
+            if (hasLink && selectedOnlyLink) {
                 Transforms.select(editor, rangeRef.current.anchor.path);
             }
         }
