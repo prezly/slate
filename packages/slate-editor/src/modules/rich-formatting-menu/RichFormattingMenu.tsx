@@ -4,7 +4,7 @@ import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
-import { Editor, Path, Range, Transforms } from 'slate';
+import { Editor, Range, Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, useSlate } from 'slate-react';
 
@@ -114,18 +114,6 @@ export function RichFormattingMenu({
         });
 
         setLinkRange(rangeRef);
-
-        if (rangeRef.current) {
-            const hasLink = getCurrentLinkNode(editor, { at: rangeRef.current });
-            const selectedOnlyLink = Path.equals(
-                rangeRef.current.anchor.path,
-                rangeRef.current.focus.path,
-            );
-
-            if (hasLink && selectedOnlyLink) {
-                Transforms.select(editor, rangeRef.current.anchor.path);
-            }
-        }
 
         // We have to blur the editor to allow the LinkMenu input focus.
         ReactEditor.blur(editor);
