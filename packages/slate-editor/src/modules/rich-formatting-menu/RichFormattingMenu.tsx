@@ -109,13 +109,19 @@ export function RichFormattingMenu({
     function handleLinkButtonClick() {
         if (!editor.selection) return;
 
-        Transforms.select(editor, editor.selection.anchor.path);
-
         const rangeRef = Editor.rangeRef(editor, editor.selection, {
             affinity: 'inward',
         });
 
         setLinkRange(rangeRef);
+
+        if (rangeRef.current) {
+            const hasLink = getCurrentLinkNode(editor, { at: rangeRef.current });
+
+            if (hasLink) {
+                Transforms.select(editor, rangeRef.current.anchor.path);
+            }
+        }
 
         // We have to blur the editor to allow the LinkMenu input focus.
         ReactEditor.blur(editor);
