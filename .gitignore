@@ -1,5 +1,6 @@
 .next/
 .idea/
+.vscode
 .history
 .turbo
 build/

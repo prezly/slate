@@ -109,8 +109,6 @@ export function RichFormattingMenu({
     function handleLinkButtonClick() {
         if (!editor.selection) return;
 
-        Transforms.select(editor, editor.selection.anchor.path);
-
         const rangeRef = Editor.rangeRef(editor, editor.selection, {
             affinity: 'inward',
         });
