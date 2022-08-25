@@ -20,7 +20,6 @@ export function BlockquoteExtension(): Extension {
                 BLOCKQUOTE: () => ({ type: QUOTE_NODE_TYPE }),
             }),
         },
-        isRichBlock: isQuoteNode,
         normalizeNode: [normalizeRedundantAttributes],
         onKeyDown(event, editor) {
             onBackspaceResetFormattingAtDocumentStart(editor, isQuoteNode, event);

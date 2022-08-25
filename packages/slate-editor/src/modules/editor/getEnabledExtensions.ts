@@ -1,4 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
+import { isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { noop } from 'lodash-es';
 
 import { AutoformatExtension } from '#extensions/autoformat';
@@ -235,5 +236,7 @@ export function* getEnabledExtensions({
 
     yield HtmlExtension();
 
-    yield PasteSlateContentExtension();
+    yield PasteSlateContentExtension({
+        isPreservedBlock: (_, node) => isImageNode(node) || isQuoteNode(node),
+    });
 }
