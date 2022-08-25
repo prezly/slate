@@ -12,7 +12,9 @@ interface Options {
     isPreservedBlock?: IsPreservedBlock;
 }
 
-export function PasteSlateContentExtension({ isPreservedBlock = () => false }: Options = {}): Extension {
+export function PasteSlateContentExtension({
+    isPreservedBlock = () => false,
+}: Options = {}): Extension {
     return {
         id: EXTENSION_ID,
         withOverrides: withSlatePasting(isPreservedBlock),
