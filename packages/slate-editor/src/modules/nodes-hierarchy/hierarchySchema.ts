@@ -87,7 +87,11 @@ export const hierarchySchema: NodesHierarchySchema = {
     [IMAGE_NODE_TYPE]: [
         allowChildren(
             Text.isText,
-            combineFixers([fixers.unwrapSameTypeChild, fixers.liftNodeNoSplit]),
+            combineFixers([
+                fixers.unwrapImageNodeChild,
+                fixers.unwrapSameTypeChild,
+                fixers.liftNodeNoSplit,
+            ]),
         ),
     ],
     [LOADER_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
