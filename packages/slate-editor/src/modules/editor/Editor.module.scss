@@ -39,12 +39,12 @@
         margin: $spacing-3 0;
     }
 
-    [data-block-entry-point] {
+    [data-new-paragraph-delimiter] {
         display: none;
     }
 
     &.withEntryPoints {
-        [data-block-entry-point] {
+        [data-new-paragraph-delimiter] {
             display: block;
         }
     }
