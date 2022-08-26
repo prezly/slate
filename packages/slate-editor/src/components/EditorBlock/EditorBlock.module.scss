@@ -30,7 +30,7 @@ $editor-block-outline-width: 6px;
         user-select: none;
     }
 
-    & + & [data-new-paragraph-delimiter-position=top] {
+    & + & [data-new-paragraph-delimiter-position="top"] {
         display: none !important;
     }
 }
