@@ -6,6 +6,8 @@ import type { FunctionComponent, HTMLAttributes } from 'react';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
+import { NewParagraphDelimiter } from '#components';
+
 import styles from './BlockQuoteElement.module.scss';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -24,6 +26,7 @@ export const BlockQuoteElement: FunctionComponent<Props> = ({
 
     return (
         <div {...props} className={classNames(className, styles.BlockQuoteElement)}>
+            <NewParagraphDelimiter extendedHitArea element={element} position="top" />
             <blockquote
                 className={classNames(className, styles.Quote, {
                     [styles.alignLeft]: align === Alignment.LEFT,
@@ -43,6 +46,7 @@ export const BlockQuoteElement: FunctionComponent<Props> = ({
                     {children}
                 </p>
             </blockquote>
+            <NewParagraphDelimiter extendedHitArea element={element} position="bottom" />
         </div>
     );
 };
