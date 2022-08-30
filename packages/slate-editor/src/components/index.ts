@@ -12,6 +12,7 @@ export {
     ImageWithLoadingPlaceholder,
 } from './LoadingPlaceholder';
 export * as Menu from './Menu';
+export * from './NewParagraphDelimiter';
 export { MultilineEllipsis } from './MultilineEllipsis';
 export { ElementPortalV2, TextSelectionPortalV2 } from './Portals';
 export * as TooltipV2 from './TooltipV2';

@@ -1,0 +1,46 @@
+@import "styles/helpers";
+@import "styles/variables";
+
+$height: $spacing-2;
+
+.NewParagraphDelimiter {
+    $offset: $height + $spacing-2;
+
+    position: absolute;
+    width: 100%;
+    cursor: vertical-text;
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+    height: $height;
+
+    &:hover {
+        &:before {
+            content: " ";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+        }
+    }
+
+    &.top {
+        top: -$offset;
+    }
+
+    &.bottom {
+        bottom: -$offset;
+    }
+}
+
+.extendedHitArea {
+    $offset: $height;
+
+    &.top {
+        top: -$offset;
+    }
+
+    &.bottom {
+        bottom: -$offset;
+    }
+}
