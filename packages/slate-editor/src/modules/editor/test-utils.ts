@@ -51,7 +51,6 @@ export function getAllExtensions() {
                 ],
             },
             withPressContacts: {
-                newsroomSettingsUrl: '',
                 renderSearch: () => null,
             },
             withStoryBookmarks: {

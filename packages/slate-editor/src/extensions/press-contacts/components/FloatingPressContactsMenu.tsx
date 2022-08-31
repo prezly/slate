@@ -18,7 +18,6 @@ interface Props {
     availableWidth: number;
     containerRef: RefObject<HTMLDivElement>;
     events: Events<EditorEventMap>;
-    newsroomSettingsUrl: string;
     renderSearch: (searchProps: SearchProps) => ReactNode;
     onClose: () => void;
     onRootClose: () => void;
@@ -32,7 +31,6 @@ function trackSearchUsed(editor: Editor) {
 export function FloatingPressContactsMenu({
     availableWidth,
     containerRef,
-    newsroomSettingsUrl,
     renderSearch,
     onClose,
     onRootClose,
@@ -60,7 +58,6 @@ export function FloatingPressContactsMenu({
             <FloatingContainer.Button className={styles.closeButton} onClick={onClose} open />
 
             {renderSearch({
-                newsroomSettingsUrl,
                 onChange: handleInputChange,
                 onSubmit,
             })}

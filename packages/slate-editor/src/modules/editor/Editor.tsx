@@ -585,7 +585,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         events={events}
-                        newsroomSettingsUrl={withPressContacts.newsroomSettingsUrl}
                         onClose={closeFloatingPressContactsMenu}
                         onRootClose={rootCloseFloatingPressContactsMenu}
                         onSubmit={submitFloatingPressContactsMenu}
