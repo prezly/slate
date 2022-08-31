@@ -59,6 +59,7 @@ export function FloatingPressContactsMenu({
 
             {renderSearch({
                 onChange: handleInputChange,
+                onClose,
                 onSubmit,
             })}
         </FloatingContainer.Container>

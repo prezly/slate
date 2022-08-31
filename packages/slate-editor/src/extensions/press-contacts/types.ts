@@ -7,5 +7,6 @@ export interface PressContactsExtensionParameters {
 
 export interface SearchProps {
     onChange: (query: string) => void;
+    onClose: () => void;
     onSubmit: (contact: PressContact) => void;
 }
