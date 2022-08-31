@@ -2,7 +2,7 @@ import type { Events } from '@prezly/events';
 import type { Decorate } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
-import type { Editor, Element } from 'slate';
+import type { Editor, Element, Node } from 'slate';
 
 import type { AutoformatParameters } from '#extensions/autoformat';
 import type { CoverageExtensionConfiguration } from '#extensions/coverage';
@@ -25,6 +25,7 @@ export interface EditorRef {
     events: Events<EditorEventMap>;
     focus: () => void;
     clearSelection: () => void;
+    insertNodes: (nodes: Node[]) => void;
     isEmpty: () => boolean;
     isEqualTo: (value: Value) => void;
     isFocused: () => boolean;

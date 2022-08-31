@@ -2,8 +2,10 @@
 import { Events } from '@prezly/events';
 import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
-import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
 import {
+    type HeadingNode,
+    type ParagraphNode,
+    type QuoteNode,
     Alignment,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
@@ -21,7 +23,7 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import type { Element } from 'slate';
+import { type Element, Transforms } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
 import { useFunction, useSize } from '#lib';
@@ -185,6 +187,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             events,
             focus: () => EditorCommands.focus(editor),
             clearSelection: () => EditorCommands.resetSelection(editor),
+            insertNodes: (nodes) => Transforms.insertNodes(editor, nodes),
             isEmpty: () => EditorCommands.isEmpty(editor),
             isEqualTo: (value) => isEditorValueEqual(editor, value, editor.children as Value),
             isFocused: () => ReactEditor.isFocused(editor),
