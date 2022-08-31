@@ -58,7 +58,11 @@ export function PressContactElement({ attributes, children, element }: Props) {
 export function JobDescription(props: { className?: string; contact: PressContact }) {
     const { description, company } = props.contact;
     // If there is not text to show, render an empty <div> to keep height consistent.
-    const text = [description, company].filter(Boolean).join(', ') || <>&nbsp;</>;
+    const text = [description, company].filter(Boolean).join(', ').trim();
+
+    if (!text) {
+        return null;
+    }
 
     return <div className={classNames(styles.jobDescription, props.className)}>{text}</div>;
 }
