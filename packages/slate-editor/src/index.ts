@@ -13,6 +13,7 @@ export { type SearchProps as CoverageSearchProps, createCoverage } from './exten
 export { createEmbed } from './extensions/embed';
 export {
     type SearchProps as PressContactsSearchProps,
+    createPressContact,
     JobDescription,
 } from './extensions/press-contacts';
 export type { User } from './extensions/user-mentions';

@@ -2,8 +2,10 @@
 import { Events } from '@prezly/events';
 import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
-import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
 import {
+    type HeadingNode,
+    type ParagraphNode,
+    type QuoteNode,
     Alignment,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
@@ -185,6 +187,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             events,
             focus: () => EditorCommands.focus(editor),
             clearSelection: () => EditorCommands.resetSelection(editor),
+            insertNodes: (nodes, options) => EditorCommands.insertNodes(editor, nodes, options),
             isEmpty: () => EditorCommands.isEmpty(editor),
             isEqualTo: (value) => isEditorValueEqual(editor, value, editor.children as Value),
             isFocused: () => ReactEditor.isFocused(editor),
@@ -582,7 +585,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         availableWidth={availableWidth}
                         containerRef={containerRef}
                         events={events}
-                        newsroomSettingsUrl={withPressContacts.newsroomSettingsUrl}
                         onClose={closeFloatingPressContactsMenu}
                         onRootClose={rootCloseFloatingPressContactsMenu}
                         onSubmit={submitFloatingPressContactsMenu}
