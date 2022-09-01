@@ -1,6 +1,5 @@
 import type { Events } from '@prezly/events';
-import type { Decorate } from '@prezly/slate-commons';
-import type { EditorCommands } from '@prezly/slate-commons';
+import type { Decorate, EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
 import type { Editor, Element, Node } from 'slate';
