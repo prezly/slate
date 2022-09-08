@@ -24,6 +24,7 @@ import React, {
     useState,
 } from 'react';
 import type { Element } from 'slate';
+import { Transforms } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
 import { useFunction, useSize } from '#lib';
@@ -188,6 +189,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             focus: () => EditorCommands.focus(editor),
             clearSelection: () => EditorCommands.resetSelection(editor),
             insertNodes: (nodes, options) => EditorCommands.insertNodes(editor, nodes, options),
+            updateNodes: (props, options = {}) => {
+                Transforms.setNodes(
+                    editor,
+                    props,
+                    options.match ? { at: [], ...options } : options,
+                );
+            },
             isEmpty: () => EditorCommands.isEmpty(editor),
             isEqualTo: (value) => isEditorValueEqual(editor, value, editor.children as Value),
             isFocused: () => ReactEditor.isFocused(editor),

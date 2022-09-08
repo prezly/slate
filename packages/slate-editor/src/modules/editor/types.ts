@@ -3,6 +3,7 @@ import type { Decorate, EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
 import type { Editor, Element, Node } from 'slate';
+import type { Transforms } from 'slate';
 
 import type { AutoformatParameters } from '#extensions/autoformat';
 import type { CoverageExtensionConfiguration } from '#extensions/coverage';
@@ -28,6 +29,10 @@ export interface EditorRef {
     insertNodes: (
         nodes: Node[],
         options?: Parameters<typeof EditorCommands.insertNodes>[2],
+    ) => void;
+    updateNodes: <T extends Node>(
+        props: Partial<Omit<T, 'children' | 'text'>>,
+        options?: Parameters<typeof Transforms.setNodes<T>>[2],
     ) => void;
     isEmpty: () => boolean;
     isEqualTo: (value: Value) => void;
