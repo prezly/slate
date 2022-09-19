@@ -1,4 +1,4 @@
-export type EmailPlaceholderKey =
+export type EmailVariableKey =
     | 'contact.firstname'
     | 'contact.lastname'
     | 'contact.fullname'

@@ -11,11 +11,11 @@ import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { ImageExtensionConfiguration } from '#extensions/image';
-import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
 import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
 import type { UserMentionsExtensionParameters } from '#extensions/user-mentions';
+import type { VariablesExtensionParameters } from '#extensions/variables';
 import type { VideoExtensionParameters } from '#extensions/video';
 import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
 import type { EditorEventMap } from '#modules/events';
@@ -90,7 +90,7 @@ export interface EditorProps {
     withImages?: false | ImageExtensionConfiguration;
     withInlineLinks?: boolean;
     withLists?: boolean;
-    withPlaceholders?: false | PlaceholderMentionsExtensionParameters;
+    withVariables?: false | VariablesExtensionParameters;
     withPressContacts?: false | PressContactsExtensionParameters;
     withRichFormattingMenu?:
         | boolean

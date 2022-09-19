@@ -1,10 +1,10 @@
-import type { Placeholder } from '#extensions/placeholder-mentions';
+import type { Variable } from '#extensions/variables';
 
 /**
  * Available placeholders for "computed values" in campaign-like editors (campaign and pitch editors
  * for now).
  */
-export const campaignPlaceholders: Placeholder[] = [
+export const campaignVariables: Variable[] = [
     {
         key: 'contact.firstname',
         text: 'First name',

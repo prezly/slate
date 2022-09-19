@@ -15,7 +15,7 @@ export * from './LinkNode';
 export * from './ListNode';
 export * from './MentionNode';
 export * from './ParagraphNode';
-export * from './PlaceholderNode';
+export * from './VariableNode';
 export * from './QuoteNode';
 export * from './TableNode';
 export * from './StoryEmbedNode';

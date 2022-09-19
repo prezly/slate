@@ -6,8 +6,8 @@
  * packages?
  */
 
-export * from './EmailPlaceholderKey';
+export * from './EmailVariableKey';
 export * from './OEmbedInfo';
-export * from './PlaceholderKey';
+export * from './VariableKey';
 export * from './PressContact';
-export * from './StoryPlaceholderKey';
+export * from './StoryVariableKey';

@@ -5,17 +5,18 @@ import type { Range } from 'slate';
 import type { Option } from '#extensions/mentions';
 import { MentionsDropdown } from '#extensions/mentions';
 
-import type { Placeholder } from '../../types';
-import { PlaceholderMentionsDropdownOption } from '../PlaceholderMentionsDropdownOption';
+import type { Variable } from '../types';
+
+import { VariablesDropdownOption } from './VariablesDropdownOption';
 
 interface Props {
     index: number;
-    onOptionClick: (option: Option<Placeholder>) => void;
-    options: Option<Placeholder>[];
+    onOptionClick: (option: Option<Variable>) => void;
+    options: Option<Variable>[];
     target: Range | null;
 }
 
-export const PlaceholderMentionsDropdown: FunctionComponent<Props> = ({
+export const VariablesDropdown: FunctionComponent<Props> = ({
     index,
     onOptionClick,
     options,
@@ -25,7 +26,7 @@ export const PlaceholderMentionsDropdown: FunctionComponent<Props> = ({
         index={index}
         onOptionClick={onOptionClick}
         options={options}
-        renderOption={(option) => <PlaceholderMentionsDropdownOption option={option} />}
+        renderOption={(option) => <VariablesDropdownOption option={option} />}
         target={target}
     />
 );

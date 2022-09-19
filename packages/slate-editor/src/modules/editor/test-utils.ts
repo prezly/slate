@@ -4,12 +4,8 @@ import type { Editor } from 'slate';
 
 import type { EditorEventMap } from '#modules/events';
 import { withEvents } from '#modules/events';
-import {
-    campaignPlaceholders,
-    salutationPlaceholder,
-    storyPlaceholders,
-} from '#modules/placeholders';
 import { coverage, createDelayedResolve, oembedInfo } from '#modules/tests';
+import { campaignVariables, salutationVariables, storyVariables } from '#modules/variables';
 
 import { createEditor as createBaseEditor } from './createEditor';
 import { getEnabledExtensions } from './getEnabledExtensions';
@@ -43,12 +39,8 @@ export function getAllExtensions() {
             },
             withInlineLinks: true,
             withLists: true,
-            withPlaceholders: {
-                placeholders: [
-                    ...campaignPlaceholders,
-                    salutationPlaceholder,
-                    ...storyPlaceholders,
-                ],
+            withVariables: {
+                variables: [...campaignVariables, salutationVariables, ...storyVariables],
             },
             withPressContacts: {
                 renderSearch: () => null,
