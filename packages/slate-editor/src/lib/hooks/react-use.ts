@@ -27,30 +27,15 @@ function unwrap<T>(module: T | { __esModule: boolean; default: T }): T {
     return module;
 }
 
-const useAsyncFn = unwrap(_useAsyncFn);
-const useDebounce = unwrap(_useDebounce);
-const useEffectOnce = unwrap(_useEffectOnce);
-const useLatest = unwrap(_useLatest);
-const useMount = unwrap(_useMount);
-const useMountedState = unwrap(_useMountedState);
-const usePrevious = unwrap(_usePrevious);
-const useRafLoop = unwrap(_useRafLoop);
-const useSize = unwrap(_useSize);
-const useUnmount = unwrap(_useUnmount);
-const useUpdate = unwrap(_useUpdate);
-const useUpdateEffect = unwrap(_useUpdateEffect);
-
-export {
-    useAsyncFn,
-    useDebounce,
-    useEffectOnce,
-    useLatest,
-    useMount,
-    useMountedState,
-    usePrevious,
-    useRafLoop,
-    useSize,
-    useUnmount,
-    useUpdate,
-    useUpdateEffect,
-};
+export const useAsyncFn = unwrap(_useAsyncFn);
+export const useDebounce = unwrap(_useDebounce);
+export const useEffectOnce = unwrap(_useEffectOnce);
+export const useLatest = unwrap(_useLatest);
+export const useMount = unwrap(_useMount);
+export const useMountedState = unwrap(_useMountedState);
+export const usePrevious = unwrap(_usePrevious);
+export const useRafLoop = unwrap(_useRafLoop);
+export const useSize = unwrap(_useSize);
+export const useUnmount = unwrap(_useUnmount);
+export const useUpdate = unwrap(_useUpdate);
+export const useUpdateEffect = unwrap(_useUpdateEffect);
