@@ -1,11 +1,13 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { VariableKey } from '@prezly/slate-types';
-import { isVariableNode } from '@prezly/slate-types';
+import { type VariableNode, isVariableNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-import { createVariableNode } from './createVariableNode';
-
-const ALLOWED_ATTRIBUTES = Object.keys(createVariableNode('' as VariableKey));
+const SHAPE: Record<keyof VariableNode, boolean> = {
+    type: true,
+    key: true,
+    children: true,
+};
+const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
 
 export function removeUnknownVariableNodeAttributes(
     editor: Editor,

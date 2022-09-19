@@ -1,7 +1,6 @@
-import type { VariableKey, VariableNode } from '@prezly/slate-types';
-import { VARIABLE_NODE_TYPE } from '@prezly/slate-types';
+import { type VariableNode, VARIABLE_NODE_TYPE } from '@prezly/slate-types';
 
-export function createVariableNode(key: VariableKey): VariableNode {
+export function createVariableNode(key: VariableNode['key']): VariableNode {
     return {
         children: [{ text: '' }],
         key,

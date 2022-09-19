@@ -5,7 +5,6 @@ import type { Editor } from 'slate';
 import type { EditorEventMap } from '#modules/events';
 import { withEvents } from '#modules/events';
 import { coverage, createDelayedResolve, oembedInfo } from '#modules/tests';
-import { campaignVariables, salutationVariables, storyVariables } from '#modules/variables';
 
 import { createEditor as createBaseEditor } from './createEditor';
 import { getEnabledExtensions } from './getEnabledExtensions';
@@ -40,7 +39,15 @@ export function getAllExtensions() {
             withInlineLinks: true,
             withLists: true,
             withVariables: {
-                variables: [...campaignVariables, salutationVariables, ...storyVariables],
+                variables: [
+                    { key: 'contact.firstname', text: 'First name' },
+                    { key: 'contact.lastname', text: 'Last name' },
+                    { key: 'contact.fullname', text: 'Full name' },
+                    { key: 'release.url', text: 'Link to story' },
+                    { key: 'release.shorturl', text: 'Short link to story' },
+                    { key: 'contact.salutation', text: 'Salutation' },
+                    { key: 'publication.date', text: 'Publication date' },
+                ],
             },
             withPressContacts: {
                 renderSearch: () => null,

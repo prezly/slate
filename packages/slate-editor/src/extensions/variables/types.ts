@@ -1,7 +1,5 @@
-import type { VariableKey } from '@prezly/slate-types';
-
 export interface Variable {
-    key: VariableKey;
+    key: string;
     text: string;
 }
 
