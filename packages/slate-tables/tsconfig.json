@@ -4,7 +4,10 @@
         "noEmit": false,
         "emitDeclarationOnly": true,
         "declarationDir": "./build/types",
-        "rootDir": "./src",
+        "baseUrl": ".",
+        "paths": {
+            "@prezly/slate-commons": ["../slate-commons/src"]
+        }
     },
     "include": ["./src"],
     "exclude": ["node_modules"],

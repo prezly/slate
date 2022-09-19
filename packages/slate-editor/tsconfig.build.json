@@ -3,7 +3,15 @@
     "compilerOptions": {
         "module": "ES6",
         "target": "ES6",
-        "rootDirs": ["./src", "./.css-modules"]
+        "rootDirs": ["./src", "./.css-modules"],
+        "paths": {
+            "#components": ["src/components"],
+            "#extensions/*": ["src/extensions/*"],
+            "#icons": ["src/icons"],
+            "#lib/type-utils": ["src/lib/type-utils"],
+            "#lib": ["src/lib"],
+            "#modules/*": ["src/modules/*"]
+        }
     },
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts", "**/test-utils.ts"],
 }
