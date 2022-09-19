@@ -5,15 +5,20 @@ import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement, MentionsExtension } from '#extensions/mentions';
 
-import { removeUnknownVariableNodeAttributes, parseSerializedElement } from './lib';
+import {
+    parseSerializedElement,
+    removeUnknownVariableNodeAttributes,
+    removeUnknownVariables,
+} from './lib';
+import type { VariablesExtensionParameters } from './types';
 
 export const EXTENSION_ID = 'VariablesExtension';
 
-export const VariablesExtension = (): Extension =>
+export const VariablesExtension = ({ variables }: VariablesExtensionParameters): Extension =>
     MentionsExtension({
         id: EXTENSION_ID,
         type: VARIABLE_NODE_TYPE,
-        normalizeNode: removeUnknownVariableNodeAttributes,
+        normalizeNode: [removeUnknownVariableNodeAttributes, removeUnknownVariables(variables)],
         parseSerializedElement,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isVariableNode(element)) {

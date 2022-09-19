@@ -148,7 +148,7 @@ export function* getEnabledExtensions({
     }
 
     if (withVariables) {
-        yield VariablesExtension();
+        yield VariablesExtension(withVariables);
     }
 
     if (withTextStyling) {
