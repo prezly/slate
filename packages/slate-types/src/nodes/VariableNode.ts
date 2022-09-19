@@ -1,7 +1,7 @@
 import type { ElementNode } from './ElementNode';
 import { isElementNode } from './ElementNode';
 
-export const VARIABLE_NODE_TYPE = 'placeholder';
+export const VARIABLE_NODE_TYPE = 'variable';
 
 export interface VariableNode extends ElementNode {
     type: typeof VARIABLE_NODE_TYPE;
