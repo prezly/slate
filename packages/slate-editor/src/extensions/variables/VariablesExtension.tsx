@@ -6,6 +6,7 @@ import type { RenderElementProps } from 'slate-react';
 import { MentionElement, MentionsExtension } from '#extensions/mentions';
 
 import {
+    convertLegacyPlaceholderNodesToVariables,
     parseSerializedElement,
     removeUnknownVariableNodeAttributes,
     removeUnknownVariables,
@@ -18,7 +19,11 @@ export const VariablesExtension = ({ variables }: VariablesExtensionParameters):
     MentionsExtension({
         id: EXTENSION_ID,
         type: VARIABLE_NODE_TYPE,
-        normalizeNode: [removeUnknownVariableNodeAttributes, removeUnknownVariables(variables)],
+        normalizeNode: [
+            convertLegacyPlaceholderNodesToVariables,
+            removeUnknownVariableNodeAttributes,
+            removeUnknownVariables(variables),
+        ],
         parseSerializedElement,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isVariableNode(element)) {
