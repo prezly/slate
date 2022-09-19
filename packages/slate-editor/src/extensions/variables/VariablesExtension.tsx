@@ -5,12 +5,12 @@ import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement, MentionsExtension } from '#extensions/mentions';
 
+import { parseSerializedElement } from './lib';
 import {
     convertLegacyPlaceholderNodesToVariables,
-    parseSerializedElement,
     removeUnknownVariableNodeAttributes,
     removeUnknownVariables,
-} from './lib';
+} from './normalization';
 import type { VariablesExtensionParameters } from './types';
 
 export const EXTENSION_ID = 'VariablesExtension';
