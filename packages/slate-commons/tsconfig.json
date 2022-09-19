@@ -4,7 +4,11 @@
         "noEmit": false,
         "emitDeclarationOnly": true,
         "declarationDir": "./build/types",
-        "rootDir": "./src"
+        "rootDir": "./src",
+        "baseUrl": ".",
+        "paths": {
+            "@prezly/slate-types": ["../slate-types/src"]
+        }
     },
     "include": ["./src"],
     "exclude": ["node_modules"],

@@ -2,14 +2,18 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "rootDirs": ["./src", "./.css-modules"],
-        "baseUrl": "./src",
+        "baseUrl": "./",
         "paths": {
-            "#components": ["components"],
-            "#extensions/*": ["extensions/*"],
-            "#icons": ["icons"],
-            "#lib/type-utils": ["lib/type-utils"],
-            "#lib": ["lib"],
-            "#modules/*": ["modules/*"]
+            "@prezly/slate-types": ["../slate-types/src"],
+            "@prezly/slate-commons": ["../slate-commons/src"],
+            "@prezly/slate-lists": ["../slate-lists/src"],
+            "@prezly/slate-tables": ["../slate-tables/src"],
+            "#components": ["src/components"],
+            "#extensions/*": ["src/extensions/*"],
+            "#icons": ["src/icons"],
+            "#lib/type-utils": ["src/lib/type-utils"],
+            "#lib": ["src/lib"],
+            "#modules/*": ["src/modules/*"]
         },
         "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./src/@types"]
     },
