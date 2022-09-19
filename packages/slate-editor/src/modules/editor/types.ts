@@ -90,7 +90,6 @@ export interface EditorProps {
     withImages?: false | ImageExtensionConfiguration;
     withInlineLinks?: boolean;
     withLists?: boolean;
-    withVariables?: false | VariablesExtensionParameters;
     withPressContacts?: false | PressContactsExtensionParameters;
     withRichFormattingMenu?:
         | boolean
@@ -102,6 +101,7 @@ export interface EditorProps {
     withTables?: boolean;
     withTextStyling?: boolean;
     withUserMentions?: false | UserMentionsExtensionParameters;
+    withVariables?: false | VariablesExtensionParameters;
     withVideos?: false | VideoExtensionParameters;
     withWebBookmarks?: false | WebBookmarkExtensionParameters;
 }

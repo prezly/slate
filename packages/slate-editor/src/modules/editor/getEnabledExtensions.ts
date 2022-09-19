@@ -70,11 +70,11 @@ type Parameters = {
     | 'withImages'
     | 'withInlineLinks'
     | 'withLists'
-    | 'withVariables'
     | 'withPressContacts'
     | 'withTextStyling'
     | 'withTables'
     | 'withUserMentions'
+    | 'withVariables'
     | 'withVideos'
     | 'withWebBookmarks'
     | 'withStoryEmbeds'
@@ -98,11 +98,11 @@ export function* getEnabledExtensions({
     withImages,
     withInlineLinks,
     withLists,
-    withVariables,
     withPressContacts,
     withTextStyling,
     withTables,
     withUserMentions,
+    withVariables,
     withVideos,
     withWebBookmarks,
     withStoryEmbeds,
