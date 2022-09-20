@@ -7,12 +7,9 @@ import { createHyperscript, createText } from 'slate-hyperscript';
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            'h-p': {
+            [name: string]: {
                 children?: ReactNode;
-            };
-            'h-placeholder-mention': {
-                children?: ReactNode;
-                key: string;
+                [prop: string]: any;
             };
         }
     }
@@ -20,10 +17,11 @@ declare global {
 
 export const jsx = createHyperscript({
     elements: {
-        'h-p': { type: PARAGRAPH_NODE_TYPE },
-        'h-placeholder-mention': { type: PLACEHOLDER_NODE_TYPE },
+        'h:paragraph': { type: PARAGRAPH_NODE_TYPE },
+        'h:placeholder': { type: PLACEHOLDER_NODE_TYPE },
+        'h:variable': { type: 'variable' },
     },
     creators: {
-        'h-text': createText,
+        'h:text': createText,
     },
 });
