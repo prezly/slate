@@ -38,6 +38,7 @@ export function getAllExtensions() {
             },
             withInlineLinks: true,
             withLists: true,
+            withPlaceholders: true,
             withPressContacts: {
                 renderSearch: () => null,
             },
