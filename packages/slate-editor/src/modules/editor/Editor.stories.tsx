@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import React, { useState } from 'react';
 
 import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
-import type { PlaceholderMentionsExtensionParameters } from '#extensions/placeholder-mentions';
+import type { VariablesExtensionParameters } from '#extensions/variables';
 
 import { Editor } from './Editor';
 import { createEmptyValue } from './lib/createEmptyValue';
@@ -68,8 +68,8 @@ Base.args = {
     },
 } as IBaseProps;
 
-const WithPlaceholdersTemplate = (
-    args: IBaseProps & { withPlaceholders: PlaceholderMentionsExtensionParameters },
+const WithVariablesTemplate = (
+    args: IBaseProps & { withVariables: VariablesExtensionParameters },
 ) => {
     const [value, setValue] = useState<Value>(createEmptyValue());
 
@@ -84,8 +84,8 @@ const WithPlaceholdersTemplate = (
     );
 };
 
-export const WithPlaceholders = WithPlaceholdersTemplate.bind({}) as any;
-WithPlaceholders.args = {
+export const WithVariables = WithVariablesTemplate.bind({}) as any;
+WithVariables.args = {
     className: '',
     withAlignmentControls: true,
     withAttachments: true,
@@ -103,28 +103,13 @@ WithPlaceholders.args = {
             content: 'Add content to your story',
         },
     },
-    withPlaceholders: {
-        placeholders: [
-            {
-                key: 'contact.firstname',
-                text: 'First name',
-            },
-            {
-                key: 'contact.lastname',
-                text: 'Last name',
-            },
-            {
-                key: 'contact.fullname',
-                text: 'Full name',
-            },
-            {
-                key: 'release.url',
-                text: 'Link to story',
-            },
-            {
-                key: 'release.shorturl',
-                text: 'Short link to story',
-            },
+    withVariables: {
+        variables: [
+            { key: 'contact.firstname', text: 'First name' },
+            { key: 'contact.lastname', text: 'Last name' },
+            { key: 'contact.fullname', text: 'Full name' },
+            { key: 'release.url', text: 'Link to story' },
+            { key: 'release.shorturl', text: 'Short link to story' },
         ],
     },
-} as IBaseProps & { withPlaceholders?: PlaceholderMentionsExtensionParameters };
+} as IBaseProps & { withVariables?: VariablesExtensionParameters };

@@ -35,16 +35,13 @@ import { FloatingAddMenu } from '#extensions/floating-add-menu';
 import type { Option } from '#extensions/floating-add-menu';
 import { LoaderContentType } from '#extensions/loader';
 import {
-    PlaceholderMentionsDropdown,
-    usePlaceholderMentions,
-} from '#extensions/placeholder-mentions';
-import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
 } from '#extensions/press-contacts';
 import { useFloatingStoryBookmarkInput } from '#extensions/story-bookmark';
 import { useFloatingStoryEmbedInput } from '#extensions/story-embed';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
+import { VariablesDropdown, useVariables } from '#extensions/variables';
 import { FloatingVideoInput, useFloatingVideoInput } from '#extensions/video';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensions/web-bookmark';
 import { FloatingStoryEmbedInput, Placeholder } from '#modules/components';
@@ -102,7 +99,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withImages = false,
         withInlineLinks = false,
         withLists = false,
-        withPlaceholders = false,
         withPressContacts = false,
         withRichFormattingMenu = false,
         withStoryBookmarks = false,
@@ -110,6 +106,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withTextStyling = false,
         withTables = false,
         withUserMentions = false,
+        withVariables = false,
         withVideos = false,
         withWebBookmarks = false,
     } = props;
@@ -155,11 +152,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withImages,
             withInlineLinks,
             withLists,
-            withPlaceholders,
             withPressContacts,
             withTextStyling,
             withTables,
             withUserMentions,
+            withVariables,
             withVideos,
             withWebBookmarks,
             withStoryEmbeds,
@@ -207,7 +204,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }),
     );
 
-    const placeholders = usePlaceholderMentions(withPlaceholders || undefined);
+    const variables = useVariables(withVariables || undefined);
     const userMentions = useUserMentions(withUserMentions || undefined);
     const [
         { isOpen: isFloatingWebBookmarkInputOpen, submitButtonLabel: webBookmarkSubmitButtonLabel },
@@ -276,8 +273,8 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         },
     ] = useFloatingPressContactsMenu(editor);
 
-    if (withPlaceholders) {
-        onKeyDownList.push(placeholders.onKeyDown);
+    if (withVariables) {
+        onKeyDownList.push(variables.onKeyDown);
     }
 
     if (withUserMentions) {
@@ -426,7 +423,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                      * in two" work as expected.
                      */
                     onChange(newValue as Element[]);
-                    placeholders.onChange(editor);
+                    variables.onChange(editor);
                     userMentions.onChange(editor);
                 }}
                 value={initialValue}
@@ -445,10 +442,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         userMentions.query,
                         userMentions.target,
                         withUserMentions,
-                        placeholders.index,
-                        placeholders.query,
-                        placeholders.target,
-                        withPlaceholders,
+                        variables.index,
+                        variables.query,
+                        variables.target,
+                        withVariables,
                     ]}
                     readOnly={readOnly}
                     renderElementDeps={[availableWidth]}
@@ -477,12 +474,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     />
                 )}
 
-                {withPlaceholders && (
-                    <PlaceholderMentionsDropdown
-                        index={placeholders.index}
-                        onOptionClick={(option) => placeholders.onAdd(editor, option)}
-                        options={placeholders.options}
-                        target={placeholders.target}
+                {withVariables && (
+                    <VariablesDropdown
+                        index={variables.index}
+                        onOptionClick={(option) => variables.onAdd(editor, option)}
+                        options={variables.options}
+                        target={variables.target}
                     />
                 )}
 

@@ -1,6 +1,6 @@
-import type { MentionNode, PlaceholderNode } from '@prezly/slate-types';
+import type { MentionNode, VariableNode } from '@prezly/slate-types';
 
-export type MentionElementType = MentionNode | PlaceholderNode;
+export type MentionElementType = MentionNode | VariableNode;
 
 export interface Option<V> {
     id: string | number;

@@ -20,7 +20,6 @@ import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
 import { createParagraph, ParagraphsExtension } from '#extensions/paragraphs';
 import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
-import { PlaceholderMentionsExtension } from '#extensions/placeholder-mentions';
 import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
@@ -28,6 +27,7 @@ import { StoryEmbedExtension } from '#extensions/story-embed';
 import { TablesExtension } from '#extensions/tables';
 import { TextStylingExtension } from '#extensions/text-styling';
 import { UserMentionsExtension } from '#extensions/user-mentions';
+import { VariablesExtension } from '#extensions/variables';
 import { VideoExtension } from '#extensions/video';
 import { VoidExtension } from '#extensions/void';
 import { WebBookmarkExtension } from '#extensions/web-bookmark';
@@ -70,11 +70,11 @@ type Parameters = {
     | 'withImages'
     | 'withInlineLinks'
     | 'withLists'
-    | 'withPlaceholders'
     | 'withPressContacts'
     | 'withTextStyling'
     | 'withTables'
     | 'withUserMentions'
+    | 'withVariables'
     | 'withVideos'
     | 'withWebBookmarks'
     | 'withStoryEmbeds'
@@ -98,11 +98,11 @@ export function* getEnabledExtensions({
     withImages,
     withInlineLinks,
     withLists,
-    withPlaceholders,
     withPressContacts,
     withTextStyling,
     withTables,
     withUserMentions,
+    withVariables,
     withVideos,
     withWebBookmarks,
     withStoryEmbeds,
@@ -147,8 +147,8 @@ export function* getEnabledExtensions({
         yield PressContactsExtension();
     }
 
-    if (withPlaceholders) {
-        yield PlaceholderMentionsExtension();
+    if (withVariables) {
+        yield VariablesExtension(withVariables);
     }
 
     if (withTextStyling) {

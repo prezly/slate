@@ -4,11 +4,6 @@ import type { Editor } from 'slate';
 
 import type { EditorEventMap } from '#modules/events';
 import { withEvents } from '#modules/events';
-import {
-    campaignPlaceholders,
-    salutationPlaceholder,
-    storyPlaceholders,
-} from '#modules/placeholders';
 import { coverage, createDelayedResolve, oembedInfo } from '#modules/tests';
 
 import { createEditor as createBaseEditor } from './createEditor';
@@ -43,13 +38,6 @@ export function getAllExtensions() {
             },
             withInlineLinks: true,
             withLists: true,
-            withPlaceholders: {
-                placeholders: [
-                    ...campaignPlaceholders,
-                    salutationPlaceholder,
-                    ...storyPlaceholders,
-                ],
-            },
             withPressContacts: {
                 renderSearch: () => null,
             },
@@ -75,6 +63,17 @@ export function getAllExtensions() {
                         id: 2,
                         name: 'Jane Doe',
                     },
+                ],
+            },
+            withVariables: {
+                variables: [
+                    { key: 'contact.firstname', text: 'First name' },
+                    { key: 'contact.lastname', text: 'Last name' },
+                    { key: 'contact.fullname', text: 'Full name' },
+                    { key: 'release.url', text: 'Link to story' },
+                    { key: 'release.shorturl', text: 'Short link to story' },
+                    { key: 'contact.salutation', text: 'Salutation' },
+                    { key: 'publication.date', text: 'Publication date' },
                 ],
             },
             withVideos: {

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import type { PlaceholderNode } from '@prezly/slate-types';
+import type { VariableNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
 import { jsx } from '../jsx';
@@ -9,7 +9,7 @@ import { createPlaceholderMentionElement, createMentionsEditor } from '../test-u
 import { insertMention } from './insertMention';
 
 describe('insertMention', () => {
-    const placeholderKey: PlaceholderNode['key'] = 'contact.firstname';
+    const placeholderKey: VariableNode['key'] = 'contact.firstname';
 
     it('Inserts a mention after the cursor at the end of paragraph', () => {
         const editor = createMentionsEditor(
