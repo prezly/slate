@@ -15,14 +15,15 @@ import type { VariablesExtensionParameters } from './types';
 
 export const EXTENSION_ID = 'VariablesExtension';
 
-export const VariablesExtension = ({ variables }: VariablesExtensionParameters): Extension =>
-    MentionsExtension({
+export function VariablesExtension({ variables }: VariablesExtensionParameters): Extension {
+    const variablesNames = variables.map(({ key }) => key);
+    return MentionsExtension({
         id: EXTENSION_ID,
         type: VARIABLE_NODE_TYPE,
         normalizeNode: [
             convertLegacyPlaceholderNodesToVariables,
+            removeUnknownVariables(variablesNames),
             removeUnknownVariableNodeAttributes,
-            removeUnknownVariables(variables),
         ],
         parseSerializedElement,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
@@ -38,3 +39,4 @@ export const VariablesExtension = ({ variables }: VariablesExtensionParameters):
             return undefined;
         },
     });
+}
