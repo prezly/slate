@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
-import React, { type ComponentType } from 'react';
+import type { FunctionComponent } from 'react';
+import React, { type ComponentType, type ReactElement, type ReactNode, useState } from 'react';
 import { Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
@@ -10,13 +10,16 @@ import { useFunction } from '#lib';
 
 import styles from './PlaceholderElement.module.scss';
 
+type ContentRenderFn = (props: { isDragOver: boolean; isSelected: boolean }) => ReactElement | null;
+
 export interface Props extends RenderElementProps {
     // Core
     icon: ComponentType<{ className?: string }>;
-    title: ReactNode;
-    description: ReactNode;
+    title: ReactNode | ContentRenderFn;
+    description: ReactNode | ContentRenderFn;
     // Variations
-    dropzone?: boolean;
+    dragOver?: boolean;
+    dropZone?: boolean;
     selected?: boolean;
     // Callbacks
     onClick?: () => void;
@@ -32,12 +35,19 @@ export function PlaceholderElement({
     title,
     description,
     // Variations
-    dropzone = false,
+    dragOver: externalDragOver,
+    dropZone = false,
     selected,
     // Callbacks
     onClick,
 }: Props) {
     const editor = useSlateStatic();
+
+    const [dragOver, setDragOver] = useState(false);
+    const actualDragOver = dropZone ? externalDragOver ?? dragOver : false;
+
+    const handleDragOver = useFunction(() => setDragOver(true));
+    const handleDragLeave = useFunction(() => setDragOver(false));
     const handleRemove = useFunction(() => {
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
@@ -50,19 +60,27 @@ export function PlaceholderElement({
             renderReadOnlyFrame={({ isSelected }) => (
                 <div
                     className={classNames(styles.Frame, {
-                        [styles.dropzone]: dropzone,
+                        [styles.dragOver]: actualDragOver,
                         [styles.selected]: isSelected,
                     })}
                     onClick={onClick}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
                 >
                     <CloseButton
-                        className={styles.CloseButton}
+                        className={classNames(styles.CloseButton, {
+                            [styles.hidden]: actualDragOver,
+                        })}
                         onClick={handleRemove}
                         title="Delete this block"
                     />
                     <Icon className={styles.Icon} />
-                    <h2 className={styles.Title}>{title}</h2>
-                    <p className={styles.Description}>{description}</p>
+                    <h2 className={styles.Title}>
+                        {render(title, { isSelected, isDragOver: actualDragOver })}
+                    </h2>
+                    <p className={styles.Description}>
+                        {render(description, { isSelected, isDragOver: actualDragOver })}
+                    </p>
                 </div>
             )}
             rounded
@@ -70,4 +88,11 @@ export function PlaceholderElement({
             void
         />
     );
+}
+
+function render<P>(content: ReactNode | FunctionComponent<P>, props: P): ReactElement | null {
+    if (typeof content === 'function') {
+        return content(props);
+    }
+    return <>{content}</>;
 }

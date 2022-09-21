@@ -1,6 +1,5 @@
 @import "styles/variables";
 
-
 .Frame {
     cursor: pointer;
 
@@ -29,7 +28,7 @@
         background-color: $grey-200;
     }
 
-    &.dropzone {
+    &.dragOver {
         background-color: $indigo-100;
         border-color: $indigo-300;
         color: $indigo-700;
@@ -74,4 +73,8 @@
         top: $spacing-1;
         right: $spacing-1;
     }
+}
+
+.hidden {
+    display: none;
 }

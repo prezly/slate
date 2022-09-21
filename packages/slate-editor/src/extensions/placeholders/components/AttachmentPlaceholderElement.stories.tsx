@@ -53,19 +53,19 @@ export function Selected() {
     );
 }
 
-export function DropZone() {
+export function Dragover() {
     return (
-        <AttachmentPlaceholderElement attributes={attributes} dropzone element={placeholder}>
+        <AttachmentPlaceholderElement attributes={attributes} dragOver element={placeholder}>
             {''}
         </AttachmentPlaceholderElement>
     );
 }
 
-export function SelectedDropZone() {
+export function SelectedDragover() {
     return (
         <AttachmentPlaceholderElement
             attributes={attributes}
-            dropzone
+            dragOver
             element={placeholder}
             selected
         >
