@@ -31,6 +31,7 @@ export enum MenuAction {
     ADD_WEB_BOOKMARK = 'add_web_bookmark',
     ADD_STORY_EMBED = 'add_story_embed',
     ADD_STORY_BOOKMARK = 'add_story_bookmark',
+    ADD_SNIPPET = 'add_snippet',
 }
 
 enum Group {
@@ -56,6 +57,7 @@ interface Params {
     withStoryBookmarks: boolean;
     withVideos: boolean;
     withWebBookmarks: boolean;
+    withSnippets: boolean;
 }
 
 /**
@@ -67,6 +69,7 @@ const Suggested: Partial<Record<MenuAction, number>> = {
     [MenuAction.ADD_GALLERY]: 3,
     [MenuAction.ADD_DIVIDER]: 4,
     [MenuAction.ADD_ATTACHMENT]: 5,
+    [MenuAction.ADD_SNIPPET]: 5,
 };
 
 export function generateFloatingAddMenuOptions(
@@ -94,6 +97,7 @@ function* generateOptions(
         withPressContacts,
         withStoryEmbeds,
         withStoryBookmarks,
+        withSnippets,
         withVideos,
         withWebBookmarks,
     }: Params,
@@ -275,6 +279,17 @@ function* generateOptions(
             text: 'Story bookmark',
             description: 'Embed your Prezly content',
             isBeta: true,
+        };
+    }
+
+    if (withSnippets) {
+        yield {
+            action: MenuAction.ADD_SNIPPET,
+            icon: Icons.ComponentSnippet,
+            group: Group.PREZLY_CONTENT,
+            text: 'Snippets',
+            description: 'Insert reusable content blocks',
+            isNew: true,
         };
     }
 

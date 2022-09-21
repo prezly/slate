@@ -44,7 +44,7 @@ import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions
 import { VariablesDropdown, useVariables } from '#extensions/variables';
 import { FloatingVideoInput, useFloatingVideoInput } from '#extensions/video';
 import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensions/web-bookmark';
-import { FloatingStoryEmbedInput, Placeholder } from '#modules/components';
+import { FloatingStoryEmbedInput, FloatingSnippetInput, Placeholder } from '#modules/components';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
 import { EventsEditor } from '#modules/events';
@@ -67,6 +67,7 @@ import type { EditorProps, EditorRef, Value } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
+import { useFloatingSnippetInput } from '#extensions/snippet';
 
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
     const {
@@ -103,6 +104,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withRichFormattingMenu = false,
         withStoryBookmarks = false,
         withStoryEmbeds = false,
+        withSnippets = false,
         withTextStyling = false,
         withTables = false,
         withUserMentions = false,
@@ -161,6 +163,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withWebBookmarks,
             withStoryEmbeds,
             withStoryBookmarks,
+            withSnippets,
         }),
     );
 
@@ -264,6 +267,16 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     ] = useFloatingStoryBookmarkInput(editor);
 
     const [
+        { isOpen: isFloatingSnippetInputOpen },
+        {
+            close: closeFloatingSnippetInput,
+            open: openFloatingSnippetInput,
+            rootClose: rootCloseFloatingSnippetInput,
+            submit: submitFloatingSnippetInput,
+        },
+    ] = useFloatingSnippetInput(editor);
+
+    const [
         { isOpen: isFloatingPressContactsMenuOpen },
         {
             close: closeFloatingPressContactsMenu,
@@ -296,6 +309,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withPressContacts: Boolean(withPressContacts),
         withStoryBookmarks: Boolean(withStoryBookmarks),
         withStoryEmbeds: Boolean(withStoryEmbeds),
+        withSnippets: Boolean(withSnippets),
         withVideos: Boolean(withVideos),
         withWebBookmarks: Boolean(withWebBookmarks),
     });
@@ -371,6 +385,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 contentType: LoaderContentType.STORY_BOOKMARK,
                 message: 'Embedding Prezly Story',
             });
+        }
+        if (action === MenuAction.ADD_SNIPPET) {
+            return openFloatingSnippetInput();
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             return createHandleAddGallery(withGalleries)(editor);
@@ -574,12 +591,26 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     <FloatingStoryEmbedInput
                         availableWidth={availableWidth}
                         containerRef={containerRef}
-                        onClose={closeFloatingStoryBookmarkInput}
+                        onClose={closeFloatingSnippetInput}
                         onRootClose={rootCloseFloatingStoryBookmarkInput}
                         renderInput={() =>
                             withStoryBookmarks.renderInput({
                                 onCreate: submitFloatingStoryBookmarkInput,
                                 onRemove: closeFloatingStoryBookmarkInput,
+                            })
+                        }
+                    />
+                )}
+
+                {withSnippets && isFloatingSnippetInputOpen && (
+                    <FloatingSnippetInput
+                        availableWidth={availableWidth}
+                        containerRef={containerRef}
+                        onClose={closeFloatingSnippetInput}
+                        onRootClose={rootCloseFloatingSnippetInput}
+                        renderInput={() =>
+                            withSnippets.renderInput({
+                                onCreate: submitFloatingSnippetInput,
                             })
                         }
                     />

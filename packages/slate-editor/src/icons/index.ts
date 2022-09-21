@@ -22,6 +22,7 @@ export { default as ComponentImage } from './Component-Image.svg';
 export { default as ComponentH1 } from './Component-H1.svg';
 export { default as ComponentH2 } from './Component-H2.svg';
 export { default as ComponentQuote } from './Component-Quote.svg';
+export { default as ComponentSnippet } from './Component-Snippet.svg';
 export { default as ComponentSocialPost } from './Component-Social-Post.svg';
 export { default as ComponentStoryBookmark } from './Component-Story-Bookmark.svg';
 export { default as ComponentTable } from './Component-Table.svg';
