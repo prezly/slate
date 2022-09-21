@@ -23,6 +23,7 @@ import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
+import { SnippetExtension } from '#extensions/snippet';
 import { StoryEmbedExtension } from '#extensions/story-embed';
 import { TablesExtension } from '#extensions/tables';
 import { TextStylingExtension } from '#extensions/text-styling';
@@ -79,6 +80,7 @@ type Parameters = {
     | 'withWebBookmarks'
     | 'withStoryEmbeds'
     | 'withStoryBookmarks'
+    | 'withSnippets'
 >;
 
 export function* getEnabledExtensions({
@@ -107,6 +109,7 @@ export function* getEnabledExtensions({
     withWebBookmarks,
     withStoryEmbeds,
     withStoryBookmarks,
+    withSnippets,
 }: Parameters): Generator<Extension> {
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
@@ -228,6 +231,10 @@ export function* getEnabledExtensions({
 
     if (withStoryBookmarks) {
         yield StoryBookmarkExtension(withStoryBookmarks);
+    }
+
+    if (withSnippets) {
+        yield SnippetExtension(withSnippets);
     }
 
     yield LoaderExtension({ onOperationEnd, onOperationStart });

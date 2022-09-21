@@ -117,6 +117,8 @@ export type EditorEventMap = {
     'story-bookmark-removed': {
         uuid: string;
     };
+    'snippet-dialog-opened': {};
+    'snippet-dialog-submitted': {};
     'table-insert': never;
     'table-toggle-header': {
         headerType: TableHeader;

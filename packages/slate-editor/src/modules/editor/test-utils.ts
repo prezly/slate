@@ -82,6 +82,9 @@ export function getAllExtensions() {
             withWebBookmarks: {
                 fetchOembed: createDelayedResolve(oembedInfo),
             },
+            withSnippets: {
+                renderInput: () => null,
+            },
         }),
     );
 }

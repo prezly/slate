@@ -21,6 +21,7 @@ import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
 import type { EditorEventMap } from '#modules/events';
 
 import type { useCursorInView } from './lib';
+import type { SnippetExtensionParameters } from '#extensions/snippet';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
@@ -98,6 +99,7 @@ export interface EditorProps {
           };
     withStoryBookmarks?: false | StoryBookmarkExtensionParameters;
     withStoryEmbeds?: false | StoryEmbedExtensionParameters;
+    withSnippets?: false | SnippetExtensionParameters;
     withTables?: boolean;
     withTextStyling?: boolean;
     withUserMentions?: false | UserMentionsExtensionParameters;
