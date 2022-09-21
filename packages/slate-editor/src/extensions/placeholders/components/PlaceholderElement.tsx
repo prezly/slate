@@ -7,9 +7,9 @@ import { CloseButton, EditorBlock } from '#components';
 import { PlaceholderAttachment } from '#icons';
 import { useFunction } from '#lib';
 
-import styles from './Placeholder.module.scss';
+import styles from './PlaceholderElement.module.scss';
 
-export function Placeholder({ element, attributes, children }: RenderElementProps) {
+export function PlaceholderElement({ element, attributes, children }: RenderElementProps) {
     const editor = useSlateStatic();
     const handleRemove = useFunction(() => {
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });

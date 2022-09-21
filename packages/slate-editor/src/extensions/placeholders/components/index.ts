@@ -1,1 +1,1 @@
-export { Placeholder } from './Placeholder';
+export { PlaceholderElement } from './PlaceholderElement';

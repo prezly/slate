@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
-import { Placeholder } from './components';
+import { PlaceholderElement } from './components';
 import { PlaceholderNode } from './PlaceholderNode';
 
 export const EXTENSION_ID = 'PlaceholdersExtension';
@@ -14,9 +14,9 @@ export function PlaceholdersExtension(): Extension {
         renderElement({ element, children, attributes }) {
             if (PlaceholderNode.isPlaceholderNode(element)) {
                 return (
-                    <Placeholder attributes={attributes} element={element}>
+                    <PlaceholderElement attributes={attributes} element={element}>
                         {children}
-                    </Placeholder>
+                    </PlaceholderElement>
                 );
             }
             return undefined;
