@@ -1,19 +1,6 @@
 @import "styles/variables";
 
 .EditorBlock {
-    background-color: $grey-100;
-    cursor: pointer;
-
-    &:hover {
-        background-color: $grey-200;
-    }
-
-    &.dropzone {
-        background-color: $indigo-100;
-        color: $indigo-700;
-        border-color: $indigo-300;
-    }
-
     .Frame {
         position: relative;
         min-height: $editor-bookmark-card-height;
@@ -23,7 +10,14 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
+
+        background-color: $grey-100;
         color: $grey-700;
+
+        &:hover {
+            background-color: $grey-200;
+        }
 
         &.dropzone {
             background-color: $indigo-100;
