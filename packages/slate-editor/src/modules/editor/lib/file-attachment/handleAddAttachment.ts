@@ -10,8 +10,6 @@ import { UploadcareEditor } from '#modules/uploadcare';
 import { insertUploadingFile } from '../insertUploadingFile';
 
 export async function handleAddAttachment(editor: Editor) {
-    EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
-
     const filePromises = await UploadcareEditor.upload(editor, {
         captions: true,
         multiple: true,

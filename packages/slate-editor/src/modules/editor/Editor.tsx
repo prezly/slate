@@ -34,6 +34,7 @@ import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
 import type { Option } from '#extensions/floating-add-menu';
 import { LoaderContentType } from '#extensions/loader';
+import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
@@ -335,6 +336,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
         }
         if (action === MenuAction.ADD_ATTACHMENT) {
+            EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
+            if (withPlaceholders) {
+                return insertPlaceholder(editor, { type: PlaceholderNode.Type.ATTACHMENT });
+            }
             return handleAddAttachment(editor);
         }
         if (action === MenuAction.ADD_CONTACT) {
