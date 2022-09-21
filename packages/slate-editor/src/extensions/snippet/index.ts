@@ -1,3 +1,3 @@
-export { SnippetExtension, EXTENSION_ID } from './SnippetExtension';
+export { SnippetsExtension, EXTENSION_ID } from './SnippetsExtension';
 export * from './lib/useFloatingSnippetInput';
 export * from './types';

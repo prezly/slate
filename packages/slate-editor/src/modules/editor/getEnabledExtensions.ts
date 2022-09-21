@@ -23,7 +23,7 @@ import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import { PressContactsExtension } from '#extensions/press-contacts';
 import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
-import { SnippetExtension } from '#extensions/snippet';
+import { SnippetsExtension } from '#extensions/snippet';
 import { StoryEmbedExtension } from '#extensions/story-embed';
 import { TablesExtension } from '#extensions/tables';
 import { TextStylingExtension } from '#extensions/text-styling';
@@ -234,7 +234,7 @@ export function* getEnabledExtensions({
     }
 
     if (withSnippets) {
-        yield SnippetExtension(withSnippets);
+        yield SnippetsExtension(withSnippets);
     }
 
     yield LoaderExtension({ onOperationEnd, onOperationStart });
