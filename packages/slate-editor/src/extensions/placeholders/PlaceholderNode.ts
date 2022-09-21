@@ -2,9 +2,12 @@ import type { ElementNode } from '@prezly/slate-types';
 import { isElementNode } from '@prezly/slate-types';
 import type { Node } from 'slate';
 
+type Uuid = string;
+
 export interface PlaceholderNode<T extends PlaceholderNode.Type = PlaceholderNode.Type>
     extends ElementNode {
     type: `${T}`;
+    uuid: Uuid;
 }
 
 export namespace PlaceholderNode {
