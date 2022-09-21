@@ -1,0 +1,31 @@
+@import "styles/variables";
+
+.CloseButton {
+    all: unset;
+
+    $button-size: $spacing-2-5;
+    $icon-size: $spacing-1-5;
+
+    width: $button-size;
+    height: $button-size;
+
+    border-radius: $spacing-half;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.65);
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: rgba(0, 0, 0, 0.65);
+    }
+
+    .Icon {
+        width: $icon-size;
+        height: $icon-size;
+    }
+}

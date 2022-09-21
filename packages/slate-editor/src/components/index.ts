@@ -1,6 +1,6 @@
 export { Avatar } from './Avatar';
 export { CloseButtonV2 } from './CloseButtonV2';
-export { EditorBlock, ResizableEditorBlock } from './EditorBlock';
+export { CloseButton, EditorBlock, ResizableEditorBlock } from './EditorBlock';
 export { FancyScrollbars } from './FancyScrollbars';
 export { HtmlInjection } from './HtmlInjection';
 export { ImageSizeWarning } from './ImageSizeWarning';
