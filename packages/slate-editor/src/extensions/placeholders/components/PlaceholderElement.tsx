@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import React, { type ComponentType } from 'react';
 import { Transforms } from 'slate';
@@ -9,10 +10,15 @@ import { useFunction } from '#lib';
 
 import styles from './PlaceholderElement.module.scss';
 
-interface Props extends RenderElementProps {
+export interface Props extends RenderElementProps {
+    // Core
     icon: ComponentType<{ className?: string }>;
     title: ReactNode;
     description: ReactNode;
+    // Variations
+    dropzone?: boolean;
+    selected?: boolean;
+    // Callbacks
     onClick?: () => void;
 }
 
@@ -21,10 +27,14 @@ export function PlaceholderElement({
     attributes,
     children,
     element,
-    // Custom
+    // Core
     icon: Icon,
     title,
     description,
+    // Variations
+    dropzone = false,
+    selected,
+    // Callbacks
     onClick,
 }: Props) {
     const editor = useSlateStatic();
@@ -35,12 +45,16 @@ export function PlaceholderElement({
     return (
         <EditorBlock
             {...attributes}
-            border="dashed"
-            className={styles.EditorBlock}
             element={element}
             renderAboveFrame={children}
-            renderReadOnlyFrame={() => (
-                <div className={styles.Frame} onClick={onClick}>
+            renderReadOnlyFrame={({ isSelected }) => (
+                <div
+                    className={classNames(styles.Frame, {
+                        [styles.dropzone]: dropzone,
+                        [styles.selected]: isSelected,
+                    })}
+                    onClick={onClick}
+                >
                     <CloseButton
                         className={styles.CloseButton}
                         onClick={handleRemove}
@@ -52,6 +66,7 @@ export function PlaceholderElement({
                 </div>
             )}
             rounded
+            selected={selected}
             void
         />
     );

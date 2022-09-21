@@ -1,47 +1,13 @@
 @import "styles/variables";
 
-.EditorBlock {
-    .Frame {
-        position: relative;
-        min-height: $editor-bookmark-card-height;
-        padding: $spacing-2 $spacing-2 28px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
 
-        background-color: $grey-100;
-        color: $grey-700;
-
-        &:hover {
-            background-color: $grey-200;
-        }
-
-        &.dropzone {
-            background-color: $indigo-100;
-            color: $indigo-700;
-            border-color: $indigo-300;
-        }
-    }
-
-    .CloseButton {
-        position: absolute;
-        top: $spacing-1;
-        right: $spacing-1;
-    }
-
-    .Icon {
-        display: block;
-        margin-bottom: $spacing-half;
-    }
+.Frame {
+    cursor: pointer;
 
     .Title {
         font-weight: 600;
         font-size: $font-size-large;
         line-height: 1.6;
-        margin-bottom: $spacing-half;
     }
 
     .Description {
@@ -49,5 +15,63 @@
         font-size: $font-size-small;
         font-weight: 400;
         line-height: 1.4;
+    }
+}
+
+// Colors, Hover, & Border management
+.Frame {
+    background-color: $grey-100;
+    border: 1px dashed $grey-300;
+    border-radius: $editor-block-border-radius;
+    color: $grey-700;
+
+    &:hover {
+        background-color: $grey-200;
+    }
+
+    &.dropzone {
+        background-color: $indigo-100;
+        border-color: $indigo-300;
+        color: $indigo-700;
+    }
+
+    &.selected {
+        border: 1px solid transparent;
+        border-radius: 0;
+    }
+}
+
+// Inner layout positioning
+.Frame {
+    min-height: $editor-bookmark-card-height;
+    padding: $spacing-2 $spacing-2 28px;
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .Icon {
+        margin: 0 0 $spacing-half;
+    }
+
+    .Title {
+        margin: 0 0 $spacing-half;
+    }
+
+    .Description {
+        margin: 0;
+    }
+}
+
+// Close button
+.Frame {
+    position: relative;
+
+    .CloseButton {
+        position: absolute;
+        top: $spacing-1;
+        right: $spacing-1;
     }
 }

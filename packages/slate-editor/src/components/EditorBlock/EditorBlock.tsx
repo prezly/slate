@@ -29,7 +29,7 @@ export interface Props
     extends Omit<RenderElementProps, 'attributes' | 'children'>,
         SlateInternalAttributes {
     align?: Alignment;
-    border?: boolean | 'solid' | 'dashed';
+    border?: boolean;
     className?: string;
     element: ElementNode;
     /**
@@ -171,8 +171,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 />
                 <div
                     className={classNames(styles.Content, {
-                        [styles.solidBorder]: border === true || border === 'solid',
-                        [styles.dashedBorder]: border === 'dashed',
+                        [styles.border]: border,
                         [styles.editable]: Boolean(renderEditableFrame),
                         [styles.fullWidth]: layout === Layout.FULL_WIDTH,
                         [styles.hasError]: hasError,

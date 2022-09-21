@@ -1,22 +1,21 @@
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { PlaceholderAttachment } from '#icons';
 
-import { PlaceholderElement } from './PlaceholderElement';
+import { type Props as BaseProps, PlaceholderElement } from './PlaceholderElement';
 
-export function AttachmentPlaceholderElement({
-    attributes,
-    children,
-    element,
-}: RenderElementProps) {
+type Props = Omit<BaseProps, 'icon' | 'title' | 'description'>;
+
+export function AttachmentPlaceholderElement({ children, dropzone, ...props }: Props) {
     return (
         <PlaceholderElement
-            attributes={attributes}
-            element={element}
+            {...props}
+            // Core
             icon={PlaceholderAttachment}
-            title="Drag or click to upload an attachment"
+            title={dropzone ? 'Drop a file here' : 'Drag or click to upload an attachment'}
             description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
+            // Variations
+            dropzone={dropzone}
         >
             {children}
         </PlaceholderElement>

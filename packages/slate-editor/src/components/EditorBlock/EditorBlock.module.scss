@@ -73,7 +73,7 @@ $editor-block-outline-width: 6px;
         white-space: pre-wrap;
     }
 
-    &.solidBorder {
+    &.border {
         border: 1px solid $grey-200;
 
         &.selected {
@@ -81,16 +81,8 @@ $editor-block-outline-width: 6px;
         }
     }
 
-    &.dashedBorder {
-        border: 1px dashed $grey-300;
-
-        &.selected {
-            border-color: $editor-block-focus-color;
-        }
-    }
-
     &.rounded {
-        border-radius: $border-radius-small;
+        border-radius: $editor-block-border-radius;
     }
 
     &.hasError {
