@@ -1,7 +1,52 @@
 @import "styles/variables";
 
-.Frame {
+.EditorBlock {
     background-color: $grey-100;
-    padding: $spacing-4;
-    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $grey-200;
+    }
+
+    &.dropzone {
+        background-color: $indigo-100;
+        color: $indigo-700;
+        border-color: $indigo-300;
+    }
+
+    .Frame {
+        min-height: $editor-bookmark-card-height;
+        padding: $spacing-2 $spacing-2 28px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: $grey-700;
+
+        &.dropzone {
+            background-color: $indigo-100;
+            color: $indigo-700;
+            border-color: $indigo-300;
+        }
+    }
+
+    .Icon {
+        display: block;
+        margin-bottom: $spacing-half;
+    }
+
+    .Title {
+        font-weight: 600;
+        font-size: $font-size-large;
+        line-height: 1.6;
+        margin-bottom: $spacing-half;
+    }
+
+    .Description {
+        color: $grey-500;
+        font-size: $font-size-small;
+        font-weight: 400;
+        line-height: 1.4;
+    }
 }

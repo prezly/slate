@@ -73,8 +73,16 @@ $editor-block-outline-width: 6px;
         white-space: pre-wrap;
     }
 
-    &.border {
+    &.solidBorder {
         border: 1px solid $grey-200;
+
+        &.selected {
+            border-color: $editor-block-focus-color;
+        }
+    }
+
+    &.dashedBorder {
+        border: 1px dashed $grey-300;
 
         &.selected {
             border-color: $editor-block-focus-color;
