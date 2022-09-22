@@ -113,7 +113,6 @@ export function* getEnabledExtensions({
     withVariables,
     withVideos,
     withWebBookmarks,
-
 }: Parameters): Generator<Extension> {
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
