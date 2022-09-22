@@ -1,6 +1,9 @@
 import type { AttachmentNode } from '@prezly/slate-types';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareFile } from '@prezly/uploadcare';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
+import type { FilePromise } from '@prezly/uploadcare-widget';
+import uploadcare from '@prezly/uploadcare-widget';
+import type { DragEventHandler } from 'react';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
@@ -24,21 +27,15 @@ interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'drop
 export function AttachmentPlaceholderElement({ children, element, ...props }: Props) {
     const editor = useSlateStatic();
 
-    const handleClick = useFunction(async () => {
-        const filePromises =
-            (await UploadcareEditor.upload(editor, {
-                captions: true,
-                multiple: true,
-            })) ?? [];
-
+    function processSelectedFiles(files: FilePromise[]) {
         const placeholders = [
             element,
-            ...insertPlaceholders(editor, filePromises.length - 1, {
+            ...insertPlaceholders(editor, files.length - 1, {
                 type: PlaceholderNode.Type.ATTACHMENT,
             }),
         ];
 
-        filePromises.forEach((filePromise, i) => {
+        files.forEach((filePromise, i) => {
             const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
                 const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
                 const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
@@ -50,14 +47,31 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
                 uploading,
             );
         });
+    }
+
+    const handleClick = useFunction(async () => {
+        const files = await UploadcareEditor.upload(editor, {
+            captions: true,
+            multiple: true,
+        });
+        processSelectedFiles(files ?? []);
     });
 
-    const handleUpload = useFunction((data: { file: AttachmentNode['file']; caption: string }) => {
-        replacePlaceholder(editor, element, createFileAttachment(data.file, data.caption));
+    const handleDrop = useFunction<DragEventHandler>((event) => {
+        const files = Array.from(event.dataTransfer.files).map((file) =>
+            uploadcare.fileFrom('object', file),
+        );
+        processSelectedFiles(files);
     });
+
+    const handleUploadedFile = useFunction(
+        (data: { file: AttachmentNode['file']; caption: string }) => {
+            replacePlaceholder(editor, element, createFileAttachment(data.file, data.caption));
+        },
+    );
 
     usePlaceholderManager(PlaceholderNode.Type.ATTACHMENT, element.uuid, {
-        onResolve: handleUpload,
+        onResolve: handleUploadedFile,
     });
 
     return (
@@ -71,6 +85,7 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
             dropZone
             // Callbacks
             onClick={handleClick}
+            onDrop={handleDrop}
         >
             {children}
         </PlaceholderElement>
