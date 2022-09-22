@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
 import { createEditor as createSlateEditor } from 'slate';
 import { type RenderElementProps, Slate } from 'slate-react';
 
@@ -26,10 +25,10 @@ const attributes: RenderElementProps['attributes'] = {
 };
 
 export default {
-    title: 'Extensions/Placeholders/Attachment Placeholder',
+    title: 'Extensions/Placeholders',
     decorators: [
         (Story: React.ComponentType) => (
-            <Slate editor={editor} value={[]}>
+            <Slate editor={editor} value={[placeholder]}>
                 <div style={{ width: 680, boxSizing: 'border-box' }}>
                     <Story />
                 </div>
@@ -38,63 +37,9 @@ export default {
     ],
 };
 
-export function Default() {
+export function AttachmentPlaceholder() {
     return (
         <AttachmentPlaceholderElement attributes={attributes} element={placeholder}>
-            {''}
-        </AttachmentPlaceholderElement>
-    );
-}
-
-export function Selected() {
-    return (
-        <AttachmentPlaceholderElement attributes={attributes} element={placeholder} selected>
-            {''}
-        </AttachmentPlaceholderElement>
-    );
-}
-
-export function Dragover() {
-    return (
-        <AttachmentPlaceholderElement attributes={attributes} dragOver element={placeholder}>
-            {''}
-        </AttachmentPlaceholderElement>
-    );
-}
-
-export function SelectedDragover() {
-    return (
-        <AttachmentPlaceholderElement
-            attributes={attributes}
-            dragOver
-            element={placeholder}
-            selected
-        >
-            {''}
-        </AttachmentPlaceholderElement>
-    );
-}
-
-export function KnownProgress() {
-    const [progress, setProgress] = useState(0);
-    useEffect(() => {
-        const interval = setInterval(() => setProgress((p) => Math.min(100, p + 1)), 500);
-        return () => clearInterval(interval);
-    }, []);
-    return (
-        <AttachmentPlaceholderElement
-            attributes={attributes}
-            element={placeholder}
-            progress={progress}
-        >
-            {''}
-        </AttachmentPlaceholderElement>
-    );
-}
-
-export function UnknownProgress() {
-    return (
-        <AttachmentPlaceholderElement attributes={attributes} element={placeholder} progress>
             {''}
         </AttachmentPlaceholderElement>
     );

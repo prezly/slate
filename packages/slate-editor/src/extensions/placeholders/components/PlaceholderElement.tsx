@@ -6,11 +6,14 @@ import { useSlateStatic } from 'slate-react';
 import { EditorBlock } from '#components';
 import { useFunction } from '#lib';
 
-import type { Props as BaseProps } from './Placeholder';
-import { Placeholder } from './Placeholder';
+import type { PlaceholderNode } from '../PlaceholderNode';
+import { usePlaceholderManager } from '../PlaceholdersManager';
+
+import { type Props as BaseProps, Placeholder } from './Placeholder';
 
 export type Props = RenderElementProps &
     Pick<BaseProps, 'icon' | 'title' | 'description' | 'onClick'> & {
+        element: PlaceholderNode;
         dropZone?: boolean;
     };
 
@@ -30,6 +33,7 @@ export function PlaceholderElement({
 }: Props) {
     const editor = useSlateStatic();
 
+    const [progress, setProgress] = useState<number | undefined>(undefined);
     const [dragOver, setDragOver] = useState(false);
 
     const handleDragOver = useFunction(() => setDragOver(true));
@@ -37,6 +41,14 @@ export function PlaceholderElement({
     const handleRemove = useFunction(() => {
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
+
+    const { isLoading } = usePlaceholderManager(
+        element.type as PlaceholderNode.Type,
+        element.uuid,
+        {
+            onProgress: (p) => setProgress(p),
+        },
+    );
 
     return (
         <EditorBlock
@@ -52,8 +64,9 @@ export function PlaceholderElement({
                     // Variations
                     dragOver={dropZone ? dragOver : false}
                     selected={isSelected}
+                    progress={progress ?? isLoading}
                     // Callbacks
-                    onClick={onClick}
+                    onClick={isLoading ? undefined : onClick}
                     onRemove={handleRemove}
                     onDragOver={handleDragOver}
                     onDragLeave={handleDragLeave}
