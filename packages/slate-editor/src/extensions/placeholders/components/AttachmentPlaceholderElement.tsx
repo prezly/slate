@@ -12,13 +12,18 @@ export function AttachmentPlaceholderElement({ children, ...props }: Props) {
             {...props}
             // Core
             icon={PlaceholderAttachment}
-            title={({ isDragOver }) =>
-                isDragOver ? 'Drop a file here' : 'Drag or click to upload an attachment'
-            }
+            title={Title}
             description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
             dropZone
         >
             {children}
         </PlaceholderElement>
     );
+}
+
+function Title(props: { isDragOver: boolean }) {
+    if (props.isDragOver) {
+        return 'Drop a file here';
+    }
+    return 'Drag or click to upload an attachment';
 }
