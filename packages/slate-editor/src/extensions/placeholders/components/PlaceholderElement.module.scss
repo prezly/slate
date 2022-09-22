@@ -26,6 +26,12 @@
 
     &:hover {
         background-color: $grey-200;
+
+        &.knownProgress,
+        &.unknownProgress {
+            cursor: initial;
+            background-color: $grey-100;
+        }
     }
 
     &.dragOver {
@@ -77,4 +83,53 @@
 
 .hidden {
     display: none;
+}
+
+// Progress
+.Frame {
+    position: relative;
+
+    .Progress {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    @keyframes progress-width {
+        from {
+            left: 0;
+            width: 0;
+        }
+        50% {
+            left: 0;
+            width: 100%;
+        }
+        to {
+            left: 100%;
+            width: 0;
+        }
+    }
+
+    &.knownProgress,
+    &.unknownProgress {
+        .Progress {
+            display: block;
+        }
+    }
+
+    &.knownProgress {
+        .Progress {
+            transition: width 1s ease-in-out;
+        }
+    }
+
+    &.unknownProgress {
+        .Progress {
+            width: 50%;
+            animation: 3s infinite progress-width;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { createEditor as createSlateEditor } from 'slate';
 import { type RenderElementProps, Slate } from 'slate-react';
 
@@ -69,6 +70,31 @@ export function SelectedDragover() {
             element={placeholder}
             selected
         >
+            {''}
+        </AttachmentPlaceholderElement>
+    );
+}
+
+export function KnownProgress() {
+    const [progress, setProgress] = useState(0);
+    useEffect(() => {
+        const interval = setInterval(() => setProgress((p) => Math.min(100, p + 1)), 500);
+        return () => clearInterval(interval);
+    }, []);
+    return (
+        <AttachmentPlaceholderElement
+            attributes={attributes}
+            element={placeholder}
+            progress={progress}
+        >
+            {''}
+        </AttachmentPlaceholderElement>
+    );
+}
+
+export function UnknownProgress() {
+    return (
+        <AttachmentPlaceholderElement attributes={attributes} element={placeholder} progress>
             {''}
         </AttachmentPlaceholderElement>
     );

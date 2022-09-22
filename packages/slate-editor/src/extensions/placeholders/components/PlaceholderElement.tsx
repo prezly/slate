@@ -10,7 +10,13 @@ import { useFunction } from '#lib';
 
 import styles from './PlaceholderElement.module.scss';
 
-type ContentRenderFn = (props: { isDragOver: boolean; isSelected: boolean }) => ReactElement | null;
+type ContentRenderProps = {
+    isDragOver: boolean;
+    isLoading: boolean;
+    isSelected: boolean;
+    progress: number;
+};
+type ContentRenderFn = (props: ContentRenderProps) => ReactElement | null;
 
 export interface Props extends RenderElementProps {
     // Core
@@ -20,6 +26,7 @@ export interface Props extends RenderElementProps {
     // Variations
     dragOver?: boolean;
     dropZone?: boolean;
+    progress?: boolean | number;
     selected?: boolean;
     // Callbacks
     onClick?: () => void;
@@ -37,6 +44,7 @@ export function PlaceholderElement({
     // Variations
     dragOver: externalDragOver,
     dropZone = false,
+    progress,
     selected,
     // Callbacks
     onClick,
@@ -52,6 +60,25 @@ export function PlaceholderElement({
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
 
+    const isLoading = typeof progress === 'number' || progress === true;
+    const progressNumber = typeof progress === 'number' ? progress : undefined;
+    const progressPercentage = progressNumber !== undefined ? `${progress}%` : undefined;
+
+    function renderContent(
+        content: ReactNode | FunctionComponent<ContentRenderProps>,
+        isSelected: boolean,
+    ): ReactElement | null {
+        if (typeof content === 'function') {
+            return content({
+                isDragOver: actualDragOver,
+                isLoading,
+                isSelected,
+                progress: progressNumber ?? 0,
+            });
+        }
+        return <>{content}</>;
+    }
+
     return (
         <EditorBlock
             {...attributes}
@@ -61,12 +88,15 @@ export function PlaceholderElement({
                 <div
                     className={classNames(styles.Frame, {
                         [styles.dragOver]: actualDragOver,
+                        [styles.knownProgress]: typeof progress === 'number',
+                        [styles.unknownProgress]: progress === true,
                         [styles.selected]: isSelected,
                     })}
                     onClick={onClick}
                     onDragOver={handleDragOver}
                     onDragLeave={handleDragLeave}
                 >
+                    <div className={styles.Progress} style={{ width: progressPercentage }} />
                     <CloseButton
                         className={classNames(styles.CloseButton, {
                             [styles.hidden]: actualDragOver,
@@ -75,12 +105,8 @@ export function PlaceholderElement({
                         title="Delete this block"
                     />
                     <Icon className={styles.Icon} />
-                    <h2 className={styles.Title}>
-                        {render(title, { isSelected, isDragOver: actualDragOver })}
-                    </h2>
-                    <p className={styles.Description}>
-                        {render(description, { isSelected, isDragOver: actualDragOver })}
-                    </p>
+                    <h2 className={styles.Title}>{renderContent(title, isSelected)}</h2>
+                    <p className={styles.Description}>{renderContent(description, isSelected)}</p>
                 </div>
             )}
             rounded
@@ -88,11 +114,4 @@ export function PlaceholderElement({
             void
         />
     );
-}
-
-function render<P>(content: ReactNode | FunctionComponent<P>, props: P): ReactElement | null {
-    if (typeof content === 'function') {
-        return content(props);
-    }
-    return <>{content}</>;
 }

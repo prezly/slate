@@ -13,7 +13,7 @@ export function AttachmentPlaceholderElement({ children, ...props }: Props) {
             // Core
             icon={PlaceholderAttachment}
             title={Title}
-            description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
+            description={Description}
             dropZone
         >
             {children}
@@ -21,9 +21,16 @@ export function AttachmentPlaceholderElement({ children, ...props }: Props) {
     );
 }
 
-function Title(props: { isDragOver: boolean }) {
+function Title(props: { isDragOver: boolean; isLoading: boolean }) {
+    if (props.isLoading) {
+        return 'Uploading file';
+    }
     if (props.isDragOver) {
         return 'Drop a file here';
     }
     return 'Drag or click to upload an attachment';
+}
+
+function Description() {
+    return 'Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB';
 }
