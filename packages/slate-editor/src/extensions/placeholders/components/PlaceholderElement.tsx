@@ -25,8 +25,6 @@ export function PlaceholderElement({
     icon,
     title,
     description,
-    // Variations
-    dropZone = false,
     // Callbacks
     onClick,
     onDrop,
@@ -67,7 +65,7 @@ export function PlaceholderElement({
                     title={title}
                     description={description}
                     // Variations
-                    dragOver={dropZone ? dragOver : false}
+                    dragOver={onDrop ? dragOver : false}
                     selected={isSelected}
                     progress={progress ?? isLoading}
                     // Callbacks
