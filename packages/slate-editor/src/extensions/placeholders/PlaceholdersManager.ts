@@ -15,7 +15,7 @@ interface Data {
     };
 }
 
-type Identifier<T extends Type> = { type: `${T}`; uuid: Uuid };
+type Identifier<T extends Type> = { type: T; uuid: Uuid };
 
 type Callbacks<T extends Type> = {
     onTrigger?: () => void;
@@ -47,7 +47,7 @@ export const PlaceholdersManager = {
     },
 
     register<T extends Type>(
-        type: `${T}`,
+        type: T,
         uuid: Uuid,
         promise: ProgressPromise<Data[T], unknown>,
     ): void {
@@ -67,7 +67,7 @@ export const PlaceholdersManager = {
             },
         );
     },
-    follow<T extends Type>(type: `${T}`, uuid: Uuid, callbacks: Partial<Callbacks<T>>): Unfollow {
+    follow<T extends Type>(type: T, uuid: Uuid, callbacks: Partial<Callbacks<T>>): Unfollow {
         const follower: Follower<T> = {
             type,
             uuid,
@@ -89,7 +89,7 @@ export const PlaceholdersManager = {
 };
 
 export function usePlaceholderManagement<T extends Type>(
-    type: `${T}`,
+    type: T,
     uuid: Uuid,
     callbacks: Partial<Pick<Callbacks<T>, 'onTrigger' | 'onResolve' | 'onReject' | 'onProgress'>>,
 ) {
@@ -109,11 +109,7 @@ export function usePlaceholderManagement<T extends Type>(
     return { isLoading };
 }
 
-function notify<T extends Type>(
-    type: `${T}`,
-    uuid: Uuid,
-    callback: (follower: Follower<T>) => void,
-) {
+function notify<T extends Type>(type: T, uuid: Uuid, callback: (follower: Follower<T>) => void) {
     state.followers.forEach((follower) => {
         if (follower.type === type && follower.uuid === uuid) {
             callback(follower as Follower<T>);

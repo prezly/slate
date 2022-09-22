@@ -6,7 +6,7 @@ type Uuid = string;
 
 export interface PlaceholderNode<T extends PlaceholderNode.Type = PlaceholderNode.Type>
     extends ElementNode {
-    type: `${T}`;
+    type: T;
     uuid: Uuid;
 }
 
