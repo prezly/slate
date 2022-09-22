@@ -39,6 +39,7 @@ import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
 } from '#extensions/press-contacts';
+import { useFloatingSnippetInput } from '#extensions/snippet';
 import { useFloatingStoryBookmarkInput } from '#extensions/story-bookmark';
 import { useFloatingStoryEmbedInput } from '#extensions/story-embed';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
@@ -68,7 +69,8 @@ import type { EditorProps, EditorRef, Value } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
-import { useFloatingSnippetInput } from '#extensions/snippet';
+
+import { PlaceholdersManager } from '#extensions/placeholders/PlaceholdersManager';
 
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
     const {
@@ -338,7 +340,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         if (action === MenuAction.ADD_ATTACHMENT) {
             EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
             if (withPlaceholders) {
-                return insertPlaceholder(editor, { type: PlaceholderNode.Type.ATTACHMENT });
+                const placeholder = insertPlaceholder(editor, {
+                    type: PlaceholderNode.Type.ATTACHMENT,
+                });
+                PlaceholdersManager.trigger(placeholder);
+                return;
             }
             return handleAddAttachment(editor);
         }

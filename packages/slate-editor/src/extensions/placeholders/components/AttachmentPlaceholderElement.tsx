@@ -14,7 +14,7 @@ import { createFileAttachment } from '#extensions/file-attachment';
 import { UploadcareEditor } from '#modules/uploadcare';
 
 import { PlaceholderNode } from '../PlaceholderNode';
-import { PlaceholdersManager, usePlaceholderManager } from '../PlaceholdersManager';
+import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 import { PlaceholderElement, type Props as BaseProps } from './PlaceholderElement';
 
@@ -70,7 +70,8 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
         },
     );
 
-    usePlaceholderManager(PlaceholderNode.Type.ATTACHMENT, element.uuid, {
+    usePlaceholderManagement(PlaceholderNode.Type.ATTACHMENT, element.uuid, {
+        onTrigger: handleClick,
         onResolve: handleUploadedFile,
     });
 

@@ -6,7 +6,7 @@ import { EditorBlock } from '#components';
 import { useFunction } from '#lib';
 
 import type { PlaceholderNode } from '../PlaceholderNode';
-import { usePlaceholderManager } from '../PlaceholdersManager';
+import { usePlaceholderManagement } from '../PlaceholdersManager';
 
 import { type Props as BaseProps, Placeholder } from './Placeholder';
 
@@ -47,7 +47,7 @@ export function PlaceholderElement({
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
 
-    const { isLoading } = usePlaceholderManager(
+    const { isLoading } = usePlaceholderManagement(
         element.type as PlaceholderNode.Type,
         element.uuid,
         {
