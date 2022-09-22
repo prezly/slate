@@ -1,6 +1,6 @@
 @import "styles/variables";
 
-.Frame {
+.Placeholder {
     cursor: pointer;
 
     .Title {
@@ -18,7 +18,7 @@
 }
 
 // Colors, Hover, & Border management
-.Frame {
+.Placeholder {
     background-color: $grey-100;
     border: 1px dashed $grey-300;
     border-radius: $editor-block-border-radius;
@@ -47,7 +47,7 @@
 }
 
 // Inner layout positioning
-.Frame {
+.Placeholder {
     min-height: $editor-bookmark-card-height;
     padding: $spacing-2 $spacing-2 28px;
 
@@ -71,22 +71,22 @@
 }
 
 // Close button
-.Frame {
+.Placeholder {
     position: relative;
 
     .CloseButton {
         position: absolute;
         top: $spacing-1;
         right: $spacing-1;
+
+        &.hidden {
+            display: none;
+        }
     }
 }
 
-.hidden {
-    display: none;
-}
-
 // Progress
-.Frame {
+.Placeholder {
     position: relative;
 
     .Progress {
