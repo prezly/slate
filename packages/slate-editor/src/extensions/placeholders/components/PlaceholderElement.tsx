@@ -11,7 +11,7 @@ import { usePlaceholderManagement } from '../PlaceholdersManager';
 import { type Props as BaseProps, Placeholder } from './Placeholder';
 
 export type Props = RenderElementProps &
-    Pick<BaseProps, 'icon' | 'title' | 'description' | 'onClick' | 'onDrop'> & {
+    Pick<BaseProps, 'icon' | 'title' | 'description' | 'format' | 'onClick' | 'onDrop'> & {
         element: PlaceholderNode;
         dropZone?: boolean;
     };
@@ -22,6 +22,7 @@ export function PlaceholderElement({
     children,
     element,
     // Core
+    format,
     icon,
     title,
     description,
@@ -61,6 +62,7 @@ export function PlaceholderElement({
             renderReadOnlyFrame={({ isSelected }) => (
                 <Placeholder
                     // Core
+                    format={format}
                     icon={icon}
                     title={title}
                     description={description}

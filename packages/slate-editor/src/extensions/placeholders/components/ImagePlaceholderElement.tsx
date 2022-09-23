@@ -1,5 +1,5 @@
-import type { AttachmentNode } from '@prezly/slate-types';
-import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareFile } from '@prezly/uploadcare';
+import type { ImageNode } from '@prezly/slate-types';
+import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import type { FilePromise } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
@@ -7,13 +7,13 @@ import type { DragEventHandler } from 'react';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
-import { PlaceholderAttachment } from '#icons';
+import { PlaceholderImage } from '#icons';
 import { useFunction } from '#lib';
 
-import { createFileAttachment } from '#extensions/file-attachment';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
+import { createImage, IMAGE_TYPES } from '../../image';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
@@ -25,25 +25,25 @@ interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'drop
     element: PlaceholderNode;
 }
 
-export function AttachmentPlaceholderElement({ children, element, ...props }: Props) {
+export function ImagePlaceholderElement({ children, element, ...props }: Props) {
     const editor = useSlateStatic();
 
-    function processSelectedFiles(files: FilePromise[]) {
+    function processSelectedImages(images: FilePromise[]) {
         const placeholders = [
             element,
-            ...insertPlaceholders(editor, files.length - 1, {
-                type: PlaceholderNode.Type.ATTACHMENT,
+            ...insertPlaceholders(editor, images.length - 1, {
+                type: PlaceholderNode.Type.IMAGE,
             }),
         ];
 
-        files.forEach((filePromise, i) => {
+        images.forEach((filePromise, i) => {
             const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
-                const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
+                const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
                 const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
-                return { file: file.toPrezlyStoragePayload(), caption };
+                return { file: image.toPrezlyStoragePayload(), caption };
             });
             PlaceholdersManager.register(
-                PlaceholderNode.Type.ATTACHMENT,
+                PlaceholderNode.Type.IMAGE,
                 placeholders[i].uuid,
                 uploading,
             );
@@ -51,25 +51,33 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
     }
 
     const handleClick = useFunction(async () => {
-        const files = await UploadcareEditor.upload(editor, {
-            captions: true,
+        const images = await UploadcareEditor.upload(editor, {
+            captions: true, // FIXME
+            imagesOnly: true,
             multiple: true,
         });
-        processSelectedFiles(files ?? []);
+        processSelectedImages(images ?? []);
     });
 
     const handleDrop = useFunction<DragEventHandler>((event) => {
-        const files = Array.from(event.dataTransfer.files).map((file) =>
-            uploadcare.fileFrom('object', file),
-        );
-        processSelectedFiles(files);
+        const images = Array.from(event.dataTransfer.files)
+            .filter((file) => IMAGE_TYPES.includes(file.type))
+            .map((file) => uploadcare.fileFrom('object', file));
+        processSelectedImages(images);
     });
 
-    const handleUploadedFile = useFunction(
-        (data: { file: AttachmentNode['file']; caption: string }) => {
-            replacePlaceholder(editor, element, createFileAttachment(data.file, data.caption));
+    const handleUploadedImage = useFunction(
+        (data: { file: ImageNode['file']; caption: string }) => {
+            replacePlaceholder(
+                editor,
+                element,
+                createImage({
+                    file: data.file,
+                    children: [{ text: data.caption }],
+                }),
+            );
 
-            EventsEditor.dispatchEvent(editor, 'attachment-added', {
+            EventsEditor.dispatchEvent(editor, 'image-added', {
                 description: data.caption,
                 isPasted: false,
                 mimeType: data.file.mime_type,
@@ -79,9 +87,9 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
         },
     );
 
-    usePlaceholderManagement(PlaceholderNode.Type.ATTACHMENT, element.uuid, {
+    usePlaceholderManagement(PlaceholderNode.Type.IMAGE, element.uuid, {
         onTrigger: handleClick,
-        onResolve: handleUploadedFile,
+        onResolve: handleUploadedImage,
     });
 
     return (
@@ -89,9 +97,10 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
             {...props}
             element={element}
             // Core
-            icon={PlaceholderAttachment}
+            format="16:9"
+            icon={PlaceholderImage}
             title={Title}
-            description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
+            description="Supported formats: .jpg, .gif, or .png - Max. 25MB"
             dropZone
             // Callbacks
             onClick={handleClick}
@@ -104,10 +113,10 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Uploading file</>;
+        return <>Uploading image</>;
     }
     if (props.isDragOver) {
-        return <>Drop a file here</>;
+        return <>Drop an image here</>;
     }
-    return <>Drag or click to upload an attachment</>;
+    return <>Drag or click to upload an image</>;
 }

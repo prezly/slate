@@ -26,6 +26,17 @@ export function Default() {
     return <Placeholder icon={ICON} title={TITLE} description={DESCRIPTION}></Placeholder>;
 }
 
+export function Format16By9() {
+    return (
+        <Placeholder
+            format="16:9"
+            icon={ICON}
+            title={TITLE}
+            description={DESCRIPTION}
+        ></Placeholder>
+    );
+}
+
 export function Selected() {
     return (
         <div style={{ outline: '6px solid #f9ca7b' }}>
