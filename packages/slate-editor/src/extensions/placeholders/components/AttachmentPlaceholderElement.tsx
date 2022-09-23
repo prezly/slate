@@ -11,6 +11,7 @@ import { PlaceholderAttachment } from '#icons';
 import { useFunction } from '#lib';
 
 import { createFileAttachment } from '#extensions/file-attachment';
+import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
 import { PlaceholderNode } from '../PlaceholderNode';
@@ -67,6 +68,14 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
     const handleUploadedFile = useFunction(
         (data: { file: AttachmentNode['file']; caption: string }) => {
             replacePlaceholder(editor, element, createFileAttachment(data.file, data.caption));
+
+            EventsEditor.dispatchEvent(editor, 'attachment-added', {
+                description: data.caption,
+                isPasted: false,
+                mimeType: data.file.mime_type,
+                size: data.file.size,
+                uuid: data.file.uuid,
+            });
         },
     );
 
