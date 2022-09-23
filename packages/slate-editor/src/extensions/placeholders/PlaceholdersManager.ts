@@ -1,21 +1,25 @@
 import type { ProgressPromise } from '@prezly/progress-promise';
-import type { AttachmentNode, ImageNode } from '@prezly/slate-types';
+import type { AttachmentNode, GalleryNode, ImageNode } from '@prezly/slate-types';
 import { noop } from 'lodash-es';
 import { useEffect, useState } from 'react';
 
-import type { PlaceholderNode } from './PlaceholderNode';
+import { PlaceholderNode } from './PlaceholderNode';
 
+const Type = PlaceholderNode.Type;
 type Type = PlaceholderNode.Type;
 type Uuid = PlaceholderNode['uuid'];
 
 interface Data {
-    [PlaceholderNode.Type.ATTACHMENT]: {
+    [Type.ATTACHMENT]: {
         file: AttachmentNode['file'];
         caption: string;
     };
-    [PlaceholderNode.Type.IMAGE]: {
+    [Type.IMAGE]: {
         file: ImageNode['file'];
         caption: string;
+    };
+    [Type.GALLERY]: {
+        images: GalleryNode['images'];
     };
 }
 
@@ -72,7 +76,7 @@ export const PlaceholdersManager = {
         );
     },
     follow<T extends Type>(type: T, uuid: Uuid, callbacks: Partial<Callbacks<T>>): Unfollow {
-        const follower: Follower<T> = {
+        const follower: Follower<Type> = {
             type,
             uuid,
             onTrigger: callbacks.onTrigger,
@@ -82,7 +86,7 @@ export const PlaceholdersManager = {
             onProgress: callbacks.onProgress ?? noop,
         };
 
-        state.followers = [...state.followers, follower as Follower<Type>];
+        state.followers = [...state.followers, follower];
 
         trigger(follower);
 
@@ -116,7 +120,7 @@ export function usePlaceholderManagement<T extends Type>(
 function notify<T extends Type>(type: T, uuid: Uuid, callback: (follower: Follower<T>) => void) {
     state.followers.forEach((follower) => {
         if (follower.type === type && follower.uuid === uuid) {
-            callback(follower as Follower<T>);
+            callback(follower as any as Follower<T>);
         }
     });
 }

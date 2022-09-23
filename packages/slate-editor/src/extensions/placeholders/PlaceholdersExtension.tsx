@@ -1,7 +1,11 @@
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
-import { AttachmentPlaceholderElement, ImagePlaceholderElement } from './components';
+import {
+    AttachmentPlaceholderElement,
+    GalleryPlaceholderElement,
+    ImagePlaceholderElement,
+} from './components';
 import { fixDuplicatePlaceholderUuid } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
 
@@ -29,6 +33,13 @@ export function PlaceholdersExtension(): Extension {
                     <ImagePlaceholderElement attributes={attributes} element={element}>
                         {children}
                     </ImagePlaceholderElement>
+                );
+            }
+            if (isPlaceholderNode(element, Type.GALLERY)) {
+                return (
+                    <GalleryPlaceholderElement attributes={attributes} element={element}>
+                        {children}
+                    </GalleryPlaceholderElement>
                 );
             }
             return undefined;

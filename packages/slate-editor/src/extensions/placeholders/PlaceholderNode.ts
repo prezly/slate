@@ -14,6 +14,7 @@ export namespace PlaceholderNode {
     export enum Type {
         ATTACHMENT = 'placeholder:attachment',
         IMAGE = 'placeholder:image',
+        GALLERY = 'placeholder:gallery',
     }
 
     export function isPlaceholderNode<T extends Type>(
@@ -25,6 +26,6 @@ export namespace PlaceholderNode {
         if (type) {
             return isElementNode(node, type);
         }
-        return isElementNode(node, Type.ATTACHMENT) || isElementNode(node, Type.IMAGE);
+        return isElementNode(node, [Type.ATTACHMENT, Type.IMAGE, Type.GALLERY]);
     }
 }
