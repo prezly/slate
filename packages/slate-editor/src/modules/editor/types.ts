@@ -91,6 +91,7 @@ export interface EditorProps {
     withImages?: false | ImageExtensionConfiguration;
     withInlineLinks?: boolean;
     withLists?: boolean;
+    withPlaceholders?: boolean;
     withPressContacts?: false | PressContactsExtensionParameters;
     withRichFormattingMenu?:
         | boolean

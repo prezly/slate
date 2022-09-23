@@ -34,10 +34,12 @@ import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
 import type { Option } from '#extensions/floating-add-menu';
 import { LoaderContentType } from '#extensions/loader';
+import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import {
     FloatingPressContactsMenu,
     useFloatingPressContactsMenu,
 } from '#extensions/press-contacts';
+import { useFloatingSnippetInput } from '#extensions/snippet';
 import { useFloatingStoryBookmarkInput } from '#extensions/story-bookmark';
 import { useFloatingStoryEmbedInput } from '#extensions/story-embed';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
@@ -67,7 +69,8 @@ import type { EditorProps, EditorRef, Value } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
-import { useFloatingSnippetInput } from '#extensions/snippet';
+
+import { PlaceholdersManager } from '#extensions/placeholders/PlaceholdersManager';
 
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
     const {
@@ -100,6 +103,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withImages = false,
         withInlineLinks = false,
         withLists = false,
+        withPlaceholders = false,
         withPressContacts = false,
         withRichFormattingMenu = false,
         withStoryBookmarks = false,
@@ -154,6 +158,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withImages,
             withInlineLinks,
             withLists,
+            withPlaceholders,
             withPressContacts,
             withTextStyling,
             withTables,
@@ -333,6 +338,14 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
         }
         if (action === MenuAction.ADD_ATTACHMENT) {
+            EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(editor, {
+                    type: PlaceholderNode.Type.ATTACHMENT,
+                });
+                PlaceholdersManager.trigger(placeholder);
+                return;
+            }
             return handleAddAttachment(editor);
         }
         if (action === MenuAction.ADD_CONTACT) {

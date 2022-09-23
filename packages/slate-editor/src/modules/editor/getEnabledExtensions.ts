@@ -20,10 +20,11 @@ import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
 import { createParagraph, ParagraphsExtension } from '#extensions/paragraphs';
 import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
+import { PlaceholdersExtension } from '#extensions/placeholders';
 import { PressContactsExtension } from '#extensions/press-contacts';
+import { SnippetsExtension } from '#extensions/snippet';
 import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
-import { SnippetsExtension } from '#extensions/snippet';
 import { StoryEmbedExtension } from '#extensions/story-embed';
 import { TablesExtension } from '#extensions/tables';
 import { TextStylingExtension } from '#extensions/text-styling';
@@ -71,6 +72,7 @@ type Parameters = {
     | 'withImages'
     | 'withInlineLinks'
     | 'withLists'
+    | 'withPlaceholders'
     | 'withPressContacts'
     | 'withTextStyling'
     | 'withTables'
@@ -100,16 +102,17 @@ export function* getEnabledExtensions({
     withImages,
     withInlineLinks,
     withLists,
+    withPlaceholders,
     withPressContacts,
+    withSnippets,
+    withStoryBookmarks,
+    withStoryEmbeds,
     withTextStyling,
     withTables,
     withUserMentions,
     withVariables,
     withVideos,
     withWebBookmarks,
-    withStoryEmbeds,
-    withStoryBookmarks,
-    withSnippets,
 }: Parameters): Generator<Extension> {
     yield DecorateSelectionExtension();
     yield ParagraphsExtension();
@@ -221,8 +224,12 @@ export function* getEnabledExtensions({
         yield AutoformatExtension({ rules });
     }
 
-    if (withTables) {
-        yield TablesExtension({ createDefaultElement: createParagraph });
+    if (withPlaceholders) {
+        yield PlaceholdersExtension();
+    }
+
+    if (withSnippets) {
+        yield SnippetsExtension(withSnippets);
     }
 
     if (withStoryEmbeds) {
@@ -233,8 +240,8 @@ export function* getEnabledExtensions({
         yield StoryBookmarkExtension(withStoryBookmarks);
     }
 
-    if (withSnippets) {
-        yield SnippetsExtension(withSnippets);
+    if (withTables) {
+        yield TablesExtension({ createDefaultElement: createParagraph });
     }
 
     yield LoaderExtension({ onOperationEnd, onOperationStart });

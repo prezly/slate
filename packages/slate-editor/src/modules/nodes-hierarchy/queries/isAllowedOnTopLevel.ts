@@ -21,6 +21,7 @@ import type { Node } from 'slate';
 
 import { isImageCandidateElement } from '#extensions/image';
 import { isLoaderElement } from '#extensions/loader';
+import { PlaceholderNode } from '#extensions/placeholders';
 
 export function isAllowedOnTopLevel(node: Node) {
     return (
@@ -37,6 +38,7 @@ export function isAllowedOnTopLevel(node: Node) {
         isImageCandidateElement(node) ||
         isLoaderElement(node) ||
         isParagraphNode(node) ||
+        PlaceholderNode.isPlaceholderNode(node) ||
         isQuoteNode(node) ||
         isStoryBookmarkNode(node) ||
         isStoryEmbedNode(node) ||

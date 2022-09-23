@@ -82,7 +82,7 @@ $editor-block-outline-width: 6px;
     }
 
     &.rounded {
-        border-radius: $border-radius-small;
+        border-radius: $editor-block-border-radius;
     }
 
     &.hasError {
