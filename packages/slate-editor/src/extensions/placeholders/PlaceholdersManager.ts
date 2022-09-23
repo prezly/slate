@@ -1,5 +1,5 @@
 import type { ProgressPromise } from '@prezly/progress-promise';
-import type { AttachmentNode } from '@prezly/slate-types';
+import type { AttachmentNode, ImageNode } from '@prezly/slate-types';
 import { noop } from 'lodash-es';
 import { useEffect, useState } from 'react';
 
@@ -11,6 +11,10 @@ type Uuid = PlaceholderNode['uuid'];
 interface Data {
     [PlaceholderNode.Type.ATTACHMENT]: {
         file: AttachmentNode['file'];
+        caption: string;
+    };
+    [PlaceholderNode.Type.IMAGE]: {
+        file: ImageNode['file'];
         caption: string;
     };
 }
@@ -78,7 +82,7 @@ export const PlaceholdersManager = {
             onProgress: callbacks.onProgress ?? noop,
         };
 
-        state.followers = [...state.followers, follower];
+        state.followers = [...state.followers, follower as Follower<Type>];
 
         trigger(follower);
 
@@ -117,7 +121,7 @@ function notify<T extends Type>(type: T, uuid: Uuid, callback: (follower: Follow
     });
 }
 
-function trigger({ type, uuid, onTrigger }: Follower<Type>) {
+function trigger<T extends Type>({ type, uuid, onTrigger }: Follower<T>) {
     if (!onTrigger) return;
 
     const shouldTrigger = state.triggers.some(
