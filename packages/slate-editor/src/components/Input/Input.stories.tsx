@@ -54,7 +54,7 @@ export function Disabled() {
 }
 
 export function Invalid() {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = React.useState('NaN');
 
     return (
         <Input

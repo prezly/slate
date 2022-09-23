@@ -1,30 +1,36 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import type { InputHTMLAttributes } from 'react';
+import type { ChangeEvent, InputHTMLAttributes } from 'react';
 
 import { WarningTriangle } from '#icons';
+import { useFunction } from '#lib';
 
 import styles from './Input.module.scss';
 
-interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     value: string;
     onChange: (newValue: string, valid: boolean) => void;
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
-export function Input({ className, icon: Icon, onChange, ...attributes }: InputProps) {
+export function Input({ className, icon: Icon, onChange, ...attributes }: Props) {
+    const handleChange = useFunction((event: ChangeEvent<HTMLInputElement>) => {
+        const { value, validity } = event.currentTarget;
+        onChange(value, validity.valid);
+    });
+
     return (
-        <label className={styles.wrapper}>
+        <label className={styles.Wrapper}>
             <input
                 {...attributes}
-                className={classNames(className, styles.input, {
-                    [styles['with-icon']]: Icon !== undefined,
+                className={classNames(className, styles.Input, {
+                    [styles.withIcon]: Icon !== undefined,
                 })}
-                onChange={(e) => onChange(e.currentTarget.value, e.currentTarget.validity.valid)}
+                onChange={handleChange}
             />
-            {Icon && <Icon className={styles.icon} />}
+            {Icon && <Icon className={styles.Icon} />}
 
-            <WarningTriangle className={styles['invalid-icon']} />
+            <WarningTriangle className={styles.InvalidIcon} />
         </label>
     );
 }

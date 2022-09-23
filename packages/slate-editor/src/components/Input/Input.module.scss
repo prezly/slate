@@ -1,12 +1,12 @@
 @import "styles/variables";
 
-.wrapper {
+.Wrapper {
     position: relative;
     display: inline-flex;
     width: 100%;
 }
 
-.input {
+.Input {
     $icon-size: 16px;
 
     color: $grey-700;
@@ -35,7 +35,7 @@
         color: $grey-400;
         opacity: 0.4;
 
-        & + .icon {
+        & + .Icon {
             color: $grey-400;
         }
     }
@@ -44,27 +44,27 @@
         background: $red-50;
         padding-right: $spacing-1-5 + $icon-size + $spacing-1;
 
-        & ~ .invalid-icon {
+        & ~ .InvalidIcon {
             visibility: visible;
         }
     }
 
-    &.with-icon {
+    &.withIcon {
         padding-left: $spacing-1-5 + $icon-size + $spacing-1;
 
-        & + .icon {
+        & + .Icon {
             width: $icon-size;
             height: $icon-size;
         }
 
-        &:focus + .icon,
-        &:focus-visible + .icon {
+        &:focus + .Icon,
+        &:focus-visible + .Icon {
             color: #6b7280;
         }
     }
 }
 
-.icon {
+.Icon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -72,7 +72,7 @@
     color: $grey-400;
 }
 
-.invalid-icon {
+.InvalidIcon {
     visibility: hidden;
     position: absolute;
     top: 50%;
