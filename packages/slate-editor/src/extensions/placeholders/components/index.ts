@@ -1,5 +1,5 @@
 export { AttachmentPlaceholderElement } from './AttachmentPlaceholderElement';
-export { ImagePlaceholderElement } from './ImagePlaceholderElement';
 export { GalleryPlaceholderElement } from './GalleryPlaceholderElement';
-export { PlaceholderElement } from './PlaceholderElement';
+export { ImagePlaceholderElement } from './ImagePlaceholderElement';
 export { Placeholder } from './Placeholder';
+export { PlaceholderElement } from './PlaceholderElement';
