@@ -1,5 +1,5 @@
 import type { ImageNode } from '@prezly/slate-types';
-import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareFile } from '@prezly/uploadcare';
+import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import type { FilePromise } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
@@ -10,6 +10,7 @@ import { useSlateStatic } from 'slate-react';
 import { PlaceholderImage } from '#icons';
 import { useFunction } from '#lib';
 
+import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
 import { createImage } from '../../image';
@@ -27,19 +28,19 @@ interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'drop
 export function ImagePlaceholderElement({ children, element, ...props }: Props) {
     const editor = useSlateStatic();
 
-    function processSelectedImages(files: FilePromise[]) {
+    function processSelectedImages(images: FilePromise[]) {
         const placeholders = [
             element,
-            ...insertPlaceholders(editor, files.length - 1, {
+            ...insertPlaceholders(editor, images.length - 1, {
                 type: PlaceholderNode.Type.IMAGE,
             }),
         ];
 
-        files.forEach((filePromise, i) => {
+        images.forEach((filePromise, i) => {
             const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
-                const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
+                const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
                 const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
-                return { file: file.toPrezlyStoragePayload(), caption };
+                return { file: image.toPrezlyStoragePayload(), caption };
             });
             PlaceholdersManager.register(
                 PlaceholderNode.Type.IMAGE,
@@ -50,18 +51,19 @@ export function ImagePlaceholderElement({ children, element, ...props }: Props) 
     }
 
     const handleClick = useFunction(async () => {
-        const files = await UploadcareEditor.upload(editor, {
-            captions: true,
+        const images = await UploadcareEditor.upload(editor, {
+            captions: true, // FIXME
+            imagesOnly: true,
             multiple: true,
         });
-        processSelectedImages(files ?? []);
+        processSelectedImages(images ?? []);
     });
 
     const handleDrop = useFunction<DragEventHandler>((event) => {
-        const files = Array.from(event.dataTransfer.files).map((file) =>
+        const images = Array.from(event.dataTransfer.files).map((file) =>
             uploadcare.fileFrom('object', file),
         );
-        processSelectedImages(files);
+        processSelectedImages(images);
     });
 
     const handleUploadedImage = useFunction(
@@ -74,6 +76,14 @@ export function ImagePlaceholderElement({ children, element, ...props }: Props) 
                     children: [{ text: data.caption }],
                 }),
             );
+
+            EventsEditor.dispatchEvent(editor, 'image-added', {
+                description: data.caption,
+                isPasted: false,
+                mimeType: data.file.mime_type,
+                size: data.file.size,
+                uuid: data.file.uuid,
+            });
         },
     );
 

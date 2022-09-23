@@ -406,6 +406,14 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return createHandleAddGallery(withGalleries)(editor);
         }
         if (action === MenuAction.ADD_IMAGE && withImages) {
+            EventsEditor.dispatchEvent(editor, 'image-add-clicked');
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(editor, {
+                    type: PlaceholderNode.Type.IMAGE,
+                });
+                PlaceholdersManager.trigger(placeholder);
+                return;
+            }
             return createImageAddHandler(withImages)(editor);
         }
         if (action === MenuAction.ADD_VIDEO) {

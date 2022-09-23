@@ -14,8 +14,6 @@ import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
 export function createImageAddHandler(params: ImageExtensionConfiguration) {
     return async function (editor: Editor): Promise<void> {
-        EventsEditor.dispatchEvent(editor, 'image-add-clicked');
-
         const filePromises = await UploadcareEditor.upload(editor, {
             ...getMediaGalleryParameters(params),
             captions: params.captions,
