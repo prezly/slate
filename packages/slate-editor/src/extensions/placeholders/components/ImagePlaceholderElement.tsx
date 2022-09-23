@@ -13,7 +13,7 @@ import { useFunction } from '#lib';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
-import { createImage } from '../../image';
+import { createImage, IMAGE_TYPES } from '../../image';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
@@ -60,9 +60,9 @@ export function ImagePlaceholderElement({ children, element, ...props }: Props) 
     });
 
     const handleDrop = useFunction<DragEventHandler>((event) => {
-        const images = Array.from(event.dataTransfer.files).map((file) =>
-            uploadcare.fileFrom('object', file),
-        );
+        const images = Array.from(event.dataTransfer.files)
+            .filter((file) => IMAGE_TYPES.includes(file.type))
+            .map((file) => uploadcare.fileFrom('object', file));
         processSelectedImages(images);
     });
 
