@@ -82,7 +82,7 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
             // Core
             icon={PlaceholderAttachment}
             title={Title}
-            description={Description}
+            description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
             dropZone
             // Callbacks
             onClick={handleClick}
@@ -95,14 +95,10 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
-        return 'Uploading file';
+        return <>Uploading file</>;
     }
     if (props.isDragOver) {
-        return 'Drop a file here';
+        return <>Drop a file here</>;
     }
-    return 'Drag or click to upload an attachment';
-}
-
-function Description() {
-    return 'Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB';
+    return <>Drag or click to upload an attachment</>;
 }
