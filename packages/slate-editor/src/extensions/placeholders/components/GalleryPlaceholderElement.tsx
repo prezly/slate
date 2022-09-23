@@ -14,12 +14,11 @@ import { IMAGE_TYPES } from '#extensions/image';
 import { EventsEditor } from '#modules/events';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE, UploadcareEditor } from '#modules/uploadcare';
 
+import { replacePlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 import { PlaceholderElement, type Props as BaseProps } from './PlaceholderElement';
-
-import { replacePlaceholder } from '#extensions/placeholders/lib';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
     element: PlaceholderNode;

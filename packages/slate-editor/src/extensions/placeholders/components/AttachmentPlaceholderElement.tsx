@@ -14,12 +14,11 @@ import { createFileAttachment } from '#extensions/file-attachment';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
+import { insertPlaceholders, replacePlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 import { PlaceholderElement, type Props as BaseProps } from './PlaceholderElement';
-
-import { insertPlaceholders, replacePlaceholder } from '#extensions/placeholders/lib';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
     element: PlaceholderNode;
