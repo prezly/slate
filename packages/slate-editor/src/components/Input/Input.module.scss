@@ -27,7 +27,7 @@
     // Safari doesn't support focus-visible and outline with border-radius
     &:focus {
         outline: none;
-        box-shadow: 0 0 0px $spacing-half #c7d2fe;
+        box-shadow: 0 0 0 $spacing-half #c7d2fe;
         border-color: transparent;
     }
 
@@ -36,7 +36,8 @@
         opacity: 0.4;
 
         & + .Icon {
-            color: $grey-400;
+            color: $black;
+            opacity: 0.2;
         }
     }
 
