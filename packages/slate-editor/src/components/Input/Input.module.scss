@@ -1,14 +1,14 @@
 @import "styles/variables";
 
-.Wrapper {
+$icon-size: 16px;
+
+.InputBox {
     position: relative;
     display: inline-flex;
     width: 100%;
 }
 
 .Input {
-    $icon-size: 16px;
-
     color: $grey-700;
     font-weight: 500;
     font-size: $font-size-small;
@@ -25,7 +25,7 @@
     }
 
     // Safari doesn't support focus-visible and outline with border-radius
-    &:focus {
+    &:focus-visible {
         outline: none;
         box-shadow: 0 0 0 $spacing-half #c7d2fe;
         border-color: transparent;
@@ -34,34 +34,15 @@
     &:disabled {
         color: $grey-400;
         opacity: 0.4;
-
-        & + .Icon {
-            color: $black;
-            opacity: 0.2;
-        }
     }
 
     &:invalid {
         background: $red-50;
-        padding-right: $spacing-1-5 + $icon-size + $spacing-1;
-
-        & ~ .InvalidIcon {
-            visibility: visible;
-        }
+        padding-right: $spacing-1-5 + $icon-size + $spacing-half;
     }
 
-    &.withIcon {
+    .withIcon & {
         padding-left: $spacing-1-5 + $icon-size + $spacing-1;
-
-        & + .Icon {
-            width: $icon-size;
-            height: $icon-size;
-        }
-
-        &:focus + .Icon,
-        &:focus-visible + .Icon {
-            color: #6b7280;
-        }
     }
 }
 
@@ -71,13 +52,29 @@
     transform: translateY(-50%);
     left: 12px;
     color: $grey-400;
+    width: $icon-size;
+    height: $icon-size;
+
+    .focused & {
+        color: $grey-500;
+    }
+
+    .disabled & {
+        color: $black;
+        opacity: 0.2;
+    }
 }
 
-.InvalidIcon {
+.WarningIcon {
+    pointer-events: none;
     visibility: hidden;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     right: 12px;
     fill: $red-500;
+
+    .invalid & {
+        visibility: visible;
+    }
 }
