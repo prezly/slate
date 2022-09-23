@@ -97,6 +97,7 @@ export function ImagePlaceholderElement({ children, element, ...props }: Props) 
             {...props}
             element={element}
             // Core
+            format="16:9"
             icon={PlaceholderImage}
             title={Title}
             description="Supported formats: .jpg, .gif, or .png - Max. 25MB"

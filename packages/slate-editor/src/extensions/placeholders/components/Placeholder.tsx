@@ -19,6 +19,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
     title: ReactNode | FunctionComponent<ContentRenderProps>;
     description: ReactNode | FunctionComponent<ContentRenderProps>;
     // Variations
+    format?: 'card' | '16:9';
     dragOver?: boolean;
     progress?: boolean | number;
     selected?: boolean;
@@ -38,6 +39,7 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
             title,
             description,
             // Variations
+            format = 'card',
             dragOver,
             progress,
             selected = false,
@@ -69,6 +71,7 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
         return (
             <div
                 {...props}
+                data-placeholder-format={format}
                 ref={forwardedRef}
                 className={classNames(className, styles.Placeholder, {
                     [styles.dragOver]: dragOver,
