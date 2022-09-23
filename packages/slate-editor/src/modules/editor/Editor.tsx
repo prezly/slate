@@ -403,6 +403,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return openFloatingSnippetInput();
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(editor, {
+                    type: PlaceholderNode.Type.GALLERY,
+                });
+                PlaceholdersManager.trigger(placeholder);
+                return;
+            }
             return createHandleAddGallery(withGalleries)(editor);
         }
         if (action === MenuAction.ADD_IMAGE && withImages) {
