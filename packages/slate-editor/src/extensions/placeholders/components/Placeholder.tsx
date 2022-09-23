@@ -12,13 +12,12 @@ type ContentRenderProps = {
     isSelected: boolean;
     progress: number;
 };
-type ContentRenderFn = (props: ContentRenderProps) => ReactElement | null;
 
 export interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
     // Core
     icon: ComponentType<{ className?: string }>;
-    title: ReactNode | ContentRenderFn;
-    description: ReactNode | ContentRenderFn;
+    title: ReactNode | FunctionComponent<ContentRenderProps>;
+    description: ReactNode | FunctionComponent<ContentRenderProps>;
     // Variations
     dragOver?: boolean;
     progress?: boolean | number;
