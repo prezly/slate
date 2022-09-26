@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { ChangeEvent, InputHTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes, ChangeEvent, InputHTMLAttributes } from 'react';
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -12,11 +12,17 @@ export interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onCh
     value: string;
     onChange: (newValue: string, valid: boolean) => void;
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    button?:
+        | false
+        | (ButtonHTMLAttributes<HTMLButtonElement> & {
+              text?: string;
+          });
 }
 
 export function Input({
+    button = false,
     className,
-    disabled,
+    disabled = false,
     icon: Icon,
     onChange,
     onBlur,
@@ -40,33 +46,52 @@ export function Input({
     }, [value]);
 
     return (
-        <label
-            className={classNames(styles.InputBox, {
+        <div
+            className={classNames(styles.Input, {
                 [styles.disabled]: disabled,
                 [styles.invalid]: !valid,
                 [styles.focused]: focused,
+                [styles.withButton]: Boolean(button),
                 [styles.withIcon]: Icon !== undefined,
             })}
         >
-            <input
-                {...attributes}
-                ref={input}
-                className={classNames(className, styles.Input)}
-                disabled={disabled}
-                value={value}
-                onChange={handleChange}
-                onFocus={(event) => {
-                    setFocused(true);
-                    onFocus?.(event);
-                }}
-                onBlur={(event) => {
-                    setFocused(false);
-                    onBlur?.(event);
-                }}
-            />
-            {Icon && <Icon className={styles.Icon} />}
+            <div className={styles.InputBox}>
+                <input
+                    {...attributes}
+                    ref={input}
+                    className={classNames(className, styles.TextInput)}
+                    disabled={disabled}
+                    value={value}
+                    onChange={handleChange}
+                    onFocus={(event) => {
+                        setFocused(true);
+                        onFocus?.(event);
+                    }}
+                    onBlur={(event) => {
+                        setFocused(false);
+                        onBlur?.(event);
+                    }}
+                />
+                {Icon && <Icon className={styles.Icon} />}
 
-            <WarningTriangle className={styles.WarningIcon} />
-        </label>
+                <WarningTriangle className={styles.WarningIcon} />
+            </div>
+
+            {button && <Button disabled={disabled} {...button} />}
+        </div>
+    );
+}
+
+function Button({
+    className,
+    children,
+    text,
+    ...attributes
+}: Exclude<Props['button'], undefined | false>) {
+    return (
+        <button type="button" className={classNames(className, styles.Button)} {...attributes}>
+            {text}
+            {children}
+        </button>
     );
 }
