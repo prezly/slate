@@ -75,7 +75,10 @@ export function InputPlaceholder({
 
     return (
         <Frame
-            onClick={stopPropagation}
+            onClick={(event) => {
+                stopPropagation(event);
+                input.current?.focus();
+            }}
             onKeyDown={stopPropagation}
             onKeyUp={stopPropagation}
             {...props}
