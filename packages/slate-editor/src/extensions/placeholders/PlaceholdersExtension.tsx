@@ -7,6 +7,7 @@ import {
     EmbedPlaceholderElement,
     GalleryPlaceholderElement,
     ImagePlaceholderElement,
+    VideoPlaceholderElement,
 } from './elements';
 import { fixDuplicatePlaceholderUuid } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
@@ -58,6 +59,17 @@ export function PlaceholdersExtension({ fetchOembed = failFetching }: Parameters
                     <GalleryPlaceholderElement attributes={attributes} element={element}>
                         {children}
                     </GalleryPlaceholderElement>
+                );
+            }
+            if (isPlaceholderNode<typeof Type.VIDEO>(element, Type.VIDEO)) {
+                return (
+                    <VideoPlaceholderElement
+                        attributes={attributes}
+                        element={element}
+                        fetchOembed={fetchOembed}
+                    >
+                        {children}
+                    </VideoPlaceholderElement>
                 );
             }
             return undefined;

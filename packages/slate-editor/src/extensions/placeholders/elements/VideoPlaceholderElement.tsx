@@ -1,11 +1,11 @@
-import type { EmbedNode } from '@prezly/slate-types';
+import type { VideoNode } from '@prezly/slate-types';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
-import { PlaceholderEmbed } from '#icons';
+import { PlaceholderVideo } from '#icons';
 import { useFunction } from '#lib';
 
-import { createEmbed } from '#extensions/embed';
+import { createVideoBookmark } from '#extensions/video';
 import { EventsEditor } from '#modules/events';
 
 import {
@@ -13,7 +13,7 @@ import {
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
 import { replacePlaceholder } from '../lib';
-import { PlaceholderNode } from '../PlaceholderNode';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
 
@@ -30,11 +30,11 @@ interface Props
         | 'inputAction'
         | 'onSubmit'
     > {
-    element: PlaceholderNode;
+    element: PlaceholderNode<PlaceholderNode.Type.VIDEO>;
     fetchOembed: FetchOEmbedFn;
 }
 
-export function EmbedPlaceholderElement({ children, element, fetchOembed, ...props }: Props) {
+export function VideoPlaceholderElement({ children, element, fetchOembed, ...props }: Props) {
     const editor = useSlateStatic();
 
     const handleTrigger = useFunction(() => {
@@ -42,22 +42,27 @@ export function EmbedPlaceholderElement({ children, element, fetchOembed, ...pro
     });
 
     const handleSubmit = useFunction(async (url: string) => {
-        EventsEditor.dispatchEvent(editor, 'embed-dialog-submitted', {
+        EventsEditor.dispatchEvent(editor, 'video-dialog-submitted', {
             url,
-            selectedItemText: 'Add embed',
+            selectedItemText: 'Add video',
         });
 
         const loading = fetchOembed(url).then(
-            (oembed) => ({ oembed, url }),
+            (oembed) => {
+                if (oembed.type === 'video') {
+                    return { oembed, url };
+                }
+                return { url };
+            },
             () => ({ url }), // `oembed` is undefined if an error occurred
         );
 
-        PlaceholdersManager.register(PlaceholderNode.Type.EMBED, element.uuid, loading);
+        PlaceholdersManager.register(element.type, element.uuid, loading);
         PlaceholdersManager.deactivateAll();
     });
 
     const handleData = useFunction(
-        (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
+        (data: { url: VideoNode['url']; oembed?: VideoNode['oembed'] }) => {
             if (!data.oembed) {
                 EventsEditor.dispatchEvent(editor, 'notification', {
                     children: 'Provided URL does not exist or is not supported.',
@@ -65,10 +70,17 @@ export function EmbedPlaceholderElement({ children, element, fetchOembed, ...pro
                 });
                 return;
             }
-            replacePlaceholder(editor, element, createEmbed(data.oembed, data.url));
+            replacePlaceholder(
+                editor,
+                element,
+                createVideoBookmark({
+                    url: data.url,
+                    oembed: data.oembed,
+                }),
+            );
         },
     );
-    usePlaceholderManagement(PlaceholderNode.Type.EMBED, element.uuid, {
+    usePlaceholderManagement(element.type, element.uuid, {
         onTrigger: handleTrigger,
         onResolve: handleData,
     });
@@ -79,17 +91,31 @@ export function EmbedPlaceholderElement({ children, element, fetchOembed, ...pro
             element={element}
             // Core
             format="card-lg"
-            icon={PlaceholderEmbed}
-            title="Click to insert an embed"
-            description="Embed any type of web content"
+            icon={PlaceholderVideo}
+            title={Title}
+            description={Description}
             // Input
-            inputTitle="Embed"
-            inputDescription="Insert an embed URL and hit Enter"
-            inputPlaceholder="https://media.giphy.com/GIF"
-            inputAction="Add embed"
+            inputTitle="Video"
+            inputDescription="Paste a video link and hit Enter"
+            inputPlaceholder="https://youtube.com/video"
+            inputAction="Add video"
             onSubmit={handleSubmit}
         >
             {children}
         </InputPlaceholderElement>
     );
+}
+
+function Title(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return <>Uploading video...</>;
+    }
+    return <>Click to insert a video</>;
+}
+
+function Description(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return null;
+    }
+    return <>Paste a video link and hit Enter</>;
 }
