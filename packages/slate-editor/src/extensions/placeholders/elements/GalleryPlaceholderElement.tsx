@@ -19,7 +19,7 @@ import { replacePlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
-interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
+interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode;
 }
 
@@ -92,7 +92,6 @@ export function GalleryPlaceholderElement({ children, element, ...props }: Props
             icon={PlaceholderGallery}
             title={Title}
             description="Supported formats: .jpg, .gif, or .png - Max. 25MB"
-            dropZone
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}

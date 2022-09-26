@@ -19,7 +19,7 @@ import { insertPlaceholders, replacePlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
-interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
+interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode;
 }
 
@@ -90,7 +90,6 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
             icon={PlaceholderAttachment}
             title={Title}
             description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
-            dropZone
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}

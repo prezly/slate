@@ -5,7 +5,7 @@ import { PlaceholderEmbed } from '#icons';
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import type { PlaceholderNode } from '../PlaceholderNode';
 
-interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
+interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode;
 }
 
