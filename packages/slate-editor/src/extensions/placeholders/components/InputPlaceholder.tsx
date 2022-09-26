@@ -21,6 +21,7 @@ export interface Props extends Omit<BaseProps, 'title' | 'onSubmit'> {
     // Input properties
     action: string;
     disabled?: boolean;
+    autoFocus?: boolean;
     initialValue?: string;
     placeholder?: string;
     onSubmit?: (value: string) => void;
@@ -36,6 +37,7 @@ export function InputPlaceholder({
     progress,
     selected = false,
     // Input properties
+    autoFocus = false,
     disabled = false,
     initialValue = '',
     placeholder,
@@ -87,6 +89,7 @@ export function InputPlaceholder({
             <div className={styles.Description}>{renderContent(description, selected)}</div>
             <form onSubmit={handleSubmit}>
                 <Input
+                    autoFocus={autoFocus}
                     button={{ text: action, type: 'submit' }}
                     className={styles.Input}
                     disabled={disabled}

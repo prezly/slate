@@ -2,10 +2,26 @@ import React from 'react';
 
 import { PlaceholderEmbed } from '#icons';
 
-import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
+import {
+    type Props as BaseProps,
+    InputPlaceholderElement,
+} from '../components/InputPlaceholderElement';
 import type { PlaceholderNode } from '../PlaceholderNode';
+import { PlaceholdersManager } from '../PlaceholdersManager';
 
-interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
+interface Props
+    extends Omit<
+        BaseProps,
+        | 'icon'
+        | 'title'
+        | 'description'
+        | 'onDrop'
+        | 'inputTitle'
+        | 'inputDescription'
+        | 'inputPlaceholder'
+        | 'inputAction'
+        | 'onSubmit'
+    > {
     element: PlaceholderNode;
 }
 
@@ -77,7 +93,7 @@ export function EmbedPlaceholderElement({ children, element, ...props }: Props) 
     // });
 
     return (
-        <PlaceholderElement
+        <InputPlaceholderElement
             {...props}
             element={element}
             // Core
@@ -85,11 +101,20 @@ export function EmbedPlaceholderElement({ children, element, ...props }: Props) 
             icon={PlaceholderEmbed}
             title="Click to insert an embed"
             description="Embed any type of web content"
+            // Input
+            inputTitle="Embed"
+            inputDescription="Insert an embed URL and hit Enter"
+            inputPlaceholder="https://media.giphy.com/GIF"
+            inputAction="Add embed"
+            onSubmit={(value) => {
+                console.log('Submitted: ', { value });
+                PlaceholdersManager.deactivateAll();
+            }}
             // Callbacks
             // onClick={handleClick}
             // onDrop={handleDrop}
         >
             {children}
-        </PlaceholderElement>
+        </InputPlaceholderElement>
     );
 }
