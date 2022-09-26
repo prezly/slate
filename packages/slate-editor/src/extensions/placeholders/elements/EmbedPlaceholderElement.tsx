@@ -2,9 +2,8 @@ import React from 'react';
 
 import { PlaceholderEmbed } from '#icons';
 
+import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import type { PlaceholderNode } from '../PlaceholderNode';
-
-import { PlaceholderElement, type Props as BaseProps } from './PlaceholderElement';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
     element: PlaceholderNode;
