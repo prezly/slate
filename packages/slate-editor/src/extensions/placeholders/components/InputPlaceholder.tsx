@@ -1,5 +1,12 @@
 import classNames from 'classnames';
-import type { FunctionComponent, ReactNode, ReactElement, FormEvent } from 'react';
+import type {
+    FunctionComponent,
+    KeyboardEvent,
+    MouseEvent,
+    ReactNode,
+    ReactElement,
+    FormEvent,
+} from 'react';
 import React, { useRef, useState } from 'react';
 
 import { Input } from '#components';
@@ -66,6 +73,9 @@ export function InputPlaceholder({
 
     return (
         <Frame
+            onClick={stopPropagation}
+            onKeyDown={stopPropagation}
+            onKeyUp={stopPropagation}
             {...props}
             className={classNames(className, styles.InputPlaceholder)}
             dragOver={dragOver}
@@ -91,4 +101,8 @@ export function InputPlaceholder({
             </form>
         </Frame>
     );
+}
+
+function stopPropagation(event: KeyboardEvent | MouseEvent) {
+    event.stopPropagation();
 }
