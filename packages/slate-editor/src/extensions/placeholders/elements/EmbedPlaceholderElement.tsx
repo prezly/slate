@@ -1,13 +1,21 @@
+import type { EmbedNode } from '@prezly/slate-types';
 import React from 'react';
+import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderEmbed } from '#icons';
+import { useFunction } from '#lib';
 
+import { EventsEditor } from '#modules/events';
+
+import { createEmbed } from '../../embed';
 import {
     type Props as BaseProps,
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
-import type { PlaceholderNode } from '../PlaceholderNode';
-import { PlaceholdersManager } from '../PlaceholdersManager';
+import { replacePlaceholder } from '../lib';
+import { PlaceholderNode } from '../PlaceholderNode';
+import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
+import type { FetchOEmbedFn } from '../types';
 
 interface Props
     extends Omit<
@@ -23,74 +31,47 @@ interface Props
         | 'onSubmit'
     > {
     element: PlaceholderNode;
+    fetchOembed: FetchOEmbedFn;
 }
 
-export function EmbedPlaceholderElement({ children, element, ...props }: Props) {
-    // const editor = useSlateStatic();
+export function EmbedPlaceholderElement({ children, element, fetchOembed, ...props }: Props) {
+    const editor = useSlateStatic();
 
-    // function processSelectedImages(images: FilePromise[]) {
-    //     const placeholders = [
-    //         element,
-    //         ...insertPlaceholders(editor, images.length - 1, {
-    //             type: PlaceholderNode.Type.IMAGE,
-    //         }),
-    //     ];
-    //
-    //     images.forEach((filePromise, i) => {
-    //         const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
-    //             const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-    //             const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
-    //             return { file: image.toPrezlyStoragePayload(), caption };
-    //         });
-    //         PlaceholdersManager.register(
-    //             PlaceholderNode.Type.IMAGE,
-    //             placeholders[i].uuid,
-    //             uploading,
-    //         );
-    //     });
-    // }
-    //
-    // const handleClick = useFunction(async () => {
-    //     const images = await UploadcareEditor.upload(editor, {
-    //         captions: true, // FIXME
-    //         imagesOnly: true,
-    //         multiple: true,
-    //     });
-    //     processSelectedImages(images ?? []);
-    // });
-    //
-    // const handleDrop = useFunction<DragEventHandler>((event) => {
-    //     const images = Array.from(event.dataTransfer.files)
-    //         .filter((file) => IMAGE_TYPES.includes(file.type))
-    //         .map((file) => uploadcare.fileFrom('object', file));
-    //     processSelectedImages(images);
-    // });
+    const handleTrigger = useFunction(() => {
+        PlaceholdersManager.activate(element);
+    });
 
-    // const handleUploadedImage = useFunction(
-    //     (data: { file: ImageNode['file']; caption: string }) => {
-    //         replacePlaceholder(
-    //             editor,
-    //             element,
-    //             createImage({
-    //                 file: data.file,
-    //                 children: [{ text: data.caption }],
-    //             }),
-    //         );
-    //
-    //         EventsEditor.dispatchEvent(editor, 'image-added', {
-    //             description: data.caption,
-    //             isPasted: false,
-    //             mimeType: data.file.mime_type,
-    //             size: data.file.size,
-    //             uuid: data.file.uuid,
-    //         });
-    //     },
-    // );
+    const handleSubmit = useFunction(async (url: string) => {
+        EventsEditor.dispatchEvent(editor, 'embed-dialog-submitted', {
+            url,
+            selectedItemText: 'Add embed',
+        });
 
-    // usePlaceholderManagement(PlaceholderNode.Type.IMAGE, element.uuid, {
-    //     onTrigger: handleClick,
-    //     onResolve: handleUploadedImage,
-    // });
+        const loading = fetchOembed(url).then(
+            (oembed) => ({ oembed, url }),
+            () => ({ url }), // `oembed` is undefined if an error occurred
+        );
+
+        PlaceholdersManager.register(PlaceholderNode.Type.EMBED, element.uuid, loading);
+        PlaceholdersManager.deactivateAll();
+    });
+
+    const handleData = useFunction(
+        (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
+            if (!data.oembed) {
+                EventsEditor.dispatchEvent(editor, 'notification', {
+                    children: 'Provided URL does not exist or is not supported.',
+                    type: 'error',
+                });
+                return;
+            }
+            replacePlaceholder(editor, element, createEmbed(data.oembed, data.url));
+        },
+    );
+    usePlaceholderManagement(PlaceholderNode.Type.EMBED, element.uuid, {
+        onTrigger: handleTrigger,
+        onResolve: handleData,
+    });
 
     return (
         <InputPlaceholderElement
@@ -106,13 +87,7 @@ export function EmbedPlaceholderElement({ children, element, ...props }: Props) 
             inputDescription="Insert an embed URL and hit Enter"
             inputPlaceholder="https://media.giphy.com/GIF"
             inputAction="Add embed"
-            onSubmit={(value) => {
-                console.log('Submitted: ', { value });
-                PlaceholdersManager.deactivateAll();
-            }}
-            // Callbacks
-            // onClick={handleClick}
-            // onDrop={handleDrop}
+            onSubmit={handleSubmit}
         >
             {children}
         </InputPlaceholderElement>

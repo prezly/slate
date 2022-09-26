@@ -17,7 +17,7 @@ interface Data {
     };
     [Type.EMBED]: {
         url: string;
-        oembed: OEmbedInfo;
+        oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
     };
     [Type.IMAGE]: {
         file: ImageNode['file'];
@@ -79,7 +79,7 @@ export const PlaceholdersManager = {
     register<T extends Type>(
         type: T,
         uuid: Uuid,
-        promise: ProgressPromise<Data[T], unknown>,
+        promise: Promise<Data[T]> | ProgressPromise<Data[T], unknown>,
     ): void {
         notify(type, uuid, ({ onLoading }) => onLoading(true));
 

@@ -1,3 +1,4 @@
+import type { OEmbedInfo } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
@@ -9,13 +10,18 @@ import {
 } from './elements';
 import { fixDuplicatePlaceholderUuid } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
+import type { FetchOEmbedFn } from './types';
 
 export const EXTENSION_ID = 'PlaceholdersExtension';
 
 const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
 const Type = PlaceholderNode.Type;
 
-export function PlaceholdersExtension(): Extension {
+export interface Parameters {
+    fetchOembed?: FetchOEmbedFn;
+}
+
+export function PlaceholdersExtension({ fetchOembed = failFetching }: Parameters = {}): Extension {
     return {
         id: EXTENSION_ID,
         isRichBlock: PlaceholderNode.isPlaceholderNode,
@@ -31,7 +37,11 @@ export function PlaceholdersExtension(): Extension {
             }
             if (isPlaceholderNode(element, Type.EMBED)) {
                 return (
-                    <EmbedPlaceholderElement attributes={attributes} element={element}>
+                    <EmbedPlaceholderElement
+                        attributes={attributes}
+                        element={element}
+                        fetchOembed={fetchOembed}
+                    >
                         {children}
                     </EmbedPlaceholderElement>
                 );
@@ -53,4 +63,8 @@ export function PlaceholdersExtension(): Extension {
             return undefined;
         },
     };
+}
+
+function failFetching(): Promise<OEmbedInfo> {
+    return Promise.reject(new Error('Embeds are not enabled'));
 }

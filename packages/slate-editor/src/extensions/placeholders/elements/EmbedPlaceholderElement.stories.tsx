@@ -1,3 +1,4 @@
+import type { OEmbedInfo } from '@prezly/sdk';
 import * as React from 'react';
 import { createEditor as createSlateEditor } from 'slate';
 import { type RenderElementProps, Slate } from 'slate-react';
@@ -24,6 +25,10 @@ const attributes: RenderElementProps['attributes'] = {
     ref: () => null,
 };
 
+function failOembed(): Promise<OEmbedInfo> {
+    return Promise.reject(new Error('Embeds are not enabled'));
+}
+
 export default {
     title: 'Extensions/Placeholders/elements',
     decorators: [
@@ -39,7 +44,11 @@ export default {
 
 export function EmbedPlaceholder() {
     return (
-        <EmbedPlaceholderElement attributes={attributes} element={placeholder}>
+        <EmbedPlaceholderElement
+            attributes={attributes}
+            element={placeholder}
+            fetchOembed={failOembed}
+        >
             {''}
         </EmbedPlaceholderElement>
     );
