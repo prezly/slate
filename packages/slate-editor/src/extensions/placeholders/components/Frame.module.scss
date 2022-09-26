@@ -36,6 +36,10 @@
         min-height: $editor-bookmark-card-height;
     }
 
+    &[data-placeholder-format="card-lg"] {
+        min-height: 280px;
+    }
+
     &[data-placeholder-format="16:9"] {
         aspect-ratio: 16/9;
     }

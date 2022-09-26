@@ -1,87 +1,109 @@
 import classNames from 'classnames';
 import type { ButtonHTMLAttributes, ChangeEvent, InputHTMLAttributes } from 'react';
 import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { WarningTriangle } from '#icons';
-import { useFunction } from '#lib';
+import { Link, WarningTriangle } from '#icons';
+import { mergeRefs, useFunction } from '#lib';
 
 import styles from './Input.module.scss';
 
-export interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+export interface Props
+    extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'onSubmit'> {
     value: string;
     onChange: (newValue: string, valid: boolean) => void;
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>> | 'link';
     button?:
         | false
         | (ButtonHTMLAttributes<HTMLButtonElement> & {
               text?: string;
           });
+    required?: boolean;
 }
 
-export function Input({
-    button = false,
-    className,
-    disabled = false,
-    icon: Icon,
-    onChange,
-    onBlur,
-    onFocus,
-    pattern,
-    value,
-    ...attributes
-}: Props) {
-    const input = useRef<HTMLInputElement>(null);
+export const Input = forwardRef<HTMLInputElement, Props>(
+    (
+        {
+            button = false,
+            className,
+            disabled = false,
+            icon,
+            onChange,
+            onBlur,
+            onFocus,
+            pattern,
+            required = false,
+            value,
+            ...attributes
+        },
+        forwardedRef,
+    ) => {
+        const input = useRef<HTMLInputElement>(null);
 
-    const [valid, setValid] = useState(true);
-    const [focused, setFocused] = useState(false);
+        const [valid, setValid] = useState(true);
+        const [focused, setFocused] = useState(false);
 
-    const handleChange = useFunction((event: ChangeEvent<HTMLInputElement>) => {
-        const { value, validity } = event.currentTarget;
-        setValid(validity.valid);
-        onChange(value, validity.valid);
-    });
+        const isEmpty = !value.trim();
 
-    useEffect(() => {
-        setValid(input.current?.validity.valid ?? true);
-    }, [value, pattern]);
+        const handleChange = useFunction((event: ChangeEvent<HTMLInputElement>) => {
+            const { value, validity } = event.currentTarget;
+            setValid(validity.valid);
+            onChange(value, validity.valid);
+        });
 
-    return (
-        <div
-            className={classNames(styles.Input, {
-                [styles.disabled]: disabled,
-                [styles.invalid]: !valid,
-                [styles.focused]: focused,
-                [styles.withButton]: Boolean(button),
-                [styles.withIcon]: Icon !== undefined,
-            })}
-        >
-            <div className={styles.InputBox}>
-                <input
-                    {...attributes}
-                    ref={input}
-                    className={classNames(className, styles.TextInput)}
-                    disabled={disabled}
-                    value={value}
-                    pattern={pattern}
-                    onChange={handleChange}
-                    onFocus={(event) => {
-                        setFocused(true);
-                        onFocus?.(event);
-                    }}
-                    onBlur={(event) => {
-                        setFocused(false);
-                        onBlur?.(event);
-                    }}
-                />
-                {Icon && <Icon className={styles.Icon} />}
+        useEffect(() => {
+            setValid(input.current?.validity.valid ?? true);
+        }, [value, pattern]);
 
-                <WarningTriangle className={styles.WarningIcon} />
+        return (
+            <div
+                className={classNames(className, styles.Input, {
+                    [styles.disabled]: disabled,
+                    [styles.invalid]: !valid,
+                    [styles.focused]: focused,
+                    [styles.withButton]: Boolean(button),
+                    [styles.withIcon]: Boolean(icon),
+                })}
+            >
+                <div className={styles.InputBox}>
+                    <input
+                        {...attributes}
+                        ref={mergeRefs(input, forwardedRef)}
+                        className={styles.TextInput}
+                        disabled={disabled}
+                        value={value}
+                        pattern={pattern}
+                        onChange={handleChange}
+                        onFocus={(event) => {
+                            setFocused(true);
+                            onFocus?.(event);
+                        }}
+                        onBlur={(event) => {
+                            setFocused(false);
+                            onBlur?.(event);
+                        }}
+                    />
+                    {icon && <Icon icon={icon} />}
+
+                    <WarningTriangle className={styles.WarningIcon} />
+                </div>
+
+                {button && (
+                    <Button disabled={disabled || !valid || (required && isEmpty)} {...button} />
+                )}
             </div>
+        );
+    },
+);
 
-            {button && <Button disabled={disabled} {...button} />}
-        </div>
-    );
+Input.displayName = 'Input';
+
+function Icon({ icon: Component }: Required<Pick<Props, 'icon'>>) {
+    if (Component === 'link') {
+        return <Link className={styles.Icon} />;
+    }
+
+    return <Component className={styles.Icon} />;
 }
 
 function Button({

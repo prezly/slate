@@ -5,7 +5,7 @@ import React, { type ComponentType, forwardRef, type ReactElement, type ReactNod
 import { type Props as BaseProps, Frame } from './Frame';
 import styles from './Placeholder.module.scss';
 
-type ContentRenderProps = {
+export type ContentRenderProps = {
     isDragOver: boolean;
     isLoading: boolean;
     isSelected: boolean;

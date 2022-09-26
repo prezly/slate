@@ -8,7 +8,7 @@ import styles from './Frame.module.scss';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
     // Variations
-    format?: 'card' | '16:9';
+    format?: 'card' | 'card-lg' | '16:9';
     dragOver?: boolean;
     progress?: boolean | number;
     selected?: boolean;
