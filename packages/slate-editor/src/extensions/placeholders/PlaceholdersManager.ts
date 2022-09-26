@@ -26,6 +26,10 @@ interface Data {
     [Type.GALLERY]: {
         images: GalleryNode['images'];
     };
+    [Type.VIDEO]: {
+        url: string;
+        oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
+    };
 }
 
 type Identifier<T extends Type> = { type: T; uuid: Uuid };
