@@ -431,6 +431,14 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return createImageAddHandler(withImages)(editor);
         }
         if (action === MenuAction.ADD_VIDEO) {
+            EventsEditor.dispatchEvent(editor, 'video-add-clicked');
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(editor, {
+                    type: PlaceholderNode.Type.VIDEO,
+                });
+                PlaceholdersManager.trigger(placeholder);
+                return;
+            }
             return openFloatingVideoInput('Add video', {
                 contentType: LoaderContentType.VIDEO,
                 message: 'Adding video',
