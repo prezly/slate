@@ -27,6 +27,7 @@ export function Input({
     onChange,
     onBlur,
     onFocus,
+    pattern,
     value,
     ...attributes
 }: Props) {
@@ -43,7 +44,7 @@ export function Input({
 
     useEffect(() => {
         setValid(input.current?.validity.valid ?? true);
-    }, [value]);
+    }, [value, pattern]);
 
     return (
         <div
@@ -62,6 +63,7 @@ export function Input({
                     className={classNames(className, styles.TextInput)}
                     disabled={disabled}
                     value={value}
+                    pattern={pattern}
                     onChange={handleChange}
                     onFocus={(event) => {
                         setFocused(true);
