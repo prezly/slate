@@ -8,6 +8,7 @@ import { PlaceholdersExtension } from '#extensions/placeholders';
 import { createEditor } from '#modules/editor';
 
 import { PlaceholderNode } from '../PlaceholderNode';
+import { PlaceholdersManager } from '../PlaceholdersManager';
 
 import { InputPlaceholderElement } from './InputPlaceholderElement';
 
@@ -55,6 +56,7 @@ export function Default() {
             inputAction="Add embed"
             onSubmit={(value) => {
                 console.log('Submitted: ', { value });
+                PlaceholdersManager.deactivateAll();
             }}
         >
             {''}

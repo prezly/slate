@@ -6,7 +6,7 @@ import { EditorBlock } from '#components';
 import { mergeRefs, useFunction } from '#lib';
 
 import type { PlaceholderNode } from '../PlaceholderNode';
-import { usePlaceholderManagement } from '../PlaceholdersManager';
+import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 import { type Props as InputPlaceholderProps, InputPlaceholder } from './InputPlaceholder';
 import { type Props as PlaceholderProps, Placeholder } from './Placeholder';
@@ -43,13 +43,11 @@ export function InputPlaceholderElement({
     const editor = useSlateStatic();
     const block = useRef<HTMLDivElement>(null);
 
-    const [active, setActive] = useState(false);
-
     const [progress, setProgress] = useState<number | undefined>(undefined);
     const [dragOver, setDragOver] = useState(false);
 
     const handleClick = useFunction(() => {
-        setActive(true);
+        PlaceholdersManager.activate(element);
     });
     const handleMouseOver = useFunction((event: MouseEvent) => {
         if (!event.buttons) {
@@ -62,7 +60,7 @@ export function InputPlaceholderElement({
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
 
-    const { isLoading } = usePlaceholderManagement(
+    const { isActive, isLoading } = usePlaceholderManagement(
         element.type as PlaceholderNode.Type,
         element.uuid,
         {
@@ -77,7 +75,7 @@ export function InputPlaceholderElement({
             element={element}
             renderAboveFrame={children}
             renderReadOnlyFrame={({ isSelected }) =>
-                active ? (
+                isActive ? (
                     <InputPlaceholder
                         title={inputTitle}
                         description={inputDescription}
