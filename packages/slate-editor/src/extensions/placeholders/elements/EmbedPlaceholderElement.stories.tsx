@@ -25,7 +25,7 @@ const attributes: RenderElementProps['attributes'] = {
 };
 
 export default {
-    title: 'Extensions/Placeholders',
+    title: 'Extensions/Placeholders/elements',
     decorators: [
         (Story: React.ComponentType) => (
             <Slate editor={editor} value={[placeholder]}>

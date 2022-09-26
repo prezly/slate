@@ -3,7 +3,7 @@ import * as React from 'react';
 import { InputPlaceholder } from './InputPlaceholder';
 
 export default {
-    title: 'Extensions/Placeholders/InputPlaceholder',
+    title: 'Extensions/Placeholders/components/InputPlaceholder',
     decorators: [
         (Story: React.ComponentType) => (
             <div style={{ width: 680 }}>

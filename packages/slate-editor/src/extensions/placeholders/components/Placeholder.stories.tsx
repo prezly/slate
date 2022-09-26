@@ -6,7 +6,7 @@ import { PlaceholderAttachment } from '#icons';
 import { Placeholder } from './Placeholder';
 
 export default {
-    title: 'Extensions/Placeholders/Placeholder',
+    title: 'Extensions/Placeholders/components/Placeholder',
     decorators: [
         (Story: React.ComponentType) => (
             <div style={{ width: 680 }}>
