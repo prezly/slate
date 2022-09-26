@@ -5,10 +5,9 @@ import { type RenderElementProps, useSlateStatic } from 'slate-react';
 import { EditorBlock } from '#components';
 import { useFunction } from '#lib';
 
+import { type Props as BaseProps, Placeholder } from '../components/Placeholder';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { usePlaceholderManagement } from '../PlaceholdersManager';
-
-import { type Props as BaseProps, Placeholder } from './Placeholder';
 
 export type Props = RenderElementProps &
     Pick<BaseProps, 'icon' | 'title' | 'description' | 'format' | 'onClick' | 'onDrop'> & {

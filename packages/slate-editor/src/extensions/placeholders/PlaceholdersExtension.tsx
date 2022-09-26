@@ -5,7 +5,7 @@ import {
     AttachmentPlaceholderElement,
     GalleryPlaceholderElement,
     ImagePlaceholderElement,
-} from './components';
+} from './elements';
 import { fixDuplicatePlaceholderUuid } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
 
