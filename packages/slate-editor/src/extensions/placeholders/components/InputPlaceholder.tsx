@@ -8,7 +8,7 @@ import { type Props as BaseProps, Frame } from './Frame';
 import styles from './InputPlaceholder.module.scss';
 import type { ContentRenderProps } from './Placeholder';
 
-interface Props extends Omit<BaseProps, 'title' | 'onSubmit'> {
+export interface Props extends Omit<BaseProps, 'title' | 'onSubmit'> {
     title: ReactNode | FunctionComponent<ContentRenderProps>;
     description: ReactNode | FunctionComponent<ContentRenderProps>;
     // Input properties

@@ -3,6 +3,7 @@ import React from 'react';
 
 import {
     AttachmentPlaceholderElement,
+    EmbedPlaceholderElement,
     GalleryPlaceholderElement,
     ImagePlaceholderElement,
 } from './elements';
@@ -26,6 +27,13 @@ export function PlaceholdersExtension(): Extension {
                     <AttachmentPlaceholderElement attributes={attributes} element={element}>
                         {children}
                     </AttachmentPlaceholderElement>
+                );
+            }
+            if (isPlaceholderNode(element, Type.EMBED)) {
+                return (
+                    <EmbedPlaceholderElement attributes={attributes} element={element}>
+                        {children}
+                    </EmbedPlaceholderElement>
                 );
             }
             if (isPlaceholderNode(element, Type.IMAGE)) {
