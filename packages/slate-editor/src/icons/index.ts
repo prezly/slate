@@ -59,6 +59,7 @@ export { default as PlaceholderEmbed } from './Placeholder-Embed.svg';
 export { default as PlaceholderImage } from './Placeholder-Image.svg';
 export { default as PlaceholderGallery } from './Placeholder-Gallery.svg';
 export { default as PlaceholderVideo } from './Placeholder-Video.svg';
+export { default as PlaceholderWebBookmark } from './Placeholder-WebBookmark.svg';
 export { default as PlayButton } from './PlayButton.svg';
 export { default as Reload } from './Reload.svg';
 export { default as Resize } from './Resize.svg';

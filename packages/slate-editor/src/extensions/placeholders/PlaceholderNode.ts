@@ -20,11 +20,18 @@ export namespace PlaceholderNode {
         WEB_BOOKMARK = 'placeholder:bookmark',
     }
 
+    export function isPlaceholderNode(node: Node): node is PlaceholderNode;
+
+    export function isPlaceholderNode<T extends Type>(
+        node: Node,
+        type: T,
+    ): node is PlaceholderNode<T>;
+
     export function isPlaceholderNode<T extends Type>(
         node: Node,
         type: `${T}`,
     ): node is PlaceholderNode<T>;
-    export function isPlaceholderNode(node: Node): node is PlaceholderNode;
+
     export function isPlaceholderNode(node: Node, type?: string): boolean {
         if (type) {
             return isElementNode(node, type);

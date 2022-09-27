@@ -33,7 +33,7 @@ export function InputPlaceholder({
     title,
     description,
     dragOver,
-    format = 'card-lg',
+    format = 'card',
     progress,
     selected = false,
     // Input properties
