@@ -1,4 +1,4 @@
-import type { OEmbedInfo } from '@prezly/sdk';
+import type { NewsroomRef, OEmbedInfo } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
@@ -21,9 +21,13 @@ const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
 
 export interface Parameters {
     fetchOembed?: FetchOEmbedFn;
+    newsroom?: NewsroomRef | undefined;
 }
 
-export function PlaceholdersExtension({ fetchOembed = failFetching }: Parameters = {}): Extension {
+export function PlaceholdersExtension({
+    fetchOembed = failFetching,
+    newsroom,
+}: Parameters = {}): Extension {
     return {
         id: EXTENSION_ID,
         isRichBlock: PlaceholderNode.isPlaceholderNode,
@@ -50,14 +54,22 @@ export function PlaceholdersExtension({ fetchOembed = failFetching }: Parameters
             }
             if (isPlaceholderNode(element, PlaceholderNode.Type.IMAGE)) {
                 return (
-                    <ImagePlaceholderElement attributes={attributes} element={element}>
+                    <ImagePlaceholderElement
+                        attributes={attributes}
+                        element={element}
+                        newsroom={newsroom}
+                    >
                         {children}
                     </ImagePlaceholderElement>
                 );
             }
             if (isPlaceholderNode(element, PlaceholderNode.Type.GALLERY)) {
                 return (
-                    <GalleryPlaceholderElement attributes={attributes} element={element}>
+                    <GalleryPlaceholderElement
+                        attributes={attributes}
+                        element={element}
+                        newsroom={newsroom}
+                    >
                         {children}
                     </GalleryPlaceholderElement>
                 );

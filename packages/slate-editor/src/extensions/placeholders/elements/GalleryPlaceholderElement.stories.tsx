@@ -39,7 +39,11 @@ export default {
 
 export function GalleryPlaceholder() {
     return (
-        <GalleryPlaceholderElement attributes={attributes} element={placeholder}>
+        <GalleryPlaceholderElement
+            attributes={attributes}
+            element={placeholder}
+            newsroom={undefined}
+        >
             {''}
         </GalleryPlaceholderElement>
     );
