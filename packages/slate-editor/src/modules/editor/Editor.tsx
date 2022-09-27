@@ -346,6 +346,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     true,
                 );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return handleAddAttachment(editor);
@@ -373,6 +374,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     true,
                 );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return openFloatingEmbedInput('Add embed', {
@@ -400,6 +402,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     true,
                 );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return openFloatingEmbedInput('Add social post', {
@@ -430,6 +433,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     true,
                 );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return createHandleAddGallery(withGalleries)(editor);
@@ -443,6 +447,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     true,
                 );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return createImageAddHandler(withImages)(editor);
@@ -456,6 +461,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     true,
                 );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return openFloatingVideoInput('Add video', {
@@ -471,6 +477,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     true,
                 );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return openFloatingWebBookmarkInput('Add web bookmark', {
