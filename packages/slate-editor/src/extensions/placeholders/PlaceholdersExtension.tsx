@@ -8,6 +8,7 @@ import {
     GalleryPlaceholderElement,
     ImagePlaceholderElement,
     VideoPlaceholderElement,
+    WebBookmarkPlaceholderElement,
 } from './elements';
 import { fixDuplicatePlaceholderUuid } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
@@ -16,7 +17,6 @@ import type { FetchOEmbedFn } from './types';
 export const EXTENSION_ID = 'PlaceholdersExtension';
 
 const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
-const Type = PlaceholderNode.Type;
 
 export interface Parameters {
     fetchOembed?: FetchOEmbedFn;
@@ -29,14 +29,14 @@ export function PlaceholdersExtension({ fetchOembed = failFetching }: Parameters
         isVoid: PlaceholderNode.isPlaceholderNode,
         normalizeNode: fixDuplicatePlaceholderUuid,
         renderElement({ element, children, attributes }) {
-            if (isPlaceholderNode(element, Type.ATTACHMENT)) {
+            if (isPlaceholderNode(element, PlaceholderNode.Type.ATTACHMENT)) {
                 return (
                     <AttachmentPlaceholderElement attributes={attributes} element={element}>
                         {children}
                     </AttachmentPlaceholderElement>
                 );
             }
-            if (isPlaceholderNode(element, Type.EMBED)) {
+            if (isPlaceholderNode(element, PlaceholderNode.Type.EMBED)) {
                 return (
                     <EmbedPlaceholderElement
                         attributes={attributes}
@@ -47,21 +47,21 @@ export function PlaceholdersExtension({ fetchOembed = failFetching }: Parameters
                     </EmbedPlaceholderElement>
                 );
             }
-            if (isPlaceholderNode(element, Type.IMAGE)) {
+            if (isPlaceholderNode(element, PlaceholderNode.Type.IMAGE)) {
                 return (
                     <ImagePlaceholderElement attributes={attributes} element={element}>
                         {children}
                     </ImagePlaceholderElement>
                 );
             }
-            if (isPlaceholderNode(element, Type.GALLERY)) {
+            if (isPlaceholderNode(element, PlaceholderNode.Type.GALLERY)) {
                 return (
                     <GalleryPlaceholderElement attributes={attributes} element={element}>
                         {children}
                     </GalleryPlaceholderElement>
                 );
             }
-            if (isPlaceholderNode<typeof Type.VIDEO>(element, Type.VIDEO)) {
+            if (isPlaceholderNode(element, PlaceholderNode.Type.VIDEO)) {
                 return (
                     <VideoPlaceholderElement
                         attributes={attributes}
@@ -70,6 +70,17 @@ export function PlaceholdersExtension({ fetchOembed = failFetching }: Parameters
                     >
                         {children}
                     </VideoPlaceholderElement>
+                );
+            }
+            if (isPlaceholderNode(element, PlaceholderNode.Type.WEB_BOOKMARK)) {
+                return (
+                    <WebBookmarkPlaceholderElement
+                        attributes={attributes}
+                        element={element}
+                        fetchOembed={fetchOembed}
+                    >
+                        {children}
+                    </WebBookmarkPlaceholderElement>
                 );
             }
             return undefined;

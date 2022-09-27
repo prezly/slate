@@ -74,6 +74,7 @@ export function InputPlaceholderElement({
                 isActive ? (
                     <InputPlaceholder
                         autoFocus
+                        format={format}
                         title={inputTitle}
                         description={inputDescription}
                         placeholder={inputPlaceholder}

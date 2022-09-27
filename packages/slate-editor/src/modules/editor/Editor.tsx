@@ -445,6 +445,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             });
         }
         if (action === MenuAction.ADD_WEB_BOOKMARK) {
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(editor, {
+                    type: PlaceholderNode.Type.WEB_BOOKMARK,
+                });
+                PlaceholdersManager.trigger(placeholder);
+                return;
+            }
             return openFloatingWebBookmarkInput('Add web bookmark', {
                 contentType: LoaderContentType.BOOKMARK,
                 message: 'Adding web bookmark',
