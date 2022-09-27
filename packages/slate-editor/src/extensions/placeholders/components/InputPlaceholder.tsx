@@ -7,7 +7,7 @@ import type {
     ReactElement,
     FormEvent,
 } from 'react';
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { Input } from '#components';
 
@@ -51,6 +51,7 @@ export function InputPlaceholder({
 }: Props) {
     const isLoading = typeof progress === 'number' || progress === true;
     const progressNumber = typeof progress === 'number' ? progress : undefined;
+    const [pressed, setPressed] = useState(false);
     const [value, setValue] = useState(initialValue ?? '');
     const input = useRef<HTMLInputElement>(null);
 
@@ -78,8 +79,22 @@ export function InputPlaceholder({
         }
     }
 
+    const handleMouseDown = useCallback(() => setPressed(true), [setPressed]);
+    const handleMouseUp = useCallback(() => setPressed(false), [setPressed]);
+    const handleMouseOver = useCallback(
+        (event: MouseEvent) => {
+            if (event.buttons === 0) {
+                setPressed(false);
+            }
+        },
+        [setPressed],
+    );
+
     return (
         <Frame
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseOver={handleMouseOver}
             onClick={(event) => {
                 stopPropagation(event);
                 input.current?.focus();
@@ -87,7 +102,9 @@ export function InputPlaceholder({
             onKeyDown={stopPropagation}
             onKeyUp={stopPropagation}
             {...attributes}
-            className={classNames(className, styles.InputPlaceholder)}
+            className={classNames(className, styles.InputPlaceholder, {
+                [styles.pressed]: pressed,
+            })}
             dragOver={dragOver}
             format={format}
             progress={progress}
