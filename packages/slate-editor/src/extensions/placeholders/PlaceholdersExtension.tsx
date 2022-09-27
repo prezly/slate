@@ -20,13 +20,15 @@ export const EXTENSION_ID = 'PlaceholdersExtension';
 const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
 
 export interface Parameters {
-    fetchOembed?: FetchOEmbedFn;
+    fetchOembed?: FetchOEmbedFn | undefined;
     newsroom?: NewsroomRef | undefined;
+    withCaptions?: boolean | undefined;
 }
 
 export function PlaceholdersExtension({
     fetchOembed = failFetching,
     newsroom,
+    withCaptions = false,
 }: Parameters = {}): Extension {
     return {
         id: EXTENSION_ID,
@@ -58,6 +60,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         newsroom={newsroom}
+                        withCaptions={withCaptions}
                     >
                         {children}
                     </ImagePlaceholderElement>
@@ -69,6 +72,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         newsroom={newsroom}
+                        withCaptions={withCaptions}
                     >
                         {children}
                     </GalleryPlaceholderElement>

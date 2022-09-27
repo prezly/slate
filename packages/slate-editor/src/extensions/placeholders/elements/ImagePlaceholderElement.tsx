@@ -25,9 +25,16 @@ import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersMa
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode<PlaceholderNode.Type.IMAGE>;
     newsroom: NewsroomRef | undefined;
+    withCaptions: boolean;
 }
 
-export function ImagePlaceholderElement({ children, element, newsroom, ...props }: Props) {
+export function ImagePlaceholderElement({
+    children,
+    element,
+    newsroom,
+    withCaptions,
+    ...props
+}: Props) {
     const editor = useSlateStatic();
 
     function processSelectedImages(images: FilePromise[]) {
@@ -51,7 +58,7 @@ export function ImagePlaceholderElement({ children, element, newsroom, ...props 
     const handleClick = useFunction(async () => {
         const images = await UploadcareEditor.upload(editor, {
             ...withGalleryTabMaybe(newsroom),
-            captions: true, // FIXME
+            captions: withCaptions,
             imagesOnly: true,
             multiple: true,
         });
