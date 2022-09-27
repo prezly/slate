@@ -19,11 +19,11 @@ import { UploadcareEditor } from '#modules/uploadcare';
 
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { insertPlaceholders, replacePlaceholder, withGalleryTabMaybe } from '../lib';
-import { PlaceholderNode } from '../PlaceholderNode';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
-    element: PlaceholderNode;
+    element: PlaceholderNode<PlaceholderNode.Type.IMAGE>;
     newsroom: NewsroomRef | undefined;
 }
 
@@ -34,7 +34,7 @@ export function ImagePlaceholderElement({ children, element, newsroom, ...props 
         const placeholders = [
             element,
             ...insertPlaceholders(editor, images.length - 1, {
-                type: PlaceholderNode.Type.IMAGE,
+                type: element.type,
             }),
         ];
 
@@ -44,11 +44,7 @@ export function ImagePlaceholderElement({ children, element, newsroom, ...props 
                 const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
                 return { file: image.toPrezlyStoragePayload(), caption };
             });
-            PlaceholdersManager.register(
-                PlaceholderNode.Type.IMAGE,
-                placeholders[i].uuid,
-                uploading,
-            );
+            PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
         });
     }
 
@@ -92,7 +88,7 @@ export function ImagePlaceholderElement({ children, element, newsroom, ...props 
         },
     );
 
-    usePlaceholderManagement(PlaceholderNode.Type.IMAGE, element.uuid, {
+    usePlaceholderManagement(element.type, element.uuid, {
         onTrigger: handleClick,
         onResolve: handleUploadedImage,
     });

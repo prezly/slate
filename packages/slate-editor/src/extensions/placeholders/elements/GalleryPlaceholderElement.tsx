@@ -15,11 +15,11 @@ import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE, UploadcareEditor } from '#mo
 
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { replacePlaceholder, withGalleryTabMaybe } from '../lib';
-import { PlaceholderNode } from '../PlaceholderNode';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
-    element: PlaceholderNode;
+    element: PlaceholderNode<PlaceholderNode.Type.GALLERY>;
     newsroom: NewsroomRef | undefined;
 }
 
@@ -55,7 +55,7 @@ export function GalleryPlaceholderElement({ children, element, newsroom, ...prop
                 return { images };
             });
 
-        PlaceholdersManager.register(PlaceholderNode.Type.GALLERY, element.uuid, uploading);
+        PlaceholdersManager.register(element.type, element.uuid, uploading);
     }
 
     const handleClick = useFunction(async () => {
@@ -81,7 +81,7 @@ export function GalleryPlaceholderElement({ children, element, newsroom, ...prop
         replacePlaceholder(editor, element, createGallery({ images: data.images }));
     });
 
-    usePlaceholderManagement(PlaceholderNode.Type.GALLERY, element.uuid, {
+    usePlaceholderManagement(element.type, element.uuid, {
         onTrigger: handleClick,
         onResolve: handleUploadedImages,
     });

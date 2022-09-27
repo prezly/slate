@@ -13,7 +13,7 @@ import { EmbedPlaceholderElement } from './EmbedPlaceholderElement';
 const extensions = [PlaceholdersExtension()];
 const editor = createEditor(createSlateEditor(), () => extensions);
 
-const placeholder: PlaceholderNode = {
+const placeholder: PlaceholderNode<PlaceholderNode.Type.EMBED> = {
     type: PlaceholderNode.Type.EMBED,
     uuid: 'e57a4e5c-7769-4cbd-a159-a68be9373d26',
     children: [{ text: '' }],

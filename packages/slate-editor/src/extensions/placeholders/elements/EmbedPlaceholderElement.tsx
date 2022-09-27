@@ -13,7 +13,7 @@ import {
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
 import { replacePlaceholder } from '../lib';
-import { PlaceholderNode } from '../PlaceholderNode';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
 
@@ -30,7 +30,7 @@ interface Props
         | 'inputAction'
         | 'onSubmit'
     > {
-    element: PlaceholderNode;
+    element: PlaceholderNode<PlaceholderNode.Type.EMBED>;
     fetchOembed: FetchOEmbedFn;
 }
 
@@ -52,7 +52,7 @@ export function EmbedPlaceholderElement({ children, element, fetchOembed, ...pro
             () => ({ url }), // `oembed` is undefined if an error occurred
         );
 
-        PlaceholdersManager.register(PlaceholderNode.Type.EMBED, element.uuid, loading);
+        PlaceholdersManager.register(element.type, element.uuid, loading);
         PlaceholdersManager.deactivateAll();
     });
 
@@ -68,7 +68,7 @@ export function EmbedPlaceholderElement({ children, element, fetchOembed, ...pro
             replacePlaceholder(editor, element, createEmbed(data.oembed, data.url));
         },
     );
-    usePlaceholderManagement(PlaceholderNode.Type.EMBED, element.uuid, {
+    usePlaceholderManagement(element.type, element.uuid, {
         onTrigger: handleTrigger,
         onResolve: handleData,
     });
