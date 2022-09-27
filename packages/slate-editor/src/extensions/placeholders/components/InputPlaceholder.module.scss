@@ -6,6 +6,11 @@
     flex-direction: column;
     justify-content: center;
 
+    &.pressed {
+        // [DEV-8926] A trick to hide a misplaced text input caret on mouse button press in Firefox
+        caret-color: transparent;
+    }
+
     .Title {
         margin: 0 0 $spacing-half;
         font-weight: 600;
