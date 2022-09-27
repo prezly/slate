@@ -60,13 +60,9 @@ export function InputPlaceholderElement({
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
 
-    const { isActive, isLoading } = usePlaceholderManagement(
-        element.type as PlaceholderNode.Type,
-        element.uuid,
-        {
-            onProgress: (p) => setProgress(p),
-        },
-    );
+    const { isActive, isLoading } = usePlaceholderManagement(element.type, element.uuid, {
+        onProgress: (p) => setProgress(p),
+    });
 
     return (
         <EditorBlock

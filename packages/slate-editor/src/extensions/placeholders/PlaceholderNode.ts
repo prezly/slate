@@ -16,6 +16,7 @@ export namespace PlaceholderNode {
         EMBED = 'placeholder:embed',
         IMAGE = 'placeholder:image',
         GALLERY = 'placeholder:gallery',
+        VIDEO = 'placeholder:video',
     }
 
     export function isPlaceholderNode<T extends Type>(
@@ -27,6 +28,6 @@ export namespace PlaceholderNode {
         if (type) {
             return isElementNode(node, type);
         }
-        return isElementNode(node, [Type.ATTACHMENT, Type.EMBED, Type.IMAGE, Type.GALLERY]);
+        return isElementNode(node, Object.values(Type));
     }
 }
