@@ -68,6 +68,8 @@ export function GalleryPlaceholderElement({ children, element, ...props }: Props
     });
 
     const handleDrop = useFunction<DragEventHandler>((event) => {
+        event.preventDefault();
+        event.stopPropagation();
         const images = Array.from(event.dataTransfer.files)
             .filter((file) => IMAGE_TYPES.includes(file.type))
             .map((file) => uploadcare.fileFrom('object', file));
