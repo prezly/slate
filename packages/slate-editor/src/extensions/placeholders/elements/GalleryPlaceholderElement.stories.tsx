@@ -43,6 +43,7 @@ export function GalleryPlaceholder() {
             attributes={attributes}
             element={placeholder}
             newsroom={undefined}
+            withCaptions
         >
             {''}
         </GalleryPlaceholderElement>

@@ -39,7 +39,12 @@ export default {
 
 export function ImagePlaceholder() {
     return (
-        <ImagePlaceholderElement attributes={attributes} element={placeholder} newsroom={undefined}>
+        <ImagePlaceholderElement
+            attributes={attributes}
+            element={placeholder}
+            newsroom={undefined}
+            withCaptions
+        >
             {''}
         </ImagePlaceholderElement>
     );
