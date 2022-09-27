@@ -340,10 +340,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         if (action === MenuAction.ADD_ATTACHMENT) {
             EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.ATTACHMENT,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.ATTACHMENT },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return handleAddAttachment(editor);
@@ -364,6 +367,16 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return TablesEditor.isTablesEditor(editor) && insertTable(editor);
         }
         if (action === MenuAction.ADD_EMBED) {
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.EMBED },
+                    true,
+                );
+                PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
+                return;
+            }
             return openFloatingEmbedInput('Add embed', {
                 contentType: LoaderContentType.EMBED,
                 message: 'Embedding Content',
@@ -382,6 +395,16 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             });
         }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.SOCIAL_POST },
+                    true,
+                );
+                PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
+                return;
+            }
             return openFloatingEmbedInput('Add social post', {
                 contentType: LoaderContentType.EMBED,
                 message: 'Embedding Social Post',
@@ -404,10 +427,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.GALLERY,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.GALLERY },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return createHandleAddGallery(withGalleries)(editor);
@@ -415,21 +441,45 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         if (action === MenuAction.ADD_IMAGE && withImages) {
             EventsEditor.dispatchEvent(editor, 'image-add-clicked');
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.IMAGE,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.IMAGE },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
                 return;
             }
             return createImageAddHandler(withImages)(editor);
         }
         if (action === MenuAction.ADD_VIDEO) {
+            EventsEditor.dispatchEvent(editor, 'video-add-clicked');
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.VIDEO },
+                    true,
+                );
+                PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
+                return;
+            }
             return openFloatingVideoInput('Add video', {
                 contentType: LoaderContentType.VIDEO,
                 message: 'Adding video',
             });
         }
         if (action === MenuAction.ADD_WEB_BOOKMARK) {
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.WEB_BOOKMARK },
+                    true,
+                );
+                PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
+                return;
+            }
             return openFloatingWebBookmarkInput('Add web bookmark', {
                 contentType: LoaderContentType.BOOKMARK,
                 message: 'Adding web bookmark',

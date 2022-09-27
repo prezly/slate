@@ -54,7 +54,7 @@ export function useFloatingVideoInput(
     }
 
     function open(buttonLabel: string, newLoaderParameters: Parameters<typeof createLoader>[0]) {
-        EventsEditor.dispatchEvent(editor, 'web-bookmark-dialog-opened', {
+        EventsEditor.dispatchEvent(editor, 'video-dialog-opened', {
             selectedItemText: buttonLabel,
         });
         setSubmitButtonLabel(buttonLabel);

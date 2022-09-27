@@ -1,0 +1,118 @@
+@import "styles/variables";
+
+// Colors, Hover, & Border management
+.Frame {
+    background-color: $grey-100;
+    border: 1px dashed $grey-300;
+    border-radius: $editor-block-border-radius;
+    color: $grey-700;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $grey-200;
+
+        &.knownProgress,
+        &.unknownProgress {
+            cursor: initial;
+            background-color: $grey-100;
+        }
+    }
+
+    &.dragOver {
+        background-color: $indigo-100;
+        border-color: $indigo-300;
+        color: $indigo-700;
+    }
+
+    &.selected {
+        border: 1px solid transparent;
+        border-radius: 0;
+    }
+
+    &.active {
+        cursor: initial;
+
+        &:hover {
+            background-color: $grey-100;
+        }
+    }
+}
+
+// Card size
+.Frame {
+    &[data-placeholder-format="card"] {
+        min-height: $editor-bookmark-card-height;
+    }
+
+    &[data-placeholder-format="card-lg"] {
+        min-height: 280px;
+    }
+
+    &[data-placeholder-format="16:9"] {
+        aspect-ratio: 16/9;
+    }
+}
+
+// Close button
+.Frame {
+    position: relative;
+
+    .CloseButton {
+        position: absolute;
+        top: $spacing-1;
+        right: $spacing-1;
+
+        &.hidden {
+            display: none;
+        }
+    }
+}
+
+// Progress
+.Frame {
+    position: relative;
+
+    .Progress {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    @keyframes progress-width {
+        from {
+            left: 0;
+            width: 0;
+        }
+        50% {
+            left: 0;
+            width: 100%;
+        }
+        to {
+            left: 100%;
+            width: 0;
+        }
+    }
+
+    &.knownProgress,
+    &.unknownProgress {
+        .Progress {
+            display: block;
+        }
+    }
+
+    &.knownProgress {
+        .Progress {
+            transition: width 1s ease-in-out;
+        }
+    }
+
+    &.unknownProgress {
+        .Progress {
+            width: 50%;
+            animation: 3s infinite progress-width;
+        }
+    }
+}

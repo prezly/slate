@@ -225,7 +225,11 @@ export function* getEnabledExtensions({
     }
 
     if (withPlaceholders) {
-        yield PlaceholdersExtension();
+        yield PlaceholdersExtension({
+            fetchOembed: (withEmbeds || undefined)?.fetchOembed,
+            newsroom: withImages ? withImages.mediaGalleryTab?.newsroom : undefined,
+            withCaptions: withImages ? withImages.captions : undefined,
+        });
     }
 
     if (withSnippets) {

@@ -131,6 +131,7 @@ export type EditorEventMap = {
     'table-insert-column-right': never;
     'table-remove-column': never;
     'table-remove': never;
+    'video-add-clicked': never;
     'video-dialog-opened': {
         selectedItemText: string;
     };

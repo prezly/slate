@@ -14,14 +14,13 @@ import { createFileAttachment } from '#extensions/file-attachment';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
+import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { insertPlaceholders, replacePlaceholder } from '../lib';
-import { PlaceholderNode } from '../PlaceholderNode';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
-import { PlaceholderElement, type Props as BaseProps } from './PlaceholderElement';
-
-interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
-    element: PlaceholderNode;
+interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
+    element: PlaceholderNode<PlaceholderNode.Type.ATTACHMENT>;
 }
 
 export function AttachmentPlaceholderElement({ children, element, ...props }: Props) {
@@ -31,7 +30,7 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
         const placeholders = [
             element,
             ...insertPlaceholders(editor, files.length - 1, {
-                type: PlaceholderNode.Type.ATTACHMENT,
+                type: element.type,
             }),
         ];
 
@@ -41,11 +40,7 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
                 const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
                 return { file: file.toPrezlyStoragePayload(), caption };
             });
-            PlaceholdersManager.register(
-                PlaceholderNode.Type.ATTACHMENT,
-                placeholders[i].uuid,
-                uploading,
-            );
+            PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
         });
     }
 
@@ -58,6 +53,8 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
     });
 
     const handleDrop = useFunction<DragEventHandler>((event) => {
+        event.preventDefault();
+        event.stopPropagation();
         const files = Array.from(event.dataTransfer.files).map((file) =>
             uploadcare.fileFrom('object', file),
         );
@@ -78,7 +75,7 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
         },
     );
 
-    usePlaceholderManagement(PlaceholderNode.Type.ATTACHMENT, element.uuid, {
+    usePlaceholderManagement(element.type, element.uuid, {
         onTrigger: handleClick,
         onResolve: handleUploadedFile,
     });
@@ -91,7 +88,6 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
             icon={PlaceholderAttachment}
             title={Title}
             description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
-            dropZone
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}

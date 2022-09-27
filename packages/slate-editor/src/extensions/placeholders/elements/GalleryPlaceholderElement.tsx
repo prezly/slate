@@ -1,9 +1,8 @@
+import type { NewsroomRef } from '@prezly/sdk';
 import type { GalleryNode } from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
-import type { FilePromise } from '@prezly/uploadcare-widget';
-import uploadcare from '@prezly/uploadcare-widget';
-import type { DragEventHandler } from 'react';
-import React from 'react';
+import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
+import React, { type DragEventHandler } from 'react';
 import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderGallery } from '#icons';
@@ -14,17 +13,24 @@ import { IMAGE_TYPES } from '#extensions/image';
 import { EventsEditor } from '#modules/events';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE, UploadcareEditor } from '#modules/uploadcare';
 
-import { replacePlaceholder } from '../lib';
-import { PlaceholderNode } from '../PlaceholderNode';
+import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
+import { replacePlaceholder, withGalleryTabMaybe } from '../lib';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
-import { PlaceholderElement, type Props as BaseProps } from './PlaceholderElement';
-
-interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
-    element: PlaceholderNode;
+interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
+    element: PlaceholderNode<PlaceholderNode.Type.GALLERY>;
+    newsroom: NewsroomRef | undefined;
+    withCaptions: boolean;
 }
 
-export function GalleryPlaceholderElement({ children, element, ...props }: Props) {
+export function GalleryPlaceholderElement({
+    children,
+    element,
+    newsroom,
+    withCaptions,
+    ...props
+}: Props) {
     const editor = useSlateStatic();
 
     function processSelectedImages(images: FilePromise[]) {
@@ -56,12 +62,13 @@ export function GalleryPlaceholderElement({ children, element, ...props }: Props
                 return { images };
             });
 
-        PlaceholdersManager.register(PlaceholderNode.Type.GALLERY, element.uuid, uploading);
+        PlaceholdersManager.register(element.type, element.uuid, uploading);
     }
 
     const handleClick = useFunction(async () => {
         const images = await UploadcareEditor.upload(editor, {
-            captions: true, // FIXME
+            ...withGalleryTabMaybe(newsroom),
+            captions: withCaptions,
             imagesOnly: true,
             multiple: true,
         });
@@ -69,6 +76,8 @@ export function GalleryPlaceholderElement({ children, element, ...props }: Props
     });
 
     const handleDrop = useFunction<DragEventHandler>((event) => {
+        event.preventDefault();
+        event.stopPropagation();
         const images = Array.from(event.dataTransfer.files)
             .filter((file) => IMAGE_TYPES.includes(file.type))
             .map((file) => uploadcare.fileFrom('object', file));
@@ -79,7 +88,7 @@ export function GalleryPlaceholderElement({ children, element, ...props }: Props
         replacePlaceholder(editor, element, createGallery({ images: data.images }));
     });
 
-    usePlaceholderManagement(PlaceholderNode.Type.GALLERY, element.uuid, {
+    usePlaceholderManagement(element.type, element.uuid, {
         onTrigger: handleClick,
         onResolve: handleUploadedImages,
     });
@@ -93,7 +102,6 @@ export function GalleryPlaceholderElement({ children, element, ...props }: Props
             icon={PlaceholderGallery}
             title={Title}
             description="Supported formats: .jpg, .gif, or .png - Max. 25MB"
-            dropZone
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}

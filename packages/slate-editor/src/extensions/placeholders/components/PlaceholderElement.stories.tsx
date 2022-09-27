@@ -2,12 +2,14 @@ import * as React from 'react';
 import { createEditor as createSlateEditor } from 'slate';
 import { type RenderElementProps, Slate } from 'slate-react';
 
+import { PlaceholderAttachment } from '#icons';
+
 import { PlaceholdersExtension } from '#extensions/placeholders';
 import { createEditor } from '#modules/editor';
 
 import { PlaceholderNode } from '../PlaceholderNode';
 
-import { AttachmentPlaceholderElement } from './AttachmentPlaceholderElement';
+import { PlaceholderElement } from './PlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
 const editor = createEditor(createSlateEditor(), () => extensions);
@@ -25,7 +27,7 @@ const attributes: RenderElementProps['attributes'] = {
 };
 
 export default {
-    title: 'Extensions/Placeholders',
+    title: 'Extensions/Placeholders/components/PlaceholderElement',
     decorators: [
         (Story: React.ComponentType) => (
             <Slate editor={editor} value={[placeholder]}>
@@ -37,10 +39,31 @@ export default {
     ],
 };
 
-export function AttachmentPlaceholder() {
+export function Default() {
     return (
-        <AttachmentPlaceholderElement attributes={attributes} element={placeholder}>
+        <PlaceholderElement
+            attributes={attributes}
+            element={placeholder}
+            icon={PlaceholderAttachment}
+            title="Click to upload an attachment"
+            description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
+        >
             {''}
-        </AttachmentPlaceholderElement>
+        </PlaceholderElement>
+    );
+}
+
+export function DropZone() {
+    return (
+        <PlaceholderElement
+            attributes={attributes}
+            element={placeholder}
+            icon={PlaceholderAttachment}
+            title="Drag or click to upload an attachment"
+            description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
+            onDrop={() => null}
+        >
+            {''}
+        </PlaceholderElement>
     );
 }

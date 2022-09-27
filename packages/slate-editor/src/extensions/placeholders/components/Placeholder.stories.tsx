@@ -6,7 +6,7 @@ import { PlaceholderAttachment } from '#icons';
 import { Placeholder } from './Placeholder';
 
 export default {
-    title: 'Extensions/Placeholders/Placeholder',
+    title: 'Extensions/Placeholders/components/Placeholder',
     decorators: [
         (Story: React.ComponentType) => (
             <div style={{ width: 680 }}>
@@ -52,7 +52,7 @@ export function Dragover() {
 export function SelectedDragover() {
     return (
         <div style={{ outline: '6px solid #f9ca7b' }}>
-            <Placeholder icon={ICON} title={TITLE} description={DRAGOVER_TITLE} dragOver selected />
+            <Placeholder icon={ICON} title={TITLE} description={DESCRIPTION} dragOver selected />
         </div>
     );
 }
