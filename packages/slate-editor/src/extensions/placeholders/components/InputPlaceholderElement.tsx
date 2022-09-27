@@ -17,7 +17,9 @@ export type Props = RenderElementProps &
         inputTitle: InputPlaceholderProps['title'];
         inputDescription: InputPlaceholderProps['description'];
         inputAction: string;
-        inputPlaceholder: string;
+        inputPattern?: InputPlaceholderProps['pattern'];
+        inputPlaceholder?: InputPlaceholderProps['placeholder'];
+        inputType?: InputPlaceholderProps['type'];
         onSubmit: InputPlaceholderProps['onSubmit'];
     };
 
@@ -35,7 +37,9 @@ export function InputPlaceholderElement({
     inputTitle,
     inputDescription,
     inputAction,
+    inputPattern,
     inputPlaceholder,
+    inputType,
     // Callbacks
     onDrop,
     onSubmit,
@@ -81,7 +85,10 @@ export function InputPlaceholderElement({
                         format={format}
                         title={inputTitle}
                         description={inputDescription}
+                        pattern={inputPattern}
                         placeholder={inputPlaceholder}
+                        type={inputType}
+                        // Actions
                         action={inputAction}
                         onRemove={handleRemove}
                         onSubmit={onSubmit}

@@ -23,6 +23,8 @@ export interface Props extends Omit<BaseProps, 'title' | 'onSubmit'> {
     disabled?: boolean;
     autoFocus?: boolean;
     initialValue?: string;
+    type?: string;
+    pattern?: string;
     placeholder?: string;
     onSubmit?: (value: string) => void;
 }
@@ -40,9 +42,12 @@ export function InputPlaceholder({
     autoFocus = false,
     disabled = false,
     initialValue = '',
+    pattern,
     placeholder,
+    type,
+    // Input callbacks
     onSubmit,
-    ...props
+    ...attributes
 }: Props) {
     const isLoading = typeof progress === 'number' || progress === true;
     const progressNumber = typeof progress === 'number' ? progress : undefined;
@@ -81,7 +86,7 @@ export function InputPlaceholder({
             }}
             onKeyDown={stopPropagation}
             onKeyUp={stopPropagation}
-            {...props}
+            {...attributes}
             className={classNames(className, styles.InputPlaceholder)}
             dragOver={dragOver}
             format={format}
@@ -98,10 +103,11 @@ export function InputPlaceholder({
                     disabled={disabled}
                     icon="link"
                     onChange={setValue}
+                    pattern={pattern}
                     placeholder={placeholder}
                     ref={input}
                     required
-                    type="url"
+                    type={type}
                     value={value}
                 />
             </form>

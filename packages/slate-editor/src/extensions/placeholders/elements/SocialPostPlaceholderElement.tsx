@@ -3,7 +3,7 @@ import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderSocialPost } from '#icons';
-import { useFunction } from '#lib';
+import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
 import { createEmbed } from '#extensions/embed';
 import { EventsEditor } from '#modules/events';
@@ -26,7 +26,9 @@ interface Props
         | 'onDrop'
         | 'inputTitle'
         | 'inputDescription'
+        | 'inputPattern'
         | 'inputPlaceholder'
+        | 'inputType'
         | 'inputAction'
         | 'onSubmit'
     > {
@@ -86,6 +88,7 @@ export function SocialPostPlaceholderElement({ children, element, fetchOembed, .
             // Input
             inputTitle="Social media post"
             inputDescription="Insert a social media link and hit Enter"
+            inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
             inputPlaceholder="https://twitter.com/tweet"
             inputAction="Add link"
             onSubmit={handleSubmit}
