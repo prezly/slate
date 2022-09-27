@@ -58,6 +58,7 @@ export { default as PlaceholderAttachment } from './Placeholder-Attachment.svg';
 export { default as PlaceholderEmbed } from './Placeholder-Embed.svg';
 export { default as PlaceholderImage } from './Placeholder-Image.svg';
 export { default as PlaceholderGallery } from './Placeholder-Gallery.svg';
+export { default as PlaceholderSocialPost } from './Placeholder-SocialPost.svg';
 export { default as PlaceholderVideo } from './Placeholder-Video.svg';
 export { default as PlaceholderWebBookmark } from './Placeholder-WebBookmark.svg';
 export { default as PlayButton } from './PlayButton.svg';

@@ -1,0 +1,110 @@
+import type { EmbedNode } from '@prezly/slate-types';
+import React from 'react';
+import { useSlateStatic } from 'slate-react';
+
+import { PlaceholderSocialPost } from '#icons';
+import { useFunction } from '#lib';
+
+import { createEmbed } from '#extensions/embed';
+import { EventsEditor } from '#modules/events';
+
+import {
+    type Props as BaseProps,
+    InputPlaceholderElement,
+} from '../components/InputPlaceholderElement';
+import { replacePlaceholder } from '../lib';
+import type { PlaceholderNode } from '../PlaceholderNode';
+import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
+import type { FetchOEmbedFn } from '../types';
+
+interface Props
+    extends Omit<
+        BaseProps,
+        | 'icon'
+        | 'title'
+        | 'description'
+        | 'onDrop'
+        | 'inputTitle'
+        | 'inputDescription'
+        | 'inputPlaceholder'
+        | 'inputAction'
+        | 'onSubmit'
+    > {
+    element: PlaceholderNode<PlaceholderNode.Type.SOCIAL_POST>;
+    fetchOembed: FetchOEmbedFn;
+}
+
+export function SocialPostPlaceholderElement({ children, element, fetchOembed, ...props }: Props) {
+    const editor = useSlateStatic();
+
+    const handleTrigger = useFunction(() => {
+        PlaceholdersManager.activate(element);
+    });
+
+    const handleSubmit = useFunction(async (url: string) => {
+        EventsEditor.dispatchEvent(editor, 'embed-dialog-submitted', {
+            url,
+            selectedItemText: 'Add social post',
+        });
+
+        const loading = fetchOembed(url).then(
+            (oembed) => ({ oembed, url }),
+            () => ({ url }), // `oembed` is undefined if an error occurred
+        );
+
+        PlaceholdersManager.register(element.type, element.uuid, loading);
+        PlaceholdersManager.deactivateAll();
+    });
+
+    const handleData = useFunction(
+        (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
+            if (!data.oembed) {
+                EventsEditor.dispatchEvent(editor, 'notification', {
+                    children: 'Provided URL does not exist or is not supported.',
+                    type: 'error',
+                });
+                return;
+            }
+            replacePlaceholder(editor, element, createEmbed(data.oembed, data.url));
+        },
+    );
+
+    usePlaceholderManagement(element.type, element.uuid, {
+        onTrigger: handleTrigger,
+        onResolve: handleData,
+    });
+
+    return (
+        <InputPlaceholderElement
+            {...props}
+            element={element}
+            // Core
+            format="card-lg"
+            icon={PlaceholderSocialPost}
+            title={Title}
+            description={Description}
+            // Input
+            inputTitle="Social media post"
+            inputDescription="Insert a social media link and hit Enter"
+            inputPlaceholder="https://twitter.com/tweet"
+            inputAction="Add link"
+            onSubmit={handleSubmit}
+        >
+            {children}
+        </InputPlaceholderElement>
+    );
+}
+
+function Title(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return <>Embedding...</>;
+    }
+    return <>Click to insert a social media post</>;
+}
+
+function Description(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return null;
+    }
+    return <>Insert a tweet, instagram post, etc. within your story</>;
+}

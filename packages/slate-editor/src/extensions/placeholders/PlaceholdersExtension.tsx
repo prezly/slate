@@ -7,6 +7,7 @@ import {
     EmbedPlaceholderElement,
     GalleryPlaceholderElement,
     ImagePlaceholderElement,
+    SocialPostPlaceholderElement,
     VideoPlaceholderElement,
     WebBookmarkPlaceholderElement,
 } from './elements';
@@ -59,6 +60,17 @@ export function PlaceholdersExtension({ fetchOembed = failFetching }: Parameters
                     <GalleryPlaceholderElement attributes={attributes} element={element}>
                         {children}
                     </GalleryPlaceholderElement>
+                );
+            }
+            if (isPlaceholderNode(element, PlaceholderNode.Type.SOCIAL_POST)) {
+                return (
+                    <SocialPostPlaceholderElement
+                        attributes={attributes}
+                        element={element}
+                        fetchOembed={fetchOembed}
+                    >
+                        {children}
+                    </SocialPostPlaceholderElement>
                 );
             }
             if (isPlaceholderNode(element, PlaceholderNode.Type.VIDEO)) {

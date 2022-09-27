@@ -19,12 +19,16 @@ interface Data {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
     };
+    [Type.GALLERY]: {
+        images: GalleryNode['images'];
+    };
     [Type.IMAGE]: {
         file: ImageNode['file'];
         caption: string;
     };
-    [Type.GALLERY]: {
-        images: GalleryNode['images'];
+    [Type.SOCIAL_POST]: {
+        url: string;
+        oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
     };
     [Type.VIDEO]: {
         url: string;
@@ -68,6 +72,13 @@ export const PlaceholdersManager = {
         state.followers.forEach((follower) => {
             follower.onActivate(is(follower, type, uuid));
         });
+    },
+
+    deactivate<T extends Type>({ type, uuid }: Identifier<T>): void {
+        if (state.active && is(state.active, type, uuid)) {
+            state.active = undefined;
+            notify(type, uuid, ({ onActivate }) => onActivate(false));
+        }
     },
 
     deactivateAll(): void {

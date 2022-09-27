@@ -389,6 +389,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             });
         }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(editor, {
+                    type: PlaceholderNode.Type.SOCIAL_POST,
+                });
+                PlaceholdersManager.trigger(placeholder);
+                return;
+            }
             return openFloatingEmbedInput('Add social post', {
                 contentType: LoaderContentType.EMBED,
                 message: 'Embedding Social Post',

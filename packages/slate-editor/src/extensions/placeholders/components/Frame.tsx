@@ -41,7 +41,7 @@ export const Frame = forwardRef<HTMLDivElement, Props>(
                         [styles.hidden]: dragOver,
                     })}
                     onClick={onRemove}
-                    title="Delete this block"
+                    title="Remove this block"
                 />
                 {children}
             </div>
