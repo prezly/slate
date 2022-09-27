@@ -1,10 +1,13 @@
+import type { NewsroomRef } from '@prezly/sdk';
 import type { ImageNode } from '@prezly/slate-types';
-import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
-import type { PrezlyFileInfo } from '@prezly/uploadcare';
-import type { FilePromise } from '@prezly/uploadcare-widget';
-import uploadcare from '@prezly/uploadcare-widget';
-import type { DragEventHandler } from 'react';
-import React from 'react';
+import {
+    type PrezlyFileInfo,
+    toProgressPromise,
+    UPLOADCARE_FILE_DATA_KEY,
+    UploadcareImage,
+} from '@prezly/uploadcare';
+import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
+import React, { type DragEventHandler } from 'react';
 import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderImage } from '#icons';
@@ -15,22 +18,23 @@ import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
-import { insertPlaceholders, replacePlaceholder } from '../lib';
-import { PlaceholderNode } from '../PlaceholderNode';
+import { insertPlaceholders, replacePlaceholder, withGalleryTabMaybe } from '../lib';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
-    element: PlaceholderNode;
+    element: PlaceholderNode<PlaceholderNode.Type.IMAGE>;
+    newsroom: NewsroomRef | undefined;
 }
 
-export function ImagePlaceholderElement({ children, element, ...props }: Props) {
+export function ImagePlaceholderElement({ children, element, newsroom, ...props }: Props) {
     const editor = useSlateStatic();
 
     function processSelectedImages(images: FilePromise[]) {
         const placeholders = [
             element,
             ...insertPlaceholders(editor, images.length - 1, {
-                type: PlaceholderNode.Type.IMAGE,
+                type: element.type,
             }),
         ];
 
@@ -40,16 +44,13 @@ export function ImagePlaceholderElement({ children, element, ...props }: Props) 
                 const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
                 return { file: image.toPrezlyStoragePayload(), caption };
             });
-            PlaceholdersManager.register(
-                PlaceholderNode.Type.IMAGE,
-                placeholders[i].uuid,
-                uploading,
-            );
+            PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
         });
     }
 
     const handleClick = useFunction(async () => {
         const images = await UploadcareEditor.upload(editor, {
+            ...withGalleryTabMaybe(newsroom),
             captions: true, // FIXME
             imagesOnly: true,
             multiple: true,
@@ -87,7 +88,7 @@ export function ImagePlaceholderElement({ children, element, ...props }: Props) 
         },
     );
 
-    usePlaceholderManagement(PlaceholderNode.Type.IMAGE, element.uuid, {
+    usePlaceholderManagement(element.type, element.uuid, {
         onTrigger: handleClick,
         onResolve: handleUploadedImage,
     });

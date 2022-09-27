@@ -1,9 +1,8 @@
+import type { NewsroomRef } from '@prezly/sdk';
 import type { GalleryNode } from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
-import type { FilePromise } from '@prezly/uploadcare-widget';
-import uploadcare from '@prezly/uploadcare-widget';
-import type { DragEventHandler } from 'react';
-import React from 'react';
+import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
+import React, { type DragEventHandler } from 'react';
 import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderGallery } from '#icons';
@@ -15,15 +14,16 @@ import { EventsEditor } from '#modules/events';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE, UploadcareEditor } from '#modules/uploadcare';
 
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
-import { replacePlaceholder } from '../lib';
-import { PlaceholderNode } from '../PlaceholderNode';
+import { replacePlaceholder, withGalleryTabMaybe } from '../lib';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
-    element: PlaceholderNode;
+    element: PlaceholderNode<PlaceholderNode.Type.GALLERY>;
+    newsroom: NewsroomRef | undefined;
 }
 
-export function GalleryPlaceholderElement({ children, element, ...props }: Props) {
+export function GalleryPlaceholderElement({ children, element, newsroom, ...props }: Props) {
     const editor = useSlateStatic();
 
     function processSelectedImages(images: FilePromise[]) {
@@ -55,11 +55,12 @@ export function GalleryPlaceholderElement({ children, element, ...props }: Props
                 return { images };
             });
 
-        PlaceholdersManager.register(PlaceholderNode.Type.GALLERY, element.uuid, uploading);
+        PlaceholdersManager.register(element.type, element.uuid, uploading);
     }
 
     const handleClick = useFunction(async () => {
         const images = await UploadcareEditor.upload(editor, {
+            ...withGalleryTabMaybe(newsroom),
             captions: true, // FIXME
             imagesOnly: true,
             multiple: true,
@@ -80,7 +81,7 @@ export function GalleryPlaceholderElement({ children, element, ...props }: Props
         replacePlaceholder(editor, element, createGallery({ images: data.images }));
     });
 
-    usePlaceholderManagement(PlaceholderNode.Type.GALLERY, element.uuid, {
+    usePlaceholderManagement(element.type, element.uuid, {
         onTrigger: handleClick,
         onResolve: handleUploadedImages,
     });

@@ -12,7 +12,7 @@ import { GalleryPlaceholderElement } from './GalleryPlaceholderElement';
 const extensions = [PlaceholdersExtension()];
 const editor = createEditor(createSlateEditor(), () => extensions);
 
-const placeholder: PlaceholderNode = {
+const placeholder: PlaceholderNode<PlaceholderNode.Type.GALLERY> = {
     type: PlaceholderNode.Type.GALLERY,
     uuid: 'e57a4e5c-7769-4cbd-a159-a68be9373d26',
     children: [{ text: '' }],
@@ -39,7 +39,11 @@ export default {
 
 export function GalleryPlaceholder() {
     return (
-        <GalleryPlaceholderElement attributes={attributes} element={placeholder}>
+        <GalleryPlaceholderElement
+            attributes={attributes}
+            element={placeholder}
+            newsroom={undefined}
+        >
             {''}
         </GalleryPlaceholderElement>
     );
