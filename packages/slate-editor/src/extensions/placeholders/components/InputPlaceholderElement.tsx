@@ -83,6 +83,7 @@ export function InputPlaceholderElement({
                         description={inputDescription}
                         placeholder={inputPlaceholder}
                         action={inputAction}
+                        onRemove={handleRemove}
                         onSubmit={onSubmit}
                     />
                 ) : (
