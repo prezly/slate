@@ -57,6 +57,8 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
     });
 
     const handleDrop = useFunction<DragEventHandler>((event) => {
+        event.preventDefault();
+        event.stopPropagation();
         const files = Array.from(event.dataTransfer.files).map((file) =>
             uploadcare.fileFrom('object', file),
         );
