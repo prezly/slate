@@ -30,6 +30,11 @@ interface Data {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
     };
+
+    [Type.WEB_BOOKMARK]: {
+        url: string;
+        oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
+    };
 }
 
 type Identifier<T extends Type> = { type: T; uuid: Uuid };

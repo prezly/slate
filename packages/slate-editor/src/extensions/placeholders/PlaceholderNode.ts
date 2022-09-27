@@ -17,6 +17,7 @@ export namespace PlaceholderNode {
         IMAGE = 'placeholder:image',
         GALLERY = 'placeholder:gallery',
         VIDEO = 'placeholder:video',
+        WEB_BOOKMARK = 'placeholder:bookmark',
     }
 
     export function isPlaceholderNode<T extends Type>(
