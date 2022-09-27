@@ -13,7 +13,6 @@ import { type Props as BaseProps, Placeholder } from './Placeholder';
 export type Props = RenderElementProps &
     Pick<BaseProps, 'icon' | 'title' | 'description' | 'format' | 'onClick' | 'onDrop'> & {
         element: PlaceholderNode;
-        dropZone?: boolean;
     };
 
 export function PlaceholderElement({

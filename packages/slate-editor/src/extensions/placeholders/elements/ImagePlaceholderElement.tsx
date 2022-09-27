@@ -14,13 +14,12 @@ import { createImage, IMAGE_TYPES } from '#extensions/image';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
+import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { insertPlaceholders, replacePlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
-import { PlaceholderElement, type Props as BaseProps } from './PlaceholderElement';
-
-interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
+interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode;
 }
 
@@ -100,7 +99,6 @@ export function ImagePlaceholderElement({ children, element, ...props }: Props) 
             icon={PlaceholderImage}
             title={Title}
             description="Supported formats: .jpg, .gif, or .png - Max. 25MB"
-            dropZone
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}

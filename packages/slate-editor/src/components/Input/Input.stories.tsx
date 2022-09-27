@@ -7,7 +7,7 @@ export default {
     title: 'Components/Input',
     decorators: [
         (Story: React.ComponentType) => (
-            <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 30, width: 300 }}>
+            <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 30, width: 500 }}>
                 <Story />
             </div>
         ),
@@ -54,7 +54,7 @@ export function Disabled() {
 }
 
 export function Invalid() {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = React.useState('NaN');
 
     return (
         <Input
@@ -64,6 +64,63 @@ export function Invalid() {
             type="url"
             pattern="[0-9]+"
             placeholder="Only numbers"
+        />
+    );
+}
+
+export function WithButton() {
+    const [value, setValue] = React.useState('');
+
+    return (
+        <Input
+            value={value}
+            onChange={setValue}
+            placeholder="media.giphy.com/GIF"
+            button={{ text: 'Add' }}
+        />
+    );
+}
+
+export function WithButtonAndIcon() {
+    const [value, setValue] = React.useState('');
+
+    return (
+        <Input
+            value={value}
+            onChange={setValue}
+            placeholder="media.giphy.com/GIF"
+            icon={Link}
+            button={{ text: 'Add' }}
+        />
+    );
+}
+
+export function WithButtonAndIconDisabled() {
+    const [value, setValue] = React.useState('');
+
+    return (
+        <Input
+            value={value}
+            onChange={setValue}
+            icon={Link}
+            disabled
+            placeholder="media.giphy.com/GIF"
+            button={{ text: 'Add' }}
+        />
+    );
+}
+
+export function WithButtonAndIconInvalid() {
+    const [value, setValue] = React.useState('NaN');
+
+    return (
+        <Input
+            value={value}
+            onChange={setValue}
+            icon={Link}
+            pattern="[0-9]+"
+            placeholder="media.giphy.com/GIF"
+            button={{ text: 'Add' }}
         />
     );
 }

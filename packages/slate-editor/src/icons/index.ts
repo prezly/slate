@@ -55,6 +55,7 @@ export { default as ItemsLayoutHorizontal } from './Items-Layout-Horizontal.svg'
 export { default as ItemsLayoutVertical } from './Items-Layout-Vertical.svg';
 export { default as Link } from './Link.svg';
 export { default as PlaceholderAttachment } from './Placeholder-Attachment.svg';
+export { default as PlaceholderEmbed } from './Placeholder-Embed.svg';
 export { default as PlaceholderImage } from './Placeholder-Image.svg';
 export { default as PlaceholderGallery } from './Placeholder-Gallery.svg';
 export { default as PlayButton } from './PlayButton.svg';

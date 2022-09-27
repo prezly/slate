@@ -364,6 +364,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return TablesEditor.isTablesEditor(editor) && insertTable(editor);
         }
         if (action === MenuAction.ADD_EMBED) {
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(editor, {
+                    type: PlaceholderNode.Type.EMBED,
+                });
+                PlaceholdersManager.trigger(placeholder);
+                return;
+            }
             return openFloatingEmbedInput('Add embed', {
                 contentType: LoaderContentType.EMBED,
                 message: 'Embedding Content',

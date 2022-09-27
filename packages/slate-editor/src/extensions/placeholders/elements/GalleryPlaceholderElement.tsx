@@ -14,13 +14,12 @@ import { IMAGE_TYPES } from '#extensions/image';
 import { EventsEditor } from '#modules/events';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE, UploadcareEditor } from '#modules/uploadcare';
 
+import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { replacePlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
-import { PlaceholderElement, type Props as BaseProps } from './PlaceholderElement';
-
-interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'dropZone'> {
+interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode;
 }
 
@@ -93,7 +92,6 @@ export function GalleryPlaceholderElement({ children, element, ...props }: Props
             icon={PlaceholderGallery}
             title={Title}
             description="Supported formats: .jpg, .gif, or .png - Max. 25MB"
-            dropZone
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}

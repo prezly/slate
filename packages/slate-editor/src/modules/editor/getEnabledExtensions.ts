@@ -225,7 +225,9 @@ export function* getEnabledExtensions({
     }
 
     if (withPlaceholders) {
-        yield PlaceholdersExtension();
+        yield PlaceholdersExtension({
+            fetchOembed: (withEmbeds || undefined)?.fetchOembed,
+        });
     }
 
     if (withSnippets) {

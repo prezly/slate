@@ -1,33 +1,22 @@
 import classNames from 'classnames';
-import type { FunctionComponent, HTMLAttributes } from 'react';
+import type { FunctionComponent } from 'react';
 import React, { type ComponentType, forwardRef, type ReactElement, type ReactNode } from 'react';
 
-import { CloseButton } from '#components';
-
+import { type Props as BaseProps, Frame } from './Frame';
 import styles from './Placeholder.module.scss';
 
-type ContentRenderProps = {
+export type ContentRenderProps = {
     isDragOver: boolean;
     isLoading: boolean;
     isSelected: boolean;
-    progress: number;
+    progress: number | undefined;
 };
 
-export interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+export interface Props extends Omit<BaseProps, 'title'> {
     // Core
     icon: ComponentType<{ className?: string }>;
     title: ReactNode | FunctionComponent<ContentRenderProps>;
     description: ReactNode | FunctionComponent<ContentRenderProps>;
-    // Variations
-    format?: 'card' | '16:9';
-    dragOver?: boolean;
-    progress?: boolean | number;
-    selected?: boolean;
-    // Callbacks
-    onClick?: () => void;
-    onDragOver?: () => void;
-    onDragLeave?: () => void;
-    onRemove?: () => void;
 }
 
 export const Placeholder = forwardRef<HTMLDivElement, Props>(
@@ -39,19 +28,16 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
             title,
             description,
             // Variations
-            format = 'card',
             dragOver,
             progress,
             selected = false,
             // Callbacks
-            onRemove,
             ...props
         },
         forwardedRef,
     ) => {
         const isLoading = typeof progress === 'number' || progress === true;
         const progressNumber = typeof progress === 'number' ? progress : undefined;
-        const progressPercentage = progressNumber !== undefined ? `${progress}%` : undefined;
 
         function renderContent(
             content: ReactNode | FunctionComponent<ContentRenderProps>,
@@ -62,36 +48,25 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
                     isDragOver: Boolean(dragOver),
                     isLoading,
                     isSelected,
-                    progress: progressNumber ?? 0,
+                    progress: progressNumber,
                 });
             }
             return <>{content}</>;
         }
 
         return (
-            <div
+            <Frame
                 {...props}
-                data-placeholder-format={format}
+                className={classNames(className, styles.Placeholder)}
                 ref={forwardedRef}
-                className={classNames(className, styles.Placeholder, {
-                    [styles.dragOver]: dragOver,
-                    [styles.knownProgress]: typeof progress === 'number',
-                    [styles.unknownProgress]: progress === true,
-                    [styles.selected]: selected,
-                })}
+                dragOver={dragOver}
+                progress={progress}
+                selected={selected}
             >
-                <div className={styles.Progress} style={{ width: progressPercentage }} />
-                <CloseButton
-                    className={classNames(styles.CloseButton, {
-                        [styles.hidden]: dragOver,
-                    })}
-                    onClick={onRemove}
-                    title="Delete this block"
-                />
                 <Icon className={styles.Icon} />
                 <h2 className={styles.Title}>{renderContent(title, selected)}</h2>
                 <p className={styles.Description}>{renderContent(description, selected)}</p>
-            </div>
+            </Frame>
         );
     },
 );

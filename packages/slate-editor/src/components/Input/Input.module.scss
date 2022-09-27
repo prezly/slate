@@ -1,19 +1,32 @@
 @import "styles/variables";
 
-.wrapper {
+$icon-size: 16px;
+$focus-outline: $spacing-half solid #c7d2fe;
+
+.Input {
     position: relative;
     display: inline-flex;
     width: 100%;
+
+    border-radius: $border-radius-base;
+
+    &.focused {
+        outline: $focus-outline;
+    }
 }
 
-.input {
-    $icon-size: 16px;
+.InputBox {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+}
 
+.TextInput {
     color: $grey-700;
     font-weight: 500;
     font-size: $font-size-small;
-    border: 1px solid rgba($black, 0.24);
-    border-radius: 8px;
+    border: 1px solid $grey-300;
+    border-radius: $border-radius-base;
     background: $white;
     padding: $spacing-1 $spacing-1-5;
     flex-grow: 1;
@@ -27,56 +40,98 @@
     // Safari doesn't support focus-visible and outline with border-radius
     &:focus {
         outline: none;
-        box-shadow: 0 0 0px $spacing-half #c7d2fe;
+    }
+
+    .focused & {
         border-color: transparent;
     }
 
     &:disabled {
         color: $grey-400;
         opacity: 0.4;
-
-        & + .icon {
-            color: $grey-400;
-        }
     }
 
     &:invalid {
         background: $red-50;
-        padding-right: $spacing-1-5 + $icon-size + $spacing-1;
-
-        & ~ .invalid-icon {
-            visibility: visible;
-        }
+        padding-right: $spacing-1-5 + $icon-size + $spacing-half;
     }
 
-    &.with-icon {
+    .withButton & {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: none;
+    }
+
+    .withIcon & {
         padding-left: $spacing-1-5 + $icon-size + $spacing-1;
-
-        & + .icon {
-            width: $icon-size;
-            height: $icon-size;
-        }
-
-        &:focus + .icon,
-        &:focus-visible + .icon {
-            color: #6b7280;
-        }
     }
 }
 
-.icon {
+.Icon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     left: 12px;
     color: $grey-400;
+    width: $icon-size;
+    height: $icon-size;
+
+    .focused & {
+        color: $grey-500;
+    }
+
+    .disabled & {
+        color: $black;
+        opacity: 0.2;
+    }
 }
 
-.invalid-icon {
+.WarningIcon {
+    pointer-events: none;
     visibility: hidden;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     right: 12px;
     fill: $red-500;
+
+    .invalid & {
+        visibility: visible;
+    }
+}
+
+.Button {
+    all: unset;
+    user-select: none;
+    z-index: 1;
+
+    background-color: $green-500;
+    padding: 10px $spacing-2;
+
+    border-top-right-radius: $border-radius-base;
+    border-bottom-right-radius: $border-radius-base;
+
+    white-space: nowrap;
+    color: white;
+    font-size: $font-size-small;
+    font-weight: 600;
+
+    &:hover {
+        background-color: $green-600;
+    }
+
+    &:active {
+        background-color: $green-700;
+    }
+
+    &:focus-visible {
+        outline: $focus-outline;
+    }
+
+    &.disabled,
+    &:disabled {
+        background-color: $green-500;
+        pointer-events: none;
+        opacity: 0.64;
+    }
 }
