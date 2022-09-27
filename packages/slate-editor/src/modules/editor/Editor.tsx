@@ -340,9 +340,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         if (action === MenuAction.ADD_ATTACHMENT) {
             EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.ATTACHMENT,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.ATTACHMENT },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
                 return;
             }
@@ -365,9 +367,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }
         if (action === MenuAction.ADD_EMBED) {
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.EMBED,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.EMBED },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
                 return;
             }
@@ -390,9 +394,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.SOCIAL_POST,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.SOCIAL_POST },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
                 return;
             }
@@ -418,9 +424,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.GALLERY,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.GALLERY },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
                 return;
             }
@@ -429,9 +437,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         if (action === MenuAction.ADD_IMAGE && withImages) {
             EventsEditor.dispatchEvent(editor, 'image-add-clicked');
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.IMAGE,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.IMAGE },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
                 return;
             }
@@ -440,9 +450,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         if (action === MenuAction.ADD_VIDEO) {
             EventsEditor.dispatchEvent(editor, 'video-add-clicked');
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.VIDEO,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.VIDEO },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
                 return;
             }
@@ -453,9 +465,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }
         if (action === MenuAction.ADD_WEB_BOOKMARK) {
             if (withPlaceholders) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.WEB_BOOKMARK,
-                });
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.WEB_BOOKMARK },
+                    true,
+                );
                 PlaceholdersManager.trigger(placeholder);
                 return;
             }
