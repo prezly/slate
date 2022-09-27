@@ -24,6 +24,7 @@ export interface Props
 export const Input = forwardRef<HTMLInputElement, Props>(
     (
         {
+            autoFocus,
             button = false,
             className,
             disabled = false,
@@ -55,6 +56,10 @@ export const Input = forwardRef<HTMLInputElement, Props>(
             setValid(input.current?.validity.valid ?? true);
         }, [value, pattern]);
 
+        useEffect(() => {
+            setTimeout(() => input.current?.focus(), 0);
+        }, [autoFocus]);
+
         return (
             <div
                 className={classNames(className, styles.Input, {
@@ -69,6 +74,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     <input
                         {...attributes}
                         ref={mergeRefs(input, forwardedRef)}
+                        autoFocus={autoFocus}
                         className={styles.TextInput}
                         disabled={disabled}
                         value={value}

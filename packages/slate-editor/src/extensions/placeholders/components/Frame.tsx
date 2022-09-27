@@ -8,6 +8,7 @@ import styles from './Frame.module.scss';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
     // Variations
+    active?: boolean;
     format?: 'card' | 'card-lg' | '16:9';
     dragOver?: boolean;
     progress?: boolean | number;
@@ -18,15 +19,26 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const Frame = forwardRef<HTMLDivElement, Props>(
     (
-        { children, className, dragOver, format = 'card', progress, selected, onRemove, ...props },
+        {
+            active,
+            children,
+            className,
+            dragOver,
+            format = 'card',
+            progress,
+            selected,
+            onRemove,
+            ...attributes
+        },
         forwardedRef,
     ) => {
         const progressPercentage = typeof progress === 'number' ? `${progress}%` : undefined;
 
         return (
             <div
-                {...props}
+                {...attributes}
                 className={classNames(className, styles.Frame, {
+                    [styles.active]: active,
                     [styles.dragOver]: dragOver,
                     [styles.knownProgress]: typeof progress === 'number',
                     [styles.unknownProgress]: progress === true,

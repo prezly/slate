@@ -41,6 +41,7 @@ export { removeNode } from './removeNode';
 export { resetNodes } from './resetNodes';
 export { resetSelection } from './resetSelection';
 export { saveSelection } from './saveSelection';
+export { selectNode } from './selectNode';
 export { toDomNode } from './toDomNode';
 export { toDomRange } from './toDomRange';
 export { toggleMark } from './toggleMark';

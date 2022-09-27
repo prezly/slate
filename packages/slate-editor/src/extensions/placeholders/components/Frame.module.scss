@@ -28,6 +28,14 @@
         border: 1px solid transparent;
         border-radius: 0;
     }
+
+    &.active {
+        cursor: initial;
+
+        &:hover {
+            background-color: $grey-100;
+        }
+    }
 }
 
 // Card size
