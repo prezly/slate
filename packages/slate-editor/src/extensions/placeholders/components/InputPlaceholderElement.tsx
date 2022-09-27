@@ -3,7 +3,7 @@ import { Transforms } from 'slate';
 import { type RenderElementProps, useSlateStatic } from 'slate-react';
 
 import { EditorBlock } from '#components';
-import { mergeRefs, useFunction } from '#lib';
+import { mergeRefs, useFunction, useUnmount } from '#lib';
 
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
@@ -62,6 +62,10 @@ export function InputPlaceholderElement({
 
     const { isActive, isLoading } = usePlaceholderManagement(element.type, element.uuid, {
         onProgress: (p) => setProgress(p),
+    });
+
+    useUnmount(() => {
+        PlaceholdersManager.deactivate(element);
     });
 
     return (

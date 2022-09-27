@@ -74,6 +74,13 @@ export const PlaceholdersManager = {
         });
     },
 
+    deactivate<T extends Type>({ type, uuid }: Identifier<T>): void {
+        if (state.active && is(state.active, type, uuid)) {
+            state.active = undefined;
+            notify(type, uuid, ({ onActivate }) => onActivate(false));
+        }
+    },
+
     deactivateAll(): void {
         state.active = undefined;
         state.followers.forEach((follower) => {
