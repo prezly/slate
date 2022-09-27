@@ -32,7 +32,7 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
             progress,
             selected = false,
             // Callbacks
-            ...props
+            ...attributes
         },
         forwardedRef,
     ) => {
@@ -56,7 +56,7 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
 
         return (
             <Frame
-                {...props}
+                {...attributes}
                 className={classNames(className, styles.Placeholder)}
                 ref={forwardedRef}
                 dragOver={dragOver}

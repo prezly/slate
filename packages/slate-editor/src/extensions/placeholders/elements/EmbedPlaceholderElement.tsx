@@ -3,7 +3,7 @@ import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderEmbed } from '#icons';
-import { useFunction } from '#lib';
+import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
 import { createEmbed } from '#extensions/embed';
 import { EventsEditor } from '#modules/events';
@@ -26,7 +26,9 @@ interface Props
         | 'onDrop'
         | 'inputTitle'
         | 'inputDescription'
+        | 'inputPattern'
         | 'inputPlaceholder'
+        | 'inputType'
         | 'inputAction'
         | 'onSubmit'
     > {
@@ -85,6 +87,7 @@ export function EmbedPlaceholderElement({ children, element, fetchOembed, ...pro
             // Input
             inputTitle="Embed"
             inputDescription="Insert an embed URL and hit Enter"
+            inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
             inputPlaceholder="https://media.giphy.com/GIF"
             inputAction="Add embed"
             onSubmit={handleSubmit}
