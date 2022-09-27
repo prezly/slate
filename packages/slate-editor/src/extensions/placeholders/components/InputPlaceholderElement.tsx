@@ -81,6 +81,7 @@ export function InputPlaceholderElement({
             renderReadOnlyFrame={({ isSelected }) =>
                 isActive ? (
                     <InputPlaceholder
+                        active={isActive}
                         autoFocus
                         format={format}
                         title={inputTitle}
