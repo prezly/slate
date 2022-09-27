@@ -19,12 +19,16 @@ interface Data {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
     };
+    [Type.GALLERY]: {
+        images: GalleryNode['images'];
+    };
     [Type.IMAGE]: {
         file: ImageNode['file'];
         caption: string;
     };
-    [Type.GALLERY]: {
-        images: GalleryNode['images'];
+    [Type.SOCIAL_POST]: {
+        url: string;
+        oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
     };
     [Type.VIDEO]: {
         url: string;
