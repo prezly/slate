@@ -81,8 +81,8 @@ export function SocialPostPlaceholderElement({ children, element, fetchOembed, .
             // Core
             format="card-lg"
             icon={PlaceholderSocialPost}
-            title="Click to insert a social media post"
-            description="Insert a tweet, instagram post, etc. within your story"
+            title={Title}
+            description={Description}
             // Input
             inputTitle="Social media post"
             inputDescription="Insert a social media link and hit Enter"
@@ -93,4 +93,18 @@ export function SocialPostPlaceholderElement({ children, element, fetchOembed, .
             {children}
         </InputPlaceholderElement>
     );
+}
+
+function Title(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return <>Embedding...</>;
+    }
+    return <>Click to insert a social media post</>;
+}
+
+function Description(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return null;
+    }
+    return <>Insert a tweet, instagram post, etc. within your story</>;
 }
