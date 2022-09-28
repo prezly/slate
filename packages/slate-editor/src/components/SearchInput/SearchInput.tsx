@@ -1,4 +1,5 @@
-import React, { type ReactElement, useMemo, useReducer } from 'react';
+import type { ComponentType } from 'react';
+import React, { useMemo, useReducer } from 'react';
 
 import {
     useDebounce,
@@ -9,18 +10,16 @@ import {
     useMount,
 } from '#lib';
 
-import { type Props as BaseProps, Input } from '../Input';
+import { Input, type Props as BaseProps } from '../Input';
 
 import * as OptionsModule from './Option';
 import { createReducer } from './reducer';
 import * as SuggestionsModule from './Suggestions';
-import { Suggestions } from './Suggestions';
 import type { Suggestion } from './types';
 
 export interface Props<T> extends Omit<BaseProps, 'loading' | 'value' | 'onSelect'> {
     getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
-    renderSuggestion?: (props: SuggestionsModule.RenderSuggestionProps<T>) => ReactElement;
-    renderSuggestions?: (props: SuggestionsModule.Props<T>) => ReactElement;
+    components?: Partial<SearchInput.Components<T>>;
     query: string;
     onSelect: (suggestion: Suggestion<T>) => void;
 }
@@ -29,13 +28,15 @@ const EMPTY_SUGGESTIONS: never[] = [];
 
 export function SearchInput<T = unknown>({
     getSuggestions,
-    renderSuggestion = defaultRenderSuggestion,
-    renderSuggestions = defaultRenderSuggestions,
+    components = {},
     query,
     onKeyDown,
     onSelect,
     ...attributes
 }: Props<T>) {
+    const { Suggestions = SuggestionsModule.Suggestions } = components;
+    const { Option = OptionsModule.Option } = components;
+
     const reducer = useMemo(() => createReducer<T>(), []);
     const initialState = useMemo(() => reducer(undefined, { type: undefined }), [reducer]);
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -93,14 +94,26 @@ export function SearchInput<T = unknown>({
             value={query}
             withSuggestions={suggestions.length > 0}
         >
-            {renderSuggestions({
-                active,
-                loading,
-                query,
-                renderSuggestion,
-                suggestions,
-                onSelect: handleSelect,
-            })}
+            <Suggestions
+                active={active}
+                loading={loading}
+                query={query}
+                suggestions={suggestions}
+                onSelect={handleSelect}
+            >
+                {suggestions.map((suggestion) => (
+                    <Option
+                        key={suggestion.id}
+                        id={suggestion.id}
+                        active={suggestion.id === active?.id}
+                        disabled={Boolean(suggestion.disabled)}
+                        value={suggestion.value}
+                        onSelect={() => handleSelect(suggestion)}
+                    >
+                        <Debug value={suggestion.value} />
+                    </Option>
+                ))}
+            </Suggestions>
         </Input>
     );
 }
@@ -108,16 +121,33 @@ export function SearchInput<T = unknown>({
 export namespace SearchInput {
     export const Option = OptionsModule.Option;
     export const Suggestions = SuggestionsModule.Suggestions;
+
+    export interface Components<T> {
+        Suggestions: ComponentType<{
+            active: Suggestion<T> | undefined;
+            loading: boolean;
+            query: string;
+            suggestions: Suggestion<T>[];
+            onSelect: (suggestion: Suggestion<T>) => void;
+        }>;
+        Option: ComponentType<{
+            active: boolean;
+            disabled: boolean;
+            id: Suggestion<T>['id'];
+            value: Suggestion<T>['value'];
+            onSelect: () => void;
+        }>;
+    }
 }
 
 function isNotDisabled<T>(suggestion: Suggestion<T>) {
     return !suggestion.disabled;
 }
 
-function defaultRenderSuggestions<T>(props: SuggestionsModule.Props<T>) {
-    return <Suggestions<T> {...props} />;
-}
-
-function defaultRenderSuggestion<T>({ value }: SuggestionsModule.RenderSuggestionProps<T>) {
-    return <>{typeof value === 'string' ? value : JSON.stringify(value)}</>;
+function Debug<T>(props: { value: T }) {
+    const { value } = props;
+    if (typeof value === 'string') {
+        return <>{value}</>;
+    }
+    return <>{JSON.stringify(value)}</>;
 }
