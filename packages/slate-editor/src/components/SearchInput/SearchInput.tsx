@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 import React, { useMemo, useReducer } from 'react';
 
 import {
@@ -124,6 +124,7 @@ export namespace SearchInput {
 
     export interface Components<T> {
         Suggestions: ComponentType<{
+            children: ReactNode;
             active: Suggestion<T> | undefined;
             loading: boolean;
             query: string;
@@ -131,6 +132,7 @@ export namespace SearchInput {
             onSelect: (suggestion: Suggestion<T>) => void;
         }>;
         Option: ComponentType<{
+            children?: ReactNode;
             active: boolean;
             disabled: boolean;
             id: Suggestion<T>['id'];

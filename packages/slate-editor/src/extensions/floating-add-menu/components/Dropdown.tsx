@@ -122,7 +122,7 @@ export function Dropdown<Action>({
 
     return (
         <div
-            className={classNames(styles.Dropdown, styles.Dropdown, {
+            className={classNames(styles.Dropdown, {
                 [styles.noResults]: options.length === 0,
                 open,
             })}

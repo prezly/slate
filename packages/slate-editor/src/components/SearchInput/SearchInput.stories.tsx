@@ -7,7 +7,14 @@ export default {
     title: 'Components/SearchInput',
     decorators: [
         (Story: React.ComponentType) => (
-            <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 30, width: 500 }}>
+            <div
+                style={{
+                    background: 'rgba(27, 27, 54, 0.96)',
+                    padding: 30,
+                    width: 500,
+                    height: 400,
+                }}
+            >
                 <Story />
             </div>
         ),
@@ -36,6 +43,16 @@ const suggestions: Suggestion<string>[] = [
     { id: 'eighteen', value: 'Eighteen' },
     { id: 'nineteen', value: 'Nineteen' },
     { id: 'twenty', value: 'Twenty' },
+    { id: 'twenty-one', value: 'Twenty One', disabled: true },
+    { id: 'twenty-two', value: 'Twenty Two' },
+    { id: 'twenty-three', value: 'Twenty Three' },
+    { id: 'twenty-four', value: 'Twenty Four' },
+    { id: 'twenty-five', value: 'Twenty Five' },
+    { id: 'twenty-six', value: 'Twenty Six' },
+    { id: 'twenty-seven', value: 'Twenty Seven' },
+    { id: 'twenty-eight', value: 'Twenty Eight' },
+    { id: 'twenty-nine', value: 'Twenty Nine' },
+    { id: 'thirty', value: 'Thirty' },
 ];
 
 async function getSuggestions(query: string) {

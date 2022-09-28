@@ -11,6 +11,9 @@
     border: 1px solid $grey-200;
     border-bottom-left-radius: $border-radius-base;
     border-bottom-right-radius: $border-radius-base;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .Footer {
