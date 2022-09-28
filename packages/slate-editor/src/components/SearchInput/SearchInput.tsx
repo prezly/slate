@@ -24,6 +24,8 @@ export interface Props<T> extends Omit<BaseProps, 'loading' | 'value'> {
     query: string;
 }
 
+const EMPTY_SUGGESTIONS: never[] = [];
+
 export function SearchInput<T = unknown>({
     getSuggestions,
     renderSuggestion = defaultRenderSuggestion,
@@ -38,16 +40,15 @@ export function SearchInput<T = unknown>({
     const latest = useLatest({ state });
 
     const loading = state.loading[query] ?? false;
-    const foundSuggestions = (state.searchResults[query] ?? [])
-        .map((id) => state.suggestions[id])
-        .filter((x): x is Suggestion<T> => Boolean(x));
+    const foundSuggestions = state.searchResults[query]
+        ? state.searchResults[query]
+              .map((id) => state.suggestions[id])
+              .filter((x): x is Suggestion<T> => Boolean(x))
+        : undefined;
 
     const suggestions =
-        useMemoryBuffer(
-            foundSuggestions,
-            !loading && foundSuggestions.length > 0,
-            foundSuggestions.length > 0 ? foundSuggestions : undefined,
-        ) ?? foundSuggestions;
+        useMemoryBuffer(foundSuggestions, !loading && foundSuggestions !== undefined) ??
+        EMPTY_SUGGESTIONS;
 
     const handleSelect = useFunction((suggestion: Suggestion<T>) => {
         console.log('Selected', suggestion);
