@@ -44,7 +44,11 @@ export function SearchInput<T = unknown>({
         console.log('Selected', suggestion);
     });
 
-    const [active, handleNavigationKeyDown] = useKeyboardNavigation(suggestions, handleSelect);
+    const [active, handleNavigationKeyDown] = useKeyboardNavigation(
+        suggestions,
+        handleSelect,
+        isNotDisabled,
+    );
 
     async function search(query: string) {
         if (latest.current.state.loading[query]) {
@@ -100,4 +104,8 @@ export function SearchInput<T = unknown>({
 
 export namespace SearchInput {
     export const Option = OptionModule.Option;
+}
+
+function isNotDisabled<T>(suggestion: Suggestion<T>) {
+    return !suggestion.disabled;
 }
