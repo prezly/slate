@@ -27,7 +27,7 @@ export function LoadingIndicatorV2({
         <div
             {...attributes}
             className={classNames(styles.LoadingIndicator, className)}
-            style={{ width, height }}
+            style={{ ...attributes.style, width, height }}
         >
             {typeof progress === 'number' ? (
                 <FiniteLoadingIndicator height={height} progress={progress} width={width} />

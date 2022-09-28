@@ -6,6 +6,7 @@ interface Props {
     className?: string;
     clip: number;
     color: string;
+    opacity?: string;
     height: number;
     width: number;
 }
@@ -35,7 +36,7 @@ function getClipPoints(clip: number) {
     return `16,16 16,0 32,0 32,32 0,32 0,0 ${x},0`;
 }
 
-export function ClippedRing({ className, clip, color, height, width }: Props) {
+export function ClippedRing({ className, clip, color, opacity, height, width }: Props) {
     const maskId = useUniqueId('clipped-ring-mask-');
     const points = getClipPoints(clip);
 
@@ -53,8 +54,16 @@ export function ClippedRing({ className, clip, color, height, width }: Props) {
                 </clipPath>
             </defs>
 
-            <circle clipPath={`url(#${maskId})`} cx="16" cy="16" fill={color} r="16" />
-            <circle cx="16" cy="16" fill="#FFFFFF" r="10" />
+            <circle
+                clipPath={`url(#${maskId})`}
+                cx="16"
+                cy="16"
+                fill="transparent"
+                opacity={opacity}
+                stroke={color}
+                strokeWidth={6}
+                r="13"
+            />
         </svg>
     );
 }
