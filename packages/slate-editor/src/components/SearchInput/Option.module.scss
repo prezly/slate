@@ -4,6 +4,7 @@
     padding: $spacing-1-5 $spacing-2;
     background-color: $white;
     cursor: pointer;
+    user-select: none;
 
     &:hover {
         background-color: rgba($grey-100, 0.5);

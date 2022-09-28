@@ -47,7 +47,12 @@ export function Base() {
     const [query, setQuery] = React.useState('');
 
     return (
-        <SearchInput<string> query={query} onChange={setQuery} getSuggestions={getSuggestions} />
+        <SearchInput<string>
+            query={query}
+            onChange={setQuery}
+            onSelect={(suggestion) => console.log('Selected', suggestion)}
+            getSuggestions={getSuggestions}
+        />
     );
 }
 

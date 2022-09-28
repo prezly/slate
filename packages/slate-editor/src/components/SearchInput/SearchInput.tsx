@@ -17,11 +17,12 @@ import * as SuggestionsModule from './Suggestions';
 import { Suggestions } from './Suggestions';
 import type { Suggestion } from './types';
 
-export interface Props<T> extends Omit<BaseProps, 'loading' | 'value'> {
+export interface Props<T> extends Omit<BaseProps, 'loading' | 'value' | 'onSelect'> {
     getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
     renderSuggestion?: (props: SuggestionsModule.RenderSuggestionProps<T>) => ReactElement;
     renderSuggestions?: (props: SuggestionsModule.Props<T>) => ReactElement;
     query: string;
+    onSelect: (suggestion: Suggestion<T>) => void;
 }
 
 const EMPTY_SUGGESTIONS: never[] = [];
@@ -32,6 +33,7 @@ export function SearchInput<T = unknown>({
     renderSuggestions = defaultRenderSuggestions,
     query,
     onKeyDown,
+    onSelect,
     ...attributes
 }: Props<T>) {
     const reducer = useMemo(() => createReducer<T>(), []);
@@ -50,9 +52,7 @@ export function SearchInput<T = unknown>({
         useMemoryBuffer(foundSuggestions, !loading && foundSuggestions !== undefined) ??
         EMPTY_SUGGESTIONS;
 
-    const handleSelect = useFunction((suggestion: Suggestion<T>) => {
-        console.log('Selected', suggestion);
-    });
+    const handleSelect = useFunction(onSelect);
 
     const [active, handleNavigationKeyDown] = useKeyboardNavigation(
         suggestions,

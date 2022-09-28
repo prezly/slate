@@ -8,9 +8,10 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     disabled?: boolean;
 }
 
-export function Option({ active, children, className, disabled }: Props) {
+export function Option({ active, children, className, disabled, ...attributes }: Props) {
     return (
         <div
+            {...attributes}
             className={classNames(className, styles.Option, {
                 [styles.active]: active,
                 [styles.disabled]: disabled,
