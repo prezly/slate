@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { isHotkey } from 'is-hotkey';
 import type {
     FunctionComponent,
     KeyboardEvent,
@@ -10,6 +11,7 @@ import type {
 import React, { useCallback, useRef, useState } from 'react';
 
 import { Input } from '#components';
+import { useFunction } from '#lib';
 
 import { type Props as BaseProps, Frame } from './Frame';
 import styles from './InputPlaceholder.module.scss';
@@ -26,8 +28,11 @@ export interface Props extends Omit<BaseProps, 'title' | 'onSubmit'> {
     type?: string;
     pattern?: string;
     placeholder?: string;
+    onEsc?: (event: KeyboardEvent) => void;
     onSubmit?: (value: string) => void;
 }
+
+const isEsc = isHotkey('esc');
 
 export function InputPlaceholder({
     className,
@@ -46,6 +51,7 @@ export function InputPlaceholder({
     placeholder,
     type,
     // Input callbacks
+    onEsc,
     onSubmit,
     ...attributes
 }: Props) {
@@ -78,6 +84,10 @@ export function InputPlaceholder({
             onSubmit?.(value);
         }
     }
+
+    const handleKeyDown = useFunction((event: KeyboardEvent) => {
+        if (onEsc && isEsc(event)) onEsc(event);
+    });
 
     const handleMouseDown = useCallback(() => setPressed(true), [setPressed]);
     const handleMouseUp = useCallback(() => setPressed(false), [setPressed]);
@@ -120,6 +130,7 @@ export function InputPlaceholder({
                     disabled={disabled}
                     icon="link"
                     onChange={setValue}
+                    onKeyDown={handleKeyDown}
                     pattern={pattern}
                     placeholder={placeholder}
                     ref={input}

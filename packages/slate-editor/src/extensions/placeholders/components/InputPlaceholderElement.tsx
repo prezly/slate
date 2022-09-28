@@ -1,4 +1,4 @@
-import React, { type MouseEvent, useRef, useState } from 'react';
+import React, { type KeyboardEvent, type MouseEvent, useRef, useState } from 'react';
 import { Transforms } from 'slate';
 import { type RenderElementProps, useSlateStatic } from 'slate-react';
 
@@ -53,6 +53,11 @@ export function InputPlaceholderElement({
     const handleClick = useFunction(() => {
         PlaceholdersManager.activate(element);
     });
+    const handleEscape = useFunction((event: KeyboardEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+        PlaceholdersManager.deactivate(element);
+    });
     const handleMouseOver = useFunction((event: MouseEvent) => {
         if (!event.buttons) {
             setDragOver(false);
@@ -91,6 +96,7 @@ export function InputPlaceholderElement({
                         type={inputType}
                         // Actions
                         action={inputAction}
+                        onEsc={handleEscape}
                         onRemove={handleRemove}
                         onSubmit={onSubmit}
                     />
