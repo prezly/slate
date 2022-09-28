@@ -11,30 +11,23 @@ import {
 
 import { type Props as BaseProps, Input } from '../Input';
 
-import * as OptionModule from './Option';
+import * as OptionsModule from './Option';
 import { createReducer } from './reducer';
-import styles from './SearchInput.module.scss';
+import * as SuggestionsModule from './Suggestions';
+import { Suggestions } from './Suggestions';
 import type { Suggestion } from './types';
 
 export interface Props<T> extends Omit<BaseProps, 'loading' | 'value'> {
     getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
-    renderSuggestion: (props: {
-        id: Suggestion<T>['id'];
-        value: T;
-        active: boolean;
-        disabled: boolean;
-        loading: boolean;
-        query: string;
-        onSelect: () => void;
-    }) => ReactElement;
+    renderSuggestion?: (props: SuggestionsModule.RenderSuggestionProps<T>) => ReactElement;
+    renderSuggestions?: (props: SuggestionsModule.Props<T>) => ReactElement;
     query: string;
 }
 
-const EMPTY_SUGGESTIONS: never[] = [];
-
 export function SearchInput<T = unknown>({
     getSuggestions,
-    renderSuggestion,
+    renderSuggestion = defaultRenderSuggestion,
+    renderSuggestions = defaultRenderSuggestions,
     query,
     onKeyDown,
     ...attributes
@@ -54,7 +47,7 @@ export function SearchInput<T = unknown>({
             foundSuggestions,
             !loading && foundSuggestions.length > 0,
             foundSuggestions.length > 0 ? foundSuggestions : undefined,
-        ) ?? EMPTY_SUGGESTIONS;
+        ) ?? foundSuggestions;
 
     const handleSelect = useFunction((suggestion: Suggestion<T>) => {
         console.log('Selected', suggestion);
@@ -99,29 +92,31 @@ export function SearchInput<T = unknown>({
             value={query}
             withSuggestions={suggestions.length > 0}
         >
-            <ul className={styles.Suggestions}>
-                {suggestions.map((suggestion) => (
-                    <li key={suggestion.id}>
-                        {renderSuggestion({
-                            id: suggestion.id,
-                            value: suggestion.value,
-                            active: active?.id === suggestion.id,
-                            loading,
-                            disabled: suggestion.disabled ?? false,
-                            query,
-                            onSelect: () => handleSelect(suggestion),
-                        })}
-                    </li>
-                ))}
-            </ul>
+            {renderSuggestions({
+                active,
+                loading,
+                query,
+                renderSuggestion,
+                suggestions,
+                onSelect: handleSelect,
+            })}
         </Input>
     );
 }
 
 export namespace SearchInput {
-    export const Option = OptionModule.Option;
+    export const Option = OptionsModule.Option;
+    export const Suggestions = SuggestionsModule.Suggestions;
 }
 
 function isNotDisabled<T>(suggestion: Suggestion<T>) {
     return !suggestion.disabled;
+}
+
+function defaultRenderSuggestions<T>(props: SuggestionsModule.Props<T>) {
+    return <Suggestions<T> {...props} />;
+}
+
+function defaultRenderSuggestion<T>({ value }: SuggestionsModule.RenderSuggestionProps<T>) {
+    return <>{typeof value === 'string' ? value : JSON.stringify(value)}</>;
 }

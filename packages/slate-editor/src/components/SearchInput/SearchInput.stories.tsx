@@ -26,6 +26,16 @@ const suggestions: Suggestion<string>[] = [
     { id: 'eight', value: 'Eight' },
     { id: 'nine', value: 'Nine' },
     { id: 'ten', value: 'Ten' },
+    { id: 'eleven', value: 'Eleven', disabled: true },
+    { id: 'twelve', value: 'Twelve' },
+    { id: 'thirteen', value: 'Thirteen' },
+    { id: 'fourteen', value: 'Fourteen' },
+    { id: 'fifteen', value: 'Fifteen' },
+    { id: 'sixteen', value: 'Sixteen' },
+    { id: 'seventeen', value: 'Seventeen' },
+    { id: 'eighteen', value: 'Eighteen' },
+    { id: 'nineteen', value: 'Nineteen' },
+    { id: 'twenty', value: 'Twenty' },
 ];
 
 async function getSuggestions(query: string) {
@@ -37,16 +47,7 @@ export function Base() {
     const [query, setQuery] = React.useState('');
 
     return (
-        <SearchInput<string>
-            query={query}
-            onChange={setQuery}
-            getSuggestions={getSuggestions}
-            renderSuggestion={({ active, disabled, onSelect, value }) => (
-                <SearchInput.Option active={active} disabled={disabled} onClick={onSelect}>
-                    {value}
-                </SearchInput.Option>
-            )}
-        />
+        <SearchInput<string> query={query} onChange={setQuery} getSuggestions={getSuggestions} />
     );
 }
 
