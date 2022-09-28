@@ -4,6 +4,7 @@ import { useDebounce, useFunction, useKeyboardNavigation, useLatest, useMount } 
 
 import { type Props as BaseProps, Input } from '../Input';
 
+import * as OptionModule from './Option';
 import { createReducer } from './reducer';
 import styles from './SearchInput.module.scss';
 import type { Suggestion } from './types';
@@ -95,4 +96,8 @@ export function SearchInput<T = unknown>({
             </ul>
         </Input>
     );
+}
+
+export namespace SearchInput {
+    export const Option = OptionModule.Option;
 }

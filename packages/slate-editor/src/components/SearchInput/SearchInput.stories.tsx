@@ -41,10 +41,10 @@ export function Base() {
             query={query}
             onChange={setQuery}
             getSuggestions={getSuggestions}
-            renderSuggestion={({ active, onSelect, value }) => (
-                <div onClick={onSelect}>
-                    {value} {active && '(active)'}
-                </div>
+            renderSuggestion={({ active, disabled, onSelect, value }) => (
+                <SearchInput.Option active={active} disabled={disabled} onClick={onSelect}>
+                    {value}
+                </SearchInput.Option>
             )}
         />
     );

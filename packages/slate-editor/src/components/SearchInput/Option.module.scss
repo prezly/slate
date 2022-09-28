@@ -1,0 +1,25 @@
+@import "styles/variables";
+
+.Option {
+    padding: $spacing-1-5 $spacing-2;
+    background-color: $white;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba($grey-100, 0.5);
+    }
+
+    &.active {
+        background-color: $grey-100;
+    }
+
+    &.disabled {
+        cursor: initial;
+        pointer-events: none;
+
+        &, &:hover {
+            background-color: $white;
+            opacity: 0.5;
+        }
+    }
+}
