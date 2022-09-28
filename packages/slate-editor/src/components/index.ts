@@ -23,5 +23,5 @@ export * from './Button';
 export * from './ButtonGroup';
 export * from './OptionsGroup';
 export * from './Toggle';
-export * from './Input';
+export { Input } from './Input';
 export * from './InfoText';
