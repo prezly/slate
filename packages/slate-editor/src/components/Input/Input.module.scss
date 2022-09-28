@@ -13,6 +13,16 @@ $focus-outline: $spacing-half solid #c7d2fe;
     &.focused {
         outline: $focus-outline;
     }
+
+    &.withSuggestionsAbove {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    &.withSuggestionsBelow {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 }
 
 .InputBox {
@@ -64,6 +74,16 @@ $focus-outline: $spacing-half solid #c7d2fe;
 
     .withIcon & {
         padding-left: $spacing-1-5 + $icon-size + $spacing-1;
+    }
+
+    .withSuggestionsAbove & {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    .withSuggestionsBelow & {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
     }
 }
 

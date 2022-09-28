@@ -7,7 +7,9 @@ export default {
     title: 'Components/Input',
     decorators: [
         (Story: React.ComponentType) => (
-            <div style={{ background: 'rgba(27, 27, 54, 0.96)', padding: 30, width: 500 }}>
+            <div
+                style={{ background: 'rgba(27, 27, 54, 0.96)', padding: '150px 30px', width: 500 }}
+            >
                 <Story />
             </div>
         ),
@@ -122,5 +124,59 @@ export function WithButtonAndIconInvalid() {
             placeholder="media.giphy.com/GIF"
             button={{ text: 'Add' }}
         />
+    );
+}
+
+export function WithSuggestions() {
+    const [value, setValue] = React.useState('');
+
+    return (
+        <Input value={value} onChange={setValue} withSuggestions>
+            <ul
+                style={{
+                    margin: 0,
+                    padding: '5px 5px 5px 30px',
+                    border: '1px solid #eee',
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    right: 0,
+                    background: 'white',
+                }}
+            >
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+                <li>Four</li>
+                <li>Five</li>
+            </ul>
+        </Input>
+    );
+}
+
+export function WithSuggestionsAbove() {
+    const [value, setValue] = React.useState('');
+
+    return (
+        <Input value={value} onChange={setValue} withSuggestions="above">
+            <ul
+                style={{
+                    margin: 0,
+                    padding: '5px 5px 5px 30px',
+                    border: '1px solid #eee',
+                    position: 'absolute',
+                    bottom: '100%',
+                    left: 0,
+                    right: 0,
+                    background: 'white',
+                }}
+            >
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+                <li>Four</li>
+                <li>Five</li>
+            </ul>
+        </Input>
     );
 }

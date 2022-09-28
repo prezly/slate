@@ -19,6 +19,7 @@ export interface Props
               text?: string;
           });
     required?: boolean;
+    withSuggestions?: boolean | 'above' | 'below';
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>(
@@ -26,6 +27,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         {
             autoFocus,
             button = false,
+            children: suggestions,
             className,
             disabled = false,
             icon,
@@ -35,6 +37,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
             pattern,
             required = false,
             value,
+            withSuggestions = false,
             ...attributes
         },
         forwardedRef,
@@ -45,6 +48,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         const [focused, setFocused] = useState(false);
 
         const isEmpty = !value.trim();
+        const withSuggestionsAbove = focused && suggestions && withSuggestions === 'above';
+        const withSuggestionsBelow =
+            focused && suggestions && (withSuggestions === true || withSuggestions === 'below');
 
         const handleChange = useFunction((event: ChangeEvent<HTMLInputElement>) => {
             const { value, validity } = event.currentTarget;
@@ -68,6 +74,8 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     [styles.focused]: focused,
                     [styles.withButton]: Boolean(button),
                     [styles.withIcon]: Boolean(icon),
+                    [styles.withSuggestionsAbove]: withSuggestionsAbove,
+                    [styles.withSuggestionsBelow]: withSuggestionsBelow,
                 })}
             >
                 <div className={styles.InputBox}>
@@ -97,6 +105,8 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                 {button && (
                     <Button disabled={disabled || !valid || (required && isEmpty)} {...button} />
                 )}
+
+                {withSuggestions && focused && suggestions}
             </div>
         );
     },
