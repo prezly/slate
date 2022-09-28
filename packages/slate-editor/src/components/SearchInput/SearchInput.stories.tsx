@@ -34,12 +34,12 @@ async function getSuggestions(query: string) {
 }
 
 export function Base() {
-    const [value, setValue] = React.useState('');
+    const [query, setQuery] = React.useState('');
 
     return (
         <SearchInput<string>
-            value={value}
-            onChange={setValue}
+            query={query}
+            onChange={setQuery}
             getSuggestions={getSuggestions}
             renderSuggestion={({ value }) => <>{value}</>}
         />

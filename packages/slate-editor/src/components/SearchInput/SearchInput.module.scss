@@ -1,0 +1,21 @@
+@import "styles/variables";
+
+.Suggestions {
+    all: unset;
+    list-style: none;
+
+    position: absolute;
+    left: 0;
+    top: 100%;
+    right: 0;
+
+    background: white;
+
+    border: 1px solid $grey-200;
+    border-bottom-left-radius: $border-radius-base;
+    border-bottom-right-radius: $border-radius-base;
+
+    > li {
+        padding: $spacing-1;
+    }
+}
