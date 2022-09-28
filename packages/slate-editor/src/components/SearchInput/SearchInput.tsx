@@ -11,12 +11,13 @@ import type { Suggestion } from './types';
 export interface Props<T> extends Omit<BaseProps, 'loading' | 'value'> {
     getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
     renderSuggestion: (props: {
+        id: Suggestion<T>['id'];
+        value: T;
         active: boolean;
         disabled: boolean;
         loading: boolean;
         query: string;
-        id: Suggestion<T>['id'];
-        value: T;
+        onSelect: () => void;
     }) => ReactElement;
     query: string;
 }
@@ -78,15 +79,16 @@ export function SearchInput<T = unknown>({
             withSuggestions={suggestions.length > 0}
         >
             <ul className={styles.Suggestions}>
-                {suggestions.map(({ id, value, disabled }) => (
-                    <li key={id}>
+                {suggestions.map((suggestion) => (
+                    <li key={suggestion.id}>
                         {renderSuggestion({
-                            active: active?.id === id,
+                            id: suggestion.id,
+                            value: suggestion.value,
+                            active: active?.id === suggestion.id,
                             loading,
-                            disabled: Boolean(disabled),
-                            id: id,
+                            disabled: suggestion.disabled ?? false,
                             query,
-                            value,
+                            onSelect: () => handleSelect(suggestion),
                         })}
                     </li>
                 ))}

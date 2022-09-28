@@ -41,10 +41,10 @@ export function Base() {
             query={query}
             onChange={setQuery}
             getSuggestions={getSuggestions}
-            renderSuggestion={({ active, value }) => (
-                <>
+            renderSuggestion={({ active, onSelect, value }) => (
+                <div onClick={onSelect}>
                     {value} {active && '(active)'}
-                </>
+                </div>
             )}
         />
     );
