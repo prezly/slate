@@ -1,6 +1,6 @@
 import React, { type ReactElement, useMemo, useReducer } from 'react';
 
-import { useDebounce, useLatest, useMount } from '#lib';
+import { useDebounce, useFunction, useKeyboardNavigation, useLatest, useMount } from '#lib';
 
 import { type Props as BaseProps, Input } from '../Input';
 
@@ -25,6 +25,7 @@ export function SearchInput<T = unknown>({
     getSuggestions,
     renderSuggestion,
     query,
+    onKeyDown,
     ...attributes
 }: Props<T>) {
     const reducer = useMemo(() => createReducer<T>(), []);
@@ -36,6 +37,12 @@ export function SearchInput<T = unknown>({
     const suggestions = (state.searchResults[query] ?? [])
         .map((id) => state.suggestions[id])
         .filter((x): x is Suggestion<T> => Boolean(x));
+
+    const handleSelect = useFunction((suggestion: Suggestion<T>) => {
+        console.log('Selected', suggestion);
+    });
+
+    const [active, handleNavigationKeyDown] = useKeyboardNavigation(suggestions, handleSelect);
 
     async function search(query: string) {
         if (latest.current.state.loading[query]) {
@@ -62,6 +69,10 @@ export function SearchInput<T = unknown>({
     return (
         <Input
             {...attributes}
+            onKeyDown={(event) => {
+                handleNavigationKeyDown(event);
+                onKeyDown?.(event);
+            }}
             loading={loading}
             value={query}
             withSuggestions={suggestions.length > 0}
@@ -70,7 +81,7 @@ export function SearchInput<T = unknown>({
                 {suggestions.map(({ id, value, disabled }) => (
                     <li key={id}>
                         {renderSuggestion({
-                            active: false,
+                            active: active?.id === id,
                             loading,
                             disabled: Boolean(disabled),
                             id: id,

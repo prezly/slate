@@ -18,7 +18,7 @@ function clampIndex(index: number, optionsLength: number) {
 export function useKeyboardNavigation<Option>(
     options: Option[],
     onSelect: (option: Option) => void,
-): [Option, KeyboardEventHandler, ResetFn] {
+): [Option | undefined, KeyboardEventHandler, ResetFn] {
     const params = useLatest({ onSelect, options });
     const [currentIndex, setCurrentIndex] = useState<number>(0);
 

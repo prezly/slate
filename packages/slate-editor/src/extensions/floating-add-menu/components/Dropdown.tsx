@@ -21,7 +21,7 @@ interface Props<Action> {
     onItemClick: (option: Option<Action>) => void;
     open: boolean;
     referenceElement: HTMLElement | null;
-    selectedOption: Option<Action>;
+    selectedOption: Option<Action> | undefined;
 }
 
 const STEPS = [528, 480, 432, 384, 336, 304];

@@ -41,7 +41,11 @@ export function Base() {
             query={query}
             onChange={setQuery}
             getSuggestions={getSuggestions}
-            renderSuggestion={({ value }) => <>{value}</>}
+            renderSuggestion={({ active, value }) => (
+                <>
+                    {value} {active && '(active)'}
+                </>
+            )}
         />
     );
 }
