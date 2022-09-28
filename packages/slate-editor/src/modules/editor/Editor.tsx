@@ -669,7 +669,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     <FloatingStoryEmbedInput
                         availableWidth={availableWidth}
                         containerRef={containerRef}
-                        onClose={closeFloatingSnippetInput}
+                        onClose={closeFloatingStoryBookmarkInput}
                         onRootClose={rootCloseFloatingStoryBookmarkInput}
                         renderInput={() =>
                             withStoryBookmarks.renderInput({
