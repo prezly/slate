@@ -1,11 +1,12 @@
 import classNames from 'classnames';
+import type { HTMLAttributes } from 'react';
 import React from 'react';
 
 import { FiniteLoadingIndicator } from './FiniteLoadingIndicator';
 import { InfiniteLoadingIndicator } from './InfiniteLoadingIndicator';
-import styles from './LoadingIndicatorV2.module.scss';
+import styles from './LoadingIndicator.module.scss';
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
     className?: string;
     height?: number;
     /**
@@ -15,9 +16,19 @@ interface Props {
     width?: number;
 }
 
-export function LoadingIndicatorV2({ className, height = 24, progress, width = 24 }: Props) {
+export function LoadingIndicator({
+    className,
+    height = 24,
+    progress,
+    width = 24,
+    ...attributes
+}: Props) {
     return (
-        <div className={classNames(styles.LoadingIndicator, className)} style={{ width, height }}>
+        <div
+            {...attributes}
+            className={classNames(styles.LoadingIndicator, className)}
+            style={{ ...attributes.style, width, height }}
+        >
             {typeof progress === 'number' ? (
                 <FiniteLoadingIndicator height={height} progress={progress} width={width} />
             ) : (
