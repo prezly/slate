@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactElement } from 'react';
 import React, { useEffect, useState } from 'react';
 
-import { LoadingIndicatorV2 } from './LoadingIndicatorV2';
+import { LoadingIndicator } from './LoadingIndicator';
 
 export default {
     title: 'Components/LoadingIndicator',
@@ -26,7 +26,7 @@ function Container(props: { style?: CSSProperties; children: ReactElement }) {
 export function InfiniteLoading() {
     return (
         <Container>
-            <LoadingIndicatorV2 />
+            <LoadingIndicator />
         </Container>
     );
 }
@@ -43,7 +43,7 @@ export function FiniteLoading() {
 
     return (
         <Container>
-            <LoadingIndicatorV2 progress={progress * 0.01} onClick={() => setProgress(0)} />
+            <LoadingIndicator progress={progress * 0.01} onClick={() => setProgress(0)} />
         </Container>
     );
 }
@@ -51,7 +51,7 @@ export function FiniteLoading() {
 export function InfiniteLoadingOnDarkBackground() {
     return (
         <Container style={{ backgroundColor: 'rgba(27, 27, 54, 0.96)' }}>
-            <LoadingIndicatorV2 />
+            <LoadingIndicator />
         </Container>
     );
 }
@@ -68,7 +68,7 @@ export function FiniteLoadingOnDarkBackround() {
 
     return (
         <Container style={{ backgroundColor: 'rgba(27, 27, 54, 0.96)' }}>
-            <LoadingIndicatorV2 progress={progress * 0.01} onClick={() => setProgress(0)} />
+            <LoadingIndicator progress={progress * 0.01} onClick={() => setProgress(0)} />
         </Container>
     );
 }
@@ -76,7 +76,7 @@ export function FiniteLoadingOnDarkBackround() {
 export function Customized() {
     return (
         <Container>
-            <LoadingIndicatorV2 style={{ color: '#aaa' }} width={16} height={16} />
+            <LoadingIndicator style={{ color: '#aaa' }} width={16} height={16} />
         </Container>
     );
 }

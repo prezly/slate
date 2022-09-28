@@ -5,7 +5,7 @@ export { FancyScrollbars } from './FancyScrollbars';
 export { HtmlInjection } from './HtmlInjection';
 export { ImageSizeWarning } from './ImageSizeWarning';
 export { Key } from './Key';
-export { LoadingIndicatorV2 } from './LoadingIndicatorV2';
+export { LoadingIndicator } from './LoadingIndicator';
 export {
     LoadingPlaceholder,
     ResponsiveLoadingPlaceholder,

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ClippedRing } from './ClippedRing';
 import { Head } from './Head';
-import styles from './LoadingIndicatorV2.module.scss';
+import styles from './LoadingIndicator.module.scss';
 
 interface Props {
     height: number;

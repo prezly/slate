@@ -4,7 +4,7 @@ import React from 'react';
 
 import { FiniteLoadingIndicator } from './FiniteLoadingIndicator';
 import { InfiniteLoadingIndicator } from './InfiniteLoadingIndicator';
-import styles from './LoadingIndicatorV2.module.scss';
+import styles from './LoadingIndicator.module.scss';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     className?: string;
@@ -16,7 +16,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     width?: number;
 }
 
-export function LoadingIndicatorV2({
+export function LoadingIndicator({
     className,
     height = 24,
     progress,

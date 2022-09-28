@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './LoadingIndicatorV2.module.scss';
+import styles from './LoadingIndicator.module.scss';
 
 interface Props {
     height: number;
