@@ -56,6 +56,32 @@ export function Base() {
     );
 }
 
+export function WithFooter() {
+    const [query, setQuery] = React.useState('');
+
+    return (
+        <SearchInput<string>
+            query={query}
+            onChange={setQuery}
+            onSelect={(suggestion) => console.log('Selected', suggestion)}
+            getSuggestions={getSuggestions}
+            components={{
+                Suggestions: (props) => (
+                    <SearchInput.Suggestions
+                        {...props}
+                        footer={
+                            <div>
+                                <a href="#">Log new Coverage</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                <a href="#">Edit Coverage</a>
+                            </div>
+                        }
+                    />
+                ),
+            }}
+        />
+    );
+}
+
 function delay(ms: number): Promise<void> {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);
