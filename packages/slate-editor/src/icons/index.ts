@@ -64,6 +64,7 @@ export { default as PlaceholderWebBookmark } from './Placeholder-WebBookmark.svg
 export { default as PlayButton } from './PlayButton.svg';
 export { default as Reload } from './Reload.svg';
 export { default as Resize } from './Resize.svg';
+export { default as Search } from './Search.svg';
 export { default as User } from './User.svg';
 export { default as Video } from './Video.svg';
 export { default as WarningCircle } from './Warning-Circle.svg';

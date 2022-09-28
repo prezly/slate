@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { Input } from '#components';
-import { Link } from '#icons';
 
 export default {
     title: 'Components/Input',
@@ -25,7 +24,7 @@ export function Base() {
 export function WithIcon() {
     const [value, setValue] = React.useState('');
 
-    return <Input value={value} onChange={setValue} icon={Link} />;
+    return <Input value={value} onChange={setValue} icon="link" />;
 }
 
 export function WithPlaceholder() {
@@ -35,7 +34,7 @@ export function WithPlaceholder() {
         <Input
             value={value}
             onChange={setValue}
-            icon={Link}
+            icon="link"
             placeholder="Paste link or search content"
         />
     );
@@ -48,7 +47,7 @@ export function Disabled() {
         <Input
             value={value}
             onChange={setValue}
-            icon={Link}
+            icon="link"
             disabled
             placeholder="Paste link or search content"
         />
@@ -62,12 +61,18 @@ export function Invalid() {
         <Input
             value={value}
             onChange={setValue}
-            icon={Link}
+            icon="link"
             type="url"
             pattern="[0-9]+"
             placeholder="Only numbers"
         />
     );
+}
+
+export function Loading() {
+    const [value, setValue] = React.useState('');
+
+    return <Input value={value} loading onChange={setValue} icon="search" />;
 }
 
 export function WithButton() {
@@ -91,7 +96,7 @@ export function WithButtonAndIcon() {
             value={value}
             onChange={setValue}
             placeholder="media.giphy.com/GIF"
-            icon={Link}
+            icon="link"
             button={{ text: 'Add' }}
         />
     );
@@ -104,7 +109,7 @@ export function WithButtonAndIconDisabled() {
         <Input
             value={value}
             onChange={setValue}
-            icon={Link}
+            icon="link"
             disabled
             placeholder="media.giphy.com/GIF"
             button={{ text: 'Add' }}
@@ -119,7 +124,7 @@ export function WithButtonAndIconInvalid() {
         <Input
             value={value}
             onChange={setValue}
-            icon={Link}
+            icon="link"
             pattern="[0-9]+"
             placeholder="media.giphy.com/GIF"
             button={{ text: 'Add' }}

@@ -3,8 +3,10 @@ import type { ButtonHTMLAttributes, ChangeEvent, InputHTMLAttributes } from 'rea
 import * as React from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { Link, WarningTriangle } from '#icons';
+import { Link, Search, WarningTriangle } from '#icons';
 import { mergeRefs, useFunction } from '#lib';
+
+import { LoadingIndicator } from '../LoadingIndicator';
 
 import styles from './Input.module.scss';
 
@@ -12,7 +14,8 @@ export interface Props
     extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'onSubmit'> {
     value: string;
     onChange: (newValue: string, valid: boolean) => void;
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>> | 'link';
+    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>> | 'link' | 'search';
+    loading?: boolean;
     button?:
         | false
         | (ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -31,6 +34,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
             className,
             disabled = false,
             icon,
+            loading = false,
             onChange,
             onBlur,
             onFocus,
@@ -72,6 +76,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     [styles.disabled]: disabled,
                     [styles.invalid]: !valid,
                     [styles.focused]: focused,
+                    [styles.loading]: loading,
                     [styles.withButton]: Boolean(button),
                     [styles.withIcon]: Boolean(icon),
                     [styles.withSuggestionsAbove]: withSuggestionsAbove,
@@ -99,7 +104,14 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     />
                     {icon && <Icon icon={icon} />}
 
-                    <WarningTriangle className={styles.WarningIcon} />
+                    {loading && (
+                        <LoadingIndicator
+                            className={styles.LoadingIndicator}
+                            width={16}
+                            height={16}
+                        />
+                    )}
+                    {!valid && !loading && <WarningTriangle className={styles.WarningIcon} />}
                 </div>
 
                 {button && (
@@ -117,6 +129,9 @@ Input.displayName = 'Input';
 function Icon({ icon: Component }: Required<Pick<Props, 'icon'>>) {
     if (Component === 'link') {
         return <Link className={styles.Icon} />;
+    }
+    if (Component === 'search') {
+        return <Search className={styles.Icon} />;
     }
 
     return <Component className={styles.Icon} />;
