@@ -226,9 +226,20 @@ export function* getEnabledExtensions({
 
     if (withPlaceholders) {
         yield PlaceholdersExtension({
-            fetchOembed: (withEmbeds || undefined)?.fetchOembed,
-            newsroom: withImages ? withImages.mediaGalleryTab?.newsroom : undefined,
-            withCaptions: withImages ? withImages.captions : undefined,
+            withAttachmentPlaceholders: withAttachments,
+            withEmbedPlaceholders: withEmbeds,
+            withGalleryPlaceholders: withGalleries
+                ? { newsroom: withGalleries.mediaGalleryTab?.newsroom }
+                : false,
+            withImagePlaceholders: withImages
+                ? {
+                      withCaptions: Boolean(withImages.captions),
+                      newsroom: withImages.mediaGalleryTab?.newsroom,
+                  }
+                : false,
+            withSocialPostPlaceholders: withEmbeds,
+            withVideoPlaceholders: withVideos,
+            withWebBookmarkPlaceholders: withWebBookmarks,
         });
     }
 
