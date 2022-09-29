@@ -12,6 +12,7 @@ import { getEnabledExtensions } from './getEnabledExtensions';
 const events = new Events<EditorEventMap>();
 
 export function getAllExtensions() {
+    const fetchOembed = createDelayedResolve(oembedInfo);
     return Array.from(
         getEnabledExtensions({
             availableWidth: 1000,
@@ -26,7 +27,7 @@ export function getAllExtensions() {
             },
             withDivider: true,
             withEmbeds: {
-                fetchOembed: createDelayedResolve(oembedInfo),
+                fetchOembed,
                 showAsScreenshot: false,
             },
             withFloatingAddMenu: true,
@@ -38,7 +39,16 @@ export function getAllExtensions() {
             },
             withInlineLinks: true,
             withLists: true,
-            withPlaceholders: {},
+            withPlaceholders: {
+                withAttachmentPlaceholders: true,
+                withContactPlaceholders: false,
+                withEmbedPlaceholders: { fetchOembed },
+                withGalleryPlaceholders: { newsroom: undefined },
+                withImagePlaceholders: { withCaptions: true, newsroom: undefined },
+                withSocialPostPlaceholders: { fetchOembed },
+                withVideoPlaceholders: { fetchOembed },
+                withWebBookmarkPlaceholders: { fetchOembed },
+            },
             withPressContacts: {
                 renderSearch: () => null,
             },
@@ -77,12 +87,8 @@ export function getAllExtensions() {
                     { key: 'publication.date', text: 'Publication date' },
                 ],
             },
-            withVideos: {
-                fetchOembed: createDelayedResolve(oembedInfo),
-            },
-            withWebBookmarks: {
-                fetchOembed: createDelayedResolve(oembedInfo),
-            },
+            withVideos: { fetchOembed },
+            withWebBookmarks: { fetchOembed },
             withSnippets: {
                 renderInput: () => null,
             },

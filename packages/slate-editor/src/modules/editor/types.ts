@@ -92,7 +92,7 @@ export interface EditorProps {
     withImages?: false | ImageExtensionConfiguration;
     withInlineLinks?: boolean;
     withLists?: boolean;
-    withPlaceholders?: false | Pick<PlaceholdersExtensionParameters, 'withContactPlaceholders'>;
+    withPlaceholders?: false | PlaceholdersExtensionParameters;
     withPressContacts?: false | PressContactsExtensionParameters;
     withRichFormattingMenu?:
         | boolean
