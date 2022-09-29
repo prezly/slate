@@ -11,6 +11,7 @@ import styles from './Suggestions.module.scss';
 import type { Suggestion } from './types';
 
 export interface Props<T> extends HTMLAttributes<HTMLDivElement> {
+    activeElement: HTMLElement | undefined;
     minHeight?: number;
     maxHeight?: number;
     query: string;
@@ -19,6 +20,7 @@ export interface Props<T> extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function Suggestions<T>({
+    activeElement,
     children,
     className,
     footer,
@@ -32,8 +34,9 @@ export function Suggestions<T>({
     const [calculatedMaxHeight, setMaxHeight] = useState<number>();
     const container = useRef<HTMLDivElement | null>(null);
     const childrenContainer = useRef<HTMLDivElement | null>(null);
+    const [scrollarea, setScrollarea] = useState<FancyScrollbars | null>(null);
 
-    const handlePositioning = useFunction(() => {
+    const updatePanelSize = useFunction(() => {
         setHeight(childrenContainer.current?.getBoundingClientRect().height);
 
         if (container.current) {
@@ -46,18 +49,24 @@ export function Suggestions<T>({
     });
 
     useEffect(() => {
-        handlePositioning();
+        updatePanelSize();
 
-        window.addEventListener('scroll', handlePositioning);
-        window.addEventListener('resize', handlePositioning);
+        window.addEventListener('scroll', updatePanelSize);
+        window.addEventListener('resize', updatePanelSize);
 
         return () => {
-            window.removeEventListener('scroll', handlePositioning);
-            window.removeEventListener('resize', handlePositioning);
+            window.removeEventListener('scroll', updatePanelSize);
+            window.removeEventListener('resize', updatePanelSize);
         };
-    }, [handlePositioning]);
+    }, [updatePanelSize]);
 
-    useEffect(handlePositioning, [query, suggestions, minHeight, maxHeight]);
+    useEffect(updatePanelSize, [query, suggestions, minHeight, maxHeight]);
+
+    useEffect(() => {
+        if (activeElement) {
+            scrollarea?.ensureVisible(activeElement);
+        }
+    }, [scrollarea, activeElement]);
 
     return (
         <Panel
@@ -67,7 +76,7 @@ export function Suggestions<T>({
             className={classNames(className, styles.Suggestions)}
             footer={footer}
         >
-            <FancyScrollbars style={{ flexGrow: 1, height }}>
+            <FancyScrollbars ref={setScrollarea} style={{ flexGrow: 1, height }}>
                 <div ref={childrenContainer}>{children}</div>
             </FancyScrollbars>
         </Panel>

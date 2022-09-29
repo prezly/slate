@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 
 export interface Suggestion<T> {
     id: string;
@@ -12,6 +12,7 @@ export namespace Props {
         loading: boolean;
     }
     export interface Option<T> {
+        ref: Ref<HTMLElement>;
         children?: ReactNode;
         active: boolean;
         disabled: boolean;
@@ -20,7 +21,8 @@ export namespace Props {
     }
     export interface Suggestions<T> {
         children?: ReactNode;
-        active: Suggestion<T> | undefined;
+        activeElement: HTMLElement | undefined;
+        activeSuggestion: Suggestion<T> | undefined;
         loading: boolean;
         query: string;
         suggestions: Suggestion<T>[];

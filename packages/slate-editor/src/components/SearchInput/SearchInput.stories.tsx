@@ -82,8 +82,9 @@ export function WithFooter() {
             onChange={setQuery}
             onSelect={(suggestion) => console.log('Selected', suggestion)}
             getSuggestions={getSuggestions}
-            renderSuggestions={({ query, suggestions, children }) => (
+            renderSuggestions={({ activeElement, query, suggestions, children }) => (
                 <SearchInput.Suggestions<string>
+                    activeElement={activeElement}
                     query={query}
                     suggestions={suggestions}
                     footer={

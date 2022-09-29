@@ -60,7 +60,8 @@ export function SearchInput<T = unknown>({
 
     const handleSelect = useFunction(onSelect);
 
-    const [active, handleNavigationKeyDown] = useKeyboardNavigation(
+    const [activeElement, setActiveElement] = useState<HTMLElement | null>(null);
+    const [activeSuggestion, handleNavigationKeyDown] = useKeyboardNavigation(
         suggestions,
         handleSelect,
         isNotDisabled,
@@ -105,7 +106,8 @@ export function SearchInput<T = unknown>({
                     (suggestions.length === 0
                         ? renderEmpty({ loading, query })
                         : renderSuggestions({
-                              active,
+                              activeElement: activeElement ?? undefined,
+                              activeSuggestion,
                               loading,
                               query,
                               suggestions,
@@ -113,7 +115,11 @@ export function SearchInput<T = unknown>({
                               children: suggestions.map((suggestion) =>
                                   renderSuggestion({
                                       suggestion,
-                                      active: suggestion.id === active?.id,
+                                      ref:
+                                          suggestion.id === activeSuggestion?.id
+                                              ? setActiveElement
+                                              : null,
+                                      active: suggestion.id === activeSuggestion?.id,
                                       disabled: Boolean(suggestion.disabled),
                                       onSelect: () => handleSelect(suggestion),
                                       children: suggestion.value,
@@ -137,6 +143,7 @@ function defaultRenderEmpty({ loading, query }: Props.Empty) {
 }
 
 function defaultRenderSuggestion<T>({
+    ref,
     suggestion,
     active,
     disabled,
@@ -145,6 +152,7 @@ function defaultRenderSuggestion<T>({
 }: Props.Option<T>) {
     return (
         <SearchInput.Option<T>
+            forwardedRef={ref}
             key={suggestion.id}
             active={active}
             disabled={disabled}
@@ -156,9 +164,18 @@ function defaultRenderSuggestion<T>({
     );
 }
 
-function defaultRenderSuggestions<T>({ query, suggestions, children }: Props.Suggestions<T>) {
+function defaultRenderSuggestions<T>({
+    activeElement,
+    query,
+    suggestions,
+    children,
+}: Props.Suggestions<T>) {
     return (
-        <SearchInput.Suggestions<T> query={query} suggestions={suggestions}>
+        <SearchInput.Suggestions<T>
+            activeElement={activeElement}
+            query={query}
+            suggestions={suggestions}
+        >
             {children}
         </SearchInput.Suggestions>
     );
