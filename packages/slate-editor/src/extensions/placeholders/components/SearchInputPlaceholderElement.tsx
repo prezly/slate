@@ -1,7 +1,9 @@
+import type { ReactElement } from 'react';
 import React, { type KeyboardEvent, useRef, useState } from 'react';
 import { Transforms } from 'slate';
 import { type RenderElementProps, useSlateStatic } from 'slate-react';
 
+import type { SearchInput } from '#components';
 import { EditorBlock } from '#components';
 import { mergeRefs, useFunction, useUnmount } from '#lib';
 
@@ -9,23 +11,26 @@ import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 import { type Props as PlaceholderProps, Placeholder } from './Placeholder';
-import {
-    type Props as SearchInputPlaceholderProps,
-    SearchInputPlaceholder,
-} from './SearchInputPlaceholder';
+import { SearchInputPlaceholder } from './SearchInputPlaceholder';
 
 export type Props<T> = RenderElementProps &
-    Pick<PlaceholderProps, 'icon' | 'title' | 'description' | 'format' | 'onDrop'> & {
+    Pick<PlaceholderProps, 'icon' | 'title' | 'description' | 'format' | 'onDrop'> &
+    Pick<SearchInputPlaceholder.Props<T>, 'getSuggestions' | 'onSelect'> & {
         element: PlaceholderNode;
         // SearchInput
-        getSuggestions: SearchInputPlaceholderProps<T>['getSuggestions'];
-        renderEmpty?: SearchInputPlaceholderProps<T>['renderEmpty'];
-        renderSuggestion?: SearchInputPlaceholderProps<T>['renderSuggestion'];
-        renderSuggestions?: SearchInputPlaceholderProps<T>['renderSuggestions'];
-        inputTitle: SearchInputPlaceholderProps<T>['title'];
-        inputDescription: SearchInputPlaceholderProps<T>['description'];
-        inputPlaceholder?: SearchInputPlaceholderProps<T>['placeholder'];
-        onSelect: SearchInputPlaceholderProps<T>['onSelect'];
+        renderEmpty?: (
+            props: { placeholder: PlaceholderNode } & SearchInput.Props.Empty,
+        ) => ReactElement | null;
+        renderSuggestion?: (
+            props: { placeholder: PlaceholderNode } & SearchInput.Props.Option<T>,
+        ) => ReactElement | null;
+        renderSuggestions?: (
+            props: { placeholder: PlaceholderNode } & SearchInput.Props.Suggestions<T>,
+        ) => ReactElement | null;
+
+        inputTitle: SearchInputPlaceholder.Props<T>['title'];
+        inputDescription: SearchInputPlaceholder.Props<T>['description'];
+        inputPlaceholder?: SearchInputPlaceholder.Props<T>['placeholder'];
     };
 
 export function SearchInputPlaceholderElement<T>({
@@ -86,9 +91,18 @@ export function SearchInputPlaceholderElement<T>({
                     <SearchInputPlaceholder<T>
                         // Customization
                         getSuggestions={getSuggestions}
-                        renderEmpty={renderEmpty}
-                        renderSuggestion={renderSuggestion}
-                        renderSuggestions={renderSuggestions}
+                        renderEmpty={
+                            renderEmpty &&
+                            ((props) => renderEmpty({ ...props, placeholder: element }))
+                        }
+                        renderSuggestion={
+                            renderSuggestion &&
+                            ((props) => renderSuggestion({ ...props, placeholder: element }))
+                        }
+                        renderSuggestions={
+                            renderSuggestions &&
+                            ((props) => renderSuggestions({ ...props, placeholder: element }))
+                        }
                         // Core
                         active={isActive}
                         autoFocus

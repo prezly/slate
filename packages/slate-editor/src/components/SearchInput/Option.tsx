@@ -3,7 +3,6 @@ import type { Ref } from 'react';
 import React, { type HTMLAttributes } from 'react';
 
 import styles from './Option.module.scss';
-import type { Props } from './types';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
     forwardRef?: Ref<HTMLElement>;

@@ -10,24 +10,6 @@ import { type Props as BaseProps, Frame } from './Frame';
 import styles from './InputPlaceholder.module.scss';
 import type { ContentRenderProps } from './Placeholder';
 
-export interface Props<T> extends Omit<BaseProps, 'title' | 'onSubmit' | 'onSelect' | 'pattern'> {
-    getSuggestions: (query: string) => Promise<SearchInput.Suggestion<T>[]>;
-    renderEmpty?: SearchInput.Props<T>['renderEmpty'];
-    renderSuggestion?: SearchInput.Props<T>['renderSuggestion'];
-    renderSuggestions?: SearchInput.Props<T>['renderSuggestions'];
-
-    // Base
-    title: ReactNode | FunctionComponent<ContentRenderProps>;
-    description: ReactNode | FunctionComponent<ContentRenderProps>;
-    // SearchInput properties
-    disabled?: boolean;
-    autoFocus?: boolean;
-    initialQuery?: string;
-    placeholder?: string;
-    onEsc?: (event: KeyboardEvent) => void;
-    onSelect?: (value: T) => void;
-}
-
 const isEsc = isHotkey('esc');
 
 export function SearchInputPlaceholder<T>({
@@ -51,7 +33,7 @@ export function SearchInputPlaceholder<T>({
     onEsc,
     onSelect,
     ...attributes
-}: Props<T>) {
+}: SearchInputPlaceholder.Props<T>) {
     const isLoading = typeof progress === 'number' || progress === true;
     const progressNumber = typeof progress === 'number' ? progress : undefined;
     const [pressed, setPressed] = useState(false);
@@ -136,6 +118,27 @@ export function SearchInputPlaceholder<T>({
             />
         </Frame>
     );
+}
+
+export namespace SearchInputPlaceholder {
+    export interface Props<T>
+        extends Omit<BaseProps, 'title' | 'onSubmit' | 'onSelect' | 'pattern'> {
+        getSuggestions: SearchInput.Props<T>['getSuggestions'];
+        renderEmpty?: SearchInput.Props<T>['renderEmpty'];
+        renderSuggestion?: SearchInput.Props<T>['renderSuggestion'];
+        renderSuggestions?: SearchInput.Props<T>['renderSuggestions'];
+
+        // Base
+        title: ReactNode | FunctionComponent<ContentRenderProps>;
+        description: ReactNode | FunctionComponent<ContentRenderProps>;
+        // SearchInput properties
+        disabled?: boolean;
+        autoFocus?: boolean;
+        initialQuery?: string;
+        placeholder?: string;
+        onEsc?: (event: KeyboardEvent) => void;
+        onSelect?: (value: T) => void;
+    }
 }
 
 function stopPropagation(event: KeyboardEvent | MouseEvent) {

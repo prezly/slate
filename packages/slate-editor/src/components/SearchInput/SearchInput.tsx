@@ -1,4 +1,4 @@
-import type { ReactElement, Ref } from 'react';
+import type { ReactElement, Ref, ReactNode } from 'react';
 import React, { useMemo, useReducer, useState } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 
@@ -18,7 +18,7 @@ import * as OptionsModule from './Option';
 import * as PanelModule from './Panel';
 import { createReducer } from './reducer';
 import * as SuggestionsModule from './Suggestions';
-import type { Props, Suggestion } from './types';
+import type { Suggestion } from './types';
 
 type TSuggestion<T> = Suggestion<T>;
 
@@ -147,13 +147,40 @@ export namespace SearchInput {
         onSelect: (suggestion: Suggestion<T>) => void;
     }
 
+    export namespace Props {
+        export interface Empty {
+            query: string;
+            loading: boolean;
+            onClose: () => void;
+        }
+        export interface Option<T> {
+            ref: Ref<HTMLElement>;
+            active: boolean;
+            disabled: boolean;
+            query: string;
+            suggestion: Suggestion<T>;
+            onClose: () => void;
+            onSelect: () => void;
+        }
+        export interface Suggestions<T> {
+            children?: ReactNode;
+            activeElement: HTMLElement | undefined;
+            activeSuggestion: Suggestion<T> | undefined;
+            loading: boolean;
+            query: string;
+            suggestions: Suggestion<T>[];
+            onClose: () => void;
+            onSelect: (suggestion: Suggestion<T>) => void;
+        }
+    }
+
     export const Empty = EmptyModule.Empty;
     export const Option = OptionsModule.Option;
     export const Panel = PanelModule.Panel;
     export const Suggestions = SuggestionsModule.Suggestions;
 }
 
-function defaultRenderEmpty({ loading, query }: Props.Empty) {
+function defaultRenderEmpty({ loading, query }: SearchInput.Props.Empty) {
     return <SearchInput.Empty loading={loading} query={query} />;
 }
 
@@ -163,7 +190,7 @@ function defaultRenderSuggestion<T>({
     active,
     disabled,
     onSelect,
-}: Props.Option<T>) {
+}: SearchInput.Props.Option<T>) {
     return (
         <SearchInput.Option
             forwardRef={ref}
@@ -184,7 +211,7 @@ function defaultRenderSuggestions<T>({
     query,
     suggestions,
     children,
-}: Props.Suggestions<T>) {
+}: SearchInput.Props.Suggestions<T>) {
     return (
         <SearchInput.Suggestions<T>
             activeElement={activeElement}
