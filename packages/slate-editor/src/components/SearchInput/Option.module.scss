@@ -18,7 +18,8 @@
         cursor: initial;
         pointer-events: none;
 
-        &, &:hover {
+        &,
+        &:hover {
             background-color: $white;
             opacity: 0.5;
         }
