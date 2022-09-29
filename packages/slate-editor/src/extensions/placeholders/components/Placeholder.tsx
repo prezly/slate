@@ -58,7 +58,9 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
         return (
             <Frame
                 {...attributes}
-                className={classNames(className, styles.Placeholder)}
+                className={classNames(className, styles.Placeholder, {
+                    [styles.dragOver]: dragOver,
+                })}
                 ref={forwardedRef}
                 dragOver={dragOver}
                 dropZone={dropZone}
@@ -66,8 +68,10 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
                 selected={selected}
             >
                 <Icon className={styles.Icon} />
-                <h2 className={styles.Title}>{renderContent(title, selected)}</h2>
-                <p className={styles.Description}>{renderContent(description, selected)}</p>
+                <div className={styles.Text}>
+                    <h2 className={styles.Title}>{renderContent(title, selected)}</h2>
+                    <p className={styles.Description}>{renderContent(description, selected)}</p>
+                </div>
             </Frame>
         );
     },

@@ -11,6 +11,8 @@
 
     .Icon {
         margin: 0 0 $spacing-half;
+        width: $spacing-5 * 2;
+        height: $spacing-5 * 2;
     }
 
     .Title {
@@ -26,5 +28,27 @@
         font-size: $font-size-small;
         font-weight: 400;
         line-height: 1.4;
+    }
+
+    .Icon,
+    .Text {
+        transition: transform 0.2s ease-in-out;
+    }
+
+    &:hover,
+    &.dragOver {
+        .Icon,
+        .Text {
+            transition-timing-function: cubic-bezier(0.500, 0.250, 0.200, 1.440); /* custom */
+            transition-duration: 0.3s;
+        }
+
+        .Icon {
+            transform: scale(1.2);
+        }
+
+        .Text {
+            transform: translate(0, 8px);
+        }
     }
 }
