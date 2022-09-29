@@ -26,24 +26,21 @@ import type { useCursorInView } from './lib';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
-    focus: () => void;
-    clearSelection: () => void;
-    insertNodes: (
-        nodes: Node[],
-        options?: Parameters<typeof EditorCommands.insertNodes>[2],
-    ) => void;
-    updateNodes: <T extends Node>(
+    focus(): void;
+    clearSelection(): void;
+    insertNodes(nodes: Node[], options?: Parameters<typeof EditorCommands.insertNodes>[2]): void;
+    updateNodes<T extends Node>(
         props: Partial<Omit<T, 'children' | 'text'>>,
         options?: Parameters<typeof Transforms.setNodes<T>>[2],
-    ) => void;
-    isEmpty: () => boolean;
-    isEqualTo: (value: Value) => void;
-    isFocused: () => boolean;
+    ): void;
+    isEmpty(): boolean;
+    isEqualTo(value: Value): void;
+    isFocused(): boolean;
     /**
      * Check if the editor value is different from the `initialValue` document.
      */
-    isModified: () => boolean;
-    resetValue: (value: Value) => void;
+    isModified(): boolean;
+    resetValue(value: Value): void;
 }
 
 export type Value = Element[];
