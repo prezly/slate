@@ -108,7 +108,7 @@ export function ImagePlaceholderElement({
             format="16:9"
             icon={PlaceholderImage}
             title={Title}
-            description="Supported formats: .jpg, .gif, or .png - Max. 25MB"
+            description={Description}
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}
@@ -120,10 +120,17 @@ export function ImagePlaceholderElement({
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Uploading image</>;
+        return <>Uploading images...</>;
     }
     if (props.isDragOver) {
         return <>Drop an image here</>;
     }
     return <>Drag or click to upload an image</>;
+}
+
+function Description(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return null;
+    }
+    return <>Supported formats: jpg, gif or png (max 25MB)</>;
 }

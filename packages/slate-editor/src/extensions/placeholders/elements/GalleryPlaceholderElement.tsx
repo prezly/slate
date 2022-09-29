@@ -101,7 +101,7 @@ export function GalleryPlaceholderElement({
             format="16:9"
             icon={PlaceholderGallery}
             title={Title}
-            description="Supported formats: .jpg, .gif, or .png - Max. 25MB"
+            description={Description}
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}
@@ -113,10 +113,17 @@ export function GalleryPlaceholderElement({
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Uploading images</>;
+        return <>Uploading images...</>;
     }
     if (props.isDragOver) {
         return <>Drop images here</>;
     }
     return <>Drag or click to upload multiple images</>;
+}
+
+function Description(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return null;
+    }
+    return <>Supported formats: jpg, gif or png (max 25MB)</>;
 }
