@@ -14,10 +14,10 @@ import { useFunction, useSlateDom } from '#lib';
 
 import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
-import type { OverlayMode } from './Overlay';
 import { Overlay } from './Overlay';
 
 type SlateInternalAttributes = RenderElementProps['attributes'];
+export type OverlayMode = 'always' | 'autohide' | false;
 
 enum Layout {
     CONTAINED = 'contained',
@@ -92,6 +92,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         isNodeSelected &&
         Array.from(Editor.nodes(editor, { match: EditorCommands.isTopLevelNode })).length === 1;
     const isSelected = selected ?? isNodeSelected;
+    const isOverlayEnabled = overlay === 'always' || (overlay === 'autohide' && !isSelected);
 
     const [menuOpen, setMenuOpen] = useState(true);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
@@ -136,6 +137,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
             className={classNames(className, styles.EditorBlock, {
                 [styles.void]: isVoid,
                 [styles.extendedHitArea]: extendedHitArea,
+                [styles.withOverlay]: isOverlayEnabled,
             })}
             data-slate-block-layout={layout}
             onClick={closeMenu}
@@ -163,12 +165,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}
-                <Overlay
-                    className={styles.Overlay}
-                    selected={isSelected}
-                    mode={overlay}
-                    onClick={handleFrameClick}
-                />
+                {isOverlayEnabled && (
+                    <Overlay className={styles.Overlay} onClick={handleFrameClick} />
+                )}
                 <div
                     className={classNames(styles.Content, {
                         [styles.border]: border,

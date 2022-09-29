@@ -6,6 +6,8 @@
     top: 100%;
     right: 0;
 
+    z-index: $editor-block-overlay-z-index + 1;
+
     background: white;
 
     border: 1px solid $grey-200;
