@@ -2,14 +2,13 @@ import classNames from 'classnames';
 import React, { type HTMLAttributes } from 'react';
 
 import styles from './Option.module.scss';
+import type { Props } from './types';
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
-    active?: boolean;
-    disabled?: boolean;
-    onSelect: () => void;
-}
+export type Props<T> = Props.Option<T> & HTMLAttributes<HTMLDivElement>;
 
-export function Option({
+export function Option<T>({
+    id, // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
+    value, // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
     active,
     children,
     className,
@@ -17,7 +16,7 @@ export function Option({
     onClick,
     onSelect,
     ...attributes
-}: Props) {
+}: Props<T>) {
     return (
         <div
             role="button"

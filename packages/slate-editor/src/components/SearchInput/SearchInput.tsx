@@ -1,4 +1,4 @@
-import type { ComponentType, ReactNode } from 'react';
+import type { ComponentType } from 'react';
 import React, { useMemo, useReducer } from 'react';
 
 import {
@@ -12,10 +12,12 @@ import {
 
 import { Input, type Props as BaseProps } from '../Input';
 
+import * as EmptyModule from './Empty';
 import * as OptionsModule from './Option';
+import * as PanelModule from './Panel';
 import { createReducer } from './reducer';
 import * as SuggestionsModule from './Suggestions';
-import type { Suggestion } from './types';
+import type { Props as CommonProps, Suggestion } from './types';
 
 export interface Props<T> extends Omit<BaseProps, 'loading' | 'value' | 'onSelect'> {
     getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
@@ -34,8 +36,9 @@ export function SearchInput<T = unknown>({
     onSelect,
     ...attributes
 }: Props<T>) {
-    const { Suggestions = SuggestionsModule.Suggestions } = components;
-    const { Option = OptionsModule.Option } = components;
+    const { Suggestions = SearchInput.Suggestions } = components;
+    const { Option = SearchInput.Option } = components;
+    const { Empty = SearchInput.Empty } = components;
 
     const reducer = useMemo(() => createReducer<T>(), []);
     const initialState = useMemo(() => reducer(undefined, { type: undefined }), [reducer]);
@@ -92,53 +95,46 @@ export function SearchInput<T = unknown>({
             }}
             loading={loading}
             value={query}
-            withSuggestions={suggestions.length > 0}
+            withSuggestions
         >
-            <Suggestions
-                active={active}
-                loading={loading}
-                query={query}
-                suggestions={suggestions}
-                onSelect={handleSelect}
-            >
-                {suggestions.map((suggestion) => (
-                    <Option
-                        key={suggestion.id}
-                        id={suggestion.id}
-                        active={suggestion.id === active?.id}
-                        disabled={Boolean(suggestion.disabled)}
-                        value={suggestion.value}
-                        onSelect={() => handleSelect(suggestion)}
-                    >
-                        <Debug value={suggestion.value} />
-                    </Option>
-                ))}
-            </Suggestions>
+            {suggestions.length === 0 ? (
+                <Empty loading={loading} query={query} />
+            ) : (
+                <Suggestions
+                    active={active}
+                    loading={loading}
+                    query={query}
+                    suggestions={suggestions}
+                    onSelect={handleSelect}
+                >
+                    {suggestions.map((suggestion) => (
+                        <Option
+                            key={suggestion.id}
+                            id={suggestion.id}
+                            active={suggestion.id === active?.id}
+                            disabled={Boolean(suggestion.disabled)}
+                            value={suggestion.value}
+                            onSelect={() => handleSelect(suggestion)}
+                        >
+                            <Debug value={suggestion.value} />
+                        </Option>
+                    ))}
+                </Suggestions>
+            )}
         </Input>
     );
 }
 
 export namespace SearchInput {
+    export const Empty = EmptyModule.Empty;
     export const Option = OptionsModule.Option;
+    export const Panel = PanelModule.Panel;
     export const Suggestions = SuggestionsModule.Suggestions;
 
     export interface Components<T> {
-        Suggestions: ComponentType<{
-            children: ReactNode;
-            active: Suggestion<T> | undefined;
-            loading: boolean;
-            query: string;
-            suggestions: Suggestion<T>[];
-            onSelect: (suggestion: Suggestion<T>) => void;
-        }>;
-        Option: ComponentType<{
-            children?: ReactNode;
-            active: boolean;
-            disabled: boolean;
-            id: Suggestion<T>['id'];
-            value: Suggestion<T>['value'];
-            onSelect: () => void;
-        }>;
+        Suggestions: ComponentType<CommonProps.Suggestions<T>>;
+        Empty: ComponentType<CommonProps.Empty>;
+        Option: ComponentType<CommonProps.Option<T>>;
     }
 }
 

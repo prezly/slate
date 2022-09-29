@@ -6,18 +6,13 @@ import { useFunction } from '#lib';
 
 import { FancyScrollbars } from '../FancyScrollbars';
 
+import { Panel } from './Panel';
 import styles from './Suggestions.module.scss';
-import type { Suggestion } from './types';
+import type { Props as CommonProps } from './types';
 
-export interface Props<T> extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
-    // Base
-    active: Suggestion<T> | undefined;
-    loading: boolean;
-    query: string;
-    suggestions: Suggestion<T>[];
-    onSelect: (suggestion: Suggestion<T>) => void;
-    children?: ReactNode;
-    // Custom
+export interface Props<T>
+    extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>,
+        CommonProps.Suggestions<T> {
     minHeight?: number;
     maxHeight?: number;
     footer?: ReactNode;
@@ -68,17 +63,17 @@ export function Suggestions<T>({
     useEffect(handlePositioning, [query, suggestions, minHeight, maxHeight]);
 
     return (
-        <div
+        <Panel
             {...attributes}
             style={{ maxHeight: calculatedMaxHeight, ...attributes.style }}
             ref={container}
             className={classNames(className, styles.Suggestions)}
+            footer={footer}
         >
             <FancyScrollbars style={{ flexGrow: 1, height }}>
                 <div ref={childrenContainer}>{children}</div>
             </FancyScrollbars>
-            {footer && <div className={styles.Footer}>{footer}</div>}
-        </div>
+        </Panel>
     );
 }
 
