@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ReactElement, Ref } from 'react';
 import React, { useMemo, useReducer, useState } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 
@@ -20,18 +20,12 @@ import { createReducer } from './reducer';
 import * as SuggestionsModule from './Suggestions';
 import type { Props, Suggestion } from './types';
 
-export interface Props<T> extends Omit<BaseProps, 'loading' | 'value' | 'onSelect'> {
-    getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
-    renderEmpty?: (props: Props.Empty) => ReactElement | null;
-    renderSuggestion?: (props: Props.Option<T>) => ReactElement | null;
-    renderSuggestions?: (props: Props.Suggestions<T>) => ReactElement | null;
-    query: string;
-    onSelect: (suggestion: Suggestion<T>) => void;
-}
+type TSuggestion<T> = Suggestion<T>;
 
 const EMPTY_SUGGESTIONS: never[] = [];
 
 export function SearchInput<T = unknown>({
+    inputRef,
     getSuggestions,
     renderEmpty = defaultRenderEmpty,
     renderSuggestion = defaultRenderSuggestion,
@@ -40,7 +34,7 @@ export function SearchInput<T = unknown>({
     onKeyDown,
     onSelect,
     ...attributes
-}: Props<T>) {
+}: SearchInput.Props<T>) {
     const reducer = useMemo(() => createReducer<T>(), []);
     const initialState = useMemo(() => reducer(undefined, { type: undefined }), [reducer]);
     const [open, setOpen] = useState(false);
@@ -92,6 +86,7 @@ export function SearchInput<T = unknown>({
     return (
         <RootCloseWrapper onRootClose={() => setOpen(false)}>
             <Input
+                ref={inputRef}
                 {...attributes}
                 onFocus={() => setOpen(true)}
                 onKeyDown={(event) => {
@@ -132,6 +127,18 @@ export function SearchInput<T = unknown>({
 }
 
 export namespace SearchInput {
+    export type Suggestion<T> = TSuggestion<T>;
+
+    export interface Props<T> extends Omit<BaseProps, 'loading' | 'value' | 'onSelect'> {
+        inputRef?: Ref<HTMLInputElement>;
+        getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
+        renderEmpty?: (props: Props.Empty) => ReactElement | null;
+        renderSuggestion?: (props: Props.Option<T>) => ReactElement | null;
+        renderSuggestions?: (props: Props.Suggestions<T>) => ReactElement | null;
+        query: string;
+        onSelect: (suggestion: Suggestion<T>) => void;
+    }
+
     export const Empty = EmptyModule.Empty;
     export const Option = OptionsModule.Option;
     export const Panel = PanelModule.Panel;
