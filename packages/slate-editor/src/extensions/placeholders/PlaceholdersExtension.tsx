@@ -11,7 +11,7 @@ import {
     VideoPlaceholderElement,
     WebBookmarkPlaceholderElement,
 } from './elements';
-import { fixDuplicatePlaceholderUuid } from './normalization';
+import { fixDuplicatePlaceholderUuid, removeDisabledPlaceholders } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
 import type { FetchOEmbedFn } from './types';
 
@@ -31,9 +31,9 @@ export interface Parameters {
 
 export function PlaceholdersExtension({
     withAttachmentPlaceholders = false,
-    withImagePlaceholders = false,
-    withGalleryPlaceholders = false,
     withEmbedPlaceholders = false,
+    withGalleryPlaceholders = false,
+    withImagePlaceholders = false,
     withSocialPostPlaceholders = false,
     withWebBookmarkPlaceholders = false,
     withVideoPlaceholders = false,
@@ -42,7 +42,18 @@ export function PlaceholdersExtension({
         id: EXTENSION_ID,
         isRichBlock: PlaceholderNode.isPlaceholderNode,
         isVoid: PlaceholderNode.isPlaceholderNode,
-        normalizeNode: fixDuplicatePlaceholderUuid,
+        normalizeNode: [
+            fixDuplicatePlaceholderUuid,
+            removeDisabledPlaceholders({
+                withAttachmentPlaceholders: Boolean(withAttachmentPlaceholders),
+                withEmbedPlaceholders: Boolean(withEmbedPlaceholders),
+                withGalleryPlaceholders: Boolean(withGalleryPlaceholders),
+                withImagePlaceholders: Boolean(withImagePlaceholders),
+                withSocialPostPlaceholders: Boolean(withSocialPostPlaceholders),
+                withWebBookmarkPlaceholders: Boolean(withWebBookmarkPlaceholders),
+                withVideoPlaceholders: Boolean(withVideoPlaceholders),
+            }),
+        ],
         renderElement({ element, children, attributes }) {
             if (
                 withAttachmentPlaceholders &&
