@@ -12,6 +12,7 @@ import {
     type Props as BaseProps,
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
+import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
@@ -107,7 +108,7 @@ export function WebBookmarkPlaceholderElement({ children, element, fetchOembed, 
 
 function Title(props: { isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Creating website bookmark...</>;
+        return <>{withLoadingDots('Creating website bookmark')}</>;
     }
     return <>Click to insert a website bookmark</>;
 }
