@@ -352,6 +352,16 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return handleAddAttachment(editor);
         }
         if (action === MenuAction.ADD_CONTACT) {
+            if (withPlaceholders && withPlaceholders.withContactPlaceholders) {
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.CONTACT },
+                    true,
+                );
+                PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
+                return;
+            }
             return openFloatingPressContactsMenu();
         }
         if (action === MenuAction.ADD_COVERAGE) {
