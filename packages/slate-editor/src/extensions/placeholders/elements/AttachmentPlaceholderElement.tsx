@@ -14,6 +14,7 @@ import { createFileAttachment } from '#extensions/file-attachment';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
+import { withLoadingDots } from '../components/LoadingDots';
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { insertPlaceholders, replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
@@ -99,7 +100,7 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Uploading attachment...</>;
+        return <>{withLoadingDots('Uploading attachment')}</>;
     }
     if (props.isDragOver) {
         return <>Drop a file here</>;

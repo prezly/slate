@@ -12,6 +12,7 @@ import {
     type Props as BaseProps,
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
+import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
@@ -100,7 +101,7 @@ export function SocialPostPlaceholderElement({ children, element, fetchOembed, .
 
 function Title(props: { isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Embedding social media post...</>;
+        return <>{withLoadingDots('Embedding social media post')}</>;
     }
     return <>Click to embed a social media post</>;
 }

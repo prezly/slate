@@ -12,6 +12,7 @@ import {
     type Props as BaseProps,
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
+import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
@@ -99,7 +100,7 @@ export function EmbedPlaceholderElement({ children, element, fetchOembed, ...pro
 
 function Title(props: { isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Embedding content...</>;
+        return <>{withLoadingDots('Embedding content')}</>;
     }
     return <>Click to insert an embed</>;
 }

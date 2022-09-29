@@ -17,6 +17,7 @@ import { createImage, IMAGE_TYPES } from '#extensions/image';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
+import { withLoadingDots } from '../components/LoadingDots';
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { insertPlaceholders, replacePlaceholder, withGalleryTabMaybe } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
@@ -120,7 +121,7 @@ export function ImagePlaceholderElement({
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Uploading images...</>;
+        return <>{withLoadingDots('Uploading images')}</>;
     }
     if (props.isDragOver) {
         return <>Drop an image here</>;

@@ -13,6 +13,7 @@ import { IMAGE_TYPES } from '#extensions/image';
 import { EventsEditor } from '#modules/events';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE, UploadcareEditor } from '#modules/uploadcare';
 
+import { withLoadingDots } from '../components/LoadingDots';
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { replacePlaceholder, withGalleryTabMaybe } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
@@ -113,7 +114,7 @@ export function GalleryPlaceholderElement({
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Uploading images...</>;
+        return <>{withLoadingDots('Uploading images')}</>;
     }
     if (props.isDragOver) {
         return <>Drop images here</>;
