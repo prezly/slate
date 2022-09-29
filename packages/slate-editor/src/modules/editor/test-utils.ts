@@ -38,7 +38,7 @@ export function getAllExtensions() {
             },
             withInlineLinks: true,
             withLists: true,
-            withPlaceholders: true,
+            withPlaceholders: {},
             withPressContacts: {
                 renderSearch: () => null,
             },

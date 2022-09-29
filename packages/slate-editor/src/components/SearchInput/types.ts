@@ -13,7 +13,6 @@ export namespace Props {
     }
     export interface Option<T> {
         ref: Ref<HTMLElement>;
-        children?: ReactNode;
         active: boolean;
         disabled: boolean;
         suggestion: Suggestion<T>;

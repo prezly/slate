@@ -4,6 +4,7 @@ import React from 'react';
 
 import {
     AttachmentPlaceholderElement,
+    ContactPlaceholderElement,
     EmbedPlaceholderElement,
     GalleryPlaceholderElement,
     ImagePlaceholderElement,
@@ -21,6 +22,12 @@ const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
 
 export interface Parameters {
     withAttachmentPlaceholders?: boolean;
+    withContactPlaceholders?:
+        | false
+        | Pick<
+              ContactPlaceholderElement.Props,
+              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestions'
+          >;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withGalleryPlaceholders?: false | { newsroom?: NewsroomRef };
     withImagePlaceholders?: false | { withCaptions: boolean; newsroom?: NewsroomRef };
@@ -31,6 +38,7 @@ export interface Parameters {
 
 export function PlaceholdersExtension({
     withAttachmentPlaceholders = false,
+    withContactPlaceholders = false,
     withEmbedPlaceholders = false,
     withGalleryPlaceholders = false,
     withImagePlaceholders = false,
@@ -46,6 +54,7 @@ export function PlaceholdersExtension({
             fixDuplicatePlaceholderUuid,
             removeDisabledPlaceholders({
                 withAttachmentPlaceholders: Boolean(withAttachmentPlaceholders),
+                withContactPlaceholders: Boolean(withContactPlaceholders),
                 withEmbedPlaceholders: Boolean(withEmbedPlaceholders),
                 withGalleryPlaceholders: Boolean(withGalleryPlaceholders),
                 withImagePlaceholders: Boolean(withImagePlaceholders),
@@ -63,6 +72,20 @@ export function PlaceholdersExtension({
                     <AttachmentPlaceholderElement attributes={attributes} element={element}>
                         {children}
                     </AttachmentPlaceholderElement>
+                );
+            }
+            if (
+                withContactPlaceholders &&
+                isPlaceholderNode(element, PlaceholderNode.Type.CONTACT)
+            ) {
+                return (
+                    <ContactPlaceholderElement
+                        {...withContactPlaceholders}
+                        attributes={attributes}
+                        element={element}
+                    >
+                        {children}
+                    </ContactPlaceholderElement>
                 );
             }
             if (withEmbedPlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.EMBED)) {

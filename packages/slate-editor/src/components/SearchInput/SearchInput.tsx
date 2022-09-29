@@ -119,7 +119,6 @@ export function SearchInput<T = unknown>({
                                       active: suggestion.id === activeSuggestion?.id,
                                       disabled: Boolean(suggestion.disabled),
                                       onSelect: () => handleSelect(suggestion),
-                                      children: suggestion.value,
                                   }),
                               ),
                           }))}
@@ -157,18 +156,19 @@ function defaultRenderSuggestion<T>({
     active,
     disabled,
     onSelect,
-    children,
 }: Props.Option<T>) {
     return (
         <SearchInput.Option<T>
-            forwardedRef={ref}
+            forwardRef={ref}
             key={suggestion.id}
             active={active}
             disabled={disabled}
             onClick={onSelect}
             suggestion={suggestion}
         >
-            {children}
+            {typeof suggestion.value === 'string'
+                ? suggestion.value
+                : JSON.stringify(suggestion.value)}
         </SearchInput.Option>
     );
 }

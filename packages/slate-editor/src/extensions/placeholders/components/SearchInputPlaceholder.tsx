@@ -36,10 +36,13 @@ export function SearchInputPlaceholder<T>({
     description,
     dragOver,
     format = 'card',
-    getSuggestions,
     progress,
     selected = false,
     // Input properties
+    getSuggestions,
+    renderEmpty,
+    renderSuggestion,
+    renderSuggestions,
     autoFocus = false,
     disabled = false,
     initialQuery = '',
@@ -118,6 +121,9 @@ export function SearchInputPlaceholder<T>({
                 className={styles.Input}
                 disabled={disabled}
                 getSuggestions={getSuggestions}
+                renderEmpty={renderEmpty}
+                renderSuggestion={renderSuggestion}
+                renderSuggestions={renderSuggestions}
                 icon="search"
                 inputRef={input}
                 onChange={setQuery}

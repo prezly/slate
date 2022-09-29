@@ -6,14 +6,14 @@ import styles from './Option.module.scss';
 import type { Props, Suggestion } from './types';
 
 export interface Props<T> extends HTMLAttributes<HTMLDivElement> {
-    forwardedRef?: Ref<HTMLElement>;
+    forwardRef?: Ref<HTMLElement>;
     active?: boolean;
     disabled?: boolean;
     suggestion: Suggestion<T>;
 }
 
 export function Option<T>({
-    forwardedRef,
+    forwardRef,
     suggestion,
     active = false,
     children,
@@ -23,7 +23,7 @@ export function Option<T>({
 }: Props<T>) {
     return (
         <div
-            ref={forwardedRef as Ref<HTMLDivElement>}
+            ref={forwardRef as Ref<HTMLDivElement>}
             role="button"
             {...attributes}
             className={classNames(className, styles.Option, {

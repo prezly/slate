@@ -227,6 +227,7 @@ export function* getEnabledExtensions({
     if (withPlaceholders) {
         yield PlaceholdersExtension({
             withAttachmentPlaceholders: withAttachments,
+            withContactPlaceholders: withPlaceholders.withContactPlaceholders,
             withEmbedPlaceholders: withEmbeds,
             withGalleryPlaceholders: withGalleries
                 ? { newsroom: withGalleries.mediaGalleryTab?.newsroom }
