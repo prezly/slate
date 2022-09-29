@@ -6,6 +6,7 @@ import { PlaceholderNode } from '../PlaceholderNode';
 interface Parameters {
     withAttachmentPlaceholders: boolean;
     withContactPlaceholders: boolean;
+    withCoveragePlaceholders: boolean;
     withImagePlaceholders: boolean;
     withGalleryPlaceholders: boolean;
     withEmbedPlaceholders: boolean;
@@ -17,6 +18,7 @@ interface Parameters {
 export function removeDisabledPlaceholders({
     withAttachmentPlaceholders,
     withContactPlaceholders,
+    withCoveragePlaceholders,
     withImagePlaceholders,
     withGalleryPlaceholders,
     withEmbedPlaceholders,
@@ -27,6 +29,7 @@ export function removeDisabledPlaceholders({
     const config = {
         [PlaceholderNode.Type.ATTACHMENT]: withAttachmentPlaceholders,
         [PlaceholderNode.Type.CONTACT]: withContactPlaceholders,
+        [PlaceholderNode.Type.COVERAGE]: withCoveragePlaceholders,
         [PlaceholderNode.Type.IMAGE]: withImagePlaceholders,
         [PlaceholderNode.Type.GALLERY]: withGalleryPlaceholders,
         [PlaceholderNode.Type.EMBED]: withEmbedPlaceholders,

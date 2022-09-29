@@ -2,6 +2,7 @@ import type { NewsroomRef } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
+import { CoveragePlaceholderElement } from './elements';
 import {
     AttachmentPlaceholderElement,
     ContactPlaceholderElement,
@@ -28,6 +29,12 @@ export interface Parameters {
               ContactPlaceholderElement.Props,
               'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
           >;
+    withCoveragePlaceholders?:
+        | false
+        | Pick<
+              CoveragePlaceholderElement.Props,
+              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
+          >;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withGalleryPlaceholders?: boolean | { newsroom?: NewsroomRef };
     withImagePlaceholders?: boolean | { withCaptions: boolean; newsroom?: NewsroomRef };
@@ -39,6 +46,7 @@ export interface Parameters {
 export function PlaceholdersExtension({
     withAttachmentPlaceholders = false,
     withContactPlaceholders = false,
+    withCoveragePlaceholders = false,
     withEmbedPlaceholders = false,
     withGalleryPlaceholders = false,
     withImagePlaceholders = false,
@@ -55,6 +63,7 @@ export function PlaceholdersExtension({
             removeDisabledPlaceholders({
                 withAttachmentPlaceholders: Boolean(withAttachmentPlaceholders),
                 withContactPlaceholders: Boolean(withContactPlaceholders),
+                withCoveragePlaceholders: Boolean(withCoveragePlaceholders),
                 withEmbedPlaceholders: Boolean(withEmbedPlaceholders),
                 withGalleryPlaceholders: Boolean(withGalleryPlaceholders),
                 withImagePlaceholders: Boolean(withImagePlaceholders),
@@ -86,6 +95,20 @@ export function PlaceholdersExtension({
                     >
                         {children}
                     </ContactPlaceholderElement>
+                );
+            }
+            if (
+                withCoveragePlaceholders &&
+                isPlaceholderNode(element, PlaceholderNode.Type.COVERAGE)
+            ) {
+                return (
+                    <CoveragePlaceholderElement
+                        {...withCoveragePlaceholders}
+                        attributes={attributes}
+                        element={element}
+                    >
+                        {children}
+                    </CoveragePlaceholderElement>
                 );
             }
             if (withEmbedPlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.EMBED)) {
