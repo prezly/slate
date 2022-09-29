@@ -11,6 +11,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
     active?: boolean;
     format?: 'card' | 'card-lg' | '16:9';
     dragOver?: boolean;
+    dropZone?: boolean;
     progress?: boolean | number;
     selected?: boolean;
     // Callbacks
@@ -24,6 +25,7 @@ export const Frame = forwardRef<HTMLDivElement, Props>(
             children,
             className,
             dragOver,
+            dropZone,
             format = 'card',
             progress,
             selected,
@@ -39,6 +41,7 @@ export const Frame = forwardRef<HTMLDivElement, Props>(
                 {...attributes}
                 className={classNames(className, styles.Frame, {
                     [styles.active]: active,
+                    [styles.dropZone]: dropZone,
                     [styles.dragOver]: dragOver,
                     [styles.knownProgress]: typeof progress === 'number',
                     [styles.unknownProgress]: progress === true,

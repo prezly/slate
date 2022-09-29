@@ -51,8 +51,8 @@ export function ContactPlaceholderElement({
             // Core
             format="card"
             icon={PlaceholderContact}
-            title="Click to insert a newsroom Contact"
-            description="Add a Newsroom Contact to your story"
+            title="Click to insert a newsroom contact"
+            description="Add a newsroom contact to your story"
             // Input
             getSuggestions={getSuggestions}
             renderEmpty={renderEmpty}

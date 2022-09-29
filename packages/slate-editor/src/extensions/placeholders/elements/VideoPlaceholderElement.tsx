@@ -92,7 +92,7 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
             {...props}
             element={element}
             // Core
-            format="card-lg"
+            format="16:9"
             icon={PlaceholderVideo}
             title={Title}
             description={Description}
@@ -120,5 +120,5 @@ function Description(props: { isLoading: boolean }) {
     if (props.isLoading) {
         return null;
     }
-    return <>Paste a video link and hit Enter</>;
+    return <>Add a video link from Youtube, Vimeo or other source</>;
 }

@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
-import React, { type KeyboardEvent, useRef, useState } from 'react';
+import React, { type KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { Transforms } from 'slate';
-import { type RenderElementProps, useSlateStatic } from 'slate-react';
+import { type RenderElementProps, useSelected, useSlateStatic } from 'slate-react';
 
 import type { SearchInput } from '#components';
 import { EditorBlock } from '#components';
@@ -55,6 +55,7 @@ export function SearchInputPlaceholderElement<T>({
     onSelect,
 }: Props<T>) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
     const block = useRef<HTMLDivElement>(null);
 
     const [progress, setProgress] = useState<number | undefined>(undefined);
@@ -78,6 +79,12 @@ export function SearchInputPlaceholderElement<T>({
     useUnmount(() => {
         PlaceholdersManager.deactivate(element);
     });
+
+    useEffect(() => {
+        if (!isSelected) {
+            PlaceholdersManager.deactivate(element);
+        }
+    }, [isSelected]);
 
     return (
         <EditorBlock
@@ -104,7 +111,7 @@ export function SearchInputPlaceholderElement<T>({
                             ((props) => renderSuggestions({ ...props, placeholder: element }))
                         }
                         // Core
-                        active={isActive}
+                        active
                         autoFocus
                         format={format}
                         title={inputTitle}

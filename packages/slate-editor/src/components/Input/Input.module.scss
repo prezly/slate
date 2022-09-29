@@ -63,6 +63,7 @@ $focus-outline: $spacing-half solid #c7d2fe;
 
     .invalid & {
         background: $red-50;
+        border-color: $red-300;
         padding-right: $spacing-1-5 + $icon-size + $spacing-half;
     }
 
@@ -148,6 +149,8 @@ $focus-outline: $spacing-half solid #c7d2fe;
     all: unset;
     user-select: none;
     z-index: 1;
+
+    cursor: pointer;
 
     background-color: $green-500;
     padding: 10px $spacing-2;
