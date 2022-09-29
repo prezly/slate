@@ -1,6 +1,6 @@
-import React, { type KeyboardEvent, type MouseEvent, useRef, useState } from 'react';
+import React, { type KeyboardEvent, type MouseEvent, useEffect, useRef, useState } from 'react';
 import { Transforms } from 'slate';
-import { type RenderElementProps, useSlateStatic } from 'slate-react';
+import { type RenderElementProps, useSelected, useSlateStatic } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { mergeRefs, useFunction, useUnmount } from '#lib';
@@ -45,6 +45,7 @@ export function InputPlaceholderElement({
     onSubmit,
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
     const block = useRef<HTMLDivElement>(null);
 
     const [progress, setProgress] = useState<number | undefined>(undefined);
@@ -76,6 +77,12 @@ export function InputPlaceholderElement({
     useUnmount(() => {
         PlaceholdersManager.deactivate(element);
     });
+
+    useEffect(() => {
+        if (!isSelected) {
+            PlaceholdersManager.deactivate(element);
+        }
+    }, [isSelected]);
 
     return (
         <EditorBlock
