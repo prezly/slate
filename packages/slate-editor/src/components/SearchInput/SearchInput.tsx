@@ -66,6 +66,8 @@ export function SearchInput<T = unknown>({
             return;
         }
 
+        setOpen(true);
+
         dispatch({ type: 'search', query });
         const suggestions = await getSuggestions(query);
         dispatch({ type: 'results', query, suggestions });
