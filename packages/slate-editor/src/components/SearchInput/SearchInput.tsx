@@ -121,7 +121,7 @@ export function SearchInput<T = unknown>({
                                     value={suggestion.value}
                                     onSelect={() => handleSelect(suggestion)}
                                 >
-                                    <Debug value={suggestion.value} />
+                                    {suggestion.value}
                                 </Option>
                             ))}
                         </Suggestions>
@@ -146,12 +146,4 @@ export namespace SearchInput {
 
 function isNotDisabled<T>(suggestion: Suggestion<T>) {
     return !suggestion.disabled;
-}
-
-function Debug<T>(props: { value: T }) {
-    const { value } = props;
-    if (typeof value === 'string') {
-        return <>{value}</>;
-    }
-    return <>{JSON.stringify(value)}</>;
 }
