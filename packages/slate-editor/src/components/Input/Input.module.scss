@@ -70,6 +70,10 @@ $focus-outline: $spacing-half solid #c7d2fe;
         padding-right: $spacing-1-5 + $icon-size + $spacing-half;
     }
 
+    .withClearButton & {
+        padding-right: $spacing-1-5 + $icon-size + $spacing-half;
+    }
+
     .withButton & {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
@@ -117,6 +121,13 @@ $focus-outline: $spacing-half solid #c7d2fe;
     transform: translateY(-50%);
     right: 12px;
     color: $grey-300 !important;
+}
+
+.ClearButton {
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
 }
 
 .WarningIcon {

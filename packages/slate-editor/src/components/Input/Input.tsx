@@ -8,12 +8,14 @@ import { mergeRefs, useFunction } from '#lib';
 
 import { LoadingIndicator } from '../LoadingIndicator';
 
+import { ClearButton } from './ClearButton';
 import styles from './Input.module.scss';
 
 export interface Props
     extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'onSubmit'> {
     value: string;
     onChange: (newValue: string, valid: boolean) => void;
+    onClear?: () => void;
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement>> | 'link' | 'search';
     loading?: boolean;
     button?:
@@ -36,6 +38,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
             icon,
             loading = false,
             onChange,
+            onClear,
             onBlur,
             onFocus,
             pattern,
@@ -78,6 +81,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     [styles.focused]: focused,
                     [styles.loading]: loading,
                     [styles.withButton]: Boolean(button),
+                    [styles.withClearButton]: Boolean(onClear),
                     [styles.withIcon]: Boolean(icon),
                     [styles.withSuggestionsAbove]: withSuggestionsAbove,
                     [styles.withSuggestionsBelow]: withSuggestionsBelow,
@@ -111,6 +115,11 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                             height={16}
                         />
                     )}
+
+                    {valid && value && !loading && onClear && (
+                        <ClearButton className={styles.ClearButton} onClick={onClear} />
+                    )}
+
                     {!valid && !loading && <WarningTriangle className={styles.WarningIcon} />}
                 </div>
 

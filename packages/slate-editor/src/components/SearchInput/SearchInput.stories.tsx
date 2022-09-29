@@ -65,8 +65,10 @@ export function Base() {
 
     return (
         <SearchInput<string>
+            icon="search"
             query={query}
             onChange={setQuery}
+            onClear={() => setQuery('')}
             onSelect={(suggestion) => console.log('Selected', suggestion)}
             getSuggestions={getSuggestions}
         />
@@ -78,8 +80,10 @@ export function WithFooter() {
 
     return (
         <SearchInput<string>
+            icon="search"
             query={query}
             onChange={setQuery}
+            onClear={() => setQuery('')}
             onSelect={(suggestion) => console.log('Selected', suggestion)}
             getSuggestions={getSuggestions}
             renderSuggestions={({ activeElement, query, suggestions, children }) => (

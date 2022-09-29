@@ -127,6 +127,7 @@ export function SearchInputPlaceholder<T>({
                 icon="search"
                 inputRef={input}
                 onChange={setQuery}
+                onClear={() => setQuery('')}
                 onKeyDown={handleKeyDown}
                 onSelect={handleSelect}
                 placeholder={placeholder}

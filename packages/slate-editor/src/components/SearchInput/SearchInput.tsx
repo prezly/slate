@@ -31,6 +31,7 @@ export function SearchInput<T = unknown>({
     renderSuggestion = defaultRenderSuggestion,
     renderSuggestions = defaultRenderSuggestions,
     query,
+    onClear,
     onKeyDown,
     onSelect,
     ...attributes
@@ -91,6 +92,7 @@ export function SearchInput<T = unknown>({
             <Input
                 ref={inputRef}
                 {...attributes}
+                onClear={onClear}
                 onFocus={() => setOpen(true)}
                 onKeyDown={(event) => {
                     handleNavigationKeyDown(event);
@@ -137,6 +139,7 @@ export namespace SearchInput {
     export interface Props<T> extends Omit<BaseProps, 'loading' | 'value' | 'onSelect'> {
         inputRef?: Ref<HTMLInputElement>;
         getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
+        onClear?: () => void;
         renderEmpty?: (props: Props.Empty) => ReactElement | null;
         renderSuggestion?: (props: Props.Option<T>) => ReactElement | null;
         renderSuggestions?: (props: Props.Suggestions<T>) => ReactElement | null;

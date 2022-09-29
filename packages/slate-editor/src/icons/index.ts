@@ -6,6 +6,7 @@ export { default as Attachment } from './Attachment.svg';
 export { default as BatsIllustration } from './Bats-Illustration.svg';
 export { default as ChickenNoSignalIllustration } from './Chicken-no-signal-Illustration.svg';
 export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
+export { default as Clear } from './Clear.svg';
 export { default as Coverage } from './Coverage.svg';
 export { default as Cross } from './Cross.svg';
 export { default as Delete } from './Delete.svg';
