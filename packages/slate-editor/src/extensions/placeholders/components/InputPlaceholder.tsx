@@ -40,6 +40,7 @@ export function InputPlaceholder({
     title,
     description,
     dragOver,
+    dropZone,
     format = 'card',
     progress,
     selected = false,
@@ -102,6 +103,7 @@ export function InputPlaceholder({
 
     return (
         <Frame
+            active
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseOver={handleMouseOver}
@@ -116,6 +118,7 @@ export function InputPlaceholder({
                 [styles.pressed]: pressed,
             })}
             dragOver={dragOver}
+            dropZone={dropZone}
             format={format}
             progress={progress}
             selected={selected}

@@ -86,7 +86,7 @@ export function InputPlaceholderElement({
             renderReadOnlyFrame={({ isSelected }) =>
                 isActive ? (
                     <InputPlaceholder
-                        active={isActive}
+                        active
                         autoFocus
                         format={format}
                         title={inputTitle}
@@ -109,6 +109,7 @@ export function InputPlaceholderElement({
                         description={description}
                         // Variations
                         dragOver={onDrop ? dragOver : false}
+                        dropZone={Boolean(onDrop)}
                         selected={isSelected}
                         progress={progress ?? isLoading}
                         // Callbacks

@@ -29,6 +29,7 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
             description,
             // Variations
             dragOver,
+            dropZone,
             progress,
             selected = false,
             // Callbacks
@@ -60,6 +61,7 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
                 className={classNames(className, styles.Placeholder)}
                 ref={forwardedRef}
                 dragOver={dragOver}
+                dropZone={dropZone}
                 progress={progress}
                 selected={selected}
             >

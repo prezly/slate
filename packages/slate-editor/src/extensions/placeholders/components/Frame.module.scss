@@ -3,10 +3,13 @@
 // Colors, Hover, & Border management
 .Frame {
     background-color: $grey-100;
-    border: 1px dashed $grey-300;
     border-radius: $editor-block-border-radius;
     color: $grey-700;
     cursor: pointer;
+
+    &.dropZone {
+        border: 1px dashed $grey-300;
+    }
 
     &:hover {
         background-color: $grey-200;
@@ -25,8 +28,11 @@
     }
 
     &.selected {
-        border: 1px solid transparent;
         border-radius: 0;
+
+        &.dropZone {
+            border-color: transparent;
+        }
     }
 
     &.active {

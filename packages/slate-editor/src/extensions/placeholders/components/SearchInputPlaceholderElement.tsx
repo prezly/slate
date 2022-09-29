@@ -104,7 +104,7 @@ export function SearchInputPlaceholderElement<T>({
                             ((props) => renderSuggestions({ ...props, placeholder: element }))
                         }
                         // Core
-                        active={isActive}
+                        active
                         autoFocus
                         format={format}
                         title={inputTitle}
