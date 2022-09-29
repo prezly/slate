@@ -92,7 +92,7 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
             {...props}
             element={element}
             // Core
-            format="card-lg"
+            format="16:9"
             icon={PlaceholderVideo}
             title={Title}
             description={Description}
