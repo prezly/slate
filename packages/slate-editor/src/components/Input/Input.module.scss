@@ -149,6 +149,8 @@ $focus-outline: $spacing-half solid #c7d2fe;
     user-select: none;
     z-index: 1;
 
+    cursor: pointer;
+
     background-color: $green-500;
     padding: 10px $spacing-2;
 
