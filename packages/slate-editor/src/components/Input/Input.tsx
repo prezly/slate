@@ -3,22 +3,28 @@ import type { ButtonHTMLAttributes, ChangeEvent, InputHTMLAttributes } from 'rea
 import * as React from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { Link, WarningTriangle } from '#icons';
+import { Link, Search, WarningTriangle } from '#icons';
 import { mergeRefs, useFunction } from '#lib';
 
+import { LoadingIndicator } from '../LoadingIndicator';
+
+import { ClearButton } from './ClearButton';
 import styles from './Input.module.scss';
 
 export interface Props
     extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'onSubmit'> {
     value: string;
     onChange: (newValue: string, valid: boolean) => void;
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>> | 'link';
+    onClear?: () => void;
+    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>> | 'link' | 'search';
+    loading?: boolean;
     button?:
         | false
         | (ButtonHTMLAttributes<HTMLButtonElement> & {
               text?: string;
           });
     required?: boolean;
+    withSuggestions?: boolean | 'above' | 'below';
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>(
@@ -26,15 +32,19 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         {
             autoFocus,
             button = false,
+            children: suggestions,
             className,
             disabled = false,
             icon,
+            loading = false,
             onChange,
+            onClear,
             onBlur,
             onFocus,
             pattern,
             required = false,
             value,
+            withSuggestions = false,
             ...attributes
         },
         forwardedRef,
@@ -45,6 +55,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         const [focused, setFocused] = useState(false);
 
         const isEmpty = !value.trim();
+        const withSuggestionsAbove = suggestions && withSuggestions === 'above';
+        const withSuggestionsBelow =
+            suggestions && (withSuggestions === true || withSuggestions === 'below');
 
         const handleChange = useFunction((event: ChangeEvent<HTMLInputElement>) => {
             const { value, validity } = event.currentTarget;
@@ -66,8 +79,12 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     [styles.disabled]: disabled,
                     [styles.invalid]: !valid,
                     [styles.focused]: focused,
+                    [styles.loading]: loading,
                     [styles.withButton]: Boolean(button),
+                    [styles.withClearButton]: Boolean(onClear),
                     [styles.withIcon]: Boolean(icon),
+                    [styles.withSuggestionsAbove]: withSuggestionsAbove,
+                    [styles.withSuggestionsBelow]: withSuggestionsBelow,
                 })}
             >
                 <div className={styles.InputBox}>
@@ -91,12 +108,26 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     />
                     {icon && <Icon icon={icon} />}
 
-                    <WarningTriangle className={styles.WarningIcon} />
+                    {loading && (
+                        <LoadingIndicator
+                            className={styles.LoadingIndicator}
+                            width={16}
+                            height={16}
+                        />
+                    )}
+
+                    {valid && value && !loading && onClear && (
+                        <ClearButton className={styles.ClearButton} onClick={onClear} />
+                    )}
+
+                    {!valid && !loading && <WarningTriangle className={styles.WarningIcon} />}
                 </div>
 
                 {button && (
                     <Button disabled={disabled || !valid || (required && isEmpty)} {...button} />
                 )}
+
+                {withSuggestions && suggestions}
             </div>
         );
     },
@@ -107,6 +138,9 @@ Input.displayName = 'Input';
 function Icon({ icon: Component }: Required<Pick<Props, 'icon'>>) {
     if (Component === 'link') {
         return <Link className={styles.Icon} />;
+    }
+    if (Component === 'search') {
+        return <Search className={styles.Icon} />;
     }
 
     return <Component className={styles.Icon} />;

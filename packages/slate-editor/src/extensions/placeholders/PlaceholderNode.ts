@@ -13,6 +13,7 @@ export interface PlaceholderNode<T extends PlaceholderNode.Type = PlaceholderNod
 export namespace PlaceholderNode {
     export enum Type {
         ATTACHMENT = 'placeholder:attachment',
+        CONTACT = 'placeholder:contact',
         EMBED = 'placeholder:embed',
         GALLERY = 'placeholder:gallery',
         IMAGE = 'placeholder:image',

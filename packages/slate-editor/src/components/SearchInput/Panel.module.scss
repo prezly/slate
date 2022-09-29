@@ -1,0 +1,24 @@
+@import "styles/variables";
+
+.Panel {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    right: 0;
+
+    z-index: $editor-block-overlay-z-index + 1;
+
+    background: white;
+
+    border: 1px solid $grey-200;
+    border-bottom-left-radius: $border-radius-base;
+    border-bottom-right-radius: $border-radius-base;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.Footer {
+    border-top: 1px solid $grey-200;
+    padding: $spacing-1-5 $spacing-2;
+}

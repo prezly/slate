@@ -13,6 +13,16 @@ $focus-outline: $spacing-half solid #c7d2fe;
     &.focused {
         outline: $focus-outline;
     }
+
+    &.withSuggestionsAbove {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    &.withSuggestionsBelow {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 }
 
 .InputBox {
@@ -51,8 +61,16 @@ $focus-outline: $spacing-half solid #c7d2fe;
         opacity: 0.4;
     }
 
-    &:invalid {
+    .invalid & {
         background: $red-50;
+        padding-right: $spacing-1-5 + $icon-size + $spacing-half;
+    }
+
+    .loading & {
+        padding-right: $spacing-1-5 + $icon-size + $spacing-half;
+    }
+
+    .withClearButton & {
         padding-right: $spacing-1-5 + $icon-size + $spacing-half;
     }
 
@@ -64,6 +82,16 @@ $focus-outline: $spacing-half solid #c7d2fe;
 
     .withIcon & {
         padding-left: $spacing-1-5 + $icon-size + $spacing-1;
+    }
+
+    .withSuggestionsAbove & {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    .withSuggestionsBelow & {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
     }
 }
 
@@ -84,6 +112,22 @@ $focus-outline: $spacing-half solid #c7d2fe;
         color: $black;
         opacity: 0.2;
     }
+}
+
+.LoadingIndicator {
+    pointer-events: none;
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 12px;
+    color: $grey-300 !important;
+}
+
+.ClearButton {
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
 }
 
 .WarningIcon {

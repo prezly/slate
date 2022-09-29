@@ -14,6 +14,7 @@ const normalizations = [
     fixDuplicatePlaceholderUuid,
     removeDisabledPlaceholders({
         withAttachmentPlaceholders: Boolean('ENABLED'),
+        withContactPlaceholders: false,
         withEmbedPlaceholders: false,
         withGalleryPlaceholders: Boolean('ENABLED'),
         withImagePlaceholders: Boolean('ENABLED'),

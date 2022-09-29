@@ -1,42 +1,19 @@
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
-import type {
-    FunctionComponent,
-    KeyboardEvent,
-    MouseEvent,
-    ReactNode,
-    ReactElement,
-    FormEvent,
-} from 'react';
+import type { FunctionComponent, KeyboardEvent, MouseEvent, ReactNode, ReactElement } from 'react';
 import React, { useCallback, useRef, useState } from 'react';
 
-import { Input } from '#components';
+import { SearchInput } from '#components';
 import { useFunction } from '#lib';
 
 import { type Props as BaseProps, Frame } from './Frame';
 import styles from './InputPlaceholder.module.scss';
 import type { ContentRenderProps } from './Placeholder';
 
-export interface Props extends Omit<BaseProps, 'title' | 'onSubmit'> {
-    title: ReactNode | FunctionComponent<ContentRenderProps>;
-    description: ReactNode | FunctionComponent<ContentRenderProps>;
-    // Input properties
-    action: string;
-    disabled?: boolean;
-    autoFocus?: boolean;
-    initialValue?: string;
-    type?: string;
-    pattern?: string;
-    placeholder?: string;
-    onEsc?: (event: KeyboardEvent) => void;
-    onSubmit?: (value: string) => void;
-}
-
 const isEsc = isHotkey('esc');
 
-export function InputPlaceholder({
+export function SearchInputPlaceholder<T>({
     className,
-    action,
     title,
     description,
     dragOver,
@@ -44,21 +21,23 @@ export function InputPlaceholder({
     progress,
     selected = false,
     // Input properties
+    getSuggestions,
+    renderEmpty,
+    renderSuggestion,
+    renderSuggestions,
     autoFocus = false,
     disabled = false,
-    initialValue = '',
-    pattern,
+    initialQuery = '',
     placeholder,
-    type,
     // Input callbacks
     onEsc,
-    onSubmit,
+    onSelect,
     ...attributes
-}: Props) {
+}: SearchInputPlaceholder.Props<T>) {
     const isLoading = typeof progress === 'number' || progress === true;
     const progressNumber = typeof progress === 'number' ? progress : undefined;
     const [pressed, setPressed] = useState(false);
-    const [value, setValue] = useState(initialValue ?? '');
+    const [query, setQuery] = useState(initialQuery ?? '');
     const input = useRef<HTMLInputElement>(null);
 
     function renderContent(
@@ -76,12 +55,9 @@ export function InputPlaceholder({
         return <>{content}</>;
     }
 
-    function handleSubmit(event: FormEvent) {
-        event.preventDefault();
-        event.stopPropagation();
-
+    function handleSelect(suggestion: SearchInput.Suggestion<T>) {
         if (input.current?.validity.valid) {
-            onSubmit?.(value);
+            onSelect?.(suggestion.value);
         }
     }
 
@@ -122,25 +98,47 @@ export function InputPlaceholder({
         >
             <div className={styles.Title}>{renderContent(title, selected)}</div>
             <div className={styles.Description}>{renderContent(description, selected)}</div>
-            <form onSubmit={handleSubmit}>
-                <Input
-                    autoFocus={autoFocus}
-                    button={{ text: action, type: 'submit' }}
-                    className={styles.Input}
-                    disabled={disabled}
-                    icon="link"
-                    onChange={setValue}
-                    onKeyDown={handleKeyDown}
-                    pattern={pattern}
-                    placeholder={placeholder}
-                    ref={input}
-                    required
-                    type={type}
-                    value={value}
-                />
-            </form>
+            <SearchInput<T>
+                autoFocus={autoFocus}
+                className={styles.Input}
+                disabled={disabled}
+                getSuggestions={getSuggestions}
+                renderEmpty={renderEmpty}
+                renderSuggestion={renderSuggestion}
+                renderSuggestions={renderSuggestions}
+                icon="search"
+                inputRef={input}
+                onChange={setQuery}
+                onClear={() => setQuery('')}
+                onKeyDown={handleKeyDown}
+                onSelect={handleSelect}
+                placeholder={placeholder}
+                required
+                query={query}
+            />
         </Frame>
     );
+}
+
+export namespace SearchInputPlaceholder {
+    export interface Props<T>
+        extends Omit<BaseProps, 'title' | 'onSubmit' | 'onSelect' | 'pattern'> {
+        getSuggestions: SearchInput.Props<T>['getSuggestions'];
+        renderEmpty?: SearchInput.Props<T>['renderEmpty'];
+        renderSuggestion?: SearchInput.Props<T>['renderSuggestion'];
+        renderSuggestions?: SearchInput.Props<T>['renderSuggestions'];
+
+        // Base
+        title: ReactNode | FunctionComponent<ContentRenderProps>;
+        description: ReactNode | FunctionComponent<ContentRenderProps>;
+        // SearchInput properties
+        disabled?: boolean;
+        autoFocus?: boolean;
+        initialQuery?: string;
+        placeholder?: string;
+        onEsc?: (event: KeyboardEvent) => void;
+        onSelect?: (value: T) => void;
+    }
 }
 
 function stopPropagation(event: KeyboardEvent | MouseEvent) {

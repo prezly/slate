@@ -4,6 +4,7 @@ import React from 'react';
 
 import {
     AttachmentPlaceholderElement,
+    ContactPlaceholderElement,
     EmbedPlaceholderElement,
     GalleryPlaceholderElement,
     ImagePlaceholderElement,
@@ -21,9 +22,15 @@ const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
 
 export interface Parameters {
     withAttachmentPlaceholders?: boolean;
+    withContactPlaceholders?:
+        | false
+        | Pick<
+              ContactPlaceholderElement.Props,
+              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
+          >;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
-    withGalleryPlaceholders?: false | { newsroom?: NewsroomRef };
-    withImagePlaceholders?: false | { withCaptions: boolean; newsroom?: NewsroomRef };
+    withGalleryPlaceholders?: boolean | { newsroom?: NewsroomRef };
+    withImagePlaceholders?: boolean | { withCaptions: boolean; newsroom?: NewsroomRef };
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
@@ -31,6 +38,7 @@ export interface Parameters {
 
 export function PlaceholdersExtension({
     withAttachmentPlaceholders = false,
+    withContactPlaceholders = false,
     withEmbedPlaceholders = false,
     withGalleryPlaceholders = false,
     withImagePlaceholders = false,
@@ -46,6 +54,7 @@ export function PlaceholdersExtension({
             fixDuplicatePlaceholderUuid,
             removeDisabledPlaceholders({
                 withAttachmentPlaceholders: Boolean(withAttachmentPlaceholders),
+                withContactPlaceholders: Boolean(withContactPlaceholders),
                 withEmbedPlaceholders: Boolean(withEmbedPlaceholders),
                 withGalleryPlaceholders: Boolean(withGalleryPlaceholders),
                 withImagePlaceholders: Boolean(withImagePlaceholders),
@@ -65,6 +74,20 @@ export function PlaceholdersExtension({
                     </AttachmentPlaceholderElement>
                 );
             }
+            if (
+                withContactPlaceholders &&
+                isPlaceholderNode(element, PlaceholderNode.Type.CONTACT)
+            ) {
+                return (
+                    <ContactPlaceholderElement
+                        {...withContactPlaceholders}
+                        attributes={attributes}
+                        element={element}
+                    >
+                        {children}
+                    </ContactPlaceholderElement>
+                );
+            }
             if (withEmbedPlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.EMBED)) {
                 return (
                     <EmbedPlaceholderElement
@@ -77,12 +100,15 @@ export function PlaceholdersExtension({
                 );
             }
             if (withImagePlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.IMAGE)) {
+                const { newsroom = undefined, withCaptions = false } =
+                    withImagePlaceholders === true ? {} : withImagePlaceholders;
+
                 return (
                     <ImagePlaceholderElement
                         attributes={attributes}
                         element={element}
-                        newsroom={withImagePlaceholders.newsroom}
-                        withCaptions={withImagePlaceholders.withCaptions}
+                        newsroom={newsroom}
+                        withCaptions={withCaptions}
                     >
                         {children}
                     </ImagePlaceholderElement>
@@ -92,11 +118,13 @@ export function PlaceholdersExtension({
                 withGalleryPlaceholders &&
                 isPlaceholderNode(element, PlaceholderNode.Type.GALLERY)
             ) {
+                const { newsroom = undefined } =
+                    withGalleryPlaceholders === true ? {} : withGalleryPlaceholders;
                 return (
                     <GalleryPlaceholderElement
                         attributes={attributes}
                         element={element}
-                        newsroom={withGalleryPlaceholders.newsroom}
+                        newsroom={newsroom}
                         withCaptions
                     >
                         {children}

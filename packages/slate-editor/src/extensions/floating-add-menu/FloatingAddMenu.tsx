@@ -14,7 +14,7 @@ import { Node, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
 import { Key, TooltipV2 } from '#components';
-import { useSize } from '#lib';
+import { useKeyboardNavigation, useSize } from '#lib';
 
 import { FloatingContainer } from '#modules/components';
 
@@ -27,7 +27,6 @@ import {
     sortBetaOptionsLast,
     useEditorSelectionMemory,
     useKeyboardFiltering,
-    useKeyboardNavigation,
     useMenuToggle,
 } from './lib';
 import type { Option, ExtensionConfiguration } from './types';

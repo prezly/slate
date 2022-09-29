@@ -1,29 +1,39 @@
-import React, { type KeyboardEvent, type MouseEvent, useRef, useState } from 'react';
+import type { ReactElement } from 'react';
+import React, { type KeyboardEvent, useRef, useState } from 'react';
 import { Transforms } from 'slate';
 import { type RenderElementProps, useSlateStatic } from 'slate-react';
 
+import type { SearchInput } from '#components';
 import { EditorBlock } from '#components';
 import { mergeRefs, useFunction, useUnmount } from '#lib';
 
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
-import { type Props as InputPlaceholderProps, InputPlaceholder } from './InputPlaceholder';
 import { type Props as PlaceholderProps, Placeholder } from './Placeholder';
+import { SearchInputPlaceholder } from './SearchInputPlaceholder';
 
-export type Props = RenderElementProps &
-    Pick<PlaceholderProps, 'icon' | 'title' | 'description' | 'format' | 'onDrop'> & {
+export type Props<T> = RenderElementProps &
+    Pick<PlaceholderProps, 'icon' | 'title' | 'description' | 'format' | 'onDrop'> &
+    Pick<SearchInputPlaceholder.Props<T>, 'getSuggestions' | 'onSelect'> & {
         element: PlaceholderNode;
-        inputTitle: InputPlaceholderProps['title'];
-        inputDescription: InputPlaceholderProps['description'];
-        inputAction: string;
-        inputPattern?: InputPlaceholderProps['pattern'];
-        inputPlaceholder?: InputPlaceholderProps['placeholder'];
-        inputType?: InputPlaceholderProps['type'];
-        onSubmit: InputPlaceholderProps['onSubmit'];
+        // SearchInput
+        renderEmpty?: (
+            props: { placeholder: PlaceholderNode } & SearchInput.Props.Empty,
+        ) => ReactElement | null;
+        renderSuggestion?: (
+            props: { placeholder: PlaceholderNode } & SearchInput.Props.Option<T>,
+        ) => ReactElement | null;
+        renderSuggestions?: (
+            props: { placeholder: PlaceholderNode } & SearchInput.Props.Suggestions<T>,
+        ) => ReactElement | null;
+
+        inputTitle: SearchInputPlaceholder.Props<T>['title'];
+        inputDescription: SearchInputPlaceholder.Props<T>['description'];
+        inputPlaceholder?: SearchInputPlaceholder.Props<T>['placeholder'];
     };
 
-export function InputPlaceholderElement({
+export function SearchInputPlaceholderElement<T>({
     // Slate Props
     attributes,
     children,
@@ -34,21 +44,20 @@ export function InputPlaceholderElement({
     title,
     description,
     // Input
+    getSuggestions,
+    renderEmpty,
+    renderSuggestion,
+    renderSuggestions,
     inputTitle,
     inputDescription,
-    inputAction,
-    inputPattern,
     inputPlaceholder,
-    inputType,
     // Callbacks
-    onDrop,
-    onSubmit,
-}: Props) {
+    onSelect,
+}: Props<T>) {
     const editor = useSlateStatic();
     const block = useRef<HTMLDivElement>(null);
 
     const [progress, setProgress] = useState<number | undefined>(undefined);
-    const [dragOver, setDragOver] = useState(false);
 
     const handleClick = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -58,13 +67,6 @@ export function InputPlaceholderElement({
         event.stopPropagation();
         PlaceholdersManager.deactivate(element);
     });
-    const handleMouseOver = useFunction((event: MouseEvent) => {
-        if (!event.buttons) {
-            setDragOver(false);
-        }
-    });
-    const handleDragOver = useFunction(() => setDragOver(true));
-    const handleDragLeave = useFunction(() => setDragOver(false));
     const handleRemove = useFunction(() => {
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
@@ -82,23 +84,36 @@ export function InputPlaceholderElement({
             {...attributes}
             ref={mergeRefs(block, attributes.ref)}
             element={element}
+            overflow="visible"
             renderAboveFrame={children}
             renderReadOnlyFrame={({ isSelected }) =>
                 isActive ? (
-                    <InputPlaceholder
+                    <SearchInputPlaceholder<T>
+                        // Customization
+                        getSuggestions={getSuggestions}
+                        renderEmpty={
+                            renderEmpty &&
+                            ((props) => renderEmpty({ ...props, placeholder: element }))
+                        }
+                        renderSuggestion={
+                            renderSuggestion &&
+                            ((props) => renderSuggestion({ ...props, placeholder: element }))
+                        }
+                        renderSuggestions={
+                            renderSuggestions &&
+                            ((props) => renderSuggestions({ ...props, placeholder: element }))
+                        }
+                        // Core
                         active={isActive}
                         autoFocus
                         format={format}
                         title={inputTitle}
                         description={inputDescription}
-                        pattern={inputPattern}
                         placeholder={inputPlaceholder}
-                        type={inputType}
                         // Actions
-                        action={inputAction}
                         onEsc={handleEscape}
                         onRemove={handleRemove}
-                        onSubmit={onSubmit}
+                        onSelect={onSelect}
                     />
                 ) : (
                     <Placeholder
@@ -108,16 +123,11 @@ export function InputPlaceholderElement({
                         title={title}
                         description={description}
                         // Variations
-                        dragOver={onDrop ? dragOver : false}
                         selected={isSelected}
                         progress={progress ?? isLoading}
                         // Callbacks
                         onClick={isLoading ? undefined : handleClick}
                         onRemove={handleRemove}
-                        onDragOver={handleDragOver}
-                        onDragLeave={handleDragLeave}
-                        onDrop={onDrop}
-                        onMouseOver={handleMouseOver}
                     />
                 )
             }
