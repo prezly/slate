@@ -8,13 +8,13 @@ import { FancyScrollbars } from '../FancyScrollbars';
 
 import { Panel } from './Panel';
 import styles from './Suggestions.module.scss';
-import type { Props as CommonProps } from './types';
+import type { Suggestion } from './types';
 
-export interface Props<T>
-    extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>,
-        CommonProps.Suggestions<T> {
+export interface Props<T> extends HTMLAttributes<HTMLDivElement> {
     minHeight?: number;
     maxHeight?: number;
+    query: string;
+    suggestions: Suggestion<T>[];
     footer?: ReactNode;
 }
 
@@ -24,11 +24,8 @@ export function Suggestions<T>({
     footer,
     minHeight = 200,
     maxHeight = 1000,
-    active, // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-    loading, // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-    suggestions, // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-    query, // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-    onSelect, // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
+    query,
+    suggestions,
     ...attributes
 }: Props<T>) {
     const [height, setHeight] = useState<number>();

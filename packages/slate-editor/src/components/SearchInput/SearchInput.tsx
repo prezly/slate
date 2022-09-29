@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import type { ReactElement } from 'react';
 import React, { useMemo, useReducer, useState } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 
@@ -18,11 +18,13 @@ import * as OptionsModule from './Option';
 import * as PanelModule from './Panel';
 import { createReducer } from './reducer';
 import * as SuggestionsModule from './Suggestions';
-import type { Props as CommonProps, Suggestion } from './types';
+import type { Props, Suggestion } from './types';
 
 export interface Props<T> extends Omit<BaseProps, 'loading' | 'value' | 'onSelect'> {
     getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
-    components?: Partial<SearchInput.Components<T>>;
+    renderEmpty?: (props: Props.Empty) => ReactElement | null;
+    renderSuggestion?: (props: Props.Option<T>) => ReactElement | null;
+    renderSuggestions?: (props: Props.Suggestions<T>) => ReactElement | null;
     query: string;
     onSelect: (suggestion: Suggestion<T>) => void;
 }
@@ -31,16 +33,14 @@ const EMPTY_SUGGESTIONS: never[] = [];
 
 export function SearchInput<T = unknown>({
     getSuggestions,
-    components = {},
+    renderEmpty = defaultRenderEmpty,
+    renderSuggestion = defaultRenderSuggestion,
+    renderSuggestions = defaultRenderSuggestions,
     query,
     onKeyDown,
     onSelect,
     ...attributes
 }: Props<T>) {
-    const { Suggestions = SearchInput.Suggestions } = components;
-    const { Option = SearchInput.Option } = components;
-    const { Empty = SearchInput.Empty } = components;
-
     const reducer = useMemo(() => createReducer<T>(), []);
     const initialState = useMemo(() => reducer(undefined, { type: undefined }), [reducer]);
     const [open, setOpen] = useState(false);
@@ -102,30 +102,24 @@ export function SearchInput<T = unknown>({
                 withSuggestions={open}
             >
                 {open &&
-                    (suggestions.length === 0 ? (
-                        <Empty loading={loading} query={query} />
-                    ) : (
-                        <Suggestions
-                            active={active}
-                            loading={loading}
-                            query={query}
-                            suggestions={suggestions}
-                            onSelect={handleSelect}
-                        >
-                            {suggestions.map((suggestion) => (
-                                <Option
-                                    key={suggestion.id}
-                                    id={suggestion.id}
-                                    active={suggestion.id === active?.id}
-                                    disabled={Boolean(suggestion.disabled)}
-                                    value={suggestion.value}
-                                    onSelect={() => handleSelect(suggestion)}
-                                >
-                                    {suggestion.value}
-                                </Option>
-                            ))}
-                        </Suggestions>
-                    ))}
+                    (suggestions.length === 0
+                        ? renderEmpty({ loading, query })
+                        : renderSuggestions({
+                              active,
+                              loading,
+                              query,
+                              suggestions,
+                              onSelect,
+                              children: suggestions.map((suggestion) =>
+                                  renderSuggestion({
+                                      suggestion,
+                                      active: suggestion.id === active?.id,
+                                      disabled: Boolean(suggestion.disabled),
+                                      onSelect: () => handleSelect(suggestion),
+                                      children: suggestion.value,
+                                  }),
+                              ),
+                          }))}
             </Input>
         </RootCloseWrapper>
     );
@@ -136,12 +130,38 @@ export namespace SearchInput {
     export const Option = OptionsModule.Option;
     export const Panel = PanelModule.Panel;
     export const Suggestions = SuggestionsModule.Suggestions;
+}
 
-    export interface Components<T> {
-        Suggestions: ComponentType<CommonProps.Suggestions<T>>;
-        Empty: ComponentType<CommonProps.Empty>;
-        Option: ComponentType<CommonProps.Option<T>>;
-    }
+function defaultRenderEmpty({ loading, query }: Props.Empty) {
+    return <SearchInput.Empty loading={loading} query={query} />;
+}
+
+function defaultRenderSuggestion<T>({
+    suggestion,
+    active,
+    disabled,
+    onSelect,
+    children,
+}: Props.Option<T>) {
+    return (
+        <SearchInput.Option<T>
+            key={suggestion.id}
+            active={active}
+            disabled={disabled}
+            onClick={onSelect}
+            suggestion={suggestion}
+        >
+            {children}
+        </SearchInput.Option>
+    );
+}
+
+function defaultRenderSuggestions<T>({ query, suggestions, children }: Props.Suggestions<T>) {
+    return (
+        <SearchInput.Suggestions<T> query={query} suggestions={suggestions}>
+            {children}
+        </SearchInput.Suggestions>
+    );
 }
 
 function isNotDisabled<T>(suggestion: Suggestion<T>) {

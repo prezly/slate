@@ -82,19 +82,20 @@ export function WithFooter() {
             onChange={setQuery}
             onSelect={(suggestion) => console.log('Selected', suggestion)}
             getSuggestions={getSuggestions}
-            components={{
-                Suggestions: (props) => (
-                    <SearchInput.Suggestions
-                        {...props}
-                        footer={
-                            <div>
-                                <a href="#">Log new Coverage</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                <a href="#">Edit Coverage</a>
-                            </div>
-                        }
-                    />
-                ),
-            }}
+            renderSuggestions={({ query, suggestions, children }) => (
+                <SearchInput.Suggestions<string>
+                    query={query}
+                    suggestions={suggestions}
+                    footer={
+                        <div>
+                            <a href="#">Log new Coverage</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="#">Edit Coverage</a>
+                        </div>
+                    }
+                >
+                    {children}
+                </SearchInput.Suggestions>
+            )}
         />
     );
 }

@@ -15,8 +15,7 @@ export namespace Props {
         children?: ReactNode;
         active: boolean;
         disabled: boolean;
-        id: Suggestion<T>['id'];
-        value: Suggestion<T>['value'];
+        suggestion: Suggestion<T>;
         onSelect: () => void;
     }
     export interface Suggestions<T> {

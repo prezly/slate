@@ -6,7 +6,10 @@ import styles from './Empty.module.scss';
 import { Panel } from './Panel';
 import type { Props } from './types';
 
-interface Props extends Props.Empty, HTMLAttributes<HTMLDivElement> {}
+interface Props extends HTMLAttributes<HTMLDivElement> {
+    loading: boolean;
+    query: string;
+}
 
 export function Empty({ query, loading, className, ...attributes }: Props) {
     return (
