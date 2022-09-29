@@ -116,6 +116,7 @@ export function SearchInput<T = unknown>({
                                           suggestion.id === activeSuggestion?.id
                                               ? setActiveElement
                                               : null,
+                                      query,
                                       active: suggestion.id === activeSuggestion?.id,
                                       disabled: Boolean(suggestion.disabled),
                                       onSelect: () => handleSelect(suggestion),

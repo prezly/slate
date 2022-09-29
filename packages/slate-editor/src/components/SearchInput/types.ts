@@ -15,6 +15,7 @@ export namespace Props {
         ref: Ref<HTMLElement>;
         active: boolean;
         disabled: boolean;
+        query: string;
         suggestion: Suggestion<T>;
         onSelect: () => void;
     }
