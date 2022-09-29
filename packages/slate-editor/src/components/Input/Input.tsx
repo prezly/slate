@@ -52,9 +52,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         const [focused, setFocused] = useState(false);
 
         const isEmpty = !value.trim();
-        const withSuggestionsAbove = focused && suggestions && withSuggestions === 'above';
+        const withSuggestionsAbove = suggestions && withSuggestions === 'above';
         const withSuggestionsBelow =
-            focused && suggestions && (withSuggestions === true || withSuggestions === 'below');
+            suggestions && (withSuggestions === true || withSuggestions === 'below');
 
         const handleChange = useFunction((event: ChangeEvent<HTMLInputElement>) => {
             const { value, validity } = event.currentTarget;
@@ -118,7 +118,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     <Button disabled={disabled || !valid || (required && isEmpty)} {...button} />
                 )}
 
-                {withSuggestions && focused && suggestions}
+                {withSuggestions && suggestions}
             </div>
         );
     },

@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
-import React, { useMemo, useReducer } from 'react';
+import React, { useMemo, useReducer, useState } from 'react';
+import { RootCloseWrapper } from 'react-overlays';
 
 import {
     useDebounce,
@@ -42,6 +43,7 @@ export function SearchInput<T = unknown>({
 
     const reducer = useMemo(() => createReducer<T>(), []);
     const initialState = useMemo(() => reducer(undefined, { type: undefined }), [reducer]);
+    const [open, setOpen] = useState(false);
     const [state, dispatch] = useReducer(reducer, initialState);
     const latest = useLatest({ state });
 
@@ -87,41 +89,45 @@ export function SearchInput<T = unknown>({
     );
 
     return (
-        <Input
-            {...attributes}
-            onKeyDown={(event) => {
-                handleNavigationKeyDown(event);
-                onKeyDown?.(event);
-            }}
-            loading={loading}
-            value={query}
-            withSuggestions
-        >
-            {suggestions.length === 0 ? (
-                <Empty loading={loading} query={query} />
-            ) : (
-                <Suggestions
-                    active={active}
-                    loading={loading}
-                    query={query}
-                    suggestions={suggestions}
-                    onSelect={handleSelect}
-                >
-                    {suggestions.map((suggestion) => (
-                        <Option
-                            key={suggestion.id}
-                            id={suggestion.id}
-                            active={suggestion.id === active?.id}
-                            disabled={Boolean(suggestion.disabled)}
-                            value={suggestion.value}
-                            onSelect={() => handleSelect(suggestion)}
+        <RootCloseWrapper onRootClose={() => setOpen(false)}>
+            <Input
+                {...attributes}
+                onFocus={() => setOpen(true)}
+                onKeyDown={(event) => {
+                    handleNavigationKeyDown(event);
+                    onKeyDown?.(event);
+                }}
+                loading={loading}
+                value={query}
+                withSuggestions={open}
+            >
+                {open &&
+                    (suggestions.length === 0 ? (
+                        <Empty loading={loading} query={query} />
+                    ) : (
+                        <Suggestions
+                            active={active}
+                            loading={loading}
+                            query={query}
+                            suggestions={suggestions}
+                            onSelect={handleSelect}
                         >
-                            <Debug value={suggestion.value} />
-                        </Option>
+                            {suggestions.map((suggestion) => (
+                                <Option
+                                    key={suggestion.id}
+                                    id={suggestion.id}
+                                    active={suggestion.id === active?.id}
+                                    disabled={Boolean(suggestion.disabled)}
+                                    value={suggestion.value}
+                                    onSelect={() => handleSelect(suggestion)}
+                                >
+                                    <Debug value={suggestion.value} />
+                                </Option>
+                            ))}
+                        </Suggestions>
                     ))}
-                </Suggestions>
-            )}
-        </Input>
+            </Input>
+        </RootCloseWrapper>
     );
 }
 
