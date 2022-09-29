@@ -52,6 +52,7 @@ export function SearchInput<T = unknown>({
         useMemoryBuffer(foundSuggestions, !loading && foundSuggestions !== undefined) ??
         EMPTY_SUGGESTIONS;
 
+    const handleClose = useFunction(() => setOpen(false));
     const handleSelect = useFunction(onSelect);
 
     const [activeElement, setActiveElement] = useState<HTMLElement | null>(null);
@@ -101,13 +102,14 @@ export function SearchInput<T = unknown>({
             >
                 {open &&
                     (suggestions.length === 0
-                        ? renderEmpty({ loading, query })
+                        ? renderEmpty({ loading, query, onClose: handleClose })
                         : renderSuggestions({
                               activeElement: activeElement ?? undefined,
                               activeSuggestion,
                               loading,
                               query,
                               suggestions,
+                              onClose: handleClose,
                               onSelect,
                               children: suggestions.map((suggestion) =>
                                   renderSuggestion({
@@ -119,6 +121,7 @@ export function SearchInput<T = unknown>({
                                       query,
                                       active: suggestion.id === activeSuggestion?.id,
                                       disabled: Boolean(suggestion.disabled),
+                                      onClose: handleClose,
                                       onSelect: () => handleSelect(suggestion),
                                   }),
                               ),
