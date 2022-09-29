@@ -11,7 +11,9 @@ import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { ImageExtensionConfiguration } from '#extensions/image';
+import type { PlaceholdersExtensionParameters } from '#extensions/placeholders';
 import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
+import type { SnippetsExtensionParameters } from '#extensions/snippet';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
 import type { UserMentionsExtensionParameters } from '#extensions/user-mentions';
@@ -21,7 +23,6 @@ import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
 import type { EditorEventMap } from '#modules/events';
 
 import type { useCursorInView } from './lib';
-import type { SnippetsExtensionParameters } from '#extensions/snippet';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
@@ -91,7 +92,7 @@ export interface EditorProps {
     withImages?: false | ImageExtensionConfiguration;
     withInlineLinks?: boolean;
     withLists?: boolean;
-    withPlaceholders?: boolean;
+    withPlaceholders?: false | Pick<PlaceholdersExtensionParameters, 'withContactPlaceholders'>;
     withPressContacts?: false | PressContactsExtensionParameters;
     withRichFormattingMenu?:
         | boolean

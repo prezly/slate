@@ -26,7 +26,7 @@ export interface Parameters {
         | false
         | Pick<
               ContactPlaceholderElement.Props,
-              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestions'
+              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
           >;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withGalleryPlaceholders?: false | { newsroom?: NewsroomRef };
