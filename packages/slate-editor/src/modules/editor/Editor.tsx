@@ -70,6 +70,7 @@ import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
 
+import { replacePlaceholder } from '#extensions/placeholders/lib';
 import { PlaceholdersManager } from '#extensions/placeholders/PlaceholdersManager';
 
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
@@ -200,6 +201,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     props,
                     options.match ? { at: [], ...options } : options,
                 );
+            },
+            insertPlaceholder(props, ensureEmptyParagraphAfter) {
+                return insertPlaceholder(editor, props, ensureEmptyParagraphAfter);
+            },
+            replacePlaceholder(placeholder, element) {
+                replacePlaceholder(editor, placeholder, element);
             },
             isEmpty: () => EditorCommands.isEmpty(editor),
             isEqualTo: (value) => isEditorValueEqual(editor, value, editor.children as Value),
