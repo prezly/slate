@@ -89,7 +89,6 @@ export function ContactPlaceholder() {
                     active={active}
                     disabled={disabled}
                     onClick={onSelect}
-                    suggestion={suggestion}
                     forwardRef={ref}
                 >
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>

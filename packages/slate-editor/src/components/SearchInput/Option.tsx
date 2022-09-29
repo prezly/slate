@@ -3,24 +3,22 @@ import type { Ref } from 'react';
 import React, { type HTMLAttributes } from 'react';
 
 import styles from './Option.module.scss';
-import type { Props, Suggestion } from './types';
+import type { Props } from './types';
 
-export interface Props<T> extends HTMLAttributes<HTMLDivElement> {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
     forwardRef?: Ref<HTMLElement>;
     active?: boolean;
     disabled?: boolean;
-    suggestion: Suggestion<T>;
 }
 
-export function Option<T>({
+export function Option({
     forwardRef,
-    suggestion,
     active = false,
     children,
     className,
     disabled = false,
     ...attributes
-}: Props<T>) {
+}: Props) {
     return (
         <div
             ref={forwardRef as Ref<HTMLDivElement>}
@@ -28,7 +26,7 @@ export function Option<T>({
             {...attributes}
             className={classNames(className, styles.Option, {
                 [styles.active]: active,
-                [styles.disabled]: disabled || suggestion.disabled,
+                [styles.disabled]: disabled,
             })}
         >
             {children}

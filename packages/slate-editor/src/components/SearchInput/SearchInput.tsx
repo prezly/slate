@@ -158,13 +158,12 @@ function defaultRenderSuggestion<T>({
     onSelect,
 }: Props.Option<T>) {
     return (
-        <SearchInput.Option<T>
+        <SearchInput.Option
             forwardRef={ref}
             key={suggestion.id}
             active={active}
             disabled={disabled}
             onClick={onSelect}
-            suggestion={suggestion}
         >
             {typeof suggestion.value === 'string'
                 ? suggestion.value
