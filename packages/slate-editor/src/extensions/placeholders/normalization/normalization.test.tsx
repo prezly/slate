@@ -15,6 +15,7 @@ const normalizations = [
     removeDisabledPlaceholders({
         withAttachmentPlaceholders: Boolean('ENABLED'),
         withContactPlaceholders: false,
+        withCoveragePlaceholders: false,
         withEmbedPlaceholders: false,
         withGalleryPlaceholders: Boolean('ENABLED'),
         withImagePlaceholders: Boolean('ENABLED'),
