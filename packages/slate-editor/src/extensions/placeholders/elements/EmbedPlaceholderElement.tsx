@@ -12,6 +12,7 @@ import {
     type Props as BaseProps,
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
+import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
@@ -82,17 +83,31 @@ export function EmbedPlaceholderElement({ children, element, fetchOembed, ...pro
             // Core
             format="card-lg"
             icon={PlaceholderEmbed}
-            title="Click to insert an embed"
-            description="Embed any type of web content"
+            title={Title}
+            description={Description}
             // Input
             inputTitle="Embed"
             inputDescription="Insert an embed URL and hit Enter"
             inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
-            inputPlaceholder="https://media.giphy.com/GIF"
+            inputPlaceholder="media.giphy.com/GIF"
             inputAction="Add embed"
             onSubmit={handleSubmit}
         >
             {children}
         </InputPlaceholderElement>
     );
+}
+
+function Title(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return <>{withLoadingDots('Embedding content')}</>;
+    }
+    return <>Click to insert an embed</>;
+}
+
+function Description(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return null;
+    }
+    return <>Add any web content like a GIF or Spotify song</>;
 }

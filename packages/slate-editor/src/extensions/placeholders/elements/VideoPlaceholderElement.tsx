@@ -12,6 +12,7 @@ import {
     type Props as BaseProps,
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
+import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
@@ -92,7 +93,7 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
             {...props}
             element={element}
             // Core
-            format="card-lg"
+            format="16:9"
             icon={PlaceholderVideo}
             title={Title}
             description={Description}
@@ -111,7 +112,7 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
 
 function Title(props: { isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Uploading video...</>;
+        return <>{withLoadingDots('Uploading video')}</>;
     }
     return <>Click to insert a video</>;
 }
@@ -120,5 +121,5 @@ function Description(props: { isLoading: boolean }) {
     if (props.isLoading) {
         return null;
     }
-    return <>Paste a video link and hit Enter</>;
+    return <>Add a video link from Youtube, Vimeo or other source</>;
 }

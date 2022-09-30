@@ -22,6 +22,7 @@ export * from './Stack';
 export * from './Button';
 export * from './ButtonGroup';
 export * from './OptionsGroup';
+export { SearchInput } from './SearchInput';
 export * from './Toggle';
-export * from './Input';
+export { Input } from './Input';
 export * from './InfoText';

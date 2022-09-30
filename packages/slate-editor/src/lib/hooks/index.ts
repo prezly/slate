@@ -8,6 +8,8 @@ export { useFunction } from './useFunction';
 export { useImage } from './useImage';
 export { useInfiniteProgress } from './useInfiniteProgress';
 export { useIsMouseDown } from './useIsMouseDown';
+export { useKeyboardNavigation } from './useKeyboardNavigation';
+export { useMemoryBuffer } from './useMemoryBuffer';
 export { useResizeObserver } from './useResizeObserver';
 export { useSlateDom } from './useSlateDom';
 export { useUniqueId } from './useUniqueId';

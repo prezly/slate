@@ -12,6 +12,7 @@ import {
     type Props as BaseProps,
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
+import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
@@ -90,12 +91,12 @@ export function WebBookmarkPlaceholderElement({ children, element, fetchOembed, 
             // Core
             format="card"
             icon={PlaceholderWebBookmark}
-            title="Click to insert a website bookmark"
-            description="Insert a link to any website"
+            title={Title}
+            description={Description}
             // Input
             inputTitle="Website bookmark"
             inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
-            inputDescription="Insert a website URL and hit Enter"
+            inputDescription="Paste a website URL and hit Enter"
             inputPlaceholder="www.website.com"
             inputAction="Add bookmark"
             onSubmit={handleSubmit}
@@ -103,4 +104,18 @@ export function WebBookmarkPlaceholderElement({ children, element, fetchOembed, 
             {children}
         </InputPlaceholderElement>
     );
+}
+
+function Title(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return <>{withLoadingDots('Creating website bookmark')}</>;
+    }
+    return <>Click to insert a website bookmark</>;
+}
+
+function Description(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return null;
+    }
+    return <>Add a link from any website</>;
 }

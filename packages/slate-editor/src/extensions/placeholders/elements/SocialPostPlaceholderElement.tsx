@@ -12,6 +12,7 @@ import {
     type Props as BaseProps,
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
+import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
@@ -87,7 +88,7 @@ export function SocialPostPlaceholderElement({ children, element, fetchOembed, .
             description={Description}
             // Input
             inputTitle="Social media post"
-            inputDescription="Insert a social media link and hit Enter"
+            inputDescription="Paste a social media link and hit Enter"
             inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
             inputPlaceholder="https://twitter.com/tweet"
             inputAction="Add link"
@@ -100,14 +101,14 @@ export function SocialPostPlaceholderElement({ children, element, fetchOembed, .
 
 function Title(props: { isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Embedding...</>;
+        return <>{withLoadingDots('Embedding social media post')}</>;
     }
-    return <>Click to insert a social media post</>;
+    return <>Click to embed a social media post</>;
 }
 
 function Description(props: { isLoading: boolean }) {
     if (props.isLoading) {
         return null;
     }
-    return <>Insert a tweet, instagram post, etc. within your story</>;
+    return <>Add a tweet, Facebook or Instagram post in your story</>;
 }

@@ -59,7 +59,10 @@ $editor-block-outline-width: 6px;
 
 .Content {
     position: relative;
-    z-index: $editor-block-overlay-z-index - 1;
+
+    .withOverlay & {
+        z-index: $editor-block-overlay-z-index - 1;
+    }
 
     &.overflowHidden {
         overflow: hidden;
