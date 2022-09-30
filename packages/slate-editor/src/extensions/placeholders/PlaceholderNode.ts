@@ -14,6 +14,7 @@ export namespace PlaceholderNode {
     export enum Type {
         ATTACHMENT = 'placeholder:attachment',
         CONTACT = 'placeholder:contact',
+        COVERAGE = 'placeholder:coverage',
         EMBED = 'placeholder:embed',
         GALLERY = 'placeholder:gallery',
         IMAGE = 'placeholder:image',

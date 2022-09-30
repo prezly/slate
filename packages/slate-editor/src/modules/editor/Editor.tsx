@@ -372,6 +372,16 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return openFloatingPressContactsMenu();
         }
         if (action === MenuAction.ADD_COVERAGE) {
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.COVERAGE },
+                    true,
+                );
+                PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
+                return;
+            }
             return openFloatingCoverageMenu();
         }
         if (action === MenuAction.ADD_QUOTE) {

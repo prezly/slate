@@ -57,6 +57,7 @@ export { default as ItemsLayoutVertical } from './Items-Layout-Vertical.svg';
 export { default as Link } from './Link.svg';
 export { default as PlaceholderAttachment } from './Placeholder-Attachment.svg';
 export { default as PlaceholderContact } from './Placeholder-Contact.svg';
+export { default as PlaceholderCoverage } from './Placeholder-Coverage.svg';
 export { default as PlaceholderEmbed } from './Placeholder-Embed.svg';
 export { default as PlaceholderImage } from './Placeholder-Image.svg';
 export { default as PlaceholderGallery } from './Placeholder-Gallery.svg';
