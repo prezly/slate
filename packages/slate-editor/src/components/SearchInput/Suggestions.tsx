@@ -25,7 +25,7 @@ export function Suggestions<T>({
     className,
     footer,
     minHeight = 200,
-    maxHeight = 1000,
+    maxHeight = 500,
     query,
     suggestions,
     ...attributes
