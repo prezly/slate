@@ -52,9 +52,7 @@ export const Frame = forwardRef<HTMLDivElement, Props>(
             >
                 <div className={styles.Progress} style={{ width: progressPercentage }} />
                 <CloseButton
-                    className={classNames(styles.CloseButton, {
-                        [styles.hidden]: dragOver,
-                    })}
+                    className={styles.CloseButton}
                     onClick={onRemove}
                     title="Remove this block"
                 />
