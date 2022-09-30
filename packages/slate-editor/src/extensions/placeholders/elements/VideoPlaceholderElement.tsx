@@ -1,11 +1,15 @@
 import type { VideoNode } from '@prezly/slate-types';
+import type { PrezlyFileInfo } from '@prezly/uploadcare';
+import { toProgressPromise, UploadcareFile } from '@prezly/uploadcare';
+import uploadcare from '@prezly/uploadcare-widget';
+import type { DragEvent } from 'react';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderVideo } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
-import { createVideoBookmark } from '#extensions/video';
+import { createVideoBookmark, VIDEO_TYPES } from '#extensions/video';
 import { EventsEditor } from '#modules/events';
 
 import {
@@ -64,6 +68,30 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
         PlaceholdersManager.deactivateAll();
     });
 
+    const handleDrop = useFunction((event: DragEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const [video] = Array.from(event.dataTransfer.files)
+            .filter((file) => VIDEO_TYPES.includes(file.type))
+            .slice(0, 1)
+            .map((file) => uploadcare.fileFrom('object', file));
+
+        if (video) {
+            const uploading = toProgressPromise(video).then((fileInfo: PrezlyFileInfo) => {
+                const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
+                const url = file.cdnUrl;
+                return fetchOembed(url).then((oembed) => {
+                    if (oembed.type === 'video') {
+                        return { oembed, url };
+                    }
+                    return { url };
+                });
+            });
+            PlaceholdersManager.register(element.type, element.uuid, uploading);
+        }
+    });
+
     const handleData = useFunction(
         (data: { url: VideoNode['url']; oembed?: VideoNode['oembed'] }) => {
             if (!data.oembed) {
@@ -103,6 +131,7 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
             inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
             inputPlaceholder="https://youtube.com/video"
             inputAction="Add video"
+            onDrop={handleDrop}
             onSubmit={handleSubmit}
         >
             {children}
@@ -110,9 +139,12 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
     );
 }
 
-function Title(props: { isLoading: boolean }) {
+function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
         return <>{withLoadingDots('Uploading video')}</>;
+    }
+    if (props.isDragOver) {
+        return <>Drop a video here</>;
     }
     return <>Click to insert a video</>;
 }
