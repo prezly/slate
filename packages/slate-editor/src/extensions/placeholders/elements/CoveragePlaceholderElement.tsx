@@ -1,4 +1,4 @@
-import type { Coverage } from '@prezly/sdk';
+import type { CoverageNode } from '@prezly/slate-types';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
@@ -17,6 +17,8 @@ import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
+type CoverageRef = Pick<CoverageNode, 'coverage'>;
+
 export function CoveragePlaceholderElement({
     children,
     element,
@@ -32,12 +34,12 @@ export function CoveragePlaceholderElement({
         PlaceholdersManager.activate(element);
     });
 
-    const handleSelect = useFunction((coverage: Coverage) => {
+    const handleSelect = useFunction((data: CoverageRef) => {
         EventsEditor.dispatchEvent(editor, 'coverage-dialog-submitted', {
-            coverage_id: coverage.id,
+            coverage_id: data.coverage.id,
         });
 
-        replacePlaceholder(editor, element, createCoverage(coverage.id));
+        replacePlaceholder(editor, element, createCoverage(data.coverage.id));
     });
 
     usePlaceholderManagement(element.type, element.uuid, {
@@ -45,7 +47,7 @@ export function CoveragePlaceholderElement({
     });
 
     return (
-        <SearchInputPlaceholderElement<Coverage>
+        <SearchInputPlaceholderElement<CoverageRef>
             {...props}
             element={element}
             // Core
@@ -80,7 +82,7 @@ export function CoveragePlaceholderElement({
 export namespace CoveragePlaceholderElement {
     export interface Props
         extends Omit<
-            BaseProps<Coverage>,
+            BaseProps<CoverageRef>,
             | 'onSelect'
             | 'icon'
             | 'title'
@@ -91,6 +93,6 @@ export namespace CoveragePlaceholderElement {
             | 'renderSuggestions'
         > {
         element: PlaceholderNode<PlaceholderNode.Type.COVERAGE>;
-        renderSuggestionsFooter?: BaseProps<Coverage>['renderSuggestions'];
+        renderSuggestionsFooter?: BaseProps<CoverageRef>['renderSuggestions'];
     }
 }
