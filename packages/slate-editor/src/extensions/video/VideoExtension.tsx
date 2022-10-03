@@ -7,10 +7,11 @@ import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { VideoElement } from './components';
 import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib';
+import type { VideoExtensionParameters } from './types';
 
 export const EXTENSION_ID = 'VideoExtension';
 
-export function VideoExtension(): Extension {
+export function VideoExtension({ mode = 'thumbnail' }: VideoExtensionParameters): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
@@ -24,7 +25,7 @@ export function VideoExtension(): Extension {
         renderElement: ({ attributes, children, element }) => {
             if (isVideoNode(element)) {
                 return (
-                    <VideoElement attributes={attributes} element={element}>
+                    <VideoElement attributes={attributes} element={element} mode={mode}>
                         {children}
                     </VideoElement>
                 );
