@@ -57,6 +57,7 @@ export function CoverageElement({
             {...attributes}
             border={Boolean(coverage)}
             element={element}
+            overlay="autohide"
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderReadOnlyFrame={function () {
