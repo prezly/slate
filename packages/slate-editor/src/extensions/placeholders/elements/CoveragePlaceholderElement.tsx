@@ -132,8 +132,8 @@ export function CoveragePlaceholderElement({
                     <InputPlaceholder
                         format="card"
                         selected={isSelected}
-                        title={Title}
-                        description={Description}
+                        title="Coverage"
+                        description="Type the URL of the new Coverage you want to add"
                         placeholder="www.website.com/article"
                         pattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
                         action="Add coverage"
