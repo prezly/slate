@@ -15,6 +15,10 @@
         height: $spacing-5 * 2;
     }
 
+    .Text {
+        user-select: none;
+    }
+
     .Title {
         margin: 0 0 $spacing-half;
         font-weight: 600;
