@@ -33,7 +33,11 @@ export interface Parameters {
         | false
         | Pick<
               CoveragePlaceholderElement.Props,
-              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
+              | 'getSuggestions'
+              | 'renderEmpty'
+              | 'renderSuggestion'
+              | 'renderSuggestionsFooter'
+              | 'onCreateCoverage'
           >;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withGalleryPlaceholders?: boolean | { newsroom?: NewsroomRef };

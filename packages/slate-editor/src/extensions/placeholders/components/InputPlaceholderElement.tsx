@@ -127,11 +127,11 @@ export function InputPlaceholderElement({
                         progress={progress ?? isLoading}
                         // Callbacks
                         onClick={isLoading ? undefined : handleClick}
-                        onRemove={handleRemove}
                         onDragOver={handleDragOver}
                         onDragLeave={handleDragLeave}
                         onDrop={onDrop}
                         onMouseOver={handleMouseOver}
+                        onRemove={handleRemove}
                     />
                 )
             }
