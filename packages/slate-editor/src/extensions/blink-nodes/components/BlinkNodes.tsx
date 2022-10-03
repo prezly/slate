@@ -1,7 +1,9 @@
-import type { Ref, RefObject } from 'react';
-import React from 'react';
+import type { RefObject } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Editor, Node } from 'slate';
 import { ReactEditor, useSlateStatic } from 'slate-react';
+
+import styles from './BlinkNodes.module.scss';
 
 export function BlinkNodes({ containerRef }: { containerRef: RefObject<HTMLDivElement> }) {
     const editor = useSlateStatic();
@@ -37,37 +39,29 @@ function Blinker({
     containerRef: RefObject<HTMLDivElement>;
     clear: () => void;
 }) {
-    const [rect, setRect] = React.useState<{ top: number; height: number } | undefined>(undefined);
+    const [rect, setRect] = useState<Partial<DOMRect> | undefined>(undefined);
 
-    React.useEffect(() => {
+    useEffect(() => {
+        if (!containerRef.current) {
+            return;
+        }
+
         try {
+            const containerRect = containerRef.current.getBoundingClientRect();
             const rectA = ReactEditor.toDOMNode(editor, top).getBoundingClientRect();
             const rectB = ReactEditor.toDOMNode(editor, bottom).getBoundingClientRect();
+
             setRect({
-                top: containerRef.current
-                    ? rectA.top - containerRef.current.getBoundingClientRect().top
-                    : rectA.top,
+                top: rectA.top - containerRect.top,
                 height: rectB.bottom - rectA.top,
+                left: Math.min(rectA.left, rectB.left) - containerRect.left,
+                width: Math.max(rectA.width, rectB.width),
             });
-        } finally {
-            // clear();
+        } catch (error) {
+            console.error(error);
+            clear();
         }
     }, []);
 
-    return (
-        <div
-            style={
-                rect
-                    ? {
-                          top: rect.top,
-                          height: rect.height,
-                          width: '100%',
-                          background: 'red',
-                          position: 'absolute',
-                          opacity: 0.5,
-                      }
-                    : undefined
-            }
-        />
-    );
+    return <div className={styles.blink} onAnimationEnd={() => clear()} style={rect} />;
 }
