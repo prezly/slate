@@ -78,15 +78,14 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
             .map((file) => uploadcare.fileFrom('object', file));
 
         if (video) {
-            const uploading = toProgressPromise(video).then((fileInfo: PrezlyFileInfo) => {
+            const uploading = toProgressPromise(video).then(async (fileInfo: PrezlyFileInfo) => {
                 const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
                 const url = file.cdnUrl;
-                return fetchOembed(url).then((oembed) => {
-                    if (oembed.type === 'video') {
-                        return { oembed, url };
-                    }
-                    return { url };
-                });
+                const oembed = await fetchOembed(url);
+                if (oembed.type === 'video') {
+                    return { oembed, url };
+                }
+                return { url };
             });
             PlaceholdersManager.register(element.type, element.uuid, uploading);
         }
