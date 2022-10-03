@@ -85,6 +85,10 @@ export function CoveragePlaceholderElement({
         PlaceholdersManager.register(element.type, element.uuid, loading);
     });
 
+    const handleDragOver = useFunction(() => {
+        setMode('search');
+    });
+
     const handleRemove = useFunction(() => {
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
@@ -133,6 +137,7 @@ export function CoveragePlaceholderElement({
                         placeholder="www.website.com/article"
                         pattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
                         action="Add coverage"
+                        onDragOver={handleDragOver}
                         onDrop={handleDrop}
                         onEsc={() => PlaceholdersManager.deactivate(element)}
                         onRemove={handleRemove}
