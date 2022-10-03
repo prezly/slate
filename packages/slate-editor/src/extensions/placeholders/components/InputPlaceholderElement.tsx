@@ -51,6 +51,10 @@ export function InputPlaceholderElement({
     const [progress, setProgress] = useState<number | undefined>(undefined);
     const [dragOver, setDragOver] = useState(false);
 
+    const { isActive, isLoading } = usePlaceholderManagement(element.type, element.uuid, {
+        onProgress: (p) => setProgress(p),
+    });
+
     const handleClick = useFunction(() => {
         PlaceholdersManager.activate(element);
     });
@@ -64,14 +68,15 @@ export function InputPlaceholderElement({
             setDragOver(false);
         }
     });
-    const handleDragOver = useFunction(() => setDragOver(true));
+    const handleDragOver = useFunction(() => {
+        setDragOver(true);
+        if (isActive && onDrop) {
+            PlaceholdersManager.deactivate(element);
+        }
+    });
     const handleDragLeave = useFunction(() => setDragOver(false));
     const handleRemove = useFunction(() => {
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
-    });
-
-    const { isActive, isLoading } = usePlaceholderManagement(element.type, element.uuid, {
-        onProgress: (p) => setProgress(p),
     });
 
     useUnmount(() => {
@@ -103,6 +108,7 @@ export function InputPlaceholderElement({
                         type={inputType}
                         // Actions
                         action={inputAction}
+                        onDragOver={handleDragOver}
                         onEsc={handleEscape}
                         onRemove={handleRemove}
                         onSubmit={onSubmit}
