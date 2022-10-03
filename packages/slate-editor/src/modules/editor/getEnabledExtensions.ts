@@ -3,6 +3,7 @@ import { isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { noop } from 'lodash-es';
 
 import { AutoformatExtension } from '#extensions/autoformat';
+import { BlinkNodesExtension } from '#extensions/blink-nodes';
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { CoverageExtension } from '#extensions/coverage';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
@@ -115,6 +116,7 @@ export function* getEnabledExtensions({
     withWebBookmarks,
 }: Parameters): Generator<Extension> {
     yield DecorateSelectionExtension();
+    yield BlinkNodesExtension();
     yield ParagraphsExtension();
     yield SoftBreakExtension();
     yield InsertBlockHotkeyExtension({

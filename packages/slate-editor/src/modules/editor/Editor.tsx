@@ -29,6 +29,7 @@ import { ReactEditor, Slate } from 'slate-react';
 
 import { useFunction, useSize } from '#lib';
 
+import { BlinkNodes } from '#extensions/blink-nodes';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
@@ -546,6 +547,8 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     renderElementDeps={[availableWidth]}
                     style={contentStyle}
                 />
+
+                <BlinkNodes containerRef={containerRef} />
 
                 {!hasCustomPlaceholder && (
                     <Placeholder className="editor-placeholder">{placeholder}</Placeholder>
