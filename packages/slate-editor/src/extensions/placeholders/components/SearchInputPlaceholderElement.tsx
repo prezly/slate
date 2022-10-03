@@ -1,4 +1,4 @@
-import type { ReactElement, MouseEvent } from 'react';
+import type { ReactElement, MouseEvent, ReactNode } from 'react';
 import React, { type KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { Transforms } from 'slate';
 import { type RenderElementProps, useSelected, useSlateStatic } from 'slate-react';
@@ -31,6 +31,8 @@ export type Props<T> = RenderElementProps &
         inputTitle: SearchInputPlaceholder.Props<T>['title'];
         inputDescription: SearchInputPlaceholder.Props<T>['description'];
         inputPlaceholder?: SearchInputPlaceholder.Props<T>['placeholder'];
+    } & {
+        renderFrame?: (props: { isSelected: boolean }) => ReactNode; // Override everything inside Search Input
     };
 
 export function SearchInputPlaceholderElement<T>({
@@ -38,6 +40,7 @@ export function SearchInputPlaceholderElement<T>({
     attributes,
     children,
     element,
+    renderFrame,
     // Core
     format,
     icon,
@@ -108,7 +111,8 @@ export function SearchInputPlaceholderElement<T>({
             overflow="visible"
             renderAboveFrame={children}
             renderReadOnlyFrame={({ isSelected }) =>
-                isActive ? (
+                renderFrame?.({ isSelected }) ??
+                (isActive && !isLoading ? (
                     <SearchInputPlaceholder<T>
                         // Customization
                         getSuggestions={getSuggestions}
@@ -131,6 +135,7 @@ export function SearchInputPlaceholderElement<T>({
                         title={inputTitle}
                         description={inputDescription}
                         placeholder={inputPlaceholder}
+                        selected={isSelected}
                         // Actions
                         onDragOver={handleDragOver}
                         onEsc={handleEscape}
@@ -156,7 +161,7 @@ export function SearchInputPlaceholderElement<T>({
                         onMouseOver={handleMouseOver}
                         onRemove={handleRemove}
                     />
-                )
+                ))
             }
             rounded
             void
