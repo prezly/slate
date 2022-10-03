@@ -11,6 +11,7 @@ export { EditableWithExtensions } from './modules/editable';
 
 export { type SearchProps as CoverageSearchProps, createCoverage } from './extensions/coverage';
 export { createEmbed } from './extensions/embed';
+export { type PlaceholdersExtensionParameters, PlaceholderNode } from './extensions/placeholders';
 export {
     type SearchProps as PressContactsSearchProps,
     createPressContact,

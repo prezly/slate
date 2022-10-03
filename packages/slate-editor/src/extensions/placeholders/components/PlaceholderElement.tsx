@@ -45,7 +45,7 @@ export function PlaceholderElement({
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
 
-    const { isLoading } = usePlaceholderManagement(
+    const { isActive, isLoading } = usePlaceholderManagement(
         element.type as PlaceholderNode.Type,
         element.uuid,
         {
@@ -61,12 +61,14 @@ export function PlaceholderElement({
             renderReadOnlyFrame={({ isSelected }) => (
                 <Placeholder
                     // Core
+                    active={isActive}
                     format={format}
                     icon={icon}
                     title={title}
                     description={description}
                     // Variations
                     dragOver={onDrop ? dragOver : false}
+                    dropZone={Boolean(onDrop)}
                     selected={isSelected}
                     progress={progress ?? isLoading}
                     // Callbacks

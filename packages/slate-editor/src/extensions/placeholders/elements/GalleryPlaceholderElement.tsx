@@ -13,6 +13,7 @@ import { IMAGE_TYPES } from '#extensions/image';
 import { EventsEditor } from '#modules/events';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE, UploadcareEditor } from '#modules/uploadcare';
 
+import { withLoadingDots } from '../components/LoadingDots';
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { replacePlaceholder, withGalleryTabMaybe } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
@@ -101,7 +102,7 @@ export function GalleryPlaceholderElement({
             format="16:9"
             icon={PlaceholderGallery}
             title={Title}
-            description="Supported formats: .jpg, .gif, or .png - Max. 25MB"
+            description={Description}
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}
@@ -113,10 +114,17 @@ export function GalleryPlaceholderElement({
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Uploading images</>;
+        return <>{withLoadingDots('Uploading images')}</>;
     }
     if (props.isDragOver) {
         return <>Drop images here</>;
     }
     return <>Drag or click to upload multiple images</>;
+}
+
+function Description(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return null;
+    }
+    return <>Supported formats: jpg, gif or png (max 25MB)</>;
 }

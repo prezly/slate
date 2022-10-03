@@ -227,11 +227,7 @@ export function* getEnabledExtensions({
     }
 
     if (withPlaceholders) {
-        yield PlaceholdersExtension({
-            fetchOembed: (withEmbeds || undefined)?.fetchOembed,
-            newsroom: withImages ? withImages.mediaGalleryTab?.newsroom : undefined,
-            withCaptions: withImages ? withImages.captions : undefined,
-        });
+        yield PlaceholdersExtension(withPlaceholders);
     }
 
     if (withSnippets) {

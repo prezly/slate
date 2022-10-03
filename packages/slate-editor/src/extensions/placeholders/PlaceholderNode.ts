@@ -13,6 +13,8 @@ export interface PlaceholderNode<T extends PlaceholderNode.Type = PlaceholderNod
 export namespace PlaceholderNode {
     export enum Type {
         ATTACHMENT = 'placeholder:attachment',
+        CONTACT = 'placeholder:contact',
+        COVERAGE = 'placeholder:coverage',
         EMBED = 'placeholder:embed',
         GALLERY = 'placeholder:gallery',
         IMAGE = 'placeholder:image',
@@ -30,11 +32,19 @@ export namespace PlaceholderNode {
 
     export function isPlaceholderNode<T extends Type>(
         node: Node,
+        types: T[],
+    ): node is PlaceholderNode<T>;
+
+    export function isPlaceholderNode<T extends Type>(
+        node: Node,
         type: `${T}`,
     ): node is PlaceholderNode<T>;
 
-    export function isPlaceholderNode(node: Node, type?: string): boolean {
-        if (type) {
+    export function isPlaceholderNode(node: Node, type?: string | string[]): boolean {
+        if (typeof type === 'string') {
+            return isElementNode(node, type);
+        }
+        if (type && Array.isArray(type)) {
             return isElementNode(node, type);
         }
         return isElementNode(node, Object.values(Type));

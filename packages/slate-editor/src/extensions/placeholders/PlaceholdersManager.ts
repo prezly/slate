@@ -1,6 +1,12 @@
 import type { ProgressPromise } from '@prezly/progress-promise';
 import type { OEmbedInfo } from '@prezly/sdk';
-import type { AttachmentNode, GalleryNode, ImageNode } from '@prezly/slate-types';
+import type {
+    AttachmentNode,
+    ContactNode,
+    CoverageNode,
+    GalleryNode,
+    ImageNode,
+} from '@prezly/slate-types';
 import { noop } from 'lodash-es';
 import { useEffect, useState } from 'react';
 
@@ -14,6 +20,12 @@ interface Data {
     [Type.ATTACHMENT]: {
         file: AttachmentNode['file'];
         caption: string;
+    };
+    [Type.CONTACT]: {
+        contact: ContactNode['contact'];
+    };
+    [Type.COVERAGE]: {
+        coverage: CoverageNode['coverage'];
     };
     [Type.EMBED]: {
         url: string;

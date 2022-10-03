@@ -6,6 +6,7 @@ export { default as Attachment } from './Attachment.svg';
 export { default as BatsIllustration } from './Bats-Illustration.svg';
 export { default as ChickenNoSignalIllustration } from './Chicken-no-signal-Illustration.svg';
 export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
+export { default as Clear } from './Clear.svg';
 export { default as Coverage } from './Coverage.svg';
 export { default as Cross } from './Cross.svg';
 export { default as Delete } from './Delete.svg';
@@ -55,6 +56,8 @@ export { default as ItemsLayoutHorizontal } from './Items-Layout-Horizontal.svg'
 export { default as ItemsLayoutVertical } from './Items-Layout-Vertical.svg';
 export { default as Link } from './Link.svg';
 export { default as PlaceholderAttachment } from './Placeholder-Attachment.svg';
+export { default as PlaceholderContact } from './Placeholder-Contact.svg';
+export { default as PlaceholderCoverage } from './Placeholder-Coverage.svg';
 export { default as PlaceholderEmbed } from './Placeholder-Embed.svg';
 export { default as PlaceholderImage } from './Placeholder-Image.svg';
 export { default as PlaceholderGallery } from './Placeholder-Gallery.svg';
@@ -64,6 +67,7 @@ export { default as PlaceholderWebBookmark } from './Placeholder-WebBookmark.svg
 export { default as PlayButton } from './PlayButton.svg';
 export { default as Reload } from './Reload.svg';
 export { default as Resize } from './Resize.svg';
+export { default as Search } from './Search.svg';
 export { default as User } from './User.svg';
 export { default as Video } from './Video.svg';
 export { default as WarningCircle } from './Warning-Circle.svg';

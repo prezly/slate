@@ -71,6 +71,7 @@ import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 import { usePendingOperation } from './usePendingOperation';
 
+import { replacePlaceholder } from '#extensions/placeholders/lib';
 import { PlaceholdersManager } from '#extensions/placeholders/PlaceholdersManager';
 
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
@@ -201,6 +202,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     props,
                     options.match ? { at: [], ...options } : options,
                 );
+            },
+            insertPlaceholder(props, ensureEmptyParagraphAfter) {
+                return insertPlaceholder(editor, props, ensureEmptyParagraphAfter);
+            },
+            replacePlaceholder(placeholder, element) {
+                replacePlaceholder(editor, placeholder, element);
             },
             isEmpty: () => EditorCommands.isEmpty(editor),
             isEqualTo: (value) => isEditorValueEqual(editor, value, editor.children as Value),
@@ -353,9 +360,29 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return handleAddAttachment(editor);
         }
         if (action === MenuAction.ADD_CONTACT) {
+            if (withPlaceholders && withPlaceholders.withContactPlaceholders) {
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.CONTACT },
+                    true,
+                );
+                PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
+                return;
+            }
             return openFloatingPressContactsMenu();
         }
         if (action === MenuAction.ADD_COVERAGE) {
+            if (withPlaceholders) {
+                const placeholder = insertPlaceholder(
+                    editor,
+                    { type: PlaceholderNode.Type.COVERAGE },
+                    true,
+                );
+                PlaceholdersManager.trigger(placeholder);
+                EditorCommands.selectNode(editor, placeholder);
+                return;
+            }
             return openFloatingCoverageMenu();
         }
         if (action === MenuAction.ADD_QUOTE) {

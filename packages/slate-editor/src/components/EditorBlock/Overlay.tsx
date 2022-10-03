@@ -3,25 +3,11 @@ import React from 'react';
 
 import styles from './Overlay.module.scss';
 
-export type OverlayMode = 'always' | 'autohide' | false;
-
 interface Props {
     className?: string;
-    selected: boolean;
-    mode: OverlayMode;
     onClick?: (event: React.MouseEvent) => void;
 }
 
-export function Overlay({ className, mode, onClick, selected }: Props) {
-    if (mode === false) {
-        return null;
-    }
-    return (
-        <div
-            className={classNames(className, styles.overlay, {
-                [styles.hidden]: selected && mode === 'autohide',
-            })}
-            onClick={onClick}
-        />
-    );
+export function Overlay({ className, onClick }: Props) {
+    return <div className={classNames(className, styles.Overlay)} onClick={onClick} />;
 }

@@ -1,0 +1,10 @@
+@import "styles/variables";
+
+.Empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $spacing-2;
+    cursor: initial;
+    user-select: none;
+}

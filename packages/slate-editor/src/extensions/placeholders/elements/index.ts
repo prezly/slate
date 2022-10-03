@@ -1,4 +1,6 @@
 export { AttachmentPlaceholderElement } from './AttachmentPlaceholderElement';
+export { ContactPlaceholderElement } from './ContactPlaceholderElement';
+export { CoveragePlaceholderElement } from './CoveragePlaceholderElement';
 export { EmbedPlaceholderElement } from './EmbedPlaceholderElement';
 export { GalleryPlaceholderElement } from './GalleryPlaceholderElement';
 export { ImagePlaceholderElement } from './ImagePlaceholderElement';

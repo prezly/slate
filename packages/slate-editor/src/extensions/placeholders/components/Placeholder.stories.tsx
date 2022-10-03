@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { PlaceholderAttachment } from '#icons';
 
+import { withLoadingDots } from './LoadingDots';
 import { Placeholder } from './Placeholder';
 
 export default {
@@ -68,7 +69,7 @@ export function KnownProgress() {
     return (
         <Placeholder
             icon={ICON}
-            title={UPLOADING_TITLE}
+            title={withLoadingDots(UPLOADING_TITLE)}
             description={DESCRIPTION}
             progress={progress}
         />

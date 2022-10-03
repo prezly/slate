@@ -14,6 +14,7 @@ import { createFileAttachment } from '#extensions/file-attachment';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
 
+import { withLoadingDots } from '../components/LoadingDots';
 import { PlaceholderElement, type Props as BaseProps } from '../components/PlaceholderElement';
 import { insertPlaceholders, replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
@@ -87,7 +88,7 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
             // Core
             icon={PlaceholderAttachment}
             title={Title}
-            description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
+            description={Description}
             // Callbacks
             onClick={handleClick}
             onDrop={handleDrop}
@@ -99,10 +100,17 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isLoading) {
-        return <>Uploading file</>;
+        return <>{withLoadingDots('Uploading attachment')}</>;
     }
     if (props.isDragOver) {
         return <>Drop a file here</>;
     }
     return <>Drag or click to upload an attachment</>;
+}
+
+function Description(props: { isLoading: boolean }) {
+    if (props.isLoading) {
+        return null;
+    }
+    return <>Supported formats: pdf, ppt, Keynote, zip, doc, and more (max 720MB)</>;
 }

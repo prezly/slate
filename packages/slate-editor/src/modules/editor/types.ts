@@ -11,7 +11,9 @@ import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { ImageExtensionConfiguration } from '#extensions/image';
+import type { PlaceholderNode, PlaceholdersExtensionParameters } from '#extensions/placeholders';
 import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
+import type { SnippetsExtensionParameters } from '#extensions/snippet';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
 import type { UserMentionsExtensionParameters } from '#extensions/user-mentions';
@@ -21,28 +23,40 @@ import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
 import type { EditorEventMap } from '#modules/events';
 
 import type { useCursorInView } from './lib';
-import type { SnippetsExtensionParameters } from '#extensions/snippet';
 
 export interface EditorRef {
     events: Events<EditorEventMap>;
-    focus: () => void;
-    clearSelection: () => void;
-    insertNodes: (
-        nodes: Node[],
-        options?: Parameters<typeof EditorCommands.insertNodes>[2],
-    ) => void;
-    updateNodes: <T extends Node>(
+
+    focus(): void;
+
+    clearSelection(): void;
+
+    insertNodes(nodes: Node[], options?: Parameters<typeof EditorCommands.insertNodes>[2]): void;
+
+    updateNodes<T extends Node>(
         props: Partial<Omit<T, 'children' | 'text'>>,
         options?: Parameters<typeof Transforms.setNodes<T>>[2],
-    ) => void;
-    isEmpty: () => boolean;
-    isEqualTo: (value: Value) => void;
-    isFocused: () => boolean;
+    ): void;
+
+    insertPlaceholder<T extends PlaceholderNode.Type>(
+        props: Partial<PlaceholderNode<T>> & Pick<PlaceholderNode<T>, 'type'>,
+        ensureEmptyParagraphAfter?: boolean,
+    ): PlaceholderNode<T>;
+
+    replacePlaceholder(placeholder: Pick<PlaceholderNode, 'type' | 'uuid'>, element: Element): void;
+
+    isEmpty(): boolean;
+
+    isEqualTo(value: Value): void;
+
+    isFocused(): boolean;
+
     /**
      * Check if the editor value is different from the `initialValue` document.
      */
-    isModified: () => boolean;
-    resetValue: (value: Value) => void;
+    isModified(): boolean;
+
+    resetValue(value: Value): void;
 }
 
 export type Value = Element[];
@@ -91,7 +105,7 @@ export interface EditorProps {
     withImages?: false | ImageExtensionConfiguration;
     withInlineLinks?: boolean;
     withLists?: boolean;
-    withPlaceholders?: boolean;
+    withPlaceholders?: false | PlaceholdersExtensionParameters;
     withPressContacts?: false | PressContactsExtensionParameters;
     withRichFormattingMenu?:
         | boolean
