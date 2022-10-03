@@ -1,7 +1,9 @@
 import type { ElementNode, ParagraphNode, TextNode } from '@prezly/slate-types';
-import type { BaseEditor, Node } from 'slate';
+import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
+
+import type { BlinkEditor } from '#extensions/blink-nodes';
 
 export * from '@prezly/slate-types';
 export * from './components';
@@ -25,11 +27,6 @@ import type {
     RichBlocksAwareEditor,
     SerializingEditor,
 } from './modules/editor';
-
-export interface BlinkEditor {
-    blink(from: Node | undefined, to: Node | undefined): void;
-    nodesToBlink: Array<[top: Node, bottom: Node]>;
-}
 
 declare module 'slate' {
     interface CustomTypes {
