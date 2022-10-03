@@ -3,13 +3,13 @@ import { isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { noop } from 'lodash-es';
 
 import { AutoformatExtension } from '#extensions/autoformat';
-import { BlinkNodesExtension } from '#extensions/blink-nodes';
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { CoverageExtension } from '#extensions/coverage';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
 import { DividerExtension } from '#extensions/divider';
 import { EmbedExtension } from '#extensions/embed';
 import { FileAttachmentExtension } from '#extensions/file-attachment';
+import { FlashNodesExtension } from '#extensions/flash-nodes';
 import { FloatingAddMenuExtension } from '#extensions/floating-add-menu';
 import { GalleriesExtension } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
@@ -116,7 +116,7 @@ export function* getEnabledExtensions({
     withWebBookmarks,
 }: Parameters): Generator<Extension> {
     yield DecorateSelectionExtension();
-    yield BlinkNodesExtension();
+    yield FlashNodesExtension();
     yield ParagraphsExtension();
     yield SoftBreakExtension();
     yield InsertBlockHotkeyExtension({

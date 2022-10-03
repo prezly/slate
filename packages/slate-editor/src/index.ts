@@ -3,7 +3,7 @@ import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
-import type { BlinkEditor } from '#extensions/blink-nodes';
+import type { FlashEditor } from '#extensions/flash-nodes';
 
 export * from '@prezly/slate-types';
 export * from './components';
@@ -36,7 +36,7 @@ declare module 'slate' {
             DefaultTextBlockEditor<ParagraphNode> &
             RichBlocksAwareEditor &
             SerializingEditor &
-            BlinkEditor;
+            FlashEditor;
         Element: ElementNode;
         Text: TextNode;
     }

@@ -3,22 +3,24 @@ import React, { useEffect, useState } from 'react';
 import type { Editor, Node } from 'slate';
 import { ReactEditor, useSlateStatic } from 'slate-react';
 
-import styles from './BlinkNodes.module.scss';
+import styles from './FlashNodes.module.scss';
 
-export function BlinkNodes({ containerRef }: { containerRef: RefObject<HTMLDivElement> }) {
+export function FlashNodes({ containerRef }: { containerRef: RefObject<HTMLDivElement> }) {
     const editor = useSlateStatic();
 
     return (
         <>
-            {editor.nodesToBlink.map(([top, bottom], index) => (
-                <Blinker
+            {editor.nodesToFlash.map(([top, bottom], index) => (
+                <Flasher
                     key={index}
                     editor={editor}
                     top={top}
                     containerRef={containerRef}
                     bottom={bottom}
-                    clear={() =>
-                        (editor.nodesToBlink = editor.nodesToBlink.filter((_, i) => i !== index))
+                    onComplete={() =>
+                        (editor.nodesToFlash = editor.nodesToFlash.filter(
+                            (pair) => pair[0] === top && pair[1] === bottom,
+                        ))
                     }
                 />
             ))}
@@ -26,18 +28,18 @@ export function BlinkNodes({ containerRef }: { containerRef: RefObject<HTMLDivEl
     );
 }
 
-function Blinker({
+function Flasher({
     editor,
     top,
     bottom,
     containerRef,
-    clear,
+    onComplete,
 }: {
     editor: Editor;
     top: Node;
     bottom: Node;
     containerRef: RefObject<HTMLDivElement>;
-    clear: () => void;
+    onComplete: () => void;
 }) {
     const [rect, setRect] = useState<Partial<DOMRect> | undefined>(undefined);
 
@@ -59,9 +61,9 @@ function Blinker({
             });
         } catch (error) {
             console.error(error);
-            clear();
+            onComplete();
         }
     }, []);
 
-    return <div className={styles.blink} onAnimationEnd={() => clear()} style={rect} />;
+    return <div className={styles.flash} onAnimationEnd={() => onComplete()} style={rect} />;
 }

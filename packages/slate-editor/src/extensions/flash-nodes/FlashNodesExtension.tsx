@@ -1,17 +1,17 @@
 import type { Extension } from '@prezly/slate-commons';
 
-export function BlinkNodesExtension(): Extension {
+export function FlashNodesExtension(): Extension {
     return {
-        id: 'BlinkNodesExtension',
+        id: 'FlashNodesExtension',
         withOverrides: (editor) => {
-            editor.nodesToBlink = [];
+            editor.nodesToFlash = [];
 
-            editor.blink = (from, to) => {
+            editor.flash = (from, to) => {
                 if (!from || !to) {
                     return;
                 }
 
-                editor.nodesToBlink.push([from, to]);
+                editor.nodesToFlash.push([from, to]);
             };
 
             return editor;
