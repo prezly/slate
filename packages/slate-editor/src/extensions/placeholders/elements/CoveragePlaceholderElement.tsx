@@ -4,7 +4,8 @@ import { toProgressPromise, UploadcareFile } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
 import type { ReactElement } from 'react';
 import React, { type DragEvent, useEffect, useState } from 'react';
-import { useSlateStatic } from 'slate-react';
+import { Transforms } from 'slate';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { SearchInput } from '#components';
 import { PlaceholderCoverage } from '#icons';
@@ -39,6 +40,7 @@ export function CoveragePlaceholderElement({
     ...props
 }: CoveragePlaceholderElement.Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
     const [mode, setMode] = useState<Mode>('search');
     const onMode = setMode;
 
@@ -83,6 +85,10 @@ export function CoveragePlaceholderElement({
         PlaceholdersManager.register(element.type, element.uuid, loading);
     });
 
+    const handleRemove = useFunction(() => {
+        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
+    });
+
     const { isActive } = usePlaceholderManagement(element.type, element.uuid, {
         onResolve: handleSelect,
         onTrigger: handleTrigger,
@@ -120,11 +126,16 @@ export function CoveragePlaceholderElement({
             renderFrame={() =>
                 mode === 'create' ? (
                     <InputPlaceholder
-                        title="Coverage"
-                        description="Type the URL of the new Coverage you want to add"
+                        format="card"
+                        selected={isSelected}
+                        title={Title}
+                        description={Description}
                         placeholder="www.website.com/article"
                         pattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
                         action="Add coverage"
+                        onDrop={handleDrop}
+                        onEsc={() => PlaceholdersManager.deactivate(element)}
+                        onRemove={handleRemove}
                         onSubmit={handleSubmitUrl}
                     />
                 ) : undefined
