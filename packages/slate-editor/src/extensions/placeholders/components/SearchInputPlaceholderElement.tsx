@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ReactElement, MouseEvent, ReactNode } from 'react';
 import React, { type KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { Transforms } from 'slate';
 import { type RenderElementProps, useSelected, useSlateStatic } from 'slate-react';
@@ -31,6 +31,8 @@ export type Props<T> = RenderElementProps &
         inputTitle: SearchInputPlaceholder.Props<T>['title'];
         inputDescription: SearchInputPlaceholder.Props<T>['description'];
         inputPlaceholder?: SearchInputPlaceholder.Props<T>['placeholder'];
+    } & {
+        renderFrame?: (props: { isSelected: boolean }) => ReactNode; // Override everything inside Search Input
     };
 
 export function SearchInputPlaceholderElement<T>({
@@ -38,6 +40,7 @@ export function SearchInputPlaceholderElement<T>({
     attributes,
     children,
     element,
+    renderFrame,
     // Core
     format,
     icon,
@@ -52,6 +55,7 @@ export function SearchInputPlaceholderElement<T>({
     inputDescription,
     inputPlaceholder,
     // Callbacks
+    onDrop,
     onSelect,
 }: Props<T>) {
     const editor = useSlateStatic();
@@ -59,6 +63,7 @@ export function SearchInputPlaceholderElement<T>({
     const block = useRef<HTMLDivElement>(null);
 
     const [progress, setProgress] = useState<number | undefined>(undefined);
+    const [dragOver, setDragOver] = useState(false);
 
     const handleClick = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -68,6 +73,18 @@ export function SearchInputPlaceholderElement<T>({
         event.stopPropagation();
         PlaceholdersManager.deactivate(element);
     });
+    const handleMouseOver = useFunction((event: MouseEvent) => {
+        if (!event.buttons) {
+            setDragOver(false);
+        }
+    });
+    const handleDragOver = useFunction(() => {
+        setDragOver(true);
+        if (isActive && onDrop) {
+            PlaceholdersManager.deactivate(element);
+        }
+    });
+    const handleDragLeave = useFunction(() => setDragOver(false));
     const handleRemove = useFunction(() => {
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
@@ -94,7 +111,8 @@ export function SearchInputPlaceholderElement<T>({
             overflow="visible"
             renderAboveFrame={children}
             renderReadOnlyFrame={({ isSelected }) =>
-                isActive ? (
+                renderFrame?.({ isSelected }) ??
+                (isActive && !isLoading ? (
                     <SearchInputPlaceholder<T>
                         // Customization
                         getSuggestions={getSuggestions}
@@ -117,7 +135,9 @@ export function SearchInputPlaceholderElement<T>({
                         title={inputTitle}
                         description={inputDescription}
                         placeholder={inputPlaceholder}
+                        selected={isSelected}
                         // Actions
+                        onDragOver={handleDragOver}
                         onEsc={handleEscape}
                         onRemove={handleRemove}
                         onSelect={onSelect}
@@ -130,13 +150,18 @@ export function SearchInputPlaceholderElement<T>({
                         title={title}
                         description={description}
                         // Variations
+                        dragOver={onDrop ? dragOver : false}
                         selected={isSelected}
                         progress={progress ?? isLoading}
                         // Callbacks
                         onClick={isLoading ? undefined : handleClick}
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={onDrop}
+                        onMouseOver={handleMouseOver}
                         onRemove={handleRemove}
                     />
-                )
+                ))
             }
             rounded
             void

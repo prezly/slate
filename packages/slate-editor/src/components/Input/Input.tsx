@@ -16,7 +16,12 @@ export interface Props
     value: string;
     onChange: (newValue: string, valid: boolean) => void;
     onClear?: () => void;
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>> | 'link' | 'search';
+    icon?:
+        | React.ComponentType<React.SVGProps<SVGSVGElement>>
+        | 'link'
+        | 'search'
+        | null
+        | undefined;
     loading?: boolean;
     button?:
         | false
@@ -136,6 +141,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(
 Input.displayName = 'Input';
 
 function Icon({ icon: Component }: Required<Pick<Props, 'icon'>>) {
+    if (Component === null) {
+        return null;
+    }
     if (Component === 'link') {
         return <Link className={styles.Icon} />;
     }
