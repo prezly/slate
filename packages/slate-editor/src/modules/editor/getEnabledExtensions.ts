@@ -204,7 +204,7 @@ export function* getEnabledExtensions({
     }
 
     if (withVideos) {
-        yield VideoExtension();
+        yield VideoExtension(withVideos);
     }
 
     if (withWebBookmarks) {

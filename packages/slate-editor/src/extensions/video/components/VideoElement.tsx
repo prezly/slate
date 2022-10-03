@@ -10,9 +10,10 @@ import styles from './VideoElement.module.scss';
 
 interface Props extends RenderElementProps {
     element: VideoNode;
+    mode: 'iframe' | 'thumbnail';
 }
 
-export function VideoElement({ attributes, children, element }: Props) {
+export function VideoElement({ attributes, children, element, mode }: Props) {
     const { url, oembed } = element;
     const [isHtmlEmbeddedWithErrors, setHtmlEmbeddedWithErrors] = useState<boolean>(false);
 
@@ -25,7 +26,10 @@ export function VideoElement({ attributes, children, element }: Props) {
             renderAboveFrame={children}
             renderReadOnlyFrame={() => (
                 <div className={styles.Container}>
-                    {!isHtmlEmbeddedWithErrors && oembed.type === 'video' && oembed.html ? (
+                    {!isHtmlEmbeddedWithErrors &&
+                    oembed.type === 'video' &&
+                    oembed.html &&
+                    mode === 'iframe' ? (
                         <HtmlInjection
                             html={oembed.html}
                             onError={() => setHtmlEmbeddedWithErrors(true)}
