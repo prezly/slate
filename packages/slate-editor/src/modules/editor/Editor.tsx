@@ -29,6 +29,7 @@ import { ReactEditor, Slate } from 'slate-react';
 
 import { useFunction, useSize } from '#lib';
 
+import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
@@ -573,6 +574,8 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     renderElementDeps={[availableWidth]}
                     style={contentStyle}
                 />
+
+                <FlashNodes containerRef={containerRef} />
 
                 {!hasCustomPlaceholder && (
                     <Placeholder className="editor-placeholder">{placeholder}</Placeholder>

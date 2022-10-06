@@ -41,9 +41,16 @@ export function useFloatingSnippetInput(editor: Editor): [State, Actions] {
         close();
 
         try {
+            if (!editor.selection) {
+                return;
+            }
+
             EditorCommands.insertNodes(editor, node.children);
+
+            editor.flash(node.children.at(0), node.children.at(-1));
             savedSelection.restore(editor, { focus: true });
         } catch (error) {
+            console.error(error);
             EventsEditor.dispatchEvent(editor, 'notification', {
                 children: 'Cannot insert snippet.',
                 type: 'error',
