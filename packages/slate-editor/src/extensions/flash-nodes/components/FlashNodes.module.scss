@@ -3,7 +3,7 @@
     position: absolute;
 
     animation-name: onInsertAnimation;
-    animation-duration: 0.8s;
+    animation-duration: 1s;
     animation-timing-function: linear;
     animation-delay: 0ms;
     animation-iteration-count: 1;
@@ -11,15 +11,11 @@
 
 @keyframes onInsertAnimation {
     0% {
-        opacity: 0;
-        background-color: #fff;
+        opacity: 1;
+        background-color: rgb(255, 251, 244);
     }
-    50% {
-        opacity: 0.5;
-        background-color: #fff6ce;
-    }
+
     100% {
         opacity: 0;
-        background-color: #fff;
     }
 }
