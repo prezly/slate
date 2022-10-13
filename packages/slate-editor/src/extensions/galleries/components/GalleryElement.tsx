@@ -30,7 +30,7 @@ export function GalleryElement({
         <EditorBlock
             {...attributes}
             element={element}
-            layout={element.layout}
+            layout={withWidthOption ? element.layout : undefined}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderReadOnlyFrame={() => (
