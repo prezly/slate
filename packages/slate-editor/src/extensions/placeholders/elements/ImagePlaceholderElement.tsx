@@ -133,5 +133,5 @@ function Description(props: { isLoading: boolean }) {
     if (props.isLoading) {
         return null;
     }
-    return <>Supported formats: jpg, gif or png (max 25MB)</>;
+    return <>Supported formats: JPG, GIF or PNG (max 25MB)</>;
 }

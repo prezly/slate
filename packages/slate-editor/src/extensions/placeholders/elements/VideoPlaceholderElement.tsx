@@ -126,7 +126,7 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
             description={Description}
             // Input
             inputTitle="Video"
-            inputDescription="Paste a video link and hit Enter"
+            inputDescription="Paste a video link or drop a video file (MP4, OGG or WEBM) inside this card"
             inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
             inputPlaceholder="https://youtube.com/video"
             inputAction="Add video"
@@ -145,12 +145,12 @@ function Title(props: { isDragOver: boolean; isLoading: boolean }) {
     if (props.isDragOver) {
         return <>Drop a video here</>;
     }
-    return <>Click to insert a video</>;
+    return <>Drag or click to upload a video</>;
 }
 
 function Description(props: { isLoading: boolean }) {
     if (props.isLoading) {
         return null;
     }
-    return <>Add a video link from Youtube, Vimeo or other source</>;
+    return <>Drop a video file (MP4, OGG or WEBM) or click to insert a video URL</>;
 }
