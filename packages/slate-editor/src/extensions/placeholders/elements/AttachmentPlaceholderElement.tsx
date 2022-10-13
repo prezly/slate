@@ -112,5 +112,5 @@ function Description(props: { isLoading: boolean }) {
     if (props.isLoading) {
         return null;
     }
-    return <>Supported formats: pdf, ppt, Keynote, zip, doc, and more (max 720MB)</>;
+    return <>Supported formats: PDF, PPT, Keynote, ZIP, DOC, and more (max 720MB)</>;
 }
