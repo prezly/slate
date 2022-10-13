@@ -2,6 +2,7 @@ import type { Extension } from '@prezly/slate-commons';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { noop } from 'lodash-es';
 
+import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { CoverageExtension } from '#extensions/coverage';
@@ -61,6 +62,7 @@ type Parameters = {
     onOperationStart?: () => void;
 } & Pick<
     Required<EditorProps>,
+    | 'withAllowedBlocks'
     | 'withAttachments'
     | 'withAutoformat'
     | 'withBlockquotes'
@@ -91,6 +93,7 @@ export function* getEnabledExtensions({
     onFloatingAddMenuToggle,
     onOperationEnd = noop,
     onOperationStart = noop,
+    withAllowedBlocks,
     withAttachments,
     withAutoformat,
     withBlockquotes,
@@ -245,6 +248,10 @@ export function* getEnabledExtensions({
 
     if (withTables) {
         yield TablesExtension({ createDefaultElement: createParagraph });
+    }
+
+    if (withAllowedBlocks) {
+        yield AllowedBlocksExtension(withAllowedBlocks);
     }
 
     yield LoaderExtension({ onOperationEnd, onOperationStart });
