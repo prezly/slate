@@ -113,8 +113,7 @@ export function GalleryMenu({ element, onEdit, onClose, withWidthOption }: Props
 
             <Toolbox.Section>
                 <InfoText>
-                    You can add, reorder, set the descriptions or crop your gallery images by
-                    clicking the{' '}
+                    You can add, reorder, crop and set descriptions for your images by clicking{' '}
                     <Button variant="underlined" onClick={() => onEdit(editor)}>
                         Edit
                     </Button>
