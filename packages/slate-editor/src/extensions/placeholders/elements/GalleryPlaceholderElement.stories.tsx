@@ -44,6 +44,7 @@ export function GalleryPlaceholder() {
             element={placeholder}
             newsroom={undefined}
             withCaptions
+            removable
         >
             {''}
         </GalleryPlaceholderElement>

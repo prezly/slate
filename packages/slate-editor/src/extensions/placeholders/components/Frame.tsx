@@ -51,11 +51,13 @@ export const Frame = forwardRef<HTMLDivElement, Props>(
                 ref={forwardedRef}
             >
                 <div className={styles.Progress} style={{ width: progressPercentage }} />
-                <CloseButton
-                    className={styles.CloseButton}
-                    onClick={onRemove}
-                    title="Remove this block"
-                />
+                {onRemove && (
+                    <CloseButton
+                        className={styles.CloseButton}
+                        onClick={onRemove}
+                        title="Remove this block"
+                    />
+                )}
                 {children}
             </div>
         );

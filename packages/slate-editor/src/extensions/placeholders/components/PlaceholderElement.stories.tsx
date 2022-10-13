@@ -47,6 +47,7 @@ export function Default() {
             icon={PlaceholderAttachment}
             title="Click to upload an attachment"
             description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
+            removable
         >
             {''}
         </PlaceholderElement>
@@ -62,6 +63,7 @@ export function DropZone() {
             title="Drag or click to upload an attachment"
             description="Supported formats: pdf, .ppt, Keynote, .zip, .doc, etc. - Max. 25MB"
             onDrop={() => null}
+            removable
         >
             {''}
         </PlaceholderElement>

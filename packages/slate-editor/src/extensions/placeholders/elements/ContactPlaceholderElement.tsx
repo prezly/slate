@@ -9,6 +9,7 @@ import { useFunction } from '#lib';
 import { EventsEditor } from '#modules/events';
 
 import { createPressContact } from '../../press-contacts';
+import type { Props as PlaceholderElementProps } from '../components/PlaceholderElement';
 import {
     type Props as BaseProps,
     SearchInputPlaceholderElement,
@@ -21,6 +22,7 @@ export function ContactPlaceholderElement({
     children,
     element,
     getSuggestions,
+    removable,
     renderEmpty,
     renderSuggestion,
     renderSuggestionsFooter,
@@ -71,6 +73,7 @@ export function ContactPlaceholderElement({
             inputDescription="Select a contact to insert"
             inputPlaceholder="Search for contacts"
             onSelect={handleSelect}
+            removable={removable}
         >
             {children}
         </SearchInputPlaceholderElement>
@@ -80,16 +83,17 @@ export function ContactPlaceholderElement({
 export namespace ContactPlaceholderElement {
     export interface Props
         extends Omit<
-            BaseProps<PressContact>,
-            | 'onSelect'
-            | 'icon'
-            | 'title'
-            | 'description'
-            | 'inputTitle'
-            | 'inputDescription'
-            | 'inputPlaceholder'
-            | 'renderSuggestions'
-        > {
+                BaseProps<PressContact>,
+                | 'onSelect'
+                | 'icon'
+                | 'title'
+                | 'description'
+                | 'inputTitle'
+                | 'inputDescription'
+                | 'inputPlaceholder'
+                | 'renderSuggestions'
+            >,
+            Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.CONTACT>;
         renderSuggestionsFooter?: BaseProps<PressContact>['renderSuggestions'];
     }

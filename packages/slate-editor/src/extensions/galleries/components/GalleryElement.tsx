@@ -14,15 +14,23 @@ interface Props extends RenderElementProps {
     availableWidth: number;
     element: GalleryNode;
     onEdit: (editor: Editor) => void;
+    withWidthOption: boolean;
 }
 
-export function GalleryElement({ availableWidth, attributes, children, element, onEdit }: Props) {
+export function GalleryElement({
+    availableWidth,
+    attributes,
+    children,
+    element,
+    onEdit,
+    withWidthOption,
+}: Props) {
     const [sizer, size] = useSize(Sizer, { width: availableWidth });
     return (
         <EditorBlock
             {...attributes}
             element={element}
-            layout={element.layout}
+            layout={withWidthOption ? element.layout : undefined}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderReadOnlyFrame={() => (
@@ -39,7 +47,12 @@ export function GalleryElement({ availableWidth, attributes, children, element, 
                 </>
             )}
             renderMenu={({ onClose }) => (
-                <GalleryMenu element={element} onEdit={onEdit} onClose={onClose} />
+                <GalleryMenu
+                    element={element}
+                    onEdit={onEdit}
+                    onClose={onClose}
+                    withWidthOption={withWidthOption}
+                />
             )}
             void
         />

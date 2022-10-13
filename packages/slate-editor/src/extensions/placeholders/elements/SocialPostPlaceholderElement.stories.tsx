@@ -48,6 +48,7 @@ export function SocialPostPlaceholder() {
             attributes={attributes}
             element={placeholder}
             fetchOembed={failOembed}
+            removable
         >
             {''}
         </SocialPostPlaceholderElement>

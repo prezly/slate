@@ -11,10 +11,12 @@ import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 import { type Props as PlaceholderProps, Placeholder } from './Placeholder';
+import type { Props as PlaceholderElementProps } from './PlaceholderElement';
 import { SearchInputPlaceholder } from './SearchInputPlaceholder';
 
 export type Props<T> = RenderElementProps &
     Pick<PlaceholderProps, 'icon' | 'title' | 'description' | 'format' | 'onDrop'> &
+    Pick<PlaceholderElementProps, 'removable'> &
     Pick<SearchInputPlaceholder.Props<T>, 'getSuggestions' | 'onSelect'> & {
         element: PlaceholderNode;
         // SearchInput
@@ -46,6 +48,7 @@ export function SearchInputPlaceholderElement<T>({
     icon,
     title,
     description,
+    removable,
     // Input
     getSuggestions,
     renderEmpty,
@@ -139,7 +142,7 @@ export function SearchInputPlaceholderElement<T>({
                         // Actions
                         onDragOver={handleDragOver}
                         onEsc={handleEscape}
-                        onRemove={handleRemove}
+                        onRemove={removable ? handleRemove : undefined}
                         onSelect={onSelect}
                     />
                 ) : (
@@ -159,7 +162,7 @@ export function SearchInputPlaceholderElement<T>({
                         onDragLeave={handleDragLeave}
                         onDrop={onDrop}
                         onMouseOver={handleMouseOver}
-                        onRemove={handleRemove}
+                        onRemove={removable ? handleRemove : undefined}
                     />
                 ))
             }

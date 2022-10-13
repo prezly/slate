@@ -5,6 +5,7 @@ import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
 import type { Editor, Element, Node } from 'slate';
 import type { Transforms } from 'slate';
 
+import type { AllowedBlocksExtensionConfiguration } from '#extensions/allowed-blocks';
 import type { AutoformatParameters } from '#extensions/autoformat';
 import type { CoverageExtensionConfiguration } from '#extensions/coverage';
 import type { EmbedExtensionConfiguration } from '#extensions/embed';
@@ -82,6 +83,7 @@ export interface EditorProps {
     readOnly?: boolean;
     style?: CSSProperties;
     withAlignmentControls: boolean;
+    withAllowedBlocks?: false | AllowedBlocksExtensionConfiguration;
     withAttachments?: boolean;
     withAutoformat?: boolean | AutoformatParameters;
     withBlockquotes?: boolean;

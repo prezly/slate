@@ -229,8 +229,8 @@ export function GallerySettings() {
 
                 <Toolbox.Section>
                     <InfoText>
-                        You can reorder and crop your gallery images in the{' '}
-                        <Button variant="underlined">preview</Button>
+                        You can add, reorder, crop and set descriptions for your images by clicking{' '}
+                        <Button variant="underlined">Edit</Button>
                     </InfoText>
                 </Toolbox.Section>
 

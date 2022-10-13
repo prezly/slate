@@ -39,7 +39,7 @@ export default {
 
 export function AttachmentPlaceholder() {
     return (
-        <AttachmentPlaceholderElement attributes={attributes} element={placeholder}>
+        <AttachmentPlaceholderElement attributes={attributes} element={placeholder} removable>
             {''}
         </AttachmentPlaceholderElement>
     );

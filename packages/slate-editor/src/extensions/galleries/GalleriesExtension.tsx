@@ -17,11 +17,16 @@ import {
 interface Parameters {
     availableWidth: number;
     onEdit: (editor: Editor) => void;
+    withWidthOption: boolean | undefined;
 }
 
 export const EXTENSION_ID = 'GalleriesExtension';
 
-export const GalleriesExtension = ({ availableWidth, onEdit }: Parameters): Extension => ({
+export const GalleriesExtension = ({
+    availableWidth,
+    onEdit,
+    withWidthOption = true,
+}: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({
@@ -37,6 +42,7 @@ export const GalleriesExtension = ({ availableWidth, onEdit }: Parameters): Exte
                 <GalleryElement
                     attributes={attributes}
                     availableWidth={availableWidth}
+                    withWidthOption={withWidthOption}
                     element={element}
                     onEdit={onEdit}
                 >

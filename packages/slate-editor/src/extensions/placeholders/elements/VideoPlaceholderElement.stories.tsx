@@ -48,6 +48,7 @@ export function VideoPlaceholder() {
             attributes={attributes}
             element={placeholder}
             fetchOembed={failOembed}
+            removable
         >
             {''}
         </VideoPlaceholderElement>

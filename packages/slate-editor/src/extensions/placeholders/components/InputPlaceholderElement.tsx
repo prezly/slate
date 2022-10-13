@@ -10,9 +10,11 @@ import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersMa
 
 import { type Props as InputPlaceholderProps, InputPlaceholder } from './InputPlaceholder';
 import { type Props as PlaceholderProps, Placeholder } from './Placeholder';
+import type { Props as PlaceholderElementProps } from './PlaceholderElement';
 
 export type Props = RenderElementProps &
-    Pick<PlaceholderProps, 'icon' | 'title' | 'description' | 'format' | 'onDrop'> & {
+    Pick<PlaceholderProps, 'icon' | 'title' | 'description' | 'format' | 'onDrop'> &
+    Pick<PlaceholderElementProps, 'removable'> & {
         element: PlaceholderNode;
         inputTitle: InputPlaceholderProps['title'];
         inputDescription: InputPlaceholderProps['description'];
@@ -33,6 +35,7 @@ export function InputPlaceholderElement({
     icon,
     title,
     description,
+    removable,
     // Input
     inputTitle,
     inputDescription,
@@ -110,7 +113,7 @@ export function InputPlaceholderElement({
                         action={inputAction}
                         onDragOver={handleDragOver}
                         onEsc={handleEscape}
-                        onRemove={handleRemove}
+                        onRemove={removable ? handleRemove : undefined}
                         onSubmit={onSubmit}
                     />
                 ) : (
@@ -131,7 +134,7 @@ export function InputPlaceholderElement({
                         onDragLeave={handleDragLeave}
                         onDrop={onDrop}
                         onMouseOver={handleMouseOver}
-                        onRemove={handleRemove}
+                        onRemove={removable ? handleRemove : undefined}
                     />
                 )
             }
