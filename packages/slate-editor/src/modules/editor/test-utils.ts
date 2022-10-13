@@ -18,7 +18,7 @@ export function getAllExtensions() {
             availableWidth: 1000,
             onFloatingAddMenuToggle: noop,
             withAllowedBlocks: {
-                blocks: [],
+                check: () => true,
             },
             withAttachments: true,
             withAutoformat: true,

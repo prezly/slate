@@ -1,12 +1,11 @@
-import type { ElementNode } from '@prezly/slate-types';
-
-type DefaultBlockFn = () => ElementNode;
-
-export interface Block {
-    types: string[];
-    defaultBlockFn: DefaultBlockFn;
-}
+import type { Node, Path } from 'slate';
 
 export interface AllowedBlocksExtensionConfiguration {
-    blocks: Block[];
+    /**
+     * @returns {Node|boolean}
+     *  - TRUE, keeping the current node
+     *  - FALSE, removing the current node
+     *  - Node, replacing the current node
+     */
+    check: (node: Node, path: Path) => boolean | Node;
 }
