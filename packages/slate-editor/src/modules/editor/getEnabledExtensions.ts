@@ -182,6 +182,7 @@ export function* getEnabledExtensions({
         yield GalleriesExtension({
             availableWidth,
             onEdit: createHandleEditGallery(withGalleries),
+            withWidthOption: withGalleries.withWidthOption,
         });
     }
 

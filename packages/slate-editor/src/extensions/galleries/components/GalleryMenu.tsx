@@ -84,9 +84,10 @@ interface Props {
     element: GalleryNode;
     onEdit: (editor: Editor) => void;
     onClose: () => void;
+    withWidthOption: boolean;
 }
 
-export function GalleryMenu({ element, onEdit, onClose }: Props) {
+export function GalleryMenu({ element, onEdit, onClose, withWidthOption }: Props) {
     const editor = useSlate();
 
     function handleShuffle() {
@@ -112,21 +113,24 @@ export function GalleryMenu({ element, onEdit, onClose }: Props) {
 
             <Toolbox.Section>
                 <InfoText>
-                    You can reorder and crop your gallery images in the{' '}
+                    You can add, reorder, set the descriptions or crop your gallery images by
+                    clicking the{' '}
                     <Button variant="underlined" onClick={() => onEdit(editor)}>
-                        preview
+                        Edit
                     </Button>
                 </InfoText>
             </Toolbox.Section>
 
-            <Toolbox.Section caption="Gallery width">
-                <OptionsGroup<GalleryLayout>
-                    name="layout"
-                    options={LAYOUT_OPTIONS}
-                    selectedValue={element.layout}
-                    onChange={(layout) => updateGallery(editor, { layout })}
-                />
-            </Toolbox.Section>
+            {withWidthOption && (
+                <Toolbox.Section caption="Gallery width">
+                    <OptionsGroup<GalleryLayout>
+                        name="layout"
+                        options={LAYOUT_OPTIONS}
+                        selectedValue={element.layout}
+                        onChange={(layout) => updateGallery(editor, { layout })}
+                    />
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Section caption="Image size">
                 <OptionsGroup<GalleryImageSize>
