@@ -13,6 +13,7 @@ import { type Props as BaseProps, Placeholder } from './Placeholder';
 export type Props = RenderElementProps &
     Pick<BaseProps, 'icon' | 'title' | 'description' | 'format' | 'onClick' | 'onDrop'> & {
         element: PlaceholderNode;
+        removable: boolean;
     };
 
 export function PlaceholderElement({
@@ -25,6 +26,7 @@ export function PlaceholderElement({
     icon,
     title,
     description,
+    removable,
     // Callbacks
     onClick,
     onDrop,
@@ -73,7 +75,7 @@ export function PlaceholderElement({
                     progress={progress ?? isLoading}
                     // Callbacks
                     onClick={isLoading ? undefined : onClick}
-                    onRemove={handleRemove}
+                    onRemove={removable ? handleRemove : undefined}
                     onDragOver={handleDragOver}
                     onDragLeave={handleDragLeave}
                     onDrop={onDrop}

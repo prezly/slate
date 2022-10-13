@@ -22,6 +22,7 @@ export const EXTENSION_ID = 'PlaceholdersExtension';
 const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
 
 export interface Parameters {
+    removable?: boolean;
     withAttachmentPlaceholders?: boolean;
     withContactPlaceholders?:
         | false
@@ -57,7 +58,10 @@ export function PlaceholdersExtension({
     withSocialPostPlaceholders = false,
     withWebBookmarkPlaceholders = false,
     withVideoPlaceholders = false,
+    ...parameters
 }: Parameters = {}): Extension {
+    const removable = parameters.removable ?? true;
+
     return {
         id: EXTENSION_ID,
         isRichBlock: PlaceholderNode.isPlaceholderNode,
@@ -82,7 +86,11 @@ export function PlaceholdersExtension({
                 isPlaceholderNode(element, PlaceholderNode.Type.ATTACHMENT)
             ) {
                 return (
-                    <AttachmentPlaceholderElement attributes={attributes} element={element}>
+                    <AttachmentPlaceholderElement
+                        attributes={attributes}
+                        element={element}
+                        removable={removable}
+                    >
                         {children}
                     </AttachmentPlaceholderElement>
                 );
@@ -96,6 +104,7 @@ export function PlaceholdersExtension({
                         {...withContactPlaceholders}
                         attributes={attributes}
                         element={element}
+                        removable={removable}
                     >
                         {children}
                     </ContactPlaceholderElement>
@@ -110,6 +119,7 @@ export function PlaceholdersExtension({
                         {...withCoveragePlaceholders}
                         attributes={attributes}
                         element={element}
+                        removable={removable}
                     >
                         {children}
                     </CoveragePlaceholderElement>
@@ -121,6 +131,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         fetchOembed={withEmbedPlaceholders.fetchOembed}
+                        removable={removable}
                     >
                         {children}
                     </EmbedPlaceholderElement>
@@ -136,6 +147,7 @@ export function PlaceholdersExtension({
                         element={element}
                         newsroom={newsroom}
                         withCaptions={withCaptions}
+                        removable={removable}
                     >
                         {children}
                     </ImagePlaceholderElement>
@@ -153,6 +165,7 @@ export function PlaceholdersExtension({
                         element={element}
                         newsroom={newsroom}
                         withCaptions
+                        removable={removable}
                     >
                         {children}
                     </GalleryPlaceholderElement>
@@ -167,6 +180,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         fetchOembed={withSocialPostPlaceholders.fetchOembed}
+                        removable={removable}
                     >
                         {children}
                     </SocialPostPlaceholderElement>
@@ -178,6 +192,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         fetchOembed={withVideoPlaceholders.fetchOembed}
+                        removable={removable}
                     >
                         {children}
                     </VideoPlaceholderElement>
@@ -192,6 +207,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         fetchOembed={withWebBookmarkPlaceholders.fetchOembed}
+                        removable={removable}
                     >
                         {children}
                     </WebBookmarkPlaceholderElement>
