@@ -58,6 +58,7 @@ export function Default() {
                 console.log('Submitted: ', { value });
                 PlaceholdersManager.deactivateAll();
             }}
+            removable
         >
             {''}
         </InputPlaceholderElement>

@@ -48,6 +48,7 @@ export function EmbedPlaceholder() {
             attributes={attributes}
             element={placeholder}
             fetchOembed={failOembed}
+            removable
         >
             {''}
         </EmbedPlaceholderElement>

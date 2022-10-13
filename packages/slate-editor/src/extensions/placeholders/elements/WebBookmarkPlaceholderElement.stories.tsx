@@ -48,6 +48,7 @@ export function WebBookmarkPlaceholder() {
             attributes={attributes}
             element={placeholder}
             fetchOembed={failOembed}
+            removable
         >
             {''}
         </WebBookmarkPlaceholderElement>

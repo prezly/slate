@@ -44,6 +44,7 @@ export function ImagePlaceholder() {
             element={placeholder}
             newsroom={undefined}
             withCaptions
+            removable
         >
             {''}
         </ImagePlaceholderElement>

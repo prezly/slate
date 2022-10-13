@@ -123,6 +123,7 @@ export function ContactPlaceholder() {
                     <a href="#">Edit Newsroom Contacts</a>
                 </div>
             )}
+            removable
         >
             {''}
         </ContactPlaceholderElement>
