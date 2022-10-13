@@ -29,9 +29,9 @@ import { ReactEditor, Slate } from 'slate-react';
 
 import { useFunction, useSize } from '#lib';
 
-import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
 import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
+import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
 import type { Option } from '#extensions/floating-add-menu';
 import { LoaderContentType } from '#extensions/loader';
