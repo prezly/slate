@@ -1,10 +1,9 @@
-import { EditorCommands, Selection } from '@prezly/slate-commons';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 
 import type { ImageExtensionConfiguration } from '#extensions/image';
-import { createImage, getCurrentImageNodeEntry, removeImage } from '#extensions/image';
+import { createImage, getCurrentImageNodeEntry } from '#extensions/image';
 import { LoaderContentType } from '#extensions/loader';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
@@ -34,12 +33,6 @@ export function createImageReplaceHandler(params: ImageExtensionConfiguration) {
             return;
         }
 
-        removeImage(editor);
-        EditorCommands.insertEmptyParagraph(editor, {
-            at: editor.selection ? Selection.highest(editor.selection) : undefined,
-            select: true,
-        });
-
         const imageFileInfo = await insertUploadingFile<PrezlyFileInfo>(editor, {
             createElement(fileInfo) {
                 const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
@@ -53,7 +46,6 @@ export function createImageReplaceHandler(params: ImageExtensionConfiguration) {
                     width: imageElement.width,
                 });
             },
-            ensureEmptyParagraphAfter: false,
             filePromise: toProgressPromise(filePromises[0]),
             loaderContentType: LoaderContentType.IMAGE,
             loaderMessage: 'Uploading Image',

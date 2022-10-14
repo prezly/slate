@@ -37,7 +37,6 @@ export function createHandleAddGallery(config: GalleriesExtensionConfiguration) 
                 });
                 return createGallery({ images });
             },
-            ensureEmptyParagraphAfter: true,
             filePromise: awaitUploads(filePromises).then(({ failedUploads, successfulUploads }) => {
                 failedUploads.forEach((error) => {
                     EventsEditor.dispatchEvent(editor, 'error', error);

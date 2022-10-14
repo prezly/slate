@@ -36,7 +36,6 @@ export function createImageAddHandler(params: ImageExtensionConfiguration) {
                             children: [{ text: caption }],
                         });
                     },
-                    ensureEmptyParagraphAfter: true,
                     filePromise: toProgressPromise(filePromise),
                     loaderContentType: LoaderContentType.IMAGE,
                     loaderMessage: 'Uploading Image',

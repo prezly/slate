@@ -1,6 +1,7 @@
 import type { ProgressPromise } from '@prezly/progress-promise';
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, Element } from 'slate';
+import type { Editor, Element} from 'slate';
+import { Transforms } from 'slate';
 
 import type { LoaderContentType } from '#extensions/loader';
 import {
@@ -15,10 +16,10 @@ import { UPLOAD_SINGLE_FILE_ERROR_MESSAGE } from '#modules/uploadcare';
 
 interface Parameters<T> {
     createElement: (file: T) => Element;
-    ensureEmptyParagraphAfter: boolean;
     filePromise: ProgressPromise<T, any>;
     loaderContentType: LoaderContentType;
     loaderMessage: string;
+    mode?: 'insert' | 'replace';
 }
 
 function isValidFile<T>(file: T | null): file is T {
@@ -29,17 +30,25 @@ export async function insertUploadingFile<T>(
     editor: Editor,
     {
         createElement,
-        ensureEmptyParagraphAfter,
         filePromise,
         loaderContentType,
         loaderMessage,
+        mode = 'replace',
     }: Parameters<T>,
 ): Promise<T | null> {
     const loader = createLoader({
         contentType: loaderContentType,
         message: loaderMessage,
     });
-    EditorCommands.insertNodes(editor, [loader], { ensureEmptyParagraphAfter });
+
+    if (mode === 'insert') {
+        EditorCommands.insertNodes(editor, [loader], { ensureEmptyParagraphAfter: true });
+    }
+    
+    if (mode ==='replace') {
+        Transforms.setNodes(editor, loader);
+    }
+
     loaderPromiseManager.track(loader.id, filePromise);
 
     let file: T | null = null;
@@ -72,7 +81,7 @@ export async function insertUploadingFile<T>(
     }
 
     const element = createElement(file);
-    replaceLoader(editor, loader, element);
+    replaceLoader(editor, loader, element, mode === 'replace');
 
     return file;
 }

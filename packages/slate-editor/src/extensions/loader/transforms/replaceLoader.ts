@@ -1,16 +1,13 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import { type Element, Editor } from 'slate';
 import { Transforms } from 'slate';
 
 import { findLoaderPath, isLoaderElement } from '../lib';
 import type { LoaderNode } from '../types';
 
-export function replaceLoader(editor: Editor, loader: LoaderNode, element: Element): void {
+export function replaceLoader(editor: Editor, loader: LoaderNode, element: Element, shouldFocus = true): void {
     const loaderPath = findLoaderPath(editor, loader.id);
 
     if (!loaderPath) return;
-
-    const wasSelected = EditorCommands.isTopLevelNodeSelected(editor, loader);
 
     Editor.withoutNormalizing(editor, () => {
         Transforms.removeNodes(editor, {
@@ -23,6 +20,8 @@ export function replaceLoader(editor: Editor, loader: LoaderNode, element: Eleme
             mode: 'highest',
         });
 
-        if (wasSelected) Transforms.select(editor, loaderPath);
+        if (shouldFocus) {
+            Transforms.select(editor, loaderPath);
+        }
     });
 }

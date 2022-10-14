@@ -102,12 +102,12 @@ export function withFilePasting(getExtensions: () => Extension[]) {
                             UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
                         return createFileAttachment(attachment.toPrezlyStoragePayload(), caption);
                     },
-                    ensureEmptyParagraphAfter: true,
                     filePromise: toProgressPromise(uploadcare.fileFrom('object', file)),
                     loaderContentType: isImage
                         ? LoaderContentType.IMAGE
                         : LoaderContentType.ATTACHMENT,
                     loaderMessage: isImage ? 'Uploading Image' : 'Uploading Attachment',
+                    mode: 'insert',
                 });
 
                 if (!uploadedFileInfo) {

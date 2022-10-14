@@ -1,10 +1,9 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
-import { createGallery, getCurrentGalleryNodeEntry, removeGallery } from '#extensions/galleries';
+import { createGallery, getCurrentGalleryNodeEntry } from '#extensions/galleries';
 import { LoaderContentType } from '#extensions/loader';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
@@ -41,9 +40,6 @@ export function createHandleEditGallery(config: GalleriesExtensionConfiguration)
             return;
         }
 
-        removeGallery(editor);
-        EditorCommands.insertEmptyParagraph(editor);
-
         await insertUploadingFile<PrezlyFileInfo[]>(editor, {
             createElement: (fileInfos) => {
                 const images = fileInfos.map((fileInfo) => {
@@ -55,7 +51,6 @@ export function createHandleEditGallery(config: GalleriesExtensionConfiguration)
                 });
                 return createGallery({ ...gallery, images });
             },
-            ensureEmptyParagraphAfter: true,
             filePromise: awaitUploads(filePromises).then(({ failedUploads, successfulUploads }) => {
                 failedUploads.forEach((error) => {
                     EventsEditor.dispatchEvent(editor, 'error', error);
