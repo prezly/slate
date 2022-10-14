@@ -1,6 +1,6 @@
 import type { ProgressPromise } from '@prezly/progress-promise';
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, Element} from 'slate';
+import type { Editor, Element } from 'slate';
 import { Transforms } from 'slate';
 
 import type { LoaderContentType } from '#extensions/loader';
@@ -44,8 +44,8 @@ export async function insertUploadingFile<T>(
     if (mode === 'insert') {
         EditorCommands.insertNodes(editor, [loader], { ensureEmptyParagraphAfter: true });
     }
-    
-    if (mode ==='replace') {
+
+    if (mode === 'replace') {
         Transforms.setNodes(editor, loader);
     }
 

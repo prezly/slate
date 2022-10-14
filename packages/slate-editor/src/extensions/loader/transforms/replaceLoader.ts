@@ -4,7 +4,12 @@ import { Transforms } from 'slate';
 import { findLoaderPath, isLoaderElement } from '../lib';
 import type { LoaderNode } from '../types';
 
-export function replaceLoader(editor: Editor, loader: LoaderNode, element: Element, shouldFocus = true): void {
+export function replaceLoader(
+    editor: Editor,
+    loader: LoaderNode,
+    element: Element,
+    shouldFocus = true,
+): void {
     const loaderPath = findLoaderPath(editor, loader.id);
 
     if (!loaderPath) return;
