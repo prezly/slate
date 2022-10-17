@@ -21,10 +21,10 @@ export {
     createPressContact,
     JobDescription,
 } from './extensions/press-contacts';
-import type { FlashEditor } from './extensions/flash-nodes';
 export type { User } from './extensions/user-mentions';
 export { type ResultPromise, type UploadcareOptions, withUploadcare } from './modules/uploadcare';
 
+import type { FlashEditor } from './extensions/flash-nodes';
 import type {
     DefaultTextBlockEditor,
     RichBlocksAwareEditor,
