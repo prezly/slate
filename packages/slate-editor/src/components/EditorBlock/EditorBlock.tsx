@@ -12,6 +12,8 @@ import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import { NewParagraphDelimiter } from '#components';
 import { useFunction, useSlateDom } from '#lib';
 
+import { usePopperOptionsContext } from '#modules/popper-options-context';
+
 import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
 import { Overlay } from './Overlay';
@@ -93,6 +95,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         Array.from(Editor.nodes(editor, { match: EditorCommands.isTopLevelNode })).length === 1;
     const isSelected = selected ?? isNodeSelected;
     const isOverlayEnabled = overlay === 'always' || (overlay === 'autohide' && !isSelected);
+    const popperOptions = usePopperOptionsContext();
 
     const [menuOpen, setMenuOpen] = useState(true);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
@@ -161,7 +164,12 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 style={{ width }}
             >
                 {isOnlyBlockSelected && renderMenu && container && editorElement && menuOpen && (
-                    <Menu className={styles.Menu} reference={container} onClick={preventBubbling}>
+                    <Menu
+                        className={styles.Menu}
+                        onClick={preventBubbling}
+                        popperOptions={popperOptions}
+                        reference={container}
+                    >
                         {renderMenu({ onClose: closeMenu })}
                     </Menu>
                 )}

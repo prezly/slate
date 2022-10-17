@@ -51,6 +51,7 @@ import { FloatingStoryEmbedInput, FloatingSnippetInput, Placeholder } from '#mod
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
 import { EventsEditor } from '#modules/events';
+import { PopperOptionsContext } from '#modules/popper-options-context';
 import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
@@ -88,6 +89,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         onKeyDown = noop,
         placeholder,
         plugins,
+        popperMenuOptions = {},
         readOnly,
         style,
         withAlignmentControls,
@@ -529,216 +531,218 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     return (
-        <div
-            id={id}
-            className={classNames(styles.Editor, className)}
-            ref={containerRef}
-            style={style}
-        >
-            {sizer}
-            <Slate
-                editor={editor}
-                onChange={(newValue) => {
-                    /**
-                     * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
-                     *
-                     * The top-level editor node can only contain block nodes. If any of the top-level
-                     * children are inline or text nodes they will be removed. This ensures that there
-                     * are always block nodes in the editor so that behaviors like "splitting a block
-                     * in two" work as expected.
-                     */
-                    onChange(newValue as Element[]);
-                    variables.onChange(editor);
-                    userMentions.onChange(editor);
-                }}
-                value={initialValue}
+        <PopperOptionsContext.Provider value={popperMenuOptions}>
+            <div
+                id={id}
+                className={classNames(styles.Editor, className)}
+                ref={containerRef}
+                style={style}
             >
-                <EditableWithExtensions
-                    className={classNames(styles.Editable, {
-                        [styles.withEntryPoints]: withEntryPointsAroundBlocks,
-                    })}
-                    decorate={decorate}
+                {sizer}
+                <Slate
                     editor={editor}
-                    extensions={extensions}
-                    onCut={createOnCut(editor)}
-                    onKeyDown={onKeyDownList}
-                    onKeyDownDeps={[
-                        userMentions.index,
-                        userMentions.query,
-                        userMentions.target,
-                        withUserMentions,
-                        variables.index,
-                        variables.query,
-                        variables.target,
-                        withVariables,
-                    ]}
-                    readOnly={readOnly}
-                    renderElementDeps={[availableWidth]}
-                    style={contentStyle}
-                />
-
-                <FlashNodes containerRef={containerRef} />
-
-                {!hasCustomPlaceholder && (
-                    <Placeholder className="editor-placeholder">{placeholder}</Placeholder>
-                )}
-
-                {withFloatingAddMenu && (
-                    <FloatingAddMenu
-                        tooltip={
-                            typeof withFloatingAddMenu === 'object'
-                                ? withFloatingAddMenu.tooltip
-                                : undefined
-                        }
-                        open={isFloatingAddMenuOpen}
-                        availableWidth={availableWidth}
-                        containerRef={containerRef}
-                        onActivate={handleMenuAction}
-                        onFilter={handleMenuFilter}
-                        onToggle={(toggle) => onFloatingAddMenuToggle(toggle, 'click')}
-                        options={menuOptions}
-                        showTooltipByDefault={EditorCommands.isEmpty(editor)}
+                    onChange={(newValue) => {
+                        /**
+                         * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
+                         *
+                         * The top-level editor node can only contain block nodes. If any of the top-level
+                         * children are inline or text nodes they will be removed. This ensures that there
+                         * are always block nodes in the editor so that behaviors like "splitting a block
+                         * in two" work as expected.
+                         */
+                        onChange(newValue as Element[]);
+                        variables.onChange(editor);
+                        userMentions.onChange(editor);
+                    }}
+                    value={initialValue}
+                >
+                    <EditableWithExtensions
+                        className={classNames(styles.Editable, {
+                            [styles.withEntryPoints]: withEntryPointsAroundBlocks,
+                        })}
+                        decorate={decorate}
+                        editor={editor}
+                        extensions={extensions}
+                        onCut={createOnCut(editor)}
+                        onKeyDown={onKeyDownList}
+                        onKeyDownDeps={[
+                            userMentions.index,
+                            userMentions.query,
+                            userMentions.target,
+                            withUserMentions,
+                            variables.index,
+                            variables.query,
+                            variables.target,
+                            withVariables,
+                        ]}
+                        readOnly={readOnly}
+                        renderElementDeps={[availableWidth]}
+                        style={contentStyle}
                     />
-                )}
 
-                {withVariables && (
-                    <VariablesDropdown
-                        index={variables.index}
-                        onOptionClick={(option) => variables.onAdd(editor, option)}
-                        options={variables.options}
-                        target={variables.target}
-                    />
-                )}
+                    <FlashNodes containerRef={containerRef} />
 
-                {withUserMentions && (
-                    <UserMentionsDropdown
-                        index={userMentions.index}
-                        onOptionClick={(option) => userMentions.onAdd(editor, option)}
-                        options={userMentions.options}
-                        target={userMentions.target}
-                    />
-                )}
+                    {!hasCustomPlaceholder && (
+                        <Placeholder className="editor-placeholder">{placeholder}</Placeholder>
+                    )}
 
-                {withRichFormattingMenu && (
-                    <RichFormattingMenu
-                        availableWidth={availableWidth}
-                        containerElement={containerRef.current}
-                        defaultAlignment={align ?? Alignment.LEFT}
-                        withAlignment={withAlignmentControls}
-                        withBlockquotes={withBlockquotes}
-                        withHeadings={withHeadings}
-                        withInlineLinks={withInlineLinks}
-                        withLists={withLists}
-                        withNewTabOption={Boolean(
-                            typeof withRichFormattingMenu === 'object'
-                                ? withRichFormattingMenu.withNewTabOption
-                                : false,
-                        )}
-                        withParagraphs
-                    />
-                )}
+                    {withFloatingAddMenu && (
+                        <FloatingAddMenu
+                            tooltip={
+                                typeof withFloatingAddMenu === 'object'
+                                    ? withFloatingAddMenu.tooltip
+                                    : undefined
+                            }
+                            open={isFloatingAddMenuOpen}
+                            availableWidth={availableWidth}
+                            containerRef={containerRef}
+                            onActivate={handleMenuAction}
+                            onFilter={handleMenuFilter}
+                            onToggle={(toggle) => onFloatingAddMenuToggle(toggle, 'click')}
+                            options={menuOptions}
+                            showTooltipByDefault={EditorCommands.isEmpty(editor)}
+                        />
+                    )}
 
-                {withVideos && isFloatingVideoInputOpen && (
-                    <FloatingVideoInput
-                        availableWidth={availableWidth}
-                        containerRef={containerRef}
-                        onClose={closeFloatingVideoInput}
-                        onRootClose={rootCloseFloatingVideoInput}
-                        onSubmit={submitFloatingVideoInput}
-                        submitButtonLabel={videoSubmitButtonLabel}
-                    />
-                )}
+                    {withVariables && (
+                        <VariablesDropdown
+                            index={variables.index}
+                            onOptionClick={(option) => variables.onAdd(editor, option)}
+                            options={variables.options}
+                            target={variables.target}
+                        />
+                    )}
 
-                {withWebBookmarks && isFloatingWebBookmarkInputOpen && (
-                    <FloatingWebBookmarkInput
-                        availableWidth={availableWidth}
-                        containerRef={containerRef}
-                        onClose={closeFloatingWebBookmarkInput}
-                        onRootClose={rootCloseFloatingWebBookmarkInput}
-                        onSubmit={submitFloatingWebBookmarkInput}
-                        submitButtonLabel={webBookmarkSubmitButtonLabel}
-                    />
-                )}
+                    {withUserMentions && (
+                        <UserMentionsDropdown
+                            index={userMentions.index}
+                            onOptionClick={(option) => userMentions.onAdd(editor, option)}
+                            options={userMentions.options}
+                            target={userMentions.target}
+                        />
+                    )}
 
-                {withCoverage && isFloatingCoverageMenuOpen && (
-                    <FloatingCoverageMenu
-                        availableWidth={availableWidth}
-                        containerRef={containerRef}
-                        onClose={closeFloatingCoverageMenu}
-                        onRootClose={rootCloseFloatingCoverageMenu}
-                        onSubmit={submitFloatingCoverageMenu}
-                        renderSearch={withCoverage.renderSearch}
-                    />
-                )}
+                    {withRichFormattingMenu && (
+                        <RichFormattingMenu
+                            availableWidth={availableWidth}
+                            containerElement={containerRef.current}
+                            defaultAlignment={align ?? Alignment.LEFT}
+                            withAlignment={withAlignmentControls}
+                            withBlockquotes={withBlockquotes}
+                            withHeadings={withHeadings}
+                            withInlineLinks={withInlineLinks}
+                            withLists={withLists}
+                            withNewTabOption={Boolean(
+                                typeof withRichFormattingMenu === 'object'
+                                    ? withRichFormattingMenu.withNewTabOption
+                                    : false,
+                            )}
+                            withParagraphs
+                        />
+                    )}
 
-                {withEmbeds && isFloatingEmbedInputOpen && (
-                    <FloatingEmbedInput
-                        availableWidth={availableWidth}
-                        containerRef={containerRef}
-                        onClose={closeFloatingEmbedInput}
-                        onRootClose={rootCloseFloatingEmbedInput}
-                        onSubmit={submitFloatingEmbedInput}
-                        submitButtonLabel={embedSubmitButtonLabel}
-                    />
-                )}
+                    {withVideos && isFloatingVideoInputOpen && (
+                        <FloatingVideoInput
+                            availableWidth={availableWidth}
+                            containerRef={containerRef}
+                            onClose={closeFloatingVideoInput}
+                            onRootClose={rootCloseFloatingVideoInput}
+                            onSubmit={submitFloatingVideoInput}
+                            submitButtonLabel={videoSubmitButtonLabel}
+                        />
+                    )}
 
-                {withStoryEmbeds && isFloatingStoryEmbedInputOpen && (
-                    <FloatingStoryEmbedInput
-                        availableWidth={availableWidth}
-                        containerRef={containerRef}
-                        onClose={closeFloatingStoryEmbedInput}
-                        onRootClose={rootCloseFloatingStoryEmbedInput}
-                        renderInput={() =>
-                            withStoryEmbeds.renderInput({
-                                onSubmit: submitFloatingStoryEmbedInput,
-                                onClose: closeFloatingStoryEmbedInput,
-                            })
-                        }
-                    />
-                )}
+                    {withWebBookmarks && isFloatingWebBookmarkInputOpen && (
+                        <FloatingWebBookmarkInput
+                            availableWidth={availableWidth}
+                            containerRef={containerRef}
+                            onClose={closeFloatingWebBookmarkInput}
+                            onRootClose={rootCloseFloatingWebBookmarkInput}
+                            onSubmit={submitFloatingWebBookmarkInput}
+                            submitButtonLabel={webBookmarkSubmitButtonLabel}
+                        />
+                    )}
 
-                {withStoryBookmarks && isFloatingStoryBookmarkInputOpen && (
-                    <FloatingStoryEmbedInput
-                        availableWidth={availableWidth}
-                        containerRef={containerRef}
-                        onClose={closeFloatingStoryBookmarkInput}
-                        onRootClose={rootCloseFloatingStoryBookmarkInput}
-                        renderInput={() =>
-                            withStoryBookmarks.renderInput({
-                                onCreate: submitFloatingStoryBookmarkInput,
-                                onRemove: closeFloatingStoryBookmarkInput,
-                            })
-                        }
-                    />
-                )}
+                    {withCoverage && isFloatingCoverageMenuOpen && (
+                        <FloatingCoverageMenu
+                            availableWidth={availableWidth}
+                            containerRef={containerRef}
+                            onClose={closeFloatingCoverageMenu}
+                            onRootClose={rootCloseFloatingCoverageMenu}
+                            onSubmit={submitFloatingCoverageMenu}
+                            renderSearch={withCoverage.renderSearch}
+                        />
+                    )}
 
-                {withSnippets && isFloatingSnippetInputOpen && (
-                    <FloatingSnippetInput
-                        availableWidth={availableWidth}
-                        containerRef={containerRef}
-                        onClose={closeFloatingSnippetInput}
-                        onRootClose={rootCloseFloatingSnippetInput}
-                        renderInput={() =>
-                            withSnippets.renderInput({
-                                onCreate: submitFloatingSnippetInput,
-                            })
-                        }
-                    />
-                )}
+                    {withEmbeds && isFloatingEmbedInputOpen && (
+                        <FloatingEmbedInput
+                            availableWidth={availableWidth}
+                            containerRef={containerRef}
+                            onClose={closeFloatingEmbedInput}
+                            onRootClose={rootCloseFloatingEmbedInput}
+                            onSubmit={submitFloatingEmbedInput}
+                            submitButtonLabel={embedSubmitButtonLabel}
+                        />
+                    )}
 
-                {withPressContacts && isFloatingPressContactsMenuOpen && (
-                    <FloatingPressContactsMenu
-                        availableWidth={availableWidth}
-                        containerRef={containerRef}
-                        events={events}
-                        onClose={closeFloatingPressContactsMenu}
-                        onRootClose={rootCloseFloatingPressContactsMenu}
-                        onSubmit={submitFloatingPressContactsMenu}
-                        renderSearch={withPressContacts.renderSearch}
-                    />
-                )}
-            </Slate>
-        </div>
+                    {withStoryEmbeds && isFloatingStoryEmbedInputOpen && (
+                        <FloatingStoryEmbedInput
+                            availableWidth={availableWidth}
+                            containerRef={containerRef}
+                            onClose={closeFloatingStoryEmbedInput}
+                            onRootClose={rootCloseFloatingStoryEmbedInput}
+                            renderInput={() =>
+                                withStoryEmbeds.renderInput({
+                                    onSubmit: submitFloatingStoryEmbedInput,
+                                    onClose: closeFloatingStoryEmbedInput,
+                                })
+                            }
+                        />
+                    )}
+
+                    {withStoryBookmarks && isFloatingStoryBookmarkInputOpen && (
+                        <FloatingStoryEmbedInput
+                            availableWidth={availableWidth}
+                            containerRef={containerRef}
+                            onClose={closeFloatingStoryBookmarkInput}
+                            onRootClose={rootCloseFloatingStoryBookmarkInput}
+                            renderInput={() =>
+                                withStoryBookmarks.renderInput({
+                                    onCreate: submitFloatingStoryBookmarkInput,
+                                    onRemove: closeFloatingStoryBookmarkInput,
+                                })
+                            }
+                        />
+                    )}
+
+                    {withSnippets && isFloatingSnippetInputOpen && (
+                        <FloatingSnippetInput
+                            availableWidth={availableWidth}
+                            containerRef={containerRef}
+                            onClose={closeFloatingSnippetInput}
+                            onRootClose={rootCloseFloatingSnippetInput}
+                            renderInput={() =>
+                                withSnippets.renderInput({
+                                    onCreate: submitFloatingSnippetInput,
+                                })
+                            }
+                        />
+                    )}
+
+                    {withPressContacts && isFloatingPressContactsMenuOpen && (
+                        <FloatingPressContactsMenu
+                            availableWidth={availableWidth}
+                            containerRef={containerRef}
+                            events={events}
+                            onClose={closeFloatingPressContactsMenu}
+                            onRootClose={rootCloseFloatingPressContactsMenu}
+                            onSubmit={submitFloatingPressContactsMenu}
+                            renderSearch={withPressContacts.renderSearch}
+                        />
+                    )}
+                </Slate>
+            </div>
+        </PopperOptionsContext.Provider>
     );
 });
 
