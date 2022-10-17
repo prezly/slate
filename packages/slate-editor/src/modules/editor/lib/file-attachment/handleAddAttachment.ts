@@ -26,7 +26,6 @@ export async function handleAddAttachment(editor: Editor) {
                 const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
                 return createFileAttachment(file.toPrezlyStoragePayload(), caption);
             },
-            ensureEmptyParagraphAfter: true,
             filePromise: toProgressPromise(filePromise),
             loaderContentType: LoaderContentType.ATTACHMENT,
             loaderMessage: 'Uploading Attachment',
