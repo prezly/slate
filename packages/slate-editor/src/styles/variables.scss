@@ -45,6 +45,7 @@ $slate-paragraph-line-height: 26px;
 $story-composer-navigation-z-index: 10000;
 $story-composer-sidebar-z-index: $story-composer-navigation-z-index + 1;
 
+$toolbar-z-index: 300;
 $toolbar-dark-theme-bg: rgba(#292942, 0.96);
 $toolbar-dark-theme-border-color: rgba(#fff, 0.12);
 $toolbar-dark-theme-text-color: #fff;

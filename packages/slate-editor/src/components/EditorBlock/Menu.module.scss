@@ -1,7 +1,10 @@
+@import "styles/variables";
+
 .menu {
     width: 280px;
     position: absolute;
     backdrop-filter: blur(6px);
+    z-index: $toolbar-z-index;
 }
 
 .arrow {
