@@ -11,7 +11,6 @@ import type { PopperOptionsContextType } from '#modules/popper-options-context';
 
 import styles from './Menu.module.scss';
 
-
 interface Props {
     children: ReactNode;
     className?: string;
