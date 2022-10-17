@@ -30,7 +30,7 @@ function getModifiers(popperOptions: PopperOptionsContextType): Modifier<string>
             name: 'offset',
             enabled: true,
             options: {
-                offset: [-6, 16],
+                offset: [-TETHER_OFFSET_OUTLINE_SIZE, 16],
             },
         },
         {
