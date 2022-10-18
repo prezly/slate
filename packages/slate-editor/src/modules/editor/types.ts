@@ -22,6 +22,7 @@ import type { VariablesExtensionParameters } from '#extensions/variables';
 import type { VideoExtensionParameters } from '#extensions/video';
 import type { WebBookmarkExtensionParameters } from '#extensions/web-bookmark';
 import type { EditorEventMap } from '#modules/events';
+import type { PopperOptionsContextType } from '#modules/popper-options-context';
 
 import type { useCursorInView } from './lib';
 
@@ -80,6 +81,7 @@ export interface EditorProps {
      * Any changes to it will be ignored.
      */
     plugins?: (<T extends Editor>(editor: T) => T)[];
+    popperMenuOptions?: PopperOptionsContextType;
     readOnly?: boolean;
     style?: CSSProperties;
     withAlignmentControls: boolean;
