@@ -99,7 +99,6 @@ export interface EditorProps {
                   embed?: boolean;
                   link?: boolean;
                   socialPost?: boolean;
-                  video?: boolean;
               };
           });
     withEntryPointsAroundBlocks?: boolean;
