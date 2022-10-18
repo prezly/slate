@@ -5,4 +5,5 @@ export interface Context {
         preventOverflow?: PreventOverflowModifier['options'];
     };
     placement?: 'left-start' | 'right-start';
+    zIndex?: number;
 }

@@ -128,7 +128,10 @@ export class Menu extends Component<Props> {
                             contentEditable={false}
                             className={classNames(className, styles.menu)}
                             ref={ref}
-                            style={style}
+                            style={{
+                                ...style,
+                                zIndex: popperOptions.zIndex,
+                            }}
                             onClick={onClick}
                         >
                             <div
@@ -142,7 +145,7 @@ export class Menu extends Component<Props> {
                             />
                             {children}
                         </Toolbox.Panel>,
-                        document.getElementById('full-page-react-application') as HTMLElement,
+                        document.body,
                     )
                 }
             </Popper>
