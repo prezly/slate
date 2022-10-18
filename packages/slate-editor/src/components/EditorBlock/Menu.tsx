@@ -2,6 +2,7 @@ import type { Rect } from '@popperjs/core';
 import classNames from 'classnames';
 import type { MouseEvent, ReactNode } from 'react';
 import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
 import type { Modifier } from 'react-popper';
 import { Popper } from 'react-popper';
 
@@ -35,7 +36,10 @@ function getModifiers(popperOptions: PopperOptionsContextType): Modifier<string>
         },
         {
             name: 'flip',
-            enabled: false,
+            enabled: true,
+            options: {
+                fallbackPlacements: ['left-start'],
+            },
         },
         {
             name: 'arrow',
@@ -108,7 +112,6 @@ export class Menu extends Component<Props> {
 
     render() {
         const { children, className, onClick, popperOptions } = this.props;
-        const placement = popperOptions.placement || 'right-start';
 
         return (
             <Popper
@@ -116,29 +119,35 @@ export class Menu extends Component<Props> {
                     getBoundingClientRect: this.getVirtualReferenceClientRect,
                 }}
                 modifiers={getModifiers(popperOptions)}
-                placement={placement}
+                placement="right-start"
                 strategy="fixed"
             >
-                {({ ref, style, arrowProps, placement }) => (
-                    <Toolbox.Panel
-                        contentEditable={false}
-                        className={classNames(className, styles.menu)}
-                        ref={ref}
-                        style={style}
-                        onClick={onClick}
-                    >
-                        <div
-                            className={classNames(styles.arrow, {
-                                [styles.top]: placement.indexOf('top') >= 0,
-                                [styles.bottom]: placement.indexOf('bottom') >= 0,
-                                [styles.left]: placement.indexOf('left') >= 0,
-                                [styles.right]: placement.indexOf('right') >= 0,
-                            })}
-                            {...arrowProps}
-                        />
-                        {children}
-                    </Toolbox.Panel>
-                )}
+                {({ ref, style, arrowProps, placement }) =>
+                    createPortal(
+                        <Toolbox.Panel
+                            contentEditable={false}
+                            className={classNames(className, styles.menu)}
+                            ref={ref}
+                            style={{
+                                ...style,
+                                zIndex: popperOptions.zIndex,
+                            }}
+                            onClick={onClick}
+                        >
+                            <div
+                                className={classNames(styles.arrow, {
+                                    [styles.top]: placement.indexOf('top') >= 0,
+                                    [styles.bottom]: placement.indexOf('bottom') >= 0,
+                                    [styles.left]: placement.indexOf('left') >= 0,
+                                    [styles.right]: placement.indexOf('right') >= 0,
+                                })}
+                                {...arrowProps}
+                            />
+                            {children}
+                        </Toolbox.Panel>,
+                        document.body,
+                    )
+                }
             </Popper>
         );
     }
