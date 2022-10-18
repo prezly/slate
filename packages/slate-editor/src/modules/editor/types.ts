@@ -92,15 +92,7 @@ export interface EditorProps {
     withCoverage?: false | CoverageExtensionConfiguration;
     withCursorInView?: false | Parameters<typeof useCursorInView>[1];
     withDivider?: boolean;
-    withEmbeds?:
-        | false
-        | (EmbedExtensionConfiguration & {
-              menuOptions?: {
-                  embed?: boolean;
-                  link?: boolean;
-                  socialPost?: boolean;
-              };
-          });
+    withEmbeds?: false | EmbedExtensionConfiguration;
     withEntryPointsAroundBlocks?: boolean;
     withFloatingAddMenu?: boolean | FloatingAddMenuExtensionConfiguration;
     withGalleries?: false | GalleriesExtensionConfiguration;
