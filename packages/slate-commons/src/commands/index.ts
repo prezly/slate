@@ -1,4 +1,5 @@
 export { getAlignment, toggleAlignment } from './alignment';
+export { blur } from './blur';
 export { findLeafPoint } from './findLeafPoint';
 export { findDescendants } from './findDescendants';
 export { focus } from './focus';

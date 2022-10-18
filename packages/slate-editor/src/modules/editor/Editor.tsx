@@ -197,6 +197,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         forwardedRef,
         (): EditorRef => ({
             events,
+            blur: () => EditorCommands.blur(editor),
             focus: () => EditorCommands.focus(editor),
             clearSelection: () => EditorCommands.resetSelection(editor),
             insertNodes: (nodes, options) => EditorCommands.insertNodes(editor, nodes, options),
