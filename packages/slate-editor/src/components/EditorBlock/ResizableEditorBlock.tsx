@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import type { DraggableData, DraggableEvent } from 'react-draggable';
-import * as Draggable from 'react-draggable';
 
 import { mergeRefs, useLatest, useSize } from '#lib';
 
@@ -101,34 +100,24 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
             <>
                 {renderInjectionPoint(renderReadOnlyFrame ?? renderEditableFrame, props)}
                 {resizable && props.isSelected && (
-                    <>
-                        <Draggable.DraggableCore
+                    <div contentEditable={false}>
+                        <ResizeButton
                             offsetParent={blockElement ?? undefined}
-                            onDrag={(event, data) => handleResizeEvent(event, data, 'left')}
+                            onDrag={handleResizeEvent}
                             onStart={handleResizingStarted}
                             onStop={handleResizingFinished}
-                        >
-                            <div contentEditable={false}>
-                                <ResizeButton
-                                    className={classNames(styles.ResizeButton, styles.left)}
-                                    position={'left'}
-                                />
-                            </div>
-                        </Draggable.DraggableCore>
-                        <Draggable.DraggableCore
+                            className={classNames(styles.ResizeButton, styles.left)}
+                            position={'left'}
+                        />
+                        <ResizeButton
                             offsetParent={blockElement ?? undefined}
-                            onDrag={(event, data) => handleResizeEvent(event, data, 'right')}
+                            onDrag={handleResizeEvent}
                             onStart={handleResizingStarted}
                             onStop={handleResizingFinished}
-                        >
-                            <div contentEditable={false}>
-                                <ResizeButton
-                                    className={classNames(styles.ResizeButton, styles.right)}
-                                    position={'right'}
-                                />
-                            </div>
-                        </Draggable.DraggableCore>
-                    </>
+                            className={classNames(styles.ResizeButton, styles.right)}
+                            position={'right'}
+                        />
+                    </div>
                 )}
             </>
         );
