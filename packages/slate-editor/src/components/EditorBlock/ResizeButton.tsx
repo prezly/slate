@@ -2,8 +2,6 @@ import classNames from 'classnames';
 import React from 'react';
 import type { MouseEvent } from 'react';
 
-import { Resize } from '#icons';
-
 import styles from './ResizeButton.module.scss';
 
 interface Props {
@@ -19,9 +17,7 @@ export function ResizeButton({ className, position }: Props) {
                 [styles.right]: position === 'right',
             })}
         >
-            <button className={styles.button} onMouseDown={preventDefault} type="button">
-                <Resize className={styles.icon} />
-            </button>
+            <button className={styles.button} onMouseDown={preventDefault} type="button" />
         </div>
     );
 }
