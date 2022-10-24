@@ -124,26 +124,30 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     }
 
     return (
-        <EditorBlock
-            {...attributes}
-            align={align}
-            ref={mergeRefs(setBlockElement, ref)}
-            renderBelowFrame={({ isSelected }) => (
-                <>
-                    {sizer}
-                    {renderInjectionPoint(renderBelowFrame, { isSelected })}
-                </>
-            )}
-            renderEditableFrame={renderEditableFrame ? renderFrame : undefined}
-            renderReadOnlyFrame={renderReadOnlyFrame ? renderFrame : undefined}
-            renderMenu={isResizing ? undefined : renderMenu}
-            selected={isResizing || undefined}
-            width={
-                resizable
-                    ? toString(convert(Size(pixelWidth, Unit.PIXELS), unit(width), containerWidth))
-                    : width
-            }
-        />
+        <div style={{ pointerEvents: isResizing ? 'none' : undefined }}>
+            <EditorBlock
+                {...attributes}
+                align={align}
+                ref={mergeRefs(setBlockElement, ref)}
+                renderBelowFrame={(renderProps) => (
+                    <>
+                        {sizer}
+                        {renderInjectionPoint(renderBelowFrame, renderProps)}
+                    </>
+                )}
+                renderEditableFrame={renderEditableFrame ? renderFrame : undefined}
+                renderReadOnlyFrame={renderReadOnlyFrame ? renderFrame : undefined}
+                renderMenu={isResizing ? undefined : renderMenu}
+                selected={isResizing || undefined}
+                width={
+                    resizable
+                        ? toString(
+                              convert(Size(pixelWidth, Unit.PIXELS), unit(width), containerWidth),
+                          )
+                        : width
+                }
+            />
+        </div>
     );
 });
 
