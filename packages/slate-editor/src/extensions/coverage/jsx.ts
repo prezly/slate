@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import type { Coverage } from '@prezly/sdk';
+import type { CoverageEntry } from '@prezly/sdk';
 import { COVERAGE_NODE_TYPE, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 import { createHyperscript, createText } from 'slate-hyperscript';
@@ -11,7 +11,7 @@ declare global {
             'h-coverage': {
                 children?: ReactNode;
                 coverage: {
-                    id: Coverage['id'];
+                    id: CoverageEntry['id'];
                 };
                 uuid: string;
             };

@@ -1,4 +1,4 @@
-import type { Coverage } from '@prezly/sdk';
+import type { CoverageEntry } from '@prezly/sdk';
 import type { ReactNode } from 'react';
 
 export interface CoverageExtensionConfiguration {
@@ -6,11 +6,11 @@ export interface CoverageExtensionConfiguration {
      * Moment.js-compatible format
      */
     dateFormat: string;
-    fetchCoverage: (id: Coverage['id']) => Promise<Coverage>;
+    fetchCoverage: (id: CoverageEntry['id']) => Promise<CoverageEntry>;
     renderSearch: (searchProps: SearchProps) => ReactNode;
 }
 
 export interface SearchProps {
     onChange: (query: string) => void;
-    onSubmit: (coverage: Coverage) => void;
+    onSubmit: (coverage: CoverageEntry) => void;
 }

@@ -1,4 +1,4 @@
-import type { Coverage } from '@prezly/sdk';
+import type { CoverageEntry } from '@prezly/sdk';
 import type { CoverageNode } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -26,7 +26,7 @@ interface Props extends RenderElementProps {
      */
     dateFormat: string;
     element: CoverageNode;
-    fetchCoverage: (id: Coverage['id']) => Promise<Coverage>;
+    fetchCoverage: (id: CoverageEntry['id']) => Promise<CoverageEntry>;
 }
 
 export function CoverageElement({

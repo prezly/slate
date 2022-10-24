@@ -30,13 +30,13 @@ export function useFloatingSnippetInput(editor: Editor): [State, Actions] {
     }
 
     function open() {
-        EventsEditor.dispatchEvent(editor, 'snippet-dialog-opened', {});
+        EventsEditor.dispatchEvent(editor, 'snippet-dialog-opened');
         setIsOpen(true);
         savedSelection.save(editor);
     }
 
     async function submit(node: DocumentNode) {
-        EventsEditor.dispatchEvent(editor, 'snippet-dialog-submitted', {});
+        EventsEditor.dispatchEvent(editor, 'snippet-dialog-submitted');
 
         close();
 

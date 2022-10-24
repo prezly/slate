@@ -1,4 +1,4 @@
-import type { Contact, Coverage } from '@prezly/sdk';
+import type { Contact, CoverageEntry } from '@prezly/sdk';
 import { UploadcareImage } from '@prezly/uploadcare';
 import moment from 'moment';
 import type { FunctionComponent } from 'react';
@@ -11,7 +11,7 @@ import styles from './CoverageCard.module.scss';
 const IMAGE_HEIGHT = 180;
 
 interface Props {
-    coverage: Coverage;
+    coverage: CoverageEntry;
     /**
      * Moment.js-compatible format
      */
@@ -62,7 +62,7 @@ function Thumbnail(props: { href: string | null; src: string }) {
     );
 }
 
-function Title(props: { coverage: Coverage; href: string | null }) {
+function Title(props: { coverage: CoverageEntry; href: string | null }) {
     const { coverage, href } = props;
     const title = coverage.attachment_oembed?.title || coverage.attachment?.filename || 'Untitled';
     const Tag = href ? 'a' : 'div';
@@ -74,7 +74,7 @@ function Title(props: { coverage: Coverage; href: string | null }) {
     );
 }
 
-function Description(props: { coverage: Coverage }) {
+function Description(props: { coverage: CoverageEntry }) {
     const { coverage } = props;
 
     const description = coverage.attachment_oembed?.description;
@@ -123,7 +123,7 @@ function Outlet(props: { contact: Contact }) {
     );
 }
 
-function getCoverageImageUrl(coverage: Coverage, imageHeight: number): string | null {
+function getCoverageImageUrl(coverage: CoverageEntry, imageHeight: number): string | null {
     if (coverage.attachment_oembed && coverage.attachment_oembed.thumbnail_url) {
         return coverage.attachment_oembed.thumbnail_url;
     }

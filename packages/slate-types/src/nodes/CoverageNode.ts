@@ -1,4 +1,4 @@
-import type { Coverage } from '@prezly/sdk';
+import type { CoverageEntry } from '@prezly/sdk';
 
 import type { ElementNode } from './ElementNode';
 import { isElementNode } from './ElementNode';
@@ -15,7 +15,7 @@ export interface CoverageNode extends ElementNode {
     type: typeof COVERAGE_NODE_TYPE;
     uuid: string;
     coverage: {
-        id: Coverage['id'];
+        id: CoverageEntry['id'];
     };
     layout: CoverageLayout;
     new_tab: boolean;
