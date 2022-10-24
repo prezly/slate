@@ -128,7 +128,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         <EditorBlock
             {...attributes}
             align={align}
-            ref={ref}
+            ref={mergeRefs(setBlockElement, ref)}
             renderBelowFrame={({ isSelected }) => (
                 <>
                     {sizer}
