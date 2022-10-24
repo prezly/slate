@@ -27,6 +27,11 @@ enum Layout {
     FULL_WIDTH = 'full-width',
 }
 
+export interface RenderProps {
+    isSelected: boolean;
+    isHovered: boolean;
+}
+
 export interface Props
     extends Omit<RenderElementProps, 'attributes' | 'children'>,
         SlateInternalAttributes {
@@ -46,10 +51,10 @@ export interface Props
     layout?: `${Layout}`;
     overflow?: 'visible' | 'hidden';
     overlay?: OverlayMode;
-    renderAboveFrame?: ((props: { isSelected: boolean }) => ReactNode) | ReactNode;
-    renderBelowFrame?: ((props: { isSelected: boolean }) => ReactNode) | ReactNode;
-    renderEditableFrame?: (props: { isSelected: boolean }) => ReactNode;
-    renderReadOnlyFrame?: (props: { isSelected: boolean }) => ReactNode;
+    renderAboveFrame?: ((props: RenderProps) => ReactNode) | ReactNode;
+    renderBelowFrame?: ((props: RenderProps) => ReactNode) | ReactNode;
+    renderEditableFrame?: (props: RenderProps) => ReactNode;
+    renderReadOnlyFrame?: (props: RenderProps) => ReactNode;
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
     rounded?: boolean;
     selected?: boolean;
@@ -98,6 +103,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const popperOptions = usePopperOptionsContext();
 
     const [menuOpen, setMenuOpen] = useState(true);
+    const [isHovered, setIsHovered] = useState(false);
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
     const closeMenu = useCallback(() => {
@@ -134,6 +140,11 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         return () => document.removeEventListener('keydown', onEsc);
     }, [closeMenu]);
 
+    const renderProps: RenderProps = {
+        isSelected,
+        isHovered,
+    };
+
     return (
         <div
             {...attributes}
@@ -151,7 +162,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 element={element}
                 position="top"
             />
-            {renderInjectionPoint(renderAboveFrame, { isSelected })}
+            {renderInjectionPoint(renderAboveFrame, renderProps)}
             <div
                 className={classNames(styles.Frame, {
                     [styles.alignLeft]: align === Alignment.LEFT,
@@ -188,10 +199,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         [styles.selected]: isSelected,
                     })}
                     onClick={handleFrameClick}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                 >
-                    {renderInjectionPoint(renderEditableFrame ?? renderReadOnlyFrame, {
-                        isSelected,
-                    })}
+                    {renderInjectionPoint(renderEditableFrame ?? renderReadOnlyFrame, renderProps)}
                 </div>
             </div>
             <NewParagraphDelimiter
@@ -199,7 +210,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 element={element}
                 position="bottom"
             />
-            {renderInjectionPoint(renderBelowFrame, { isSelected })}
+            {renderInjectionPoint(renderBelowFrame, renderProps)}
         </div>
     );
 });

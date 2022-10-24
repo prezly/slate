@@ -95,11 +95,11 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         [width, containerWidth, constrainSize],
     );
 
-    function renderFrame(props: { isSelected: boolean }) {
+    function renderFrame(props: { isSelected: boolean; isHovered: boolean }) {
         return (
             <>
                 {renderInjectionPoint(renderReadOnlyFrame ?? renderEditableFrame, props)}
-                {resizable && props.isSelected && (
+                {resizable && (props.isSelected || props.isHovered) && (
                     <div contentEditable={false}>
                         <ResizeButton
                             offsetParent={blockElement ?? undefined}
