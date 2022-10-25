@@ -100,12 +100,9 @@ export function ImageElement({
         [withSizeOptions, element.file],
     );
 
-    const { ref, ...slateAttributes } = attributes;
-
     return (
         <ResizableEditorBlock
-            {...slateAttributes}
-            ref={isSupportingCaptions ? undefined : ref}
+            {...attributes}
             align={align}
             element={element}
             layout={layout}
@@ -115,7 +112,6 @@ export function ImageElement({
             renderBelowFrame={
                 isSupportingCaptions && (
                     <div
-                        ref={ref}
                         className={classNames(styles.Caption, {
                             [styles.empty]: isCaptionEmpty,
                             [styles.withPlaceholder]: isCaptionPlaceholderVisible,
