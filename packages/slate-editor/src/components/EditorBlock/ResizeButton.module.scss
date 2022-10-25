@@ -8,7 +8,7 @@
 
     pointer-events: none;
     opacity: 0;
-    transition: opacity 100ms linear;
+    transition: opacity 150ms linear;
 
     &.show {
         pointer-events: all;
