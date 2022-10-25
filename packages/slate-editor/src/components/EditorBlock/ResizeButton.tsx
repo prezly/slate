@@ -1,28 +1,43 @@
 import classNames from 'classnames';
 import React from 'react';
 import type { MouseEvent } from 'react';
-
-import { Resize } from '#icons';
+import type { DraggableData, DraggableEvent } from 'react-draggable';
+import * as Draggable from 'react-draggable';
 
 import styles from './ResizeButton.module.scss';
 
+type Position = 'left' | 'right';
+
 interface Props {
+    position: Position;
+    show: boolean;
+    onStart: (e: DraggableEvent, data: DraggableData, position: Position) => void | false;
+    onDrag: (e: DraggableEvent, data: DraggableData, position: Position) => void | false;
+    onStop: (e: DraggableEvent, data: DraggableData, position: Position) => void | false;
     className?: string;
-    position: 'left' | 'right';
+    offsetParent?: Draggable.DraggableCoreProps['offsetParent'];
 }
 
-export function ResizeButton({ className, position }: Props) {
+export function ResizeButton({
+    className,
+    position,
+    show,
+    offsetParent,
+    onStart,
+    onDrag,
+    onStop,
+}: Props) {
     return (
-        <div
-            className={classNames(styles.handle, className, {
-                [styles.left]: position === 'left',
-                [styles.right]: position === 'right',
-            })}
+        <Draggable.DraggableCore
+            offsetParent={offsetParent}
+            onStart={(event, data) => onStart(event, data, position)}
+            onDrag={(event, data) => onDrag(event, data, position)}
+            onStop={(event, data) => onStop(event, data, position)}
         >
-            <button className={styles.button} onMouseDown={preventDefault} type="button">
-                <Resize className={styles.icon} />
-            </button>
-        </div>
+            <div className={classNames(styles.handle, className, { [styles.show]: show })}>
+                <button className={styles.button} onMouseDown={preventDefault} type="button" />
+            </div>
+        </Draggable.DraggableCore>
     );
 }
 

@@ -1,8 +1,6 @@
-import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import type { DraggableEventHandler } from 'react-draggable';
-import * as Draggable from 'react-draggable';
+import type { DraggableData, DraggableEvent } from 'react-draggable';
 
 import { mergeRefs, useLatest, useSize } from '#lib';
 
@@ -43,7 +41,6 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     const [sizer, { width: containerWidth }] = useSize(Sizer);
     const [pixelWidth, setPixelWidth] = useState(0);
     const [isResizing, setResizing] = useState(false);
-    const isInvertedResizing = align === Alignment.RIGHT;
     const [blockElement, setBlockElement] = useState<HTMLElement | null>(null);
 
     /**
@@ -61,10 +58,10 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         [containerWidth],
     );
 
-    const handleResizeEvent: DraggableEventHandler = useCallback(
-        function (_event, { deltaX }) {
+    const handleResizeEvent = useCallback(
+        function (_event: DraggableEvent, { deltaX }: DraggableData, placement: 'left' | 'right') {
             setPixelWidth(function (currentPixelWidth) {
-                const delta = isInvertedResizing ? -deltaX : deltaX;
+                const delta = placement === 'left' ? -deltaX : deltaX;
                 const nextPixelWidth = Size(currentPixelWidth + delta, Unit.PIXELS);
 
                 return toPixels(
@@ -75,7 +72,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                 ).value;
             });
         },
-        [containerWidth, constrainSize, isInvertedResizing],
+        [containerWidth, constrainSize],
     );
     const handleResizingStarted = useCallback(() => setResizing(true), [setResizing]);
     const handleResizingFinished = useCallback(
@@ -98,27 +95,31 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         [width, containerWidth, constrainSize],
     );
 
-    function renderFrame(props: { isSelected: boolean }) {
+    function renderFrame(props: { isSelected: boolean; isHovered: boolean }) {
         return (
             <>
                 {renderInjectionPoint(renderReadOnlyFrame ?? renderEditableFrame, props)}
-                {resizable && props.isSelected && (
-                    <Draggable.DraggableCore
-                        offsetParent={blockElement ?? undefined}
-                        onDrag={handleResizeEvent}
-                        onStart={handleResizingStarted}
-                        onStop={handleResizingFinished}
-                    >
-                        <div contentEditable={false}>
-                            <ResizeButton
-                                className={classNames(
-                                    styles.ResizeButton,
-                                    isInvertedResizing ? styles.left : styles.right,
-                                )}
-                                position={isInvertedResizing ? 'left' : 'right'}
-                            />
-                        </div>
-                    </Draggable.DraggableCore>
+                {resizable && (
+                    <div contentEditable={false}>
+                        <ResizeButton
+                            offsetParent={blockElement ?? undefined}
+                            show={props.isSelected || props.isHovered}
+                            onDrag={handleResizeEvent}
+                            onStart={handleResizingStarted}
+                            onStop={handleResizingFinished}
+                            className={classNames(styles.ResizeButton, styles.left)}
+                            position="left"
+                        />
+                        <ResizeButton
+                            offsetParent={blockElement ?? undefined}
+                            show={props.isSelected || props.isHovered}
+                            onDrag={handleResizeEvent}
+                            onStart={handleResizingStarted}
+                            onStop={handleResizingFinished}
+                            className={classNames(styles.ResizeButton, styles.right)}
+                            position="right"
+                        />
+                    </div>
                 )}
             </>
         );
@@ -127,12 +128,13 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     return (
         <EditorBlock
             {...attributes}
+            className={classNames({ [styles.editorBlockResizing]: isResizing })}
             align={align}
             ref={mergeRefs(setBlockElement, ref)}
-            renderBelowFrame={({ isSelected }) => (
+            renderBelowFrame={(renderProps) => (
                 <>
                     {sizer}
-                    {renderInjectionPoint(renderBelowFrame, { isSelected })}
+                    {renderInjectionPoint(renderBelowFrame, renderProps)}
                 </>
             )}
             renderEditableFrame={renderEditableFrame ? renderFrame : undefined}

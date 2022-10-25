@@ -125,17 +125,21 @@ $editor-block-outline-width: 6px;
     z-index: $editor-block-overlay-z-index + 2;
 }
 
+.editorBlockResizing {
+    pointer-events: none;
+}
+
 .ResizeButton {
     z-index: $editor-block-overlay-z-index + 1;
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 
     &.left {
         left: $spacing-1;
-        bottom: $spacing-1;
     }
 
     &.right {
         right: $spacing-1;
-        bottom: $spacing-1;
     }
 }
