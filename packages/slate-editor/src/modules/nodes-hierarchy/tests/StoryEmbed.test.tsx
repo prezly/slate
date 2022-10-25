@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { StoryAlignment, StoryAppearance } from '@prezly/sdk';
+import { Campaign } from '@prezly/sdk';
 import { Editor } from 'slate';
 
 import { jsx } from '../../../jsx';
@@ -10,8 +10,8 @@ describe('nodes-hierarchy / StoryEmbed', () => {
         const editor = (
             <editor>
                 <h:story-embed
-                    appearance={StoryAppearance.FULL}
-                    position={StoryAlignment.CENTER}
+                    appearance={Campaign.StoryAppearance.FULL}
+                    position={Campaign.StoryAlignment.CENTER}
                     story={{
                         uuid: 'f0c7c0f8-7e67-4402-b07e-4db2f8c4f439',
                     }}
@@ -22,8 +22,8 @@ describe('nodes-hierarchy / StoryEmbed', () => {
         const expected = (
             <editor>
                 <h:story-embed
-                    appearance={StoryAppearance.FULL}
-                    position={StoryAlignment.CENTER}
+                    appearance={Campaign.StoryAppearance.FULL}
+                    position={Campaign.StoryAlignment.CENTER}
                     story={{
                         uuid: 'f0c7c0f8-7e67-4402-b07e-4db2f8c4f439',
                     }}

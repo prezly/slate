@@ -1,4 +1,4 @@
-import type { Coverage } from '@prezly/sdk';
+import type { CoverageEntry } from '@prezly/sdk';
 import { useSavedSelection } from '@prezly/slate-commons';
 import { useState } from 'react';
 import type { Editor } from 'slate';
@@ -15,7 +15,7 @@ interface Actions {
     close: () => void;
     open: () => void;
     rootClose: () => void;
-    submit: (coverage: Coverage) => void;
+    submit: (coverage: CoverageEntry) => void;
 }
 
 export function useFloatingCoverageMenu(editor: Editor): [State, Actions] {
@@ -37,7 +37,7 @@ export function useFloatingCoverageMenu(editor: Editor): [State, Actions] {
         savedSelection.save(editor);
     }
 
-    function submit(coverage: Coverage) {
+    function submit(coverage: CoverageEntry) {
         EventsEditor.dispatchEvent(editor, 'coverage-dialog-submitted', {
             coverage_id: coverage.id,
         });

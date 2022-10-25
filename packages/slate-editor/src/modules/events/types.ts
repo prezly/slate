@@ -1,5 +1,5 @@
 import type { Listener } from '@prezly/events';
-import type { Coverage } from '@prezly/sdk';
+import type { CoverageEntry } from '@prezly/sdk';
 import type { PressContact, TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
@@ -47,7 +47,7 @@ export type EditorEventMap = {
     'coverage-dialog-opened': never;
     'coverage-dialog-search-used': never;
     'coverage-dialog-submitted': {
-        coverage_id: Coverage['id'];
+        coverage_id: CoverageEntry['id'];
     };
     'coverage-removed': never;
     'embed-dialog-opened': {
@@ -117,8 +117,8 @@ export type EditorEventMap = {
     'story-bookmark-removed': {
         uuid: string;
     };
-    'snippet-dialog-opened': {};
-    'snippet-dialog-submitted': {};
+    'snippet-dialog-opened': never;
+    'snippet-dialog-submitted': never;
     'table-insert': never;
     'table-toggle-header': {
         headerType: TableHeader;

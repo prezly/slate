@@ -1,4 +1,4 @@
-import type { Coverage } from '@prezly/sdk';
+import type { CoverageEntry } from '@prezly/sdk';
 import type { ReactNode, RefObject } from 'react';
 import React, { useRef } from 'react';
 import { useSlate } from 'slate-react';
@@ -15,7 +15,7 @@ interface Props {
     containerRef: RefObject<HTMLDivElement>;
     onClose: () => void;
     onRootClose: () => void;
-    onSubmit: (coverage: Coverage) => void;
+    onSubmit: (coverage: CoverageEntry) => void;
     renderSearch: (searchProps: SearchProps) => ReactNode;
 }
 

@@ -1,4 +1,4 @@
-import type { Coverage } from '@prezly/sdk';
+import type { CoverageEntry } from '@prezly/sdk';
 
 import { oembedInfo } from './oembedInfo';
 
@@ -243,4 +243,4 @@ export const coverage = {
     created_at: '2021-02-04T18:15:05+00:00',
     updated_at: '2021-02-04T18:15:24+00:00',
     edited_at: '2021-02-04T18:15:24+00:00',
-} as unknown as Coverage;
+} as unknown as CoverageEntry;
