@@ -125,6 +125,10 @@ $editor-block-outline-width: 6px;
     z-index: $editor-block-overlay-z-index + 2;
 }
 
+.editorBlockResizing {
+    pointer-events: none;
+}
+
 .ResizeButton {
     z-index: $editor-block-overlay-z-index + 1;
     position: absolute;

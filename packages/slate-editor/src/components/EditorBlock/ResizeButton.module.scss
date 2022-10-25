@@ -5,6 +5,15 @@
     user-select: none;
     cursor: col-resize;
     padding: 0 4px;
+
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 100ms linear;
+
+    &.show {
+        pointer-events: all;
+        opacity: 1;
+    }
 }
 
 .button {

@@ -10,6 +10,7 @@ type Position = 'left' | 'right';
 
 interface Props {
     position: Position;
+    show: boolean;
     onStart: (e: DraggableEvent, data: DraggableData, position: Position) => void | false;
     onDrag: (e: DraggableEvent, data: DraggableData, position: Position) => void | false;
     onStop: (e: DraggableEvent, data: DraggableData, position: Position) => void | false;
@@ -20,6 +21,7 @@ interface Props {
 export function ResizeButton({
     className,
     position,
+    show,
     offsetParent,
     onStart,
     onDrag,
@@ -32,7 +34,7 @@ export function ResizeButton({
             onDrag={(event, data) => onDrag(event, data, position)}
             onStop={(event, data) => onStop(event, data, position)}
         >
-            <div className={classNames(styles.handle, className)}>
+            <div className={classNames(styles.handle, className, { [styles.show]: show })}>
                 <button className={styles.button} onMouseDown={preventDefault} type="button" />
             </div>
         </Draggable.DraggableCore>

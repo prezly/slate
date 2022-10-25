@@ -99,23 +99,25 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         return (
             <>
                 {renderInjectionPoint(renderReadOnlyFrame ?? renderEditableFrame, props)}
-                {resizable && (props.isSelected || props.isHovered) && (
+                {resizable && (
                     <div contentEditable={false}>
                         <ResizeButton
                             offsetParent={blockElement ?? undefined}
+                            show={props.isSelected || props.isHovered}
                             onDrag={handleResizeEvent}
                             onStart={handleResizingStarted}
                             onStop={handleResizingFinished}
                             className={classNames(styles.ResizeButton, styles.left)}
-                            position={'left'}
+                            position="left"
                         />
                         <ResizeButton
                             offsetParent={blockElement ?? undefined}
+                            show={props.isSelected || props.isHovered}
                             onDrag={handleResizeEvent}
                             onStart={handleResizingStarted}
                             onStop={handleResizingFinished}
                             className={classNames(styles.ResizeButton, styles.right)}
-                            position={'right'}
+                            position="right"
                         />
                     </div>
                 )}
@@ -124,30 +126,27 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
     }
 
     return (
-        <div style={{ pointerEvents: isResizing ? 'none' : undefined }}>
-            <EditorBlock
-                {...attributes}
-                align={align}
-                ref={mergeRefs(setBlockElement, ref)}
-                renderBelowFrame={(renderProps) => (
-                    <>
-                        {sizer}
-                        {renderInjectionPoint(renderBelowFrame, renderProps)}
-                    </>
-                )}
-                renderEditableFrame={renderEditableFrame ? renderFrame : undefined}
-                renderReadOnlyFrame={renderReadOnlyFrame ? renderFrame : undefined}
-                renderMenu={isResizing ? undefined : renderMenu}
-                selected={isResizing || undefined}
-                width={
-                    resizable
-                        ? toString(
-                              convert(Size(pixelWidth, Unit.PIXELS), unit(width), containerWidth),
-                          )
-                        : width
-                }
-            />
-        </div>
+        <EditorBlock
+            {...attributes}
+            className={classNames({ [styles.editorBlockResizing]: isResizing })}
+            align={align}
+            ref={mergeRefs(setBlockElement, ref)}
+            renderBelowFrame={(renderProps) => (
+                <>
+                    {sizer}
+                    {renderInjectionPoint(renderBelowFrame, renderProps)}
+                </>
+            )}
+            renderEditableFrame={renderEditableFrame ? renderFrame : undefined}
+            renderReadOnlyFrame={renderReadOnlyFrame ? renderFrame : undefined}
+            renderMenu={isResizing ? undefined : renderMenu}
+            selected={isResizing || undefined}
+            width={
+                resizable
+                    ? toString(convert(Size(pixelWidth, Unit.PIXELS), unit(width), containerWidth))
+                    : width
+            }
+        />
     );
 });
 
