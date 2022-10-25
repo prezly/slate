@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isParagraphNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
 import { autoformatBlock, autoformatMark, autoformatText } from './transforms';
@@ -28,6 +29,12 @@ export function withAutoformat<T extends Editor>(editor: T, rules: AutoformatRul
             if (query && !query(editor, { ...rule, text })) continue;
 
             if (editor.selection) {
+                const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
+
+                if (mode === 'block' && !isParagraphNode(currentNode)) {
+                    return;
+                }
+
                 const formatter = autoformatters[mode];
 
                 const formatResult = formatter?.(editor, {
