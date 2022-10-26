@@ -1,7 +1,9 @@
 import type { Rect } from '@popperjs/core';
 import classNames from 'classnames';
 import type { MouseEvent, ReactNode } from 'react';
-import React, { Component } from 'react';
+import { useCallback } from 'react';
+import React from 'react';
+import { createPortal } from 'react-dom';
 import type { Modifier } from 'react-popper';
 import { Popper } from 'react-popper';
 
@@ -35,9 +37,9 @@ function getModifiers(popperOptions: PopperOptionsContextType): Modifier<string>
         },
         {
             name: 'flip',
-            enabled: false,
+            enabled: Boolean(popperOptions.autoPlacementPortal?.current),
             options: {
-                fallbackPlacements: ['left-start'],
+                fallbackPlacements: ['left-start', 'right-start'],
             },
         },
         {
@@ -85,9 +87,12 @@ function getModifiers(popperOptions: PopperOptionsContextType): Modifier<string>
     ];
 }
 
-export class Menu extends Component<Props> {
-    private getVirtualReferenceClientRect = (): ClientRect => {
-        const container = this.props.reference.getBoundingClientRect();
+export function Menu({ children, className, onClick, popperOptions, reference }: Props) {
+    const placement = popperOptions.placement || 'right-start';
+
+    const getVirtualReferenceClientRect = useCallback((): ClientRect => {
+        const container = reference.getBoundingClientRect();
+
         const rect = {
             top: container.top,
             right: container.right,
@@ -101,28 +106,34 @@ export class Menu extends Component<Props> {
                 return JSON.stringify(this);
             },
         };
+
         return {
             ...rect,
             toJSON() {
                 return rect;
             },
         };
-    };
+    }, [reference]);
 
-    render() {
-        const { children, className, onClick, popperOptions } = this.props;
-        const placement = popperOptions.placement || 'right-start';
+    function mountPopper(content: ReactNode) {
+        if (popperOptions.autoPlacementPortal?.current) {
+            return createPortal(content, popperOptions.autoPlacementPortal.current);
+        }
 
-        return (
-            <Popper
-                referenceElement={{
-                    getBoundingClientRect: this.getVirtualReferenceClientRect,
-                }}
-                modifiers={getModifiers(popperOptions)}
-                placement={placement}
-                strategy="fixed"
-            >
-                {({ ref, style, arrowProps, placement }) => (
+        return content;
+    }
+
+    return (
+        <Popper
+            referenceElement={{
+                getBoundingClientRect: getVirtualReferenceClientRect,
+            }}
+            modifiers={getModifiers(popperOptions)}
+            placement={placement}
+            strategy="fixed"
+        >
+            {({ ref, style, arrowProps, placement }) =>
+                mountPopper(
                     <Toolbox.Panel
                         contentEditable={false}
                         className={classNames(className, styles.menu)}
@@ -143,9 +154,9 @@ export class Menu extends Component<Props> {
                             {...arrowProps}
                         />
                         {children}
-                    </Toolbox.Panel>
-                )}
-            </Popper>
-        );
-    }
+                    </Toolbox.Panel>,
+                )
+            }
+        </Popper>
+    );
 }
