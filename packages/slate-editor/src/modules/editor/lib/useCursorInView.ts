@@ -17,7 +17,7 @@ export function useCursorInView(editor: Editor, parameters: false | Parameters =
 
         try {
             ensureCursorInView(editor, parameters);
-        } catch (error) {
+        } catch {
             // Ignore all cursor-related errors. They sometimes come from Slate.
         }
     }, [editor, editor.selection, jsonStableStringify(parameters)]);
@@ -29,7 +29,7 @@ function ensureCursorInView(editor: Editor, parameters: Parameters): void {
     }
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (Range.isExpanded(editor.selection) && !isImageNode(currentNode)) {
+    if (Range.isExpanded(editor.selection) || isImageNode(currentNode)) {
         // Slate has built-in mechanism to follow the cursor, but it's not perfect,
         // see: https://github.com/ianstormtaylor/slate/issues/3750
         // We don't know any issues when selecting things, so our fix is only
@@ -38,10 +38,7 @@ function ensureCursorInView(editor: Editor, parameters: Parameters): void {
         return;
     }
 
-    if (
-        (Editor.isBlock(editor, currentNode) && Editor.isVoid(editor, currentNode)) ||
-        isImageNode(currentNode)
-    ) {
+    if (Editor.isBlock(editor, currentNode) && Editor.isVoid(editor, currentNode)) {
         /**
          * Slate reports invalid `domRange` on void elements. The reported range points to
          * the `data-slate-zero-width` element which is inside [data-slate-spacer="true"]
