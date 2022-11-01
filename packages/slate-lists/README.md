@@ -303,7 +303,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
 +        return { children: [{ text: '' }], ...props, type: Type.PARAGRAPH };
 +    },
 +    createListNode(type: ListType = ListType.UNORDERED, props = {}) {
-+        const nodeType = type === ListType.ORDERED_LIST ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
++        const nodeType = type === ListType.ORDERED ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
 +        return { children: [{ text: '' }], ...props, type: nodeType };
 +    },
 +    createListItemNode(props = {}) {
@@ -434,7 +434,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-3-add-withl
          return { children: [{ text: '' }], ...props, type: Type.PARAGRAPH };
      },
      createListNode(type: ListType = ListType.UNORDERED, props = {}) {
-         const nodeType = type === ListType.ORDERED_LIST ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
+         const nodeType = type === ListType.ORDERED ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
          return { children: [{ text: '' }], ...props, type: nodeType };
      },
      createListItemNode(props = {}) {
@@ -568,7 +568,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
          return { children: [{ text: '' }], ...props, type: Type.PARAGRAPH };
      },
      createListNode(type: ListType = ListType.UNORDERED, props = {}) {
-           const nodeType = type === ListType.ORDERED_LIST ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
+           const nodeType = type === ListType.ORDERED ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
            return { children: [{ text: '' }], ...props, type: nodeType };
      },
      createListItemNode(props = {}) {
