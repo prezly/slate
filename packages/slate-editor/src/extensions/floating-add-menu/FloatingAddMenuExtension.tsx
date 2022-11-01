@@ -1,10 +1,9 @@
 import type { Extension } from '@prezly/slate-commons';
-import { isHotkey } from 'is-hotkey';
-import type { KeyboardEvent } from 'react';
+import { isHotkey, type KeyboardEventLike } from 'is-hotkey';
 
 import { isMenuHotkey, MENU_TRIGGER_CHARACTERS, shouldShowMenuButton } from './lib';
 
-function isTriggerInput(event: KeyboardEvent) {
+function isTriggerInput(event: KeyboardEventLike) {
     return MENU_TRIGGER_CHARACTERS.some((triggerKey) =>
         isHotkey(`shift?+${triggerKey}`, { byKey: true })(event),
     );
