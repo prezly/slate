@@ -62,7 +62,8 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
         function (_event: DraggableEvent, { deltaX }: DraggableData, placement: 'left' | 'right') {
             setPixelWidth(function (currentPixelWidth) {
                 const delta = placement === 'left' ? -deltaX : deltaX;
-                const nextPixelWidth = Size(currentPixelWidth + delta, Unit.PIXELS);
+                const multiplier = align === 'center' ? 2 : 1;
+                const nextPixelWidth = Size(currentPixelWidth + delta * multiplier, Unit.PIXELS);
 
                 return toPixels(
                     constrainSize(
@@ -72,7 +73,7 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                 ).value;
             });
         },
-        [containerWidth, constrainSize],
+        [align, containerWidth, constrainSize],
     );
     const handleResizingStarted = useCallback(() => setResizing(true), [setResizing]);
     const handleResizingFinished = useCallback(
