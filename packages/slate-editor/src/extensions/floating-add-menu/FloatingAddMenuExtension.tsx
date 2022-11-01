@@ -5,8 +5,8 @@ import type { KeyboardEvent } from 'react';
 import { isMenuHotkey, MENU_TRIGGER_CHARACTERS, shouldShowMenuButton } from './lib';
 
 function isTriggerInput(event: KeyboardEvent) {
-    return MENU_TRIGGER_CHARACTERS.some((tiggerKey) =>
-        isHotkey(tiggerKey, { byKey: true }, event.nativeEvent),
+    return MENU_TRIGGER_CHARACTERS.some((triggerKey) =>
+        isHotkey(`shift?+${triggerKey}`, { byKey: true })(event),
     );
 }
 
