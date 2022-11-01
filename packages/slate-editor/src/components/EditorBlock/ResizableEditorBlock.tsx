@@ -101,24 +101,28 @@ export const ResizableEditorBlock = forwardRef<HTMLDivElement, Props>((props, re
                 {renderInjectionPoint(renderReadOnlyFrame ?? renderEditableFrame, props)}
                 {resizable && (
                     <div contentEditable={false}>
-                        <ResizeButton
-                            offsetParent={blockElement ?? undefined}
-                            show={props.isSelected || props.isHovered}
-                            onDrag={handleResizeEvent}
-                            onStart={handleResizingStarted}
-                            onStop={handleResizingFinished}
-                            className={classNames(styles.ResizeButton, styles.left)}
-                            position="left"
-                        />
-                        <ResizeButton
-                            offsetParent={blockElement ?? undefined}
-                            show={props.isSelected || props.isHovered}
-                            onDrag={handleResizeEvent}
-                            onStart={handleResizingStarted}
-                            onStop={handleResizingFinished}
-                            className={classNames(styles.ResizeButton, styles.right)}
-                            position="right"
-                        />
+                        {align !== 'left' && (
+                            <ResizeButton
+                                offsetParent={blockElement ?? undefined}
+                                show={props.isSelected || props.isHovered}
+                                onDrag={handleResizeEvent}
+                                onStart={handleResizingStarted}
+                                onStop={handleResizingFinished}
+                                className={classNames(styles.ResizeButton, styles.left)}
+                                position="left"
+                            />
+                        )}
+                        {align !== 'right' && (
+                            <ResizeButton
+                                offsetParent={blockElement ?? undefined}
+                                show={props.isSelected || props.isHovered}
+                                onDrag={handleResizeEvent}
+                                onStart={handleResizingStarted}
+                                onStop={handleResizingFinished}
+                                className={classNames(styles.ResizeButton, styles.right)}
+                                position="right"
+                            />
+                        )}
                     </div>
                 )}
             </>
