@@ -6,7 +6,7 @@ import { isHotkey } from 'is-hotkey';
 import { noop } from 'lodash-es';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
-import type { NodeEntry, Node , Editor } from 'slate';
+import type { NodeEntry, Node, Editor } from 'slate';
 import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
