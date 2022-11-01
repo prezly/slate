@@ -17,8 +17,7 @@ export function useCursorInView(editor: Editor, parameters: false | Parameters =
 
         try {
             ensureCursorInView(editor, parameters);
-        } catch (error) {
-            console.error(error);
+        } catch {
             // Ignore all cursor-related errors. They sometimes come from Slate.
         }
     }, [editor, editor.selection, jsonStableStringify(parameters)]);
