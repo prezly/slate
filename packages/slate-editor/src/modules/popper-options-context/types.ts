@@ -6,6 +6,7 @@ export interface Context {
         preventOverflow?: PreventOverflowModifier['options'];
     };
     placement?: 'left-start' | 'right-start';
-    autoPlacementPortal?: RefObject<HTMLElement | undefined>;
+    autoPlacement?: boolean;
+    portalNode?: RefObject<HTMLElement | undefined>;
     zIndex?: number;
 }

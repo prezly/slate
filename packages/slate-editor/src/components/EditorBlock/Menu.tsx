@@ -37,7 +37,7 @@ function getModifiers(popperOptions: PopperOptionsContextType): Modifier<string>
         },
         {
             name: 'flip',
-            enabled: Boolean(popperOptions.autoPlacementPortal?.current),
+            enabled: Boolean(popperOptions.autoPlacement),
             options: {
                 fallbackPlacements: ['left-start', 'right-start'],
             },
@@ -88,7 +88,7 @@ function getModifiers(popperOptions: PopperOptionsContextType): Modifier<string>
 }
 
 export function Menu({ children, className, onClick, popperOptions, reference }: Props) {
-    const placement = popperOptions.placement || 'right-start';
+    const placement = popperOptions.placement ?? 'right-start';
 
     const getVirtualReferenceClientRect = useCallback((): ClientRect => {
         const container = reference.getBoundingClientRect();
@@ -116,8 +116,8 @@ export function Menu({ children, className, onClick, popperOptions, reference }:
     }, [reference]);
 
     function mountPopper(content: ReactNode) {
-        if (popperOptions.autoPlacementPortal?.current) {
-            return createPortal(content, popperOptions.autoPlacementPortal.current);
+        if (popperOptions.portalNode?.current) {
+            return createPortal(content, popperOptions.portalNode.current);
         }
 
         return content;
