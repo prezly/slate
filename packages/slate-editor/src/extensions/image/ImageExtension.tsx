@@ -1,13 +1,12 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement, EditorCommands, withoutNodes } from '@prezly/slate-commons';
-import type { ImageNode, ParagraphNode } from '@prezly/slate-types';
-import { Alignment } from '@prezly/slate-types';
+import type { ImageNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
 import { noop } from 'lodash-es';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
-import type { Editor, NodeEntry, Node } from 'slate';
+import type { NodeEntry, Node , Editor } from 'slate';
 import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
@@ -155,13 +154,13 @@ export const ImageExtension = ({
     withOverrides: withImages,
 });
 
-function replaceImageWithParagraph(editor: Editor, nodeEntry: NodeEntry<Node>) {
-    Transforms.setNodes<ImageNode | ParagraphNode>(
+function replaceImageWithParagraph(editor: Editor, entry: NodeEntry<Node>) {
+    EditorCommands.replaceNode(
         editor,
-        createParagraph({ align: Alignment.LEFT }),
         {
-            at: nodeEntry[1],
+            entry,
             match: isImageNode,
         },
+        createParagraph,
     );
 }

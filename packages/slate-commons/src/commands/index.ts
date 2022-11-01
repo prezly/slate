@@ -39,6 +39,7 @@ export { normalizeNestedElement } from './normalizeNestedElement';
 export { normalizeRedundantAttributes } from './normalizeRedundantAttributes';
 export { removeChildren } from './removeChildren';
 export { removeNode } from './removeNode';
+export { replaceNode } from './replaceNode';
 export { resetNodes } from './resetNodes';
 export { resetSelection } from './resetSelection';
 export { saveSelection } from './saveSelection';
