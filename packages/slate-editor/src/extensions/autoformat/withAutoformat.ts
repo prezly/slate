@@ -32,7 +32,7 @@ export function withAutoformat<T extends Editor>(editor: T, rules: AutoformatRul
                 const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
 
                 if (mode === 'block' && !isParagraphNode(currentNode)) {
-                    return;
+                    continue;
                 }
 
                 const formatter = autoformatters[mode];
