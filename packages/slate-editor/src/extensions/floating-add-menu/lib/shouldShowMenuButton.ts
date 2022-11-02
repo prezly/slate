@@ -3,7 +3,7 @@ import { isHeadingNode, isParagraphNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Node, Range } from 'slate';
 
-import { MENU_TRIGGER_CHARACTERS } from './isMenuHotkey';
+import { MENU_TRIGGER_CHARACTER } from './isMenuHotkey';
 
 export function shouldShowMenuButton(editor: Editor): boolean {
     if (!editor.selection || Range.isExpanded(editor.selection)) {
@@ -26,6 +26,6 @@ export function shouldShowMenuButton(editor: Editor): boolean {
 
     const text = Node.string(currentNode);
     return (
-        text.trim() === '' || MENU_TRIGGER_CHARACTERS.some((triggerChar) => triggerChar === text)
+        text.trim() === '' || text === MENU_TRIGGER_CHARACTER
     );
 }

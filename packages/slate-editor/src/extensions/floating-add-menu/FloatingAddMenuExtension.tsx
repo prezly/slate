@@ -1,13 +1,9 @@
 import type { Extension } from '@prezly/slate-commons';
-import { isHotkey, type KeyboardEventLike } from 'is-hotkey';
+import { isHotkey } from 'is-hotkey';
 
-import { isMenuHotkey, MENU_TRIGGER_CHARACTERS, shouldShowMenuButton } from './lib';
+import { isMenuHotkey, MENU_TRIGGER_CHARACTER, shouldShowMenuButton } from './lib';
 
-function isTriggerInput(event: KeyboardEventLike) {
-    return MENU_TRIGGER_CHARACTERS.some((triggerKey) =>
-        isHotkey(`shift?+${triggerKey}`, { byKey: true })(event),
-    );
-}
+const isTriggerHotkey = isHotkey(`shift?+${MENU_TRIGGER_CHARACTER}`, { byKey: true });
 
 export const EXTENSION_ID = 'FloatingAddMenuExtension';
 
@@ -26,7 +22,7 @@ export function FloatingAddMenuExtension({ onOpen }: Parameters): Extension {
                 return;
             }
 
-            if (isTriggerInput(event) && shouldShowMenuButton(editor)) {
+            if (isTriggerHotkey(event) && shouldShowMenuButton(editor)) {
                 onOpen('input');
                 return;
             }
