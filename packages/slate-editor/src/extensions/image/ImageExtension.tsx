@@ -1,12 +1,12 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement, EditorCommands, withoutNodes } from '@prezly/slate-commons';
-import type { ImageNode, ParagraphNode } from '@prezly/slate-types';
+import type { ImageNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
 import { noop } from 'lodash-es';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
-import type { Editor } from 'slate';
+import type { NodeEntry, Node, Editor } from 'slate';
 import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
@@ -110,10 +110,7 @@ export const ImageExtension = ({
 
             if (EditorCommands.isNodeEmpty(editor, nodeEntry[0])) {
                 if (!isHoldingDelete) {
-                    Transforms.setNodes<ImageNode | ParagraphNode>(editor, createParagraph(), {
-                        at: nodeEntry[1],
-                        match: isImageNode,
-                    });
+                    replaceImageWithParagraph(editor, nodeEntry);
                 }
 
                 event.preventDefault();
@@ -126,10 +123,7 @@ export const ImageExtension = ({
                 EditorCommands.isSelectionAtBlockStart(editor) &&
                 EditorCommands.isSelectionEmpty(editor)
             ) {
-                Transforms.setNodes<ImageNode | ParagraphNode>(editor, createParagraph(), {
-                    at: nodeEntry[1],
-                    match: isImageNode,
-                });
+                replaceImageWithParagraph(editor, nodeEntry);
                 event.preventDefault();
                 event.stopPropagation();
             }
@@ -159,3 +153,14 @@ export const ImageExtension = ({
     serialize: (nodes) => withoutNodes(nodes, isImageCandidateElement),
     withOverrides: withImages,
 });
+
+function replaceImageWithParagraph(editor: Editor, entry: NodeEntry<Node>) {
+    EditorCommands.replaceNode(
+        editor,
+        {
+            entry,
+            match: isImageNode,
+        },
+        createParagraph(),
+    );
+}
