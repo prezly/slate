@@ -10,11 +10,7 @@ interface Option {
 }
 
 export function useKeyboardFiltering<T extends Option>(input: string, options: T[]): [string, T[]] {
-    const query = (
-        MENU_TRIGGER_CHARACTER === input[0]
-            ? input.substring(1)
-            : input
-    ).toLowerCase();
+    const query = (MENU_TRIGGER_CHARACTER === input[0] ? input.substring(1) : input).toLowerCase();
 
     const filteredOptions = useMemo(
         function () {

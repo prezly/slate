@@ -25,7 +25,5 @@ export function shouldShowMenuButton(editor: Editor): boolean {
     }
 
     const text = Node.string(currentNode);
-    return (
-        text.trim() === '' || text === MENU_TRIGGER_CHARACTER
-    );
+    return text.trim() === '' || text === MENU_TRIGGER_CHARACTER;
 }
