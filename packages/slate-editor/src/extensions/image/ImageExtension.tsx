@@ -161,6 +161,6 @@ function replaceImageWithParagraph(editor: Editor, entry: NodeEntry<Node>) {
             entry,
             match: isImageNode,
         },
-        createParagraph,
+        createParagraph(),
     );
 }

@@ -8,20 +8,20 @@ interface Props<T extends Node> {
 
 export function replaceNode<Original extends Node, New extends Node>(
     editor: Editor,
-    props: Props<Original>,
-    createNode: () => New,
+    options: Props<Original>,
+    newNode: New,
 ) {
     Editor.withoutNormalizing(editor, () => {
-        const [node, path] = props.entry;
+        const [node, path] = options.entry;
 
         Transforms.unsetNodes<Original>(editor, Object.keys(node), {
             at: path,
-            match: props.match,
+            match: options.match,
         });
 
-        Transforms.setNodes<Original | New>(editor, createNode(), {
+        Transforms.setNodes<Original | New>(editor, newNode, {
             at: path,
-            match: props.match,
+            match: options.match,
         });
     });
 }
