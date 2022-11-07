@@ -10,6 +10,7 @@ import {
     normalizeSlackLineBreaks,
     normalizeUselessBodyTags,
     normalizeZeroWidthSpaces,
+    normalizeSoftBreaks,
 } from '../normalizers';
 
 const normalizers = [
@@ -20,6 +21,7 @@ const normalizers = [
     normalizeSlackLineBreaks,
     normalizeUselessBodyTags,
     normalizeZeroWidthSpaces,
+    normalizeSoftBreaks,
 ];
 
 export function deserializeHtml(

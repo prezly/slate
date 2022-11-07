@@ -8,6 +8,7 @@ import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ParagraphElement } from './components';
 import {
+    createParagraph,
     normalizeRedundantParagraphAttributes,
     normalizeUnknownElement,
     parseSerializedElement,
@@ -20,6 +21,7 @@ export const ParagraphsExtension = (): Extension => ({
     deserialize: {
         element: composeElementDeserializer({
             [PARAGRAPH_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
+            BR: () => createParagraph(),
         }),
         elementFallback: composeElementDeserializer({
             P: paragraph, // It has to be in the fallbacks, to allow other extensions to parse specific P tags hierarchies.
