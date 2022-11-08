@@ -1,0 +1,15 @@
+[
+    { "type": "paragraph", "children": [{ "text": "this is a title" }] },
+    { "type": "paragraph", "children": [{ "text": "" }] },
+    {
+        "type": "paragraph",
+        "children": [{ "text": "paragraph immediately below, just one cr/lf inserted" }]
+    },
+    { "type": "paragraph", "children": [{ "text": "" }] },
+    { "type": "paragraph", "children": [{ "text": "asdasdasdas" }] },
+    { "type": "paragraph", "children": [{ "text": "" }] },
+    { "type": "paragraph", "children": [{ "text": "asdasdasdas" }] },
+    { "type": "paragraph", "children": [{ "text": "" }] },
+    { "type": "paragraph", "children": [{ "text": "asdasdasd" }] },
+    { "children": [{ "text": "" }], "type": "paragraph" }
+]

@@ -342,6 +342,27 @@ describe('Editor - pasting', () => {
 
         expect(editor.children).toMatchObject(JSON.parse(expected));
     });
+
+    it('Deserializes soft breaks in pre tags', () => {
+        const editor = createEditor(
+            <editor>
+                <h-p>
+                    <h-text>
+                        <cursor />
+                    </h-text>
+                </h-p>
+            </editor>,
+        );
+
+        const expected = readTestFile('expected/pre-line-breaks.json');
+        const dataTransfer = createDataTransfer({
+            'text/html': readTestFile('input/pre-line-breaks.html'),
+        });
+
+        editor.insertData(dataTransfer);
+
+        expect(editor.children).toEqual(JSON.parse(expected));
+    });
 });
 
 describe('Editor - withRootElements', () => {
