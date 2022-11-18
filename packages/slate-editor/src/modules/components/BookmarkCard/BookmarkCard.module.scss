@@ -89,7 +89,7 @@
     margin: $spacing-base 0;
     line-height: 1.4;
 
-    @include multi-line-ellipsis(2);
+    @include multi-line-ellipsis(3);
 
     .vertical & {
         font-size: $font-size-medium;
