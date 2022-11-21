@@ -56,7 +56,7 @@
 .details {
     padding: (2.5 * $spacing-base) (3 * $spacing-base);
     flex-grow: 1;
-    overflow: hidden;
+    min-width: 0;
 }
 
 .title {
@@ -105,7 +105,6 @@
     align-items: center;
     color: $grey-700;
     font-weight: 600;
-    text-overflow: ellipsis;
 
     .vertical & {
         margin-top: 13px;
