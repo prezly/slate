@@ -15,16 +15,22 @@ export async function handleEditAttachment(editor: Editor, element: Partial<Atta
         return;
     }
 
-    Transforms.setNodes<AttachmentNode>(editor, element, {
+    const newElement = mapFilename({ ...currentFileAttachment, ...element }, (filename) =>
+        filename.replaceAll('/', '_'),
+    );
+
+    Transforms.setNodes<AttachmentNode>(editor, newElement, {
         match: isAttachmentNode,
     });
 
-    const { description, file } = { ...currentFileAttachment, ...element };
-
     EventsEditor.dispatchEvent(editor, 'attachment-edited', {
-        description: description,
-        mimeType: file.mime_type,
-        size: file.size,
-        uuid: file.uuid,
+        description: newElement.description,
+        mimeType: newElement.file.mime_type,
+        size: newElement.file.size,
+        uuid: newElement.file.uuid,
     });
+}
+
+function mapFilename(element: AttachmentNode, map: (filename: string) => string): AttachmentNode {
+    return { ...element, file: { ...element.file, filename: map(element.file.filename) } };
 }
