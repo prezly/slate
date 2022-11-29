@@ -15,9 +15,7 @@ export async function handleEditAttachment(editor: Editor, element: Partial<Atta
         return;
     }
 
-    const newElement = mapFilename({ ...currentFileAttachment, ...element }, (filename) =>
-        filename.replaceAll('/', '_'),
-    );
+    const newElement = { ...currentFileAttachment, ...element };
 
     Transforms.setNodes<AttachmentNode>(editor, newElement, {
         match: isAttachmentNode,
@@ -29,8 +27,4 @@ export async function handleEditAttachment(editor: Editor, element: Partial<Atta
         size: newElement.file.size,
         uuid: newElement.file.uuid,
     });
-}
-
-function mapFilename(element: AttachmentNode, map: (filename: string) => string): AttachmentNode {
-    return { ...element, file: { ...element.file, filename: map(element.file.filename) } };
 }
