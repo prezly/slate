@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-lists",
-    "version": "0.69.7",
+    "version": "0.69.8-alpha.0",
     "description": "The best Slate lists extension out there",
     "license": "MIT",
     "type": "module",
