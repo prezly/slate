@@ -41,6 +41,8 @@ export function StoryBookmarkBlock({ story, element }: StoryBookmarkBlockProps) 
         });
     });
 
+    const hasThumbnail = Boolean(showThumbnail && story.oembed.thumbnail_url);
+
     return (
         <BookmarkCard.Container border={false} layout={actualLayout} ref={card}>
             {showThumbnail && story.oembed.thumbnail_url && (
@@ -52,6 +54,8 @@ export function StoryBookmarkBlock({ story, element }: StoryBookmarkBlockProps) 
                 />
             )}
             <BookmarkCard.Details
+                hasThumbnail={hasThumbnail}
+                layout={actualLayout}
                 href={story.oembed.url}
                 title={story.oembed.title}
                 description={story.oembed.description}

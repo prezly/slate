@@ -54,7 +54,7 @@
 }
 
 .details {
-    padding: (2.5 * $spacing-base) (3 * $spacing-base);
+    padding: (2 * $spacing-base) (3 * $spacing-base);
     flex-grow: 1;
     min-width: 0;
 }
@@ -66,8 +66,6 @@
 
     color: $grey-700;
 
-    @include multi-line-ellipsis(2);
-
     &,
     &:hover {
         text-decoration: none;
@@ -75,6 +73,15 @@
 
     &:hover {
         color: $grey-800;
+    }
+
+    &,
+    .isTitleShort & {
+        @include multi-line-ellipsis(3);
+    }
+
+    .isDescriptionShort & {
+        @include multi-line-ellipsis(4);
     }
 
     .vertical & {
@@ -90,7 +97,14 @@
     margin: $spacing-base 0;
     line-height: 1.4;
 
-    @include multi-line-ellipsis(3);
+    .isTitleShort & {
+        @include multi-line-ellipsis(7);
+    }
+
+    &,
+    .isDescriptionShort & {
+        @include multi-line-ellipsis(3);
+    }
 
     .vertical & {
         font-size: $font-size-medium;

@@ -71,6 +71,8 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
                         />
                     )}
                     <BookmarkCard.Details
+                        hasThumbnail={Boolean(showThumbnail && oembed.thumbnail_url)}
+                        layout={actualLayout}
                         href={url}
                         title={oembed.title}
                         description={oembed.description}
