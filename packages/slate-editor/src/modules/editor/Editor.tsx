@@ -85,7 +85,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         decorate,
         id,
         initialValue,
-        loseFocusOnOutsideClick = true,
+        loseFocusOnOutsideClick = false,
         onIsOperationPendingChange,
         onKeyDown = noop,
         placeholder,
