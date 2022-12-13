@@ -74,6 +74,10 @@ export interface EditorProps {
     decorate?: Decorate;
     id?: string;
     initialValue: Value;
+    /**
+     * When set to true, the editor will lose focus state when a click happens outside of the editor
+     */
+    loseFocusOnOutsideClick?: boolean;
     onChange: (value: Value) => void;
     onIsOperationPendingChange?: (isOperationPending: boolean) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
