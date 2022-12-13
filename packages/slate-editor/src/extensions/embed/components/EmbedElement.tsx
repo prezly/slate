@@ -52,7 +52,11 @@ export function EmbedElement({ attributes, children, element, showAsScreenshot }
                 if (element.oembed.type === 'link') {
                     return (
                         <BookmarkCard.Container border layout="vertical">
-                            <BookmarkCard.Details href={element.url}>
+                            <BookmarkCard.Details
+                                href={element.url}
+                                layout="vertical"
+                                hasThumbnail={false}
+                            >
                                 <BookmarkCard.Provider showUrl url={element.url} />
                             </BookmarkCard.Details>
                         </BookmarkCard.Container>

@@ -35,6 +35,8 @@ export function Horizontal(props: { showUrl: boolean }) {
                     href={info.url}
                     title={info.title}
                     description={info.description}
+                    layout="horizontal"
+                    hasThumbnail
                 >
                     <BookmarkCard.Provider
                         showUrl={props.showUrl}
@@ -61,6 +63,8 @@ export function Vertical(props: { showUrl: boolean }) {
                     href={info.url}
                     title={info.title}
                     description={info.description}
+                    layout="vertical"
+                    hasThumbnail
                 >
                     <BookmarkCard.Provider
                         showUrl={props.showUrl}
@@ -79,7 +83,7 @@ export function Minimal() {
     return (
         <div style={{ width: 680 }}>
             <BookmarkCard.Container border layout="vertical">
-                <BookmarkCard.Details href={url}>
+                <BookmarkCard.Details href={url} layout="vertical" hasThumbnail={false}>
                     <BookmarkCard.Provider showUrl url={url} />
                 </BookmarkCard.Details>
             </BookmarkCard.Container>
