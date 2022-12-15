@@ -28,10 +28,10 @@ export function Details({
         let descriptionOneLineLength;
 
         if (layout === 'vertical' || !hasThumbnail) {
-            titleOneLineLength = 50;
+            titleOneLineLength = 52;
             descriptionOneLineLength = 75;
         } else {
-            titleOneLineLength = 28;
+            titleOneLineLength = 33;
             descriptionOneLineLength = 45;
         }
 
