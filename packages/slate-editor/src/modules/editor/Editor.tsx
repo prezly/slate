@@ -85,7 +85,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         decorate,
         id,
         initialValue,
-        loseFocusOnOutsideClick = false,
+        blurOnOutsideClick = false,
         onIsOperationPendingChange,
         onKeyDown = noop,
         placeholder,
@@ -212,14 +212,14 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             }
         }
 
-        if (loseFocusOnOutsideClick) {
+        if (blurOnOutsideClick) {
             document.addEventListener('click', handleOutsideClick);
         }
 
         return () => {
             document.removeEventListener('click', handleOutsideClick);
         };
-    }, [loseFocusOnOutsideClick, editor, popperMenuOptions]);
+    }, [blurOnOutsideClick, editor, popperMenuOptions]);
 
     useCursorInView(editor, withCursorInView || false);
 
