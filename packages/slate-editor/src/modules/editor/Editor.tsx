@@ -85,6 +85,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         decorate,
         id,
         initialValue,
+        blurOnOutsideClick = false,
         onIsOperationPendingChange,
         onKeyDown = noop,
         placeholder,
@@ -190,6 +191,35 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.focus(editor);
         }
     }, [autoFocus, editor]);
+
+    useEffect(() => {
+        function handleOutsideClick(event: MouseEvent) {
+            const clickTarget = event.target as HTMLElement | null;
+
+            if (!clickTarget) {
+                return;
+            }
+
+            function isTargetWithin(container: HTMLElement | null | undefined) {
+                return container && (container === clickTarget || container.contains(clickTarget));
+            }
+
+            const isWithinMenuPortal = isTargetWithin(popperMenuOptions.portalNode?.current);
+            const isWithinEditor = isTargetWithin(containerRef.current);
+
+            if (!isWithinEditor && !isWithinMenuPortal) {
+                EditorCommands.blur(editor);
+            }
+        }
+
+        if (blurOnOutsideClick) {
+            document.addEventListener('click', handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [blurOnOutsideClick, editor, popperMenuOptions]);
 
     useCursorInView(editor, withCursorInView || false);
 
