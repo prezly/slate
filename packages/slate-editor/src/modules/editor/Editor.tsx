@@ -206,8 +206,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
 
             const isWithinMenuPortal = isTargetWithin(popperMenuOptions.portalNode?.current);
             const isWithinEditor = isTargetWithin(containerRef.current);
+            const isTextboxElement =
+                clickTarget.tagName.toLowerCase() === 'textarea' ||
+                clickTarget.tagName.toLowerCase() === 'input';
 
-            if (!isWithinEditor && !isWithinMenuPortal) {
+            if (!isWithinEditor && !isWithinMenuPortal && !isTextboxElement) {
                 EditorCommands.blur(editor);
             }
         }
