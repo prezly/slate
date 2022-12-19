@@ -75,7 +75,8 @@ export interface EditorProps {
     id?: string;
     initialValue: Value;
     /**
-     * When set to true, the editor will lose focus state when a click happens outside of the editor
+     * When set to `true`, the editor will lose focus state when a click happens outside of the editor.
+     * NOTE: Due to how blur logic works in slate, click events happening on textbox elements (textarea, input) are ignored to prevent issues with their focus.
      */
     blurOnOutsideClick?: boolean;
     onChange: (value: Value) => void;
