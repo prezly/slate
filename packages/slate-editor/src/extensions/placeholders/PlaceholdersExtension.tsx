@@ -15,7 +15,7 @@ import {
 } from './elements';
 import { fixDuplicatePlaceholderUuid, removeDisabledPlaceholders } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
-import type { FetchOEmbedFn } from './types';
+import type { FetchOEmbedFn, FrameProps } from './types';
 
 export const EXTENSION_ID = 'PlaceholdersExtension';
 
@@ -44,7 +44,7 @@ export interface Parameters {
     withGalleryPlaceholders?: boolean | { newsroom?: NewsroomRef };
     withImagePlaceholders?: boolean | { withCaptions: boolean; newsroom?: NewsroomRef };
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
-    withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
+    withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn, format?: FrameProps['format'] };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
 }
 
@@ -192,6 +192,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         fetchOembed={withVideoPlaceholders.fetchOembed}
+                        format={withVideoPlaceholders.format}
                         removable={removable}
                     >
                         {children}
