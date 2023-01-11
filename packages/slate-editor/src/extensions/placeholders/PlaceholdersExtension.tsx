@@ -44,7 +44,7 @@ export interface Parameters {
     withGalleryPlaceholders?: boolean | { newsroom?: NewsroomRef };
     withImagePlaceholders?: boolean | { withCaptions: boolean; newsroom?: NewsroomRef };
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
-    withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn, format?: FrameProps['format'] };
+    withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn; format?: FrameProps['format'] };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
 }
 
