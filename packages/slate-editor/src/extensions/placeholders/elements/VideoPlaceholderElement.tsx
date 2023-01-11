@@ -41,7 +41,13 @@ interface Props
     fetchOembed: FetchOEmbedFn;
 }
 
-export function VideoPlaceholderElement({ children, element, fetchOembed, ...props }: Props) {
+export function VideoPlaceholderElement({
+    children,
+    element,
+    fetchOembed,
+    format,
+    ...props
+}: Props) {
     const editor = useSlateStatic();
 
     const handleTrigger = useFunction(() => {
@@ -120,7 +126,7 @@ export function VideoPlaceholderElement({ children, element, fetchOembed, ...pro
             {...props}
             element={element}
             // Core
-            format="16:9"
+            format={format || '16:9'}
             icon={PlaceholderVideo}
             title={Title}
             description={Description}

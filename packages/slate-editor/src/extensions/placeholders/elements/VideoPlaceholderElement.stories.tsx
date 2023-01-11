@@ -54,3 +54,17 @@ export function VideoPlaceholder() {
         </VideoPlaceholderElement>
     );
 }
+
+export function ShortVideoPlaceholder() {
+    return (
+        <VideoPlaceholderElement
+            attributes={attributes}
+            element={placeholder}
+            fetchOembed={failOembed}
+            format="card"
+            removable
+        >
+            {''}
+        </VideoPlaceholderElement>
+    );
+}
