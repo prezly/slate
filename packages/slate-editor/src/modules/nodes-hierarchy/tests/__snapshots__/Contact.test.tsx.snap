@@ -14,16 +14,15 @@ Array [
       "description": "description",
       "email": "bill@prezly.com",
       "facebook": "facebook",
-      "id": 255335,
       "mobile": "mobile",
       "name": "Bill Blankenship",
       "phone": "phone",
       "twitter": "twitter",
-      "uuid": "cfff4936-22bf-4c9a-81aa-cbf2f5fd6192",
       "website": "website",
     },
+    "reference": "cfff4936-22bf-4c9a-81aa-cbf2f5fd6192",
     "type": "contact",
-    "uuid": "cfff4936-22bf-4c9a-81aa-cbf2f5fd6192",
+    "uuid": "00000000-00000000-00000000-00000001",
   },
 ]
 `;

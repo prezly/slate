@@ -31,7 +31,7 @@ describe('nodes-hierarchy / Contact', () => {
         const expected = (
             <editor>
                 <h:contact
-                    uuid="00000000-00000000-00000000-00000002"
+                    uuid="00000000-00000000-00000000-00000001"
                     reference="cfff4936-22bf-4c9a-81aa-cbf2f5fd6192"
                     contact={{
                         avatar_url:
