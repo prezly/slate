@@ -8,6 +8,7 @@ import { Transforms } from 'slate';
 const SHAPE: Record<keyof ContactNode, boolean> = {
     type: true,
     uuid: true,
+    reference: true,
     contact: true,
     children: true,
 };

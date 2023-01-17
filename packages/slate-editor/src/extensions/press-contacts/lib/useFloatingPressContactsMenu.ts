@@ -6,7 +6,7 @@ import type { Editor } from 'slate';
 
 import { EventsEditor } from '#modules/events';
 
-import { createPressContact } from './createPressContact';
+import { createContactNode } from './createContactNode';
 
 interface State {
     isOpen: boolean;
@@ -44,7 +44,7 @@ export function useFloatingPressContactsMenu(editor: Editor): [State, Actions] {
         });
         close();
         savedSelection.restore(editor, { focus: true });
-        EditorCommands.insertNodes(editor, [createPressContact({ contact })], {
+        EditorCommands.insertNodes(editor, [createContactNode({ contact, reference: id })], {
             ensureEmptyParagraphAfter: true,
         });
     }

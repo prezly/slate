@@ -7,8 +7,9 @@ export const CONTACT_NODE_TYPE = 'contact';
 
 export interface ContactNode extends ElementNode {
     type: typeof CONTACT_NODE_TYPE;
-    contact: ContactInfo;
     uuid: string;
+    reference: ContactNode['uuid'] | null;
+    contact: ContactInfo;
 }
 
 export function isContactNode(value: any): value is ContactNode {

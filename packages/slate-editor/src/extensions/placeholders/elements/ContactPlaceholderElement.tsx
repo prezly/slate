@@ -9,7 +9,7 @@ import { useFunction } from '#lib';
 
 import { EventsEditor } from '#modules/events';
 
-import { createPressContact } from '../../press-contacts';
+import { createContactNode } from '../../press-contacts';
 import type { Props as PlaceholderElementProps } from '../components/PlaceholderElement';
 import {
     type Props as BaseProps,
@@ -40,7 +40,7 @@ export function ContactPlaceholderElement({
             contact_id: id,
         });
 
-        replacePlaceholder(editor, element, createPressContact({ contact }));
+        replacePlaceholder(editor, element, createContactNode({ contact, reference: id }));
     });
 
     usePlaceholderManagement(element.type, element.uuid, {
