@@ -1,31 +1,27 @@
 export interface ContactInfo {
     avatar_url: string | null;
-    company: string | null;
-    // TODO: cultures
-    description: string | null;
-    email: string | null;
-    facebook: string | null;
-    // TODO: is_visible_in_room
-    mobile: string | null;
     name: string;
-    // TODO: order
-    phone: string | null;
-    // TODO: stories
-    twitter: string | null;
-    website: string | null;
+    company: string;
+    description: string;
+    mobile: string;
+    phone: string;
+    email: string;
+    website: string;
+    facebook: string;
+    twitter: string;
 }
 
 export function isContactInfo(value: any): value is ContactInfo {
     return (
         (typeof value.avatar_url === 'string' || value.avatar_url === null) &&
-        (typeof value.company === 'string' || value.company === null) &&
-        (typeof value.description === 'string' || value.description === null) &&
-        (typeof value.email === 'string' || value.email === null) &&
-        (typeof value.facebook === 'string' || value.facebook === null) &&
-        (typeof value.mobile === 'string' || value.mobile === null) &&
         typeof value.name === 'string' &&
-        (typeof value.phone === 'string' || value.phone === null) &&
-        (typeof value.twitter === 'string' || value.twitter === null) &&
-        (typeof value.website === 'string' || value.website === null)
+        typeof value.company === 'string' &&
+        typeof value.description === 'string' &&
+        typeof value.mobile === 'string' &&
+        typeof value.phone === 'string' &&
+        typeof value.email === 'string' &&
+        typeof value.website === 'string' &&
+        typeof value.facebook === 'string' &&
+        typeof value.twitter === 'string'
     );
 }

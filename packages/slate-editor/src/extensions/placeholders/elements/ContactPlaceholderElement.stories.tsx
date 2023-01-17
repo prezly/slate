@@ -31,14 +31,14 @@ const attributes: RenderElementProps['attributes'] = {
 function contact(props: Partial<ContactInfo> & Pick<ContactInfo, 'name'>): ContactInfo {
     return {
         avatar_url: null,
-        company: null,
-        description: null,
-        email: null,
-        facebook: null,
-        mobile: null,
-        phone: null,
-        twitter: null,
-        website: null,
+        company: '',
+        description: '',
+        email: '',
+        facebook: '',
+        mobile: '',
+        phone: '',
+        twitter: '',
+        website: '',
         ...props,
     };
 }
