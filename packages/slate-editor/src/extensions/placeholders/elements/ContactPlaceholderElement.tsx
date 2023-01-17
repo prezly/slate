@@ -1,3 +1,4 @@
+import type { NewsroomContact } from '@prezly/sdk';
 import type { PressContact } from '@prezly/slate-types';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
@@ -34,12 +35,12 @@ export function ContactPlaceholderElement({
         PlaceholdersManager.activate(element);
     });
 
-    const handleSelect = useFunction((contact: PressContact) => {
+    const handleSelect = useFunction((id: NewsroomContact['uuid'], contact: PressContact) => {
         EventsEditor.dispatchEvent(editor, 'contact-dialog-submitted', {
-            contact_id: contact.id,
+            contact_id: id,
         });
 
-        replacePlaceholder(editor, element, createPressContact(contact));
+        replacePlaceholder(editor, element, createPressContact({ contact }));
     });
 
     usePlaceholderManagement(element.type, element.uuid, {

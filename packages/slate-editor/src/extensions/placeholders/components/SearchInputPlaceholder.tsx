@@ -57,7 +57,7 @@ export function SearchInputPlaceholder<T>({
 
     function handleSelect(suggestion: SearchInput.Suggestion<T>) {
         if (input.current?.validity.valid) {
-            onSelect?.(suggestion.value);
+            onSelect?.(suggestion.id, suggestion.value);
         }
     }
 
@@ -137,7 +137,7 @@ export namespace SearchInputPlaceholder {
         initialQuery?: string;
         placeholder?: string;
         onEsc?: (event: KeyboardEvent) => void;
-        onSelect?: (value: T) => void;
+        onSelect?: (id: SearchInput.Suggestion<T>['id'], value: T) => void;
     }
 }
 

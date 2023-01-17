@@ -1,25 +1,16 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import type { ContactNode } from '@prezly/slate-types';
 import { isContactNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-import { createPressContact } from './createPressContact';
+const SHAPE: Record<keyof ContactNode, boolean> = {
+    type: true,
+    uuid: true,
+    contact: true,
+    children: true,
+};
 
-const ALLOWED_ATTRIBUTES = Object.keys(
-    createPressContact({
-        avatar_url: null,
-        company: null,
-        description: null,
-        email: null,
-        facebook: null,
-        id: 0,
-        mobile: null,
-        name: '',
-        phone: null,
-        twitter: null,
-        uuid: '00000000-0000-0000-0000-000000000000',
-        website: null,
-    }),
-);
+const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
 
 export function normalizeRedundantPressContactAttributes(
     editor: Editor,

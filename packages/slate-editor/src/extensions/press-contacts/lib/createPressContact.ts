@@ -1,11 +1,14 @@
-import type { ContactNode, PressContact } from '@prezly/slate-types';
+import type { ContactNode } from '@prezly/slate-types';
 import { CONTACT_NODE_TYPE } from '@prezly/slate-types';
+import * as uuid from 'uuid';
 
-export function createPressContact(contact: PressContact): ContactNode {
+type Props = Pick<ContactNode, 'contact'> & Partial<Pick<ContactNode, 'uuid'>>;
+
+export function createPressContact(props: Props): ContactNode {
     return {
-        children: [{ text: '' }],
-        contact,
         type: CONTACT_NODE_TYPE,
-        uuid: contact.uuid,
+        uuid: uuid.v4(),
+        children: [{ text: '' }],
+        ...props,
     };
 }

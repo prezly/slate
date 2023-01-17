@@ -1,4 +1,5 @@
 import type { Events } from '@prezly/events';
+import type { NewsroomContact } from '@prezly/sdk';
 import type { PressContact } from '@prezly/slate-types';
 import { once } from 'lodash-es';
 import type { ReactNode, RefObject } from 'react';
@@ -21,7 +22,7 @@ interface Props {
     renderSearch: (searchProps: SearchProps) => ReactNode;
     onClose: () => void;
     onRootClose: () => void;
-    onSubmit: (contact: PressContact) => void;
+    onSubmit: (id: NewsroomContact['uuid'], contact: PressContact) => void;
 }
 
 function trackSearchUsed(editor: Editor) {

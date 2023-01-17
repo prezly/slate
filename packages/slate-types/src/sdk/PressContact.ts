@@ -5,7 +5,6 @@ export interface PressContact {
     description: string | null;
     email: string | null;
     facebook: string | null;
-    id: number;
     // TODO: is_visible_in_room
     mobile: string | null;
     name: string;
@@ -13,7 +12,6 @@ export interface PressContact {
     phone: string | null;
     // TODO: stories
     twitter: string | null;
-    uuid: string;
     website: string | null;
 }
 
@@ -24,12 +22,10 @@ export function isPressContact(value: any): value is PressContact {
         (typeof value.description === 'string' || value.description === null) &&
         (typeof value.email === 'string' || value.email === null) &&
         (typeof value.facebook === 'string' || value.facebook === null) &&
-        typeof value.id === 'number' &&
         (typeof value.mobile === 'string' || value.mobile === null) &&
         typeof value.name === 'string' &&
         (typeof value.phone === 'string' || value.phone === null) &&
         (typeof value.twitter === 'string' || value.twitter === null) &&
-        typeof value.uuid === 'string' &&
         (typeof value.website === 'string' || value.website === null)
     );
 }
