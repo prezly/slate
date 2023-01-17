@@ -25,3 +25,20 @@ export function isContactInfo(value: any): value is ContactInfo {
         typeof value.twitter === 'string'
     );
 }
+
+export namespace ContactInfo {
+    export function normalize<T extends ContactInfo>(value: T): ContactInfo {
+        return {
+            avatar_url: value.avatar_url ?? null,
+            name: value.name ?? '',
+            company: value.company ?? '',
+            description: value.description ?? '',
+            mobile: value.mobile ?? '',
+            phone: value.phone ?? '',
+            email: value.email ?? '',
+            website: value.website ?? '',
+            facebook: value.facebook ?? '',
+            twitter: value.twitter ?? '',
+        };
+    }
+}

@@ -6,7 +6,11 @@ import React from 'react';
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { PressContactElement } from './components';
-import { normalizeRedundantPressContactAttributes, parseSerializedElement } from './lib';
+import {
+    normalizeContactInfoAttributes,
+    normalizeContactNodeAttributes,
+    parseSerializedElement,
+} from './lib';
 
 export const EXTENSION_ID = 'PressContactExtension';
 
@@ -19,7 +23,7 @@ export const PressContactsExtension = (): Extension => ({
     },
     isRichBlock: isContactNode,
     isVoid: isContactNode,
-    normalizeNode: normalizeRedundantPressContactAttributes,
+    normalizeNode: [normalizeContactNodeAttributes, normalizeContactInfoAttributes],
     renderElement: ({ attributes, children, element }) => {
         if (isContactNode(element)) {
             return (
