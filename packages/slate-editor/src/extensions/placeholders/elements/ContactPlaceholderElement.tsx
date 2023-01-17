@@ -1,5 +1,5 @@
 import type { NewsroomContact } from '@prezly/sdk';
-import type { PressContact } from '@prezly/slate-types';
+import type { ContactInfo } from '@prezly/slate-types';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
@@ -35,7 +35,7 @@ export function ContactPlaceholderElement({
         PlaceholdersManager.activate(element);
     });
 
-    const handleSelect = useFunction((id: NewsroomContact['uuid'], contact: PressContact) => {
+    const handleSelect = useFunction((id: NewsroomContact['uuid'], contact: ContactInfo) => {
         EventsEditor.dispatchEvent(editor, 'contact-dialog-submitted', {
             contact_id: id,
         });
@@ -48,7 +48,7 @@ export function ContactPlaceholderElement({
     });
 
     return (
-        <SearchInputPlaceholderElement<PressContact>
+        <SearchInputPlaceholderElement<ContactInfo>
             {...props}
             element={element}
             // Core
@@ -84,7 +84,7 @@ export function ContactPlaceholderElement({
 export namespace ContactPlaceholderElement {
     export interface Props
         extends Omit<
-                BaseProps<PressContact>,
+                BaseProps<ContactInfo>,
                 | 'onSelect'
                 | 'icon'
                 | 'title'
@@ -96,6 +96,6 @@ export namespace ContactPlaceholderElement {
             >,
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.CONTACT>;
-        renderSuggestionsFooter?: BaseProps<PressContact>['renderSuggestions'];
+        renderSuggestionsFooter?: BaseProps<ContactInfo>['renderSuggestions'];
     }
 }

@@ -1,4 +1,4 @@
-import type { PressContact } from '@prezly/slate-types';
+import type { ContactInfo } from '@prezly/slate-types';
 import * as React from 'react';
 import { createEditor as createSlateEditor } from 'slate';
 import { type RenderElementProps, Slate } from 'slate-react';
@@ -28,7 +28,7 @@ const attributes: RenderElementProps['attributes'] = {
     ref: () => null,
 };
 
-function contact(props: Partial<PressContact> & Pick<PressContact, 'name'>): PressContact {
+function contact(props: Partial<ContactInfo> & Pick<ContactInfo, 'name'>): ContactInfo {
     return {
         avatar_url: null,
         company: null,
@@ -43,7 +43,7 @@ function contact(props: Partial<PressContact> & Pick<PressContact, 'name'>): Pre
     };
 }
 
-const suggestions: Suggestion<PressContact>[] = [
+const suggestions: Suggestion<ContactInfo>[] = [
     { id: '00000000-00000000-00000000-00000001', value: contact({ name: 'Frodo Baggins' }) },
     { id: '00000000-00000000-00000000-00000002', value: contact({ name: 'Aragorn' }) },
     { id: '00000000-00000000-00000000-00000003', value: contact({ name: 'Samwise Gamgee' }) },

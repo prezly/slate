@@ -1,6 +1,6 @@
 import type { NewsroomContact } from '@prezly/sdk';
 import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
-import type { PressContact } from '@prezly/slate-types';
+import type { ContactInfo } from '@prezly/slate-types';
 import { useState } from 'react';
 import type { Editor } from 'slate';
 
@@ -16,7 +16,7 @@ interface Actions {
     close: () => void;
     open: () => void;
     rootClose: () => void;
-    submit: (id: NewsroomContact['uuid'], contact: PressContact) => void;
+    submit: (id: NewsroomContact['uuid'], contact: ContactInfo) => void;
 }
 
 export function useFloatingPressContactsMenu(editor: Editor): [State, Actions] {
@@ -38,7 +38,7 @@ export function useFloatingPressContactsMenu(editor: Editor): [State, Actions] {
         savedSelection.save(editor);
     }
 
-    function submit(id: NewsroomContact['uuid'], contact: PressContact) {
+    function submit(id: NewsroomContact['uuid'], contact: ContactInfo) {
         EventsEditor.dispatchEvent(editor, 'contact-dialog-submitted', {
             contact_id: id,
         });

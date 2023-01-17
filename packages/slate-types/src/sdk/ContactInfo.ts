@@ -1,4 +1,4 @@
-export interface PressContact {
+export interface ContactInfo {
     avatar_url: string | null;
     company: string | null;
     // TODO: cultures
@@ -15,7 +15,7 @@ export interface PressContact {
     website: string | null;
 }
 
-export function isPressContact(value: any): value is PressContact {
+export function isContactInfo(value: any): value is ContactInfo {
     return (
         (typeof value.avatar_url === 'string' || value.avatar_url === null) &&
         (typeof value.company === 'string' || value.company === null) &&

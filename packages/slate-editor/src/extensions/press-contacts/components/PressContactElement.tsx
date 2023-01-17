@@ -1,5 +1,5 @@
 import type { ContactNode } from '@prezly/slate-types';
-import type { PressContact } from '@prezly/slate-types';
+import type { ContactInfo } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import React from 'react';
@@ -55,7 +55,7 @@ export function PressContactElement({ attributes, children, element }: Props) {
     );
 }
 
-export function JobDescription(props: { className?: string; contact: PressContact }) {
+export function JobDescription(props: { className?: string; contact: ContactInfo }) {
     const { description, company } = props.contact;
     // If there is not text to show, render an empty <div> to keep height consistent.
     const text = [description, company].filter(Boolean).join(', ').trim();
@@ -67,7 +67,7 @@ export function JobDescription(props: { className?: string; contact: PressContac
     return <div className={classNames(styles.jobDescription, props.className)}>{text}</div>;
 }
 
-function SocialFields(props: { contact: PressContact }) {
+function SocialFields(props: { contact: ContactInfo }) {
     const { email, phone, mobile, twitter, facebook, website } = props.contact;
     return (
         // TODO: Remove dependency on external CSS icons
