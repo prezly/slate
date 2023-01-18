@@ -29,24 +29,16 @@ import { ReactEditor, Slate } from 'slate-react';
 
 import { useFunction, useSize } from '#lib';
 
-import { FloatingCoverageMenu, useFloatingCoverageMenu } from '#extensions/coverage';
-import { FloatingEmbedInput, useFloatingEmbedInput } from '#extensions/embed';
 import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
 import type { Option } from '#extensions/floating-add-menu';
 import { LoaderContentType } from '#extensions/loader';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
-import {
-    FloatingPressContactsMenu,
-    useFloatingPressContactsMenu,
-} from '#extensions/press-contacts';
 import { useFloatingSnippetInput } from '#extensions/snippet';
 import { useFloatingStoryBookmarkInput } from '#extensions/story-bookmark';
 import { useFloatingStoryEmbedInput } from '#extensions/story-embed';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
 import { VariablesDropdown, useVariables } from '#extensions/variables';
-import { FloatingVideoInput, useFloatingVideoInput } from '#extensions/video';
-import { FloatingWebBookmarkInput, useFloatingWebBookmarkInput } from '#extensions/web-bookmark';
 import { FloatingStoryEmbedInput, FloatingSnippetInput, Placeholder } from '#modules/components';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
@@ -57,10 +49,7 @@ import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 import styles from './Editor.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';
 import {
-    createHandleAddGallery,
-    createImageAddHandler,
     createOnCut,
-    handleAddAttachment,
     insertDivider,
     insertTable,
     isEditorValueEqual,
@@ -109,7 +98,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withImages = false,
         withInlineLinks = false,
         withLists = false,
-        withPlaceholders = false,
+        withPlaceholders = {},
         withPressContacts = false,
         withRichFormattingMenu = false,
         withStoryBookmarks = false,
@@ -260,42 +249,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
 
     const variables = useVariables(withVariables || undefined);
     const userMentions = useUserMentions(withUserMentions || undefined);
-    const [
-        { isOpen: isFloatingWebBookmarkInputOpen, submitButtonLabel: webBookmarkSubmitButtonLabel },
-        {
-            close: closeFloatingWebBookmarkInput,
-            open: openFloatingWebBookmarkInput,
-            rootClose: rootCloseFloatingWebBookmarkInput,
-            submit: submitFloatingWebBookmarkInput,
-        },
-    ] = useFloatingWebBookmarkInput(editor, (withWebBookmarks || undefined)?.fetchOembed);
-    const [
-        { isOpen: isFloatingVideoInputOpen, submitButtonLabel: videoSubmitButtonLabel },
-        {
-            close: closeFloatingVideoInput,
-            open: openFloatingVideoInput,
-            rootClose: rootCloseFloatingVideoInput,
-            submit: submitFloatingVideoInput,
-        },
-    ] = useFloatingVideoInput(editor, (withVideos || undefined)?.fetchOembed);
-    const [
-        { isOpen: isFloatingCoverageMenuOpen },
-        {
-            close: closeFloatingCoverageMenu,
-            open: openFloatingCoverageMenu,
-            rootClose: rootCloseFloatingCoverageMenu,
-            submit: submitFloatingCoverageMenu,
-        },
-    ] = useFloatingCoverageMenu(editor);
-    const [
-        { isOpen: isFloatingEmbedInputOpen, submitButtonLabel: embedSubmitButtonLabel },
-        {
-            close: closeFloatingEmbedInput,
-            open: openFloatingEmbedInput,
-            rootClose: rootCloseFloatingEmbedInput,
-            submit: submitFloatingEmbedInput,
-        },
-    ] = useFloatingEmbedInput(editor, (withEmbeds || undefined)?.fetchOembed);
 
     const [
         { isOpen: isFloatingStoryEmbedInputOpen },
@@ -326,16 +279,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             submit: submitFloatingSnippetInput,
         },
     ] = useFloatingSnippetInput(editor);
-
-    const [
-        { isOpen: isFloatingPressContactsMenuOpen },
-        {
-            close: closeFloatingPressContactsMenu,
-            open: openFloatingPressContactsMenu,
-            rootClose: rootCloseFloatingPressContactsMenu,
-            submit: submitFloatingPressContactsMenu,
-        },
-    ] = useFloatingPressContactsMenu(editor);
 
     if (withVariables) {
         onKeyDownList.push(variables.onKeyDown);
@@ -385,20 +328,17 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }
         if (action === MenuAction.ADD_ATTACHMENT) {
             EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.ATTACHMENT },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return handleAddAttachment(editor);
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.ATTACHMENT },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         if (action === MenuAction.ADD_CONTACT) {
-            if (withPlaceholders && withPlaceholders.withContactPlaceholders) {
+            if (withPlaceholders && withPlaceholders?.withContactPlaceholders) {
                 const placeholder = insertPlaceholder(
                     editor,
                     { type: PlaceholderNode.Type.CONTACT },
@@ -408,20 +348,17 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 EditorCommands.selectNode(editor, placeholder);
                 return;
             }
-            return openFloatingPressContactsMenu();
+            return;
         }
         if (action === MenuAction.ADD_COVERAGE) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.COVERAGE },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return openFloatingCoverageMenu();
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.COVERAGE },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         if (action === MenuAction.ADD_QUOTE) {
             return toggleBlock<QuoteNode>(editor, QUOTE_NODE_TYPE);
@@ -433,48 +370,24 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return TablesEditor.isTablesEditor(editor) && insertTable(editor);
         }
         if (action === MenuAction.ADD_EMBED) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.EMBED },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return openFloatingEmbedInput('Add embed', {
-                contentType: LoaderContentType.EMBED,
-                message: 'Embedding Content',
-            });
-        }
-        if (action === MenuAction.ADD_EMBED_LINK) {
-            return openFloatingEmbedInput('Add link', {
-                contentType: LoaderContentType.EMBED,
-                message: 'Embedding Link',
-            });
-        }
-        if (action === MenuAction.ADD_EMBED_VIDEO) {
-            return openFloatingEmbedInput('Add video', {
-                contentType: LoaderContentType.VIDEO,
-                message: 'Embedding Video',
-            });
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.EMBED },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.SOCIAL_POST },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return openFloatingEmbedInput('Add social post', {
-                contentType: LoaderContentType.EMBED,
-                message: 'Embedding Social Post',
-            });
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.SOCIAL_POST },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         if (action === MenuAction.ADD_STORY_EMBED) {
             return openFloatingStoryEmbedInput('Embed Prezly story', {
@@ -492,64 +405,45 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return openFloatingSnippetInput();
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.GALLERY },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return createHandleAddGallery(withGalleries)(editor);
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.GALLERY },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         if (action === MenuAction.ADD_IMAGE && withImages) {
             EventsEditor.dispatchEvent(editor, 'image-add-clicked');
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.IMAGE },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return createImageAddHandler(withImages)(editor);
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.IMAGE },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
         }
         if (action === MenuAction.ADD_VIDEO) {
             EventsEditor.dispatchEvent(editor, 'video-add-clicked');
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.VIDEO },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return openFloatingVideoInput('Add video', {
-                contentType: LoaderContentType.VIDEO,
-                message: 'Adding video',
-            });
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.VIDEO },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         if (action === MenuAction.ADD_WEB_BOOKMARK) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.WEB_BOOKMARK },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return openFloatingWebBookmarkInput('Add web bookmark', {
-                contentType: LoaderContentType.BOOKMARK,
-                message: 'Adding web bookmark',
-            });
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.WEB_BOOKMARK },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         return;
     });
@@ -675,50 +569,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         />
                     )}
 
-                    {withVideos && isFloatingVideoInputOpen && (
-                        <FloatingVideoInput
-                            availableWidth={availableWidth}
-                            containerRef={containerRef}
-                            onClose={closeFloatingVideoInput}
-                            onRootClose={rootCloseFloatingVideoInput}
-                            onSubmit={submitFloatingVideoInput}
-                            submitButtonLabel={videoSubmitButtonLabel}
-                        />
-                    )}
-
-                    {withWebBookmarks && isFloatingWebBookmarkInputOpen && (
-                        <FloatingWebBookmarkInput
-                            availableWidth={availableWidth}
-                            containerRef={containerRef}
-                            onClose={closeFloatingWebBookmarkInput}
-                            onRootClose={rootCloseFloatingWebBookmarkInput}
-                            onSubmit={submitFloatingWebBookmarkInput}
-                            submitButtonLabel={webBookmarkSubmitButtonLabel}
-                        />
-                    )}
-
-                    {withCoverage && isFloatingCoverageMenuOpen && (
-                        <FloatingCoverageMenu
-                            availableWidth={availableWidth}
-                            containerRef={containerRef}
-                            onClose={closeFloatingCoverageMenu}
-                            onRootClose={rootCloseFloatingCoverageMenu}
-                            onSubmit={submitFloatingCoverageMenu}
-                            renderSearch={withCoverage.renderSearch}
-                        />
-                    )}
-
-                    {withEmbeds && isFloatingEmbedInputOpen && (
-                        <FloatingEmbedInput
-                            availableWidth={availableWidth}
-                            containerRef={containerRef}
-                            onClose={closeFloatingEmbedInput}
-                            onRootClose={rootCloseFloatingEmbedInput}
-                            onSubmit={submitFloatingEmbedInput}
-                            submitButtonLabel={embedSubmitButtonLabel}
-                        />
-                    )}
-
                     {withStoryEmbeds && isFloatingStoryEmbedInputOpen && (
                         <FloatingStoryEmbedInput
                             availableWidth={availableWidth}
@@ -760,18 +610,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     onCreate: submitFloatingSnippetInput,
                                 })
                             }
-                        />
-                    )}
-
-                    {withPressContacts && isFloatingPressContactsMenuOpen && (
-                        <FloatingPressContactsMenu
-                            availableWidth={availableWidth}
-                            containerRef={containerRef}
-                            events={events}
-                            onClose={closeFloatingPressContactsMenu}
-                            onRootClose={rootCloseFloatingPressContactsMenu}
-                            onSubmit={submitFloatingPressContactsMenu}
-                            renderSearch={withPressContacts.renderSearch}
                         />
                     )}
                 </Slate>

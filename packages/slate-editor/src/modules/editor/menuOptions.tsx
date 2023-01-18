@@ -12,14 +12,6 @@ export enum MenuAction {
     ADD_DIVIDER = 'add_divider',
     ADD_TABLE = 'add_table',
     ADD_EMBED = 'add_embed',
-    /**
-     * @deprecated Will be replaced with `add_web_bookmark`
-     */
-    ADD_EMBED_LINK = 'add_embed_link',
-    /**
-     * @deprecated Will be replaced with `add_video`
-     */
-    ADD_EMBED_VIDEO = 'add_embed_video',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
     ADD_HEADING_1 = 'add_heading_1',

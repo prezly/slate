@@ -26,7 +26,6 @@ export function getAllExtensions() {
             withCoverage: {
                 dateFormat: 'YYYY/MM/DD',
                 fetchCoverage: createDelayedResolve(coverage),
-                renderSearch: () => null,
             },
             withDivider: true,
             withEmbeds: {
@@ -52,9 +51,7 @@ export function getAllExtensions() {
                 withVideoPlaceholders: { fetchOembed },
                 withWebBookmarkPlaceholders: { fetchOembed },
             },
-            withPressContacts: {
-                renderSearch: () => null,
-            },
+            withPressContacts: true,
             withStoryBookmarks: {
                 loadStory: () => Promise.reject(),
                 renderInput: () => null,
