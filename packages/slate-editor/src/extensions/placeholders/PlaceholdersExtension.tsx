@@ -22,6 +22,7 @@ export const EXTENSION_ID = 'PlaceholdersExtension';
 const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
 
 export interface Parameters {
+    format?: FrameProps['format'];
     removable?: boolean;
     withAttachmentPlaceholders?: boolean;
     withContactPlaceholders?:
@@ -41,14 +42,16 @@ export interface Parameters {
               | 'onCreateCoverage'
           >;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
-    withGalleryPlaceholders?: boolean | { newsroom?: NewsroomRef };
-    withImagePlaceholders?: boolean | { withCaptions: boolean; newsroom?: NewsroomRef };
+    withGalleryPlaceholders?: boolean | { newsroom: NewsroomRef | undefined };
+    withImagePlaceholders?: boolean | { withCaptions: boolean; newsroom: NewsroomRef | undefined };
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
-    withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn; format?: FrameProps['format'] };
+    withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
 }
 
 export function PlaceholdersExtension({
+    format = undefined,
+    removable = false,
     withAttachmentPlaceholders = false,
     withContactPlaceholders = false,
     withCoveragePlaceholders = false,
@@ -58,10 +61,7 @@ export function PlaceholdersExtension({
     withSocialPostPlaceholders = false,
     withWebBookmarkPlaceholders = false,
     withVideoPlaceholders = false,
-    ...parameters
 }: Parameters = {}): Extension {
-    const removable = parameters.removable ?? true;
-
     return {
         id: EXTENSION_ID,
         isRichBlock: PlaceholderNode.isPlaceholderNode,
@@ -89,6 +89,7 @@ export function PlaceholdersExtension({
                     <AttachmentPlaceholderElement
                         attributes={attributes}
                         element={element}
+                        format={format}
                         removable={removable}
                     >
                         {children}
@@ -104,6 +105,7 @@ export function PlaceholdersExtension({
                         {...withContactPlaceholders}
                         attributes={attributes}
                         element={element}
+                        format={format}
                         removable={removable}
                     >
                         {children}
@@ -119,6 +121,7 @@ export function PlaceholdersExtension({
                         {...withCoveragePlaceholders}
                         attributes={attributes}
                         element={element}
+                        format={format}
                         removable={removable}
                     >
                         {children}
@@ -131,6 +134,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         fetchOembed={withEmbedPlaceholders.fetchOembed}
+                        format={format}
                         removable={removable}
                     >
                         {children}
@@ -145,6 +149,7 @@ export function PlaceholdersExtension({
                     <ImagePlaceholderElement
                         attributes={attributes}
                         element={element}
+                        format={format}
                         newsroom={newsroom}
                         withCaptions={withCaptions}
                         removable={removable}
@@ -163,6 +168,7 @@ export function PlaceholdersExtension({
                     <GalleryPlaceholderElement
                         attributes={attributes}
                         element={element}
+                        format={format}
                         newsroom={newsroom}
                         withCaptions
                         removable={removable}
@@ -180,6 +186,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         fetchOembed={withSocialPostPlaceholders.fetchOembed}
+                        format={format}
                         removable={removable}
                     >
                         {children}
@@ -192,7 +199,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         fetchOembed={withVideoPlaceholders.fetchOembed}
-                        format={withVideoPlaceholders.format}
+                        format={format}
                         removable={removable}
                     >
                         {children}
@@ -208,6 +215,7 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         fetchOembed={withWebBookmarkPlaceholders.fetchOembed}
+                        format={format}
                         removable={removable}
                     >
                         {children}
