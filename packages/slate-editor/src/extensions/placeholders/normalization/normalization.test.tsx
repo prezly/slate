@@ -19,6 +19,7 @@ const normalizations = [
         withEmbedPlaceholders: false,
         withGalleryPlaceholders: Boolean('ENABLED'),
         withImagePlaceholders: Boolean('ENABLED'),
+        withInlineContactPlaceholders: false,
         withSocialPostPlaceholders: false,
         withVideoPlaceholders: false,
         withWebBookmarkPlaceholders: false,
