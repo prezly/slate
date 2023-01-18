@@ -1,8 +1,7 @@
-import type { PressContact } from '@prezly/slate-types';
+import type { ContactInfo } from '@prezly/slate-types';
 import * as React from 'react';
 import { createEditor as createSlateEditor } from 'slate';
 import { type RenderElementProps, Slate } from 'slate-react';
-import * as uuid from 'uuid';
 
 import { SearchInput } from '#components';
 
@@ -29,33 +28,32 @@ const attributes: RenderElementProps['attributes'] = {
     ref: () => null,
 };
 
-function contact(props: Partial<PressContact> & Pick<PressContact, 'id' | 'name'>): PressContact {
+function contact(props: Partial<ContactInfo> & Pick<ContactInfo, 'name'>): ContactInfo {
     return {
         avatar_url: null,
-        company: null,
-        description: null,
-        email: null,
-        facebook: null,
-        mobile: null,
-        phone: null,
-        twitter: null,
-        uuid: uuid.v4(),
-        website: null,
+        company: '',
+        description: '',
+        email: '',
+        facebook: '',
+        mobile: '',
+        phone: '',
+        twitter: '',
+        website: '',
         ...props,
     };
 }
 
-const suggestions: Suggestion<PressContact>[] = [
-    { id: '1', value: contact({ id: 1, name: 'Frodo Baggins' }) },
-    { id: '2', value: contact({ id: 2, name: 'Aragorn' }) },
-    { id: '3', value: contact({ id: 3, name: 'Samwise Gamgee' }) },
-    { id: '4', value: contact({ id: 4, name: 'Merry Brandybuck' }) },
-    { id: '5', value: contact({ id: 5, name: 'Legolas' }) },
-    { id: '6', value: contact({ id: 6, name: 'Pippin Took' }) },
-    { id: '7', value: contact({ id: 7, name: 'Gandalf' }) },
-    { id: '8', value: contact({ id: 8, name: 'Boromir' }) },
-    { id: '9', value: contact({ id: 9, name: 'Arwen' }) },
-    { id: '10', value: contact({ id: 10, name: 'Galadriel' }) },
+const suggestions: Suggestion<ContactInfo>[] = [
+    { id: '00000000-00000000-00000000-00000001', value: contact({ name: 'Frodo Baggins' }) },
+    { id: '00000000-00000000-00000000-00000002', value: contact({ name: 'Aragorn' }) },
+    { id: '00000000-00000000-00000000-00000003', value: contact({ name: 'Samwise Gamgee' }) },
+    { id: '00000000-00000000-00000000-00000004', value: contact({ name: 'Merry Brandybuck' }) },
+    { id: '00000000-00000000-00000000-00000005', value: contact({ name: 'Legolas' }) },
+    { id: '00000000-00000000-00000000-00000006', value: contact({ name: 'Pippin Took' }) },
+    { id: '00000000-00000000-00000000-00000007', value: contact({ name: 'Gandalf' }) },
+    { id: '00000000-00000000-00000000-00000008', value: contact({ name: 'Boromir' }) },
+    { id: '00000000-00000000-00000000-00000009', value: contact({ name: 'Arwen' }) },
+    { id: '00000000-00000000-00000000-00000010', value: contact({ name: 'Galadriel' }) },
 ];
 
 async function getSuggestions(query: string) {

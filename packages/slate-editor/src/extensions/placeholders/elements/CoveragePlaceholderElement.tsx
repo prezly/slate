@@ -149,7 +149,7 @@ export function CoveragePlaceholderElement({
             inputDescription="Select coverage to insert"
             inputPlaceholder="Search for coverage"
             onDrop={handleDrop}
-            onSelect={handleSelect}
+            onSelect={(_, entry) => handleSelect(entry)}
         >
             {children}
         </SearchInputPlaceholderElement>

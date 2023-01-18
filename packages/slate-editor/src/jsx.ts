@@ -64,7 +64,7 @@ import type { LoaderNode } from '#extensions/loader';
 import { createLoader } from '#extensions/loader';
 import { createParagraph } from '#extensions/paragraphs';
 import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
-import { createPressContact } from '#extensions/press-contacts';
+import { createContactNode } from '#extensions/press-contacts';
 import { createStoryBookmark } from '#extensions/story-bookmark';
 import { createStoryEmbed } from '#extensions/story-embed';
 import {
@@ -136,7 +136,7 @@ const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
         createFileAttachment(props.file, props.description),
     ),
     'h:bookmark': initCreator((props: BookmarkNode) => createWebBookmark(props)),
-    'h:contact': initCreator((props: ContactNode) => createPressContact(props.contact)),
+    'h:contact': initCreator((props: ContactNode) => createContactNode(props)),
     'h:coverage': initCreator((props: CoverageNode) => createCoverage(props.coverage.id, props)),
     'h:divider': initCreator(() => createDivider()),
     'h:embed': initCreator((props: EmbedNode) => createEmbed(props.oembed, props.url)),

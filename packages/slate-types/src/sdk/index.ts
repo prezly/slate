@@ -7,4 +7,4 @@
  */
 
 export * from './OEmbedInfo';
-export * from './PressContact';
+export * from './ContactInfo';

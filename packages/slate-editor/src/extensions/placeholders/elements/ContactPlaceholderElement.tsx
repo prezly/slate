@@ -1,4 +1,5 @@
-import type { PressContact } from '@prezly/slate-types';
+import type { NewsroomContact } from '@prezly/sdk';
+import type { ContactInfo } from '@prezly/slate-types';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
@@ -8,7 +9,7 @@ import { useFunction } from '#lib';
 
 import { EventsEditor } from '#modules/events';
 
-import { createPressContact } from '../../press-contacts';
+import { createContactNode } from '../../press-contacts';
 import type { Props as PlaceholderElementProps } from '../components/PlaceholderElement';
 import {
     type Props as BaseProps,
@@ -34,12 +35,12 @@ export function ContactPlaceholderElement({
         PlaceholdersManager.activate(element);
     });
 
-    const handleSelect = useFunction((contact: PressContact) => {
+    const handleSelect = useFunction((id: NewsroomContact['uuid'], contact: ContactInfo) => {
         EventsEditor.dispatchEvent(editor, 'contact-dialog-submitted', {
-            contact_id: contact.id,
+            contact_id: id,
         });
 
-        replacePlaceholder(editor, element, createPressContact(contact));
+        replacePlaceholder(editor, element, createContactNode({ contact, reference: id }));
     });
 
     usePlaceholderManagement(element.type, element.uuid, {
@@ -47,7 +48,7 @@ export function ContactPlaceholderElement({
     });
 
     return (
-        <SearchInputPlaceholderElement<PressContact>
+        <SearchInputPlaceholderElement<ContactInfo>
             {...props}
             element={element}
             // Core
@@ -83,7 +84,7 @@ export function ContactPlaceholderElement({
 export namespace ContactPlaceholderElement {
     export interface Props
         extends Omit<
-                BaseProps<PressContact>,
+                BaseProps<ContactInfo>,
                 | 'onSelect'
                 | 'icon'
                 | 'title'
@@ -95,6 +96,6 @@ export namespace ContactPlaceholderElement {
             >,
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.CONTACT>;
-        renderSuggestionsFooter?: BaseProps<PressContact>['renderSuggestions'];
+        renderSuggestionsFooter?: BaseProps<ContactInfo>['renderSuggestions'];
     }
 }

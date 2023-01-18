@@ -18,7 +18,7 @@ export {
 } from './extensions/placeholders';
 export {
     type SearchProps as PressContactsSearchProps,
-    createPressContact,
+    createContactNode,
     JobDescription,
 } from './extensions/press-contacts';
 export type { User } from './extensions/user-mentions';

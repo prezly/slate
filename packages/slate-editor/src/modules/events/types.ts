@@ -1,6 +1,6 @@
 import type { Listener } from '@prezly/events';
-import type { CoverageEntry } from '@prezly/sdk';
-import type { PressContact, TableHeader } from '@prezly/slate-types';
+import type { CoverageEntry, NewsroomContact } from '@prezly/sdk';
+import type { TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
 export type EditorEventMap = {
@@ -39,10 +39,10 @@ export type EditorEventMap = {
     'contact-dialog-opened': never;
     'contact-dialog-search-used': never;
     'contact-dialog-submitted': {
-        contact_id: PressContact['id'];
+        contact_id: NewsroomContact['uuid'];
     };
     'contact-removed': {
-        contact_id: PressContact['id'];
+        contact_id: NewsroomContact['uuid'];
     };
     'coverage-dialog-opened': never;
     'coverage-dialog-search-used': never;
