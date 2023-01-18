@@ -3,6 +3,7 @@ export interface ContactInfo {
     name: string;
     company: string;
     description: string;
+    address: string;
     mobile: string;
     phone: string;
     email: string;
@@ -17,6 +18,7 @@ export function isContactInfo(value: any): value is ContactInfo {
         typeof value.name === 'string' &&
         typeof value.company === 'string' &&
         typeof value.description === 'string' &&
+        typeof value.address === 'string' &&
         typeof value.mobile === 'string' &&
         typeof value.phone === 'string' &&
         typeof value.email === 'string' &&
@@ -33,6 +35,7 @@ export namespace ContactInfo {
             name: value.name ?? '',
             company: value.company ?? '',
             description: value.description ?? '',
+            address: value.address ?? '',
             mobile: value.mobile ?? '',
             phone: value.phone ?? '',
             email: value.email ?? '',
