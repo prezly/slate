@@ -13,7 +13,6 @@ import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } 
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { ImageExtensionConfiguration } from '#extensions/image';
 import type { PlaceholderNode, PlaceholdersExtensionParameters } from '#extensions/placeholders';
-import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
 import type { SnippetsExtensionParameters } from '#extensions/snippet';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
@@ -108,7 +107,7 @@ export interface EditorProps {
     withInlineLinks?: boolean;
     withLists?: boolean;
     withPlaceholders?: false | PlaceholdersExtensionParameters;
-    withPressContacts?: false | PressContactsExtensionParameters;
+    withPressContacts?: boolean;
     withRichFormattingMenu?:
         | boolean
         | {
