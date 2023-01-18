@@ -12,9 +12,10 @@ import styles from './PressContactElement.module.scss';
 
 interface Props extends RenderElementProps {
     element: ContactNode;
+    renderMenu?: (props: { onClose: () => void }) => ReactNode;
 }
 
-export function PressContactElement({ attributes, children, element }: Props) {
+export function PressContactElement({ attributes, children, element, renderMenu }: Props) {
     return (
         <EditorBlock
             {...attributes}
@@ -22,6 +23,7 @@ export function PressContactElement({ attributes, children, element }: Props) {
             element={element}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
+            renderMenu={renderMenu}
             renderReadOnlyFrame={() => (
                 <div className={styles.wrapper}>
                     {element.contact.avatar_url && (

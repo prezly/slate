@@ -6,6 +6,7 @@ export interface InlineContactsExtensionParameters {
 }
 
 export interface FormProps {
+    contact: ContactInfo;
     onClose: () => void;
     onSubmit: (contactInfo: ContactInfo) => void;
 }

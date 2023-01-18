@@ -150,7 +150,7 @@ export function* getEnabledExtensions({
     }
 
     if (withInlineContacts) {
-        yield InlineContactsExtension();
+        yield InlineContactsExtension(withInlineContacts);
     }
 
     if (withInlineLinks) {

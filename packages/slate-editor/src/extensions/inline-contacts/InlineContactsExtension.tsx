@@ -5,16 +5,20 @@ import React from 'react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
-import { PressContactElement } from '../press-contacts/components';
 import {
     normalizeContactInfoAttributes,
     normalizeContactNodeAttributes,
     parseSerializedElement,
 } from '../press-contacts/lib';
 
+import { InlineContactElement } from './components';
+import type { InlineContactsExtensionParameters } from './types';
+
 export const EXTENSION_ID = 'InlineContactExtension';
 
-export function InlineContactsExtension(): Extension {
+export function InlineContactsExtension({
+    renderForm,
+}: InlineContactsExtensionParameters): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
@@ -28,9 +32,13 @@ export function InlineContactsExtension(): Extension {
         renderElement: ({ attributes, children, element }) => {
             if (isContactNode(element)) {
                 return (
-                    <PressContactElement attributes={attributes} element={element}>
+                    <InlineContactElement
+                        attributes={attributes}
+                        element={element}
+                        renderForm={renderForm}
+                    >
                         {children}
-                    </PressContactElement>
+                    </InlineContactElement>
                 );
             }
 
