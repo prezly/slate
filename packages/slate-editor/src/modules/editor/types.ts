@@ -106,7 +106,7 @@ export interface EditorProps {
     withImages?: false | ImageExtensionConfiguration;
     withInlineLinks?: boolean;
     withLists?: boolean;
-    withPlaceholders?: false | PlaceholdersExtensionParameters;
+    withPlaceholders: PlaceholdersExtensionParameters;
     withPressContacts?: boolean;
     withRichFormattingMenu?:
         | boolean

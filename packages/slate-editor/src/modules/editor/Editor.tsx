@@ -49,10 +49,7 @@ import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 import styles from './Editor.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';
 import {
-    createHandleAddGallery,
-    createImageAddHandler,
     createOnCut,
-    handleAddAttachment,
     insertDivider,
     insertTable,
     isEditorValueEqual,
@@ -331,17 +328,14 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }
         if (action === MenuAction.ADD_ATTACHMENT) {
             EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.ATTACHMENT },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return handleAddAttachment(editor);
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.ATTACHMENT },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         if (action === MenuAction.ADD_CONTACT) {
             if (withPlaceholders && withPlaceholders?.withContactPlaceholders) {
@@ -357,16 +351,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return;
         }
         if (action === MenuAction.ADD_COVERAGE) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.COVERAGE },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.COVERAGE },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
             return;
         }
         if (action === MenuAction.ADD_QUOTE) {
@@ -379,29 +370,23 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return TablesEditor.isTablesEditor(editor) && insertTable(editor);
         }
         if (action === MenuAction.ADD_EMBED) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.EMBED },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.EMBED },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
             return;
         }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.SOCIAL_POST },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.SOCIAL_POST },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
             return;
         }
         if (action === MenuAction.ADD_STORY_EMBED) {
@@ -420,57 +405,44 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return openFloatingSnippetInput();
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.GALLERY },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return createHandleAddGallery(withGalleries)(editor);
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.GALLERY },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         if (action === MenuAction.ADD_IMAGE && withImages) {
             EventsEditor.dispatchEvent(editor, 'image-add-clicked');
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.IMAGE },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
-            return createImageAddHandler(withImages)(editor);
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.IMAGE },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
         }
         if (action === MenuAction.ADD_VIDEO) {
             EventsEditor.dispatchEvent(editor, 'video-add-clicked');
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.VIDEO },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.VIDEO },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
             return;
         }
         if (action === MenuAction.ADD_WEB_BOOKMARK) {
-            if (withPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.WEB_BOOKMARK },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.WEB_BOOKMARK },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
             return;
         }
         return;
