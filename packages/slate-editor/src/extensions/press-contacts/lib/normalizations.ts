@@ -27,7 +27,7 @@ export function normalizeContactInfoAttributes(editor: Editor, [node, path]: Nod
     if (!isContactNode(node)) {
         return false;
     }
-    if (isEqual(Object.keys(node.contact), Object.keys(ContactInfo.normalize(node.contact)))) {
+    if (isEqual(node.contact, ContactInfo.normalize(node.contact))) {
         return false;
     }
 
