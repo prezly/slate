@@ -26,6 +26,11 @@ export function getAllExtensions() {
             withCoverage: {
                 dateFormat: 'YYYY/MM/DD',
                 fetchCoverage: createDelayedResolve(coverage),
+                getSuggestions: () => [],
+                renderEmpty: () => null,
+                renderSuggestion: () => null,
+                renderSuggestionsFooter: () => null,
+                onCreateCoverage: createDelayedResolve({ coverage }),
             },
             withDivider: true,
             withEmbeds: {
@@ -41,17 +46,13 @@ export function getAllExtensions() {
             },
             withInlineLinks: true,
             withLists: true,
-            withPlaceholders: {
-                withAttachmentPlaceholders: true,
-                withContactPlaceholders: false,
-                withEmbedPlaceholders: { fetchOembed },
-                withGalleryPlaceholders: { newsroom: undefined },
-                withImagePlaceholders: { withCaptions: true, newsroom: undefined },
-                withSocialPostPlaceholders: { fetchOembed },
-                withVideoPlaceholders: { fetchOembed },
-                withWebBookmarkPlaceholders: { fetchOembed },
+            withPlaceholders: {},
+            withPressContacts: {
+                getSuggestions: () => [],
+                renderEmpty: () => null,
+                renderSuggestion: () => null,
+                renderSuggestionsFooter: () => null,
             },
-            withPressContacts: true,
             withStoryBookmarks: {
                 loadStory: () => Promise.reject(),
                 renderInput: () => null,

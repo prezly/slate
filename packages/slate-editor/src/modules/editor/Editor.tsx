@@ -338,16 +338,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return;
         }
         if (action === MenuAction.ADD_CONTACT) {
-            if (withPlaceholders && withPlaceholders?.withContactPlaceholders) {
-                const placeholder = insertPlaceholder(
-                    editor,
-                    { type: PlaceholderNode.Type.CONTACT },
-                    true,
-                );
-                PlaceholdersManager.trigger(placeholder);
-                EditorCommands.selectNode(editor, placeholder);
-                return;
-            }
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.CONTACT },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
             return;
         }
         if (action === MenuAction.ADD_COVERAGE) {

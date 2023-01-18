@@ -95,7 +95,10 @@ export interface EditorProps {
     withAttachments?: boolean;
     withAutoformat?: boolean | AutoformatParameters;
     withBlockquotes?: boolean;
-    withCoverage?: false | CoverageExtensionConfiguration;
+    withCoverage?:
+        | false
+        | (CoverageExtensionConfiguration &
+              PlaceholdersExtensionParameters['withCoveragePlaceholders']);
     withCursorInView?: false | Parameters<typeof useCursorInView>[1];
     withDivider?: boolean;
     withEmbeds?: false | EmbedExtensionConfiguration;
@@ -106,8 +109,8 @@ export interface EditorProps {
     withImages?: false | ImageExtensionConfiguration;
     withInlineLinks?: boolean;
     withLists?: boolean;
-    withPlaceholders?: PlaceholdersExtensionParameters;
-    withPressContacts?: boolean;
+    withPlaceholders?: Pick<PlaceholdersExtensionParameters, 'format' | 'removable'>;
+    withPressContacts?: false | PlaceholdersExtensionParameters['withContactPlaceholders'];
     withRichFormattingMenu?:
         | boolean
         | {
