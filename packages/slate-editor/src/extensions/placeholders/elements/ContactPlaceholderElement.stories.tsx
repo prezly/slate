@@ -33,6 +33,7 @@ function contact(props: Partial<ContactInfo> & Pick<ContactInfo, 'name'>): Conta
         avatar_url: null,
         company: '',
         description: '',
+        address: '',
         email: '',
         facebook: '',
         mobile: '',
