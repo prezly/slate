@@ -40,6 +40,9 @@ export function getAllExtensions() {
                 captions: true,
                 withLayoutOptions: true,
             },
+            withInlineContacts: {
+                renderForm: () => null,
+            },
             withInlineLinks: true,
             withLists: true,
             withPlaceholders: {

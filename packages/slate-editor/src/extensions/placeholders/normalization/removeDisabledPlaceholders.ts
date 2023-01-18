@@ -8,6 +8,7 @@ interface Parameters {
     withContactPlaceholders: boolean;
     withCoveragePlaceholders: boolean;
     withImagePlaceholders: boolean;
+    withInlineContactPlaceholders: boolean;
     withGalleryPlaceholders: boolean;
     withEmbedPlaceholders: boolean;
     withSocialPostPlaceholders: boolean;
@@ -20,6 +21,7 @@ export function removeDisabledPlaceholders({
     withContactPlaceholders,
     withCoveragePlaceholders,
     withImagePlaceholders,
+    withInlineContactPlaceholders,
     withGalleryPlaceholders,
     withEmbedPlaceholders,
     withSocialPostPlaceholders,
@@ -28,7 +30,7 @@ export function removeDisabledPlaceholders({
 }: Parameters): Normalize {
     const config = {
         [PlaceholderNode.Type.ATTACHMENT]: withAttachmentPlaceholders,
-        [PlaceholderNode.Type.CONTACT]: withContactPlaceholders,
+        [PlaceholderNode.Type.CONTACT]: withContactPlaceholders || withInlineContactPlaceholders,
         [PlaceholderNode.Type.COVERAGE]: withCoveragePlaceholders,
         [PlaceholderNode.Type.IMAGE]: withImagePlaceholders,
         [PlaceholderNode.Type.GALLERY]: withGalleryPlaceholders,

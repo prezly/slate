@@ -12,6 +12,7 @@ import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { ImageExtensionConfiguration } from '#extensions/image';
+import type { InlineContactsExtensionParameters } from '#extensions/inline-contacts';
 import type { PlaceholderNode, PlaceholdersExtensionParameters } from '#extensions/placeholders';
 import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
 import type { SnippetsExtensionParameters } from '#extensions/snippet';
@@ -105,6 +106,7 @@ export interface EditorProps {
     withGalleries?: false | GalleriesExtensionConfiguration;
     withHeadings?: boolean;
     withImages?: false | ImageExtensionConfiguration;
+    withInlineContacts?: false | InlineContactsExtensionParameters;
     withInlineLinks?: boolean;
     withLists?: boolean;
     withPlaceholders?: false | PlaceholdersExtensionParameters;

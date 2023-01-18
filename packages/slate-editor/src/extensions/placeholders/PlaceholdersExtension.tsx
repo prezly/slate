@@ -2,7 +2,7 @@ import type { NewsroomRef } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
-import { CoveragePlaceholderElement } from './elements';
+import { CoveragePlaceholderElement, InlineContactPlaceholderElement } from './elements';
 import {
     AttachmentPlaceholderElement,
     ContactPlaceholderElement,
@@ -43,6 +43,16 @@ export interface Parameters {
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withGalleryPlaceholders?: boolean | { newsroom?: NewsroomRef };
     withImagePlaceholders?: boolean | { withCaptions: boolean; newsroom?: NewsroomRef };
+    withInlineContactPlaceholders?:
+        | false
+        | Pick<
+              InlineContactPlaceholderElement.Props,
+              | 'getSuggestions'
+              | 'renderEmpty'
+              | 'renderForm'
+              | 'renderSuggestion'
+              | 'renderSuggestionsFooter'
+          >;
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn; format?: FrameProps['format'] };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
@@ -55,6 +65,7 @@ export function PlaceholdersExtension({
     withEmbedPlaceholders = false,
     withGalleryPlaceholders = false,
     withImagePlaceholders = false,
+    withInlineContactPlaceholders = false,
     withSocialPostPlaceholders = false,
     withWebBookmarkPlaceholders = false,
     withVideoPlaceholders = false,
@@ -75,6 +86,7 @@ export function PlaceholdersExtension({
                 withEmbedPlaceholders: Boolean(withEmbedPlaceholders),
                 withGalleryPlaceholders: Boolean(withGalleryPlaceholders),
                 withImagePlaceholders: Boolean(withImagePlaceholders),
+                withInlineContactPlaceholders: Boolean(withInlineContactPlaceholders),
                 withSocialPostPlaceholders: Boolean(withSocialPostPlaceholders),
                 withWebBookmarkPlaceholders: Boolean(withWebBookmarkPlaceholders),
                 withVideoPlaceholders: Boolean(withVideoPlaceholders),
@@ -108,6 +120,21 @@ export function PlaceholdersExtension({
                     >
                         {children}
                     </ContactPlaceholderElement>
+                );
+            }
+            if (
+                withInlineContactPlaceholders &&
+                isPlaceholderNode(element, PlaceholderNode.Type.CONTACT)
+            ) {
+                return (
+                    <InlineContactPlaceholderElement
+                        {...withInlineContactPlaceholders}
+                        attributes={attributes}
+                        element={element}
+                        removable={removable}
+                    >
+                        {children}
+                    </InlineContactPlaceholderElement>
                 );
             }
             if (
