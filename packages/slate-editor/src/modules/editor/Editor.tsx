@@ -98,7 +98,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withImages = false,
         withInlineLinks = false,
         withLists = false,
-        withPlaceholders = false,
+        withPlaceholders = {},
         withPressContacts = false,
         withRichFormattingMenu = false,
         withStoryBookmarks = false,
