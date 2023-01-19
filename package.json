@@ -47,9 +47,9 @@
         "react": "^16.9.0 || ^17.0.0 || ^18.0.0",
         "react-bootstrap": "=0.32.4",
         "react-dom": "^16.9.0 || ^17.0.0 || ^18.0.0",
-        "slate": "^0.82.1",
-        "slate-history": "^0.66.0",
-        "slate-react": "^0.82.1"
+        "slate": "^0.88.1",
+        "slate-history": "^0.86.0",
+        "slate-react": "^0.88.2"
     },
     "devDependencies": {
         "@babel/cli": "^7.17.10",
@@ -98,7 +98,7 @@
         "prettier": "^2.7.1",
         "rimraf": "^3.0.2",
         "sass": "^1.32.8",
-        "slate-hyperscript": "^0.77.0",
+        "slate-hyperscript": "^0.81.3",
         "ts-jest": "^27.0.7",
         "ts-node": "^10.4.0",
         "tsc-fancy": "^1.1.2",
