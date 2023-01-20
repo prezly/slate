@@ -1,4 +1,5 @@
 import type { ContactInfo } from '@prezly/slate-types';
+import type { ReactElement } from 'react';
 import { useState } from 'react';
 import React from 'react';
 import { useSelected, useSlateStatic } from 'slate-react';
@@ -46,7 +47,7 @@ export function InlineContactPlaceholderElement({
         PlaceholdersManager.activate(element);
     });
 
-    const handleSelect = useFunction((_: string, contact: ContactInfo) => {
+    const handleSelect = useFunction((contact: ContactInfo | null) => {
         setMode(Mode.FORM);
         setContact(contact);
     });
@@ -70,7 +71,7 @@ export function InlineContactPlaceholderElement({
             description="Add a contact to your story"
             // Input
             getSuggestions={getSuggestions}
-            renderEmpty={renderEmpty}
+            renderEmpty={(props) => renderEmpty({ ...props, onCreate: () => handleSelect(null) })}
             renderFrame={
                 mode === Mode.FORM
                     ? () => (
@@ -89,7 +90,7 @@ export function InlineContactPlaceholderElement({
                     ? (props) =>
                           renderSuggestion({
                               ...props,
-                              onSelect: () => handleSelect('', props.suggestion.value),
+                              onSelect: () => handleSelect(props.suggestion.value),
                           })
                     : undefined
             }
@@ -106,7 +107,7 @@ export function InlineContactPlaceholderElement({
             inputTitle="Contact"
             inputDescription="Select a contact to insert or create a new one"
             inputPlaceholder="Search for contacts"
-            onSelect={handleSelect}
+            onSelect={(_, contact) => handleSelect(contact)}
             removable={removable}
         >
             {children}
@@ -125,10 +126,14 @@ export namespace InlineContactPlaceholderElement {
                 | 'inputTitle'
                 | 'inputDescription'
                 | 'inputPlaceholder'
+                | 'renderEmpty'
                 | 'renderSuggestions'
             >,
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.CONTACT>;
+        renderEmpty: (
+            props: SearchInput.Props.Empty & { onCreate: () => void },
+        ) => ReactElement | null;
         renderSuggestionsFooter?: BaseProps<ContactInfo>['renderSuggestions'];
     }
 }
