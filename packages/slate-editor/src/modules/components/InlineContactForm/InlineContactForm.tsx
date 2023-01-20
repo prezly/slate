@@ -1,7 +1,6 @@
 import type { ContactInfo } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FormEvent } from 'react';
-import { useRef } from 'react';
 import React from 'react';
 import { useEffect, useState } from 'react';
 
@@ -168,7 +167,6 @@ function Field(props: {
     value: string;
 }) {
     const id = `inline-contact-form-${props.name}`;
-    const inputRef = useRef<HTMLInputElement>(null);
 
     function handleChange(value: string) {
         props.onChange(props.name, value);
@@ -186,7 +184,6 @@ function Field(props: {
                 maxLength={props.maxLength}
                 placeholder={props.placeholder}
                 required={props.required}
-                ref={inputRef}
                 type={props.type}
                 value={props.value}
             />
