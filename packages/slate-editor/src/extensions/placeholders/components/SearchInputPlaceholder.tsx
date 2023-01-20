@@ -113,7 +113,6 @@ export function SearchInputPlaceholder<T>({
                 onKeyDown={handleKeyDown}
                 onSelect={handleSelect}
                 placeholder={placeholder}
-                required
                 query={query}
             />
         </Frame>
