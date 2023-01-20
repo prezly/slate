@@ -121,6 +121,12 @@ export function* getEnabledExtensions({
     withVideos,
     withWebBookmarks,
 }: Parameters): Generator<Extension> {
+    if (withPressContacts && withInlineContacts) {
+        throw new Error(
+            `Using 'withPressContacts' and 'withInlineContacts' at the same time is not supported.`,
+        );
+    }
+
     yield DecorateSelectionExtension();
     yield FlashNodesExtension();
     yield ParagraphsExtension();
