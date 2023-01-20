@@ -40,7 +40,7 @@ export function getAllExtensions() {
                 captions: true,
                 withLayoutOptions: true,
             },
-            withInlineContacts: true,
+            withInlineContacts: false, // conflicts with withPressContacts
             withInlineLinks: true,
             withLists: true,
             withPlaceholders: {
