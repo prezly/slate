@@ -112,6 +112,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                             setFocused(false);
                             onBlur?.(event);
                         }}
+                        required={required}
                     />
                     {icon && <Icon icon={icon} />}
 
