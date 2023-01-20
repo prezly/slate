@@ -47,11 +47,7 @@ export interface Parameters {
         | false
         | Pick<
               InlineContactPlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'renderEmpty'
-              | 'renderForm'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
+              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
           >;
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn; format?: FrameProps['format'] };

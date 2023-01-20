@@ -8,10 +8,11 @@ import { useSlateStatic } from 'slate-react';
 import { EditorBlock } from '#components';
 import { useFunction } from '#lib';
 
+import { InlineContactForm } from '#modules/components';
+
 import { PressContactElement } from '../../press-contacts/components';
 import { removePressContact } from '../../press-contacts/lib';
 import { updateInlineContact } from '../transforms';
-import type { InlineContactsExtensionParameters } from '../types';
 
 import styles from './InlineContactElement.module.scss';
 import { InlineContactMenu } from './InlineContactMenu';
@@ -23,10 +24,9 @@ enum Mode {
 
 interface Props extends RenderElementProps {
     element: ContactNode;
-    renderForm: InlineContactsExtensionParameters['renderForm'];
 }
 
-export function InlineContactElement({ renderForm, ...props }: Props) {
+export function InlineContactElement(props: Props) {
     const { attributes, element, children } = props;
     const { contact } = element;
     const editor = useSlateStatic();
@@ -53,11 +53,12 @@ export function InlineContactElement({ renderForm, ...props }: Props) {
                 renderAboveFrame={children}
                 renderReadOnlyFrame={() => (
                     <div className={styles.container}>
-                        {renderForm({
-                            contact,
-                            onClose: handleClose,
-                            onSubmit: handleUpdate,
-                        })}
+                        <InlineContactForm
+                            isEditing
+                            contact={contact}
+                            onClose={handleClose}
+                            onSubmit={handleUpdate}
+                        />
                     </div>
                 )}
                 rounded

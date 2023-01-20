@@ -12,13 +12,10 @@ import {
 } from '../press-contacts/lib';
 
 import { InlineContactElement } from './components';
-import type { InlineContactsExtensionParameters } from './types';
 
 export const EXTENSION_ID = 'InlineContactExtension';
 
-export function InlineContactsExtension({
-    renderForm,
-}: InlineContactsExtensionParameters): Extension {
+export function InlineContactsExtension(): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
@@ -32,11 +29,7 @@ export function InlineContactsExtension({
         renderElement: ({ attributes, children, element }) => {
             if (isContactNode(element)) {
                 return (
-                    <InlineContactElement
-                        attributes={attributes}
-                        element={element}
-                        renderForm={renderForm}
-                    >
+                    <InlineContactElement attributes={attributes} element={element}>
                         {children}
                     </InlineContactElement>
                 );

@@ -1,5 +1,4 @@
 import type { ContactInfo } from '@prezly/slate-types';
-import type { ReactNode } from 'react';
 import { useState } from 'react';
 import React from 'react';
 import { useSelected, useSlateStatic } from 'slate-react';
@@ -7,6 +6,8 @@ import { useSelected, useSlateStatic } from 'slate-react';
 import { SearchInput } from '#components';
 import { PlaceholderContact } from '#icons';
 import { useFunction } from '#lib';
+
+import { InlineContactForm } from '#modules/components';
 
 import { createContactNode } from '../../../press-contacts';
 import type { Props as PlaceholderElementProps } from '../../components/PlaceholderElement';
@@ -31,7 +32,6 @@ export function InlineContactPlaceholderElement({
     getSuggestions,
     removable,
     renderEmpty,
-    renderForm,
     renderSuggestion,
     renderSuggestionsFooter,
     ...props
@@ -75,11 +75,11 @@ export function InlineContactPlaceholderElement({
                 mode === Mode.FORM
                     ? () => (
                           <FormFrame isSelected={isSelected}>
-                              {renderForm({
-                                  contact,
-                                  onClose: () => setMode(Mode.SEARCH),
-                                  onSubmit: handleSubmit,
-                              })}
+                              <InlineContactForm
+                                  contact={contact}
+                                  onClose={() => setMode(Mode.SEARCH)}
+                                  onSubmit={handleSubmit}
+                              />
                           </FormFrame>
                       )
                     : undefined
@@ -129,11 +129,6 @@ export namespace InlineContactPlaceholderElement {
             >,
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.CONTACT>;
-        renderForm: (props: {
-            contact: ContactInfo | null;
-            onClose: () => void;
-            onSubmit: (contact: ContactInfo) => void;
-        }) => ReactNode;
         renderSuggestionsFooter?: BaseProps<ContactInfo>['renderSuggestions'];
     }
 }
