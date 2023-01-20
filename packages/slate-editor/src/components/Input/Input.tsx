@@ -75,7 +75,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         }, [value, pattern]);
 
         useEffect(() => {
-            setTimeout(() => input.current?.focus(), 0);
+            if (autoFocus) {
+                setTimeout(() => input.current?.focus(), 0);
+            }
         }, [autoFocus]);
 
         return (
