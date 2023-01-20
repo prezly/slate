@@ -5,7 +5,7 @@ import { Transforms } from 'slate';
 export function updateInlineContact(
     editor: Editor,
     contact: ContactNode,
-    patch: Partial<Pick<ContactNode, 'contact'>>,
+    patch: Pick<ContactNode, 'contact'>,
 ) {
     Transforms.setNodes<ContactNode>(editor, patch, {
         at: [],
