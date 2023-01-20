@@ -9,7 +9,7 @@ import {
     normalizeContactInfoAttributes,
     normalizeContactNodeAttributes,
     parseSerializedElement,
-} from '../press-contacts/lib';
+} from '../press-contacts';
 
 import { InlineContactElement } from './components';
 

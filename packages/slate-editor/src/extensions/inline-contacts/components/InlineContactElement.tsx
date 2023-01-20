@@ -10,8 +10,7 @@ import { useFunction } from '#lib';
 
 import { InlineContactForm } from '#modules/components';
 
-import { PressContactElement } from '../../press-contacts/components';
-import { removePressContact } from '../../press-contacts/lib';
+import { PressContactElement, removePressContact } from '../../press-contacts';
 import { updateInlineContact } from '../transforms';
 
 import styles from './InlineContactElement.module.scss';
