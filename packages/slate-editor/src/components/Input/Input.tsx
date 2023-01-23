@@ -47,7 +47,6 @@ export const Input = forwardRef<HTMLInputElement, Props>(
             onBlur,
             onFocus,
             pattern,
-            required = false,
             value,
             withSuggestions = false,
             ...attributes
@@ -57,9 +56,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         const input = useRef<HTMLInputElement>(null);
 
         const [valid, setValid] = useState(true);
+        const [dirty, setDirty] = useState(false);
         const [focused, setFocused] = useState(false);
 
-        const isEmpty = !value.trim();
         const withSuggestionsAbove = suggestions && withSuggestions === 'above';
         const withSuggestionsBelow =
             suggestions && (withSuggestions === true || withSuggestions === 'below');
@@ -67,6 +66,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         const handleChange = useFunction((event: ChangeEvent<HTMLInputElement>) => {
             const { value, validity } = event.currentTarget;
             setValid(validity.valid);
+            setDirty(true);
             onChange(value, validity.valid);
         });
 
@@ -84,7 +84,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
             <div
                 className={classNames(className, styles.Input, {
                     [styles.disabled]: disabled,
-                    [styles.invalid]: !valid,
+                    [styles.invalid]: dirty && !valid,
                     [styles.focused]: focused,
                     [styles.loading]: loading,
                     [styles.withButton]: Boolean(button),
@@ -112,7 +112,6 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                             setFocused(false);
                             onBlur?.(event);
                         }}
-                        required={required}
                     />
                     {icon && <Icon icon={icon} />}
 
@@ -132,7 +131,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                 </div>
 
                 {button && (
-                    <Button disabled={disabled || !valid || (required && isEmpty)} {...button} />
+                    <Button disabled={disabled || !valid} {...button} />
                 )}
 
                 {withSuggestions && suggestions}
