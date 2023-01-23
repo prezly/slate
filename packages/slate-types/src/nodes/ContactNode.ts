@@ -10,7 +10,7 @@ export const CONTACT_NODE_TYPE = 'contact';
 export interface ContactNode extends ElementNode {
     type: typeof CONTACT_NODE_TYPE;
     uuid: string;
-    reference: NewsroomContact['uuid'] | null;
+    reference?: NewsroomContact['uuid'];
     contact: ContactInfo;
 }
 

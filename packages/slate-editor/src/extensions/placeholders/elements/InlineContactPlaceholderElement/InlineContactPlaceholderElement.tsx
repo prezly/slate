@@ -53,7 +53,7 @@ export function InlineContactPlaceholderElement({
     });
 
     const handleSubmit = useFunction((contact: ContactInfo) => {
-        replacePlaceholder(editor, element, createContactNode({ contact, reference: null }));
+        replacePlaceholder(editor, element, createContactNode({ contact }));
     });
 
     usePlaceholderManagement(element.type, element.uuid, {
