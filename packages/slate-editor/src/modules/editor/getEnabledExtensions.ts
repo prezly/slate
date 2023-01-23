@@ -16,6 +16,7 @@ import { GalleriesExtension } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
 import { HtmlExtension } from '#extensions/html';
 import { ImageExtension } from '#extensions/image';
+import { InlineContactsExtension } from '#extensions/inline-contacts';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { InsertBlockHotkeyExtension } from '#extensions/insert-block-hotkey';
 import { ListExtension } from '#extensions/list';
@@ -73,6 +74,7 @@ type Parameters = {
     | 'withGalleries'
     | 'withHeadings'
     | 'withImages'
+    | 'withInlineContacts'
     | 'withInlineLinks'
     | 'withLists'
     | 'withPlaceholders'
@@ -104,6 +106,7 @@ export function* getEnabledExtensions({
     withGalleries,
     withHeadings,
     withImages,
+    withInlineContacts,
     withInlineLinks,
     withLists,
     withPlaceholders,
@@ -118,6 +121,12 @@ export function* getEnabledExtensions({
     withVideos,
     withWebBookmarks,
 }: Parameters): Generator<Extension> {
+    if (withPressContacts && withInlineContacts) {
+        throw new Error(
+            `Using 'withPressContacts' and 'withInlineContacts' at the same time is not supported.`,
+        );
+    }
+
     yield DecorateSelectionExtension();
     yield FlashNodesExtension();
     yield ParagraphsExtension();
@@ -144,6 +153,10 @@ export function* getEnabledExtensions({
 
     if (withHeadings) {
         yield HeadingExtension();
+    }
+
+    if (withInlineContacts) {
+        yield InlineContactsExtension();
     }
 
     if (withInlineLinks) {

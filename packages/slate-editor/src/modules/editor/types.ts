@@ -105,6 +105,7 @@ export interface EditorProps {
     withGalleries?: false | GalleriesExtensionConfiguration;
     withHeadings?: boolean;
     withImages?: false | ImageExtensionConfiguration;
+    withInlineContacts?: boolean;
     withInlineLinks?: boolean;
     withLists?: boolean;
     withPlaceholders?: false | PlaceholdersExtensionParameters;

@@ -1,0 +1,47 @@
+@import "styles/variables";
+
+.row {
+    display: grid;
+    column-gap: $spacing-2;
+    grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 576px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.field {
+    margin-bottom: $spacing-2;
+}
+
+.label {
+    color: $grey-700;
+}
+
+.avatar {
+    margin-bottom: $spacing-2;
+    border-radius: $border-radius-base;
+}
+
+.button {
+    padding: $spacing-half $spacing-1;
+    font-size: $font-size-small;
+    font-weight: 600;
+
+    &.submit {
+        color: $white !important;
+        background-color: $green-500;
+
+        &:hover {
+            background-color: $green-600 !important;
+        }
+
+        &:active {
+            background-color: $green-700 !important;
+        }
+    }
+
+    & + & {
+        margin-left: $spacing-2;
+    }
+}
