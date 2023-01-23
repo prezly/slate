@@ -130,9 +130,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     {!valid && !loading && <WarningTriangle className={styles.WarningIcon} />}
                 </div>
 
-                {button && (
-                    <Button disabled={disabled || !valid} {...button} />
-                )}
+                {button && <Button disabled={disabled || !valid} {...button} />}
 
                 {withSuggestions && suggestions}
             </div>
