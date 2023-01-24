@@ -6,6 +6,7 @@ import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { CoverageExtension } from '#extensions/coverage';
+import { CustomNormalizationExtension } from '#extensions/custom-normalization';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
 import { DividerExtension } from '#extensions/divider';
 import { EmbedExtension } from '#extensions/embed';
@@ -68,6 +69,7 @@ type Parameters = {
     | 'withAutoformat'
     | 'withBlockquotes'
     | 'withCoverage'
+    | 'withCustomNormalization'
     | 'withDivider'
     | 'withEmbeds'
     | 'withFloatingAddMenu'
@@ -100,6 +102,7 @@ export function* getEnabledExtensions({
     withAutoformat,
     withBlockquotes,
     withCoverage,
+    withCustomNormalization,
     withDivider,
     withEmbeds,
     withFloatingAddMenu,
@@ -125,6 +128,10 @@ export function* getEnabledExtensions({
         throw new Error(
             `Using 'withPressContacts' and 'withInlineContacts' at the same time is not supported.`,
         );
+    }
+
+    if (withCustomNormalization) {
+        yield CustomNormalizationExtension({ normalizeNode: withCustomNormalization });
     }
 
     yield DecorateSelectionExtension();
