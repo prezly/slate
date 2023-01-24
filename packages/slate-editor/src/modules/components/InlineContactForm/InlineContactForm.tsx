@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Avatar, Button, Input } from '../../../components';
 
 import styles from './InlineContactForm.module.scss';
+import {normalizeHref} from "#lib";
 
 interface Props {
     contact: ContactInfo | null;
@@ -36,6 +37,13 @@ export function InlineContactForm({ contact, isEditing, onClose, onSubmit }: Pro
         setFormState((formState) => ({
             ...formState,
             [property]: value,
+        }));
+    }
+
+    function handleWebsiteChange(property: keyof ContactInfo, value: string) {
+        setFormState((formState) => ({
+            ...formState,
+            [property]: value ? normalizeHref(value) : value,
         }));
     }
 
@@ -122,8 +130,8 @@ export function InlineContactForm({ contact, isEditing, onClose, onSubmit }: Pro
                     label="Website"
                     maxLength={TEXT_MAX_LENGTH}
                     name="website"
-                    onChange={handleChange}
-                    placeholder="prezly.com"
+                    onChange={handleWebsiteChange}
+                    placeholder="https://prezly.com"
                     value={formState.website}
                 />
             </div>
