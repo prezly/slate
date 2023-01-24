@@ -1,4 +1,4 @@
-import type { Node } from 'slate';
+import type { Element, Node } from 'slate';
 
 import type { DecorateFactory } from './DecorateFactory';
 import type { DeserializeHtml } from './DeserializeHtml';
@@ -14,6 +14,12 @@ export interface Extension {
     id: string;
     decorate?: DecorateFactory;
     deserialize?: DeserializeHtml;
+    /**
+     * Compare two elements.
+     * `children` arrays can be omitted from the comparison,
+     * as the outer code will compare them anyway.
+     */
+    isElementEqual?: (node: Element, another: Element) => boolean | undefined;
     isInline?: (node: Node) => boolean;
     isRichBlock?: (node: Node) => boolean;
     isVoid?: (node: Node) => boolean;
