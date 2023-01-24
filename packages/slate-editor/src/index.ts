@@ -27,6 +27,7 @@ export { type ResultPromise, type UploadcareOptions, withUploadcare } from './mo
 import type { FlashEditor } from './extensions/flash-nodes';
 import type {
     DefaultTextBlockEditor,
+    ElementsEqualityCheckEditor,
     RichBlocksAwareEditor,
     SerializingEditor,
 } from './modules/editor';
@@ -37,6 +38,7 @@ declare module 'slate' {
             ReactEditor &
             HistoryEditor &
             DefaultTextBlockEditor<ParagraphNode> &
+            ElementsEqualityCheckEditor &
             RichBlocksAwareEditor &
             SerializingEditor &
             FlashEditor;

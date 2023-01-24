@@ -71,6 +71,14 @@ export function PlaceholdersExtension({
 
     return {
         id: EXTENSION_ID,
+        isElementEqual(element, another) {
+            if (isPlaceholderNode(element) && isPlaceholderNode(another)) {
+                // Consider placeholders equal, if they are of the same type
+                // ignoring `uuid`
+                return element.type === another.type;
+            }
+            return undefined;
+        },
         isRichBlock: PlaceholderNode.isPlaceholderNode,
         isVoid: PlaceholderNode.isPlaceholderNode,
         normalizeNode: [

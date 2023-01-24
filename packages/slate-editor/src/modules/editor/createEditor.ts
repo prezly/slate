@@ -19,6 +19,7 @@ import {
     withDefaultTextBlock,
     withDeserializeHtml,
     withFilePasting,
+    withElementsEqualityCheck,
     withRichBlocks,
     withSerialization,
 } from './plugins';
@@ -45,6 +46,7 @@ export function createEditor(
         withDeserializeHtml(getExtensions),
         withFilePasting(getExtensions),
         withRichBlocks(getExtensions),
+        withElementsEqualityCheck(getExtensions),
         withSerialization(getExtensions),
         ...overrides,
         ...plugins,
