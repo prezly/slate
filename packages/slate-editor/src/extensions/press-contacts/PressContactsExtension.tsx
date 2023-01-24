@@ -24,10 +24,12 @@ export const PressContactsExtension = (): Extension => ({
     },
     isElementEqual(element, another) {
         if (isContactNode(element) && isContactNode(another)) {
-            // Compare ContactNodes ignoring node `uuid`
-            return (
-                isEqual(element.contact, another.contact) && element.reference === another.reference
-            );
+            // If these are contact references, then ContactInfo object is irrelevant
+            if (element.reference || another.reference) {
+                return element.reference === another.reference;
+            }
+            // Otherwise, compare ContactInfo ignoring node `uuid` and `reference`
+            return isEqual(element.contact, another.contact);
         }
         return undefined;
     },
