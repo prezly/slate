@@ -4,10 +4,11 @@ import type { FormEvent } from 'react';
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-import { Avatar, Button, Input } from '../../../components';
+import { Avatar, Button, Input } from '#components';
+import {normalizeHref} from "#lib";
 
 import styles from './InlineContactForm.module.scss';
-import {normalizeHref} from "#lib";
+
 
 interface Props {
     contact: ContactInfo | null;
