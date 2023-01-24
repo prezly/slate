@@ -8,6 +8,7 @@ import type { Transforms } from 'slate';
 import type { AllowedBlocksExtensionConfiguration } from '#extensions/allowed-blocks';
 import type { AutoformatParameters } from '#extensions/autoformat';
 import type { CoverageExtensionConfiguration } from '#extensions/coverage';
+import type { CustomNormalizationExtensionConfiguration } from '#extensions/custom-normalization';
 import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
@@ -98,6 +99,7 @@ export interface EditorProps {
     withBlockquotes?: boolean;
     withCoverage?: false | CoverageExtensionConfiguration;
     withCursorInView?: false | Parameters<typeof useCursorInView>[1];
+    withCustomNormalization?: false | CustomNormalizationExtensionConfiguration['normalizeNode'];
     withDivider?: boolean;
     withEmbeds?: false | EmbedExtensionConfiguration;
     withEntryPointsAroundBlocks?: boolean;

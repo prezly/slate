@@ -28,6 +28,7 @@ export function getAllExtensions() {
                 fetchCoverage: createDelayedResolve(coverage),
                 renderSearch: () => null,
             },
+            withCustomNormalization: false,
             withDivider: true,
             withEmbeds: {
                 fetchOembed,
