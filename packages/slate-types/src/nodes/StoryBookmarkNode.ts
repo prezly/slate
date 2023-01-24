@@ -11,10 +11,10 @@ export enum StoryBookmarkLayout {
 
 export interface StoryBookmarkNode extends ElementNode {
     type: typeof STORY_BOOKMARK_NODE_TYPE;
+    uuid: string;
     story: {
         uuid: string;
     };
-    uuid: string;
     show_thumbnail: boolean;
     new_tab: boolean;
     layout: StoryBookmarkLayout;
