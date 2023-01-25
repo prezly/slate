@@ -46,7 +46,7 @@ describe('nodes-hierarchy / Contact', () => {
                         name: 'Bill Blankenship',
                         phone: 'phone',
                         twitter: 'twitter',
-                        website: 'website',
+                        website: 'http://website',
                     }}
                 />
             </editor>
