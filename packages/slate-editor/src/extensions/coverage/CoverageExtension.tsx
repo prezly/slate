@@ -20,6 +20,17 @@ export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Ex
             [COVERAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         }),
     },
+    isElementEqual: (node, another) => {
+        if (isCoverageNode(node) && isCoverageNode(another)) {
+            return (
+                node.coverage.id === another.coverage.id &&
+                node.layout === another.layout &&
+                node.new_tab === another.new_tab &&
+                node.show_thumbnail === another.show_thumbnail
+            );
+        }
+        return undefined;
+    },
     isRichBlock: isCoverageNode,
     isVoid: isCoverageNode,
     normalizeNode: normalizeRedundantCoverageAttributes,
