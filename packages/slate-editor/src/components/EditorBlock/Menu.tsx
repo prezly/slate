@@ -1,7 +1,6 @@
 import type { Rect } from '@popperjs/core';
 import classNames from 'classnames';
 import type { MouseEvent, ReactNode } from 'react';
-import { useCallback } from 'react';
 import React from 'react';
 import { createPortal } from 'react-dom';
 import type { Modifier } from 'react-popper';
@@ -93,31 +92,6 @@ function getModifiers(popperOptions: PopperOptionsContextType): Modifier<string>
 export function Menu({ children, className, onClick, popperOptions, reference }: Props) {
     const placement = popperOptions.placement ?? 'right-start';
 
-    const getVirtualReferenceClientRect = useCallback((): ClientRect => {
-        const container = reference.getBoundingClientRect();
-
-        const rect = {
-            top: container.top,
-            right: container.right,
-            bottom: container.bottom,
-            left: container.left,
-            x: container.x,
-            y: container.y,
-            width: container.width,
-            height: container.height,
-            toJSON() {
-                return JSON.stringify(this);
-            },
-        };
-
-        return {
-            ...rect,
-            toJSON() {
-                return rect;
-            },
-        };
-    }, [reference]);
-
     function mountPopper(content: ReactNode) {
         if (popperOptions.portalNode?.current) {
             return createPortal(content, popperOptions.portalNode.current);
@@ -128,9 +102,7 @@ export function Menu({ children, className, onClick, popperOptions, reference }:
 
     return (
         <Popper
-            referenceElement={{
-                getBoundingClientRect: getVirtualReferenceClientRect,
-            }}
+            referenceElement={reference}
             modifiers={getModifiers(popperOptions)}
             placement={placement}
             strategy="fixed"
