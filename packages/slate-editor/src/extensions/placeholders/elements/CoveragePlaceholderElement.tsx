@@ -32,6 +32,7 @@ type ModeSetter = (mode: Mode) => void;
 export function CoveragePlaceholderElement({
     children,
     element,
+    format = 'card',
     getSuggestions,
     renderEmpty,
     renderSuggestion,
@@ -109,7 +110,7 @@ export function CoveragePlaceholderElement({
             {...props}
             element={element}
             // Core
-            format="card"
+            format={format}
             icon={PlaceholderCoverage}
             title={Title}
             description={Description}

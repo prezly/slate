@@ -32,6 +32,7 @@ interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDr
 export function ImagePlaceholderElement({
     children,
     element,
+    format = '16:9',
     newsroom,
     withCaptions,
     ...props
@@ -106,7 +107,7 @@ export function ImagePlaceholderElement({
             {...props}
             element={element}
             // Core
-            format="16:9"
+            format={format}
             icon={PlaceholderImage}
             title={Title}
             description={Description}

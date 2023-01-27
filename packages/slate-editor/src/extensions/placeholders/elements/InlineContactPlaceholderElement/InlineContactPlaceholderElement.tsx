@@ -30,6 +30,7 @@ enum Mode {
 export function InlineContactPlaceholderElement({
     children,
     element,
+    format = 'card',
     getSuggestions,
     removable,
     renderEmpty,
@@ -65,7 +66,7 @@ export function InlineContactPlaceholderElement({
             {...props}
             element={element}
             // Core
-            format="card"
+            format={format}
             icon={PlaceholderContact}
             title="Click to insert a contact"
             description="Add a contact to your story"

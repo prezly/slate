@@ -37,7 +37,13 @@ interface Props
     fetchOembed: FetchOEmbedFn;
 }
 
-export function EmbedPlaceholderElement({ children, element, fetchOembed, ...props }: Props) {
+export function EmbedPlaceholderElement({
+    children,
+    element,
+    fetchOembed,
+    format = 'card-lg',
+    ...props
+}: Props) {
     const editor = useSlateStatic();
 
     const handleTrigger = useFunction(() => {
@@ -81,7 +87,7 @@ export function EmbedPlaceholderElement({ children, element, fetchOembed, ...pro
             {...props}
             element={element}
             // Core
-            format="card-lg"
+            format={format}
             icon={PlaceholderEmbed}
             title={Title}
             description={Description}

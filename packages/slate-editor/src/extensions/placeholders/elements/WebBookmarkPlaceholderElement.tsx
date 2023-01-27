@@ -37,7 +37,13 @@ interface Props
     fetchOembed: FetchOEmbedFn;
 }
 
-export function WebBookmarkPlaceholderElement({ children, element, fetchOembed, ...props }: Props) {
+export function WebBookmarkPlaceholderElement({
+    children,
+    element,
+    fetchOembed,
+    format = 'card',
+    ...props
+}: Props) {
     const editor = useSlateStatic();
 
     const handleTrigger = useFunction(() => {
@@ -89,7 +95,7 @@ export function WebBookmarkPlaceholderElement({ children, element, fetchOembed, 
             {...props}
             element={element}
             // Core
-            format="card"
+            format={format}
             icon={PlaceholderWebBookmark}
             title={Title}
             description={Description}

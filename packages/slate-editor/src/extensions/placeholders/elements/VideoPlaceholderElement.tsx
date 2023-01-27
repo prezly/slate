@@ -45,7 +45,7 @@ export function VideoPlaceholderElement({
     children,
     element,
     fetchOembed,
-    format,
+    format = '16:9',
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -126,7 +126,7 @@ export function VideoPlaceholderElement({
             {...props}
             element={element}
             // Core
-            format={format || '16:9'}
+            format={format}
             icon={PlaceholderVideo}
             title={Title}
             description={Description}

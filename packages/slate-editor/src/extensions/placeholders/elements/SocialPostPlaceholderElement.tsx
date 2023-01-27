@@ -37,7 +37,13 @@ interface Props
     fetchOembed: FetchOEmbedFn;
 }
 
-export function SocialPostPlaceholderElement({ children, element, fetchOembed, ...props }: Props) {
+export function SocialPostPlaceholderElement({
+    children,
+    element,
+    fetchOembed,
+    format = 'card-lg',
+    ...props
+}: Props) {
     const editor = useSlateStatic();
 
     const handleTrigger = useFunction(() => {
@@ -82,7 +88,7 @@ export function SocialPostPlaceholderElement({ children, element, fetchOembed, .
             {...props}
             element={element}
             // Core
-            format="card-lg"
+            format={format}
             icon={PlaceholderSocialPost}
             title={Title}
             description={Description}

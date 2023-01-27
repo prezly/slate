@@ -22,6 +22,7 @@ import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersMa
 export function ContactPlaceholderElement({
     children,
     element,
+    format = 'card',
     getSuggestions,
     removable,
     renderEmpty,
@@ -52,7 +53,7 @@ export function ContactPlaceholderElement({
             {...props}
             element={element}
             // Core
-            format="card"
+            format={format}
             icon={PlaceholderContact}
             title="Click to insert a newsroom contact"
             description="Add a newsroom contact to your story"
