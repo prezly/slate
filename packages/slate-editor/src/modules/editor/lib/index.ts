@@ -7,13 +7,8 @@ export {
     handleEditAttachment,
     handleRemoveAttachment,
 } from './file-attachment';
-export { createHandleAddGallery, createHandleEditGallery } from './galleries';
-export {
-    createImageAddHandler,
-    createImageEditHandler,
-    createImageReplaceHandler,
-    handleRemoveImage,
-} from './images';
+export { createHandleEditGallery } from './galleries';
+export { createImageEditHandler, createImageReplaceHandler, handleRemoveImage } from './images';
 
 export * from './table';
 
