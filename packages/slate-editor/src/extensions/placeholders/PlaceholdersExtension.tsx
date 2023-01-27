@@ -137,6 +137,7 @@ export function PlaceholdersExtension({
                         {...withInlineContactPlaceholders}
                         attributes={attributes}
                         element={element}
+                        format={format}
                         removable={removable}
                     >
                         {children}

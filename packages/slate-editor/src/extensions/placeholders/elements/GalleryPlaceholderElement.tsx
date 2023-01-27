@@ -28,6 +28,7 @@ interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDr
 export function GalleryPlaceholderElement({
     children,
     element,
+    format = '16:9',
     newsroom,
     withCaptions,
     ...props
@@ -99,7 +100,7 @@ export function GalleryPlaceholderElement({
             {...props}
             element={element}
             // Core
-            format="16:9"
+            format={format}
             icon={PlaceholderGallery}
             title={Title}
             description={Description}
