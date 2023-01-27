@@ -6,6 +6,7 @@ import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { CoverageExtension } from '#extensions/coverage';
+import { CustomNormalizationExtension } from '#extensions/custom-normalization';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
 import { DividerExtension } from '#extensions/divider';
 import { EmbedExtension } from '#extensions/embed';
@@ -16,6 +17,7 @@ import { GalleriesExtension } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
 import { HtmlExtension } from '#extensions/html';
 import { ImageExtension } from '#extensions/image';
+import { InlineContactsExtension } from '#extensions/inline-contacts';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { InsertBlockHotkeyExtension } from '#extensions/insert-block-hotkey';
 import { ListExtension } from '#extensions/list';
@@ -68,12 +70,14 @@ type Parameters = {
     | 'withAutoformat'
     | 'withBlockquotes'
     | 'withCoverage'
+    | 'withCustomNormalization'
     | 'withDivider'
     | 'withEmbeds'
     | 'withFloatingAddMenu'
     | 'withGalleries'
     | 'withHeadings'
     | 'withImages'
+    | 'withInlineContacts'
     | 'withInlineLinks'
     | 'withLists'
     | 'withPlaceholders'
@@ -100,12 +104,14 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         withAutoformat,
         withBlockquotes,
         withCoverage,
+        withCustomNormalization,
         withDivider,
         withEmbeds,
         withFloatingAddMenu,
         withGalleries,
         withHeadings,
         withImages,
+        withInlineContacts,
         withInlineLinks,
         withLists,
         withPressContacts,
@@ -119,6 +125,16 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         withVideos,
         withWebBookmarks,
     } = parameters;
+    if (withPressContacts && withInlineContacts) {
+        throw new Error(
+            `Using 'withPressContacts' and 'withInlineContacts' at the same time is not supported.`,
+        );
+    }
+
+    if (withCustomNormalization) {
+        yield CustomNormalizationExtension({ normalizeNode: withCustomNormalization });
+    }
+
     yield DecorateSelectionExtension();
     yield FlashNodesExtension();
     yield ParagraphsExtension();
@@ -145,6 +161,10 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
 
     if (withHeadings) {
         yield HeadingExtension();
+    }
+
+    if (withInlineContacts) {
+        yield InlineContactsExtension();
     }
 
     if (withInlineLinks) {
@@ -273,6 +293,7 @@ function buildPlaceholdersExtensionConfiguration({
     withEmbeds,
     withGalleries,
     withImages,
+    withInlineContacts,
     withPlaceholders,
     withPressContacts,
     withVideos,
@@ -300,6 +321,11 @@ function buildPlaceholdersExtensionConfiguration({
                 withGalleryPlaceholders: {
                     newsroom: withGalleries.mediaGalleryTab?.newsroom,
                 },
+            };
+        }
+        if (withInlineContacts) {
+            yield {
+                withInlineContactPlaceholders: withInlineContacts,
             };
         }
         if (withImages) {

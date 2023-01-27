@@ -1,4 +1,10 @@
 export { PressContactsExtension, EXTENSION_ID } from './PressContactsExtension';
 
-export { JobDescription } from './components';
-export { createContactNode } from './lib';
+export { JobDescription, PressContactElement } from './components';
+export {
+    createContactNode,
+    normalizeContactInfoAttributes,
+    normalizeContactNodeAttributes,
+    parseSerializedElement,
+    removePressContact,
+} from './lib';

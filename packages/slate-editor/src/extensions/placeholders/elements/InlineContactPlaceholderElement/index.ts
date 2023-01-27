@@ -1,0 +1,1 @@
+export { InlineContactPlaceholderElement } from './InlineContactPlaceholderElement';

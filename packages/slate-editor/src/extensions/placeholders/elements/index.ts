@@ -4,6 +4,7 @@ export { CoveragePlaceholderElement } from './CoveragePlaceholderElement';
 export { EmbedPlaceholderElement } from './EmbedPlaceholderElement';
 export { GalleryPlaceholderElement } from './GalleryPlaceholderElement';
 export { ImagePlaceholderElement } from './ImagePlaceholderElement';
+export { InlineContactPlaceholderElement } from './InlineContactPlaceholderElement';
 export { SocialPostPlaceholderElement } from './SocialPostPlaceholderElement';
 export { VideoPlaceholderElement } from './VideoPlaceholderElement';
 export { WebBookmarkPlaceholderElement } from './WebBookmarkPlaceholderElement';

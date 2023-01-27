@@ -1,0 +1,1 @@
+export { updateInlineContact } from './updateInlineContact';

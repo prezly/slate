@@ -1,0 +1,1 @@
+export { InlineContactsExtension } from './InlineContactsExtension';

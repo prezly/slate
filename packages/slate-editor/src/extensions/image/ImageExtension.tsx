@@ -3,7 +3,7 @@ import { createDeserializeElement, EditorCommands, withoutNodes } from '@prezly/
 import type { ImageNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { isHotkey } from 'is-hotkey';
-import { noop } from 'lodash-es';
+import { isEqual, noop } from 'lodash-es';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
 import type { NodeEntry, Node, Editor } from 'slate';
@@ -64,6 +64,19 @@ export const ImageExtension = ({
                 return createImageCandidate(imageElement.src);
             },
         }),
+    },
+    isElementEqual: (node, another) => {
+        if (isImageNode(node) && isImageNode(another)) {
+            return (
+                node.href === another.href &&
+                node.layout === another.layout &&
+                node.align === another.align &&
+                node.new_tab === another.new_tab &&
+                node.width === another.width &&
+                isEqual(node.file, another.file)
+            );
+        }
+        return undefined;
     },
     isRichBlock: isImageNode,
     isVoid: (node) => {
