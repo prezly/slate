@@ -7,9 +7,10 @@ build/
 dist/
 packages/*/coverage/
 node_modules/
+.pnpm
 *.eslintcache
 *.tsbuildinfo
 *.db
 *.log
 *.zip
-packages/**/package-lock.json
+package-lock.json

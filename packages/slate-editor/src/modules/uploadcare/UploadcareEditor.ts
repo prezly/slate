@@ -20,7 +20,7 @@ export abstract class UploadcareEditor {
     }
 
     static isUploadcareEditor = (value: unknown): value is UploadcareEditor => {
-        // @ts-ignore
+        // @ts-expect-error todo
         return Editor.isEditor(value) && typeof value[UPLOADCARE_PROPERTY] !== 'undefined';
     };
 

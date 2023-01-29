@@ -28,6 +28,8 @@ import type {
     SerializingEditor,
 } from './modules/editor';
 
+export const __VERSION = process.env.ENV_SLATE_VERSION;
+
 declare module 'slate' {
     interface CustomTypes {
         Editor: BaseEditor &
