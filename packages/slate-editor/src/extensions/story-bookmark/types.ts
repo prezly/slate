@@ -10,4 +10,8 @@ export interface StoryBookmarkExtensionParameters {
     }) => ReactNode;
 
     loadStory: (uuid: string) => Promise<Story>;
+
+    generateEditUrl: (story: Story) => string | undefined;
+
+    generatePreviewUrl: (story: Story) => string | undefined;
 }
