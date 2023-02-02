@@ -55,8 +55,8 @@ export function ContactPlaceholderElement({
             // Core
             format={format}
             icon={PlaceholderContact}
-            title="Click to insert a newsroom contact"
-            description="Add a newsroom contact to your story"
+            title="Click to insert a site contact"
+            description="Add a site contact to your story"
             // Input
             getSuggestions={getSuggestions}
             renderEmpty={renderEmpty}
@@ -71,7 +71,7 @@ export function ContactPlaceholderElement({
                     {props.children}
                 </SearchInput.Suggestions>
             )}
-            inputTitle="Newsroom contact"
+            inputTitle="Site contact"
             inputDescription="Select a contact to insert"
             inputPlaceholder="Search for contacts"
             onSelect={handleSelect}

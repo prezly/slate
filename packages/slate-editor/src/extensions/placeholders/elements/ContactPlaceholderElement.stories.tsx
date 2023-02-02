@@ -118,8 +118,8 @@ export function ContactPlaceholder() {
             )}
             renderSuggestionsFooter={() => (
                 <div>
-                    <a href="#">+ Create a Newsroom Contact</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <a href="#">Edit Newsroom Contacts</a>
+                    <a href="#">+ Create a Site Contact</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a href="#">Edit Site Contacts</a>
                 </div>
             )}
             removable
