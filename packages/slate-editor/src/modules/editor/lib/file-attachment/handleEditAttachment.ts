@@ -1,5 +1,6 @@
 import type { AttachmentNode } from '@prezly/slate-types';
 import { isAttachmentNode } from '@prezly/slate-types';
+import { UploadcareFile } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
@@ -16,6 +17,11 @@ export async function handleEditAttachment(editor: Editor, element: Partial<Atta
     }
 
     const newElement = { ...currentFileAttachment, ...element };
+
+    if (newElement.file) {
+        const uploadcareFile = UploadcareFile.createFromPrezlyStoragePayload(newElement.file);
+        newElement.file = uploadcareFile.toPrezlyStoragePayload();
+    }
 
     Transforms.setNodes<AttachmentNode>(editor, newElement, {
         match: isAttachmentNode,
