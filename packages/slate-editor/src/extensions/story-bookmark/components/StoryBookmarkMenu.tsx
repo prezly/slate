@@ -8,8 +8,12 @@ import { Toggle, VStack } from '#components';
 import { Button, ButtonGroup, OptionsGroup, Toolbox } from '#components';
 import { Delete, ItemsLayoutHorizontal, ItemsLayoutVertical, ExternalLink } from '#icons';
 
+import type { StoryBookmarkExtensionParameters } from '../types';
+
 interface Props {
     element: StoryBookmarkNode;
+    generateEditUrl: StoryBookmarkExtensionParameters['generateEditUrl'];
+    generatePreviewUrl: StoryBookmarkExtensionParameters['generatePreviewUrl'];
     story: Story;
     withNewTabOption: boolean | undefined;
     onClose: () => void;
@@ -34,6 +38,8 @@ const CARD_LAYOUT_OPTIONS: OptionsGroupOption<StoryBookmarkLayout>[] = [
 
 export function StoryBookmarkMenu({
     element,
+    generateEditUrl,
+    generatePreviewUrl,
     story,
     withNewTabOption = true,
     onClose,
@@ -42,6 +48,9 @@ export function StoryBookmarkMenu({
 }: Props) {
     const isLayoutChangeable = story.oembed.thumbnail_url && element.show_thumbnail;
     const activeLayout = isLayoutChangeable ? element.layout : StoryBookmarkLayout.VERTICAL;
+
+    const editUrl = generateEditUrl(story);
+    const previewUrl = generatePreviewUrl(story);
 
     return (
         <>
@@ -60,8 +69,8 @@ export function StoryBookmarkMenu({
                             iconPosition="right"
                             fullWidth
                             target="_blank"
-                            disabled={!story.links.edit}
-                            href={story.links.edit ?? 'javascript:void(0)'}
+                            disabled={!editUrl}
+                            href={editUrl ?? 'javascript:void(0)'}
                         >
                             Edit
                         </Button>,
@@ -73,8 +82,8 @@ export function StoryBookmarkMenu({
                             iconPosition="right"
                             fullWidth
                             target="_blank"
-                            disabled={!story.links.preview}
-                            href={story.links.preview ?? 'javascript:void(0)'}
+                            disabled={!previewUrl}
+                            href={previewUrl ?? 'javascript:void(0)'}
                         >
                             Preview
                         </Button>,

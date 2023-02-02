@@ -67,6 +67,8 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
                           <StoryBookmarkMenu
                               onClose={onClose}
                               element={element}
+                              generateEditUrl={params.generateEditUrl}
+                              generatePreviewUrl={params.generatePreviewUrl}
                               story={story}
                               withNewTabOption={params.withNewTabOption}
                               onUpdate={(attrs) => updateStoryBookmark(editor, attrs)}
