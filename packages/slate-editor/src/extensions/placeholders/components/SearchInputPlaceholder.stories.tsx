@@ -36,7 +36,7 @@ async function getSuggestions(query: string) {
 export function Default() {
     return (
         <SearchInputPlaceholder<string>
-            title="Newsroom Contact"
+            title="Site Contact"
             description="Select a Contact to insert"
             getSuggestions={getSuggestions}
             onSelect={(value) => console.log('Selected', value)}

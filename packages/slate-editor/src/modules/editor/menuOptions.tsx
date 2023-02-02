@@ -248,7 +248,7 @@ function* generateOptions(
             group: Group.PREZLY_CONTENT,
             text: 'Contact',
             keywords: ['signature'],
-            description: 'Add your newsroom contacts',
+            description: 'Add your site contacts',
         };
     }
 
