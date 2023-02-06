@@ -31,7 +31,7 @@ export function isContactInfo(value: any): value is ContactInfo {
 export namespace ContactInfo {
     export function normalize<T extends ContactInfo>(value: T): ContactInfo {
         return {
-            avatar_url: value.avatar_url ?? null,
+            avatar_url: (value.avatar_url ?? null) || null,
             name: value.name ?? '',
             company: value.company ?? '',
             description: value.description ?? '',
