@@ -241,10 +241,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 replacePlaceholder(editor, placeholder, element);
             },
             isEmpty: () => EditorCommands.isEmpty(editor),
-            isEqualTo: (value) => isEditorValueEqual(editor, value, editor.children as Value),
             isFocused: () => ReactEditor.isFocused(editor),
             isModified: () =>
                 !isEditorValueEqual(editor, getInitialValue(), editor.children as Value),
+            isValueEqual: (value: Value, another: Value) =>
+                isEditorValueEqual(editor, value, another),
             resetValue: (value) => {
                 EditorCommands.resetNodes(editor, value, editor.selection);
             },

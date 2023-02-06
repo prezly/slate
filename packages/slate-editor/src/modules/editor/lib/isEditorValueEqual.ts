@@ -15,6 +15,10 @@ export function isEditorValueEqual(editor: Editor, a: Value, b: Value): boolean 
         if (!isNodeText && !isAnotherText) {
             const equal = editor.isElementEqual(node as Element, another as Element);
             if (typeof equal !== 'undefined') {
+                if (editor.isVoid(node) || editor.isVoid(another)) {
+                    // Do not compare void elements children
+                    return equal;
+                }
                 return equal && compareLists(node.children, another.children);
             }
             const { children, ...props } = node;

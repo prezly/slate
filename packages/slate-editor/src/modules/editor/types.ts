@@ -51,7 +51,7 @@ export interface EditorRef {
 
     isEmpty(): boolean;
 
-    isEqualTo(value: Value): void;
+    isValueEqual(value: Value, another: Value): boolean;
 
     isFocused(): boolean;
 
