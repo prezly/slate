@@ -5,7 +5,17 @@ import type { PopperOptionsContextType } from '#modules/popper-options-context';
 
 import styles from './Menu.module.scss';
 
+/**
+ * Elements in slate are surrounded by an outline,
+ * which is not included in the element's bounding box.
+ */
 const TETHER_OFFSET_OUTLINE_SIZE = 6;
+
+/**
+ * Since slate element has outline on top and bottom,
+ * we need to multiply the outline size by 2 to get the total offset.
+ */
+const SLATE_ELEMENT_TOTAL_OFFSET = 2 * TETHER_OFFSET_OUTLINE_SIZE;
 
 export function getMenuPopperModifiers(
     popperOptions: PopperOptionsContextType,
@@ -24,7 +34,8 @@ export function getMenuPopperModifiers(
                     popper: Rect;
                     reference: Rect;
                 }): [number, number] => {
-                    const popperTallerThanReference = popper.height - reference.height;
+                    const referenceHeight = getSlateElementHeight(reference.height);
+                    const popperTallerThanReference = popper.height - referenceHeight;
                     const offset = popperTallerThanReference / 2;
 
                     return [offset, 16];
@@ -62,15 +73,16 @@ export function getMenuPopperModifiers(
                 // Make the menu snap to the bottom of the reference element
                 // if popper.height < reference.height
                 tetherOffset: ({ popper, reference }: { popper: Rect; reference: Rect }) => {
+                    const referenceHeight = getSlateElementHeight(reference.height);
                     let offset = 0;
 
-                    if (popper.height < reference.height) {
-                        offset = reference.height - (reference.height - popper.height);
+                    if (popper.height < referenceHeight) {
+                        offset = referenceHeight - (referenceHeight - popper.height);
                     } else {
-                        offset = popper.height - (popper.height - reference.height);
+                        offset = popper.height - (popper.height - referenceHeight);
                     }
 
-                    return offset - TETHER_OFFSET_OUTLINE_SIZE;
+                    return offset - SLATE_ELEMENT_TOTAL_OFFSET;
                 },
                 ...modifiers?.preventOverflow,
             },
@@ -92,4 +104,8 @@ export function getMenuPopperModifiers(
             },
         },
     ];
+}
+
+function getSlateElementHeight(height: number) {
+    return height + SLATE_ELEMENT_TOTAL_OFFSET;
 }
