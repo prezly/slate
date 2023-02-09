@@ -20,9 +20,7 @@ interface Props {
 }
 
 export function Menu({ children, className, onClick, popperOptions, reference }: Props) {
-    const placement = popperOptions.placement ?? 'right-start';
-
-    console.log(placement);
+    const placement = popperOptions.placement ?? 'right';
 
     function mountPopper(content: ReactNode) {
         if (popperOptions.portalNode?.current) {
@@ -37,7 +35,7 @@ export function Menu({ children, className, onClick, popperOptions, reference }:
             referenceElement={reference}
             modifiers={getMenuPopperModifiers(popperOptions)}
             strategy="fixed"
-            placement="right"
+            placement={placement}
         >
             {({ ref, style, arrowProps, placement }) =>
                 mountPopper(

@@ -55,7 +55,7 @@ export function getMenuPopperModifiers(
         },
         {
             name: 'flip',
-            enabled: true,
+            enabled: Boolean(popperOptions.autoPlacement),
             options: {
                 // The order of these properties is important! The first one that has enough space to fit the popup will be used as fallback
                 // We prioritize flipping on Y axis (as this is the most common reason for overflow), then flipping X axis if needed.
