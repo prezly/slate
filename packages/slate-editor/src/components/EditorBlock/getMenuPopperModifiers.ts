@@ -38,14 +38,14 @@ export function getMenuPopperModifiers(
                     const popperTallerThanReference = popper.height - referenceHeight;
                     const offset = popperTallerThanReference / 2;
 
-                    /**
+                    /*
                      * If offset is 0 then the menu wil be centered (in the middle) on the reference element.
                      * For example if the reference element is 150px tall and the menu is 100px tall,
                      * then the menu will have 25px offset (padding) on top and bottom.
                      * If the menu is 150px tall, then the reference element will have so to say 25px offset (padding) on top and bottom.
                      * So when the offset is 0 the menu element will be placed in the middle of the reference element despite what is taller.
                      * However, we need to snap the menu to the top of the reference element.
-                     * 
+                     *
                      * If the menu is taller than the reference element, then we need to "push down" the menu by 25px and `offset` will be positive.
                      * If the menu is shorter than the reference element, then we need to "pull up" the menu by 25px and `offset` will be negative.
                      */
@@ -80,18 +80,12 @@ export function getMenuPopperModifiers(
                     top: 12,
                     right: 12,
                 },
-                // Make the menu snap to the bottom of the reference element
-                // if popper.height < reference.height
                 tetherOffset: ({ popper, reference }: { popper: Rect; reference: Rect }) => {
                     const referenceHeight = getSlateElementHeight(reference.height);
-                    let offset = 0;
+                    const offset =
+                        popper.height > referenceHeight ? referenceHeight : popper.height;
 
-                    if (popper.height < referenceHeight) {
-                        offset = referenceHeight - (referenceHeight - popper.height);
-                    } else {
-                        offset = popper.height - (popper.height - referenceHeight);
-                    }
-
+                    // Make the menu snap to the bottom of the reference element
                     return offset - SLATE_ELEMENT_TOTAL_OFFSET;
                 },
                 ...modifiers?.preventOverflow,
