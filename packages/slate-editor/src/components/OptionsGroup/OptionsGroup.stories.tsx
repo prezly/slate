@@ -10,7 +10,7 @@ export default {
 
 export function Base() {
     const [cardLayout, setCardLayout] = React.useState<
-        typeof cardLayoutOptions[number]['value'] | undefined
+        (typeof cardLayoutOptions)[number]['value'] | undefined
     >('left');
 
     const cardLayoutOptions: OptionsGroupOption<'left' | 'center' | 'right'>[] = [
@@ -47,7 +47,7 @@ export function Base() {
 
 export function Disabled() {
     const [cardLayout, setCardLayout] = React.useState<
-        typeof cardLayoutOptions[number]['value'] | undefined
+        (typeof cardLayoutOptions)[number]['value'] | undefined
     >('right');
 
     const cardLayoutOptions: OptionsGroupOption<'left' | 'center' | 'right' | 'righter'>[] = [
@@ -90,7 +90,7 @@ export function Disabled() {
 
 export function Pills() {
     const [imageSize, setImageSize] = React.useState<
-        typeof imageSizeOptions[number]['value'] | undefined
+        (typeof imageSizeOptions)[number]['value'] | undefined
     >('m');
 
     const imageSizeOptions: OptionsGroupOption<'xs' | 's' | 'm' | 'l' | 'xl'>[] = [
@@ -131,7 +131,7 @@ export function Pills() {
 
 export function PillsDisabled() {
     const [imageSize, setImageSize] = React.useState<
-        typeof imageSizeOptions[number]['value'] | undefined
+        (typeof imageSizeOptions)[number]['value'] | undefined
     >('m');
 
     const imageSizeOptions: OptionsGroupOption<'xs' | 's' | 'm' | 'l' | 'xl'>[] = [
