@@ -43,5 +43,8 @@
         "@prezly/sdk": "^13.0.0 || ^14.0.0",
         "@prezly/uploads": "^0.3.2",
         "is-plain-object": "^5.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^18.13.0"
     }
 }

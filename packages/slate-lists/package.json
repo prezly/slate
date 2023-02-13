@@ -52,6 +52,7 @@
     },
     "devDependencies": {
         "@types/is-hotkey": "^0.1.7",
+        "@types/node": "^18.13.0",
         "@types/uuid": "^8.3.0"
     }
 }
