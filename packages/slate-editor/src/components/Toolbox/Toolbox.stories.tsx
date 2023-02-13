@@ -35,7 +35,7 @@ export default {
 
 export function WebBookmark() {
     const [cardLayout, setCardLayout] = React.useState<
-        typeof cardLayoutOptions[number]['value'] | undefined
+        (typeof cardLayoutOptions)[number]['value'] | undefined
     >('vertical');
 
     const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
@@ -139,15 +139,15 @@ export function LinkSettings() {
 
 export function GallerySettings() {
     const [cardLayout, setCardLayout] = React.useState<
-        typeof galleryWidthOptions[number]['value'] | undefined
+        (typeof galleryWidthOptions)[number]['value'] | undefined
     >('contained');
 
     const [spacingBetweenImages, setSpacingBetweenImages] = React.useState<
-        typeof spacingBetweenImagesOptions[number]['value'] | undefined
+        (typeof spacingBetweenImagesOptions)[number]['value'] | undefined
     >('regular');
 
     const [imageSize, setImageSize] = React.useState<
-        typeof imageSizeOptions[number]['value'] | undefined
+        (typeof imageSizeOptions)[number]['value'] | undefined
     >('m');
 
     const galleryWidthOptions: OptionsGroupOption<'contained' | 'expanded' | 'full-width'>[] = [
@@ -306,7 +306,7 @@ export function AttachmentSettings() {
 
 export function CoverageCard() {
     const [cardLayout, setCardLayout] = React.useState<
-        typeof cardLayoutOptions[number]['value'] | undefined
+        (typeof cardLayoutOptions)[number]['value'] | undefined
     >('horizontal');
 
     const cardLayoutOptions: OptionsGroupOption<'vertical' | 'horizontal'>[] = [
@@ -383,11 +383,11 @@ export function ImageSettings() {
     const [link, setLink] = React.useState('');
 
     const [imageSize, setImageSize] = React.useState<
-        typeof imageSizeOptions[number]['value'] | undefined
+        (typeof imageSizeOptions)[number]['value'] | undefined
     >('contained');
 
     const [spacingBetweenImages, setSpacingBetweenImages] = React.useState<
-        typeof spacingBetweenImagesOptions[number]['value'] | undefined
+        (typeof spacingBetweenImagesOptions)[number]['value'] | undefined
     >('left');
 
     const imageSizeOptions: OptionsGroupOption<'contained' | 'expanded' | 'full-width'>[] = [

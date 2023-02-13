@@ -184,7 +184,7 @@ function initCreator<T>(creator: (props: T) => T): HyperscriptCreators[string] {
         const node = creator(propsWithChildren as any);
 
         // In some creators uuid is not overridable and can be different from time to time
-        if ('uuid' in node && 'uuid' in props) {
+        if (node && typeof node === 'object' && 'uuid' in node && 'uuid' in props) {
             (node as any).uuid = (props as any).uuid;
         }
 
