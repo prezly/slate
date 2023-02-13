@@ -1,4 +1,7 @@
-import type { Rect } from '@popperjs/core';
+import type { ArrowModifier } from '@popperjs/core/lib/modifiers/arrow';
+import type { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
+import type { OffsetModifier } from '@popperjs/core/lib/modifiers/offset';
+import type { PreventOverflowModifier } from '@popperjs/core/lib/modifiers/preventOverflow';
 import type { Modifier } from 'react-popper';
 
 import type { PopperOptionsContextType } from '#modules/popper-options-context';
@@ -27,13 +30,7 @@ export function getMenuPopperModifiers(
             name: 'offset',
             enabled: true,
             options: {
-                offset: ({
-                    popper,
-                    reference,
-                }: {
-                    popper: Rect;
-                    reference: Rect;
-                }): [number, number] => {
+                offset: ({ popper, reference }) => {
                     const referenceHeight = getSlateElementHeight(reference.height);
                     const popperTallerThanReference = popper.height - referenceHeight;
                     const offset = popperTallerThanReference / 2;
@@ -52,7 +49,7 @@ export function getMenuPopperModifiers(
                     return [offset, 16];
                 },
             },
-        },
+        } satisfies Partial<OffsetModifier>,
         {
             name: 'flip',
             enabled: Boolean(popperOptions.autoPlacement),
@@ -61,14 +58,14 @@ export function getMenuPopperModifiers(
                 // We prioritize flipping on Y axis (as this is the most common reason for overflow), then flipping X axis if needed.
                 fallbackPlacements: ['right', 'left'],
             },
-        },
+        } satisfies Partial<FlipModifier>,
         {
             name: 'arrow',
             enabled: true,
             options: {
                 padding: 19,
             },
-        },
+        } satisfies Partial<ArrowModifier>,
         {
             name: 'preventOverflow',
             enabled: true,
@@ -80,7 +77,7 @@ export function getMenuPopperModifiers(
                     top: 12,
                     right: 12,
                 },
-                tetherOffset: ({ popper, reference }: { popper: Rect; reference: Rect }) => {
+                tetherOffset: ({ popper, reference }) => {
                     const referenceHeight = getSlateElementHeight(reference.height);
                     const offset =
                         popper.height > referenceHeight ? referenceHeight : popper.height;
@@ -90,7 +87,7 @@ export function getMenuPopperModifiers(
                 },
                 ...modifiers?.preventOverflow,
             },
-        },
+        } satisfies Partial<PreventOverflowModifier>,
         {
             name: 'prezly:autoHideArrow',
             enabled: true,
