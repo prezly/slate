@@ -15,7 +15,6 @@ import {
     normalizeRedundantLinkAttributes,
     parseSerializedLinkElement,
 } from './lib';
-import { withLinkPasting } from './withLinkPasting';
 
 export const EXTENSION_ID = 'InlineLinksExtension';
 
@@ -53,5 +52,4 @@ export const InlineLinksExtension = (): Extension => ({
 
         return undefined;
     },
-    withOverrides: withLinkPasting,
 });
