@@ -1,3 +1,4 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import {
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
@@ -18,7 +19,7 @@ export function withLinkPasting<T extends Editor>(editor: T): T {
     editor.insertData = (data) => {
         const href = data.getData('text');
 
-        if (validator.isURL(href)) {
+        if (validator.isURL(href) && !EditorCommands.isSelectionEmpty(editor)) {
             const nodes = Array.from(
                 Editor.nodes(editor, { match: isElementNode, mode: 'highest' }),
             );
