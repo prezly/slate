@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import type { ComponentType, FunctionComponent } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import type { DropdownProps } from 'react-bootstrap';
 import { Dropdown as BootstrapDropdown, MenuItem } from 'react-bootstrap';
@@ -29,6 +30,7 @@ export function Dropdown<Value extends string = string>({
     value,
     ...props
 }: Dropdown.Props<Value>): ReturnType<FunctionComponent<Dropdown.Props<Value>>> {
+    const [open, setOpen] = useState(false);
     const RenderOption = renderOption;
     const selectedOption = options.find((option) => option.value === value);
     const visibleOptions = options.filter(({ hidden }) => !hidden);
@@ -46,6 +48,8 @@ export function Dropdown<Value extends string = string>({
             {...props}
             className={classNames(styles.Dropdown, className)}
             onSelect={handleSelect}
+            open={open}
+            onToggle={(isOpen, _, meta) => meta.source !== 'rootClose' && setOpen(isOpen)}
         >
             <BootstrapDropdown.Toggle>{selectedOption?.label}</BootstrapDropdown.Toggle>
             <BootstrapDropdown.Menu>
