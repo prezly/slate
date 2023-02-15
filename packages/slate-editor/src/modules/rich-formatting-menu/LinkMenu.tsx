@@ -1,7 +1,7 @@
 import type { LinkNode } from '@prezly/slate-types';
 import * as React from 'react';
 import { useState } from 'react';
-import { RootCloseWrapper } from 'react-overlays';
+import { useRootClose } from 'react-overlays';
 
 import { Button, Input, Toggle, Toolbox, VStack } from '#components';
 import { Delete, Link } from '#icons';
@@ -26,6 +26,7 @@ export function LinkMenu({
     onClose,
     onUnlink,
 }: Props) {
+    const rootRef = React.useRef<HTMLDivElement | null>(null);
     const [href, setHref] = useState(node?.href ?? '');
     const [new_tab, setNewTab] = useState(node?.new_tab ?? true);
 
@@ -33,68 +34,68 @@ export function LinkMenu({
         onChange({ href: normalizeHref(href), new_tab });
     }
 
-    return (
-        <RootCloseWrapper onRootClose={onBlur}>
-            <Toolbox.Panel style={{ width: 320 }}>
-                <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                    Link settings
-                </Toolbox.Header>
-                <Toolbox.Section>
-                    <form
-                        onSubmit={function (event) {
-                            event.preventDefault();
-                            handleSave();
-                        }}
-                    >
-                        <VStack spacing="2">
-                            <VStack spacing="2">
-                                <VStack spacing="2-5">
-                                    <VStack spacing="1-5">
-                                        <Toolbox.Caption>Link</Toolbox.Caption>
-                                        <Input
-                                            autoFocus
-                                            name="href"
-                                            value={href}
-                                            onChange={setHref}
-                                            icon={Link}
-                                            pattern={HREF_REGEXP.source}
-                                            placeholder="Paste link"
-                                            title="Please input a valid URL"
-                                        />
-                                    </VStack>
+    useRootClose(rootRef, onBlur);
 
-                                    {withNewTabOption && (
-                                        <Toggle name="new_tab" value={new_tab} onChange={setNewTab}>
-                                            Open in new tab
-                                        </Toggle>
-                                    )}
+    return (
+        <Toolbox.Panel style={{ width: 320 }} ref={rootRef}>
+            <Toolbox.Header withCloseButton onCloseClick={onClose}>
+                Link settings
+            </Toolbox.Header>
+            <Toolbox.Section>
+                <form
+                    onSubmit={function (event) {
+                        event.preventDefault();
+                        handleSave();
+                    }}
+                >
+                    <VStack spacing="2">
+                        <VStack spacing="2">
+                            <VStack spacing="2-5">
+                                <VStack spacing="1-5">
+                                    <Toolbox.Caption>Link</Toolbox.Caption>
+                                    <Input
+                                        autoFocus
+                                        name="href"
+                                        value={href}
+                                        onChange={setHref}
+                                        icon={Link}
+                                        pattern={HREF_REGEXP.source}
+                                        placeholder="Paste link"
+                                        title="Please input a valid URL"
+                                    />
                                 </VStack>
 
-                                <Button
-                                    variant="primary"
-                                    type="submit"
-                                    fullWidth
-                                    round
-                                    disabled={!href}
-                                >
-                                    Save
-                                </Button>
+                                {withNewTabOption && (
+                                    <Toggle name="new_tab" value={new_tab} onChange={setNewTab}>
+                                        Open in new tab
+                                    </Toggle>
+                                )}
                             </VStack>
+
+                            <Button
+                                variant="primary"
+                                type="submit"
+                                fullWidth
+                                round
+                                disabled={!href}
+                            >
+                                Save
+                            </Button>
                         </VStack>
-                    </form>
-                </Toolbox.Section>
-                <Toolbox.Footer>
-                    <Button
-                        variant="clear-faded"
-                        icon={Delete}
-                        fullWidth
-                        disabled={!canUnlink}
-                        onClick={onUnlink}
-                    >
-                        Unlink text
-                    </Button>
-                </Toolbox.Footer>
-            </Toolbox.Panel>
-        </RootCloseWrapper>
+                    </VStack>
+                </form>
+            </Toolbox.Section>
+            <Toolbox.Footer>
+                <Button
+                    variant="clear-faded"
+                    icon={Delete}
+                    fullWidth
+                    disabled={!canUnlink}
+                    onClick={onUnlink}
+                >
+                    Unlink text
+                </Button>
+            </Toolbox.Footer>
+        </Toolbox.Panel>
     );
 }
