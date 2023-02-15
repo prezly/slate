@@ -199,11 +199,22 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
 
             const isWithinMenuPortal = isTargetWithin(popperMenuOptions.portalNode?.current);
             const isWithinEditor = isTargetWithin(containerRef.current);
+
+            // Due to how blur logic works in slate, click events happening on textbox elements (textarea, input) are ignored to prevent issues with their own focus.
             const isTextboxElement =
                 clickTarget.tagName.toLowerCase() === 'textarea' ||
                 clickTarget.tagName.toLowerCase() === 'input';
 
-            if (!isWithinEditor && !isWithinMenuPortal && !isTextboxElement) {
+            // Placeholder elements get re-rendered on click, removing the original clicked element out of the DOM.
+            const isPlaceholderElement =
+                clickTarget.getAttribute('data-placeholder-format') !== null;
+
+            if (
+                !isWithinEditor &&
+                !isWithinMenuPortal &&
+                !isTextboxElement &&
+                !isPlaceholderElement
+            ) {
                 EditorCommands.blur(editor);
             }
         }
