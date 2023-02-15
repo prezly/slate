@@ -213,7 +213,8 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 !isWithinEditor &&
                 !isWithinMenuPortal &&
                 !isTextboxElement &&
-                !isPlaceholderElement
+                !isPlaceholderElement &&
+                !EditorCommands.isCursorInEmptyParagraph(editor)
             ) {
                 EditorCommands.blur(editor);
             }
