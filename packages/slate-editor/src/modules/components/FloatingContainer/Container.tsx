@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import type { ReactNode, RefObject } from 'react';
+import { useRef } from 'react';
 import React from 'react';
-import { RootCloseWrapper } from 'react-overlays';
+import { useRootClose } from 'react-overlays';
 import type { Modifier } from 'react-popper';
 
 import { ElementPortalV2 } from '#components';
@@ -62,8 +63,11 @@ export function Container({
     pointerEvents,
     show,
 }: Props) {
+    const rootRef = useRef<HTMLDivElement | null>(null);
     const currentDomElement = useCurrentDomNode({ withFallbackToLastExistingNode: open });
     const canShow = open || show;
+
+    useRootClose(rootRef, onClose);
 
     if (!currentDomElement || !canShow) {
         return null;
@@ -77,15 +81,14 @@ export function Container({
             placement="top"
             pointerEvents={pointerEvents}
         >
-            <RootCloseWrapper onRootClose={onClose}>
-                <div
-                    className={classNames(styles.FloatingContainer, className, {
-                        [styles.uninitialized]: typeof availableWidth === 'undefined',
-                    })}
-                >
-                    {children}
-                </div>
-            </RootCloseWrapper>
+            <div
+                ref={rootRef}
+                className={classNames(styles.FloatingContainer, className, {
+                    [styles.uninitialized]: typeof availableWidth === 'undefined',
+                })}
+            >
+                {children}
+            </div>
         </ElementPortalV2>
     );
 }

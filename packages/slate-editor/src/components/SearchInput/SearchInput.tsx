@@ -1,6 +1,7 @@
-import type { ReactElement, Ref, ReactNode } from 'react';
+import { ReactElement, Ref, ReactNode, useRef } from 'react';
 import React, { useMemo, useReducer, useState } from 'react';
-import { RootCloseWrapper } from 'react-overlays';
+import { useRootClose } from 'react-overlays';
+import { mergeRefs } from '#lib';
 
 import {
     useDebounce,
@@ -36,6 +37,7 @@ export function SearchInput<T = unknown>({
     onSelect,
     ...attributes
 }: SearchInput.Props<T>) {
+    const rootRef = useRef<HTMLInputElement | null>(null);
     const reducer = useMemo(() => createReducer<T>(), []);
     const initialState = useMemo(() => reducer(undefined, { type: undefined }), [reducer]);
     const [open, setOpen] = useState(false);
@@ -87,49 +89,49 @@ export function SearchInput<T = unknown>({
         [query],
     );
 
+    useRootClose(rootRef, () => setOpen(false));
+
     return (
-        <RootCloseWrapper onRootClose={() => setOpen(false)}>
-            <Input
-                ref={inputRef}
-                {...attributes}
-                onClear={onClear}
-                onFocus={() => setOpen(true)}
-                onKeyDown={(event) => {
-                    handleNavigationKeyDown(event);
-                    onKeyDown?.(event);
-                }}
-                loading={loading}
-                value={query}
-                withSuggestions={open}
-            >
-                {open &&
-                    (suggestions.length === 0
-                        ? renderEmpty({ loading, query, onClose: handleClose })
-                        : renderSuggestions({
-                              activeElement: activeElement ?? undefined,
-                              activeSuggestion,
-                              loading,
-                              query,
-                              suggestions,
-                              onClose: handleClose,
-                              onSelect,
-                              children: suggestions.map((suggestion) =>
-                                  renderSuggestion({
-                                      suggestion,
-                                      ref:
-                                          suggestion.id === activeSuggestion?.id
-                                              ? setActiveElement
-                                              : null,
-                                      query,
-                                      active: suggestion.id === activeSuggestion?.id,
-                                      disabled: Boolean(suggestion.disabled),
-                                      onClose: handleClose,
-                                      onSelect: () => handleSelect(suggestion),
-                                  }),
-                              ),
-                          }))}
-            </Input>
-        </RootCloseWrapper>
+        <Input
+            ref={inputRef ? mergeRefs(inputRef, rootRef) : rootRef}
+            {...attributes}
+            onClear={onClear}
+            onFocus={() => setOpen(true)}
+            onKeyDown={(event) => {
+                handleNavigationKeyDown(event);
+                onKeyDown?.(event);
+            }}
+            loading={loading}
+            value={query}
+            withSuggestions={open}
+        >
+            {open &&
+                (suggestions.length === 0
+                    ? renderEmpty({ loading, query, onClose: handleClose })
+                    : renderSuggestions({
+                          activeElement: activeElement ?? undefined,
+                          activeSuggestion,
+                          loading,
+                          query,
+                          suggestions,
+                          onClose: handleClose,
+                          onSelect,
+                          children: suggestions.map((suggestion) =>
+                              renderSuggestion({
+                                  suggestion,
+                                  ref:
+                                      suggestion.id === activeSuggestion?.id
+                                          ? setActiveElement
+                                          : null,
+                                  query,
+                                  active: suggestion.id === activeSuggestion?.id,
+                                  disabled: Boolean(suggestion.disabled),
+                                  onClose: handleClose,
+                                  onSelect: () => handleSelect(suggestion),
+                              }),
+                          ),
+                      }))}
+        </Input>
     );
 }
 
