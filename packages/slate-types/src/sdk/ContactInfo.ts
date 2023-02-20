@@ -1,3 +1,5 @@
+import { normalizeUrl } from '../lib';
+
 export interface ContactInfo {
     avatar_url: string | null;
     name: string;
@@ -39,19 +41,9 @@ export namespace ContactInfo {
             mobile: value.mobile ?? '',
             phone: value.phone ?? '',
             email: value.email ?? '',
-            website: withHttp(value.website ?? ''),
+            website: normalizeUrl(value.website ?? ''),
             facebook: value.facebook ?? '',
             twitter: value.twitter ?? '',
         };
     }
-}
-
-function withHttp(url: string): string {
-    if (!url || url.includes('://')) {
-        return url;
-    }
-    if (url.startsWith('//')) {
-        return `http:${url}`;
-    }
-    return `http://${url}`;
 }
