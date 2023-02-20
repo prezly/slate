@@ -8,7 +8,11 @@ import type { RenderElementProps } from 'slate-react';
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { WebBookmarkElement } from './components';
-import { normalizeRedundantWebBookmarkAttributes, parseSerializedElement } from './lib';
+import {
+    normalizeRedundantWebBookmarkAttributes,
+    normalizeUrlAttribute,
+    parseSerializedElement,
+} from './lib';
 
 interface WebBookmarkExtensionParameters {
     withNewTabOption?: boolean;
@@ -40,7 +44,7 @@ export const WebBookmarkExtension = ({
     },
     isRichBlock: isBookmarkNode,
     isVoid: isBookmarkNode,
-    normalizeNode: [normalizeRedundantWebBookmarkAttributes],
+    normalizeNode: [normalizeRedundantWebBookmarkAttributes, normalizeUrlAttribute],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isBookmarkNode(element)) {
             return (
