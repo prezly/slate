@@ -1,7 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { BookmarkNode } from '@prezly/slate-types';
+import { type BookmarkNode, normalizeUrl } from '@prezly/slate-types';
 import { isBookmarkNode } from '@prezly/slate-types';
+import { isEqual } from 'lodash-es';
 import type { Editor, NodeEntry } from 'slate';
+import { Transforms } from 'slate';
 
 const shape: Record<keyof BookmarkNode, true> = {
     type: true,
@@ -25,4 +27,17 @@ export function normalizeRedundantWebBookmarkAttributes(
     }
 
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
+}
+
+export function normalizeUrlAttribute(editor: Editor, [node, path]: NodeEntry): boolean {
+    if (!isBookmarkNode(node)) {
+        return false;
+    }
+
+    if (isEqual(node.url, normalizeUrl(node.url))) {
+        return false;
+    }
+
+    Transforms.setNodes<BookmarkNode>(editor, { url: normalizeUrl(node.url) }, { at: path });
+    return true;
 }
