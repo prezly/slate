@@ -3,7 +3,10 @@ import { ProgressPromise } from '@prezly/progress-promise';
 import { fetchImageWithReadableStream } from './fetchImageWithReadableStream';
 import { fetchImageWithXmlHttpRequest } from './fetchImageWithXmlHttpRequest';
 
-const CORS_ENABLED_ORIGINS = ['https://cdn.uc.assets.prezly.com'];
+const CORS_ENABLED_ORIGINS = [
+    'https://cdn.uc.assets.prezly.com',
+    'https://avatars-cdn.prezly.com',
+];
 
 const isReadableStreamSupported = (() => {
     try {
