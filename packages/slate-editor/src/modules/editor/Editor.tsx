@@ -205,15 +205,15 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 clickTarget.tagName.toLowerCase() === 'textarea' ||
                 clickTarget.tagName.toLowerCase() === 'input';
 
-            // Placeholder elements get re-rendered on click, removing the original clicked element out of the DOM.
-            const isPlaceholderElement =
-                clickTarget.getAttribute('data-placeholder-format') !== null;
+            // Placeholder and some other elements (like link button in the text toolbar) get re-rendered on click, removing the original clicked element out of the DOM.
+            // In this case, we don't want to blur the editor.
+            const isRemovedFromDom = !document.contains(clickTarget);
 
             if (
                 !isWithinEditor &&
                 !isWithinMenuPortal &&
                 !isTextboxElement &&
-                !isPlaceholderElement &&
+                !isRemovedFromDom &&
                 !EditorCommands.isCursorInEmptyParagraph(editor)
             ) {
                 EditorCommands.blur(editor);
