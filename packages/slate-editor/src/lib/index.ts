@@ -12,6 +12,7 @@ export { formatBytes } from './formatBytes';
 export { getScrollParent } from './getScrollParent';
 export { isGoogleDocsWrapper } from './isGoogleDocsWrapper';
 export { isHtmlElement } from './isHtmlElement';
+export { isSupportedImageOrigin } from './isSupportedImageOrigin';
 export { mergeRefs } from './mergeRefs';
 export { Observable } from './Observable';
 export { onBackspaceResetFormattingAtDocumentStart } from './onBackspaceResetFormattingAtDocumentStart';
