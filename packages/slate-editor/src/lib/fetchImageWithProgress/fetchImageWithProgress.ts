@@ -1,9 +1,9 @@
 import { ProgressPromise } from '@prezly/progress-promise';
 
+import { isCorsEnabledOrigin } from '../isCorsEnabledOrigin';
+
 import { fetchImageWithReadableStream } from './fetchImageWithReadableStream';
 import { fetchImageWithXmlHttpRequest } from './fetchImageWithXmlHttpRequest';
-
-const CORS_ENABLED_ORIGINS = ['https://cdn.uc.assets.prezly.com'];
 
 const isReadableStreamSupported = (() => {
     try {
@@ -16,8 +16,6 @@ const isReadableStreamSupported = (() => {
 })();
 
 export function fetchImageWithProgress(src: string): ProgressPromise<string> {
-    const { origin } = new URL(src);
-
     // There are at least 2 ways of tracking loading progress:
     // 1. XMLHttpRequest
     // 2. fetch + ReadableStream - https://github.com/prezly/prezly/pull/8558/files#r500501298
@@ -28,7 +26,7 @@ export function fetchImageWithProgress(src: string): ProgressPromise<string> {
     // Unfortunately AJAX call to download an image does not work if there's CORS policy involved.
     // So we use fetch/XMLHttpRequest only for domains we're sure about.
     // For the rest of domains, we fall back to the default progress-less preloading behavior.
-    if (CORS_ENABLED_ORIGINS.includes(origin)) {
+    if (isCorsEnabledOrigin(src)) {
         if (isReadableStreamSupported) {
             return fetchImageWithReadableStream(src);
         }
