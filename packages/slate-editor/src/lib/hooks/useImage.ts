@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { fetchImageWithProgress } from '../fetchImageWithProgress';
-import { isSupportedImageOrigin } from '../isSupportedImageOrigin';
+import { isCorsEnabledOrigin } from '../isCorsEnabledOrigin';
 
 import { useAsyncProgress } from './useAsyncProgress';
 
@@ -23,7 +23,7 @@ export function useImage(src: string): State {
         loading,
         // We can't track progress for unsupported origins and this way we can rely
         // on the <ImageWithLoadingPlaceholder> component to estimate the progress.
-        progress: isSupportedImageOrigin(src) ? progress : undefined,
+        progress: isCorsEnabledOrigin(src) ? progress : undefined,
         loaded: Boolean(value),
         url: value,
     };

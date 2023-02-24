@@ -1,6 +1,6 @@
 import { ProgressPromise } from '@prezly/progress-promise';
 
-import { isSupportedImageOrigin } from '../isSupportedImageOrigin';
+import { isCorsEnabledOrigin } from '../isCorsEnabledOrigin';
 
 import { fetchImageWithReadableStream } from './fetchImageWithReadableStream';
 import { fetchImageWithXmlHttpRequest } from './fetchImageWithXmlHttpRequest';
@@ -26,7 +26,7 @@ export function fetchImageWithProgress(src: string): ProgressPromise<string> {
     // Unfortunately AJAX call to download an image does not work if there's CORS policy involved.
     // So we use fetch/XMLHttpRequest only for domains we're sure about.
     // For the rest of domains, we fall back to the default progress-less preloading behavior.
-    if (isSupportedImageOrigin(src)) {
+    if (isCorsEnabledOrigin(src)) {
         if (isReadableStreamSupported) {
             return fetchImageWithReadableStream(src);
         }
