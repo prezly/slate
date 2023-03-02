@@ -37,7 +37,7 @@
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {
-        "slate": "^0.82.1"
+        "slate": "^0.91.4"
     },
     "dependencies": {
         "@prezly/sdk": "^13.0.0 || ^14.0.0",
