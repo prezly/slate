@@ -1,5 +1,7 @@
 import { Editor, Range } from 'slate';
 
+import { isBlock } from './isBlock';
+
 export function isSelectionAtBlockStart(editor: Editor): boolean {
     if (!editor.selection) {
         // Cannot determine the location if there is no selection.
@@ -8,7 +10,7 @@ export function isSelectionAtBlockStart(editor: Editor): boolean {
 
     const startOfSelection = Range.start(editor.selection);
     const blockAbove = Editor.above(editor, {
-        match: (node) => Editor.isBlock(editor, node),
+        match: (node) => isBlock(editor, node),
     });
 
     if (!blockAbove) {

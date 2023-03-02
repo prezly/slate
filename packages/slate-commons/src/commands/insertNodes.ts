@@ -5,7 +5,10 @@ import { Editor, Text, Transforms } from 'slate';
 
 import { getCurrentNodeEntry } from './getCurrentNodeEntry';
 import { insertEmptyParagraph } from './insertEmptyParagraph';
+import { isBlock } from './isBlock';
 import { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
+import { isInline } from './isInline';
+import { isVoid } from './isVoid';
 
 interface Options {
     ensureEmptyParagraphAfter?: boolean;
@@ -29,7 +32,7 @@ export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}
     const initialSelection = editor.selection;
     const wasInitialSelectionInEmptyParagraph = isCursorInEmptyParagraph(editor);
     const isAppendingToCurrentNode = Text.isText(nodes[0]) || Editor.isInline(editor, nodes[0]);
-    const isAddingAnyBlockNodes = nodes.some((node) => Editor.isBlock(editor, node));
+    const isAddingAnyBlockNodes = nodes.some((node) => isBlock(editor, node));
 
     for (const node of nodes) {
         const currentNodeEntry = getCurrentNodeEntry(editor);
@@ -37,11 +40,11 @@ export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}
         if (currentNodeEntry) {
             const [currentNode] = currentNodeEntry;
 
-            if (Editor.isVoid(editor, currentNode) && !Editor.isBlock(editor, node)) {
+            if (isVoid(editor, currentNode) && !isBlock(editor, node)) {
                 insertEmptyParagraph(editor);
             }
 
-            if (Editor.isInline(editor, node)) {
+            if (isInline(editor, node)) {
                 // For some reason Slate will split existing block nodes when inserting inline nodes.
                 // We don't want that. Adding an empty text node before and after seems to do the
                 // trick. I don't know why.
