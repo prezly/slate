@@ -1,5 +1,7 @@
 import { Editor, Path, Text } from 'slate';
 
+import { isVoid } from './isVoid';
+
 export function getPrevChars(editor: Editor, length: number): string {
     const selection = editor.selection;
 
@@ -27,7 +29,7 @@ export function getPrevChars(editor: Editor, length: number): string {
             continue;
         }
 
-        if (Editor.isVoid(editor, node)) {
+        if (isVoid(editor, node)) {
             break;
         }
 

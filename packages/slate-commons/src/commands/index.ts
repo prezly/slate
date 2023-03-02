@@ -11,6 +11,7 @@ export { getPrevChars } from './getPrevChars';
 export { hasVoidElements } from './hasVoidElements';
 export { insertEmptyParagraph } from './insertEmptyParagraph';
 export { insertNodes } from './insertNodes';
+export { isBlock } from './isBlock';
 export { isBlockActive } from './isBlockActive';
 export { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
 export {
@@ -21,6 +22,7 @@ export {
 } from './isCursorOnEdgeOfContainer';
 export { isEmpty } from './isEmpty';
 export { isEmptyParagraphElement } from './isEmptyParagraphElement';
+export { isInline } from './isInline';
 export { isMarkActive } from './isMarkActive';
 export { isNodeEmpty } from './isNodeEmpty';
 export { isSelectionAtBlockEnd } from './isSelectionAtBlockEnd';

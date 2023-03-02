@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { Editor } from 'slate';
+import type { Editor } from 'slate';
 
-import { getCurrentNodeEntry, insertEmptyParagraph } from '../../commands';
+import { getCurrentNodeEntry, insertEmptyParagraph, isVoid } from '../../commands';
 
 export function withBreaksOnVoidNodes<T extends Editor>(editor: T): T {
     const { insertBreak } = editor;
@@ -9,7 +9,7 @@ export function withBreaksOnVoidNodes<T extends Editor>(editor: T): T {
     editor.insertBreak = () => {
         const [currentNode] = getCurrentNodeEntry(editor) || [];
 
-        if (Editor.isVoid(editor, currentNode)) {
+        if (currentNode && isVoid(editor, currentNode)) {
             /**
              * When trying to insert a break (press Enter) on a void node, the break is not inserted.
              * Reported here: https://github.com/prezly/prezly/pull/8239#discussion_r460073101

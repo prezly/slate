@@ -54,7 +54,9 @@ function handlePastingIntoPreservedBlock(
     fragment: SlateFragment,
     isPreservedBlock: IsPreservedBlock,
 ) {
-    const nodesAbove = Editor.nodes(editor, { match: (node) => Editor.isBlock(editor, node) });
+    const nodesAbove = Editor.nodes(editor, {
+        match: (node) => EditorCommands.isBlock(editor, node),
+    });
     const [nearestBlock] = Array.from(nodesAbove).at(-1) ?? [];
 
     if (

@@ -2,7 +2,8 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
 import jsonStableStringify from 'json-stable-stringify';
 import { useLayoutEffect } from 'react';
-import { Editor, Range } from 'slate';
+import type { Editor } from 'slate';
+import { Range } from 'slate';
 
 import { ensureElementInView, ensureRangeInView } from '#lib';
 
@@ -38,7 +39,11 @@ function ensureCursorInView(editor: Editor, parameters: Parameters): void {
         return;
     }
 
-    if (Editor.isBlock(editor, currentNode) && Editor.isVoid(editor, currentNode)) {
+    if (
+        currentNode &&
+        EditorCommands.isBlock(editor, currentNode) &&
+        EditorCommands.isVoid(editor, currentNode)
+    ) {
         /**
          * Slate reports invalid `domRange` on void elements. The reported range points to
          * the `data-slate-zero-width` element which is inside [data-slate-spacer="true"]

@@ -1,3 +1,4 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import { Editor, Range, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 
@@ -26,7 +27,7 @@ export function createOnCut(editor: Editor) {
 
         const [voidEntry] = Array.from(
             Editor.nodes(editor, {
-                match: (node) => Editor.isVoid(editor, node),
+                match: (node) => EditorCommands.isVoid(editor, node),
             }),
         );
 

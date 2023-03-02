@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { Editor, Range, Transforms } from 'slate';
 
-import { insertEmptyParagraph } from '../../commands';
+import { insertEmptyParagraph, isBlock } from '../../commands';
 
 export function withBreaksOnExpandedSelection<T extends Editor>(editor: T): T {
     const { insertBreak } = editor;
@@ -28,7 +28,7 @@ export function withBreaksOnExpandedSelection<T extends Editor>(editor: T): T {
             const nodes = Array.from(
                 Editor.nodes(editor, {
                     at: editor.selection,
-                    match: (node) => Editor.isBlock(editor, node),
+                    match: (node) => isBlock(editor, node),
                     mode: 'highest',
                     voids: true,
                 }),

@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
-import { Editor, Transforms } from 'slate';
+import { Transforms } from 'slate';
 
 import { isDeletingEvent } from '#lib';
 
@@ -15,7 +15,7 @@ export function VoidExtension(): Extension {
         onKeyDown: (event, editor) => {
             const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
 
-            if (!currentNode || !editor.selection || !Editor.isVoid(editor, currentNode)) {
+            if (!currentNode || !editor.selection || !EditorCommands.isVoid(editor, currentNode)) {
                 return;
             }
 

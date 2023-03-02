@@ -1,3 +1,4 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import {
     ELEMENT_DEFAULT,
     getRangeBefore,
@@ -7,8 +8,8 @@ import {
     someNode,
 } from '@udecode/plate-core';
 import { castArray } from 'lodash-es';
-import type { Range } from 'slate';
-import { Editor, Transforms } from 'slate';
+import type { Range, Editor } from 'slate';
+import { Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 
 import type { AutoformatBlockRule } from '../types';
@@ -49,7 +50,7 @@ export function autoformatBlock(
             // Don't autoformat if there is void nodes.
             const hasVoidNode = someNode(editor, {
                 at: matchRange,
-                match: (n) => Editor.isVoid(editor, n),
+                match: (node) => EditorCommands.isVoid(editor, node),
             });
             if (hasVoidNode) continue;
 
@@ -82,7 +83,7 @@ export function autoformatBlock(
                 editor,
                 { type },
                 {
-                    match: (n) => Editor.isBlock(editor, n),
+                    match: (node) => EditorCommands.isBlock(editor, node),
                 },
             );
         } else {
