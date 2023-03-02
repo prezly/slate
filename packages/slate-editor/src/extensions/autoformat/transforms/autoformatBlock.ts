@@ -8,7 +8,7 @@ import {
     someNode,
 } from '@udecode/plate-core';
 import { castArray } from 'lodash-es';
-import type { Range , Editor} from 'slate';
+import type { Range, Editor } from 'slate';
 import { Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 

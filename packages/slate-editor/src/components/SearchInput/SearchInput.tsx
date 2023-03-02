@@ -1,8 +1,9 @@
-import { ReactElement, Ref, ReactNode, useRef } from 'react';
+import type { ReactElement, Ref, ReactNode } from 'react';
+import { useRef } from 'react';
 import React, { useMemo, useReducer, useState } from 'react';
 import { useRootClose } from 'react-overlays';
-import { mergeRefs } from '#lib';
 
+import { mergeRefs } from '#lib';
 import {
     useDebounce,
     useFunction,
