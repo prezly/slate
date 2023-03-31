@@ -17,7 +17,7 @@ export function createWebBookmark(props: RequiredProps & Partial<OptionalProps>)
     return withoutExtraAttributes({
         uuid: uuidV4(),
         layout: BookmarkCardLayout.HORIZONTAL,
-        new_tab: false,
+        new_tab: true,
         show_thumbnail: true,
         ...props,
         children: [{ text: '' }],
