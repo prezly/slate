@@ -45,7 +45,7 @@ export function useFloatingSnippetInput(editor: Editor): [State, Actions] {
                 return;
             }
 
-            EditorCommands.insertNodes(editor, node.children);
+            EditorCommands.insertNodes(editor, node.children, { mode: 'highest' });
 
             editor.flash(node.children.at(0), node.children.at(-1));
             savedSelection.restore(editor, { focus: true });
