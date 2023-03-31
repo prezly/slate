@@ -35,7 +35,7 @@ import {
     isInlineNode,
     isDescendantOf,
 } from './queries';
-import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
+import { ANY_NODE_TYPE, EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
 import { combineFixers } from './utils';
 
@@ -43,6 +43,7 @@ import { IMAGE_CANDIDATE_NODE_TYPE } from '#extensions/image/constants';
 
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
+    [ANY_NODE_TYPE]: [mustHaveChildren(fixers.removeNode)],
     [ATTACHMENT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [BOOKMARK_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [CONTACT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
