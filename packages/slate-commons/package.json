@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-commons",
-    "version": "0.80.1",
+    "version": "0.80.2",
     "description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
     "license": "MIT",
     "type": "module",
@@ -48,7 +48,7 @@
         "slate-react": "^0.91.7"
     },
     "dependencies": {
-        "@prezly/slate-types": "^0.80.1",
+        "@prezly/slate-types": "^0.80.2",
         "uuid": "^8.3.0"
     },
     "devDependencies": {
