@@ -1,7 +1,7 @@
 import type { Editor, Path, Node, NodeEntry } from 'slate';
 
 export type HierarchyNodeQuery = (node: Node, path: Path, editor: Editor) => boolean;
-export type HierarchyNormalizer = (editor: Editor, path: Path) => boolean;
+export type HierarchyNormalizer = (editor: Editor, node: Node, path: Path) => boolean;
 export type HierarchyFixer = (editor: Editor, entry: NodeEntry) => boolean;
 
 export const EDITOR_NODE_TYPE = Symbol('EDITOR');

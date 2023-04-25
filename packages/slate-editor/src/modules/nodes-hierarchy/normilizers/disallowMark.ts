@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { TextNode } from '@prezly/slate-types';
-import { Node, Text } from 'slate';
+import { Text } from 'slate';
 
 import type { HierarchyNormalizer, HierarchyNodeQuery } from '../types';
 
@@ -8,9 +8,7 @@ export function disallowMark(
     mark: keyof Omit<TextNode, 'text'>,
     match: HierarchyNodeQuery,
 ): HierarchyNormalizer {
-    return (editor, path) => {
-        const node = Node.get(editor, path);
-
+    return (editor, node, path) => {
         if (Text.isText(node)) {
             if (!node[mark]) {
                 return false;

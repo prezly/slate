@@ -56,8 +56,8 @@ describe('allowChildren', () => {
             </editor-pure>
         ) as unknown as Editor;
 
-        editor.normalizeNode = ([, path]) => {
-            return normilizer(editor, path);
+        editor.normalizeNode = ([node, path]) => {
+            return normilizer(editor, node, path);
         };
 
         const expected = (

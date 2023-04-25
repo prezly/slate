@@ -6,9 +6,7 @@ export function allowChildren(
     isAllowed: HierarchyNodeQuery,
     fix: HierarchyFixer,
 ): HierarchyNormalizer {
-    return (editor, path) => {
-        const node = Node.get(editor, path);
-
+    return (editor, node, path) => {
         if ('children' in node) {
             for (const [childNode, childPath] of Node.children(editor, path)) {
                 if (!isAllowed(childNode, childPath, editor)) {

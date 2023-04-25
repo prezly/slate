@@ -18,7 +18,7 @@ export function withNodesHierarchy(schema: NodesHierarchySchema) {
             }
 
             for (const normalizer of normalizers) {
-                const isNormalized = normalizer(editor, path);
+                const isNormalized = normalizer(editor, node, path);
 
                 if (isNormalized) {
                     return;
