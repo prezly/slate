@@ -6,7 +6,12 @@ import { Editor } from 'slate';
 
 import { jsx } from '../../../jsx';
 
-describe('nodes-hierarchy / Any Node', () => {
+/**
+ * Note: xdescribe()
+ * This test is skipped.
+ * Reverted the fix for performance reasons. See CARE-1379 and CARE-1320
+ */
+xdescribe('nodes-hierarchy / Any Node', () => {
     it('should remove nodes without children', () => {
         const editor = (
             <editor>
