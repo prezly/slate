@@ -9,6 +9,7 @@ import { isBlock } from './isBlock';
 import { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
 import { isInline } from './isInline';
 import { isVoid } from './isVoid';
+import { sanitizeNode } from './sanitizeNode';
 
 interface Options {
     ensureEmptyParagraphAfter?: boolean;
@@ -27,6 +28,8 @@ export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}
     if (!editor.selection || nodes.length === 0) {
         return;
     }
+
+    const { mode, ensureEmptyParagraphAfter } = options;
 
     // In case we're inserting things into an empty paragraph, we will want to replace that paragraph.
     const initialSelection = editor.selection;
@@ -48,9 +51,9 @@ export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}
                 // For some reason Slate will split existing block nodes when inserting inline nodes.
                 // We don't want that. Adding an empty text node before and after seems to do the
                 // trick. I don't know why.
-                Transforms.insertFragment(editor, [{ text: '' }, node, { text: '' }]);
+                Transforms.insertFragment(editor, [{ text: '' }, sanitizeNode(node), { text: '' }]);
             } else {
-                Transforms.insertNodes(editor, [node], { mode: options.mode });
+                Transforms.insertNodes(editor, [sanitizeNode(node)], { mode });
             }
         }
     }
@@ -58,11 +61,7 @@ export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}
     // Every time we call `Transforms.insertNodes` or `Transforms.insertFragment`
     // the cursor/selection will move (as long as we're inserting something).
     // That's why we have to check `isCursorInEmptyParagraph` again.
-    if (
-        options.ensureEmptyParagraphAfter &&
-        !isCursorInEmptyParagraph(editor) &&
-        isAddingAnyBlockNodes
-    ) {
+    if (ensureEmptyParagraphAfter && !isCursorInEmptyParagraph(editor) && isAddingAnyBlockNodes) {
         insertEmptyParagraph(editor);
     }
 
