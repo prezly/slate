@@ -2,7 +2,7 @@ import type { Node } from 'slate';
 import { Text } from 'slate';
 import { Editor } from 'slate';
 
-import { ANY_NODE_TYPE, EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
+import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema, HierarchyNormalizer } from './types';
 
 export function withNodesHierarchy(schema: NodesHierarchySchema) {
@@ -12,10 +12,6 @@ export function withNodesHierarchy(schema: NodesHierarchySchema) {
         editor.normalizeNode = (entry) => {
             const [node, path] = entry;
             const normalizers = getSchemaNormalizers(node, schema);
-
-            if (schema[ANY_NODE_TYPE]) {
-                normalizers.push(...schema[ANY_NODE_TYPE]);
-            }
 
             for (const normalizer of normalizers) {
                 const isNormalized = normalizer(editor, node, path);

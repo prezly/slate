@@ -43,9 +43,6 @@ import { IMAGE_CANDIDATE_NODE_TYPE } from '#extensions/image/constants';
 
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
-    // Commented out to quickfix a performance issue we have
-    // @see CARE-1379 and CARE-1320
-    // // [ANY_NODE_TYPE]: [mustHaveChildren(fixers.removeNode)],
     [ATTACHMENT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [BOOKMARK_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [CONTACT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
@@ -54,7 +51,6 @@ export const hierarchySchema: NodesHierarchySchema = {
     [EDITOR_NODE_TYPE]: [
         mustHaveChildren((editor, [node, path]) => {
             const isFixed = fixers.insertParagraph(editor, [node, path]);
-
             if (isFixed) {
                 Transforms.select(editor, path);
             }
