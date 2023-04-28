@@ -1,0 +1,45 @@
+name: Test dependencies alignment
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        react-version: [16, 17, 18]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache node modules
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: "**/node_modules"
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.react-version }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.react-version }}-
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - run: npm run bootstrap
+
+    - run: make
+      working-directory: test/dependencies
+      env:
+          REACT_VERSION: ${{ matrix.react-version }}
+
+    - run: npm run test
+      env:
+        CI: true
