@@ -13,7 +13,7 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "type": "module",
     "scripts": {
-        "bootstrap": "npm ci --legacy-peer-deps",
+        "bootstrap": "npm ci",
         "build": "NODE_ENV=production turbo run build",
         "build:dev": "NODE_ENV=development turbo run build",
         "check": "npm run prettier && npm run test",
