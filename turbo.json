@@ -1,28 +1,39 @@
 {
     "$schema": "https://turborepo.org/schema.json",
-    "baseBranch": "origin/main",
     "pipeline": {
         "build": {
             "dependsOn": [
-                "$NODE_ENV",
                 "^build"
+            ],
+            "env": [
+                "NODE_ENV"
             ],
             "outputs": [
                 "build/**"
             ],
-            "inputs": ["src/**/*", "gulpfile.js"]
+            "inputs": [
+                "src/**/*",
+                "gulpfile.js"
+            ]
         },
         "watch": {
+            "cache": false,
             "dependsOn": [
-                "$NODE_ENV",
                 "build"
             ],
-            "cache": false
+            "env": [
+                "NODE_ENV"
+            ]
         },
         "test": {
-            "dependsOn": ["build"],
+            "dependsOn": [
+                "build"
+            ],
             "outputs": [],
-            "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+            "inputs": [
+                "src/**/*.tsx",
+                "src/**/*.ts"
+            ]
         }
     }
 }
