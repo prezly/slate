@@ -33,7 +33,7 @@
         "release": "pnpm release:prepare && pnpm release:publish",
         "release:build": "pnpm clean && pnpm bootstrap && pnpm build",
         "release:prepare": "pnpm install && pnpm release:build && pnpm check",
-        "release:publish": "lerna publish --force-publish"
+        "release:publish": "pnpm --recursive publish --access public --force"
     },
     "devEngines": {
         "node": ">= 16.13.0",
@@ -87,7 +87,6 @@
         "gulp-use": "^0.0.4",
         "jest": "^27.3.1",
         "jest-canvas-mock": "^2.3.1",
-        "lerna": "^3.22.1",
         "postcss": "^8.4.1",
         "postcss-modules": "^4.3.0",
         "prettier": "^2.7.1",
