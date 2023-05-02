@@ -24,7 +24,7 @@
         "test:react16": "REACT_VERSION=16 pnpm test:react",
         "test:react17": "REACT_VERSION=17 pnpm test:react",
         "test:react18": "REACT_VERSION=18 pnpm test:react",
-        "test:react": "npm rm react react-dom @types/react @types/react-dom && npm install react@$REACT_VERSION react-dom@$REACT_VERSION @types/react@$REACT_VERSION @types/react-dom@$REACT_VERSION && pnpm clean:build && pnpm build && pnpm test",
+        "test:react": "pnpm install --no-lockfile -w react@$REACT_VERSION react-dom@$REACT_VERSION @types/react@$REACT_VERSION @types/react-dom@$REACT_VERSION && pnpm clean:build && pnpm build && pnpm test",
         "clean": "pnpm --recursive clean:build && pnpm --recursive clean:node_modules",
         "clean:build": "rimraf *.tsbuildinfo && rimraf node_modules/.cache/",
         "clean:node_modules": "rimraf node_modules/",
@@ -40,10 +40,10 @@
         "npm": ">= 7.7.0"
     },
     "dependencies": {
-        "@types/react": "^16.9.0 || ^17.0.0 || ^18.0.0",
-        "@types/react-dom": "^16.9.0 || ^17.0.0 || ^18.0.0",
-        "react": "^16.9.0 || ^17.0.0 || ^18.0.0",
-        "react-dom": "^16.9.0 || ^17.0.0 || ^18.0.0",
+        "@types/react": "16",
+        "@types/react-dom": "16",
+        "react": "16",
+        "react-dom": "16",
         "slate": "^0.91.4",
         "slate-history": "^0.86.0",
         "slate-react": "^0.91.7"
