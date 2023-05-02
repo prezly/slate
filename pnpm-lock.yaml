@@ -180,7 +180,7 @@ importers:
   packages/slate-commons:
     dependencies:
       '@prezly/slate-types':
-        specifier: ^0.80.4
+        specifier: workspace:*
         version: link:../slate-types
       react:
         specifier: ^16.9.0 || ^17.0.0 || ^18.0.0
@@ -229,16 +229,16 @@ importers:
         specifier: ^13.0.0 || ^14.0.0
         version: 14.0.0
       '@prezly/slate-commons':
-        specifier: ^0.80.4
+        specifier: workspace:*
         version: link:../slate-commons
       '@prezly/slate-lists':
-        specifier: ^0.80.4
+        specifier: workspace:*
         version: link:../slate-lists
       '@prezly/slate-tables':
-        specifier: ^0.80.4
+        specifier: workspace:*
         version: link:../slate-tables
       '@prezly/slate-types':
-        specifier: ^0.80.4
+        specifier: workspace:*
         version: link:../slate-types
       '@prezly/uploadcare':
         specifier: ^2.4.0
@@ -432,7 +432,7 @@ importers:
   packages/slate-tables:
     dependencies:
       '@prezly/slate-commons':
-        specifier: ^0.80.4
+        specifier: workspace:*
         version: link:../slate-commons
       is-hotkey:
         specifier: ^0.2.0
