@@ -31,8 +31,8 @@
         "prettier": "prettier --check './**/*.(js|ts|tsx|scss)'",
         "prettier:fix": "pnpm prettier --write --no-list-different",
         "release": "pnpm release:prepare && pnpm release:publish",
-        "release:build": "pnpm clean && pnpm bootstrap && pnpm build",
-        "release:prepare": "pnpm install && pnpm release:build && pnpm check",
+        "release:build": "pnpm clean && pnpm install && pnpm build",
+        "release:prepare": "pnpm release:build && pnpm check",
         "release:publish": "pnpm --recursive publish --access public --force"
     },
     "devEngines": {
