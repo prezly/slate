@@ -1,4 +1,4 @@
-name: Build
+name: Build Storybook
 
 on: [push]
 
@@ -51,4 +51,5 @@ jobs:
             - name: Install dependencies
               run: pnpm install --no-frozen-lockfile
 
-            - run: pnpm build
+            - run: pnpm storybook:build
+              working-directory: packages/slate-editor
