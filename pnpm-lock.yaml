@@ -6,10 +6,10 @@ importers:
     dependencies:
       '@types/react':
         specifier: ^16.9.0 || ^17.0.0 || ^18.0.0
-        version: 18.0.27
+        version: 16.14.40
       '@types/react-dom':
         specifier: ^16.9.0 || ^17.0.0 || ^18.0.0
-        version: 18.0.11
+        version: 16.9.0
       react:
         specifier: ^16.9.0 || ^17.0.0 || ^18.0.0
         version: 16.9.0
@@ -350,13 +350,13 @@ importers:
         specifier: ^7.0.0-beta.36
         version: 7.0.0-beta.36(@babel/core@7.20.12)(esbuild@0.16.17)(react-dom@16.9.0)(react@16.9.0)(typescript@4.9.5)(webpack@5.75.0)
       '@types/is-hotkey':
-        specifier: ^0.1.6
+        specifier: ^0.1.7
         version: 0.1.7
       '@types/json-stable-stringify':
         specifier: ^1.0.32
         version: 1.0.34
       '@types/lodash-es':
-        specifier: ^4.17.5
+        specifier: ^4.17.6
         version: 4.17.6
       '@types/node':
         specifier: ^18.13.0
@@ -4109,8 +4109,8 @@ packages:
       '@types/react': 18.0.27
     dev: true
 
-  /@types/react-dom@18.0.11:
-    resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
+  /@types/react-dom@16.9.0:
+    resolution: {integrity: sha512-OL2lk7LYGjxn4b0efW3Pvf2KBVP0y1v3wip1Bp7nA79NkOpElH98q3WdCEdDj93b2b0zaeBG9DvriuKjIK5xDA==}
     dependencies:
       '@types/react': 18.0.27
     dev: false
@@ -4145,6 +4145,14 @@ packages:
       '@types/history': 4.7.11
       '@types/react': 18.0.27
     dev: true
+
+  /@types/react@16.14.40:
+    resolution: {integrity: sha512-elQj2VQHDuJ5xuEcn5Wxh/YQFNbEuPJFRKSdyG866awDm5dmtoqsMmuAJWb/l/qd2kDkZMfOTKygVfMIdBBPKg==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.1
+    dev: false
 
   /@types/react@18.0.27:
     resolution: {integrity: sha512-3vtRKHgVxu3Jp9t718R9BuzoD4NcQ8YJ5XRzsSKxNDiDonD2MXIT1TmSkenxuCycZJoQT5d2vE8LwWJxBC1gmA==}
