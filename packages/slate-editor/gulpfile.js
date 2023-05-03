@@ -15,8 +15,6 @@ import postcssModules from 'postcss-modules';
 import sassBackend from 'sass';
 import File from 'vinyl';
 
-import packageJson from './package.json' assert { type: 'json' };
-
 const sass = createSassProcessor(sassBackend);
 
 const BASE_DIR = './src';
@@ -66,14 +64,6 @@ function buildEsm(files = JS_DELIVERABLE_SOURCES) {
         .pipe(
             babel({
                 extends: './babel.config.json',
-                plugins: [
-                    [
-                        'transform-define',
-                        {
-                            'process.env.ENV_SLATE_VERSION': packageJson.version,
-                        },
-                    ],
-                ],
             }),
         )
         .pipe(gulp.dest('build/esm/'));

@@ -66,7 +66,6 @@ export type EditorEventMap = {
         filesCount: number;
         imagesCount: number;
         isEmpty: boolean;
-        slateVersion: string | undefined;
     };
     'image-add-clicked': never;
     'image-added': {
@@ -98,7 +97,6 @@ export type EditorEventMap = {
     paste: {
         isEmpty: boolean;
         pastedLength: number;
-        slateVersion: string | undefined;
     };
     'story-embed-dialog-opened': {
         selectedItemText: string;

@@ -71,7 +71,6 @@ export function withFilePasting(getExtensions: () => Extension[]) {
                 filesCount: files.filter((file) => !IMAGE_TYPES.includes(file.type)).length,
                 imagesCount: files.filter((file) => IMAGE_TYPES.includes(file.type)).length,
                 isEmpty: EditorCommands.isEmpty(editor),
-                slateVersion: process.env.ENV_SLATE_VERSION,
             });
 
             files.forEach(async (file) => {
