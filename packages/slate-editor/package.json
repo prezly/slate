@@ -45,8 +45,9 @@
         "test:build": "pnpm test:esm && pnpm test:types",
         "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/types/index.d.ts",
         "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.js'; \" ",
-        "storybook:dev": "pnpm run dev --prefix=./storybook",
-        "storybook:build": "pnpm run build --prefix=./storybook"
+        "storybook:dev": "pnpm run --dir ./storybook dev",
+        "storybook:build": "pnpm run --dir ./storybook build",
+        "postinstall": "pnpm install --dir ./storybook"
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
