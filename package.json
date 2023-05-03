@@ -26,7 +26,7 @@
         "test:react18": "REACT_VERSION=18 pnpm test:react",
         "test:react": "pnpm install --no-lockfile -w react@$REACT_VERSION react-dom@$REACT_VERSION @types/react@$REACT_VERSION @types/react-dom@$REACT_VERSION && pnpm clean:build && pnpm build && pnpm test",
         "clean": "pnpm clean:build && pnpm clean:node_modules",
-        "clean:build": "rimraf *.tsbuildinfo && rimraf node_modules/.cache/ && && pnpm --recursive run clean:build",
+        "clean:build": "rimraf *.tsbuildinfo && rimraf node_modules/.cache/ && pnpm --recursive run clean:build",
         "clean:node_modules": "rimraf node_modules/ pnpm-lock.yaml && pnpm --recursive run clean:node_modules",
         "prettier": "prettier --check './**/*.(js|ts|tsx|scss)'",
         "prettier:fix": "pnpm prettier --write --no-list-different",
