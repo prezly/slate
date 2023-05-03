@@ -4,6 +4,5 @@ coverage/
 node_modules/
 **/dist/
 packages/slate-editor/.css-modules/
-packages/slate-editor/.storybook/
-packages/slate-editor/storybook-static/
+packages/slate-editor/storybook/
 .history
