@@ -38,7 +38,7 @@
         "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.js'; \" ",
         "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",
         "clean": "pnpm clean:build && pnpm clean:node_modules",
-        "clean:node_modules": "rimraf node_modules/ package-lock.json",
+        "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {

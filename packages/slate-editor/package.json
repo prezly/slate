@@ -38,7 +38,7 @@
         "watch:esm": "gulp watch:esm",
         "watch:sass": "gulp watch:sass",
         "clean": "pnpm clean:build && pnpm clean:node_modules",
-        "clean:node_modules": "rimraf node_modules/ package-lock.json",
+        "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/* *.tsbuildinfo .css-modules/*",
         "test": "pnpm test:unit && pnpm test:build",
         "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage",
