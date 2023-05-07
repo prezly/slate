@@ -6,7 +6,7 @@ import { Editor } from 'slate';
 import { jsx } from '../../../jsx';
 
 describe('nodes-hierarchy / Coverage', () => {
-    it('should be kept after normalization', () => {
+    it('should be kept after normalization', function () {
         const editor = (
             <editor>
                 <h:coverage
@@ -33,7 +33,7 @@ describe('nodes-hierarchy / Coverage', () => {
 
         Editor.normalize(editor, { force: true });
 
-        expect(editor.children).toMatchSnapshot();
+        expect(editor.children).toMatchSnapshot(this);
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });

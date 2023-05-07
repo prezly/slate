@@ -5,7 +5,7 @@ import { Editor } from 'slate';
 import { jsx } from '../../../jsx';
 
 describe('nodes-hierarchy / Editor', () => {
-    it('should insert paragraph in empty editor', () => {
+    it('should insert paragraph in empty editor', function () {
         const editor = (<editor />) as unknown as Editor;
 
         const expected = (
@@ -20,7 +20,7 @@ describe('nodes-hierarchy / Editor', () => {
 
         Editor.normalize(editor, { force: true });
 
-        expect(editor.children).toMatchSnapshot();
+        expect(editor.children).toMatchSnapshot(this);
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });

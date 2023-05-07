@@ -7,12 +7,13 @@ import { Editor } from 'slate';
 import { jsx } from '../../../jsx';
 
 /**
- * Note: xdescribe()
- * This test is skipped.
+ * These tests are skipped.
  * Reverted the fix for performance reasons. See CARE-1379 and CARE-1320
  */
-xdescribe('nodes-hierarchy / Any Node', () => {
-    it('should remove nodes without children', () => {
+describe('nodes-hierarchy / Any Node', () => {
+    it('should remove nodes without children', function () {
+        this.skip();
+
         const editor = (
             <editor>
                 <h:ol align={Alignment.LEFT}>
@@ -50,12 +51,14 @@ xdescribe('nodes-hierarchy / Any Node', () => {
 
         Editor.normalize(editor, { force: true });
 
-        expect(editor.children).toMatchSnapshot();
+        expect(editor.children).toMatchSnapshot(this);
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('should remove all nodes but leave editor with one paragraph', () => {
+    it('should remove all nodes but leave editor with one paragraph', function () {
+        this.skip();
+
         const editor = (
             <editor>
                 <h:ol align={Alignment.LEFT}>
@@ -83,7 +86,7 @@ xdescribe('nodes-hierarchy / Any Node', () => {
 
         Editor.normalize(editor, { force: true });
 
-        expect(editor.children).toMatchSnapshot();
+        expect(editor.children).toMatchSnapshot(this);
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });

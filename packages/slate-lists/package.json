@@ -33,7 +33,7 @@
         "watch:types": "tsc-fancy --preserveConsoleOutput --project ./tsconfig.build.json --watch --pretty",
         "watch:esm": "pnpm build:esm --watch",
         "test": "pnpm test:unit && pnpm test:build",
-        "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.cjs --rootDir ./ --no-cache --coverage",
+        "test:unit": "mocha --exit --config ../../.mocharc.cjs './src/**/*.test.{ts,tsx}'",
         "test:build": "pnpm test:esm && pnpm test:types",
         "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.js'; \" ",
         "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",

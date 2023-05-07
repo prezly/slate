@@ -1,14 +1,15 @@
 /** @jsx jsx */
-import { jest } from '@jest/globals';
 import { ListsEditor, ListType } from '@prezly/slate-lists';
 import { TablesEditor } from '@prezly/slate-tables';
+import { noop } from '@technically/lodash';
+import { fake } from 'sinon';
 import { ReactEditor } from 'slate-react';
 
 import { jsx } from '../../jsx';
 
 describe('extensions / Tables', () => {
     beforeEach(() => {
-        ReactEditor.focus = jest.fn();
+        ReactEditor.focus = fake(noop);
     });
 
     it('should insert table', () => {

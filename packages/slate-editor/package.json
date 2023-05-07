@@ -6,6 +6,13 @@
     "type": "module",
     "main": "build/esm/index.js",
     "types": "build/types/index.d.ts",
+    "imports": {
+        "#components": "./src/components",
+        "#extensions/*": "./src/extensions/*",
+        "#icons": "./src/icons",
+        "#lib": "./src/lib",
+        "#modules/*": "./src/modules/*"
+    },
     "exports": {
         ".": {
             "types": "./build/types/index.d.ts",
@@ -41,7 +48,7 @@
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/* *.tsbuildinfo .css-modules/*",
         "test": "pnpm test:unit && pnpm test:build",
-        "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage",
+        "test:unit": "mocha --exit --config ../../.mocharc.cjs './src/**/*.test.{ts,tsx}'",
         "test:build": "pnpm test:esm && pnpm test:types",
         "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/types/index.d.ts",
         "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.js'; \" ",
@@ -95,7 +102,6 @@
     },
     "devDependencies": {
         "@babel/core": "^7.18.5",
-        "@jest/globals": "^28.1.1",
         "@types/is-hotkey": "^0.1.7",
         "@types/json-stable-stringify": "^1.0.32",
         "@types/node": "^18.13.0",

@@ -2,7 +2,12 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "module": "es6",
-        "target": "es6"
+        "target": "es6",
+        "types": [],
+        "noEmit": false,
+        "emitDeclarationOnly": true,
+        "declarationDir": "./build/types"
     },
     "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts"],
+    "files": [],
 }

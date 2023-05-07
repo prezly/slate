@@ -1,12 +1,12 @@
-import { jest } from '@jest/globals';
+import { fake } from 'sinon';
 
 import { combineFixers } from './combineFixers';
 
 describe('combineFixers', () => {
     it('will stop on the first fixer', () => {
-        const first = jest.fn(() => true);
-        const second = jest.fn(() => true);
-        const third = jest.fn(() => true);
+        const first = fake(() => true);
+        const second = fake(() => true);
+        const third = fake(() => true);
 
         const fix = combineFixers([first, second, third]);
         const isFixed = fix(null as any, null as any);
@@ -18,9 +18,9 @@ describe('combineFixers', () => {
     });
 
     it('will stop on the second fixer', () => {
-        const first = jest.fn(() => false);
-        const second = jest.fn(() => true);
-        const third = jest.fn(() => true);
+        const first = fake(() => false);
+        const second = fake(() => true);
+        const third = fake(() => true);
 
         const fix = combineFixers([first, second, third]);
         const isFixed = fix(null as any, null as any);
@@ -32,9 +32,9 @@ describe('combineFixers', () => {
     });
 
     it('will stop on the last fixer', () => {
-        const first = jest.fn(() => false);
-        const second = jest.fn(() => false);
-        const third = jest.fn(() => true);
+        const first = fake(() => false);
+        const second = fake(() => false);
+        const third = fake(() => true);
 
         const fix = combineFixers([first, second, third]);
         const isFixed = fix(null as any, null as any);
@@ -46,9 +46,9 @@ describe('combineFixers', () => {
     });
 
     it('will apply no fixers', () => {
-        const first = jest.fn(() => false);
-        const second = jest.fn(() => false);
-        const third = jest.fn(() => false);
+        const first = fake(() => false);
+        const second = fake(() => false);
+        const third = fake(() => false);
 
         const fix = combineFixers([first, second, third]);
         const isFixed = fix(null as any, null as any);
