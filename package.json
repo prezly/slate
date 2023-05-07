@@ -33,7 +33,7 @@
         "release": "pnpm release:prepare && pnpm release:publish",
         "release:build": "pnpm build --force",
         "release:prepare": "pnpm release:build && pnpm check",
-        "release:publish": "pnpm --recursive publish --access public --force"
+        "release:publish": "lerna publish"
     },
     "devEngines": {
         "node": ">= 16.13.0",
@@ -95,6 +95,7 @@
         "gulp-use": "^0.0.4",
         "ignore-styles": "^5.0.1",
         "jsdom": "^22.0.0",
+        "lerna": "^6.6.2",
         "mocha": "^10.2.0",
         "postcss": "^8.4.1",
         "postcss-modules": "^4.3.0",
@@ -109,5 +110,8 @@
         "turbo": "^1.9.3",
         "typescript": ">=4.9.0",
         "vinyl": "^2.2.1"
-    }
+    },
+    "workspaces": [
+        "packages/*"
+    ]
 }
