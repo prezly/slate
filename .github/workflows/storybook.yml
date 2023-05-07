@@ -46,7 +46,12 @@ jobs:
                   file: package.json
                   parse_json: true
                   field: pnpm.overrides
-                  value: '{"@types/react":"${{ matrix.react-version }}","@types/react-dom":"${{ matrix.react-version }}","react":"${{ matrix.react-version }}","react-dom":"${{ matrix.react-version }}"}'
+                  value: '{"@types/react":"${{ env.REACT_TYPES_VERSION }}","@types/react-dom":"${{ env.REACT_DOM_TYPES_VERSION }}","react":"${{ env.REACT_VERSION }}","react-dom":"${{ env.REACT_DOM_VERSION }}"}'
+              env:
+                  REACT_TYPES_VERSION: ${{ matrix.react-version }}
+                  REACT_VERSION: ${{ matrix.react-version }}
+                  REACT_DOM_TYPES_VERSION: ${{ startsWith(matrix.react-version, '16.') && '16.9.9' || matrix.react-version }}
+                  REACT_DOM_VERSION: ${{ matrix.react-version }}
 
             - name: Install dependencies
               run: pnpm install --no-frozen-lockfile
