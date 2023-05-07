@@ -6,6 +6,7 @@
     "type": "module",
     "main": "build/index.js",
     "types": "build/index.d.ts",
+    "files": ["README.md", "build/"],
     "imports": {
         "#components": "./src/components",
         "#extensions/*": "./src/extensions/*",

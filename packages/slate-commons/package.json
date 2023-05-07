@@ -12,10 +12,7 @@
             "default": "./build/index.js"
         }
     },
-    "files": [
-        "build",
-        "src"
-    ],
+    "files": ["README.md", "build/"],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/prezly/slate.git"
