@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-commons",
-    "version": "0.81.0",
+    "version": "0.81.1",
     "description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
     "license": "MIT",
     "type": "module",
@@ -12,7 +12,10 @@
             "default": "./build/index.js"
         }
     },
-    "files": ["README.md", "build/"],
+    "files": [
+        "README.md",
+        "build/"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/prezly/slate.git"

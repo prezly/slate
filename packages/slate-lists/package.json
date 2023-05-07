@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-lists",
-    "version": "0.81.0",
+    "version": "0.81.1",
     "description": "The best Slate lists extension out there",
     "license": "MIT",
     "type": "module",
@@ -12,7 +12,10 @@
             "default": "./build/index.js"
         }
     },
-    "files": ["README.md", "build/"],
+    "files": [
+        "README.md",
+        "build/"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/prezly/slate.git"

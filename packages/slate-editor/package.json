@@ -1,12 +1,15 @@
 {
     "name": "@prezly/slate-editor",
-    "version": "0.81.0",
+    "version": "0.81.1",
     "description": "The Prezly Slate Editor",
     "license": "MIT",
     "type": "module",
     "main": "build/index.js",
     "types": "build/index.d.ts",
-    "files": ["README.md", "build/"],
+    "files": [
+        "README.md",
+        "build/"
+    ],
     "imports": {
         "#components": "./src/components",
         "#extensions/*": "./src/extensions/*",

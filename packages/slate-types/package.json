@@ -1,12 +1,15 @@
 {
     "name": "@prezly/slate-types",
-    "version": "0.81.0",
+    "version": "0.81.1",
     "description": "TypeScript definitions for Slate document structure used at Prezly",
     "license": "MIT",
     "type": "module",
     "main": "build/index.js",
     "types": "build/index.d.ts",
-    "files": ["README.md", "build/"],
+    "files": [
+        "README.md",
+        "build/"
+    ],
     "exports": {
         ".": {
             "types": "./build/index.d.ts",
