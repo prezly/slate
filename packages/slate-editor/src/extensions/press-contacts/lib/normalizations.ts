@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ContactNode } from '@prezly/slate-types';
 import { ContactInfo, isContactNode } from '@prezly/slate-types';
-import { isEqual } from 'lodash-es';
+import { isEqual } from '@technically/lodash';
 import type { Editor, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
 

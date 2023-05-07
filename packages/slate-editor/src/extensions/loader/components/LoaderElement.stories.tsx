@@ -1,5 +1,5 @@
 import { ProgressPromise } from '@prezly/progress-promise';
-import { noop } from 'lodash-es';
+import { noop } from '@technically/lodash';
 import * as React from 'react';
 import { createEditor as createSlateEditor } from 'slate';
 import { type RenderElementProps, Slate } from 'slate-react';

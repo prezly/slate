@@ -1,6 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
+import { noop } from '@technically/lodash';
 import { isHotkey } from 'is-hotkey';
-import { noop } from 'lodash-es';
 import type { Editor, Element } from 'slate';
 
 import { insertBlockAbove, insertBlockBelow } from './lib';

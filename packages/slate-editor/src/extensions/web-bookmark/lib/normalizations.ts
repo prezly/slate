@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { type BookmarkNode, normalizeUrl } from '@prezly/slate-types';
 import { isBookmarkNode } from '@prezly/slate-types';
-import { isEqual } from 'lodash-es';
+import { isEqual } from '@technically/lodash';
 import type { Editor, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
 

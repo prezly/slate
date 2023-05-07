@@ -7,7 +7,7 @@ import {
     isTableRowNode,
     isTableCellNode,
 } from '@prezly/slate-types';
-import { isEqual, uniq } from 'lodash-es';
+import { isEqual, uniq } from '@technically/lodash';
 import { type Editor, type NodeEntry, Transforms } from 'slate';
 
 const ALLOWED_TABLE_ATTRIBUTES: { [key in keyof TableNode]: boolean } = {

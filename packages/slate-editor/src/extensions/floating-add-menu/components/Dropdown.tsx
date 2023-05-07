@@ -1,5 +1,5 @@
+import { noop } from '@technically/lodash';
 import classNames from 'classnames';
-import { noop } from 'lodash-es';
 import maxSize from 'popper-max-size-modifier';
 import type { ReactNode } from 'react';
 import React, { Fragment, useEffect, useLayoutEffect, useState } from 'react';

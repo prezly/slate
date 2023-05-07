@@ -1,4 +1,4 @@
-import { noop } from 'lodash-es';
+import { noop } from '@technically/lodash';
 import { useCallback, useEffect, useState } from 'react';
 
 import { useLatest } from '#lib';

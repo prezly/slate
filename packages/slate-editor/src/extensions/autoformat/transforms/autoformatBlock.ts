@@ -1,4 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { castArray } from '@technically/lodash';
 import {
     ELEMENT_DEFAULT,
     getRangeBefore,
@@ -7,7 +8,6 @@ import {
     setNodes,
     someNode,
 } from '@udecode/plate-core';
-import { castArray } from 'lodash-es';
 import type { Range, Editor } from 'slate';
 import { Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';

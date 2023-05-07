@@ -6,8 +6,8 @@ import {
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
+import { reject } from '@technically/lodash';
 import classNames from 'classnames';
-import { reject } from 'lodash-es';
 import React, { useMemo } from 'react';
 
 import { Menu } from '#components';

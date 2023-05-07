@@ -1,4 +1,4 @@
-import { castArray } from 'lodash-es';
+import { castArray } from '@technically/lodash';
 import type { Editor, Point, Range } from 'slate';
 import { Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';

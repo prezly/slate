@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { times } from 'lodash-es';
+import { times } from '@technically/lodash';
 import type { Editor } from 'slate';
 
 import type { PlaceholderNode } from '../PlaceholderNode';

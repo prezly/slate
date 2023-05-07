@@ -14,7 +14,7 @@ import {
     isTableRowNode,
     isTableCellNode,
 } from '@prezly/slate-types';
-import { flow } from 'lodash-es';
+import { flow } from '@technically/lodash';
 import React from 'react';
 import type { Element } from 'slate';
 import type { RenderElementProps } from 'slate-react';

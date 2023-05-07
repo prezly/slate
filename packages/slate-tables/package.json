@@ -48,12 +48,11 @@
     },
     "dependencies": {
         "@prezly/slate-commons": "workspace:*",
-        "is-hotkey": "^0.2.0",
-        "lodash-es": "^4.17.21"
+        "@technically/lodash": "^4.17.0",
+        "is-hotkey": "^0.2.0"
     },
     "devDependencies": {
         "@types/is-hotkey": "^0.1.7",
-        "@types/lodash-es": "^4.17.6",
         "@types/node": "^18.13.0"
     }
 }

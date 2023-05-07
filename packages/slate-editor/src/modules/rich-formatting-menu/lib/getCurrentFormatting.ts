@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { uniq } from 'lodash-es';
+import { uniq } from '@technically/lodash';
 import { Editor } from 'slate';
 
 import type { Formatting, RichFormattedTextElement } from '../types';
