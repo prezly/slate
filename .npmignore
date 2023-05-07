@@ -10,3 +10,4 @@ coverage/
 *.txt
 **/*.test.ts
 **/*.test.tsx
+pnpm-lock.yaml
