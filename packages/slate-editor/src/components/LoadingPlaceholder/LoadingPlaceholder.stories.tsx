@@ -35,7 +35,7 @@ function StaticTemplate(args: { description: string; progress: number }) {
 }
 
 export const Static = StaticTemplate.bind({});
-// @ts-ignore
+// @ts-expect-error todo
 Static.args = {
     description: 'Loading image',
     progress: 50,
@@ -81,7 +81,7 @@ function DynamicTemplate(args: { estimatedDuration: number; description: string 
 }
 
 export const Dynamic = DynamicTemplate.bind({});
-// @ts-ignore
+// @ts-expect-error todo
 Dynamic.args = {
     description: 'Loading image',
     estimatedDuration: 1000,
@@ -116,7 +116,7 @@ function ApproxProgressTemplate(args: { estimatedDuration: number; description: 
 }
 
 export const ApproxProgress = ApproxProgressTemplate.bind({});
-// @ts-ignore
+// @ts-expect-error todo
 ApproxProgress.args = {
     description: 'Loading image',
     estimatedDuration: 1000,
@@ -173,7 +173,7 @@ function ResponsiveTemplate(args: { estimatedDuration: number; description: stri
 }
 
 export const Responsive = ResponsiveTemplate.bind({});
-// @ts-ignore
+// @ts-expect-error todo
 Responsive.args = {
     description: 'Loading image',
     estimatedDuration: 1000,

@@ -11,13 +11,21 @@
             "#components": ["src/components"],
             "#extensions/*": ["src/extensions/*"],
             "#icons": ["src/icons"],
-            "#lib/type-utils": ["src/lib/type-utils"],
             "#lib": ["src/lib"],
             "#modules/*": ["src/modules/*"]
         },
         "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./src/@types"]
     },
-    "files": ["./src/@types/svg.d.ts"],
-    "exclude": ["node_modules"],
-    "include": ["./src", ".css-modules/**/*.module.scss.ts"],
+    "include": [
+        "./src",
+        ".css-modules/**/*.module.scss.ts",
+    ],
+    "exclude": [
+        "node_modules",
+    ],
+    "files": [
+        "./src/@types/svg.d.ts",
+        "./src/types.ts",
+        "../../mocha.globals.d.ts",
+    ]
 }

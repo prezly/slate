@@ -12,9 +12,7 @@ import { insertDivider } from './lib';
 import { createEditor } from './test-utils';
 
 function readTestFile(filepath: string): string {
-    const url = new URL(`__tests__/${filepath}`, import.meta.url);
-    const absoluteFilepath = path.resolve(url.pathname);
-    return fs.readFileSync(absoluteFilepath, 'utf-8');
+    return fs.readFileSync(path.resolve(__dirname, '__tests__', filepath), 'utf-8');
 }
 
 describe('Editor - deleteForward - selection maintenance', () => {
@@ -157,7 +155,7 @@ describe('Editor - pasting', () => {
         expect(editor.children).toMatchObject(JSON.parse(expected));
     });
 
-    it('Does not merge sibling divs into p', () => {
+    it('Does not merge sibling divs into p', function () {
         const editor = createEditor(
             <editor>
                 <h-p>
@@ -174,7 +172,7 @@ describe('Editor - pasting', () => {
 
         editor.insertData(dataTransfer);
 
-        expect(editor.children).toMatchSnapshot();
+        expect(editor.children).toMatchSnapshot(this);
     });
 
     it('Deserializes paragraph nested in quote', () => {

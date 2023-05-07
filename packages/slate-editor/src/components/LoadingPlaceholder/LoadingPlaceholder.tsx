@@ -1,5 +1,5 @@
+import { clamp } from '@technically/lodash';
 import classNames from 'classnames';
-import { clamp } from 'lodash-es';
 import type { HTMLAttributes, ComponentType } from 'react';
 import React, { forwardRef } from 'react';
 

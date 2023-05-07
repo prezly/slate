@@ -5,7 +5,7 @@ import { Editor } from 'slate';
 import { jsx } from '../../../jsx';
 
 describe('nodes-hierarchy / Contact', () => {
-    it('should be kept after normalization', () => {
+    it('should be kept after normalization', function () {
         const editor = (
             <editor>
                 <h:contact
@@ -54,7 +54,7 @@ describe('nodes-hierarchy / Contact', () => {
 
         Editor.normalize(editor, { force: true });
 
-        expect(editor.children).toMatchSnapshot();
+        expect(editor.children).toMatchSnapshot(this);
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });

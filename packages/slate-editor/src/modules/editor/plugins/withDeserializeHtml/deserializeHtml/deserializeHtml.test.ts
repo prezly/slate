@@ -8,9 +8,7 @@ import { deserializeHtml } from './deserializeHtml';
 const extensions = getAllExtensions();
 
 function readTestFile(filepath: string): string {
-    const url = new URL(`__tests__/${filepath}`, import.meta.url);
-    const absoluteFilepath = path.resolve(url.pathname);
-    return fs.readFileSync(absoluteFilepath, 'utf-8');
+    return fs.readFileSync(path.resolve(__dirname, '__tests__', filepath), 'utf-8');
 }
 
 function handleError() {}

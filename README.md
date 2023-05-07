@@ -44,20 +44,20 @@ ln -sf node_modules/@prezly/slate/packages/* node_modules/@prezly/
 There's an `npm` task configured in our main application to simplify this routine:
 
 ```sh
-npm run link-slate-packages
+pnpm link-slate-packages
 ```
 
 ## Setup
 
 ```Shell
-npm run bootstrap   # install dependencies
-npm run build       # build all packages
+pnpm bootstrap   # install dependencies
+pnpm build       # build all packages
 ```
 
 ## Publishing
 
 ```Shell
-npm run release     # reinstall & rebuild everything from scratch and...
+pnpm release     # reinstall & rebuild everything from scratch and...
                     # ...and run a wizard that'll guide you through bulk-publishing the npm packages
 ```
 

@@ -1,9 +1,6 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "noEmit": false,
-        "emitDeclarationOnly": true,
-        "declarationDir": "./build/types",
         "baseUrl": ".",
         "paths": {
             "@prezly/slate-commons": ["../slate-commons/src"]

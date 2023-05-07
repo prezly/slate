@@ -9,7 +9,7 @@
         "jsx": "react",
         "forceConsistentCasingInFileNames": true,
         "lib": ["dom", "dom.iterable", "esnext"],
-        "module": "es2020",
+        "module": "commonjs",
         "moduleResolution": "node",
         "noEmit": true,
         "noImplicitAny": true,
@@ -26,6 +26,10 @@
         "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
-        "target": "es2020"
+        "target": "es2020",
+        "types": ["node", "mocha"]
     },
+    "files": [
+        "./mocha.globals.d.ts"
+    ]
 }

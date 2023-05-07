@@ -33,7 +33,7 @@ const TYPESCRIPT_ALIASES = {
 const SVG_ICONS = 'src/**/*.svg';
 
 /**
- * Files that will produce build/esm and build/cjs JS deliverables.
+ * Files that will produce build/* JS deliverables.
  */
 const JS_DELIVERABLE_SOURCES = [...TYPESCRIPT_SOURCES, ...SCSS_MODULES, SVG_ICONS];
 
@@ -61,8 +61,12 @@ function buildEsm(files = JS_DELIVERABLE_SOURCES) {
                     .pipe(gulp.dest('.css-modules/')),
             ]),
         )
-        .pipe(babel({ extends: './babel.config.json' }))
-        .pipe(gulp.dest('build/esm/'));
+        .pipe(
+            babel({
+                extends: './babel.config.json',
+            }),
+        )
+        .pipe(gulp.dest('build/'));
 }
 
 function buildTypes(files = JS_DELIVERABLE_SOURCES) {
@@ -102,7 +106,7 @@ function buildTypes(files = JS_DELIVERABLE_SOURCES) {
                 file.contents = Buffer.from(updatedContents, 'utf-8');
             }),
         )
-        .pipe(gulp.dest('build/types'));
+        .pipe(gulp.dest('build'));
 }
 
 function buildSass() {

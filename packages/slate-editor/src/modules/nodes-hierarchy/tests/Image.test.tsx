@@ -6,7 +6,7 @@ import { Editor } from 'slate';
 import { jsx } from '../../../jsx';
 
 describe('nodes-hierarchy / Image', () => {
-    it('should be kept after normalization', () => {
+    it('should be kept after normalization', function () {
         const editor = (
             <editor>
                 <h:image-candidate href="image-candidate-href" src="image-candidate-src" />
@@ -61,7 +61,7 @@ describe('nodes-hierarchy / Image', () => {
 
         Editor.normalize(editor, { force: true });
 
-        expect(editor.children).toMatchSnapshot();
+        expect(editor.children).toMatchSnapshot(this);
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });

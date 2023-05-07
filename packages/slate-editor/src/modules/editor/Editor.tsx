@@ -12,8 +12,8 @@ import {
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
+import { noop } from '@technically/lodash';
 import classNames from 'classnames';
-import { noop } from 'lodash-es';
 import React, {
     forwardRef,
     useCallback,

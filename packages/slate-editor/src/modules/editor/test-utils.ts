@@ -1,5 +1,5 @@
 import { Events } from '@prezly/events';
-import { noop } from 'lodash-es';
+import { noop } from '@technically/lodash';
 import type { Editor } from 'slate';
 
 import type { EditorEventMap } from '#modules/events';

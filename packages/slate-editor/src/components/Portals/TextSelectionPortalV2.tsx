@@ -1,5 +1,5 @@
+import { identity } from '@technically/lodash';
 import classNames from 'classnames';
-import { identity } from 'lodash-es';
 import RangeFix from 'rangefix';
 import React, { useCallback, useRef, useState } from 'react';
 import type { Editor } from 'slate';

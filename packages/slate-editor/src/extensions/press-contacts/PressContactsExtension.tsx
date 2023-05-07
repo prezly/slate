@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { CONTACT_NODE_TYPE, isContactNode } from '@prezly/slate-types';
-import { isEqual } from 'lodash-es';
+import { isEqual } from '@technically/lodash';
 import React from 'react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';

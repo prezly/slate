@@ -4,19 +4,26 @@
     "description": "The Prezly Slate Editor",
     "license": "MIT",
     "type": "module",
-    "main": "build/esm/index.js",
-    "types": "build/types/index.d.ts",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
+    "imports": {
+        "#components": "./src/components",
+        "#extensions/*": "./src/extensions/*",
+        "#icons": "./src/icons",
+        "#lib": "./src/lib",
+        "#modules/*": "./src/modules/*"
+    },
     "exports": {
         ".": {
-            "types": "./build/types/index.d.ts",
-            "default": "./build/esm/index.js"
+            "types": "./build/index.d.ts",
+            "default": "./build/index.js"
         },
-        "./styles.css": "./build/styles/styles.css",
+        "./styles.css": "./build/styles.css",
         "./styles/mixins.scss": {
-            "sass": "./build/styles/mixins.scss"
+            "sass": "./build/mixins.scss"
         },
         "./styles/variables.scss": {
-            "sass": "./build/styles/variables.scss"
+            "sass": "./build/variables.scss"
         }
     },
     "repository": {
@@ -29,24 +36,25 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
-        "build": "npm run build:sass && npm run build:esm && npm run build:types",
+        "build": "pnpm build:sass && pnpm build:esm && pnpm build:types",
         "build:types": "gulp build:types",
         "build:esm": "gulp build:esm",
         "build:sass": "gulp build:sass",
-        "watch": "concurrently --restart-tries 5 --kill-others --names 'd.ts,esm ,sass' 'npm run watch:types' 'npm run watch:esm' 'npm run watch:sass'",
+        "watch": "concurrently --restart-tries 5 --kill-others --names 'd.ts,esm ,sass' 'pnpm watch:types' 'pnpm watch:esm' 'pnpm watch:sass'",
         "watch:types": "tsc-fancy --project ./tsconfig.build.json --preserveWatchOutput --watch",
         "watch:esm": "gulp watch:esm",
         "watch:sass": "gulp watch:sass",
-        "clean": "npm run clean:build && npm run clean:node_modules",
-        "clean:node_modules": "rimraf node_modules/ package-lock.json",
+        "clean": "pnpm clean:build && pnpm clean:node_modules",
+        "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/* *.tsbuildinfo .css-modules/*",
-        "test": "npm run test:unit && npm run test:build",
-        "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage",
-        "test:build": "npm run test:esm && npm run test:types",
-        "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/types/index.d.ts",
-        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.js'; \" ",
-        "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook"
+        "test": "pnpm test:unit && pnpm test:build",
+        "test:unit": "mocha --exit --config ../../.mocharc.cjs './src/**/*.test.{ts,tsx}'",
+        "test:build": "pnpm test:esm && pnpm test:types",
+        "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/index.d.ts",
+        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/index.js'; \" ",
+        "storybook:dev": "pnpm run --dir ./storybook dev",
+        "storybook:build": "pnpm run --dir ./storybook build",
+        "postinstall": "pnpm install --dir ./storybook --force"
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
@@ -55,19 +63,19 @@
         "@prezly/linear-partition": "^1.0.3",
         "@prezly/progress-promise": "^2.0.1",
         "@prezly/sdk": "^13.0.0 || ^14.0.0",
-        "@prezly/slate-commons": "^0.80.4",
-        "@prezly/slate-lists": "^0.80.4",
-        "@prezly/slate-tables": "^0.80.4",
-        "@prezly/slate-types": "^0.80.4",
+        "@prezly/slate-commons": "workspace:*",
+        "@prezly/slate-lists": "workspace:*",
+        "@prezly/slate-tables": "workspace:*",
+        "@prezly/slate-types": "workspace:*",
         "@prezly/uploadcare": "^2.4.0",
         "@prezly/uploadcare-widget": "^3.16.1",
+        "@technically/lodash": "^4.17.0",
         "@types/combine-reducers": "^1.0.1",
         "@udecode/plate-core": "^9.0.0",
         "classnames": "^2.3.1",
         "combine-reducers": "^1.0.0",
         "is-hotkey": "^0.2.0",
         "json-stable-stringify": "^1.0.1",
-        "lodash-es": "^4.17.21",
         "moment": "^2.29.1",
         "popper-max-size-modifier": "^0.2.0",
         "rangefix": "^0.2.9",
@@ -86,31 +94,22 @@
         "validator": "^13.5.2"
     },
     "peerDependencies": {
-        "react": "^16.9.0 || ^17.0.0 || ^18.0.0",
-        "react-dom": "^16.9.0 || ^17.0.0 || ^18.0.0",
+        "react": "^16.14.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0",
         "slate": "^0.91.4",
         "slate-history": "^0.86.0",
         "slate-react": "^0.91.7"
     },
     "devDependencies": {
         "@babel/core": "^7.18.5",
-        "@jest/globals": "^28.1.1",
-        "@storybook/addon-actions": "^6.5.9",
-        "@storybook/addon-essentials": "^6.5.9",
-        "@storybook/addon-links": "^6.5.9",
-        "@storybook/react": "^6.5.9",
-        "@types/is-hotkey": "^0.1.6",
+        "@types/is-hotkey": "^0.1.7",
         "@types/json-stable-stringify": "^1.0.32",
-        "@types/lodash-es": "^4.17.5",
         "@types/node": "^18.13.0",
-        "@types/react": "^16.9.0 || ^17.0.0 || ^18.0.0",
-        "@types/react-bootstrap": "^0.32.19",
+        "@types/react-bootstrap": "^0.32.32",
         "@types/react-overlays": "^3.1.0",
         "@types/react-portal": "^4.0.2",
         "@types/react-router-dom": "=5.1.2",
         "@types/uuid": "^8.3.0",
-        "@types/validator": "^13.1.3",
-        "babel-loader": "^8.2.5"
-    },
-    "gitHead": "085f9d5b56b45717b129a061f65215538b5278db"
+        "@types/validator": "^13.1.3"
+    }
 }

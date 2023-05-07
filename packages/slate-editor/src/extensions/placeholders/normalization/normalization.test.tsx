@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { uniq } from 'lodash-es';
+import { uniq } from '@technically/lodash';
 import type { NodeEntry } from 'slate';
 import { Editor } from 'slate';
 

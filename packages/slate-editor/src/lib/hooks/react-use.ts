@@ -21,7 +21,9 @@ import _useUpdate from 'react-use/lib/useUpdate.js';
 import _useUpdateEffect from 'react-use/lib/useUpdateEffect.js';
 
 function unwrap<T>(module: T | { __esModule: boolean; default: T }): T {
-    if (module && typeof module === 'object' && '__esModule' in module && 'default' in module) {
+    if (!module) throw new Error('Module is undefined');
+
+    if (typeof module === 'object' && '__esModule' in module && 'default' in module) {
         return module.default;
     }
     return module;

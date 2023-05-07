@@ -7,7 +7,7 @@ import type {
     GalleryNode,
     ImageNode,
 } from '@prezly/slate-types';
-import { noop } from 'lodash-es';
+import { noop } from '@technically/lodash';
 import { useEffect, useState } from 'react';
 
 import { PlaceholderNode } from './PlaceholderNode';

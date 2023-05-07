@@ -1,0 +1,28 @@
+{
+    "name": "@prezly/slate-editor-storybook",
+    "description": "Storybook configuration for @prezly/slate-editor",
+    "version": "0.0.0",
+    "author": "Ivan Voskoboinyk <ivan@prezly.com>",
+    "keywords": [],
+    "license": "ISC",
+    "main": "index.js",
+    "private": true,
+    "scripts": {
+        "dev": "storybook dev -c ./config",
+        "build": "storybook build -c ./config -o ./output",
+        "clean": "rimraf",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "@storybook/addon-actions": "^7.0.8",
+        "@storybook/addon-essentials": "^7.0.8",
+        "@storybook/addon-links": "^7.0.8",
+        "@storybook/react": "^7.0.8",
+        "@storybook/react-webpack5": "^7.0.8",
+        "babel-loader": "^9.1.2",
+        "storybook": "^7.0.8"
+    },
+    "devDependencies": {
+        "rimraf": "^3.0.2"
+    }
+}
