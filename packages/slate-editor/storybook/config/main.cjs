@@ -1,5 +1,5 @@
 module.exports = {
-  stories: ['../../build/esm/**/*.stories.@(js)'],
+  stories: ['../../build/**/*.stories.@(js)'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 
   framework: {

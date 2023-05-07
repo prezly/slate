@@ -4,8 +4,8 @@
     "description": "The Prezly Slate Editor",
     "license": "MIT",
     "type": "module",
-    "main": "build/esm/index.js",
-    "types": "build/types/index.d.ts",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
     "imports": {
         "#components": "./src/components",
         "#extensions/*": "./src/extensions/*",
@@ -15,15 +15,15 @@
     },
     "exports": {
         ".": {
-            "types": "./build/types/index.d.ts",
-            "default": "./build/esm/index.js"
+            "types": "./build/index.d.ts",
+            "default": "./build/index.js"
         },
-        "./styles.css": "./build/styles/styles.css",
+        "./styles.css": "./build/styles.css",
         "./styles/mixins.scss": {
-            "sass": "./build/styles/mixins.scss"
+            "sass": "./build/mixins.scss"
         },
         "./styles/variables.scss": {
-            "sass": "./build/styles/variables.scss"
+            "sass": "./build/variables.scss"
         }
     },
     "repository": {
@@ -50,8 +50,8 @@
         "test": "pnpm test:unit && pnpm test:build",
         "test:unit": "mocha --exit --config ../../.mocharc.cjs './src/**/*.test.{ts,tsx}'",
         "test:build": "pnpm test:esm && pnpm test:types",
-        "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/types/index.d.ts",
-        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.js'; \" ",
+        "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/index.d.ts",
+        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/index.js'; \" ",
         "storybook:dev": "pnpm run --dir ./storybook dev",
         "storybook:build": "pnpm run --dir ./storybook build",
         "postinstall": "pnpm install --dir ./storybook --force"
@@ -63,10 +63,10 @@
         "@prezly/linear-partition": "^1.0.3",
         "@prezly/progress-promise": "^2.0.1",
         "@prezly/sdk": "^13.0.0 || ^14.0.0",
-        "@prezly/slate-commons": "workspace:*",
-        "@prezly/slate-lists": "workspace:*",
-        "@prezly/slate-tables": "workspace:*",
-        "@prezly/slate-types": "workspace:*",
+        "@prezly/slate-commons": "*",
+        "@prezly/slate-lists": "*",
+        "@prezly/slate-tables": "*",
+        "@prezly/slate-types": "*",
         "@prezly/uploadcare": "^2.4.0",
         "@prezly/uploadcare-widget": "^3.16.1",
         "@technically/lodash": "^4.17.0",

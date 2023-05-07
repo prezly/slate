@@ -4,12 +4,12 @@
     "description": "The best Slate tables extension out there",
     "license": "MIT",
     "type": "module",
-    "main": "build/esm/index.js",
-    "types": "build/types/index.d.ts",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
     "exports": {
         ".": {
-            "types": "./build/types/index.d.ts",
-            "default": "./build/esm/index.js"
+            "types": "./build/index.d.ts",
+            "default": "./build/index.js"
         }
     },
     "files": [
@@ -28,15 +28,15 @@
         "lint": "eslint ./src --ext=.ts,.tsx",
         "build": "pnpm build:types && pnpm build:esm",
         "build:types": "tsc --project ./tsconfig.build.json",
-        "build:esm": "babel ./src --ignore='**/*.test.tsx','**/*.test.ts' --config-file=../../babel.config.json --extensions=.ts,.tsx --source-root=./src --out-dir=./build/esm/",
+        "build:esm": "babel ./src --ignore='**/*.test.tsx','**/*.test.ts' --config-file=../../babel.config.json --extensions=.ts,.tsx --source-root=./src --out-dir=./build/",
         "watch": "concurrently --kill-others --names 'd.ts, esm' 'pnpm watch:types' 'pnpm watch:esm'",
         "watch:types": "tsc-fancy --preserveConsoleOutput --project ./tsconfig.build.json --watch --pretty",
         "watch:esm": "pnpm build:esm --watch",
         "test": "pnpm test:unit && pnpm test:build",
         "test:unit": "mocha --exit --config ../../.mocharc.cjs './src/**/*.test.{ts,tsx}'",
         "test:build": "pnpm test:esm && pnpm test:types",
-        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/esm/index.js'; \" ",
-        "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",
+        "test:esm": "node --input-type module -e \" import '../../mockDOM.cjs'; import './build/index.js'; \" ",
+        "test:types": "tsc --noEmit --esModuleInterop build/index.d.ts",
         "clean": "pnpm clean:build && pnpm clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
@@ -47,7 +47,7 @@
         "slate-react": "^0.91.7"
     },
     "dependencies": {
-        "@prezly/slate-commons": "workspace:*",
+        "@prezly/slate-commons": "*",
         "@technically/lodash": "^4.17.0",
         "is-hotkey": "^0.2.0"
     },

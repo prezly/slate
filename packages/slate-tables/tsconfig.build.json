@@ -6,7 +6,7 @@
         "types": [],
         "noEmit": false,
         "emitDeclarationOnly": true,
-        "declarationDir": "./build/types",
+        "declarationDir": "./build",
         "rootDir": "./src",
         "paths": {}
     },
