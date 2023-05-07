@@ -47,7 +47,7 @@
         "slate-react": "^0.91.7"
     },
     "dependencies": {
-        "@prezly/slate-commons": "*",
+        "@prezly/slate-commons": "workspace:*",
         "@technically/lodash": "^4.17.0",
         "is-hotkey": "^0.2.0"
     },
