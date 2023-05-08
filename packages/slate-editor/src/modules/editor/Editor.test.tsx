@@ -172,7 +172,7 @@ describe('Editor - pasting', () => {
 
         editor.insertData(dataTransfer);
 
-        expect(editor.children).toMatchSnapshot(this);
+        expect(editor.children).toMatchSnapshot();
     });
 
     it('Deserializes paragraph nested in quote', () => {

@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nodes-hierarchy / Tables should be kept after normalization 1`] = `
-Array [
-  Object {
+[
+  {
     "border": true,
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "text": "1",
                   },
                 ],
@@ -20,11 +20,11 @@ Array [
             ],
             "type": "table-cell",
           },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "text": "2",
                   },
                 ],
@@ -33,11 +33,11 @@ Array [
             ],
             "type": "table-cell",
           },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "text": "3",
                   },
                 ],
@@ -49,13 +49,13 @@ Array [
         ],
         "type": "table-row",
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "text": "4",
                   },
                 ],
@@ -64,11 +64,11 @@ Array [
             ],
             "type": "table-cell",
           },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "text": "5",
                   },
                 ],
@@ -77,11 +77,11 @@ Array [
             ],
             "type": "table-cell",
           },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "text": "6",
                   },
                 ],
@@ -93,13 +93,13 @@ Array [
         ],
         "type": "table-row",
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "text": "7",
                   },
                 ],
@@ -108,11 +108,11 @@ Array [
             ],
             "type": "table-cell",
           },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "text": "8",
                   },
                 ],
@@ -121,12 +121,12 @@ Array [
             ],
             "type": "table-cell",
           },
-          Object {
-            "children": Array [
-              Object {
+          {
+            "children": [
+              {
                 "align": "center",
-                "children": Array [
-                  Object {
+                "children": [
+                  {
                     "text": "9",
                   },
                 ],
@@ -139,7 +139,7 @@ Array [
         "type": "table-row",
       },
     ],
-    "header": Array [
+    "header": [
       "first_row",
     ],
     "type": "table",

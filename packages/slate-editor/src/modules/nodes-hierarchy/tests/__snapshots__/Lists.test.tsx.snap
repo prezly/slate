@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nodes-hierarchy / Lists should be kept after normalization 1`] = `
-Array [
-  Object {
+[
+  {
     "align": "left",
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "text": "First",
               },
             ],
@@ -18,11 +18,11 @@ Array [
         ],
         "type": "list-item",
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "text": "Second",
               },
             ],
@@ -31,11 +31,11 @@ Array [
         ],
         "type": "list-item",
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "text": "Third",
               },
             ],
@@ -47,14 +47,14 @@ Array [
     ],
     "type": "numbered-list",
   },
-  Object {
+  {
     "align": "left",
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "text": "First",
               },
             ],
@@ -63,11 +63,11 @@ Array [
         ],
         "type": "list-item",
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "text": "Second",
               },
             ],
@@ -76,11 +76,11 @@ Array [
         ],
         "type": "list-item",
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "text": "Third",
               },
             ],

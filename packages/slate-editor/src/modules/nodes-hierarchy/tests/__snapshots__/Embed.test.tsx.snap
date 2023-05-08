@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nodes-hierarchy / Embed should be kept after normalization 1`] = `
-Array [
-  Object {
-    "children": Array [
-      Object {
+[
+  {
+    "children": [
+      {
         "text": "",
       },
     ],
-    "oembed": Object {
+    "oembed": {
       "cache_age": 86400,
       "description": "Invert rootTypes hierarchy normalization checks from child-to-parent to parent-to-child (see #213)",
-      "html": "<div class=\\"iframely-embed\\"><div class=\\"iframely-responsive\\" style=\\"padding-bottom: 50%; padding-top: 120px;\\"><a href=\\"https://github.com/prezly/slate/pull/218\\" data-iframely-url=\\"//cdn.iframe.ly/api/iframe?url=https%3A%2F%2Fgithub.com%2Fprezly%2Fslate%2Fpull%2F218&key=8fe6cdec03482ac31f27a6ae8ea2fb3f\\"></a></div></div><script async src=\\"//cdn.iframe.ly/embed.js\\" charset=\\"utf-8\\"></script>",
+      "html": "<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 50%; padding-top: 120px;"><a href="https://github.com/prezly/slate/pull/218" data-iframely-url="//cdn.iframe.ly/api/iframe?url=https%3A%2F%2Fgithub.com%2Fprezly%2Fslate%2Fpull%2F218&key=8fe6cdec03482ac31f27a6ae8ea2fb3f"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>",
       "provider_name": "GitHub",
       "screenshot_url": "https://avatars-cdn.prezly.com/embed/aHR0cHM6Ly9naXRodWIuY29tL3ByZXpseS9zbGF0ZS9wdWxsLzIxOA__/fb03b1ed18742350ae761e556d5eff3ce2aa69be552cc1b1a2b06bba0b54f5fb?v=1583930760",
       "thumbnail_height": 600,
