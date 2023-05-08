@@ -30,6 +30,6 @@
         "types": ["node", "mocha"]
     },
     "files": [
-        "./mocha.globals.d.ts"
+        "./.mocha/globals.d.ts"
     ]
 }

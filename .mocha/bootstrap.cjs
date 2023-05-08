@@ -37,7 +37,7 @@ const WORKSPACE = [
 // Register Babel loader to transpile TS/TSX files
 require('@babel/register').default({
     extensions: ['.ts', '.tsx'],
-    extends: `${__dirname}/babel.config.json`,
+    extends: `${__dirname}/../babel.config.json`,
     sourceType: 'unambiguous',
     presets: [
         ['@babel/env', { modules: 'commonjs' }],
