@@ -1,51 +1,57 @@
-name: Test dependencies alignment
+name: Dependencies Alignment
 
 on: [push]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [16.x]
+                react-version: [16.14.0, 17, 18]
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-        react-version: [16.14.0, 17, 18]
+        steps:
+            - uses: actions/checkout@v2
 
-    steps:
-    - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+            - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              id: pnpm-install
+              with:
+                  version: 8.4.0
+                  run_install: false
 
-    - uses: pnpm/action-setup@v2
-      name: Install pnpm
-      id: pnpm-install
-      with:
-          version: 8.4.0
-          run_install: false
+            - name: Get pnpm store directory
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-    - name: Get pnpm store directory
-      id: pnpm-cache
-      shell: bash
-      run: |
-        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
 
-    - uses: actions/cache@v3
-      name: Setup pnpm cache
-      with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-pnpm-store-
+            - name: Set React ${{ matrix.react-version }}
+              uses: jossef/action-set-json-field@v2.1
+              with:
+                  file: package.json
+                  parse_json: true
+                  field: pnpm.overrides
+                  value: '{"@types/react":"${{ env.REACT_TYPES_VERSION }}","@types/react-dom":"${{ env.REACT_DOM_TYPES_VERSION }}","react":"${{ env.REACT_VERSION }}","react-dom":"${{ env.REACT_DOM_VERSION }}"}'
+              env:
+                  REACT_TYPES_VERSION: ${{ matrix.react-version }}
+                  REACT_VERSION: ${{ matrix.react-version }}
+                  REACT_DOM_TYPES_VERSION: ${{ startsWith(matrix.react-version, '16.') && '16.9.9' || matrix.react-version }}
+                  REACT_DOM_VERSION: ${{ matrix.react-version }}
 
-    - run: pnpm install
-
-    - run: make
-      working-directory: test/dependencies
-      env:
-          REACT_VERSION: ${{ matrix.react-version }}
-
-
+            - name: Install dependencies
+              run: pnpm install --no-frozen-lockfile --strict-peer-dependencies --ignore-pnpmfile --prod
