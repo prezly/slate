@@ -93,7 +93,10 @@ module.exports = {
                 "@typescript-eslint/no-non-null-assertion": "off",
                 "react/display-name": "off",
                 "react/jsx-key": "off"
-            }
+            },
+            "globals": {
+                "expect": "readonly",
+            },
         },
         overrideNoExtraneousDependenciesRule('slate-types'),
         overrideNoExtraneousDependenciesRule('slate-commons'),

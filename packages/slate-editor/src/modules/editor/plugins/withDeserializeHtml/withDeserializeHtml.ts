@@ -44,7 +44,6 @@ export function withDeserializeHtml(
             EventsEditor.dispatchEvent(editor, 'paste', {
                 isEmpty: EditorCommands.isEmpty(editor),
                 pastedLength: data.getData('text/plain').length,
-                slateVersion: process.env.SLATE_VERSION,
             });
 
             if (slateFragment) {

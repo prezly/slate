@@ -1,4 +1,4 @@
-import { times } from 'lodash-es';
+import { times } from '@technically/lodash';
 import { Path } from 'slate';
 import { Node, Transforms } from 'slate';
 import { Editor } from 'slate';

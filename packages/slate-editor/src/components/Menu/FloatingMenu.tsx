@@ -10,7 +10,7 @@ export interface Props {
     children: ReactNode;
     className?: string;
     containerRef: RefObject<HTMLElement>;
-    element: HTMLElement;
+    element: HTMLElement | null;
     placement?: Placement;
 }
 

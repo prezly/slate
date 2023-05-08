@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash-es';
+import { isEqual } from '@technically/lodash';
 import { useCallback, useRef } from 'react';
 
 import { useLatest } from '#lib';

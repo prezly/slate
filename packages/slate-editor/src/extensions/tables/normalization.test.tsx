@@ -128,7 +128,7 @@ describe('normalizeTableAttributes', () => {
     it('should remove unknown table props', () => {
         const editor = (
             <editor>
-                {/* @ts-ignore */}
+                {/* @ts-expect-error todo */}
                 <h:table border={true} hello="world" colspan={2} className="header">
                     <h:tr>
                         <h:td>
@@ -170,7 +170,7 @@ describe('normalizeRowAttributes', () => {
         const editor = (
             <editor>
                 <h:table>
-                    {/* @ts-ignore */}
+                    {/* @ts-expect-error todo */}
                     <h:tr title="Hello world" colspan={2} className="header">
                         <h:td>
                             <h:paragraph>
@@ -292,7 +292,7 @@ describe('normalizeCellAttributes', () => {
             <editor>
                 <h:table>
                     <h:tr>
-                        {/* @ts-ignore */}
+                        {/* @ts-expect-error todo */}
                         <h:td title="Hello world" className="header">
                             <h:paragraph>
                                 <h:text>Hello world</h:text>

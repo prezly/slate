@@ -3,8 +3,13 @@
     "compilerOptions": {
         "module": "es6",
         "target": "es6",
+        "types": [],
+        "noEmit": false,
+        "emitDeclarationOnly": true,
+        "declarationDir": "./build",
         "rootDir": "./src",
         "paths": {}
     },
-    "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts"]
+    "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts"],
+    "files": []
 }

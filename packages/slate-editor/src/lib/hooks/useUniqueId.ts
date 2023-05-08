@@ -1,4 +1,4 @@
-import { uniqueId } from 'lodash-es';
+import { uniqueId } from '@technically/lodash';
 import { useMemo } from 'react';
 
 export function useUniqueId(prefix?: string) {

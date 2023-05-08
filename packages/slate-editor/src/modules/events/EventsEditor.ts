@@ -16,7 +16,7 @@ export abstract class EventsEditor {
     }
 
     static isEventsEditor = (value: unknown): value is EventsEditor => {
-        // @ts-ignore
+        // @ts-expect-error todo
         return Editor.isEditor(value) && value[EVENTS_PROPERTY] instanceof Events;
     };
 

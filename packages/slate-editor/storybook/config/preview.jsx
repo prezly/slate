@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../build/styles/styles.css';
+import '../../build/styles/styles.css';
 import './preview.css';
 
 export const parameters = {

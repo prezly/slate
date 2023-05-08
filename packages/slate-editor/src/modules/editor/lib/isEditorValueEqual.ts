@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash-es';
+import { isEqual } from '@technically/lodash';
 import type { Editor, Element, Text, Descendant } from 'slate';
 
 import type { Value } from '../types';

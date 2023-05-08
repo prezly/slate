@@ -1,6 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
-import { noop } from 'lodash-es';
+import { noop } from '@technically/lodash';
 
 import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';

@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { GALLERY_NODE_TYPE, isGalleryNode } from '@prezly/slate-types';
-import { isEqual } from 'lodash-es';
+import { isEqual } from '@technically/lodash';
 import React from 'react';
 import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';

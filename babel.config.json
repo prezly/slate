@@ -1,8 +1,5 @@
 {
-    "targets": {
-        "node": "12",
-        "esmodules": true
-    },
+    "targets": "defaults",
     "presets": [
         "@babel/typescript",
         "@babel/react",
@@ -15,9 +12,11 @@
     ],
     "overrides": [
         {
-            "test": "**/.storybook/*",
-            "plugins": [
-                ["babel-plugin-add-import-extension", false]
+            "test": "**/*.test.tsx",
+            "presets": [
+                ["@babel/react", {
+                    "throwIfNamespace": false
+                }]
             ]
         }
     ]

@@ -1,6 +1,6 @@
 import type { Placement, VirtualElement } from '@popperjs/core';
+import { isEqual } from '@technically/lodash';
 import classNames from 'classnames';
-import { isEqual } from 'lodash-es';
 import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 import React from 'react';
 import { useRef, useState } from 'react';

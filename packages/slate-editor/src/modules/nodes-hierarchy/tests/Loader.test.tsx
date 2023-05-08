@@ -7,7 +7,7 @@ import { LoaderContentType } from '#extensions/loader';
 import { jsx } from '../../../jsx';
 
 describe('nodes-hierarchy / Loader', () => {
-    it('should be kept after normalization', () => {
+    it('should be kept after normalization', function () {
         const editor = (
             <editor>
                 <h:loader
@@ -30,7 +30,7 @@ describe('nodes-hierarchy / Loader', () => {
 
         Editor.normalize(editor, { force: true });
 
-        expect(editor.children).toMatchSnapshot();
+        expect(editor.children).toMatchSnapshot(this);
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });

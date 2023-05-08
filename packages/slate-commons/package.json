@@ -1,20 +1,20 @@
 {
     "name": "@prezly/slate-commons",
-    "version": "0.80.4",
+    "version": "0.81.1",
     "description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
     "license": "MIT",
     "type": "module",
-    "main": "build/esm/index.js",
-    "types": "build/types/index.d.ts",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
     "exports": {
         ".": {
-            "types": "./build/types/index.d.ts",
-            "default": "./build/esm/index.js"
+            "types": "./build/index.d.ts",
+            "default": "./build/index.js"
         }
     },
     "files": [
-        "build",
-        "src"
+        "README.md",
+        "build/"
     ],
     "repository": {
         "type": "git",
@@ -26,29 +26,29 @@
     "homepage": "https://github.com/prezly/slate#readme",
     "scripts": {
         "lint": "eslint ./src --ext=.ts,.tsx",
-        "build": "npm run build:types && npm run build:esm",
+        "build": "pnpm build:types && pnpm build:esm",
         "build:types": "tsc --project ./tsconfig.build.json",
-        "build:esm": "babel ./src --ignore='**/*.test.tsx','**/*.test.ts' --config-file=../../babel.config.json --extensions=.ts,.tsx --source-root=./src --out-dir=./build/esm/",
-        "watch": "concurrently --kill-others --names 'd.ts,esm ' 'npm run watch:types' 'npm run watch:esm'",
+        "build:esm": "babel ./src --ignore='**/*.test.tsx','**/*.test.ts' --config-file=../../babel.config.json --extensions=.ts,.tsx --source-root=./src --out-dir=./build/",
+        "watch": "concurrently --kill-others --names 'd.ts,esm ' 'pnpm watch:types' 'pnpm watch:esm'",
         "watch:types": "tsc-fancy --preserveConsoleOutput --project ./tsconfig.build.json --watch --pretty",
-        "watch:esm": "npm run build:esm -- --watch",
-        "test": "npm run test:unit && npm run test:build",
-        "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.cjs --rootDir ./ --no-cache --coverage",
-        "test:build": "npm run test:esm && npm run test:types",
-        "test:esm": "node build/esm/index.js",
-        "test:types": "tsc --noEmit --esModuleInterop build/types/index.d.ts",
-        "clean": "npm run clean:build && npm run clean:node_modules",
-        "clean:node_modules": "rimraf node_modules/ package-lock.json",
+        "watch:esm": "pnpm build:esm --watch",
+        "test": "pnpm test:unit && pnpm test:build",
+        "test:unit": "mocha --exit --config ../../.mocharc.cjs './src/**/*.test.{ts,tsx}'",
+        "test:build": "pnpm test:esm && pnpm test:types",
+        "test:esm": "node build/index.js",
+        "test:types": "tsc --noEmit --esModuleInterop build/index.d.ts",
+        "clean": "pnpm clean:build && pnpm clean:node_modules",
+        "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {
-        "react": "^16.9.0 || ^17.0.0 || ^18.0.0",
+        "react": "^16.14.0 || ^17.0.0 || ^18.0.0",
         "slate": "^0.91.4",
         "slate-history": "^0.86.0",
         "slate-react": "^0.91.7"
     },
     "dependencies": {
-        "@prezly/slate-types": "^0.80.4",
+        "@prezly/slate-types": "workspace:*",
         "uuid": "^8.3.0"
     },
     "devDependencies": {

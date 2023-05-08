@@ -7,7 +7,7 @@ import {
 } from '@prezly/slate-commons';
 import type { Extension } from '@prezly/slate-commons';
 import type { WithOverrides } from '@prezly/slate-commons';
-import { flow } from 'lodash-es';
+import { flow } from '@technically/lodash';
 import type { Editor } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
