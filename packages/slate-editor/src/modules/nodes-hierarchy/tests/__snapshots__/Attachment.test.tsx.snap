@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nodes-hierarchy / Attachment should be kept after normalization 1`] = `
-Array [
-  Object {
-    "children": Array [
-      Object {
+[
+  {
+    "children": [
+      {
         "text": "",
       },
     ],
     "description": "one",
-    "file": Object {
+    "file": {
       "filename": "example.pdf",
       "mime_type": "application/pdf",
       "size": 1234,

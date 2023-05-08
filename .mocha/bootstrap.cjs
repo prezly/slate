@@ -1,5 +1,4 @@
 const { expect } = require('expect');
-const { toMatchSnapshot } = require('expect-mocha-snapshot');
 
 // Attach sinon-provided assertions to expect()
 const sinon = require('sinon');
@@ -9,7 +8,6 @@ global.expect = (function extendExpect() {
         toBeCalled: toJestFormat((actual) => sinon.assert.called(actual)),
         toBeCalledOnce: toJestFormat((actual) => sinon.assert.calledOnce(actual)),
         toBeCalledTimes: toJestFormat((actual, times) => sinon.assert.callCount(actual, times)),
-        toMatchSnapshot,
     });
 
     return expect;
@@ -37,7 +35,7 @@ const WORKSPACE = [
 // Register Babel loader to transpile TS/TSX files
 require('@babel/register').default({
     extensions: ['.ts', '.tsx'],
-    extends: `${__dirname}/babel.config.json`,
+    extends: `${__dirname}/../babel.config.json`,
     sourceType: 'unambiguous',
     presets: [
         ['@babel/env', { modules: 'commonjs' }],

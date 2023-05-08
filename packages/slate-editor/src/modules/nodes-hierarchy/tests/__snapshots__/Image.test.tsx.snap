@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nodes-hierarchy / Image should be kept after normalization 1`] = `
-Array [
-  Object {
-    "children": Array [
-      Object {
+[
+  {
+    "children": [
+      {
         "text": "",
       },
     ],
@@ -12,15 +12,15 @@ Array [
     "src": "image-candidate-src",
     "type": "image-block-candidate",
   },
-  Object {
+  {
     "align": "center",
-    "children": Array [
-      Object {
+    "children": [
+      {
         "text": "Caption",
       },
     ],
-    "file": Object {
-      "effects": Array [],
+    "file": {
+      "effects": [],
       "filename": "png-transparent-pink-cross-stroke-ink-brush-pen-red-ink-brush-ink-leave-the-material-text.png",
       "mime_type": "image/png",
       "original_height": 900,

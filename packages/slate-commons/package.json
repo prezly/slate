@@ -33,7 +33,7 @@
         "watch:types": "tsc-fancy --preserveConsoleOutput --project ./tsconfig.build.json --watch --pretty",
         "watch:esm": "pnpm build:esm --watch",
         "test": "pnpm test:unit && pnpm test:build",
-        "test:unit": "mocha --exit --config ../../.mocharc.cjs './src/**/*.test.{ts,tsx}'",
+        "test:unit": "mocha --exit --config ../../.mocha/config.cjs './src/**/*.test.{ts,tsx}'",
         "test:build": "pnpm test:esm && pnpm test:types",
         "test:esm": "node build/index.js",
         "test:types": "tsc --noEmit --esModuleInterop build/index.d.ts",

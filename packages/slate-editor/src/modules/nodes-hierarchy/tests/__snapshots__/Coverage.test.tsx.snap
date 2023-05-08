@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nodes-hierarchy / Coverage should be kept after normalization 1`] = `
-Array [
-  Object {
-    "children": Array [
-      Object {
+[
+  {
+    "children": [
+      {
         "text": "",
       },
     ],
-    "coverage": Object {
+    "coverage": {
       "id": 1,
     },
     "layout": "horizontal",

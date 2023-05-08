@@ -125,7 +125,7 @@ describe('nodes-hierarchy / Tables', () => {
 
         Editor.normalize(editor, { force: true });
 
-        expect(editor.children).toMatchSnapshot(this);
+        expect(editor.children).toMatchSnapshot();
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
     });

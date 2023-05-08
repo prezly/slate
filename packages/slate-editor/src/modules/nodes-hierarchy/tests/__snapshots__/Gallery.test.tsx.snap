@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nodes-hierarchy / Gallery should be kept after normalization 1`] = `
-Array [
-  Object {
-    "children": Array [
-      Object {
+[
+  {
+    "children": [
+      {
         "text": "",
       },
     ],
-    "images": Array [
-      Object {
+    "images": [
+      {
         "caption": "one",
-        "file": Object {
-          "effects": Array [],
+        "file": {
+          "effects": [],
           "filename": "grapefruit-slice-332-332 (1).jpg",
           "mime_type": "image/jpeg",
           "original_height": 332,
@@ -22,10 +22,10 @@ Array [
           "version": 2,
         },
       },
-      Object {
+      {
         "caption": "two",
-        "file": Object {
-          "effects": Array [],
+        "file": {
+          "effects": [],
           "filename": "best-fishes.png",
           "mime_type": "image/png",
           "original_height": 870,

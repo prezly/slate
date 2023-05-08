@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nodes-hierarchy / Paragraph should be kept after normalization 1`] = `
-Array [
-  Object {
+[
+  {
     "align": "left",
-    "children": Array [
-      Object {
+    "children": [
+      {
         "text": "Left",
       },
     ],
     "type": "paragraph",
   },
-  Object {
+  {
     "align": "center",
-    "children": Array [
-      Object {
+    "children": [
+      {
         "text": "Center",
       },
     ],
     "type": "paragraph",
   },
-  Object {
+  {
     "align": "right",
-    "children": Array [
-      Object {
+    "children": [
+      {
         "text": "Right",
       },
     ],
