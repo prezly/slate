@@ -10,36 +10,42 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-        react-version: [16, 17, 18]
+        react-version: [16.14.0, 17, 18]
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Cache node modules
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: "**/node_modules"
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.react-version }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.react-version }}-
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
 
-    - run: npm run bootstrap
+    - uses: pnpm/action-setup@v2
+      name: Install pnpm
+      id: pnpm-install
+      with:
+          version: 8.4.0
+          run_install: false
+
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - uses: actions/cache@v3
+      name: Setup pnpm cache
+      with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-pnpm-store-
+
+    - run: pnpm install
 
     - run: make
       working-directory: test/dependencies
       env:
           REACT_VERSION: ${{ matrix.react-version }}
 
-    - run: npm run test
-      env:
-        CI: true
+
