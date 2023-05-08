@@ -1,5 +1,4 @@
 const { expect } = require('expect');
-const { toMatchSnapshot } = require('expect-mocha-snapshot');
 
 // Attach sinon-provided assertions to expect()
 const sinon = require('sinon');
@@ -9,7 +8,6 @@ global.expect = (function extendExpect() {
         toBeCalled: toJestFormat((actual) => sinon.assert.called(actual)),
         toBeCalledOnce: toJestFormat((actual) => sinon.assert.calledOnce(actual)),
         toBeCalledTimes: toJestFormat((actual, times) => sinon.assert.callCount(actual, times)),
-        toMatchSnapshot,
     });
 
     return expect;

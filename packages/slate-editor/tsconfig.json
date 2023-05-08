@@ -26,6 +26,6 @@
     "files": [
         "./src/@types/svg.d.ts",
         "./src/types.ts",
-        "../../mocha.globals.d.ts",
+        "../../.mocha/globals.d.ts",
     ]
 }
