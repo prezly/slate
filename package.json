@@ -33,7 +33,8 @@
         "release": "pnpm release:prepare && pnpm release:publish",
         "release:build": "pnpm build --force",
         "release:prepare": "pnpm release:build && pnpm check",
-        "release:publish": "lerna publish"
+        "release:publish": "lerna publish",
+        "postpublish": "open-cli https://github.com/prezly/slate/releases/new?tag=$(cat lerna.json | grep version | cut -d\\\" -f4)"
     },
     "devEngines": {
         "node": ">= 16.13.0",
@@ -97,6 +98,7 @@
         "lerna": "^6.6.2",
         "mocha": "^10.2.0",
         "mocha-expect-snapshot": "^7.0.0",
+        "open-cli": "^7.2.0",
         "postcss": "^8.4.1",
         "postcss-modules": "^4.3.0",
         "prettier": "^2.8.8",
