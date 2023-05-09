@@ -58,7 +58,7 @@
         "test:esm": "node --input-type module -e \" import '../../.mocha/mockDOM.cjs'; import './build/index.js'; \" ",
         "storybook:dev": "pnpm run --dir ./storybook dev",
         "storybook:build": "pnpm run --dir ./storybook build",
-        "postinstall": "pnpm install --dir ./storybook --force"
+        "prepare": "pnpm install --dir ./storybook --force"
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",
