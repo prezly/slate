@@ -22,13 +22,9 @@
             "types": "./build/index.d.ts",
             "default": "./build/index.js"
         },
-        "./styles.css": "./build/styles.css",
-        "./styles/mixins.scss": {
-            "sass": "./build/mixins.scss"
-        },
-        "./styles/variables.scss": {
-            "sass": "./build/variables.scss"
-        }
+        "./styles.css": "./build/styles/styles.css",
+        "./styles/mixins.scss": "./build/styles/mixins.scss",
+        "./styles/variables.scss": "./build/styles/variables.scss"
     },
     "repository": {
         "type": "git",
