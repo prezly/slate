@@ -50,7 +50,7 @@
         "test": "pnpm test:unit && pnpm test:build",
         "test:unit": "mocha --exit --config ../../.mocha/config.cjs './src/**/*.test.{ts,tsx}'",
         "test:build": "pnpm test:esm && pnpm test:types",
-        "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/index.d.ts",
+        "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck build/@types/svg.d.ts build/index.d.ts",
         "test:esm": "node --input-type module -e \" import '../../.mocha/mockDOM.cjs'; import './build/index.js'; \" ",
         "storybook:dev": "pnpm run --dir ./storybook dev",
         "storybook:build": "pnpm run --dir ./storybook build",
