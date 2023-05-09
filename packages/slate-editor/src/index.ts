@@ -1,4 +1,4 @@
-export type { Editor } from './types';
+import './types';
 
 export * from '@prezly/slate-types';
 export * from './components';
