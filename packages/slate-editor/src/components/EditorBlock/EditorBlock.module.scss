@@ -13,11 +13,11 @@ $editor-block-outline-width: 6px;
         }
     }
 
-    &.void {
+    &.isVoid {
         caret-color: transparent;
     }
 
-    &.void > .Frame {
+    &.isVoid > .Frame {
         /**
          * Selection in Slate 0.50+ does not work as expected if a void block is selectable.
          * It could lead to an error when Slate is resolving the node which crashes the editor.

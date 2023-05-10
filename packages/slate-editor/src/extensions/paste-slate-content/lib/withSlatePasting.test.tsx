@@ -1,9 +1,9 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 import type { Editor } from 'slate';
 
 import { createDataTransfer } from '#lib';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 function encodeFragment(fragment: any): string {
     return window.btoa(encodeURIComponent(JSON.stringify(fragment)));

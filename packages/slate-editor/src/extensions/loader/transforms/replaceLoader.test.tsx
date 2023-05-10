@@ -1,10 +1,10 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 import { findLoaderPath, isLoaderElement } from '../lib';
 import type { LoaderNode } from '../types';
 import { LoaderContentType } from '../types';

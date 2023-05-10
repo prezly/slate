@@ -1,8 +1,8 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import type { Editor, Node } from 'slate';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 
 import { insertNodes } from './insertNodes';
 

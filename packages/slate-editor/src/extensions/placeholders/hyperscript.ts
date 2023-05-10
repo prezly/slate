@@ -17,7 +17,7 @@ declare global {
     }
 }
 
-export const jsx = createHyperscript({
+export const hyperscript = createHyperscript({
     elements: {
         'h:paragraph': { type: PARAGRAPH_NODE_TYPE },
         'h:attachment-placeholder': { type: PlaceholderNode.Type.ATTACHMENT },

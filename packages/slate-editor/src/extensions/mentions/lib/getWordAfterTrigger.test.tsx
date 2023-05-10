@@ -1,9 +1,9 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import type { Editor } from 'slate';
 import { Range } from 'slate';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 
 import { getWordAfterTrigger } from './getWordAfterTrigger';
 

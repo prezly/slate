@@ -1,8 +1,8 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 import { isParagraphNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 
 import { isValidLocation } from './isValidLocation';
 import { removeNode } from './removeNode';

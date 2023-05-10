@@ -3,35 +3,27 @@
 .stack {
     display: flex;
 
+    &.column {
+        flex-direction: column;
+    }
+
+    &.row {
+        flex-direction: row;
+    }
+
     @each $sizeName, $sizeValue in $sizes {
-        &.column.#{$sizeName} {
-            flex-direction: column;
-
-            & > * {
-                margin-bottom: $sizeValue;
-            }
-
-            & > *:last-child {
-                margin-bottom: 0;
-            }
-        }
-
-        &.row.#{$sizeName} {
-            flex-direction: row;
-
-            & > * {
-                margin-right: $sizeValue;
-            }
-
-            & > *:last-child {
-                margin-right: 0;
-            }
+        &[data-spacing="#{$sizeName}"] {
+            gap: $sizeValue;
         }
     }
 
-    @each $align in start, center, end {
-        &.vertical-align-#{$align} {
-            align-items: $align;
-        }
+    &.alignStart {
+        align-items: start;
+    }
+    &.alignCenter {
+        align-items: center;
+    }
+    &.alignEnd {
+        align-items: end;
     }
 }

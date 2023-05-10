@@ -1,5 +1,3 @@
-/** @jsx jsx */
-
 import type { GalleryNode, ParagraphNode } from '@prezly/slate-types';
 import {
     GALLERY_NODE_TYPE,

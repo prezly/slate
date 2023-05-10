@@ -1,28 +1,17 @@
 {
-    "extends": "./tsconfig.json",
+    "extends": "../../tsconfig.build.json",
     "compilerOptions": {
-        "module": "es6",
-        "target": "es6",
-        "noEmit": false,
-        "emitDeclarationOnly": true,
         "declarationDir": "./build",
-        "types": [],
+        "rootDir": "./src",
+        "baseUrl": "./src",
         "paths": {
-            "#components": ["src/components"],
-            "#extensions/*": ["src/extensions/*"],
-            "#icons": ["src/icons"],
-            "#lib": ["src/lib"],
-            "#modules/*": ["src/modules/*"],
+            "#components": ["./components"],
+            "#extensions/*": ["./extensions/*"],
+            "#icons": ["./icons"],
+            "#lib": ["./lib"],
+            "#modules/*": ["./modules/*"]
         }
     },
-    "exclude": [
-        "node_modules",
-        "**/*.test.*",
-        "**/jsx.ts",
-        "**/test-utils.ts",
-    ],
-    "files": [
-        "./src/@types/svg.d.ts",
-        "./src/types.ts",
-    ],
+    "include": ["./src"],
+    "files": []
 }

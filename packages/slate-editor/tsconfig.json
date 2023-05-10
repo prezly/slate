@@ -1,31 +1,32 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "rootDirs": ["./src", "./.css-modules"],
-        "baseUrl": "./",
+        "rootDir": "./src",
+        "baseUrl": "./src",
         "paths": {
             "@prezly/slate-types": ["../slate-types/src"],
             "@prezly/slate-commons": ["../slate-commons/src"],
             "@prezly/slate-lists": ["../slate-lists/src"],
             "@prezly/slate-tables": ["../slate-tables/src"],
-            "#components": ["src/components"],
-            "#extensions/*": ["src/extensions/*"],
-            "#icons": ["src/icons"],
-            "#lib": ["src/lib"],
-            "#modules/*": ["src/modules/*"]
+            "#components": ["./components"],
+            "#extensions/*": ["./extensions/*"],
+            "#icons": ["./icons"],
+            "#lib": ["./lib"],
+            "#modules/*": ["./modules/*"]
         },
-        "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./src/@types"]
+        "plugins": [
+            {
+                "name": "ts-plugin-scss-modules",
+                // @see https://www.npmjs.com/package/ts-plugin-scss-modules#user-content-options
+                "options": {
+                    "classnameTransform": "asIs",
+                },
+            },
+        ]
     },
-    "include": [
-        "./src",
-        ".css-modules/**/*.module.scss.ts",
-    ],
-    "exclude": [
-        "node_modules",
-    ],
+    "include": ["./src"],
     "files": [
-        "./src/@types/svg.d.ts",
-        "./src/types.ts",
+        "./src/@types/scss-modules.d.ts",
         "../../.mocha/globals.d.ts",
-    ]
+    ],
 }

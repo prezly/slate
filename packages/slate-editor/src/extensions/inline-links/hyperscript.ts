@@ -18,7 +18,7 @@ declare global {
 
 const extensions = [InlineLinksExtension()];
 
-export const jsx = createHyperscript({
+export const hyperscript = createHyperscript({
     elements: {
         link: { type: LINK_NODE_TYPE },
         paragraph: { type: PARAGRAPH_NODE_TYPE },

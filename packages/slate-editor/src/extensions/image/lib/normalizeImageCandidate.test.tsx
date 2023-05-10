@@ -1,11 +1,11 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
 import { LoaderContentType } from '#extensions/loader';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 
 import { isImageCandidateElement } from './isImageCandidateElement';
 import { normalizeImageCandidate } from './normalizeImageCandidate';

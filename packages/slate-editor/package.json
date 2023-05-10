@@ -10,13 +10,6 @@
         "README.md",
         "build/"
     ],
-    "imports": {
-        "#components": "./src/components",
-        "#extensions/*": "./src/extensions/*",
-        "#icons": "./src/icons",
-        "#lib": "./src/lib",
-        "#modules/*": "./src/modules/*"
-    },
     "exports": {
         ".": {
             "types": "./build/index.d.ts",
@@ -50,11 +43,10 @@
         "test": "pnpm test:unit && pnpm test:build",
         "test:unit": "mocha --exit --config ../../.mocha/config.cjs './src/**/*.test.{ts,tsx}'",
         "test:build": "pnpm test:esm && pnpm test:types",
-        "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck src/@types/svg.d.ts build/index.d.ts",
+        "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck build/index.d.ts",
         "test:esm": "node --input-type module -e \" import '../../.mocha/mockDOM.cjs'; import './build/index.js'; \" ",
-        "storybook:dev": "pnpm run --dir ./storybook dev",
-        "storybook:build": "pnpm run --dir ./storybook build",
-        "prepare": "pnpm install --dir ./storybook --force"
+        "storybook:dev": "pnpm install --dir ./storybook && pnpm run --dir ./storybook dev",
+        "storybook:build": "pnpm install --dir ./storybook && pnpm run --dir ./storybook build"
     },
     "dependencies": {
         "@popperjs/core": "^2.6.0",

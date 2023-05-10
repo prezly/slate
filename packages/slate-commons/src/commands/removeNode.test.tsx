@@ -1,9 +1,9 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 import { isElementNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Element } from 'slate';
 
-import { jsx, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '../jsx';
+import { hyperscript, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '../hyperscript';
 
 import { removeNode } from './removeNode';
 

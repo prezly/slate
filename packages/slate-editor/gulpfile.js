@@ -1,5 +1,6 @@
 import autoprefixer from 'autoprefixer';
 import branch from 'branch-pipe';
+import { readFileSync } from 'fs';
 import gulp from 'gulp';
 import babel from 'gulp-babel';
 import concat from 'gulp-concat';
@@ -17,19 +18,19 @@ import File from 'vinyl';
 
 const sass = createSassProcessor(sassBackend);
 
+const TYPESCRIPT_ALIASES = loadPathsMapping('./tsconfig.build.json', { base: './src' });
+const BABEL_ALIASES = loadPathsMapping('./tsconfig.build.json', { base: './' });
+
 const BASE_DIR = './src';
 const SCSS_SOURCES = 'src/**/*.scss';
-const SCSS_DECLARATIONS = 'src/styles/**/*.scss';
-const SCSS_COMPONENTS = [SCSS_SOURCES, `!${SCSS_DECLARATIONS}`];
+const SCSS_GLOBAL_STYLESHEETS = 'src/styles/**/*.scss';
 const SCSS_MODULES = ['src/**/*.module.scss'];
-const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/*.test.*', '!**/jsx.ts'];
-const TYPESCRIPT_ALIASES = {
-    '#components': './src/components',
-    '#extensions': './src/extensions',
-    '#icons': './src/icons',
-    '#lib': './src/lib',
-    '#modules': './src/modules',
-};
+const TYPESCRIPT_SOURCES = [
+    'src/**/*.{ts,tsx}',
+    '!**/hyperscript.ts',
+    '!**/*.test.*',
+    '!**/*.stories.tsx',
+];
 const SVG_ICONS = 'src/**/*.svg';
 
 /**
@@ -54,16 +55,13 @@ function buildEsm(files = JS_DELIVERABLE_SOURCES) {
                 // Keep .svg icons in the stream
                 stream.pipe(filter(SVG_ICONS)).pipe(rename((file) => (file.extname = '.svg.svg'))),
                 // Generate TS class maps for CSS modules
-                stream
-                    .pipe(filter(SCSS_COMPONENTS))
-                    .pipe(processSass())
-                    .pipe(filter('*.ts'))
-                    .pipe(gulp.dest('.css-modules/')),
+                stream.pipe(filter(SCSS_MODULES)).pipe(processSass()).pipe(filter('*.ts')),
             ]),
         )
         .pipe(
             babel({
-                extends: './babel.config.json',
+                extends: '../../babel.config.json',
+                plugins: [['babel-plugin-module-resolver', { alias: BABEL_ALIASES }]],
             }),
         )
         .pipe(gulp.dest('build/'));
@@ -75,35 +73,21 @@ function buildTypes(files = JS_DELIVERABLE_SOURCES) {
         noEmit: false,
     });
 
-    const output = gulp
+    return gulp
         .src(files, { cwdbase: BASE_DIR })
         .pipe(
             branch.obj((stream) => [
                 // Keep .ts sources files in the stream
                 stream.pipe(filter(TYPESCRIPT_SOURCES)),
                 // Generate TS class maps for CSS modules
-                stream
-                    .pipe(filter(SCSS_COMPONENTS))
-                    .pipe(processSass())
-                    .pipe(filter('*.ts'))
-                    .pipe(gulp.dest('.css-modules/')),
+                stream.pipe(filter(SCSS_MODULES)).pipe(processSass()).pipe(filter('*.ts')),
             ]),
         )
-        .pipe(compile());
-
-    return output.dts
+        .pipe(compile())
         .pipe(
-            tap((file) => {
-                const updatedContents = Object.entries(TYPESCRIPT_ALIASES).reduce(
-                    (contents, [alias, real]) => {
-                        const relative = path.relative(path.dirname(file.path), path.resolve(real));
-                        return contents
-                            .replaceAll(`from '${alias}`, `from '${relative}`)
-                            .replaceAll(`import("${alias}`, `import("${relative}`);
-                    },
-                    file.contents.toString('utf-8'),
-                );
-                file.contents = Buffer.from(updatedContents, 'utf-8');
+            inlineTypescriptAliases({
+                aliases: TYPESCRIPT_ALIASES,
+                baseDir: './build',
             }),
         )
         .pipe(gulp.dest('build'));
@@ -115,24 +99,16 @@ function buildSass() {
         .pipe(
             branch.obj((stream) => [
                 // keep declarations as uncompiled SCSS
-                stream.pipe(filter(SCSS_DECLARATIONS)),
-                // Process components SCSS
-                stream.pipe(filter(SCSS_COMPONENTS)).pipe(processSass()),
+                stream.pipe(filter(SCSS_GLOBAL_STYLESHEETS)),
+                // Combine all SCSS modules to a single file
+                stream
+                    .pipe(filter(SCSS_MODULES))
+                    .pipe(processSass())
+                    .pipe(filter('*.css'))
+                    .pipe(concat('styles/styles.css')),
             ]),
         )
-        .pipe(
-            branch.obj((stream) => [
-                // Copy declarations as is
-                stream.pipe(filter(SCSS_DECLARATIONS)).pipe(gulp.dest('build/')),
-                // Concat CSS files into one
-                stream
-                    .pipe(filter('*.css'))
-                    .pipe(concat('styles/styles.css'))
-                    .pipe(gulp.dest('build/')),
-                // Generate TS class maps for CSS modules
-                stream.pipe(filter('*.ts')).pipe(gulp.dest('.css-modules/')),
-            ]),
-        );
+        .pipe(gulp.dest('build/'));
 }
 
 /**
@@ -142,7 +118,7 @@ function buildSass() {
 function processSass() {
     return branch.obj((stream) => [
         stream
-            .pipe(sass({ includePaths: ['./src'] }))
+            .pipe(sass({ includePaths: [BASE_DIR] }))
             .pipe(
                 postcss(function (file) {
                     return {
@@ -179,6 +155,33 @@ function processSass() {
 }
 
 /**
+ * @param {Record<string,string>} aliases
+ * @param {string} baseDir
+ */
+function inlineTypescriptAliases({ aliases, baseDir }) {
+    return branch.obj((stream) => [
+        stream.pipe(
+            tap((file) => {
+                const updatedContents = Object.entries(aliases).reduce(
+                    (contents, [alias, real]) => {
+                        const resolvedAlias = path.relative(
+                            path.dirname(path.resolve(baseDir, file.relative)),
+                            path.resolve(baseDir, real),
+                        );
+
+                        return contents
+                            .replaceAll(`from '${alias}`, `from '${resolvedAlias}`)
+                            .replaceAll(`import '${alias}`, `import '${resolvedAlias}`);
+                    },
+                    file.contents.toString('utf-8'),
+                );
+                file.contents = Buffer.from(updatedContents, 'utf-8');
+            }),
+        ),
+    ]);
+}
+
+/**
  * @param {string|string[]} files
  * @param {(string)=>void} incremental
  * @returns {Function}
@@ -198,4 +201,30 @@ function watch(files, incremental) {
  */
 function toPrettyJson(value) {
     return JSON.stringify(value, undefined, 4);
+}
+
+/**
+ * @param {string} tsconfigPath
+ * @param {string} base
+ */
+function loadPathsMapping(tsconfigPath, { base = './' } = {}) {
+    const tsconfig = JSON.parse(readFileSync(tsconfigPath, { encoding: 'utf-8' }));
+    const baseUrl = tsconfig.compilerOptions.baseUrl;
+
+    return Object.entries(tsconfig.compilerOptions.paths).reduce((aliases, [alias, paths]) => {
+        if (paths.length === 0) {
+            return aliases;
+        }
+
+        const resolved = path.join(baseUrl, stripWildcard(paths[0]));
+
+        return {
+            ...aliases,
+            [stripWildcard(alias)]: `./${path.relative(base, resolved)}`,
+        };
+    }, {});
+
+    function stripWildcard(path) {
+        return path.endsWith('/*') ? path.slice(0, -2) : path;
+    }
 }

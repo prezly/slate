@@ -26,7 +26,7 @@
         "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
-        "target": "es2020",
+        "target": "es6",
         "types": ["node", "mocha"]
     },
     "files": [

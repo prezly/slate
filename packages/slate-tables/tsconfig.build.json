@@ -1,15 +1,9 @@
 {
-    "extends": "./tsconfig.json",
+    "extends": "../../tsconfig.build.json",
     "compilerOptions": {
-        "module": "es6",
-        "target": "es6",
-        "types": [],
-        "noEmit": false,
-        "emitDeclarationOnly": true,
-        "declarationDir": "./build",
         "rootDir": "./src",
+        "declarationDir": "./build",
         "paths": {}
     },
-    "exclude": ["node_modules", "**/*.test.*", "**/jsx.ts"],
-    "files": []
+    "include": ["./src"],
 }

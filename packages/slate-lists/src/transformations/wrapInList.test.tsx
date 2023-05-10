@@ -1,17 +1,17 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import {
     Anchor,
     Divider,
     Editor,
     Focus,
-    jsx,
+    hyperscript,
     ListItem,
     ListItemText,
     Paragraph,
     Text,
     UnorderedList,
-} from '../jsx';
+} from '../hyperscript';
 import type { ListsEditor } from '../types';
 import { ListType } from '../types';
 

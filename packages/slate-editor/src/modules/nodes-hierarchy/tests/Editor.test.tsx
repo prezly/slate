@@ -1,8 +1,8 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { Editor } from 'slate';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 describe('nodes-hierarchy / Editor', () => {
     it('should insert paragraph in empty editor', function () {

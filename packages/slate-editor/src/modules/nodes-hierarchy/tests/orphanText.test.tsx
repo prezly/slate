@@ -1,8 +1,8 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { Editor } from 'slate';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 describe('nodes hierarchy - orphan text leaves', () => {
     it('should wraps sibling orphan text nodes into a single paragraph', () => {

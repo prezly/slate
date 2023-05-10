@@ -1,11 +1,11 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { isLinkNode, isParagraphNode, isQuoteNode } from '@prezly/slate-types';
 import { Editor, Transforms } from 'slate';
 
 import { createParagraph } from '#extensions/paragraphs';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 import { allowChildren } from './allowChildren';
 

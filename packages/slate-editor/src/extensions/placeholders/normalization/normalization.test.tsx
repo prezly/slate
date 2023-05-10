@@ -1,10 +1,10 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { uniq } from '@technically/lodash';
 import type { NodeEntry } from 'slate';
 import { Editor } from 'slate';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 import { PlaceholderNode } from '../PlaceholderNode';
 
 import { fixDuplicatePlaceholderUuid } from './fixDuplicatePlaceholderUuid';

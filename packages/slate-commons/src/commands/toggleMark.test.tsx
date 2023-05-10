@@ -1,8 +1,8 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import type { BaseText, Editor } from 'slate';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 
 import { toggleMark } from './toggleMark';
 

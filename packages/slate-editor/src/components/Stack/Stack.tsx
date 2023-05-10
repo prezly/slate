@@ -1,11 +1,22 @@
-import type { SelectAfterPrefix } from '@prezly/slate-editor/type-utils';
 import classNames from 'classnames';
 import * as React from 'react';
 
 import styles from './Stack.module.scss';
 
+enum Spacing {
+    SPACING_NONE = 'none',
+    SPACING_HALF = 'half',
+    SPACING_1 = '1',
+    SPACING_1_5 = '1-5',
+    SPACING_2 = '2',
+    SPACING_2_5 = '2-5',
+    SPACING_3 = '3',
+    SPACING_4 = '4',
+    SPACING_5 = '5',
+}
+
 export interface StackProps {
-    spacing: SelectAfterPrefix<keyof typeof styles, 'spacing-'>;
+    spacing: `${Spacing}`;
     direction?: 'column' | 'row';
     verticalAligning?: 'start' | 'center' | 'end';
 }
@@ -13,61 +24,18 @@ export interface StackProps {
 export function Stack(props: React.PropsWithChildren<StackProps>) {
     return (
         <div
-            className={classNames(
-                styles.stack,
-                selectDirectionClassName(props),
-                selectSpaceClassName(props),
-                selectVerticalAlignClassName(props),
-            )}
+            className={classNames(styles.stack, {
+                // direction
+                [styles.column]: props.direction === 'column',
+                [styles.row]: props.direction === 'row',
+                // vertical alignment
+                [styles.alignStart]: props.verticalAligning === 'start',
+                [styles.alignCenter]: props.verticalAligning === 'center',
+                [styles.alignEnd]: props.verticalAligning === 'end',
+            })}
+            data-spacing={props.spacing === Spacing.SPACING_NONE ? undefined : props.spacing}
         >
             {props.children}
         </div>
     );
-}
-
-function selectVerticalAlignClassName(props: StackProps) {
-    switch (props.verticalAligning) {
-        case 'start':
-            return styles['vertical-align-start'];
-        case 'center':
-            return styles['vertical-align-center'];
-        case 'end':
-            return styles['vertical-align-end'];
-        default:
-            return undefined;
-    }
-}
-
-function selectDirectionClassName(props: StackProps) {
-    switch (props.direction) {
-        case 'column':
-            return styles['column'];
-        case 'row':
-            return styles['row'];
-        default:
-            return undefined;
-    }
-}
-
-function selectSpaceClassName(props: StackProps) {
-    switch (props.spacing) {
-        case 'none':
-            return styles['spacing-none'];
-        case 'half':
-            return styles['spacing-half'];
-        case '1':
-            return styles['spacing-1'];
-        case '1-5':
-            return styles['spacing-1-5'];
-        case '2':
-            return styles['spacing-2'];
-        case '2-5':
-            return styles['spacing-2-5'];
-        case '3':
-            return styles['spacing-3'];
-        case '4':
-            return styles['spacing-4'];
-        case '5':
-            return styles['spacing-5'];
-    }
 }

@@ -163,7 +163,7 @@ const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
     'h:td': initCreator((props: TableCellNode) => createTableCellNode(props)),
 };
 
-export const jsx = createHyperscript({
+export const hyperscript = createHyperscript({
     elements: {
         paragraph: { type: PARAGRAPH_NODE_TYPE },
         link: { type: LINK_NODE_TYPE },

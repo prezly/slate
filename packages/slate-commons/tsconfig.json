@@ -2,11 +2,10 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "rootDir": "./src",
-        "baseUrl": ".",
+        "baseUrl": "./src",
         "paths": {
-            "@prezly/slate-types": ["../slate-types/src"]
+            "@prezly/slate-types": ["../../slate-types/src"]
         }
     },
     "include": ["./src"],
-    "exclude": ["node_modules"],
 }

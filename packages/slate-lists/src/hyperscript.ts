@@ -76,7 +76,7 @@ const SCHEMA: ListsSchema = {
     },
 };
 
-export const jsx = createHyperscript({
+export const hyperscript = createHyperscript({
     elements: {
         untyped: {},
         [PARAGRAPH_TYPE]: { type: PARAGRAPH_TYPE },

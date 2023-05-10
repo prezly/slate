@@ -145,11 +145,11 @@
         letter-spacing: 0.5px;
         margin-left: $horizontal-spacing * 2;
 
-        &.beta {
+        &.warning {
             background-color: $yellow-500;
         }
 
-        &.new {
+        &.primary {
             background-color: $indigo-500;
         }
     }

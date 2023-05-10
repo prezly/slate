@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { EditorCommands } from '@prezly/slate-commons';
 import fs from 'fs';
@@ -7,7 +7,7 @@ import { Editor } from 'slate';
 
 import { createDataTransfer } from '#lib';
 
-import { jsx } from './jsx';
+import { hyperscript } from './hyperscript';
 import { insertDivider } from './lib';
 import { createEditor } from './test-utils';
 

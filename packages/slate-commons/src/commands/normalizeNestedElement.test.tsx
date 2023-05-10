@@ -1,10 +1,10 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { isElementNode, PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { ElementEntry, NodeEntry } from 'slate';
 import { Editor, Element } from 'slate';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 
 import { normalizeNestedElement } from './normalizeNestedElement';
 

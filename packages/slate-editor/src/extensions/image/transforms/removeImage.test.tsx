@@ -1,11 +1,11 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { ImageLayout } from '@prezly/slate-types';
 import type { UploadedImage } from '@prezly/uploadcare';
 import type { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 
 import { removeImage } from './removeImage';
 

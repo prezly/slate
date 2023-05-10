@@ -1,7 +1,7 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import {
-    jsx,
+    hyperscript,
     Editor,
     OrderedList,
     UnorderedList,
@@ -10,7 +10,7 @@ import {
     Text,
     Anchor,
     Focus,
-} from '../jsx';
+} from '../hyperscript';
 import type { ListsEditor } from '../types';
 
 import { getListItemsInRange } from './getListItemsInRange';

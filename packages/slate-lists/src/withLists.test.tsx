@@ -1,9 +1,9 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { Editor as Slate } from 'slate';
 
 import {
-    jsx,
+    hyperscript,
     Editor,
     OrderedList,
     UnorderedList,
@@ -13,7 +13,7 @@ import {
     Paragraph,
     Link,
     Untyped,
-} from './jsx';
+} from './hyperscript';
 import type { ListsEditor } from './types';
 
 describe('withLists', () => {

@@ -1,11 +1,11 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 import { ListsEditor, ListType } from '@prezly/slate-lists';
 import { TablesEditor } from '@prezly/slate-tables';
 import { noop } from '@technically/lodash';
 import { fake } from 'sinon';
 import { ReactEditor } from 'slate-react';
 
-import { jsx } from '../../jsx';
+import { hyperscript } from '../../hyperscript';
 
 describe('extensions / Tables', () => {
     beforeEach(() => {

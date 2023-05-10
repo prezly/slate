@@ -1,11 +1,11 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "baseUrl": ".",
+        "rootDir": "./src",
+        "baseUrl": "./src",
         "paths": {
-            "@prezly/slate-commons": ["../slate-commons/src"]
+            "@prezly/slate-commons": ["../../slate-commons/src"]
         }
     },
     "include": ["./src"],
-    "exclude": ["node_modules"],
 }
