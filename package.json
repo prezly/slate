@@ -107,6 +107,7 @@
         "sinon": "^15.0.4",
         "slate-hyperscript": "^0.81.3",
         "ts-node": "^10.9.1",
+        "ts-plugin-scss-modules": "^0.1.2",
         "tsc-fancy": "^1.1.2",
         "tsconfig-paths": "^4.2.0",
         "turbo": "^1.9.3",

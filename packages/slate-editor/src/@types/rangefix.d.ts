@@ -1,4 +1,4 @@
-// These typings are incomplete
+// Note: these types are incomplete and only provide the minimal information we need
 
 declare module 'rangefix' {
     export interface Rect {

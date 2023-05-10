@@ -11,8 +11,7 @@
                     "#lib": "./src/lib",
                     "#modules": "./src/modules"
                 }
-            },
-            "local-imports-shortcuts"
+            }
         ]
     ]
 }

@@ -10,13 +10,6 @@
         "README.md",
         "build/"
     ],
-    "imports": {
-        "#components": "./src/components",
-        "#extensions/*": "./src/extensions/*",
-        "#icons": "./src/icons",
-        "#lib": "./src/lib",
-        "#modules/*": "./src/modules/*"
-    },
     "exports": {
         ".": {
             "types": "./build/index.d.ts",

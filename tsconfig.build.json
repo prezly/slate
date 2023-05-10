@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es6",
+        "moduleResolution": "node",
+        "noEmit": false,
+        "emitDeclarationOnly": true,
+        "types": []
+    },
+    "files": [],
+    "exclude": ["**/*.test.*", "**/*.stories.*", "**/hyperscript.ts"]
+}
