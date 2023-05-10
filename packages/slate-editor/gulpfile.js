@@ -18,7 +18,8 @@ import File from 'vinyl';
 
 const sass = createSassProcessor(sassBackend);
 
-const TYPESCRIPT_ALIASES = loadPathsMapping('./tsconfig.build.json');
+const TYPESCRIPT_ALIASES = loadPathsMapping('./tsconfig.build.json', { base: './src' });
+const BABEL_ALIASES = loadPathsMapping('./tsconfig.build.json', { base: './' });
 
 const BASE_DIR = './src';
 const SCSS_SOURCES = 'src/**/*.scss';
@@ -59,7 +60,8 @@ function buildEsm(files = JS_DELIVERABLE_SOURCES) {
         )
         .pipe(
             babel({
-                extends: './babel.config.json',
+                extends: '../../babel.config.json',
+                plugins: [['babel-plugin-module-resolver', { alias: BABEL_ALIASES }]],
             }),
         )
         .pipe(gulp.dest('build/'));
@@ -203,17 +205,22 @@ function toPrettyJson(value) {
 
 /**
  * @param {string} tsconfigPath
+ * @param {string} base
  */
-function loadPathsMapping(tsconfigPath) {
+function loadPathsMapping(tsconfigPath, { base = './' } = {}) {
     const tsconfig = JSON.parse(readFileSync(tsconfigPath, { encoding: 'utf-8' }));
+    const baseUrl = tsconfig.compilerOptions.baseUrl;
 
     return Object.entries(tsconfig.compilerOptions.paths).reduce((aliases, [alias, paths]) => {
         if (paths.length === 0) {
             return aliases;
         }
+
+        const resolved = path.join(baseUrl, stripWildcard(paths[0]));
+
         return {
             ...aliases,
-            [stripWildcard(alias)]: stripWildcard(paths[0]),
+            [stripWildcard(alias)]: `./${path.relative(base, resolved)}`,
         };
     }, {});
 
