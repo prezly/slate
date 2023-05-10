@@ -27,5 +27,6 @@
     "include": ["./src"],
     "files": [
         "./src/@types/scss-modules.d.ts",
+        "../../.mocha/globals.d.ts",
     ],
 }

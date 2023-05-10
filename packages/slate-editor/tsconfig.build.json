@@ -12,5 +12,6 @@
             "#modules/*": ["./modules/*"]
         }
     },
-    "include": ["./src"]
+    "include": ["./src"],
+    "files": []
 }
