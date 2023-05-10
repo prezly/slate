@@ -1,8 +1,8 @@
-import type { SelectAfterPrefix } from '@prezly/slate-editor/type-utils';
 import classNames from 'classnames';
 import * as React from 'react';
 
 import styles from './Stack.module.scss';
+import type { SelectAfterPrefix } from './type-utils';
 
 export interface StackProps {
     spacing: SelectAfterPrefix<keyof typeof styles, 'spacing-'>;
