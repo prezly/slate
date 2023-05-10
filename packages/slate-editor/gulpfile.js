@@ -18,6 +18,8 @@ import File from 'vinyl';
 
 const sass = createSassProcessor(sassBackend);
 
+const TYPESCRIPT_ALIASES = loadPathsMapping('./tsconfig.build.json');
+
 const BASE_DIR = './src';
 const SCSS_SOURCES = 'src/**/*.scss';
 const SCSS_GLOBAL_STYLESHEETS = 'src/styles/**/*.scss';
@@ -28,7 +30,6 @@ const TYPESCRIPT_SOURCES = [
     '!**/*.test.*',
     '!**/*.stories.tsx',
 ];
-const TYPESCRIPT_ALIASES = loadPathsMapping('./tsconfig.build.json');
 const SVG_ICONS = 'src/**/*.svg';
 
 /**

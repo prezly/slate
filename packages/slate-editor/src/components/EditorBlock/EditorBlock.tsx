@@ -149,7 +149,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         <div
             {...attributes}
             className={classNames(className, styles.EditorBlock, {
-                [styles.void]: isVoid,
+                [styles.isVoid]: isVoid,
                 [styles.extendedHitArea]: extendedHitArea,
                 [styles.withOverlay]: isOverlayEnabled,
             })}

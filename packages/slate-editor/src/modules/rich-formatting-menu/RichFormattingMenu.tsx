@@ -175,7 +175,7 @@ export function RichFormattingMenu({
                 modifiers={[LINK_MENU_OFFSET_MODIFIER]}
                 modifySelectionRect={getTextSelectionLeftTopCornerRect}
                 placement="bottom-start"
-                arrowClassName={styles['link-menu']}
+                arrowClassName={styles.LinkMenu}
             >
                 <LinkMenu
                     node={link}
