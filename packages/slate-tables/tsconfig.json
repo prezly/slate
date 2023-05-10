@@ -1,6 +1,7 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
+        "rootDir": "./src",
         "baseUrl": "./src",
         "paths": {
             "@prezly/slate-commons": ["../../slate-commons/src"]
