@@ -1,4 +1,5 @@
 const { expect } = require('expect');
+const { getPackagesSync } = require('@manypkg/get-packages');
 
 // Attach sinon-provided assertions to expect()
 const sinon = require('sinon');
@@ -24,17 +25,11 @@ global.expect = (function extendExpect() {
     }
 })();
 
-const WORKSPACE = [
-    '@prezly/slate-types',
-    '@prezly/slate-commons',
-    '@prezly/slate-lists',
-    '@prezly/slate-tables',
-    '@prezly/slate-editor',
-];
+const workspace = getPackagesSync(`${__dirname}/..`);
 
 // Register Babel loader to transpile TS/TSX files
 require('@babel/register').default({
-    extensions: ['.ts', '.tsx'],
+    extensions: ['.ts', '.tsx', '.js'],
     extends: `${__dirname}/../babel.config.json`,
     sourceType: 'unambiguous',
     presets: [
@@ -51,7 +46,11 @@ require('@babel/register').default({
          */
         function(filepath) {
             const isNodeModules = filepath.match(/node_modules/);
-            const isWorkspace = WORKSPACE.some((packageName) => filepath.includes(`/${packageName}/`));
+            const isWorkspace = workspace.packages.some((pkg) => {
+                return filepath.startsWith(pkg.dir) ||
+                    filepath.includes(`/node_modules/${pkg.packageJson.name}/`);
+            });
+
             return !isNodeModules || isWorkspace;
         },
     ],
