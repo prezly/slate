@@ -164,10 +164,11 @@ function inlineTypescriptAliases({ aliases, baseDir }) {
             tap((file) => {
                 const updatedContents = Object.entries(aliases).reduce(
                     (contents, [alias, real]) => {
-                        const resolvedAlias = path.relative(
+                        const relative = path.relative(
                             path.dirname(path.resolve(baseDir, file.relative)),
                             path.resolve(baseDir, real),
                         );
+                        const resolvedAlias = relative.startsWith('.') ? relative : `./${relative}`;
 
                         return contents
                             .replaceAll(`from '${alias}`, `from '${resolvedAlias}`)
