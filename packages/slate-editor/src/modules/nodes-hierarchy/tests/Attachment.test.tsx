@@ -1,8 +1,8 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { Editor } from 'slate';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 describe('nodes-hierarchy / Attachment', () => {
     it('should be kept after normalization', function () {

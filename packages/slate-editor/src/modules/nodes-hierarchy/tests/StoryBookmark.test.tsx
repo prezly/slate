@@ -1,9 +1,9 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { StoryBookmarkLayout } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 describe('nodes-hierarchy / StoryBookmark', () => {
     it('should be kept after normalization', function () {

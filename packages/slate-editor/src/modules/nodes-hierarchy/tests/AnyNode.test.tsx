@@ -1,10 +1,10 @@
 /* eslint-disable react/no-children-prop */
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { Alignment } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 /**
  * These tests are skipped.

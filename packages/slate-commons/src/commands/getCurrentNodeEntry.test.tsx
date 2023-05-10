@@ -1,9 +1,9 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 
 import { getCurrentNodeEntry } from './getCurrentNodeEntry';
 

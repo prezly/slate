@@ -1,10 +1,10 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { Editor } from 'slate';
 
 import { LoaderContentType } from '#extensions/loader';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 describe('nodes-hierarchy / Loader', () => {
     it('should be kept after normalization', function () {

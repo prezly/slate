@@ -1,9 +1,9 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { Campaign } from '@prezly/sdk';
 import { Editor } from 'slate';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 describe('nodes-hierarchy / StoryEmbed', () => {
     it('should be kept after normalization', function () {

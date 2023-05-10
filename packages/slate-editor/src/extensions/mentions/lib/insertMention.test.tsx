@@ -1,9 +1,9 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import type { VariableNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 import { createPlaceholderMentionElement, createMentionsEditor } from '../test-utils';
 
 import { insertMention } from './insertMention';

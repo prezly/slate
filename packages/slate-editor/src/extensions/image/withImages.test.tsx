@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { withNormalization } from '@prezly/slate-commons';
 import { ImageLayout } from '@prezly/slate-types';
@@ -6,8 +6,8 @@ import type { UploadedFile } from '@prezly/uploadcare';
 import { Editor } from 'slate';
 import { withReact } from 'slate-react';
 
+import { hyperscript } from './hyperscript';
 import { ImageExtension } from './ImageExtension';
-import { jsx } from './jsx';
 import { withImages } from './withImages';
 
 const file: UploadedFile = {

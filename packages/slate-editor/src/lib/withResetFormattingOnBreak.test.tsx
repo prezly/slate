@@ -1,8 +1,8 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { Editor } from 'slate';
 
-import { jsx } from '../jsx';
+import { hyperscript } from '../hyperscript';
 
 describe('withResetFormattingOnBreak', () => {
     it('Inserts a new default paragraph when inserting a break inside a heading', () => {

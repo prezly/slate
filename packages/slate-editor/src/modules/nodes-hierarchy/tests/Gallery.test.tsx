@@ -1,9 +1,9 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import { GalleryImageSize, GalleryLayout, GalleryPadding } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 describe('nodes-hierarchy / Gallery', () => {
     it('should be kept after normalization', function () {

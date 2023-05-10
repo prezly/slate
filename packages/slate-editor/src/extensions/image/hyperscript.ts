@@ -39,7 +39,7 @@ declare global {
     }
 }
 
-export const jsx = createHyperscript({
+export const hyperscript = createHyperscript({
     elements: {
         'h-image': { type: IMAGE_NODE_TYPE },
         'h-image-candidate': { type: IMAGE_CANDIDATE_NODE_TYPE },

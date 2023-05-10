@@ -110,7 +110,7 @@ type WithOverride = <T extends Editor>(editor: T) => T;
 
 const DEFAULT_OVERRIDES: WithOverride[] = [withVoidNodes, withInlineNodes];
 
-export const jsx = createHyperscript({
+export const hyperscript = createHyperscript({
     elements: {
         'h:link': { type: LINK_NODE_TYPE },
         'h:mention': { type: MENTION_NODE_TYPE },

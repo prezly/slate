@@ -1,6 +1,5 @@
 import type { Path } from 'slate';
-import { Editor } from 'slate';
-import { Node, Text } from 'slate';
+import { Editor, Node, Text } from 'slate';
 
 export type Edge = 'highest' | 'lowest';
 

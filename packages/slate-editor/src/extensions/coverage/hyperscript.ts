@@ -22,7 +22,7 @@ declare global {
     }
 }
 
-export const jsx = createHyperscript({
+export const hyperscript = createHyperscript({
     elements: {
         'h-coverage': { type: COVERAGE_NODE_TYPE },
         'h-p': { type: PARAGRAPH_NODE_TYPE },

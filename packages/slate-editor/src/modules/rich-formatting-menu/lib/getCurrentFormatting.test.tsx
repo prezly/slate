@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsx hyperscript */
 
 import {
     BULLETED_LIST_NODE_TYPE,
@@ -8,7 +8,7 @@ import {
 } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 
-import { jsx } from '../../../jsx';
+import { hyperscript } from '../../../hyperscript';
 
 import { getCurrentFormatting } from './getCurrentFormatting';
 
