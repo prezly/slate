@@ -1,3 +1,6 @@
+const { readFileSync, existsSync } = require('fs');
+const JSON5 = require('json5');
+const path = require('path');
 const { expect } = require('expect');
 const { getPackagesSync } = require('@manypkg/get-packages');
 
@@ -55,4 +58,38 @@ require('@babel/register').default({
         },
     ],
 });
+
+(function registerTsPaths() {
+    const workspacePaths = Object.fromEntries(
+        workspace.packages.map((pkg) => {
+            return [pkg.packageJson.name, [`${pkg.dir}/src`]];
+        }),
+    );
+
+    const pkg = workspace.packages.find((pkg) => process.cwd() === pkg.dir);
+
+    const packageTsConfig = existsSync(`${pkg.dir}/tsconfig.json`) ?
+        JSON5.parse(readFileSync(`${pkg.dir}/tsconfig.json`, { encoding: 'utf-8' })) :
+        undefined;
+
+    const packageLocalPaths = packageTsConfig?.compilerOptions?.paths ?? {};
+    const packageBaseUrl = packageTsConfig?.compilerOptions?.baseUrl ?? './';
+
+    const packagePaths = Object.fromEntries(
+        Object.entries(packageLocalPaths).map(([alias, paths]) => {
+            return [
+                alias,
+                paths.map((dir) => path.join(pkg.dir, packageBaseUrl, dir)),
+            ]
+        }),
+    );
+
+    require('tsconfig-paths').register({
+        baseUrl: './',
+        paths: {
+            ...packagePaths,
+            ...workspacePaths,
+        },
+    });
+})();
 

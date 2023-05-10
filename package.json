@@ -96,6 +96,7 @@
         "gulp-use": "^0.0.4",
         "ignore-styles": "^5.0.1",
         "jsdom": "^22.0.0",
+        "json5": "^2.2.3",
         "lerna": "^6.6.2",
         "mocha": "^10.2.0",
         "mocha-expect-snapshot": "^7.0.0",
