@@ -3,26 +3,26 @@ import type { RenderLeafProps } from 'slate-react';
 
 import { MarkType } from '../types';
 
-export function Text({ children, leaf }: RenderLeafProps) {
-    if (leaf[MarkType.BOLD]) {
+export function Text({ children, text }: RenderLeafProps) {
+    if (text[MarkType.BOLD]) {
         children = <strong>{children}</strong>;
     }
 
-    if (leaf[MarkType.ITALIC]) {
+    if (text[MarkType.ITALIC]) {
         children = <em>{children}</em>;
     }
 
-    if (leaf[MarkType.SUBSCRIPT]) {
+    if (text[MarkType.SUBSCRIPT]) {
         children = <sub>{children}</sub>;
     }
 
-    if (leaf[MarkType.SUPERSCRIPT]) {
+    if (text[MarkType.SUPERSCRIPT]) {
         children = <sup>{children}</sup>;
     }
 
-    if (leaf[MarkType.UNDERLINED]) {
+    if (text[MarkType.UNDERLINED]) {
         children = <u>{children}</u>;
     }
 
-    return <>{children}</>;
+    return <span style={{ color: 'purple', textTransform: 'lowercase' }}>{children}</span>;
 }

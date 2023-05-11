@@ -1,4 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
+import React from 'react';
 
 import { Text } from './components';
 import { detectMarks } from './lib';
@@ -13,6 +14,6 @@ export function TextStylingExtension(): Extension {
             marks: detectMarks,
         },
         onKeyDown,
-        renderLeaf: Text,
+        renderLeaf: (props) => <Text {...props} />,
     };
 }
