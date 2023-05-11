@@ -24,5 +24,5 @@ export function Text({ children, text }: RenderLeafProps) {
         children = <u>{children}</u>;
     }
 
-    return <span style={{ color: 'purple', textTransform: 'lowercase' }}>{children}</span>;
+    return <>{children}</>;
 }
