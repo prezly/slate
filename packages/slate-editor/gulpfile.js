@@ -44,6 +44,7 @@ gulp.task('build:types', () => buildTypes());
 
 gulp.task('watch:esm', () => watch(JS_DELIVERABLE_SOURCES, buildEsm));
 gulp.task('watch:sass', () => watch(SCSS_SOURCES, buildSass));
+gulp.task('watch:types', () => watch(JS_DELIVERABLE_SOURCES, buildTypes));
 
 function buildEsm(files = JS_DELIVERABLE_SOURCES) {
     return gulp
