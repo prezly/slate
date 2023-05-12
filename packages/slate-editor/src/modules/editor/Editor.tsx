@@ -27,7 +27,7 @@ import type { Element } from 'slate';
 import { Transforms } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { useFunction, useSize } from '#lib';
+import { useFunction, useLatest, useSize } from '#lib';
 
 import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
@@ -73,7 +73,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         contentStyle,
         decorate,
         id,
-        initialValue,
+        initialValue: externalInitialValue,
         blurOnOutsideClick = false,
         onIsOperationPendingChange,
         onKeyDown = noop,
@@ -135,7 +135,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         },
         [setFloatingAddMenuOpen],
     );
-    const getInitialValue = useFunction(() => initialValue);
 
     const extensions = Array.from(
         getEnabledExtensions({
@@ -178,6 +177,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         onKeyDown,
         plugins,
     });
+
+    const initialValue = useLatest(
+        EditorCommands.roughlyNormalizeValue(editor, externalInitialValue),
+    );
 
     useEffect(() => {
         if (autoFocus) {
@@ -255,7 +258,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             isEmpty: () => EditorCommands.isEmpty(editor),
             isFocused: () => ReactEditor.isFocused(editor),
             isModified: () =>
-                !isEditorValueEqual(editor, getInitialValue(), editor.children as Value),
+                !isEditorValueEqual(editor, initialValue.current, editor.children as Value),
             isValueEqual: (value: Value, another: Value) =>
                 isEditorValueEqual(editor, value, another),
             resetValue: (value) => {
@@ -496,7 +499,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         variables.onChange(editor);
                         userMentions.onChange(editor);
                     }}
-                    value={initialValue}
+                    value={initialValue.current}
                 >
                     <EditableWithExtensions
                         className={classNames(styles.Editable, {

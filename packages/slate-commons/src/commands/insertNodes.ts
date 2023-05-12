@@ -9,7 +9,7 @@ import { isBlock } from './isBlock';
 import { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
 import { isInline } from './isInline';
 import { isVoid } from './isVoid';
-import { sanitizeNode } from './sanitizeNode';
+import { roughlyNormalizeNodes } from './roughly-normalize';
 
 interface Options {
     ensureEmptyParagraphAfter?: boolean;
@@ -25,6 +25,10 @@ interface Options {
 }
 
 export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}): void {
+    insertNormalizedNodes(editor, roughlyNormalizeNodes(editor, nodes), options);
+}
+
+function insertNormalizedNodes(editor: Editor, nodes: Node[], options: Options = {}): void {
     if (!editor.selection || nodes.length === 0) {
         return;
     }
@@ -51,9 +55,9 @@ export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}
                 // For some reason Slate will split existing block nodes when inserting inline nodes.
                 // We don't want that. Adding an empty text node before and after seems to do the
                 // trick. I don't know why.
-                Transforms.insertFragment(editor, [{ text: '' }, sanitizeNode(node), { text: '' }]);
+                Transforms.insertFragment(editor, [{ text: '' }, node, { text: '' }]);
             } else {
-                Transforms.insertNodes(editor, [sanitizeNode(node)], { mode });
+                Transforms.insertNodes(editor, [node], { mode });
             }
         }
     }

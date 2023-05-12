@@ -1,9 +1,7 @@
 import { isEqual } from '@technically/lodash';
 import type { Editor, Element, Text, Descendant } from 'slate';
 
-import type { Value } from '../types';
-
-export function isEditorValueEqual(editor: Editor, a: Value, b: Value): boolean {
+export function isEditorValueEqual<T extends Descendant>(editor: Editor, a: T[], b: T[]): boolean {
     const compareNodes = cached(editor, (node: Descendant, another: Descendant): boolean => {
         const isNodeText = isText(node);
         const isAnotherText = isText(another);

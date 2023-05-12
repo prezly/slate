@@ -1,8 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { isNotNull } from '@technically/is-not-null';
 import { uniq } from '@technically/lodash';
 import { Editor } from 'slate';
 
-import type { Formatting, RichFormattedTextElement } from '../types';
+import type { Formatting } from '../types';
 
 import { findRichFormattingTextParent } from './findRichFormattingTextParent';
 
@@ -15,7 +16,7 @@ export function getCurrentFormatting(editor: Editor): Formatting | null {
     const leafNodes = Array.from(Editor.nodes(editor, { at: editor.selection, mode: 'lowest' }));
     const richTextBlocks = leafNodes
         .map((entry) => findRichFormattingTextParent(editor, entry))
-        .filter((node): node is RichFormattedTextElement => Boolean(node));
+        .filter(isNotNull);
 
     const blockTypes = uniq(richTextBlocks.map((node) => node.type));
 

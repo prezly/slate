@@ -7,6 +7,7 @@ import {
 } from '@prezly/slate-commons';
 import type { Extension } from '@prezly/slate-commons';
 import type { WithOverrides } from '@prezly/slate-commons';
+import { isNotUndefined } from '@technically/is-not-undefined';
 import { flow } from '@technically/lodash';
 import type { Editor } from 'slate';
 import { withHistory } from 'slate-history';
@@ -31,7 +32,7 @@ export function createEditor(
 ) {
     const overrides = getExtensions()
         .map(({ withOverrides }) => withOverrides)
-        .filter((o): o is WithOverrides => Boolean(o));
+        .filter(isNotUndefined);
 
     return flow([
         withReact,
