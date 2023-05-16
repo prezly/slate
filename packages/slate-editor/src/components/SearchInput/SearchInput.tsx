@@ -154,7 +154,6 @@ export namespace SearchInput {
     }
 
     export namespace Props {
-
         export interface Empty {
             query: string;
             loading: boolean;
