@@ -25,12 +25,7 @@ const BASE_DIR = './src';
 const SCSS_SOURCES = 'src/**/*.scss';
 const SCSS_GLOBAL_STYLESHEETS = 'src/styles/**/*.scss';
 const SCSS_MODULES = ['src/**/*.module.scss'];
-const TYPESCRIPT_SOURCES = [
-    'src/**/*.{ts,tsx}',
-    '!**/hyperscript.ts',
-    '!**/*.test.*',
-    '!**/*.stories.tsx',
-];
+const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/hyperscript.ts', '!**/*.test.*'];
 const SVG_ICONS = 'src/**/*.svg';
 
 /**
