@@ -48,8 +48,8 @@ export function SearchInput<T = unknown>({
 
     const loading = state.loading[query] ?? false;
     const foundSuggestions = state.searchResults[query]
-        ? state.searchResults[query].map((id) => state.suggestions[id]).filter(isNotUndefined)
-        : undefined;
+        ?.map((id) => state.suggestions[id])
+        .filter(isNotUndefined);
 
     const suggestions =
         useMemoryBuffer(foundSuggestions, !loading && foundSuggestions !== undefined) ??
