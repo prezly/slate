@@ -48,16 +48,10 @@ export function roughlyNormalizeNode<T extends Node>(editor: Editor, node: T): T
         if (children.length > 0) {
             return node.children === children ? node : { ...node, children };
         }
-
-        if (editor.isVoid(node)) {
-            // append the most empty `children` array
-            return { ...node, children: [{ text: '' }] };
-        }
-
-        return null;
     }
 
-    return null;
+    // append the most empty `children` array
+    return { ...node, children: [{ text: '' }] };
 }
 
 function isShallowEqual<T>(array: T[], another: T[]): boolean {

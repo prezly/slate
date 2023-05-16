@@ -27,7 +27,7 @@ import type { Element } from 'slate';
 import { Transforms } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { useFunction, useLatest, useSize } from '#lib';
+import { useFunction, useGetSet, useSize } from '#lib';
 
 import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
@@ -48,6 +48,7 @@ import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';
+import { InitialNormalization } from './InitialNormalization';
 import {
     createOnCut,
     insertDivider,
@@ -178,7 +179,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         plugins,
     });
 
-    const initialValue = useLatest(
+    const [getInitialValue, setInitialValue] = useGetSet(() =>
         EditorCommands.roughlyNormalizeValue(editor, externalInitialValue),
     );
 
@@ -258,11 +259,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             isEmpty: () => EditorCommands.isEmpty(editor),
             isFocused: () => ReactEditor.isFocused(editor),
             isModified: () =>
-                !isEditorValueEqual(editor, initialValue.current, editor.children as Value),
+                !isEditorValueEqual(editor, getInitialValue(), editor.children as Value),
             isValueEqual: (value: Value, another: Value) =>
                 isEditorValueEqual(editor, value, another),
             resetValue: (value) => {
                 EditorCommands.resetNodes(editor, value, editor.selection);
+                setInitialValue(value);
             },
         }),
     );
@@ -499,8 +501,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         variables.onChange(editor);
                         userMentions.onChange(editor);
                     }}
-                    value={initialValue.current}
+                    value={getInitialValue()}
                 >
+                    <InitialNormalization />
                     <EditableWithExtensions
                         className={classNames(styles.Editable, {
                             [styles.withEntryPoints]: withEntryPointsAroundBlocks,
