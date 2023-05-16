@@ -32,7 +32,7 @@
         "prettier:fix": "pnpm prettier --write --no-list-different",
         "release": "pnpm release:prepare && pnpm release:publish",
         "release:build": "pnpm build --force",
-        "release:prepare": "pnpm release:build && pnpm check",
+        "release:prepare": "pnpm run clean && pnpm install && pnpm release:build && pnpm check",
         "release:publish": "lerna publish",
         "postpublish": "open-cli https://github.com/prezly/slate/releases/new?tag=$(cat lerna.json | grep version | cut -d\\\" -f4)"
     },
