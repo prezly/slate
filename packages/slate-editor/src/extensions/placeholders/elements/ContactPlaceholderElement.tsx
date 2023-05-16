@@ -25,6 +25,7 @@ export function ContactPlaceholderElement({
     format = 'card',
     getSuggestions,
     removable,
+    renderAddon,
     renderEmpty,
     renderSuggestion,
     renderSuggestionsFooter,
@@ -59,6 +60,7 @@ export function ContactPlaceholderElement({
             description="Add a site contact to your story"
             // Input
             getSuggestions={getSuggestions}
+            renderAddon={renderAddon}
             renderEmpty={renderEmpty}
             renderSuggestion={renderSuggestion}
             renderSuggestions={(props) => (
@@ -71,9 +73,9 @@ export function ContactPlaceholderElement({
                     {props.children}
                 </SearchInput.Suggestions>
             )}
-            inputTitle="Site contact"
-            inputDescription="Select a contact to insert"
-            inputPlaceholder="Search for contacts"
+            inputTitle="Site contacts"
+            inputDescription="Search for an existing site contact or create a new one"
+            inputPlaceholder="Search site contacts"
             onSelect={handleSelect}
             removable={removable}
         >

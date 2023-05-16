@@ -52,10 +52,6 @@ $focus-outline: $spacing-half solid #c7d2fe;
         outline: none;
     }
 
-    .focused & {
-        border-color: transparent;
-    }
-
     &:disabled {
         color: $grey-400;
         opacity: 0.4;
@@ -69,6 +65,12 @@ $focus-outline: $spacing-half solid #c7d2fe;
 
     .loading & {
         padding-right: $spacing-1-5 + $icon-size + $spacing-half;
+    }
+
+    .withAddon & {
+        border-left: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 
     .withClearButton & {

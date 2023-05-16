@@ -29,7 +29,7 @@ export interface Parameters {
         | false
         | Pick<
               ContactPlaceholderElement.Props,
-              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
+              'getSuggestions' | 'renderAddon' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
           >;
     withCoveragePlaceholders?:
         | false

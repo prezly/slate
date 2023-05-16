@@ -29,6 +29,7 @@ const EMPTY_SUGGESTIONS: never[] = [];
 export function SearchInput<T = unknown>({
     inputRef,
     getSuggestions,
+    renderAddon,
     renderEmpty = defaultRenderEmpty,
     renderSuggestion = defaultRenderSuggestion,
     renderSuggestions = defaultRenderSuggestions,
@@ -96,6 +97,7 @@ export function SearchInput<T = unknown>({
         <Input
             ref={inputRef ? mergeRefs(inputRef, rootRef) : rootRef}
             {...attributes}
+            addon={renderAddon?.()}
             onClear={onClear}
             onFocus={() => setOpen(true)}
             onKeyDown={(event) => {
@@ -143,6 +145,7 @@ export namespace SearchInput {
         inputRef?: Ref<HTMLInputElement>;
         getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
         onClear?: () => void;
+        renderAddon?: () => ReactNode;
         renderEmpty?: (props: Props.Empty) => ReactElement | null;
         renderSuggestion?: (props: Props.Option<T>) => ReactElement | null;
         renderSuggestions?: (props: Props.Suggestions<T>) => ReactElement | null;
@@ -151,6 +154,7 @@ export namespace SearchInput {
     }
 
     export namespace Props {
+
         export interface Empty {
             query: string;
             loading: boolean;

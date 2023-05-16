@@ -13,6 +13,7 @@ import styles from './Input.module.scss';
 
 export interface Props
     extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'onSubmit'> {
+    addon?: React.ReactNode;
     value: string;
     onChange: (newValue: string, valid: boolean) => void;
     onClear?: () => void;
@@ -35,6 +36,7 @@ export interface Props
 export const Input = forwardRef<HTMLInputElement, Props>(
     (
         {
+            addon,
             autoFocus,
             button = false,
             children: suggestions,
@@ -87,6 +89,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     [styles.invalid]: dirty && !valid,
                     [styles.focused]: focused,
                     [styles.loading]: loading,
+                    [styles.withAddon]: Boolean(addon),
                     [styles.withButton]: Boolean(button),
                     [styles.withClearButton]: Boolean(onClear),
                     [styles.withIcon]: Boolean(icon),
@@ -94,6 +97,8 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                     [styles.withSuggestionsBelow]: withSuggestionsBelow,
                 })}
             >
+                {addon}
+
                 <div className={styles.InputBox}>
                     <input
                         {...attributes}
