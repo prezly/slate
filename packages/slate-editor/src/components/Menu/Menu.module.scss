@@ -187,4 +187,26 @@
             margin-right: -$spacing-half;
         }
     }
+
+    // Un-round bottom corner of `Menu` if last child is an open `Dropdown`
+
+    &:has(> *:last-child[data-headlessui-state="open"]) {
+        border-bottom-right-radius: 0;
+    }
+
+    // Firefox doesn't support `has` selector yet
+    // https://stackoverflow.com/a/1014958/6622233
+    // This is a workaround to apply the same effect
+    @include firefox-only {
+        > *:last-child[data-headlessui-state="open"]::after {
+            content: "";
+            position: absolute;
+            height: $border-radius-base * 2 + 2px;
+            width: $border-radius-base * 2 + 2px;
+            right: 0;
+            bottom: 0;
+            display: block;
+            background-color: $toolbar-dark-theme-bg;
+        }
+    }
 }
