@@ -28,6 +28,8 @@ const SCSS_MODULES = ['src/**/*.module.scss'];
 const TYPESCRIPT_SOURCES = ['src/**/*.{ts,tsx}', '!**/hyperscript.ts', '!**/*.test.*'];
 const SVG_ICONS = 'src/**/*.svg';
 
+const STORYBOOK_MODULES = '*.stories.*';
+
 /**
  * Files that will produce build/* JS deliverables.
  */
@@ -55,6 +57,11 @@ function buildEsm(files = JS_DELIVERABLE_SOURCES) {
             ]),
         )
         .pipe(
+            filterOutStorybook({
+                enabled: process.env.NODE_ENV === 'production',
+            }),
+        )
+        .pipe(
             babel({
                 extends: '../../babel.config.json',
                 plugins: [['babel-plugin-module-resolver', { alias: BABEL_ALIASES }]],
@@ -78,6 +85,11 @@ function buildTypes(files = JS_DELIVERABLE_SOURCES) {
                 // Generate TS class maps for CSS modules
                 stream.pipe(filter(SCSS_MODULES)).pipe(processSass()).pipe(filter('*.ts')),
             ]),
+        )
+        .pipe(
+            filterOutStorybook({
+                enabled: process.env.NODE_ENV === 'production',
+            }),
         )
         .pipe(compile())
         .pipe(
@@ -176,6 +188,13 @@ function inlineTypescriptAliases({ aliases, baseDir }) {
             }),
         ),
     ]);
+}
+
+function filterOutStorybook({ enabled = true } = {}) {
+    if (!enabled) {
+        return branch.obj((stream) => [stream]);
+    }
+    return branch.obj((stream) => [stream.pipe(filter(`!${STORYBOOK_MODULES}`))]);
 }
 
 /**
