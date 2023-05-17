@@ -1,4 +1,5 @@
 import type { Decorate, Extension } from '@prezly/slate-commons';
+import { isNotUndefined } from '@technically/is-not-undefined';
 import type { Editor } from 'slate';
 
 export function createExtensionsDecorators<E extends Editor>(
@@ -7,5 +8,5 @@ export function createExtensionsDecorators<E extends Editor>(
 ): Decorate[] {
     return extensions
         .map((extension) => extension.decorate?.(editor, extension))
-        .filter((decorate): decorate is Decorate => Boolean(decorate));
+        .filter(isNotUndefined);
 }

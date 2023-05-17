@@ -6,7 +6,7 @@ type Query = string;
 
 export interface State<T> {
     loading: Partial<Record<string, boolean>>;
-    searchResults: Record<Query, Suggestion<T>['id'][]>;
+    searchResults: Partial<Record<Query, Suggestion<T>['id'][]>>;
     suggestions: Partial<Record<Suggestion<T>['id'], Suggestion<T>>>;
 }
 

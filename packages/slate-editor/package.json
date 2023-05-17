@@ -61,6 +61,8 @@
         "@prezly/slate-types": "workspace:*",
         "@prezly/uploadcare": "^2.4.0",
         "@prezly/uploadcare-widget": "^3.16.1",
+        "@technically/is-not-null": "^1.0.0",
+        "@technically/is-not-undefined": "^1.0.0",
         "@technically/lodash": "^4.17.0",
         "@types/combine-reducers": "^1.0.1",
         "@udecode/plate-core": "^9.0.0",

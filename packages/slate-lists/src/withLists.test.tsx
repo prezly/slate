@@ -18,7 +18,7 @@ import type { ListsEditor } from './types';
 
 describe('withLists', () => {
     describe('normalizeListChildren', () => {
-        it('Converts paragraph into list-item when it is a child of a list', () => {
+        it('should convert paragraph into list-item when it is a child of a list', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -56,7 +56,7 @@ describe('withLists', () => {
             expect(editor.children).toEqual(expected.children);
         });
 
-        it('Wraps list in list-item when it is a child of a list', () => {
+        it('should wrap list in list-item when it is a child of a list', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -102,7 +102,7 @@ describe('withLists', () => {
     });
 
     describe('normalizeListItemChildren', () => {
-        it('Lifts up list-items when they are children of list-item', () => {
+        it('should lift up list-items when they are children of list-item', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -160,7 +160,7 @@ describe('withLists', () => {
             expect(editor.children).toEqual(expected.children);
         });
 
-        it('Normalizes paragraph children of list items', () => {
+        it('should ormalize paragraph children of list items', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -202,7 +202,7 @@ describe('withLists', () => {
             expect(editor.children).toEqual(expected.children);
         });
 
-        it('Wraps extra list-item-text in list-item and lifts it up when it is a child of list-item', () => {
+        it('should wrap extra list-item-text in list-item and lifts it up when it is a child of list-item', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -248,7 +248,7 @@ describe('withLists', () => {
             expect(editor.children).toEqual(expected.children);
         });
 
-        it('Wraps inline list-item children in list-item-text', () => {
+        it('should wrap inline list-item children in list-item-text', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -282,7 +282,7 @@ describe('withLists', () => {
             expect(editor.children).toEqual(expected.children);
         });
 
-        it('Wraps inline list-item children and sibling texts in list-item-text', () => {
+        it('should wrap inline list-item children and sibling texts in list-item-text', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -318,7 +318,7 @@ describe('withLists', () => {
             expect(editor.children).toEqual(expected.children);
         });
 
-        it('Adds missing type attribute to block list-item children', () => {
+        it('should add missing type attribute to block list-item children', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -350,7 +350,7 @@ describe('withLists', () => {
     });
 
     describe('normalizeListItemTextChildren', () => {
-        it('Unwraps block children of list-item-text elements', () => {
+        it('should unwrap block children of list-item-text elements', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -398,7 +398,7 @@ describe('withLists', () => {
     });
 
     describe('normalizeOrphanListItem', () => {
-        it('Converts orphan list-item into paragraph', () => {
+        it('should convert orphan list-item into paragraph', () => {
             const editor = (
                 <Editor>
                     <ListItem>
@@ -432,7 +432,7 @@ describe('withLists', () => {
     });
 
     describe('normalizeOrphanListItemText', () => {
-        it('Converts orphan list-item-text into paragraph', () => {
+        it('should convert orphan list-item-text into paragraph', () => {
             const editor = (
                 <Editor>
                     <ListItemText>
@@ -462,7 +462,7 @@ describe('withLists', () => {
     });
 
     describe('normalizeOrphanNestedList', () => {
-        it('Unwraps the nested list when it does not have sibling list-item-text', () => {
+        it('should move the nested list when it does not have sibling list-item-text', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -496,7 +496,7 @@ describe('withLists', () => {
             expect(editor.children).toEqual(expected.children);
         });
 
-        it("Moves items from nested list to previous list-item's nested list when it does not have sibling list-item-text", () => {
+        it("should move items from nested list to previous list-item's nested list when it does not have sibling list-item-text", () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -564,7 +564,7 @@ describe('withLists', () => {
             expect(editor.children).toEqual(expected.children);
         });
 
-        it('Moves nested list to previous list item when it does not have sibling list-item-text', () => {
+        it('should move nested list to previous list item when it does not have sibling list-item-text', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -612,7 +612,7 @@ describe('withLists', () => {
     });
 
     describe('normalizeSiblingLists', () => {
-        it('Merges sibling lists of same type', () => {
+        it('should merge sibling lists of same type', () => {
             const editor = (
                 <Editor>
                     <Paragraph>
@@ -660,7 +660,7 @@ describe('withLists', () => {
             expect(editor.children).toEqual(expected.children);
         });
 
-        it('Merges sibling lists of different types when they are nested lists', () => {
+        it('should merge sibling lists of different types when they are nested lists', () => {
             const editor = (
                 <Editor>
                     <UnorderedList>
@@ -715,5 +715,44 @@ describe('withLists', () => {
 
             expect(editor.children).toEqual(expected.children);
         });
+    });
+
+    /**
+     * @see CARE-1320
+     */
+    it('should correctly handle list-items with zero children', () => {
+        const editor = (
+            <Editor>
+                <UnorderedList>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
+                    <ListItem></ListItem>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
+                    <ListItem></ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
+
+        const expected = (
+            <Editor>
+                <UnorderedList>
+                    <ListItem>
+                        <ListItemText>
+                            <Text></Text>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText>
+                            <Text></Text>
+                        </ListItemText>
+                    </ListItem>
+                </UnorderedList>
+            </Editor>
+        ) as unknown as ListsEditor;
+
+        Slate.normalize(editor, { force: true });
+
+        expect(editor.children).toEqual(expected.children);
     });
 });

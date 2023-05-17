@@ -1,0 +1,54 @@
+[
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": ""
+            }
+        ]
+    },
+    {
+        "type": "bulleted-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "type": "list-item-text",
+                        "children": [
+                            {
+                                "text": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "type": "list-item-text",
+                        "children": [
+                            {
+                                "text": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "type": "list-item-text",
+                        "children": [
+                            {
+                                "text": ""
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

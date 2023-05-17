@@ -1,3 +1,4 @@
+import { isNotUndefined } from '@technically/is-not-undefined';
 import type { ReactElement, Ref, ReactNode } from 'react';
 import { useRef } from 'react';
 import React, { useMemo, useReducer, useState } from 'react';
@@ -48,10 +49,8 @@ export function SearchInput<T = unknown>({
 
     const loading = state.loading[query] ?? false;
     const foundSuggestions = state.searchResults[query]
-        ? state.searchResults[query]
-              .map((id) => state.suggestions[id])
-              .filter((x): x is Suggestion<T> => Boolean(x))
-        : undefined;
+        ?.map((id) => state.suggestions[id])
+        .filter(isNotUndefined);
 
     const suggestions =
         useMemoryBuffer(foundSuggestions, !loading && foundSuggestions !== undefined) ??

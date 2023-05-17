@@ -27,7 +27,7 @@ import type { Element } from 'slate';
 import { Transforms } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
 
-import { useFunction, useSize } from '#lib';
+import { useFunction, useGetSet, useSize } from '#lib';
 
 import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
@@ -48,6 +48,7 @@ import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';
+import { InitialNormalization } from './InitialNormalization';
 import {
     createOnCut,
     insertDivider,
@@ -73,7 +74,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         contentStyle,
         decorate,
         id,
-        initialValue,
+        initialValue: externalInitialValue,
         blurOnOutsideClick = false,
         onIsOperationPendingChange,
         onKeyDown = noop,
@@ -135,7 +136,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         },
         [setFloatingAddMenuOpen],
     );
-    const getInitialValue = useFunction(() => initialValue);
 
     const extensions = Array.from(
         getEnabledExtensions({
@@ -178,6 +178,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         onKeyDown,
         plugins,
     });
+
+    const [getInitialValue, setInitialValue] = useGetSet(() =>
+        EditorCommands.roughlyNormalizeValue(editor, externalInitialValue),
+    );
 
     useEffect(() => {
         if (autoFocus) {
@@ -260,6 +264,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 isEditorValueEqual(editor, value, another),
             resetValue: (value) => {
                 EditorCommands.resetNodes(editor, value, editor.selection);
+                setInitialValue(value);
             },
         }),
     );
@@ -496,8 +501,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         variables.onChange(editor);
                         userMentions.onChange(editor);
                     }}
-                    value={initialValue}
+                    value={getInitialValue()}
                 >
+                    <InitialNormalization />
                     <EditableWithExtensions
                         className={classNames(styles.Editable, {
                             [styles.withEntryPoints]: withEntryPointsAroundBlocks,

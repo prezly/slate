@@ -9,6 +9,7 @@ import { isBlock } from './isBlock';
 import { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
 import { isInline } from './isInline';
 import { isVoid } from './isVoid';
+import { roughlyNormalizeNodes } from './roughly-normalize';
 
 interface Options {
     ensureEmptyParagraphAfter?: boolean;
@@ -24,9 +25,15 @@ interface Options {
 }
 
 export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}): void {
+    insertNormalizedNodes(editor, roughlyNormalizeNodes(editor, nodes), options);
+}
+
+function insertNormalizedNodes(editor: Editor, nodes: Node[], options: Options = {}): void {
     if (!editor.selection || nodes.length === 0) {
         return;
     }
+
+    const { mode, ensureEmptyParagraphAfter } = options;
 
     // In case we're inserting things into an empty paragraph, we will want to replace that paragraph.
     const initialSelection = editor.selection;
@@ -50,7 +57,7 @@ export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}
                 // trick. I don't know why.
                 Transforms.insertFragment(editor, [{ text: '' }, node, { text: '' }]);
             } else {
-                Transforms.insertNodes(editor, [node], { mode: options.mode });
+                Transforms.insertNodes(editor, [node], { mode });
             }
         }
     }
@@ -58,11 +65,7 @@ export function insertNodes(editor: Editor, nodes: Node[], options: Options = {}
     // Every time we call `Transforms.insertNodes` or `Transforms.insertFragment`
     // the cursor/selection will move (as long as we're inserting something).
     // That's why we have to check `isCursorInEmptyParagraph` again.
-    if (
-        options.ensureEmptyParagraphAfter &&
-        !isCursorInEmptyParagraph(editor) &&
-        isAddingAnyBlockNodes
-    ) {
+    if (ensureEmptyParagraphAfter && !isCursorInEmptyParagraph(editor) && isAddingAnyBlockNodes) {
         insertEmptyParagraph(editor);
     }
 

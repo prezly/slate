@@ -16,7 +16,7 @@ function readTestFile(filepath: string): string {
 }
 
 describe('Editor - deleteForward - selection maintenance', () => {
-    it('Should focus the list after the paragraph when using deleteForward (Del key) ', () => {
+    it('should focus the list after the paragraph when using deleteForward (Del key) ', () => {
         const editor = createEditor(
             <editor>
                 <h-p>
@@ -296,6 +296,60 @@ describe('Editor - pasting', () => {
         EditorCommands.insertNodes(editor, JSON.parse(input));
 
         expect(editor.children).toMatchObject(JSON.parse(expected));
+    });
+
+    /**
+     * @see CARE-1320
+     */
+    it('should handle pasting nodes with empty children array', () => {
+        const editor = createEditor(
+            <editor>
+                <h-p>
+                    <h-text>
+                        <cursor />
+                    </h-text>
+                </h-p>
+            </editor>,
+        );
+
+        const input = readTestFile('input/list-normalization-3.json');
+        const expected = readTestFile('expected/list-normalization-3.json');
+
+        EditorCommands.insertNodes(editor, JSON.parse(input), { mode: 'highest' });
+
+        expect(editor.children).toMatchObject(JSON.parse(expected));
+    });
+
+    /**
+     * @see CARE-1320
+     */
+    it('should handle nodes with empty children array', () => {
+        const editor = createEditor(
+            <editor>
+                <h-ol>
+                    <h-li></h-li>
+                </h-ol>
+            </editor>,
+        );
+
+        Editor.normalize(editor, { force: true });
+
+        expect(editor.children).toMatchObject([
+            {
+                type: 'numbered-list',
+                children: [
+                    {
+                        type: 'list-item',
+                        children: [
+                            {
+                                type: 'list-item-text',
+                                children: [{ text: '' }],
+                            },
+                        ],
+                    },
+                ],
+            },
+        ]);
     });
 
     it('Deserializes marks from style attributes', () => {

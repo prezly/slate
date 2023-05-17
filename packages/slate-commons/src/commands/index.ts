@@ -44,6 +44,11 @@ export { removeNode } from './removeNode';
 export { replaceNode } from './replaceNode';
 export { resetNodes } from './resetNodes';
 export { resetSelection } from './resetSelection';
+export {
+    roughlyNormalizeValue,
+    roughlyNormalizeNodes,
+    roughlyNormalizeNode,
+} from './roughly-normalize';
 export { saveSelection } from './saveSelection';
 export { selectNode } from './selectNode';
 export { toDomNode } from './toDomNode';

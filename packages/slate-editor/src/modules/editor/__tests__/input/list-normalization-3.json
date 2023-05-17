@@ -1,0 +1,27 @@
+[
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": ""
+            }
+        ]
+    },
+    {
+        "type": "bulleted-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": []
+            },
+            {
+                "type": "list-item",
+                "children": []
+            },
+            {
+                "type": "list-item",
+                "children": []
+            }
+        ]
+    }
+]
