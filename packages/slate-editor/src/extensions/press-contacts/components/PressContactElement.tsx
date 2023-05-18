@@ -1,4 +1,5 @@
-import type { ContactInfo, ContactLayout, ContactNode } from '@prezly/slate-types';
+import type { ContactInfo, ContactNode } from '@prezly/slate-types';
+import { ContactLayout } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { useCallback } from 'react';
@@ -22,6 +23,8 @@ interface Props extends RenderElementProps {
 export function PressContactElement({ attributes, children, element, renderMenu }: Props) {
     const editor = useSlateStatic();
     const { layout, show_avatar: showAvatar } = element;
+    const isCardLayout = layout === ContactLayout.CARD;
+    const isSignatureLayout = layout === ContactLayout.SIGNATURE;
 
     const handleToggleAvatar = useCallback(
         (showAvatar: boolean) => updatePressContact(editor, element, { show_avatar: showAvatar }),
@@ -36,7 +39,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
     return (
         <EditorBlock
             {...attributes}
-            border
+            border={isCardLayout}
             element={element}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
@@ -57,7 +60,13 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                 );
             }}
             renderReadOnlyFrame={() => (
-                <div className={classNames(styles.wrapper, { [styles.withAvatar]: showAvatar })}>
+                <div
+                    className={classNames(styles.wrapper, {
+                        [styles.card]: isCardLayout,
+                        [styles.signature]: isSignatureLayout,
+                        [styles.withAvatar]: showAvatar,
+                    })}
+                >
                     {element.contact.avatar_url && showAvatar && (
                         <Avatar
                             className={styles.avatar}

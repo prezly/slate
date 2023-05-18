@@ -4,7 +4,9 @@
 $avatar-size: 64px;
 
 .wrapper {
-    padding: $spacing-3;
+    &.card {
+        padding: $spacing-3;
+    }
 
     &.withAvatar {
         display: grid;
