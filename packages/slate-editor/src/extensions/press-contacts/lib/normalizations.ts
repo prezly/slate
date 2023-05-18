@@ -11,6 +11,8 @@ const SHAPE: Record<keyof ContactNode, boolean> = {
     reference: true,
     contact: true,
     children: true,
+    show_avatar: true,
+    layout: true,
 };
 
 const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
