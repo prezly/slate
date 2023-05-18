@@ -48,7 +48,6 @@ export function FloatingMenu() {
         <div
             ref={setContainer}
             style={{
-                background: 'rgba(31, 32, 35, 0.5)',
                 height: 200,
                 marginTop: 100,
                 maxWidth: 900,
@@ -90,6 +89,53 @@ export function FloatingMenu() {
                         <Menu.Icon icon={Icons.Delete} />
                     </Menu.Button>
                 </Menu.ButtonGroup>
+            </Menu.FloatingMenu>
+        </div>
+    );
+}
+
+export function FloatingMenuWithDropdownLast() {
+    const [container, setContainer] = useState<HTMLDivElement | null>(null);
+    const [alignment, onAlignmentChange] = useState('left');
+    const [appearance, onAppearanceChange] = useState('intro');
+
+    return (
+        <div
+            ref={setContainer}
+            style={{
+                height: 200,
+                marginTop: 100,
+                maxWidth: 900,
+            }}
+        >
+            <Menu.FloatingMenu
+                className="settings-menu"
+                containerRef={{ current: container }}
+                element={container}
+            >
+                <Menu.Link href={`/stories/1`} target="_blank">
+                    Edit story
+                </Menu.Link>
+
+                <Menu.ButtonGroup>
+                    {ALIGNMENT_OPTIONS.map((option) => (
+                        <Menu.Button
+                            active={alignment === option.value}
+                            key={option.value}
+                            onMouseDown={() => onAlignmentChange(option.value)}
+                            title={option.label}
+                        >
+                            <Menu.Icon icon={option.icon} />
+                        </Menu.Button>
+                    ))}
+                </Menu.ButtonGroup>
+
+                <Menu.Dropdown
+                    id="story-appearance"
+                    onChange={onAppearanceChange}
+                    options={APPEARANCE_OPTIONS}
+                    value={appearance}
+                />
             </Menu.FloatingMenu>
         </div>
     );
