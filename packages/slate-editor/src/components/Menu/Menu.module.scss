@@ -104,6 +104,8 @@
         }
 
         &:hover {
+            cursor: pointer;
+
             &::before {
                 // Trick to display smaller hover background square,
                 // while keeping the button area as big as possible (for a11y)
