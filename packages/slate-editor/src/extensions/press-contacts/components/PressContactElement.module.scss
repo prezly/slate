@@ -4,10 +4,13 @@
 $avatar-size: 64px;
 
 .wrapper {
-    display: grid;
-    grid-template-columns: $avatar-size 1fr;
-    grid-column-gap: 24px;
     padding: $spacing-3;
+
+    &.withAvatar {
+        display: grid;
+        grid-template-columns: $avatar-size 1fr;
+        grid-column-gap: 24px;
+    }
 
     .jobDescription {
         margin-bottom: $spacing-2;

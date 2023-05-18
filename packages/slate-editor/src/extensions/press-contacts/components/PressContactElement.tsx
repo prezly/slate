@@ -21,6 +21,7 @@ interface Props extends RenderElementProps {
 
 export function PressContactElement({ attributes, children, element, renderMenu }: Props) {
     const editor = useSlateStatic();
+    const { layout, show_avatar: showAvatar } = element;
 
     const handleToggleAvatar = useCallback(
         (showAvatar: boolean) => updatePressContact(editor, element, { show_avatar: showAvatar }),
@@ -46,8 +47,8 @@ export function PressContactElement({ attributes, children, element, renderMenu 
 
                 return (
                     <PressContactMenu
-                        layout={element.layout}
-                        showAvatar={element.show_avatar}
+                        layout={layout}
+                        showAvatar={showAvatar}
                         onClose={props.onClose}
                         onChangeLayout={handleChangeLayout}
                         onToggleAvatar={handleToggleAvatar}
@@ -56,8 +57,8 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                 );
             }}
             renderReadOnlyFrame={() => (
-                <div className={styles.wrapper}>
-                    {element.contact.avatar_url && (
+                <div className={classNames(styles.wrapper, { [styles.withAvatar]: showAvatar })}>
+                    {element.contact.avatar_url && showAvatar && (
                         <Avatar
                             className={styles.avatar}
                             name={element.contact.name}
@@ -67,7 +68,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                         />
                     )}
 
-                    {!element.contact.avatar_url && (
+                    {!element.contact.avatar_url && showAvatar && (
                         <div className={styles.avatar}>
                             <User className={styles.avatarPlaceholder} />
                         </div>
