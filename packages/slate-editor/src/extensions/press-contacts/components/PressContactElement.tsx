@@ -1,14 +1,18 @@
-import type { ContactNode } from '@prezly/slate-types';
-import type { ContactInfo } from '@prezly/slate-types';
+import type { ContactInfo, ContactLayout, ContactNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
+import { useCallback } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 
 import { Avatar, EditorBlock } from '#components';
 import { User } from '#icons';
 
+import { removePressContact, updatePressContact } from '../lib';
+
 import styles from './PressContactElement.module.scss';
+import { PressContactMenu } from './PressContactMenu';
 
 interface Props extends RenderElementProps {
     element: ContactNode;
@@ -16,6 +20,18 @@ interface Props extends RenderElementProps {
 }
 
 export function PressContactElement({ attributes, children, element, renderMenu }: Props) {
+    const editor = useSlateStatic();
+
+    const handleToggleAvatar = useCallback(
+        (showAvatar: boolean) => updatePressContact(editor, element, { show_avatar: showAvatar }),
+        [editor, element],
+    );
+    const handleChangeLayout = useCallback(
+        (layout: ContactLayout) => updatePressContact(editor, element, { layout }),
+        [editor, element],
+    );
+    const handleRemove = useCallback(() => removePressContact(editor), [editor, element]);
+
     return (
         <EditorBlock
             {...attributes}
@@ -23,7 +39,22 @@ export function PressContactElement({ attributes, children, element, renderMenu 
             element={element}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
-            renderMenu={renderMenu}
+            renderMenu={(props) => {
+                if (renderMenu) {
+                    return renderMenu(props);
+                }
+
+                return (
+                    <PressContactMenu
+                        layout={element.layout}
+                        showAvatar={element.show_avatar}
+                        onClose={props.onClose}
+                        onChangeLayout={handleChangeLayout}
+                        onToggleAvatar={handleToggleAvatar}
+                        onRemove={handleRemove}
+                    />
+                );
+            }}
             renderReadOnlyFrame={() => (
                 <div className={styles.wrapper}>
                     {element.contact.avatar_url && (
