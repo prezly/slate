@@ -37,6 +37,7 @@ export type EditorEventMap = {
         uuid: string;
     };
     'contact-dialog-opened': never;
+    'contact-dialog-searched': never;
     'contact-dialog-search-used': never;
     'contact-dialog-submitted': {
         contact_id: NewsroomContact['uuid'];

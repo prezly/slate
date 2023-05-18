@@ -1,8 +1,10 @@
 import { isNotUndefined } from '@technically/is-not-undefined';
 import type { ReactElement, Ref, ReactNode } from 'react';
+import { useEffect } from 'react';
 import { useRef } from 'react';
 import React, { useMemo, useReducer, useState } from 'react';
 import { useRootClose } from 'react-overlays';
+import { useSlateStatic } from 'slate-react';
 
 import { mergeRefs } from '#lib';
 import {
@@ -13,6 +15,8 @@ import {
     useMemoryBuffer,
     useMount,
 } from '#lib';
+
+import { EventsEditor } from '#modules/events';
 
 import { Input, type Props as BaseProps } from '../Input';
 
@@ -40,6 +44,7 @@ export function SearchInput<T = unknown>({
     onSelect,
     ...attributes
 }: SearchInput.Props<T>) {
+    const editor = useSlateStatic();
     const rootRef = useRef<HTMLInputElement | null>(null);
     const reducer = useMemo(() => createReducer<T>(), []);
     const initialState = useMemo(() => reducer(undefined, { type: undefined }), [reducer]);
@@ -66,7 +71,7 @@ export function SearchInput<T = unknown>({
         isNotDisabled,
     );
 
-    async function search(query: string) {
+    const search = useFunction(async (query: string) => {
         if (latest.current.state.loading[query]) {
             return;
         }
@@ -76,7 +81,7 @@ export function SearchInput<T = unknown>({
         dispatch({ type: 'search', query });
         const suggestions = await getSuggestions(query);
         dispatch({ type: 'results', query, suggestions });
-    }
+    });
 
     useMount(async () => {
         await search('');
@@ -91,6 +96,13 @@ export function SearchInput<T = unknown>({
     );
 
     useRootClose(rootRef, () => setOpen(false));
+
+    useEffect(() => {
+        const unlisten = EventsEditor.addEventListener(editor, 'contact-dialog-searched', () =>
+            search(query),
+        );
+        return unlisten;
+    }, []);
 
     return (
         <Input

@@ -3,8 +3,19 @@ import { Editor } from 'slate';
 
 import { EVENTS_PROPERTY } from './constants';
 import type { EditorEventMap } from './types';
+import type { EditorEventHandlers } from './types';
 
 export abstract class EventsEditor {
+    static addEventListener<Event extends keyof EditorEventMap>(
+        editor: Editor,
+        event: Event,
+        listener: EditorEventHandlers[Event],
+    ): void {
+        if (EventsEditor.isEventsEditor(editor)) {
+            editor[EVENTS_PROPERTY].addEventListener(event, listener);
+        }
+    }
+
     static dispatchEvent<Event extends keyof EditorEventMap>(
         editor: Editor,
         event: Event,
