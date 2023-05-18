@@ -24,7 +24,6 @@ export function PressContactElement({ attributes, children, element, renderMenu 
     const editor = useSlateStatic();
     const { layout, show_avatar: showAvatar } = element;
     const isCardLayout = layout === ContactLayout.CARD;
-    const isSignatureLayout = layout === ContactLayout.SIGNATURE;
 
     const handleToggleAvatar = useCallback(
         (showAvatar: boolean) => updatePressContact(editor, element, { show_avatar: showAvatar }),
@@ -63,7 +62,6 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                 <div
                     className={classNames(styles.wrapper, {
                         [styles.card]: isCardLayout,
-                        [styles.signature]: isSignatureLayout,
                         [styles.withAvatar]: showAvatar,
                     })}
                 >
