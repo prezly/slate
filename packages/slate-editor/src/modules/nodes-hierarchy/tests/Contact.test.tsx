@@ -1,5 +1,6 @@
 /** @jsx hyperscript */
 
+import { ContactLayout } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import { hyperscript } from '../../../hyperscript';
@@ -25,6 +26,8 @@ describe('nodes-hierarchy / Contact', () => {
                         twitter: 'twitter',
                         website: 'website',
                     }}
+                    layout={ContactLayout.CARD}
+                    show_avatar
                 />
             </editor>
         ) as unknown as Editor;
@@ -48,6 +51,8 @@ describe('nodes-hierarchy / Contact', () => {
                         twitter: 'twitter',
                         website: 'http://website',
                     }}
+                    layout={ContactLayout.CARD}
+                    show_avatar
                 />
             </editor>
         ) as unknown as Editor;
