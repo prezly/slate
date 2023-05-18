@@ -71,7 +71,7 @@ export function SearchInput<T = unknown>({
         isNotDisabled,
     );
 
-    async function search(query: string) {
+    const search = useFunction(async (query: string) => {
         if (latest.current.state.loading[query]) {
             return;
         }
@@ -81,7 +81,7 @@ export function SearchInput<T = unknown>({
         dispatch({ type: 'search', query });
         const suggestions = await getSuggestions(query);
         dispatch({ type: 'results', query, suggestions });
-    }
+    });
 
     useMount(async () => {
         await search('');
