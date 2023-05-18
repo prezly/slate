@@ -32,7 +32,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Build Project
-        run: pnpm build
+        run: pnpm build:dev
 
       - name: Build Storybook
         run: pnpm storybook:build
