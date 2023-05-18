@@ -1,9 +1,9 @@
+import { Listbox } from '@headlessui/react';
+import type { ListboxProps } from '@headlessui/react';
 import classNames from 'classnames';
 import type { ComponentType, FunctionComponent } from 'react';
-import { useState } from 'react';
+import { Fragment } from 'react';
 import React from 'react';
-import type { DropdownProps } from 'react-bootstrap';
-import { Dropdown as BootstrapDropdown, MenuItem } from 'react-bootstrap';
 
 import styles from './Dropdown.module.scss';
 
@@ -14,11 +14,13 @@ export namespace Dropdown {
         value: Value;
     }
 
-    export interface Props<Value extends string> extends Omit<DropdownProps, 'onChange'> {
+    export interface Props<Value extends string>
+        extends Omit<ListboxProps<'div', Value, Value>, 'onChange' | 'className'> {
         onChange: (value: Value) => void;
         options: Option<Value>[];
         renderOption?: ComponentType<{ option: Option<Value>; selected: boolean }>;
         value?: Value;
+        className?: string;
     }
 }
 
@@ -30,9 +32,8 @@ export function Dropdown<Value extends string = string>({
     value,
     ...props
 }: Dropdown.Props<Value>): ReturnType<FunctionComponent<Dropdown.Props<Value>>> {
-    const [open, setOpen] = useState(false);
     const RenderOption = renderOption;
-    const selectedOption = options.find((option) => option.value === value);
+    const selected = options.find((option) => option.value === value);
     const visibleOptions = options.filter(({ hidden }) => !hidden);
 
     function handleSelect(newValue: any) {
@@ -44,30 +45,36 @@ export function Dropdown<Value extends string = string>({
     }
 
     return (
-        <BootstrapDropdown
-            {...props}
+        <Listbox
             className={classNames(styles.Dropdown, className)}
-            onSelect={handleSelect}
-            open={open}
-            onToggle={(isOpen, _, meta) => meta.source !== 'rootClose' && setOpen(isOpen)}
+            as="div"
+            {...props}
+            value={selected}
+            onChange={handleSelect}
         >
-            <BootstrapDropdown.Toggle>{selectedOption?.label}</BootstrapDropdown.Toggle>
-            <BootstrapDropdown.Menu>
-                {visibleOptions.map((option) => {
-                    return (
-                        <MenuItem
-                            className={classNames(styles.MenuItem, {
-                                [styles.selected]: option.value === value,
-                            })}
-                            eventKey={option.value}
-                            key={option.value}
-                        >
-                            <RenderOption option={option} selected={option.value === value} />
-                        </MenuItem>
-                    );
-                })}
-            </BootstrapDropdown.Menu>
-        </BootstrapDropdown>
+            <Listbox.Button className={styles.DropdownToggle}>
+                {selected?.label}
+                <span className={styles.Caret} />
+            </Listbox.Button>
+            <Listbox.Options className={styles.DropdownMenu}>
+                {visibleOptions.map((option) => (
+                    <Listbox.Option key={option.value} as={Fragment} value={option.value}>
+                        {({ selected, active }) => (
+                            <li
+                                className={classNames(styles.MenuItem, {
+                                    [styles.selected]: option.value === value,
+                                    [styles.active]: active,
+                                })}
+                            >
+                                <span>
+                                    <RenderOption option={option} selected={selected} />
+                                </span>
+                            </li>
+                        )}
+                    </Listbox.Option>
+                ))}
+            </Listbox.Options>
+        </Listbox>
     );
 }
 

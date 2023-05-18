@@ -4,53 +4,28 @@
 .Dropdown {
     display: inline-block;
     width: 180px;
-    vertical-align: top;
-
     border-color: $toolbar-dark-theme-border-color;
+    position: relative;
+    font-weight: normal;
 
     &:last-child {
         border-right: none;
     }
 
-    &,
-    &:global(.open) {
-        :global(.dropdown-toggle) {
-            &,
-            &:hover,
-            &:focus {
-                color: $toolbar-dark-theme-text-color;
-                background: none;
-                box-shadow: none;
-            }
-        }
-    }
-
-    &:global(.open) {
-        &:after {
-            content: "";
-            position: absolute;
-            width: $border-radius-base * 2 + 2px;
-            height: $border-radius-base * 2 + 2px;
-            right: 0;
-            bottom: 0;
-            display: block;
-            background-color: $toolbar-dark-theme-bg;
-        }
-    }
-
-    :global(.dropdown-toggle) {
+    .DropdownToggle {
+        border: none;
+        outline: none;
         width: 100%;
         height: 40px;
         padding: 0 $spacing-2;
         font-size: 13px;
         background: none;
-        border: 0;
-        border-radius: 0;
-        font-weight: normal;
         text-align: left;
         color: $toolbar-dark-theme-text-color;
+        position: relative;
 
         &:hover {
+            cursor: pointer;
             color: $toolbar-dark-theme-text-hover-color;
 
             &::before {
@@ -68,68 +43,70 @@
             }
         }
 
-        :global(.caret) {
+        .Caret {
             position: absolute;
             top: 50%;
             right: $spacing-2;
+            color: $toolbar-dark-theme-icon-color;
             margin-top: -2px;
-            // beat `.btn-default .caret` !important rule specificity
-            color: $toolbar-dark-theme-icon-color !important;
+            margin-left: 2px;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            vertical-align: middle;
+            border-top: 4px dashed;
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent;
         }
     }
 
-    :global(.dropdown-menu) {
+    .DropdownMenu {
+        border: none;
+        outline: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 160px;
+        text-align: left;
+        list-style: none;
+        background-clip: padding-box;
+        display: flex;
+        flex-direction: column;
         width: 181px; // we need +1 px to align with the toggle button
         margin: 0 0 0 -1px;
         overflow: auto;
         padding: $spacing-1 0;
-        border: none;
         background-color: $toolbar-dark-theme-bg;
         border-radius: 0 0 $border-radius-base * 2 $border-radius-base * 2;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11), inset 0 1px 0 $toolbar-dark-theme-border-color;
-
-        a {
-            text-decoration: none;
-        }
     }
 
     .MenuItem {
-        margin-bottom: 0;
         min-height: 34px;
-        // Workaround to center the text inside a fixed-height container.
-        // Using `flex` doesn't work because it breaks the hover highlight,
-        // which is set on the child `a`.
-        display: table;
-        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        position: relative;
+        padding: 0 $spacing-2;
+        color: $toolbar-dark-theme-icon-color;
+        border-top: 1px solid transparent;
+        cursor: pointer;
 
-        > a {
-            display: table-cell;
-            vertical-align: middle;
-            position: relative;
-            padding: 0 $spacing-2;
-            color: $toolbar-dark-theme-icon-color;
-            border-top: 1px solid transparent;
-
-            &,
-            &:hover {
-                background-color: transparent;
-            }
-
-            &:hover {
-                color: $toolbar-dark-theme-text-hover-color;
-            }
-
-            &:focus::before {
-                top: $spacing-half;
-                bottom: $spacing-half;
-                left: $spacing-base;
-                right: $spacing-base;
-                display: block;
-                outline: $spacing-half solid $toolbar-dark-theme-focus-outline;
-            }
+        > span {
+            font-size: 14px;
         }
 
-        &.selected > a {
+        &:focus::before {
+            top: $spacing-half;
+            bottom: $spacing-half;
+            left: $spacing-base;
+            right: $spacing-base;
+            display: block;
+            outline: $spacing-half solid $toolbar-dark-theme-focus-outline;
+        }
+
+        &.selected,
+        &.active {
             color: $toolbar-dark-theme-icon-active-color;
 
             &::before {
@@ -143,6 +120,15 @@
                 left: $spacing-base;
                 right: $spacing-base;
                 background-color: $toolbar-dark-theme-hover-bg;
+            }
+        }
+
+        // Keyboard navigation and hover styles
+        &.active:not(.selected) {
+            color: $toolbar-dark-theme-text-hover-color;
+
+            &::before {
+                opacity: 0.5;
             }
         }
     }

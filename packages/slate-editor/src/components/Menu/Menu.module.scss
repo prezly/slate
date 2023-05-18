@@ -104,6 +104,8 @@
         }
 
         &:hover {
+            cursor: pointer;
+
             &::before {
                 // Trick to display smaller hover background square,
                 // while keeping the button area as big as possible (for a11y)
@@ -185,6 +187,33 @@
         &:first-child:last-child {
             margin-left: -$spacing-half;
             margin-right: -$spacing-half;
+        }
+    }
+
+    // Un-round bottom corner of `Menu` if last child is an open `Dropdown`
+
+    &:has(> *:last-child[data-headlessui-state="open"]) {
+        border-bottom-right-radius: 0;
+    }
+
+    // Firefox doesn't support `has` selector yet
+    // https://stackoverflow.com/a/1014958/6622233
+    // This is a workaround to apply the same effect
+    // Adds a triangle at bottom-right corner: ◢
+    @include firefox-only {
+        > *:last-child[data-headlessui-state="open"]::after {
+            $size: ($border-radius-base * 2 + 2px);
+
+            content: "";
+            position: absolute;
+            height: 0;
+            width: 0;
+            border-left: $size solid transparent;
+            border-bottom: $size solid $toolbar-dark-theme-bg;
+            right: 0;
+            bottom: 0;
+            display: block;
+            z-index: -10;
         }
     }
 }

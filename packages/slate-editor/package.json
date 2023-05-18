@@ -49,6 +49,7 @@
         "storybook:build": "pnpm install --dir ./storybook && pnpm run --dir ./storybook build"
     },
     "dependencies": {
+        "@headlessui/react": "^1.7.14",
         "@popperjs/core": "^2.6.0",
         "@prezly/docx-cleaner": "^0.5.2",
         "@prezly/events": "^2.0.3",
