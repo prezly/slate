@@ -74,7 +74,7 @@ export function ContactPlaceholderElement({
                 </SearchInput.Suggestions>
             )}
             inputTitle="Site contacts"
-            inputDescription="Search for an existing site contact or create a new one"
+            inputDescription="Add a contact card to your stories, campaigns and pitches"
             inputPlaceholder="Search site contacts"
             onSelect={handleSelect}
             removable={removable}

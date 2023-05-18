@@ -246,7 +246,7 @@ function* generateOptions(
             action: MenuAction.ADD_CONTACT,
             icon: Icons.ComponentContact,
             group: Group.PREZLY_CONTENT,
-            text: 'Contact',
+            text: 'Site contact',
             keywords: ['signature'],
             description: 'Add your site contacts',
         };
