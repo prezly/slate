@@ -1,7 +1,7 @@
 @import "styles/helpers";
 @import "styles/variables";
 
-$avatar-size: 64px;
+$avatar-size: 106px;
 
 .wrapper {
     &.card {
@@ -13,20 +13,18 @@ $avatar-size: 64px;
         grid-template-columns: $avatar-size 1fr;
         grid-column-gap: 24px;
     }
-
-    .jobDescription {
-        margin-bottom: $spacing-2;
-    }
 }
 
 .name {
     margin: 0;
-    font-size: 24px;
-    line-height: 34px;
+    font-size: 18px;
+    line-height: 1.6;
 }
 
 .jobDescription {
-    color: $legacy-color-type-secondary;
+    margin-bottom: $spacing-1;
+    color: $grey-500;
+    line-height: 1.4;
 }
 
 .avatar {
@@ -34,7 +32,8 @@ $avatar-size: 64px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: $avatar-size;
+    width: $avatar-size !important;
+    height: $avatar-size !important;
     border-radius: $border-radius-base;
     border: 1px solid $legacy-color-grey-250;
     grid-row: 1;
@@ -55,23 +54,33 @@ $avatar-size: 64px;
     grid-column: 2;
 }
 
-.socialFields {
+.fields {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
     margin: 0;
     padding: 0;
-    columns: 2;
+
+    &.social {
+        margin-top: $spacing-1;
+    }
 }
 
-.socialField {
-    @include ellipsis;
-
+.field {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
     margin: 0;
-    margin-bottom: $spacing-1;
     padding: 0;
     line-height: 26px;
     list-style: none;
+    color: #2262DD;
     cursor: default; // Text selection doesn't work, use default cursor.
-}
 
-.socialIcon {
-    margin-right: $spacing-1;
+    .icon {
+        $size: 16px;
+
+        width: $size;
+        height: $size;
+    }
 }

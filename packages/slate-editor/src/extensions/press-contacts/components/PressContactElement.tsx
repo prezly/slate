@@ -1,14 +1,14 @@
 import type { ContactInfo, ContactNode } from '@prezly/slate-types';
 import { ContactLayout } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
 import { useCallback } from 'react';
 import React from 'react';
+import type { FunctionComponent, ReactNode, SVGProps } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
 import { Avatar, EditorBlock } from '#components';
-import { User } from '#icons';
+import { Envelope, Mobile, Phone, SocialFacebook, SocialTwitter, User } from '#icons';
 
 import { removePressContact, updatePressContact } from '../lib';
 
@@ -86,6 +86,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
 
                         <JobDescription contact={element.contact} />
 
+                        <ContactFields contact={element.contact} />
                         <SocialFields contact={element.contact} />
                     </div>
                 </div>
@@ -108,26 +109,38 @@ export function JobDescription(props: { className?: string; contact: ContactInfo
     return <div className={classNames(styles.jobDescription, props.className)}>{text}</div>;
 }
 
-function SocialFields(props: { contact: ContactInfo }) {
-    const { email, phone, mobile, twitter, facebook, website } = props.contact;
+function ContactFields(props: { contact: ContactInfo }) {
+    const { email, phone, mobile } = props.contact;
     return (
-        // TODO: Remove dependency on external CSS icons (DEV-479)
-        <ul className={styles.socialFields}>
-            {email && <SocialField icon="icon-paper-plane">{email}</SocialField>}
-            {phone && <SocialField icon="icon-phone">{phone}</SocialField>}
-            {mobile && <SocialField icon="icon-mobile">{mobile}</SocialField>}
-            {twitter && <SocialField icon="icon-twitter">{twitter}</SocialField>}
-            {facebook && <SocialField icon="icon-facebook2">{facebook}</SocialField>}
-            {website && <SocialField icon="icon-browser">{website}</SocialField>}
+        <ul className={styles.fields}>
+            {email && <Field icon={Envelope}>{email}</Field>}
+            {phone && <Field icon={Phone}>{phone}</Field>}
+            {mobile && <Field icon={Mobile}>{mobile}</Field>}
         </ul>
     );
 }
 
-export function SocialField({ children, icon }: { children: ReactNode; icon: string }) {
+function SocialFields(props: { contact: ContactInfo }) {
+    const { twitter, facebook, website } = props.contact;
     return (
-        <li className={styles.socialField}>
-            {/* TODO: Remove dependency on external CSS icons (DEV-479) */}
-            <i className={classNames(styles.socialIcon, 'icon', icon)} />
+        <ul className={classNames(styles.fields, styles.social)}>
+            {twitter && <Field icon={SocialTwitter} />}
+            {facebook && <Field icon={SocialFacebook} />}
+            {website && <Field icon="icon-browser" />}
+        </ul>
+    );
+}
+
+export function Field({
+    children,
+    icon: Icon,
+}: {
+    children?: ReactNode;
+    icon: FunctionComponent<SVGProps<SVGSVGElement>> | string;
+}) {
+    return (
+        <li className={styles.field}>
+            <Icon className={styles.icon} />
             {children}
         </li>
     );
