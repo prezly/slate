@@ -44,6 +44,7 @@ export { default as FormatStyleNormal } from './Format-Style-Normal.svg';
 export { default as FormatStyleSubscript } from './Format-Style-Sub.svg';
 export { default as FormatStyleSuperscript } from './Format-Style-Sup.svg';
 export { default as Gallery } from './Gallery.svg';
+export { default as Globe } from './Globe.svg';
 export { default as Image } from './Image.svg';
 export { default as ImageLayoutContained } from './ImageLayoutContained.svg';
 export { default as ImageLayoutExpanded } from './ImageLayoutExpanded.svg';
