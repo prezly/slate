@@ -34,7 +34,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
         (layout: ContactLayout) => updatePressContact(editor, element, { layout }),
         [editor, element],
     );
-    const handleRemove = useCallback(() => removePressContact(editor), [editor, element]);
+    const handleRemove = useCallback(() => removePressContact(editor), [editor]);
 
     return (
         <EditorBlock
