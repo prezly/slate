@@ -1,17 +1,15 @@
 @import "styles/helpers";
 @import "styles/variables";
 
-$avatar-size: 106px;
+$avatar-size-card: 106px;
+$avatar-size-signature: 56px;
 
 .wrapper {
+    display: flex;
+    gap: 24px;
+
     &.card {
         padding: $spacing-3;
-    }
-
-    &.withAvatar {
-        display: grid;
-        grid-template-columns: $avatar-size 1fr;
-        grid-column-gap: 24px;
     }
 }
 
@@ -32,12 +30,20 @@ $avatar-size: 106px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: $avatar-size !important;
-    height: $avatar-size !important;
     border-radius: $border-radius-base;
     border: 1px solid $legacy-color-grey-250;
     grid-row: 1;
     grid-column: 1;
+
+    .card & {
+        width: $avatar-size-card !important;
+        height: $avatar-size-card !important;
+    }
+
+    .signature & {
+        width: $avatar-size-signature !important;
+        height: $avatar-size-signature !important;
+    }
 }
 
 .avatarPlaceholder {
@@ -61,7 +67,13 @@ $avatar-size: 106px;
     margin: 0;
     padding: 0;
 
+    .signature & {
+        display: block;
+    }
+
     &.social {
+        display: flex;
+        align-items: center;
         margin-top: $spacing-1;
     }
 }

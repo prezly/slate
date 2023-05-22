@@ -8,7 +8,7 @@ import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
 import { Avatar, EditorBlock } from '#components';
-import { Envelope, Mobile, Phone, SocialFacebook, SocialTwitter, User } from '#icons';
+import { Envelope, Globe, Mobile, Phone, SocialFacebook, SocialTwitter, User } from '#icons';
 
 import { removePressContact, updatePressContact } from '../lib';
 
@@ -24,6 +24,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
     const editor = useSlateStatic();
     const { layout, show_avatar: showAvatar } = element;
     const isCardLayout = layout === ContactLayout.CARD;
+    const isSignatureLayout = layout === ContactLayout.SIGNATURE;
 
     const handleToggleAvatar = useCallback(
         (showAvatar: boolean) => updatePressContact(editor, element, { show_avatar: showAvatar }),
@@ -62,7 +63,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                 <div
                     className={classNames(styles.wrapper, {
                         [styles.card]: isCardLayout,
-                        [styles.withAvatar]: showAvatar,
+                        [styles.signature]: isSignatureLayout,
                     })}
                 >
                     {element.contact.avatar_url && showAvatar && (
@@ -86,8 +87,11 @@ export function PressContactElement({ attributes, children, element, renderMenu 
 
                         <JobDescription contact={element.contact} />
 
-                        <ContactFields contact={element.contact} />
-                        <SocialFields contact={element.contact} />
+                        <ContactFields
+                            contact={element.contact}
+                            isSignatureLayout={isSignatureLayout}
+                        />
+                        <SocialFields contact={element.contact} showWebsite={isCardLayout} />
                     </div>
                 </div>
             )}
@@ -109,24 +113,39 @@ export function JobDescription(props: { className?: string; contact: ContactInfo
     return <div className={classNames(styles.jobDescription, props.className)}>{text}</div>;
 }
 
-function ContactFields(props: { contact: ContactInfo }) {
-    const { email, phone, mobile } = props.contact;
+function ContactFields(props: { contact: ContactInfo; isSignatureLayout: boolean }) {
+    const { isSignatureLayout } = props;
+    const { email, phone, mobile, website } = props.contact;
+
     return (
         <ul className={styles.fields}>
-            {email && <Field icon={Envelope}>{email}</Field>}
-            {phone && <Field icon={Phone}>{phone}</Field>}
-            {mobile && <Field icon={Mobile}>{mobile}</Field>}
+            {isSignatureLayout ? (
+                <>
+                    {email && <Field>E. {email}</Field>}
+                    {phone && <Field>P. {phone}</Field>}
+                    {mobile && <Field>M. {mobile}</Field>}
+                    {website && <Field>W. {website}</Field>}
+                </>
+            ) : (
+                <>
+                    {email && <Field icon={Envelope}>{email}</Field>}
+                    {phone && <Field icon={Phone}>{phone}</Field>}
+                    {mobile && <Field icon={Mobile}>{mobile}</Field>}
+                </>
+            )}
         </ul>
     );
 }
 
-function SocialFields(props: { contact: ContactInfo }) {
+function SocialFields(props: { contact: ContactInfo; showWebsite: boolean }) {
+    const { showWebsite } = props;
     const { twitter, facebook, website } = props.contact;
+
     return (
         <ul className={classNames(styles.fields, styles.social)}>
-            {twitter && <Field icon={SocialTwitter} />}
             {facebook && <Field icon={SocialFacebook} />}
-            {website && <Field icon="icon-browser" />}
+            {twitter && <Field icon={SocialTwitter} />}
+            {website && showWebsite && <Field icon={Globe} />}
         </ul>
     );
 }
@@ -136,11 +155,11 @@ export function Field({
     icon: Icon,
 }: {
     children?: ReactNode;
-    icon: FunctionComponent<SVGProps<SVGSVGElement>> | string;
+    icon?: FunctionComponent<SVGProps<SVGSVGElement>> | string;
 }) {
     return (
         <li className={styles.field}>
-            <Icon className={styles.icon} />
+            {Icon && <Icon className={styles.icon} />}
             {children}
         </li>
     );
