@@ -1,14 +1,19 @@
-import type { ContactNode } from '@prezly/slate-types';
-import type { ContactInfo } from '@prezly/slate-types';
+import type { ContactInfo, ContactNode } from '@prezly/slate-types';
+import { ContactLayout } from '@prezly/slate-types';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import { useCallback } from 'react';
 import React from 'react';
+import type { FunctionComponent, ReactNode, SVGProps } from 'react';
 import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 
 import { Avatar, EditorBlock } from '#components';
-import { User } from '#icons';
+import { Envelope, Globe, Mobile, Phone, SocialFacebook, SocialTwitter, User } from '#icons';
+
+import { removePressContact, updatePressContact } from '../lib';
 
 import styles from './PressContactElement.module.scss';
+import { PressContactMenu } from './PressContactMenu';
 
 interface Props extends RenderElementProps {
     element: ContactNode;
@@ -16,17 +21,52 @@ interface Props extends RenderElementProps {
 }
 
 export function PressContactElement({ attributes, children, element, renderMenu }: Props) {
+    const editor = useSlateStatic();
+    const { layout, show_avatar: showAvatar } = element;
+    const isCardLayout = layout === ContactLayout.CARD;
+    const isSignatureLayout = layout === ContactLayout.SIGNATURE;
+
+    const handleToggleAvatar = useCallback(
+        (showAvatar: boolean) => updatePressContact(editor, element, { show_avatar: showAvatar }),
+        [editor, element],
+    );
+    const handleChangeLayout = useCallback(
+        (layout: ContactLayout) => updatePressContact(editor, element, { layout }),
+        [editor, element],
+    );
+    const handleRemove = useCallback(() => removePressContact(editor), [editor]);
+
     return (
         <EditorBlock
             {...attributes}
-            border
+            border={isCardLayout}
             element={element}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
-            renderMenu={renderMenu}
+            renderMenu={(props) => {
+                if (renderMenu) {
+                    return renderMenu(props);
+                }
+
+                return (
+                    <PressContactMenu
+                        layout={layout}
+                        showAvatar={showAvatar}
+                        onClose={props.onClose}
+                        onChangeLayout={handleChangeLayout}
+                        onToggleAvatar={handleToggleAvatar}
+                        onRemove={handleRemove}
+                    />
+                );
+            }}
             renderReadOnlyFrame={() => (
-                <div className={styles.wrapper}>
-                    {element.contact.avatar_url && (
+                <div
+                    className={classNames(styles.wrapper, {
+                        [styles.card]: isCardLayout,
+                        [styles.signature]: isSignatureLayout,
+                    })}
+                >
+                    {element.contact.avatar_url && showAvatar && (
                         <Avatar
                             className={styles.avatar}
                             name={element.contact.name}
@@ -36,7 +76,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                         />
                     )}
 
-                    {!element.contact.avatar_url && (
+                    {!element.contact.avatar_url && showAvatar && (
                         <div className={styles.avatar}>
                             <User className={styles.avatarPlaceholder} />
                         </div>
@@ -47,7 +87,11 @@ export function PressContactElement({ attributes, children, element, renderMenu 
 
                         <JobDescription contact={element.contact} />
 
-                        <SocialFields contact={element.contact} />
+                        <ContactFields
+                            contact={element.contact}
+                            isSignatureLayout={isSignatureLayout}
+                        />
+                        <SocialFields contact={element.contact} showWebsite={isCardLayout} />
                     </div>
                 </div>
             )}
@@ -69,26 +113,53 @@ export function JobDescription(props: { className?: string; contact: ContactInfo
     return <div className={classNames(styles.jobDescription, props.className)}>{text}</div>;
 }
 
-function SocialFields(props: { contact: ContactInfo }) {
-    const { email, phone, mobile, twitter, facebook, website } = props.contact;
+function ContactFields(props: { contact: ContactInfo; isSignatureLayout: boolean }) {
+    const { isSignatureLayout } = props;
+    const { email, phone, mobile, website } = props.contact;
+
     return (
-        // TODO: Remove dependency on external CSS icons (DEV-479)
-        <ul className={styles.socialFields}>
-            {email && <SocialField icon="icon-paper-plane">{email}</SocialField>}
-            {phone && <SocialField icon="icon-phone">{phone}</SocialField>}
-            {mobile && <SocialField icon="icon-mobile">{mobile}</SocialField>}
-            {twitter && <SocialField icon="icon-twitter">{twitter}</SocialField>}
-            {facebook && <SocialField icon="icon-facebook2">{facebook}</SocialField>}
-            {website && <SocialField icon="icon-browser">{website}</SocialField>}
+        <ul className={styles.fields}>
+            {isSignatureLayout ? (
+                <>
+                    {email && <Field>E. {email}</Field>}
+                    {phone && <Field>P. {phone}</Field>}
+                    {mobile && <Field>M. {mobile}</Field>}
+                    {website && <Field>W. {website}</Field>}
+                </>
+            ) : (
+                <>
+                    {email && <Field icon={Envelope}>{email}</Field>}
+                    {phone && <Field icon={Phone}>{phone}</Field>}
+                    {mobile && <Field icon={Mobile}>{mobile}</Field>}
+                </>
+            )}
         </ul>
     );
 }
 
-export function SocialField({ children, icon }: { children: ReactNode; icon: string }) {
+function SocialFields(props: { contact: ContactInfo; showWebsite: boolean }) {
+    const { showWebsite } = props;
+    const { twitter, facebook, website } = props.contact;
+
     return (
-        <li className={styles.socialField}>
-            {/* TODO: Remove dependency on external CSS icons (DEV-479) */}
-            <i className={classNames(styles.socialIcon, 'icon', icon)} />
+        <ul className={classNames(styles.fields, styles.social)}>
+            {website && showWebsite && <Field icon={Globe} />}
+            {facebook && <Field icon={SocialFacebook} />}
+            {twitter && <Field icon={SocialTwitter} />}
+        </ul>
+    );
+}
+
+export function Field({
+    children,
+    icon: Icon,
+}: {
+    children?: ReactNode;
+    icon?: FunctionComponent<SVGProps<SVGSVGElement>> | string;
+}) {
+    return (
+        <li className={styles.field}>
+            {Icon && <Icon className={styles.icon} />}
             {children}
         </li>
     );
