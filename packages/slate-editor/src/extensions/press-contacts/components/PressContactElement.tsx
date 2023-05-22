@@ -143,9 +143,9 @@ function SocialFields(props: { contact: ContactInfo; showWebsite: boolean }) {
 
     return (
         <ul className={classNames(styles.fields, styles.social)}>
+            {website && showWebsite && <Field icon={Globe} />}
             {facebook && <Field icon={SocialFacebook} />}
             {twitter && <Field icon={SocialTwitter} />}
-            {website && showWebsite && <Field icon={Globe} />}
         </ul>
     );
 }
