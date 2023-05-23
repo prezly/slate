@@ -160,7 +160,7 @@ export function Field({
     return (
         <li className={styles.field}>
             {Icon && <Icon className={styles.icon} />}
-            {children}
+            <span className={styles.content}>{children}</span>
         </li>
     );
 }

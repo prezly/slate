@@ -54,9 +54,6 @@ $avatar-size-signature: 56px;
 
 .content {
     @include ellipsis;
-
-    grid-row: 1;
-    grid-column: 2;
 }
 
 .fields {
@@ -86,6 +83,7 @@ $avatar-size-signature: 56px;
     line-height: 26px;
     list-style: none;
     color: #2262dd;
+    overflow: hidden;
     cursor: default; // Text selection doesn't work, use default cursor.
 
     .icon {
