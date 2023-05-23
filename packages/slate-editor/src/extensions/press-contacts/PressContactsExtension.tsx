@@ -24,10 +24,7 @@ export const PressContactsExtension = (): Extension => ({
     },
     isElementEqual(element, another) {
         if (isContactNode(element) && isContactNode(another)) {
-            if (
-                !isEqual(element.layout, another.layout) ||
-                !isEqual(element.show_avatar, another.show_avatar)
-            ) {
+            if (element.layout !== another.layout || element.show_avatar !== another.show_avatar) {
                 return false;
             }
 
