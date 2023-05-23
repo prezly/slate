@@ -24,6 +24,10 @@ export const PressContactsExtension = (): Extension => ({
     },
     isElementEqual(element, another) {
         if (isContactNode(element) && isContactNode(another)) {
+            if (element.layout !== another.layout || element.show_avatar !== another.show_avatar) {
+                return false;
+            }
+
             // If these are contact references, then ContactInfo object is irrelevant
             if (element.reference || another.reference) {
                 return element.reference === another.reference;
