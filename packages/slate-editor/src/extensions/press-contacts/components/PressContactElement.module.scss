@@ -29,11 +29,10 @@ $avatar-size-signature: 56px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex-shrink: 0;
     align-items: center;
     border-radius: $border-radius-base;
     border: 1px solid $legacy-color-grey-250;
-    grid-row: 1;
-    grid-column: 1;
 
     .card & {
         width: $avatar-size-card !important;
