@@ -91,11 +91,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                             contact={element.contact}
                             isSignatureLayout={isSignatureLayout}
                         />
-                        <SocialFields
-                            contact={element.contact}
-                            showHandles={isCardLayout}
-                            showWebsite={isCardLayout}
-                        />
+                        <SocialFields contact={element.contact} isCardLayout={isCardLayout} />
                     </div>
                 </div>
             )}
@@ -141,16 +137,16 @@ function ContactFields(props: { contact: ContactInfo; isSignatureLayout: boolean
     );
 }
 
-function SocialFields(props: { contact: ContactInfo; showHandles: boolean; showWebsite: boolean }) {
-    const { contact, showHandles, showWebsite } = props;
+function SocialFields(props: { contact: ContactInfo; isCardLayout: boolean }) {
+    const { contact, isCardLayout } = props;
     const { facebook, twitter } = getSocialHandles(contact);
     const website = getUrl(contact.website);
 
     return (
         <ul className={classNames(styles.fields, styles.social)}>
-            {website && showWebsite && <Field icon={Globe}>{website.hostname}</Field>}
-            {facebook && <Field icon={SocialFacebook}>{showHandles && facebook}</Field>}
-            {twitter && <Field icon={SocialTwitter}>{showHandles && `@${twitter}`}</Field>}
+            {website && isCardLayout && <Field icon={Globe}>{website.hostname}</Field>}
+            {facebook && <Field icon={SocialFacebook}>{isCardLayout && facebook}</Field>}
+            {twitter && <Field icon={SocialTwitter}>{isCardLayout && `@${twitter}`}</Field>}
         </ul>
     );
 }
