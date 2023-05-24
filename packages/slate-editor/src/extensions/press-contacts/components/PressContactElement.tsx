@@ -10,7 +10,7 @@ import { useSlateStatic } from 'slate-react';
 import { Avatar, EditorBlock } from '#components';
 import { Envelope, Globe, Mobile, Phone, SocialFacebook, SocialTwitter, User } from '#icons';
 
-import { removePressContact, updatePressContact } from '../lib';
+import { getSocialHandles, getUrl, removePressContact, updatePressContact } from '../lib';
 
 import styles from './PressContactElement.module.scss';
 import { PressContactMenu } from './PressContactMenu';
@@ -91,7 +91,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                             contact={element.contact}
                             isSignatureLayout={isSignatureLayout}
                         />
-                        <SocialFields contact={element.contact} showWebsite={isCardLayout} />
+                        <SocialFields contact={element.contact} isCardLayout={isCardLayout} />
                     </div>
                 </div>
             )}
@@ -137,15 +137,16 @@ function ContactFields(props: { contact: ContactInfo; isSignatureLayout: boolean
     );
 }
 
-function SocialFields(props: { contact: ContactInfo; showWebsite: boolean }) {
-    const { showWebsite } = props;
-    const { twitter, facebook, website } = props.contact;
+function SocialFields(props: { contact: ContactInfo; isCardLayout: boolean }) {
+    const { contact, isCardLayout } = props;
+    const { facebook, twitter } = getSocialHandles(contact);
+    const website = getUrl(contact.website);
 
     return (
         <ul className={classNames(styles.fields, styles.social)}>
-            {website && showWebsite && <Field icon={Globe} />}
-            {facebook && <Field icon={SocialFacebook} />}
-            {twitter && <Field icon={SocialTwitter} />}
+            {website && isCardLayout && <Field icon={Globe}>{website.hostname}</Field>}
+            {facebook && <Field icon={SocialFacebook}>{isCardLayout && facebook}</Field>}
+            {twitter && <Field icon={SocialTwitter}>{isCardLayout && `@${twitter}`}</Field>}
         </ul>
     );
 }
@@ -160,7 +161,7 @@ export function Field({
     return (
         <li className={styles.field}>
             {Icon && <Icon className={styles.icon} />}
-            <span className={styles.content}>{children}</span>
+            {children && <span className={styles.content}>{children}</span>}
         </li>
     );
 }
