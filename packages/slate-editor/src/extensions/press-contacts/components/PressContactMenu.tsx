@@ -1,3 +1,4 @@
+import type { ContactNode } from '@prezly/slate-types';
 import { ContactLayout } from '@prezly/slate-types';
 import React from 'react';
 
@@ -6,12 +7,11 @@ import { Button, OptionsGroup, Toggle, Toolbox } from '#components';
 import { ContactLayoutCard, ContactLayoutSignature, Delete } from '#icons';
 
 interface Props {
-    layout: ContactLayout;
+    element: ContactNode;
     onChangeLayout: (layout: ContactLayout) => void;
     onClose: () => void;
     onRemove: () => void;
     onToggleAvatar: (visible: boolean) => void;
-    showAvatar: boolean;
 }
 
 const LAYOUT_OPTIONS: OptionsGroupOption<ContactLayout>[] = [
@@ -28,12 +28,11 @@ const LAYOUT_OPTIONS: OptionsGroupOption<ContactLayout>[] = [
 ];
 
 export function PressContactMenu({
-    layout,
+    element,
     onChangeLayout,
     onClose,
     onRemove,
     onToggleAvatar,
-    showAvatar,
 }: Props) {
     return (
         <>
@@ -42,7 +41,12 @@ export function PressContactMenu({
             </Toolbox.Header>
 
             <Toolbox.Section>
-                <Toggle onChange={onToggleAvatar} name="show_avatar" value={showAvatar}>
+                <Toggle
+                    disabled={!element.contact.avatar_url}
+                    onChange={onToggleAvatar}
+                    name="show_avatar"
+                    value={element.show_avatar}
+                >
                     Show avatar
                 </Toggle>
             </Toolbox.Section>
@@ -52,7 +56,7 @@ export function PressContactMenu({
                     name="layout"
                     columns={3} // intentionally using 3 columns so the options are better laid out
                     options={LAYOUT_OPTIONS}
-                    selectedValue={layout}
+                    selectedValue={element.layout}
                     onChange={onChangeLayout}
                 />
             </Toolbox.Section>

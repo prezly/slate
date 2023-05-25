@@ -8,7 +8,7 @@ import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
 import { Avatar, EditorBlock } from '#components';
-import { Envelope, Globe, Mobile, Phone, SocialFacebook, SocialTwitter, User } from '#icons';
+import { Envelope, Globe, Mobile, Phone, SocialFacebook, SocialTwitter } from '#icons';
 
 import { getSocialHandles, getUrl, removePressContact, updatePressContact } from '../lib';
 
@@ -50,8 +50,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
 
                 return (
                     <PressContactMenu
-                        layout={layout}
-                        showAvatar={showAvatar}
+                        element={element}
                         onClose={props.onClose}
                         onChangeLayout={handleChangeLayout}
                         onToggleAvatar={handleToggleAvatar}
@@ -74,12 +73,6 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                             square
                             src={element.contact.avatar_url}
                         />
-                    )}
-
-                    {!element.contact.avatar_url && showAvatar && (
-                        <div className={styles.avatar}>
-                            <User className={styles.avatarPlaceholder} />
-                        </div>
                     )}
 
                     <div className={styles.content}>
