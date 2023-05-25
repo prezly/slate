@@ -30,6 +30,7 @@ function filter<T extends Option>(options: T[], query: string): T[] {
     const relevanceOrderedOptions = [
         ...options.filter(({ text }) => ` ${text.toLowerCase()}`.includes(` ${lowercaseQuery}`)),
         ...options.filter(({ text }) => text.toLowerCase().includes(lowercaseQuery)),
+        ...options.filter(({ description }) => description?.toLowerCase().includes(lowercaseQuery)),
         ...options.filter(({ keywords }) =>
             keywords ? keywords.some((keyword) => keyword.includes(lowercaseQuery)) : false,
         ),

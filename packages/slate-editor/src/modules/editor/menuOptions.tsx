@@ -248,7 +248,7 @@ function* generateOptions(
             group: Group.PREZLY_CONTENT,
             text: 'Site contact',
             keywords: ['signature'],
-            description: 'Add your site contacts',
+            description: 'Add a contact card or signature',
         };
     }
 
