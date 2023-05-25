@@ -184,7 +184,9 @@ export function Dropdown<Action>({
                                             <Highlight search={highlight}>{option.text}</Highlight>
                                         </div>
                                         <div className={styles.MenuItemDescription}>
-                                            {option.description}
+                                            <Highlight search={highlight}>
+                                                {option.description}
+                                            </Highlight>
                                         </div>
                                     </div>
                                     {(option.isBeta || option.isNew) && (
