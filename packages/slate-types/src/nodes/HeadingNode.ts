@@ -26,17 +26,12 @@ export function isHeadingNode(value: any, type?: string): boolean {
     );
 }
 
-export function isTitleHeadingNode(value: any): value is HeadingNode<typeof HEADING_1_NODE_TYPE>;
+export function isTitleHeadingNode(value: any): value is HeadingNode;
 export function isTitleHeadingNode(value: any): boolean {
-    return (
-        isElementNode<HeadingNode>(value, [HEADING_1_NODE_TYPE]) && value.role === HeadingRole.TITLE
-    );
+    return isHeadingNode(value) && value.role === HeadingRole.TITLE;
 }
 
-export function isSubtitleHeadingNode(value: any): value is HeadingNode<typeof HEADING_2_NODE_TYPE>;
+export function isSubtitleHeadingNode(value: any): value is HeadingNode;
 export function isSubtitleHeadingNode(value: any): boolean {
-    return (
-        isElementNode<HeadingNode>(value, [HEADING_2_NODE_TYPE]) &&
-        value.role === HeadingRole.SUBTITLE
-    );
+    return isHeadingNode(value) && value.role === HeadingRole.SUBTITLE;
 }
