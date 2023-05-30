@@ -9,6 +9,7 @@ exports[`nodes-hierarchy / Heading should be kept after normalization 1`] = `
         "text": "First",
       },
     ],
+    "role": undefined,
     "type": "heading-one",
   },
   {
@@ -18,6 +19,7 @@ exports[`nodes-hierarchy / Heading should be kept after normalization 1`] = `
         "text": "Second",
       },
     ],
+    "role": undefined,
     "type": "heading-two",
   },
 ]

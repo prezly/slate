@@ -5,6 +5,7 @@ import type { Editor, NodeEntry } from 'slate';
 
 const shape: Record<keyof HeadingNode, true> = {
     type: true,
+    role: true,
     align: true,
     children: true,
 };
