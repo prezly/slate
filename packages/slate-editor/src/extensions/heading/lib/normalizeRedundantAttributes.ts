@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { HeadingNode } from '@prezly/slate-types';
-import { isQuoteNode } from '@prezly/slate-types';
+import { isHeadingNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
 const shape: Record<keyof HeadingNode, true> = {
@@ -13,7 +13,7 @@ const shape: Record<keyof HeadingNode, true> = {
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
 export function normalizeRedundantAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
-    if (isQuoteNode(node)) {
+    if (isHeadingNode(node)) {
         return EditorCommands.normalizeRedundantAttributes(
             editor,
             [node, path],
