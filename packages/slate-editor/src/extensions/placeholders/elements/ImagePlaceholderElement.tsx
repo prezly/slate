@@ -53,15 +53,7 @@ export function ImagePlaceholderElement({
                 const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
                 return { file: image.toPrezlyStoragePayload(), caption };
             });
-
-            // We need to delay registering additional placeholders to make sure they are mounted
-            // and the follower is created in `PlaceholdersManager` to respond to the `onResolve` callback.
-            setTimeout(
-                () => {
-                    PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
-                },
-                i > 0 ? 100 : 0,
-            );
+            PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
         });
     }
 
