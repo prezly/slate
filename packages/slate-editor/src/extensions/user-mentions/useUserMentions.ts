@@ -21,7 +21,6 @@ export function useUserMentions({ users }: UserMentionsExtensionParameters = DEF
 
     return useMentions<User>({
         createMentionElement: (option) => createUserMention(option.value),
-        isEnabled: () => true,
         options,
         trigger: '@',
     });
