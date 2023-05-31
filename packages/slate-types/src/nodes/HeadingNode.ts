@@ -7,8 +7,14 @@ export const HEADING_2_NODE_TYPE = 'heading-two';
 
 type HeadingType = typeof HEADING_1_NODE_TYPE | typeof HEADING_2_NODE_TYPE;
 
+export enum HeadingRole {
+    TITLE = 'title',
+    SUBTITLE = 'subtitle',
+}
+
 export interface HeadingNode<T extends HeadingType = HeadingType> extends ElementNode, Alignable {
     type: T;
+    role?: HeadingRole;
 }
 
 export function isHeadingNode(value: any): value is HeadingNode;
@@ -18,4 +24,14 @@ export function isHeadingNode(value: any, type?: string): boolean {
         isElementNode<HeadingNode>(value, [HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE]) &&
         (type === undefined || value.type === type)
     );
+}
+
+export function isTitleHeadingNode(value: any): value is HeadingNode;
+export function isTitleHeadingNode(value: any): boolean {
+    return isHeadingNode(value) && value.role === HeadingRole.TITLE;
+}
+
+export function isSubtitleHeadingNode(value: any): value is HeadingNode;
+export function isSubtitleHeadingNode(value: any): boolean {
+    return isHeadingNode(value) && value.role === HeadingRole.SUBTITLE;
 }
