@@ -6,6 +6,8 @@ export { EditableWithExtensions } from './modules/editable';
 
 export { createCoverage } from './extensions/coverage';
 export { createEmbed } from './extensions/embed';
+export { createHeading } from './extensions/heading';
+export { createParagraph } from './extensions/paragraphs';
 export {
     type PlaceholdersExtensionParameters,
     createPlaceholder,
