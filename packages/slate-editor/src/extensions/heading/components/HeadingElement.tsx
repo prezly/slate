@@ -34,7 +34,9 @@ export const HeadingElement = forwardRef<HTMLHeadingElement, Props>(
             return (
                 <Heading {...props} ref={ref} className={finalClassNames}>
                     {children}
-                    <span contentEditable={false} className={styles.placeholder}>Add a title</span>
+                    <span contentEditable={false} className={styles.placeholder}>
+                        Add a title
+                    </span>
                 </Heading>
             );
         }
@@ -43,7 +45,9 @@ export const HeadingElement = forwardRef<HTMLHeadingElement, Props>(
             return (
                 <Heading {...props} ref={ref} className={finalClassNames}>
                     {children}
-                    <span contentEditable={false} className={styles.placeholder}>Add a subtitle</span>
+                    <span contentEditable={false} className={styles.placeholder}>
+                        Add a subtitle
+                    </span>
                 </Heading>
             );
         }
