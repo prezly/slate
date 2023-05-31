@@ -269,8 +269,8 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }),
     );
 
-    const variables = useVariables(withVariables || undefined);
-    const userMentions = useUserMentions(withUserMentions || undefined);
+    const variables = useVariables(editor, withVariables || undefined);
+    const userMentions = useUserMentions(editor, withUserMentions || undefined);
 
     const [
         { isOpen: isFloatingStoryEmbedInputOpen },

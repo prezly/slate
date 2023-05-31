@@ -1,4 +1,7 @@
-import { useMemo } from 'react';
+import { isSubtitleHeadingNode, isTitleHeadingNode } from '@prezly/slate-types';
+import { useCallback, useMemo } from 'react';
+import type { BaseRange } from 'slate';
+import { Editor } from 'slate';
 
 import type { Option } from '#extensions/mentions';
 import { useMentions } from '#extensions/mentions';
@@ -16,11 +19,31 @@ function placeholderToOption(placeholder: Variable): Option<Variable> {
 
 const DEFAULT_PARAMETERS: VariablesExtensionParameters = { variables: [] };
 
-export function useVariables({ variables }: VariablesExtensionParameters = DEFAULT_PARAMETERS) {
+export function useVariables(
+    editor: Editor,
+    { variables }: VariablesExtensionParameters = DEFAULT_PARAMETERS,
+) {
     const options = useMemo(() => variables.map(placeholderToOption), [variables]);
+    const isEnabled = useCallback(
+        (range: BaseRange | null) => {
+            if (!range) {
+                return true;
+            }
+
+            const nodes = Array.from(
+                Editor.nodes(editor, {
+                    at: range,
+                    match: (node) => isTitleHeadingNode(node) || isSubtitleHeadingNode(node),
+                }),
+            );
+            return nodes.length === 0;
+        },
+        [editor],
+    );
 
     return useMentions<Variable>({
         createMentionElement: (option) => createVariableNode(option.value.key),
+        isEnabled,
         options,
         trigger: '%',
     });

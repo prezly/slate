@@ -9,6 +9,7 @@ import type { MentionElementType, Option } from './types';
 
 interface Parameters<V> {
     createMentionElement: (option: Option<V>) => MentionElementType;
+    isEnabled: (target: Range | null) => boolean;
     options: Option<V>[];
     trigger: string;
 }
@@ -25,16 +26,17 @@ export interface Mentions<V> {
 
 export function useMentions<V>({
     createMentionElement,
+    isEnabled,
     options,
     trigger,
 }: Parameters<V>): Mentions<V> {
     const [index, setIndex] = useState<number>(0);
     const [query, setQuery] = useState<string>('');
     const [target, setTarget] = useState<Range | null>(null);
-    const filteredOptions = useMemo(
-        () => options.filter(({ label }) => label.search(new RegExp(query, 'i')) !== -1),
-        [query, options],
-    );
+    const filteredOptions = useMemo(() => {
+        if (!isEnabled(target)) return [];
+        return options.filter(({ label }) => label.search(new RegExp(query, 'i')) !== -1);
+    }, [isEnabled, query, options, target]);
 
     const onAdd = useCallback(
         (editor: Editor, option: Option<V>) => {
@@ -71,7 +73,7 @@ export function useMentions<V>({
 
     const onKeyDown = useCallback(
         (event: KeyboardEvent, editor: Editor) => {
-            if (!target) {
+            if (!target || !isEnabled(target)) {
                 return;
             }
 
@@ -98,7 +100,7 @@ export function useMentions<V>({
                 onAdd(editor, filteredOptions[index]);
             }
         },
-        [index, filteredOptions, onAdd, target],
+        [index, isEnabled, filteredOptions, onAdd, target],
     );
 
     return {
