@@ -1,8 +1,20 @@
 @import "styles/variables";
 
 .HeadingElement {
+    position: relative;
     color: $editor-text-color;
-    font-weight: bold;
+    font-weight: 600;
+
+    &.title {
+        font-size: 40px;
+        line-height: 48px;
+    }
+
+    &.subtitle {
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 32px;
+    }
 
     &.headingOne {
         font-size: $editor-heading-one-font-size;
@@ -17,4 +29,12 @@
     strong {
         font-weight: 900;
     }
+}
+
+.placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.75;
+    pointer-events: none;
 }
