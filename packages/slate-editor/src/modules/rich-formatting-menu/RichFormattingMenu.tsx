@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
+import { isSubtitleHeadingNode, isTitleHeadingNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
@@ -197,6 +198,13 @@ export function RichFormattingMenu({
     const isInsideTable = TablesEditor.isTablesEditor(editor) && TablesEditor.isInTable(editor);
     const isInsideTableHeader = isInsideTable && TablesEditor.isHeaderCell(editor);
 
+    const isTitleOrSubtitleHeading =
+        Array.from(
+            Editor.nodes(editor, {
+                match: (node) => isTitleHeadingNode(node) || isSubtitleHeadingNode(node),
+            }),
+        ).length > 0;
+
     return (
         <TextSelectionPortalV2
             containerElement={containerElement}
@@ -231,11 +239,11 @@ export function RichFormattingMenu({
                     // features
                     withBoldFormat={!isInsideTableHeader}
                     withAlignment={withAlignment}
-                    withBlockquotes={withBlockquotes && !isInsideTable}
-                    withHeadings={withHeadings && !isInsideTable}
-                    withInlineLinks={withInlineLinks}
-                    withLists={withLists}
-                    withParagraphs={withParagraphs}
+                    withBlockquotes={withBlockquotes && !isInsideTable && !isTitleOrSubtitleHeading}
+                    withHeadings={withHeadings && !isInsideTable && !isTitleOrSubtitleHeading}
+                    withInlineLinks={withInlineLinks && !isTitleOrSubtitleHeading}
+                    withLists={withLists && !isTitleOrSubtitleHeading}
+                    withParagraphs={withParagraphs && !isTitleOrSubtitleHeading}
                 />
             </Menu.Toolbar>
         </TextSelectionPortalV2>
