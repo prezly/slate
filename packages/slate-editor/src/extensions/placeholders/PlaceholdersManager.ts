@@ -194,21 +194,35 @@ function notify<T extends Type>(type: T, uuid: Uuid, callback: (follower: Follow
     state.notifications = [...state.notifications, notification];
 
     setTimeout(() => {
-        state.notifications = state.notifications.filter((n) => n !== notification);
+        cleanupNotification(notification);
     }, NOTIFICATION_TTL);
 
     state.followers.forEach((follower) => {
         if (is(follower, type, uuid)) {
-            callback(follower as any as Follower<T>);
+            respondToNotification(follower, notification);
         }
     });
 }
 
+function cleanupNotification<T extends Type>(notification: Notification<T>) {
+    state.notifications = state.notifications.filter(
+        (n) => n !== (notification as any as Notification<Type>),
+    );
+}
+
+function respondToNotification<T extends Type>(
+    follower: Follower<T>,
+    notification: Notification<T>,
+) {
+    if (is(follower, notification.type, notification.uuid)) {
+        notification.callback(follower);
+        cleanupNotification(notification);
+    }
+}
+
 function consumeNotifications<T extends Type>(follower: Follower<T>) {
-    state.notifications.forEach(({ type, uuid, callback }) => {
-        if (is(follower, type, uuid)) {
-            (callback as any as Notification<T>['callback'])(follower);
-        }
+    state.notifications.forEach((notification) => {
+        respondToNotification(follower, notification as any as Notification<T>);
     });
 }
 
