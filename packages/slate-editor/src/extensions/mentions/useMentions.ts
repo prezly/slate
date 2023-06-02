@@ -1,3 +1,4 @@
+import { stubTrue } from '@technically/lodash';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useMemo, useState } from 'react';
@@ -26,7 +27,7 @@ export interface Mentions<V> {
 
 export function useMentions<V>({
     createMentionElement,
-    isEnabled = () => true,
+    isEnabled = stubTrue,
     options,
     trigger,
 }: Parameters<V>): Mentions<V> {
