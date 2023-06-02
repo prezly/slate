@@ -1,19 +1,20 @@
 import React, { type MouseEvent, useState } from 'react';
 import { Transforms } from 'slate';
-import { type RenderElementProps, useSlateStatic } from 'slate-react';
+import { ReactEditor, type RenderElementProps, useSlateStatic } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useFunction } from '#lib';
 
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { usePlaceholderManagement } from '../PlaceholdersManager';
+import type { RemovableFlagConfig } from '../types';
 
 import { type Props as BaseProps, Placeholder } from './Placeholder';
 
 export type Props = RenderElementProps &
     Pick<BaseProps, 'icon' | 'title' | 'description' | 'format' | 'onClick' | 'onDrop'> & {
         element: PlaceholderNode;
-        removable: boolean;
+        removable: RemovableFlagConfig;
     };
 
 export function PlaceholderElement({
@@ -55,6 +56,9 @@ export function PlaceholderElement({
         },
     );
 
+    const isRemovable =
+        typeof removable === 'boolean' ? removable : checkRemovable(editor, element, removable);
+
     return (
         <EditorBlock
             {...attributes}
@@ -75,7 +79,7 @@ export function PlaceholderElement({
                     progress={progress ?? isLoading}
                     // Callbacks
                     onClick={isLoading ? undefined : onClick}
-                    onRemove={removable ? handleRemove : undefined}
+                    onRemove={isRemovable ? handleRemove : undefined}
                     onDragOver={handleDragOver}
                     onDragLeave={handleDragLeave}
                     onDrop={onDrop}
@@ -86,4 +90,17 @@ export function PlaceholderElement({
             void
         />
     );
+}
+
+function checkRemovable(
+    editor: ReactEditor,
+    element: PlaceholderNode,
+    removable: Exclude<RemovableFlagConfig, boolean>,
+) {
+    try {
+        const path = ReactEditor.findPath(editor, element);
+        return removable(element, path);
+    } catch {
+        return false;
+    }
 }

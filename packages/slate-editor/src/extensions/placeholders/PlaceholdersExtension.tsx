@@ -16,7 +16,7 @@ import {
 import { MediaPlaceholderElement } from './elements/MediaPlaceholderElement';
 import { fixDuplicatePlaceholderUuid, removeDisabledPlaceholders } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
-import type { FetchOEmbedFn, FrameProps } from './types';
+import type { FetchOEmbedFn, FrameProps, RemovableFlagConfig } from './types';
 
 export const EXTENSION_ID = 'PlaceholdersExtension';
 
@@ -24,7 +24,7 @@ const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
 
 export interface Parameters {
     format?: FrameProps['format'];
-    removable?: boolean;
+    removable?: RemovableFlagConfig;
     withAttachmentPlaceholders?: boolean;
     withContactPlaceholders?:
         | false
