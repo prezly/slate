@@ -336,6 +336,11 @@ function buildPlaceholdersExtensionConfiguration({
                 },
             };
         }
+        if (withPlaceholders && withPlaceholders.withMediaPlaceholders) {
+            yield {
+                withMediaPlaceholders: withPlaceholders.withMediaPlaceholders,
+            };
+        }
         if (withPressContacts) {
             yield {
                 withContactPlaceholders: withPressContacts,
