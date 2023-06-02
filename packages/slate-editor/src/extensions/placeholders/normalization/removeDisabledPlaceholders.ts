@@ -11,6 +11,7 @@ interface Parameters {
     withInlineContactPlaceholders: boolean;
     withGalleryPlaceholders: boolean;
     withEmbedPlaceholders: boolean;
+    withMediaPlaceholders: boolean;
     withSocialPostPlaceholders: boolean;
     withVideoPlaceholders: boolean;
     withWebBookmarkPlaceholders: boolean;
@@ -24,6 +25,7 @@ export function removeDisabledPlaceholders({
     withInlineContactPlaceholders,
     withGalleryPlaceholders,
     withEmbedPlaceholders,
+    withMediaPlaceholders,
     withSocialPostPlaceholders,
     withVideoPlaceholders,
     withWebBookmarkPlaceholders,
@@ -35,6 +37,7 @@ export function removeDisabledPlaceholders({
         [PlaceholderNode.Type.IMAGE]: withImagePlaceholders,
         [PlaceholderNode.Type.GALLERY]: withGalleryPlaceholders,
         [PlaceholderNode.Type.EMBED]: withEmbedPlaceholders,
+        [PlaceholderNode.Type.MEDIA]: withMediaPlaceholders,
         [PlaceholderNode.Type.SOCIAL_POST]: withSocialPostPlaceholders,
         [PlaceholderNode.Type.VIDEO]: withVideoPlaceholders,
         [PlaceholderNode.Type.WEB_BOOKMARK]: withWebBookmarkPlaceholders,

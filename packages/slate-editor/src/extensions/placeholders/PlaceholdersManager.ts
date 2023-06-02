@@ -38,6 +38,13 @@ interface Data {
         file: ImageNode['file'];
         caption: string;
     };
+    [Type.MEDIA]: {
+        media: {
+            type: 'image';
+            file: ImageNode['file'];
+            caption: string;
+        };
+    };
     [Type.SOCIAL_POST]: {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
