@@ -1,5 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isHeadingNode, isParagraphNode } from '@prezly/slate-types';
+import {
+    isHeadingNode,
+    isParagraphNode,
+    isSubtitleHeadingNode,
+    isTitleHeadingNode,
+} from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Node, Range } from 'slate';
 
@@ -17,6 +22,10 @@ export function shouldShowMenuButton(editor: Editor): boolean {
     }
 
     if (!isParagraphNode(currentNode) && !isHeadingNode(currentNode)) {
+        return false;
+    }
+
+    if (isTitleHeadingNode(currentNode) || isSubtitleHeadingNode(currentNode)) {
         return false;
     }
 
