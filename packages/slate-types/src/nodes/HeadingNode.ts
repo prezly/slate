@@ -26,12 +26,14 @@ export function isHeadingNode(value: any, type?: string): boolean {
     );
 }
 
-export function isTitleHeadingNode(value: any): value is HeadingNode;
+export function isTitleHeadingNode(value: any): value is HeadingNode & { role: HeadingRole.TITLE };
 export function isTitleHeadingNode(value: any): boolean {
     return isHeadingNode(value) && value.role === HeadingRole.TITLE;
 }
 
-export function isSubtitleHeadingNode(value: any): value is HeadingNode;
+export function isSubtitleHeadingNode(
+    value: any,
+): value is HeadingNode & { role: HeadingRole.SUBTITLE };
 export function isSubtitleHeadingNode(value: any): boolean {
     return isHeadingNode(value) && value.role === HeadingRole.SUBTITLE;
 }
