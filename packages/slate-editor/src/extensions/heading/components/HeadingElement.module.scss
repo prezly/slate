@@ -26,15 +26,18 @@
         line-height: $editor-heading-two-line-height;
     }
 
+    &[data-placeholder] {
+        &::before {
+            content: attr(data-placeholder);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.75;
+            pointer-events: none;
+        }
+    }
+
     strong {
         font-weight: 900;
     }
-}
-
-.placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.75;
-    pointer-events: none;
 }

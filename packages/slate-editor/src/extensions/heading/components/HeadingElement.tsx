@@ -16,51 +16,38 @@ interface Props extends HTMLAttributes<HTMLHeadingElement> {
 export const HeadingElement = forwardRef<HTMLHeadingElement, Props>(
     ({ children, className, element, ...props }, ref) => {
         const editor = useSlateStatic();
-        const Heading = element.type === HEADING_1_NODE_TYPE ? 'h3' : 'h4';
+        const Tag = element.type === HEADING_1_NODE_TYPE ? 'h3' : 'h4';
 
         const isHeadingOne = element.type === HEADING_1_NODE_TYPE;
         const isHeadingTwo = element.type === HEADING_2_NODE_TYPE;
         const isTitle = element.role === HeadingRole.TITLE;
         const isSubtitle = element.role === HeadingRole.SUBTITLE;
 
-        const finalClassNames = classNames(className, styles.HeadingElement, {
-            [styles.title]: isTitle,
-            [styles.subtitle]: isSubtitle,
-            [styles.headingOne]: !isTitle && isHeadingOne,
-            [styles.headingTwo]: !isSubtitle && isHeadingTwo,
-        });
+        let placeholder: string | undefined = undefined;
 
         if (isTitle && EditorCommands.isNodeEmpty(editor, element)) {
-            return (
-                <Heading {...props} ref={ref} className={finalClassNames}>
-                    {children}
-                    <span contentEditable={false} className={styles.placeholder}>
-                        Add a title
-                    </span>
-                </Heading>
-            );
+            placeholder = 'Add a title';
         }
 
         if (isSubtitle && EditorCommands.isNodeEmpty(editor, element)) {
-            return (
-                <Heading {...props} ref={ref} className={finalClassNames}>
-                    {children}
-                    <span contentEditable={false} className={styles.placeholder}>
-                        Add a subtitle
-                    </span>
-                </Heading>
-            );
+            placeholder = 'Add a subtitle';
         }
 
         return (
-            <Heading
+            <Tag
                 {...props}
                 ref={ref}
-                className={finalClassNames}
+                className={classNames(className, styles.HeadingElement, {
+                    [styles.title]: isTitle,
+                    [styles.subtitle]: isSubtitle,
+                    [styles.headingOne]: !isTitle && isHeadingOne,
+                    [styles.headingTwo]: !isSubtitle && isHeadingTwo,
+                })}
                 style={{ textAlign: element.align }}
+                data-placeholder={placeholder}
             >
                 {children}
-            </Heading>
+            </Tag>
         );
     },
 );
