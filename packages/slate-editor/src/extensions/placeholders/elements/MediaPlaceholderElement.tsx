@@ -98,7 +98,7 @@ export function MediaPlaceholderElement({
                 createImage({
                     file,
                     children: [{ text: caption }],
-                    layout: ImageLayout.FULL_WIDTH,
+                    layout: ImageLayout.EXPANDED,
                 }),
             );
 
