@@ -112,7 +112,10 @@ export interface EditorProps {
     withInlineContacts?: PlaceholdersExtensionParameters['withInlineContactPlaceholders'];
     withInlineLinks?: boolean;
     withLists?: boolean;
-    withPlaceholders?: Pick<PlaceholdersExtensionParameters, 'format' | 'removable'>;
+    withPlaceholders?: Pick<
+        PlaceholdersExtensionParameters,
+        'format' | 'removable' | 'withMediaPlaceholders'
+    >;
     withPressContacts?: false | PlaceholdersExtensionParameters['withContactPlaceholders'];
     withRichFormattingMenu?:
         | boolean

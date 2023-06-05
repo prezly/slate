@@ -13,9 +13,10 @@ import {
     VideoPlaceholderElement,
     WebBookmarkPlaceholderElement,
 } from './elements';
+import { MediaPlaceholderElement } from './elements/MediaPlaceholderElement';
 import { fixDuplicatePlaceholderUuid, removeDisabledPlaceholders } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
-import type { FetchOEmbedFn, FrameProps } from './types';
+import type { FetchOEmbedFn, FrameProps, RemovableFlagConfig } from './types';
 
 export const EXTENSION_ID = 'PlaceholdersExtension';
 
@@ -23,7 +24,7 @@ const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
 
 export interface Parameters {
     format?: FrameProps['format'];
-    removable?: boolean;
+    removable?: RemovableFlagConfig;
     withAttachmentPlaceholders?: boolean;
     withContactPlaceholders?:
         | false
@@ -54,6 +55,7 @@ export interface Parameters {
               InlineContactPlaceholderElement.Props,
               'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
           >;
+    withMediaPlaceholders?: boolean | { withCaptions: boolean; newsroom: NewsroomRef | undefined };
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
@@ -69,6 +71,7 @@ export function PlaceholdersExtension({
     withGalleryPlaceholders = false,
     withImagePlaceholders = false,
     withInlineContactPlaceholders = false,
+    withMediaPlaceholders = false,
     withSocialPostPlaceholders = false,
     withWebBookmarkPlaceholders = false,
     withVideoPlaceholders = false,
@@ -95,6 +98,7 @@ export function PlaceholdersExtension({
                 withGalleryPlaceholders: Boolean(withGalleryPlaceholders),
                 withImagePlaceholders: Boolean(withImagePlaceholders),
                 withInlineContactPlaceholders: Boolean(withInlineContactPlaceholders),
+                withMediaPlaceholders: Boolean(withMediaPlaceholders),
                 withSocialPostPlaceholders: Boolean(withSocialPostPlaceholders),
                 withWebBookmarkPlaceholders: Boolean(withWebBookmarkPlaceholders),
                 withVideoPlaceholders: Boolean(withVideoPlaceholders),
@@ -211,6 +215,23 @@ export function PlaceholdersExtension({
                     >
                         {children}
                     </GalleryPlaceholderElement>
+                );
+            }
+            if (withMediaPlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.MEDIA)) {
+                const { newsroom = undefined, withCaptions = false } =
+                    withMediaPlaceholders === true ? {} : withMediaPlaceholders;
+
+                return (
+                    <MediaPlaceholderElement
+                        attributes={attributes}
+                        element={element}
+                        format={format}
+                        newsroom={newsroom}
+                        withCaptions={withCaptions}
+                        removable={removable}
+                    >
+                        {children}
+                    </MediaPlaceholderElement>
                 );
             }
             if (

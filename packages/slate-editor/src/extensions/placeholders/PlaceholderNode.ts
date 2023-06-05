@@ -18,6 +18,10 @@ export namespace PlaceholderNode {
         EMBED = 'placeholder:embed',
         GALLERY = 'placeholder:gallery',
         IMAGE = 'placeholder:image',
+        /**
+         * Media placeholder allows to insert one of multiple types of media (image, video, and maybe embed?)
+         */
+        MEDIA = 'placeholder:media',
         SOCIAL_POST = 'placeholder:social-post',
         VIDEO = 'placeholder:video',
         WEB_BOOKMARK = 'placeholder:bookmark',
