@@ -33,6 +33,18 @@ $editor-block-outline-width: 6px;
     & + & [data-new-paragraph-delimiter-position="top"] {
         display: none !important;
     }
+
+    &.rounded {
+        border-radius: $editor-block-border-radius;
+    }
+
+    &.hasError {
+        border-radius: 0;
+    }
+
+    &.selected {
+        border-radius: 0;
+    }
 }
 
 .Frame {
@@ -40,6 +52,7 @@ $editor-block-outline-width: 6px;
     white-space: normal;
     position: relative;
     caret-color: initial;
+    border-radius: inherit;
 
     &.alignLeft {
         margin-left: 0;
@@ -59,6 +72,7 @@ $editor-block-outline-width: 6px;
 
 .Content {
     position: relative;
+    border-radius: inherit;
 
     .withOverlay & {
         z-index: $editor-block-overlay-z-index - 1;
@@ -84,24 +98,7 @@ $editor-block-outline-width: 6px;
         }
     }
 
-    &.rounded {
-        border-radius: $editor-block-border-radius;
-    }
-
-    &.hasError {
-        color: $legacy-color-status-error;
-        outline: solid 6px $legacy-color-status-error;
-        border-radius: 0;
-    }
-
-    &.selected {
-        outline: solid $editor-block-outline-width $editor-block-focus-color;
-        border-radius: 0;
-    }
-
-    &.fullWidth.selected {
-        outline: none;
-
+    @mixin outline($outline-color) {
         &::after {
             content: "";
             display: block;
@@ -111,9 +108,19 @@ $editor-block-outline-width: 6px;
             right: 0;
             bottom: 0;
             pointer-events: none;
-            outline: solid 6px $editor-block-focus-color;
-            outline-offset: -6px;
+            border-radius: inherit;
+            outline: solid $editor-block-outline-width $outline-color;
+            outline-offset: -$editor-block-outline-width;
         }
+    }
+
+    &.hasError {
+        color: $legacy-color-status-error;
+        @include outline($legacy-color-status-error);
+    }
+
+    &.selected {
+        @include outline($editor-block-focus-color);
     }
 }
 
