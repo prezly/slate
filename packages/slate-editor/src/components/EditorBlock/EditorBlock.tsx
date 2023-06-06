@@ -152,6 +152,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 [styles.isVoid]: isVoid,
                 [styles.extendedHitArea]: extendedHitArea,
                 [styles.withOverlay]: isOverlayEnabled,
+                [styles.rounded]: rounded,
+                [styles.hasError]: hasError,
+                [styles.selected]: selected,
             })}
             data-slate-block-layout={layout}
             onClick={closeMenu}
@@ -191,11 +194,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     className={classNames(styles.Content, {
                         [styles.border]: border,
                         [styles.editable]: Boolean(renderEditableFrame),
-                        [styles.fullWidth]: layout === Layout.FULL_WIDTH,
                         [styles.hasError]: hasError,
                         [styles.overflowHidden]: overflow === 'hidden',
                         [styles.overflowVisible]: overflow === 'visible',
-                        [styles.rounded]: rounded,
                         [styles.selected]: isSelected,
                     })}
                     onClick={handleFrameClick}
