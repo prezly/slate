@@ -50,16 +50,10 @@ export function createImageReplaceHandler(params: ImageExtensionConfiguration) {
                 const caption: string =
                     fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || originalCaption || '';
 
-                EventsEditor.dispatchEvent(editor, 'image-edited', {
-                    description: fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
-                    mimeType: fileInfo.mimeType,
-                    size: fileInfo.size,
-                    uuid: fileInfo.uuid,
-                });
-
                 return {
                     file: image.toPrezlyStoragePayload(),
                     caption,
+                    operation: 'edit',
                 };
             }),
         );

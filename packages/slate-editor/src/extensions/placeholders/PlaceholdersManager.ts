@@ -39,6 +39,7 @@ interface Data {
     [Type.IMAGE]: {
         file: ImageNode['file'];
         caption: string;
+        operation: 'add' | 'edit';
     };
     [Type.MEDIA]: {
         media: {

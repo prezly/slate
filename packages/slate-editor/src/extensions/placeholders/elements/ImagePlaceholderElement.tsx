@@ -51,7 +51,7 @@ export function ImagePlaceholderElement({
             const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
                 const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
                 const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
-                return { file: image.toPrezlyStoragePayload(), caption };
+                return { file: image.toPrezlyStoragePayload(), caption, operation: 'add' } as const;
             });
             PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
         });
@@ -77,7 +77,7 @@ export function ImagePlaceholderElement({
     });
 
     const handleUploadedImage = useFunction(
-        (data: { file: ImageNode['file']; caption: string }) => {
+        (data: { file: ImageNode['file']; caption: string; operation: 'add' | 'edit' }) => {
             replacePlaceholder(
                 editor,
                 element,
@@ -87,7 +87,8 @@ export function ImagePlaceholderElement({
                 }),
             );
 
-            EventsEditor.dispatchEvent(editor, 'image-added', {
+            const event = data.operation === 'edit' ? 'image-edited' : 'image-added';
+            EventsEditor.dispatchEvent(editor, event, {
                 description: data.caption,
                 isPasted: false,
                 mimeType: data.file.mime_type,
