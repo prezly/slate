@@ -40,6 +40,7 @@ export { moveCursorToPreviousBlock } from './moveCursorToPreviousBlock';
 export { normalizeNestedElement } from './normalizeNestedElement';
 export { normalizeRedundantAttributes } from './normalizeRedundantAttributes';
 export { removeChildren } from './removeChildren';
+export { replaceChildren } from './replaceChildren';
 export { removeNode } from './removeNode';
 export { replaceNode } from './replaceNode';
 export { resetNodes } from './resetNodes';
