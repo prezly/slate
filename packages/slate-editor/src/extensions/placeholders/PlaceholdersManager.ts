@@ -12,6 +12,8 @@ import { useEffect, useState } from 'react';
 
 import { PlaceholderNode } from './PlaceholderNode';
 
+const NOTIFICATION_TTL = 10000;
+
 const Type = PlaceholderNode.Type;
 type Type = PlaceholderNode.Type;
 type Uuid = PlaceholderNode['uuid'];
@@ -73,15 +75,21 @@ type Callbacks<T extends Type> = {
 type Follower<T extends Type> = Identifier<T> & Callbacks<T>;
 type Unfollow = () => void;
 
+type Notification<T extends Type> = Identifier<T> & {
+    callback: (follower: Follower<T>) => void;
+};
+
 interface State {
     active: Identifier<Type> | undefined;
     followers: Array<Follower<Type>>;
+    notifications: Notification<Type>[];
     triggers: Identifier<Type>[];
 }
 
 const state: State = {
     active: undefined,
     followers: [],
+    notifications: [],
     triggers: [],
 };
 
@@ -151,6 +159,7 @@ export const PlaceholdersManager = {
         state.followers = [...state.followers, follower];
 
         trigger(follower);
+        consumeNotifications(follower);
 
         return () => {
             state.followers = state.followers.filter((f) => f !== follower);
@@ -188,9 +197,24 @@ function is<T extends Type>(follower: Identifier<Type>, type: T, uuid?: Uuid): b
 }
 
 function notify<T extends Type>(type: T, uuid: Uuid, callback: (follower: Follower<T>) => void) {
+    const notification = { type, uuid, callback } as any as Notification<Type>;
+    state.notifications = [...state.notifications, notification];
+
+    setTimeout(() => {
+        state.notifications = state.notifications.filter((n) => n !== notification);
+    }, NOTIFICATION_TTL);
+
     state.followers.forEach((follower) => {
         if (is(follower, type, uuid)) {
             callback(follower as any as Follower<T>);
+        }
+    });
+}
+
+function consumeNotifications<T extends Type>(follower: Follower<T>) {
+    state.notifications.forEach(({ type, uuid, callback }) => {
+        if (is(follower, type, uuid)) {
+            (callback as any as Notification<T>['callback'])(follower);
         }
     });
 }

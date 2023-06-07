@@ -52,7 +52,7 @@ export function PlaceholderElement({
         element.type as PlaceholderNode.Type,
         element.uuid,
         {
-            onProgress: (p) => setProgress(p),
+            onProgress: setProgress,
         },
     );
 
