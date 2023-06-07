@@ -1,65 +1,76 @@
-import type { PrezlyFileInfo } from '@prezly/uploadcare';
-import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
-import type { Editor } from 'slate';
+import { EditorCommands } from '@prezly/slate-commons';
+import {
+    type PrezlyFileInfo,
+    toProgressPromise,
+    UPLOADCARE_FILE_DATA_KEY,
+    UploadcareImage,
+} from '@prezly/uploadcare';
+import { Editor, Node, Transforms } from 'slate';
 
 import type { ImageExtensionConfiguration } from '#extensions/image';
-import { createImage, getCurrentImageNodeEntry } from '#extensions/image';
-import { LoaderContentType } from '#extensions/loader';
+import { getCurrentImageNodeEntry } from '#extensions/image';
+import { createPlaceholder, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
 import { EventsEditor } from '#modules/events';
 import { UploadcareEditor } from '#modules/uploadcare';
-
-import { insertUploadingFile } from '../insertUploadingFile';
 
 import { getMediaGalleryParameters } from './getMediaGalleryParameters';
 
 export function createImageReplaceHandler(params: ImageExtensionConfiguration) {
     return async function (editor: Editor) {
-        const currentNodeEntry = getCurrentImageNodeEntry(editor);
-        if (!currentNodeEntry) {
+        const [imageNode, path] = getCurrentImageNodeEntry(editor) ?? [];
+        if (!imageNode || !path) {
             return;
         }
 
         EventsEditor.dispatchEvent(editor, 'image-edit-clicked');
-        const [imageElement] = currentNodeEntry;
 
-        const filePromises = await UploadcareEditor.upload(editor, {
-            ...getMediaGalleryParameters(params),
-            captions: params.captions,
-            imagesOnly: true,
-            multiple: false,
-        });
+        // TODO: Consider changing this code in a way to preserve the image caption as-is,
+        //       otherwise we lose formatting & inline nodes after this code is executed.
+        const originalCaption = Node.string(imageNode);
 
-        if (!filePromises) {
+        const [upload] =
+            (await UploadcareEditor.upload(editor, {
+                ...getMediaGalleryParameters(params),
+                captions: params.captions,
+                imagesOnly: true,
+                multiple: false,
+            })) ?? [];
+
+        if (!upload) {
             return;
         }
 
-        const imageFileInfo = await insertUploadingFile<PrezlyFileInfo>(editor, {
-            createElement(fileInfo) {
+        const placeholder = createPlaceholder({ type: PlaceholderNode.Type.IMAGE });
+
+        PlaceholdersManager.register(
+            placeholder.type,
+            placeholder.uuid,
+            toProgressPromise(upload).then((fileInfo: PrezlyFileInfo) => {
                 const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-                const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
-                return createImage({
-                    file: image.toPrezlyStoragePayload(),
-                    children: caption ? [{ text: caption }] : imageElement.children,
-                    href: imageElement.href,
-                    layout: imageElement.layout,
-                    new_tab: imageElement.new_tab,
-                    width: imageElement.width,
+                const caption: string =
+                    fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || originalCaption || '';
+
+                EventsEditor.dispatchEvent(editor, 'image-edited', {
+                    description: fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
+                    mimeType: fileInfo.mimeType,
+                    size: fileInfo.size,
+                    uuid: fileInfo.uuid,
                 });
-            },
-            filePromise: toProgressPromise(filePromises[0]),
-            loaderContentType: LoaderContentType.IMAGE,
-            loaderMessage: 'Uploading Image',
-        });
 
-        if (!imageFileInfo) {
-            return;
-        }
+                return {
+                    file: image.toPrezlyStoragePayload(),
+                    caption,
+                };
+            }),
+        );
 
-        EventsEditor.dispatchEvent(editor, 'image-edited', {
-            description: imageFileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
-            mimeType: imageFileInfo.mimeType,
-            size: imageFileInfo.size,
-            uuid: imageFileInfo.uuid,
+        Editor.withoutNormalizing(editor, () => {
+            // Remove image caption nodes, as placeholders are voids and cannot have children.
+            // We have to do this, as Slate automatically unwraps void node children, if any.
+            // This converts image captions to sibling paragraphs image editing operations.
+            EditorCommands.removeChildren(editor, [imageNode, path]);
+
+            Transforms.setNodes(editor, placeholder, { at: path, voids: true });
         });
     };
 }
