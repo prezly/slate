@@ -1,14 +1,14 @@
 import { Editor, Transforms } from 'slate';
 import type { NodeMatch, Node, NodeEntry } from 'slate';
 
-interface Props<T extends Node> {
+interface Options<T extends Node> {
     entry: NodeEntry<T>;
     match: NodeMatch<T>;
 }
 
 export function replaceNode<Original extends Node, New extends Node>(
     editor: Editor,
-    options: Props<Original>,
+    options: Options<Original>,
     newNode: New,
 ) {
     Editor.withoutNormalizing(editor, () => {
