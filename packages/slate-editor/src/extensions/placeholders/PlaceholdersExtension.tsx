@@ -14,7 +14,11 @@ import {
     WebBookmarkPlaceholderElement,
 } from './elements';
 import { MediaPlaceholderElement } from './elements/MediaPlaceholderElement';
-import { fixDuplicatePlaceholderUuid, removeDisabledPlaceholders } from './normalization';
+import {
+    fixDuplicatePlaceholderUuid,
+    normalizeAttributes,
+    removeDisabledPlaceholders,
+} from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
 import type { FetchOEmbedFn, FrameProps, RemovableFlagConfig } from './types';
 
@@ -103,6 +107,7 @@ export function PlaceholdersExtension({
                 withWebBookmarkPlaceholders: Boolean(withWebBookmarkPlaceholders),
                 withVideoPlaceholders: Boolean(withVideoPlaceholders),
             }),
+            normalizeAttributes,
         ],
         renderElement({ element, children, attributes }) {
             if (
