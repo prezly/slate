@@ -1,3 +1,4 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import { type Element, Editor, Transforms } from 'slate';
 
 import { PlaceholderNode } from '../PlaceholderNode';
@@ -8,10 +9,16 @@ export function replacePlaceholder(
     element: Element,
 ) {
     const { type, uuid } = placeholder;
+
     Editor.withoutNormalizing(editor, () => {
-        Transforms.setNodes(editor, element, {
+        const targets = Editor.nodes<PlaceholderNode>(editor, {
             at: [],
             match: (node) => PlaceholderNode.isPlaceholderNode(node, type) && node.uuid === uuid,
         });
+
+        for (const [node, path] of targets) {
+            Transforms.setNodes(editor, element, { at: path });
+            EditorCommands.replaceChildren(editor, [node, path], element.children);
+        }
     });
 }
