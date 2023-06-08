@@ -37,9 +37,12 @@ interface Props {
     onSubSuperScript: () => void;
     onLink: () => void;
     onFormatting: (formatting: Formatting) => void;
+    // text style
+    withBold: boolean;
+    withItalic: boolean;
+    withUnderline: boolean;
     // features
     withAlignment: boolean;
-    withBoldFormat: boolean;
     withBlockquotes: boolean;
     withHeadings: boolean;
     withInlineLinks: boolean;
@@ -65,9 +68,12 @@ export function Toolbar({
     onSubSuperScript,
     onLink,
     onFormatting,
+    // text style
+    withBold,
+    withItalic,
+    withUnderline,
     // features
     withAlignment,
-    withBoldFormat = true,
     withBlockquotes,
     withInlineLinks,
     withHeadings,
@@ -77,18 +83,21 @@ export function Toolbar({
     return (
         <>
             <Menu.ButtonGroup>
-                {withBoldFormat && (
+                {withBold && (
                     <Menu.Button active={isBold} onClick={onBold}>
                         <Menu.Icon icon={FormatBold} />
                     </Menu.Button>
                 )}
-                <Menu.Button active={isItalic} onClick={onItalic}>
-                    <Menu.Icon icon={FormatItalic} />
-                </Menu.Button>
-                <Menu.Button active={isUnderline} onClick={onUnderline}>
-                    <Menu.Icon icon={FormatUnderline} />
-                </Menu.Button>
-
+                {withItalic && (
+                    <Menu.Button active={isItalic} onClick={onItalic}>
+                        <Menu.Icon icon={FormatItalic} />
+                    </Menu.Button>
+                )}
+                {withUnderline && (
+                    <Menu.Button active={isUnderline} onClick={onUnderline}>
+                        <Menu.Icon icon={FormatUnderline} />
+                    </Menu.Button>
+                )}
                 <Menu.Button active={isSubScript || isSuperScript} onMouseDown={onSubSuperScript}>
                     {isSubScript && <Menu.Icon icon={FormatStyleSubscript} />}
                     {isSuperScript && <Menu.Icon icon={FormatStyleSuperscript} />}

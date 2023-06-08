@@ -236,8 +236,11 @@ export function RichFormattingMenu({
                     onSubSuperScript={handleSubSupClick}
                     onFormatting={handleFormattingChange}
                     onLink={handleLinkButtonClick}
-                    // features
-                    withBoldFormat={!isInsideTableHeader}
+                    // text style
+                    withBold={!isInsideTableHeader}
+                    withItalic
+                    withUnderline
+                    // formatting
                     withAlignment={withAlignment}
                     withBlockquotes={withBlockquotes && !isInsideTable && !isTitleOrSubtitleHeading}
                     withHeadings={withHeadings && !isInsideTable && !isTitleOrSubtitleHeading}
