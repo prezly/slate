@@ -22,7 +22,7 @@ import { FormattingDropdown } from './FormattingDropdown';
 interface Props {
     // state
     alignment: Alignment[];
-    formatting: Formatting | null;
+    formatting: Formatting;
     isBold: boolean;
     isItalic: boolean;
     isUnderline: boolean;
@@ -37,14 +37,20 @@ interface Props {
     onSubSuperScript: () => void;
     onLink: () => void;
     onFormatting: (formatting: Formatting) => void;
-    // features
+    // text style
+    withBold: boolean;
+    withItalic: boolean;
+    withUnderline: boolean;
+    // formatting
+    withFormatting: boolean | 'readonly';
     withAlignment: boolean;
-    withBoldFormat: boolean;
     withBlockquotes: boolean;
     withHeadings: boolean;
     withInlineLinks: boolean;
     withLists: boolean;
     withParagraphs: boolean;
+    withTitle: boolean;
+    withSubtitle: boolean;
 }
 
 export function Toolbar({
@@ -65,30 +71,39 @@ export function Toolbar({
     onSubSuperScript,
     onLink,
     onFormatting,
-    // features
+    // text style
+    withBold,
+    withItalic,
+    withUnderline,
+    // formatting
+    withFormatting = true,
     withAlignment,
-    withBoldFormat = true,
     withBlockquotes,
     withInlineLinks,
     withHeadings,
     withLists,
     withParagraphs,
+    withTitle,
+    withSubtitle,
 }: Props) {
     return (
         <>
             <Menu.ButtonGroup>
-                {withBoldFormat && (
+                {withBold && (
                     <Menu.Button active={isBold} onClick={onBold}>
                         <Menu.Icon icon={FormatBold} />
                     </Menu.Button>
                 )}
-                <Menu.Button active={isItalic} onClick={onItalic}>
-                    <Menu.Icon icon={FormatItalic} />
-                </Menu.Button>
-                <Menu.Button active={isUnderline} onClick={onUnderline}>
-                    <Menu.Icon icon={FormatUnderline} />
-                </Menu.Button>
-
+                {withItalic && (
+                    <Menu.Button active={isItalic} onClick={onItalic}>
+                        <Menu.Icon icon={FormatItalic} />
+                    </Menu.Button>
+                )}
+                {withUnderline && (
+                    <Menu.Button active={isUnderline} onClick={onUnderline}>
+                        <Menu.Icon icon={FormatUnderline} />
+                    </Menu.Button>
+                )}
                 <Menu.Button active={isSubScript || isSuperScript} onMouseDown={onSubSuperScript}>
                     {isSubScript && <Menu.Icon icon={FormatStyleSubscript} />}
                     {isSuperScript && <Menu.Icon icon={FormatStyleSuperscript} />}
@@ -127,16 +142,25 @@ export function Toolbar({
                 </Menu.ButtonGroup>
             )}
 
-            {(withBlockquotes || withHeadings || withLists || withParagraphs) && (
-                <FormattingDropdown
-                    onChange={onFormatting}
-                    value={formatting}
-                    withBlockquotes={withBlockquotes}
-                    withHeadings={withHeadings}
-                    withLists={withLists}
-                    withParagraphs={withParagraphs}
-                />
-            )}
+            {withFormatting &&
+                (withBlockquotes ||
+                    withHeadings ||
+                    withLists ||
+                    withParagraphs ||
+                    withTitle ||
+                    withSubtitle) && (
+                    <FormattingDropdown
+                        onChange={onFormatting}
+                        value={formatting}
+                        disabled={withFormatting === 'readonly'}
+                        withBlockquotes={withBlockquotes}
+                        withHeadings={withHeadings}
+                        withLists={withLists}
+                        withParagraphs={withParagraphs}
+                        withTitle={withTitle}
+                        withSubtitle={withSubtitle}
+                    />
+                )}
         </>
     );
 }

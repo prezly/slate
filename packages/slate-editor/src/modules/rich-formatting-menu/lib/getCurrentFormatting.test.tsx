@@ -25,9 +25,9 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>
         ) as unknown as Editor;
 
-        const blockType = getCurrentFormatting(editor);
+        const formatting = getCurrentFormatting(editor);
 
-        expect(blockType).toBe(QUOTE_NODE_TYPE);
+        expect(formatting.aggregate).toBe(QUOTE_NODE_TYPE);
     });
 
     it('Returns the list type if the focus is at list item', () => {
@@ -61,8 +61,8 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>
         ) as unknown as Editor;
 
-        expect(getCurrentFormatting(editorUl)).toBe(BULLETED_LIST_NODE_TYPE);
-        expect(getCurrentFormatting(editorOl)).toBe(NUMBERED_LIST_NODE_TYPE);
+        expect(getCurrentFormatting(editorUl).aggregate).toBe(BULLETED_LIST_NODE_TYPE);
+        expect(getCurrentFormatting(editorOl).aggregate).toBe(NUMBERED_LIST_NODE_TYPE);
     });
 
     it('Returns the inner-most list type when focused a nested list', () => {
@@ -90,7 +90,7 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>
         ) as unknown as Editor;
 
-        expect(getCurrentFormatting(editor)).toBe(BULLETED_LIST_NODE_TYPE);
+        expect(getCurrentFormatting(editor).aggregate).toBe(BULLETED_LIST_NODE_TYPE);
     });
 
     it('Returns multiple when selection spans across different list types', () => {
@@ -124,7 +124,7 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>
         ) as unknown as Editor;
 
-        expect(getCurrentFormatting(editor)).toBe('multiple');
+        expect(getCurrentFormatting(editor).aggregate).toBe('multiple');
     });
 
     it('Returns multiple when the selection spans across different types', () => {
@@ -141,7 +141,7 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>
         ) as unknown as Editor;
 
-        expect(getCurrentFormatting(editor)).toBe('multiple');
+        expect(getCurrentFormatting(editor).aggregate).toBe('multiple');
     });
 
     it('Returns the element type when the selection spans across multiple block of the same type', () => {
@@ -158,7 +158,7 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>
         ) as unknown as Editor;
 
-        expect(getCurrentFormatting(editor)).toBe(HEADING_1_NODE_TYPE);
+        expect(getCurrentFormatting(editor).aggregate).toBe(HEADING_1_NODE_TYPE);
     });
 
     it('Ignores the inline blocks', () => {
@@ -174,6 +174,6 @@ describe('getRichFormattingBlockNodeType', () => {
             </editor>
         ) as unknown as Editor;
 
-        expect(getCurrentFormatting(editor)).toBe(HEADING_1_NODE_TYPE);
+        expect(getCurrentFormatting(editor).aggregate).toBe(HEADING_1_NODE_TYPE);
     });
 });

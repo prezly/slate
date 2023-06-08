@@ -3,10 +3,13 @@
 
 .Dropdown {
     display: inline-block;
-    width: 180px;
     border-color: $toolbar-dark-theme-border-color;
     position: relative;
     font-weight: normal;
+
+    &.enabled {
+        width: 180px;
+    }
 
     &:last-child {
         border-right: none;
@@ -24,7 +27,7 @@
         color: $toolbar-dark-theme-text-color;
         position: relative;
 
-        &:hover {
+        &.enabled:hover {
             cursor: pointer;
             color: $toolbar-dark-theme-text-hover-color;
 
@@ -43,7 +46,7 @@
             }
         }
 
-        .Caret {
+        &.enabled .Caret {
             position: absolute;
             top: 50%;
             right: $spacing-2;

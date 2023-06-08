@@ -2,6 +2,7 @@ import {
     BULLETED_LIST_NODE_TYPE,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
+    HeadingRole,
     NUMBERED_LIST_NODE_TYPE,
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
@@ -18,11 +19,14 @@ import styles from './FormattingDropdown.module.scss';
 
 interface Props {
     onChange: (value: Formatting) => void;
-    value: Formatting | null;
+    value: Formatting;
+    disabled?: boolean;
     withBlockquotes: boolean;
     withHeadings: boolean;
     withLists: boolean;
     withParagraphs: boolean;
+    withTitle: boolean;
+    withSubtitle: boolean;
 }
 
 type Option = Menu.Dropdown.Option<Formatting>;
@@ -31,6 +35,16 @@ const OPTIONS: Option[] = [
     {
         label: 'Multiple',
         value: 'multiple',
+        hidden: true,
+    },
+    {
+        label: 'Title',
+        value: HeadingRole.TITLE,
+        hidden: true,
+    },
+    {
+        label: 'Subtitle',
+        value: HeadingRole.SUBTITLE,
         hidden: true,
     },
     {
@@ -62,13 +76,18 @@ const OPTIONS: Option[] = [
 export function FormattingDropdown({
     value,
     onChange,
+    disabled = false,
     withBlockquotes,
     withHeadings,
     withLists,
     withParagraphs,
+    withTitle = false,
+    withSubtitle = false,
 }: Props) {
     const options = useMemo(() => {
         const MAP: Partial<Record<Formatting, boolean>> = {
+            [HeadingRole.TITLE]: withTitle,
+            [HeadingRole.SUBTITLE]: withSubtitle,
             [PARAGRAPH_NODE_TYPE]: withParagraphs,
             [QUOTE_NODE_TYPE]: withBlockquotes,
             [HEADING_1_NODE_TYPE]: withHeadings,
@@ -77,7 +96,7 @@ export function FormattingDropdown({
             [NUMBERED_LIST_NODE_TYPE]: withLists,
         };
         return reject(OPTIONS, ({ value }) => MAP[value] === false);
-    }, [withBlockquotes, withHeadings, withLists, withParagraphs]);
+    }, [withBlockquotes, withHeadings, withLists, withParagraphs, withTitle, withSubtitle]);
 
     if (options.filter(({ hidden }) => !hidden).length <= 1) {
         return null;
@@ -88,8 +107,9 @@ export function FormattingDropdown({
             id="prezly-editor-toolbar-dropdown"
             onChange={onChange}
             options={options}
+            disabled={disabled}
             renderOption={DropdownOption}
-            value={value || undefined}
+            value={value}
         />
     );
 }
@@ -99,8 +119,8 @@ function DropdownOption(props: { option: Option }) {
     return (
         <div
             className={classNames(styles.DropdownOption, {
-                [styles.headingOne]: value === 'heading-one',
-                [styles.headingTwo]: value === 'heading-two',
+                [styles.headingOne]: value === 'heading-one' || value === HeadingRole.TITLE,
+                [styles.headingTwo]: value === 'heading-two' || value === HeadingRole.SUBTITLE,
                 [styles.blockquote]: value === 'block-quote',
                 [styles.orderedList]: value === 'numbered-list',
                 [styles.unorderedList]: value === 'bulleted-list',

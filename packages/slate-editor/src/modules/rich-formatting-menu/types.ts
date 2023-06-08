@@ -1,4 +1,10 @@
-import type { HeadingNode, ListNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
+import type {
+    HeadingNode,
+    ListNode,
+    ParagraphNode,
+    QuoteNode,
+    HeadingRole,
+} from '@prezly/slate-types';
 import {
     isHeadingNode,
     isListNode,
@@ -11,7 +17,11 @@ import {
 import type { Node } from 'slate';
 
 export type RichFormattedTextElement = ParagraphNode | HeadingNode | QuoteNode | ListNode;
-export type Formatting = RichFormattedTextElement['type'] | 'multiple';
+export type Formatting =
+    | RichFormattedTextElement['type']
+    | `${HeadingRole}`
+    | 'multiple'
+    | 'unknown';
 
 export function isRichFormattedTextElement(node: Node): node is RichFormattedTextElement {
     return (

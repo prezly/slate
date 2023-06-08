@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
-import { isSubtitleHeadingNode, isTitleHeadingNode } from '@prezly/slate-types';
+import { HeadingRole } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
@@ -198,13 +198,6 @@ export function RichFormattingMenu({
     const isInsideTable = TablesEditor.isTablesEditor(editor) && TablesEditor.isInTable(editor);
     const isInsideTableHeader = isInsideTable && TablesEditor.isHeaderCell(editor);
 
-    const isTitleOrSubtitleHeading =
-        Array.from(
-            Editor.nodes(editor, {
-                match: (node) => isTitleHeadingNode(node) || isSubtitleHeadingNode(node),
-            }),
-        ).length > 0;
-
     return (
         <TextSelectionPortalV2
             containerElement={containerElement}
@@ -227,7 +220,7 @@ export function RichFormattingMenu({
                     isSubScript={isSubScriptActive}
                     isSuperScript={isSuperScriptActive}
                     isLink={isLinkActive}
-                    formatting={formatting}
+                    formatting={formatting.aggregate}
                     // callbacks
                     onAlignment={handleAlignmentChange}
                     onBold={() => EditorCommands.toggleMark(editor, MarkType.BOLD)}
@@ -236,14 +229,25 @@ export function RichFormattingMenu({
                     onSubSuperScript={handleSubSupClick}
                     onFormatting={handleFormattingChange}
                     onLink={handleLinkButtonClick}
-                    // features
-                    withBoldFormat={!isInsideTableHeader}
+                    // text style
+                    withBold={!isInsideTableHeader}
+                    withItalic
+                    withUnderline
+                    // formatting
+                    withFormatting={
+                        formatting.active.includes(HeadingRole.TITLE) ||
+                        formatting.active.includes(HeadingRole.SUBTITLE)
+                            ? 'readonly'
+                            : true
+                    }
                     withAlignment={withAlignment}
-                    withBlockquotes={withBlockquotes && !isInsideTable && !isTitleOrSubtitleHeading}
-                    withHeadings={withHeadings && !isInsideTable && !isTitleOrSubtitleHeading}
-                    withInlineLinks={withInlineLinks && !isTitleOrSubtitleHeading}
-                    withLists={withLists && !isTitleOrSubtitleHeading}
-                    withParagraphs={withParagraphs && !isTitleOrSubtitleHeading}
+                    withBlockquotes={withBlockquotes && !isInsideTable}
+                    withHeadings={withHeadings && !isInsideTable}
+                    withInlineLinks={withInlineLinks}
+                    withLists={withLists}
+                    withParagraphs={withParagraphs}
+                    withTitle={formatting.aggregate === HeadingRole.TITLE}
+                    withSubtitle={formatting.aggregate === HeadingRole.SUBTITLE}
                 />
             </Menu.Toolbar>
         </TextSelectionPortalV2>
