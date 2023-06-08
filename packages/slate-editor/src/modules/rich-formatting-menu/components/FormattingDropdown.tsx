@@ -19,6 +19,7 @@ import styles from './FormattingDropdown.module.scss';
 interface Props {
     onChange: (value: Formatting) => void;
     value: Formatting | null;
+    disabled?: boolean;
     withBlockquotes: boolean;
     withHeadings: boolean;
     withLists: boolean;
@@ -62,6 +63,7 @@ const OPTIONS: Option[] = [
 export function FormattingDropdown({
     value,
     onChange,
+    disabled = false,
     withBlockquotes,
     withHeadings,
     withLists,
@@ -88,6 +90,7 @@ export function FormattingDropdown({
             id="prezly-editor-toolbar-dropdown"
             onChange={onChange}
             options={options}
+            disabled={disabled}
             renderOption={DropdownOption}
             value={value || undefined}
         />

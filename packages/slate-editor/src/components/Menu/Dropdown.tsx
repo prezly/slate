@@ -18,6 +18,7 @@ export namespace Dropdown {
         extends Omit<ListboxProps<'div', Value, Value>, 'onChange' | 'className'> {
         onChange: (value: Value) => void;
         options: Option<Value>[];
+        disabled?: boolean;
         renderOption?: ComponentType<{ option: Option<Value>; selected: boolean }>;
         value?: Value;
         className?: string;
@@ -28,6 +29,7 @@ export function Dropdown<Value extends string = string>({
     className,
     onChange,
     options,
+    disabled = false,
     renderOption = PlainLabel,
     value,
     ...props
@@ -46,13 +48,20 @@ export function Dropdown<Value extends string = string>({
 
     return (
         <Listbox
-            className={classNames(styles.Dropdown, className)}
+            className={classNames(styles.Dropdown, className, {
+                [styles.enabled]: !disabled,
+            })}
             as="div"
             {...props}
+            disabled={disabled}
             value={selected}
             onChange={handleSelect}
         >
-            <Listbox.Button className={styles.DropdownToggle}>
+            <Listbox.Button
+                className={classNames(styles.DropdownToggle, {
+                    [styles.enabled]: !disabled,
+                })}
+            >
                 {selected?.label}
                 <span className={styles.Caret} />
             </Listbox.Button>
