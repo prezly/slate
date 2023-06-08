@@ -18,12 +18,12 @@ export function onKeyDown(editor: ListsEditor & ReactEditor, event: KeyboardEven
         ReactEditor.blur(editor);
     }
 
-    if (isHotkey('tab', event.nativeEvent)) {
+    if (!event.defaultPrevented && isHotkey('tab', event.nativeEvent)) {
         event.preventDefault();
         increaseDepth(editor);
     }
 
-    if (isHotkey('shift+tab', event.nativeEvent)) {
+    if (!event.defaultPrevented && isHotkey('shift+tab', event.nativeEvent)) {
         event.preventDefault();
         decreaseDepth(editor);
     }
