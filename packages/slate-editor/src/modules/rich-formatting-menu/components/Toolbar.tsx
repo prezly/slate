@@ -22,7 +22,7 @@ import { FormattingDropdown } from './FormattingDropdown';
 interface Props {
     // state
     alignment: Alignment[];
-    formatting: Formatting | null;
+    formatting: Formatting;
     isBold: boolean;
     isItalic: boolean;
     isUnderline: boolean;
@@ -41,13 +41,16 @@ interface Props {
     withBold: boolean;
     withItalic: boolean;
     withUnderline: boolean;
-    // features
+    // formatting
+    withFormatting: boolean | 'readonly';
     withAlignment: boolean;
     withBlockquotes: boolean;
     withHeadings: boolean;
     withInlineLinks: boolean;
     withLists: boolean;
     withParagraphs: boolean;
+    withTitle: boolean;
+    withSubtitle: boolean;
 }
 
 export function Toolbar({
@@ -72,13 +75,16 @@ export function Toolbar({
     withBold,
     withItalic,
     withUnderline,
-    // features
+    // formatting
+    withFormatting = true,
     withAlignment,
     withBlockquotes,
     withInlineLinks,
     withHeadings,
     withLists,
     withParagraphs,
+    withTitle,
+    withSubtitle,
 }: Props) {
     return (
         <>
@@ -136,16 +142,25 @@ export function Toolbar({
                 </Menu.ButtonGroup>
             )}
 
-            {(withBlockquotes || withHeadings || withLists || withParagraphs) && (
-                <FormattingDropdown
-                    onChange={onFormatting}
-                    value={formatting}
-                    withBlockquotes={withBlockquotes}
-                    withHeadings={withHeadings}
-                    withLists={withLists}
-                    withParagraphs={withParagraphs}
-                />
-            )}
+            {withFormatting &&
+                (withBlockquotes ||
+                    withHeadings ||
+                    withLists ||
+                    withParagraphs ||
+                    withTitle ||
+                    withSubtitle) && (
+                    <FormattingDropdown
+                        onChange={onFormatting}
+                        value={formatting}
+                        disabled={withFormatting === 'readonly'}
+                        withBlockquotes={withBlockquotes}
+                        withHeadings={withHeadings}
+                        withLists={withLists}
+                        withParagraphs={withParagraphs}
+                        withTitle={withTitle}
+                        withSubtitle={withSubtitle}
+                    />
+                )}
         </>
     );
 }
