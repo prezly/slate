@@ -37,8 +37,7 @@ interface Data {
         images: GalleryNode['images'];
     };
     [Type.IMAGE]: {
-        file: ImageNode['file'];
-        caption: string;
+        image: ImageNode;
         operation: 'add' | 'edit';
     };
     [Type.MEDIA]: {
