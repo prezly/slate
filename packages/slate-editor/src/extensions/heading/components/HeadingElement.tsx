@@ -45,6 +45,7 @@ export const HeadingElement = forwardRef<HTMLHeadingElement, Props>(
                 })}
                 style={{ textAlign: element.align }}
                 data-placeholder={placeholder}
+                data-slate-heading-role={element.role}
             >
                 {children}
             </Tag>
