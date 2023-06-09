@@ -198,6 +198,9 @@ export function RichFormattingMenu({
     const isInsideTable = TablesEditor.isTablesEditor(editor) && TablesEditor.isInTable(editor);
     const isInsideTableHeader = isInsideTable && TablesEditor.isHeaderCell(editor);
 
+    const isTitleSelected = formatting.active.includes(HeadingRole.TITLE);
+    const isSubtitleSelected = formatting.active.includes(HeadingRole.SUBTITLE);
+
     return (
         <TextSelectionPortalV2
             containerElement={containerElement}
@@ -234,16 +237,13 @@ export function RichFormattingMenu({
                     withItalic
                     withUnderline
                     // formatting
-                    withFormatting={
-                        formatting.active.includes(HeadingRole.TITLE) ||
-                        formatting.active.includes(HeadingRole.SUBTITLE)
-                            ? 'readonly'
-                            : true
-                    }
+                    withFormatting={isTitleSelected || isSubtitleSelected ? 'readonly' : true}
                     withAlignment={withAlignment}
                     withBlockquotes={withBlockquotes && !isInsideTable}
                     withHeadings={withHeadings && !isInsideTable}
-                    withInlineLinks={withInlineLinks}
+                    withInlineLinks={
+                        isTitleSelected || isSubtitleSelected ? false : withInlineLinks
+                    }
                     withLists={withLists}
                     withParagraphs={withParagraphs}
                     withTitle={formatting.aggregate === HeadingRole.TITLE}
