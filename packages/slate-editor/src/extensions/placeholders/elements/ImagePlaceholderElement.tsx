@@ -8,6 +8,7 @@ import {
 } from '@prezly/uploadcare';
 import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
 import React, { type DragEventHandler } from 'react';
+import { Node } from 'slate';
 import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderImage } from '#icons';
@@ -50,8 +51,14 @@ export function ImagePlaceholderElement({
         images.forEach((filePromise, i) => {
             const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
                 const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-                const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
-                return { file: image.toPrezlyStoragePayload(), caption, operation: 'add' } as const;
+                const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
+                return {
+                    image: createImage({
+                        file: image.toPrezlyStoragePayload(),
+                        children: [{ text: caption }],
+                    }),
+                    operation: 'add' as const,
+                };
             });
             PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
         });
@@ -77,23 +84,17 @@ export function ImagePlaceholderElement({
     });
 
     const handleUploadedImage = useFunction(
-        (data: { file: ImageNode['file']; caption: string; operation: 'add' | 'edit' }) => {
-            replacePlaceholder(
-                editor,
-                element,
-                createImage({
-                    file: data.file,
-                    children: [{ text: data.caption }],
-                }),
-            );
+        (data: { image: ImageNode; operation: 'add' | 'edit' }) => {
+            const node = createImage(data.image);
+            replacePlaceholder(editor, element, node);
 
             const event = data.operation === 'edit' ? 'image-edited' : 'image-added';
             EventsEditor.dispatchEvent(editor, event, {
-                description: data.caption,
+                description: Node.string(node),
                 isPasted: false,
-                mimeType: data.file.mime_type,
-                size: data.file.size,
-                uuid: data.file.uuid,
+                mimeType: node.file.mime_type,
+                size: node.file.size,
+                uuid: node.file.uuid,
             });
         },
     );

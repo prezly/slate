@@ -1,11 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import {
-    type PrezlyFileInfo,
-    toProgressPromise,
-    UPLOADCARE_FILE_DATA_KEY,
-    UploadcareImage,
-} from '@prezly/uploadcare';
-import { Editor, Node, Transforms } from 'slate';
+import { type PrezlyFileInfo, toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
+import { Editor, Transforms } from 'slate';
 
 import type { ImageExtensionConfiguration } from '#extensions/image';
 import { getCurrentImageNodeEntry } from '#extensions/image';
@@ -23,10 +18,6 @@ export function createImageReplaceHandler(params: ImageExtensionConfiguration) {
         }
 
         EventsEditor.dispatchEvent(editor, 'image-edit-clicked');
-
-        // TODO: Consider changing this code in a way to preserve the image caption as-is,
-        //       otherwise we lose formatting & inline nodes after this code is executed.
-        const originalCaption = Node.string(imageNode);
 
         const [upload] =
             (await UploadcareEditor.upload(editor, {
@@ -47,12 +38,11 @@ export function createImageReplaceHandler(params: ImageExtensionConfiguration) {
             placeholder.uuid,
             toProgressPromise(upload).then((fileInfo: PrezlyFileInfo) => {
                 const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-                const caption: string =
-                    fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || originalCaption || '';
-
                 return {
-                    file: image.toPrezlyStoragePayload(),
-                    caption,
+                    image: {
+                        ...imageNode,
+                        file: image.toPrezlyStoragePayload(),
+                    },
                     operation: 'edit',
                 };
             }),
