@@ -113,7 +113,7 @@ export function ImageElement({
                 isSupportingCaptions && (
                     <div
                         className={classNames(styles.Caption, {
-                            [styles.empty]: isCaptionEmpty,
+                            [styles.empty]: isCaptionEmpty && !isCaptionPlaceholderVisible,
                             [styles.withPlaceholder]: isCaptionPlaceholderVisible,
                             [styles.visible]: isCaptionVisible,
                             [styles.alignLeft]: align === Alignment.LEFT,
