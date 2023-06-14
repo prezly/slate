@@ -22,7 +22,7 @@ export function BlockquoteExtension(): Extension {
         },
         normalizeNode: [normalizeRedundantAttributes],
         onKeyDown(event, editor) {
-            onBackspaceResetFormattingAtDocumentStart(editor, isQuoteNode, event);
+            return onBackspaceResetFormattingAtDocumentStart(editor, isQuoteNode, event);
         },
         renderElement({ attributes, element, children }) {
             if (isQuoteNode(element)) {

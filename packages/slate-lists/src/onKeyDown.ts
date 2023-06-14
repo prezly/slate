@@ -7,45 +7,48 @@ import { canDeleteBackward, getListItemsInRange, isCursorInEmptyListItem } from 
 import { decreaseDepth, increaseDepth, splitListItem } from './transformations';
 import type { ListsEditor } from './types';
 
-export function onKeyDown(editor: ListsEditor & ReactEditor, event: KeyboardEvent) {
-    const listItemsInSelection = getListItemsInRange(editor, editor.selection);
-
+export function onKeyDown(editor: ListsEditor & ReactEditor, event: KeyboardEvent): boolean | void {
     // Since we're overriding the default Tab key behavior
     // we need to bring back the possibility to blur the editor
     // with keyboard.
     if (isHotkey('esc', event.nativeEvent)) {
         event.preventDefault();
         ReactEditor.blur(editor);
+        return;
     }
 
-    if (!event.defaultPrevented && isHotkey('tab', event.nativeEvent)) {
-        event.preventDefault();
-        increaseDepth(editor);
-    }
-
-    if (!event.defaultPrevented && isHotkey('shift+tab', event.nativeEvent)) {
-        event.preventDefault();
-        decreaseDepth(editor);
-    }
-
-    if (isHotkey('backspace', event.nativeEvent) && !canDeleteBackward(editor)) {
-        event.preventDefault();
-        decreaseDepth(editor);
-    }
-
-    if (isHotkey('enter', event.nativeEvent)) {
-        if (isCursorInEmptyListItem(editor)) {
+    try {
+        if (!event.defaultPrevented && isHotkey('tab', event.nativeEvent)) {
             event.preventDefault();
-            decreaseDepth(editor);
-        } else if (listItemsInSelection.length > 0) {
-            event.preventDefault();
-            splitListItem(editor);
+            return increaseDepth(editor);
         }
-    }
 
-    // Slate does not always trigger normalization when one would expect it to.
-    // So we want to force it after we perform lists operations, as it fixes
-    // many unexpected behaviors.
-    // https://github.com/ianstormtaylor/slate/issues/3758
-    Editor.normalize(editor, { force: true });
+        if (isHotkey('shift+tab', event.nativeEvent)) {
+            event.preventDefault();
+            return decreaseDepth(editor);
+        }
+
+        if (isHotkey('backspace', event.nativeEvent) && !canDeleteBackward(editor)) {
+            event.preventDefault();
+            return decreaseDepth(editor);
+        }
+
+        if (isHotkey('enter', event.nativeEvent)) {
+            const listItemsInSelection = getListItemsInRange(editor, editor.selection);
+
+            if (isCursorInEmptyListItem(editor)) {
+                event.preventDefault();
+                return decreaseDepth(editor);
+            } else if (listItemsInSelection.length > 0) {
+                event.preventDefault();
+                return splitListItem(editor);
+            }
+        }
+    } finally {
+        // Slate does not always trigger normalization when one would expect it to.
+        // So we want to force it after we perform lists operations, as it fixes
+        // many unexpected behaviors.
+        // https://github.com/ianstormtaylor/slate/issues/3758
+        Editor.normalize(editor, { force: true });
+    }
 }

@@ -11,14 +11,14 @@ export function onTabSwitchBlock(
     editor: Editor,
     event: KeyboardEvent,
     match: (node: Node) => boolean = isHeadingNode,
-) {
+): boolean | void {
     if (editor.selection !== null && isTab(event)) {
         for (const [, path] of Editor.nodes(editor, { match })) {
             const next = Path.next(path);
             if (Editor.hasPath(editor, next)) {
                 event.preventDefault();
                 Transforms.select(editor, Editor.start(editor, next));
-                return;
+                return true;
             }
         }
     }
@@ -28,7 +28,7 @@ export function onTabSwitchBlock(
             if (prev && Editor.hasPath(editor, prev)) {
                 event.preventDefault();
                 Transforms.select(editor, Editor.start(editor, prev));
-                return;
+                return true;
             }
         }
     }

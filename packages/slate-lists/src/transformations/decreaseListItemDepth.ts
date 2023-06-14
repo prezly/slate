@@ -8,13 +8,15 @@ import { increaseListItemDepth } from './increaseListItemDepth';
 
 /**
  * Decreases nesting depth of "list-item" at a given Path.
+ *
+ * @returns {boolean} True, if the editor state has been changed.
  */
-export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): void {
+export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): boolean {
     const parentList = getParentList(editor, listItemPath);
 
     if (!parentList) {
         // It should never happen.
-        return;
+        return false;
     }
 
     const [parentListNode, parentListPath] = parentList;
@@ -70,4 +72,6 @@ export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
             }
         }
     });
+
+    return true;
 }

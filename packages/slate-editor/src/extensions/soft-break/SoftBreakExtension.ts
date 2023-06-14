@@ -11,9 +11,10 @@ export function SoftBreakExtension(): Extension {
         id: EXTENSION_ID,
         onKeyDown(event, editor) {
             if (isShiftEnter(event.nativeEvent) && !event.isDefaultPrevented()) {
-                event.preventDefault();
                 Editor.insertText(editor, '\n');
+                return true;
             }
+            return false;
         },
     };
 }

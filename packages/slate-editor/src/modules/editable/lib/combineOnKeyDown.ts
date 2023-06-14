@@ -22,5 +22,10 @@ export function combineOnKeyDown(
                 handled = Boolean(ret);
             }
         });
+
+        if (handled) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
     };
 }

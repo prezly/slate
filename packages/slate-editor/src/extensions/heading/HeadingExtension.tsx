@@ -37,8 +37,10 @@ export function HeadingExtension(): Extension {
         },
         normalizeNode: [normalizeRedundantAttributes],
         onKeyDown(event, editor) {
-            onBackspaceResetFormattingAtDocumentStart(editor, isHeadingNode, event);
-            onTabSwitchBlock(editor, event, isTitleSubtitleNode);
+            return (
+                onBackspaceResetFormattingAtDocumentStart(editor, isHeadingNode, event) ||
+                onTabSwitchBlock(editor, event, isTitleSubtitleNode)
+            );
         },
         renderElement({ attributes, children, element }) {
             if (isHeadingNode(element)) {

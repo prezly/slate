@@ -58,7 +58,7 @@ export function ListExtension(): Extension {
                     return;
                 }
 
-                onKeyDown(editor, event);
+                return onKeyDown(editor, event);
             }
         },
         renderElement({ attributes, children, element }) {

@@ -8,10 +8,12 @@ import type { ListsEditor } from '../types';
  * Collapses the current selection (by removing everything in it) and if the cursor
  * ends up in a "list-item" node, it will break that "list-item" into 2 nodes, splitting
  * the text at the cursor location.
+ *
+ * @returns {boolean} True, if the editor state has been changed.
  */
-export function splitListItem(editor: ListsEditor): void {
+export function splitListItem(editor: ListsEditor): boolean {
     if (!editor.selection) {
-        return;
+        return false;
     }
 
     if (Range.isExpanded(editor.selection)) {
@@ -24,7 +26,7 @@ export function splitListItem(editor: ListsEditor): void {
     if (listItemsInSelection.length !== 1) {
         // Selection is collapsed, so there should be either 0 or 1 "list-item" in selection.
         // When no "list-items" are selected - there's no "list-item" to split.
-        return;
+        return false;
     }
 
     // Selection is collapsed, `editor.selection.anchor` is equal to `editor.selection.focus`.
@@ -38,7 +40,7 @@ export function splitListItem(editor: ListsEditor): void {
             children: [editor.createListItemTextNode()],
         });
         Transforms.insertNodes(editor, newListItem, { at: listItemPath });
-        return;
+        return true;
     }
 
     const newListItemPath = Path.next(listItemPath);
@@ -75,4 +77,6 @@ export function splitListItem(editor: ListsEditor): void {
             });
         }
     });
+
+    return true;
 }
