@@ -1,18 +1,19 @@
 /** @jsx hyperscript */
 
 import {
-    hyperscript,
+    Anchor,
+    Cursor,
     Editor,
-    OrderedList,
-    UnorderedList,
+    Focus,
+    hyperscript,
     ListItem,
     ListItemText,
-    Text,
-    Paragraph,
-    Cursor,
-    Anchor,
-    Focus,
     noop,
+    OrderedList,
+    Paragraph,
+    SCHEMA,
+    Text,
+    UnorderedList,
 } from '../hyperscript';
 import type { ListsEditor } from '../types';
 
@@ -44,7 +45,7 @@ describe('decreaseDepth', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        decreaseDepth(editor);
+        decreaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -89,7 +90,7 @@ describe('decreaseDepth', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        decreaseDepth(editor);
+        decreaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -122,7 +123,7 @@ describe('decreaseDepth', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        decreaseDepth(editor);
+        decreaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -183,7 +184,7 @@ describe('decreaseDepth', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        decreaseDepth(editor);
+        decreaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -232,7 +233,7 @@ describe('decreaseDepth', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        decreaseDepth(editor);
+        decreaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -315,7 +316,7 @@ describe('decreaseDepth', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        decreaseDepth(editor);
+        decreaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -396,7 +397,7 @@ describe('decreaseDepth', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        decreaseDepth(editor);
+        decreaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -587,7 +588,7 @@ describe('decreaseDepth', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        decreaseDepth(editor);
+        decreaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -642,9 +643,9 @@ describe('decreaseDepth', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        decreaseDepth(editor, [0, 0]);
-        decreaseDepth(editor, [1, 0]);
-        decreaseDepth(editor, [2, 0]);
+        decreaseDepth(editor, SCHEMA, [0, 0]);
+        decreaseDepth(editor, SCHEMA, [1, 0]);
+        decreaseDepth(editor, SCHEMA, [2, 0]);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

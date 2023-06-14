@@ -1,15 +1,19 @@
-import type { Node, NodeEntry } from 'slate';
+import type { Editor, Node, NodeEntry } from 'slate';
 
 import { getNextSibling } from '../lib';
 import { mergeListWithPreviousSiblingList } from '../transformations';
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 /**
  * If there are 2 "lists" of the same type next to each other, merge them together.
  * If there are 2 nested "lists" next to each other, merge them together.
  */
-export function normalizeSiblingLists(editor: ListsEditor, entry: NodeEntry<Node>): boolean {
-    const normalized = mergeListWithPreviousSiblingList(editor, entry);
+export function normalizeSiblingLists(
+    editor: Editor,
+    schema: ListsSchema,
+    entry: NodeEntry<Node>,
+): boolean {
+    const normalized = mergeListWithPreviousSiblingList(editor, schema, entry);
 
     if (normalized) {
         return true;
@@ -22,5 +26,5 @@ export function normalizeSiblingLists(editor: ListsEditor, entry: NodeEntry<Node
         return false;
     }
 
-    return mergeListWithPreviousSiblingList(editor, nextSibling);
+    return mergeListWithPreviousSiblingList(editor, schema, nextSibling);
 }

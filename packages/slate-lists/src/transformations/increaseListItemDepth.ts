@@ -2,12 +2,16 @@ import { Editor, Element, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import { getListType, getPrevSibling } from '../lib';
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 /**
  * Increases nesting depth of "list-item" at a given Path.
  */
-export function increaseListItemDepth(editor: ListsEditor, listItemPath: Path): void {
+export function increaseListItemDepth(
+    editor: Editor,
+    schema: ListsSchema,
+    listItemPath: Path,
+): void {
     const previousListItem = getPrevSibling(editor, listItemPath);
 
     if (!previousListItem) {
@@ -18,7 +22,7 @@ export function increaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
 
     const [previousListItemNode, previousListItemPath] = previousListItem;
 
-    if (!editor.isListItemNode(previousListItemNode)) {
+    if (!schema.isListItemNode(previousListItemNode)) {
         // Sanity check.
         return;
     }
@@ -33,7 +37,7 @@ export function increaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
             const listNode = Node.get(editor, listNodePath);
             Transforms.insertNodes(
                 editor,
-                editor.createListNode(getListType(editor, listNode), { children: [] }),
+                schema.createListNode(getListType(schema, listNode), { children: [] }),
                 {
                     at: previousListItemChildListPath,
                 },
@@ -44,7 +48,7 @@ export function increaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
 
         if (
             Element.isElement(previousListItemChildList) &&
-            editor.isListNode(previousListItemChildList)
+            schema.isListNode(previousListItemChildList)
         ) {
             const index = previousListItemHasChildList
                 ? previousListItemChildList.children.length

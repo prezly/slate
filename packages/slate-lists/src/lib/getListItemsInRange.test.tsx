@@ -1,15 +1,18 @@
 /** @jsx hyperscript */
 
+import type * as Slate from 'slate';
+
 import {
-    hyperscript,
+    Anchor,
     Editor,
-    OrderedList,
-    UnorderedList,
+    Focus,
+    hyperscript,
     ListItem,
     ListItemText,
+    OrderedList,
+    SCHEMA,
     Text,
-    Anchor,
-    Focus,
+    UnorderedList,
 } from '../hyperscript';
 import type { ListsEditor } from '../types';
 
@@ -53,8 +56,8 @@ describe('getListItemsInRange', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        const listItemsInRange = getListItemsInRange(editor, editor.selection);
-        expect(listItemsInRange).toEqual([]);
+        const lists = getListItemsInRange(editor, SCHEMA, editor.selection);
+        expect(lists).toEqual([]);
     });
 
     it('Finds all partially selected list items', () => {
@@ -149,12 +152,12 @@ describe('getListItemsInRange', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate.Editor;
 
-        const listItemsInRange = getListItemsInRange(editor, editor.selection);
-        const listItemsPathsInRange = listItemsInRange.map(([, path]) => path);
+        const lists = getListItemsInRange(editor, SCHEMA, editor.selection);
+        const paths = lists.map(([, path]) => path);
 
-        expect(listItemsPathsInRange).toEqual([
+        expect(paths).toEqual([
             [0, 0, 1, 1],
             [0, 0, 1, 1, 1, 0],
             [0, 0, 1, 1, 1, 1],

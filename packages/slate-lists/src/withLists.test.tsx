@@ -3,18 +3,17 @@
 import { Editor as Slate } from 'slate';
 
 import {
-    hyperscript,
     Editor,
-    OrderedList,
-    UnorderedList,
+    hyperscript,
+    Link,
     ListItem,
     ListItemText,
-    Text,
+    OrderedList,
     Paragraph,
-    Link,
+    Text,
+    UnorderedList,
     Untyped,
 } from './hyperscript';
-import type { ListsEditor } from './types';
 
 describe('withLists', () => {
     describe('normalizeListChildren', () => {
@@ -32,7 +31,7 @@ describe('withLists', () => {
                         </Paragraph>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -49,7 +48,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -74,7 +73,7 @@ describe('withLists', () => {
                         </UnorderedList>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -93,7 +92,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -126,7 +125,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -153,7 +152,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -178,7 +177,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -195,7 +194,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -219,7 +218,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -241,7 +240,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -259,7 +258,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -275,7 +274,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -295,7 +294,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -311,7 +310,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -329,7 +328,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -341,7 +340,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -372,7 +371,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -389,7 +388,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -412,7 +411,7 @@ describe('withLists', () => {
                         </ListItemText>
                     </ListItem>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -423,7 +422,7 @@ describe('withLists', () => {
                         <Text>dolor sit</Text>
                     </Paragraph>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -442,7 +441,7 @@ describe('withLists', () => {
                         <Text>dolor sit</Text>
                     </ListItemText>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -453,7 +452,7 @@ describe('withLists', () => {
                         <Text>dolor sit</Text>
                     </Paragraph>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -477,7 +476,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -489,7 +488,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -528,7 +527,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -557,7 +556,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -584,7 +583,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -603,7 +602,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -633,7 +632,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -653,7 +652,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -685,7 +684,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -709,7 +708,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -732,7 +731,7 @@ describe('withLists', () => {
                     <ListItem></ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -749,7 +748,7 @@ describe('withLists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         Slate.normalize(editor, { force: true });
 

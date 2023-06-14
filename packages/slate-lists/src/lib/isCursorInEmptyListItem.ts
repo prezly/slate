@@ -1,6 +1,7 @@
+import type { Editor } from 'slate';
 import { Range } from 'slate';
 
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 import { getListItemsInRange } from './getListItemsInRange';
 import { isListItemContainingText } from './isListItemContainingText';
@@ -8,12 +9,12 @@ import { isListItemContainingText } from './isListItemContainingText';
 /**
  * Returns true when editor has collapsed selection and the cursor is in an empty "list-item".
  */
-export function isCursorInEmptyListItem(editor: ListsEditor): boolean {
+export function isCursorInEmptyListItem(editor: Editor, schema: ListsSchema): boolean {
     if (!editor.selection || Range.isExpanded(editor.selection)) {
         return false;
     }
 
-    const listItemsInSelection = getListItemsInRange(editor, editor.selection);
+    const listItemsInSelection = getListItemsInRange(editor, schema, editor.selection);
 
     if (listItemsInSelection.length !== 1) {
         return false;
@@ -21,5 +22,5 @@ export function isCursorInEmptyListItem(editor: ListsEditor): boolean {
 
     const [[listItemNode]] = listItemsInSelection;
 
-    return !isListItemContainingText(editor, listItemNode);
+    return !isListItemContainingText(editor, schema, listItemNode);
 }

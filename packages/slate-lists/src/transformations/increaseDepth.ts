@@ -1,7 +1,7 @@
 import { Editor } from 'slate';
 
 import { getListItemsInRange, getPrevSibling, pickSubtreesRoots } from '../lib';
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 import { ListType } from '../types';
 
 import { increaseListItemDepth } from './increaseListItemDepth';
@@ -13,12 +13,12 @@ import { wrapInList } from './wrapInList';
  *
  * @returns {boolean} True, if the editor state has been changed.
  */
-export function increaseDepth(editor: ListsEditor): boolean {
+export function increaseDepth(editor: Editor, schema: ListsSchema): boolean {
     if (!editor.selection) {
         return false;
     }
 
-    const listItems = getListItemsInRange(editor, editor.selection);
+    const listItems = getListItemsInRange(editor, schema, editor.selection);
     const indentableListItems = listItems.filter(([, listItemPath]) => {
         const previousListItem = getPrevSibling(editor, listItemPath);
         return previousListItem !== null;
@@ -32,11 +32,11 @@ export function increaseDepth(editor: ListsEditor): boolean {
 
     Editor.withoutNormalizing(editor, () => {
         // Before we indent "list-items", we want to convert every non list-related block in selection to a "list".
-        wrapInList(editor, ListType.UNORDERED);
+        wrapInList(editor, schema, ListType.UNORDERED);
 
         refs.forEach((ref) => {
             if (ref.current) {
-                increaseListItemDepth(editor, ref.current);
+                increaseListItemDepth(editor, schema, ref.current);
             }
             ref.unref();
         });

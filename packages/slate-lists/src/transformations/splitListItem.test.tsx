@@ -1,17 +1,18 @@
 /** @jsx hyperscript */
 
 import {
-    hyperscript,
+    Anchor,
+    Cursor,
     Editor,
-    UnorderedList,
-    OrderedList,
+    Focus,
+    hyperscript,
     ListItem,
     ListItemText,
-    Text,
+    OrderedList,
     Paragraph,
-    Cursor,
-    Anchor,
-    Focus,
+    SCHEMA,
+    Text,
+    UnorderedList,
 } from '../hyperscript';
 import type { ListsEditor } from '../types';
 
@@ -43,7 +44,7 @@ describe('splitListItem - no selected items', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -86,7 +87,7 @@ describe('splitListItem - no selected items', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -129,7 +130,7 @@ describe('splitListItem - collapsed selection', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -171,7 +172,7 @@ describe('splitListItem - collapsed selection', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -214,7 +215,7 @@ describe('splitListItem - collapsed selection', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -281,7 +282,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -347,7 +348,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -414,7 +415,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -495,7 +496,7 @@ describe('splitListItem - collapsed selection - deeply nested lists', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -586,7 +587,7 @@ describe('splitListItem - expanded selection - deeply nested lists', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

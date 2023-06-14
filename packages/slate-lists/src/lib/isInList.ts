@@ -1,15 +1,19 @@
 import type { Location } from 'slate';
 import { Editor } from 'slate';
 
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
-export function isInList(editor: ListsEditor, location: Location | null = editor.selection) {
+export function isInList(
+    editor: Editor,
+    schema: ListsSchema,
+    location: Location | null = editor.selection,
+) {
     if (!location) {
         return false;
     }
 
     for (const [currentNode] of Editor.levels(editor, { at: location })) {
-        if (editor.isListNode(currentNode)) {
+        if (schema.isListNode(currentNode)) {
             return true;
         }
     }

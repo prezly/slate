@@ -1,16 +1,15 @@
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import type { ReactEditor } from 'slate-react';
+import type { Editor } from 'slate';
 
+import { ListsEditor } from '../ListsEditor';
 import { increaseDepth } from '../transformations';
-import type { ListsEditor } from '../types';
-
-type Editor = ListsEditor & ReactEditor;
 
 export function onTabIncreaseListDepth(editor: Editor, event: KeyboardEvent) {
-    if (isHotkey('tab', event.nativeEvent)) {
+    const schema = ListsEditor.getListsSchema(editor);
+    if (schema && isHotkey('tab', event.nativeEvent)) {
         event.preventDefault();
-        return increaseDepth(editor);
+        return increaseDepth(editor, schema);
     }
     return false;
 }

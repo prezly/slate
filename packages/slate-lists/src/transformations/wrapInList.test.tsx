@@ -9,6 +9,7 @@ import {
     ListItem,
     ListItemText,
     Paragraph,
+    SCHEMA,
     Text,
     UnorderedList,
 } from '../hyperscript';
@@ -55,7 +56,7 @@ describe('wrapInList - no selection', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        wrapInList(editor, ListType.UNORDERED);
+        wrapInList(editor, SCHEMA, ListType.UNORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -92,7 +93,7 @@ describe('wrapInList - selection with wrappable nodes', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        wrapInList(editor, ListType.UNORDERED);
+        wrapInList(editor, SCHEMA, ListType.UNORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -153,7 +154,7 @@ describe('wrapInList - selection with lists and wrappable nodes', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        wrapInList(editor, ListType.UNORDERED);
+        wrapInList(editor, SCHEMA, ListType.UNORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -208,7 +209,7 @@ describe('wrapInList - selection with lists, wrappable & unwrappable nodes', () 
             </Editor>
         ) as unknown as ListsEditor;
 
-        wrapInList(editor, ListType.UNORDERED);
+        wrapInList(editor, SCHEMA, ListType.UNORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

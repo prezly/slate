@@ -2,7 +2,7 @@ import { Editor, Node, Path, Range, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
 import { getCursorPositionInNode, getListItemsInRange } from '../lib';
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 /**
  * Collapses the current selection (by removing everything in it) and if the cursor
@@ -11,7 +11,7 @@ import type { ListsEditor } from '../types';
  *
  * @returns {boolean} True, if the editor state has been changed.
  */
-export function splitListItem(editor: ListsEditor): boolean {
+export function splitListItem(editor: Editor, schema: ListsSchema): boolean {
     if (!editor.selection) {
         return false;
     }
@@ -21,7 +21,7 @@ export function splitListItem(editor: ListsEditor): boolean {
         Transforms.delete(editor);
     }
 
-    const listItemsInSelection = getListItemsInRange(editor, editor.selection);
+    const listItemsInSelection = getListItemsInRange(editor, schema, editor.selection);
 
     if (listItemsInSelection.length !== 1) {
         // Selection is collapsed, so there should be either 0 or 1 "list-item" in selection.
@@ -36,8 +36,8 @@ export function splitListItem(editor: ListsEditor): boolean {
     const { isEnd, isStart } = getCursorPositionInNode(editor, cursorPoint, listItemTextPath);
 
     if (isStart) {
-        const newListItem = editor.createListItemNode({
-            children: [editor.createListItemTextNode()],
+        const newListItem = schema.createListItemNode({
+            children: [schema.createListItemTextNode()],
         });
         Transforms.insertNodes(editor, newListItem, { at: listItemPath });
         return true;
@@ -49,8 +49,8 @@ export function splitListItem(editor: ListsEditor): boolean {
 
     Editor.withoutNormalizing(editor, () => {
         if (isEnd) {
-            const newListItem = editor.createListItemNode({
-                children: [editor.createListItemTextNode()],
+            const newListItem = schema.createListItemNode({
+                children: [schema.createListItemTextNode()],
             });
             Transforms.insertNodes(editor, newListItem, { at: newListItemPath });
             // Move the cursor to the new "list-item".
@@ -60,7 +60,7 @@ export function splitListItem(editor: ListsEditor): boolean {
             Transforms.splitNodes(editor);
 
             // The current "list-item-text" has a parent "list-item", the new one needs its own.
-            Transforms.wrapNodes(editor, editor.createListItemNode(), { at: newListItemTextPath });
+            Transforms.wrapNodes(editor, schema.createListItemNode(), { at: newListItemTextPath });
 
             // Move the new "list-item" up to be a sibling of the original "list-item".
             Transforms.moveNodes(editor, {

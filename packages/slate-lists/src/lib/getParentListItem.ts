@@ -1,16 +1,20 @@
 import type { Element, NodeEntry, Path } from 'slate';
 import { Editor } from 'slate';
 
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 /**
  * Returns parent "list-item" node of "list-item" at a given path.
  * Returns null if there is no parent "list-item".
  */
-export function getParentListItem(editor: ListsEditor, path: Path): NodeEntry<Element> | null {
-    const parentListItem = Editor.above<Element>(editor, {
+export function getParentListItem(
+    editor: Editor,
+    schema: ListsSchema,
+    path: Path,
+): NodeEntry<Element> | null {
+    const parentListItem = Editor.above(editor, {
         at: path,
-        match: (node) => editor.isListItemNode(node),
+        match: (node) => schema.isListItemNode(node),
     });
 
     return parentListItem ?? null;

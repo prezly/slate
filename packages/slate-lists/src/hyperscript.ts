@@ -40,7 +40,7 @@ export const ListItemText = LIST_ITEM_TEXT_TYPE as any as ComponentType<{ childr
 const INLINE_ELEMENTS = [LINK_TYPE];
 const VOID_ELEMENTS = [DIVIDER_TYPE];
 
-const SCHEMA: ListsSchema = {
+export const SCHEMA: ListsSchema = {
     isConvertibleToListTextNode(node) {
         return Element.isElementType(node, PARAGRAPH_TYPE);
     },

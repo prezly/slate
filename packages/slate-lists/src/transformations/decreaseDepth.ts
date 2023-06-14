@@ -2,7 +2,7 @@ import type { Location } from 'slate';
 import { Editor } from 'slate';
 
 import { getListItemsInRange, pickSubtreesRoots } from '../lib';
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 import { decreaseListItemDepth } from './decreaseListItemDepth';
 
@@ -13,14 +13,15 @@ import { decreaseListItemDepth } from './decreaseListItemDepth';
  * @returns {boolean} True, if the editor state has been changed.
  */
 export function decreaseDepth(
-    editor: ListsEditor,
+    editor: Editor,
+    schema: ListsSchema,
     at: Location | null = editor.selection,
 ): boolean {
     if (!at) {
         return false;
     }
 
-    const listItems = getListItemsInRange(editor, at);
+    const listItems = getListItemsInRange(editor, schema, at);
 
     // When calling `decreaseListItemDepth` the paths and references to "list-items"
     // can change, so we need a way of marking the "list-items" scheduled for transformation.
@@ -30,7 +31,7 @@ export function decreaseDepth(
 
     refs.forEach((ref) => {
         if (ref.current) {
-            handled = decreaseListItemDepth(editor, ref.current) || handled;
+            handled = decreaseListItemDepth(editor, schema, ref.current) || handled;
         }
 
         ref.unref();

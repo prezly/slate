@@ -1,17 +1,17 @@
-import { type Element, Editor, Node, Transforms } from 'slate';
+import { Editor, type Element, Node, Transforms } from 'slate';
 
 import { getListsInRange } from '../lib';
-import type { ListType, ListsEditor } from '../types';
+import type { ListsSchema, ListType } from '../types';
 
 /**
  * Sets "type" of all "list" nodes in the current selection.
  */
-export function setListType(editor: ListsEditor, listType: ListType): void {
+export function setListType(editor: Editor, schema: ListsSchema, listType: ListType): void {
     if (!editor.selection) {
         return;
     }
 
-    const lists = getListsInRange(editor, editor.selection);
+    const lists = getListsInRange(editor, schema, editor.selection);
     const refs = lists.map(([_, path]) => Editor.pathRef(editor, path));
 
     refs.forEach((ref) => {
@@ -19,7 +19,7 @@ export function setListType(editor: ListsEditor, listType: ListType): void {
         const node = path ? Node.get(editor, path) : null;
 
         if (node && path) {
-            Transforms.setNodes(editor, editor.createListNode(listType, node as Element), {
+            Transforms.setNodes(editor, schema.createListNode(listType, node as Element), {
                 at: path,
             });
         }

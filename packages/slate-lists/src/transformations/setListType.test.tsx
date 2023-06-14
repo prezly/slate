@@ -1,15 +1,16 @@
 /** @jsx hyperscript */
 
 import {
-    hyperscript,
+    Anchor,
     Editor,
-    OrderedList,
-    UnorderedList,
+    Focus,
+    hyperscript,
     ListItem,
     ListItemText,
+    OrderedList,
+    SCHEMA,
     Text,
-    Anchor,
-    Focus,
+    UnorderedList,
 } from '../hyperscript';
 import type { ListsEditor } from '../types';
 import { ListType } from '../types';
@@ -42,7 +43,7 @@ describe('setListType', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        setListType(editor, ListType.ORDERED);
+        setListType(editor, SCHEMA, ListType.ORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -177,7 +178,7 @@ describe('setListType', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        setListType(editor, ListType.ORDERED);
+        setListType(editor, SCHEMA, ListType.ORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

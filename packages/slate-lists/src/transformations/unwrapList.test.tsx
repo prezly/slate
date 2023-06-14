@@ -1,18 +1,19 @@
 /** @jsx hyperscript */
 
 import {
-    hyperscript,
+    Anchor,
+    Cursor,
     Editor,
-    OrderedList,
-    UnorderedList,
+    Focus,
+    hyperscript,
     ListItem,
     ListItemText,
-    Text,
-    Paragraph,
-    Cursor,
-    Focus,
-    Anchor,
     noop,
+    OrderedList,
+    Paragraph,
+    SCHEMA,
+    Text,
+    UnorderedList,
 } from '../hyperscript';
 import type { ListsEditor } from '../types';
 
@@ -44,7 +45,7 @@ describe('unwrapList', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        unwrapList(editor);
+        unwrapList(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -77,7 +78,7 @@ describe('unwrapList', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        unwrapList(editor);
+        unwrapList(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -134,7 +135,7 @@ describe('unwrapList', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        unwrapList(editor);
+        unwrapList(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -225,7 +226,7 @@ describe('unwrapList', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        unwrapList(editor);
+        unwrapList(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -280,7 +281,7 @@ describe('unwrapList', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        unwrapList(editor);
+        unwrapList(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

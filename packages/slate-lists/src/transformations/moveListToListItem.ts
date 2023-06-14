@@ -1,14 +1,15 @@
-import type { Node, NodeEntry } from 'slate';
+import type { Editor, Node, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 /**
  * Nests (moves) given "list" in a given "list-item".
  */
 export function moveListToListItem(
-    editor: ListsEditor,
+    editor: Editor,
+    schema: ListsSchema,
     parameters: {
         at: NodeEntry<Node>;
         to: NodeEntry<Node>;
@@ -17,7 +18,7 @@ export function moveListToListItem(
     const [sourceListNode, sourceListPath] = parameters.at;
     const [targetListNode, targetListPath] = parameters.to;
 
-    if (!editor.isListNode(sourceListNode) || !editor.isListItemNode(targetListNode)) {
+    if (!schema.isListNode(sourceListNode) || !schema.isListItemNode(targetListNode)) {
         // Sanity check.
         return;
     }

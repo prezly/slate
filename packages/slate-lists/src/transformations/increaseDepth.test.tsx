@@ -1,18 +1,19 @@
 /** @jsx hyperscript */
 
 import {
-    hyperscript,
+    Anchor,
+    Cursor,
     Editor,
-    UnorderedList,
-    OrderedList,
+    Focus,
+    hyperscript,
     ListItem,
     ListItemText,
-    Text,
-    Paragraph,
-    Anchor,
-    Focus,
-    Cursor,
     noop,
+    OrderedList,
+    Paragraph,
+    SCHEMA,
+    Text,
+    UnorderedList,
 } from '../hyperscript';
 import type { ListsEditor } from '../types';
 
@@ -44,7 +45,7 @@ describe('increaseDepth - no selected items', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        increaseDepth(editor);
+        increaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -83,7 +84,7 @@ describe('increaseDepth - single item selected', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        increaseDepth(editor);
+        increaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -144,7 +145,7 @@ describe('increaseDepth - single item selected', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        increaseDepth(editor);
+        increaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -193,7 +194,7 @@ describe('increaseDepth - single item selected', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        increaseDepth(editor);
+        increaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -242,7 +243,7 @@ describe('increaseDepth - single item selected', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        increaseDepth(editor);
+        increaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -309,7 +310,7 @@ describe('increaseDepth - multiple items selected', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        increaseDepth(editor);
+        increaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -502,7 +503,7 @@ describe('increaseDepth - multiple items selected', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        increaseDepth(editor);
+        increaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -589,7 +590,7 @@ describe('increaseDepth - multiple items and paragraphs selected', () => {
             </Editor>
         ) as unknown as ListsEditor;
 
-        increaseDepth(editor);
+        increaseDepth(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

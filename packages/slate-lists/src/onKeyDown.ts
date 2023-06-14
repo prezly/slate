@@ -1,13 +1,14 @@
 import type { KeyboardEvent } from 'react';
 import { Editor } from 'slate';
-import type { ReactEditor } from 'slate-react';
 
+import { ListsEditor } from './ListsEditor';
 import * as OnKeyDownHandlers from './on-key-down';
-import type { ListsEditor } from './types';
 
-type CompatibleEditor = ListsEditor & ReactEditor;
+export function onKeyDown(editor: Editor, event: KeyboardEvent): boolean | void {
+    if (!ListsEditor.isListsEnabled(editor)) {
+        return;
+    }
 
-export function onKeyDown(editor: CompatibleEditor, event: KeyboardEvent): boolean | void {
     try {
         return (
             onKeyDown.onTabIncreaseListDepth(editor, event) ||
