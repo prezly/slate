@@ -392,7 +392,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
  import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
  import { withHistory } from 'slate-history';
  import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
-+import { ListType, onKeyDown, withLists, withListsNormalization, withListsReact } from '@prezly/slate-lists';
++import { ListType, onKeyDown, withLists } from '@prezly/slate-lists';
  
  declare module 'slate' {
      interface CustomTypes {
