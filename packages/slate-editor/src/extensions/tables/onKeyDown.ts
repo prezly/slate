@@ -53,4 +53,6 @@ export function onClipboardHotkey(
 
         return true;
     }
+
+    return false;
 }
