@@ -6,16 +6,18 @@ import type { Editor } from 'slate';
 import { MarkType } from './types';
 
 const MARK_HOTKEYS = [
-    { hotkey: isHotkey('mod+b'), mark: MarkType.BOLD },
-    { hotkey: isHotkey('mod+i'), mark: MarkType.ITALIC },
-    { hotkey: isHotkey('mod+u'), mark: MarkType.UNDERLINED },
+    { checkHotkey: isHotkey('mod+b'), mark: MarkType.BOLD },
+    { checkHotkey: isHotkey('mod+i'), mark: MarkType.ITALIC },
+    { checkHotkey: isHotkey('mod+u'), mark: MarkType.UNDERLINED },
 ];
 
 export function onKeyDown(event: KeyboardEvent, editor: Editor) {
-    return MARK_HOTKEYS.forEach(({ hotkey, mark }) => {
-        if (hotkey(event.nativeEvent)) {
+    for (const { checkHotkey, mark } of MARK_HOTKEYS) {
+        if (checkHotkey(event.nativeEvent)) {
             event.preventDefault();
             EditorCommands.toggleMark(editor, mark);
+            return true;
         }
-    });
+    }
+    return false;
 }
