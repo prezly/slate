@@ -1,5 +1,6 @@
 import type { ComponentType, ReactNode } from 'react';
 import type * as Slate from 'slate';
+import type { NodeEntry } from 'slate';
 import { createEditor, Element } from 'slate';
 import { createEditor as createEditorFactory, createHyperscript } from 'slate-hyperscript';
 
@@ -18,8 +19,9 @@ export const LIST_ITEM_TYPE = 'li';
 export const LIST_ITEM_TEXT_TYPE = 'li-text';
 
 export const Editor = 'editor' as any as ComponentType<
-    Partial<Omit<Slate.BaseEditor, 'children'>> & {
+    Partial<Omit<Slate.BaseEditor, 'children' | 'normalizeNode'>> & {
         children: ReactNode;
+        normalizeNode?: 'disabled' | ((editor: Slate.Editor, entry: NodeEntry) => boolean);
     }
 >;
 export const Untyped = 'untyped' as any as ComponentType<{ children?: ReactNode }>;
@@ -88,11 +90,28 @@ export const hyperscript = createHyperscript({
         [LIST_ITEM_TEXT_TYPE]: { type: LIST_ITEM_TEXT_TYPE },
     },
     creators: {
-        editor: createEditorFactory(function () {
-            const decorators = [withInlineElements, withVoidElements, withLists(SCHEMA)];
+        editor: (tagName, attributes, children) => {
+            const { normalizeNode, ...rest } = attributes;
 
-            return decorators.reduce((editor, decorate) => decorate(editor), createEditor());
-        }),
+            const factory = createEditorFactory(function () {
+                const decorators = [withInlineElements, withVoidElements, withLists(SCHEMA)];
+
+                return decorators.reduce((editor, decorate) => decorate(editor), createEditor());
+            });
+
+            const editor = factory(tagName, rest, children);
+
+            if (normalizeNode === 'disabled') {
+                editor.normalizeNode = () => null;
+            } else if (normalizeNode) {
+                const parent = { normalizeNode: editor.normalizeNode };
+                editor.normalizeNode = (entry, options) => {
+                    normalizeNode(editor, entry, options) || parent.normalizeNode(entry, options);
+                };
+            }
+
+            return editor;
+        },
     },
 });
 
@@ -113,8 +132,4 @@ function withInlineElements<T extends Slate.Editor>(
         return types.some((type) => Element.isElementType(node, type)) || isInline(node);
     };
     return editor;
-}
-
-export function noop() {
-    return null;
 }

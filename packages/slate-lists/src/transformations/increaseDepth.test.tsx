@@ -1,5 +1,7 @@
 /** @jsx hyperscript */
 
+import type { Editor as Slate } from 'slate';
+
 import {
     Anchor,
     Cursor,
@@ -8,21 +10,19 @@ import {
     hyperscript,
     ListItem,
     ListItemText,
-    noop,
     OrderedList,
     Paragraph,
     SCHEMA,
     Text,
     UnorderedList,
 } from '../hyperscript';
-import type { ListsEditor } from '../types';
 
 import { increaseDepth } from './increaseDepth';
 
 describe('increaseDepth - no selected items', () => {
     it('Does nothing when there is no selection', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -31,10 +31,10 @@ describe('increaseDepth - no selected items', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -43,7 +43,7 @@ describe('increaseDepth - no selected items', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         increaseDepth(editor, SCHEMA);
 
@@ -55,7 +55,7 @@ describe('increaseDepth - no selected items', () => {
 describe('increaseDepth - single item selected', () => {
     it('Does nothing when there is no preceding sibling list item', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -67,10 +67,10 @@ describe('increaseDepth - single item selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -82,7 +82,7 @@ describe('increaseDepth - single item selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         increaseDepth(editor, SCHEMA);
 
@@ -92,7 +92,7 @@ describe('increaseDepth - single item selected', () => {
 
     it('Moves list-item to the child list of a preceding sibling list item', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -116,10 +116,10 @@ describe('increaseDepth - single item selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -143,7 +143,7 @@ describe('increaseDepth - single item selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         increaseDepth(editor, SCHEMA);
 
@@ -153,7 +153,7 @@ describe('increaseDepth - single item selected', () => {
 
     it('Creates a child list in preceding sibling list item and moves list-item there', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -170,10 +170,10 @@ describe('increaseDepth - single item selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -192,7 +192,7 @@ describe('increaseDepth - single item selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         increaseDepth(editor, SCHEMA);
 
@@ -202,7 +202,7 @@ describe('increaseDepth - single item selected', () => {
 
     it('Creates a child list in preceding sibling list item and moves list-item there, maintaining list type', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <OrderedList>
                     <ListItem>
                         <ListItemText>
@@ -219,10 +219,10 @@ describe('increaseDepth - single item selected', () => {
                     </ListItem>
                 </OrderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <OrderedList>
                     <ListItem>
                         <ListItemText>
@@ -241,7 +241,7 @@ describe('increaseDepth - single item selected', () => {
                     </ListItem>
                 </OrderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         increaseDepth(editor, SCHEMA);
 
@@ -253,7 +253,7 @@ describe('increaseDepth - single item selected', () => {
 describe('increaseDepth - multiple items selected', () => {
     it('Increases depth of all indentable list items in selection that have no list items ancestors in selection (A)', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -278,10 +278,10 @@ describe('increaseDepth - multiple items selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -308,7 +308,7 @@ describe('increaseDepth - multiple items selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         increaseDepth(editor, SCHEMA);
 
@@ -318,7 +318,7 @@ describe('increaseDepth - multiple items selected', () => {
 
     it('Increases depth of all indentable list items in selection that have no list items ancestors in selection (B)', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -408,10 +408,10 @@ describe('increaseDepth - multiple items selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -501,7 +501,7 @@ describe('increaseDepth - multiple items selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         increaseDepth(editor, SCHEMA);
 
@@ -513,7 +513,7 @@ describe('increaseDepth - multiple items selected', () => {
 describe('increaseDepth - multiple items and paragraphs selected', () => {
     it('Converts paragraphs into lists items and merges them together', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <Paragraph>
                     <Text>
                         <Anchor />
@@ -544,10 +544,10 @@ describe('increaseDepth - multiple items and paragraphs selected', () => {
                     </Text>
                 </Paragraph>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -588,7 +588,7 @@ describe('increaseDepth - multiple items and paragraphs selected', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         increaseDepth(editor, SCHEMA);
 

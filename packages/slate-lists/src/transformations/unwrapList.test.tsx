@@ -1,4 +1,5 @@
 /** @jsx hyperscript */
+import type { Editor as Slate } from 'slate';
 
 import {
     Anchor,
@@ -8,21 +9,19 @@ import {
     hyperscript,
     ListItem,
     ListItemText,
-    noop,
     OrderedList,
     Paragraph,
     SCHEMA,
     Text,
     UnorderedList,
 } from '../hyperscript';
-import type { ListsEditor } from '../types';
 
 import { unwrapList } from './unwrapList';
 
 describe('unwrapList', () => {
     it('should do nothing when there is no selection', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -31,10 +30,10 @@ describe('unwrapList', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -43,7 +42,7 @@ describe('unwrapList', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         unwrapList(editor, SCHEMA);
 
@@ -53,7 +52,7 @@ describe('unwrapList', () => {
 
     it('should convert the only selected list item into a paragraph', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -65,10 +64,10 @@ describe('unwrapList', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <Paragraph>
                     <Text>
                         lorem
@@ -76,7 +75,7 @@ describe('unwrapList', () => {
                     </Text>
                 </Paragraph>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         unwrapList(editor, SCHEMA);
 
@@ -86,7 +85,7 @@ describe('unwrapList', () => {
 
     it('should convert middle list item into a paragraph', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -108,10 +107,10 @@ describe('unwrapList', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -133,7 +132,7 @@ describe('unwrapList', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         unwrapList(editor, SCHEMA);
 
@@ -143,7 +142,7 @@ describe('unwrapList', () => {
 
     it('should convert nested middle list item into a paragraph', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -182,10 +181,10 @@ describe('unwrapList', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -224,7 +223,7 @@ describe('unwrapList', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         unwrapList(editor, SCHEMA);
 
@@ -234,7 +233,7 @@ describe('unwrapList', () => {
 
     it('should convert a multi-item list into paragraphs', () => {
         const editor = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -259,10 +258,10 @@ describe('unwrapList', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor normalizeNode={noop}>
+            <Editor normalizeNode="disabled">
                 <Paragraph>
                     <Text>
                         <Focus />
@@ -279,7 +278,7 @@ describe('unwrapList', () => {
                     </Text>
                 </Paragraph>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         unwrapList(editor, SCHEMA);
 

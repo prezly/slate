@@ -1,5 +1,7 @@
 /** @jsx hyperscript */
 
+import type { Editor as Slate } from 'slate';
+
 import {
     Anchor,
     Editor,
@@ -12,7 +14,6 @@ import {
     Text,
     UnorderedList,
 } from '../hyperscript';
-import type { ListsEditor } from '../types';
 import { ListType } from '../types';
 
 import { setListType } from './setListType';
@@ -29,7 +30,7 @@ describe('setListType', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -41,7 +42,7 @@ describe('setListType', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         setListType(editor, SCHEMA, ListType.ORDERED);
 
@@ -112,7 +113,7 @@ describe('setListType', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -176,7 +177,7 @@ describe('setListType', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         setListType(editor, SCHEMA, ListType.ORDERED);
 

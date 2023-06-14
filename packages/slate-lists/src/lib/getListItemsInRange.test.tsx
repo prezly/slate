@@ -1,6 +1,6 @@
 /** @jsx hyperscript */
 
-import type * as Slate from 'slate';
+import type { Editor as Slate } from 'slate';
 
 import {
     Anchor,
@@ -14,7 +14,6 @@ import {
     Text,
     UnorderedList,
 } from '../hyperscript';
-import type { ListsEditor } from '../types';
 
 import { getListItemsInRange } from './getListItemsInRange';
 
@@ -54,7 +53,7 @@ describe('getListItemsInRange', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const lists = getListItemsInRange(editor, SCHEMA, editor.selection);
         expect(lists).toEqual([]);
@@ -152,7 +151,7 @@ describe('getListItemsInRange', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as Slate.Editor;
+        ) as unknown as Slate;
 
         const lists = getListItemsInRange(editor, SCHEMA, editor.selection);
         const paths = lists.map(([, path]) => path);

@@ -1,5 +1,7 @@
 /** @jsx hyperscript */
 
+import type { Editor as Slate } from 'slate';
+
 import {
     Anchor,
     Divider,
@@ -13,7 +15,7 @@ import {
     Text,
     UnorderedList,
 } from '../hyperscript';
-import type { ListsEditor } from '../types';
+import { normalizeNode } from '../normalizeNode';
 import { ListType } from '../types';
 
 import { wrapInList } from './wrapInList';
@@ -21,7 +23,7 @@ import { wrapInList } from './wrapInList';
 describe('wrapInList - no selection', () => {
     it('Does nothing when there is no selection', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <Paragraph>
                     <Text>aaa</Text>
                 </Paragraph>
@@ -36,7 +38,7 @@ describe('wrapInList - no selection', () => {
                     <Text>bbb</Text>
                 </Paragraph>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -54,7 +56,7 @@ describe('wrapInList - no selection', () => {
                     <Text>bbb</Text>
                 </Paragraph>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         wrapInList(editor, SCHEMA, ListType.UNORDERED);
 
@@ -66,7 +68,7 @@ describe('wrapInList - no selection', () => {
 describe('wrapInList - selection with wrappable nodes', () => {
     it('Converts wrappable node into list', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <Paragraph>
                     <Text>
                         <Anchor />
@@ -75,7 +77,7 @@ describe('wrapInList - selection with wrappable nodes', () => {
                     </Text>
                 </Paragraph>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -91,7 +93,7 @@ describe('wrapInList - selection with wrappable nodes', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         wrapInList(editor, SCHEMA, ListType.UNORDERED);
 
@@ -103,7 +105,7 @@ describe('wrapInList - selection with wrappable nodes', () => {
 describe('wrapInList - selection with lists and wrappable nodes', () => {
     it('Converts wrappable nodes into lists items and merges them together', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <Paragraph>
                     <Text>
                         <Anchor />
@@ -124,10 +126,10 @@ describe('wrapInList - selection with lists and wrappable nodes', () => {
                     </Text>
                 </Paragraph>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -152,7 +154,7 @@ describe('wrapInList - selection with lists and wrappable nodes', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         wrapInList(editor, SCHEMA, ListType.UNORDERED);
 
@@ -164,7 +166,7 @@ describe('wrapInList - selection with lists and wrappable nodes', () => {
 describe('wrapInList - selection with lists, wrappable & unwrappable nodes', () => {
     it('Converts wrappable nodes into lists items and merges them together, but leaves out unwrappable nodes', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <Paragraph>
                     <Text>
                         <Anchor />
@@ -181,7 +183,7 @@ describe('wrapInList - selection with lists, wrappable & unwrappable nodes', () 
                     </Text>
                 </Divider>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -207,7 +209,7 @@ describe('wrapInList - selection with lists, wrappable & unwrappable nodes', () 
                     </Text>
                 </Divider>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         wrapInList(editor, SCHEMA, ListType.UNORDERED);
 
