@@ -4,7 +4,7 @@ import {
     ListsEditor,
     normalizeNode,
     onKeyDown,
-    withLists,
+    withListsSchema,
     withListsReact,
 } from '@prezly/slate-lists';
 import { TablesEditor } from '@prezly/slate-tables';
@@ -92,7 +92,7 @@ export function ListExtension(): Extension {
             return undefined;
         },
         withOverrides: (editor) => {
-            return withListsReact(withLists(schema)(editor));
+            return withListsReact(withListsSchema(schema)(editor));
         },
     };
 }

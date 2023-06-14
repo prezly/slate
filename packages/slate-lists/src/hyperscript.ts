@@ -6,7 +6,7 @@ import { createEditor as createEditorFactory, createHyperscript } from 'slate-hy
 
 import type { ListsSchema } from './types';
 import { ListType } from './types';
-import { withLists } from './withLists';
+import { withListsSchema } from './withListsSchema';
 
 type AllOrNothing<T extends object> = { [key in keyof T]: T[key] } | { [key in keyof T]?: never };
 
@@ -94,7 +94,7 @@ export const hyperscript = createHyperscript({
             const { normalizeNode, ...rest } = attributes;
 
             const factory = createEditorFactory(function () {
-                const decorators = [withInlineElements, withVoidElements, withLists(SCHEMA)];
+                const decorators = [withInlineElements, withVoidElements, withListsSchema(SCHEMA)];
 
                 return decorators.reduce((editor, decorate) => decorate(editor), createEditor());
             });

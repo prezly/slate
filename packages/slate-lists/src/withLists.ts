@@ -1,15 +1,12 @@
-import type { Editor } from 'slate';
+import type { ReactEditor } from 'slate-react';
 
-import * as Registry from './registry';
 import type { ListsSchema } from './types';
+import { withListsNormalization } from './withListsNormalization';
+import { withListsReact } from './withListsReact';
+import { withListsSchema } from './withListsSchema';
 
-/**
- * Enables normalizations that enforce schema constraints and recover from unsupported cases.
- */
 export function withLists(schema: ListsSchema) {
-    return function <T extends Editor>(editor: T): T {
-        Registry.register(editor, schema);
-
-        return editor;
+    return <T extends ReactEditor>(editor: T): T => {
+        return withListsReact(withListsNormalization(withListsSchema(schema)(editor)));
     };
 }
