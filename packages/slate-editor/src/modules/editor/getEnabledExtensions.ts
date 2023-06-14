@@ -172,6 +172,9 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         yield InlineLinksExtension();
     }
 
+    // Since we're overriding the default Tab key behavior
+    // we need to bring back the possibility to blur the editor
+    // with keyboard.
     yield HotkeysExtension();
 
     if (withLists) {
