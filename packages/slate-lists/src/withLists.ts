@@ -1,32 +1,16 @@
-import type { Editor, NodeEntry } from 'slate';
+import type { Editor } from 'slate';
 
-import {
-    normalizeListChildren,
-    normalizeListItemChildren,
-    normalizeListItemTextChildren,
-    normalizeOrphanListItem,
-    normalizeOrphanListItemText,
-    normalizeOrphanNestedList,
-    normalizeSiblingLists,
-} from './normalizations';
+import { normalizeNode } from './normalizations';
 import type { ListsEditor, ListsSchema } from './types';
 
-type Normalizer = (editor: ListsEditor, entry: NodeEntry) => boolean;
-
-const LIST_NORMALIZERS: Normalizer[] = [
-    normalizeListChildren,
-    normalizeListItemChildren,
-    normalizeListItemTextChildren,
-    normalizeOrphanListItem,
-    normalizeOrphanListItemText,
-    normalizeOrphanNestedList,
-    normalizeSiblingLists,
-];
+interface Options {
+    normalizations?: boolean;
+}
 
 /**
  * Enables normalizations that enforce schema constraints and recover from unsupported cases.
  */
-export function withLists(schema: ListsSchema) {
+export function withLists(schema: ListsSchema, { normalizations = true }: Options = {}) {
     return function <T extends Editor>(editor: T): T & ListsEditor {
         const listsEditor: T & ListsEditor = Object.assign(editor, {
             isConvertibleToListTextNode: schema.isConvertibleToListTextNode,
@@ -40,22 +24,13 @@ export function withLists(schema: ListsSchema) {
             createListItemTextNode: schema.createListItemTextNode,
         });
 
-        return withNormalizations(listsEditor, LIST_NORMALIZERS);
-    };
-}
-
-function withNormalizations<T extends ListsEditor>(editor: T, normalizers: Normalizer[]): T {
-    const { normalizeNode } = editor;
-
-    editor.normalizeNode = (entry) => {
-        for (const normalize of normalizers) {
-            const changed = normalize(editor, entry);
-            if (changed) {
-                return;
-            }
+        if (normalizations) {
+            const parent = { normalizeNode: listsEditor.normalizeNode };
+            listsEditor.normalizeNode = (entry) => {
+                normalizeNode(editor, entry) || parent.normalizeNode(entry);
+            };
         }
 
-        normalizeNode(entry);
+        return listsEditor;
     };
-    return editor;
 }
