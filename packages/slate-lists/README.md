@@ -132,7 +132,7 @@ const initialValue: Descendant[] = [{ type: Type.PARAGRAPH, children: [{ text: '
 
 export function MyEditor() {
     const [value, setValue] = useState(initialValue);
-    const editor = useMemo(() => withHistory(withReact(createEditor() as ReactEditor)), []);
+    const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
     return (
         <Slate editor={editor} value={value} onChange={setValue}>
@@ -238,7 +238,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-list-node
  
  export function MyEditor() {
      const [value, setValue] = useState(initialValue);
-     const editor = useMemo(() => withHistory(withReact(createEditor() as ReactEditor)), []);
+     const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
      return (
          <Slate editor={editor} value={value} onChange={setValue}>
@@ -261,7 +261,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
  import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
  import { withHistory } from 'slate-history';
  import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
-+import { ListType, withLists } from '@prezly/slate-lists';
++import { ListType, withLists, withListsNormalization } from '@prezly/slate-lists';
  
  declare module 'slate' {
      interface CustomTypes {
@@ -277,7 +277,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
      LIST_ITEM_TEXT = 'list-item-text',
  }
  
-+const withListsPlugin = withLists({
++const withListsPlugin = withListsNormalization(withLists({
 +    isConvertibleToListTextNode(node: Node) {
 +        return Element.isElementType(node, Type.PARAGRAPH);
 +    },
@@ -312,7 +312,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
 +    createListItemTextNode(props = {}) {
 +        return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
 +    },
-+});
++}));
  
  function renderElement({ element, attributes, children }: RenderElementProps) {
      switch (element.type) {
@@ -369,7 +369,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
  
  export function MyEditor() {
      const [value, setValue] = useState(initialValue);
-+    const editor = useMemo(() => withListsPlugin(withHistory(withReact(createEditor() as ReactEditor))), []);
++    const editor = useMemo(() => withListsPlugin(withHistory(withReact(createEditor()))), []);
  
      return (
          <Slate editor={editor} value={value} onChange={setValue}>
@@ -392,7 +392,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-3-add-withl
  import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
  import { withHistory } from 'slate-history';
  import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
-+import { ListType, withLists, withListsReact } from '@prezly/slate-lists';
++import { ListType, withLists, withListsNormalization, withListsReact } from '@prezly/slate-lists';
  
  declare module 'slate' {
      interface CustomTypes {
@@ -408,7 +408,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-3-add-withl
      LIST_ITEM_TEXT = 'list-item-text',
  }
  
- const withListsPlugin = withLists({
+ const withListsPlugin = withListsNormalization(withLists({
      isConvertibleToListTextNode(node: Node) {
          return Element.isElementType(node, Type.PARAGRAPH);
      },
@@ -443,7 +443,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-3-add-withl
      createListItemTextNode(props = {}) {
          return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
      },
- });
+ }));
  
  function renderElement({ element, attributes, children }: RenderElementProps) {
      switch (element.type) {
@@ -501,7 +501,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-3-add-withl
  export function MyEditor() {
      const [value, setValue] = useState(initialValue);
      const editor = useMemo(
-+        () => withListsReact(withListsPlugin(withHistory(withReact(createEditor() as ReactEditor)))),
++        () => withListsReact(withListsPlugin(withHistory(withReact(createEditor())))),
          [],
      );
  
@@ -526,7 +526,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
  import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
  import { withHistory } from 'slate-history';
  import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
-+import { ListType, onKeyDown, withLists, withListsReact } from '@prezly/slate-lists';
++import { ListType, onKeyDown, withLists, withListsNormalization, withListsReact } from '@prezly/slate-lists';
  
  declare module 'slate' {
      interface CustomTypes {
@@ -542,7 +542,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
      LIST_ITEM_TEXT = 'list-item-text',
  }
  
- const withListsPlugin = withLists({
+ const withListsPlugin = withListsNormalization(withLists({
      isConvertibleToListTextNode(node: Node) {
          return Element.isElementType(node, Type.PARAGRAPH);
      },
@@ -577,7 +577,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
      createListItemTextNode(props = {}) {
          return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
      },
- });
+ }));
  
  function renderElement({ element, attributes, children }: RenderElementProps) {
      switch (element.type) {
@@ -637,7 +637,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
  export function MyEditor() {
      const [value, setValue] = useState(initialValue);
      const editor = useMemo(
-         () => withListsReact(withListsPlugin(withHistory(withReact(createEditor() as ReactEditor)))),
+         () => withListsReact(withListsPlugin(withHistory(withReact(createEditor())))),
          [],
      );
  
@@ -667,8 +667,9 @@ Only core API is documented although all utility functions are exposed. Should y
 
 -   [`ListsSchema`](#ListsSchema)
 -   [`withLists`](#withLists)
+-   [`withListsNormalization`](#withListsNormalization)
 -   [`withListsReact`](#withListsReact)
--   [`Lists`](#Lists)
+-   [`ListsEditor`](#ListsEditor)
 
 ### [`ListsSchema`](src/types.ts)
 
@@ -687,21 +688,23 @@ It is designed with 100% customization in mind, not depending on any specific no
 | `createListItemNode`          | Create a new list item node.                                                                                           |
 | `createListItemTextNode`      | Create a new list item text node.                                                                                      |
 
-### [`ListsEditor`](src/types.ts)
-
-ListsEditor is an instance of Slate `Editor`, extends with `ListsSchema` methods:
-
-```ts
-type ListsEditor = Editor & ListsSchema;
-```
-
 ### [`withLists`](src/lib/withLists.ts)
 
 ```ts
 /**
- * Enables normalizations that enforce schema constraints and recover from unsupported cases.
+ * Bind the given ListsSchema to the editor instance.
+ * The schema is used by all lists operations.
  */
-withLists(schema: ListsSchema) => (<T extends Editor>(editor: T) => T & ListsEditor)
+withLists(schema: ListsSchema) => (<T extends Editor>(editor: T) => T)
+```
+
+### [`withListsNormalization`](src/lib/withListsNormalization.ts)
+
+```ts
+/**
+ * Enable normalizations that enforce schema constraints and recover from unsupported cases.
+ */
+withListsNormalization<T extends Editor>(editor: T): T
 ```
 
 ### [`withListsReact`](src/lib/withListsReact.ts)
@@ -711,13 +714,16 @@ withLists(schema: ListsSchema) => (<T extends Editor>(editor: T) => T & ListsEdi
  * Enables Range.prototype.cloneContents monkey patch to improve pasting behavior
  * in few edge cases.
  */
-withListsReact<T extends ReactEditor & ListsEditor>(editor: T): T
+withListsReact<T extends ReactEditor>(editor: T): T
 ```
 
 ### [`ListsEditor`](src/index.ts)
 
 `ListsEditor` is a namespace export with all list-related editor utility functions. 
-Most of them require an instance of [`ListsEditor`](#ListsEditor) as the first argument.  
+Most of them require an instance of `Editor` as the first argument.
+
+> **Warning**: all `ListsEditor` methods expect a ListsSchema to be bound 
+> to the editor instance with `withLists()` function prior to using them. 
 
 Here are the functions methods:
 
