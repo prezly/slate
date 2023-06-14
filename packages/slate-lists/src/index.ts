@@ -1,5 +1,5 @@
 export { ListsEditor } from './ListsEditor';
-export * as Normalizations from './normalizations';
+export { normalizeNode } from './normalizeNode';
 export { onKeyDown } from './onKeyDown';
 export { ListType, type ListsSchema } from './types';
 export { withLists } from './withLists';

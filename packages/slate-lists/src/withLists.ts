@@ -1,6 +1,6 @@
 import type { Editor } from 'slate';
 
-import { normalizeNode } from './normalizations';
+import { normalizeNode } from './normalizeNode';
 import type { ListsEditor, ListsSchema } from './types';
 
 interface Options {
