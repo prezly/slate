@@ -248,7 +248,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-1-list-node
  }
 ```
 
-### 2. Define lists plugin schema and connect [`withLists`](src/lib/withLists.ts) plugin to your model
+### 2. Define lists plugin schema and connect [`withLists`](src/lib/withLists.ts) plugin to your model.
 
 [`withLists`](src/lib/withLists.ts) is a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) 
 that enables [normalizations](https://docs.slatejs.org/concepts/10-normalizing) 
@@ -261,7 +261,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
  import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
  import { withHistory } from 'slate-history';
  import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
-+import { ListType, withLists, withListsNormalization } from '@prezly/slate-lists';
++import { ListType, withLists } from '@prezly/slate-lists';
  
  declare module 'slate' {
      interface CustomTypes {
@@ -277,7 +277,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
      LIST_ITEM_TEXT = 'list-item-text',
  }
  
-+const withListsPlugin = withListsNormalization(withLists({
++const withListsPlugin = withLists({
 +    isConvertibleToListTextNode(node: Node) {
 +        return Element.isElementType(node, Type.PARAGRAPH);
 +    },
@@ -312,7 +312,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
 +    createListItemTextNode(props = {}) {
 +        return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
 +    },
-+}));
++});
  
  function renderElement({ element, attributes, children }: RenderElementProps) {
      switch (element.type) {
@@ -379,141 +379,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
  }
 ```
 
-### 3. Use [`withListsReact`](src/lib/withListsReact.ts) plugin
-
-[`withListsReact`](src/lib/withListsReact.ts) is useful on the client-side - 
-it's a [Slate plugin](https://docs.slatejs.org/concepts/07-plugins) - that overrides `editor.setFragmentData`. 
-It enables `Range.prototype.cloneContents` monkey patch to improve copying behavior in some edge cases.
-
-Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-3-add-withlistsreact-plugin-t81im0?file=/src/MyEditor.tsx
-
-```diff
- import { useMemo, useState } from 'react';
- import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
- import { withHistory } from 'slate-history';
- import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
-+import { ListType, withLists, withListsNormalization, withListsReact } from '@prezly/slate-lists';
- 
- declare module 'slate' {
-     interface CustomTypes {
-         Element: { type: Type } & BaseElement;
-     }
- }
- 
- enum Type {
-     PARAGRAPH = 'paragraph',
-     ORDERED_LIST = 'ordered-list',
-     UNORDERED_LIST = 'unordered-list',
-     LIST_ITEM = 'list-item',
-     LIST_ITEM_TEXT = 'list-item-text',
- }
- 
- const withListsPlugin = withListsNormalization(withLists({
-     isConvertibleToListTextNode(node: Node) {
-         return Element.isElementType(node, Type.PARAGRAPH);
-     },
-     isDefaultTextNode(node: Node) {
-         return Element.isElementType(node, Type.PARAGRAPH);
-     },
-     isListNode(node: Node, type: ListType) {
-         if (type) {
-             return Element.isElementType(node, type);
-         }
-         return (
-             Element.isElementType(node, Type.ORDERED_LIST) ||
-             Element.isElementType(node, Type.UNORDERED_LIST)
-         );
-     },
-     isListItemNode(node: Node) {
-         return Element.isElementType(node, Type.LIST_ITEM);
-     },
-     isListItemTextNode(node: Node) {
-         return Element.isElementType(node, Type.LIST_ITEM_TEXT);
-     },
-     createDefaultTextNode(props = {}) {
-         return { children: [{ text: '' }], ...props, type: Type.PARAGRAPH };
-     },
-     createListNode(type: ListType = ListType.UNORDERED, props = {}) {
-         const nodeType = type === ListType.ORDERED ? Type.ORDERED_LIST : Type.UNORDERED_LIST;
-         return { children: [{ text: '' }], ...props, type: nodeType };
-     },
-     createListItemNode(props = {}) {
-         return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM };
-     },
-     createListItemTextNode(props = {}) {
-         return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
-     },
- }));
- 
- function renderElement({ element, attributes, children }: RenderElementProps) {
-     switch (element.type) {
-         case Type.PARAGRAPH:
-             return <p {...attributes}>{children}</p>;
-         case Type.ORDERED_LIST:
-             return <ol {...attributes}>{children}</ol>;
-         case Type.UNORDERED_LIST:
-             return <ul {...attributes}>{children}</ul>;
-         case Type.LIST_ITEM:
-             return <li {...attributes}>{children}</li>;
-         case Type.LIST_ITEM_TEXT:
-             return <div {...attributes}>{children}</div>;
-     }
- }
- 
- const initialValue: Descendant[] = [
-     { type: Type.PARAGRAPH, children: [{ text: 'Hello world!' }] },
-     {
-         type: Type.ORDERED_LIST,
-         children: [
-             {
-                 type: Type.LIST_ITEM,
-                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'One' }] }],
-             },
-             {
-                 type: Type.LIST_ITEM,
-                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Two' }] }],
-             },
-             {
-                 type: Type.LIST_ITEM,
-                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Three' }] }],
-             },
-         ],
-     },
-     {
-         type: Type.UNORDERED_LIST,
-         children: [
-             {
-                 type: Type.LIST_ITEM,
-                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Red' }] }],
-             },
-             {
-                 type: Type.LIST_ITEM,
-                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Green' }] }],
-             },
-             {
-                 type: Type.LIST_ITEM,
-                 children: [{ type: Type.LIST_ITEM_TEXT, children: [{ text: 'Blue' }] }],
-             },
-         ],
-     },
- ];
- 
- export function MyEditor() {
-     const [value, setValue] = useState(initialValue);
-     const editor = useMemo(
-+        () => withListsReact(withListsPlugin(withHistory(withReact(createEditor())))),
-         [],
-     );
- 
-     return (
-         <Slate editor={editor} value={value} onChange={setValue}>
-             <Editable renderElement={renderElement} />
-         </Slate>
-     );
- }
-```
-
-### 4. Add `onKeyDown` handler
+### 3. Add `onKeyDown` handler
 
 `@prezly/slate-lists` comes with a pre-defined `onKeyDown` handler to implement keyboard interactions for lists.
 For example, pressing `Tab` in a list will indent the current list item one level deeper. 
@@ -542,7 +408,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
      LIST_ITEM_TEXT = 'list-item-text',
  }
  
- const withListsPlugin = withListsNormalization(withLists({
+ const withListsPlugin = withLists({
      isConvertibleToListTextNode(node: Node) {
          return Element.isElementType(node, Type.PARAGRAPH);
      },
@@ -577,7 +443,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
      createListItemTextNode(props = {}) {
          return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
      },
- }));
+ });
  
  function renderElement({ element, attributes, children }: RenderElementProps) {
      switch (element.type) {
@@ -637,7 +503,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
  export function MyEditor() {
      const [value, setValue] = useState(initialValue);
      const editor = useMemo(
-         () => withListsReact(withListsPlugin(withHistory(withReact(createEditor())))),
+         () => withListsPlugin(withHistory(withReact(createEditor()))),
          [],
      );
  
@@ -667,6 +533,7 @@ Only core API is documented although all utility functions are exposed. Should y
 
 -   [`ListsSchema`](#ListsSchema)
 -   [`withLists`](#withLists)
+-   [`withListsSchema`](#withListsSchema)
 -   [`withListsNormalization`](#withListsNormalization)
 -   [`withListsReact`](#withListsReact)
 -   [`ListsEditor`](#ListsEditor)
@@ -690,15 +557,31 @@ It is designed with 100% customization in mind, not depending on any specific no
 
 ### [`withLists`](src/lib/withLists.ts)
 
+`withLists()` is an all-in-one plugin initializer. 
+It calls `withListsSchema()`, `withListsReact()`, and `withListsNormalization()` internall. 
+
+```ts
+/**
+ * Mutate the Editor instance by adding all lists plugin functionality on top of it.
+ */
+withLists(schema: ListsSchema) => (<T extends Editor>(editor: T) => T)
+```
+
+### [`withListsSchema`](src/lib/withListsSchema.ts)
+
+*Note: this is already included into `withLists()`.*
+
 ```ts
 /**
  * Bind the given ListsSchema to the editor instance.
  * The schema is used by all lists operations.
  */
-withLists(schema: ListsSchema) => (<T extends Editor>(editor: T) => T)
+withListsSchema(schema: ListsSchema) => (<T extends Editor>(editor: T) => T)
 ```
 
 ### [`withListsNormalization`](src/lib/withListsNormalization.ts)
+
+*Note: this is already included into `withLists()`.* 
 
 ```ts
 /**
@@ -708,6 +591,8 @@ withListsNormalization<T extends Editor>(editor: T): T
 ```
 
 ### [`withListsReact`](src/lib/withListsReact.ts)
+
+*Note: this is already included into `withLists()`.*
 
 ```ts
 /**
@@ -731,30 +616,30 @@ Here are the functions methods:
 /**
  * Returns true when editor.deleteBackward() is safe to call (it won't break the structure).
  */
-canDeleteBackward(editor: ListsEditor) => boolean
+canDeleteBackward(editor: Editor) => boolean
 
 /**
  * Decreases nesting depth of all "list-items" in the current selection.
  * All "list-items" in the root "list" will become "default" nodes.
  */
-decreaseDepth(editor: ListsEditor) => void
+decreaseDepth(editor: Editor) => void
 
 /**
  * Decreases nesting depth of "list-item" at a given Path.
  */
-decreaseListItemDepth(editor: ListsEditor, listItemPath: Path) => void
+decreaseListItemDepth(editor: Editor, listItemPath: Path) => void
 
 /**
  * Returns all "list-items" in a given Range.
  * @param at defaults to current selection if not specified
  */
-getListItemsInRange(editor: ListsEditor, at: Range | null | undefined) => NodeEntry<Node>[]
+getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]
 
 /**
  * Returns all "lists" in a given Range.
  * @param at defaults to current selection if not specified
  */
-getListsInRange(editor: ListsEditor, at: Range | null | undefined) => NodeEntry<Node>[]
+getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]
 
 /**
  * Returns the "type" of a given list node.
@@ -765,79 +650,79 @@ getListType(node: Node) => string
  * Returns "list" node nested in "list-item" at a given path.
  * Returns null if there is no nested "list".
  */
-getNestedList(editor: ListsEditor, listItemPath: Path) => NodeEntry<Element> | null
+getNestedList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
 /**
  * Returns parent "list" node of "list-item" at a given path.
  * Returns null if there is no parent "list".
  */
-getParentList(editor: ListsEditor, listItemPath: Path) => NodeEntry<Element> | null
+getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
 /**
  * Returns parent "list-item" node of "list-item" at a given path.
  * Returns null if there is no parent "list-item".
  */
-getParentListItem(editor: ListsEditor, listItemPath: Path) => NodeEntry<Element> | null
+getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
 /**
  * Increases nesting depth of all "list-items" in the current selection.
  * All nodes matching options.wrappableTypes in the selection will be converted to "list-items" and wrapped in a "list".
  */
-increaseDepth(editor: ListsEditor) => void
+increaseDepth(editor: Editor) => void
 
 /**
  * Increases nesting depth of "list-item" at a given Path.
  */
-increaseListItemDepth(editor: ListsEditor, listItemPath: Path) => void
+increaseListItemDepth(editor: Editor, listItemPath: Path) => void
 
 /**
  * Returns true when editor has collapsed selection and the cursor is in an empty "list-item".
  */
-isCursorInEmptyListItem(editor: ListsEditor) => boolean
+isCursorInEmptyListItem(editor: Editor) => boolean
 
 /**
  * Returns true when editor has collapsed selection and the cursor is at the beginning of a "list-item".
  */
-isCursorAtStartOfListItem(editor: ListsEditor) => boolean
+isCursorAtStartOfListItem(editor: Editor) => boolean
 
 /**
  * Returns true if given "list-item" node contains a non-empty "list-item-text" node.
  */
-isListItemContainingText(editor: ListsEditor, node: Node) => boolean
+isListItemContainingText(editor: Editor, node: Node) => boolean
 
 /**
  * Moves all "list-items" from one "list" to the end of another "list".
  */
-moveListItemsToAnotherList(editor: ListsEditor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void
+moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void
 
 /**
  * Nests (moves) given "list" in a given "list-item".
  */
-moveListToListItem(editor: ListsEditor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void
+moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void
 
 /**
  * Sets "type" of all "list" nodes in the current selection.
  */
-setListType(editor: ListsEditor, listType: string) => void
+setListType(editor: Editor, listType: string) => void
 
 /**
  * Collapses the current selection (by removing everything in it) and if the cursor
  * ends up in a "list-item" node, it will break that "list-item" into 2 nodes, splitting
  * the text at the cursor location.
  */
-splitListItem(editor: ListsEditor) => void
+splitListItem(editor: Editor) => void
 
 /**
  * Unwraps all "list-items" in the current selection.
  * No list be left in the current selection.
  */
-unwrapList(editor: ListsEditor) => void
+unwrapList(editor: Editor) => void
 
 /**
  * All nodes matching options.wrappableTypes in the current selection
  * will be converted to "list-items" and wrapped in "lists".
  */
-wrapInList(editor: ListsEditor, listType: ListType) => void
+wrapInList(editor: Editor, listType: ListType) => void
 ```
 
 ----
