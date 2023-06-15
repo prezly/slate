@@ -614,37 +614,41 @@ Here are the functions methods:
 
 ```ts
 /**
- * Returns true when editor.deleteBackward() is safe to call (it won't break the structure).
+ * Check if editor.deleteBackward() is safe to call (it won't break the structure) at the given location 
+ * (defaults to the current selection).
  */
-canDeleteBackward(editor: Editor) => boolean
+isDeleteBackwardAllowed(editor: Editor, at?: Location | null) => boolean
 
 /**
- * Decreases nesting depth of all "list-items" in the current selection.
- * All "list-items" in the root "list" will become "default" nodes.
+ * Returns true when editor has collapsed selection and the cursor is in an empty "list-item".
  */
-decreaseDepth(editor: Editor) => void
+isAtEmptyListItem(editor: Editor) => boolean
 
 /**
- * Decreases nesting depth of "list-item" at a given Path.
+ * Check if the given location is collapsed and the cursor is at the beginning of a "list-item"
+ * (defaults to the current selection).
  */
-decreaseListItemDepth(editor: Editor, listItemPath: Path) => void
+isAtStartOfListItem(editor: Editor, at?: Location | null) => boolean
 
 /**
- * Returns all "list-items" in a given Range.
- * @param at defaults to current selection if not specified
+ * Check if given "list-item" node contains a non-empty "list-item-text" node.
  */
-getListItemsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]
+isListItemContainingText(editor: Editor, node: Node) => boolean
 
 /**
- * Returns all "lists" in a given Range.
- * @param at defaults to current selection if not specified
+ * Returns all "lists" in a given location (defaults to the current selection).
  */
-getListsInRange(editor: Editor, at: Range | null | undefined) => NodeEntry<Node>[]
+getLists(editor: Editor, at?: Range | null) => NodeEntry<Node>[]
+
+/**
+ * Returns all "list-items" in a given location (defaults to the current selection).
+ */
+getListItems(editor: Editor, at?: Range | null) => NodeEntry<Node>[]
 
 /**
  * Returns the "type" of a given list node.
  */
-getListType(node: Node) => string
+getListType(editor: Editor, node: Node) => string
 
 /**
  * Returns "list" node nested in "list-item" at a given path.
@@ -665,10 +669,15 @@ getParentList(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 getParentListItem(editor: Editor, listItemPath: Path) => NodeEntry<Element> | null
 
 /**
- * Increases nesting depth of all "list-items" in the current selection.
+ * Sets "type" of all "list" nodes in the given location (defaults to the current selection).
+ */
+setListType(editor: Editor, listType: string, at?: Location | null) => void
+    
+/**
+ * Increases nesting depth of all "list-items" in the given location (defaults to the current selection).
  * All nodes matching options.wrappableTypes in the selection will be converted to "list-items" and wrapped in a "list".
  */
-increaseDepth(editor: Editor) => void
+increaseDepth(editor: Editor, at?: Location | null) => void
 
 /**
  * Increases nesting depth of "list-item" at a given Path.
@@ -676,19 +685,15 @@ increaseDepth(editor: Editor) => void
 increaseListItemDepth(editor: Editor, listItemPath: Path) => void
 
 /**
- * Returns true when editor has collapsed selection and the cursor is in an empty "list-item".
+ * Decreases nesting depth of all "list-items" in the given location (defaults to the current selection).
+ * All "list-items" in the root "list" will become "default" nodes.
  */
-isCursorInEmptyListItem(editor: Editor) => boolean
+decreaseDepth(editor: Editor, at?: Location | null) => void
 
 /**
- * Returns true when editor has collapsed selection and the cursor is at the beginning of a "list-item".
+ * Decreases nesting depth of "list-item" at a given Path.
  */
-isCursorAtStartOfListItem(editor: Editor) => boolean
-
-/**
- * Returns true if given "list-item" node contains a non-empty "list-item-text" node.
- */
-isListItemContainingText(editor: Editor, node: Node) => boolean
+decreaseListItemDepth(editor: Editor, listItemPath: Path) => void
 
 /**
  * Moves all "list-items" from one "list" to the end of another "list".
@@ -701,28 +706,23 @@ moveListItemsToAnotherList(editor: Editor, parameters: { at: NodeEntry<Node>; to
 moveListToListItem(editor: Editor, parameters: { at: NodeEntry<Node>; to: NodeEntry<Node>; }) => void
 
 /**
- * Sets "type" of all "list" nodes in the current selection.
+ * Collapses the given location (defaults to the current selection) by removing everything in it 
+ * and if the cursor ends up in a "list-item" node, it will break that "list-item" into 2 nodes, 
+ * splitting the text at the cursor location.
  */
-setListType(editor: Editor, listType: string) => void
+splitListItem(editor: Editor, at?: Location | null) => void
 
 /**
- * Collapses the current selection (by removing everything in it) and if the cursor
- * ends up in a "list-item" node, it will break that "list-item" into 2 nodes, splitting
- * the text at the cursor location.
+ * Unwraps all "list-items" at the given location (defaults to the current selection).
+ * No list be left in the location after this operation.
  */
-splitListItem(editor: Editor) => void
+unwrapList(editor: Editor, at?: Location | null) => void
 
 /**
- * Unwraps all "list-items" in the current selection.
- * No list be left in the current selection.
- */
-unwrapList(editor: Editor) => void
-
-/**
- * All nodes matching options.wrappableTypes in the current selection
+ * All nodes matching `schema.isConvertibleToListItemText()` at the given location (defaults to the current selection)
  * will be converted to "list-items" and wrapped in "lists".
  */
-wrapInList(editor: Editor, listType: ListType) => void
+wrapInList(editor: Editor, listType: ListType, at?: Location | null) => void
 ```
 
 ----
