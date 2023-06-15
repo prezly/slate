@@ -6,13 +6,13 @@ import type { ListsSchema } from '../types';
 export function isInList(
     editor: Editor,
     schema: ListsSchema,
-    location: Location | null = editor.selection,
+    at: Location | null = editor.selection,
 ) {
-    if (!location) {
+    if (!at) {
         return false;
     }
 
-    for (const [currentNode] of Editor.levels(editor, { at: location })) {
+    for (const [currentNode] of Editor.levels(editor, { at })) {
         if (schema.isListNode(currentNode)) {
             return true;
         }

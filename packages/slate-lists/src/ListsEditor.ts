@@ -1,16 +1,15 @@
-import type { Editor, Location, Node, NodeEntry, Path, Range } from 'slate';
-import type { Element } from 'slate';
+import type { Editor, Element, Location, Node, NodeEntry, Path, Range } from 'slate';
 
 import {
-    canDeleteBackward,
-    getListItemsInRange,
-    getListsInRange,
+    isDeleteBackwardAllowed,
+    getListItems,
+    getLists,
     getListType,
     getNestedList,
     getParentList,
     getParentListItem,
-    isCursorAtStartOfListItem,
-    isCursorInEmptyListItem,
+    isAtStartOfListItem,
+    isAtEmptyListItem,
     isInList,
     isListItemContainingText,
 } from './lib';
@@ -73,21 +72,27 @@ export const ListsEditor = {
         return schema(editor).createListItemTextNode(props);
     },
 
-    // Own API
-    canDeleteBackward(editor: Editor) {
-        return canDeleteBackward(editor, schema(editor));
+    // Checks & Getters
+    isDeleteBackwardAllowed(editor: Editor, at?: Location | null) {
+        return isDeleteBackwardAllowed(editor, schema(editor), at);
     },
-    decreaseDepth(editor: Editor, at?: Location | null) {
-        return decreaseDepth(editor, schema(editor), at);
+    isAtStartOfListItem(editor: Editor, at?: Location | null) {
+        return isAtStartOfListItem(editor, schema(editor), at);
     },
-    decreaseListItemDepth(editor: Editor, listItemPath: Path) {
-        return decreaseListItemDepth(editor, schema(editor), listItemPath);
+    isAtEmptyListItem(editor: Editor, at?: Location | null) {
+        return isAtEmptyListItem(editor, schema(editor), at);
     },
-    getListItemsInRange(editor: Editor, at?: Location | null) {
-        return getListItemsInRange(editor, schema(editor), at);
+    isAtList(editor: Editor, at?: Location | null) {
+        return isInList(editor, schema(editor), at);
     },
-    getListsInRange(editor: Editor, at: Range | null) {
-        return getListsInRange(editor, schema(editor), at);
+    isListItemContainingText(editor: Editor, node: Node) {
+        return isListItemContainingText(editor, schema(editor), node);
+    },
+    getLists(editor: Editor, at: Range | null) {
+        return getLists(editor, schema(editor), at);
+    },
+    getListItems(editor: Editor, at?: Location | null) {
+        return getListItems(editor, schema(editor), at);
     },
     getListType(editor: Editor, node: Node) {
         return getListType(schema(editor), node);
@@ -101,23 +106,19 @@ export const ListsEditor = {
     getParentListItem(editor: Editor, path: Path) {
         return getParentListItem(editor, schema(editor), path);
     },
-    increaseDepth(editor: Editor) {
-        return increaseDepth(editor, schema(editor));
+
+    // Transformations
+    increaseDepth(editor: Editor, at?: Location | null) {
+        return increaseDepth(editor, schema(editor), at);
     },
     increaseListItemDepth(editor: Editor, listItemPath: Path) {
         return increaseListItemDepth(editor, schema(editor), listItemPath);
     },
-    isCursorAtStartOfListItem(editor: Editor) {
-        return isCursorAtStartOfListItem(editor, schema(editor));
+    decreaseDepth(editor: Editor, at?: Location | null) {
+        return decreaseDepth(editor, schema(editor), at);
     },
-    isCursorInEmptyListItem(editor: Editor) {
-        return isCursorInEmptyListItem(editor, schema(editor));
-    },
-    isInList(editor: Editor, location?: Location | null) {
-        return isInList(editor, schema(editor), location);
-    },
-    isListItemContainingText(editor: Editor, node: Node) {
-        return isListItemContainingText(editor, schema(editor), node);
+    decreaseListItemDepth(editor: Editor, listItemPath: Path) {
+        return decreaseListItemDepth(editor, schema(editor), listItemPath);
     },
     mergeListWithPreviousSiblingList(editor: Editor, entry: NodeEntry) {
         return mergeListWithPreviousSiblingList(editor, schema(editor), entry);
@@ -131,16 +132,16 @@ export const ListsEditor = {
     moveListToListItem(editor: Editor, parameters: Parameters<typeof moveListToListItem>[2]) {
         return moveListToListItem(editor, schema(editor), parameters);
     },
-    setListType(editor: Editor, listType: ListType) {
-        return setListType(editor, schema(editor), listType);
+    setListType(editor: Editor, listType: ListType, at?: Location | null) {
+        return setListType(editor, schema(editor), listType, at);
     },
-    splitListItem(editor: Editor) {
-        return splitListItem(editor, schema(editor));
+    splitListItem(editor: Editor, at?: Location | null) {
+        return splitListItem(editor, schema(editor), at);
     },
-    unwrapList(editor: Editor) {
-        return unwrapList(editor, schema(editor));
+    unwrapList(editor: Editor, at?: Location | null) {
+        return unwrapList(editor, schema(editor), at);
     },
-    wrapInList(editor: Editor, listType = ListType.UNORDERED) {
-        return wrapInList(editor, schema(editor), listType);
+    wrapInList(editor: Editor, listType = ListType.UNORDERED, at?: Location | null) {
+        return wrapInList(editor, schema(editor), listType, at);
     },
 };

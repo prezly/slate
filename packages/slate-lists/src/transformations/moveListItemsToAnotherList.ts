@@ -13,7 +13,7 @@ export function moveListItemsToAnotherList(
         at: NodeEntry<Node>;
         to: NodeEntry<Node>;
     },
-): void {
+): boolean {
     const [sourceListNode, sourceListPath] = parameters.at;
     const [targetListNode, targetListPath] = parameters.to;
 
@@ -21,7 +21,8 @@ export function moveListItemsToAnotherList(
         Element.isElement(sourceListNode) &&
         Element.isElement(targetListNode) &&
         schema.isListNode(sourceListNode) &&
-        schema.isListNode(targetListNode)
+        schema.isListNode(targetListNode) &&
+        sourceListNode.children.length > 0
     ) {
         // Sanity check.
         for (let i = 0; i < sourceListNode.children.length; ++i) {
@@ -30,5 +31,8 @@ export function moveListItemsToAnotherList(
                 to: [...targetListPath, targetListNode.children.length + i],
             });
         }
+
+        return true;
     }
+    return false;
 }

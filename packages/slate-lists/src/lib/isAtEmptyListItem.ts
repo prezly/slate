@@ -1,20 +1,26 @@
-import type { Editor } from 'slate';
-import { Range } from 'slate';
+import type { Editor, Location, Span } from 'slate';
 
 import type { ListsSchema } from '../types';
 
-import { getListItemsInRange } from './getListItemsInRange';
+import { getCursorPosition } from './getCursorPosition';
+import { getListItems } from './getListItems';
 import { isListItemContainingText } from './isListItemContainingText';
 
 /**
  * Returns true when editor has collapsed selection and the cursor is in an empty "list-item".
  */
-export function isCursorInEmptyListItem(editor: Editor, schema: ListsSchema): boolean {
-    if (!editor.selection || Range.isExpanded(editor.selection)) {
+export function isAtEmptyListItem(
+    editor: Editor,
+    schema: ListsSchema,
+    at: Location | Span | null = editor.selection,
+): boolean {
+    const point = getCursorPosition(editor, at);
+
+    if (!point) {
         return false;
     }
 
-    const listItemsInSelection = getListItemsInRange(editor, schema, editor.selection);
+    const listItemsInSelection = getListItems(editor, schema, point);
 
     if (listItemsInSelection.length !== 1) {
         return false;

@@ -11,24 +11,26 @@ export function increaseListItemDepth(
     editor: Editor,
     schema: ListsSchema,
     listItemPath: Path,
-): void {
+): boolean {
     const previousListItem = getPrevSibling(editor, listItemPath);
 
     if (!previousListItem) {
         // The existence of previous "list-item" is necessary and sufficient for the operation to be possible.
         // See: https://en.wikipedia.org/wiki/Necessity_and_sufficiency
-        return;
+        return false;
     }
 
     const [previousListItemNode, previousListItemPath] = previousListItem;
 
     if (!schema.isListItemNode(previousListItemNode)) {
         // Sanity check.
-        return;
+        return false;
     }
 
     const previousListItemChildListPath = [...previousListItemPath, NESTED_LIST_PATH_INDEX];
     const previousListItemHasChildList = Node.has(editor, previousListItemChildListPath);
+
+    let changed = false;
 
     Editor.withoutNormalizing(editor, () => {
         // Ensure there's a nested "list" in the previous sibling "list-item".
@@ -42,6 +44,7 @@ export function increaseListItemDepth(
                     at: previousListItemChildListPath,
                 },
             );
+            changed = true;
         }
 
         const previousListItemChildList = Node.get(editor, previousListItemChildListPath);
@@ -58,6 +61,10 @@ export function increaseListItemDepth(
                 at: listItemPath,
                 to: [...previousListItemChildListPath, index],
             });
+
+            changed = true;
         }
     });
+
+    return changed;
 }
