@@ -15,6 +15,7 @@ import { FlashNodesExtension } from '#extensions/flash-nodes';
 import { FloatingAddMenuExtension } from '#extensions/floating-add-menu';
 import { GalleriesExtension } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
+import { HotkeysExtension } from '#extensions/hotkeys';
 import { HtmlExtension } from '#extensions/html';
 import { ImageExtension } from '#extensions/image';
 import { InlineContactsExtension } from '#extensions/inline-contacts';
@@ -170,6 +171,11 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withInlineLinks) {
         yield InlineLinksExtension();
     }
+
+    // Since we're overriding the default Tab key behavior
+    // we need to bring back the possibility to blur the editor
+    // with keyboard.
+    yield HotkeysExtension();
 
     if (withLists) {
         yield ListExtension();

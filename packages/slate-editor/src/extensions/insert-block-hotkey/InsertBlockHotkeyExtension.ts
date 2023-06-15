@@ -23,16 +23,15 @@ export function InsertBlockHotkeyExtension({
         id: EXTENSION_ID,
         onKeyDown: (event, editor) => {
             if (isShiftModEnter(event) && insertBlockAbove(editor, createDefaultElement)) {
-                event.preventDefault();
                 onInserted(editor);
-                return;
+                return true;
             }
 
             if (isModEnter(event) && insertBlockBelow(editor, createDefaultElement)) {
-                event.preventDefault();
                 onInserted(editor);
-                return;
+                return true;
             }
+            return false;
         },
     };
 }

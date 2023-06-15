@@ -9,7 +9,7 @@ import { Traverse } from './Traverse';
 
 export function onKeyDown(event: KeyboardEvent<Element>, editor: TablesEditor) {
     if (!editor.selection) {
-        return;
+        return false;
     }
 
     let locationToSelect: Location | undefined = undefined;
@@ -24,14 +24,14 @@ export function onKeyDown(event: KeyboardEvent<Element>, editor: TablesEditor) {
 
     if (isHotkey('tab', event)) {
         locationToSelect = onTabPress(editor);
-        event.preventDefault();
     }
 
     if (locationToSelect) {
         Transforms.select(editor, locationToSelect);
-        event.stopPropagation();
-        event.preventDefault();
+        return true;
     }
+
+    return false;
 }
 
 function onUpPress(editor: TablesEditor): Point | undefined {

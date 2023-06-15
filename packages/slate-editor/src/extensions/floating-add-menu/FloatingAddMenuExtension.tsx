@@ -16,16 +16,15 @@ export function FloatingAddMenuExtension({ onOpen }: Parameters): Extension {
         id: EXTENSION_ID,
         onKeyDown(event, editor) {
             if (isMenuHotkey(event) && shouldShowMenuButton(editor)) {
-                event.preventDefault();
-                event.stopPropagation();
                 onOpen('hotkey');
-                return;
+                return true;
             }
 
             if (isTriggerHotkey(event) && shouldShowMenuButton(editor)) {
                 onOpen('input');
-                return;
+                // not returning true intentionally
             }
+            return false;
         },
     };
 }

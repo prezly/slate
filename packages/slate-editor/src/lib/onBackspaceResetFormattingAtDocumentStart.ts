@@ -10,7 +10,7 @@ export function onBackspaceResetFormattingAtDocumentStart(
     editor: Editor,
     match: (node: Node) => boolean,
     event: KeyboardEvent,
-) {
+): boolean | void {
     const { selection } = editor;
     if (
         isDeletingEventBackward(event) &&
@@ -26,6 +26,7 @@ export function onBackspaceResetFormattingAtDocumentStart(
                     match: (node, path) => match(node) && EditorCommands.isTopLevelNode(node, path),
                 },
             );
+            return true;
         }
     }
 }

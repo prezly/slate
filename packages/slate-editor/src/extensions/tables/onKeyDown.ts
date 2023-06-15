@@ -18,19 +18,21 @@ export function onClipboardHotkey(
     if (isClipboardCopy(event)) {
         const entry = TablesEditor.findParentTable(editor, selection);
         if (!entry) {
-            return;
+            return false;
         }
         const [, path] = entry;
 
         Transforms.select(editor, path); // Select the table
 
         document.execCommand('copy');
+
+        return true;
     }
 
     if (isClipboardCut(event)) {
         const entry = TablesEditor.findParentTable(editor, selection);
         if (!entry) {
-            return;
+            return false;
         }
         const [, path] = entry;
 
@@ -48,5 +50,9 @@ export function onClipboardHotkey(
 
             ref.unref();
         });
+
+        return true;
     }
+
+    return false;
 }

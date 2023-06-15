@@ -8,12 +8,24 @@ export function combineOnKeyDown(
     onKeyDownList: OnKeyDown[],
 ) {
     return function (event: KeyboardEvent) {
+        let handled = false;
         onKeyDownList.forEach((onKeyDown) => {
-            onKeyDown(event, editor);
+            if (!handled) {
+                const ret = onKeyDown(event, editor);
+                handled = Boolean(ret);
+            }
         });
 
         extensions.forEach(({ onKeyDown }) => {
-            onKeyDown?.(event, editor);
+            if (!handled) {
+                const ret = onKeyDown?.(event, editor);
+                handled = Boolean(ret);
+            }
         });
+
+        if (handled) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
     };
 }

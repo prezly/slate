@@ -9,10 +9,15 @@ import { decreaseListItemDepth } from './decreaseListItemDepth';
 /**
  * Decreases nesting depth of all "list-items" in the current selection.
  * All "list-items" in the root "list" will become "default" nodes.
+ *
+ * @returns {boolean} True, if the editor state has been changed.
  */
-export function decreaseDepth(editor: ListsEditor, at: Location | null = editor.selection): void {
+export function decreaseDepth(
+    editor: ListsEditor,
+    at: Location | null = editor.selection,
+): boolean {
     if (!at) {
-        return;
+        return false;
     }
 
     const listItems = getListItemsInRange(editor, at);
@@ -21,11 +26,15 @@ export function decreaseDepth(editor: ListsEditor, at: Location | null = editor.
     // can change, so we need a way of marking the "list-items" scheduled for transformation.
     const refs = pickSubtreesRoots(listItems).map(([_, path]) => Editor.pathRef(editor, path));
 
+    let handled = false;
+
     refs.forEach((ref) => {
         if (ref.current) {
-            decreaseListItemDepth(editor, ref.current);
+            handled = decreaseListItemDepth(editor, ref.current) || handled;
         }
 
         ref.unref();
     });
+
+    return handled;
 }

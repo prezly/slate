@@ -69,9 +69,12 @@ export function TablesExtension({ createDefaultElement }: Parameters): Extension
         },
         onKeyDown: (event, editor) => {
             if (TablesEditor.isTablesEditor(editor)) {
-                onKeyDown(event, editor);
-                onClipboardHotkey(event, editor, createDefaultElement);
+                return (
+                    onKeyDown(event, editor) ||
+                    onClipboardHotkey(event, editor, createDefaultElement)
+                );
             }
+            return false;
         },
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (isTableNode(element)) {

@@ -53,5 +53,5 @@ const SCHEMA: ListsSchema = {
 };
 
 export function withListsFormatting<T extends Editor>(editor: T): T & ListsEditor {
-    return withListsReact(withLists(SCHEMA)(editor));
+    return withListsReact(withLists(SCHEMA, { normalizations: false })(editor));
 }

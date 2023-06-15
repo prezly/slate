@@ -103,12 +103,14 @@ export const ImageExtension = ({
                 const nextPath = Path.next(nodeEntry[1]);
                 EditorCommands.insertEmptyParagraph(editor, { at: nextPath });
                 Transforms.select(editor, nextPath);
+                return true;
             }
         }
 
         if (isHotkey('shift+enter', event.nativeEvent) && !event.isDefaultPrevented()) {
             event.preventDefault();
             Transforms.insertText(editor, '\n');
+            return true;
         }
 
         if (isDeletingEvent(event)) {
@@ -128,7 +130,7 @@ export const ImageExtension = ({
 
                 event.preventDefault();
                 event.stopPropagation();
-                return;
+                return true;
             }
 
             if (
@@ -139,8 +141,11 @@ export const ImageExtension = ({
                 replaceImageWithParagraph(editor, nodeEntry);
                 event.preventDefault();
                 event.stopPropagation();
+                return true;
             }
         }
+
+        return false;
     },
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isImageNode(element)) {

@@ -16,31 +16,26 @@ export function VoidExtension(): Extension {
             const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
 
             if (!currentNode || !editor.selection || !EditorCommands.isVoid(editor, currentNode)) {
-                return;
+                return false;
             }
 
-            let hasBeenHandled = false;
-
             if (isHotkey('up', event)) {
-                hasBeenHandled = true;
                 EditorCommands.moveCursorToPreviousBlock(editor);
+                return true;
             } else if (isHotkey('down', event)) {
-                hasBeenHandled = true;
                 EditorCommands.moveCursorToNextBlock(editor);
+                return true;
             } else if (isHotkey('enter', event)) {
-                hasBeenHandled = true;
                 EditorCommands.insertEmptyParagraph(editor);
+                return true;
             } else if (isDeletingEvent(event)) {
                 Transforms.setNodes(editor, createParagraph(), {
                     match: (node) => node === currentNode,
                 });
-
-                hasBeenHandled = true;
+                return true;
             }
 
-            if (hasBeenHandled) {
-                event.preventDefault();
-            }
+            return false;
         },
     };
 }
