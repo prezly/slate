@@ -1,4 +1,4 @@
-import type { Editor, Element, NodeEntry, Range } from 'slate';
+import type { Editor, Element, Location, NodeEntry } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -11,7 +11,7 @@ import { getParentList } from './getParentList';
 export function getListsInRange(
     editor: Editor,
     schema: ListsSchema,
-    at: Range | null,
+    at: Location | null,
 ): NodeEntry<Element>[] {
     const listItemsInRange = getListItemsInRange(editor, schema, at);
     const lists = listItemsInRange

@@ -1,3 +1,4 @@
+import type { Location } from 'slate';
 import { Editor } from 'slate';
 
 import { getListItemsInRange, getPrevSibling, pickSubtreesRoots } from '../lib';
@@ -13,16 +14,23 @@ import { wrapInList } from './wrapInList';
  *
  * @returns {boolean} True, if the editor state has been changed.
  */
-export function increaseDepth(editor: Editor, schema: ListsSchema): boolean {
-    if (!editor.selection) {
+export function increaseDepth(
+    editor: Editor,
+    schema: ListsSchema,
+    at: Location | null = editor.selection,
+): boolean {
+    if (!at) {
         return false;
     }
-
-    const listItems = getListItemsInRange(editor, schema, editor.selection);
+    const listItems = getListItemsInRange(editor, schema, at);
     const indentableListItems = listItems.filter(([, listItemPath]) => {
         const previousListItem = getPrevSibling(editor, listItemPath);
         return previousListItem !== null;
     });
+
+    if (indentableListItems.length === 0) {
+        return false;
+    }
 
     // When calling `increaseListItemDepth` the paths and references to list items
     // can change, so we need a way of marking the list items scheduled for transformation.

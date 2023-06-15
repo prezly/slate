@@ -1,7 +1,9 @@
+import type { Location } from 'slate';
 import { Editor, Node, Path, Range, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
 import { getCursorPositionInNode, getListItemsInRange } from '../lib';
+import { getCursorPosition } from '../lib/getCursorPosition';
 import type { ListsSchema } from '../types';
 
 /**
@@ -11,12 +13,24 @@ import type { ListsSchema } from '../types';
  *
  * @returns {boolean} True, if the editor state has been changed.
  */
-export function splitListItem(editor: Editor, schema: ListsSchema): boolean {
-    if (!editor.selection) {
+export function splitListItem(
+    editor: Editor,
+    schema: ListsSchema,
+    at: Location | null = editor.selection,
+): boolean {
+    if (!at) {
         return false;
     }
 
-    if (Range.isExpanded(editor.selection)) {
+    // If selection *is* expanded, we take the leading point. It should be safe,
+    // because we're deleted everything within the range below, effectively collapsing it.
+    const cursorPoint = getCursorPosition(editor, Range.isRange(at) ? Range.start(at) : at);
+
+    if (!cursorPoint) {
+        return false;
+    }
+
+    if (Range.isRange(at) && Range.isExpanded(at)) {
         // Remove everything in selection (this will collapse the selection).
         Transforms.delete(editor);
     }
@@ -29,8 +43,6 @@ export function splitListItem(editor: Editor, schema: ListsSchema): boolean {
         return false;
     }
 
-    // Selection is collapsed, `editor.selection.anchor` is equal to `editor.selection.focus`.
-    const cursorPoint = editor.selection.anchor;
     const [[listItemNode, listItemPath]] = listItemsInSelection;
     const listItemTextPath = [...listItemPath, TEXT_PATH_INDEX];
     const { isEnd, isStart } = getCursorPositionInNode(editor, cursorPoint, listItemTextPath);

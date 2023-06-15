@@ -1,3 +1,4 @@
+import type { Location } from 'slate';
 import { Editor, Element, Transforms } from 'slate';
 
 import type { ListsSchema, ListType } from '../types';
@@ -8,14 +9,19 @@ import type { ListsSchema, ListType } from '../types';
  *
  * @see ListsSchema.isConvertibleToListTextNode()
  */
-export function wrapInList(editor: Editor, schema: ListsSchema, listType: ListType): void {
-    if (!editor.selection) {
-        return;
+export function wrapInList(
+    editor: Editor,
+    schema: ListsSchema,
+    listType: ListType,
+    at: Location | null = editor.selection,
+): boolean {
+    if (!at) {
+        return false;
     }
 
     const nonListEntries = Array.from(
         Editor.nodes(editor, {
-            at: editor.selection,
+            at,
             match: (node) => {
                 return (
                     Element.isElement(node) &&
@@ -27,6 +33,10 @@ export function wrapInList(editor: Editor, schema: ListsSchema, listType: ListTy
             },
         }),
     );
+
+    if (nonListEntries.length === 0) {
+        return false;
+    }
 
     const refs = nonListEntries.map(([_, path]) => Editor.pathRef(editor, path));
 
@@ -41,4 +51,6 @@ export function wrapInList(editor: Editor, schema: ListsSchema, listType: ListTy
         }
         ref.unref();
     });
+
+    return true;
 }
