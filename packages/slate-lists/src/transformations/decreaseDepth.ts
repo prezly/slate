@@ -1,4 +1,4 @@
-import type { Location } from 'slate';
+import type { Location, Span } from 'slate';
 import { Editor } from 'slate';
 
 import { getListItems, pickSubtreesRoots } from '../lib';
@@ -15,7 +15,7 @@ import { decreaseListItemDepth } from './decreaseListItemDepth';
 export function decreaseDepth(
     editor: Editor,
     schema: ListsSchema,
-    at: Location | null = editor.selection,
+    at: Location | Span | null = editor.selection,
 ): boolean {
     if (!at) {
         return false;

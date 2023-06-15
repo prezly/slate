@@ -1,5 +1,5 @@
 import type { Element, Location, NodeEntry } from 'slate';
-import { Editor, Path, Point, Range } from 'slate';
+import { Editor, Path, Point, Range, Span } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -9,7 +9,7 @@ import type { ListsSchema } from '../types';
 export function getListItems(
     editor: Editor,
     schema: ListsSchema,
-    at: Location | null = editor.selection,
+    at: Location | Span | null = editor.selection,
 ): NodeEntry<Element>[] {
     if (!at) {
         return [];
@@ -46,12 +46,16 @@ export function getListItems(
     }) as NodeEntry<Element>[];
 }
 
-function getLocationStart(location: Location): Path {
+function getLocationStart(location: Location | Span): Path {
     if (Range.isRange(location)) {
         return Range.start(location).path;
     }
     if (Point.isPoint(location)) {
         return location.path;
+    }
+    if (Span.isSpan(location)) {
+        const [start, end] = location;
+        return Path.compare(start, end) <= 0 ? start : end;
     }
     return location;
 }
