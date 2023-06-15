@@ -1,4 +1,5 @@
 import type { Editor, Location, Node, NodeEntry, Path, Range } from 'slate';
+import type { Element } from 'slate';
 
 import {
     canDeleteBackward,
@@ -27,6 +28,7 @@ import {
     unwrapList,
     wrapInList,
 } from './transformations';
+import type { ListsSchema } from './types';
 import { ListType } from './types';
 
 function schema(editor: Editor) {
@@ -34,13 +36,44 @@ function schema(editor: Editor) {
 }
 
 export const ListsEditor = {
+    // ListsEditor schema availability
     isListsEnabled(editor: Editor): boolean {
         return Registry.has(editor);
     },
-    getListsSchema(editor: Editor) {
+    getListsSchema(editor: Editor): ListsSchema | undefined {
         return Registry.has(editor) ? Registry.get(editor) : undefined;
     },
 
+    // Schema proxies
+    isConvertibleToListTextNode(editor: Editor, node: Node): boolean {
+        return schema(editor).isConvertibleToListTextNode(node);
+    },
+    isDefaultTextNode(editor: Editor, node: Node): boolean {
+        return schema(editor).isDefaultTextNode(node);
+    },
+    isListNode(editor: Editor, node: Node, type?: ListType): boolean {
+        return schema(editor).isListNode(node, type);
+    },
+    isListItemNode(editor: Editor, node: Node): boolean {
+        return schema(editor).isListItemNode(node);
+    },
+    isListItemTextNode(editor: Editor, node: Node): boolean {
+        return schema(editor).isListItemTextNode(node);
+    },
+    createDefaultTextNode(editor: Editor, props?: Partial<Element>): Element {
+        return schema(editor).createDefaultTextNode(props);
+    },
+    createListNode(editor: Editor, type?: ListType, props?: Partial<Element>): Element {
+        return schema(editor).createListNode(type, props);
+    },
+    createListItemNode(editor: Editor, props?: Partial<Element>): Element {
+        return schema(editor).createListItemNode(props);
+    },
+    createListItemTextNode(editor: Editor, props?: Partial<Element>): Element {
+        return schema(editor).createListItemTextNode(props);
+    },
+
+    // Own API
     canDeleteBackward(editor: Editor) {
         return canDeleteBackward(editor, schema(editor));
     },
