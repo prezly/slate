@@ -1,23 +1,22 @@
-import type { ListsEditor, ListsSchema } from '@prezly/slate-lists';
-import { ListType, withLists, withListsReact } from '@prezly/slate-lists';
+import type { ListsSchema } from '@prezly/slate-lists';
+import { ListType } from '@prezly/slate-lists';
 import type { ListItemNode, ListNode } from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
-    NUMBERED_LIST_NODE_TYPE,
     isHeadingNode,
     isListItemNode,
     isListItemTextNode,
     isListNode,
     isParagraphNode,
     isQuoteNode,
+    NUMBERED_LIST_NODE_TYPE,
 } from '@prezly/slate-types';
-import type { Editor } from 'slate';
 
 import { createParagraph } from '#extensions/paragraphs';
 
 import { createList, createListItem, createListItemText } from './lib';
 
-const SCHEMA: ListsSchema = {
+export const schema: ListsSchema = {
     isConvertibleToListTextNode(node) {
         return isParagraphNode(node) || isHeadingNode(node) || isQuoteNode(node);
     },
@@ -51,7 +50,3 @@ const SCHEMA: ListsSchema = {
         return createListItemText(props);
     },
 };
-
-export function withListsFormatting<T extends Editor>(editor: T): T & ListsEditor {
-    return withListsReact(withLists(SCHEMA, { normalizations: false })(editor));
-}

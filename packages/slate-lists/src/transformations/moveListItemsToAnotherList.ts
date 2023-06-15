@@ -1,13 +1,14 @@
-import type { Node, NodeEntry } from 'slate';
+import type { Editor, Node, NodeEntry } from 'slate';
 import { Element, Transforms } from 'slate';
 
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 /**
  * Moves all "list-items" from one "list" to the end of another "list".
  */
 export function moveListItemsToAnotherList(
-    editor: ListsEditor,
+    editor: Editor,
+    schema: ListsSchema,
     parameters: {
         at: NodeEntry<Node>;
         to: NodeEntry<Node>;
@@ -19,8 +20,8 @@ export function moveListItemsToAnotherList(
     if (
         Element.isElement(sourceListNode) &&
         Element.isElement(targetListNode) &&
-        editor.isListNode(sourceListNode) &&
-        editor.isListNode(targetListNode)
+        schema.isListNode(sourceListNode) &&
+        schema.isListNode(targetListNode)
     ) {
         // Sanity check.
         for (let i = 0; i < sourceListNode.children.length; ++i) {

@@ -3,24 +3,24 @@
 import { Editor as Slate } from 'slate';
 
 import {
-    hyperscript,
     Editor,
-    OrderedList,
-    UnorderedList,
+    hyperscript,
+    Link,
     ListItem,
     ListItemText,
-    Text,
+    OrderedList,
     Paragraph,
-    Link,
+    Text,
+    UnorderedList,
     Untyped,
 } from './hyperscript';
-import type { ListsEditor } from './types';
+import { normalizeNode } from './normalizeNode';
 
 describe('withLists', () => {
     describe('normalizeListChildren', () => {
         it('should convert paragraph into list-item when it is a child of a list', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <ListItemText>
@@ -32,7 +32,7 @@ describe('withLists', () => {
                         </Paragraph>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -49,7 +49,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -58,7 +58,7 @@ describe('withLists', () => {
 
         it('should wrap list in list-item when it is a child of a list', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <ListItemText>
@@ -74,7 +74,7 @@ describe('withLists', () => {
                         </UnorderedList>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -93,7 +93,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -104,7 +104,7 @@ describe('withLists', () => {
     describe('normalizeListItemChildren', () => {
         it('should lift up list-items when they are children of list-item', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <ListItemText>
@@ -126,7 +126,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -153,7 +153,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -162,7 +162,7 @@ describe('withLists', () => {
 
         it('should ormalize paragraph children of list items', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <Paragraph>
@@ -178,7 +178,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -195,7 +195,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -204,7 +204,7 @@ describe('withLists', () => {
 
         it('should wrap extra list-item-text in list-item and lifts it up when it is a child of list-item', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <ListItemText>
@@ -219,7 +219,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -241,7 +241,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -250,7 +250,7 @@ describe('withLists', () => {
 
         it('should wrap inline list-item children in list-item-text', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <Link href="https://example.com">
@@ -259,7 +259,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -275,7 +275,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -284,7 +284,7 @@ describe('withLists', () => {
 
         it('should wrap inline list-item children and sibling texts in list-item-text', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <Text>lorem</Text>
@@ -295,7 +295,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -311,7 +311,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -320,7 +320,7 @@ describe('withLists', () => {
 
         it('should add missing type attribute to block list-item children', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <Untyped>
@@ -329,7 +329,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -341,7 +341,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -352,7 +352,7 @@ describe('withLists', () => {
     describe('normalizeListItemTextChildren', () => {
         it('should unwrap block children of list-item-text elements', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <ListItemText>
@@ -372,7 +372,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -389,7 +389,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -400,7 +400,7 @@ describe('withLists', () => {
     describe('normalizeOrphanListItem', () => {
         it('should convert orphan list-item into paragraph', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <ListItem>
                         <ListItemText>
                             <Text>lorem ipsum</Text>
@@ -412,7 +412,7 @@ describe('withLists', () => {
                         </ListItemText>
                     </ListItem>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -423,7 +423,7 @@ describe('withLists', () => {
                         <Text>dolor sit</Text>
                     </Paragraph>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -434,7 +434,7 @@ describe('withLists', () => {
     describe('normalizeOrphanListItemText', () => {
         it('should convert orphan list-item-text into paragraph', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <ListItemText>
                         <Text>lorem ipsum</Text>
                     </ListItemText>
@@ -442,7 +442,7 @@ describe('withLists', () => {
                         <Text>dolor sit</Text>
                     </ListItemText>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -453,7 +453,7 @@ describe('withLists', () => {
                         <Text>dolor sit</Text>
                     </Paragraph>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -464,7 +464,7 @@ describe('withLists', () => {
     describe('normalizeOrphanNestedList', () => {
         it('should move the nested list when it does not have sibling list-item-text', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <UnorderedList>
@@ -477,7 +477,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -489,7 +489,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -498,7 +498,7 @@ describe('withLists', () => {
 
         it("should move items from nested list to previous list-item's nested list when it does not have sibling list-item-text", () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <ListItemText>
@@ -528,7 +528,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -557,7 +557,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -566,7 +566,7 @@ describe('withLists', () => {
 
         it('should move nested list to previous list item when it does not have sibling list-item-text', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <ListItemText>
@@ -584,7 +584,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -603,7 +603,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -614,7 +614,7 @@ describe('withLists', () => {
     describe('normalizeSiblingLists', () => {
         it('should merge sibling lists of same type', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <Paragraph>
                         <Text>lorem</Text>
                     </Paragraph>
@@ -633,7 +633,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -653,7 +653,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -662,7 +662,7 @@ describe('withLists', () => {
 
         it('should merge sibling lists of different types when they are nested lists', () => {
             const editor = (
-                <Editor>
+                <Editor normalizeNode={normalizeNode}>
                     <UnorderedList>
                         <ListItem>
                             <ListItemText>
@@ -685,7 +685,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             const expected = (
                 <Editor>
@@ -709,7 +709,7 @@ describe('withLists', () => {
                         </ListItem>
                     </UnorderedList>
                 </Editor>
-            ) as unknown as ListsEditor;
+            ) as unknown as Slate;
 
             Slate.normalize(editor, { force: true });
 
@@ -722,7 +722,7 @@ describe('withLists', () => {
      */
     it('should correctly handle list-items with zero children', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                     {/* @ts-ignore */}
@@ -732,7 +732,7 @@ describe('withLists', () => {
                     <ListItem></ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -749,7 +749,7 @@ describe('withLists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         Slate.normalize(editor, { force: true });
 

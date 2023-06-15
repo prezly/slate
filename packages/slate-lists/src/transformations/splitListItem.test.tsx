@@ -1,26 +1,29 @@
 /** @jsx hyperscript */
 
+import type { Editor as Slate } from 'slate';
+
 import {
-    hyperscript,
+    Anchor,
+    Cursor,
     Editor,
-    UnorderedList,
-    OrderedList,
+    Focus,
+    hyperscript,
     ListItem,
     ListItemText,
-    Text,
+    OrderedList,
     Paragraph,
-    Cursor,
-    Anchor,
-    Focus,
+    SCHEMA,
+    Text,
+    UnorderedList,
 } from '../hyperscript';
-import type { ListsEditor } from '../types';
+import { normalizeNode } from '../normalizeNode';
 
 import { splitListItem } from './splitListItem';
 
 describe('splitListItem - no selected items', () => {
     it('Does nothing when there is no selection', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -29,7 +32,7 @@ describe('splitListItem - no selected items', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -41,9 +44,9 @@ describe('splitListItem - no selected items', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -51,7 +54,7 @@ describe('splitListItem - no selected items', () => {
 
     it('Does nothing when there are no list items in selection', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <Paragraph>
                     <Text>
                         lorem
@@ -66,7 +69,7 @@ describe('splitListItem - no selected items', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -84,9 +87,9 @@ describe('splitListItem - no selected items', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -96,7 +99,7 @@ describe('splitListItem - no selected items', () => {
 describe('splitListItem - collapsed selection', () => {
     it('Creates new empty sibling list item when cursor is at the end of an item', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -108,7 +111,7 @@ describe('splitListItem - collapsed selection', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -127,9 +130,9 @@ describe('splitListItem - collapsed selection', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -137,7 +140,7 @@ describe('splitListItem - collapsed selection', () => {
 
     it('Creates new empty sibling list item when cursor is at the beginning of an item', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -149,7 +152,7 @@ describe('splitListItem - collapsed selection', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -169,9 +172,9 @@ describe('splitListItem - collapsed selection', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -179,7 +182,7 @@ describe('splitListItem - collapsed selection', () => {
 
     it('Creates a new sibling list item when cursor is in the middle of an item', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -192,7 +195,7 @@ describe('splitListItem - collapsed selection', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -212,9 +215,9 @@ describe('splitListItem - collapsed selection', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -224,7 +227,7 @@ describe('splitListItem - collapsed selection', () => {
 describe('splitListItem - collapsed selection - nested lists', () => {
     it('Creates new sibling list item in nested list when cursor is at the end of an item', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -248,7 +251,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -279,9 +282,9 @@ describe('splitListItem - collapsed selection - nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -289,7 +292,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
 
     it('Creates new sibling list item in nested list when cursor is at the beginning of an item', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -313,7 +316,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -345,9 +348,9 @@ describe('splitListItem - collapsed selection - nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -355,7 +358,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
 
     it('Creates new sibling list item in nested list when cursor is in the middle of an item', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -380,7 +383,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -412,9 +415,9 @@ describe('splitListItem - collapsed selection - nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -424,7 +427,7 @@ describe('splitListItem - collapsed selection - nested lists', () => {
 describe('splitListItem - collapsed selection - deeply nested lists', () => {
     it('Creates new sibling list item in nested list when cursor is at the end of an item with nested list', () => {
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -455,7 +458,7 @@ describe('splitListItem - collapsed selection - deeply nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -493,9 +496,9 @@ describe('splitListItem - collapsed selection - deeply nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -507,7 +510,7 @@ describe('splitListItem - expanded selection - deeply nested lists', () => {
         // it's an interesting case because Transforms.delete will break <ListItem> in half,
         // leaving <UnorderedList> as its only child which will be normalized by withLists
         const editor = (
-            <Editor>
+            <Editor normalizeNode={normalizeNode}>
                 <UnorderedList>
                     <ListItem>
                         <ListItemText>
@@ -546,7 +549,7 @@ describe('splitListItem - expanded selection - deeply nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -584,9 +587,9 @@ describe('splitListItem - expanded selection - deeply nested lists', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        splitListItem(editor);
+        splitListItem(editor, SCHEMA);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);

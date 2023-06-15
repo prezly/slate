@@ -1,4 +1,4 @@
-import type { BaseEditor, Element, Node } from 'slate';
+import type { Element, Node } from 'slate';
 
 export enum ListType {
     ORDERED = 'ol',
@@ -24,5 +24,3 @@ export interface ListsSchema {
 
     createListItemTextNode(props?: Partial<Element>): Element;
 }
-
-export interface ListsEditor extends ListsSchema, BaseEditor {}

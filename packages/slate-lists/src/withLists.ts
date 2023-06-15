@@ -1,36 +1,12 @@
-import type { Editor } from 'slate';
+import type { ReactEditor } from 'slate-react';
 
-import { normalizeNode } from './normalizeNode';
-import type { ListsEditor, ListsSchema } from './types';
+import type { ListsSchema } from './types';
+import { withListsNormalization } from './withListsNormalization';
+import { withListsReact } from './withListsReact';
+import { withListsSchema } from './withListsSchema';
 
-interface Options {
-    normalizations?: boolean;
-}
-
-/**
- * Enables normalizations that enforce schema constraints and recover from unsupported cases.
- */
-export function withLists(schema: ListsSchema, { normalizations = true }: Options = {}) {
-    return function <T extends Editor>(editor: T): T & ListsEditor {
-        const listsEditor: T & ListsEditor = Object.assign(editor, {
-            isConvertibleToListTextNode: schema.isConvertibleToListTextNode,
-            isDefaultTextNode: schema.isDefaultTextNode,
-            isListNode: schema.isListNode,
-            isListItemNode: schema.isListItemNode,
-            isListItemTextNode: schema.isListItemTextNode,
-            createDefaultTextNode: schema.createDefaultTextNode,
-            createListNode: schema.createListNode,
-            createListItemNode: schema.createListItemNode,
-            createListItemTextNode: schema.createListItemTextNode,
-        });
-
-        if (normalizations) {
-            const parent = { normalizeNode: listsEditor.normalizeNode };
-            listsEditor.normalizeNode = (entry) => {
-                normalizeNode(editor, entry) || parent.normalizeNode(entry);
-            };
-        }
-
-        return listsEditor;
+export function withLists(schema: ListsSchema) {
+    return <T extends ReactEditor>(editor: T): T => {
+        return withListsReact(withListsNormalization(withListsSchema(schema)(editor)));
     };
 }

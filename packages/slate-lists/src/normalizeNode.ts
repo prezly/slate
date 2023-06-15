@@ -7,15 +7,16 @@ import * as Normalizations from './normalizations';
  * All plugin normalizations combined into a single function.
  */
 export function normalizeNode(editor: Editor, entry: NodeEntry): boolean {
-    if (ListsEditor.isListsEditor(editor)) {
+    const schema = ListsEditor.getListsSchema(editor);
+    if (schema) {
         return (
-            normalizeNode.normalizeListChildren(editor, entry) ||
-            normalizeNode.normalizeListItemChildren(editor, entry) ||
-            normalizeNode.normalizeListItemTextChildren(editor, entry) ||
-            normalizeNode.normalizeOrphanListItem(editor, entry) ||
-            normalizeNode.normalizeOrphanListItemText(editor, entry) ||
-            normalizeNode.normalizeOrphanNestedList(editor, entry) ||
-            normalizeNode.normalizeSiblingLists(editor, entry)
+            normalizeNode.normalizeListChildren(editor, schema, entry) ||
+            normalizeNode.normalizeListItemChildren(editor, schema, entry) ||
+            normalizeNode.normalizeListItemTextChildren(editor, schema, entry) ||
+            normalizeNode.normalizeOrphanListItem(editor, schema, entry) ||
+            normalizeNode.normalizeOrphanListItemText(editor, schema, entry) ||
+            normalizeNode.normalizeOrphanNestedList(editor, schema, entry) ||
+            normalizeNode.normalizeSiblingLists(editor, schema, entry)
         );
     }
     return false;

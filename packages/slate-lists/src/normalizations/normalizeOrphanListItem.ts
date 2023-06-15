@@ -2,7 +2,7 @@ import type { Node, NodeEntry } from 'slate';
 import { Editor, Transforms } from 'slate';
 
 import { getParentList } from '../lib';
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 /**
  * If "list-item" somehow (e.g. by deleting everything around it) ends up
@@ -13,15 +13,16 @@ import type { ListsEditor } from '../types';
  * pasting, so we have a separate rule for that in `deserializeHtml`.
  */
 export function normalizeOrphanListItem(
-    editor: ListsEditor,
+    editor: Editor,
+    schema: ListsSchema,
     [node, path]: NodeEntry<Node>,
 ): boolean {
-    if (!editor.isListItemNode(node)) {
+    if (!schema.isListItemNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
 
-    const parentList = getParentList(editor, path);
+    const parentList = getParentList(editor, schema, path);
 
     if (parentList) {
         // If there is a parent "list", then the fix does not apply.
@@ -30,7 +31,7 @@ export function normalizeOrphanListItem(
 
     Editor.withoutNormalizing(editor, () => {
         Transforms.unwrapNodes(editor, { at: path });
-        Transforms.setNodes(editor, editor.createDefaultTextNode(), { at: path });
+        Transforms.setNodes(editor, schema.createDefaultTextNode(), { at: path });
     });
 
     return true;

@@ -2,7 +2,7 @@ import { Editor, Node, Path, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
 import { getListType, getParentList, getParentListItem } from '../lib';
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 import { increaseListItemDepth } from './increaseListItemDepth';
 
@@ -11,8 +11,12 @@ import { increaseListItemDepth } from './increaseListItemDepth';
  *
  * @returns {boolean} True, if the editor state has been changed.
  */
-export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): boolean {
-    const parentList = getParentList(editor, listItemPath);
+export function decreaseListItemDepth(
+    editor: Editor,
+    schema: ListsSchema,
+    listItemPath: Path,
+): boolean {
+    const parentList = getParentList(editor, schema, listItemPath);
 
     if (!parentList) {
         // It should never happen.
@@ -20,7 +24,7 @@ export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
     }
 
     const [parentListNode, parentListPath] = parentList;
-    const parentListItem = getParentListItem(editor, listItemPath);
+    const parentListItem = getParentListItem(editor, schema, listItemPath);
     const listItemIndex = listItemPath[listItemPath.length - 1];
     const previousSiblings = parentListNode.children.slice(0, listItemIndex);
     const nextSiblings = parentListNode.children.slice(listItemIndex + 1);
@@ -32,7 +36,7 @@ export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
             // The next sibling path is always the same, because once we move out the next sibling,
             // another one will take its place.
             const nextSiblingPath = [...parentListPath, listItemIndex + 1];
-            increaseListItemDepth(editor, nextSiblingPath);
+            increaseListItemDepth(editor, schema, nextSiblingPath);
         });
 
         if (parentListItem) {
@@ -56,7 +60,7 @@ export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
             if (Node.has(editor, listItemNestedListPath)) {
                 Transforms.setNodes(
                     editor,
-                    editor.createListNode(getListType(editor, parentListNode), { children: [] }),
+                    schema.createListNode(getListType(schema, parentListNode), { children: [] }),
                     { at: listItemNestedListPath },
                 );
                 Transforms.liftNodes(editor, { at: listItemNestedListPath });
@@ -64,7 +68,7 @@ export function decreaseListItemDepth(editor: ListsEditor, listItemPath: Path): 
             }
 
             if (Node.has(editor, listItemTextPath)) {
-                Transforms.setNodes(editor, editor.createDefaultTextNode(), {
+                Transforms.setNodes(editor, schema.createDefaultTextNode(), {
                     at: listItemTextPath,
                 });
                 Transforms.liftNodes(editor, { at: listItemTextPath });

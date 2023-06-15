@@ -1,16 +1,15 @@
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import type { ReactEditor } from 'slate-react';
+import type { Editor } from 'slate';
 
+import { ListsEditor } from '../ListsEditor';
 import { decreaseDepth } from '../transformations';
-import type { ListsEditor } from '../types';
-
-type Editor = ListsEditor & ReactEditor;
 
 export function onShiftTabDecreaseListDepth(editor: Editor, event: KeyboardEvent) {
-    if (isHotkey('shift+tab', event.nativeEvent)) {
+    const schema = ListsEditor.getListsSchema(editor);
+    if (schema && isHotkey('shift+tab', event.nativeEvent)) {
         event.preventDefault();
-        return decreaseDepth(editor);
+        return decreaseDepth(editor, schema);
     }
     return false;
 }

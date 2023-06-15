@@ -1,13 +1,14 @@
 import type { Element, Location, NodeEntry } from 'slate';
 import { Editor, Path, Point, Range } from 'slate';
 
-import type { ListsEditor } from '../types';
+import type { ListsSchema } from '../types';
 
 /**
  * Returns all "list-items" in a given Range.
  */
 export function getListItemsInRange(
-    editor: ListsEditor,
+    editor: Editor,
+    schema: ListsSchema,
     at: Location | null = editor.selection,
 ): NodeEntry<Element>[] {
     if (!at) {
@@ -17,7 +18,7 @@ export function getListItemsInRange(
     const start = getLocationStart(at);
     const listItems = Editor.nodes(editor, {
         at,
-        match: editor.isListItemNode,
+        match: schema.isListItemNode,
     });
 
     return Array.from(listItems).filter(([, path]) => {

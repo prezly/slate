@@ -1,15 +1,21 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
-import { ListsEditor, onKeyDown, normalizeNode } from '@prezly/slate-lists';
+import {
+    ListsEditor,
+    normalizeNode,
+    onKeyDown,
+    withListsSchema,
+    withListsReact,
+} from '@prezly/slate-lists';
 import { TablesEditor } from '@prezly/slate-tables';
 import {
     BULLETED_LIST_NODE_TYPE,
-    NUMBERED_LIST_NODE_TYPE,
-    LIST_ITEM_NODE_TYPE,
-    LIST_ITEM_TEXT_NODE_TYPE,
-    isListNode,
     isListItemNode,
     isListItemTextNode,
+    isListNode,
+    LIST_ITEM_NODE_TYPE,
+    LIST_ITEM_TEXT_NODE_TYPE,
+    NUMBERED_LIST_NODE_TYPE,
 } from '@prezly/slate-types';
 import React from 'react';
 
@@ -17,7 +23,7 @@ import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ListElement, ListItemElement, ListItemTextElement } from './components';
 import { normalizeRedundantAttributes, parseList, parseListItem, parseListItemText } from './lib';
-import { withListsFormatting } from './withListsFormatting';
+import { schema } from './schema';
 
 export const EXTENSION_ID = 'ListExtension';
 
@@ -49,7 +55,7 @@ export function ListExtension(): Extension {
         },
         normalizeNode: [normalizeNode, normalizeRedundantAttributes],
         onKeyDown(event, editor) {
-            if (ListsEditor.isListsEditor(editor)) {
+            if (ListsEditor.isListsEnabled(editor)) {
                 if (
                     TablesEditor.isTablesEditor(editor) &&
                     TablesEditor.isInTable(editor) &&
@@ -85,6 +91,8 @@ export function ListExtension(): Extension {
             }
             return undefined;
         },
-        withOverrides: withListsFormatting,
+        withOverrides: (editor) => {
+            return withListsReact(withListsSchema(schema)(editor));
+        },
     };
 }

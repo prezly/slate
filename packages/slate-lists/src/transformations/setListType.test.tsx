@@ -1,17 +1,19 @@
 /** @jsx hyperscript */
 
+import type { Editor as Slate } from 'slate';
+
 import {
-    hyperscript,
+    Anchor,
     Editor,
-    OrderedList,
-    UnorderedList,
+    Focus,
+    hyperscript,
     ListItem,
     ListItemText,
+    OrderedList,
+    SCHEMA,
     Text,
-    Anchor,
-    Focus,
+    UnorderedList,
 } from '../hyperscript';
-import type { ListsEditor } from '../types';
 import { ListType } from '../types';
 
 import { setListType } from './setListType';
@@ -28,7 +30,7 @@ describe('setListType', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -40,9 +42,9 @@ describe('setListType', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        setListType(editor, ListType.ORDERED);
+        setListType(editor, SCHEMA, ListType.ORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -111,7 +113,7 @@ describe('setListType', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
         const expected = (
             <Editor>
@@ -175,9 +177,9 @@ describe('setListType', () => {
                     </ListItem>
                 </UnorderedList>
             </Editor>
-        ) as unknown as ListsEditor;
+        ) as unknown as Slate;
 
-        setListType(editor, ListType.ORDERED);
+        setListType(editor, SCHEMA, ListType.ORDERED);
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
