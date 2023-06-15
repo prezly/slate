@@ -2,20 +2,20 @@ import type { Editor, Location } from 'slate';
 
 import type { ListsSchema } from '../types';
 
-import { getListItemsInRange } from './getListItemsInRange';
+import { getListItems } from './getListItems';
 import { getParentListItem } from './getParentListItem';
 import { getPrevSibling } from './getPrevSibling';
 import { isAtStartOfListItem } from './isAtStartOfListItem';
 
 /**
- * Returns true when editor.deleteBackward() is safe to call (it won't break the structure).
+ * Check if `editor.deleteBackward()` is safe to call (it won't break the structure).
  */
-export function canDeleteBackward(
+export function isDeleteBackwardAllowed(
     editor: Editor,
     schema: ListsSchema,
     at: Location | null = editor.selection,
 ): boolean {
-    const listItemsInSelection = getListItemsInRange(editor, schema, at);
+    const listItemsInSelection = getListItems(editor, schema, at);
 
     if (listItemsInSelection.length === 0) {
         return true;

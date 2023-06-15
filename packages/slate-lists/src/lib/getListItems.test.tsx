@@ -15,9 +15,9 @@ import {
     UnorderedList,
 } from '../hyperscript';
 
-import { getListItemsInRange } from './getListItemsInRange';
+import { getListItems } from './getListItems';
 
-describe('getListItemsInRange', () => {
+describe('getListItems', () => {
     it('Returns an empty array when there is no selection', () => {
         const editor = (
             <Editor>
@@ -55,7 +55,7 @@ describe('getListItemsInRange', () => {
             </Editor>
         ) as unknown as Slate;
 
-        const lists = getListItemsInRange(editor, SCHEMA, editor.selection);
+        const lists = getListItems(editor, SCHEMA, editor.selection);
         expect(lists).toEqual([]);
     });
 
@@ -153,7 +153,7 @@ describe('getListItemsInRange', () => {
             </Editor>
         ) as unknown as Slate;
 
-        const lists = getListItemsInRange(editor, SCHEMA, editor.selection);
+        const lists = getListItems(editor, SCHEMA, editor.selection);
         const paths = lists.map(([, path]) => path);
 
         expect(paths).toEqual([

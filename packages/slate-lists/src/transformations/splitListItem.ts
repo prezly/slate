@@ -2,7 +2,7 @@ import type { Location } from 'slate';
 import { Editor, Node, Path, Range, Transforms } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
-import { getCursorPositionInNode, getListItemsInRange } from '../lib';
+import { getCursorPositionInNode, getListItems } from '../lib';
 import { getCursorPosition } from '../lib/getCursorPosition';
 import type { ListsSchema } from '../types';
 
@@ -35,7 +35,7 @@ export function splitListItem(
         Transforms.delete(editor);
     }
 
-    const listItemsInSelection = getListItemsInRange(editor, schema, editor.selection);
+    const listItemsInSelection = getListItems(editor, schema, editor.selection);
 
     if (listItemsInSelection.length !== 1) {
         // Selection is collapsed, so there should be either 0 or 1 "list-item" in selection.

@@ -6,7 +6,7 @@ import type { ListsSchema } from '../types';
 /**
  * Returns all "list-items" in a given Range.
  */
-export function getListItemsInRange(
+export function getListItems(
     editor: Editor,
     schema: ListsSchema,
     at: Location | null = editor.selection,

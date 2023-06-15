@@ -59,7 +59,7 @@ export function ListExtension(): Extension {
                 if (
                     TablesEditor.isTablesEditor(editor) &&
                     TablesEditor.isInTable(editor) &&
-                    !ListsEditor.isInList(editor, editor.selection)
+                    !ListsEditor.isAtList(editor)
                 ) {
                     return;
                 }

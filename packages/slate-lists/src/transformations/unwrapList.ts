@@ -1,7 +1,7 @@
 import type { Location } from 'slate';
 import { Editor } from 'slate';
 
-import { getListItemsInRange } from '../lib';
+import { getListItems } from '../lib';
 import type { ListsSchema } from '../types';
 
 import { decreaseDepth } from './decreaseDepth';
@@ -22,7 +22,7 @@ export function unwrapList(
     let iterations = 0;
 
     Editor.withoutNormalizing(editor, () => {
-        while (getListItemsInRange(editor, schema, at).length > 0) {
+        while (getListItems(editor, schema, at).length > 0) {
             iterations++;
 
             decreaseDepth(editor, schema, at);

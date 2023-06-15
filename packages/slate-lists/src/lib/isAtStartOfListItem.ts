@@ -4,7 +4,7 @@ import type { ListsSchema } from '../types';
 
 import { getCursorPosition } from './getCursorPosition';
 import { getCursorPositionInNode } from './getCursorPositionInNode';
-import { getListItemsInRange } from './getListItemsInRange';
+import { getListItems } from './getListItems';
 
 /**
  * Returns true when editor has collapsed selection and the cursor is at the beginning of a "list-item".
@@ -20,7 +20,7 @@ export function isAtStartOfListItem(
         return false;
     }
 
-    const listItemsInSelection = getListItemsInRange(editor, schema, point);
+    const listItemsInSelection = getListItems(editor, schema, point);
 
     if (listItemsInSelection.length !== 1) {
         return false;

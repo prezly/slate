@@ -1,7 +1,7 @@
 import type { Location } from 'slate';
 import { Editor } from 'slate';
 
-import { getListItemsInRange, getPrevSibling, pickSubtreesRoots } from '../lib';
+import { getListItems, getPrevSibling, pickSubtreesRoots } from '../lib';
 import type { ListsSchema } from '../types';
 import { ListType } from '../types';
 
@@ -22,7 +22,7 @@ export function increaseDepth(
     if (!at) {
         return false;
     }
-    const listItems = getListItemsInRange(editor, schema, at);
+    const listItems = getListItems(editor, schema, at);
     const indentableListItems = listItems.filter(([, listItemPath]) => {
         const previousListItem = getPrevSibling(editor, listItemPath);
         return previousListItem !== null;

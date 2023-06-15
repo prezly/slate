@@ -1,7 +1,7 @@
-export { canDeleteBackward } from './canDeleteBackward';
+export { isDeleteBackwardAllowed } from './isDeleteBackwardAllowed';
 export { getCursorPositionInNode } from './getCursorPositionInNode';
-export { getListItemsInRange } from './getListItemsInRange';
-export { getListsInRange } from './getListsInRange';
+export { getListItems } from './getListItems';
+export { getLists } from './getLists';
 export { getListType } from './getListType';
 export { getNestedList } from './getNestedList';
 export { getNextSibling } from './getNextSibling';

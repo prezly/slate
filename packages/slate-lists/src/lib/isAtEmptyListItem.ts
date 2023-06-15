@@ -3,7 +3,7 @@ import type { Editor, Location, Span } from 'slate';
 import type { ListsSchema } from '../types';
 
 import { getCursorPosition } from './getCursorPosition';
-import { getListItemsInRange } from './getListItemsInRange';
+import { getListItems } from './getListItems';
 import { isListItemContainingText } from './isListItemContainingText';
 
 /**
@@ -20,7 +20,7 @@ export function isAtEmptyListItem(
         return false;
     }
 
-    const listItemsInSelection = getListItemsInRange(editor, schema, point);
+    const listItemsInSelection = getListItems(editor, schema, point);
 
     if (listItemsInSelection.length !== 1) {
         return false;

@@ -1,9 +1,9 @@
 import type { Editor, Element, Location, Node, NodeEntry, Path, Range } from 'slate';
 
 import {
-    canDeleteBackward,
-    getListItemsInRange,
-    getListsInRange,
+    isDeleteBackwardAllowed,
+    getListItems,
+    getLists,
     getListType,
     getNestedList,
     getParentList,
@@ -73,14 +73,26 @@ export const ListsEditor = {
     },
 
     // Checks & Getters
-    canDeleteBackward(editor: Editor, at?: Location | null) {
-        return canDeleteBackward(editor, schema(editor), at);
+    isDeleteBackwardAllowed(editor: Editor, at?: Location | null) {
+        return isDeleteBackwardAllowed(editor, schema(editor), at);
     },
-    getListItemsInRange(editor: Editor, at?: Location | null) {
-        return getListItemsInRange(editor, schema(editor), at);
+    isAtStartOfListItem(editor: Editor, at?: Location | null) {
+        return isAtStartOfListItem(editor, schema(editor), at);
     },
-    getListsInRange(editor: Editor, at: Range | null) {
-        return getListsInRange(editor, schema(editor), at);
+    isAtEmptyListItem(editor: Editor, at?: Location | null) {
+        return isAtEmptyListItem(editor, schema(editor), at);
+    },
+    isAtList(editor: Editor, at?: Location | null) {
+        return isInList(editor, schema(editor), at);
+    },
+    isListItemContainingText(editor: Editor, node: Node) {
+        return isListItemContainingText(editor, schema(editor), node);
+    },
+    getLists(editor: Editor, at: Range | null) {
+        return getLists(editor, schema(editor), at);
+    },
+    getListItems(editor: Editor, at?: Location | null) {
+        return getListItems(editor, schema(editor), at);
     },
     getListType(editor: Editor, node: Node) {
         return getListType(schema(editor), node);
@@ -93,18 +105,6 @@ export const ListsEditor = {
     },
     getParentListItem(editor: Editor, path: Path) {
         return getParentListItem(editor, schema(editor), path);
-    },
-    isAtStartOfListItem(editor: Editor, at?: Location | null) {
-        return isAtStartOfListItem(editor, schema(editor), at);
-    },
-    isAtEmptyListItem(editor: Editor, at?: Location | null) {
-        return isAtEmptyListItem(editor, schema(editor), at);
-    },
-    isInList(editor: Editor, at?: Location | null) {
-        return isInList(editor, schema(editor), at);
-    },
-    isListItemContainingText(editor: Editor, node: Node) {
-        return isListItemContainingText(editor, schema(editor), node);
     },
 
     // Transformations

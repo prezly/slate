@@ -1,7 +1,7 @@
 import type { Location } from 'slate';
 import { Editor } from 'slate';
 
-import { getListItemsInRange, pickSubtreesRoots } from '../lib';
+import { getListItems, pickSubtreesRoots } from '../lib';
 import type { ListsSchema } from '../types';
 
 import { decreaseListItemDepth } from './decreaseListItemDepth';
@@ -21,7 +21,7 @@ export function decreaseDepth(
         return false;
     }
 
-    const listItems = getListItemsInRange(editor, schema, at);
+    const listItems = getListItems(editor, schema, at);
 
     // When calling `decreaseListItemDepth` the paths and references to "list-items"
     // can change, so we need a way of marking the "list-items" scheduled for transformation.

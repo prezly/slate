@@ -1,7 +1,7 @@
 import type { Location } from 'slate';
 import { Editor, type Element, Node, Transforms } from 'slate';
 
-import { getListsInRange } from '../lib';
+import { getLists } from '../lib';
 import type { ListsSchema, ListType } from '../types';
 
 /**
@@ -17,7 +17,7 @@ export function setListType(
         return false;
     }
 
-    const lists = getListsInRange(editor, schema, at);
+    const lists = getLists(editor, schema, at);
 
     if (lists.length === 0) {
         return false;
