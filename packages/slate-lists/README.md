@@ -261,7 +261,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
  import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
  import { withHistory } from 'slate-history';
  import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
-+import { ListType, withLists } from '@prezly/slate-lists';
++import { ListType, ListsSchema, withLists } from '@prezly/slate-lists';
  
  declare module 'slate' {
      interface CustomTypes {
@@ -277,7 +277,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
      LIST_ITEM_TEXT = 'list-item-text',
  }
  
-+const withListsPlugin = withLists({
++const schema: ListsSchema = {
 +    isConvertibleToListTextNode(node: Node) {
 +        return Element.isElementType(node, Type.PARAGRAPH);
 +    },
@@ -285,8 +285,11 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
 +        return Element.isElementType(node, Type.PARAGRAPH);
 +    },
 +    isListNode(node: Node, type?: ListType) {
-+        if (type) {
-+            return Element.isElementType(node, type);
++        if (type === ListType.ORDERED) {
++            return Element.isElementType(node, Type.ORDERED);
++        }
++        if (type === ListType.UNORDERED) {
++            return Element.isElementType(node, Type.UNORDERED);
 +        }
 +        return (
 +            Element.isElementType(node, Type.ORDERED_LIST) ||
@@ -312,7 +315,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
 +    createListItemTextNode(props = {}) {
 +        return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
 +    },
-+});
++};
  
  function renderElement({ element, attributes, children }: RenderElementProps) {
      switch (element.type) {
@@ -369,7 +372,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-2-add-withl
  
  export function MyEditor() {
      const [value, setValue] = useState(initialValue);
-+    const editor = useMemo(() => withListsPlugin(withHistory(withReact(createEditor()))), []);
++    const editor = useMemo(() => withLists(schema)(withHistory(withReact(createEditor()))), []);
  
      return (
          <Slate editor={editor} value={value} onChange={setValue}>
@@ -392,7 +395,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
  import { createEditor, BaseElement, Descendant, Element, Node } from 'slate';
  import { withHistory } from 'slate-history';
  import { Editable, ReactEditor, RenderElementProps, Slate, withReact } from 'slate-react';
-+import { ListType, onKeyDown, withLists } from '@prezly/slate-lists';
++import { ListType, ListsSchema, onKeyDown, withLists } from '@prezly/slate-lists';
  
  declare module 'slate' {
      interface CustomTypes {
@@ -408,7 +411,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
      LIST_ITEM_TEXT = 'list-item-text',
  }
  
- const withListsPlugin = withLists({
+ const schema: ListsSchema = {
      isConvertibleToListTextNode(node: Node) {
          return Element.isElementType(node, Type.PARAGRAPH);
      },
@@ -443,7 +446,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
      createListItemTextNode(props = {}) {
          return { children: [{ text: '' }], ...props, type: Type.LIST_ITEM_TEXT };
      },
- });
+ };
  
  function renderElement({ element, attributes, children }: RenderElementProps) {
      switch (element.type) {
@@ -502,10 +505,7 @@ Live example: https://codesandbox.io/s/prezly-slate-lists-user-guide-4-add-onkey
  
  export function MyEditor() {
      const [value, setValue] = useState(initialValue);
-     const editor = useMemo(
-         () => withListsPlugin(withHistory(withReact(createEditor()))),
-         [],
-     );
+     const editor = useMemo(() => withLists(schema)(withHistory(withReact(createEditor()))), []);
  
      return (
          <Slate editor={editor} value={value} onChange={setValue}>
