@@ -66,16 +66,20 @@ export const MentionsDropdown = <V extends object>({
                 if (!rect) {
                     return EMPTY_RECT;
                 }
-                const { left, right, top, bottom, width, height } = rect;
+                /**
+                 * We have to manually re-create a ClientRect-shape object instead of `...rect`,
+                 * as `DOMRect` object properties are not enumerable.
+                 * @see https://github.com/microsoft/TypeScript/issues/9726
+                 */
                 return {
-                    left,
-                    right,
-                    top,
-                    bottom,
-                    width,
-                    height,
-                    x: left,
-                    y: top,
+                    left: rect.left,
+                    right: rect.right,
+                    top: rect.top,
+                    bottom: rect.bottom,
+                    width: rect.width,
+                    height: rect.height,
+                    x: rect.left,
+                    y: rect.top,
                     toJSON() {
                         return JSON.stringify(rect);
                     },
