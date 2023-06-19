@@ -1,13 +1,6 @@
 import { noop } from '@technically/lodash';
 import type { Rect } from 'rangefix';
 
-export type PureRect = ReturnType<typeof convertClientRect>;
-
-/**
- * We have to manually re-create a ClientRect-shape object instead of `...rect`,
- * as `DOMRect` object properties are not enumerable.
- * @see https://github.com/microsoft/TypeScript/issues/9726
- */
 export function convertClientRect(domRect: DOMRect | ClientRect | Rect): ClientRect;
 export function convertClientRect(domRect: DOMRect | ClientRect | Rect | null): ClientRect | null;
 export function convertClientRect(domRect: DOMRect | ClientRect | Rect | null) {
@@ -15,6 +8,11 @@ export function convertClientRect(domRect: DOMRect | ClientRect | Rect | null) {
         return null;
     }
 
+    /**
+     * We have to manually re-create a ClientRect-shape object instead of `...rect`,
+     * as `DOMRect` object properties are not enumerable.
+     * @see https://github.com/microsoft/TypeScript/issues/9726
+     */
     return {
         top: domRect.top,
         right: domRect.right,

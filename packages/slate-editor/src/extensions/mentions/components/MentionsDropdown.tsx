@@ -8,7 +8,7 @@ import { usePopper } from 'react-popper';
 import type { Range } from 'slate';
 import { useSlate } from 'slate-react';
 
-import { ensureChildInView } from '#lib';
+import { convertClientRect, ensureChildInView } from '#lib';
 
 import type { Option } from '../types';
 
@@ -66,24 +66,7 @@ export const MentionsDropdown = <V extends object>({
                 if (!rect) {
                     return EMPTY_RECT;
                 }
-                /**
-                 * We have to manually re-create a ClientRect-shape object instead of `...rect`,
-                 * as `DOMRect` object properties are not enumerable.
-                 * @see https://github.com/microsoft/TypeScript/issues/9726
-                 */
-                return {
-                    left: rect.left,
-                    right: rect.right,
-                    top: rect.top,
-                    bottom: rect.bottom,
-                    width: rect.width,
-                    height: rect.height,
-                    x: rect.left,
-                    y: rect.top,
-                    toJSON() {
-                        return JSON.stringify(rect);
-                    },
-                };
+                return convertClientRect(rect);
             },
         };
     }, [target]);
