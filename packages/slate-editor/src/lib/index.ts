@@ -1,4 +1,5 @@
 export * from './hooks';
+export { convertClientRect } from './convertClientRect';
 export { convertToHtml } from './convertToHtml';
 export { createDataTransfer } from './createDataTransfer';
 export { fetchImageWithProgress } from './fetchImageWithProgress';
