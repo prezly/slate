@@ -43,8 +43,8 @@
     },
     "peerDependencies": {
         "react": "^16.14.0 || ^17.0.0 || ^18.0.0",
-        "slate": "^0.91.4",
-        "slate-react": "^0.91.7"
+        "slate": "^0.94.1",
+        "slate-react": "^0.97.0"
     },
     "dependencies": {
         "is-hotkey": "^0.2.0",
