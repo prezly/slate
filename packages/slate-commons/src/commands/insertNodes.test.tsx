@@ -7,7 +7,7 @@ import { hyperscript } from '../hyperscript';
 import { insertNodes } from './insertNodes';
 
 describe('insertNodes', () => {
-    it('Does nothing when there is no selection', () => {
+    it('should do nothing when there is no selection', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -30,7 +30,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Does nothing when there are no nodes to insert', () => {
+    it('should do nothing when there are no nodes to insert', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -59,7 +59,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Inserts a new block element', () => {
+    it('should insert a new block element', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -98,7 +98,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Inserts a new block element with extra paragraph after', () => {
+    it('should insert a new block element with extra paragraph after', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -140,7 +140,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Inserts a new block element with extra paragraph after unless there already is one', () => {
+    it('should insert a new block element with extra paragraph after unless there already is one', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -185,7 +185,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Inserts inline nodes into the current block until encountering a block node', () => {
+    it('should insert inline nodes into the current block until encountering a block node', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -233,7 +233,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Inserts a new block element and removes an empty paragraph', () => {
+    it('should insert a new block element and removes an empty paragraph', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -268,7 +268,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Inserts inline nodes into the current empty paragraph until encountering a block node', () => {
+    it('should insert inline nodes into the current empty paragraph until encountering a block node', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -316,7 +316,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Inserts inline nodes into a new paragraph if void node is focused', () => {
+    it('should insert inline nodes into a new paragraph if void node is focused', () => {
         const editor = (
             <editor>
                 <h:divider>
@@ -360,7 +360,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Inserts text nodes into a new paragraph after void node', () => {
+    it('should insert text nodes into a new paragraph after void node', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -398,7 +398,7 @@ describe('insertNodes', () => {
         expect(editor.selection).toEqual(expected.selection);
     });
 
-    it('Inserts text nodes after inline void node', () => {
+    it('should insert text nodes after inline void node', () => {
         const editor = (
             <editor>
                 <h:paragraph>
@@ -438,6 +438,41 @@ describe('insertNodes', () => {
                     <h:text></h:text>
                 </h:mention>,
                 <h:text bold>{' dolor'}</h:text>,
+            ]),
+        );
+
+        expect(editor.children).toEqual(expected.children);
+        expect(editor.selection).toEqual(expected.selection);
+    });
+
+    it('should replace target block if it is empty', () => {
+        const editor = (
+            <editor>
+                <h:blockquote>
+                    <h:text>
+                        <cursor />
+                    </h:text>
+                </h:blockquote>
+            </editor>
+        ) as unknown as Editor;
+
+        const expected = (
+            <editor>
+                <h:heading-1>
+                    <h:text>
+                        Hello world
+                        <cursor />
+                    </h:text>
+                </h:heading-1>
+            </editor>
+        ) as unknown as Editor;
+
+        insertNodes(
+            editor,
+            nodes([
+                <h:heading-1>
+                    <h:text>Hello world</h:text>
+                </h:heading-1>,
             ]),
         );
 

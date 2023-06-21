@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 import {
-    LINK_NODE_TYPE,
-    PARAGRAPH_NODE_TYPE,
     DIVIDER_NODE_TYPE,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
+    LINK_NODE_TYPE,
     MENTION_NODE_TYPE,
+    PARAGRAPH_NODE_TYPE,
+    QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 import type { Editor } from 'slate';
@@ -95,6 +96,9 @@ declare global {
             'h:paragraph': {
                 children?: ReactNode;
             };
+            'h:blockquote': {
+                children?: ReactNode;
+            };
             // it could have been any other block element
             'h:heading-1': {
                 children?: ReactNode;
@@ -118,6 +122,7 @@ export const hyperscript = createHyperscript({
         'h:paragraph': { type: PARAGRAPH_NODE_TYPE },
         'h:heading-1': { type: HEADING_1_NODE_TYPE },
         'h:heading-2': { type: HEADING_2_NODE_TYPE },
+        'h:blockquote': { type: QUOTE_NODE_TYPE },
     },
     creators: {
         'h:text': createText,
