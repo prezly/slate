@@ -501,7 +501,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         variables.onChange(editor);
                         userMentions.onChange(editor);
                     }}
-                    value={getInitialValue()}
+                    initialValue={getInitialValue()}
                 >
                     <InitialNormalization />
                     <EditableWithExtensions

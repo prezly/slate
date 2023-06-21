@@ -30,7 +30,7 @@ export default {
     title: 'Extensions/Placeholders/components/PlaceholderElement',
     decorators: [
         (Story: React.ComponentType) => (
-            <Slate editor={editor} value={[placeholder]}>
+            <Slate editor={editor} initialValue={[placeholder]}>
                 <div style={{ width: 680, boxSizing: 'border-box' }}>
                     <Story />
                 </div>
