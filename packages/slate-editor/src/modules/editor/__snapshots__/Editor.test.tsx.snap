@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Editor - pasting Does not merge sibling divs into p 1`] = `
+exports[`Editor Pasting should not merge sibling divs into p 1`] = `
 [
   {
     "children": [
@@ -379,6 +379,56 @@ exports[`Editor - pasting Does not merge sibling divs into p 1`] = `
       },
     ],
     "type": "paragraph",
+  },
+]
+`;
+
+exports[`Editor Pasting should preserve source blocks formatting when pasting multiple text blocks 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "Hello world",
+      },
+    ],
+    "type": "heading-one",
+  },
+  {
+    "children": [
+      {
+        "text": "This is it, a subtitle.",
+      },
+    ],
+    "type": "heading-two",
+  },
+  {
+    "children": [
+      {
+        "text": "How do you like it?",
+      },
+    ],
+    "type": "paragraph",
+  },
+  {
+    "children": [
+      {
+        "text": "",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`Editor Pasting should preserve target block formatting when pasting a single text block 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "Hello world",
+      },
+    ],
+    "type": "block-quote",
   },
 ]
 `;
