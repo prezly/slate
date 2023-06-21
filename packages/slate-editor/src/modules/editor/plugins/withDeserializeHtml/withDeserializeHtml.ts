@@ -3,7 +3,8 @@
 import { cleanDocx } from '@prezly/docx-cleaner';
 import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor } from 'slate';
+import type { Editor, Node } from 'slate';
+import { Element } from 'slate';
 
 import { createDataTransfer } from '#lib';
 
@@ -59,15 +60,30 @@ export function withDeserializeHtml(
                 const extensions = getExtensions();
                 const nodes = deserializeHtml(extensions, cleanHtml, handleError);
 
-                // If there are no "nodes" then there is no interesting "text/html" in clipboard.
-                // Pass through to default "insertData" so that "text/plain" is used if available.
-                if (nodes.length > 0) {
-                    EditorCommands.insertNodes(editor, nodes, {
+                if (nodes.length === 0) {
+                    // If there are no "nodes" then there is no interesting "text/html" in clipboard.
+                    // Pass through to default "insertData" so that "text/plain" is used if available.
+                    return insertData(data);
+                }
+
+                const singleTextBlockInserted = checkSingleTextBlockInserted(editor, nodes);
+
+                if (singleTextBlockInserted) {
+                    // If it's a single block inserted, inherit block formatting from the destination
+                    // location, instead of overwriting it with the pasted block style.
+                    // @see CARE-1853
+                    EditorCommands.insertNodes(editor, singleTextBlockInserted.children, {
                         ensureEmptyParagraphAfter: true,
                         mode: 'highest',
                     });
                     return;
                 }
+
+                EditorCommands.insertNodes(editor, nodes, {
+                    ensureEmptyParagraphAfter: true,
+                    mode: 'highest',
+                });
+                return;
             }
 
             insertData(data);
@@ -75,4 +91,18 @@ export function withDeserializeHtml(
 
         return editor;
     };
+}
+
+function checkSingleTextBlockInserted(editor: Editor, nodes: Node[]): Element | undefined {
+    const [node] = nodes;
+
+    if (
+        nodes.length === 1 &&
+        Element.isElement(node) &&
+        editor.isBlock(node) &&
+        !editor.isRichBlock(node)
+    ) {
+        return node;
+    }
+    return undefined;
 }

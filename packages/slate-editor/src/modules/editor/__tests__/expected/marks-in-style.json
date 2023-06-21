@@ -25,13 +25,5 @@
                 "superscript": true
             }
         ]
-    },
-    {
-        "type": "paragraph",
-        "children": [
-            {
-                "text": ""
-            }
-        ]
     }
 ]

@@ -7,6 +7,7 @@ import {
     LIST_ITEM_TEXT_NODE_TYPE,
     NUMBERED_LIST_NODE_TYPE,
     PARAGRAPH_NODE_TYPE,
+    QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 import { createHyperscript, createText } from 'slate-hyperscript';
@@ -32,6 +33,12 @@ declare global {
             'h-ul': {
                 children?: ReactNode;
             };
+            'h:blockquote': {
+                children?: ReactNode;
+            };
+            'h:text': {
+                children?: ReactNode;
+            };
         }
     }
 }
@@ -44,8 +51,10 @@ export const hyperscript = createHyperscript({
         'h-ul': { type: BULLETED_LIST_NODE_TYPE },
         'h-li': { type: LIST_ITEM_NODE_TYPE },
         'h-li-text': { type: LIST_ITEM_TEXT_NODE_TYPE },
+        'h:blockquote': { type: QUOTE_NODE_TYPE },
     },
     creators: {
         'h-text': createText,
+        'h:text': createText,
     },
 });
