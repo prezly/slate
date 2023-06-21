@@ -5,6 +5,7 @@ import { Editor, Text, Transforms } from 'slate';
 
 import { getCurrentNodeEntry } from './getCurrentNodeEntry';
 import { insertEmptyParagraph } from './insertEmptyParagraph';
+import { isAtEmptyBlock } from './isAtEmptyBlock';
 import { isBlock } from './isBlock';
 import { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
 import { isInline } from './isInline';
@@ -37,9 +38,9 @@ function insertNormalizedNodes(editor: Editor, nodes: Node[], options: Options =
 
     // In case we're inserting things into an empty paragraph, we will want to replace that paragraph.
     const initialSelection = editor.selection;
-    const wasInitialSelectionInEmptyParagraph = isCursorInEmptyParagraph(editor);
+    const isInitialSelectionAtEmptyBlock = isAtEmptyBlock(editor);
     const isAppendingToCurrentNode = Text.isText(nodes[0]) || Editor.isInline(editor, nodes[0]);
-    const isAddingAnyBlockNodes = nodes.some((node) => isBlock(editor, node));
+    const isInsertingBlockNodes = nodes.some((node) => isBlock(editor, node));
 
     for (const node of nodes) {
         const currentNodeEntry = getCurrentNodeEntry(editor);
@@ -52,9 +53,15 @@ function insertNormalizedNodes(editor: Editor, nodes: Node[], options: Options =
             }
 
             if (isInline(editor, node)) {
-                // For some reason Slate will split existing block nodes when inserting inline nodes.
-                // We don't want that. Adding an empty text node before and after seems to do the
-                // trick. I don't know why.
+                // Slate does not allow inline nodes next to inline nodes.
+                // Adding text nodes around it helps to prevent unwanted side-effects.
+                //
+                // @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
+                //
+                // > 4. Inline nodes cannot be the first or last child of a parent block,
+                // >    nor can it be next to another inline node in the children array.
+                // >    If this is the case, an empty text node will be added to correct
+                // >    this to be in compliance with the constraint.
                 Transforms.insertFragment(editor, [{ text: '' }, node, { text: '' }]);
             } else {
                 Transforms.insertNodes(editor, [node], { mode });
@@ -65,11 +72,11 @@ function insertNormalizedNodes(editor: Editor, nodes: Node[], options: Options =
     // Every time we call `Transforms.insertNodes` or `Transforms.insertFragment`
     // the cursor/selection will move (as long as we're inserting something).
     // That's why we have to check `isCursorInEmptyParagraph` again.
-    if (ensureEmptyParagraphAfter && !isCursorInEmptyParagraph(editor) && isAddingAnyBlockNodes) {
+    if (ensureEmptyParagraphAfter && !isCursorInEmptyParagraph(editor) && isInsertingBlockNodes) {
         insertEmptyParagraph(editor);
     }
 
-    if (wasInitialSelectionInEmptyParagraph && !isAppendingToCurrentNode) {
+    if (isInitialSelectionAtEmptyBlock && !isAppendingToCurrentNode) {
         // Remove the node that was at the initial selection, so that the element being
         // inserted effectively replaces it.
         // If we called `removeNodes` first (before `insertNodes`) then the selection could

@@ -11,6 +11,7 @@ export { getPrevChars } from './getPrevChars';
 export { hasVoidElements } from './hasVoidElements';
 export { insertEmptyParagraph } from './insertEmptyParagraph';
 export { insertNodes } from './insertNodes';
+export { isAtEmptyBlock } from './isAtEmptyBlock';
 export { isBlock } from './isBlock';
 export { isBlockActive } from './isBlockActive';
 export { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
