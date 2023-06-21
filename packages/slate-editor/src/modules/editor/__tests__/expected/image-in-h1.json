@@ -1,6 +1,6 @@
 [
     {
-        "type": "heading-one",
+        "type": "paragraph",
         "children": [
             {
                 "text": "lorem "
@@ -16,7 +16,7 @@
         "type": "loader"
     },
     {
-        "type": "heading-one",
+        "type": "paragraph",
         "children": [
             {
                 "text": " ipsum"
