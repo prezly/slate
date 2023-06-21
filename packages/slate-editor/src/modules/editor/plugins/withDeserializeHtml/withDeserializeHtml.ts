@@ -4,6 +4,7 @@ import { cleanDocx } from '@prezly/docx-cleaner';
 import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
+import { Element } from 'slate';
 
 import { createDataTransfer } from '#lib';
 
@@ -61,7 +62,18 @@ export function withDeserializeHtml(
 
                 // If there are no "nodes" then there is no interesting "text/html" in clipboard.
                 // Pass through to default "insertData" so that "text/plain" is used if available.
-                if (nodes.length > 0) {
+                if (
+                    nodes.length === 1 &&
+                    Element.isElement(nodes[0]) &&
+                    editor.isBlock(nodes[0]) &&
+                    !editor.isRichBlock(nodes[0])
+                ) {
+                    EditorCommands.insertNodes(editor, nodes[0].children, {
+                        ensureEmptyParagraphAfter: true,
+                        mode: 'highest',
+                    });
+                    return;
+                } else if (nodes.length > 0) {
                     EditorCommands.insertNodes(editor, nodes, {
                         ensureEmptyParagraphAfter: true,
                         mode: 'highest',
