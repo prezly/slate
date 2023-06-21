@@ -27,7 +27,7 @@ export default {
     title: 'Extensions/Loaders/Loader',
     decorators: [
         (Story: React.ComponentType) => (
-            <Slate editor={editor} value={[]}>
+            <Slate editor={editor} initialValue={[]}>
                 <div style={{ width: 680 }}>
                     <Story />
                 </div>
