@@ -11,6 +11,8 @@
         color: $editor-selection-color;
     }
 
+    outline: none !important;
+
     > [data-slate-block] {
         &:first-child {
             margin-top: 0;
