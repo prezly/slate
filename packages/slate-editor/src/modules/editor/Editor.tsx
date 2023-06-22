@@ -190,7 +190,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     }, [autoFocus, editor]);
 
     useEffect(() => {
+        let isMousePressedOutside = false;
+
         function handleOutsideClick(event: MouseEvent) {
+            isMousePressedOutside = false;
+
             const clickTarget = event.target as HTMLElement | null;
 
             if (!clickTarget) {
@@ -213,11 +217,17 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             // In this case, we don't want to blur the editor.
             const isRemovedFromDom = !document.contains(clickTarget);
 
+            const isMouseOutside =
+                !isWithinEditor && !isWithinMenuPortal && !isTextboxElement && !isRemovedFromDom;
+
+            if (event.type === 'mousedown') {
+                isMousePressedOutside = isMouseOutside;
+            }
+
             if (
-                !isWithinEditor &&
-                !isWithinMenuPortal &&
-                !isTextboxElement &&
-                !isRemovedFromDom &&
+                event.type === 'click' &&
+                isMouseOutside &&
+                isMousePressedOutside &&
                 !EditorCommands.isCursorInEmptyParagraph(editor)
             ) {
                 EditorCommands.blur(editor);
@@ -225,10 +235,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }
 
         if (blurOnOutsideClick) {
+            document.addEventListener('mousedown', handleOutsideClick);
             document.addEventListener('click', handleOutsideClick);
         }
 
         return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
             document.removeEventListener('click', handleOutsideClick);
         };
     }, [blurOnOutsideClick, editor, popperMenuOptions]);
