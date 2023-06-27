@@ -152,7 +152,6 @@ function* generateOptions(
             group: Group.TEXT_N_LAYOUT,
             text: 'Table',
             description: 'Insert a table',
-            isNew: true,
         };
     }
 
@@ -216,7 +215,6 @@ function* generateOptions(
             text: 'Website bookmark',
             keywords: ['link'],
             description: 'Insert a visual website link',
-            isNew: true,
         };
     }
 
@@ -281,7 +279,6 @@ function* generateOptions(
             group: Group.PREZLY_CONTENT,
             text: 'Snippets',
             description: 'Insert reusable content blocks',
-            isNew: true,
         };
     }
 
