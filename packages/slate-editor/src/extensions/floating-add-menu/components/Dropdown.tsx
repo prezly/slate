@@ -193,10 +193,10 @@ export function Dropdown<Action>({
                                         <div
                                             className={classNames(
                                                 styles.MenuItemLabel,
-                                                option.isBeta ? styles.warning : styles.primary,
+                                                option.isBeta ? styles.beta : styles.primary,
                                             )}
                                         >
-                                            {option.isBeta ? 'testing' : 'new'}
+                                            {option.isBeta ? 'labs' : 'new'}
                                         </div>
                                     )}
                                 </MenuItem>
