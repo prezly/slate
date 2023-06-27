@@ -196,7 +196,7 @@ export function Dropdown<Action>({
                                                 option.isBeta ? styles.warning : styles.primary,
                                             )}
                                         >
-                                            {option.isBeta ? 'testing' : 'new'}
+                                            {option.isBeta ? 'labs' : 'new'}
                                         </div>
                                     )}
                                 </MenuItem>
