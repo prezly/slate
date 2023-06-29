@@ -144,7 +144,7 @@ function story(props: Partial<StoryRef> & Pick<StoryRef, 'uuid' | 'title'>): Sto
         },
 
         ...rest,
-    };
+    } as StoryRef;
 }
 
 function suggestion(

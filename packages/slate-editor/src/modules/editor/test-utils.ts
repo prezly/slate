@@ -57,13 +57,11 @@ export function getAllExtensions() {
             },
             withStoryBookmarks: {
                 loadStory: () => Promise.reject(),
-                renderInput: () => null,
                 generateEditUrl: (story) => `/stories/${story.id}/edit`,
                 generatePreviewUrl: (story) => `/stories/${story.id}/preview`,
             },
             withStoryEmbeds: {
                 render: () => null,
-                renderInput: () => null,
             },
             withTextStyling: true,
             withTables: true,
