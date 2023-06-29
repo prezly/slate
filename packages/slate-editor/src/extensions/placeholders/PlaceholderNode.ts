@@ -23,6 +23,8 @@ export namespace PlaceholderNode {
          */
         MEDIA = 'placeholder:media',
         SOCIAL_POST = 'placeholder:social-post',
+        STORY_BOOKMARK = 'placeholder:story-bookmark',
+        STORY_EMBED = 'placeholder:story-embed',
         VIDEO = 'placeholder:video',
         WEB_BOOKMARK = 'placeholder:bookmark',
     }
