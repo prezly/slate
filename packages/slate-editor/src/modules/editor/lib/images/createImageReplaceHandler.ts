@@ -43,7 +43,7 @@ export function createImageReplaceHandler(params: ImageExtensionConfiguration) {
                         ...imageNode,
                         file: image.toPrezlyStoragePayload(),
                     },
-                    operation: 'edit',
+                    operation: 'edit' as const,
                 };
             }),
         );
