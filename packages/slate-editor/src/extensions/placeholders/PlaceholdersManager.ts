@@ -6,6 +6,8 @@ import type {
     CoverageNode,
     GalleryNode,
     ImageNode,
+    StoryBookmarkNode,
+    StoryEmbedNode,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import { useEffect, useState } from 'react';
@@ -51,11 +53,16 @@ interface Data {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
     };
+    [Type.STORY_BOOKMARK]: {
+        node: StoryBookmarkNode;
+    };
+    [Type.STORY_EMBED]: {
+        node: StoryEmbedNode;
+    };
     [Type.VIDEO]: {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
     };
-
     [Type.WEB_BOOKMARK]: {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
