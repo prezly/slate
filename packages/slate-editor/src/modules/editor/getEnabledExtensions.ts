@@ -302,6 +302,8 @@ function buildPlaceholdersExtensionConfiguration({
     withInlineContacts,
     withPlaceholders,
     withPressContacts,
+    withStoryBookmarks,
+    withStoryEmbeds,
     withVideos,
     withWebBookmarks,
 }: Parameters): PlaceholdersExtensionParameters | false {
@@ -350,6 +352,16 @@ function buildPlaceholdersExtensionConfiguration({
         if (withPressContacts) {
             yield {
                 withContactPlaceholders: withPressContacts,
+            };
+        }
+        if (withStoryBookmarks) {
+            yield {
+                withStoryBookmarkPlaceholders: withStoryBookmarks,
+            };
+        }
+        if (withStoryEmbeds) {
+            yield {
+                withStoryEmbedPlaceholders: withStoryEmbeds,
             };
         }
         if (withWebBookmarks) {

@@ -59,9 +59,11 @@ export function getAllExtensions() {
                 loadStory: () => Promise.reject(),
                 generateEditUrl: (story) => `/stories/${story.id}/edit`,
                 generatePreviewUrl: (story) => `/stories/${story.id}/preview`,
+                getSuggestions: () => [],
             },
             withStoryEmbeds: {
                 render: () => null,
+                getSuggestions: () => [],
             },
             withTextStyling: true,
             withTables: true,

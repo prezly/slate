@@ -122,8 +122,14 @@ export interface EditorProps {
         | {
               withNewTabOption?: boolean;
           };
-    withStoryBookmarks?: false | StoryBookmarkExtensionParameters;
-    withStoryEmbeds?: false | StoryEmbedExtensionParameters;
+    withStoryBookmarks?:
+        | false
+        | (StoryBookmarkExtensionParameters &
+              PlaceholdersExtensionParameters['withStoryBookmarkPlaceholders']);
+    withStoryEmbeds?:
+        | false
+        | (StoryEmbedExtensionParameters &
+              PlaceholdersExtensionParameters['withStoryEmbedPlaceholders']);
     withSnippets?: false | SnippetsExtensionParameters;
     withTables?: boolean;
     withTextStyling?: boolean;
