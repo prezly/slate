@@ -6,5 +6,7 @@ export { GalleryPlaceholderElement } from './GalleryPlaceholderElement';
 export { ImagePlaceholderElement } from './ImagePlaceholderElement';
 export { InlineContactPlaceholderElement } from './InlineContactPlaceholderElement';
 export { SocialPostPlaceholderElement } from './SocialPostPlaceholderElement';
+export { StoryBookmarkPlaceholderElement } from './StoryBookmarkPlaceholderElement';
+export { StoryEmbedPlaceholderElement } from './StoryEmbedPlaceholderElement';
 export { VideoPlaceholderElement } from './VideoPlaceholderElement';
 export { WebBookmarkPlaceholderElement } from './WebBookmarkPlaceholderElement';
