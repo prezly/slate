@@ -57,7 +57,7 @@ export function StoryEmbedPlaceholderElement({
             format={format}
             icon={PlaceholderStory}
             title="Click to insert a story"
-            description="Add ony of your Prezly stories"
+            description="Add one of your Prezly stories"
             // Input
             getSuggestions={getSuggestions}
             renderAddon={renderAddon}

@@ -57,7 +57,7 @@ export function StoryBookmarkPlaceholderElement({
             format={format}
             icon={PlaceholderStory}
             title="Click to insert a story bookmark"
-            description="Add ony of your Prezly stories"
+            description="Add one of your Prezly stories"
             // Input
             getSuggestions={getSuggestions}
             renderAddon={renderAddon}
