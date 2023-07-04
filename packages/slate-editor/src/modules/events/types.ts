@@ -18,7 +18,6 @@ export type EditorEventMap = {
         suggested: boolean;
         query: string;
     };
-    'attachment-add-clicked': never;
     'attachment-added': {
         description: string;
         isPasted: boolean;
@@ -36,29 +35,15 @@ export type EditorEventMap = {
     'attachment-removed': {
         uuid: string;
     };
-    'contact-dialog-opened': never;
-    'contact-dialog-search-used': never;
-    'contact-dialog-submitted': {
-        contact_id: NewsroomContact['uuid'];
+    'contact-placeholder-submitted': {
+        contact: Pick<NewsroomContact, 'uuid'>;
     };
-    'contact-removed': {
-        contact_id: NewsroomContact['uuid'];
-    };
-    'coverage-dialog-opened': never;
-    'coverage-dialog-search-used': never;
-    'coverage-dialog-submitted': {
-        coverage_id: CoverageEntry['id'];
+    'coverage-placeholder-submitted': {
+        coverage: Pick<CoverageEntry, 'id'>;
     };
     'coverage-removed': never;
-    'embed-dialog-opened': {
-        selectedItemText: string;
-    };
-    'embed-dialog-submitted': {
-        selectedItemText: string;
+    'embed-placeholder-submitted': {
         url: string;
-    };
-    'embed-removed': {
-        uuid: string;
     };
     'empty-paragraph-inserted': { trigger: 'hotkey' | 'area-around-block' };
     error: unknown;
@@ -67,7 +52,6 @@ export type EditorEventMap = {
         imagesCount: number;
         isEmpty: boolean;
     };
-    'image-add-clicked': never;
     'image-added': {
         description: string;
         isPasted: boolean;
@@ -98,16 +82,10 @@ export type EditorEventMap = {
         isEmpty: boolean;
         pastedLength: number;
     };
-    'story-embed-dialog-opened': {
-        selectedItemText: string;
-    };
-    'story-embed-dialog-submitted': {
+    'story-embed-placeholder-submitted': {
         story: Pick<Story, 'uuid'>;
     };
-    'story-bookmark-dialog-opened': {
-        selectedItemText: string;
-    };
-    'story-bookmark-dialog-submitted': {
+    'story-bookmark-placeholder-submitted': {
         story: Pick<Story, 'uuid'>;
     };
     'story-bookmark-removed': {
@@ -127,22 +105,10 @@ export type EditorEventMap = {
     'table-insert-column-right': never;
     'table-remove-column': never;
     'table-remove': never;
-    'video-add-clicked': never;
-    'video-dialog-opened': {
-        selectedItemText: string;
-    };
-    'video-dialog-submitted': {
-        selectedItemText: string;
+    'video-placeholder-submitted': {
         url: string;
     };
-    'video-removed': {
-        uuid: string;
-    };
-    'web-bookmark-dialog-opened': {
-        selectedItemText: string;
-    };
-    'web-bookmark-dialog-submitted': {
-        selectedItemText: string;
+    'web-bookmark-placeholder-submitted': {
         url: string;
     };
     'web-bookmark-removed': {

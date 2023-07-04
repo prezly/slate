@@ -55,10 +55,7 @@ export function VideoPlaceholderElement({
     });
 
     const handleSubmit = useFunction(async (url: string) => {
-        EventsEditor.dispatchEvent(editor, 'video-dialog-submitted', {
-            url,
-            selectedItemText: 'Add video',
-        });
+        EventsEditor.dispatchEvent(editor, 'video-placeholder-submitted', { url });
 
         const loading = fetchOembed(url).then(
             (oembed) => {

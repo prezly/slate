@@ -68,8 +68,8 @@ export function CoveragePlaceholderElement({
     });
 
     const handleSelect = useFunction((data: CoverageRef) => {
-        EventsEditor.dispatchEvent(editor, 'coverage-dialog-submitted', {
-            coverage_id: data.coverage.id,
+        EventsEditor.dispatchEvent(editor, 'coverage-placeholder-submitted', {
+            coverage: { id: data.coverage.id },
         });
 
         replacePlaceholder(editor, element, createCoverage(data.coverage.id));

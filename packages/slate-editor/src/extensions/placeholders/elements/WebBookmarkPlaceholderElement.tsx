@@ -51,10 +51,7 @@ export function WebBookmarkPlaceholderElement({
     });
 
     const handleSubmit = useFunction(async (url: string) => {
-        EventsEditor.dispatchEvent(editor, 'web-bookmark-dialog-submitted', {
-            url,
-            selectedItemText: 'Add bookmark',
-        });
+        EventsEditor.dispatchEvent(editor, 'web-bookmark-placeholder-submitted', { url });
 
         const loading = fetchOembed(url).then(
             (oembed) => ({ oembed, url }),

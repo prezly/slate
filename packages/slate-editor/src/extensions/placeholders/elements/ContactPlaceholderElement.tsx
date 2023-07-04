@@ -37,12 +37,12 @@ export function ContactPlaceholderElement({
         PlaceholdersManager.activate(element);
     });
 
-    const handleSelect = useFunction((id: NewsroomContact['uuid'], contact: ContactInfo) => {
-        EventsEditor.dispatchEvent(editor, 'contact-dialog-submitted', {
-            contact_id: id,
+    const handleSelect = useFunction((uuid: NewsroomContact['uuid'], contact: ContactInfo) => {
+        EventsEditor.dispatchEvent(editor, 'contact-placeholder-submitted', {
+            contact: { uuid },
         });
 
-        replacePlaceholder(editor, element, createContactNode({ contact, reference: id }));
+        replacePlaceholder(editor, element, createContactNode({ contact, reference: uuid }));
     });
 
     usePlaceholderManagement(element.type, element.uuid, {

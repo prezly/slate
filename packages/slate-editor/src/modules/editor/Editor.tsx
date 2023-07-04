@@ -328,6 +328,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             suggested: typeof suggested === 'number',
             query,
         });
+
         if (action === MenuAction.ADD_PARAGRAPH) {
             return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);
         }
@@ -338,7 +339,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
         }
         if (action === MenuAction.ADD_ATTACHMENT) {
-            EventsEditor.dispatchEvent(editor, 'attachment-add-clicked');
             const placeholder = insertPlaceholder(
                 editor,
                 { type: PlaceholderNode.Type.ATTACHMENT },
@@ -431,7 +431,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return;
         }
         if (action === MenuAction.ADD_IMAGE && withImages) {
-            EventsEditor.dispatchEvent(editor, 'image-add-clicked');
             const placeholder = insertPlaceholder(
                 editor,
                 { type: PlaceholderNode.Type.IMAGE },
@@ -441,7 +440,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
         }
         if (action === MenuAction.ADD_VIDEO) {
-            EventsEditor.dispatchEvent(editor, 'video-add-clicked');
             const placeholder = insertPlaceholder(
                 editor,
                 { type: PlaceholderNode.Type.VIDEO },
