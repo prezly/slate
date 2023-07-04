@@ -94,7 +94,8 @@
         &[data-action="add_attachment"],
         &[data-action="add_embed"],
         &[data-action="add_embed_social"],
-        &[data-action="add_web_bookmark"] {
+        &[data-action="add_web_bookmark"],
+        &[data-action="add_story_embed"] {
             fill: $grey-100;
         }
 

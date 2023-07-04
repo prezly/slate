@@ -250,17 +250,6 @@ function* generateOptions(
         };
     }
 
-    if (withStoryEmbeds) {
-        yield {
-            action: MenuAction.ADD_STORY_EMBED,
-            icon: Icons.ComponentWebBookmark,
-            group: Group.PREZLY_CONTENT,
-            text: 'Story embed',
-            description: 'Insert Prezly story content',
-            isBeta: true,
-        };
-    }
-
     if (withStoryBookmarks) {
         yield {
             action: MenuAction.ADD_STORY_BOOKMARK,
@@ -268,6 +257,17 @@ function* generateOptions(
             group: Group.PREZLY_CONTENT,
             text: 'Story bookmark',
             description: 'Embed your Prezly content',
+            isBeta: true,
+        };
+    }
+
+    if (withStoryEmbeds) {
+        yield {
+            action: MenuAction.ADD_STORY_EMBED,
+            icon: Icons.ComponentWebBookmark,
+            group: Group.PREZLY_CONTENT,
+            text: 'Story embed',
+            description: 'Insert Prezly story content',
             isBeta: true,
         };
     }
