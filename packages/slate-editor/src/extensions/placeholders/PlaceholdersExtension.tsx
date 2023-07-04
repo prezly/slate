@@ -2,7 +2,12 @@ import type { NewsroomRef } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
-import { CoveragePlaceholderElement, InlineContactPlaceholderElement } from './elements';
+import { StoryEmbedPlaceholderElement } from './elements';
+import {
+    CoveragePlaceholderElement,
+    InlineContactPlaceholderElement,
+    StoryBookmarkPlaceholderElement,
+} from './elements';
 import {
     AttachmentPlaceholderElement,
     ContactPlaceholderElement,
@@ -35,6 +40,7 @@ export interface Parameters {
         | Pick<
               ContactPlaceholderElement.Props,
               | 'getSuggestions'
+              | 'invalidateSuggestions'
               | 'renderAddon'
               | 'renderEmpty'
               | 'renderSuggestion'
@@ -45,6 +51,7 @@ export interface Parameters {
         | Pick<
               CoveragePlaceholderElement.Props,
               | 'getSuggestions'
+              | 'invalidateSuggestions'
               | 'renderEmpty'
               | 'renderSuggestion'
               | 'renderSuggestionsFooter'
@@ -57,9 +64,35 @@ export interface Parameters {
         | false
         | Pick<
               InlineContactPlaceholderElement.Props,
-              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
+              | 'getSuggestions'
+              | 'invalidateSuggestions'
+              | 'renderEmpty'
+              | 'renderSuggestion'
+              | 'renderSuggestionsFooter'
           >;
     withMediaPlaceholders?: boolean | { withCaptions: boolean; newsroom: NewsroomRef | undefined };
+    withStoryBookmarkPlaceholders?:
+        | false
+        | Pick<
+              StoryBookmarkPlaceholderElement.Props,
+              | 'getSuggestions'
+              | 'invalidateSuggestions'
+              | 'renderAddon'
+              | 'renderEmpty'
+              | 'renderSuggestion'
+              | 'renderSuggestionsFooter'
+          >;
+    withStoryEmbedPlaceholders?:
+        | false
+        | Pick<
+              StoryEmbedPlaceholderElement.Props,
+              | 'getSuggestions'
+              | 'invalidateSuggestions'
+              | 'renderAddon'
+              | 'renderEmpty'
+              | 'renderSuggestion'
+              | 'renderSuggestionsFooter'
+          >;
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
@@ -76,6 +109,8 @@ export function PlaceholdersExtension({
     withImagePlaceholders = false,
     withInlineContactPlaceholders = false,
     withMediaPlaceholders = false,
+    withStoryBookmarkPlaceholders = false,
+    withStoryEmbedPlaceholders = false,
     withSocialPostPlaceholders = false,
     withWebBookmarkPlaceholders = false,
     withVideoPlaceholders = false,
@@ -104,6 +139,8 @@ export function PlaceholdersExtension({
                 withInlineContactPlaceholders: Boolean(withInlineContactPlaceholders),
                 withMediaPlaceholders: Boolean(withMediaPlaceholders),
                 withSocialPostPlaceholders: Boolean(withSocialPostPlaceholders),
+                withStoryBookmarkPlaceholders: Boolean(withStoryBookmarkPlaceholders),
+                withStoryEmbedPlaceholders: Boolean(withStoryEmbedPlaceholders),
                 withWebBookmarkPlaceholders: Boolean(withWebBookmarkPlaceholders),
                 withVideoPlaceholders: Boolean(withVideoPlaceholders),
             }),
@@ -253,6 +290,38 @@ export function PlaceholdersExtension({
                     >
                         {children}
                     </SocialPostPlaceholderElement>
+                );
+            }
+            if (
+                withStoryBookmarkPlaceholders &&
+                isPlaceholderNode(element, PlaceholderNode.Type.STORY_BOOKMARK)
+            ) {
+                return (
+                    <StoryBookmarkPlaceholderElement
+                        {...withStoryBookmarkPlaceholders}
+                        attributes={attributes}
+                        element={element}
+                        format={format}
+                        removable={removable}
+                    >
+                        {children}
+                    </StoryBookmarkPlaceholderElement>
+                );
+            }
+            if (
+                withStoryEmbedPlaceholders &&
+                isPlaceholderNode(element, PlaceholderNode.Type.STORY_EMBED)
+            ) {
+                return (
+                    <StoryEmbedPlaceholderElement
+                        {...withStoryEmbedPlaceholders}
+                        attributes={attributes}
+                        element={element}
+                        format={format}
+                        removable={removable}
+                    >
+                        {children}
+                    </StoryEmbedPlaceholderElement>
                 );
             }
             if (withVideoPlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.VIDEO)) {

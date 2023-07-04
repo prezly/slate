@@ -1,10 +1,10 @@
 import { isNotUndefined } from '@technically/is-not-undefined';
+import { noop } from '@technically/lodash';
 import type { ReactElement, Ref, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import React, { useMemo, useReducer, useState } from 'react';
 import { useRootClose } from 'react-overlays';
-import { useSlateStatic } from 'slate-react';
 
 import { mergeRefs } from '#lib';
 import {
@@ -16,8 +16,6 @@ import {
     useMount,
 } from '#lib';
 
-import { EventsEditor } from '#modules/events';
-
 import { Input, type Props as BaseProps } from '../Input';
 
 import * as EmptyModule from './Empty';
@@ -25,7 +23,7 @@ import * as OptionsModule from './Option';
 import * as PanelModule from './Panel';
 import { createReducer } from './reducer';
 import * as SuggestionsModule from './Suggestions';
-import type { Suggestion } from './types';
+import type { Subscribable, Suggestion } from './types';
 
 type TSuggestion<T> = Suggestion<T>;
 
@@ -34,6 +32,7 @@ const EMPTY_SUGGESTIONS: never[] = [];
 export function SearchInput<T = unknown>({
     inputRef,
     getSuggestions,
+    invalidateSuggestions,
     renderAddon,
     renderEmpty = defaultRenderEmpty,
     renderSuggestion = defaultRenderSuggestion,
@@ -44,7 +43,6 @@ export function SearchInput<T = unknown>({
     onSelect,
     ...attributes
 }: SearchInput.Props<T>) {
-    const editor = useSlateStatic();
     const rootRef = useRef<HTMLInputElement | null>(null);
     const reducer = useMemo(() => createReducer<T>(), []);
     const initialState = useMemo(() => reducer(undefined, { type: undefined }), [reducer]);
@@ -98,11 +96,11 @@ export function SearchInput<T = unknown>({
     useRootClose(rootRef, () => setOpen(false));
 
     useEffect(() => {
-        const unlisten = EventsEditor.addEventListener(editor, 'contact-dialog-searched', () =>
-            search(query),
-        );
-        return unlisten;
-    }, []);
+        if (!invalidateSuggestions) {
+            return noop;
+        }
+        return invalidateSuggestions.subscribe(() => search(query));
+    }, [invalidateSuggestions, query]);
 
     return (
         <Input
@@ -155,6 +153,7 @@ export namespace SearchInput {
     export interface Props<T> extends Omit<BaseProps, 'loading' | 'value' | 'onSelect'> {
         inputRef?: Ref<HTMLInputElement>;
         getSuggestions: (query: string) => Suggestion<T>[] | Promise<Suggestion<T>[]>;
+        invalidateSuggestions?: Subscribable;
         onClear?: () => void;
         renderAddon?: () => ReactNode;
         renderEmpty?: (props: Props.Empty) => ReactElement | null;

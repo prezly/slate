@@ -32,14 +32,11 @@ import { useFunction, useGetSet, useSize } from '#lib';
 import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
 import type { Option } from '#extensions/floating-add-menu';
-import { LoaderContentType } from '#extensions/loader';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import { useFloatingSnippetInput } from '#extensions/snippet';
-import { useFloatingStoryBookmarkInput } from '#extensions/story-bookmark';
-import { useFloatingStoryEmbedInput } from '#extensions/story-embed';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
 import { VariablesDropdown, useVariables } from '#extensions/variables';
-import { FloatingStoryEmbedInput, FloatingSnippetInput, Placeholder } from '#modules/components';
+import { FloatingSnippetInput, Placeholder } from '#modules/components';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
 import { EventsEditor } from '#modules/events';
@@ -285,26 +282,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     const userMentions = useUserMentions(withUserMentions || undefined);
 
     const [
-        { isOpen: isFloatingStoryEmbedInputOpen },
-        {
-            close: closeFloatingStoryEmbedInput,
-            open: openFloatingStoryEmbedInput,
-            rootClose: rootCloseFloatingStoryEmbedInput,
-            submit: submitFloatingStoryEmbedInput,
-        },
-    ] = useFloatingStoryEmbedInput(editor);
-
-    const [
-        { isOpen: isFloatingStoryBookmarkInputOpen },
-        {
-            close: closeFloatingStoryBookmarkInput,
-            open: openFloatingStoryBookmarkInput,
-            rootClose: rootCloseFloatingStoryBookmarkInput,
-            submit: submitFloatingStoryBookmarkInput,
-        },
-    ] = useFloatingStoryBookmarkInput(editor);
-
-    const [
         { isOpen: isFloatingSnippetInputOpen },
         {
             close: closeFloatingSnippetInput,
@@ -420,17 +397,25 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
-        if (action === MenuAction.ADD_STORY_EMBED) {
-            return openFloatingStoryEmbedInput('Embed Prezly story', {
-                contentType: LoaderContentType.STORY_EMBED,
-                message: 'Embedding Prezly Story',
-            });
-        }
         if (action === MenuAction.ADD_STORY_BOOKMARK) {
-            return openFloatingStoryBookmarkInput('Embed Prezly Story', {
-                contentType: LoaderContentType.STORY_BOOKMARK,
-                message: 'Embedding Prezly Story',
-            });
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.STORY_BOOKMARK },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_STORY_EMBED) {
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.STORY_EMBED },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
         }
         if (action === MenuAction.ADD_SNIPPET) {
             return openFloatingSnippetInput();
@@ -598,36 +583,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     : false,
                             )}
                             withParagraphs
-                        />
-                    )}
-
-                    {withStoryEmbeds && isFloatingStoryEmbedInputOpen && (
-                        <FloatingStoryEmbedInput
-                            availableWidth={availableWidth}
-                            containerRef={containerRef}
-                            onClose={closeFloatingStoryEmbedInput}
-                            onRootClose={rootCloseFloatingStoryEmbedInput}
-                            renderInput={() =>
-                                withStoryEmbeds.renderInput({
-                                    onSubmit: submitFloatingStoryEmbedInput,
-                                    onClose: closeFloatingStoryEmbedInput,
-                                })
-                            }
-                        />
-                    )}
-
-                    {withStoryBookmarks && isFloatingStoryBookmarkInputOpen && (
-                        <FloatingStoryEmbedInput
-                            availableWidth={availableWidth}
-                            containerRef={containerRef}
-                            onClose={closeFloatingStoryBookmarkInput}
-                            onRootClose={rootCloseFloatingStoryBookmarkInput}
-                            renderInput={() =>
-                                withStoryBookmarks.renderInput({
-                                    onCreate: submitFloatingStoryBookmarkInput,
-                                    onRemove: closeFloatingStoryBookmarkInput,
-                                })
-                            }
                         />
                     )}
 

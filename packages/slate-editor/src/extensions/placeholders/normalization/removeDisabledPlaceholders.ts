@@ -13,6 +13,8 @@ interface Parameters {
     withEmbedPlaceholders: boolean;
     withMediaPlaceholders: boolean;
     withSocialPostPlaceholders: boolean;
+    withStoryBookmarkPlaceholders: boolean;
+    withStoryEmbedPlaceholders: boolean;
     withVideoPlaceholders: boolean;
     withWebBookmarkPlaceholders: boolean;
 }
@@ -27,6 +29,8 @@ export function removeDisabledPlaceholders({
     withEmbedPlaceholders,
     withMediaPlaceholders,
     withSocialPostPlaceholders,
+    withStoryBookmarkPlaceholders,
+    withStoryEmbedPlaceholders,
     withVideoPlaceholders,
     withWebBookmarkPlaceholders,
 }: Parameters): Normalize {
@@ -39,6 +43,8 @@ export function removeDisabledPlaceholders({
         [PlaceholderNode.Type.EMBED]: withEmbedPlaceholders,
         [PlaceholderNode.Type.MEDIA]: withMediaPlaceholders,
         [PlaceholderNode.Type.SOCIAL_POST]: withSocialPostPlaceholders,
+        [PlaceholderNode.Type.STORY_BOOKMARK]: withStoryBookmarkPlaceholders,
+        [PlaceholderNode.Type.STORY_EMBED]: withStoryEmbedPlaceholders,
         [PlaceholderNode.Type.VIDEO]: withVideoPlaceholders,
         [PlaceholderNode.Type.WEB_BOOKMARK]: withWebBookmarkPlaceholders,
     };

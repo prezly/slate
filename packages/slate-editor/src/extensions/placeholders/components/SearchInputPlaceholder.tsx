@@ -22,6 +22,7 @@ export function SearchInputPlaceholder<T>({
     selected = false,
     // Input properties
     getSuggestions,
+    invalidateSuggestions,
     renderAddon,
     renderEmpty,
     renderSuggestion,
@@ -104,6 +105,7 @@ export function SearchInputPlaceholder<T>({
                 className={styles.Input}
                 disabled={disabled}
                 getSuggestions={getSuggestions}
+                invalidateSuggestions={invalidateSuggestions}
                 renderAddon={renderAddon}
                 renderEmpty={renderEmpty}
                 renderSuggestion={renderSuggestion}
@@ -125,6 +127,7 @@ export namespace SearchInputPlaceholder {
     export interface Props<T>
         extends Omit<BaseProps, 'title' | 'onSubmit' | 'onSelect' | 'pattern'> {
         getSuggestions: SearchInput.Props<T>['getSuggestions'];
+        invalidateSuggestions?: SearchInput.Props<T>['invalidateSuggestions'];
         renderEmpty?: SearchInput.Props<T>['renderEmpty'];
         renderAddon?: SearchInput.Props<T>['renderAddon'];
         renderSuggestion?: SearchInput.Props<T>['renderSuggestion'];
