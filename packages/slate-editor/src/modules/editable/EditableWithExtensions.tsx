@@ -7,6 +7,7 @@ import type {
     RenderElement,
     RenderLeaf,
 } from '@prezly/slate-commons';
+import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 import type { Editor } from 'slate';
 import type { ReactEditor } from 'slate-react';
@@ -69,6 +70,7 @@ export interface Props {
 }
 
 export function EditableWithExtensions({
+    className,
     decorate,
     editor,
     extensions = [],
@@ -109,6 +111,8 @@ export function EditableWithExtensions({
     return (
         <Editable
             {...props}
+            className={classNames(className, 'notranslate')}
+            translate="no"
             decorate={combinedDecorate}
             onDOMBeforeInput={combinedOnDOMBeforeInput}
             onKeyDown={combinedOnKeyDown}
