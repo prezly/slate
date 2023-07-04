@@ -40,6 +40,7 @@ export interface Parameters {
         | Pick<
               ContactPlaceholderElement.Props,
               | 'getSuggestions'
+              | 'invalidateSuggestions'
               | 'renderAddon'
               | 'renderEmpty'
               | 'renderSuggestion'
@@ -50,6 +51,7 @@ export interface Parameters {
         | Pick<
               CoveragePlaceholderElement.Props,
               | 'getSuggestions'
+              | 'invalidateSuggestions'
               | 'renderEmpty'
               | 'renderSuggestion'
               | 'renderSuggestionsFooter'
@@ -62,7 +64,11 @@ export interface Parameters {
         | false
         | Pick<
               InlineContactPlaceholderElement.Props,
-              'getSuggestions' | 'renderEmpty' | 'renderSuggestion' | 'renderSuggestionsFooter'
+              | 'getSuggestions'
+              | 'invalidateSuggestions'
+              | 'renderEmpty'
+              | 'renderSuggestion'
+              | 'renderSuggestionsFooter'
           >;
     withMediaPlaceholders?: boolean | { withCaptions: boolean; newsroom: NewsroomRef | undefined };
     withStoryBookmarkPlaceholders?:
@@ -70,6 +76,7 @@ export interface Parameters {
         | Pick<
               StoryBookmarkPlaceholderElement.Props,
               | 'getSuggestions'
+              | 'invalidateSuggestions'
               | 'renderAddon'
               | 'renderEmpty'
               | 'renderSuggestion'
@@ -80,6 +87,7 @@ export interface Parameters {
         | Pick<
               StoryEmbedPlaceholderElement.Props,
               | 'getSuggestions'
+              | 'invalidateSuggestions'
               | 'renderAddon'
               | 'renderEmpty'
               | 'renderSuggestion'

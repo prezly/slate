@@ -17,7 +17,10 @@ import { SearchInputPlaceholder } from './SearchInputPlaceholder';
 export type Props<T> = RenderElementProps &
     Pick<PlaceholderProps, 'icon' | 'title' | 'description' | 'format' | 'onDrop'> &
     Pick<PlaceholderElementProps, 'removable'> &
-    Pick<SearchInputPlaceholder.Props<T>, 'getSuggestions' | 'onSelect' | 'renderAddon'> & {
+    Pick<
+        SearchInputPlaceholder.Props<T>,
+        'getSuggestions' | 'invalidateSuggestions' | 'onSelect' | 'renderAddon'
+    > & {
         element: PlaceholderNode;
         // SearchInput
         renderEmpty?: (
