@@ -37,7 +37,7 @@ export function StoryEmbedPlaceholderElement({
     });
 
     const handleSelect = useFunction((uuid: StoryRef['uuid']) => {
-        EventsEditor.dispatchEvent(editor, 'story-embed-dialog-submitted', {
+        EventsEditor.dispatchEvent(editor, 'story-embed-placeholder-submitted', {
             story: { uuid },
         });
 

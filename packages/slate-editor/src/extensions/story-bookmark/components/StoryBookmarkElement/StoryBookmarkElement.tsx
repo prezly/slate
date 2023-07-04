@@ -34,7 +34,7 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
         const removed = removeStoryBookmark(editor);
 
         if (removed) {
-            EventsEditor.dispatchEvent(editor, 'web-bookmark-removed', {
+            EventsEditor.dispatchEvent(editor, 'story-bookmark-removed', {
                 uuid: removed.uuid,
             });
         }

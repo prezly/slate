@@ -37,7 +37,7 @@ export function StoryBookmarkPlaceholderElement({
     });
 
     const handleSelect = useFunction((uuid: StoryRef['uuid']) => {
-        EventsEditor.dispatchEvent(editor, 'story-bookmark-dialog-submitted', {
+        EventsEditor.dispatchEvent(editor, 'story-bookmark-placeholder-submitted', {
             story: { uuid },
         });
 
