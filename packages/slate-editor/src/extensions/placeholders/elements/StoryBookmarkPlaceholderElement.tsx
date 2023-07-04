@@ -38,8 +38,7 @@ export function StoryBookmarkPlaceholderElement({
 
     const handleSelect = useFunction((uuid: StoryRef['uuid']) => {
         EventsEditor.dispatchEvent(editor, 'story-bookmark-dialog-submitted', {
-            node: JSON.stringify({ uuid }), // FIXME?
-            selectedItemText: '???', // FIXME
+            story: { uuid },
         });
 
         replacePlaceholder(editor, element, createStoryBookmark({ story: { uuid } }));

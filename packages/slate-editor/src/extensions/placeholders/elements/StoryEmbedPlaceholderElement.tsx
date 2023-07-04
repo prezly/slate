@@ -38,8 +38,7 @@ export function StoryEmbedPlaceholderElement({
 
     const handleSelect = useFunction((uuid: StoryRef['uuid']) => {
         EventsEditor.dispatchEvent(editor, 'story-embed-dialog-submitted', {
-            node: JSON.stringify({ uuid }), // FIXME?
-            selectedItemText: '???', // FIXME
+            story: { uuid },
         });
 
         replacePlaceholder(editor, element, createStoryEmbed({ story: { uuid } }));

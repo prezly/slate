@@ -1,5 +1,5 @@
 import type { Listener } from '@prezly/events';
-import type { CoverageEntry, NewsroomContact } from '@prezly/sdk';
+import type { CoverageEntry, NewsroomContact, Story } from '@prezly/sdk';
 import type { TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
@@ -102,15 +102,13 @@ export type EditorEventMap = {
         selectedItemText: string;
     };
     'story-embed-dialog-submitted': {
-        selectedItemText: string;
-        node: string;
+        story: Pick<Story, 'uuid'>;
     };
     'story-bookmark-dialog-opened': {
         selectedItemText: string;
     };
     'story-bookmark-dialog-submitted': {
-        selectedItemText: string;
-        node: string;
+        story: Pick<Story, 'uuid'>;
     };
     'story-bookmark-removed': {
         uuid: string;
