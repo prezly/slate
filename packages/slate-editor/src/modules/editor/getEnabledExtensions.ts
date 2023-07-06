@@ -136,7 +136,11 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         yield CustomNormalizationExtension({ normalizeNode: withCustomNormalization });
     }
 
-    yield DecorateSelectionExtension();
+    // We only use it for rendering the selection marks decorations.
+    // The automatic selection decoration itself is disabled and is dynamically attached
+    // using the `useDecorationFactory()` call in the RichFormattingMenu component.
+    yield DecorateSelectionExtension({ decorate: false });
+
     yield FlashNodesExtension();
     yield ParagraphsExtension();
     yield SoftBreakExtension();

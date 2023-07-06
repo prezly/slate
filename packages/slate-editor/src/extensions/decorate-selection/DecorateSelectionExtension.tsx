@@ -1,28 +1,23 @@
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 import type { Editor } from 'slate';
-import { Range, Text } from 'slate';
 
 import { SelectionHighlight } from './components';
+import { SELECTION_MARK } from './constants';
+import { decorateSelectionFactory } from './decorateSelection';
 
-const SELECTION_MARK = 'selection';
+interface Params {
+    decorate?: boolean;
+}
 
-export function DecorateSelectionExtension(): Extension {
+export function DecorateSelectionExtension({ decorate = true }: Params = {}): Extension {
     return {
         id: 'DecorateSelectionExtension',
         decorate(editor: Editor) {
-            return function decorateSelection([node, path]) {
-                if (editor.selection && Range.isExpanded(editor.selection) && Text.isText(node)) {
-                    const intersection = Range.intersection(editor.selection, {
-                        anchor: { path, offset: 0 },
-                        focus: { path, offset: node.text.length },
-                    });
-                    if (intersection) {
-                        return [{ ...intersection, [SELECTION_MARK]: true }];
-                    }
-                }
-                return [];
-            };
+            if (!decorate) {
+                return noopDecoration;
+            }
+            return decorateSelectionFactory(editor);
         },
         renderLeaf({ leaf, children }) {
             if (leaf[SELECTION_MARK]) {
@@ -32,4 +27,8 @@ export function DecorateSelectionExtension(): Extension {
             return <>{children}</>;
         },
     };
+}
+
+function noopDecoration() {
+    return [];
 }

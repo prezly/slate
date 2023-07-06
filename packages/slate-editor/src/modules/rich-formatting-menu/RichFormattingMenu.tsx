@@ -1,8 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
-import { HeadingRole } from '@prezly/slate-types';
-import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
+import { HeadingRole, isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
 import { Editor, Range, Transforms } from 'slate';
@@ -11,15 +10,17 @@ import { ReactEditor, useSlate } from 'slate-react';
 
 import { Menu, TextSelectionPortalV2 } from '#components';
 
+import { decorateSelectionFactory } from '#extensions/decorate-selection';
 import { unwrapLink, wrapInLink } from '#extensions/inline-links';
 import { MarkType } from '#extensions/text-styling';
+import { useDecorationFactory } from '#modules/decorations';
 import { toggleBlock } from '#modules/rich-formatting-menu';
 
 import { Toolbar } from './components';
 import {
-    keepToolbarInTextColumn,
     getCurrentFormatting,
     isSelectionSupported,
+    keepToolbarInTextColumn,
     useRangeRef,
 } from './lib';
 import { LinkMenu } from './LinkMenu';
@@ -86,12 +87,14 @@ export function RichFormattingMenu({
 
     function handleSubSupClick() {
         if (isSuperScriptActive) {
-            EditorCommands.toggleMark(editor, MarkType.SUPERSCRIPT);
-            EditorCommands.toggleMark(editor, MarkType.SUBSCRIPT);
+            EditorCommands.toggleMark(editor, MarkType.SUPERSCRIPT, false);
+            EditorCommands.toggleMark(editor, MarkType.SUBSCRIPT, true);
         } else if (isSubScriptActive) {
-            EditorCommands.toggleMark(editor, MarkType.SUBSCRIPT);
+            EditorCommands.toggleMark(editor, MarkType.SUPERSCRIPT, false);
+            EditorCommands.toggleMark(editor, MarkType.SUBSCRIPT, false);
         } else {
-            EditorCommands.toggleMark(editor, MarkType.SUPERSCRIPT);
+            EditorCommands.toggleMark(editor, MarkType.SUPERSCRIPT, true);
+            EditorCommands.toggleMark(editor, MarkType.SUBSCRIPT, false);
         }
     }
 
@@ -163,6 +166,8 @@ export function RichFormattingMenu({
         },
         [editor.selection],
     );
+
+    useDecorationFactory(linkRange?.current ? decorateSelectionFactory : undefined);
 
     if (
         withInlineLinks &&

@@ -6,7 +6,5 @@ export function createExtensionsDecorators<E extends Editor>(
     editor: E,
     extensions: Extension[],
 ): Decorate[] {
-    return extensions
-        .map((extension) => extension.decorate?.(editor, extension))
-        .filter(isNotUndefined);
+    return extensions.map((extension) => extension.decorate?.(editor)).filter(isNotUndefined);
 }

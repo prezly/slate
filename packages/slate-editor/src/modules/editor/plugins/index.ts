@@ -7,3 +7,4 @@ export {
 } from './withElementsEqualityCheck';
 export { type RichBlocksAwareEditor, withRichBlocks } from './withRichBlocks';
 export { type SerializingEditor, withSerialization } from './withSerialization';
+export { type RefreshableEditor, withRefresh } from './withRefresh';
