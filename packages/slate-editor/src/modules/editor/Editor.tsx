@@ -188,7 +188,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     }, [autoFocus, editor]);
 
     useEffect(() => {
-        if (!blurOnOutsideClick || Math.random() >= 0) {
+        if (!blurOnOutsideClick) {
             return noop;
         }
 

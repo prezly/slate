@@ -5,7 +5,7 @@ import { useSlateStatic } from 'slate-react';
 
 import { combineDecorate } from '../editable/lib';
 
-import { decorationsContext, type DecorationsConnector } from './context';
+import { DecorationsContext, type DecorationsConnector } from './DecorationsContext';
 
 interface Props {
     decorate?: Decorate | undefined;
@@ -45,8 +45,8 @@ export function DecorationsProvider({ decorate, children }: Props) {
     }, [decorate, entries, editor]);
 
     return (
-        <decorationsContext.Provider value={connector}>
+        <DecorationsContext.Provider value={connector}>
             {children(combinedDecorate)}
-        </decorationsContext.Provider>
+        </DecorationsContext.Provider>
     );
 }

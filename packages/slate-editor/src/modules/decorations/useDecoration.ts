@@ -2,12 +2,12 @@ import type { Decorate } from '@prezly/slate-commons';
 import { noop } from '@technically/lodash';
 import { useContext, useEffect } from 'react';
 
-import { decorationsContext } from './context';
+import { DecorationsContext } from './DecorationsContext';
 
 export function useDecoration(decorate: Decorate | undefined): void {
-    const { attach } = useContext(decorationsContext);
+    const { attach } = useContext(DecorationsContext);
 
-    return useEffect(() => {
+    useEffect(() => {
         if (decorate) {
             return attach(decorate);
         }

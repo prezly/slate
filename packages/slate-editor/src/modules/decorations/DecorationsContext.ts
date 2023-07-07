@@ -8,7 +8,7 @@ export type DecorationsConnector = {
     attach(decorate: Decorate): Detach;
 };
 
-export const decorationsContext = createContext<DecorationsConnector>({
+export const DecorationsContext = createContext<DecorationsConnector>({
     attach() {
         return noop;
     },
