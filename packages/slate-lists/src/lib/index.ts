@@ -10,6 +10,8 @@ export { getParentListItem } from './getParentListItem';
 export { getPrevSibling } from './getPrevSibling';
 export { isAtStartOfListItem } from './isAtStartOfListItem';
 export { isAtEmptyListItem } from './isAtEmptyListItem';
+export { isContainingTextNodes } from './isContainingTextNodes';
+export { isElementOrEditor } from './isElementOrEditor';
 export { isInList } from './isInList';
 export { isListItemContainingText } from './isListItemContainingText';
 export { pickSubtreesRoots } from './pickSubtreesRoots';
