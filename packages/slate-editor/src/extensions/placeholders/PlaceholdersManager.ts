@@ -111,7 +111,7 @@ export const PlaceholdersManager = {
     deactivate<T extends Type>({ type, uuid }: Identifier<T>): void {
         if (state.active && is(state.active, type, uuid)) {
             state.active = undefined;
-            notify(type, uuid, ({ onActivate }) => onActivate(false));
+            notify(type, uuid, ({ onActivate }) => onActivate(false), 'wipe');
         }
     },
 
@@ -203,9 +203,23 @@ function is<T extends Type>(follower: Identifier<Type>, type: T, uuid?: Uuid): b
     return follower.type === type && follower.uuid === uuid;
 }
 
-function notify<T extends Type>(type: T, uuid: Uuid, callback: (follower: Follower<T>) => void) {
+type NotificationsMemoryAction = 'wipe' | 'add' | 'replace';
+
+function notify<T extends Type>(
+    type: T,
+    uuid: Uuid,
+    callback: (follower: Follower<T>) => void,
+    memory: NotificationsMemoryAction = 'add',
+) {
     const notification = { type, uuid, callback } as any as Notification<Type>;
-    state.notifications = [...state.notifications, notification];
+
+    if (memory === 'add') {
+        state.notifications = [...state.notifications, notification];
+    } else if (memory === 'replace') {
+        state.notifications = [notification];
+    } else if (memory === 'wipe') {
+        state.notifications = [];
+    }
 
     setTimeout(() => {
         state.notifications = state.notifications.filter((n) => n !== notification);
