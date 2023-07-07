@@ -1,5 +1,5 @@
 import type { Editor, NodeEntry } from 'slate';
-import { Element, Node, Text, Transforms } from 'slate';
+import { Node, Text, Transforms } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -18,22 +18,15 @@ export function normalizeListChildren(
         return false;
     }
 
-    let normalized = false;
-
     const children = Array.from(Node.children(editor, path));
 
-    children.forEach(([childNode, childPath]) => {
-        if (normalized) {
-            // Make sure at most 1 normalization operation is done at a time.
-            return;
-        }
-
+    for (const [childNode, childPath] of children) {
         if (Text.isText(childNode)) {
             // This can happen during pasting
 
             // When pasting from MS Word there may be weird text nodes with some whitespace
             // characters. They're not expected to be deserialized so we remove them.
-            if (!childNode.text.trim()) {
+            if (childNode.text.trim() === '') {
                 if (children.length > 1) {
                     Transforms.removeNodes(editor, { at: childPath });
                 } else {
@@ -41,8 +34,7 @@ export function normalizeListChildren(
                     // to avoid never-ending normalization (Slate will insert empty text node).
                     Transforms.removeNodes(editor, { at: path });
                 }
-                normalized = true;
-                return;
+                return true;
             }
 
             Transforms.wrapNodes(
@@ -52,33 +44,26 @@ export function normalizeListChildren(
                 }),
                 { at: childPath },
             );
-            normalized = true;
-            return;
-        }
-
-        if (!Element.isElement(childNode)) {
-            return;
+            return true;
         }
 
         if (schema.isListItemTextNode(childNode)) {
             Transforms.wrapNodes(editor, schema.createListItemNode(), { at: childPath });
-            normalized = true;
-            return;
+            return true;
         }
 
         if (schema.isListNode(childNode)) {
             // Wrap it into a list item so that `normalizeOrphanNestedList` can take care of it.
             Transforms.wrapNodes(editor, schema.createListItemNode(), { at: childPath });
-            normalized = true;
-            return;
+            return true;
         }
 
         if (!schema.isListItemNode(childNode)) {
             Transforms.setNodes(editor, schema.createListItemTextNode(), { at: childPath });
             Transforms.wrapNodes(editor, schema.createListItemNode(), { at: childPath });
-            normalized = true;
+            return true;
         }
-    });
+    }
 
-    return normalized;
+    return false;
 }

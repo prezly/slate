@@ -22,9 +22,9 @@ export function normalizeSiblingLists(
     const [, path] = entry;
     const nextSibling = getNextSibling(editor, path);
 
-    if (!nextSibling) {
-        return false;
+    if (nextSibling) {
+        return mergeListWithPreviousSiblingList(editor, schema, nextSibling);
     }
 
-    return mergeListWithPreviousSiblingList(editor, schema, nextSibling);
+    return false;
 }

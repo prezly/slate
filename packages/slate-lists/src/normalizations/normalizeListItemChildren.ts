@@ -18,9 +18,7 @@ export function normalizeListItemChildren(
 
     const children = Array.from(Node.children(editor, path));
 
-    for (let childIndex = 0; childIndex < children.length; ++childIndex) {
-        const [childNode, childPath] = children[childIndex];
-
+    for (const [childIndex, [childNode, childPath]] of children.entries()) {
         if (Text.isText(childNode) || editor.isInline(childNode)) {
             const listItemText = schema.createListItemTextNode({
                 children: [childNode],
