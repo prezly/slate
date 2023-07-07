@@ -1,0 +1,18 @@
+[
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": "Hello"
+            }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": ""
+            }
+        ]
+    }
+]

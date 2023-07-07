@@ -322,6 +322,30 @@ describe('Editor', () => {
         });
 
         /**
+         * @see CARE-1965
+         */
+        it('should normalize list-items directly nested into another list-item', () => {
+            const editor = createEditor(
+                <editor>
+                    <h-p>
+                        <h-text>
+                            <cursor />
+                        </h-text>
+                    </h-p>
+                </editor>,
+            );
+
+            const input = readTestFile('input/list-normalization-4.json');
+            const expected = readTestFile('expected/list-normalization-4.json');
+
+            editor.children = JSON.parse(input).children;
+
+            Editor.normalize(editor, { force: true });
+
+            expect(editor.children).toMatchObject(JSON.parse(expected));
+        });
+
+        /**
          * @see CARE-1320
          */
         it('should handle nodes with empty children array', () => {

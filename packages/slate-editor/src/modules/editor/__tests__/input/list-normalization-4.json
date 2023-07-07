@@ -1,0 +1,32 @@
+{
+    "type": "document",
+    "children": [
+        {
+            "type": "list-item",
+            "children": [
+                {
+                    "type": "list-item-text",
+                    "children": [
+                        {
+                            "text": "Hello"
+                        }
+                    ]
+                },
+                {
+                    "type": "list-item",
+                    "children": [
+                        {
+                            "type": "list-item-text",
+                            "children": [
+                                {
+                                    "text": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "version": "0.50"
+}
