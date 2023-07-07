@@ -1,7 +1,7 @@
-import type { Node, NodeEntry } from 'slate';
-import { Editor, Transforms } from 'slate';
+import type { Node, NodeEntry, Editor } from 'slate';
+import { Element, Transforms } from 'slate';
 
-import { getParentList } from '../lib';
+import { isContainingTextNodes, isElementOrEditor } from '../lib';
 import type { ListsSchema } from '../types';
 
 /**
@@ -17,22 +17,24 @@ export function normalizeOrphanListItem(
     schema: ListsSchema,
     [node, path]: NodeEntry<Node>,
 ): boolean {
-    if (!schema.isListItemNode(node)) {
-        // This function does not know how to normalize other nodes.
-        return false;
+    if (isElementOrEditor(node) && !schema.isListNode(node)) {
+        // We look for "list-item" nodes that are NOT under a "list" node
+        for (const [index, child] of node.children.entries()) {
+            if (Element.isElement(child) && schema.isListItemNode(child)) {
+                if (isContainingTextNodes(child)) {
+                    Transforms.setNodes(editor, schema.createDefaultTextNode(), {
+                        at: [...path, index],
+                    });
+                } else {
+                    Transforms.unwrapNodes(editor, {
+                        at: [...path, index],
+                        mode: 'highest',
+                    });
+                }
+                return true;
+            }
+        }
     }
 
-    const parentList = getParentList(editor, schema, path);
-
-    if (parentList) {
-        // If there is a parent "list", then the fix does not apply.
-        return false;
-    }
-
-    Editor.withoutNormalizing(editor, () => {
-        Transforms.unwrapNodes(editor, { at: path });
-        Transforms.setNodes(editor, schema.createDefaultTextNode(), { at: path });
-    });
-
-    return true;
+    return false;
 }
