@@ -1,8 +1,7 @@
 @import "styles/variables";
 
 .selection {
-    border-radius: 4px;
-    box-shadow: 0px 2px 0px 1px $editor-selection-bg, 0px -2px 0px 1px $editor-selection-bg;
+    background-color: $editor-selection-bg;
     color: $editor-selection-color;
 
     &,

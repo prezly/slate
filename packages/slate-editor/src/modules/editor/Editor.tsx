@@ -37,6 +37,7 @@ import { useFloatingSnippetInput } from '#extensions/snippet';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
 import { VariablesDropdown, useVariables } from '#extensions/variables';
 import { FloatingSnippetInput, Placeholder } from '#modules/components';
+import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
 import { EventsEditor } from '#modules/events';
@@ -187,6 +188,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     }, [autoFocus, editor]);
 
     useEffect(() => {
+        if (!blurOnOutsideClick) {
+            return noop;
+        }
+
         let isMousePressedOutside = false;
 
         function handleOutsideClick(event: MouseEvent) {
@@ -231,10 +236,8 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             }
         }
 
-        if (blurOnOutsideClick) {
-            document.addEventListener('mousedown', handleOutsideClick);
-            document.addEventListener('click', handleOutsideClick);
-        }
+        document.addEventListener('mousedown', handleOutsideClick);
+        document.addEventListener('click', handleOutsideClick);
 
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
@@ -498,105 +501,117 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     }}
                     initialValue={getInitialValue()}
                 >
-                    <InitialNormalization />
-                    <EditableWithExtensions
-                        className={classNames(styles.Editable, {
-                            [styles.withEntryPoints]: withEntryPointsAroundBlocks,
-                        })}
-                        decorate={decorate}
-                        editor={editor}
-                        extensions={extensions}
-                        onCut={createOnCut(editor)}
-                        onKeyDown={onKeyDownList}
-                        onKeyDownDeps={[
-                            userMentions.index,
-                            userMentions.query,
-                            userMentions.target,
-                            withUserMentions,
-                            variables.index,
-                            variables.query,
-                            variables.target,
-                            withVariables,
-                        ]}
-                        readOnly={readOnly}
-                        renderElementDeps={[availableWidth]}
-                        style={contentStyle}
-                    />
+                    <DecorationsProvider decorate={decorate}>
+                        {(combinedDecorate) => (
+                            <>
+                                <InitialNormalization />
+                                <EditableWithExtensions
+                                    className={classNames(styles.Editable, {
+                                        [styles.withEntryPoints]: withEntryPointsAroundBlocks,
+                                    })}
+                                    decorate={combinedDecorate}
+                                    editor={editor}
+                                    extensions={extensions}
+                                    onCut={createOnCut(editor)}
+                                    onKeyDown={onKeyDownList}
+                                    onKeyDownDeps={[
+                                        userMentions.index,
+                                        userMentions.query,
+                                        userMentions.target,
+                                        withUserMentions,
+                                        variables.index,
+                                        variables.query,
+                                        variables.target,
+                                        withVariables,
+                                    ]}
+                                    readOnly={readOnly}
+                                    renderElementDeps={[availableWidth]}
+                                    style={contentStyle}
+                                />
 
-                    <FlashNodes containerRef={containerRef} />
+                                <FlashNodes containerRef={containerRef} />
 
-                    {!hasCustomPlaceholder && (
-                        <Placeholder className="editor-placeholder">{placeholder}</Placeholder>
-                    )}
+                                {!hasCustomPlaceholder && (
+                                    <Placeholder className="editor-placeholder">
+                                        {placeholder}
+                                    </Placeholder>
+                                )}
 
-                    {withFloatingAddMenu && (
-                        <FloatingAddMenu
-                            tooltip={
-                                typeof withFloatingAddMenu === 'object'
-                                    ? withFloatingAddMenu.tooltip
-                                    : undefined
-                            }
-                            open={isFloatingAddMenuOpen}
-                            availableWidth={availableWidth}
-                            containerRef={containerRef}
-                            onActivate={handleMenuAction}
-                            onFilter={handleMenuFilter}
-                            onToggle={(toggle) => onFloatingAddMenuToggle(toggle, 'click')}
-                            options={menuOptions}
-                            showTooltipByDefault={EditorCommands.isEmpty(editor)}
-                        />
-                    )}
+                                {withFloatingAddMenu && (
+                                    <FloatingAddMenu
+                                        tooltip={
+                                            typeof withFloatingAddMenu === 'object'
+                                                ? withFloatingAddMenu.tooltip
+                                                : undefined
+                                        }
+                                        open={isFloatingAddMenuOpen}
+                                        availableWidth={availableWidth}
+                                        containerRef={containerRef}
+                                        onActivate={handleMenuAction}
+                                        onFilter={handleMenuFilter}
+                                        onToggle={(toggle) =>
+                                            onFloatingAddMenuToggle(toggle, 'click')
+                                        }
+                                        options={menuOptions}
+                                        showTooltipByDefault={EditorCommands.isEmpty(editor)}
+                                    />
+                                )}
 
-                    {withVariables && (
-                        <VariablesDropdown
-                            index={variables.index}
-                            onOptionClick={(option) => variables.onAdd(editor, option)}
-                            options={variables.options}
-                            target={variables.target}
-                        />
-                    )}
+                                {withVariables && (
+                                    <VariablesDropdown
+                                        index={variables.index}
+                                        onOptionClick={(option) => variables.onAdd(editor, option)}
+                                        options={variables.options}
+                                        target={variables.target}
+                                    />
+                                )}
 
-                    {withUserMentions && (
-                        <UserMentionsDropdown
-                            index={userMentions.index}
-                            onOptionClick={(option) => userMentions.onAdd(editor, option)}
-                            options={userMentions.options}
-                            target={userMentions.target}
-                        />
-                    )}
+                                {withUserMentions && (
+                                    <UserMentionsDropdown
+                                        index={userMentions.index}
+                                        onOptionClick={(option) =>
+                                            userMentions.onAdd(editor, option)
+                                        }
+                                        options={userMentions.options}
+                                        target={userMentions.target}
+                                    />
+                                )}
 
-                    {withRichFormattingMenu && (
-                        <RichFormattingMenu
-                            availableWidth={availableWidth}
-                            containerElement={containerRef.current}
-                            defaultAlignment={align ?? Alignment.LEFT}
-                            withAlignment={withAlignmentControls}
-                            withBlockquotes={withBlockquotes}
-                            withHeadings={withHeadings}
-                            withInlineLinks={withInlineLinks}
-                            withLists={withLists}
-                            withNewTabOption={Boolean(
-                                typeof withRichFormattingMenu === 'object'
-                                    ? withRichFormattingMenu.withNewTabOption
-                                    : false,
-                            )}
-                            withParagraphs
-                        />
-                    )}
+                                {withRichFormattingMenu && (
+                                    <RichFormattingMenu
+                                        availableWidth={availableWidth}
+                                        containerElement={containerRef.current}
+                                        defaultAlignment={align ?? Alignment.LEFT}
+                                        withAlignment={withAlignmentControls}
+                                        withBlockquotes={withBlockquotes}
+                                        withHeadings={withHeadings}
+                                        withInlineLinks={withInlineLinks}
+                                        withLists={withLists}
+                                        withNewTabOption={Boolean(
+                                            typeof withRichFormattingMenu === 'object'
+                                                ? withRichFormattingMenu.withNewTabOption
+                                                : false,
+                                        )}
+                                        withParagraphs
+                                    />
+                                )}
 
-                    {withSnippets && isFloatingSnippetInputOpen && (
-                        <FloatingSnippetInput
-                            availableWidth={availableWidth}
-                            containerRef={containerRef}
-                            onClose={closeFloatingSnippetInput}
-                            onRootClose={rootCloseFloatingSnippetInput}
-                            renderInput={() =>
-                                withSnippets.renderInput({
-                                    onCreate: submitFloatingSnippetInput,
-                                })
-                            }
-                        />
-                    )}
+                                {withSnippets && isFloatingSnippetInputOpen && (
+                                    <FloatingSnippetInput
+                                        availableWidth={availableWidth}
+                                        containerRef={containerRef}
+                                        onClose={closeFloatingSnippetInput}
+                                        onRootClose={rootCloseFloatingSnippetInput}
+                                        renderInput={() =>
+                                            withSnippets.renderInput({
+                                                onCreate: submitFloatingSnippetInput,
+                                            })
+                                        }
+                                    />
+                                )}
+                            </>
+                        )}
+                    </DecorationsProvider>
                 </Slate>
             </div>
         </PopperOptionsContext.Provider>
