@@ -198,6 +198,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         [styles.overflowHidden]: overflow === 'hidden',
                         [styles.overflowVisible]: overflow === 'visible',
                         [styles.selected]: isSelected,
+                        [styles.fullWidth]: layout === 'full-width',
                     })}
                     onClick={handleFrameClick}
                     onMouseEnter={() => setIsHovered(true)}

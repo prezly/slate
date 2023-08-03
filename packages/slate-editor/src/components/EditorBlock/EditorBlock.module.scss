@@ -98,29 +98,44 @@ $editor-block-outline-width: 6px;
         }
     }
 
-    @mixin outline($outline-color) {
-        &::after {
-            content: "";
-            display: block;
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            border-radius: inherit;
+    @mixin outline($outline-color, $outline-position: "outer") {
+        @if ($outline-position == "inner") {
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                pointer-events: none;
+                border-radius: inherit;
+                outline: solid $editor-block-outline-width $outline-color;
+                outline-offset: -$editor-block-outline-width;
+            }
+        } @else {
             outline: solid $editor-block-outline-width $outline-color;
-            outline-offset: -$editor-block-outline-width;
         }
     }
 
     &.hasError {
         color: $legacy-color-status-error;
+
         @include outline($legacy-color-status-error);
+
+        &.fullWidth {
+            outline: none;
+            @include outline($legacy-color-status-error, "inner");
+        }
     }
 
     &.selected {
         @include outline($editor-block-focus-color);
+
+        &.fullWidth {
+            outline: none;
+            @include outline($editor-block-focus-color, "inner");
+        }
     }
 }
 
