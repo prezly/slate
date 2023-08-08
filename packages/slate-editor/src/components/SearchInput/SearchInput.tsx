@@ -163,7 +163,8 @@ export namespace SearchInput {
         onSelect: (suggestion: Suggestion<T>) => void;
     }
 
-    export namespace Props {
+    // Note: using `declare` here to not confuse Babel. @see https://babeljs.io/docs/babel-plugin-transform-typescript#impartial-namespace-support
+    export declare namespace Props {
         export interface Empty {
             query: string;
             loading: boolean;
