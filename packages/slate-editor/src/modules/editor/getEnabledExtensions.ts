@@ -5,6 +5,7 @@ import { noop } from '@technically/lodash';
 import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';
 import { BlockquoteExtension } from '#extensions/blockquote';
+import { ButtonBlockExtension } from '#extensions/button-block';
 import { CoverageExtension } from '#extensions/coverage';
 import { CustomNormalizationExtension } from '#extensions/custom-normalization';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
@@ -70,6 +71,7 @@ type Parameters = {
     | 'withAttachments'
     | 'withAutoformat'
     | 'withBlockquotes'
+    | 'withButtonBlocks'
     | 'withCoverage'
     | 'withCustomNormalization'
     | 'withDivider'
@@ -104,6 +106,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         withAttachments,
         withAutoformat,
         withBlockquotes,
+        withButtonBlocks,
         withCoverage,
         withCustomNormalization,
         withDivider,
@@ -152,6 +155,11 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
 
     if (withBlockquotes) {
         yield BlockquoteExtension();
+    }
+
+    if (withButtonBlocks) {
+        const config = withButtonBlocks === true ? {} : withButtonBlocks;
+        yield ButtonBlockExtension(config);
     }
 
     if (withDivider) {

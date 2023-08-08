@@ -119,28 +119,22 @@ export const WithButtons = () => {
 
     return (
         <Editor
+            availableWidth={680}
             className=""
+            initialValue={value}
+            onChange={setValue}
+            placeholder="Start typing..."
+            style={{ marginLeft: '3rem' }}
             withAlignmentControls
             withAttachments
             withAutoformat
-            style={{ marginLeft: '3rem' }}
-            withCursorInView={undefined}
-            // withRichFormatting={{
-            //     blocks: true,
-            //     links: true,
-            //     menu: true,
-            //     withNewTabOption: undefined,
-            // }}
+            withButtonBlocks
             withFloatingAddMenu={{
                 tooltip: {
                     placement: 'left',
                     content: 'Add content to your story',
                 },
             }}
-            availableWidth={680}
-            initialValue={value}
-            onChange={setValue}
-            placeholder="Start typing..."
         />
     );
 };

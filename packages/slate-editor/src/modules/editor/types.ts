@@ -7,6 +7,7 @@ import type { Transforms } from 'slate';
 
 import type { AllowedBlocksExtensionConfiguration } from '#extensions/allowed-blocks';
 import type { AutoformatParameters } from '#extensions/autoformat';
+import type { ButtonBlockExtensionConfiguration } from '#extensions/button-block';
 import type { CoverageExtensionConfiguration } from '#extensions/coverage';
 import type { CustomNormalizationExtensionConfiguration } from '#extensions/custom-normalization';
 import type { EmbedExtensionConfiguration } from '#extensions/embed';
@@ -95,6 +96,7 @@ export interface EditorProps {
     withAllowedBlocks?: false | AllowedBlocksExtensionConfiguration;
     withAttachments?: boolean;
     withAutoformat?: boolean | AutoformatParameters;
+    withButtonBlocks?: boolean | ButtonBlockExtensionConfiguration;
     withBlockquotes?: boolean;
     withCoverage?:
         | false

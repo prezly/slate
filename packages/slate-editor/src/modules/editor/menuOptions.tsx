@@ -7,6 +7,7 @@ import { UploadcareEditor } from '#modules/uploadcare';
 
 export enum MenuAction {
     ADD_ATTACHMENT = 'add_attachment',
+    ADD_BUTTON_BLOCK = 'add_button_block',
     ADD_CONTACT = 'add_contact',
     ADD_COVERAGE = 'add_coverage',
     ADD_DIVIDER = 'add_divider',
@@ -35,6 +36,7 @@ enum Group {
 interface Params {
     withAttachments: boolean;
     withBlockquotes: boolean;
+    withButtonBlocks: boolean;
     withCoverage: boolean;
     withDivider: boolean;
     withTables: boolean;
@@ -77,6 +79,7 @@ function* generateOptions(
     {
         withAttachments,
         withBlockquotes,
+        withButtonBlocks,
         withCoverage,
         withDivider,
         withTables,
@@ -142,6 +145,17 @@ function* generateOptions(
             text: 'Divider',
             keywords: ['line', 'separator'],
             description: 'Divide blocks with a line',
+        };
+    }
+
+    if (withButtonBlocks) {
+        yield {
+            action: MenuAction.ADD_BUTTON_BLOCK,
+            icon: Icons.ComponentSnippet,
+            group: Group.TEXT_N_LAYOUT,
+            // TODO: update copy
+            text: 'Call to action',
+            description: 'Insert a call to action',
         };
     }
 
