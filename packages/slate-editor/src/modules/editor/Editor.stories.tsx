@@ -113,3 +113,34 @@ WithVariables.args = {
         ],
     },
 } as IBaseProps & { withVariables?: VariablesExtensionParameters };
+
+export const WithButtons = () => {
+    const [value, setValue] = useState<Value>(createEmptyValue());
+
+    return (
+        <Editor
+            className=""
+            withAlignmentControls
+            withAttachments
+            withAutoformat
+            style={{ marginLeft: '3rem' }}
+            withCursorInView={undefined}
+            // withRichFormatting={{
+            //     blocks: true,
+            //     links: true,
+            //     menu: true,
+            //     withNewTabOption: undefined,
+            // }}
+            withFloatingAddMenu={{
+                tooltip: {
+                    placement: 'left',
+                    content: 'Add content to your story',
+                },
+            }}
+            availableWidth={680}
+            initialValue={value}
+            onChange={setValue}
+            placeholder="Start typing..."
+        />
+    );
+};
