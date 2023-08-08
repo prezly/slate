@@ -10,7 +10,7 @@ const shape: Record<keyof ButtonBlockNode, true> = {
     children: true,
     layout: true,
     variant: true,
-    text: true,
+    label: true,
     uuid: true,
 };
 

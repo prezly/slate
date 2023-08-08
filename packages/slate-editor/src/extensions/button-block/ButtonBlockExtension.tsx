@@ -26,8 +26,12 @@ export function ButtonBlockExtension({
         normalizeNode: normalizeRedundantButtonBlockAttributes,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (ButtonBlockNode.isButtonBlockNode(element)) {
-                console.log(JSON.stringify({ element, withNewTabOption }));
-                return <pre {...attributes}>{children}</pre>;
+                return (
+                    <pre {...attributes}>
+                        {JSON.stringify({ element, withNewTabOption })}
+                        {children}
+                    </pre>
+                );
             }
 
             return undefined;

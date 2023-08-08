@@ -11,14 +11,14 @@ export function createButtonBlock(
         layout = ButtonBlockNode.Layout.CENTER,
         variant = ButtonBlockNode.Variant.DEFAULT,
         uuid = generateUuid(),
-        text = 'Click me!',
+        label = 'Click me!',
     } = props;
 
     return {
         href,
         layout,
         new_tab,
-        text,
+        label,
         type: ButtonBlockNode.Type,
         uuid,
         variant,

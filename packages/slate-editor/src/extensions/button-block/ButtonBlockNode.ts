@@ -11,7 +11,7 @@ export interface ButtonBlockNode extends ElementNode {
     layout: ButtonBlockNode.Layout;
     variant: ButtonBlockNode.Variant;
     new_tab: boolean;
-    text: string;
+    label: string;
 }
 
 export namespace ButtonBlockNode {
