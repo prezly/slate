@@ -8,10 +8,10 @@ export function createButtonBlock(
     const {
         href = '',
         new_tab = false,
-        layout = ButtonBlockNode.Layout.CENTER,
-        variant = ButtonBlockNode.Variant.DEFAULT,
+        layout = 'center',
+        variant = 'default',
         uuid = generateUuid(),
-        label = 'Click me!',
+        label = 'Click me',
     } = props;
 
     return {

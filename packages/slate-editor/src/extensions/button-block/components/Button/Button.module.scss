@@ -1,0 +1,37 @@
+@import "styles/variables";
+@import "styles/helpers";
+
+.Button {
+    @include btn-unstyled;
+
+    display: flex;
+    padding: $spacing-1-5 $spacing-2;
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius-small;
+    width: max-content;
+    color: $white;
+    background-color: $indigo-400;
+    font-size: $font-size-medium;
+    font-weight: 600;
+    line-height: 160%;
+
+    &.active {
+        background-color: $indigo-600;
+    }
+
+    &.outline {
+        border: 2px solid $indigo-400;
+        color: $indigo-400;
+        background-color: $white;
+
+        &.active {
+            color: $indigo-600;
+            border-color: $indigo-600;
+        }
+    }
+
+    &.fullWidth {
+        width: 100%;
+    }
+}

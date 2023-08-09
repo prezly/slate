@@ -8,26 +8,30 @@ export interface ButtonBlockNode extends ElementNode {
     type: typeof ButtonBlockNode.Type;
     uuid: Uuid;
     href: string;
-    layout: ButtonBlockNode.Layout;
-    variant: ButtonBlockNode.Variant;
+    layout: ButtonBlockNode.ButtonLayout;
+    variant: ButtonBlockNode.ButtonVariant;
     new_tab: boolean;
     label: string;
+}
+
+enum Layout {
+    LEFT = 'left',
+    RIGHT = 'right',
+    CENTER = 'center',
+    FULL_WIDTH = 'full-width',
+}
+
+enum Variant {
+    DEFAULT = 'default',
+    OUTLINE = 'outline',
 }
 
 export namespace ButtonBlockNode {
     export const Type = 'button-block';
 
-    export enum Layout {
-        LEFT = 'left',
-        RIGHT = 'right',
-        CENTER = 'center',
-        FULL_WIDTH = 'full-width',
-    }
+    export type ButtonLayout = `${Layout}`;
 
-    export enum Variant {
-        DEFAULT = 'default',
-        OUTLINE = 'outline',
-    }
+    export type ButtonVariant = `${Variant}`;
 
     export function isButtonBlockNode(node: Node): node is ButtonBlockNode {
         return isElementNode(node, Type);

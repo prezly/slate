@@ -5,6 +5,7 @@ import type { RenderElementProps } from 'slate-react';
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ButtonBlockNode } from './ButtonBlockNode';
+import { ButtonBlockElement } from './components';
 import { normalizeRedundantButtonBlockAttributes, parseSerializedButtonBlockElement } from './lib';
 
 export const EXTENSION_ID = 'ButtonBlockExtension';
@@ -27,10 +28,13 @@ export function ButtonBlockExtension({
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (ButtonBlockNode.isButtonBlockNode(element)) {
                 return (
-                    <pre {...attributes}>
-                        {JSON.stringify({ element, withNewTabOption })}
+                    <ButtonBlockElement
+                        attributes={attributes}
+                        element={element}
+                        withNewTabOption={withNewTabOption}
+                    >
                         {children}
-                    </pre>
+                    </ButtonBlockElement>
                 );
             }
 
