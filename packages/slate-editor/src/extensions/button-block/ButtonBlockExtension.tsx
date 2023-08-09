@@ -15,7 +15,7 @@ export interface ButtonBlockExtensionConfiguration {
 }
 
 export function ButtonBlockExtension({
-    withNewTabOption = false,
+    withNewTabOption = true,
 }: ButtonBlockExtensionConfiguration): Extension {
     return {
         id: EXTENSION_ID,

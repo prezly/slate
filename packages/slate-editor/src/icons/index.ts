@@ -4,6 +4,10 @@ export { default as AlignLeft } from './Align-Left.svg';
 export { default as AlignRight } from './Align-Right.svg';
 export { default as Attachment } from './Attachment.svg';
 export { default as BatsIllustration } from './Bats-Illustration.svg';
+export { default as ButtonLayoutLeft } from './ButtonLayoutLeft.svg';
+export { default as ButtonLayoutRight } from './ButtonLayoutRight.svg';
+export { default as ButtonLayoutCenter } from './ButtonLayoutCenter.svg';
+export { default as ButtonLayoutWide } from './ButtonLayoutWide.svg';
 export { default as ChickenNoSignalIllustration } from './Chicken-no-signal-Illustration.svg';
 export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
 export { default as Clear } from './Clear.svg';

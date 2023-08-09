@@ -1,0 +1,13 @@
+@import "styles/variables";
+
+.icon {
+    fill: $white;
+
+    &.active {
+        fill: $yellow-300;
+    }
+}
+
+.layoutOption {
+    min-width: 0 !important;
+}
