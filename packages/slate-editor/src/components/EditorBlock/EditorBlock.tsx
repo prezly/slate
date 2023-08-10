@@ -35,7 +35,7 @@ export interface RenderProps {
 export interface Props
     extends Omit<RenderElementProps, 'attributes' | 'children'>,
         SlateInternalAttributes {
-    align?: Alignment;
+    align?: `${Alignment}`;
     border?: boolean;
     className?: string;
     element: ElementNode;

@@ -1,0 +1,35 @@
+@import "styles/variables";
+@import "styles/helpers";
+
+.Button {
+    cursor: pointer;
+    display: flex;
+    padding: $spacing-1-5 $spacing-2;
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius-small;
+    color: $white;
+    background-color: rgba($color: $editor-link-color, $alpha: 0.5);
+    font-size: $font-size-medium;
+    font-weight: 600;
+    line-height: 160%;
+
+    &.notWide {
+        width: max-content;
+    }
+
+    &.active {
+        background-color: $editor-link-color;
+    }
+
+    &.outline {
+        border: 2px solid rgba($color: $editor-link-color, $alpha: 0.5);
+        color: rgba($color: $editor-link-color, $alpha: 0.5);
+        background-color: $white;
+
+        &.active {
+            color: $editor-link-color;
+            border-color: $editor-link-color;
+        }
+    }
+}

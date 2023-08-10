@@ -113,3 +113,28 @@ WithVariables.args = {
         ],
     },
 } as IBaseProps & { withVariables?: VariablesExtensionParameters };
+
+export const WithButtons = () => {
+    const [value, setValue] = useState<Value>(createEmptyValue());
+
+    return (
+        <Editor
+            availableWidth={680}
+            className=""
+            initialValue={value}
+            onChange={setValue}
+            placeholder="Start typing..."
+            style={{ marginLeft: '3rem' }}
+            withAlignmentControls
+            withAttachments
+            withAutoformat
+            withButtonBlocks
+            withFloatingAddMenu={{
+                tooltip: {
+                    placement: 'left',
+                    content: 'Add content to your story',
+                },
+            }}
+        />
+    );
+};

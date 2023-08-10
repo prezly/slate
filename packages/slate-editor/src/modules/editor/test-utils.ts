@@ -24,6 +24,7 @@ export function getAllExtensions() {
             withAttachments: true,
             withAutoformat: true,
             withBlockquotes: true,
+            withButtonBlocks: true,
             withCoverage: {
                 dateFormat: 'YYYY/MM/DD',
                 fetchCoverage: createDelayedResolve(coverage),

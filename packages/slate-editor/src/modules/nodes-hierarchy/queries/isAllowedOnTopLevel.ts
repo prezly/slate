@@ -19,6 +19,7 @@ import {
 } from '@prezly/slate-types';
 import type { Node } from 'slate';
 
+import { ButtonBlockNode } from '#extensions/button-block';
 import { isImageCandidateElement } from '#extensions/image';
 import { isLoaderElement } from '#extensions/loader';
 import { PlaceholderNode } from '#extensions/placeholders';
@@ -29,6 +30,7 @@ export function isAllowedOnTopLevel(node: Node) {
         isAttachmentNode(node) ||
         isContactNode(node) ||
         isCoverageNode(node) ||
+        ButtonBlockNode.isButtonBlockNode(node) ||
         isDividerNode(node) ||
         isEmbedNode(node) ||
         isGalleryNode(node) ||

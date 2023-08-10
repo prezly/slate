@@ -7,6 +7,7 @@ import { UploadcareEditor } from '#modules/uploadcare';
 
 export enum MenuAction {
     ADD_ATTACHMENT = 'add_attachment',
+    ADD_BUTTON_BLOCK = 'add_button_block',
     ADD_CONTACT = 'add_contact',
     ADD_COVERAGE = 'add_coverage',
     ADD_DIVIDER = 'add_divider',
@@ -35,6 +36,7 @@ enum Group {
 interface Params {
     withAttachments: boolean;
     withBlockquotes: boolean;
+    withButtonBlocks: boolean;
     withCoverage: boolean;
     withDivider: boolean;
     withTables: boolean;
@@ -57,11 +59,12 @@ interface Params {
  */
 const Suggested: Partial<Record<MenuAction, number>> = {
     [MenuAction.ADD_IMAGE]: 1,
-    [MenuAction.ADD_CONTACT]: 2,
-    [MenuAction.ADD_GALLERY]: 3,
-    [MenuAction.ADD_DIVIDER]: 4,
-    [MenuAction.ADD_ATTACHMENT]: 5,
-    [MenuAction.ADD_SNIPPET]: 5,
+    [MenuAction.ADD_BUTTON_BLOCK]: 2,
+    [MenuAction.ADD_CONTACT]: 3,
+    [MenuAction.ADD_GALLERY]: 4,
+    [MenuAction.ADD_DIVIDER]: 5,
+    [MenuAction.ADD_ATTACHMENT]: 6,
+    [MenuAction.ADD_SNIPPET]: 7,
 };
 
 export function generateFloatingAddMenuOptions(
@@ -77,6 +80,7 @@ function* generateOptions(
     {
         withAttachments,
         withBlockquotes,
+        withButtonBlocks,
         withCoverage,
         withDivider,
         withTables,
@@ -142,6 +146,18 @@ function* generateOptions(
             text: 'Divider',
             keywords: ['line', 'separator'],
             description: 'Divide blocks with a line',
+        };
+    }
+
+    if (withButtonBlocks) {
+        yield {
+            action: MenuAction.ADD_BUTTON_BLOCK,
+            icon: Icons.ComponentButton,
+            group: Group.TEXT_N_LAYOUT,
+            text: 'Button',
+            description: 'Insert a button',
+            keywords: ['cta', 'call to action', 'calltoaction'],
+            isNew: true,
         };
     }
 

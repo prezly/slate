@@ -48,7 +48,7 @@ export function OptionsGroup<T extends string>(props: OptionsGroupProps<T>) {
                     value={o.value}
                     icon={o.icon}
                     disabled={o.disabled ?? props.disabled}
-                    variantClassName={variantClassName}
+                    variantClassName={classNames(variantClassName)}
                 />
             ))}
         </div>

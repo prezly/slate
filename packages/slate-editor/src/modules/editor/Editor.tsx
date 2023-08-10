@@ -29,6 +29,7 @@ import { ReactEditor, Slate } from 'slate-react';
 
 import { useFunction, useGetSet, useSize } from '#lib';
 
+import { insertButtonBlock } from '#extensions/button-block';
 import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu } from '#extensions/floating-add-menu';
 import type { Option } from '#extensions/floating-add-menu';
@@ -86,6 +87,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withAttachments = false,
         withAutoformat = false,
         withBlockquotes = false,
+        withButtonBlocks = false,
         withCoverage = false,
         withCursorInView = false,
         withCustomNormalization = false,
@@ -145,6 +147,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withAttachments,
             withAutoformat,
             withBlockquotes,
+            withButtonBlocks,
             withCoverage,
             withCustomNormalization,
             withDivider,
@@ -305,6 +308,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     const menuOptions = generateFloatingAddMenuOptions(editor, {
         withAttachments,
         withBlockquotes,
+        withButtonBlocks: Boolean(withButtonBlocks),
         withCoverage: Boolean(withCoverage),
         withDivider,
         withTables: Boolean(withTables),
@@ -349,6 +353,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             );
             PlaceholdersManager.trigger(placeholder);
             EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_BUTTON_BLOCK) {
+            const button = insertButtonBlock(editor);
+            EditorCommands.selectNode(editor, button);
             return;
         }
         if (action === MenuAction.ADD_CONTACT) {

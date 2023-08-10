@@ -4,6 +4,10 @@ export { default as AlignLeft } from './Align-Left.svg';
 export { default as AlignRight } from './Align-Right.svg';
 export { default as Attachment } from './Attachment.svg';
 export { default as BatsIllustration } from './Bats-Illustration.svg';
+export { default as ButtonLayoutLeft } from './ButtonLayoutLeft.svg';
+export { default as ButtonLayoutRight } from './ButtonLayoutRight.svg';
+export { default as ButtonLayoutCenter } from './ButtonLayoutCenter.svg';
+export { default as ButtonLayoutWide } from './ButtonLayoutWide.svg';
 export { default as ChickenNoSignalIllustration } from './Chicken-no-signal-Illustration.svg';
 export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
 export { default as Clear } from './Clear.svg';
@@ -14,6 +18,7 @@ export { default as Dice } from './Dice.svg';
 export { default as Download } from './Download.svg';
 export { default as Embed } from './Embed.svg';
 export { default as ComponentAttachment } from './Component-Attachment.svg';
+export { default as ComponentButton } from './Component-Button.svg';
 export { default as ComponentContact } from './Component-Contact.svg';
 export { default as ComponentCoverage } from './Component-Coverage.svg';
 export { default as ComponentDivider } from './Component-Divider.svg';
