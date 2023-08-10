@@ -1,3 +1,4 @@
+export { Accordion } from './Accordion';
 export { Avatar } from './Avatar';
 export { CloseButtonV2 } from './CloseButtonV2';
 export { CloseButton, EditorBlock, ResizableEditorBlock } from './EditorBlock';

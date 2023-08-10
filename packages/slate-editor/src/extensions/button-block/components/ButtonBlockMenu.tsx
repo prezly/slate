@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import {
+    Accordion,
     Button,
     Input,
     type OptionsGroupOption,
@@ -166,18 +167,15 @@ export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOptio
                 </VStack>
             </Toolbox.Section>
 
-            <Toolbox.Section>
+            <Accordion title="Styling options">
                 <VStack spacing="2">
-                    <VStack spacing="1-5">
-                        <Toolbox.Caption>Styling options</Toolbox.Caption>
-                        <OptionsGroup
-                            name="variant"
-                            onChange={(variant) => onUpdate({ variant })}
-                            options={BUTTON_MENU_VARIANT_OPTIONS}
-                            selectedValue={value.variant}
-                            variant="pills"
-                        />
-                    </VStack>
+                    <OptionsGroup
+                        name="variant"
+                        onChange={(variant) => onUpdate({ variant })}
+                        options={BUTTON_MENU_VARIANT_OPTIONS}
+                        selectedValue={value.variant}
+                        variant="pills"
+                    />
 
                     <VStack spacing="1-5">
                         <Toolbox.Caption>Alignment</Toolbox.Caption>
@@ -189,7 +187,7 @@ export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOptio
                         />
                     </VStack>
                 </VStack>
-            </Toolbox.Section>
+            </Accordion>
 
             <Toolbox.Footer>
                 <Button variant="clear" icon={Delete} fullWidth onClick={onRemove}>

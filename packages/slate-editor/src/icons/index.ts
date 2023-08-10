@@ -8,6 +8,7 @@ export { default as ButtonLayoutLeft } from './ButtonLayoutLeft.svg';
 export { default as ButtonLayoutRight } from './ButtonLayoutRight.svg';
 export { default as ButtonLayoutCenter } from './ButtonLayoutCenter.svg';
 export { default as ButtonLayoutWide } from './ButtonLayoutWide.svg';
+export { default as Caret } from './Caret.svg';
 export { default as ChickenNoSignalIllustration } from './Chicken-no-signal-Illustration.svg';
 export { default as Bookmark } from './Embed.svg'; // this will be reworked in scope of MT-4462
 export { default as Clear } from './Clear.svg';
