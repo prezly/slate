@@ -25,7 +25,7 @@ export function ButtonBlockElement({ attributes, children, element, withNewTabOp
 
     const handleUpdate = useCallback(
         function (patch: Partial<FormState>) {
-            updateButtonBlock(editor, patch);
+            updateButtonBlock(editor, element, patch);
         },
         [editor, element],
     );
