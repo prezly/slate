@@ -8,8 +8,8 @@ export interface ButtonBlockNode extends ElementNode {
     type: typeof ButtonBlockNode.Type;
     uuid: Uuid;
     href: string;
-    layout: ButtonBlockNode.Layout;
-    variant: ButtonBlockNode.Variant;
+    layout: `${ButtonBlockNode.Layout}`;
+    variant: `${ButtonBlockNode.Variant}`;
     new_tab: boolean;
     label: string;
 }
