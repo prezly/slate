@@ -35,6 +35,9 @@ export type EditorEventMap = {
     'attachment-removed': {
         uuid: string;
     };
+    'button-block-removed': {
+        uuid: string;
+    };
     'contact-placeholder-submitted': {
         contact: Pick<NewsroomContact, 'uuid'>;
     };

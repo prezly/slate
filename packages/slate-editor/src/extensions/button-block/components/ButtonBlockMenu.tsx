@@ -20,7 +20,7 @@ import {
 } from '#icons';
 import { HREF_REGEXP, normalizeHref } from '#lib';
 
-import type { ButtonBlockNode } from '../ButtonBlockNode';
+import { ButtonBlockNode } from '../ButtonBlockNode';
 
 import styles from './ButtonBlockMenu.module.scss';
 
@@ -46,27 +46,27 @@ interface Props {
     withNewTabOption: boolean;
 }
 
-const BUTTON_MENU_VARIANT_OPTIONS: OptionsGroupOption<ButtonBlockNode.ButtonVariant>[] = [
+const BUTTON_MENU_VARIANT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Variant>[] = [
     {
-        value: 'default',
+        value: ButtonBlockNode.Variant.DEFAULT,
         label: 'Filled',
     },
     {
-        value: 'outline',
+        value: ButtonBlockNode.Variant.OUTLINE,
         label: 'Outlined',
     },
 ];
 
-const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.ButtonLayout>[] = [
+const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
     {
-        value: 'left',
+        value: ButtonBlockNode.Layout.LEFT,
         label: 'Left',
         icon: ({ isActive }) => (
             <ButtonLayoutLeft className={classNames(styles.icon, { [styles.active]: isActive })} />
         ),
     },
     {
-        value: 'center',
+        value: ButtonBlockNode.Layout.CENTER,
         label: 'Center',
         icon: ({ isActive }) => (
             <ButtonLayoutCenter
@@ -75,14 +75,14 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.ButtonLayout>[] 
         ),
     },
     {
-        value: 'right',
+        value: ButtonBlockNode.Layout.RIGHT,
         label: 'Right',
         icon: ({ isActive }) => (
             <ButtonLayoutRight className={classNames(styles.icon, { [styles.active]: isActive })} />
         ),
     },
     {
-        value: 'wide',
+        value: ButtonBlockNode.Layout.WIDE,
         label: 'Wide',
         icon: ({ isActive }) => (
             <ButtonLayoutWide className={classNames(styles.icon, { [styles.active]: isActive })} />
@@ -184,7 +184,6 @@ export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOptio
                         <OptionsGroup
                             name="layout"
                             onChange={(layout) => onUpdate({ layout })}
-                            optionClassName={styles.layoutOption}
                             options={BUTTON_LAYOUT_OPTIONS}
                             selectedValue={value.layout}
                         />

@@ -6,7 +6,11 @@ import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ButtonBlockNode } from './ButtonBlockNode';
 import { ButtonBlockElement } from './components';
-import { normalizeRedundantButtonBlockAttributes, parseSerializedButtonBlockElement } from './lib';
+import {
+    fixDuplicateButtonBlockUuid,
+    normalizeRedundantButtonBlockAttributes,
+    parseSerializedButtonBlockElement,
+} from './lib';
 
 export const EXTENSION_ID = 'ButtonBlockExtension';
 
@@ -24,7 +28,7 @@ export function ButtonBlockExtension({
                 [ButtonBlockNode.Type]: createDeserializeElement(parseSerializedButtonBlockElement),
             }),
         },
-        normalizeNode: normalizeRedundantButtonBlockAttributes,
+        normalizeNode: [fixDuplicateButtonBlockUuid, normalizeRedundantButtonBlockAttributes],
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
             if (ButtonBlockNode.isButtonBlockNode(element)) {
                 return (

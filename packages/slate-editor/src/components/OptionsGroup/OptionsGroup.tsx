@@ -18,7 +18,6 @@ interface OptionsGroupProps<T extends string> {
     onChange: (value: T) => void;
     disabled?: boolean;
     variant?: 'icon-label' | 'pills';
-    optionClassName?: string;
 }
 
 export function OptionsGroup<T extends string>(props: OptionsGroupProps<T>) {
@@ -37,7 +36,7 @@ export function OptionsGroup<T extends string>(props: OptionsGroupProps<T>) {
                     ? { gridTemplateColumns: `repeat(auto-fit, minmax(48px, 1fr))` }
                     : { gridTemplateColumns: `repeat(${totalColumns}, 1fr)` }
             }
-            className={classNames(styles['options-group'], variantClassName, props.optionClassName)}
+            className={classNames(styles['options-group'], variantClassName)}
         >
             {props.options.map((o) => (
                 <Option
@@ -49,7 +48,7 @@ export function OptionsGroup<T extends string>(props: OptionsGroupProps<T>) {
                     value={o.value}
                     icon={o.icon}
                     disabled={o.disabled ?? props.disabled}
-                    variantClassName={classNames(variantClassName, props.optionClassName)}
+                    variantClassName={classNames(variantClassName)}
                 />
             ))}
         </div>

@@ -3,8 +3,12 @@ import type { Editor } from 'slate';
 
 import { ButtonBlockNode } from '../ButtonBlockNode';
 
-export function removeButtonBlock(editor: Editor): ButtonBlockNode | null {
+export function removeButtonBlock(
+    editor: Editor,
+    buttonBlock?: ButtonBlockNode,
+): ButtonBlockNode | null {
     return EditorCommands.removeNode<ButtonBlockNode>(editor, {
-        match: ButtonBlockNode.isButtonBlockNode,
+        match: (node) =>
+            buttonBlock ? node === buttonBlock : ButtonBlockNode.isButtonBlockNode(node),
     });
 }

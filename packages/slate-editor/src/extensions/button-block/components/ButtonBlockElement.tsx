@@ -3,6 +3,8 @@ import { useSlateStatic, type RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 
+import { EventsEditor } from '#modules/events';
+
 import type { ButtonBlockNode } from '../ButtonBlockNode';
 import { removeButtonBlock, updateButtonBlock } from '../transforms';
 
@@ -30,7 +32,11 @@ export function ButtonBlockElement({ attributes, children, element, withNewTabOp
 
     const handleRemove = useCallback(
         function () {
-            removeButtonBlock(editor);
+            if (removeButtonBlock(editor, element)) {
+                EventsEditor.dispatchEvent(editor, 'button-block-removed', {
+                    uuid: element.uuid,
+                });
+            }
         },
         [editor, element],
     );
