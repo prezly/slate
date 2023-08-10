@@ -18,7 +18,7 @@ enum Layout {
     LEFT = 'left',
     RIGHT = 'right',
     CENTER = 'center',
-    FULL_WIDTH = 'full-width',
+    WIDE = 'wide',
 }
 
 enum Variant {

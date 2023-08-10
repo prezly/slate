@@ -17,10 +17,9 @@ interface Props extends RenderElementProps {
 export function ButtonBlockElement({ attributes, children, element, withNewTabOption }: Props) {
     const editor = useSlateStatic();
 
-    const { layout: buttonLayout } = element;
+    const { layout } = element;
 
-    const align = buttonLayout === 'full-width' ? 'center' : buttonLayout;
-    const layout = buttonLayout === 'full-width' ? 'full-width' : 'contained';
+    const align = layout === 'wide' ? 'center' : layout;
 
     const handleUpdate = useCallback(
         function (patch: Partial<FormState>) {
@@ -41,7 +40,6 @@ export function ButtonBlockElement({ attributes, children, element, withNewTabOp
             {...attributes}
             element={element}
             align={align}
-            layout={layout}
             overlay="autohide"
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
@@ -61,7 +59,7 @@ export function ButtonBlockElement({ attributes, children, element, withNewTabOp
                     withNewTabOption={withNewTabOption}
                 />
             )}
-            width={layout === 'contained' ? 'min-content' : undefined}
+            width={layout !== 'wide' ? 'min-content' : undefined}
             rounded
             void
         />

@@ -76,13 +76,13 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.ButtonLayout>[] 
     },
     {
         value: 'right',
-        label: 'right',
+        label: 'Right',
         icon: ({ isActive }) => (
             <ButtonLayoutRight className={classNames(styles.icon, { [styles.active]: isActive })} />
         ),
     },
     {
-        value: 'full-width',
+        value: 'wide',
         label: 'Wide',
         icon: ({ isActive }) => (
             <ButtonLayoutWide className={classNames(styles.icon, { [styles.active]: isActive })} />
@@ -128,8 +128,8 @@ export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOptio
             </Toolbox.Header>
 
             <Toolbox.Section>
-                <VStack spacing="2-5">
-                    <VStack spacing="2-5">
+                <VStack spacing="1-5">
+                    <VStack spacing="1-5">
                         <Toolbox.Caption>Text</Toolbox.Caption>
                         <Input
                             name="label"
@@ -139,8 +139,8 @@ export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOptio
                         />
                     </VStack>
 
-                    <VStack spacing="2-5">
-                        <VStack spacing="2-5">
+                    <VStack spacing="1-5">
+                        <VStack spacing="1-5">
                             <Toolbox.Caption>Link</Toolbox.Caption>
                             <Input
                                 icon={Link}
@@ -167,8 +167,8 @@ export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOptio
             </Toolbox.Section>
 
             <Toolbox.Section>
-                <VStack spacing="2-5">
-                    <VStack spacing="2-5">
+                <VStack spacing="2">
+                    <VStack spacing="1-5">
                         <Toolbox.Caption>Styling options</Toolbox.Caption>
                         <OptionsGroup
                             name="variant"
@@ -179,7 +179,7 @@ export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOptio
                         />
                     </VStack>
 
-                    <VStack spacing="2-5">
+                    <VStack spacing="1-5">
                         <Toolbox.Caption>Alignment</Toolbox.Caption>
                         <OptionsGroup
                             name="layout"

@@ -2,36 +2,34 @@
 @import "styles/helpers";
 
 .Button {
-    @include btn-unstyled;
-
+    cursor: pointer;
     display: flex;
     padding: $spacing-1-5 $spacing-2;
     justify-content: center;
     align-items: center;
     border-radius: $border-radius-small;
-    width: max-content;
     color: $white;
-    background-color: $indigo-400;
+    background-color: rgba($color: $editor-link-color, $alpha: 0.5);
     font-size: $font-size-medium;
     font-weight: 600;
     line-height: 160%;
 
+    &.notWide {
+        width: max-content;
+    }
+
     &.active {
-        background-color: $indigo-600;
+        background-color: $editor-link-color;
     }
 
     &.outline {
-        border: 2px solid $indigo-400;
-        color: $indigo-400;
+        border: 2px solid rgba($color: $editor-link-color, $alpha: 0.5);
+        color: rgba($color: $editor-link-color, $alpha: 0.5);
         background-color: $white;
 
         &.active {
-            color: $indigo-600;
-            border-color: $indigo-600;
+            color: $editor-link-color;
+            border-color: $editor-link-color;
         }
-    }
-
-    &.fullWidth {
-        width: 100%;
     }
 }
