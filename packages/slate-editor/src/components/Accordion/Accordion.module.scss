@@ -1,0 +1,37 @@
+@import "styles/variables";
+@import "styles/helpers";
+
+.Accordion {
+    border-top: 1px solid rgba($color: $white, $alpha: 0.12);
+}
+
+.button {
+    @include btn-unstyled;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: $spacing-2;
+    color: $grey-300;
+    font-size: $font-size-small;
+    font-weight: 600;
+}
+
+.content {
+    display: none;
+    padding: 0 $spacing-2 $spacing-2;
+
+    &.open {
+        display: block;
+    }
+}
+
+.icon {
+    fill: $white;
+    transition: transform 0.1s ease-in-out;
+
+    &.open {
+        transform: rotate(180deg);
+    }
+}
