@@ -29,7 +29,7 @@
 
 .icon {
     fill: $white;
-    transition: transform 0.3s ease-in;
+    transition: transform 0.1s ease-in-out;
 
     &.open {
         transform: rotate(180deg);

@@ -21,13 +21,11 @@ export function Accordion({ title, children }: Props) {
         <div className={styles.Accordion}>
             <button className={styles.button} onClick={toggleOpen}>
                 <span>{title}</span>
-                {
-                    <Caret
-                        className={classNames(styles.icon, {
-                            [styles.open]: isOpen,
-                        })}
-                    />
-                }
+                <Caret
+                    className={classNames(styles.icon, {
+                        [styles.open]: isOpen,
+                    })}
+                />
             </button>
             <div
                 className={classNames(styles.content, {
