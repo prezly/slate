@@ -5,7 +5,7 @@ export interface Context {
     modifiers?: {
         preventOverflow?: PreventOverflowModifier['options'];
     };
-    placement?: 'left' | 'right';
+    placement?: 'left' | 'right' | 'bottom';
     autoPlacement?: boolean;
     portalNode?: RefObject<HTMLElement | undefined>;
     zIndex?: number;

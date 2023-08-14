@@ -12,7 +12,10 @@ import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 import { NewParagraphDelimiter } from '#components';
 import { useFunction, useSlateDom } from '#lib';
 
-import { usePopperOptionsContext } from '#modules/popper-options-context';
+import {
+    type PopperOptionsContextType,
+    usePopperOptionsContext,
+} from '#modules/popper-options-context';
 
 import styles from './EditorBlock.module.scss';
 import { Menu } from './Menu';
@@ -49,6 +52,7 @@ export interface Props
      */
     hasError?: boolean;
     layout?: `${Layout}`;
+    menuPlacement?: PopperOptionsContextType['placement'];
     overflow?: 'visible' | 'hidden';
     overlay?: OverlayMode;
     renderAboveFrame?: ((props: RenderProps) => ReactNode) | ReactNode;
@@ -73,6 +77,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         layout = 'contained',
         overflow = 'hidden',
         overlay = false,
+        menuPlacement,
         renderAboveFrame,
         renderBelowFrame,
         renderEditableFrame,
@@ -181,7 +186,10 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                     <Menu
                         className={styles.Menu}
                         onClick={preventBubbling}
-                        popperOptions={popperOptions}
+                        popperOptions={{
+                            ...popperOptions,
+                            placement: menuPlacement ?? popperOptions.placement,
+                        }}
                         reference={container}
                     >
                         {renderMenu({ onClose: closeMenu })}

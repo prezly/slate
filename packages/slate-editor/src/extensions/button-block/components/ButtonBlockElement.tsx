@@ -46,6 +46,7 @@ export function ButtonBlockElement({ attributes, children, element, withNewTabOp
             {...attributes}
             element={element}
             align={align}
+            menuPlacement="bottom"
             overlay="autohide"
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
