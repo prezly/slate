@@ -10,6 +10,7 @@ import {
     Toolbox,
     VStack,
     OptionsGroup,
+    InfoText,
 } from '#components';
 import {
     ButtonLayoutCenter,
@@ -45,6 +46,11 @@ interface Props {
     onRemove: () => void;
     value: FormState;
     withNewTabOption: boolean;
+    infoText?: {
+        text: string;
+        actionLabel?: string;
+        action?: () => void;
+    };
 }
 
 const BUTTON_MENU_VARIANT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Variant>[] = [
@@ -91,7 +97,14 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
     },
 ];
 
-export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOption }: Props) {
+export function ButtonMenu({
+    infoText,
+    onUpdate,
+    onClose,
+    onRemove,
+    value,
+    withNewTabOption,
+}: Props) {
     const [href, setHref] = useState(value.href);
     const [label, setLabel] = useState(value.label);
 
@@ -127,6 +140,19 @@ export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOptio
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
                 Button settings
             </Toolbox.Header>
+
+            {infoText && (
+                <Toolbox.Section>
+                    <InfoText className={styles.info}>
+                        {infoText.text}{' '}
+                        {infoText.action && infoText.actionLabel && (
+                            <Button variant="underlined" onClick={infoText.action}>
+                                {infoText.actionLabel}
+                            </Button>
+                        )}
+                    </InfoText>
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Section>
                 <VStack spacing="1-5">
