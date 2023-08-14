@@ -44,6 +44,7 @@ export function ButtonBlockExtension({
 
             return undefined;
         },
+        isRichBlock: ButtonBlockNode.isButtonBlockNode,
         isVoid: ButtonBlockNode.isButtonBlockNode,
     };
 }
