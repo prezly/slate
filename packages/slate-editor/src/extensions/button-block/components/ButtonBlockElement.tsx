@@ -14,9 +14,16 @@ import { ButtonMenu, type FormState } from './ButtonBlockMenu';
 interface Props extends RenderElementProps {
     element: ButtonBlockNode;
     withNewTabOption: boolean;
+    info?: Array<string | { text: string; href: string } | { text: string; onClick: () => void }>;
 }
 
-export function ButtonBlockElement({ attributes, children, element, withNewTabOption }: Props) {
+export function ButtonBlockElement({
+    attributes,
+    children,
+    element,
+    info,
+    withNewTabOption,
+}: Props) {
     const editor = useSlateStatic();
 
     const { layout } = element;
@@ -52,6 +59,7 @@ export function ButtonBlockElement({ attributes, children, element, withNewTabOp
             renderReadOnlyFrame={() => <Button node={element} />}
             renderMenu={({ onClose }) => (
                 <ButtonMenu
+                    info={info}
                     onClose={onClose}
                     onUpdate={handleUpdate}
                     onRemove={handleRemove}

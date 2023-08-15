@@ -10,6 +10,7 @@ import {
     Toolbox,
     VStack,
     OptionsGroup,
+    InfoText,
 } from '#components';
 import {
     ButtonLayoutCenter,
@@ -45,6 +46,7 @@ interface Props {
     onRemove: () => void;
     value: FormState;
     withNewTabOption: boolean;
+    info?: Array<string | { text: string; href: string } | { text: string; onClick: () => void }>;
 }
 
 const BUTTON_MENU_VARIANT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Variant>[] = [
@@ -91,7 +93,29 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
     },
 ];
 
-export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOption }: Props) {
+function renderInfoText(
+    value: string | { text: string; href: string } | { text: string; onClick: () => void },
+) {
+    if (typeof value === 'string') {
+        return <span>{value}</span>;
+    }
+
+    if ('href' in value) {
+        return (
+            <Button href={value.href} type="link" variant="underlined">
+                {value.text}
+            </Button>
+        );
+    }
+
+    return (
+        <Button onClick={value.onClick} variant="underlined">
+            {value.text}
+        </Button>
+    );
+}
+
+export function ButtonMenu({ info, onUpdate, onClose, onRemove, value, withNewTabOption }: Props) {
     const [href, setHref] = useState(value.href);
     const [label, setLabel] = useState(value.label);
 
@@ -127,6 +151,12 @@ export function ButtonMenu({ onUpdate, onClose, onRemove, value, withNewTabOptio
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
                 Button settings
             </Toolbox.Header>
+
+            {info && info.length && (
+                <Toolbox.Section>
+                    <InfoText className={styles.info}>{info.map(renderInfoText)}</InfoText>
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Section>
                 <VStack spacing="1-5">
