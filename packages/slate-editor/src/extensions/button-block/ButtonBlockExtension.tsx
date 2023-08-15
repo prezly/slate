@@ -16,16 +16,12 @@ export const EXTENSION_ID = 'ButtonBlockExtension';
 
 export interface ButtonBlockExtensionConfiguration {
     withNewTabOption?: boolean;
-    infoText?: {
-        text: string;
-        actionLabel?: string;
-        action?: () => void;
-    };
+    info?: Array<string | { text: string; href: string } | { text: string; onClick: () => void }>;
 }
 
 export function ButtonBlockExtension({
     withNewTabOption = true,
-    infoText,
+    info = [],
 }: ButtonBlockExtensionConfiguration): Extension {
     return {
         id: EXTENSION_ID,
@@ -41,7 +37,7 @@ export function ButtonBlockExtension({
                     <ButtonBlockElement
                         attributes={attributes}
                         element={element}
-                        infoText={infoText}
+                        info={info}
                         withNewTabOption={withNewTabOption}
                     >
                         {children}

@@ -46,11 +46,7 @@ interface Props {
     onRemove: () => void;
     value: FormState;
     withNewTabOption: boolean;
-    infoText?: {
-        text: string;
-        actionLabel?: string;
-        action?: () => void;
-    };
+    info?: Array<string | { text: string; href: string } | { text: string; onClick: () => void }>;
 }
 
 const BUTTON_MENU_VARIANT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Variant>[] = [
@@ -97,14 +93,29 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
     },
 ];
 
-export function ButtonMenu({
-    infoText,
-    onUpdate,
-    onClose,
-    onRemove,
-    value,
-    withNewTabOption,
-}: Props) {
+function renderInfoText(
+    value: string | { text: string; href: string } | { text: string; onClick: () => void },
+) {
+    if (typeof value === 'string') {
+        return <span>{value}</span>;
+    }
+
+    if ('href' in value) {
+        return (
+            <Button href={value.href} type="link" variant="underlined">
+                {value.text}
+            </Button>
+        );
+    }
+
+    return (
+        <Button onClick={value.onClick} variant="underlined">
+            {value.text}
+        </Button>
+    );
+}
+
+export function ButtonMenu({ info, onUpdate, onClose, onRemove, value, withNewTabOption }: Props) {
     const [href, setHref] = useState(value.href);
     const [label, setLabel] = useState(value.label);
 
@@ -141,16 +152,9 @@ export function ButtonMenu({
                 Button settings
             </Toolbox.Header>
 
-            {infoText && (
+            {info && info.length && (
                 <Toolbox.Section>
-                    <InfoText className={styles.info}>
-                        {infoText.text}{' '}
-                        {infoText.action && infoText.actionLabel && (
-                            <Button variant="underlined" onClick={infoText.action}>
-                                {infoText.actionLabel}
-                            </Button>
-                        )}
-                    </InfoText>
+                    <InfoText className={styles.info}>{info.map(renderInfoText)}</InfoText>
                 </Toolbox.Section>
             )}
 
