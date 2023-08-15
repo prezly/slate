@@ -152,9 +152,9 @@ export function ButtonMenu({ info, onUpdate, onClose, onRemove, value, withNewTa
                 Button settings
             </Toolbox.Header>
 
-            {info && info.length && (
+            {Boolean(info && info.length) && (
                 <Toolbox.Section>
-                    <InfoText className={styles.info}>{info.map(renderInfoText)}</InfoText>
+                    <InfoText className={styles.info}>{info?.map(renderInfoText)}</InfoText>
                 </Toolbox.Section>
             )}
 
