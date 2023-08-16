@@ -1,3 +1,4 @@
+import type * as Popper from '@popperjs/core';
 import React, { useCallback } from 'react';
 import { useSlateStatic, type RenderElementProps } from 'slate-react';
 
@@ -5,7 +6,7 @@ import { EditorBlock } from '#components';
 
 import { EventsEditor } from '#modules/events';
 
-import type { ButtonBlockNode } from '../ButtonBlockNode';
+import { ButtonBlockNode } from '../ButtonBlockNode';
 import { removeButtonBlock, updateButtonBlock } from '../transforms';
 
 import { Button } from './Button/Button';
@@ -16,6 +17,13 @@ interface Props extends RenderElementProps {
     withNewTabOption: boolean;
     info?: Array<string | { text: string; href: string } | { text: string; onClick: () => void }>;
 }
+
+const PLACEMENT: Record<ButtonBlockNode['layout'], Popper.Placement> = {
+    [ButtonBlockNode.Layout.LEFT]: 'bottom-start',
+    [ButtonBlockNode.Layout.RIGHT]: 'bottom-end',
+    [ButtonBlockNode.Layout.CENTER]: 'bottom',
+    [ButtonBlockNode.Layout.WIDE]: 'bottom',
+};
 
 export function ButtonBlockElement({
     attributes,
@@ -53,7 +61,7 @@ export function ButtonBlockElement({
             {...attributes}
             element={element}
             align={align}
-            menuPlacement="bottom"
+            menuPlacement={PLACEMENT[layout]}
             overlay="autohide"
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}

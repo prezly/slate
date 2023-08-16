@@ -1,3 +1,4 @@
+import type * as Popper from '@popperjs/core';
 import type { ArrowModifier } from '@popperjs/core/lib/modifiers/arrow';
 import type { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 import type { OffsetModifier } from '@popperjs/core/lib/modifiers/offset';
@@ -23,14 +24,17 @@ const SLATE_ELEMENT_TOTAL_OFFSET = 2 * TETHER_OFFSET_OUTLINE_SIZE;
 export function getMenuPopperModifiers(
     popperOptions: PopperOptionsContextType,
 ): Modifier<string>[] {
-    const { modifiers } = popperOptions;
+    const { modifiers, placement = 'auto' } = popperOptions;
 
     return [
         {
             name: 'offset',
             enabled: true,
             options: {
-                offset: ({ popper, reference }) => {
+                offset: ({ popper, reference, placement }) => {
+                    if (isAbove(placement) || isBelow(placement)) {
+                        return [0, 16];
+                    }
                     const referenceHeight = getSlateElementHeight(reference.height);
                     const popperTallerThanReference = popper.height - referenceHeight;
                     const offset = popperTallerThanReference / 2;
@@ -56,7 +60,10 @@ export function getMenuPopperModifiers(
             options: {
                 // The order of these properties is important! The first one that has enough space to fit the popup will be used as fallback
                 // We prioritize flipping on Y axis (as this is the most common reason for overflow), then flipping X axis if needed.
-                fallbackPlacements: ['right', 'left'],
+                fallbackPlacements:
+                    isAbove(placement) || isBelow(placement)
+                        ? [placement, invert(placement), 'right', 'left']
+                        : ['right', 'left'],
             },
         } satisfies Partial<FlipModifier>,
         {
@@ -109,4 +116,31 @@ export function getMenuPopperModifiers(
 
 function getSlateElementHeight(height: number) {
     return height + SLATE_ELEMENT_TOTAL_OFFSET;
+}
+
+const INVERSION: Partial<Record<Popper.Placement, Popper.Placement>> = {
+    top: 'bottom',
+    'top-start': 'bottom-start',
+    'top-end': 'bottom-end',
+    bottom: 'top',
+    'bottom-start': 'top-start',
+    'bottom-end': 'top-end',
+    left: 'right',
+    'left-start': 'right-start',
+    'left-end': 'right-end',
+    right: 'left',
+    'right-start': 'left-start',
+    'right-end': 'left-end',
+};
+
+function invert(placement: Popper.Placement): Popper.Placement {
+    return INVERSION[placement] ?? placement;
+}
+
+function isAbove(placement: Popper.Placement): boolean {
+    return placement === 'top' || placement === 'top-start' || placement === 'top-end';
+}
+
+function isBelow(placement: Popper.Placement): boolean {
+    return placement === 'bottom' || placement === 'bottom-start' || placement === 'bottom-end';
 }
