@@ -115,7 +115,14 @@ function renderInfoText(
     );
 }
 
-export function ButtonMenu({ info, onUpdate, onClose, onRemove, value, withNewTabOption }: Props) {
+export function ButtonMenu({
+    info = [],
+    onUpdate,
+    onClose,
+    onRemove,
+    value,
+    withNewTabOption,
+}: Props) {
     const [href, setHref] = useState(value.href);
     const [label, setLabel] = useState(value.label);
 
@@ -152,7 +159,7 @@ export function ButtonMenu({ info, onUpdate, onClose, onRemove, value, withNewTa
                 Button settings
             </Toolbox.Header>
 
-            {info && info.length && (
+            {info.length > 0 && (
                 <Toolbox.Section>
                     <InfoText className={styles.info}>{info.map(renderInfoText)}</InfoText>
                 </Toolbox.Section>
