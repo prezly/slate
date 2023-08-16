@@ -66,12 +66,13 @@ export function ButtonBlockElement({
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderReadOnlyFrame={() => <Button node={element} />}
-            renderMenu={({ onClose }) => (
+            renderMenu={({ onClose, updatePosition }) => (
                 <ButtonMenu
                     info={info}
                     onClose={onClose}
                     onUpdate={handleUpdate}
                     onRemove={handleRemove}
+                    onReposition={updatePosition}
                     value={{
                         href: element.href,
                         label: element.label,

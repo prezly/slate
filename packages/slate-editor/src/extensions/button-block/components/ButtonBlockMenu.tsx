@@ -44,6 +44,7 @@ interface Props {
     onUpdate: (props: Partial<FormState>) => void;
     onClose: () => void;
     onRemove: () => void;
+    onReposition: () => void;
     value: FormState;
     withNewTabOption: boolean;
     info?: Array<string | { text: string; href: string } | { text: string; onClick: () => void }>;
@@ -120,6 +121,7 @@ export function ButtonMenu({
     onUpdate,
     onClose,
     onRemove,
+    onReposition,
     value,
     withNewTabOption,
 }: Props) {
@@ -204,7 +206,7 @@ export function ButtonMenu({
                 </VStack>
             </Toolbox.Section>
 
-            <Accordion title="Styling options">
+            <Accordion title="Styling options" onExpand={onReposition}>
                 <VStack spacing="2">
                     <OptionsGroup
                         name="variant"

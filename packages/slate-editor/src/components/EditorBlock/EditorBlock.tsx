@@ -59,7 +59,7 @@ export interface Props
     renderBelowFrame?: ((props: RenderProps) => ReactNode) | ReactNode;
     renderEditableFrame?: (props: RenderProps) => ReactNode;
     renderReadOnlyFrame?: (props: RenderProps) => ReactNode;
-    renderMenu?: (props: { onClose: () => void }) => ReactNode;
+    renderMenu?: (props: { onClose: () => void; updatePosition: () => void }) => ReactNode;
     rounded?: boolean;
     selected?: boolean;
     void?: boolean;
@@ -192,7 +192,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         }}
                         reference={container}
                     >
-                        {renderMenu({ onClose: closeMenu })}
+                        {({ updatePosition }) => renderMenu({ onClose: closeMenu, updatePosition })}
                     </Menu>
                 )}
                 {isOverlayEnabled && (

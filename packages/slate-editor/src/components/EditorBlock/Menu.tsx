@@ -11,8 +11,12 @@ import type { PopperOptionsContextType } from '#modules/popper-options-context';
 import { getMenuPopperModifiers } from './getMenuPopperModifiers';
 import styles from './Menu.module.scss';
 
+type RenderProps = {
+    updatePosition: () => void;
+};
+
 interface Props {
-    children: ReactNode;
+    children: ReactNode | ((props: RenderProps) => ReactNode | null);
     className?: string;
     onClick?: (event: MouseEvent) => void;
     popperOptions: PopperOptionsContextType;
@@ -37,7 +41,7 @@ export function Menu({ children, className, onClick, popperOptions, reference }:
             strategy="fixed"
             placement={placement}
         >
-            {({ ref, style, arrowProps, placement }) =>
+            {({ ref, style, arrowProps, placement, update: updatePosition }) =>
                 mountPopper(
                     <Toolbox.Panel
                         contentEditable={false}
@@ -58,7 +62,7 @@ export function Menu({ children, className, onClick, popperOptions, reference }:
                             })}
                             {...arrowProps}
                         />
-                        {children}
+                        {typeof children === 'function' ? children({ updatePosition }) : children}
                     </Toolbox.Panel>,
                 )
             }
