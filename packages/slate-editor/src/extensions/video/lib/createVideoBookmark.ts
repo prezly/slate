@@ -1,5 +1,4 @@
-import type { VideoNode } from '@prezly/slate-types';
-import { VIDEO_NODE_TYPE } from '@prezly/slate-types';
+import { VideoNode } from '@prezly/slate-types';
 import { v4 as uuidV4 } from 'uuid';
 
 type RequiredProps = Pick<VideoNode, 'url' | 'oembed'>;
@@ -17,6 +16,6 @@ export function createVideoBookmark(props: RequiredProps): VideoNode {
         uuid: uuidV4(),
         ...props,
         children: [{ text: '' }],
-        type: VIDEO_NODE_TYPE, // disallowed to override type
+        type: VideoNode.TYPE, // disallowed to override type
     });
 }

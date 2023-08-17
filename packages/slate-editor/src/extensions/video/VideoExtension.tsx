@@ -1,6 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
-import { isVideoNode, VIDEO_NODE_TYPE } from '@prezly/slate-types';
+import { VideoNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
 
@@ -17,20 +17,20 @@ export function VideoExtension({ mode = 'thumbnail' }: VideoExtensionParameters)
         id: EXTENSION_ID,
         deserialize: {
             element: composeElementDeserializer({
-                [VIDEO_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
+                [VideoNode.TYPE]: createDeserializeElement(parseSerializedElement),
             }),
         },
         isElementEqual: (node, another) => {
-            if (isVideoNode(node) && isVideoNode(another)) {
+            if (VideoNode.isVideoNode(node) && VideoNode.isVideoNode(another)) {
                 return node.url === another.url && isEqual(node.oembed, another.oembed);
             }
             return undefined;
         },
-        isRichBlock: isVideoNode,
-        isVoid: isVideoNode,
+        isRichBlock: VideoNode.isVideoNode,
+        isVoid: VideoNode.isVideoNode,
         normalizeNode: normalizeRedundantVideoAttributes,
         renderElement: ({ attributes, children, element }) => {
-            if (isVideoNode(element)) {
+            if (VideoNode.isVideoNode(element)) {
                 return (
                     <VideoElement attributes={attributes} element={element} mode={mode}>
                         {children}

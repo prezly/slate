@@ -15,7 +15,7 @@ import {
     QUOTE_NODE_TYPE,
     STORY_BOOKMARK_NODE_TYPE,
     STORY_EMBED_NODE_TYPE,
-    VIDEO_NODE_TYPE,
+    VideoNode,
     TABLE_NODE_TYPE,
     isTableRowNode,
     TABLE_ROW_NODE_TYPE,
@@ -145,5 +145,5 @@ export const hierarchySchema: NodesHierarchySchema = {
             ),
         ),
     ],
-    [VIDEO_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [VideoNode.TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
 };
