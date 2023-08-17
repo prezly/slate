@@ -31,12 +31,11 @@ import { useFunction, useGetSet, useSize } from '#lib';
 
 import { insertButtonBlock } from '#extensions/button-block';
 import { FlashNodes } from '#extensions/flash-nodes';
-import { FloatingAddMenu } from '#extensions/floating-add-menu';
-import type { Option } from '#extensions/floating-add-menu';
+import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import { useFloatingSnippetInput } from '#extensions/snippet';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
-import { VariablesDropdown, useVariables } from '#extensions/variables';
+import { useVariables, VariablesDropdown } from '#extensions/variables';
 import { FloatingSnippetInput, Placeholder } from '#modules/components';
 import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
@@ -66,7 +65,7 @@ import { PlaceholdersManager } from '#extensions/placeholders/PlaceholdersManage
 
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
     const {
-        align,
+        align = Alignment.LEFT,
         availableWidth: declaredAvailableWidth,
         autoFocus,
         className,
@@ -356,7 +355,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return;
         }
         if (action === MenuAction.ADD_BUTTON_BLOCK) {
-            const button = insertButtonBlock(editor);
+            const button = insertButtonBlock(editor, {}, align);
             EditorCommands.selectNode(editor, button);
             return;
         }
@@ -590,7 +589,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     <RichFormattingMenu
                                         availableWidth={availableWidth}
                                         containerElement={containerRef.current}
-                                        defaultAlignment={align ?? Alignment.LEFT}
+                                        defaultAlignment={align}
                                         withAlignment={withAlignmentControls}
                                         withBlockquotes={withBlockquotes}
                                         withHeadings={withHeadings}
