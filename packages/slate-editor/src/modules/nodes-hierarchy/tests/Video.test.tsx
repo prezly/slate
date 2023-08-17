@@ -11,6 +11,7 @@ describe('nodes-hierarchy / Video', () => {
                 <h:video
                     url="https://www.youtube.com/watch?v=FYH9n37B7Yw&t=1s"
                     uuid="863fd1d6-fcac-46f7-b5c2-66c459b3f3de"
+                    layout="expanded"
                     oembed={{
                         author_url: 'https://www.youtube.com/channel/UCjBp_7RuDBUYbd1LegWEJ8g',
                         cache_age: 86400,
@@ -37,6 +38,7 @@ describe('nodes-hierarchy / Video', () => {
                 <h:video
                     url="https://www.youtube.com/watch?v=FYH9n37B7Yw&t=1s"
                     uuid="863fd1d6-fcac-46f7-b5c2-66c459b3f3de"
+                    layout="expanded"
                     oembed={{
                         author_url: 'https://www.youtube.com/channel/UCjBp_7RuDBUYbd1LegWEJ8g',
                         cache_age: 86400,
