@@ -155,8 +155,8 @@ function* generateOptions(
             icon: Icons.ComponentButton,
             group: Group.TEXT_N_LAYOUT,
             text: 'Button',
-            description: 'Insert a button',
-            keywords: ['cta', 'call to action', 'calltoaction'],
+            description: 'Insert a link button',
+            keywords: ['cta', 'call to action', 'calltoaction', 'link', 'anchor'],
             isNew: true,
         };
     }
