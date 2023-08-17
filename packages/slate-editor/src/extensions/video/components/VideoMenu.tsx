@@ -73,7 +73,7 @@ export function VideoMenu({ url, onChange, onClose, onRemove, value }: Props) {
                     iconPosition="right"
                     fullWidth
                 >
-                    View
+                    Go to video
                 </Button>
             </Toolbox.Section>
 
