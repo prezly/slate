@@ -6,6 +6,7 @@ const shape: Record<keyof VideoNode, true> = {
     type: true,
     uuid: true,
     url: true,
+    layout: true,
     oembed: true,
     children: true,
 };
