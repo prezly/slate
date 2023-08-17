@@ -15,9 +15,10 @@ import { type FormState, VideoMenu } from './VideoMenu';
 interface Props extends RenderElementProps {
     element: VideoNode;
     mode: 'iframe' | 'thumbnail';
+    withLayoutControls: boolean;
 }
 
-export function VideoElement({ attributes, children, element, mode }: Props) {
+export function VideoElement({ attributes, children, element, mode, withLayoutControls }: Props) {
     const editor = useSlateStatic();
 
     const { url, oembed } = element;
@@ -41,15 +42,19 @@ export function VideoElement({ attributes, children, element, mode }: Props) {
             layout={element.layout ?? 'contained'}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
-            renderMenu={({ onClose }) => (
-                <VideoMenu
-                    onChange={handleUpdate}
-                    onClose={onClose}
-                    onRemove={handleRemove}
-                    url={element.url}
-                    value={{ layout: element.layout }}
-                />
-            )}
+            renderMenu={
+                withLayoutControls
+                    ? ({ onClose }) => (
+                          <VideoMenu
+                              onChange={handleUpdate}
+                              onClose={onClose}
+                              onRemove={handleRemove}
+                              url={element.url}
+                              value={{ layout: element.layout }}
+                          />
+                      )
+                    : undefined
+            }
             renderReadOnlyFrame={() => (
                 <div className={styles.Container}>
                     {!isHtmlEmbeddedWithErrors &&

@@ -1,3 +1,4 @@
+import type { OEmbedInfo } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { VideoNode } from '@prezly/slate-types';
@@ -8,11 +9,19 @@ import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { VideoElement } from './components';
 import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib';
-import type { VideoExtensionParameters } from './types';
+
+export interface VideoExtensionParameters {
+    fetchOembed: (url: OEmbedInfo['url']) => Promise<OEmbedInfo>;
+    mode?: 'iframe' | 'thumbnail';
+    withLayoutControls?: boolean;
+}
 
 export const EXTENSION_ID = 'VideoExtension';
 
-export function VideoExtension({ mode = 'thumbnail' }: VideoExtensionParameters): Extension {
+export function VideoExtension({
+    mode = 'thumbnail',
+    withLayoutControls = false,
+}: VideoExtensionParameters): Extension {
     return {
         id: EXTENSION_ID,
         deserialize: {
@@ -32,7 +41,12 @@ export function VideoExtension({ mode = 'thumbnail' }: VideoExtensionParameters)
         renderElement: ({ attributes, children, element }) => {
             if (VideoNode.isVideoNode(element)) {
                 return (
-                    <VideoElement attributes={attributes} element={element} mode={mode}>
+                    <VideoElement
+                        attributes={attributes}
+                        element={element}
+                        mode={mode}
+                        withLayoutControls={withLayoutControls}
+                    >
                         {children}
                     </VideoElement>
                 );
