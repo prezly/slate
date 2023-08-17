@@ -57,25 +57,31 @@ const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
 ];
 
 export function VideoMenu({ url, onChange, onClose, onRemove, value }: Props) {
+    const isSelfHosted =
+        url.startsWith('https://cdn.uc.assets.prezly.com/') ||
+        url.startsWith('https://ucarecdn.com/');
+
     return (
         <>
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
                 Video settings
             </Toolbox.Header>
 
-            <Toolbox.Section noPadding>
-                <Button
-                    type="link"
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer"
-                    icon={ExternalLink}
-                    iconPosition="right"
-                    fullWidth
-                >
-                    Go to video
-                </Button>
-            </Toolbox.Section>
+            {!isSelfHosted && (
+                <Toolbox.Section noPadding>
+                    <Button
+                        type="link"
+                        href={url}
+                        target="_blank"
+                        rel="noreferrer"
+                        icon={ExternalLink}
+                        iconPosition="right"
+                        fullWidth
+                    >
+                        Go to video
+                    </Button>
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Section caption="Size">
                 <OptionsGroup
