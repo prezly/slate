@@ -13,6 +13,8 @@
     font-size: $font-size-medium;
     font-weight: 600;
     line-height: 160%;
+    max-width: 100%;
+    text-align: center;
 
     &.notWide {
         width: max-content;
