@@ -24,6 +24,7 @@ interface Props {
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
+    withLayoutControls: boolean;
 }
 
 const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
@@ -56,7 +57,7 @@ const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
     },
 ];
 
-export function VideoMenu({ url, onChange, onClose, onRemove, value }: Props) {
+export function VideoMenu({ url, onChange, onClose, onRemove, value, withLayoutControls }: Props) {
     const isSelfHosted =
         url.startsWith('https://cdn.uc.assets.prezly.com/') ||
         url.startsWith('https://ucarecdn.com/');
@@ -83,16 +84,18 @@ export function VideoMenu({ url, onChange, onClose, onRemove, value }: Props) {
                 </Toolbox.Section>
             )}
 
-            <Toolbox.Section caption="Size">
-                <OptionsGroup
-                    name="layout"
-                    options={VIDEO_LAYOUT_OPTIONS}
-                    selectedValue={value.layout}
-                    onChange={(layout) => {
-                        onChange({ layout });
-                    }}
-                />
-            </Toolbox.Section>
+            {withLayoutControls && (
+                <Toolbox.Section caption="Size">
+                    <OptionsGroup
+                        name="layout"
+                        options={VIDEO_LAYOUT_OPTIONS}
+                        selectedValue={value.layout}
+                        onChange={(layout) => {
+                            onChange({ layout });
+                        }}
+                    />
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Footer>
                 <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>

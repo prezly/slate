@@ -15,10 +15,18 @@ import { type FormState, VideoMenu } from './VideoMenu';
 interface Props extends RenderElementProps {
     element: VideoNode;
     mode: 'iframe' | 'thumbnail';
+    withMenu: boolean;
     withLayoutControls: boolean;
 }
 
-export function VideoElement({ attributes, children, element, mode, withLayoutControls }: Props) {
+export function VideoElement({
+    attributes,
+    children,
+    element,
+    mode,
+    withMenu,
+    withLayoutControls,
+}: Props) {
     const editor = useSlateStatic();
 
     const { url, oembed } = element;
@@ -43,7 +51,7 @@ export function VideoElement({ attributes, children, element, mode, withLayoutCo
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderMenu={
-                withLayoutControls
+                withMenu
                     ? ({ onClose }) => (
                           <VideoMenu
                               onChange={handleUpdate}
@@ -51,6 +59,7 @@ export function VideoElement({ attributes, children, element, mode, withLayoutCo
                               onRemove={handleRemove}
                               url={element.url}
                               value={{ layout: element.layout }}
+                              withLayoutControls={withLayoutControls}
                           />
                       )
                     : undefined

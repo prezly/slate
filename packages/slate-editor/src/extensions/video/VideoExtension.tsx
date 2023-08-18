@@ -13,6 +13,7 @@ import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib
 export interface VideoExtensionParameters {
     fetchOembed: (url: OEmbedInfo['url']) => Promise<OEmbedInfo>;
     mode?: 'iframe' | 'thumbnail';
+    withMenu?: boolean;
     withLayoutControls?: boolean;
 }
 
@@ -20,7 +21,8 @@ export const EXTENSION_ID = 'VideoExtension';
 
 export function VideoExtension({
     mode = 'thumbnail',
-    withLayoutControls = false,
+    withMenu = false,
+    withLayoutControls = true,
 }: VideoExtensionParameters): Extension {
     return {
         id: EXTENSION_ID,
@@ -45,6 +47,7 @@ export function VideoExtension({
                         attributes={attributes}
                         element={element}
                         mode={mode}
+                        withMenu={withMenu}
                         withLayoutControls={withLayoutControls}
                     >
                         {children}
