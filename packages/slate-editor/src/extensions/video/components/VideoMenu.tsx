@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import type { OptionsGroupOption } from '#components';
-import { Button, OptionsGroup, Toolbox } from '#components';
+import { Button, InfoText, OptionsGroup, Toolbox } from '#components';
 import {
     Delete,
     ExternalLink,
@@ -19,6 +19,7 @@ export interface FormState {
 }
 
 interface Props {
+    info?: InfoText.StructuredContent;
     url: VideoNode['url'];
     onChange: (props: Partial<FormState>) => void;
     onClose: () => void;
@@ -33,7 +34,7 @@ const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
         label: 'Contained',
         icon: ({ isActive }) => (
             <ImageLayoutContained
-                className={classNames(styles.icon, { [styles.active]: isActive })}
+                className={classNames(styles.Icon, { [styles.active]: isActive })}
             />
         ),
     },
@@ -42,7 +43,7 @@ const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
         label: 'Expanded',
         icon: ({ isActive }) => (
             <ImageLayoutExpanded
-                className={classNames(styles.icon, { [styles.active]: isActive })}
+                className={classNames(styles.Icon, { [styles.active]: isActive })}
             />
         ),
     },
@@ -51,13 +52,21 @@ const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
         label: 'Full width',
         icon: ({ isActive }) => (
             <ImageLayoutFullWidth
-                className={classNames(styles.icon, { [styles.active]: isActive })}
+                className={classNames(styles.Icon, { [styles.active]: isActive })}
             />
         ),
     },
 ];
 
-export function VideoMenu({ url, onChange, onClose, onRemove, value, withLayoutControls }: Props) {
+export function VideoMenu({
+    info = [],
+    url,
+    onChange,
+    onClose,
+    onRemove,
+    value,
+    withLayoutControls,
+}: Props) {
     const isSelfHosted =
         url.startsWith('https://cdn.uc.assets.prezly.com/') ||
         url.startsWith('https://ucarecdn.com/');
@@ -81,6 +90,12 @@ export function VideoMenu({ url, onChange, onClose, onRemove, value, withLayoutC
                     >
                         Go to video
                     </Button>
+                </Toolbox.Section>
+            )}
+
+            {info.length > 0 && (
+                <Toolbox.Section>
+                    <InfoText.Structured className={styles.Info}>{info}</InfoText.Structured>
                 </Toolbox.Section>
             )}
 

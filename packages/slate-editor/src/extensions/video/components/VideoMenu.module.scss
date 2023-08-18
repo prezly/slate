@@ -1,9 +1,13 @@
 @import "styles/variables";
 
-.icon {
+.Icon {
     fill: white;
 
     &.active {
         fill: $yellow-300;
     }
+}
+
+.Info {
+    opacity: 1;
 }

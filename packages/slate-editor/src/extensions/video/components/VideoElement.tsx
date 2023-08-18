@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
+import type { InfoText } from '#components';
 import { EditorBlock, HtmlInjection } from '#components';
 import { PlayButton } from '#icons';
 
@@ -13,6 +14,7 @@ import styles from './VideoElement.module.scss';
 import { type FormState, VideoMenu } from './VideoMenu';
 
 interface Props extends RenderElementProps {
+    info?: InfoText.StructuredContent;
     element: VideoNode;
     mode: 'iframe' | 'thumbnail';
     withMenu: boolean;
@@ -23,6 +25,7 @@ export function VideoElement({
     attributes,
     children,
     element,
+    info,
     mode,
     withMenu,
     withLayoutControls,
@@ -54,6 +57,7 @@ export function VideoElement({
                 withMenu
                     ? ({ onClose }) => (
                           <VideoMenu
+                              info={info}
                               onChange={handleUpdate}
                               onClose={onClose}
                               onRemove={handleRemove}

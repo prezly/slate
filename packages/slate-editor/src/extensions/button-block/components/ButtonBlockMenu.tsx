@@ -47,7 +47,7 @@ interface Props {
     onReposition: () => void;
     value: FormState;
     withNewTabOption: boolean;
-    info?: Array<string | { text: string; href: string } | { text: string; onClick: () => void }>;
+    info?: InfoText.StructuredContent;
 }
 
 const BUTTON_MENU_VARIANT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Variant>[] = [
@@ -66,7 +66,7 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
         value: ButtonBlockNode.Layout.LEFT,
         label: 'Left',
         icon: ({ isActive }) => (
-            <ButtonLayoutLeft className={classNames(styles.icon, { [styles.active]: isActive })} />
+            <ButtonLayoutLeft className={classNames(styles.Icon, { [styles.active]: isActive })} />
         ),
     },
     {
@@ -74,7 +74,7 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
         label: 'Center',
         icon: ({ isActive }) => (
             <ButtonLayoutCenter
-                className={classNames(styles.icon, { [styles.active]: isActive })}
+                className={classNames(styles.Icon, { [styles.active]: isActive })}
             />
         ),
     },
@@ -82,39 +82,17 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
         value: ButtonBlockNode.Layout.RIGHT,
         label: 'Right',
         icon: ({ isActive }) => (
-            <ButtonLayoutRight className={classNames(styles.icon, { [styles.active]: isActive })} />
+            <ButtonLayoutRight className={classNames(styles.Icon, { [styles.active]: isActive })} />
         ),
     },
     {
         value: ButtonBlockNode.Layout.WIDE,
         label: 'Wide',
         icon: ({ isActive }) => (
-            <ButtonLayoutWide className={classNames(styles.icon, { [styles.active]: isActive })} />
+            <ButtonLayoutWide className={classNames(styles.Icon, { [styles.active]: isActive })} />
         ),
     },
 ];
-
-function renderInfoText(
-    value: string | { text: string; href: string } | { text: string; onClick: () => void },
-) {
-    if (typeof value === 'string') {
-        return <span>{value}</span>;
-    }
-
-    if ('href' in value) {
-        return (
-            <Button href={value.href} type="link" variant="underlined">
-                {value.text}
-            </Button>
-        );
-    }
-
-    return (
-        <Button onClick={value.onClick} variant="underlined">
-            {value.text}
-        </Button>
-    );
-}
 
 export function ButtonMenu({
     info = [],
@@ -163,7 +141,7 @@ export function ButtonMenu({
 
             {info.length > 0 && (
                 <Toolbox.Section>
-                    <InfoText className={styles.info}>{info.map(renderInfoText)}</InfoText>
+                    <InfoText.Structured className={styles.Info}>{info}</InfoText.Structured>
                 </Toolbox.Section>
             )}
 

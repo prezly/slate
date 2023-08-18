@@ -5,6 +5,8 @@ import { VideoNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
 
+import type { InfoText } from '#components';
+
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { VideoElement } from './components';
@@ -12,6 +14,7 @@ import { normalizeRedundantVideoAttributes, parseSerializedElement } from './lib
 
 export interface VideoExtensionParameters {
     fetchOembed: (url: OEmbedInfo['url']) => Promise<OEmbedInfo>;
+    info?: InfoText.StructuredContent;
     mode?: 'iframe' | 'thumbnail';
     withMenu?: boolean;
     withLayoutControls?: boolean;
@@ -20,6 +23,7 @@ export interface VideoExtensionParameters {
 export const EXTENSION_ID = 'VideoExtension';
 
 export function VideoExtension({
+    info,
     mode = 'thumbnail',
     withMenu = false,
     withLayoutControls = true,
@@ -44,6 +48,7 @@ export function VideoExtension({
             if (VideoNode.isVideoNode(element)) {
                 return (
                     <VideoElement
+                        info={info}
                         attributes={attributes}
                         element={element}
                         mode={mode}

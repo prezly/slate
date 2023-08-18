@@ -2,6 +2,8 @@ import { createDeserializeElement, type Extension } from '@prezly/slate-commons'
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import type { InfoText } from '#components';
+
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ButtonBlockNode } from './ButtonBlockNode';
@@ -16,7 +18,7 @@ export const EXTENSION_ID = 'ButtonBlockExtension';
 
 export interface ButtonBlockExtensionConfiguration {
     withNewTabOption?: boolean;
-    info?: Array<string | { text: string; href: string } | { text: string; onClick: () => void }>;
+    info?: InfoText.StructuredContent;
 }
 
 export function ButtonBlockExtension({
