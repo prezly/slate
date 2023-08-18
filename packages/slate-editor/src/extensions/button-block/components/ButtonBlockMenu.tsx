@@ -66,7 +66,7 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
         value: ButtonBlockNode.Layout.LEFT,
         label: 'Left',
         icon: ({ isActive }) => (
-            <ButtonLayoutLeft className={classNames(styles.icon, { [styles.active]: isActive })} />
+            <ButtonLayoutLeft className={classNames(styles.Icon, { [styles.active]: isActive })} />
         ),
     },
     {
