@@ -74,7 +74,7 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
         label: 'Center',
         icon: ({ isActive }) => (
             <ButtonLayoutCenter
-                className={classNames(styles.icon, { [styles.active]: isActive })}
+                className={classNames(styles.Icon, { [styles.active]: isActive })}
             />
         ),
     },
@@ -82,14 +82,14 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
         value: ButtonBlockNode.Layout.RIGHT,
         label: 'Right',
         icon: ({ isActive }) => (
-            <ButtonLayoutRight className={classNames(styles.icon, { [styles.active]: isActive })} />
+            <ButtonLayoutRight className={classNames(styles.Icon, { [styles.active]: isActive })} />
         ),
     },
     {
         value: ButtonBlockNode.Layout.WIDE,
         label: 'Wide',
         icon: ({ isActive }) => (
-            <ButtonLayoutWide className={classNames(styles.icon, { [styles.active]: isActive })} />
+            <ButtonLayoutWide className={classNames(styles.Icon, { [styles.active]: isActive })} />
         ),
     },
 ];
@@ -141,7 +141,7 @@ export function ButtonMenu({
 
             {info.length > 0 && (
                 <Toolbox.Section>
-                    <InfoText.Structured className={styles.info}>{info}</InfoText.Structured>
+                    <InfoText.Structured className={styles.Info}>{info}</InfoText.Structured>
                 </Toolbox.Section>
             )}
 

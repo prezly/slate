@@ -2,6 +2,7 @@ import type * as Popper from '@popperjs/core';
 import React, { useCallback } from 'react';
 import { useSlateStatic, type RenderElementProps } from 'slate-react';
 
+import type { InfoText } from '#components';
 import { EditorBlock } from '#components';
 
 import { EventsEditor } from '#modules/events';
@@ -15,7 +16,7 @@ import { ButtonMenu, type FormState } from './ButtonBlockMenu';
 interface Props extends RenderElementProps {
     element: ButtonBlockNode;
     withNewTabOption: boolean;
-    info?: Array<string | { text: string; href: string } | { text: string; onClick: () => void }>;
+    info?: InfoText.StructuredContent;
 }
 
 const PLACEMENT: Record<ButtonBlockNode['layout'], Popper.Placement> = {
