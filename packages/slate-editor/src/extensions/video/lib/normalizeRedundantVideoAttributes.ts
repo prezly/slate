@@ -1,12 +1,12 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { VideoNode } from '@prezly/slate-types';
-import { isVideoNode } from '@prezly/slate-types';
+import { VideoNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
 const shape: Record<keyof VideoNode, true> = {
     type: true,
     uuid: true,
     url: true,
+    layout: true,
     oembed: true,
     children: true,
 };
@@ -17,7 +17,7 @@ export function normalizeRedundantVideoAttributes(
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean {
-    if (!isVideoNode(node)) {
+    if (!VideoNode.isVideoNode(node)) {
         return false;
     }
 

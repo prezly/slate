@@ -8,6 +8,7 @@ exports[`nodes-hierarchy / Video should be kept after normalization 1`] = `
         "text": "",
       },
     ],
+    "layout": "expanded",
     "oembed": {
       "author_url": "https://www.youtube.com/channel/UCjBp_7RuDBUYbd1LegWEJ8g",
       "cache_age": 86400,

@@ -1,29 +1,69 @@
 import type { VideoNode } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 
 import { EditorBlock, HtmlInjection } from '#components';
 import { PlayButton } from '#icons';
 
+import { removeVideo, updateVideo } from '../transforms';
+
 import styles from './VideoElement.module.scss';
+import { type FormState, VideoMenu } from './VideoMenu';
 
 interface Props extends RenderElementProps {
     element: VideoNode;
     mode: 'iframe' | 'thumbnail';
+    withMenu: boolean;
+    withLayoutControls: boolean;
 }
 
-export function VideoElement({ attributes, children, element, mode }: Props) {
+export function VideoElement({
+    attributes,
+    children,
+    element,
+    mode,
+    withMenu,
+    withLayoutControls,
+}: Props) {
+    const editor = useSlateStatic();
+
     const { url, oembed } = element;
     const [isHtmlEmbeddedWithErrors, setHtmlEmbeddedWithErrors] = useState<boolean>(false);
+
+    const handleUpdate = useCallback(
+        (patch: Partial<FormState>) => {
+            updateVideo(editor, element, patch);
+        },
+        [editor, element],
+    );
+    const handleRemove = useCallback(() => {
+        removeVideo(editor, element);
+    }, [editor, element]);
 
     return (
         <EditorBlock
             {...attributes}
             element={element}
-            overlay="autohide"
+            overlay="always"
+            layout={element.layout ?? 'contained'}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
+            renderMenu={
+                withMenu
+                    ? ({ onClose }) => (
+                          <VideoMenu
+                              onChange={handleUpdate}
+                              onClose={onClose}
+                              onRemove={handleRemove}
+                              url={element.url}
+                              value={{ layout: element.layout }}
+                              withLayoutControls={withLayoutControls}
+                          />
+                      )
+                    : undefined
+            }
             renderReadOnlyFrame={() => (
                 <div className={styles.Container}>
                     {!isHtmlEmbeddedWithErrors &&
