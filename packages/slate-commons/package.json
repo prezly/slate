@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-commons",
-    "version": "0.90.2",
+    "version": "0.91.0",
     "description": "Low-level commands, utilities, plugins, types, etc. used throughout Prezly-Slate packages",
     "license": "MIT",
     "type": "module",
