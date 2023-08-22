@@ -3,9 +3,16 @@ import type { Editor, NodeEntry } from 'slate';
 
 import { EmbedNode } from '../EmbedNode';
 
-import { createEmbed } from './createEmbed';
+const SHAPE: Record<keyof EmbedNode, boolean> = {
+    type: true,
+    uuid: true,
+    url: true,
+    oembed: true,
+    layout: true,
+    children: true,
+};
 
-const ALLOWED_ATTRIBUTES = Object.keys(createEmbed({ type: 'link', url: '', version: '1.0' }, ''));
+const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
 
 export function normalizeRedundantEmbedAttributes(
     editor: Editor,

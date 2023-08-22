@@ -6,7 +6,7 @@ export function parseSerializedElement(serialized: string): EmbedNode | undefine
     const parsed = JSON.parse(serialized);
 
     if (EmbedNode.isEmbedNode(parsed)) {
-        return createEmbed(parsed.oembed, parsed.url);
+        return createEmbed(parsed);
     }
 
     return undefined;

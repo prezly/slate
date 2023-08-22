@@ -1,14 +1,22 @@
-import type { OEmbedInfo } from '@prezly/sdk';
 import { v4 as uuidV4 } from 'uuid';
 
 import { EmbedNode } from '../EmbedNode';
 
-export function createEmbed(oembed: OEmbedInfo, url: string): EmbedNode {
+type RequiredProps = Pick<EmbedNode, 'url' | 'oembed'>;
+type OptionalProps = Pick<EmbedNode, 'uuid' | 'layout'>;
+
+export function createEmbed({
+    url,
+    oembed,
+    uuid = uuidV4(),
+    layout = EmbedNode.Layout.CONTAINED,
+}: RequiredProps & Partial<OptionalProps>): EmbedNode {
     return {
         type: EmbedNode.TYPE,
         children: [{ text: '' }],
         oembed,
         url,
-        uuid: uuidV4(),
+        uuid,
+        layout,
     };
 }
