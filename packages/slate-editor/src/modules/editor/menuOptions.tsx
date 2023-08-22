@@ -2,8 +2,8 @@ import type { Editor } from 'slate';
 
 import * as Icons from '#icons';
 
-import { type EmbedExtensionConfiguration, EmbedProvider } from '#extensions/embed';
-import type { Option } from '#extensions/floating-add-menu';
+import type { Option, ExtensionConfiguration } from '#extensions/floating-add-menu';
+import { PlaceholderNode } from '#extensions/placeholders';
 import { UploadcareEditor } from '#modules/uploadcare';
 
 export enum MenuAction {
@@ -44,7 +44,7 @@ interface Params {
     withCoverage: boolean;
     withDivider: boolean;
     withTables: boolean;
-    withEmbeds: boolean | EmbedExtensionConfiguration;
+    withEmbeds: boolean;
     withEmbedSocial: boolean;
     withGalleries: boolean;
     withHeadings: boolean;
@@ -56,6 +56,7 @@ interface Params {
     withVideos: boolean;
     withWebBookmarks: boolean;
     withSnippets: boolean;
+    withFloatingAddMenu: boolean | ExtensionConfiguration;
 }
 
 /**
@@ -100,6 +101,7 @@ function* generateOptions(
         withSnippets,
         withVideos,
         withWebBookmarks,
+        withFloatingAddMenu,
     }: Params,
 ): Generator<Omit<Option<MenuAction>, 'suggested'>> {
     if (withHeadings) {
@@ -247,27 +249,30 @@ function* generateOptions(
             description: 'Insert embeddable content',
             isBeta: true,
         };
+    }
 
-        if (typeof withEmbeds !== 'boolean') {
-            if (withEmbeds.providers.includes(EmbedProvider.INSTAGRAM)) {
-                yield {
-                    action: MenuAction.ADD_INSTAGRAM,
-                    icon: Icons.ComponentInstagram,
-                    group: Group.SPECIFIC_EMBEDS,
-                    text: 'Instagram',
-                    description: 'Embed a social media link',
-                };
-            }
+    if (
+        typeof withFloatingAddMenu === 'object' &&
+        Array.isArray(withFloatingAddMenu.specialEmbeds)
+    ) {
+        if (withFloatingAddMenu.specialEmbeds.includes(PlaceholderNode.Provider.INSTAGRAM)) {
+            yield {
+                action: MenuAction.ADD_INSTAGRAM,
+                icon: Icons.ComponentInstagram,
+                group: Group.SPECIFIC_EMBEDS,
+                text: 'Instagram',
+                description: 'Embed a social media link',
+            };
+        }
 
-            if (withEmbeds.providers.includes(EmbedProvider.YOUTUBE)) {
-                yield {
-                    action: MenuAction.ADD_YOUTUBE,
-                    icon: Icons.ComponentYouTube,
-                    group: Group.SPECIFIC_EMBEDS,
-                    text: 'YouTube',
-                    description: 'Place a video from a URL',
-                };
-            }
+        if (withFloatingAddMenu.specialEmbeds.includes(PlaceholderNode.Provider.YOUTUBE)) {
+            yield {
+                action: MenuAction.ADD_YOUTUBE,
+                icon: Icons.ComponentYouTube,
+                group: Group.SPECIFIC_EMBEDS,
+                text: 'YouTube',
+                description: 'Place a video from a URL',
+            };
         }
     }
 

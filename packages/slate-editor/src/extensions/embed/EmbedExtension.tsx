@@ -17,15 +17,9 @@ interface Parameters extends EmbedExtensionConfiguration {
 
 export const EXTENSION_ID = 'EmbedExtension';
 
-export enum Provider {
-    INSTAGRAM = 'instagram',
-    YOUTUBE = 'youtube',
-}
-
 export interface EmbedExtensionConfiguration {
     fetchOembed: (url: OEmbedInfo['url']) => Promise<OEmbedInfo>;
     showAsScreenshot: boolean;
-    providers: `${Provider}`[];
 }
 
 export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters): Extension => ({

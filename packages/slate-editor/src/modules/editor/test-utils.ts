@@ -39,7 +39,6 @@ export function getAllExtensions() {
             withEmbeds: {
                 fetchOembed,
                 showAsScreenshot: false,
-                providers: [],
             },
             withFloatingAddMenu: true,
             withGalleries: {},

@@ -312,7 +312,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withDivider,
         withTables: Boolean(withTables),
         withEmbedSocial: Boolean(withEmbeds),
-        withEmbeds,
+        withEmbeds: Boolean(withEmbeds),
         withGalleries: Boolean(withGalleries),
         withHeadings,
         withImages: Boolean(withImages),
@@ -323,6 +323,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withSnippets: Boolean(withSnippets),
         withVideos: Boolean(withVideos),
         withWebBookmarks: Boolean(withWebBookmarks),
+        withFloatingAddMenu,
     });
 
     const handleMenuAction = useFunction((option: Option<MenuAction>, query: string) => {
