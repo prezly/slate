@@ -8,7 +8,7 @@ export interface PlaceholderNode<T extends PlaceholderNode.Type = PlaceholderNod
     extends ElementNode {
     type: T;
     uuid: Uuid;
-    provider: `${PlaceholderNode.Provider}`;
+    provider?: `${PlaceholderNode.Provider}`;
 }
 
 export namespace PlaceholderNode {
