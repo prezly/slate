@@ -4,7 +4,7 @@ import {
     isContactNode,
     isCoverageNode,
     isDividerNode,
-    isEmbedNode,
+    EmbedNode,
     isGalleryNode,
     isHeadingNode,
     isHtmlNode,
@@ -32,7 +32,7 @@ export function isAllowedOnTopLevel(node: Node) {
         isCoverageNode(node) ||
         ButtonBlockNode.isButtonBlockNode(node) ||
         isDividerNode(node) ||
-        isEmbedNode(node) ||
+        EmbedNode.isEmbedNode(node) ||
         isGalleryNode(node) ||
         isHeadingNode(node) ||
         isHtmlNode(node) ||

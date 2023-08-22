@@ -5,7 +5,7 @@ import {
     CONTACT_NODE_TYPE,
     COVERAGE_NODE_TYPE,
     DIVIDER_NODE_TYPE,
-    EMBED_NODE_TYPE,
+    EmbedNode,
     GALLERY_NODE_TYPE,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
@@ -67,7 +67,7 @@ export const hierarchySchema: NodesHierarchySchema = {
             ]),
         ),
     ],
-    [EMBED_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [EmbedNode.TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [GALLERY_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [HEADING_1_NODE_TYPE]: [
         allowChildren(

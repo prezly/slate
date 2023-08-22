@@ -1,6 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
-import { EMBED_NODE_TYPE, isEmbedNode } from '@prezly/slate-types';
+import { EmbedNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -21,20 +21,20 @@ export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters)
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({
-            [EMBED_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
+            [EmbedNode.TYPE]: createDeserializeElement(parseSerializedElement),
         }),
     },
     isElementEqual: (node, another) => {
-        if (isEmbedNode(node) && isEmbedNode(another)) {
+        if (EmbedNode.isEmbedNode(node) && EmbedNode.isEmbedNode(another)) {
             return node.url === another.url && isEqual(node.oembed, another.oembed);
         }
         return undefined;
     },
-    isRichBlock: isEmbedNode,
-    isVoid: isEmbedNode,
+    isRichBlock: EmbedNode.isEmbedNode,
+    isVoid: EmbedNode.isEmbedNode,
     normalizeNode: normalizeRedundantEmbedAttributes,
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (isEmbedNode(element)) {
+        if (EmbedNode.isEmbedNode(element)) {
             return (
                 <>
                     <EmbedElement

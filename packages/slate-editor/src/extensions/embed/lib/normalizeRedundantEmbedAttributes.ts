@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isEmbedNode } from '@prezly/slate-types';
+import { EmbedNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
 import { createEmbed } from './createEmbed';
@@ -10,9 +10,12 @@ export function normalizeRedundantEmbedAttributes(
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean {
-    if (!isEmbedNode(node)) {
-        return false;
+    if (EmbedNode.isEmbedNode(node)) {
+        return EditorCommands.normalizeRedundantAttributes(
+            editor,
+            [node, path],
+            ALLOWED_ATTRIBUTES,
+        );
     }
-
-    return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
+    return false;
 }
