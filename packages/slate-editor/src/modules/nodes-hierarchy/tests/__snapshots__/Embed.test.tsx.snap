@@ -8,6 +8,7 @@ exports[`nodes-hierarchy / Embed should be kept after normalization 1`] = `
         "text": "",
       },
     ],
+    "layout": "contained",
     "oembed": {
       "cache_age": 86400,
       "description": "Invert rootTypes hierarchy normalization checks from child-to-parent to parent-to-child (see #213)",
