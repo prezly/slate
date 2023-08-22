@@ -211,20 +211,6 @@ export function PlaceholdersExtension({
                 );
             }
             if (withEmbedPlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.EMBED)) {
-                if (element.provider === PlaceholderNode.Provider.INSTAGRAM) {
-                    return (
-                        <EmbedPlaceholderElement
-                            attributes={attributes}
-                            element={element}
-                            fetchOembed={withEmbedPlaceholders.fetchOembed}
-                            format={format}
-                            removable={removable}
-                        >
-                            {children}
-                        </EmbedPlaceholderElement>
-                    );
-                }
-
                 return (
                     <EmbedPlaceholderElement
                         attributes={attributes}
@@ -339,20 +325,6 @@ export function PlaceholdersExtension({
                 );
             }
             if (withVideoPlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.VIDEO)) {
-                if (element.provider === PlaceholderNode.Provider.YOUTUBE) {
-                    return (
-                        <VideoPlaceholderElement
-                            attributes={attributes}
-                            element={element}
-                            fetchOembed={withVideoPlaceholders.fetchOembed}
-                            format={format}
-                            removable={removable}
-                        >
-                            {children}
-                        </VideoPlaceholderElement>
-                    );
-                }
-
                 return (
                     <VideoPlaceholderElement
                         attributes={attributes}

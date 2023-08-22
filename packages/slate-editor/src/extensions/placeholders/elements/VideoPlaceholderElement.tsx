@@ -18,7 +18,7 @@ import {
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
-import type { PlaceholderNode } from '../PlaceholderNode';
+import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
 
@@ -117,6 +117,28 @@ export function VideoPlaceholderElement({
         onTrigger: handleTrigger,
         onResolve: handleData,
     });
+
+    if (element.provider === PlaceholderNode.Provider.YOUTUBE) {
+        <InputPlaceholderElement
+            {...props}
+            element={element}
+            // Core
+            format={format}
+            icon={PlaceholderVideo}
+            title={Title}
+            description={Description}
+            // Input
+            inputTitle="Video"
+            inputDescription="Paste a video link or drop a video file (MP4, OGG or WEBM) inside this card"
+            inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
+            inputPlaceholder="https://youtube.com/video"
+            inputAction="Add video"
+            onDrop={handleDrop}
+            onSubmit={handleSubmit}
+        >
+            {children}
+        </InputPlaceholderElement>;
+    }
 
     return (
         <InputPlaceholderElement

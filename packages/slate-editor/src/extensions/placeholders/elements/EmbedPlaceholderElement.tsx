@@ -14,7 +14,7 @@ import {
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
-import type { PlaceholderNode } from '../PlaceholderNode';
+import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
 
@@ -78,6 +78,29 @@ export function EmbedPlaceholderElement({
         onTrigger: handleTrigger,
         onResolve: handleData,
     });
+
+    if (element.provider === PlaceholderNode.Provider.INSTAGRAM) {
+        return (
+            <InputPlaceholderElement
+                {...props}
+                element={element}
+                // Core
+                format={format}
+                icon={PlaceholderEmbed}
+                title={Title}
+                description={Description}
+                // Input
+                inputTitle="Embed"
+                inputDescription="Insert an embed URL and hit Enter"
+                inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
+                inputPlaceholder="media.giphy.com/GIF"
+                inputAction="Add embed"
+                onSubmit={handleSubmit}
+            >
+                {children}
+            </InputPlaceholderElement>
+        );
+    }
 
     return (
         <InputPlaceholderElement
