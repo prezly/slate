@@ -2,6 +2,7 @@ import type { Editor } from 'slate';
 
 import * as Icons from '#icons';
 
+import { type EmbedExtensionConfiguration, EmbedProvider } from '#extensions/embed';
 import type { Option } from '#extensions/floating-add-menu';
 import { UploadcareEditor } from '#modules/uploadcare';
 
@@ -42,7 +43,7 @@ interface Params {
     withCoverage: boolean;
     withDivider: boolean;
     withTables: boolean;
-    withEmbeds: boolean;
+    withEmbeds: boolean | EmbedExtensionConfiguration;
     withEmbedSocial: boolean;
     withGalleries: boolean;
     withHeadings: boolean;
@@ -202,14 +203,6 @@ function* generateOptions(
             text: 'Video',
             description: 'Place a video from a URL',
         };
-
-        yield {
-            action: MenuAction.ADD_YOUTUBE,
-            icon: Icons.ComponentVideo,
-            group: Group.MEDIA_CONTENT,
-            text: 'YouTube',
-            description: 'Place a YouTube content from a URL',
-        };
     }
 
     if (withEmbedSocial) {
@@ -254,14 +247,27 @@ function* generateOptions(
             isBeta: true,
         };
 
-        yield {
-            action: MenuAction.ADD_INSTAGRAM,
-            icon: Icons.ComponentEmbed,
-            group: Group.MEDIA_CONTENT,
-            text: 'Instagram',
-            description: 'Insert Instagram content',
-            isBeta: true,
-        };
+        if (typeof withEmbeds !== 'boolean') {
+            if (withEmbeds.providers.includes(EmbedProvider.INSTAGRAM)) {
+                yield {
+                    action: MenuAction.ADD_INSTAGRAM,
+                    icon: Icons.ComponentEmbed,
+                    group: Group.MEDIA_CONTENT,
+                    text: 'Instagram',
+                    description: 'Insert Instagram content',
+                };
+            }
+
+            if (withEmbeds.providers.includes(EmbedProvider.YOUTUBE)) {
+                yield {
+                    action: MenuAction.ADD_YOUTUBE,
+                    icon: Icons.ComponentVideo,
+                    group: Group.MEDIA_CONTENT,
+                    text: 'YouTube',
+                    description: 'Place a YouTube content from a URL',
+                };
+            }
+        }
     }
 
     if (withCoverage) {

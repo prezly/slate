@@ -312,7 +312,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withDivider,
         withTables: Boolean(withTables),
         withEmbedSocial: Boolean(withEmbeds),
-        withEmbeds: Boolean(withEmbeds),
+        withEmbeds,
         withGalleries: Boolean(withGalleries),
         withHeadings,
         withImages: Boolean(withImages),
