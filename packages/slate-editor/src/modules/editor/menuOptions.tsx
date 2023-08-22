@@ -251,20 +251,20 @@ function* generateOptions(
             if (withEmbeds.providers.includes(EmbedProvider.INSTAGRAM)) {
                 yield {
                     action: MenuAction.ADD_INSTAGRAM,
-                    icon: Icons.ComponentEmbed,
+                    icon: Icons.ComponentInstagram,
                     group: Group.MEDIA_CONTENT,
                     text: 'Instagram',
-                    description: 'Insert Instagram content',
+                    description: 'Embed a social media link',
                 };
             }
 
             if (withEmbeds.providers.includes(EmbedProvider.YOUTUBE)) {
                 yield {
                     action: MenuAction.ADD_YOUTUBE,
-                    icon: Icons.ComponentVideo,
+                    icon: Icons.ComponentYouTube,
                     group: Group.MEDIA_CONTENT,
                     text: 'YouTube',
-                    description: 'Place a YouTube content from a URL',
+                    description: 'Place a video from a URL',
                 };
             }
         }
