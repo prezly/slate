@@ -398,6 +398,19 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
+        if (action === MenuAction.ADD_INSTAGRAM) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.EMBED,
+                    provider: PlaceholderNode.Provider.INSTAGRAM,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
             const placeholder = insertPlaceholder(
                 editor,
@@ -454,6 +467,19 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             const placeholder = insertPlaceholder(
                 editor,
                 { type: PlaceholderNode.Type.VIDEO },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_YOUTUBE) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.VIDEO,
+                    provider: PlaceholderNode.Provider.YOUTUBE,
+                },
                 true,
             );
             PlaceholdersManager.trigger(placeholder);

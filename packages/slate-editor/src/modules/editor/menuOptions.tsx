@@ -13,6 +13,7 @@ export enum MenuAction {
     ADD_DIVIDER = 'add_divider',
     ADD_TABLE = 'add_table',
     ADD_EMBED = 'add_embed',
+    ADD_INSTAGRAM = 'add_instagram',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
     ADD_HEADING_1 = 'add_heading_1',
@@ -21,6 +22,7 @@ export enum MenuAction {
     ADD_PARAGRAPH = 'add_paragraph',
     ADD_QUOTE = 'add_quote',
     ADD_VIDEO = 'add_video',
+    ADD_YOUTUBE = 'add_youtube',
     ADD_WEB_BOOKMARK = 'add_web_bookmark',
     ADD_STORY_EMBED = 'add_story_embed',
     ADD_STORY_BOOKMARK = 'add_story_bookmark',
@@ -202,11 +204,11 @@ function* generateOptions(
         };
 
         yield {
-            action: MenuAction.ADD_VIDEO,
+            action: MenuAction.ADD_YOUTUBE,
             icon: Icons.ComponentVideo,
             group: Group.MEDIA_CONTENT,
-            text: 'Youtube',
-            description: 'Place a Youtube content from a URL',
+            text: 'YouTube',
+            description: 'Place a YouTube content from a URL',
         };
     }
 
@@ -253,7 +255,7 @@ function* generateOptions(
         };
 
         yield {
-            action: MenuAction.ADD_EMBED,
+            action: MenuAction.ADD_INSTAGRAM,
             icon: Icons.ComponentEmbed,
             group: Group.MEDIA_CONTENT,
             text: 'Instagram',
