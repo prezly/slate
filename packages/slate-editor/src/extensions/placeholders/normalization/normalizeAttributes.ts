@@ -7,6 +7,7 @@ const SHAPE = {
     uuid: true,
     type: true,
     children: true,
+    provider: true,
 } satisfies Record<keyof PlaceholderNode, boolean>;
 
 const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
