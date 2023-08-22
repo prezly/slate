@@ -8,9 +8,15 @@ export interface PlaceholderNode<T extends PlaceholderNode.Type = PlaceholderNod
     extends ElementNode {
     type: T;
     uuid: Uuid;
+    provider: `${PlaceholderNode.Provider}`;
 }
 
 export namespace PlaceholderNode {
+    export enum Provider {
+        YOUTUBE = 'youtube',
+        INSTAGRAM = 'instagram',
+    }
+
     export enum Type {
         ATTACHMENT = 'placeholder:attachment',
         CONTACT = 'placeholder:contact',
