@@ -20,4 +20,5 @@ export interface ExtensionConfiguration {
         placement: 'top' | 'right' | 'bottom' | 'left';
         content: ReactNode;
     };
+    withSpecificProviderOptions?: boolean;
 }
