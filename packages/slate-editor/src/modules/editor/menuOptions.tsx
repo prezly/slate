@@ -33,6 +33,7 @@ export enum MenuAction {
 enum Group {
     TEXT_N_LAYOUT = 'Text & layout',
     MEDIA_CONTENT = 'Media content',
+    SPECIFIC_EMBEDS = 'Specific embeds',
     PREZLY_CONTENT = 'Prezly content',
 }
 
@@ -252,7 +253,7 @@ function* generateOptions(
                 yield {
                     action: MenuAction.ADD_INSTAGRAM,
                     icon: Icons.ComponentInstagram,
-                    group: Group.MEDIA_CONTENT,
+                    group: Group.SPECIFIC_EMBEDS,
                     text: 'Instagram',
                     description: 'Embed a social media link',
                 };
@@ -262,7 +263,7 @@ function* generateOptions(
                 yield {
                     action: MenuAction.ADD_YOUTUBE,
                     icon: Icons.ComponentYouTube,
-                    group: Group.MEDIA_CONTENT,
+                    group: Group.SPECIFIC_EMBEDS,
                     text: 'YouTube',
                     description: 'Place a video from a URL',
                 };
