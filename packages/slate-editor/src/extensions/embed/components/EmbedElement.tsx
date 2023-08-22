@@ -1,4 +1,3 @@
-import type { EmbedNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -7,6 +6,8 @@ import { EditorBlock, HtmlInjection, ImageWithLoadingPlaceholder } from '#compon
 import { Embed } from '#icons';
 
 import { BookmarkCard } from '#modules/components';
+
+import type { EmbedNode } from '../EmbedNode';
 
 import styles from './EmbedElement.module.scss';
 

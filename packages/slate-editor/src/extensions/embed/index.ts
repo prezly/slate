@@ -1,4 +1,9 @@
-export { EmbedExtension, EXTENSION_ID } from './EmbedExtension';
+export {
+    EXTENSION_ID,
+    EmbedExtension,
+    type EmbedExtensionConfiguration,
+    Provider as EmbedProvider,
+} from './EmbedExtension';
 
 export { createEmbed } from './lib';
-export { type EmbedExtensionConfiguration, Provider as EmbedProvider } from './types';
+export { EmbedNode } from './EmbedNode';

@@ -4,7 +4,6 @@ import {
     isContactNode,
     isCoverageNode,
     isDividerNode,
-    isEmbedNode,
     isGalleryNode,
     isHeadingNode,
     isHtmlNode,
@@ -20,6 +19,7 @@ import {
 import type { Node } from 'slate';
 
 import { ButtonBlockNode } from '#extensions/button-block';
+import { EmbedNode } from '#extensions/embed';
 import { isImageCandidateElement } from '#extensions/image';
 import { isLoaderElement } from '#extensions/loader';
 import { PlaceholderNode } from '#extensions/placeholders';
@@ -32,7 +32,7 @@ export function isAllowedOnTopLevel(node: Node) {
         isCoverageNode(node) ||
         ButtonBlockNode.isButtonBlockNode(node) ||
         isDividerNode(node) ||
-        isEmbedNode(node) ||
+        EmbedNode.isEmbedNode(node) ||
         isGalleryNode(node) ||
         isHeadingNode(node) ||
         isHtmlNode(node) ||

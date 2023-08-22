@@ -1,11 +1,10 @@
-import type { EmbedNode } from '@prezly/slate-types';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderEmbed } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
-import { createEmbed } from '#extensions/embed';
+import { createEmbed, type EmbedNode } from '#extensions/embed';
 import { EventsEditor } from '#modules/events';
 
 import {
@@ -64,14 +63,15 @@ export function EmbedPlaceholderElement({
 
     const handleData = useFunction(
         (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
-            if (!data.oembed) {
-                EventsEditor.dispatchEvent(editor, 'notification', {
-                    children: 'Provided URL does not exist or is not supported.',
-                    type: 'error',
-                });
+            const { url, oembed } = data;
+            if (oembed) {
+                replacePlaceholder(editor, element, createEmbed({ url, oembed }));
                 return;
             }
-            replacePlaceholder(editor, element, createEmbed(data.oembed, data.url));
+            EventsEditor.dispatchEvent(editor, 'notification', {
+                children: 'Provided URL does not exist or is not supported.',
+                type: 'error',
+            });
         },
     );
     usePlaceholderManagement(element.type, element.uuid, {

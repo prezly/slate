@@ -1,18 +1,29 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { isEmbedNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
 
-import { createEmbed } from './createEmbed';
+import { EmbedNode } from '../EmbedNode';
 
-const ALLOWED_ATTRIBUTES = Object.keys(createEmbed({ type: 'link', url: '', version: '1.0' }, ''));
+const SHAPE: Record<keyof EmbedNode, boolean> = {
+    type: true,
+    uuid: true,
+    url: true,
+    oembed: true,
+    layout: true,
+    children: true,
+};
+
+const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
 
 export function normalizeRedundantEmbedAttributes(
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean {
-    if (!isEmbedNode(node)) {
-        return false;
+    if (EmbedNode.isEmbedNode(node)) {
+        return EditorCommands.normalizeRedundantAttributes(
+            editor,
+            [node, path],
+            ALLOWED_ATTRIBUTES,
+        );
     }
-
-    return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
+    return false;
 }
