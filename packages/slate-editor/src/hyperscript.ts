@@ -7,7 +7,6 @@ import type {
     CoverageNode,
     DividerNode,
     ElementNode,
-    EmbedNode,
     GalleryNode,
     HeadingNode,
     HtmlNode,
@@ -49,7 +48,7 @@ import { withReact } from 'slate-react';
 import { BlockquoteExtension, createBlockquote } from '#extensions/blockquote';
 import { createCoverage } from '#extensions/coverage';
 import { createDivider } from '#extensions/divider';
-import { createEmbed } from '#extensions/embed';
+import { createEmbed, type EmbedNode } from '#extensions/embed';
 import { createFileAttachment } from '#extensions/file-attachment';
 import { createGallery } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
@@ -139,7 +138,7 @@ const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
     'h:contact': initCreator((props: ContactNode) => createContactNode(props)),
     'h:coverage': initCreator((props: CoverageNode) => createCoverage(props.coverage.id, props)),
     'h:divider': initCreator(() => createDivider()),
-    'h:embed': initCreator((props: EmbedNode) => createEmbed(props.oembed, props.url)),
+    'h:embed': initCreator((props: EmbedNode) => createEmbed(props)),
     'h:gallery': initCreator((props: GalleryNode) => createGallery(props)),
     'h:h1': initCreator((props: HeadingNode) => createHeading({ ...props, type: 'heading-one' })),
     'h:h2': initCreator((props: HeadingNode) => createHeading({ ...props, type: 'heading-two' })),

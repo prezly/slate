@@ -5,7 +5,6 @@ import {
     CONTACT_NODE_TYPE,
     COVERAGE_NODE_TYPE,
     DIVIDER_NODE_TYPE,
-    EMBED_NODE_TYPE,
     GALLERY_NODE_TYPE,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
@@ -24,6 +23,7 @@ import {
 } from '@prezly/slate-types';
 import { Text, Transforms } from 'slate';
 
+import { EmbedNode } from '#extensions/embed';
 import { LOADER_NODE_TYPE } from '#extensions/loader';
 
 import * as fixers from './fixers';
@@ -67,7 +67,7 @@ export const hierarchySchema: NodesHierarchySchema = {
             ]),
         ),
     ],
-    [EMBED_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [EmbedNode.TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [GALLERY_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [HEADING_1_NODE_TYPE]: [
         allowChildren(

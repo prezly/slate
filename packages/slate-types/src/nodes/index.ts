@@ -6,7 +6,6 @@ export * from './CoverageNode';
 export * from './DividerNode';
 export * from './DocumentNode';
 export * from './ElementNode';
-export * from './EmbedNode';
 export * from './GalleryNode';
 export * from './HeadingNode';
 export * from './HtmlNode';
