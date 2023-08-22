@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { EmbedNode } from '@prezly/slate-types';
 import type { Editor, NodeEntry } from 'slate';
+
+import { EmbedNode } from '../EmbedNode';
 
 import { createEmbed } from './createEmbed';
 

@@ -5,7 +5,6 @@ import {
     CONTACT_NODE_TYPE,
     COVERAGE_NODE_TYPE,
     DIVIDER_NODE_TYPE,
-    EmbedNode,
     GALLERY_NODE_TYPE,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
@@ -24,6 +23,7 @@ import {
 } from '@prezly/slate-types';
 import { Text, Transforms } from 'slate';
 
+import { EmbedNode } from '#extensions/embed';
 import { LOADER_NODE_TYPE } from '#extensions/loader';
 
 import * as fixers from './fixers';

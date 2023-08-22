@@ -1,7 +1,5 @@
 import type { OEmbedInfo } from '@prezly/sdk';
-
-import type { ElementNode } from './ElementNode';
-import { isElementNode } from './ElementNode';
+import { isElementNode, type ElementNode } from '@prezly/slate-types';
 
 export interface EmbedNode extends ElementNode {
     type: typeof EmbedNode.TYPE;

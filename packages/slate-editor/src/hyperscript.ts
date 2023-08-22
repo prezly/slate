@@ -7,7 +7,6 @@ import type {
     CoverageNode,
     DividerNode,
     ElementNode,
-    EmbedNode,
     GalleryNode,
     HeadingNode,
     HtmlNode,
@@ -49,7 +48,7 @@ import { withReact } from 'slate-react';
 import { BlockquoteExtension, createBlockquote } from '#extensions/blockquote';
 import { createCoverage } from '#extensions/coverage';
 import { createDivider } from '#extensions/divider';
-import { createEmbed } from '#extensions/embed';
+import { createEmbed, type EmbedNode } from '#extensions/embed';
 import { createFileAttachment } from '#extensions/file-attachment';
 import { createGallery } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';

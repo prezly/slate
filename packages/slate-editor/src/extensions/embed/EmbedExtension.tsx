@@ -1,6 +1,6 @@
+import type { OEmbedInfo } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
-import { EmbedNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -8,14 +8,19 @@ import type { RenderElementProps } from 'slate-react';
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { EmbedElement } from './components';
+import { EmbedNode } from './EmbedNode';
 import { normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
-import type { EmbedExtensionConfiguration } from './types';
 
 interface Parameters extends EmbedExtensionConfiguration {
     availableWidth: number;
 }
 
 export const EXTENSION_ID = 'EmbedExtension';
+
+export interface EmbedExtensionConfiguration {
+    fetchOembed: (url: OEmbedInfo['url']) => Promise<OEmbedInfo>;
+    showAsScreenshot: boolean;
+}
 
 export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters): Extension => ({
     id: EXTENSION_ID,
