@@ -200,6 +200,14 @@ function* generateOptions(
             text: 'Video',
             description: 'Place a video from a URL',
         };
+
+        yield {
+            action: MenuAction.ADD_VIDEO,
+            icon: Icons.ComponentVideo,
+            group: Group.MEDIA_CONTENT,
+            text: 'Youtube',
+            description: 'Place a Youtube content from a URL',
+        };
     }
 
     if (withEmbedSocial) {
@@ -241,6 +249,15 @@ function* generateOptions(
             group: Group.MEDIA_CONTENT,
             text: 'Embed',
             description: 'Insert embeddable content',
+            isBeta: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_EMBED,
+            icon: Icons.ComponentEmbed,
+            group: Group.MEDIA_CONTENT,
+            text: 'Instagram',
+            description: 'Insert Instagram content',
             isBeta: true,
         };
     }
