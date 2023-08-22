@@ -118,49 +118,54 @@ export function VideoPlaceholderElement({
         onResolve: handleData,
     });
 
-    if (element.provider === PlaceholderNode.Provider.YOUTUBE) {
-        <InputPlaceholderElement
-            {...props}
-            element={element}
-            // Core
-            format={format}
-            icon={PlaceholderVideo}
-            title={Title}
-            description={Description}
-            // Input
-            inputTitle="Video"
-            inputDescription="Paste a video link or drop a video file (MP4, OGG or WEBM) inside this card"
-            inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
-            inputPlaceholder="https://youtube.com/video"
-            inputAction="Add video"
-            onDrop={handleDrop}
-            onSubmit={handleSubmit}
-        >
-            {children}
-        </InputPlaceholderElement>;
+    function render(
+        override: {
+            title?: string;
+            description?: string;
+            placeholder?: string;
+            action?: string;
+        } = {},
+    ) {
+        const {
+            title = 'Video',
+            description = 'Paste a video link or drop a video file (MP4, OGG or WEBM) inside this card',
+            placeholder = 'https://youtube.com/video',
+            action = 'Add video',
+        } = override;
+
+        return (
+            <InputPlaceholderElement
+                {...props}
+                element={element}
+                // Core
+                format={format}
+                icon={PlaceholderVideo}
+                title={Title}
+                description={Description}
+                // Input
+                inputTitle={title}
+                inputDescription={description}
+                inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
+                inputPlaceholder={placeholder}
+                inputAction={action}
+                onDrop={handleDrop}
+                onSubmit={handleSubmit}
+            >
+                {children}
+            </InputPlaceholderElement>
+        );
     }
 
-    return (
-        <InputPlaceholderElement
-            {...props}
-            element={element}
-            // Core
-            format={format}
-            icon={PlaceholderVideo}
-            title={Title}
-            description={Description}
-            // Input
-            inputTitle="Video"
-            inputDescription="Paste a video link or drop a video file (MP4, OGG or WEBM) inside this card"
-            inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
-            inputPlaceholder="https://youtube.com/video"
-            inputAction="Add video"
-            onDrop={handleDrop}
-            onSubmit={handleSubmit}
-        >
-            {children}
-        </InputPlaceholderElement>
-    );
+    if (element.provider === PlaceholderNode.Provider.YOUTUBE) {
+        return render({
+            action: 'Add',
+            description: 'Insert a YouTube URL and hit enter',
+            placeholder: 'https://youtube.com/video',
+            title: 'YouTube',
+        });
+    }
+
+    return render();
 }
 
 function Title(props: { isDragOver: boolean; isLoading: boolean }) {

@@ -79,7 +79,21 @@ export function EmbedPlaceholderElement({
         onResolve: handleData,
     });
 
-    if (element.provider === PlaceholderNode.Provider.INSTAGRAM) {
+    function render(
+        override: {
+            title?: string;
+            description?: string;
+            placeholder?: string;
+            action?: string;
+        } = {},
+    ) {
+        const {
+            title = 'Embed',
+            description = 'Insert an embed URL and hit Enter',
+            placeholder = 'media.giphy.com/GIF',
+            action = 'Add embed',
+        } = override;
+
         return (
             <InputPlaceholderElement
                 {...props}
@@ -90,11 +104,11 @@ export function EmbedPlaceholderElement({
                 title={Title}
                 description={Description}
                 // Input
-                inputTitle="Embed"
-                inputDescription="Insert an embed URL and hit Enter"
+                inputTitle={title}
+                inputDescription={description}
                 inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
-                inputPlaceholder="media.giphy.com/GIF"
-                inputAction="Add embed"
+                inputPlaceholder={placeholder}
+                inputAction={action}
                 onSubmit={handleSubmit}
             >
                 {children}
@@ -102,26 +116,16 @@ export function EmbedPlaceholderElement({
         );
     }
 
-    return (
-        <InputPlaceholderElement
-            {...props}
-            element={element}
-            // Core
-            format={format}
-            icon={PlaceholderEmbed}
-            title={Title}
-            description={Description}
-            // Input
-            inputTitle="Embed"
-            inputDescription="Insert an embed URL and hit Enter"
-            inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
-            inputPlaceholder="media.giphy.com/GIF"
-            inputAction="Add embed"
-            onSubmit={handleSubmit}
-        >
-            {children}
-        </InputPlaceholderElement>
-    );
+    if (element.provider === PlaceholderNode.Provider.INSTAGRAM) {
+        return render({
+            title: 'Instagram',
+            description: 'Insert an Instagram URL and hit Enter',
+            placeholder: 'https://www.instagram.com/p/Cr-y_XyOyL9/',
+            action: 'Embed',
+        });
+    }
+
+    return render();
 }
 
 function Title(props: { isLoading: boolean }) {
