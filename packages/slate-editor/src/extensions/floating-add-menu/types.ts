@@ -1,7 +1,5 @@
 import type { ComponentType, ReactNode } from 'react';
 
-import type { PlaceholderNode } from '#extensions/placeholders';
-
 type Order = number;
 
 export interface Option<Action> {
@@ -22,5 +20,5 @@ export interface ExtensionConfiguration {
         placement: 'top' | 'right' | 'bottom' | 'left';
         content: ReactNode;
     };
-    specialEmbeds?: `${PlaceholderNode.Provider}`[];
+    withSpecificProviderOptions?: boolean;
 }

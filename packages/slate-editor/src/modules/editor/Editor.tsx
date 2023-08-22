@@ -304,6 +304,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         onKeyDownList.push(userMentions.onKeyDown);
     }
 
+    const withSpecificProviderOptions =
+        typeof withFloatingAddMenu === 'object'
+            ? withFloatingAddMenu.withSpecificProviderOptions
+            : false;
+
     const menuOptions = generateFloatingAddMenuOptions(editor, {
         withAttachments,
         withBlockquotes,
@@ -323,7 +328,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withSnippets: Boolean(withSnippets),
         withVideos: Boolean(withVideos),
         withWebBookmarks: Boolean(withWebBookmarks),
-        withFloatingAddMenu,
+        withSpecificProviderOptions,
     });
 
     const handleMenuAction = useFunction((option: Option<MenuAction>, query: string) => {
