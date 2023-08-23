@@ -2,7 +2,7 @@ import type { VideoNode } from '@prezly/slate-types';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UploadcareFile } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
-import type { ComponentPropsWithoutRef, DragEvent } from 'react';
+import type { DragEvent } from 'react';
 import React from 'react';
 import { useSlateStatic } from 'slate-react';
 
@@ -121,7 +121,7 @@ export function VideoPlaceholderElement({
     function render(
         override: Partial<
             Pick<
-                ComponentPropsWithoutRef<typeof InputPlaceholderElement>,
+                BaseProps,
                 | 'inputTitle'
                 | 'inputAction'
                 | 'inputDescription'
@@ -177,13 +177,15 @@ export function VideoPlaceholderElement({
     return render();
 }
 
-interface TitleProps {
+function Title({
+    isLoading,
+    isDragOver,
+    text = 'Drag or click to upload a video',
+}: {
     isDragOver: boolean;
     isLoading: boolean;
     text?: string;
-}
-
-function Title({ isLoading, isDragOver, text = 'Drag or click to upload a video' }: TitleProps) {
+}) {
     if (isLoading) {
         return <>{withLoadingDots('Uploading video')}</>;
     }
@@ -193,15 +195,13 @@ function Title({ isLoading, isDragOver, text = 'Drag or click to upload a video'
     return <>{text}</>;
 }
 
-interface DescriptionProps {
-    isLoading: boolean;
-    text?: string;
-}
-
 function Description({
     isLoading,
     text = 'Drop a video file (MP4, OGG or WEBM) or click to insert a video URL',
-}: DescriptionProps) {
+}: {
+    isLoading: boolean;
+    text?: string;
+}) {
     if (isLoading) {
         return null;
     }
