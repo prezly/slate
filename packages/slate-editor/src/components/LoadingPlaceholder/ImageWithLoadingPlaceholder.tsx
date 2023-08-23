@@ -48,12 +48,7 @@ export const ImageWithLoadingPlaceholder = forwardRef<HTMLDivElement, Props>((pr
         ...attributes
     } = props;
 
-    const {
-        loading: isLoading,
-        loaded: isLoaded,
-        width: actualWidth,
-        height: actualHeight,
-    } = useImage(src);
+    const { isLoading, isLoaded, width: actualWidth, height: actualHeight } = useImage(src);
 
     const imageWidth = actualWidth ?? predictedWidth ?? 0;
     const imageHeight = actualHeight ?? predictedHeight ?? 0;

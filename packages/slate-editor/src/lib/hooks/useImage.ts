@@ -7,15 +7,15 @@ interface ImageData {
 
 type State = {
     error: Error | undefined;
-    loading: boolean;
+    isLoading: boolean;
 } & (
-    | { loaded: true; src: string; width: number; height: number }
-    | { loaded: false; src: undefined; width: undefined; height: undefined }
+    | { isLoaded: true; src: string; width: number; height: number }
+    | { isLoaded: false; src: undefined; width: undefined; height: undefined }
 );
 
 export function useImage(src: string): State {
     const [error, setError] = useState<Error>();
-    const [loading, setLoading] = useState(() => isLoaded(src));
+    const [isLoading, setLoading] = useState(() => !isImageAlreadyLoaded(src));
     const [data, setData] = useState<ImageData>();
 
     useEffect(() => {
@@ -64,9 +64,9 @@ export function useImage(src: string): State {
 
     if (data) {
         return {
-            loading: false,
+            isLoading: false,
             error: undefined,
-            loaded: true,
+            isLoaded: true,
             src,
             width: data.width,
             height: data.height,
@@ -74,16 +74,16 @@ export function useImage(src: string): State {
     }
 
     return {
-        loading,
+        isLoading,
         error,
-        loaded: false,
+        isLoaded: false,
         src: undefined,
         width: undefined,
         height: undefined,
     };
 }
 
-function isLoaded(src: string) {
+function isImageAlreadyLoaded(src: string) {
     const image = new Image();
     image.src = src;
     return image.complete;
