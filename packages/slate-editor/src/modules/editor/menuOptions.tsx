@@ -210,6 +210,8 @@ function* generateOptions(
     if (withVideos && withSpecificProviderOptions) {
         yield {
             action: MenuAction.ADD_YOUTUBE,
+            isNew: true,
+            keywords: ['video', 'yt'],
             icon: Icons.ComponentYouTube,
             group: Group.SPECIFIC_EMBEDS,
             text: 'YouTube',
