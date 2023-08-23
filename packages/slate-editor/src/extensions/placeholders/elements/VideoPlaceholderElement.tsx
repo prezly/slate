@@ -119,18 +119,25 @@ export function VideoPlaceholderElement({
     });
 
     function render(
-        override: {
-            title?: string;
-            description?: string;
-            placeholder?: string;
-            action?: string;
-        } = {},
+        override: Partial<
+            Pick<
+                BaseProps,
+                | 'inputTitle'
+                | 'inputAction'
+                | 'inputDescription'
+                | 'inputPlaceholder'
+                | 'title'
+                | 'description'
+            >
+        > = {},
     ) {
         const {
-            title = 'Video',
-            description = 'Paste a video link or drop a video file (MP4, OGG or WEBM) inside this card',
-            placeholder = 'https://youtube.com/video',
-            action = 'Add video',
+            inputTitle = 'Video',
+            inputDescription = 'Paste a video link or drop a video file (MP4, OGG or WEBM) inside this card',
+            inputPlaceholder = 'https://youtube.com/video',
+            inputAction = 'Add video',
+            title = Title,
+            description = Description,
         } = override;
 
         return (
@@ -140,14 +147,14 @@ export function VideoPlaceholderElement({
                 // Core
                 format={format}
                 icon={PlaceholderVideo}
-                title={Title}
-                description={Description}
+                title={title}
+                description={description}
                 // Input
-                inputTitle={title}
-                inputDescription={description}
+                inputTitle={inputTitle}
+                inputDescription={inputDescription}
                 inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
-                inputPlaceholder={placeholder}
-                inputAction={action}
+                inputPlaceholder={inputPlaceholder}
+                inputAction={inputAction}
                 onDrop={handleDrop}
                 onSubmit={handleSubmit}
             >
@@ -158,29 +165,45 @@ export function VideoPlaceholderElement({
 
     if (element.provider === PlaceholderNode.Provider.YOUTUBE) {
         return render({
-            action: 'Add',
-            description: 'Insert a YouTube URL and hit enter',
-            placeholder: 'https://youtube.com/video',
-            title: 'YouTube',
+            inputAction: 'Add video',
+            inputDescription: 'Paste a video link and hit Enter',
+            inputPlaceholder: 'https://youtube.com/video',
+            inputTitle: 'YouTube video',
+            title: (props) => <Title {...props} text="Click to insert a YouTube video" />,
+            description: (props) => <Description {...props} text="Add using a video share link" />,
         });
     }
 
     return render();
 }
 
-function Title(props: { isDragOver: boolean; isLoading: boolean }) {
-    if (props.isLoading) {
+function Title({
+    isLoading,
+    isDragOver,
+    text = 'Drag or click to upload a video',
+}: {
+    isDragOver: boolean;
+    isLoading: boolean;
+    text?: string;
+}) {
+    if (isLoading) {
         return <>{withLoadingDots('Uploading video')}</>;
     }
-    if (props.isDragOver) {
+    if (isDragOver) {
         return <>Drop a video here</>;
     }
-    return <>Drag or click to upload a video</>;
+    return <>{text}</>;
 }
 
-function Description(props: { isLoading: boolean }) {
-    if (props.isLoading) {
+function Description({
+    isLoading,
+    text = 'Drop a video file (MP4, OGG or WEBM) or click to insert a video URL',
+}: {
+    isLoading: boolean;
+    text?: string;
+}) {
+    if (isLoading) {
         return null;
     }
-    return <>Drop a video file (MP4, OGG or WEBM) or click to insert a video URL</>;
+    return <>{text}</>;
 }
