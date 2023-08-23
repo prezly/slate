@@ -39,10 +39,7 @@ export function useImage(src: string): State {
         function onError() {
             setLoading(false);
             setError(error);
-            setData({
-                width: image.naturalWidth,
-                height: image.naturalHeight,
-            });
+            setData(undefined);
         }
 
         image.addEventListener('load', onLoaded);
