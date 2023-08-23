@@ -19,48 +19,46 @@ export function useImage(src: string): State {
     const [data, setData] = useState<ImageData>();
 
     useEffect(() => {
-        let cancelled = false;
-
         const image = new Image();
 
-        image.addEventListener('load', () => {
-            if (cancelled) return;
+        function onStartLoading() {
+            setLoading(true);
+            setError(undefined);
+            setData(undefined);
+        }
 
+        function onLoaded() {
             setLoading(false);
             setError(undefined);
             setData({
                 width: image.naturalWidth,
                 height: image.naturalHeight,
             });
-        });
-        image.addEventListener('error', () => {
-            if (cancelled) return;
+        }
 
+        function onError() {
             setLoading(false);
             setError(error);
             setData({
                 width: image.naturalWidth,
                 height: image.naturalHeight,
             });
-        });
+        }
+
+        image.addEventListener('load', onLoaded);
+        image.addEventListener('error', onError);
 
         image.src = src;
 
         if (image.complete) {
-            setLoading(false);
-            setError(undefined);
-            setData({
-                width: image.naturalWidth,
-                height: image.naturalHeight,
-            });
+            onLoaded();
         } else {
-            setLoading(true);
-            setError(undefined);
-            setData(undefined);
+            onStartLoading();
         }
 
         return () => {
-            cancelled = true;
+            image.removeEventListener('load', onLoaded);
+            image.removeEventListener('error', onError);
         };
     }, [src]);
 
