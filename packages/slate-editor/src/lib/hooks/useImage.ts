@@ -1,30 +1,92 @@
-import { useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
-import { fetchImageWithProgress } from '../fetchImageWithProgress';
-import { isCorsEnabledOrigin } from '../isCorsEnabledOrigin';
-
-import { useAsyncProgress } from './useAsyncProgress';
-
-type OriginalURIOrBlobDataURI = string;
-
-interface State {
-    error?: Error;
-    loading: boolean;
-    progress: number | undefined;
-    loaded: boolean;
-    url: OriginalURIOrBlobDataURI | undefined;
+interface ImageData {
+    width: number;
+    height: number;
 }
 
+type State = {
+    error: Error | undefined;
+    loading: boolean;
+} & (
+    | { loaded: true; src: string; width: number; height: number }
+    | { loaded: false; src: undefined; width: undefined; height: undefined }
+);
+
 export function useImage(src: string): State {
-    const fetchImage = useCallback(() => fetchImageWithProgress(src), [src]);
-    const { error, loading, progress, value } = useAsyncProgress(fetchImage);
+    const [error, setError] = useState<Error>();
+    const [loading, setLoading] = useState(() => isLoaded(src));
+    const [data, setData] = useState<ImageData>();
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const image = new Image();
+
+        image.addEventListener('load', () => {
+            if (cancelled) return;
+
+            setLoading(false);
+            setError(undefined);
+            setData({
+                width: image.naturalWidth,
+                height: image.naturalHeight,
+            });
+        });
+        image.addEventListener('error', () => {
+            if (cancelled) return;
+
+            setLoading(false);
+            setError(error);
+            setData({
+                width: image.naturalWidth,
+                height: image.naturalHeight,
+            });
+        });
+
+        image.src = src;
+
+        if (image.complete) {
+            setLoading(false);
+            setError(undefined);
+            setData({
+                width: image.naturalWidth,
+                height: image.naturalHeight,
+            });
+        } else {
+            setLoading(true);
+            setError(undefined);
+            setData(undefined);
+        }
+
+        return () => {
+            cancelled = true;
+        };
+    }, [src]);
+
+    if (data) {
+        return {
+            loading: false,
+            error: undefined,
+            loaded: true,
+            src,
+            width: data.width,
+            height: data.height,
+        };
+    }
+
     return {
-        error,
         loading,
-        // We can't track progress for unsupported origins and this way we can rely
-        // on the <ImageWithLoadingPlaceholder> component to estimate the progress.
-        progress: isCorsEnabledOrigin(src) ? progress : undefined,
-        loaded: Boolean(value),
-        url: value,
+        error,
+        loaded: false,
+        src: undefined,
+        width: undefined,
+        height: undefined,
     };
+}
+
+function isLoaded(src: string) {
+    const image = new Image();
+    image.src = src;
+    return image.complete;
 }

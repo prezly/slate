@@ -10,11 +10,11 @@ import { LoadingPlaceholder } from './LoadingPlaceholder';
 
 interface Props
     extends Omit<HTMLAttributes<HTMLDivElement>, 'placeholder'>,
-        Pick<LoadingPlaceholderProps, 'icon' | 'description' | 'estimatedDuration' | 'progress'>,
+        Pick<LoadingPlaceholderProps, 'icon' | 'description' | 'estimatedDuration'>,
         Pick<ImgHTMLAttributes<HTMLImageElement>, 'alt'> {
     src: string;
-    imageWidth: number;
-    imageHeight: number;
+    imageWidth: number | undefined;
+    imageHeight: number | undefined;
     onStartLoading?: () => void;
     onLoad?: () => void;
 }
@@ -30,25 +30,38 @@ const LOADING_CALLBACK_DEBOUNCE = 50;
 // 2 seconds seems like a reasonable average.
 const ESTIMATED_LOADING_DURATION = 2000;
 
+const FALLBACK_ASPECT_RATIO = 16 / 10;
+
 export const ImageWithLoadingPlaceholder = forwardRef<HTMLDivElement, Props>((props, ref) => {
     const {
         // Placeholder
         icon = false,
         description = false,
         estimatedDuration = ESTIMATED_LOADING_DURATION,
-        progress: reportedProgress = 'auto',
         // Image
         src,
         alt,
-        imageWidth,
-        imageHeight,
+        imageWidth: predictedWidth,
+        imageHeight: predictedHeight,
         onStartLoading,
         onLoad,
         ...attributes
     } = props;
-    const aspectRatio = imageHeight ? imageWidth / imageHeight : undefined;
+
+    const {
+        loading: isLoading,
+        loaded: isLoaded,
+        width: actualWidth,
+        height: actualHeight,
+    } = useImage(src);
+
+    const imageWidth = actualWidth ?? predictedWidth ?? 0;
+    const imageHeight = actualHeight ?? predictedHeight ?? 0;
+
+    const aspectRatio =
+        imageWidth > 0 && imageHeight > 0 ? imageWidth / imageHeight : FALLBACK_ASPECT_RATIO;
+
     const callbacks = useLatest({ onStartLoading, onLoad });
-    const { progress, loading: isLoading, loaded: isLoaded } = useImage(src);
 
     useEffect(
         function () {
@@ -86,7 +99,7 @@ export const ImageWithLoadingPlaceholder = forwardRef<HTMLDivElement, Props>((pr
                     className={styles.Placeholder}
                     icon={icon}
                     description={description}
-                    progress={reportedProgress === 'auto' ? progress : reportedProgress}
+                    progress="auto"
                     estimatedDuration={estimatedDuration}
                     ref={ref}
                     style={{ width: '100%', height: '100%' }}
