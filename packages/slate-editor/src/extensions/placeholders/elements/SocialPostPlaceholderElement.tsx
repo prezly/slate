@@ -14,7 +14,7 @@ import {
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
-import type { PlaceholderNode } from '../PlaceholderNode';
+import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
 
@@ -81,38 +81,86 @@ export function SocialPostPlaceholderElement({
         onResolve: handleData,
     });
 
-    return (
-        <InputPlaceholderElement
-            {...props}
-            element={element}
-            // Core
-            format={format}
-            icon={PlaceholderSocialPost}
-            title={Title}
-            description={Description}
-            // Input
-            inputTitle="Social media post"
-            inputDescription="Paste a social media link and hit Enter"
-            inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
-            inputPlaceholder="https://twitter.com/tweet"
-            inputAction="Add link"
-            onSubmit={handleSubmit}
-        >
-            {children}
-        </InputPlaceholderElement>
-    );
+    function render(
+        override: Partial<
+            Pick<
+                BaseProps,
+                | 'inputTitle'
+                | 'inputAction'
+                | 'inputDescription'
+                | 'inputPlaceholder'
+                | 'title'
+                | 'description'
+            >
+        > = {},
+    ) {
+        const {
+            inputTitle = 'Social media post',
+            inputDescription = 'Paste a social media link and hit Enter',
+            inputPlaceholder = 'https://twitter.com/tweet',
+            inputAction = 'Add link',
+            title = Title,
+            description = Description,
+        } = override;
+
+        return (
+            <InputPlaceholderElement
+                {...props}
+                element={element}
+                // Core
+                format={format}
+                icon={PlaceholderSocialPost}
+                title={title}
+                description={description}
+                // Input
+                inputTitle={inputTitle}
+                inputDescription={inputDescription}
+                inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
+                inputPlaceholder={inputPlaceholder}
+                inputAction={inputAction}
+                onSubmit={handleSubmit}
+            >
+                {children}
+            </InputPlaceholderElement>
+        );
+    }
+
+    if (element.provider === PlaceholderNode.Provider.INSTAGRAM) {
+        return render({
+            inputTitle: 'Instagram post',
+            inputDescription: 'Paste a social media link and hit Enter',
+            inputPlaceholder: 'https://www.instagram.com/post/',
+            inputAction: 'Add link',
+            title: (props) => <Title {...props} text="Click to embed an Instagram post" />,
+            description: (props) => <Description {...props} text="Add using a social media link" />,
+        });
+    }
+
+    return render();
 }
 
-function Title(props: { isLoading: boolean }) {
-    if (props.isLoading) {
+function Title({
+    isLoading,
+    text = 'Click to embed a social media post',
+}: {
+    isLoading: boolean;
+    text?: string;
+}) {
+    if (isLoading) {
         return <>{withLoadingDots('Embedding social media post')}</>;
     }
-    return <>Click to embed a social media post</>;
+    return <>{text}</>;
 }
 
-function Description(props: { isLoading: boolean }) {
-    if (props.isLoading) {
+function Description({
+    text = 'Add a tweet, Facebook or Instagram post in your story',
+    isLoading,
+}: {
+    isLoading: boolean;
+    text?: string;
+}) {
+    if (isLoading) {
         return null;
     }
-    return <>Add a tweet, Facebook or Instagram post in your story</>;
+    return <>{text}</>;
 }
