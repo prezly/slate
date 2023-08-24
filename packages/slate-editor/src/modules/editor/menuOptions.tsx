@@ -17,6 +17,7 @@ export enum MenuAction {
     ADD_X = 'add_x',
     ADD_VIMEO = 'add_vimeo',
     ADD_DROPBOX = 'add_dropbox',
+    ADD_SOUNDCLOUD = 'add_soundcloud',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
     ADD_HEADING_1 = 'add_heading_1',
@@ -305,6 +306,16 @@ function* generateOptions(
             text: 'Dropbox',
             description: 'Embed a share link',
             keywords: ['db', 'files', 'share'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_SOUNDCLOUD,
+            icon: Icons.ComponentSoundCloud,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'SoundCloud',
+            description: 'Embed an audio link',
+            keywords: ['audio', 'mp3', 'music', 'song'],
             isNew: true,
         };
     }
