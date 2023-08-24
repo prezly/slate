@@ -16,6 +16,7 @@ export namespace PlaceholderNode {
         YOUTUBE = 'youtube',
         INSTAGRAM = 'instagram',
         DROPBOX = 'dropbox',
+        X = 'x',
     }
 
     export enum Type {

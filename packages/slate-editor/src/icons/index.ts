@@ -37,6 +37,7 @@ export { default as ComponentStoryBookmark } from './Component-Story-Bookmark.sv
 export { default as ComponentTable } from './Component-Table.svg';
 export { default as ComponentText } from './Component-Text.svg';
 export { default as ComponentVideo } from './Component-Video.svg';
+export { default as ComponentX } from './Component-X.svg';
 export { default as ComponentYouTube } from './Component-YouTube.svg';
 export { default as ComponentWebBookmark } from './Component-Web-Bookmark.svg';
 export { default as ContactLayoutCard } from './ContactLayoutCard.svg';

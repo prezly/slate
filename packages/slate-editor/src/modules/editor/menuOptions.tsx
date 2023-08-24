@@ -14,6 +14,7 @@ export enum MenuAction {
     ADD_TABLE = 'add_table',
     ADD_EMBED = 'add_embed',
     ADD_INSTAGRAM = 'add_instagram',
+    ADD_X = 'add_x',
     ADD_DROPBOX = 'add_dropbox',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -239,6 +240,16 @@ function* generateOptions(
             text: 'Instagram',
             description: 'Embed a social media link',
             keywords: ['ig', 'photo', 'foto', 'social'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_X,
+            icon: Icons.ComponentX,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'X',
+            description: 'Embed a social media link',
+            keywords: ['twitter', 'tweet', 'social'],
             isNew: true,
         };
     }
