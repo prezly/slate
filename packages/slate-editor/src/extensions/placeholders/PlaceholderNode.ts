@@ -25,6 +25,7 @@ export namespace PlaceholderNode {
         FACEBOOK = 'facebook',
         GOOGLE_MAPS = 'google_maps',
         GOOGLE_SHEETS = 'google_sheets',
+        GOOGLE_DOCS = 'google_docs',
     }
 
     export enum Type {
