@@ -28,6 +28,7 @@ export enum MenuAction {
     ADD_QUOTE = 'add_quote',
     ADD_VIDEO = 'add_video',
     ADD_YOUTUBE = 'add_youtube',
+    ADD_TIKTOK = 'add_tiktok',
     ADD_WEB_BOOKMARK = 'add_web_bookmark',
     ADD_STORY_EMBED = 'add_story_embed',
     ADD_STORY_BOOKMARK = 'add_story_bookmark',
@@ -231,6 +232,16 @@ function* generateOptions(
             group: Group.SPECIFIC_EMBEDS,
             text: 'Vimeo',
             description: 'Place a video from a URL',
+        };
+
+        yield {
+            action: MenuAction.ADD_TIKTOK,
+            isNew: true,
+            keywords: ['social', 'video'],
+            icon: Icons.ComponentTikTok,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'TikTok',
+            description: 'Embed a social media link',
         };
     }
 
