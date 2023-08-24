@@ -417,6 +417,32 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
+        if (action === MenuAction.ADD_SOUNDCLOUD) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.EMBED,
+                    provider: PlaceholderNode.Provider.SOUNDCLOUD,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_GIPHY) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.EMBED,
+                    provider: PlaceholderNode.Provider.GIPHY,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
             const placeholder = insertPlaceholder(
                 editor,
@@ -511,6 +537,19 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 {
                     type: PlaceholderNode.Type.VIDEO,
                     provider: PlaceholderNode.Provider.YOUTUBE,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_VIMEO) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.VIDEO,
+                    provider: PlaceholderNode.Provider.VIMEO,
                 },
                 true,
             );

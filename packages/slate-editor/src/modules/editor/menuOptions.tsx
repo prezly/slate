@@ -15,7 +15,10 @@ export enum MenuAction {
     ADD_EMBED = 'add_embed',
     ADD_INSTAGRAM = 'add_instagram',
     ADD_X = 'add_x',
+    ADD_VIMEO = 'add_vimeo',
     ADD_DROPBOX = 'add_dropbox',
+    ADD_SOUNDCLOUD = 'add_soundcloud',
+    ADD_GIPHY = 'add_giphy',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
     ADD_HEADING_1 = 'add_heading_1',
@@ -219,6 +222,16 @@ function* generateOptions(
             text: 'YouTube',
             description: 'Place a video from a URL',
         };
+
+        yield {
+            action: MenuAction.ADD_VIMEO,
+            isNew: true,
+            keywords: ['video'],
+            icon: Icons.ComponentVimeo,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Vimeo',
+            description: 'Place a video from a URL',
+        };
     }
 
     if (withEmbedSocial) {
@@ -294,6 +307,26 @@ function* generateOptions(
             text: 'Dropbox',
             description: 'Embed a share link',
             keywords: ['db', 'files', 'share'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_SOUNDCLOUD,
+            icon: Icons.ComponentSoundCloud,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'SoundCloud',
+            description: 'Embed an audio link',
+            keywords: ['audio', 'mp3', 'music', 'song'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_GIPHY,
+            icon: Icons.ComponentGiphy,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Giphy',
+            description: 'Insert embeddable content',
+            keywords: ['gif', 'video', 'photo', 'foto', 'social'],
             isNew: true,
         };
     }

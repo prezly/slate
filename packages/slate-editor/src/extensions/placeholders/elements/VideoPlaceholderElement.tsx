@@ -174,6 +174,17 @@ export function VideoPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.VIMEO) {
+        return render({
+            inputAction: 'Add video',
+            inputDescription: 'Paste a video link and hit Enter',
+            inputPlaceholder: 'https://vimeo.com/video',
+            inputTitle: 'Vimeo video',
+            title: (props) => <Title {...props} text="Click to insert a Vimeo video" />,
+            description: (props) => <Description {...props} text="Add using a video share link" />,
+        });
+    }
+
     return render();
 }
 
