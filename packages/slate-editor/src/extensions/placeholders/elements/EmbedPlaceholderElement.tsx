@@ -167,6 +167,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.GOOGLE_MAPS) {
+        return render({
+            inputTitle: 'Google Maps embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://goo.gl/maps/location',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Google Maps embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
     return render();
 }
 
