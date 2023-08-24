@@ -404,6 +404,16 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
+        if (action === MenuAction.ADD_EMBED_SOCIAL) {
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.SOCIAL_POST },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
         if (action === MenuAction.ADD_INSTAGRAM) {
             const placeholder = insertPlaceholder(
                 editor,
@@ -411,16 +421,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     type: PlaceholderNode.Type.SOCIAL_POST,
                     provider: PlaceholderNode.Provider.INSTAGRAM,
                 },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_EMBED_SOCIAL) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.SOCIAL_POST },
                 true,
             );
             PlaceholdersManager.trigger(placeholder);
