@@ -145,6 +145,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.GIPHY) {
+        return render({
+            inputTitle: 'Giphy embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://www.giphy.com/gif',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Giphy embed" />,
+            description: (props) => <Description {...props} text="Add using a social media link" />,
+        });
+    }
+
     return render();
 }
 
