@@ -178,6 +178,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.GOOGLE_SHEETS) {
+        return render({
+            inputTitle: 'Google Sheets embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://docs.google.com/spreadsheets/sheet',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Google Sheets embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
     return render();
 }
 
