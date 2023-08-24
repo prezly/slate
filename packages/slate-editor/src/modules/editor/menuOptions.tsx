@@ -18,6 +18,7 @@ export enum MenuAction {
     ADD_VIMEO = 'add_vimeo',
     ADD_DROPBOX = 'add_dropbox',
     ADD_SOUNDCLOUD = 'add_soundcloud',
+    ADD_SPOTIFY = 'add_spotify',
     ADD_GIPHY = 'add_giphy',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -327,7 +328,7 @@ function* generateOptions(
             group: Group.SPECIFIC_EMBEDS,
             text: 'SoundCloud',
             description: 'Embed an audio link',
-            keywords: ['audio', 'mp3', 'music', 'song'],
+            keywords: ['audio', 'mp3', 'music', 'song', 'track'],
             isNew: true,
         };
 
@@ -338,6 +339,16 @@ function* generateOptions(
             text: 'Giphy',
             description: 'Insert embeddable content',
             keywords: ['gif', 'video', 'photo', 'foto', 'social'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_SPOTIFY,
+            icon: Icons.ComponentSpotify,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Spotify',
+            description: 'Embed an audio link',
+            keywords: ['audio', 'mp3', 'music', 'song', 'track'],
             isNew: true,
         };
     }

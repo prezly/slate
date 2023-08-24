@@ -35,6 +35,7 @@ export { default as ComponentQuote } from './Component-Quote.svg';
 export { default as ComponentSnippet } from './Component-Snippet.svg';
 export { default as ComponentSocialPost } from './Component-Social-Post.svg';
 export { default as ComponentSoundCloud } from './Component-SoundCloud.svg';
+export { default as ComponentSpotify } from './Component-Spotify.svg';
 export { default as ComponentStoryBookmark } from './Component-Story-Bookmark.svg';
 export { default as ComponentTable } from './Component-Table.svg';
 export { default as ComponentText } from './Component-Text.svg';
