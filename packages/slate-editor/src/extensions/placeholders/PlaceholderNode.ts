@@ -19,6 +19,7 @@ export namespace PlaceholderNode {
         X = 'x',
         VIMEO = 'vimeo',
         SOUNDCLOUD = 'soundcloud',
+        GIPHY = 'giphy',
     }
 
     export enum Type {

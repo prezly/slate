@@ -26,6 +26,7 @@ export { default as ComponentDivider } from './Component-Divider.svg';
 export { default as ComponentDropbox } from './Component-Dropbox.svg';
 export { default as ComponentEmbed } from './Component-Embed.svg';
 export { default as ComponentGallery } from './Component-Gallery.svg';
+export { default as ComponentGiphy } from './Component-Giphy.svg';
 export { default as ComponentH1 } from './Component-H1.svg';
 export { default as ComponentH2 } from './Component-H2.svg';
 export { default as ComponentImage } from './Component-Image.svg';
