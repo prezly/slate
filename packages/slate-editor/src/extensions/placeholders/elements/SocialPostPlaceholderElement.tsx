@@ -140,7 +140,7 @@ export function SocialPostPlaceholderElement({
         return render({
             inputTitle: 'X post',
             inputDescription: 'Paste a social media link and hit Enter',
-            inputPlaceholder: 'https://www.x.com/post/',
+            inputPlaceholder: 'https://www.twitter.com/post/',
             inputAction: 'Add link',
             title: (props) => <Title {...props} text="Click to embed an X post" />,
             description: (props) => <Description {...props} text="Add using a social media link" />,
