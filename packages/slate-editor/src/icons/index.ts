@@ -29,6 +29,7 @@ export { default as ComponentFacebook } from './Component-Facebook.svg';
 export { default as ComponentGallery } from './Component-Gallery.svg';
 export { default as ComponentGiphy } from './Component-Giphy.svg';
 export { default as ComponentGoogleMaps } from './Component-GoogleMaps.svg';
+export { default as ComponentGoogleSheets } from './Component-GoogleSheets.svg';
 export { default as ComponentH1 } from './Component-H1.svg';
 export { default as ComponentH2 } from './Component-H2.svg';
 export { default as ComponentImage } from './Component-Image.svg';

@@ -469,6 +469,19 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
+        if (action === MenuAction.ADD_GOOGLE_SHEETS) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.EMBED,
+                    provider: PlaceholderNode.Provider.GOOGLE_SHEETS,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
             const placeholder = insertPlaceholder(
                 editor,

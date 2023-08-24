@@ -24,6 +24,7 @@ export namespace PlaceholderNode {
         SPOTIFY = 'spotify',
         FACEBOOK = 'facebook',
         GOOGLE_MAPS = 'google_maps',
+        GOOGLE_SHEETS = 'google_sheets',
     }
 
     export enum Type {
