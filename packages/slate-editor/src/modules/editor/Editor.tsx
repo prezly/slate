@@ -518,6 +518,19 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
+        if (action === MenuAction.ADD_VIMEO) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.VIDEO,
+                    provider: PlaceholderNode.Provider.VIMEO,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
         if (action === MenuAction.ADD_WEB_BOOKMARK) {
             const placeholder = insertPlaceholder(
                 editor,

@@ -15,6 +15,7 @@ export enum MenuAction {
     ADD_EMBED = 'add_embed',
     ADD_INSTAGRAM = 'add_instagram',
     ADD_X = 'add_x',
+    ADD_VIMEO = 'add_vimeo',
     ADD_DROPBOX = 'add_dropbox',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -217,6 +218,16 @@ function* generateOptions(
             icon: Icons.ComponentYouTube,
             group: Group.SPECIFIC_EMBEDS,
             text: 'YouTube',
+            description: 'Place a video from a URL',
+        };
+
+        yield {
+            action: MenuAction.ADD_VIMEO,
+            isNew: true,
+            keywords: ['video'],
+            icon: Icons.ComponentVimeo,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Vimeo',
             description: 'Place a video from a URL',
         };
     }
