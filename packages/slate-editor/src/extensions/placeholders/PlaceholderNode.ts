@@ -15,6 +15,7 @@ export namespace PlaceholderNode {
     export enum Provider {
         YOUTUBE = 'youtube',
         INSTAGRAM = 'instagram',
+        DROPBOX = 'dropbox',
     }
 
     export enum Type {

@@ -14,6 +14,7 @@ export enum MenuAction {
     ADD_TABLE = 'add_table',
     ADD_EMBED = 'add_embed',
     ADD_INSTAGRAM = 'add_instagram',
+    ADD_DROPBOX = 'add_dropbox',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
     ADD_HEADING_1 = 'add_heading_1',
@@ -271,6 +272,18 @@ function* generateOptions(
             text: 'Embed',
             description: 'Insert embeddable content',
             isBeta: true,
+        };
+    }
+
+    if (withEmbeds && withSpecificProviderOptions) {
+        yield {
+            action: MenuAction.ADD_DROPBOX,
+            icon: Icons.ComponentDropbox,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Dropbox',
+            description: 'Embed a share link',
+            keywords: ['db', 'files', 'share'],
+            isNew: true,
         };
     }
 
