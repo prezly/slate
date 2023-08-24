@@ -269,6 +269,8 @@ function* generateOptions(
             group: Group.SPECIFIC_EMBEDS,
             text: 'Instagram',
             description: 'Embed a social media link',
+            keywords: ['ig', 'photo', 'foto', 'social'],
+            isNew: true,
         };
     }
 
