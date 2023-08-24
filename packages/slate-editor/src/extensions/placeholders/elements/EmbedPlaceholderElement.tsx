@@ -13,7 +13,7 @@ import {
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
-import type { PlaceholderNode } from '../PlaceholderNode';
+import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
 
@@ -80,18 +80,25 @@ export function EmbedPlaceholderElement({
     });
 
     function render(
-        override: {
-            title?: string;
-            description?: string;
-            placeholder?: string;
-            action?: string;
-        } = {},
+        override: Partial<
+            Pick<
+                BaseProps,
+                | 'inputTitle'
+                | 'inputAction'
+                | 'inputDescription'
+                | 'inputPlaceholder'
+                | 'title'
+                | 'description'
+            >
+        > = {},
     ) {
         const {
-            title = 'Embed',
-            description = 'Insert an embed URL and hit Enter',
-            placeholder = 'media.giphy.com/GIF',
-            action = 'Add embed',
+            description,
+            inputAction = 'Add embed',
+            inputDescription = 'Insert an embed URL and hit Enter',
+            inputPlaceholder = 'media.giphy.com/GIF',
+            inputTitle = 'Embed',
+            title,
         } = override;
 
         return (
@@ -101,19 +108,30 @@ export function EmbedPlaceholderElement({
                 // Core
                 format={format}
                 icon={PlaceholderEmbed}
-                title={Title}
-                description={Description}
+                title={title}
+                description={description}
                 // Input
-                inputTitle={title}
-                inputDescription={description}
+                inputTitle={inputTitle}
+                inputDescription={inputDescription}
                 inputPattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
-                inputPlaceholder={placeholder}
-                inputAction={action}
+                inputPlaceholder={inputPlaceholder}
+                inputAction={inputAction}
                 onSubmit={handleSubmit}
             >
                 {children}
             </InputPlaceholderElement>
         );
+    }
+
+    if (element.provider === PlaceholderNode.Provider.DROPBOX) {
+        return render({
+            inputTitle: 'Dropbox embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://www.dropbox.com/s/file/',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Dropbox embed" />,
+            description: (props) => <Description {...props} text="Add using a social media link" />,
+        });
     }
 
     return render();
@@ -132,9 +150,15 @@ function Title({
     return <>{text}</>;
 }
 
-function Description(props: { isLoading: boolean }) {
-    if (props.isLoading) {
+function Description({
+    isLoading,
+    text = 'Add any web content like a GIF or Spotify song',
+}: {
+    isLoading: boolean;
+    text: string;
+}) {
+    if (isLoading) {
         return null;
     }
-    return <>Add any web content like a GIF or Spotify song</>;
+    return <>{text}</>;
 }
