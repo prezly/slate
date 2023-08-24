@@ -200,6 +200,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.CALENDLY) {
+        return render({
+            inputTitle: 'Calendly embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://calendly.com/d/event',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Calendly embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
     return render();
 }
 
