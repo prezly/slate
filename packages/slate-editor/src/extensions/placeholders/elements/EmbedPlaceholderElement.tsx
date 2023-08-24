@@ -13,7 +13,7 @@ import {
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
 import { replacePlaceholder } from '../lib';
-import { PlaceholderNode } from '../PlaceholderNode';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
 
@@ -116,23 +116,20 @@ export function EmbedPlaceholderElement({
         );
     }
 
-    if (element.provider === PlaceholderNode.Provider.INSTAGRAM) {
-        return render({
-            title: 'Instagram',
-            description: 'Insert an Instagram URL and hit Enter',
-            placeholder: 'https://www.instagram.com/p/Cr-y_XyOyL9/',
-            action: 'Embed',
-        });
-    }
-
     return render();
 }
 
-function Title(props: { isLoading: boolean }) {
-    if (props.isLoading) {
+function Title({
+    isLoading,
+    text = 'Click to insert an embed',
+}: {
+    isLoading: boolean;
+    text?: string;
+}) {
+    if (isLoading) {
         return <>{withLoadingDots('Embedding content')}</>;
     }
-    return <>Click to insert an embed</>;
+    return <>{text}</>;
 }
 
 function Description(props: { isLoading: boolean }) {

@@ -408,7 +408,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             const placeholder = insertPlaceholder(
                 editor,
                 {
-                    type: PlaceholderNode.Type.EMBED,
+                    type: PlaceholderNode.Type.SOCIAL_POST,
                     provider: PlaceholderNode.Provider.INSTAGRAM,
                 },
                 true,
