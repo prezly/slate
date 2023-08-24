@@ -2,7 +2,6 @@ export * from './hooks';
 export { convertClientRect } from './convertClientRect';
 export { convertToHtml } from './convertToHtml';
 export { createDataTransfer } from './createDataTransfer';
-export { fetchImageWithProgress } from './fetchImageWithProgress';
 export { dataUriToFile } from './dataUriToFile';
 export { decodeSlateFragment } from './decodeSlateFragment';
 export { encodeSlateFragment } from './encodeSlateFragment';

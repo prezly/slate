@@ -36,8 +36,8 @@ export function EmbedElement({ attributes, children, element, showAsScreenshot }
                             src={element.oembed.screenshot_url}
                             icon={Embed}
                             description="Loading embed"
-                            imageWidth={element.oembed.thumbnail_width ?? 1600}
-                            imageHeight={element.oembed.thumbnail_height ?? 900}
+                            imageWidth={undefined}
+                            imageHeight={undefined}
                         />
                     );
                 }

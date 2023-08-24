@@ -1,30 +1,87 @@
-import { useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
-import { fetchImageWithProgress } from '../fetchImageWithProgress';
-import { isCorsEnabledOrigin } from '../isCorsEnabledOrigin';
-
-import { useAsyncProgress } from './useAsyncProgress';
-
-type OriginalURIOrBlobDataURI = string;
-
-interface State {
-    error?: Error;
-    loading: boolean;
-    progress: number | undefined;
-    loaded: boolean;
-    url: OriginalURIOrBlobDataURI | undefined;
+interface ImageData {
+    width: number;
+    height: number;
 }
 
+type State = {
+    error: Error | undefined;
+    isLoading: boolean;
+} & (
+    | { isLoaded: true; src: string; width: number; height: number }
+    | { isLoaded: false; src: undefined; width: undefined; height: undefined }
+);
+
 export function useImage(src: string): State {
-    const fetchImage = useCallback(() => fetchImageWithProgress(src), [src]);
-    const { error, loading, progress, value } = useAsyncProgress(fetchImage);
+    const [error, setError] = useState<Error>();
+    const [isLoading, setLoading] = useState(() => !isImageAlreadyLoaded(src));
+    const [data, setData] = useState<ImageData>();
+
+    useEffect(() => {
+        const image = new Image();
+
+        function onStartLoading() {
+            setLoading(true);
+            setError(undefined);
+            setData(undefined);
+        }
+
+        function onLoaded() {
+            setLoading(false);
+            setError(undefined);
+            setData({
+                width: image.naturalWidth,
+                height: image.naturalHeight,
+            });
+        }
+
+        function onError() {
+            setLoading(false);
+            setError(error);
+            setData(undefined);
+        }
+
+        image.addEventListener('load', onLoaded);
+        image.addEventListener('error', onError);
+
+        image.src = src;
+
+        if (image.complete) {
+            onLoaded();
+        } else {
+            onStartLoading();
+        }
+
+        return () => {
+            image.removeEventListener('load', onLoaded);
+            image.removeEventListener('error', onError);
+        };
+    }, [src]);
+
+    if (data) {
+        return {
+            isLoading: false,
+            error: undefined,
+            isLoaded: true,
+            src,
+            width: data.width,
+            height: data.height,
+        };
+    }
+
     return {
+        isLoading,
         error,
-        loading,
-        // We can't track progress for unsupported origins and this way we can rely
-        // on the <ImageWithLoadingPlaceholder> component to estimate the progress.
-        progress: isCorsEnabledOrigin(src) ? progress : undefined,
-        loaded: Boolean(value),
-        url: value,
+        isLoaded: false,
+        src: undefined,
+        width: undefined,
+        height: undefined,
     };
+}
+
+function isImageAlreadyLoaded(src: string) {
+    const image = new Image();
+    image.src = src;
+    return image.complete;
 }
