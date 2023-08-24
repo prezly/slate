@@ -23,6 +23,7 @@ export enum MenuAction {
     ADD_GOOGLE_MAPS = 'add_google_maps',
     ADD_GOOGLE_SHEETS = 'add_google_sheets',
     ADD_GOOGLE_DOCS = 'add_google_docs',
+    ADD_CALENDLY = 'add_calendly',
     ADD_GIPHY = 'add_giphy',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -393,6 +394,16 @@ function* generateOptions(
             text: 'Google Docs',
             description: 'Embed a document',
             keywords: ['doc', 'gdoc', 'document'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_CALENDLY,
+            icon: Icons.ComponentCalendly,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Calendly',
+            description: 'Embed a calendar link',
+            keywords: ['invite', 'event', 'schedule'],
             isNew: true,
         };
     }
