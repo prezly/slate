@@ -15,6 +15,7 @@ export enum MenuAction {
     ADD_EMBED = 'add_embed',
     ADD_INSTAGRAM = 'add_instagram',
     ADD_X = 'add_x',
+    ADD_FACEBOOK = 'add_facebook',
     ADD_VIMEO = 'add_vimeo',
     ADD_DROPBOX = 'add_dropbox',
     ADD_SOUNDCLOUD = 'add_soundcloud',
@@ -275,6 +276,16 @@ function* generateOptions(
             text: 'X',
             description: 'Embed a social media link',
             keywords: ['twitter', 'tweet', 'social'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_FACEBOOK,
+            icon: Icons.ComponentFacebook,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Facebook',
+            description: 'Embed a social media link',
+            keywords: ['post', 'fb', 'social'],
             isNew: true,
         };
     }
