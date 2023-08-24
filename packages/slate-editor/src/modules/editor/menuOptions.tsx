@@ -230,6 +230,18 @@ function* generateOptions(
         };
     }
 
+    if (withEmbedSocial && withSpecificProviderOptions) {
+        yield {
+            action: MenuAction.ADD_INSTAGRAM,
+            icon: Icons.ComponentInstagram,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Instagram',
+            description: 'Embed a social media link',
+            keywords: ['ig', 'photo', 'foto', 'social'],
+            isNew: true,
+        };
+    }
+
     if (withAttachments && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
             action: MenuAction.ADD_ATTACHMENT,
@@ -259,18 +271,6 @@ function* generateOptions(
             text: 'Embed',
             description: 'Insert embeddable content',
             isBeta: true,
-        };
-    }
-
-    if (withEmbeds && withSpecificProviderOptions) {
-        yield {
-            action: MenuAction.ADD_INSTAGRAM,
-            icon: Icons.ComponentInstagram,
-            group: Group.SPECIFIC_EMBEDS,
-            text: 'Instagram',
-            description: 'Embed a social media link',
-            keywords: ['ig', 'photo', 'foto', 'social'],
-            isNew: true,
         };
     }
 
