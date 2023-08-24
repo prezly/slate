@@ -134,6 +134,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.SOUNDCLOUD) {
+        return render({
+            inputTitle: 'SoundCloud embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://www.soundcloud.com/artist/music',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a SoundCloud embed" />,
+            description: (props) => <Description {...props} text="Add using a social media link" />,
+        });
+    }
+
     return render();
 }
 
