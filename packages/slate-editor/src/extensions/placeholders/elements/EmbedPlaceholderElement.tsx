@@ -182,9 +182,20 @@ export function EmbedPlaceholderElement({
         return render({
             inputTitle: 'Google Sheets embed',
             inputDescription: 'Paste a link and hit Enter',
-            inputPlaceholder: 'https://docs.google.com/spreadsheets/sheet',
+            inputPlaceholder: 'https://docs.google.com/spreadsheets/',
             inputAction: 'Add embed',
             title: (props) => <Title {...props} text="Click to insert a Google Sheets embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
+    if (element.provider === PlaceholderNode.Provider.GOOGLE_DOCS) {
+        return render({
+            inputTitle: 'Google Docs embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://docs.google.com/document/',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Google Docs embed" />,
             description: (props) => <Description {...props} text="Add using a share link" />,
         });
     }
