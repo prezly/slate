@@ -21,6 +21,10 @@
 
 .option {
     &.variant-icon-label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
     }
 
     &.variant-pills {
