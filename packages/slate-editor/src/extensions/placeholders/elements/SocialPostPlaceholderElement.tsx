@@ -147,6 +147,16 @@ export function SocialPostPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.FACEBOOK) {
+        return render({
+            inputTitle: 'Facebook post',
+            inputDescription: 'Paste a social media link and hit Enter',
+            inputPlaceholder: 'https://www.facebook.com/user/post/',
+            inputAction: 'Add link',
+            title: (props) => <Title {...props} text="Click to embed a Facebook post" />,
+            description: (props) => <Description {...props} text="Add using a social media link" />,
+        });
+    }
     return render();
 }
 

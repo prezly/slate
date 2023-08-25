@@ -15,9 +15,11 @@ export enum MenuAction {
     ADD_EMBED = 'add_embed',
     ADD_INSTAGRAM = 'add_instagram',
     ADD_X = 'add_x',
+    ADD_FACEBOOK = 'add_facebook',
     ADD_VIMEO = 'add_vimeo',
     ADD_DROPBOX = 'add_dropbox',
     ADD_SOUNDCLOUD = 'add_soundcloud',
+    ADD_SPOTIFY = 'add_spotify',
     ADD_GIPHY = 'add_giphy',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -28,6 +30,7 @@ export enum MenuAction {
     ADD_QUOTE = 'add_quote',
     ADD_VIDEO = 'add_video',
     ADD_YOUTUBE = 'add_youtube',
+    ADD_TIKTOK = 'add_tiktok',
     ADD_WEB_BOOKMARK = 'add_web_bookmark',
     ADD_STORY_EMBED = 'add_story_embed',
     ADD_STORY_BOOKMARK = 'add_story_bookmark',
@@ -232,6 +235,16 @@ function* generateOptions(
             text: 'Vimeo',
             description: 'Place a video from a URL',
         };
+
+        yield {
+            action: MenuAction.ADD_TIKTOK,
+            isNew: true,
+            keywords: ['social', 'video'],
+            icon: Icons.ComponentTikTok,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'TikTok',
+            description: 'Embed a social media link',
+        };
     }
 
     if (withEmbedSocial) {
@@ -263,6 +276,16 @@ function* generateOptions(
             text: 'X',
             description: 'Embed a social media link',
             keywords: ['twitter', 'tweet', 'social'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_FACEBOOK,
+            icon: Icons.ComponentFacebook,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Facebook',
+            description: 'Embed a social media link',
+            keywords: ['post', 'fb', 'social'],
             isNew: true,
         };
     }
@@ -316,7 +339,7 @@ function* generateOptions(
             group: Group.SPECIFIC_EMBEDS,
             text: 'SoundCloud',
             description: 'Embed an audio link',
-            keywords: ['audio', 'mp3', 'music', 'song'],
+            keywords: ['audio', 'mp3', 'music', 'song', 'track'],
             isNew: true,
         };
 
@@ -327,6 +350,16 @@ function* generateOptions(
             text: 'Giphy',
             description: 'Insert embeddable content',
             keywords: ['gif', 'video', 'photo', 'foto', 'social'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_SPOTIFY,
+            icon: Icons.ComponentSpotify,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Spotify',
+            description: 'Embed an audio link',
+            keywords: ['audio', 'mp3', 'music', 'song', 'track'],
             isNew: true,
         };
     }

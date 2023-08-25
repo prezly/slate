@@ -14,12 +14,15 @@ export interface PlaceholderNode<T extends PlaceholderNode.Type = PlaceholderNod
 export namespace PlaceholderNode {
     export enum Provider {
         YOUTUBE = 'youtube',
+        TIKTOK = 'tiktok',
         INSTAGRAM = 'instagram',
         DROPBOX = 'dropbox',
         X = 'x',
         VIMEO = 'vimeo',
         SOUNDCLOUD = 'soundcloud',
         GIPHY = 'giphy',
+        SPOTIFY = 'spotify',
+        FACEBOOK = 'facebook',
     }
 
     export enum Type {

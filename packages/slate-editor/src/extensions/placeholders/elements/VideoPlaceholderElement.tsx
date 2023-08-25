@@ -185,6 +185,16 @@ export function VideoPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.TIKTOK) {
+        return render({
+            inputAction: 'Add video',
+            inputDescription: 'Paste a video link and hit Enter',
+            inputPlaceholder: 'https://www.tiktok.com/@user/video',
+            inputTitle: 'TikTok video',
+            title: (props) => <Title {...props} text="Click to insert a TikTok video" />,
+            description: (props) => <Description {...props} text="Add using a video share link" />,
+        });
+    }
     return render();
 }
 

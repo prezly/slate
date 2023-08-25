@@ -443,6 +443,19 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
+        if (action === MenuAction.ADD_SPOTIFY) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.EMBED,
+                    provider: PlaceholderNode.Provider.SPOTIFY,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
             const placeholder = insertPlaceholder(
                 editor,
@@ -472,6 +485,19 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 {
                     type: PlaceholderNode.Type.SOCIAL_POST,
                     provider: PlaceholderNode.Provider.X,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_FACEBOOK) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.SOCIAL_POST,
+                    provider: PlaceholderNode.Provider.FACEBOOK,
                 },
                 true,
             );
@@ -550,6 +576,19 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 {
                     type: PlaceholderNode.Type.VIDEO,
                     provider: PlaceholderNode.Provider.VIMEO,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_TIKTOK) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.VIDEO,
+                    provider: PlaceholderNode.Provider.TIKTOK,
                 },
                 true,
             );

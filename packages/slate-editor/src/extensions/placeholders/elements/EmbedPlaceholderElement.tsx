@@ -130,7 +130,7 @@ export function EmbedPlaceholderElement({
             inputPlaceholder: 'https://www.dropbox.com/s/file/',
             inputAction: 'Add embed',
             title: (props) => <Title {...props} text="Click to insert a Dropbox embed" />,
-            description: (props) => <Description {...props} text="Add using a social media link" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
         });
     }
 
@@ -141,7 +141,7 @@ export function EmbedPlaceholderElement({
             inputPlaceholder: 'https://www.soundcloud.com/artist/music',
             inputAction: 'Add embed',
             title: (props) => <Title {...props} text="Click to insert a SoundCloud embed" />,
-            description: (props) => <Description {...props} text="Add using a social media link" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
         });
     }
 
@@ -152,7 +152,18 @@ export function EmbedPlaceholderElement({
             inputPlaceholder: 'https://www.giphy.com/gif',
             inputAction: 'Add embed',
             title: (props) => <Title {...props} text="Click to insert a Giphy embed" />,
-            description: (props) => <Description {...props} text="Add using a social media link" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
+    if (element.provider === PlaceholderNode.Provider.SPOTIFY) {
+        return render({
+            inputTitle: 'Spotify embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://open.spotify.com/',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Spotify embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
         });
     }
 
