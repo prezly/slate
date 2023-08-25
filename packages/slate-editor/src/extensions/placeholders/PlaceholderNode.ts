@@ -30,6 +30,7 @@ export namespace PlaceholderNode {
         EVENTBRITE = 'eventbrite',
         TYPEFORM = 'typeform',
         TALLY = 'tally',
+        MICROSOFT_TEAMS = 'microsoft_teams',
         PODCAST = 'podcast',
         AUDIO = 'audio',
     }

@@ -29,6 +29,7 @@ export enum MenuAction {
     ADD_EVENTBRITE = 'add_eventbrite',
     ADD_TYPEFORM = 'add_typeform',
     ADD_TALLY = 'add_tally',
+    ADD_MICROSOFT_TEAMS = 'add_microsoft_teams',
     ADD_GIPHY = 'add_giphy',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -459,6 +460,16 @@ function* generateOptions(
             text: 'Tally',
             description: 'Insert a form',
             keywords: ['form', 'survey'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_MICROSOFT_TEAMS,
+            icon: Icons.ComponentMicrosoftTeams,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Microsoft Teams',
+            description: 'Embed an event link',
+            keywords: ['teams', 'ms', 'meeting'],
             isNew: true,
         };
     }

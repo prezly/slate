@@ -244,6 +244,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.MICROSOFT_TEAMS) {
+        return render({
+            inputTitle: 'Microsoft Teams embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://teams.microsoft.com/',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Microsoft Teams embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
     if (element.provider === PlaceholderNode.Provider.PODCAST) {
         return render({
             inputTitle: 'Podcast',
