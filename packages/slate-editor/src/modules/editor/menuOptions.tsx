@@ -410,7 +410,7 @@ function* generateOptions(
 
         yield {
             action: MenuAction.ADD_EVENTBRITE,
-            icon: Icons.ComponentCalendly,
+            icon: Icons.ComponentEventbrite,
             group: Group.SPECIFIC_EMBEDS,
             text: 'Eventbrite',
             description: 'Embed an event link',
