@@ -20,6 +20,9 @@ export enum MenuAction {
     ADD_DROPBOX = 'add_dropbox',
     ADD_SOUNDCLOUD = 'add_soundcloud',
     ADD_SPOTIFY = 'add_spotify',
+    ADD_GOOGLE_MAPS = 'add_google_maps',
+    ADD_GOOGLE_SHEETS = 'add_google_sheets',
+    ADD_GOOGLE_DOCS = 'add_google_docs',
     ADD_GIPHY = 'add_giphy',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -360,6 +363,36 @@ function* generateOptions(
             text: 'Spotify',
             description: 'Embed an audio link',
             keywords: ['audio', 'mp3', 'music', 'song', 'track'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_GOOGLE_MAPS,
+            icon: Icons.ComponentGoogleMaps,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Google Maps',
+            description: 'Embed a map',
+            keywords: ['map', 'address'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_GOOGLE_SHEETS,
+            icon: Icons.ComponentGoogleSheets,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Google Sheets',
+            description: 'Embed a spreadsheet',
+            keywords: ['sheet', 'gsheet', 'spreadsheet'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_GOOGLE_DOCS,
+            icon: Icons.ComponentGoogleDocs,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Google Docs',
+            description: 'Embed a document',
+            keywords: ['doc', 'gdoc', 'document'],
             isNew: true,
         };
     }
