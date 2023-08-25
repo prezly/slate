@@ -1,0 +1,13 @@
+@import "styles/variables";
+
+.Icon {
+    fill: white;
+
+    &.active {
+        fill: $yellow-300;
+    }
+}
+
+.Info {
+    opacity: 1;
+}

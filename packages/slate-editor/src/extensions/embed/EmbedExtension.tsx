@@ -5,11 +5,14 @@ import { isEqual } from '@technically/lodash';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
+import type { InfoText } from '#components';
+
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { EmbedElement } from './components';
 import { EmbedNode } from './EmbedNode';
-import { normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
+import { parseSerializedElement } from './lib';
+import { fixUuidCollisions, normalizeRedundantEmbedAttributes } from './normalizations';
 
 interface Parameters extends EmbedExtensionConfiguration {
     availableWidth: number;
@@ -19,10 +22,19 @@ export const EXTENSION_ID = 'EmbedExtension';
 
 export interface EmbedExtensionConfiguration {
     fetchOembed: (url: OEmbedInfo['url']) => Promise<OEmbedInfo>;
+    info?: InfoText.StructuredContent;
     showAsScreenshot: boolean;
+    withMenu?: boolean;
+    withLayoutControls?: boolean;
 }
 
-export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters): Extension => ({
+export const EmbedExtension = ({
+    availableWidth,
+    info,
+    showAsScreenshot,
+    withMenu = false,
+    withLayoutControls = true,
+}: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({
@@ -37,7 +49,7 @@ export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters)
     },
     isRichBlock: EmbedNode.isEmbedNode,
     isVoid: EmbedNode.isEmbedNode,
-    normalizeNode: normalizeRedundantEmbedAttributes,
+    normalizeNode: [fixUuidCollisions, normalizeRedundantEmbedAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (EmbedNode.isEmbedNode(element)) {
             return (
@@ -46,7 +58,10 @@ export const EmbedExtension = ({ availableWidth, showAsScreenshot }: Parameters)
                         attributes={attributes}
                         availableWidth={availableWidth}
                         element={element}
+                        info={info}
                         showAsScreenshot={showAsScreenshot}
+                        withMenu={withMenu}
+                        withLayoutControls={withLayoutControls}
                     >
                         {children}
                     </EmbedElement>
