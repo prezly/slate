@@ -334,15 +334,6 @@ function* generateOptions(
 
     if (withEmbeds) {
         yield {
-            action: MenuAction.ADD_EMBED,
-            icon: Icons.ComponentEmbed,
-            group: Group.MEDIA_CONTENT,
-            text: 'Embed',
-            description: 'Insert embeddable content',
-            isBeta: true,
-        };
-
-        yield {
             action: MenuAction.ADD_PODCAST,
             icon: Icons.ComponentPodcast,
             group: Group.MEDIA_CONTENT,
@@ -360,6 +351,15 @@ function* generateOptions(
             text: 'Audio',
             description: 'Insert audio link',
             isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_EMBED,
+            icon: Icons.ComponentEmbed,
+            group: Group.MEDIA_CONTENT,
+            text: 'Embed',
+            description: 'Insert embeddable content',
+            isBeta: true,
         };
     }
 
