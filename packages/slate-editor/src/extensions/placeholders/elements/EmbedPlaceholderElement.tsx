@@ -222,6 +222,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.TYPEFORM) {
+        return render({
+            inputTitle: 'Typeform embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://www.typeform.com/to/form',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Typeform embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
     return render();
 }
 
