@@ -196,7 +196,7 @@ function* generateOptions(
             icon: Icons.ComponentImage,
             group: Group.MEDIA_CONTENT,
             text: 'Image',
-            keywords: ['photo', 'picture'],
+            keywords: ['photo', 'picture', 'foto'],
             description: 'Place an image',
         };
     }
