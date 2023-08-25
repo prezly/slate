@@ -54,7 +54,8 @@ export function EmbedElement({
             {...attributes}
             element={element}
             hasError={isInvalid}
-            overlay="autohide"
+            layout={withLayoutControls ? element.layout : undefined}
+            overlay="always"
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderMenu={
