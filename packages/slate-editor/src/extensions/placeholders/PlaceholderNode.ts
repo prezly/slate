@@ -23,6 +23,7 @@ export namespace PlaceholderNode {
         GIPHY = 'giphy',
         SPOTIFY = 'spotify',
         FACEBOOK = 'facebook',
+        PINTEREST = 'pinterest',
         GOOGLE_MAPS = 'google_maps',
         GOOGLE_SHEETS = 'google_sheets',
         GOOGLE_DOCS = 'google_docs',

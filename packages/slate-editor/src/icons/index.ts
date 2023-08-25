@@ -39,6 +39,7 @@ export { default as ComponentH2 } from './Component-H2.svg';
 export { default as ComponentImage } from './Component-Image.svg';
 export { default as ComponentInstagram } from './Component-Instagram.svg';
 export { default as ComponentMicrosoftTeams } from './Component-MicrosoftTeams.svg';
+export { default as ComponentPinterest } from './Component-Pinterest.svg';
 export { default as ComponentPodcast } from './Component-Podcast.svg';
 export { default as ComponentQuote } from './Component-Quote.svg';
 export { default as ComponentSnippet } from './Component-Snippet.svg';

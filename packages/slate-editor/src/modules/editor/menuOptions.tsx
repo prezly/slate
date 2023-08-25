@@ -31,6 +31,7 @@ export enum MenuAction {
     ADD_TALLY = 'add_tally',
     ADD_MICROSOFT_TEAMS = 'add_microsoft_teams',
     ADD_GIPHY = 'add_giphy',
+    ADD_PINTEREST = 'add_pinterest',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
     ADD_HEADING_1 = 'add_heading_1',
@@ -296,6 +297,16 @@ function* generateOptions(
             text: 'Facebook',
             description: 'Embed a social media link',
             keywords: ['post', 'fb', 'social'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_PINTEREST,
+            icon: Icons.ComponentPinterest,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Pinterest',
+            description: 'Embed a social media link',
+            keywords: ['social', 'image'],
             isNew: true,
         };
     }

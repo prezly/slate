@@ -157,6 +157,18 @@ export function SocialPostPlaceholderElement({
             description: (props) => <Description {...props} text="Add using a social media link" />,
         });
     }
+
+    if (element.provider === PlaceholderNode.Provider.PINTEREST) {
+        return render({
+            inputTitle: 'Pinterest post',
+            inputDescription: 'Paste a social media link and hit Enter',
+            inputPlaceholder: 'https://pin.it/post',
+            inputAction: 'Add link',
+            title: (props) => <Title {...props} text="Click to embed a Pinterest post" />,
+            description: (props) => <Description {...props} text="Add using a social media link" />,
+        });
+    }
+
     return render();
 }
 
