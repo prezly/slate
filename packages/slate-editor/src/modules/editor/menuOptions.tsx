@@ -24,6 +24,7 @@ export enum MenuAction {
     ADD_GOOGLE_SHEETS = 'add_google_sheets',
     ADD_GOOGLE_DOCS = 'add_google_docs',
     ADD_CALENDLY = 'add_calendly',
+    ADD_EVENTBRITE = 'add_eventbrite',
     ADD_GIPHY = 'add_giphy',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -403,6 +404,16 @@ function* generateOptions(
             group: Group.SPECIFIC_EMBEDS,
             text: 'Calendly',
             description: 'Embed a calendar link',
+            keywords: ['invite', 'event', 'schedule'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_EVENTBRITE,
+            icon: Icons.ComponentCalendly,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Eventbrite',
+            description: 'Embed an event link',
             keywords: ['invite', 'event', 'schedule'],
             isNew: true,
         };

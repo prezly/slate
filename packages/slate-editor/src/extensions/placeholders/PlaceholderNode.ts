@@ -27,6 +27,7 @@ export namespace PlaceholderNode {
         GOOGLE_SHEETS = 'google_sheets',
         GOOGLE_DOCS = 'google_docs',
         CALENDLY = 'calendly',
+        EVENTBRITE = 'eventbrite',
     }
 
     export enum Type {
