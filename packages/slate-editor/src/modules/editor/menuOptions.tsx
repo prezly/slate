@@ -13,6 +13,8 @@ export enum MenuAction {
     ADD_DIVIDER = 'add_divider',
     ADD_TABLE = 'add_table',
     ADD_EMBED = 'add_embed',
+    ADD_PODCAST = 'add_podcast',
+    ADD_AUDIO = 'add_audio',
     ADD_INSTAGRAM = 'add_instagram',
     ADD_X = 'add_x',
     ADD_FACEBOOK = 'add_facebook',
@@ -325,6 +327,26 @@ function* generateOptions(
             text: 'Embed',
             description: 'Insert embeddable content',
             isBeta: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_PODCAST,
+            icon: Icons.ComponentPodcast,
+            group: Group.MEDIA_CONTENT,
+            text: 'Podcast',
+            keywords: ['audio', 'transistor', 'rumble', 'anchor', 'spotify', 'apple', 'google'],
+            description: 'Insert a podcast link',
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_AUDIO,
+            icon: Icons.ComponentAudio,
+            group: Group.MEDIA_CONTENT,
+            keywords: ['mp3', 'music', 'song'],
+            text: 'Audio',
+            description: 'Insert audio link',
+            isNew: true,
         };
     }
 
