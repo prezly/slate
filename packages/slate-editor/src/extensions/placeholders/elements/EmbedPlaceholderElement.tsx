@@ -233,6 +233,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.PODCAST) {
+        return render({
+            inputTitle: 'Podcast',
+            inputDescription: 'Paste a podcast link and hit Enter',
+            inputPlaceholder: 'https://open.spotify.com/episode/podcast',
+            inputAction: 'Add podcast',
+            title: (props) => <Title {...props} text="Click to insert a podcast" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
     return render();
 }
 

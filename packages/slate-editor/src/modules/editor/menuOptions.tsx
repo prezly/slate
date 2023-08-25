@@ -13,6 +13,7 @@ export enum MenuAction {
     ADD_DIVIDER = 'add_divider',
     ADD_TABLE = 'add_table',
     ADD_EMBED = 'add_embed',
+    ADD_PODCAST = 'add_podcast',
     ADD_INSTAGRAM = 'add_instagram',
     ADD_X = 'add_x',
     ADD_FACEBOOK = 'add_facebook',
@@ -325,6 +326,15 @@ function* generateOptions(
             text: 'Embed',
             description: 'Insert embeddable content',
             isBeta: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_PODCAST,
+            icon: Icons.ComponentPodcast,
+            group: Group.MEDIA_CONTENT,
+            text: 'Podcast',
+            description: 'Insert a podcast link',
+            isNew: true,
         };
     }
 

@@ -29,6 +29,7 @@ export namespace PlaceholderNode {
         CALENDLY = 'calendly',
         EVENTBRITE = 'eventbrite',
         TYPEFORM = 'typeform',
+        PODCAST = 'podcast',
     }
 
     export enum Type {
