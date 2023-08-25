@@ -51,7 +51,7 @@ export enum MenuAction {
 enum Group {
     TEXT_N_LAYOUT = 'Text & layout',
     MEDIA_CONTENT = 'Media content',
-    SPECIFIC_EMBEDS = 'Specific embeds',
+    EMBEDS = 'Embeds',
     PREZLY_CONTENT = 'Prezly content',
 }
 
@@ -232,7 +232,7 @@ function* generateOptions(
             isNew: true,
             keywords: ['video', 'yt'],
             icon: Icons.ComponentYouTube,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'YouTube',
             description: 'Place a video from a URL',
         };
@@ -242,7 +242,7 @@ function* generateOptions(
             isNew: true,
             keywords: ['video'],
             icon: Icons.ComponentVimeo,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Vimeo',
             description: 'Place a video from a URL',
         };
@@ -252,7 +252,7 @@ function* generateOptions(
             isNew: true,
             keywords: ['social', 'video'],
             icon: Icons.ComponentTikTok,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'TikTok',
             description: 'Embed a social media link',
         };
@@ -273,7 +273,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_INSTAGRAM,
             icon: Icons.ComponentInstagram,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Instagram',
             description: 'Embed a social media link',
             keywords: ['ig', 'photo', 'foto', 'social'],
@@ -283,7 +283,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_X,
             icon: Icons.ComponentX,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'X',
             description: 'Embed a social media link',
             keywords: ['twitter', 'tweet', 'social'],
@@ -293,7 +293,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_FACEBOOK,
             icon: Icons.ComponentFacebook,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Facebook',
             description: 'Embed a social media link',
             keywords: ['post', 'fb', 'social'],
@@ -303,7 +303,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_PINTEREST,
             icon: Icons.ComponentPinterest,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Pinterest',
             description: 'Embed a social media link',
             keywords: ['social', 'image'],
@@ -367,7 +367,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_DROPBOX,
             icon: Icons.ComponentDropbox,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Dropbox',
             description: 'Embed a share link',
             keywords: ['db', 'files', 'share'],
@@ -377,7 +377,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_SOUNDCLOUD,
             icon: Icons.ComponentSoundCloud,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'SoundCloud',
             description: 'Embed an audio link',
             keywords: ['audio', 'mp3', 'music', 'song', 'track'],
@@ -387,7 +387,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_GIPHY,
             icon: Icons.ComponentGiphy,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Giphy',
             description: 'Insert embeddable content',
             keywords: ['gif', 'video', 'photo', 'foto', 'social'],
@@ -397,7 +397,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_SPOTIFY,
             icon: Icons.ComponentSpotify,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Spotify',
             description: 'Embed an audio link',
             keywords: ['audio', 'mp3', 'music', 'song', 'track'],
@@ -407,7 +407,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_GOOGLE_MAPS,
             icon: Icons.ComponentGoogleMaps,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Google Maps',
             description: 'Embed a map',
             keywords: ['map', 'address'],
@@ -417,7 +417,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_GOOGLE_SHEETS,
             icon: Icons.ComponentGoogleSheets,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Google Sheets',
             description: 'Embed a spreadsheet',
             keywords: ['sheet', 'gsheet', 'spreadsheet'],
@@ -427,7 +427,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_GOOGLE_DOCS,
             icon: Icons.ComponentGoogleDocs,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Google Docs',
             description: 'Embed a document',
             keywords: ['doc', 'gdoc', 'document'],
@@ -437,7 +437,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_CALENDLY,
             icon: Icons.ComponentCalendly,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Calendly',
             description: 'Embed a calendar link',
             keywords: ['invite', 'event', 'schedule'],
@@ -447,7 +447,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_EVENTBRITE,
             icon: Icons.ComponentEventbrite,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Eventbrite',
             description: 'Embed an event link',
             keywords: ['invite', 'event', 'schedule'],
@@ -457,7 +457,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_TYPEFORM,
             icon: Icons.ComponentTypeform,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Typeform',
             description: 'Insert a form',
             keywords: ['form', 'survey'],
@@ -467,7 +467,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_TALLY,
             icon: Icons.ComponentTally,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Tally',
             description: 'Insert a form',
             keywords: ['form', 'survey'],
@@ -477,7 +477,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_MICROSOFT_TEAMS,
             icon: Icons.ComponentMicrosoftTeams,
-            group: Group.SPECIFIC_EMBEDS,
+            group: Group.EMBEDS,
             text: 'Microsoft Teams',
             description: 'Embed an event link',
             keywords: ['teams', 'ms', 'meeting'],
