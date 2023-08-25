@@ -30,6 +30,7 @@ export namespace PlaceholderNode {
         EVENTBRITE = 'eventbrite',
         TYPEFORM = 'typeform',
         PODCAST = 'podcast',
+        AUDIO = 'audio',
     }
 
     export enum Type {

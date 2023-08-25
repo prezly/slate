@@ -244,6 +244,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.AUDIO) {
+        return render({
+            inputTitle: 'Audio',
+            inputDescription: 'Paste an audio link and hit Enter',
+            inputPlaceholder: 'https://open.spotify.com/track/music',
+            inputAction: 'Add audio',
+            title: (props) => <Title {...props} text="Click to insert an audio" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
     return render();
 }
 

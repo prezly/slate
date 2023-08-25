@@ -19,6 +19,7 @@ export { default as Dice } from './Dice.svg';
 export { default as Download } from './Download.svg';
 export { default as Embed } from './Embed.svg';
 export { default as ComponentAttachment } from './Component-Attachment.svg';
+export { default as ComponentAudio } from './Component-Audio.svg';
 export { default as ComponentButton } from './Component-Button.svg';
 export { default as ComponentCalendly } from './Component-Calendly.svg';
 export { default as ComponentContact } from './Component-Contact.svg';
