@@ -50,7 +50,7 @@ export function VideoElement({
             {...attributes}
             element={element}
             overlay="always"
-            layout={element.layout ?? 'contained'}
+            layout={withLayoutControls ? element.layout : undefined}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderMenu={
