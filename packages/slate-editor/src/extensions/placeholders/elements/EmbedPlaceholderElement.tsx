@@ -211,6 +211,17 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.EVENTBRITE) {
+        return render({
+            inputTitle: 'Eventbrite embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://www.eventbrite.com/e/event',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Eventbrite embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
     return render();
 }
 
