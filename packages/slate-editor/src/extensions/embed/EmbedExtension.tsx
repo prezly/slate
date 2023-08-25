@@ -11,7 +11,8 @@ import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { EmbedElement } from './components';
 import { EmbedNode } from './EmbedNode';
-import { normalizeRedundantEmbedAttributes, parseSerializedElement } from './lib';
+import { parseSerializedElement } from './lib';
+import { fixUuidCollisions, normalizeRedundantEmbedAttributes } from './normalizations';
 
 interface Parameters extends EmbedExtensionConfiguration {
     availableWidth: number;
@@ -48,7 +49,7 @@ export const EmbedExtension = ({
     },
     isRichBlock: EmbedNode.isEmbedNode,
     isVoid: EmbedNode.isEmbedNode,
-    normalizeNode: normalizeRedundantEmbedAttributes,
+    normalizeNode: [fixUuidCollisions, normalizeRedundantEmbedAttributes],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (EmbedNode.isEmbedNode(element)) {
             return (
