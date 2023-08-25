@@ -43,7 +43,11 @@ export const EmbedExtension = ({
     },
     isElementEqual: (node, another) => {
         if (EmbedNode.isEmbedNode(node) && EmbedNode.isEmbedNode(another)) {
-            return node.url === another.url && isEqual(node.oembed, another.oembed);
+            return (
+                node.url === another.url &&
+                node.layout === another.layout &&
+                isEqual(node.oembed, another.oembed)
+            );
         }
         return undefined;
     },
