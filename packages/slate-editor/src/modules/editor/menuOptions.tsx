@@ -25,6 +25,7 @@ export enum MenuAction {
     ADD_GOOGLE_DOCS = 'add_google_docs',
     ADD_CALENDLY = 'add_calendly',
     ADD_EVENTBRITE = 'add_eventbrite',
+    ADD_TYPEFORM = 'add_typeform',
     ADD_GIPHY = 'add_giphy',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -415,6 +416,16 @@ function* generateOptions(
             text: 'Eventbrite',
             description: 'Embed an event link',
             keywords: ['invite', 'event', 'schedule'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_TYPEFORM,
+            icon: Icons.ComponentTypeform,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Typeform',
+            description: 'Insert a form',
+            keywords: ['form', 'survey'],
             isNew: true,
         };
     }

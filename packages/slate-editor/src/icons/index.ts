@@ -46,6 +46,7 @@ export { default as ComponentStoryBookmark } from './Component-Story-Bookmark.sv
 export { default as ComponentTable } from './Component-Table.svg';
 export { default as ComponentText } from './Component-Text.svg';
 export { default as ComponentTikTok } from './Component-TikTok.svg';
+export { default as ComponentTypeform } from './Component-Typeform.svg';
 export { default as ComponentVideo } from './Component-Video.svg';
 export { default as ComponentVimeo } from './Component-Vimeo.svg';
 export { default as ComponentWebBookmark } from './Component-Web-Bookmark.svg';
