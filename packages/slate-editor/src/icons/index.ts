@@ -46,6 +46,7 @@ export { default as ComponentSoundCloud } from './Component-SoundCloud.svg';
 export { default as ComponentSpotify } from './Component-Spotify.svg';
 export { default as ComponentStoryBookmark } from './Component-Story-Bookmark.svg';
 export { default as ComponentTable } from './Component-Table.svg';
+export { default as ComponentTally } from './Component-Tally.svg';
 export { default as ComponentText } from './Component-Text.svg';
 export { default as ComponentTikTok } from './Component-TikTok.svg';
 export { default as ComponentTypeform } from './Component-Typeform.svg';

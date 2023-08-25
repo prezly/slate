@@ -28,6 +28,7 @@ export enum MenuAction {
     ADD_CALENDLY = 'add_calendly',
     ADD_EVENTBRITE = 'add_eventbrite',
     ADD_TYPEFORM = 'add_typeform',
+    ADD_TALLY = 'add_tally',
     ADD_GIPHY = 'add_giphy',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
@@ -446,6 +447,16 @@ function* generateOptions(
             icon: Icons.ComponentTypeform,
             group: Group.SPECIFIC_EMBEDS,
             text: 'Typeform',
+            description: 'Insert a form',
+            keywords: ['form', 'survey'],
+            isNew: true,
+        };
+
+        yield {
+            action: MenuAction.ADD_TALLY,
+            icon: Icons.ComponentTally,
+            group: Group.SPECIFIC_EMBEDS,
+            text: 'Tally',
             description: 'Insert a form',
             keywords: ['form', 'survey'],
             isNew: true,
