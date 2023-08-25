@@ -200,6 +200,39 @@ export function EmbedPlaceholderElement({
         });
     }
 
+    if (element.provider === PlaceholderNode.Provider.CALENDLY) {
+        return render({
+            inputTitle: 'Calendly embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://calendly.com/d/event',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Calendly embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
+    if (element.provider === PlaceholderNode.Provider.EVENTBRITE) {
+        return render({
+            inputTitle: 'Eventbrite embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://www.eventbrite.com/e/event',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert an Eventbrite embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
+    if (element.provider === PlaceholderNode.Provider.TYPEFORM) {
+        return render({
+            inputTitle: 'Typeform embed',
+            inputDescription: 'Paste a link and hit Enter',
+            inputPlaceholder: 'https://www.typeform.com/to/form',
+            inputAction: 'Add embed',
+            title: (props) => <Title {...props} text="Click to insert a Typeform embed" />,
+            description: (props) => <Description {...props} text="Add using a share link" />,
+        });
+    }
+
     return render();
 }
 

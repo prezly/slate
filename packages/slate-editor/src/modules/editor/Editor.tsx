@@ -495,6 +495,45 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
+        if (action === MenuAction.ADD_CALENDLY) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.EMBED,
+                    provider: PlaceholderNode.Provider.CALENDLY,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_EVENTBRITE) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.EMBED,
+                    provider: PlaceholderNode.Provider.EVENTBRITE,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_TYPEFORM) {
+            const placeholder = insertPlaceholder(
+                editor,
+                {
+                    type: PlaceholderNode.Type.EMBED,
+                    provider: PlaceholderNode.Provider.TYPEFORM,
+                },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
         if (action === MenuAction.ADD_EMBED_SOCIAL) {
             const placeholder = insertPlaceholder(
                 editor,
