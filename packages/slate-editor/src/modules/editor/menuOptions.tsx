@@ -346,7 +346,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_YOUTUBE,
             isNew: true,
-            keywords: ['video', 'yt'],
+            keywords: ['video', 'yt', 'reels', 'utube'],
             icon: Icons.ComponentYouTube,
             group: Group.EMBEDS,
             text: 'YouTube',
