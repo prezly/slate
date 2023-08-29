@@ -297,26 +297,16 @@ export function EmbedPlaceholderElement({
     return render();
 }
 
-function Title({
-    isLoading,
-    text = 'Click to insert an embed',
-}: {
-    isLoading: boolean;
-    text?: string;
-}) {
+function Title(props: { isLoading: boolean; text?: string }) {
+    const { isLoading, text = 'Click to insert an embed' } = props;
     if (isLoading) {
         return <>{withLoadingDots('Embedding content')}</>;
     }
     return <>{text}</>;
 }
 
-function Description({
-    isLoading,
-    text = 'Add any web content like a GIF or Spotify song',
-}: {
-    isLoading: boolean;
-    text?: string;
-}) {
+function Description(props: { isLoading: boolean; text?: string }) {
+    const { isLoading, text = 'Add any web content like a GIF or Spotify song' } = props;
     if (isLoading) {
         return null;
     }

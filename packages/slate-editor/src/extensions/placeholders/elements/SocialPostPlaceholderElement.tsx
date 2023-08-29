@@ -186,26 +186,16 @@ export function SocialPostPlaceholderElement({
     return render();
 }
 
-function Title({
-    isLoading,
-    text = 'Click to embed a social media post',
-}: {
-    isLoading: boolean;
-    text?: string;
-}) {
+function Title(props: { isLoading: boolean; text?: string }) {
+    const { isLoading, text = 'Click to embed a social media post' } = props;
     if (isLoading) {
         return <>{withLoadingDots('Embedding social media post')}</>;
     }
     return <>{text}</>;
 }
 
-function Description({
-    text = 'Add a tweet, Facebook or Instagram post in your story',
-    isLoading,
-}: {
-    isLoading: boolean;
-    text?: string;
-}) {
+function Description(props: { isLoading: boolean; text?: string }) {
+    const { text = 'Add a tweet, Facebook or Instagram post in your story', isLoading } = props;
     if (isLoading) {
         return null;
     }
