@@ -110,12 +110,12 @@ export function EmbedPlaceholderElement({
         > = {},
     ) {
         const {
-            description,
             inputAction = 'Add embed',
             inputDescription = 'Insert an embed URL and hit Enter',
             inputPlaceholder = 'media.giphy.com/GIF',
             inputTitle = 'Embed',
-            title,
+            title = Title,
+            description = Description,
         } = override;
 
         return (
@@ -315,7 +315,7 @@ function Description({
     text = 'Add any web content like a GIF or Spotify song',
 }: {
     isLoading: boolean;
-    text: string;
+    text?: string;
 }) {
     if (isLoading) {
         return null;
