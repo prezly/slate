@@ -5,7 +5,6 @@ import { PlaceholderSocialPost } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
 import type { EmbedNode } from '#extensions/embed';
-import { createEmbed } from '#extensions/embed';
 import { EventsEditor } from '#modules/events';
 
 import {
@@ -13,7 +12,7 @@ import {
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
-import { replacePlaceholder } from '../lib';
+import { handleOembed } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
@@ -35,6 +34,9 @@ interface Props
     > {
     element: PlaceholderNode<PlaceholderNode.Type.SOCIAL_POST>;
     fetchOembed: FetchOEmbedFn;
+    withImagePlaceholders?: boolean;
+    withVideoPlaceholders?: boolean;
+    withWebBookmarkPlaceholders?: boolean;
 }
 
 export function SocialPostPlaceholderElement({
@@ -42,6 +44,9 @@ export function SocialPostPlaceholderElement({
     element,
     fetchOembed,
     format = 'card-lg',
+    withImagePlaceholders = false,
+    withVideoPlaceholders = false,
+    withWebBookmarkPlaceholders = false,
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -65,14 +70,23 @@ export function SocialPostPlaceholderElement({
     const handleData = useFunction(
         (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
             const { url, oembed } = data;
-            if (oembed) {
-                replacePlaceholder(editor, element, createEmbed({ url, oembed }));
+            if (!oembed) {
+                EventsEditor.dispatchEvent(editor, 'notification', {
+                    children: 'Provided URL does not exist or is not supported.',
+                    type: 'error',
+                });
                 return;
             }
-            EventsEditor.dispatchEvent(editor, 'notification', {
-                children: 'Provided URL does not exist or is not supported.',
-                type: 'error',
-            });
+            handleOembed(
+                editor,
+                element,
+                { url, oembed },
+                {
+                    routeImages: withImagePlaceholders,
+                    routeVideos: withVideoPlaceholders,
+                    routeWebBookmarks: withWebBookmarkPlaceholders,
+                },
+            );
         },
     );
 

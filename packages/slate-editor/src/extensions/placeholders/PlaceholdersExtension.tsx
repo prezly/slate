@@ -290,6 +290,9 @@ export function PlaceholdersExtension({
                         fetchOembed={withSocialPostPlaceholders.fetchOembed}
                         format={format}
                         removable={removable}
+                        withImagePlaceholders={Boolean(withImagePlaceholders)}
+                        withVideoPlaceholders={Boolean(withVideoPlaceholders)}
+                        withWebBookmarkPlaceholders={Boolean(withWebBookmarkPlaceholders)}
                     >
                         {children}
                     </SocialPostPlaceholderElement>
