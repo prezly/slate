@@ -1,10 +1,17 @@
-import React from 'react';
+import type { OEmbedInfo } from '@prezly/sdk';
+import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
+import type { FilePromise } from '@prezly/uploadcare-widget';
+import uploadcare from '@prezly/uploadcare-widget';
+import React, { useCallback } from 'react';
 import { useSlateStatic } from 'slate-react';
 
 import { PlaceholderEmbed } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
-import { createEmbed, type EmbedNode } from '#extensions/embed';
+import type { EmbedNode } from '#extensions/embed';
+import { createImage } from '#extensions/image';
+import { createVideoBookmark } from '#extensions/video';
+import { createWebBookmark } from '#extensions/web-bookmark';
 import { EventsEditor } from '#modules/events';
 
 import {
@@ -12,10 +19,14 @@ import {
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
-import { replacePlaceholder } from '../lib';
+import { createPlaceholder, replacePlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
+
+function isUploadcareFile(url: string) {
+    return url.startsWith('https://cdn.uc.assets.prezly.com/');
+}
 
 interface Props
     extends Omit<
@@ -34,6 +45,9 @@ interface Props
     > {
     element: PlaceholderNode<PlaceholderNode.Type.EMBED>;
     fetchOembed: FetchOEmbedFn;
+    withImagePlaceholders?: boolean;
+    withVideoPlaceholders?: boolean;
+    withWebBookmarkPlaceholders?: boolean;
 }
 
 export function EmbedPlaceholderElement({
@@ -41,6 +55,9 @@ export function EmbedPlaceholderElement({
     element,
     fetchOembed,
     format = 'card-lg',
+    withImagePlaceholders = false,
+    withVideoPlaceholders = false,
+    withWebBookmarkPlaceholders = false,
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -61,13 +78,54 @@ export function EmbedPlaceholderElement({
         PlaceholdersManager.deactivateAll();
     });
 
+    const handleImageEmbed = useCallback(
+        (filePromise: FilePromise) => {
+            const loading = toProgressPromise(filePromise).then((fileInfo) => {
+                const file = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+                const image = createImage({
+                    file: file.toPrezlyStoragePayload(),
+                });
+                return { image, operation: 'add' as const };
+            });
+
+            const imagePlaceholder = createPlaceholder({ type: PlaceholderNode.Type.IMAGE });
+
+            replacePlaceholder(editor, element, imagePlaceholder);
+
+            PlaceholdersManager.register(imagePlaceholder.type, imagePlaceholder.uuid, loading);
+        },
+        [editor],
+    );
+
     const handleData = useFunction(
-        (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
+        async (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
             const { url, oembed } = data;
-            if (oembed) {
-                replacePlaceholder(editor, element, createEmbed({ url, oembed }));
-                return;
+
+            // [DEV-7592] Auto-route photo-type embeds to Image nodes
+            if (
+                withImagePlaceholders &&
+                isEmbedType(oembed, 'photo') &&
+                isUploadcareFile(oembed.url)
+            ) {
+                const filePromise = isUploadcareFile(oembed.url)
+                    ? // Reuse existing upload if it's already on the Uploadcare CDN
+                      uploadcare.fileFrom('uploaded', oembed.url)
+                    : // Upload an external file to the Uploadcare CDN
+                      uploadcare.fileFrom('url', oembed.url);
+
+                return handleImageEmbed(filePromise);
             }
+
+            // [DEV-7592] Auto-route video-type embeds to Video nodes
+            if (withVideoPlaceholders && isEmbedType(oembed, 'video')) {
+                return replacePlaceholder(editor, element, createVideoBookmark({ url, oembed }));
+            }
+
+            // [DEV-7592] Auto-route link-type embeds to Web Bookmark nodes
+            if (withWebBookmarkPlaceholders && isEmbedType(oembed, 'link')) {
+                return replacePlaceholder(editor, element, createWebBookmark({ url, oembed }));
+            }
+
             EventsEditor.dispatchEvent(editor, 'notification', {
                 children: 'Provided URL does not exist or is not supported.',
                 type: 'error',
@@ -304,4 +362,11 @@ function Description({
         return null;
     }
     return <>{text}</>;
+}
+
+function isEmbedType<T extends 'photo' | 'video' | 'link'>(
+    oembed: OEmbedInfo | undefined,
+    type: T,
+): oembed is OEmbedInfo & { type: T } {
+    return oembed?.type === type;
 }
