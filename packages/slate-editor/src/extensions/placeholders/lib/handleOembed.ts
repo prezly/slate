@@ -32,7 +32,7 @@ export function handleOembed(
     { routeImages = false, routeVideos = false, routeWebBookmarks = false }: Options = {},
 ): void {
     // [DEV-7592] Auto-route photo-type embeds to Image nodes
-    if (routeImages && isEmbedType(oembed, 'photo') && isUploadcareFile(oembed.url)) {
+    if (routeImages && isEmbedType(oembed, 'photo')) {
         const filePromise = isUploadcareFile(oembed.url)
             ? // Reuse existing upload if it's already on the Uploadcare CDN
               uploadcare.fileFrom('uploaded', oembed.url)
