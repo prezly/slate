@@ -198,15 +198,8 @@ export function VideoPlaceholderElement({
     return render();
 }
 
-function Title({
-    isLoading,
-    isDragOver,
-    text = 'Drag or click to upload a video',
-}: {
-    isDragOver: boolean;
-    isLoading: boolean;
-    text?: string;
-}) {
+function Title(props: { isDragOver: boolean; isLoading: boolean; text?: string }) {
+    const { isLoading, isDragOver, text = 'Drag or click to upload a video' } = props;
     if (isLoading) {
         return <>{withLoadingDots('Uploading video')}</>;
     }
@@ -216,13 +209,11 @@ function Title({
     return <>{text}</>;
 }
 
-function Description({
-    isLoading,
-    text = 'Drop a video file (MP4, OGG or WEBM) or click to insert a video URL',
-}: {
-    isLoading: boolean;
-    text?: string;
-}) {
+function Description(props: { isLoading: boolean; text?: string }) {
+    const {
+        isLoading,
+        text = 'Drop a video file (MP4, OGG or WEBM) or click to insert a video URL',
+    } = props;
     if (isLoading) {
         return null;
     }

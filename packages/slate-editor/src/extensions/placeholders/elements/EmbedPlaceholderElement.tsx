@@ -4,7 +4,7 @@ import { useSlateStatic } from 'slate-react';
 import { PlaceholderEmbed } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
-import { createEmbed, type EmbedNode } from '#extensions/embed';
+import type { EmbedNode } from '#extensions/embed';
 import { EventsEditor } from '#modules/events';
 
 import {
@@ -12,7 +12,7 @@ import {
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
-import { replacePlaceholder } from '../lib';
+import { handleOembed } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
@@ -34,6 +34,9 @@ interface Props
     > {
     element: PlaceholderNode<PlaceholderNode.Type.EMBED>;
     fetchOembed: FetchOEmbedFn;
+    withImagePlaceholders?: boolean;
+    withVideoPlaceholders?: boolean;
+    withWebBookmarkPlaceholders?: boolean;
 }
 
 export function EmbedPlaceholderElement({
@@ -41,6 +44,9 @@ export function EmbedPlaceholderElement({
     element,
     fetchOembed,
     format = 'card-lg',
+    withImagePlaceholders = false,
+    withVideoPlaceholders = false,
+    withWebBookmarkPlaceholders = false,
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -62,16 +68,27 @@ export function EmbedPlaceholderElement({
     });
 
     const handleData = useFunction(
-        (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
+        async (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
             const { url, oembed } = data;
-            if (oembed) {
-                replacePlaceholder(editor, element, createEmbed({ url, oembed }));
+
+            if (!oembed) {
+                EventsEditor.dispatchEvent(editor, 'notification', {
+                    children: 'Provided URL does not exist or is not supported.',
+                    type: 'error',
+                });
                 return;
             }
-            EventsEditor.dispatchEvent(editor, 'notification', {
-                children: 'Provided URL does not exist or is not supported.',
-                type: 'error',
-            });
+
+            handleOembed(
+                editor,
+                element,
+                { url, oembed },
+                {
+                    routeImages: withImagePlaceholders,
+                    routeVideos: withVideoPlaceholders,
+                    routeWebBookmarks: withWebBookmarkPlaceholders,
+                },
+            );
         },
     );
     usePlaceholderManagement(element.type, element.uuid, {
@@ -93,12 +110,12 @@ export function EmbedPlaceholderElement({
         > = {},
     ) {
         const {
-            description,
             inputAction = 'Add embed',
             inputDescription = 'Insert an embed URL and hit Enter',
             inputPlaceholder = 'media.giphy.com/GIF',
             inputTitle = 'Embed',
-            title,
+            title = Title,
+            description = Description,
         } = override;
 
         return (
@@ -280,26 +297,16 @@ export function EmbedPlaceholderElement({
     return render();
 }
 
-function Title({
-    isLoading,
-    text = 'Click to insert an embed',
-}: {
-    isLoading: boolean;
-    text?: string;
-}) {
+function Title(props: { isLoading: boolean; text?: string }) {
+    const { isLoading, text = 'Click to insert an embed' } = props;
     if (isLoading) {
         return <>{withLoadingDots('Embedding content')}</>;
     }
     return <>{text}</>;
 }
 
-function Description({
-    isLoading,
-    text = 'Add any web content like a GIF or Spotify song',
-}: {
-    isLoading: boolean;
-    text: string;
-}) {
+function Description(props: { isLoading: boolean; text?: string }) {
+    const { isLoading, text = 'Add any web content like a GIF or Spotify song' } = props;
     if (isLoading) {
         return null;
     }
