@@ -33,7 +33,7 @@ export function handleOembed(
 ): void {
     // [DEV-7592] Auto-route photo-type embeds to Image nodes
     if (routeImages && isEmbedType(oembed, 'photo')) {
-        const filePromise = isUploadcareFile(oembed.url)
+        const filePromise = isUploadcareUrl(oembed.url)
             ? // Reuse existing upload if it's already on the Uploadcare CDN
               uploadcare.fileFrom('uploaded', oembed.url)
             : // Upload an external file to the Uploadcare CDN
@@ -69,8 +69,11 @@ export function handleOembed(
     replacePlaceholder(editor, placeholder, createEmbed({ url, oembed }));
 }
 
-function isUploadcareFile(url: string) {
-    return url.startsWith('https://cdn.uc.assets.prezly.com/');
+function isUploadcareUrl(url: string) {
+    return (
+        url.startsWith('https://cdn.uc.assets.prezly.com/') ||
+        url.startsWith('https://ucarecdn.com/')
+    );
 }
 
 function isEmbedType<T extends 'photo' | 'video' | 'link'>(
