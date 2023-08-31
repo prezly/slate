@@ -45,12 +45,12 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
 
 const PRESENTATION_OPTIONS: OptionsGroupOption<BookmarkNode.Presentation>[] = [
     {
-        value: BookmarkNode.Presentation.BOOKMARK,
-        label: 'Bookmark',
-    },
-    {
         value: BookmarkNode.Presentation.EMBED,
         label: 'Embed',
+    },
+    {
+        value: BookmarkNode.Presentation.BOOKMARK,
+        label: 'Bookmark',
     },
 ];
 
