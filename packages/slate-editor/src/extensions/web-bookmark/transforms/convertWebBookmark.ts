@@ -2,8 +2,7 @@ import type { BookmarkNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
-import { EmbedNode } from '#extensions/embed';
-import { createEmbed } from '#extensions/embed';
+import { EmbedNode, createEmbed } from '#extensions/embed';
 
 import type { Presentation } from '../types';
 
