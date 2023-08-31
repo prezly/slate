@@ -8,7 +8,6 @@ import type { OptionsGroupOption } from '#components';
 import { Button, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
 import { Delete, ExternalLink, ItemsLayoutHorizontal, ItemsLayoutVertical } from '#icons';
 
-import { EmbedNode } from '#extensions/embed';
 import { EventsEditor } from '#modules/events';
 
 import { removeWebBookmark, updateWebBookmark } from '../transforms';
@@ -46,7 +45,7 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkNode.Layout>[] = [
 
 const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
     {
-        value: EmbedNode.TYPE,
+        value: 'embed', // Not using EmbedNode.TYPE here intentionally as it doesn't work
         label: 'Embed',
     },
     {
