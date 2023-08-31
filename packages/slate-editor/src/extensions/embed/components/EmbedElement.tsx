@@ -96,15 +96,12 @@ export function EmbedElement({
 
                 if (element.oembed.type === 'link') {
                     return (
-                        <BookmarkCard.Container border layout="vertical">
-                            <BookmarkCard.Details
-                                href={element.url}
-                                layout="vertical"
-                                hasThumbnail={false}
-                            >
-                                <BookmarkCard.Provider showUrl url={element.url} />
-                            </BookmarkCard.Details>
-                        </BookmarkCard.Container>
+                        <BookmarkCard
+                            border
+                            layout="vertical"
+                            oembed={{ type: 'link', version: '1.0', url: element.url }}
+                            withThumbnail={false}
+                        />
                     );
                 }
 
