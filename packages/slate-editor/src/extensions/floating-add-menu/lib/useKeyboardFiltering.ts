@@ -9,8 +9,14 @@ interface Option {
     description?: string;
 }
 
+const LEADING_MENU_TRIGGER_CHARACTERS = new RegExp(`^[${MENU_TRIGGER_CHARACTER}]+`);
+
 export function useKeyboardFiltering<T extends Option>(input: string, options: T[]): [string, T[]] {
-    const query = (MENU_TRIGGER_CHARACTER === input[0] ? input.substring(1) : input).toLowerCase();
+    const query = (
+        input.startsWith(MENU_TRIGGER_CHARACTER)
+            ? input.replace(LEADING_MENU_TRIGGER_CHARACTERS, '')
+            : input
+    ).toLowerCase();
 
     const filteredOptions = useMemo(
         function () {
