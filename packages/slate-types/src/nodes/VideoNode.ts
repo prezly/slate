@@ -23,6 +23,11 @@ export namespace VideoNode {
         FULL_WIDTH = 'full-width',
     }
 
+    export enum Presentation {
+        EMBED = 'embed',
+        BOOKMARK = 'bookmark',
+    }
+
     export function isVideoNode(value: any): value is VideoNode {
         return isElementNode<ElementNode>(value, TYPE);
     }

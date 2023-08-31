@@ -23,6 +23,13 @@ export interface BookmarkNode extends ElementNode {
     new_tab: boolean;
 }
 
+export namespace BookmarkNode {
+    export enum Presentation {
+        BOOKMARK = 'bookmark',
+        EMBED = 'embed',
+    }
+}
+
 export function isBookmarkNode(value: any): value is BookmarkNode {
     return isElementNode<ElementNode>(value, BOOKMARK_NODE_TYPE);
 }

@@ -1,4 +1,4 @@
-import type { BookmarkNode } from '@prezly/slate-types';
+import { BookmarkNode } from '@prezly/slate-types';
 import { BookmarkCardLayout } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
@@ -19,6 +19,7 @@ interface Props {
     element: BookmarkNode;
     withNewTabOption: boolean;
     onClose: () => void;
+    onTransform: (presentation: `${BookmarkNode.Presentation}`) => void;
 }
 
 const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
@@ -42,10 +43,22 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
     },
 ];
 
+const PRESENTATION_OPTIONS: OptionsGroupOption<BookmarkNode.Presentation>[] = [
+    {
+        value: BookmarkNode.Presentation.BOOKMARK,
+        label: 'Bookmark',
+    },
+    {
+        value: BookmarkNode.Presentation.EMBED,
+        label: 'Embed',
+    },
+];
+
 export const WebBookmarkMenu: FunctionComponent<Props> = ({
     element,
     withNewTabOption,
     onClose,
+    onTransform,
 }) => {
     const editor = useSlate();
     const isSelected = useSelected();
@@ -118,6 +131,16 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                         </Toggle>
                     )}
                 </VStack>
+            </Toolbox.Section>
+
+            <Toolbox.Section caption="Change to...">
+                <OptionsGroup
+                    name="presentation"
+                    options={PRESENTATION_OPTIONS}
+                    selectedValue={BookmarkNode.Presentation.BOOKMARK}
+                    onChange={(presentation) => onTransform(presentation)}
+                    variant="pills"
+                />
             </Toolbox.Section>
 
             <Toolbox.Footer>

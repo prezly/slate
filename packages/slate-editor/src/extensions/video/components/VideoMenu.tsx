@@ -22,6 +22,7 @@ interface Props {
     info?: InfoText.StructuredContent;
     url: VideoNode['url'];
     onChange: (props: Partial<FormState>) => void;
+    onTransform: (presentation: `${VideoNode.Presentation}`) => void;
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
@@ -58,10 +59,22 @@ const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
     },
 ];
 
+const PRESENTATION_OPTIONS: OptionsGroupOption<VideoNode.Presentation>[] = [
+    {
+        value: VideoNode.Presentation.EMBED,
+        label: 'Embed',
+    },
+    {
+        value: VideoNode.Presentation.BOOKMARK,
+        label: 'Bookmark',
+    },
+];
+
 export function VideoMenu({
     info = [],
     url,
     onChange,
+    onTransform,
     onClose,
     onRemove,
     value,
@@ -111,6 +124,16 @@ export function VideoMenu({
                     />
                 </Toolbox.Section>
             )}
+
+            <Toolbox.Section caption="Change to...">
+                <OptionsGroup
+                    name="presentation"
+                    options={PRESENTATION_OPTIONS}
+                    selectedValue={VideoNode.Presentation.EMBED}
+                    onChange={(presentation) => onTransform(presentation)}
+                    variant="pills"
+                />
+            </Toolbox.Section>
 
             <Toolbox.Footer>
                 <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>

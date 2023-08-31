@@ -1,14 +1,16 @@
 import type { BookmarkNode } from '@prezly/slate-types';
 import { BookmarkCardLayout } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic, type RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useResizeObserver, utils } from '#lib';
 
 import { BookmarkCard } from '#modules/components';
+
+import { transformWebBookmark } from '../transforms';
 
 import { WebBookmarkMenu } from './WebBookmarkMenu';
 
@@ -25,6 +27,8 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
     element,
     withNewTabOption,
 }) => {
+    const editor = useSlateStatic();
+
     const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);
 
@@ -38,6 +42,13 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
         : isSmallViewport
         ? BookmarkCardLayout.VERTICAL
         : layout;
+
+    const handleTransform = useCallback(
+        (presentation: `${BookmarkNode.Presentation}`) => {
+            transformWebBookmark(editor, element, presentation);
+        },
+        [editor, element],
+    );
 
     useResizeObserver(card.current, function (entries) {
         entries.forEach(function (entry) {
@@ -54,6 +65,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
             renderMenu={({ onClose }) => (
                 <WebBookmarkMenu
                     onClose={onClose}
+                    onTransform={handleTransform}
                     element={element}
                     withNewTabOption={withNewTabOption}
                 />

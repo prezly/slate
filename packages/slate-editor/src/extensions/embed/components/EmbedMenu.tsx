@@ -23,6 +23,7 @@ interface Props {
     info?: InfoText.StructuredContent;
     url: EmbedNode['url'];
     onChange: (props: Partial<FormState>) => void;
+    onTransform: (presentation: `${EmbedNode.Presentation}`) => void;
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
@@ -59,11 +60,23 @@ const LAYOUT_OPTIONS: OptionsGroupOption<EmbedNode.Layout>[] = [
     },
 ];
 
+const PRESENTATION_OPTIONS: OptionsGroupOption<EmbedNode.Presentation>[] = [
+    {
+        value: EmbedNode.Presentation.EMBED,
+        label: 'Embed',
+    },
+    {
+        value: EmbedNode.Presentation.BOOKMARK,
+        label: 'Bookmark',
+    },
+];
+
 export function EmbedMenu({
     info = [],
     url,
     onChange,
     onClose,
+    onTransform,
     onRemove,
     value,
     withLayoutControls,
@@ -106,6 +119,16 @@ export function EmbedMenu({
                     />
                 </Toolbox.Section>
             )}
+
+            <Toolbox.Section caption="Change to...">
+                <OptionsGroup
+                    name="presentation"
+                    options={PRESENTATION_OPTIONS}
+                    selectedValue={EmbedNode.Presentation.EMBED}
+                    onChange={(presentation) => onTransform(presentation)}
+                    variant="pills"
+                />
+            </Toolbox.Section>
 
             <Toolbox.Footer>
                 <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>

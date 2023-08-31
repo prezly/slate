@@ -11,7 +11,7 @@ import { BookmarkCard } from '#modules/components';
 
 import type { FormState } from '../../video/components/VideoMenu';
 import type { EmbedNode } from '../EmbedNode';
-import { removeEmbed, updateEmbed } from '../transforms';
+import { removeEmbed, transformEmbed, updateEmbed } from '../transforms';
 
 import styles from './EmbedElement.module.scss';
 import { EmbedMenu } from './EmbedMenu';
@@ -48,6 +48,12 @@ export function EmbedElement({
     const handleRemove = useCallback(() => {
         removeEmbed(editor, element);
     }, [editor, element]);
+    const handleTransform = useCallback(
+        (presentation: `${EmbedNode.Presentation}`) => {
+            transformEmbed(editor, element, presentation);
+        },
+        [editor, element],
+    );
 
     return (
         <EditorBlock
@@ -65,6 +71,7 @@ export function EmbedElement({
                               info={info}
                               onChange={handleUpdate}
                               onClose={onClose}
+                              onTransform={handleTransform}
                               onRemove={handleRemove}
                               url={element.url}
                               value={{ layout: element.layout }}
