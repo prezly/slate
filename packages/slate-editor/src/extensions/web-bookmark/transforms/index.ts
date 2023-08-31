@@ -1,3 +1,3 @@
 export { updateWebBookmark } from './updateWebBookmark';
 export { removeWebBookmark } from './removeWebBookmark';
-export { transformWebBookmark } from './transformWebBookmark';
+export { convertWebBookmark } from './convertWebBookmark';

@@ -23,7 +23,7 @@ interface Props {
     info?: InfoText.StructuredContent;
     url: EmbedNode['url'];
     onChange: (props: Partial<FormState>) => void;
-    onTransform: (presentation: `${EmbedNode.Presentation}`) => void;
+    onConvert: (presentation: `${EmbedNode.Presentation}`) => void;
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
@@ -76,7 +76,7 @@ export function EmbedMenu({
     url,
     onChange,
     onClose,
-    onTransform,
+    onConvert,
     onRemove,
     value,
     withLayoutControls,
@@ -125,7 +125,7 @@ export function EmbedMenu({
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
                     selectedValue={EmbedNode.Presentation.EMBED}
-                    onChange={(presentation) => onTransform(presentation)}
+                    onChange={(presentation) => onConvert(presentation)}
                     variant="pills"
                 />
             </Toolbox.Section>

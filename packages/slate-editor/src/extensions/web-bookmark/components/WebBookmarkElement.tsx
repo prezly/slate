@@ -10,7 +10,7 @@ import { useResizeObserver, utils } from '#lib';
 
 import { BookmarkCard } from '#modules/components';
 
-import { transformWebBookmark } from '../transforms';
+import { convertWebBookmark } from '../transforms';
 
 import { WebBookmarkMenu } from './WebBookmarkMenu';
 
@@ -43,9 +43,9 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
         ? BookmarkCardLayout.VERTICAL
         : layout;
 
-    const handleTransform = useCallback(
+    const handleConvert = useCallback(
         (presentation: `${BookmarkNode.Presentation}`) => {
-            transformWebBookmark(editor, element, presentation);
+            convertWebBookmark(editor, element, presentation);
         },
         [editor, element],
     );
@@ -65,7 +65,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
             renderMenu={({ onClose }) => (
                 <WebBookmarkMenu
                     onClose={onClose}
-                    onTransform={handleTransform}
+                    onConvert={handleConvert}
                     element={element}
                     withNewTabOption={withNewTabOption}
                 />

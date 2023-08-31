@@ -8,7 +8,7 @@ import type { InfoText } from '#components';
 import { EditorBlock, HtmlInjection } from '#components';
 import { PlayButton } from '#icons';
 
-import { removeVideo, transformVideo, updateVideo } from '../transforms';
+import { removeVideo, convertVideo, updateVideo } from '../transforms';
 
 import styles from './VideoElement.module.scss';
 import { type FormState, VideoMenu } from './VideoMenu';
@@ -46,9 +46,9 @@ export function VideoElement({
         removeVideo(editor, element);
     }, [editor, element]);
 
-    const handleTransform = useCallback(
+    const handleConvert = useCallback(
         (presentation: `${VideoNode.Presentation}`) => {
-            transformVideo(editor, element, presentation);
+            convertVideo(editor, element, presentation);
         },
         [editor, element],
     );
@@ -67,7 +67,7 @@ export function VideoElement({
                           <VideoMenu
                               info={info}
                               onChange={handleUpdate}
-                              onTransform={handleTransform}
+                              onConvert={handleConvert}
                               onClose={onClose}
                               onRemove={handleRemove}
                               url={element.url}

@@ -19,7 +19,7 @@ interface Props {
     element: BookmarkNode;
     withNewTabOption: boolean;
     onClose: () => void;
-    onTransform: (presentation: `${BookmarkNode.Presentation}`) => void;
+    onConvert: (presentation: `${BookmarkNode.Presentation}`) => void;
 }
 
 const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
@@ -58,7 +58,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
     element,
     withNewTabOption,
     onClose,
-    onTransform,
+    onConvert,
 }) => {
     const editor = useSlate();
     const isSelected = useSelected();
@@ -138,7 +138,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
                     selectedValue={BookmarkNode.Presentation.BOOKMARK}
-                    onChange={(presentation) => onTransform(presentation)}
+                    onChange={(presentation) => onConvert(presentation)}
                     variant="pills"
                 />
             </Toolbox.Section>

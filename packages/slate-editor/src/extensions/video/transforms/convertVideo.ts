@@ -1,23 +1,22 @@
 import type { BookmarkNode } from '@prezly/slate-types';
+import { VideoNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
 import { createWebBookmark } from '#extensions/web-bookmark';
 
-import { EmbedNode } from '../EmbedNode';
-
-export function transformEmbed(
+export function convertVideo(
     editor: Editor,
-    element: EmbedNode,
-    presentation: `${EmbedNode.Presentation}`,
+    video: VideoNode,
+    presentation: `${VideoNode.Presentation}`,
 ) {
-    if (presentation === EmbedNode.Presentation.BOOKMARK) {
+    if (presentation === VideoNode.Presentation.BOOKMARK) {
         Transforms.setNodes<BookmarkNode>(
             editor,
-            createWebBookmark({ oembed: element.oembed, url: element.url }),
+            createWebBookmark({ oembed: video.oembed, url: video.url }),
             {
                 at: [],
-                match: (node) => node === element,
+                match: (node) => node === video,
             },
         );
     }

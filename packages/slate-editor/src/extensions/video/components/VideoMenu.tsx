@@ -22,7 +22,7 @@ interface Props {
     info?: InfoText.StructuredContent;
     url: VideoNode['url'];
     onChange: (props: Partial<FormState>) => void;
-    onTransform: (presentation: `${VideoNode.Presentation}`) => void;
+    onConvert: (presentation: `${VideoNode.Presentation}`) => void;
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
@@ -74,7 +74,7 @@ export function VideoMenu({
     info = [],
     url,
     onChange,
-    onTransform,
+    onConvert,
     onClose,
     onRemove,
     value,
@@ -130,7 +130,7 @@ export function VideoMenu({
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
                     selectedValue={VideoNode.Presentation.EMBED}
-                    onChange={(presentation) => onTransform(presentation)}
+                    onChange={(presentation) => onConvert(presentation)}
                     variant="pills"
                 />
             </Toolbox.Section>

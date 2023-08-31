@@ -6,7 +6,7 @@ import { Transforms } from 'slate';
 import type { EmbedNode } from '#extensions/embed';
 import { createEmbed } from '#extensions/embed';
 
-export function transformWebBookmark(
+export function convertWebBookmark(
     editor: Editor,
     element: BookmarkNode,
     presentation: `${VideoNode.Presentation}`,

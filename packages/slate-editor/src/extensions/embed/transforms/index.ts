@@ -1,3 +1,3 @@
 export { removeEmbed } from './removeEmbed';
 export { updateEmbed } from './updateEmbed';
-export { transformEmbed } from './transformEmbed';
+export { convertEmbed } from './convertEmbed';
