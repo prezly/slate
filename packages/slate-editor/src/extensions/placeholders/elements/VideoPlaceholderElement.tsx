@@ -9,7 +9,7 @@ import { useSlateStatic } from 'slate-react';
 import { PlaceholderVideo } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
-import { createVideoBookmark, VIDEO_TYPES } from '#extensions/video';
+import { VIDEO_TYPES } from '#extensions/video';
 import { EventsEditor } from '#modules/events';
 
 import {
@@ -17,7 +17,7 @@ import {
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
-import { replacePlaceholder } from '../lib';
+import { handleOembed } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
@@ -39,6 +39,9 @@ interface Props
     > {
     element: PlaceholderNode<PlaceholderNode.Type.VIDEO>;
     fetchOembed: FetchOEmbedFn;
+    withImagePlaceholders?: boolean;
+    withVideoPlaceholders?: boolean;
+    withWebBookmarkPlaceholders?: boolean;
 }
 
 export function VideoPlaceholderElement({
@@ -46,6 +49,9 @@ export function VideoPlaceholderElement({
     element,
     fetchOembed,
     format = '16:9',
+    withImagePlaceholders = false,
+    withVideoPlaceholders = false,
+    withWebBookmarkPlaceholders = false,
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -59,10 +65,7 @@ export function VideoPlaceholderElement({
 
         const loading = fetchOembed(url).then(
             (oembed) => {
-                if (oembed.type === 'video') {
-                    return { oembed, url };
-                }
-                return { url };
+                return { oembed, url };
             },
             () => ({ url }), // `oembed` is undefined if an error occurred
         );
@@ -96,20 +99,24 @@ export function VideoPlaceholderElement({
 
     const handleData = useFunction(
         (data: { url: VideoNode['url']; oembed?: VideoNode['oembed'] }) => {
-            if (!data.oembed) {
+            const { url, oembed } = data;
+            if (!oembed) {
                 EventsEditor.dispatchEvent(editor, 'notification', {
                     children: 'Provided URL does not exist or is not supported.',
                     type: 'error',
                 });
                 return;
             }
-            replacePlaceholder(
+
+            handleOembed(
                 editor,
                 element,
-                createVideoBookmark({
-                    url: data.url,
-                    oembed: data.oembed,
-                }),
+                { url, oembed },
+                {
+                    routeImages: withImagePlaceholders,
+                    routeVideos: withVideoPlaceholders,
+                    routeWebBookmarks: withWebBookmarkPlaceholders,
+                },
             );
         },
     );

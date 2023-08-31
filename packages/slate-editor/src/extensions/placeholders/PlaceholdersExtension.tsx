@@ -338,6 +338,9 @@ export function PlaceholdersExtension({
                         fetchOembed={withVideoPlaceholders.fetchOembed}
                         format={format}
                         removable={removable}
+                        withImagePlaceholders={Boolean(withImagePlaceholders)}
+                        withVideoPlaceholders={Boolean(withVideoPlaceholders)}
+                        withWebBookmarkPlaceholders={Boolean(withWebBookmarkPlaceholders)}
                     >
                         {children}
                     </VideoPlaceholderElement>
