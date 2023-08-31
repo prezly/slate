@@ -1,4 +1,5 @@
-import { BookmarkNode } from '@prezly/slate-types';
+import type { BookmarkNode } from '@prezly/slate-types';
+import { BOOKMARK_NODE_TYPE } from '@prezly/slate-types';
 import { BookmarkCardLayout } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
@@ -9,9 +10,11 @@ import type { OptionsGroupOption } from '#components';
 import { Button, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
 import { Delete, ExternalLink, ItemsLayoutHorizontal, ItemsLayoutVertical } from '#icons';
 
+import { EmbedNode } from '#extensions/embed';
 import { EventsEditor } from '#modules/events';
 
 import { removeWebBookmark, updateWebBookmark } from '../transforms';
+import type { Presentation } from '../types';
 
 import styles from './WebBookmarkMenu.module.scss';
 
@@ -19,7 +22,7 @@ interface Props {
     element: BookmarkNode;
     withNewTabOption: boolean;
     onClose: () => void;
-    onConvert: (presentation: `${BookmarkNode.Presentation}`) => void;
+    onConvert: (presentation: Presentation) => void;
 }
 
 const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
@@ -43,13 +46,13 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
     },
 ];
 
-const PRESENTATION_OPTIONS: OptionsGroupOption<BookmarkNode.Presentation>[] = [
+const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
     {
-        value: BookmarkNode.Presentation.EMBED,
+        value: EmbedNode.TYPE,
         label: 'Embed',
     },
     {
-        value: BookmarkNode.Presentation.BOOKMARK,
+        value: BOOKMARK_NODE_TYPE,
         label: 'Bookmark',
     },
 ];
@@ -137,7 +140,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                 <OptionsGroup
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
-                    selectedValue={BookmarkNode.Presentation.BOOKMARK}
+                    selectedValue={BOOKMARK_NODE_TYPE}
                     onChange={onConvert}
                     variant="pills"
                 />

@@ -18,11 +18,6 @@ export namespace EmbedNode {
         FULL_WIDTH = 'full-width',
     }
 
-    export enum Presentation {
-        EMBED = 'embed',
-        BOOKMARK = 'bookmark',
-    }
-
     export function isEmbedNode(value: any): value is EmbedNode {
         return isElementNode<ElementNode>(value, TYPE);
     }

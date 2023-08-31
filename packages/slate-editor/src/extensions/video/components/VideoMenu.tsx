@@ -1,3 +1,4 @@
+import { BOOKMARK_NODE_TYPE } from '@prezly/slate-types';
 import { VideoNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React from 'react';
@@ -12,6 +13,10 @@ import {
     ImageLayoutFullWidth,
 } from '#icons';
 
+import { EmbedNode } from '#extensions/embed';
+
+import type { Presentation } from '../types';
+
 import styles from './VideoMenu.module.scss';
 
 export interface FormState {
@@ -22,7 +27,7 @@ interface Props {
     info?: InfoText.StructuredContent;
     url: VideoNode['url'];
     onChange: (props: Partial<FormState>) => void;
-    onConvert: (presentation: `${VideoNode.Presentation}`) => void;
+    onConvert: (presentation: Presentation) => void;
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
@@ -59,13 +64,13 @@ const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
     },
 ];
 
-const PRESENTATION_OPTIONS: OptionsGroupOption<VideoNode.Presentation>[] = [
+const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
     {
-        value: VideoNode.Presentation.EMBED,
+        value: EmbedNode.TYPE,
         label: 'Embed',
     },
     {
-        value: VideoNode.Presentation.BOOKMARK,
+        value: BOOKMARK_NODE_TYPE,
         label: 'Bookmark',
     },
 ];
@@ -129,7 +134,7 @@ export function VideoMenu({
                 <OptionsGroup
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
-                    selectedValue={VideoNode.Presentation.EMBED}
+                    selectedValue={EmbedNode.TYPE}
                     onChange={onConvert}
                     variant="pills"
                 />

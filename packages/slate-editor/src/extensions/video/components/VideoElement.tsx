@@ -9,6 +9,7 @@ import { EditorBlock, HtmlInjection } from '#components';
 import { PlayButton } from '#icons';
 
 import { removeVideo, convertVideo, updateVideo } from '../transforms';
+import type { Presentation } from '../types';
 
 import styles from './VideoElement.module.scss';
 import { type FormState, VideoMenu } from './VideoMenu';
@@ -47,7 +48,7 @@ export function VideoElement({
     }, [editor, element]);
 
     const handleConvert = useCallback(
-        (presentation: `${VideoNode.Presentation}`) => {
+        (presentation: Presentation) => {
             convertVideo(editor, element, presentation);
         },
         [editor, element],

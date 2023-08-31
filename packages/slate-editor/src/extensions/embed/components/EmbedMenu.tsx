@@ -1,3 +1,4 @@
+import { BOOKMARK_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React from 'react';
 
@@ -12,6 +13,7 @@ import {
 } from '#icons';
 
 import { EmbedNode } from '../EmbedNode';
+import type { Presentation } from '../types';
 
 import styles from './EmbedMenu.module.scss';
 
@@ -23,7 +25,7 @@ interface Props {
     info?: InfoText.StructuredContent;
     url: EmbedNode['url'];
     onChange: (props: Partial<FormState>) => void;
-    onConvert: (presentation: `${EmbedNode.Presentation}`) => void;
+    onConvert: (presentation: Presentation) => void;
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
@@ -60,13 +62,13 @@ const LAYOUT_OPTIONS: OptionsGroupOption<EmbedNode.Layout>[] = [
     },
 ];
 
-const PRESENTATION_OPTIONS: OptionsGroupOption<EmbedNode.Presentation>[] = [
+const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
     {
-        value: EmbedNode.Presentation.EMBED,
+        value: EmbedNode.TYPE,
         label: 'Embed',
     },
     {
-        value: EmbedNode.Presentation.BOOKMARK,
+        value: BOOKMARK_NODE_TYPE,
         label: 'Bookmark',
     },
 ];
@@ -124,7 +126,7 @@ export function EmbedMenu({
                 <OptionsGroup
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
-                    selectedValue={EmbedNode.Presentation.EMBED}
+                    selectedValue={EmbedNode.TYPE}
                     onChange={onConvert}
                     variant="pills"
                 />

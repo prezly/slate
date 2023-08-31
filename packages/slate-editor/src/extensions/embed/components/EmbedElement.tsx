@@ -12,6 +12,7 @@ import { BookmarkCard } from '#modules/components';
 import type { FormState } from '../../video/components/VideoMenu';
 import type { EmbedNode } from '../EmbedNode';
 import { removeEmbed, convertEmbed, updateEmbed } from '../transforms';
+import type { Presentation } from '../types';
 
 import styles from './EmbedElement.module.scss';
 import { EmbedMenu } from './EmbedMenu';
@@ -49,7 +50,7 @@ export function EmbedElement({
         removeEmbed(editor, element);
     }, [editor, element]);
     const handleConvert = useCallback(
-        (presentation: `${EmbedNode.Presentation}`) => {
+        (presentation: Presentation) => {
             convertEmbed(editor, element, presentation);
         },
         [editor, element],

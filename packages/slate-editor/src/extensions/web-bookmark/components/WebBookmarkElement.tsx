@@ -11,6 +11,7 @@ import { useResizeObserver, utils } from '#lib';
 import { BookmarkCard } from '#modules/components';
 
 import { convertWebBookmark } from '../transforms';
+import type { Presentation } from '../types';
 
 import { WebBookmarkMenu } from './WebBookmarkMenu';
 
@@ -44,7 +45,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
         : layout;
 
     const handleConvert = useCallback(
-        (presentation: `${BookmarkNode.Presentation}`) => {
+        (presentation: Presentation) => {
             convertWebBookmark(editor, element, presentation);
         },
         [editor, element],
