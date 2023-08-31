@@ -125,7 +125,7 @@ export function EmbedMenu({
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
                     selectedValue={EmbedNode.Presentation.EMBED}
-                    onChange={(presentation) => onConvert(presentation)}
+                    onChange={onConvert}
                     variant="pills"
                 />
             </Toolbox.Section>

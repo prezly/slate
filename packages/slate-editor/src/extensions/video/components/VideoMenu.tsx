@@ -130,7 +130,7 @@ export function VideoMenu({
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
                     selectedValue={VideoNode.Presentation.EMBED}
-                    onChange={(presentation) => onConvert(presentation)}
+                    onChange={onConvert}
                     variant="pills"
                 />
             </Toolbox.Section>

@@ -138,7 +138,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
                     selectedValue={BookmarkNode.Presentation.BOOKMARK}
-                    onChange={(presentation) => onConvert(presentation)}
+                    onChange={onConvert}
                     variant="pills"
                 />
             </Toolbox.Section>
