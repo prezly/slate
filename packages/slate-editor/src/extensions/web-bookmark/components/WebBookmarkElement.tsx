@@ -6,7 +6,7 @@ import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
-import { useResizeObserver, utils } from '#lib';
+import { useResizeObserver } from '#lib';
 
 import { BookmarkCard } from '#modules/components';
 
@@ -30,10 +30,8 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
 
     const { url, oembed, layout } = element;
     const showThumbnail = element.show_thumbnail && oembed.thumbnail_url;
-    const isEmpty =
-        !showThumbnail && utils.isEmptyText(oembed.title) && utils.isEmptyText(oembed.description);
 
-    const actualLayout = !showThumbnail
+    const autoLayout = !showThumbnail
         ? BookmarkCardLayout.HORIZONTAL
         : isSmallViewport
         ? BookmarkCardLayout.VERTICAL
@@ -61,30 +59,14 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderReadOnlyFrame={() => (
-                <BookmarkCard.Container border={false} layout={actualLayout} ref={card}>
-                    {showThumbnail && oembed.thumbnail_url && (
-                        <BookmarkCard.Thumbnail
-                            href={url}
-                            src={oembed.thumbnail_url}
-                            width={oembed.thumbnail_width}
-                            height={oembed.thumbnail_height}
-                        />
-                    )}
-                    <BookmarkCard.Details
-                        hasThumbnail={Boolean(showThumbnail && oembed.thumbnail_url)}
-                        layout={actualLayout}
-                        href={url}
-                        title={oembed.title}
-                        description={oembed.description}
-                    >
-                        <BookmarkCard.Provider
-                            showUrl={isEmpty}
-                            url={oembed.url}
-                            providerName={oembed.provider_name}
-                            providerUrl={oembed.provider_url}
-                        />
-                    </BookmarkCard.Details>
-                </BookmarkCard.Container>
+                <BookmarkCard
+                    border={false}
+                    layout={autoLayout}
+                    forwardRef={card}
+                    oembed={oembed}
+                    url={url}
+                    withThumbnail={Boolean(element.show_thumbnail)}
+                />
             )}
             rounded
             void

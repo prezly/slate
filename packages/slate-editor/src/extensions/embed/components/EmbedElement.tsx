@@ -17,27 +17,28 @@ import styles from './EmbedElement.module.scss';
 import { EmbedMenu } from './EmbedMenu';
 
 interface Props extends RenderElementProps {
+    allowHtmlInjection?: boolean;
+    allowScreenshots?: boolean;
     availableWidth: number;
     info?: InfoText.StructuredContent;
     element: EmbedNode;
-    showAsScreenshot: boolean;
     withMenu: boolean;
     withLayoutControls: boolean;
 }
 
 export function EmbedElement({
+    allowHtmlInjection = false,
+    allowScreenshots = false,
     attributes,
     children,
     element,
     info,
-    showAsScreenshot,
     withMenu,
     withLayoutControls,
 }: Props) {
     const editor = useSlateStatic();
 
     const [isInvalid, setIsInvalid] = useState<boolean>(false);
-    const isUsingScreenshots = showAsScreenshot && element.oembed.type !== 'link';
 
     const handleUpdate = useCallback(
         (patch: Partial<FormState>) => {
@@ -74,7 +75,27 @@ export function EmbedElement({
                     : undefined
             }
             renderReadOnlyFrame={function () {
-                if (isUsingScreenshots && element.oembed.screenshot_url) {
+                if (isInvalid) {
+                    return (
+                        <div className={styles.Error}>
+                            There was a problem loading the requested URL.
+                        </div>
+                    );
+                }
+
+                if (allowHtmlInjection && element.oembed.html) {
+                    return (
+                        <HtmlInjection
+                            className={classNames(styles.Content, {
+                                [styles.video]: element.oembed.type === 'video',
+                            })}
+                            html={element.oembed.html}
+                            onError={() => setIsInvalid(true)}
+                        />
+                    );
+                }
+
+                if (allowScreenshots && element.oembed.screenshot_url) {
                     return (
                         <ImageWithLoadingPlaceholder
                             src={element.oembed.screenshot_url}
@@ -86,35 +107,12 @@ export function EmbedElement({
                     );
                 }
 
-                if (isInvalid) {
-                    return (
-                        <div className={styles.Error}>
-                            There was a problem loading the requested URL.
-                        </div>
-                    );
-                }
-
-                if (element.oembed.type === 'link') {
-                    return (
-                        <BookmarkCard.Container border layout="vertical">
-                            <BookmarkCard.Details
-                                href={element.url}
-                                layout="vertical"
-                                hasThumbnail={false}
-                            >
-                                <BookmarkCard.Provider showUrl url={element.url} />
-                            </BookmarkCard.Details>
-                        </BookmarkCard.Container>
-                    );
-                }
-
                 return (
-                    <HtmlInjection
-                        className={classNames(styles.Content, {
-                            [styles.video]: element.oembed.type === 'video',
-                        })}
-                        html={element.oembed.html ?? ''}
-                        onError={() => setIsInvalid(true)}
+                    <BookmarkCard
+                        border
+                        layout="vertical"
+                        oembed={element.oembed}
+                        withThumbnail={true}
                     />
                 );
             }}
