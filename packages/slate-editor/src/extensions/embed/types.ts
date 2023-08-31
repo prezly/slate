@@ -1,5 +1,5 @@
-import type { BOOKMARK_NODE_TYPE } from '@prezly/slate-types';
+import type { BookmarkNode } from '@prezly/slate-types';
 
 import type { EmbedNode } from './EmbedNode';
 
-export type Presentation = `${typeof EmbedNode.TYPE}` | `${typeof BOOKMARK_NODE_TYPE}`;
+export type Presentation = `${typeof EmbedNode.TYPE}` | `${typeof BookmarkNode.TYPE}`;

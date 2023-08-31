@@ -1,6 +1,4 @@
-import type { BookmarkNode } from '@prezly/slate-types';
-import { BOOKMARK_NODE_TYPE } from '@prezly/slate-types';
-import { BookmarkCardLayout } from '@prezly/slate-types';
+import { BookmarkNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
@@ -25,10 +23,10 @@ interface Props {
     onConvert: (presentation: Presentation) => void;
 }
 
-const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
+const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkNode.Layout>[] = [
     {
         label: 'Vertical',
-        value: BookmarkCardLayout.VERTICAL,
+        value: BookmarkNode.Layout.VERTICAL,
         icon: ({ isActive }) => (
             <ItemsLayoutVertical
                 className={classNames(styles.OptionIcon, { [styles.active]: isActive })}
@@ -37,7 +35,7 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
     },
     {
         label: 'Horizontal',
-        value: BookmarkCardLayout.HORIZONTAL,
+        value: BookmarkNode.Layout.HORIZONTAL,
         icon: ({ isActive }) => (
             <ItemsLayoutHorizontal
                 className={classNames(styles.OptionIcon, { [styles.active]: isActive })}
@@ -52,7 +50,7 @@ const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
         label: 'Embed',
     },
     {
-        value: BOOKMARK_NODE_TYPE,
+        value: BookmarkNode.TYPE,
         label: 'Bookmark',
     },
 ];
@@ -81,7 +79,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
     }
 
     const isLayoutChangeable = element.oembed.thumbnail_url && element.show_thumbnail;
-    const activeLayout = isLayoutChangeable ? element.layout : BookmarkCardLayout.VERTICAL;
+    const activeLayout = isLayoutChangeable ? element.layout : BookmarkNode.Layout.VERTICAL;
 
     return (
         <>
@@ -116,7 +114,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
 
             <Toolbox.Section caption="Card layout">
                 <VStack spacing="2-5">
-                    <OptionsGroup<BookmarkCardLayout>
+                    <OptionsGroup<`${BookmarkNode.Layout}`>
                         columns={3}
                         disabled={!isLayoutChangeable}
                         name="layout"
@@ -140,7 +138,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                 <OptionsGroup
                     name="presentation"
                     options={PRESENTATION_OPTIONS}
-                    selectedValue={BOOKMARK_NODE_TYPE}
+                    selectedValue={BookmarkNode.TYPE}
                     onChange={onConvert}
                     variant="pills"
                 />

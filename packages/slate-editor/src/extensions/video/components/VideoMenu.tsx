@@ -1,5 +1,4 @@
-import { BOOKMARK_NODE_TYPE } from '@prezly/slate-types';
-import { VideoNode } from '@prezly/slate-types';
+import { BookmarkNode, VideoNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React from 'react';
 
@@ -70,7 +69,7 @@ const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
         label: 'Embed',
     },
     {
-        value: BOOKMARK_NODE_TYPE,
+        value: BookmarkNode.TYPE,
         label: 'Bookmark',
     },
 ];

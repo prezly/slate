@@ -1,6 +1,6 @@
 import {
+    BookmarkNode,
     isAttachmentNode,
-    isBookmarkNode,
     isContactNode,
     isCoverageNode,
     isDividerNode,
@@ -26,7 +26,7 @@ import { PlaceholderNode } from '#extensions/placeholders';
 
 export function isAllowedOnTopLevel(node: Node) {
     return (
-        isBookmarkNode(node) ||
+        BookmarkNode.isBookmarkNode(node) ||
         isAttachmentNode(node) ||
         isContactNode(node) ||
         isCoverageNode(node) ||

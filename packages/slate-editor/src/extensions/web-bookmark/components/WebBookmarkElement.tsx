@@ -1,5 +1,4 @@
-import type { BookmarkNode } from '@prezly/slate-types';
-import { BookmarkCardLayout } from '@prezly/slate-types';
+import { BookmarkNode } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
 import { useCallback, useRef, useState } from 'react';
 import React from 'react';
@@ -39,9 +38,9 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
         !showThumbnail && utils.isEmptyText(oembed.title) && utils.isEmptyText(oembed.description);
 
     const actualLayout = !showThumbnail
-        ? BookmarkCardLayout.HORIZONTAL
+        ? BookmarkNode.Layout.HORIZONTAL
         : isSmallViewport
-        ? BookmarkCardLayout.VERTICAL
+        ? BookmarkNode.Layout.VERTICAL
         : layout;
 
     const handleConvert = useCallback(

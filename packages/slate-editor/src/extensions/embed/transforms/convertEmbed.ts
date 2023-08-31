@@ -1,4 +1,4 @@
-import { BOOKMARK_NODE_TYPE, type BookmarkNode } from '@prezly/slate-types';
+import { BookmarkNode } from '@prezly/slate-types';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
@@ -8,7 +8,7 @@ import type { EmbedNode } from '../EmbedNode';
 import type { Presentation } from '../types';
 
 export function convertEmbed(editor: Editor, element: EmbedNode, presentation: Presentation) {
-    if (presentation === BOOKMARK_NODE_TYPE) {
+    if (presentation === BookmarkNode.TYPE) {
         Transforms.setNodes<BookmarkNode>(
             editor,
             createWebBookmark({ oembed: element.oembed, url: element.url }),
