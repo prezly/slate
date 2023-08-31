@@ -19,6 +19,7 @@ const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 interface Props extends RenderElementProps {
     element: BookmarkNode;
     withNewTabOption: boolean;
+    withConversionOptions: boolean;
 }
 
 export const WebBookmarkElement: FunctionComponent<Props> = ({
@@ -26,6 +27,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
     children,
     element,
     withNewTabOption,
+    withConversionOptions,
 }) => {
     const editor = useSlateStatic();
 
@@ -68,6 +70,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
                     onConvert={handleConvert}
                     element={element}
                     withNewTabOption={withNewTabOption}
+                    withConversionOptions={withConversionOptions}
                 />
             )}
             // We have to render children or Slate will fail when trying to find the node.

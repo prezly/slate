@@ -26,6 +26,7 @@ export interface EmbedExtensionConfiguration {
     showAsScreenshot: boolean;
     withMenu?: boolean;
     withLayoutControls?: boolean;
+    withConversionOptions?: boolean;
 }
 
 export const EmbedExtension = ({
@@ -34,6 +35,7 @@ export const EmbedExtension = ({
     showAsScreenshot,
     withMenu = false,
     withLayoutControls = true,
+    withConversionOptions = true,
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
@@ -66,6 +68,7 @@ export const EmbedExtension = ({
                         showAsScreenshot={showAsScreenshot}
                         withMenu={withMenu}
                         withLayoutControls={withLayoutControls}
+                        withConversionOptions={withConversionOptions}
                     >
                         {children}
                     </EmbedElement>

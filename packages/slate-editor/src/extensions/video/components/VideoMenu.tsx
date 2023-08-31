@@ -31,6 +31,7 @@ interface Props {
     onRemove: () => void;
     value: FormState;
     withLayoutControls: boolean;
+    withConversionOptions: boolean;
 }
 
 const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
@@ -83,6 +84,7 @@ export function VideoMenu({
     onRemove,
     value,
     withLayoutControls,
+    withConversionOptions,
 }: Props) {
     const isSelfHosted =
         url.startsWith('https://cdn.uc.assets.prezly.com/') ||
@@ -129,15 +131,17 @@ export function VideoMenu({
                 </Toolbox.Section>
             )}
 
-            <Toolbox.Section caption="Change to...">
-                <OptionsGroup
-                    name="presentation"
-                    options={PRESENTATION_OPTIONS}
-                    selectedValue={EmbedNode.TYPE}
-                    onChange={onConvert}
-                    variant="pills"
-                />
-            </Toolbox.Section>
+            {withConversionOptions && (
+                <Toolbox.Section caption="Change to...">
+                    <OptionsGroup
+                        name="presentation"
+                        options={PRESENTATION_OPTIONS}
+                        selectedValue={EmbedNode.TYPE}
+                        onChange={onConvert}
+                        variant="pills"
+                    />
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Footer>
                 <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>

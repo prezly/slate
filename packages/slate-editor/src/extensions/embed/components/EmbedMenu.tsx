@@ -30,6 +30,7 @@ interface Props {
     onRemove: () => void;
     value: FormState;
     withLayoutControls: boolean;
+    withConversionOptions: boolean;
 }
 
 const LAYOUT_OPTIONS: OptionsGroupOption<EmbedNode.Layout>[] = [
@@ -82,6 +83,7 @@ export function EmbedMenu({
     onRemove,
     value,
     withLayoutControls,
+    withConversionOptions,
 }: Props) {
     return (
         <>
@@ -122,15 +124,17 @@ export function EmbedMenu({
                 </Toolbox.Section>
             )}
 
-            <Toolbox.Section caption="Change to...">
-                <OptionsGroup
-                    name="presentation"
-                    options={PRESENTATION_OPTIONS}
-                    selectedValue={EmbedNode.TYPE}
-                    onChange={onConvert}
-                    variant="pills"
-                />
-            </Toolbox.Section>
+            {withConversionOptions && (
+                <Toolbox.Section caption="Change to...">
+                    <OptionsGroup
+                        name="presentation"
+                        options={PRESENTATION_OPTIONS}
+                        selectedValue={EmbedNode.TYPE}
+                        onChange={onConvert}
+                        variant="pills"
+                    />
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Footer>
                 <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>

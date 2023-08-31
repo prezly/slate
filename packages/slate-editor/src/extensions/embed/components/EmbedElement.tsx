@@ -24,6 +24,7 @@ interface Props extends RenderElementProps {
     showAsScreenshot: boolean;
     withMenu: boolean;
     withLayoutControls: boolean;
+    withConversionOptions: boolean;
 }
 
 export function EmbedElement({
@@ -34,6 +35,7 @@ export function EmbedElement({
     showAsScreenshot,
     withMenu,
     withLayoutControls,
+    withConversionOptions,
 }: Props) {
     const editor = useSlateStatic();
 
@@ -77,6 +79,7 @@ export function EmbedElement({
                               url={element.url}
                               value={{ layout: element.layout }}
                               withLayoutControls={withLayoutControls}
+                              withConversionOptions={withConversionOptions}
                           />
                       )
                     : undefined

@@ -18,6 +18,7 @@ import styles from './WebBookmarkMenu.module.scss';
 interface Props {
     element: BookmarkNode;
     withNewTabOption: boolean;
+    withConversionOptions: boolean;
     onClose: () => void;
     onConvert: (presentation: Presentation) => void;
 }
@@ -57,6 +58,7 @@ const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
 export const WebBookmarkMenu: FunctionComponent<Props> = ({
     element,
     withNewTabOption,
+    withConversionOptions,
     onClose,
     onConvert,
 }) => {
@@ -133,15 +135,17 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                 </VStack>
             </Toolbox.Section>
 
-            <Toolbox.Section caption="Change to...">
-                <OptionsGroup
-                    name="presentation"
-                    options={PRESENTATION_OPTIONS}
-                    selectedValue={BookmarkNode.TYPE}
-                    onChange={onConvert}
-                    variant="pills"
-                />
-            </Toolbox.Section>
+            {withConversionOptions && (
+                <Toolbox.Section caption="Change to...">
+                    <OptionsGroup
+                        name="presentation"
+                        options={PRESENTATION_OPTIONS}
+                        selectedValue={BookmarkNode.TYPE}
+                        onChange={onConvert}
+                        variant="pills"
+                    />
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Footer>
                 <Button variant="clear-faded" icon={Delete} fullWidth onMouseDown={handleRemove}>

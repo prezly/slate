@@ -16,12 +16,14 @@ import {
 
 interface WebBookmarkExtensionParameters {
     withNewTabOption?: boolean;
+    withConversionOptions?: boolean;
 }
 
 export const EXTENSION_ID = 'WebBookmarkExtension';
 
 export const WebBookmarkExtension = ({
     withNewTabOption = true,
+    withConversionOptions = true,
 }: WebBookmarkExtensionParameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
@@ -53,6 +55,7 @@ export const WebBookmarkExtension = ({
                         attributes={attributes}
                         element={element}
                         withNewTabOption={withNewTabOption}
+                        withConversionOptions={withConversionOptions}
                     >
                         {children}
                     </WebBookmarkElement>

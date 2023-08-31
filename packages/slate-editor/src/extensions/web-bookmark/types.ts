@@ -5,6 +5,7 @@ import type { EmbedNode } from '#extensions/embed';
 
 export interface WebBookmarkExtensionParameters {
     withNewTabOption?: boolean;
+    withConversionOptions?: boolean;
     fetchOembed: (url: OEmbedInfo['url']) => Promise<OEmbedInfo>;
 }
 

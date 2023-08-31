@@ -20,6 +20,7 @@ interface Props extends RenderElementProps {
     mode: 'iframe' | 'thumbnail';
     withMenu: boolean;
     withLayoutControls: boolean;
+    withConversionOptions: boolean;
 }
 
 export function VideoElement({
@@ -30,6 +31,7 @@ export function VideoElement({
     mode,
     withMenu,
     withLayoutControls,
+    withConversionOptions,
 }: Props) {
     const editor = useSlateStatic();
 
@@ -74,6 +76,7 @@ export function VideoElement({
                               url={element.url}
                               value={{ layout: element.layout }}
                               withLayoutControls={withLayoutControls}
+                              withConversionOptions={withConversionOptions}
                           />
                       )
                     : undefined
