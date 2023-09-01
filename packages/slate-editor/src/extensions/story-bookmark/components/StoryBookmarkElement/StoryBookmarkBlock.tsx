@@ -3,7 +3,7 @@ import type { StoryBookmarkNode } from '@prezly/slate-types';
 import { StoryBookmarkLayout } from '@prezly/slate-types';
 import React, { useRef, useState, useMemo } from 'react';
 
-import { useResizeObserver, utils } from '#lib';
+import { useResizeObserver } from '#lib';
 
 import { BookmarkCard } from '#modules/components';
 
@@ -18,14 +18,9 @@ export function StoryBookmarkBlock({ story, element }: StoryBookmarkBlockProps) 
     const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);
 
-    const showThumbnail = element.show_thumbnail && story.oembed.thumbnail_url;
+    const showThumbnail = Boolean(element.show_thumbnail && story.oembed.thumbnail_url);
 
-    const isEmpty =
-        !showThumbnail &&
-        utils.isEmptyText(story.oembed.title) &&
-        utils.isEmptyText(story.oembed.description);
-
-    const actualLayout = useMemo(() => {
+    const autoLayout = useMemo(() => {
         if (!showThumbnail) {
             return StoryBookmarkLayout.HORIZONTAL;
         } else if (isSmallViewport) {
@@ -41,32 +36,13 @@ export function StoryBookmarkBlock({ story, element }: StoryBookmarkBlockProps) 
         });
     });
 
-    const hasThumbnail = Boolean(showThumbnail && story.oembed.thumbnail_url);
-
     return (
-        <BookmarkCard.Container border={false} layout={actualLayout} ref={card}>
-            {showThumbnail && story.oembed.thumbnail_url && (
-                <BookmarkCard.Thumbnail
-                    href={story.oembed.url}
-                    src={story.oembed.thumbnail_url}
-                    width={story.oembed.thumbnail_width}
-                    height={story.oembed.thumbnail_height}
-                />
-            )}
-            <BookmarkCard.Details
-                hasThumbnail={hasThumbnail}
-                layout={actualLayout}
-                href={story.oembed.url}
-                title={story.oembed.title}
-                description={story.oembed.description}
-            >
-                <BookmarkCard.Provider
-                    showUrl={isEmpty}
-                    url={story.oembed.url}
-                    providerName={story.oembed.provider_name}
-                    providerUrl={story.oembed.provider_url}
-                />
-            </BookmarkCard.Details>
-        </BookmarkCard.Container>
+        <BookmarkCard
+            border={false}
+            layout={autoLayout}
+            forwardRef={card}
+            withThumbnail={showThumbnail}
+            oembed={story.oembed}
+        />
     );
 }

@@ -21,18 +21,20 @@ interface Parameters extends EmbedExtensionConfiguration {
 export const EXTENSION_ID = 'EmbedExtension';
 
 export interface EmbedExtensionConfiguration {
+    allowHtmlInjection?: boolean;
+    allowScreenshots?: boolean;
     fetchOembed: (url: OEmbedInfo['url']) => Promise<OEmbedInfo>;
     info?: InfoText.StructuredContent;
-    showAsScreenshot: boolean;
     withMenu?: boolean;
     withLayoutControls?: boolean;
     withConversionOptions?: boolean;
 }
 
 export const EmbedExtension = ({
+    allowHtmlInjection,
+    allowScreenshots,
     availableWidth,
     info,
-    showAsScreenshot,
     withMenu = false,
     withLayoutControls = true,
     withConversionOptions = true,
@@ -61,11 +63,12 @@ export const EmbedExtension = ({
             return (
                 <>
                     <EmbedElement
+                        allowHtmlInjection={allowHtmlInjection}
+                        allowScreenshots={allowScreenshots}
                         attributes={attributes}
                         availableWidth={availableWidth}
                         element={element}
                         info={info}
-                        showAsScreenshot={showAsScreenshot}
                         withMenu={withMenu}
                         withLayoutControls={withLayoutControls}
                         withConversionOptions={withConversionOptions}

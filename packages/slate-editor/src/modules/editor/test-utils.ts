@@ -38,7 +38,8 @@ export function getAllExtensions() {
             withDivider: true,
             withEmbeds: {
                 fetchOembed,
-                showAsScreenshot: false,
+                allowHtmlInjection: true,
+                allowScreenshots: false,
             },
             withFloatingAddMenu: true,
             withGalleries: {},

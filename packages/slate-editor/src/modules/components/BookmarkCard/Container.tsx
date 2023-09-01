@@ -1,31 +1,27 @@
 import classNames from 'classnames';
-import type { PropsWithChildren } from 'react';
-import React from 'react';
+import type { Ref } from 'react';
+import React, { type ReactNode } from 'react';
 
 import styles from './BookmarkCard.module.scss';
 
-type ContainerLayout = 'vertical' | 'horizontal';
-
-interface ContainerProps {
-    border?: boolean;
-    layout: ContainerLayout;
+interface Props {
+    border: boolean;
+    children: ReactNode;
+    forwardRef?: Ref<HTMLDivElement>;
+    layout: 'vertical' | 'horizontal';
 }
 
-export const Container = React.forwardRef<HTMLDivElement, PropsWithChildren<ContainerProps>>(
-    ({ border = true, layout, children }, ref) => {
-        return (
-            <div
-                className={classNames(styles.container, {
-                    [styles.border]: border,
-                    [styles.vertical]: layout === 'vertical',
-                    [styles.horizontal]: layout === 'horizontal',
-                })}
-                ref={ref}
-            >
-                {children}
-            </div>
-        );
-    },
-);
-
-Container.displayName = 'Container';
+export function Container({ border = true, layout, children, forwardRef }: Props) {
+    return (
+        <div
+            className={classNames(styles.container, {
+                [styles.border]: border,
+                [styles.vertical]: layout === 'vertical',
+                [styles.horizontal]: layout === 'horizontal',
+            })}
+            ref={forwardRef}
+        >
+            {children}
+        </div>
+    );
+}
