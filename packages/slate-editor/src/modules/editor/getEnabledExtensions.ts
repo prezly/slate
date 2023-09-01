@@ -253,7 +253,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     }
 
     if (withWebBookmarks) {
-        yield WebBookmarkExtension({ withNewTabOption: withWebBookmarks.withNewTabOption });
+        yield WebBookmarkExtension(withWebBookmarks);
     }
 
     if (withAutoformat) {
