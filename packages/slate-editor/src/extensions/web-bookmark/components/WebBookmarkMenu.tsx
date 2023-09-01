@@ -44,7 +44,7 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkNode.Layout>[] = [
     },
 ];
 
-function getPresentationOptions(element: BookmarkNode) {
+function getPresentationOptions(element: BookmarkNode): OptionsGroupOption<Presentation>[] {
     return [
         {
             value: 'embed',
@@ -55,7 +55,7 @@ function getPresentationOptions(element: BookmarkNode) {
             value: 'card',
             label: 'Bookmark',
         },
-    ] as OptionsGroupOption<Presentation>[];
+    ];
 }
 
 export const WebBookmarkMenu: FunctionComponent<Props> = ({

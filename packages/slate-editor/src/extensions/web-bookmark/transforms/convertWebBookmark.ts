@@ -14,25 +14,14 @@ export function convertWebBookmark(
     presentation: Presentation,
 ) {
     if (presentation === 'embed') {
-        if (element.oembed.type === 'video') {
-            Transforms.setNodes<VideoNode>(
-                editor,
-                createVideoBookmark({ oembed: element.oembed, url: element.url }),
-                {
-                    at: [],
-                    match: (node) => node === element,
-                },
-            );
-            return;
-        }
+        const converted =
+            element.oembed.type === 'video'
+                ? createVideoBookmark({ oembed: element.oembed, url: element.url })
+                : createEmbed({ oembed: element.oembed, url: element.url });
 
-        Transforms.setNodes<EmbedNode>(
-            editor,
-            createEmbed({ oembed: element.oembed, url: element.url }),
-            {
-                at: [],
-                match: (node) => node === element,
-            },
-        );
+        Transforms.setNodes<VideoNode | EmbedNode>(editor, converted, {
+            at: [],
+            match: (node) => node === element,
+        });
     }
 }
