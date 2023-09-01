@@ -14,7 +14,7 @@ import {
     parseSerializedElement,
 } from './lib';
 
-interface WebBookmarkExtensionParameters {
+export interface Parameters {
     withNewTabOption?: boolean;
     withConversionOptions?: boolean;
 }
@@ -24,7 +24,7 @@ export const EXTENSION_ID = 'WebBookmarkExtension';
 export const WebBookmarkExtension = ({
     withNewTabOption = true,
     withConversionOptions = true,
-}: WebBookmarkExtensionParameters): Extension => ({
+}: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({

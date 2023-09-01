@@ -1,4 +1,7 @@
-export { WebBookmarkExtension, EXTENSION_ID } from './WebBookmarkExtension';
+export {
+    WebBookmarkExtension,
+    EXTENSION_ID,
+    type Parameters as WebBookmarkExtensionParameters,
+} from './WebBookmarkExtension';
 
 export { createWebBookmark } from './lib';
-export type { WebBookmarkExtensionParameters } from './types';
