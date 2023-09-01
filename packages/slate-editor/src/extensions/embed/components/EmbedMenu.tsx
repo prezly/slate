@@ -128,7 +128,7 @@ export function EmbedMenu({
                     <OptionsGroup
                         name="presentation"
                         options={PRESENTATION_OPTIONS}
-                        selectedValue={EmbedNode.TYPE}
+                        selectedValue="embed"
                         onChange={onConvert}
                         variant="pills"
                     />
