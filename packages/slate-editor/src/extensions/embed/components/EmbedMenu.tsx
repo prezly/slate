@@ -1,4 +1,3 @@
-import { BookmarkNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React from 'react';
 
@@ -65,11 +64,11 @@ const LAYOUT_OPTIONS: OptionsGroupOption<EmbedNode.Layout>[] = [
 
 const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
     {
-        value: EmbedNode.TYPE,
+        value: 'embed',
         label: 'Embed',
     },
     {
-        value: BookmarkNode.TYPE,
+        value: 'card',
         label: 'Bookmark',
     },
 ];

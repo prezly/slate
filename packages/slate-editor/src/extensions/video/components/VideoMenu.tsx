@@ -1,4 +1,4 @@
-import { BookmarkNode, VideoNode } from '@prezly/slate-types';
+import { VideoNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React from 'react';
 
@@ -11,8 +11,6 @@ import {
     ImageLayoutExpanded,
     ImageLayoutFullWidth,
 } from '#icons';
-
-import { EmbedNode } from '#extensions/embed';
 
 import type { Presentation } from '../types';
 
@@ -66,11 +64,11 @@ const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
 
 const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
     {
-        value: EmbedNode.TYPE,
+        value: 'embed',
         label: 'Embed',
     },
     {
-        value: BookmarkNode.TYPE,
+        value: 'card',
         label: 'Bookmark',
     },
 ];
@@ -136,7 +134,7 @@ export function VideoMenu({
                     <OptionsGroup
                         name="presentation"
                         options={PRESENTATION_OPTIONS}
-                        selectedValue={EmbedNode.TYPE}
+                        selectedValue="embed"
                         onChange={onConvert}
                         variant="pills"
                     />

@@ -46,11 +46,11 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkNode.Layout>[] = [
 
 const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
     {
-        value: 'embed', // Not using EmbedNode.TYPE here intentionally as it doesn't work
+        value: 'embed',
         label: 'Embed',
     },
     {
-        value: BookmarkNode.TYPE,
+        value: 'card',
         label: 'Bookmark',
     },
 ];
@@ -140,7 +140,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                     <OptionsGroup
                         name="presentation"
                         options={PRESENTATION_OPTIONS}
-                        selectedValue={BookmarkNode.TYPE}
+                        selectedValue="card"
                         onChange={onConvert}
                         variant="pills"
                     />
