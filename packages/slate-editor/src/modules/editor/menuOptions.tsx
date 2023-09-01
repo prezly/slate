@@ -233,7 +233,6 @@ function* generateOptions(
             group: Group.MEDIA_CONTENT,
             text: 'Social post',
             description: 'Embed a social media link',
-            isBeta: true,
         };
     }
 
@@ -285,7 +284,6 @@ function* generateOptions(
             group: Group.MEDIA_CONTENT,
             text: 'Embed',
             description: 'Insert embeddable content',
-            isBeta: true,
         };
     }
 
@@ -317,7 +315,6 @@ function* generateOptions(
             group: Group.PREZLY_CONTENT,
             text: 'Story bookmark',
             description: 'Embed your Prezly content',
-            isBeta: true,
         };
     }
 
@@ -328,7 +325,6 @@ function* generateOptions(
             group: Group.PREZLY_CONTENT,
             text: 'Story embed',
             description: 'Insert Prezly story content',
-            isBeta: true,
         };
     }
 
