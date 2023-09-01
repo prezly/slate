@@ -11,7 +11,8 @@ import { BookmarkCard } from '#modules/components';
 
 import type { FormState } from '../../video/components/VideoMenu';
 import type { EmbedNode } from '../EmbedNode';
-import { removeEmbed, updateEmbed } from '../transforms';
+import { removeEmbed, convertEmbed, updateEmbed } from '../transforms';
+import type { Presentation } from '../types';
 
 import styles from './EmbedElement.module.scss';
 import { EmbedMenu } from './EmbedMenu';
@@ -24,6 +25,7 @@ interface Props extends RenderElementProps {
     element: EmbedNode;
     withMenu: boolean;
     withLayoutControls: boolean;
+    withConversionOptions: boolean;
 }
 
 export function EmbedElement({
@@ -35,6 +37,7 @@ export function EmbedElement({
     info,
     withMenu,
     withLayoutControls,
+    withConversionOptions,
 }: Props) {
     const editor = useSlateStatic();
 
@@ -49,6 +52,12 @@ export function EmbedElement({
     const handleRemove = useCallback(() => {
         removeEmbed(editor, element);
     }, [editor, element]);
+    const handleConvert = useCallback(
+        (presentation: Presentation) => {
+            convertEmbed(editor, element, presentation);
+        },
+        [editor, element],
+    );
 
     return (
         <EditorBlock
@@ -66,10 +75,12 @@ export function EmbedElement({
                               info={info}
                               onChange={handleUpdate}
                               onClose={onClose}
+                              onConvert={handleConvert}
                               onRemove={handleRemove}
                               url={element.url}
                               value={{ layout: element.layout }}
                               withLayoutControls={withLayoutControls}
+                              withConversionOptions={withConversionOptions}
                           />
                       )
                     : undefined

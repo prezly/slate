@@ -1,6 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
-import { BOOKMARK_NODE_TYPE, isBookmarkNode } from '@prezly/slate-types';
+import { BookmarkNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -16,21 +16,23 @@ import {
 
 interface WebBookmarkExtensionParameters {
     withNewTabOption?: boolean;
+    withConversionOptions?: boolean;
 }
 
 export const EXTENSION_ID = 'WebBookmarkExtension';
 
 export const WebBookmarkExtension = ({
     withNewTabOption = true,
+    withConversionOptions = true,
 }: WebBookmarkExtensionParameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({
-            [BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
+            [BookmarkNode.TYPE]: createDeserializeElement(parseSerializedElement),
         }),
     },
     isElementEqual: (node, another) => {
-        if (isBookmarkNode(node) && isBookmarkNode(another)) {
+        if (BookmarkNode.isBookmarkNode(node) && BookmarkNode.isBookmarkNode(another)) {
             // Compare ignoring `uuid` and `children`
             return (
                 node.url === another.url &&
@@ -42,17 +44,18 @@ export const WebBookmarkExtension = ({
         }
         return undefined;
     },
-    isRichBlock: isBookmarkNode,
-    isVoid: isBookmarkNode,
+    isRichBlock: BookmarkNode.isBookmarkNode,
+    isVoid: BookmarkNode.isBookmarkNode,
     normalizeNode: [normalizeRedundantWebBookmarkAttributes, normalizeUrlAttribute],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (isBookmarkNode(element)) {
+        if (BookmarkNode.isBookmarkNode(element)) {
             return (
                 <>
                     <WebBookmarkElement
                         attributes={attributes}
                         element={element}
                         withNewTabOption={withNewTabOption}
+                        withConversionOptions={withConversionOptions}
                     >
                         {children}
                     </WebBookmarkElement>

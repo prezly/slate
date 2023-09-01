@@ -12,6 +12,7 @@ import {
 } from '#icons';
 
 import { EmbedNode } from '../EmbedNode';
+import type { Presentation } from '../types';
 
 import styles from './EmbedMenu.module.scss';
 
@@ -23,10 +24,12 @@ interface Props {
     info?: InfoText.StructuredContent;
     url: EmbedNode['url'];
     onChange: (props: Partial<FormState>) => void;
+    onConvert: (presentation: Presentation) => void;
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
     withLayoutControls: boolean;
+    withConversionOptions: boolean;
 }
 
 const LAYOUT_OPTIONS: OptionsGroupOption<EmbedNode.Layout>[] = [
@@ -59,14 +62,27 @@ const LAYOUT_OPTIONS: OptionsGroupOption<EmbedNode.Layout>[] = [
     },
 ];
 
+const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
+    {
+        value: 'embed',
+        label: 'Embed',
+    },
+    {
+        value: 'card',
+        label: 'Bookmark',
+    },
+];
+
 export function EmbedMenu({
     info = [],
     url,
     onChange,
     onClose,
+    onConvert,
     onRemove,
     value,
     withLayoutControls,
+    withConversionOptions,
 }: Props) {
     return (
         <>
@@ -103,6 +119,18 @@ export function EmbedMenu({
                         onChange={(layout) => {
                             onChange({ layout });
                         }}
+                    />
+                </Toolbox.Section>
+            )}
+
+            {withConversionOptions && (
+                <Toolbox.Section caption="Change to...">
+                    <OptionsGroup
+                        name="presentation"
+                        options={PRESENTATION_OPTIONS}
+                        selectedValue="embed"
+                        onChange={onConvert}
+                        variant="pills"
                     />
                 </Toolbox.Section>
             )}

@@ -1,6 +1,6 @@
 /** @jsx hyperscript */
 
-import { BookmarkCardLayout } from '@prezly/slate-types';
+import { BookmarkNode } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
 import { hyperscript } from '../../../hyperscript';
@@ -10,7 +10,7 @@ describe('nodes-hierarchy / Bookmark', () => {
         const editor = (
             <editor>
                 <h:bookmark
-                    layout={BookmarkCardLayout.HORIZONTAL}
+                    layout={BookmarkNode.Layout.HORIZONTAL}
                     new_tab
                     show_thumbnail
                     url="https://rock.prezly.com/stories/454942"
@@ -33,7 +33,7 @@ describe('nodes-hierarchy / Bookmark', () => {
         const expected = (
             <editor>
                 <h:bookmark
-                    layout={BookmarkCardLayout.HORIZONTAL}
+                    layout={BookmarkNode.Layout.HORIZONTAL}
                     new_tab
                     show_thumbnail
                     url="https://rock.prezly.com/stories/454942"

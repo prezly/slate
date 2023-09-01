@@ -1,6 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { type BookmarkNode, normalizeUrl } from '@prezly/slate-types';
-import { isBookmarkNode } from '@prezly/slate-types';
+import { BookmarkNode, normalizeUrl } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import type { Editor, NodeEntry } from 'slate';
 import { Transforms } from 'slate';
@@ -22,7 +21,7 @@ export function normalizeRedundantWebBookmarkAttributes(
     editor: Editor,
     [node, path]: NodeEntry,
 ): boolean {
-    if (!isBookmarkNode(node)) {
+    if (!BookmarkNode.isBookmarkNode(node)) {
         return false;
     }
 
@@ -30,7 +29,7 @@ export function normalizeRedundantWebBookmarkAttributes(
 }
 
 export function normalizeUrlAttribute(editor: Editor, [node, path]: NodeEntry): boolean {
-    if (!isBookmarkNode(node)) {
+    if (!BookmarkNode.isBookmarkNode(node)) {
         return false;
     }
 

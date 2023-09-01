@@ -27,6 +27,7 @@ export interface EmbedExtensionConfiguration {
     info?: InfoText.StructuredContent;
     withMenu?: boolean;
     withLayoutControls?: boolean;
+    withConversionOptions?: boolean;
 }
 
 export const EmbedExtension = ({
@@ -36,6 +37,7 @@ export const EmbedExtension = ({
     info,
     withMenu = false,
     withLayoutControls = true,
+    withConversionOptions = true,
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
@@ -69,6 +71,7 @@ export const EmbedExtension = ({
                         info={info}
                         withMenu={withMenu}
                         withLayoutControls={withLayoutControls}
+                        withConversionOptions={withConversionOptions}
                     >
                         {children}
                     </EmbedElement>

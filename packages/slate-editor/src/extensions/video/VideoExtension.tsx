@@ -18,6 +18,7 @@ export interface VideoExtensionParameters {
     mode?: 'iframe' | 'thumbnail';
     withMenu?: boolean;
     withLayoutControls?: boolean;
+    withConversionOptions?: boolean;
 }
 
 export const EXTENSION_ID = 'VideoExtension';
@@ -27,6 +28,7 @@ export function VideoExtension({
     mode = 'thumbnail',
     withMenu = false,
     withLayoutControls = true,
+    withConversionOptions = true,
 }: VideoExtensionParameters): Extension {
     return {
         id: EXTENSION_ID,
@@ -58,6 +60,7 @@ export function VideoExtension({
                         mode={mode}
                         withMenu={withMenu}
                         withLayoutControls={withLayoutControls}
+                        withConversionOptions={withConversionOptions}
                     >
                         {children}
                     </VideoElement>

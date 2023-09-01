@@ -1,14 +1,16 @@
-import type { BookmarkNode } from '@prezly/slate-types';
-import { BookmarkCardLayout } from '@prezly/slate-types';
+import { BookmarkNode } from '@prezly/slate-types';
 import type { FunctionComponent } from 'react';
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic, type RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useResizeObserver } from '#lib';
 
 import { BookmarkCard } from '#modules/components';
+
+import { convertWebBookmark } from '../transforms';
+import type { Presentation } from '../types';
 
 import { WebBookmarkMenu } from './WebBookmarkMenu';
 
@@ -17,6 +19,7 @@ const HORIZONTAL_LAYOUT_MIN_WIDTH = 480;
 interface Props extends RenderElementProps {
     element: BookmarkNode;
     withNewTabOption: boolean;
+    withConversionOptions: boolean;
 }
 
 export const WebBookmarkElement: FunctionComponent<Props> = ({
@@ -24,7 +27,10 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
     children,
     element,
     withNewTabOption,
+    withConversionOptions,
 }) => {
+    const editor = useSlateStatic();
+
     const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);
 
@@ -32,10 +38,17 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
     const showThumbnail = element.show_thumbnail && oembed.thumbnail_url;
 
     const autoLayout = !showThumbnail
-        ? BookmarkCardLayout.HORIZONTAL
+        ? BookmarkNode.Layout.HORIZONTAL
         : isSmallViewport
-        ? BookmarkCardLayout.VERTICAL
+        ? BookmarkNode.Layout.VERTICAL
         : layout;
+
+    const handleConvert = useCallback(
+        (presentation: Presentation) => {
+            convertWebBookmark(editor, element, presentation);
+        },
+        [editor, element],
+    );
 
     useResizeObserver(card.current, function (entries) {
         entries.forEach(function (entry) {
@@ -52,8 +65,10 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
             renderMenu={({ onClose }) => (
                 <WebBookmarkMenu
                     onClose={onClose}
+                    onConvert={handleConvert}
                     element={element}
                     withNewTabOption={withNewTabOption}
+                    withConversionOptions={withConversionOptions}
                 />
             )}
             // We have to render children or Slate will fail when trying to find the node.

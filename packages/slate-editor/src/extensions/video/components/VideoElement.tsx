@@ -8,7 +8,8 @@ import type { InfoText } from '#components';
 import { EditorBlock, HtmlInjection } from '#components';
 import { PlayButton } from '#icons';
 
-import { removeVideo, updateVideo } from '../transforms';
+import { removeVideo, convertVideo, updateVideo } from '../transforms';
+import type { Presentation } from '../types';
 
 import styles from './VideoElement.module.scss';
 import { type FormState, VideoMenu } from './VideoMenu';
@@ -19,6 +20,7 @@ interface Props extends RenderElementProps {
     mode: 'iframe' | 'thumbnail';
     withMenu: boolean;
     withLayoutControls: boolean;
+    withConversionOptions: boolean;
 }
 
 export function VideoElement({
@@ -29,6 +31,7 @@ export function VideoElement({
     mode,
     withMenu,
     withLayoutControls,
+    withConversionOptions,
 }: Props) {
     const editor = useSlateStatic();
 
@@ -41,9 +44,17 @@ export function VideoElement({
         },
         [editor, element],
     );
+
     const handleRemove = useCallback(() => {
         removeVideo(editor, element);
     }, [editor, element]);
+
+    const handleConvert = useCallback(
+        (presentation: Presentation) => {
+            convertVideo(editor, element, presentation);
+        },
+        [editor, element],
+    );
 
     return (
         <EditorBlock
@@ -59,11 +70,13 @@ export function VideoElement({
                           <VideoMenu
                               info={info}
                               onChange={handleUpdate}
+                              onConvert={handleConvert}
                               onClose={onClose}
                               onRemove={handleRemove}
                               url={element.url}
                               value={{ layout: element.layout }}
                               withLayoutControls={withLayoutControls}
+                              withConversionOptions={withConversionOptions}
                           />
                       )
                     : undefined

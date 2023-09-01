@@ -12,6 +12,8 @@ import {
     ImageLayoutFullWidth,
 } from '#icons';
 
+import type { Presentation } from '../types';
+
 import styles from './VideoMenu.module.scss';
 
 export interface FormState {
@@ -22,10 +24,12 @@ interface Props {
     info?: InfoText.StructuredContent;
     url: VideoNode['url'];
     onChange: (props: Partial<FormState>) => void;
+    onConvert: (presentation: Presentation) => void;
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
     withLayoutControls: boolean;
+    withConversionOptions: boolean;
 }
 
 const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
@@ -58,14 +62,27 @@ const VIDEO_LAYOUT_OPTIONS: OptionsGroupOption<VideoNode.Layout>[] = [
     },
 ];
 
+const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
+    {
+        value: 'embed',
+        label: 'Embed',
+    },
+    {
+        value: 'card',
+        label: 'Bookmark',
+    },
+];
+
 export function VideoMenu({
     info = [],
     url,
     onChange,
+    onConvert,
     onClose,
     onRemove,
     value,
     withLayoutControls,
+    withConversionOptions,
 }: Props) {
     const isSelfHosted =
         url.startsWith('https://cdn.uc.assets.prezly.com/') ||
@@ -108,6 +125,18 @@ export function VideoMenu({
                         onChange={(layout) => {
                             onChange({ layout });
                         }}
+                    />
+                </Toolbox.Section>
+            )}
+
+            {withConversionOptions && (
+                <Toolbox.Section caption="Change to...">
+                    <OptionsGroup
+                        name="presentation"
+                        options={PRESENTATION_OPTIONS}
+                        selectedValue="embed"
+                        onChange={onConvert}
+                        variant="pills"
                     />
                 </Toolbox.Section>
             )}

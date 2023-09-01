@@ -1,5 +1,4 @@
-import type { BookmarkNode } from '@prezly/slate-types';
-import { BookmarkCardLayout } from '@prezly/slate-types';
+import { BookmarkNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
@@ -12,19 +11,22 @@ import { Delete, ExternalLink, ItemsLayoutHorizontal, ItemsLayoutVertical } from
 import { EventsEditor } from '#modules/events';
 
 import { removeWebBookmark, updateWebBookmark } from '../transforms';
+import type { Presentation } from '../types';
 
 import styles from './WebBookmarkMenu.module.scss';
 
 interface Props {
     element: BookmarkNode;
     withNewTabOption: boolean;
+    withConversionOptions: boolean;
     onClose: () => void;
+    onConvert: (presentation: Presentation) => void;
 }
 
-const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
+const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkNode.Layout>[] = [
     {
         label: 'Vertical',
-        value: BookmarkCardLayout.VERTICAL,
+        value: BookmarkNode.Layout.VERTICAL,
         icon: ({ isActive }) => (
             <ItemsLayoutVertical
                 className={classNames(styles.OptionIcon, { [styles.active]: isActive })}
@@ -33,7 +35,7 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
     },
     {
         label: 'Horizontal',
-        value: BookmarkCardLayout.HORIZONTAL,
+        value: BookmarkNode.Layout.HORIZONTAL,
         icon: ({ isActive }) => (
             <ItemsLayoutHorizontal
                 className={classNames(styles.OptionIcon, { [styles.active]: isActive })}
@@ -42,10 +44,23 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkCardLayout>[] = [
     },
 ];
 
+const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
+    {
+        value: 'embed',
+        label: 'Embed',
+    },
+    {
+        value: 'card',
+        label: 'Bookmark',
+    },
+];
+
 export const WebBookmarkMenu: FunctionComponent<Props> = ({
     element,
     withNewTabOption,
+    withConversionOptions,
     onClose,
+    onConvert,
 }) => {
     const editor = useSlate();
     const isSelected = useSelected();
@@ -65,7 +80,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
     }
 
     const isLayoutChangeable = element.oembed.thumbnail_url && element.show_thumbnail;
-    const activeLayout = isLayoutChangeable ? element.layout : BookmarkCardLayout.VERTICAL;
+    const activeLayout = isLayoutChangeable ? element.layout : BookmarkNode.Layout.VERTICAL;
 
     return (
         <>
@@ -100,7 +115,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
 
             <Toolbox.Section caption="Card layout">
                 <VStack spacing="2-5">
-                    <OptionsGroup<BookmarkCardLayout>
+                    <OptionsGroup<`${BookmarkNode.Layout}`>
                         columns={3}
                         disabled={!isLayoutChangeable}
                         name="layout"
@@ -119,6 +134,18 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                     )}
                 </VStack>
             </Toolbox.Section>
+
+            {withConversionOptions && (
+                <Toolbox.Section caption="Change to...">
+                    <OptionsGroup
+                        name="presentation"
+                        options={PRESENTATION_OPTIONS}
+                        selectedValue="card"
+                        onChange={onConvert}
+                        variant="pills"
+                    />
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Footer>
                 <Button variant="clear-faded" icon={Delete} fullWidth onMouseDown={handleRemove}>

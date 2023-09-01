@@ -1,7 +1,6 @@
 import { TablesEditor } from '@prezly/slate-tables';
 import {
     ATTACHMENT_NODE_TYPE,
-    BOOKMARK_NODE_TYPE,
     CONTACT_NODE_TYPE,
     COVERAGE_NODE_TYPE,
     DIVIDER_NODE_TYPE,
@@ -20,6 +19,7 @@ import {
     TABLE_ROW_NODE_TYPE,
     TABLE_CELL_NODE_TYPE,
     isTableCellNode,
+    BookmarkNode,
 } from '@prezly/slate-types';
 import { Text, Transforms } from 'slate';
 
@@ -44,7 +44,7 @@ import { IMAGE_CANDIDATE_NODE_TYPE } from '#extensions/image/constants';
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
     [ATTACHMENT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
-    [BOOKMARK_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [BookmarkNode.TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [CONTACT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [COVERAGE_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [DIVIDER_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
