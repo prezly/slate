@@ -23,7 +23,7 @@ export const EXTENSION_ID = 'WebBookmarkExtension';
 
 export const WebBookmarkExtension = ({
     withNewTabOption = true,
-    withConversionOptions = true,
+    withConversionOptions = false,
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
