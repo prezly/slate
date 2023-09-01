@@ -44,16 +44,19 @@ const LAYOUT_OPTIONS: OptionsGroupOption<BookmarkNode.Layout>[] = [
     },
 ];
 
-const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
-    {
-        value: 'embed',
-        label: 'Embed',
-    },
-    {
-        value: 'card',
-        label: 'Bookmark',
-    },
-];
+function getPresentationOptions(element: BookmarkNode): OptionsGroupOption<Presentation>[] {
+    return [
+        {
+            value: 'embed',
+            label: 'Embed',
+            disabled: !element.oembed.html,
+        },
+        {
+            value: 'card',
+            label: 'Bookmark',
+        },
+    ];
+}
 
 export const WebBookmarkMenu: FunctionComponent<Props> = ({
     element,
@@ -139,7 +142,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                 <Toolbox.Section caption="Change to...">
                     <OptionsGroup
                         name="presentation"
-                        options={PRESENTATION_OPTIONS}
+                        options={getPresentationOptions(element)}
                         selectedValue="card"
                         onChange={onConvert}
                         variant="pills"
