@@ -37,7 +37,7 @@ export const EmbedExtension = ({
     info,
     withMenu = false,
     withLayoutControls = true,
-    withConversionOptions = true,
+    withConversionOptions = false,
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {

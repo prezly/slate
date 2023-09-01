@@ -14,7 +14,11 @@ import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { ImageExtensionConfiguration } from '#extensions/image';
-import type { PlaceholderNode, PlaceholdersExtensionParameters } from '#extensions/placeholders';
+import type {
+    FetchOEmbedFn,
+    PlaceholderNode,
+    PlaceholdersExtensionParameters,
+} from '#extensions/placeholders';
 import type { SnippetsExtensionParameters } from '#extensions/snippet';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
@@ -138,5 +142,5 @@ export interface EditorProps {
     withUserMentions?: false | UserMentionsExtensionParameters;
     withVariables?: false | VariablesExtensionParameters;
     withVideos?: false | VideoExtensionParameters;
-    withWebBookmarks?: false | WebBookmarkExtensionParameters;
+    withWebBookmarks?: false | (WebBookmarkExtensionParameters & { fetchOembed: FetchOEmbedFn });
 }

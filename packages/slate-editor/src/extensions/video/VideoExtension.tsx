@@ -28,7 +28,7 @@ export function VideoExtension({
     mode = 'thumbnail',
     withMenu = false,
     withLayoutControls = true,
-    withConversionOptions = true,
+    withConversionOptions = false,
 }: VideoExtensionParameters): Extension {
     return {
         id: EXTENSION_ID,
