@@ -384,6 +384,24 @@ function* generateOptions(
             description: 'Embed a social media link',
         };
         yield {
+            action: MenuAction.ADD_DROPBOX,
+            icon: Icons.ComponentDropbox,
+            group: Group.EMBEDS,
+            text: 'Dropbox',
+            description: 'Embed a share link',
+            keywords: ['db', 'files', 'share'],
+            isNew: true,
+        };
+        yield {
+            action: MenuAction.ADD_SOUNDCLOUD,
+            icon: Icons.ComponentSoundCloud,
+            group: Group.EMBEDS,
+            text: 'SoundCloud',
+            description: 'Embed an audio link',
+            keywords: ['audio', 'mp3', 'music', 'song', 'track'],
+            isNew: true,
+        };
+        yield {
             action: MenuAction.ADD_SPOTIFY,
             icon: Icons.ComponentSpotify,
             group: Group.EMBEDS,
@@ -399,6 +417,15 @@ function* generateOptions(
             text: 'Facebook',
             description: 'Embed a social media link',
             keywords: ['post', 'fb', 'social'],
+            isNew: true,
+        };
+        yield {
+            action: MenuAction.ADD_GIPHY,
+            icon: Icons.ComponentGiphy,
+            group: Group.EMBEDS,
+            text: 'Giphy',
+            description: 'Insert embeddable content',
+            keywords: ['gif', 'video', 'photo', 'foto', 'social'],
             isNew: true,
         };
     }
@@ -435,39 +462,12 @@ function* generateOptions(
             isNew: true,
         };
         yield {
-            action: MenuAction.ADD_SOUNDCLOUD,
-            icon: Icons.ComponentSoundCloud,
-            group: Group.EMBEDS,
-            text: 'SoundCloud',
-            description: 'Embed an audio link',
-            keywords: ['audio', 'mp3', 'music', 'song', 'track'],
-            isNew: true,
-        };
-        yield {
             action: MenuAction.ADD_MICROSOFT_TEAMS,
             icon: Icons.ComponentMicrosoftTeams,
             group: Group.EMBEDS,
             text: 'Microsoft Teams',
             description: 'Embed an event link',
             keywords: ['teams', 'ms', 'meeting'],
-            isNew: true,
-        };
-        yield {
-            action: MenuAction.ADD_DROPBOX,
-            icon: Icons.ComponentDropbox,
-            group: Group.EMBEDS,
-            text: 'Dropbox',
-            description: 'Embed a share link',
-            keywords: ['db', 'files', 'share'],
-            isNew: true,
-        };
-        yield {
-            action: MenuAction.ADD_GIPHY,
-            icon: Icons.ComponentGiphy,
-            group: Group.EMBEDS,
-            text: 'Giphy',
-            description: 'Insert embeddable content',
-            keywords: ['gif', 'video', 'photo', 'foto', 'social'],
             isNew: true,
         };
         yield {
