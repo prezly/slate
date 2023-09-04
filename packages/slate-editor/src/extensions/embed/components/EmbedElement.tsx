@@ -1,3 +1,4 @@
+import type { OEmbedInfo } from '@prezly/sdk';
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -79,7 +80,11 @@ export function EmbedElement({
                               onRemove={handleRemove}
                               url={element.url}
                               value={{ layout: element.layout }}
-                              withLayoutControls={withLayoutControls}
+                              withLayoutControls={
+                                  withLayoutControls && isSameSizeEmbed(element.oembed)
+                                      ? 'disabled'
+                                      : withLayoutControls
+                              }
                               withConversionOptions={withConversionOptions}
                           />
                       )
@@ -131,4 +136,22 @@ export function EmbedElement({
             void
         />
     );
+}
+
+/**
+ * @see DEV-11536
+ */
+function isSameSizeEmbed(oembed: OEmbedInfo) {
+    return (
+        oembed.type === 'rich' &&
+        startsWith(oembed.url, [
+            'https://twitter.com/',
+            'https://pin.it/',
+            'https://www.tiktok.com/',
+        ])
+    );
+}
+
+function startsWith(haystack: string, needles: string[]): boolean {
+    return needles.some((needle) => haystack.startsWith(needle));
 }
