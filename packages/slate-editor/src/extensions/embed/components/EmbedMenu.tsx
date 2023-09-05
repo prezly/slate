@@ -28,7 +28,7 @@ interface Props {
     onClose: () => void;
     onRemove: () => void;
     value: FormState;
-    withLayoutControls: boolean;
+    withLayoutControls: boolean | 'disabled';
     withConversionOptions: boolean;
 }
 
@@ -113,6 +113,7 @@ export function EmbedMenu({
             {withLayoutControls && (
                 <Toolbox.Section caption="Size">
                     <OptionsGroup
+                        disabled={withLayoutControls === 'disabled'}
                         name="layout"
                         options={LAYOUT_OPTIONS}
                         selectedValue={value.layout}
