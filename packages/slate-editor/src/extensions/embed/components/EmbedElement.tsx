@@ -146,6 +146,8 @@ function isSameSizeEmbed(oembed: OEmbedInfo) {
         oembed.type === 'rich' &&
         startsWith(oembed.url, [
             'https://twitter.com/',
+            'https://instagram.com/',
+            'https://x.com/',
             'https://pin.it/',
             'https://www.tiktok.com/',
         ])
