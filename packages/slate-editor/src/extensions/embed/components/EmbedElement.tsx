@@ -145,11 +145,11 @@ function isSameSizeEmbed(oembed: OEmbedInfo) {
     return (
         oembed.type === 'rich' &&
         startsWith(oembed.url, [
-            'https://twitter.com/',
             'https://instagram.com/',
-            'https://x.com/',
             'https://pin.it/',
+            'https://twitter.com/',
             'https://www.tiktok.com/',
+            'https://x.com/',
         ])
     );
 }
