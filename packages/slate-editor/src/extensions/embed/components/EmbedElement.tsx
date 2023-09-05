@@ -81,7 +81,7 @@ export function EmbedElement({
                               url={element.url}
                               value={{ layout: element.layout }}
                               withLayoutControls={
-                                  withLayoutControls && isSameSizeEmbed(element.oembed)
+                                  withLayoutControls && isFixedSizeEmbed(element.oembed)
                                       ? 'disabled'
                                       : withLayoutControls
                               }
@@ -141,7 +141,7 @@ export function EmbedElement({
 /**
  * @see DEV-11536
  */
-function isSameSizeEmbed(oembed: OEmbedInfo) {
+function isFixedSizeEmbed(oembed: OEmbedInfo) {
     return (
         oembed.type === 'rich' &&
         startsWith(oembed.url, [
