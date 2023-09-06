@@ -173,5 +173,5 @@ export const ImageExtension = ({
 });
 
 function replaceImageWithParagraph(editor: Editor, at: Path) {
-    EditorCommands.replaceNode(editor, { at, match: isImageNode }, createParagraph());
+    EditorCommands.replaceNode(editor, createParagraph(), { at, match: isImageNode });
 }

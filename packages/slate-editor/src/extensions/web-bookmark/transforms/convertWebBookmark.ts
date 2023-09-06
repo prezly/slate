@@ -37,15 +37,10 @@ export function convertWebBookmark(
     const converted = convert();
 
     if (converted) {
-        EditorCommands.replaceNode(
-            editor,
-            {
-                at: [],
-                match: (node: Node) =>
-                    BookmarkNode.isBookmarkNode(node) && node.uuid === element.uuid,
-                select: true,
-            },
-            converted,
-        );
+        EditorCommands.replaceNode(editor, converted, {
+            at: [],
+            match: (node: Node) => BookmarkNode.isBookmarkNode(node) && node.uuid === element.uuid,
+            select: true,
+        });
     }
 }

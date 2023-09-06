@@ -26,14 +26,10 @@ export function convertVideo(editor: Editor, video: VideoNode, presentation: Pre
     const converted = convert();
 
     if (converted) {
-        EditorCommands.replaceNode(
-            editor,
-            {
-                at: [],
-                match: (node) => node === video,
-                select: true,
-            },
-            converted,
-        );
+        EditorCommands.replaceNode(editor, converted, {
+            at: [],
+            match: (node) => node === video,
+            select: true,
+        });
     }
 }

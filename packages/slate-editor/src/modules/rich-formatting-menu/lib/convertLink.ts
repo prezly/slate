@@ -40,10 +40,10 @@ export async function convertLink(
     const converted = convert(oembed);
 
     if (converted) {
-        EditorCommands.replaceNode(
-            editor,
-            { at: [], match: (node: Node) => node === element, select: true },
-            converted,
-        );
+        EditorCommands.replaceNode(editor, converted, {
+            at: [],
+            match: (node: Node) => node === element,
+            select: true,
+        });
     }
 }

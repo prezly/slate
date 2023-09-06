@@ -12,8 +12,8 @@ interface Options<T extends Node> {
 
 export function replaceNode<Original extends Node, New extends Node>(
     editor: Editor,
-    options: Options<Original>,
     newNode: New,
+    options: Options<Original>,
 ) {
     const { at, match, select = false } = options;
     Editor.withoutNormalizing(editor, () => {

@@ -26,14 +26,10 @@ export function convertEmbed(editor: Editor, element: EmbedNode, presentation: P
     const converted = convert();
 
     if (converted) {
-        EditorCommands.replaceNode(
-            editor,
-            {
-                at: [],
-                match: (node: Node) => EmbedNode.isEmbedNode(node) && node.uuid === element.uuid,
-                select: true,
-            },
-            converted,
-        );
+        EditorCommands.replaceNode(editor, converted, {
+            at: [],
+            match: (node: Node) => EmbedNode.isEmbedNode(node) && node.uuid === element.uuid,
+            select: true,
+        });
     }
 }
