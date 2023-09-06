@@ -1,3 +1,4 @@
+export { autolinkPlaintext } from './autolinkPlaintext';
 export { createLink } from './createLink';
 export { escapeLinksBoundaries } from './escapeLinksBoundaries';
 export { isUrl } from './isUrl';

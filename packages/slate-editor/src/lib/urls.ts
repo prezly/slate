@@ -9,13 +9,21 @@ export const MAILTO_REGEXP = new RegExp(
 export const URL_WITHOUT_PROTOCOL_REGEXP = UnicodeRegExp(
     // url validation
     '[0-9\\p{L}-]+(?:\\.[0-9\\p{L}-]+)*(?:\\.[\\p{L}-]+)(:\\d+)?(?:\\/[^\\s?]*)*(?:\\?[^\\s#]+)*(?:#[^\\s]+)*(?![\\w-]|\\.[\\w-])',
+    'u',
 );
-export const URL_WITH_PROTOCOL_REGEXP = new RegExp(
+export const URL_WITH_PROTOCOL_REGEXP = UnicodeRegExp(
     `(?:[a-z0-9-]+:\\/\\/)(?:${URL_WITHOUT_PROTOCOL_REGEXP.source})`,
+    'u',
 );
-export const URL_WITH_OPTIONAL_PROTOCOL_REGEXP = new RegExp(
+export const URL_WITH_OPTIONAL_PROTOCOL_REGEXP = UnicodeRegExp(
     `(?:[a-z0-9-]+:\\/\\/)?(?:${URL_WITHOUT_PROTOCOL_REGEXP.source})`,
+    'u',
 );
+
+/**
+ * Locate all URLs in a given string.
+ */
+const URL_FINDER = UnicodeRegExp(URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source, 'gu');
 
 export const HREF_REGEXP = new RegExp(
     `(?:${URL_PLACEHOLDER_REGEXP.source})|(?:${MAILTO_REGEXP.source})|(?:${URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source})`,
@@ -82,4 +90,8 @@ function isUnicodeRegExpSupported(): boolean {
         return true;
     }
     return false;
+}
+
+export function matchUrls(content: string) {
+    return content.matchAll(URL_FINDER);
 }
