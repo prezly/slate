@@ -1,10 +1,14 @@
+import { EditorCommands } from '@prezly/slate-commons';
 import type { BookmarkNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { Node, Editor } from 'slate';
 import { Transforms } from 'slate';
 
+import { humanFriendlyUrl } from '#lib';
+
+import { createLink } from '#extensions/inline-links';
 import { createWebBookmark } from '#extensions/web-bookmark';
 
-import type { EmbedNode } from '../EmbedNode';
+import { EmbedNode } from '../EmbedNode';
 import type { Presentation } from '../types';
 
 export function convertEmbed(editor: Editor, element: EmbedNode, presentation: Presentation) {
@@ -16,6 +20,18 @@ export function convertEmbed(editor: Editor, element: EmbedNode, presentation: P
                 at: [],
                 match: (node) => node === element,
             },
+        );
+    } else if (presentation === 'link') {
+        EditorCommands.replaceNode(
+            editor,
+            {
+                at: [],
+                match: (node: Node) => EmbedNode.isEmbedNode(node) && node.uuid === element.uuid,
+            },
+            createLink({
+                href: element.url,
+                children: [{ text: element.oembed.title ?? humanFriendlyUrl(element.url) }],
+            }),
         );
     }
 }

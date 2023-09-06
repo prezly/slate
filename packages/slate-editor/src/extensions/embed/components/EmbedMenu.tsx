@@ -71,6 +71,10 @@ const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
         value: 'card',
         label: 'Bookmark',
     },
+    {
+        value: 'link',
+        label: 'Link',
+    },
 ];
 
 export function EmbedMenu({

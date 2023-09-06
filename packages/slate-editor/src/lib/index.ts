@@ -10,6 +10,7 @@ export { ensureElementInView } from './ensureElementInView';
 export { ensureRangeInView } from './ensureRangeInView';
 export { formatBytes } from './formatBytes';
 export { getScrollParent } from './getScrollParent';
+export { humanFriendlyUrl } from './humanFriendlyUrl';
 export { isCorsEnabledOrigin } from './isCorsEnabledOrigin';
 export { isGoogleDocsWrapper } from './isGoogleDocsWrapper';
 export { isHtmlElement } from './isHtmlElement';

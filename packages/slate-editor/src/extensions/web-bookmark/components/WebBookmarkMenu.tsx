@@ -55,6 +55,10 @@ function getPresentationOptions(element: BookmarkNode): OptionsGroupOption<Prese
             value: 'card',
             label: 'Bookmark',
         },
+        {
+            value: 'link',
+            label: 'Link',
+        },
     ];
 }
 
