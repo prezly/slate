@@ -1,8 +1,11 @@
+import { isElementNode } from '@prezly/slate-types';
+import type { Node, NodeMatch, Path } from 'slate';
 import { Editor, Transforms } from 'slate';
-import type { NodeMatch, Node, NodeEntry } from 'slate';
+
+import { replaceChildren } from './replaceChildren';
 
 interface Options<T extends Node> {
-    entry: NodeEntry<T>;
+    at?: Path;
     match: NodeMatch<T>;
 }
 
@@ -12,16 +15,16 @@ export function replaceNode<Original extends Node, New extends Node>(
     newNode: New,
 ) {
     Editor.withoutNormalizing(editor, () => {
-        const [node, path] = options.entry;
-
-        Transforms.unsetNodes<Original>(editor, Object.keys(node), {
-            at: path,
-            match: options.match,
-        });
-
-        Transforms.setNodes<Original | New>(editor, newNode, {
-            at: path,
-            match: options.match,
-        });
+        for (const [node, path] of Editor.nodes(editor, options)) {
+            Transforms.unsetNodes<Original>(editor, Object.keys(node), { at: path });
+            Transforms.setNodes<Original | New>(editor, newNode, { at: path });
+            if (isElementNode(newNode)) {
+                replaceChildren(editor, [node, path], newNode.children);
+            }
+            // exit after the fist iteration, otherwise there's risk that we'll plant
+            // multiple instances of the same object into the document. Which is bad:
+            // Slate is relying on referential equality and uniqueness internally.
+            return;
+        }
     });
 }
