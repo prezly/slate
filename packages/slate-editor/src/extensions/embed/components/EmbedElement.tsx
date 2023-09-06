@@ -1,4 +1,3 @@
-import type { OEmbedInfo } from '@prezly/sdk';
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -80,11 +79,7 @@ export function EmbedElement({
                               onRemove={handleRemove}
                               url={element.url}
                               value={{ layout: element.layout }}
-                              withLayoutControls={
-                                  withLayoutControls && isFixedSizeEmbed(element.oembed)
-                                      ? 'disabled'
-                                      : withLayoutControls
-                              }
+                              withLayoutControls={withLayoutControls}
                               withConversionOptions={withConversionOptions}
                           />
                       )
@@ -136,24 +131,4 @@ export function EmbedElement({
             void
         />
     );
-}
-
-/**
- * @see DEV-11536
- */
-function isFixedSizeEmbed(oembed: OEmbedInfo) {
-    return (
-        oembed.type === 'rich' &&
-        startsWith(oembed.url, [
-            'https://instagram.com/',
-            'https://pin.it/',
-            'https://twitter.com/',
-            'https://www.tiktok.com/',
-            'https://x.com/',
-        ])
-    );
-}
-
-function startsWith(haystack: string, needles: string[]): boolean {
-    return needles.some((needle) => haystack.startsWith(needle));
 }
