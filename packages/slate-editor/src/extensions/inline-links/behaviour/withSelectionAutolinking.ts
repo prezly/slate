@@ -7,19 +7,21 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { Editor } from 'slate';
-import validator from 'validator';
 
 import { normalizeHref } from '#lib';
 
-import { unwrapLink, wrapInLink } from './lib';
+import { isUrl, unwrapLink, wrapInLink } from '../lib';
 
-export function withLinkPasting<T extends Editor>(editor: T): T {
+/**
+ * Automatically link selected text if the pasted content is a URL.
+ */
+export function withSelectionAutolinking<T extends Editor>(editor: T): T {
     const { insertData } = editor;
 
     editor.insertData = (data) => {
         const href = data.getData('text');
 
-        if (validator.isURL(href) && !EditorCommands.isSelectionEmpty(editor)) {
+        if (isUrl(href) && !EditorCommands.isSelectionEmpty(editor)) {
             const nodes = Array.from(
                 Editor.nodes(editor, { match: isElementNode, mode: 'highest' }),
             );
