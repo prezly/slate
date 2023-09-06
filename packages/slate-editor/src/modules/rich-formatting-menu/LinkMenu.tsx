@@ -49,6 +49,7 @@ export function LinkMenu({
     onUnlink,
 }: Props) {
     const rootRef = React.useRef<HTMLDivElement | null>(null);
+    const [isConverting, setConverting] = useState(false);
     const [href, setHref] = useState(node?.href ?? '');
     const [new_tab, setNewTab] = useState(node?.new_tab ?? true);
 
@@ -63,62 +64,63 @@ export function LinkMenu({
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
                 Link settings
             </Toolbox.Header>
-            <Toolbox.Section>
-                <form
-                    onSubmit={function (event) {
-                        event.preventDefault();
-                        handleSave();
-                    }}
-                >
+            <form
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    handleSave();
+                }}
+            >
+                <Toolbox.Section>
                     <VStack spacing="2">
-                        <VStack spacing="2">
-                            <VStack spacing="2-5">
-                                <VStack spacing="1-5">
-                                    <Toolbox.Caption>Link</Toolbox.Caption>
-                                    <Input
-                                        autoFocus
-                                        name="href"
-                                        value={href}
-                                        onChange={setHref}
-                                        icon={Link}
-                                        pattern={HREF_REGEXP.source}
-                                        placeholder="Paste link"
-                                        title="Please input a valid URL"
-                                    />
-                                </VStack>
-
-                                {withNewTabOption && (
-                                    <Toggle name="new_tab" value={new_tab} onChange={setNewTab}>
-                                        Open in new tab
-                                    </Toggle>
-                                )}
-
-                                {withConversionOptions && onConvert && (
-                                    <Toolbox.Section caption="Change to...">
-                                        <OptionsGroup
-                                            name="presentation"
-                                            options={PRESENTATION_OPTIONS}
-                                            selectedValue="link"
-                                            onChange={onConvert}
-                                            variant="pills"
-                                        />
-                                    </Toolbox.Section>
-                                )}
+                        <VStack spacing="2-5">
+                            <VStack spacing="1-5">
+                                <Toolbox.Caption>Link</Toolbox.Caption>
+                                <Input
+                                    autoFocus
+                                    name="href"
+                                    value={href}
+                                    onChange={setHref}
+                                    icon={Link}
+                                    pattern={HREF_REGEXP.source}
+                                    placeholder="Paste link"
+                                    title="Please input a valid URL"
+                                />
                             </VStack>
 
-                            <Button
-                                variant="primary"
-                                type="submit"
-                                fullWidth
-                                round
-                                disabled={!href}
-                            >
-                                Save
-                            </Button>
+                            {withNewTabOption && (
+                                <Toggle name="new_tab" value={new_tab} onChange={setNewTab}>
+                                    Open in new tab
+                                </Toggle>
+                            )}
                         </VStack>
                     </VStack>
-                </form>
-            </Toolbox.Section>
+                </Toolbox.Section>
+
+                {withConversionOptions && onConvert && (
+                    <Toolbox.Section caption="Change to..." loading={isConverting}>
+                        <OptionsGroup
+                            name="presentation"
+                            options={PRESENTATION_OPTIONS}
+                            selectedValue="link"
+                            onChange={async (presentation) => {
+                                setConverting(true);
+                                try {
+                                    await onConvert(presentation);
+                                } finally {
+                                    setConverting(false);
+                                }
+                            }}
+                            variant="pills"
+                        />
+                    </Toolbox.Section>
+                )}
+
+                <Toolbox.Section>
+                    <Button variant="primary" type="submit" fullWidth round disabled={!href}>
+                        Save
+                    </Button>
+                </Toolbox.Section>
+            </form>
             <Toolbox.Footer>
                 <Button
                     variant="clear-faded"

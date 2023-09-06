@@ -32,6 +32,11 @@
         padding: 0;
     }
 
+    &--loading {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
     &-header-wrapper {
         padding-bottom: $spacing-2;
 
