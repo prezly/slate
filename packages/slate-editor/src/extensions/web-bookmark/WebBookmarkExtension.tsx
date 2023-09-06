@@ -9,7 +9,7 @@ import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { WebBookmarkElement } from './components';
 import { parseSerializedElement } from './lib';
-import { unsetUnknownAttributes, normalizeUrlAttribute } from './normalizations';
+import { fixUuidCollisions, normalizeUrlAttribute, unsetUnknownAttributes } from './normalizations';
 
 export interface Parameters {
     withNewTabOption?: boolean;
@@ -43,7 +43,7 @@ export const WebBookmarkExtension = ({
     },
     isRichBlock: BookmarkNode.isBookmarkNode,
     isVoid: BookmarkNode.isBookmarkNode,
-    normalizeNode: [unsetUnknownAttributes, normalizeUrlAttribute],
+    normalizeNode: [unsetUnknownAttributes, normalizeUrlAttribute, fixUuidCollisions],
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (BookmarkNode.isBookmarkNode(element)) {
             return (
