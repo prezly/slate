@@ -17,7 +17,7 @@ export function replaceNode<Original extends Node, New extends Node>(
 ) {
     const { at, match, select = false } = options;
     Editor.withoutNormalizing(editor, () => {
-        for (const [node, path] of Editor.nodes(editor, { at, match })) {
+        for (const [node, path] of Editor.nodes(editor, { at, match, mode: 'highest' })) {
             Transforms.unsetNodes<Original>(editor, Object.keys(node), { at: path });
             Transforms.setNodes<Original | New>(editor, newNode, { at: path });
             if (isElementNode(newNode)) {

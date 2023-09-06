@@ -1,7 +1,7 @@
 import type { OEmbedInfo } from '@prezly/sdk';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { LinkNode } from '@prezly/slate-types';
-import type { Editor, Node } from 'slate';
+import { Editor, Node, Path } from 'slate';
 
 import { createEmbed } from '#extensions/embed';
 import { createVideoBookmark } from '#extensions/video';
@@ -24,6 +24,11 @@ export async function convertLink(
         return;
     }
 
+    const replacementPath = determineReplacementPath(editor, element);
+    if (!replacementPath) {
+        return;
+    }
+
     function convert(oembed: OEmbedInfo) {
         if (presentation === 'card') {
             return createWebBookmark({ oembed, url: element.href });
@@ -41,9 +46,34 @@ export async function convertLink(
 
     if (converted) {
         EditorCommands.replaceNode(editor, converted, {
-            at: [],
-            match: (node: Node) => node === element,
+            at: replacementPath,
+            match: (_, path) => Path.equals(path, replacementPath),
             select: true,
         });
     }
+}
+
+function findPath(editor: Editor, element: LinkNode): Path | undefined {
+    for (const [, path] of Editor.nodes(editor, {
+        at: [],
+        match: (node: Node) => node === element,
+    })) {
+        return path;
+    }
+    return undefined;
+}
+
+function determineReplacementPath(editor: Editor, link: LinkNode) {
+    const path = findPath(editor, link);
+
+    if (path && path.length > 1) {
+        const parentPath = Path.parent(path);
+        const parent = Node.get(editor, parentPath);
+
+        if (Node.string(parent) === Node.string(link)) {
+            return parentPath;
+        }
+    }
+
+    return path;
 }
