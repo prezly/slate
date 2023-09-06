@@ -1,7 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { BookmarkNode } from '@prezly/slate-types';
-import type { Node, Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { Editor, Node } from 'slate';
 
 import { humanFriendlyUrl } from '#lib';
 
@@ -13,13 +11,14 @@ import type { Presentation } from '../types';
 
 export function convertEmbed(editor: Editor, element: EmbedNode, presentation: Presentation) {
     if (presentation === 'card') {
-        Transforms.setNodes<BookmarkNode>(
+        EditorCommands.replaceNode(
             editor,
-            createWebBookmark({ oembed: element.oembed, url: element.url }),
             {
                 at: [],
                 match: (node) => node === element,
+                select: true,
             },
+            createWebBookmark({ oembed: element.oembed, url: element.url }),
         );
     } else if (presentation === 'link') {
         EditorCommands.replaceNode(
@@ -27,6 +26,7 @@ export function convertEmbed(editor: Editor, element: EmbedNode, presentation: P
             {
                 at: [],
                 match: (node: Node) => EmbedNode.isEmbedNode(node) && node.uuid === element.uuid,
+                select: true,
             },
             createLink({
                 href: element.url,

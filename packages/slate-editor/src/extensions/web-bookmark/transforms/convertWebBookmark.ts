@@ -1,12 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { BookmarkNode } from '@prezly/slate-types';
-import type { VideoNode } from '@prezly/slate-types';
 import type { Editor, Node } from 'slate';
-import { Transforms } from 'slate';
 
 import { humanFriendlyUrl } from '#lib';
 
-import type { EmbedNode } from '#extensions/embed';
 import { createEmbed } from '#extensions/embed';
 import { createLink } from '#extensions/inline-links';
 import { createVideoBookmark } from '#extensions/video';
@@ -24,10 +21,15 @@ export function convertWebBookmark(
                 ? createVideoBookmark({ oembed: element.oembed, url: element.url })
                 : createEmbed({ oembed: element.oembed, url: element.url });
 
-        Transforms.setNodes<VideoNode | EmbedNode>(editor, converted, {
-            at: [],
-            match: (node) => node === element,
-        });
+        EditorCommands.replaceNode(
+            editor,
+            {
+                at: [],
+                match: (node) => node === element,
+                select: true,
+            },
+            converted,
+        );
     } else if (presentation === 'link') {
         EditorCommands.replaceNode(
             editor,
@@ -35,6 +37,7 @@ export function convertWebBookmark(
                 at: [],
                 match: (node: Node) =>
                     BookmarkNode.isBookmarkNode(node) && node.uuid === element.uuid,
+                select: true,
             },
             createLink({
                 href: element.url,

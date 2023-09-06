@@ -1,10 +1,8 @@
 import type { OEmbedInfo } from '@prezly/sdk';
-import type { BookmarkNode } from '@prezly/slate-types';
-import type { VideoNode, LinkNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import { EditorCommands } from '@prezly/slate-commons';
+import type { LinkNode } from '@prezly/slate-types';
+import type { Editor, Node } from 'slate';
 
-import type { EmbedNode } from '#extensions/embed';
 import { createEmbed } from '#extensions/embed';
 import { createVideoBookmark } from '#extensions/video';
 import { createWebBookmark } from '#extensions/web-bookmark';
@@ -26,20 +24,19 @@ export async function convertLink(
         return;
     }
 
+    // eslint-disable-next-line func-style
+    const match = (node: Node) => node === element;
+
     if (presentation === 'embed') {
         const converted =
             oembed.type === 'video'
                 ? createVideoBookmark({ oembed, url: element.href })
                 : createEmbed({ oembed, url: element.href });
 
-        Transforms.setNodes<LinkNode | VideoNode | EmbedNode>(editor, converted, {
-            match: (node) => node === element,
-        });
+        EditorCommands.replaceNode(editor, { at: [], match, select: true }, converted);
     } else if (presentation === 'card') {
         const converted = createWebBookmark({ oembed, url: element.href });
 
-        Transforms.setNodes<LinkNode | BookmarkNode>(editor, converted, {
-            match: (node) => node === element,
-        });
+        EditorCommands.replaceNode(editor, { at: [], match, select: true }, converted);
     }
 }
