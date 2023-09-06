@@ -24,19 +24,26 @@ export async function convertLink(
         return;
     }
 
-    // eslint-disable-next-line func-style
-    const match = (node: Node) => node === element;
+    function convert(oembed: OEmbedInfo) {
+        if (presentation === 'card') {
+            return createWebBookmark({ oembed, url: element.href });
+        }
+        if (presentation === 'embed' && oembed.type === 'video') {
+            return createVideoBookmark({ oembed, url: element.href });
+        }
+        if (presentation === 'embed') {
+            return createEmbed({ oembed, url: element.href });
+        }
+        return undefined;
+    }
 
-    if (presentation === 'embed') {
-        const converted =
-            oembed.type === 'video'
-                ? createVideoBookmark({ oembed, url: element.href })
-                : createEmbed({ oembed, url: element.href });
+    const converted = convert(oembed);
 
-        EditorCommands.replaceNode(editor, { at: [], match, select: true }, converted);
-    } else if (presentation === 'card') {
-        const converted = createWebBookmark({ oembed, url: element.href });
-
-        EditorCommands.replaceNode(editor, { at: [], match, select: true }, converted);
+    if (converted) {
+        EditorCommands.replaceNode(
+            editor,
+            { at: [], match: (node: Node) => node === element, select: true },
+            converted,
+        );
     }
 }

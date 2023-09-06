@@ -15,22 +15,28 @@ export function convertWebBookmark(
     element: BookmarkNode,
     presentation: Presentation,
 ) {
-    if (presentation === 'embed') {
-        const converted =
-            element.oembed.type === 'video'
-                ? createVideoBookmark({ oembed: element.oembed, url: element.url })
-                : createEmbed({ oembed: element.oembed, url: element.url });
+    function convert() {
+        if (presentation === 'link') {
+            return createLink({
+                href: element.url,
+                children: [{ text: element.oembed.title ?? humanFriendlyUrl(element.url) }],
+            });
+        }
 
-        EditorCommands.replaceNode(
-            editor,
-            {
-                at: [],
-                match: (node) => node === element,
-                select: true,
-            },
-            converted,
-        );
-    } else if (presentation === 'link') {
+        if (presentation === 'embed' && element.oembed.type === 'video') {
+            return createVideoBookmark({ oembed: element.oembed, url: element.url });
+        }
+
+        if (presentation === 'embed') {
+            return createEmbed({ oembed: element.oembed, url: element.url });
+        }
+
+        return undefined;
+    }
+
+    const converted = convert();
+
+    if (converted) {
         EditorCommands.replaceNode(
             editor,
             {
@@ -39,10 +45,7 @@ export function convertWebBookmark(
                     BookmarkNode.isBookmarkNode(node) && node.uuid === element.uuid,
                 select: true,
             },
-            createLink({
-                href: element.url,
-                children: [{ text: element.oembed.title ?? humanFriendlyUrl(element.url) }],
-            }),
+            converted,
         );
     }
 }

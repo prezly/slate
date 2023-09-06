@@ -10,17 +10,22 @@ import { EmbedNode } from '../EmbedNode';
 import type { Presentation } from '../types';
 
 export function convertEmbed(editor: Editor, element: EmbedNode, presentation: Presentation) {
-    if (presentation === 'card') {
-        EditorCommands.replaceNode(
-            editor,
-            {
-                at: [],
-                match: (node) => node === element,
-                select: true,
-            },
-            createWebBookmark({ oembed: element.oembed, url: element.url }),
-        );
-    } else if (presentation === 'link') {
+    function convert() {
+        if (presentation === 'card') {
+            return createWebBookmark({ oembed: element.oembed, url: element.url });
+        }
+        if (presentation === 'link') {
+            return createLink({
+                href: element.url,
+                children: [{ text: element.oembed.title ?? humanFriendlyUrl(element.url) }],
+            });
+        }
+        return undefined;
+    }
+
+    const converted = convert();
+
+    if (converted) {
         EditorCommands.replaceNode(
             editor,
             {
@@ -28,10 +33,7 @@ export function convertEmbed(editor: Editor, element: EmbedNode, presentation: P
                 match: (node: Node) => EmbedNode.isEmbedNode(node) && node.uuid === element.uuid,
                 select: true,
             },
-            createLink({
-                href: element.url,
-                children: [{ text: element.oembed.title ?? humanFriendlyUrl(element.url) }],
-            }),
+            converted,
         );
     }
 }
