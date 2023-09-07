@@ -8,9 +8,9 @@ import {
 } from '@prezly/slate-types';
 import { Editor } from 'slate';
 
-import { normalizeHref } from '#lib';
+import { isUrl, normalizeHref } from '#lib';
 
-import { isUrl, unwrapLink, wrapInLink } from '../lib';
+import { unwrapLink, wrapInLink } from '../lib';
 
 /**
  * Automatically link selected text if the pasted content is a URL.

@@ -2,7 +2,9 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isLinkNode } from '@prezly/slate-types';
 import { Editor, Transforms } from 'slate';
 
-import { autolinkPlaintext, createLink, isUrl } from '../lib';
+import { isUrl } from '#lib';
+
+import { autolinkPlaintext, createLink } from '../lib';
 
 /**
  * Automatically link pasted content if it's a URL. // See DEV-11519
