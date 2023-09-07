@@ -1,9 +1,11 @@
+import { useRegisterExtension } from '@prezly/slate-commons';
 import { isVariableNode, VARIABLE_NODE_TYPE } from '@prezly/slate-types';
 import React, { useMemo } from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement, MentionsExtension } from '#extensions/mentions';
 
+import { VariablesDropdown } from './components';
 import { parseSerializedElement } from './lib';
 import {
     convertLegacyPlaceholderNodesToVariables,
@@ -11,6 +13,7 @@ import {
     removeUnknownVariables,
 } from './normalization';
 import type { VariablesExtensionParameters } from './types';
+import { useVariables } from './useVariables';
 
 export const EXTENSION_ID = 'VariablesExtension';
 
@@ -25,14 +28,33 @@ export function VariablesExtension({ variables }: VariablesExtensionParameters) 
         [JSON.stringify(variablesNames)],
     );
 
+    const {
+        index,
+        target,
+        options,
+        onAdd,
+        onKeyDown,
+        onChange, // FIXME: onChange should be passed to <Slate onChange={...} />
+    } = useVariables(variables);
+
+    useRegisterExtension({ id: `${EXTENSION_ID}:onKeyDown`, onKeyDown });
+
     return (
-        <MentionsExtension
-            id={EXTENSION_ID}
-            type={VARIABLE_NODE_TYPE}
-            normalizeNode={normalizeNode}
-            parseSerializedElement={parseSerializedElement}
-            renderElement={renderElement}
-        />
+        <>
+            <MentionsExtension
+                id={EXTENSION_ID}
+                type={VARIABLE_NODE_TYPE}
+                normalizeNode={normalizeNode}
+                parseSerializedElement={parseSerializedElement}
+                renderElement={renderElement}
+            />
+            <VariablesDropdown
+                index={index}
+                onOptionClick={onAdd}
+                options={options}
+                target={target}
+            />
+        </>
     );
 }
 

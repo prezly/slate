@@ -35,7 +35,6 @@ import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import { useFloatingSnippetInput } from '#extensions/snippet';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
-import { useVariables, VariablesDropdown } from '#extensions/variables';
 import { FloatingSnippetInput, Placeholder } from '#modules/components';
 import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
@@ -248,7 +247,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }),
     );
 
-    const variables = useVariables(editor, withVariables || undefined);
     const userMentions = useUserMentions(withUserMentions || undefined);
 
     const [
@@ -260,10 +258,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             submit: submitFloatingSnippetInput,
         },
     ] = useFloatingSnippetInput(editor);
-
-    if (withVariables) {
-        onKeyDownList.push(variables.onKeyDown);
-    }
 
     if (withUserMentions) {
         onKeyDownList.push(userMentions.onKeyDown);
@@ -781,7 +775,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                              * in two" work as expected.
                              */
                             onChange(newValue as Element[]);
-                            variables.onChange(editor);
+                            // variables.onChange(editor); // FIXME: Find a way to wire <Slate> `onChange` with VariablesExtension
                             userMentions.onChange(editor);
                         }}
                         initialValue={getInitialValue()}
@@ -803,9 +797,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                             userMentions.query,
                                             userMentions.target,
                                             withUserMentions,
-                                            variables.index,
-                                            variables.query,
-                                            variables.target,
                                             withVariables,
                                         ]}
                                         readOnly={readOnly}
@@ -838,17 +829,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                             }
                                             options={menuOptions}
                                             showTooltipByDefault={EditorCommands.isEmpty(editor)}
-                                        />
-                                    )}
-
-                                    {withVariables && (
-                                        <VariablesDropdown
-                                            index={variables.index}
-                                            onOptionClick={(option) =>
-                                                variables.onAdd(editor, option)
-                                            }
-                                            options={variables.options}
-                                            target={variables.target}
                                         />
                                     )}
 

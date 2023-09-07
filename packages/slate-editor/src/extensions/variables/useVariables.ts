@@ -2,6 +2,7 @@ import { isSubtitleHeadingNode, isTitleHeadingNode } from '@prezly/slate-types';
 import { useCallback, useMemo } from 'react';
 import type { BaseRange } from 'slate';
 import { Editor } from 'slate';
+import { useSlateStatic } from 'slate-react';
 
 import type { Option } from '#extensions/mentions';
 import { useMentions } from '#extensions/mentions';
@@ -17,12 +18,8 @@ function placeholderToOption(placeholder: Variable): Option<Variable> {
     };
 }
 
-const DEFAULT_PARAMETERS: VariablesExtensionParameters = { variables: [] };
-
-export function useVariables(
-    editor: Editor,
-    { variables }: VariablesExtensionParameters = DEFAULT_PARAMETERS,
-) {
+export function useVariables(variables: VariablesExtensionParameters['variables']) {
+    const editor = useSlateStatic();
     const options = useMemo(() => variables.map(placeholderToOption), [variables]);
     const isEnabled = useCallback(
         (range: BaseRange | null) => {

@@ -180,7 +180,7 @@ export function Extensions({
 
             {withPressContacts && <PressContactsExtension />}
 
-            {withVariables && <VariablesExtension variables={withVariables.variables} />}
+            {withVariables && <VariablesExtension {...withVariables} />}
 
             {withTextStyling && <TextStylingExtension />}
 
