@@ -1,7 +1,8 @@
 import type { OEmbedInfo } from '@prezly/sdk';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { LinkNode } from '@prezly/slate-types';
-import { Editor, Node, Path } from 'slate';
+import type { Editor } from 'slate';
+import { Node, Path } from 'slate';
 
 import { createEmbed } from '#extensions/embed';
 import { createVideoBookmark } from '#extensions/video';
@@ -53,18 +54,10 @@ export async function convertLink(
     }
 }
 
-function findPath(editor: Editor, element: LinkNode): Path | undefined {
-    for (const [, path] of Editor.nodes(editor, {
-        at: [],
-        match: (node: Node) => node === element,
-    })) {
-        return path;
-    }
-    return undefined;
-}
-
 function determineReplacementPath(editor: Editor, link: LinkNode) {
-    const path = findPath(editor, link);
+    const path = EditorCommands.getNodePath(editor, {
+        match: (node) => node === link,
+    });
 
     if (path && path.length > 1) {
         const parentPath = Path.parent(path);
