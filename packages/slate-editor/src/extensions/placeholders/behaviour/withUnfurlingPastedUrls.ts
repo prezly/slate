@@ -57,6 +57,6 @@ async function bootstrap(fetchOembed: FetchOEmbedFn, url: string) {
         const oembed = await fetchOembed(url);
         return { oembed, url };
     } catch {
-        return { url };
+        return { url, fallback: 'link' } as const;
     }
 }
