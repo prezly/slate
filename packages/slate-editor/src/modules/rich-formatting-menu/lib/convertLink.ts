@@ -30,7 +30,7 @@ export async function convertLink(
     }
 
     function convert(oembed: OEmbedInfo) {
-        if (presentation === 'card') {
+        if (presentation === 'card' || (presentation === 'embed' && oembed.type === 'link')) {
             return createWebBookmark({ oembed, url: element.href });
         }
         if (presentation === 'embed' && oembed.type === 'video') {
