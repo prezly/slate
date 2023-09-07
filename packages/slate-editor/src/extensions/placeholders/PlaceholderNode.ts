@@ -80,4 +80,25 @@ export namespace PlaceholderNode {
         }
         return isElementNode(node, Object.values(Type));
     }
+
+    export function isSameAs<T extends PlaceholderNode>(placeholder: T, node: Node): node is T;
+    export function isSameAs<T extends PlaceholderNode>(placeholder: T): (node: Node) => node is T;
+    export function isSameAs<T extends PlaceholderNode>(
+        placeholder: T,
+        node?: Node,
+    ): boolean | ((node: Node) => boolean) {
+        if (!node) {
+            return (node: Node): node is T => {
+                return (
+                    PlaceholderNode.isPlaceholderNode(node, placeholder.type) &&
+                    node.uuid === placeholder.uuid
+                );
+            };
+        }
+
+        return (
+            PlaceholderNode.isPlaceholderNode(node, placeholder.type) &&
+            node.uuid === placeholder.uuid
+        );
+    }
 }

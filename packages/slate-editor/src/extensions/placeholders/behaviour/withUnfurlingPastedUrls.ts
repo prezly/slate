@@ -1,5 +1,6 @@
 import type { WithOverrides } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
+import { Editor, Transforms } from 'slate';
 
 import { isUrl } from '#lib';
 
@@ -24,14 +25,23 @@ export function withUnfurlingPastedUrls(fetchOembed: FetchOEmbedFn | undefined):
             const pasted = data.getData('text');
 
             if (!hasHtml && isUrl(pasted) && EditorCommands.isSelectionEmpty(editor)) {
-                const placeholder = insertPlaceholder(editor, {
-                    type: PlaceholderNode.Type.EMBED,
+                Editor.withoutNormalizing(editor, () => {
+                    const placeholder = insertPlaceholder(editor, {
+                        type: PlaceholderNode.Type.EMBED,
+                    });
+                    PlaceholdersManager.register(
+                        placeholder.type,
+                        placeholder.uuid,
+                        bootstrap(fetchOembed, pasted),
+                    );
+                    const path = EditorCommands.getNodePath(editor, {
+                        at: [],
+                        match: PlaceholderNode.isSameAs(placeholder),
+                    });
+                    if (path) {
+                        Transforms.select(editor, path);
+                    }
                 });
-                PlaceholdersManager.register(
-                    placeholder.type,
-                    placeholder.uuid,
-                    bootstrap(fetchOembed, pasted),
-                );
                 return;
             }
 
