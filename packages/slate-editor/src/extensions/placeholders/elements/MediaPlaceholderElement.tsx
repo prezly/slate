@@ -9,7 +9,7 @@ import {
 } from '@prezly/uploadcare';
 import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
 import React, { type DragEventHandler } from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderImage } from '#icons';
 import { useFunction } from '#lib';
@@ -48,6 +48,7 @@ export function MediaPlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     function processSelectedImage(image: FilePromise) {
         const uploading = toProgressPromise(image).then((fileInfo: PrezlyFileInfo) => {
@@ -100,6 +101,7 @@ export function MediaPlaceholderElement({
                     children: [{ text: caption }],
                     layout: ImageLayout.CONTAINED,
                 }),
+                { select: isSelected },
             );
 
             EventsEditor.dispatchEvent(editor, 'image-added', {

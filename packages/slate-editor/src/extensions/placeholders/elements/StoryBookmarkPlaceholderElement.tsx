@@ -1,6 +1,6 @@
 import type { StoryRef } from '@prezly/sdk';
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { SearchInput } from '#components';
 import { PlaceholderStory } from '#icons';
@@ -31,6 +31,7 @@ export function StoryBookmarkPlaceholderElement({
     ...props
 }: StoryBookmarkPlaceholderElement.Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -41,7 +42,9 @@ export function StoryBookmarkPlaceholderElement({
             story: { uuid },
         });
 
-        replacePlaceholder(editor, element, createStoryBookmark({ story: { uuid } }));
+        replacePlaceholder(editor, element, createStoryBookmark({ story: { uuid } }), {
+            select: isSelected,
+        });
     });
 
     usePlaceholderManagement(element.type, element.uuid, {

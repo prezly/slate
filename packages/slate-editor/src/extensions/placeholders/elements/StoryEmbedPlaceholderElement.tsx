@@ -1,6 +1,6 @@
 import type { StoryRef } from '@prezly/sdk';
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { SearchInput } from '#components';
 import { PlaceholderStory } from '#icons';
@@ -31,6 +31,7 @@ export function StoryEmbedPlaceholderElement({
     ...props
 }: StoryEmbedPlaceholderElement.Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -41,7 +42,9 @@ export function StoryEmbedPlaceholderElement({
             story: { uuid },
         });
 
-        replacePlaceholder(editor, element, createStoryEmbed({ story: { uuid } }));
+        replacePlaceholder(editor, element, createStoryEmbed({ story: { uuid } }), {
+            select: isSelected,
+        });
     });
 
     usePlaceholderManagement(element.type, element.uuid, {

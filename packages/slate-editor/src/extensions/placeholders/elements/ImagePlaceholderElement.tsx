@@ -9,7 +9,7 @@ import {
 import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
 import React, { type DragEventHandler } from 'react';
 import { Node } from 'slate';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderImage } from '#icons';
 import { useFunction } from '#lib';
@@ -39,6 +39,7 @@ export function ImagePlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     function processSelectedImages(images: FilePromise[]) {
         const placeholders = [
@@ -86,7 +87,7 @@ export function ImagePlaceholderElement({
     const handleUploadedImage = useFunction(
         (data: { image: ImageNode; operation: 'add' | 'edit' }) => {
             const node = createImage(data.image);
-            replacePlaceholder(editor, element, node);
+            replacePlaceholder(editor, element, node, { select: isSelected });
 
             const event = data.operation === 'edit' ? 'image-edited' : 'image-added';
             EventsEditor.dispatchEvent(editor, event, {

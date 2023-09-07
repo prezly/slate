@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderSocialPost } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
@@ -50,6 +50,7 @@ export function SocialPostPlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -85,6 +86,7 @@ export function SocialPostPlaceholderElement({
                     routeImages: withImagePlaceholders,
                     routeVideos: withVideoPlaceholders,
                     routeWebBookmarks: withWebBookmarkPlaceholders,
+                    select: isSelected,
                 },
             );
         },

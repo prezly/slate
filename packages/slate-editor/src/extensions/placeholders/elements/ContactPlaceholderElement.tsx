@@ -1,7 +1,7 @@
 import type { NewsroomContact } from '@prezly/sdk';
 import type { ContactInfo } from '@prezly/slate-types';
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { SearchInput } from '#components';
 import { PlaceholderContact } from '#icons';
@@ -32,6 +32,7 @@ export function ContactPlaceholderElement({
     ...props
 }: ContactPlaceholderElement.Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -42,7 +43,9 @@ export function ContactPlaceholderElement({
             contact: { uuid },
         });
 
-        replacePlaceholder(editor, element, createContactNode({ contact, reference: uuid }));
+        replacePlaceholder(editor, element, createContactNode({ contact, reference: uuid }), {
+            select: isSelected,
+        });
     });
 
     usePlaceholderManagement(element.type, element.uuid, {

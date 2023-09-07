@@ -4,7 +4,7 @@ import { toProgressPromise, UploadcareFile } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
 import type { DragEvent } from 'react';
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderVideo } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
@@ -56,6 +56,7 @@ export function VideoPlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -113,6 +114,7 @@ export function VideoPlaceholderElement({
                         editor.createDefaultTextBlock({
                             children: [createLink({ href: url })],
                         }),
+                        { select: isSelected },
                     );
                 }
                 return;
@@ -126,6 +128,7 @@ export function VideoPlaceholderElement({
                     routeImages: withImagePlaceholders,
                     routeVideos: withVideoPlaceholders,
                     routeWebBookmarks: withWebBookmarkPlaceholders,
+                    select: isSelected,
                 },
             );
         },

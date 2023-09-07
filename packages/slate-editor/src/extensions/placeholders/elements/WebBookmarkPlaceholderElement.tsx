@@ -1,6 +1,6 @@
 import type { BookmarkNode } from '@prezly/slate-types';
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderWebBookmark } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
@@ -46,6 +46,7 @@ export function WebBookmarkPlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -82,11 +83,14 @@ export function WebBookmarkPlaceholderElement({
                         editor.createDefaultTextBlock({
                             children: [createLink({ href: url })],
                         }),
+                        { select: isSelected },
                     );
                 }
                 return;
             }
-            replacePlaceholder(editor, element, createWebBookmark({ url, oembed }));
+            replacePlaceholder(editor, element, createWebBookmark({ url, oembed }), {
+                select: isSelected,
+            });
         },
     );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderEmbed } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
@@ -51,6 +51,7 @@ export function EmbedPlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -88,6 +89,7 @@ export function EmbedPlaceholderElement({
                         editor.createDefaultTextBlock({
                             children: [createLink({ href: url })],
                         }),
+                        { select: isSelected },
                     );
                 }
                 return;
@@ -101,6 +103,7 @@ export function EmbedPlaceholderElement({
                     routeImages: withImagePlaceholders,
                     routeVideos: withVideoPlaceholders,
                     routeWebBookmarks: withWebBookmarkPlaceholders,
+                    select: isSelected,
                 },
             );
         },
