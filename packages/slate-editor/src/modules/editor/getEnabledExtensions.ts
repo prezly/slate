@@ -334,6 +334,7 @@ function buildPlaceholdersExtensionConfiguration({
             yield {
                 withEmbedPlaceholders: withEmbeds,
                 withSocialPostPlaceholders: withEmbeds,
+                withUnfurlingPastedUrls: withEmbeds,
             };
         }
         if (withGalleries) {

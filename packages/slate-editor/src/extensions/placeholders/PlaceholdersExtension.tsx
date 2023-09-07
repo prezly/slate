@@ -97,6 +97,7 @@ export interface Parameters {
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
+    withUnfurlingPastedUrls?: false | { fetchOembed: FetchOEmbedFn };
 }
 
 export function PlaceholdersExtension({
@@ -113,8 +114,9 @@ export function PlaceholdersExtension({
     withStoryBookmarkPlaceholders = false,
     withStoryEmbedPlaceholders = false,
     withSocialPostPlaceholders = false,
-    withWebBookmarkPlaceholders = false,
+    withUnfurlingPastedUrls: isUnfurlingPastedUrls = false,
     withVideoPlaceholders = false,
+    withWebBookmarkPlaceholders = false,
 }: Parameters = {}): Extension {
     return {
         id: EXTENSION_ID,
@@ -366,7 +368,7 @@ export function PlaceholdersExtension({
             return undefined;
         },
         withOverrides: withUnfurlingPastedUrls(
-            withEmbedPlaceholders ? withEmbedPlaceholders.fetchOembed : undefined,
+            isUnfurlingPastedUrls ? isUnfurlingPastedUrls.fetchOembed : undefined,
         ),
     };
 }
