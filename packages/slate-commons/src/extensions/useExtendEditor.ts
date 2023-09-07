@@ -4,7 +4,7 @@ import type { Extension } from '../types';
 
 import { useExtensionsManager } from './useExtensionsManager';
 
-export function useExtendEditor(extension: Extension): void {
+export function useExtendEditor(extension: Extension | Extension[]): void {
     const manager = useExtensionsManager();
 
     useEffect(() => manager.register(extension), [manager, extension]);

@@ -15,12 +15,14 @@ export function ExtensionsManagerProvider({ children }: Props) {
     const [entries, setEntries] = useState<Entry[]>([]);
     const [manager] = useState<ExtensionsManager>(() => ({
         register(extension) {
-            const entry = { extension };
+            const entries: Entry[] = (Array.isArray(extension) ? extension : [extension]).map(
+                (extension) => ({ extension }),
+            );
 
-            setEntries((es) => [...es, entry]);
+            setEntries((es) => [...es, ...entries]);
 
             return () => {
-                setEntries((es) => es.filter((e) => e !== entry));
+                setEntries((es) => es.filter((e) => !entries.includes(e)));
             };
         },
     }));
