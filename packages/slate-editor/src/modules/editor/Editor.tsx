@@ -34,7 +34,6 @@ import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import { useFloatingSnippetInput } from '#extensions/snippet';
-import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
 import { FloatingSnippetInput, Placeholder } from '#modules/components';
 import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
@@ -247,8 +246,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }),
     );
 
-    const userMentions = useUserMentions(withUserMentions || undefined);
-
     const [
         { isOpen: isFloatingSnippetInputOpen },
         {
@@ -258,10 +255,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             submit: submitFloatingSnippetInput,
         },
     ] = useFloatingSnippetInput(editor);
-
-    if (withUserMentions) {
-        onKeyDownList.push(userMentions.onKeyDown);
-    }
 
     const withSpecificProviderOptions =
         typeof withFloatingAddMenu === 'object'
@@ -776,7 +769,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                              */
                             onChange(newValue as Element[]);
                             // variables.onChange(editor); // FIXME: Find a way to wire <Slate> `onChange` with VariablesExtension
-                            userMentions.onChange(editor);
+                            // userMentions.onChange(editor); // FIXME: Find a way to wire <Slate> `onChange` with UserMentionsExtension
                         }}
                         initialValue={getInitialValue()}
                     >
@@ -792,13 +785,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         editor={editor}
                                         onCut={createOnCut(editor)}
                                         onKeyDown={onKeyDownList}
-                                        onKeyDownDeps={[
-                                            userMentions.index,
-                                            userMentions.query,
-                                            userMentions.target,
-                                            withUserMentions,
-                                            withVariables,
-                                        ]}
                                         readOnly={readOnly}
                                         renderElementDeps={[availableWidth]}
                                         style={contentStyle}
@@ -829,17 +815,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                             }
                                             options={menuOptions}
                                             showTooltipByDefault={EditorCommands.isEmpty(editor)}
-                                        />
-                                    )}
-
-                                    {withUserMentions && (
-                                        <UserMentionsDropdown
-                                            index={userMentions.index}
-                                            onOptionClick={(option) =>
-                                                userMentions.onAdd(editor, option)
-                                            }
-                                            options={userMentions.options}
-                                            target={userMentions.target}
                                         />
                                     )}
 

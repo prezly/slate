@@ -184,7 +184,7 @@ export function Extensions({
 
             {withTextStyling && <TextStylingExtension />}
 
-            {withUserMentions && <UserMentionsExtension />}
+            {withUserMentions && <UserMentionsExtension {...withUserMentions} />}
 
             {withAttachments && (
                 <>

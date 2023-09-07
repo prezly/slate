@@ -4,7 +4,7 @@ import type { Option } from '#extensions/mentions';
 import { useMentions } from '#extensions/mentions';
 
 import { createUserMention } from './lib';
-import type { User, UserMentionsExtensionParameters } from './types';
+import type { User } from './types';
 
 function userToOption(user: User): Option<User> {
     return {
@@ -14,14 +14,16 @@ function userToOption(user: User): Option<User> {
     };
 }
 
-const DEFAULT_PARAMETERS: UserMentionsExtensionParameters = { users: [] };
-
-export function useUserMentions({ users }: UserMentionsExtensionParameters = DEFAULT_PARAMETERS) {
-    const options = useMemo(() => users.map(userToOption), [users]);
+export function useUserMentions(users: User[]) {
+    const options = useMemo(() => users.map(userToOption), [JSON.stringify(users)]);
 
     return useMentions<User>({
-        createMentionElement: (option) => createUserMention(option.value),
+        createMentionElement,
         options,
         trigger: '@',
     });
+}
+
+function createMentionElement(option: Option<User>) {
+    return createUserMention(option.value);
 }

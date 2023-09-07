@@ -37,6 +37,7 @@ export function VariablesExtension({ variables }: VariablesExtensionParameters) 
         onChange, // FIXME: onChange should be passed to <Slate onChange={...} />
     } = useVariables(variables);
 
+    // TODO: Find a better way maybe?
     useRegisterExtension({ id: `${EXTENSION_ID}:onKeyDown`, onKeyDown });
 
     return (
@@ -48,6 +49,7 @@ export function VariablesExtension({ variables }: VariablesExtensionParameters) 
                 parseSerializedElement={parseSerializedElement}
                 renderElement={renderElement}
             />
+
             <VariablesDropdown
                 index={index}
                 onOptionClick={onAdd}
