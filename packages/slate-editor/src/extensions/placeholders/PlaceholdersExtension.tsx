@@ -2,6 +2,7 @@ import type { NewsroomRef } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
+import { withUnfurlingPastedUrls } from './behaviour';
 import { StoryEmbedPlaceholderElement } from './elements';
 import {
     CoveragePlaceholderElement,
@@ -364,5 +365,8 @@ export function PlaceholdersExtension({
             }
             return undefined;
         },
+        withOverrides: withUnfurlingPastedUrls(
+            withEmbedPlaceholders ? withEmbedPlaceholders.fetchOembed : undefined,
+        ),
     };
 }
