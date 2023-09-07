@@ -8,17 +8,15 @@ import styles from './Toolbox.module.scss';
 interface Props {
     children?: ReactNode;
     caption?: string;
-    loading?: boolean;
     noPadding?: boolean;
     paddingBottom?: '3';
 }
 
-export function Section({ caption, children, loading = false, noPadding, paddingBottom }: Props) {
+export function Section({ caption, children, noPadding, paddingBottom }: Props) {
     return (
         <div
             className={classNames(styles.section, {
                 [styles['section--no-padding']]: noPadding,
-                [styles['section--loading']]: loading,
             })}
         >
             {caption && (

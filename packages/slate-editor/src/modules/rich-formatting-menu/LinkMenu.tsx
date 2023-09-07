@@ -33,7 +33,7 @@ interface Props {
     onBlur: () => void;
     onChange: (props: Pick<LinkNode, 'href' | 'new_tab'>) => void;
     onClose: () => void;
-    onConvert?: (presentation: Presentation) => Promise<void> | void;
+    onConvert?: (presentation: Presentation) => void;
     onUnlink: () => void;
 }
 
@@ -49,7 +49,6 @@ export function LinkMenu({
     onUnlink,
 }: Props) {
     const rootRef = React.useRef<HTMLDivElement | null>(null);
-    const [isConverting, setConverting] = useState(false);
     const [href, setHref] = useState(node?.href ?? '');
     const [new_tab, setNewTab] = useState(node?.new_tab ?? true);
 
@@ -97,19 +96,12 @@ export function LinkMenu({
                 </Toolbox.Section>
 
                 {withConversionOptions && onConvert && (
-                    <Toolbox.Section caption="Change to..." loading={isConverting}>
+                    <Toolbox.Section caption="Change to...">
                         <OptionsGroup
                             name="presentation"
                             options={PRESENTATION_OPTIONS}
                             selectedValue="link"
-                            onChange={async (presentation) => {
-                                setConverting(true);
-                                try {
-                                    await onConvert(presentation);
-                                } finally {
-                                    setConverting(false);
-                                }
-                            }}
+                            onChange={onConvert}
                             variant="pills"
                         />
                     </Toolbox.Section>
