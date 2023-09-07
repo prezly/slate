@@ -2,11 +2,13 @@ import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import type { LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
+import { flow } from '@technically/lodash';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
+import { withPastedContentAutolinking, withSelectionAutolinking } from './behaviour';
 import { LinkElement } from './components';
 import {
     escapeLinksBoundaries,
@@ -15,7 +17,6 @@ import {
     normalizeRedundantLinkAttributes,
     parseSerializedLinkElement,
 } from './lib';
-import { withLinkPasting } from './withLinkPasting';
 
 export const EXTENSION_ID = 'InlineLinksExtension';
 
@@ -53,5 +54,6 @@ export const InlineLinksExtension = (): Extension => ({
 
         return undefined;
     },
-    withOverrides: withLinkPasting,
+    withOverrides: (editor) =>
+        flow([withPastedContentAutolinking, withSelectionAutolinking])(editor),
 });
