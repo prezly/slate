@@ -28,7 +28,7 @@ export function convertLink(
             const oembed = await fetchOembed(element.href);
             return { oembed, url: element.href };
         } catch {
-            return { url: element.href };
+            return { url: element.href, fallback: 'link' } as const;
         }
     }
 
