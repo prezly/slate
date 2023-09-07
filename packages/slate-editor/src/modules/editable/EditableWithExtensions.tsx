@@ -43,12 +43,7 @@ export interface Props {
     onDOMBeforeInput?: OnDOMBeforeInput[];
     // Dependencies of `onDOMBeforeInput`
     onDOMBeforeInputDeps?: any[];
-    /**
-     * Handlers when we press a key
-     */
-    onKeyDown?: OnKeyDown[];
-    // Dependencies of `onKeyDown.ts`
-    onKeyDownDeps?: any[];
+    onKeyDown?: OnKeyDown;
     placeholder?: string;
     readOnly?: boolean;
     /**
@@ -77,8 +72,7 @@ export function EditableWithExtensions({
     editor,
     onDOMBeforeInput: onDOMBeforeInputList = [],
     onDOMBeforeInputDeps = [],
-    onKeyDown: onKeyDownList = [],
-    onKeyDownDeps = [],
+    onKeyDown,
     renderElement: renderElementList = [],
     renderElementDeps = [],
     renderLeaf: renderLeafList = [],
@@ -97,8 +91,8 @@ export function EditableWithExtensions({
         onDOMBeforeInputDeps,
     );
     const combinedOnKeyDown = useCallback(
-        combineOnKeyDown(editor, extensions, onKeyDownList),
-        onKeyDownDeps,
+        combineOnKeyDown(editor, extensions, onKeyDown ? [onKeyDown] : []),
+        [onKeyDown],
     );
     const combinedRenderElement = useMemo(
         () => combineRenderElement(editor, extensions, renderElementList),

@@ -135,10 +135,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         [setFloatingAddMenuOpen],
     );
 
-    const { editor, onKeyDownList } = useCreateEditor({
+    const editor = useCreateEditor({
         events,
         // extensions, // FIXME
-        onKeyDown,
         plugins,
     });
 
@@ -752,7 +751,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         decorate={combinedDecorate}
                                         editor={editor}
                                         onCut={createOnCut(editor)}
-                                        onKeyDown={onKeyDownList}
+                                        onKeyDown={onKeyDown}
                                         readOnly={readOnly}
                                         renderElementDeps={[availableWidth]}
                                         style={contentStyle}

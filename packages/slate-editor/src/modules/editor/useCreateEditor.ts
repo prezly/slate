@@ -1,6 +1,5 @@
 import type { Events } from '@prezly/events';
-import type { Extension, OnKeyDown } from '@prezly/slate-commons';
-import type { KeyboardEvent } from 'react';
+import type { Extension } from '@prezly/slate-commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Editor } from 'slate';
 import { createEditor as createSlateEditor } from 'slate';
@@ -15,13 +14,7 @@ import { createEditor } from './createEditor';
 interface Parameters {
     events: Events<EditorEventMap>;
     extensions: Extension[];
-    onKeyDown?: (event: KeyboardEvent) => void;
     plugins?: (<T extends Editor>(editor: T) => T)[] | undefined;
-}
-
-interface State {
-    editor: Editor;
-    onKeyDownList: OnKeyDown[];
 }
 
 type NonUndefined<T> = T extends undefined ? never : T;
@@ -31,15 +24,8 @@ const DEFAULT_PLUGINS: NonUndefined<Parameters['plugins']> = [];
 export function useCreateEditor({
     events,
     extensions,
-    onKeyDown,
     plugins = DEFAULT_PLUGINS,
-}: Parameters): State {
-    const onKeyDownList: OnKeyDown[] = [];
-
-    if (onKeyDown) {
-        onKeyDownList.push(onKeyDown);
-    }
-
+}: Parameters): Editor {
     // We have to make sure that editor is created only once.
     // We do it by ensuring dependencies of `useMemo` returning the editor never change.
     const extensionsRef = useLatest<Extension[]>(extensions);
@@ -58,8 +44,5 @@ export function useCreateEditor({
         }
     }, [plugins, userPlugins]);
 
-    return {
-        editor,
-        onKeyDownList,
-    };
+    return editor;
 }
