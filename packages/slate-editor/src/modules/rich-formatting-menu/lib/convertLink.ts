@@ -23,16 +23,11 @@ export function convertLink(
 
     const placeholder = createPlaceholder({ type });
 
-    async function bootstrap() {
-        try {
-            const oembed = await fetchOembed(element.href);
-            return { oembed, url: element.href };
-        } catch {
-            return { url: element.href, fallback: 'link' } as const;
-        }
-    }
-
-    PlaceholdersManager.register(placeholder.type, placeholder.uuid, bootstrap());
+    PlaceholdersManager.register(
+        placeholder.type,
+        placeholder.uuid,
+        bootstrap(element.href, fetchOembed),
+    );
 
     EditorCommands.replaceNode(editor, placeholder, {
         at: replacementPath,
@@ -56,4 +51,13 @@ function determineReplacementPath(editor: Editor, link: LinkNode) {
     }
 
     return path;
+}
+
+async function bootstrap(url: string, fetchOembed: FetchOEmbedFn) {
+    try {
+        const oembed = await fetchOembed(url);
+        return { oembed, url };
+    } catch {
+        return { url, fallback: 'link' } as const;
+    }
 }
