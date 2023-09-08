@@ -198,7 +198,7 @@ export function RichFormattingMenu({
                     withNewTabOption={withNewTabOption}
                     onBlur={clearLinkRange}
                     onChange={linkSelection}
-                    onConvert={withConversionOptions ? onConvert : undefined}
+                    onConvert={onConvert}
                     onClose={onClose}
                     onUnlink={unlinkSelection}
                 />
