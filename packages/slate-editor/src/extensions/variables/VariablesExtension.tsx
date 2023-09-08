@@ -28,14 +28,7 @@ export function VariablesExtension({ variables }: VariablesExtensionParameters) 
         [JSON.stringify(variablesNames)],
     );
 
-    const {
-        index,
-        target,
-        options,
-        onAdd,
-        onKeyDown,
-        onChange, // FIXME: onChange should be passed to <Slate onChange={...} />
-    } = useVariables(variables);
+    const { index, target, options, onAdd, onKeyDown } = useVariables(variables);
 
     // TODO: Find a better way maybe?
     useRegisterExtension({ id: `${EXTENSION_ID}:onKeyDown`, onKeyDown });

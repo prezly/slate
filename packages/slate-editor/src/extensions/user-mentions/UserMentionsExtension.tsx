@@ -13,8 +13,7 @@ import { useUserMentions } from './useUserMentions';
 export const EXTENSION_ID = 'UserMentionsExtension';
 
 export function UserMentionsExtension({ users }: UserMentionsExtensionParameters) {
-    // FIXME: onChange should be passed to <Slate onChange={...} />
-    const { index, target, options, onAdd, onChange, onKeyDown } = useUserMentions(users);
+    const { index, target, options, onAdd, onKeyDown } = useUserMentions(users);
 
     // TODO: Find a better way maybe?
     useRegisterExtension({ id: `${EXTENSION_ID}:onKeyDown`, onKeyDown });

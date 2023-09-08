@@ -1,9 +1,8 @@
 import { stubTrue } from '@technically/lodash';
 import { isHotkey } from 'is-hotkey';
-import type { KeyboardEvent } from 'react';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, type KeyboardEvent } from 'react';
 import { Range, Transforms } from 'slate';
-import { useSlateStatic } from 'slate-react';
+import { useSlate } from 'slate-react';
 
 import { getWordAfterTrigger, insertMention, isPointAtWordEnd } from './lib';
 import type { MentionElementType, Option } from './types';
@@ -18,7 +17,6 @@ interface Parameters<V> {
 export interface Mentions<V> {
     index: number;
     onAdd: (option: Option<V>) => void;
-    onChange: () => void;
     onKeyDown: (event: KeyboardEvent) => void;
     options: Option<V>[];
     query: string;
@@ -31,7 +29,7 @@ export function useMentions<V>({
     options,
     trigger,
 }: Parameters<V>): Mentions<V> {
-    const editor = useSlateStatic();
+    const editor = useSlate(); // `useSlate()` is to react to the editor changes
 
     const [index, setIndex] = useState<number>(0);
     const [query, setQuery] = useState<string>('');
@@ -54,7 +52,7 @@ export function useMentions<V>({
         [editor, createMentionElement, target],
     );
 
-    const onChange = useCallback(() => {
+    useEffect(() => {
         const { selection } = editor;
 
         if (selection && Range.isCollapsed(selection)) {
@@ -70,7 +68,7 @@ export function useMentions<V>({
         }
 
         setTarget(null);
-    }, [editor, setIndex, setQuery, trigger]);
+    }, [editor.children, editor.selection]);
 
     const onKeyDown = useCallback(
         (event: KeyboardEvent) => {
@@ -107,7 +105,6 @@ export function useMentions<V>({
     return {
         index,
         onAdd,
-        onChange,
         onKeyDown,
         options: filteredOptions,
         query,

@@ -724,8 +724,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                              * in two" work as expected.
                              */
                             onChange(newValue as Element[]);
-                            // variables.onChange(editor); // FIXME: Find a way to wire <Slate> `onChange` with VariablesExtension
-                            // userMentions.onChange(editor); // FIXME: Find a way to wire <Slate> `onChange` with UserMentionsExtension
                         }}
                         initialValue={getInitialValue()}
                     >
