@@ -4,11 +4,12 @@ import { toProgressPromise, UploadcareFile } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
 import type { DragEvent } from 'react';
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderVideo } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
+import { createLink } from '#extensions/inline-links';
 import { VIDEO_TYPES } from '#extensions/video';
 import { EventsEditor } from '#modules/events';
 
@@ -17,7 +18,7 @@ import {
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
-import { handleOembed } from '../lib';
+import { handleOembed, replacePlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
@@ -55,6 +56,7 @@ export function VideoPlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -98,13 +100,23 @@ export function VideoPlaceholderElement({
     });
 
     const handleData = useFunction(
-        (data: { url: VideoNode['url']; oembed?: VideoNode['oembed'] }) => {
-            const { url, oembed } = data;
+        (data: { url: VideoNode['url']; oembed?: VideoNode['oembed']; fallback?: 'link' }) => {
+            const { url, oembed, fallback } = data;
             if (!oembed) {
                 EventsEditor.dispatchEvent(editor, 'notification', {
                     children: 'Provided URL does not exist or is not supported.',
                     type: 'error',
                 });
+                if (fallback === 'link') {
+                    replacePlaceholder(
+                        editor,
+                        element,
+                        editor.createDefaultTextBlock({
+                            children: [createLink({ href: url })],
+                        }),
+                        { select: isSelected },
+                    );
+                }
                 return;
             }
 
@@ -116,6 +128,7 @@ export function VideoPlaceholderElement({
                     routeImages: withImagePlaceholders,
                     routeVideos: withVideoPlaceholders,
                     routeWebBookmarks: withWebBookmarkPlaceholders,
+                    select: isSelected,
                 },
             );
         },

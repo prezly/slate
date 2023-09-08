@@ -1,10 +1,11 @@
 import type { BookmarkNode } from '@prezly/slate-types';
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderWebBookmark } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
+import { createLink } from '#extensions/inline-links';
 import { createWebBookmark } from '#extensions/web-bookmark';
 import { EventsEditor } from '#modules/events';
 
@@ -45,6 +46,7 @@ export function WebBookmarkPlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -63,22 +65,32 @@ export function WebBookmarkPlaceholderElement({
     });
 
     const handleData = useFunction(
-        (data: { url: BookmarkNode['url']; oembed?: BookmarkNode['oembed'] }) => {
-            if (!data.oembed) {
+        (data: {
+            url: BookmarkNode['url'];
+            oembed?: BookmarkNode['oembed'];
+            fallback?: 'link';
+        }) => {
+            const { url, oembed, fallback } = data;
+            if (!oembed) {
                 EventsEditor.dispatchEvent(editor, 'notification', {
                     children: 'Provided URL does not exist or is not supported.',
                     type: 'error',
                 });
+                if (fallback === 'link') {
+                    replacePlaceholder(
+                        editor,
+                        element,
+                        editor.createDefaultTextBlock({
+                            children: [createLink({ href: url })],
+                        }),
+                        { select: isSelected },
+                    );
+                }
                 return;
             }
-            replacePlaceholder(
-                editor,
-                element,
-                createWebBookmark({
-                    url: data.url,
-                    oembed: data.oembed,
-                }),
-            );
+            replacePlaceholder(editor, element, createWebBookmark({ url, oembed }), {
+                select: isSelected,
+            });
         },
     );
 

@@ -52,7 +52,11 @@ export interface EditorRef {
         ensureEmptyParagraphAfter?: boolean,
     ): PlaceholderNode<T>;
 
-    replacePlaceholder(placeholder: Pick<PlaceholderNode, 'type' | 'uuid'>, element: Element): void;
+    replacePlaceholder(
+        placeholder: Pick<PlaceholderNode, 'type' | 'uuid'>,
+        element: Element,
+        options?: { select?: boolean },
+    ): void;
 
     isEmpty(): boolean;
 

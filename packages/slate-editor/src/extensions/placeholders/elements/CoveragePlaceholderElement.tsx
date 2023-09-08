@@ -72,7 +72,9 @@ export function CoveragePlaceholderElement({
             coverage: { id: data.coverage.id },
         });
 
-        replacePlaceholder(editor, element, createCoverage(data.coverage.id));
+        replacePlaceholder(editor, element, createCoverage(data.coverage.id), {
+            select: isSelected,
+        });
     });
 
     const handleSubmitUrl = useFunction((input: string) => {

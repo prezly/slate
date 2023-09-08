@@ -14,6 +14,7 @@ export { humanFriendlyUrl } from './humanFriendlyUrl';
 export { isCorsEnabledOrigin } from './isCorsEnabledOrigin';
 export { isGoogleDocsWrapper } from './isGoogleDocsWrapper';
 export { isHtmlElement } from './isHtmlElement';
+export { isUrl } from './isUrl';
 export { mergeRefs } from './mergeRefs';
 export { Observable } from './Observable';
 export { onBackspaceResetFormattingAtDocumentStart } from './onBackspaceResetFormattingAtDocumentStart';

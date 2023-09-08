@@ -23,13 +23,19 @@ type Options = {
     routeImages?: boolean;
     routeVideos?: boolean;
     routeWebBookmarks?: boolean;
+    select?: boolean;
 };
 
 export function handleOembed(
     editor: Editor,
     placeholder: PlaceholderNode,
     { url, oembed }: Params,
-    { routeImages = false, routeVideos = false, routeWebBookmarks = false }: Options = {},
+    {
+        routeImages = false,
+        routeVideos = false,
+        routeWebBookmarks = false,
+        select = false,
+    }: Options = {},
 ): void {
     // [DEV-7592] Auto-route photo-type embeds to Image nodes
     if (routeImages && isEmbedType(oembed, 'photo')) {
@@ -48,7 +54,7 @@ export function handleOembed(
         });
 
         const imagePlaceholder = createPlaceholder({ type: PlaceholderNode.Type.IMAGE });
-        replacePlaceholder(editor, placeholder, imagePlaceholder);
+        replacePlaceholder(editor, placeholder, imagePlaceholder, { select });
         PlaceholdersManager.register(imagePlaceholder.type, imagePlaceholder.uuid, loading);
 
         return;
@@ -56,17 +62,17 @@ export function handleOembed(
 
     // [DEV-7592] Auto-route video-type embeds to Video nodes
     if (routeVideos && isEmbedType(oembed, 'video')) {
-        replacePlaceholder(editor, placeholder, createVideoBookmark({ url, oembed }));
+        replacePlaceholder(editor, placeholder, createVideoBookmark({ url, oembed }), { select });
         return;
     }
 
     // [DEV-7592] Auto-route link-type embeds to Web Bookmark nodes
     if (routeWebBookmarks && isEmbedType(oembed, 'link')) {
-        replacePlaceholder(editor, placeholder, createWebBookmark({ url, oembed }));
+        replacePlaceholder(editor, placeholder, createWebBookmark({ url, oembed }), { select });
         return;
     }
 
-    replacePlaceholder(editor, placeholder, createEmbed({ url, oembed }));
+    replacePlaceholder(editor, placeholder, createEmbed({ url, oembed }), { select });
 }
 
 function isUploadcareUrl(url: string) {

@@ -1,10 +1,11 @@
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderEmbed } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
 import type { EmbedNode } from '#extensions/embed';
+import { createLink } from '#extensions/inline-links';
 import { EventsEditor } from '#modules/events';
 
 import {
@@ -12,7 +13,7 @@ import {
     InputPlaceholderElement,
 } from '../components/InputPlaceholderElement';
 import { withLoadingDots } from '../components/LoadingDots';
-import { handleOembed } from '../lib';
+import { handleOembed, replacePlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
@@ -50,6 +51,7 @@ export function EmbedPlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
@@ -68,14 +70,28 @@ export function EmbedPlaceholderElement({
     });
 
     const handleData = useFunction(
-        async (data: { url: EmbedNode['url']; oembed?: EmbedNode['oembed'] }) => {
-            const { url, oembed } = data;
+        async (data: {
+            url: EmbedNode['url'];
+            oembed?: EmbedNode['oembed'];
+            fallback?: 'link';
+        }) => {
+            const { url, oembed, fallback } = data;
 
             if (!oembed) {
                 EventsEditor.dispatchEvent(editor, 'notification', {
                     children: 'Provided URL does not exist or is not supported.',
                     type: 'error',
                 });
+                if (fallback === 'link') {
+                    replacePlaceholder(
+                        editor,
+                        element,
+                        editor.createDefaultTextBlock({
+                            children: [createLink({ href: url })],
+                        }),
+                        { select: isSelected },
+                    );
+                }
                 return;
             }
 
@@ -87,6 +103,7 @@ export function EmbedPlaceholderElement({
                     routeImages: withImagePlaceholders,
                     routeVideos: withVideoPlaceholders,
                     routeWebBookmarks: withWebBookmarkPlaceholders,
+                    select: isSelected,
                 },
             );
         },

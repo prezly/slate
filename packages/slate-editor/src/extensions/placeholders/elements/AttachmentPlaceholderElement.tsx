@@ -5,7 +5,7 @@ import type { FilePromise } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
 import type { DragEventHandler } from 'react';
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderAttachment } from '#icons';
 import { useFunction } from '#lib';
@@ -26,6 +26,7 @@ interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDr
 
 export function AttachmentPlaceholderElement({ children, element, ...props }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     function processSelectedFiles(files: FilePromise[]) {
         const placeholders = [
@@ -64,7 +65,9 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
 
     const handleUploadedFile = useFunction(
         (data: { file: AttachmentNode['file']; caption: string }) => {
-            replacePlaceholder(editor, element, createFileAttachment(data.file, data.caption));
+            replacePlaceholder(editor, element, createFileAttachment(data.file, data.caption), {
+                select: isSelected,
+            });
 
             EventsEditor.dispatchEvent(editor, 'attachment-added', {
                 description: data.caption,

@@ -34,6 +34,7 @@ interface Data {
     [Type.EMBED]: {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
+        fallback?: 'link'; // fallback to a link, if getting oEmbed info for the given URL is not possible
     };
     [Type.GALLERY]: {
         images: GalleryNode['images'];
@@ -62,10 +63,12 @@ interface Data {
     [Type.VIDEO]: {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
+        fallback?: 'link'; // fallback to a link, if getting oEmbed info for the given URL is not possible
     };
     [Type.WEB_BOOKMARK]: {
         url: string;
         oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
+        fallback?: 'link'; // fallback to a link, if getting oEmbed info for the given URL is not possible
     };
 }
 

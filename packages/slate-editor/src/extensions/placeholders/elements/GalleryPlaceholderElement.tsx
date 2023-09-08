@@ -3,7 +3,7 @@ import type { GalleryNode } from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
 import React, { type DragEventHandler } from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderGallery } from '#icons';
 import { useFunction } from '#lib';
@@ -34,6 +34,7 @@ export function GalleryPlaceholderElement({
     ...props
 }: Props) {
     const editor = useSlateStatic();
+    const isSelected = useSelected();
 
     function processSelectedImages(images: FilePromise[]) {
         if (images.length === 0) return;
@@ -80,14 +81,18 @@ export function GalleryPlaceholderElement({
     const handleDrop = useFunction<DragEventHandler>((event) => {
         event.preventDefault();
         event.stopPropagation();
+
         const images = Array.from(event.dataTransfer.files)
             .filter((file) => IMAGE_TYPES.includes(file.type))
             .map((file) => uploadcare.fileFrom('object', file));
+
         processSelectedImages(images);
     });
 
     const handleUploadedImages = useFunction((data: { images: GalleryNode['images'] }) => {
-        replacePlaceholder(editor, element, createGallery({ images: data.images }));
+        replacePlaceholder(editor, element, createGallery({ images: data.images }), {
+            select: isSelected,
+        });
     });
 
     usePlaceholderManagement(element.type, element.uuid, {

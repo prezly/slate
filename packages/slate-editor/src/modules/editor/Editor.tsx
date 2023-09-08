@@ -267,8 +267,8 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             insertPlaceholder(props, ensureEmptyParagraphAfter) {
                 return insertPlaceholder(editor, props, ensureEmptyParagraphAfter);
             },
-            replacePlaceholder(placeholder, element) {
-                replacePlaceholder(editor, placeholder, element);
+            replacePlaceholder(placeholder, element, options = {}) {
+                replacePlaceholder(editor, placeholder, element, options);
             },
             isEmpty: () => EditorCommands.isEmpty(editor),
             isFocused: () => ReactEditor.isFocused(editor),
