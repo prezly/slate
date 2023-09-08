@@ -125,7 +125,7 @@ export interface EditorProps {
     withPlaceholders?: Pick<
         PlaceholdersExtensionParameters,
         'format' | 'removable' | 'withMediaPlaceholders'
-    >;
+    > & { withPastedUrlsUnfurling?: boolean };
     withPressContacts?: false | PlaceholdersExtensionParameters['withContactPlaceholders'];
     withRichFormattingMenu?:
         | boolean
