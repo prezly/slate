@@ -1,3 +1,4 @@
+import type { OEmbedInfo } from '@prezly/sdk';
 import type {
     HeadingNode,
     ListNode,
@@ -15,6 +16,10 @@ import {
     isTableCellNode,
 } from '@prezly/slate-types';
 import type { Node } from 'slate';
+
+export type FetchOEmbedFn = (url: string) => Promise<OEmbedInfo>;
+
+export type Presentation = 'card' | 'embed' | 'link';
 
 export type RichFormattedTextElement = ParagraphNode | HeadingNode | QuoteNode | ListNode;
 export type Formatting =

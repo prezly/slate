@@ -6,7 +6,7 @@ import { isEqual, noop } from '@technically/lodash';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 import React from 'react';
-import type { NodeEntry, Node, Editor } from 'slate';
+import type { Editor } from 'slate';
 import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
@@ -125,7 +125,7 @@ export const ImageExtension = ({
 
             if (EditorCommands.isNodeEmpty(editor, nodeEntry[0])) {
                 if (!isHoldingDelete) {
-                    replaceImageWithParagraph(editor, nodeEntry);
+                    replaceImageWithParagraph(editor, nodeEntry[1]);
                 }
 
                 event.preventDefault();
@@ -138,7 +138,7 @@ export const ImageExtension = ({
                 EditorCommands.isSelectionAtBlockStart(editor) &&
                 EditorCommands.isSelectionEmpty(editor)
             ) {
-                replaceImageWithParagraph(editor, nodeEntry);
+                replaceImageWithParagraph(editor, nodeEntry[1]);
                 event.preventDefault();
                 event.stopPropagation();
                 return true;
@@ -172,13 +172,6 @@ export const ImageExtension = ({
     withOverrides: withImages,
 });
 
-function replaceImageWithParagraph(editor: Editor, entry: NodeEntry<Node>) {
-    EditorCommands.replaceNode(
-        editor,
-        {
-            entry,
-            match: isImageNode,
-        },
-        createParagraph(),
-    );
+function replaceImageWithParagraph(editor: Editor, at: Path) {
+    EditorCommands.replaceNode(editor, createParagraph(), { at, match: isImageNode });
 }

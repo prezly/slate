@@ -3,27 +3,49 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useRootClose } from 'react-overlays';
 
-import { Button, Input, Toggle, Toolbox, VStack } from '#components';
+import type { OptionsGroupOption } from '#components';
+import { Button, Input, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
 import { Delete, Link } from '#icons';
 import { HREF_REGEXP, normalizeHref } from '#lib';
+
+import type { FetchOEmbedFn, Presentation } from './types';
+
+const PRESENTATION_OPTIONS: OptionsGroupOption<Presentation>[] = [
+    {
+        value: 'embed',
+        label: 'Embed',
+    },
+    {
+        value: 'card',
+        label: 'Bookmark',
+    },
+    {
+        value: 'link',
+        label: 'Link',
+    },
+];
 
 interface Props {
     node: LinkNode | null;
     canUnlink: boolean;
+    withConversionOptions: false | { fetchOembed: FetchOEmbedFn };
     withNewTabOption: boolean;
     onBlur: () => void;
     onChange: (props: Pick<LinkNode, 'href' | 'new_tab'>) => void;
     onClose: () => void;
+    onConvert?: (presentation: Presentation) => void;
     onUnlink: () => void;
 }
 
 export function LinkMenu({
     node,
     canUnlink,
+    withConversionOptions,
     withNewTabOption,
     onBlur,
     onChange,
     onClose,
+    onConvert,
     onUnlink,
 }: Props) {
     const rootRef = React.useRef<HTMLDivElement | null>(null);
@@ -41,50 +63,56 @@ export function LinkMenu({
             <Toolbox.Header withCloseButton onCloseClick={onClose}>
                 Link settings
             </Toolbox.Header>
-            <Toolbox.Section>
-                <form
-                    onSubmit={function (event) {
-                        event.preventDefault();
-                        handleSave();
-                    }}
-                >
+            <form
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    handleSave();
+                }}
+            >
+                <Toolbox.Section>
                     <VStack spacing="2">
-                        <VStack spacing="2">
-                            <VStack spacing="2-5">
-                                <VStack spacing="1-5">
-                                    <Toolbox.Caption>Link</Toolbox.Caption>
-                                    <Input
-                                        autoFocus
-                                        name="href"
-                                        value={href}
-                                        onChange={setHref}
-                                        icon={Link}
-                                        pattern={HREF_REGEXP.source}
-                                        placeholder="Paste link"
-                                        title="Please input a valid URL"
-                                    />
-                                </VStack>
-
-                                {withNewTabOption && (
-                                    <Toggle name="new_tab" value={new_tab} onChange={setNewTab}>
-                                        Open in new tab
-                                    </Toggle>
-                                )}
+                        <VStack spacing="2-5">
+                            <VStack spacing="1-5">
+                                <Toolbox.Caption>Link</Toolbox.Caption>
+                                <Input
+                                    autoFocus
+                                    name="href"
+                                    value={href}
+                                    onChange={setHref}
+                                    icon={Link}
+                                    pattern={HREF_REGEXP.source}
+                                    placeholder="Paste link"
+                                    title="Please input a valid URL"
+                                />
                             </VStack>
 
-                            <Button
-                                variant="primary"
-                                type="submit"
-                                fullWidth
-                                round
-                                disabled={!href}
-                            >
-                                Save
-                            </Button>
+                            {withNewTabOption && (
+                                <Toggle name="new_tab" value={new_tab} onChange={setNewTab}>
+                                    Open in new tab
+                                </Toggle>
+                            )}
                         </VStack>
                     </VStack>
-                </form>
-            </Toolbox.Section>
+                </Toolbox.Section>
+
+                {withConversionOptions && onConvert && (
+                    <Toolbox.Section caption="Change to...">
+                        <OptionsGroup
+                            name="presentation"
+                            options={PRESENTATION_OPTIONS}
+                            selectedValue="link"
+                            onChange={onConvert}
+                            variant="pills"
+                        />
+                    </Toolbox.Section>
+                )}
+
+                <Toolbox.Section>
+                    <Button variant="primary" type="submit" fullWidth round disabled={!href}>
+                        Save
+                    </Button>
+                </Toolbox.Section>
+            </form>
             <Toolbox.Footer>
                 <Button
                     variant="clear-faded"

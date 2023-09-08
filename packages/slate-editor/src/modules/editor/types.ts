@@ -126,6 +126,7 @@ export interface EditorProps {
     withRichFormattingMenu?:
         | boolean
         | {
+              withConversionOptions?: false | { fetchOembed: FetchOEmbedFn };
               withNewTabOption?: boolean;
           };
     withStoryBookmarks?:

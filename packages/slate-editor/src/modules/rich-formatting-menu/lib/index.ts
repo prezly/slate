@@ -1,3 +1,4 @@
+export { convertLink } from './convertLink';
 export { getCurrentFormatting } from './getCurrentFormatting';
 export { isSelectionSupported } from './isSelectionSupported';
 export { keepToolbarInTextColumn } from './keepToolbarInTextColumn';

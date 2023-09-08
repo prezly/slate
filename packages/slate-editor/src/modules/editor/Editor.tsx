@@ -871,6 +871,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         defaultAlignment={align}
                                         withAlignment={withAlignmentControls}
                                         withBlockquotes={withBlockquotes}
+                                        withConversionOptions={
+                                            typeof withRichFormattingMenu === 'object'
+                                                ? withRichFormattingMenu.withConversionOptions
+                                                : false
+                                        }
                                         withHeadings={withHeadings}
                                         withInlineLinks={withInlineLinks}
                                         withLists={withLists}

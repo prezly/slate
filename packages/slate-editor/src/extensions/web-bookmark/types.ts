@@ -1,1 +1,1 @@
-export type Presentation = 'embed' | 'card';
+export type Presentation = 'card' | 'embed' | 'link';

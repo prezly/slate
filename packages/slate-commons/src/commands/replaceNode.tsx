@@ -1,27 +1,35 @@
+import { isElementNode } from '@prezly/slate-types';
+import type { Node, NodeMatch, Path } from 'slate';
 import { Editor, Transforms } from 'slate';
-import type { NodeMatch, Node, NodeEntry } from 'slate';
+
+import { replaceChildren } from './replaceChildren';
 
 interface Options<T extends Node> {
-    entry: NodeEntry<T>;
+    at?: Path;
     match: NodeMatch<T>;
+    select?: boolean;
 }
 
 export function replaceNode<Original extends Node, New extends Node>(
     editor: Editor,
-    options: Options<Original>,
     newNode: New,
+    options: Options<Original>,
 ) {
+    const { at, match, select = false } = options;
     Editor.withoutNormalizing(editor, () => {
-        const [node, path] = options.entry;
+        const [entry] = Editor.nodes(editor, { at, match, mode: 'highest' });
 
-        Transforms.unsetNodes<Original>(editor, Object.keys(node), {
-            at: path,
-            match: options.match,
-        });
+        if (entry) {
+            const [node, path] = entry;
 
-        Transforms.setNodes<Original | New>(editor, newNode, {
-            at: path,
-            match: options.match,
-        });
+            Transforms.unsetNodes<Original>(editor, Object.keys(node), { at: path });
+            Transforms.setNodes<Original | New>(editor, newNode, { at: path });
+            if (isElementNode(newNode)) {
+                replaceChildren(editor, [node, path], newNode.children);
+            }
+            if (select) {
+                Transforms.select(editor, path);
+            }
+        }
     });
 }

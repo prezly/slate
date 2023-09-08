@@ -18,6 +18,7 @@ import { toggleBlock } from '#modules/rich-formatting-menu';
 
 import { Toolbar } from './components';
 import {
+    convertLink,
     getCurrentFormatting,
     isSelectionSupported,
     keepToolbarInTextColumn,
@@ -25,7 +26,7 @@ import {
 } from './lib';
 import { LinkMenu } from './LinkMenu';
 import styles from './RichFormattingMenu.module.scss';
-import type { Formatting } from './types';
+import type { FetchOEmbedFn, Formatting, Presentation } from './types';
 
 interface Props {
     availableWidth: number;
@@ -33,6 +34,7 @@ interface Props {
     defaultAlignment: Alignment;
     withAlignment: boolean;
     withBlockquotes: boolean;
+    withConversionOptions?: false | { fetchOembed: FetchOEmbedFn };
     withHeadings: boolean;
     withInlineLinks: boolean;
     withLists: boolean;
@@ -60,6 +62,7 @@ export function RichFormattingMenu({
     defaultAlignment,
     withAlignment,
     withBlockquotes,
+    withConversionOptions = false,
     withHeadings,
     withInlineLinks,
     withLists,
@@ -169,6 +172,11 @@ export function RichFormattingMenu({
 
     useDecorationFactory(linkRange?.current ? decorateSelectionFactory : undefined);
 
+    const onConvert =
+        link && withConversionOptions && withConversionOptions.fetchOembed
+            ? (to: Presentation) => convertLink(editor, link, to, withConversionOptions.fetchOembed)
+            : undefined;
+
     if (
         withInlineLinks &&
         linkRange?.current &&
@@ -186,9 +194,11 @@ export function RichFormattingMenu({
                 <LinkMenu
                     node={link}
                     canUnlink={link !== null}
+                    withConversionOptions={withConversionOptions}
                     withNewTabOption={withNewTabOption}
                     onBlur={clearLinkRange}
                     onChange={linkSelection}
+                    onConvert={onConvert}
                     onClose={onClose}
                     onUnlink={unlinkSelection}
                 />
