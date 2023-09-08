@@ -609,7 +609,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return;
         }
         if (action === MenuAction.ADD_SNIPPET) {
-            return openFloatingSnippetInput(); // FIXME: Find a way to trigger snippet input
+            // return openFloatingSnippetInput(); // FIXME: Find a way to trigger snippet input
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             const placeholder = insertPlaceholder(
