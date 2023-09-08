@@ -2,7 +2,7 @@ import type { NewsroomRef } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
-import { withUnfurlingPastedUrls } from './behaviour';
+import { withPastedUrlsUnfurling } from './behaviour';
 import { StoryEmbedPlaceholderElement } from './elements';
 import {
     CoveragePlaceholderElement,
@@ -97,7 +97,7 @@ export interface Parameters {
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
-    withUnfurlingPastedUrls?: false | { fetchOembed: FetchOEmbedFn };
+    withPastedUrlsUnfurling?: false | { fetchOembed: FetchOEmbedFn };
 }
 
 export function PlaceholdersExtension({
@@ -114,7 +114,7 @@ export function PlaceholdersExtension({
     withStoryBookmarkPlaceholders = false,
     withStoryEmbedPlaceholders = false,
     withSocialPostPlaceholders = false,
-    withUnfurlingPastedUrls: isUnfurlingPastedUrls = false,
+    withPastedUrlsUnfurling: isUnfurlingPastedUrls = false,
     withVideoPlaceholders = false,
     withWebBookmarkPlaceholders = false,
 }: Parameters = {}): Extension {
@@ -367,7 +367,7 @@ export function PlaceholdersExtension({
             }
             return undefined;
         },
-        withOverrides: withUnfurlingPastedUrls(
+        withOverrides: withPastedUrlsUnfurling(
             isUnfurlingPastedUrls ? isUnfurlingPastedUrls.fetchOembed : undefined,
         ),
     };

@@ -12,7 +12,7 @@ import type { FetchOEmbedFn } from '../types';
 /**
  * Automatically link pasted content if it's a URL. // See DEV-11519
  */
-export function withUnfurlingPastedUrls(fetchOembed: FetchOEmbedFn | undefined): WithOverrides {
+export function withPastedUrlsUnfurling(fetchOembed: FetchOEmbedFn | undefined): WithOverrides {
     if (!fetchOembed) {
         return (editor) => editor;
     }
