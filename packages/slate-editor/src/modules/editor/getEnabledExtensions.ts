@@ -335,8 +335,8 @@ function buildPlaceholdersExtensionConfiguration({
                 withEmbedPlaceholders: withEmbeds,
                 withSocialPostPlaceholders: withEmbeds,
                 withPastedUrlsUnfurling:
-                    withPlaceholders && withPlaceholders.withPastedUrlsUnfurling
-                        ? withEmbeds
+                    withEmbeds && withPlaceholders
+                        ? withPlaceholders.withPastedUrlsUnfurling
                         : undefined,
             };
         }
