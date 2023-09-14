@@ -41,8 +41,8 @@ export function VideoExtension({
             if (VideoNode.isVideoNode(node) && VideoNode.isVideoNode(another)) {
                 return (
                     node.url === another.url &&
-                    isEqual(node.oembed, another.oembed) &&
-                    node.layout === node.layout
+                    node.layout === another.layout &&
+                    isEqual(node.oembed, another.oembed)
                 );
             }
             return undefined;
