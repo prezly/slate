@@ -30,7 +30,7 @@ import { ReactEditor, Slate } from 'slate-react';
 import { useFunction, useGetSet, useSize } from '#lib';
 
 import { insertButtonBlock } from '#extensions/button-block';
-import { FlashNodes } from '#extensions/flash-nodes';
+import { FlashNodesExtension } from '#extensions/flash-nodes';
 import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import { Placeholder } from '#modules/components';
@@ -777,7 +777,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         withWebBookmarks={withWebBookmarks}
                                     />
 
-                                    <FlashNodes containerRef={containerRef} />
+                                    <FlashNodesExtension containerElement={containerRef.current} />
 
                                     {!hasCustomPlaceholder && (
                                         <Placeholder className="editor-placeholder">

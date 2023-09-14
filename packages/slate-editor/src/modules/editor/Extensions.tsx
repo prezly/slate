@@ -140,8 +140,6 @@ export function Extensions({
             using the `useDecorationFactory()` call in the RichFormattingMenu component. */}
             <DecorateSelectionExtension decorate={false} />
 
-            <FlashNodesExtension />
-
             <ParagraphsExtension />
 
             <SoftBreakExtension />
