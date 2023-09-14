@@ -7,7 +7,7 @@ import type { ExtensionsManager } from './types';
 const NULL_MANAGER: ExtensionsManager = {
     register() {
         throw new Error(
-            'It is required to wrap code using ExtensionsManager into ExtensionsManagerProvider.',
+            'It is required to wrap any code using ExtensionsManager into ExtensionsManagerProvider.',
         );
     },
 };
