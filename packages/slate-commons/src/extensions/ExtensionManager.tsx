@@ -1,9 +1,12 @@
-import React, { createContext, type ReactNode, useContext, useMemo, useState } from 'react';
+import React, { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
+import type { BaseEditor } from 'slate';
 
 import type { Extension } from '../types';
 
+import type { ExtensionsEditor } from './ExtensionsEditor';
+
 export interface ExtensionsManager {
-    register(extension: Extension | Extension[]): UnregisterFn;
+    register(extension: Extension): UnregisterFn;
 }
 
 type UnregisterFn = () => void;
@@ -20,7 +23,6 @@ export const ManagerContext = createContext<ExtensionsManager>({
         );
     },
 });
-export const ExtensionsContext = createContext<Extension[]>([]);
 
 /**
  * -- HOOKS --
@@ -31,42 +33,50 @@ export function useExtensionsManager(): ExtensionsManager {
     return useContext(ManagerContext);
 }
 
-export function useExtensions(): Extension[] {
-    return useContext(ExtensionsContext);
-}
-
 /**
  * -- COMPONENTS --
  * ================
  */
 
-interface Props {
+interface Props<T extends ExtensionsEditor> {
     children: ReactNode;
+    editor: T;
 }
 
-export function ExtensionsManager({ children }: Props) {
-    type Entry = { extension: Extension };
+type Entry = { extension: Extension };
 
-    const [entries, setEntries] = useState<Entry[]>([]);
-    const [manager] = useState<ExtensionsManager>(() => ({
-        register(extension) {
-            const entries: Entry[] = (Array.isArray(extension) ? extension : [extension]).map(
-                (extension) => ({ extension }),
-            );
+const EDITOR_EXTENSIONS = new WeakMap<BaseEditor, Entry[]>();
 
-            setEntries((es) => [...es, ...entries]);
+export function ExtensionsManager<T extends ExtensionsEditor>({ children, editor }: Props<T>) {
+    const [counter, setCounter] = useState(0);
+    const [manager] = useState<ExtensionsManager>(() => {
+        function updateEntries(editor: T, updater: (entries: Entry[]) => Entry[]) {
+            const entries = EDITOR_EXTENSIONS.get(editor) ?? [];
+            const updatedEntries = updater(entries);
 
-            return () => {
-                setEntries((es) => es.filter((e) => !entries.includes(e)));
-            };
-        },
-    }));
+            EDITOR_EXTENSIONS.set(editor, updatedEntries);
+            editor.extensions = updatedEntries.map(({ extension }) => extension);
+            setCounter((c) => c + 1);
+        }
 
-    const extensions = useMemo(() => entries.map(({ extension }) => extension), [entries]);
+        return {
+            register(extension) {
+                const entry = { extension };
+                updateEntries(editor, (entries) => [...entries, entry]);
 
-    return (
-        <ManagerContext.Provider value={manager}>
-            <ExtensionsContext.Provider value={extensions}>{children}</ExtensionsContext.Provider>
-        </ManagerContext.Provider>
-    );
+                return () => {
+                    updateEntries(editor, (entries) => entries.filter((e) => e !== entry));
+                };
+            },
+        };
+    });
+
+    /**
+     * Force editor re-rendering every time the extensions list is changed.
+     */
+    useEffect(() => {
+        editor.onChange();
+    }, [counter]);
+
+    return <ManagerContext.Provider value={manager}>{children}</ManagerContext.Provider>;
 }

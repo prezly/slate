@@ -18,7 +18,7 @@ export type { User } from './extensions/user-mentions';
 export { type ResultPromise, type UploadcareOptions, withUploadcare } from './modules/uploadcare';
 
 // Editor type
-
+import type { ExtensionsEditor } from '@prezly/slate-commons';
 import type { ElementNode, ParagraphNode, TextNode } from '@prezly/slate-types';
 import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
@@ -35,6 +35,7 @@ import type {
 type Editor = BaseEditor &
     ReactEditor &
     HistoryEditor &
+    ExtensionsEditor &
     DefaultTextBlockEditor<ParagraphNode> &
     ElementsEqualityCheckEditor &
     RichBlocksAwareEditor &

@@ -1,5 +1,6 @@
 import type { Events } from '@prezly/events';
 import type { Extension } from '@prezly/slate-commons';
+import { withExtensions } from '@prezly/slate-commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Editor } from 'slate';
 import { createEditor as createSlateEditor } from 'slate';
@@ -33,8 +34,8 @@ export function useCreateEditor({
     const [userPlugins] = useState(plugins);
     const finalPlugins = useMemo(() => [withEvents(events), ...userPlugins], [userPlugins, events]);
     const editor = useMemo(() => {
-        return createEditor(createSlateEditor(), getExtensions, finalPlugins);
-    }, [getExtensions, finalPlugins]);
+        return withExtensions(createEditor(createSlateEditor(), getExtensions, finalPlugins));
+    }, [getExtensions, userPlugins]);
 
     useEffect(() => {
         if (plugins !== userPlugins) {

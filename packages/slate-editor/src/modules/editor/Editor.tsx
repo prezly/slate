@@ -703,7 +703,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     return (
-        <ExtensionsManager>
+        <ExtensionsManager editor={editor}>
             <PopperOptionsContext.Provider value={popperMenuOptions}>
                 <div
                     id={id}
