@@ -1,7 +1,3 @@
-export type { ExtensionsManager } from './types';
+export { ExtensionsManager, useExtensionsManager, useExtensions } from './ExtensionManager';
 
-export { useExtensions } from './useExtensions';
-export { useExtensionsManager } from './useExtensionsManager';
 export { useRegisterExtension } from './useRegisterExtension';
-
-export { ExtensionsManagerProvider } from './ExtensionManagerProvider';

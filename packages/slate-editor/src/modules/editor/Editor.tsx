@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import { Events } from '@prezly/events';
-import { EditorCommands, ExtensionsManagerProvider } from '@prezly/slate-commons';
+import { EditorCommands, ExtensionsManager } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import {
     type HeadingNode,
@@ -703,7 +703,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     return (
-        <ExtensionsManagerProvider>
+        <ExtensionsManager>
             <PopperOptionsContext.Provider value={popperMenuOptions}>
                 <div
                     id={id}
@@ -834,7 +834,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     </Slate>
                 </div>
             </PopperOptionsContext.Provider>
-        </ExtensionsManagerProvider>
+        </ExtensionsManager>
     );
 });
 

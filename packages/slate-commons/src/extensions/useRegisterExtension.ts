@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import type { Extension } from '../types';
 
-import { useExtensionsManager } from './useExtensionsManager';
+import { useExtensionsManager } from './ExtensionManager';
 
 export function useRegisterExtension(extension: Extension): null {
     const manager = useExtensionsManager();
