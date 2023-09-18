@@ -24,6 +24,7 @@ import { useFunction, useGetSet, useSize } from '#lib';
 import { insertButtonBlock } from '#extensions/button-block';
 import { FlashNodesExtension } from '#extensions/flash-nodes';
 import { FloatingAddMenuExtension, type Option } from '#extensions/floating-add-menu';
+import { PasteTrackingExtension } from '#extensions/paste-tracking';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import { RichFormattingMenuExtension, toggleBlock } from '#extensions/rich-formatting-menu';
 import { SnippetsExtension } from '#extensions/snippet';
@@ -724,6 +725,15 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         onKeyDown={onKeyDown}
                                         readOnly={readOnly}
                                         style={contentStyle}
+                                    />
+
+                                    <PasteTrackingExtension
+                                        onPaste={(data) => {
+                                            EventsEditor.dispatchEvent(editor, 'paste', {
+                                                isEmpty: EditorCommands.isEmpty(editor),
+                                                pastedLength: data.getData('text/plain').length,
+                                            });
+                                        }}
                                     />
 
                                     <Extensions

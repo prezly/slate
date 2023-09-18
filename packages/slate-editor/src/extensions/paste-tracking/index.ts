@@ -1,0 +1,1 @@
+export { PasteTrackingExtension } from './PasteTrackingExtension';

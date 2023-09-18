@@ -30,11 +30,6 @@ export function withDeserializeHtml(getExtensions: () => Extension[]) {
         editor.insertData = function (data) {
             const slateFragment = data.getData('application/x-slate-fragment');
 
-            EventsEditor.dispatchEvent(editor, 'paste', {
-                isEmpty: EditorCommands.isEmpty(editor),
-                pastedLength: data.getData('text/plain').length,
-            });
-
             if (slateFragment) {
                 insertData(data);
                 return;
