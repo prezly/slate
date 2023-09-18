@@ -1,5 +1,6 @@
 import type { Element, Node } from 'slate';
 
+import type { DataTransferHandler } from './DataTransferHandler';
 import type { DecorateFactory } from './DecorateFactory';
 import type { DeserializeHtml } from './DeserializeHtml';
 import type { Normalize } from './Normalize';
@@ -13,7 +14,12 @@ import type { WithOverrides } from './WithOverrides';
 export interface Extension {
     id: string;
     decorate?: DecorateFactory; // OK
-    deserialize?: DeserializeHtml;
+    deserialize?: DeserializeHtml; // OK
+    /**
+     * Hook into ReactEditor's `insertData()` method.
+     * Call `next()` to allow other extensions (or the editor) handling the event.
+     */
+    insertData?: DataTransferHandler; // OK
     /**
      * Compare two elements.
      * `children` arrays can be omitted from the comparison,

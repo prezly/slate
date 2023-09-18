@@ -1,4 +1,6 @@
+import { isNotUndefined } from '@technically/is-not-undefined';
 import type { BaseEditor, Descendant, Element, Node } from 'slate';
+import type { ReactEditor } from 'slate-react';
 
 import type { Extension } from '../types';
 
@@ -31,13 +33,14 @@ export interface ExtensionsEditor extends BaseEditor {
     serialize(nodes: Descendant[]): Descendant[];
 }
 
-export function withExtensions<T extends BaseEditor>(
+export function withExtensions<T extends BaseEditor & ReactEditor>(
     editor: T,
     extensions: Extension[] = [],
 ): T & ExtensionsEditor {
     const parent = {
         isInline: editor.isInline,
         isVoid: editor.isVoid,
+        insertData: editor.insertData,
         normalizeNode: editor.normalizeNode,
     };
     const extensionsEditor: T & ExtensionsEditor = Object.assign(editor, {
@@ -77,6 +80,22 @@ export function withExtensions<T extends BaseEditor>(
             }
             return false;
         },
+        insertData(dataTransfer) {
+            const handlers = extensionsEditor.extensions
+                .map((ext) => ext.insertData)
+                .filter(isNotUndefined);
+
+            function next(dataTransfer: DataTransfer) {
+                const handler = handlers.shift();
+                if (handler) {
+                    handler(dataTransfer, next);
+                } else {
+                    parent.insertData(dataTransfer);
+                }
+            }
+
+            next(dataTransfer);
+        },
         normalizeNode(entry) {
             const normalizers = extensionsEditor.extensions.flatMap(
                 (ext) => ext.normalizeNode ?? [],
@@ -98,7 +117,7 @@ export function withExtensions<T extends BaseEditor>(
                 nodes,
             );
         },
-    } satisfies Partial<BaseEditor & ExtensionsEditor>);
+    } satisfies Partial<BaseEditor & ReactEditor & ExtensionsEditor>);
 
     return extensionsEditor;
 }

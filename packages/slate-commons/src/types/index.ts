@@ -1,3 +1,4 @@
+export type { DataTransferHandler } from './DataTransferHandler';
 export type { Decorate } from './Decorate';
 export type { DecorateFactory } from './DecorateFactory';
 export type { DeserializeHtml, DeserializeElement, DeserializeMarks } from './DeserializeHtml';
