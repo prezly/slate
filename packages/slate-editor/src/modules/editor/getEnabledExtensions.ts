@@ -43,6 +43,8 @@ import { VoidExtension } from '#extensions/void';
 import { WebBookmarkExtension } from '#extensions/web-bookmark';
 import { EventsEditor } from '#modules/events';
 
+import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '../uploadcare';
+
 import {
     BLOCKQUOTE_RULES,
     COMPOSITE_CHARACTERS_RULES,
@@ -51,7 +53,6 @@ import {
     LIST_RULES,
     TEXT_STYLE_RULES,
 } from './autoformatRules';
-import { createHandleEditGallery } from './lib';
 import type { EditorProps } from './types';
 
 type Parameters = {
@@ -229,7 +230,28 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withGalleries) {
         yield GalleriesExtension({
             availableWidth,
-            onEdit: createHandleEditGallery(withGalleries),
+            onEdited(editor, gallery, { failedUploads }) {
+                EventsEditor.dispatchEvent(editor, 'gallery-edited', {
+                    imagesCount: gallery.images.length,
+                });
+
+                failedUploads.forEach((error) => {
+                    EventsEditor.dispatchEvent(editor, 'error', error);
+                });
+
+                if (failedUploads.length > 0) {
+                    EventsEditor.dispatchEvent(editor, 'notification', {
+                        children: UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE,
+                        type: 'error',
+                    });
+                }
+            },
+            onShuffled(editor, updated) {
+                EventsEditor.dispatchEvent(editor, 'gallery-images-shuffled', {
+                    imagesCount: updated.images.length,
+                });
+            },
+            withMediaGalleryTab: withGalleries.withMediaGalleryTab ?? false,
             withWidthOption: withGalleries.withWidthOption,
         });
     }
@@ -367,10 +389,11 @@ function buildPlaceholdersExtensionConfiguration({
             };
         }
         if (withGalleries) {
+            const newsroom = withGalleries.withMediaGalleryTab
+                ? withGalleries.withMediaGalleryTab.newsroom
+                : undefined;
             yield {
-                withGalleryPlaceholders: {
-                    newsroom: withGalleries.mediaGalleryTab?.newsroom,
-                },
+                withGalleryPlaceholders: { newsroom },
             };
         }
         if (withInlineContacts) {

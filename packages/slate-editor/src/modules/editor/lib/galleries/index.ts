@@ -1,1 +1,0 @@
-export { createHandleEditGallery } from './createHandleEditGallery';

@@ -54,6 +54,12 @@ export type EditorEventMap = {
         imagesCount: number;
         isEmpty: boolean;
     };
+    'gallery-edited': {
+        imagesCount: number;
+    };
+    'gallery-images-shuffled': {
+        imagesCount: number;
+    };
     'image-added': {
         description: string;
         isPasted: boolean;
