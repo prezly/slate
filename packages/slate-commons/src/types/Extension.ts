@@ -12,7 +12,7 @@ import type { WithOverrides } from './WithOverrides';
 
 export interface Extension {
     id: string;
-    decorate?: DecorateFactory;
+    decorate?: DecorateFactory; // OK
     deserialize?: DeserializeHtml;
     /**
      * Compare two elements.
@@ -24,10 +24,10 @@ export interface Extension {
     isRichBlock?: (node: Node) => boolean;
     isVoid?: (node: Node) => boolean;
     normalizeNode?: Normalize | Normalize[];
-    onDOMBeforeInput?: OnDOMBeforeInput;
-    onKeyDown?: OnKeyDown;
-    renderElement?: RenderElement;
-    renderLeaf?: RenderLeaf;
-    serialize?: Serialize;
+    onDOMBeforeInput?: OnDOMBeforeInput; // OK
+    onKeyDown?: OnKeyDown; // OK
+    renderElement?: RenderElement; // OK
+    renderLeaf?: RenderLeaf; // OK
+    serialize?: Serialize; // OK
     withOverrides?: WithOverrides;
 }

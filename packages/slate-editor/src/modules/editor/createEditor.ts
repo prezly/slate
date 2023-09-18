@@ -19,7 +19,6 @@ import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 import {
     withDefaultTextBlock,
     withDeserializeHtml,
-    withElementsEqualityCheck,
     withRichBlocks,
 } from './plugins';
 
@@ -44,7 +43,6 @@ export function createEditor(
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
         withRichBlocks(getExtensions),
-        withElementsEqualityCheck(getExtensions),
         ...overrides,
         ...plugins,
     ])(baseEditor);

@@ -25,18 +25,13 @@ import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
 import type { FlashEditor } from '#extensions/flash-nodes';
-import type {
-    DefaultTextBlockEditor,
-    ElementsEqualityCheckEditor,
-    RichBlocksAwareEditor,
-} from '#modules/editor';
+import type { DefaultTextBlockEditor, RichBlocksAwareEditor } from '#modules/editor';
 
 type Editor = BaseEditor &
     ReactEditor &
     HistoryEditor &
     ExtensionsEditor &
     DefaultTextBlockEditor<ParagraphNode> &
-    ElementsEqualityCheckEditor &
     RichBlocksAwareEditor &
     FlashEditor;
 
