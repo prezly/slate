@@ -29,7 +29,7 @@ interface Parameters {
     ) => void;
     onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
     withMediaGalleryTab: false | { enabled: true; newsroom: NewsroomRef };
-    withWidthOption: boolean | undefined;
+    withLayoutOptions: boolean | undefined;
 }
 
 export const EXTENSION_ID = 'GalleriesExtension';
@@ -39,7 +39,7 @@ export const GalleriesExtension = ({
     onEdited,
     onShuffled,
     withMediaGalleryTab,
-    withWidthOption = true,
+    withLayoutOptions = false,
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
@@ -68,7 +68,7 @@ export const GalleriesExtension = ({
                     attributes={attributes}
                     availableWidth={availableWidth}
                     withMediaGalleryTab={withMediaGalleryTab}
-                    withWidthOption={withWidthOption}
+                    withLayoutOptions={withLayoutOptions}
                     element={element}
                     onEdited={onEdited}
                     onShuffled={onShuffled}

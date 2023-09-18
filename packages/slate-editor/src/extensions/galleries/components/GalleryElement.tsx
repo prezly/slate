@@ -36,7 +36,7 @@ interface Props extends RenderElementProps {
     ) => void;
     onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
     withMediaGalleryTab: false | { enabled: true; newsroom: NewsroomRef };
-    withWidthOption: boolean;
+    withLayoutOptions: boolean;
 }
 
 export function GalleryElement({
@@ -47,7 +47,7 @@ export function GalleryElement({
     onEdited = noop,
     onShuffled = noop,
     withMediaGalleryTab,
-    withWidthOption,
+    withLayoutOptions,
 }: Props) {
     const editor = useSlateStatic();
     const [sizer, size] = useSize(Sizer, { width: availableWidth });
@@ -109,7 +109,7 @@ export function GalleryElement({
         <EditorBlock
             {...attributes}
             element={element}
-            layout={withWidthOption ? element.layout : undefined}
+            layout={withLayoutOptions ? element.layout : undefined}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderReadOnlyFrame={() => (
@@ -131,7 +131,7 @@ export function GalleryElement({
                     onEdit={handleEdit}
                     onShuffle={handleShuffle}
                     onClose={onClose}
-                    withWidthOption={withWidthOption}
+                    withLayoutOptions={withLayoutOptions}
                 />
             )}
             void

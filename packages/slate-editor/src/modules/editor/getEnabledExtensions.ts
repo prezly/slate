@@ -252,7 +252,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
                 });
             },
             withMediaGalleryTab: withGalleries.withMediaGalleryTab ?? false,
-            withWidthOption: withGalleries.withWidthOption,
+            withLayoutOptions: withGalleries.withWidthOption,
         });
     }
 

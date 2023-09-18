@@ -83,10 +83,10 @@ interface Props {
     onEdit: () => void;
     onShuffle: () => void;
     onClose: () => void;
-    withWidthOption: boolean;
+    withLayoutOptions: boolean;
 }
 
-export function GalleryMenu({ element, onEdit, onShuffle, onClose, withWidthOption }: Props) {
+export function GalleryMenu({ element, onEdit, onShuffle, onClose, withLayoutOptions }: Props) {
     const editor = useSlate();
 
     return (
@@ -113,7 +113,7 @@ export function GalleryMenu({ element, onEdit, onShuffle, onClose, withWidthOpti
                 </InfoText>
             </Toolbox.Section>
 
-            {withWidthOption && (
+            {withLayoutOptions && (
                 <Toolbox.Section caption="Gallery width">
                     <OptionsGroup<GalleryLayout>
                         name="layout"
