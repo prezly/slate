@@ -35,5 +35,8 @@ export interface Extension {
     renderElement?: RenderElement; // OK
     renderLeaf?: RenderLeaf; // OK
     serialize?: Serialize; // OK
+    /**
+     * @deprecated Please do not use this. We're going to drop this functionality soon.
+     */
     withOverrides?: WithOverrides;
 }
