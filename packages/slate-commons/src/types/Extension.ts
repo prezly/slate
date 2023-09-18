@@ -3,6 +3,7 @@ import type { Element, Node } from 'slate';
 import type { DataTransferHandler } from './DataTransferHandler';
 import type { DecorateFactory } from './DecorateFactory';
 import type { DeserializeHtml } from './DeserializeHtml';
+import type { HistoryHandler } from './HistoryHandler';
 import type { LineBreakHandler } from './LineBreakHandler';
 import type { Normalize } from './Normalize';
 import type { OnDOMBeforeInput } from './OnDOMBeforeInput';
@@ -39,6 +40,10 @@ export interface Extension {
     renderElement?: RenderElement; // OK
     renderLeaf?: RenderLeaf; // OK
     serialize?: Serialize; // OK
+
+    undo?: HistoryHandler;
+    redo?: HistoryHandler;
+
     /**
      * @deprecated Please do not use this. We're going to drop this functionality soon.
      */

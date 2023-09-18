@@ -24,6 +24,8 @@ export function useRegisterExtension(extension: Extension): null {
         renderElement,
         renderLeaf,
         serialize,
+        undo,
+        redo,
         withOverrides,
         ...rest
     } = extension;
@@ -54,6 +56,8 @@ export function useRegisterExtension(extension: Extension): null {
             renderElement,
             renderLeaf,
             serialize,
+            undo,
+            redo,
             withOverrides,
         ],
     );

@@ -1,5 +1,6 @@
 import { isNotUndefined } from '@technically/is-not-undefined';
 import type { BaseEditor, Descendant, Element, Node } from 'slate';
+import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
 import type { Extension } from '../types';
@@ -33,7 +34,7 @@ export interface ExtensionsEditor extends BaseEditor {
     serialize(nodes: Descendant[]): Descendant[];
 }
 
-export function withExtensions<T extends BaseEditor & ReactEditor>(
+export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEditor>(
     editor: T,
     extensions: Extension[] = [],
 ): T & ExtensionsEditor {
@@ -44,6 +45,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor>(
         insertData: editor.insertData,
         insertText: editor.insertText,
         normalizeNode: editor.normalizeNode,
+        undo: editor.undo,
+        redo: editor.redo,
     };
     const extensionsEditor: T & ExtensionsEditor = Object.assign(editor, {
         extensions,
@@ -143,7 +146,39 @@ export function withExtensions<T extends BaseEditor & ReactEditor>(
                 nodes,
             );
         },
-    } satisfies Partial<BaseEditor & ReactEditor & ExtensionsEditor>);
+        undo() {
+            const handlers = extensionsEditor.extensions
+                .map((ext) => ext.undo)
+                .filter(isNotUndefined);
+
+            function next() {
+                const handler = handlers.shift();
+                if (handler) {
+                    handler(next);
+                } else {
+                    parent.undo();
+                }
+            }
+
+            next();
+        },
+        redo() {
+            const handlers = extensionsEditor.extensions
+                .map((ext) => ext.redo)
+                .filter(isNotUndefined);
+
+            function next() {
+                const handler = handlers.shift();
+                if (handler) {
+                    handler(next);
+                } else {
+                    parent.redo();
+                }
+            }
+
+            next();
+        },
+    } satisfies Partial<BaseEditor & ReactEditor & HistoryEditor & ExtensionsEditor>);
 
     return extensionsEditor;
 }
