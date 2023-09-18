@@ -29,7 +29,6 @@ import type {
     DefaultTextBlockEditor,
     ElementsEqualityCheckEditor,
     RichBlocksAwareEditor,
-    SerializingEditor,
 } from '#modules/editor';
 
 type Editor = BaseEditor &
@@ -39,7 +38,6 @@ type Editor = BaseEditor &
     DefaultTextBlockEditor<ParagraphNode> &
     ElementsEqualityCheckEditor &
     RichBlocksAwareEditor &
-    SerializingEditor &
     FlashEditor;
 
 declare module 'slate' {
