@@ -10,6 +10,7 @@ import type { OnKeyDown } from './OnKeyDown';
 import type { RenderElement } from './RenderElement';
 import type { RenderLeaf } from './RenderLeaf';
 import type { Serialize } from './Serialize';
+import type { TextInsertionHandler } from './TextInsertionHandler';
 import type { WithOverrides } from './WithOverrides';
 
 export interface Extension {
@@ -22,6 +23,7 @@ export interface Extension {
      * Call `next()` to allow other extensions (or the editor) handling the call.
      */
     insertData?: DataTransferHandler; // OK
+    insertText?: TextInsertionHandler; // OK
     /**
      * Compare two elements.
      * `children` arrays can be omitted from the comparison,

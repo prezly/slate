@@ -42,6 +42,7 @@ export function withExtensions<T extends BaseEditor & ReactEditor>(
         isVoid: editor.isVoid,
         insertBreak: editor.insertBreak,
         insertData: editor.insertData,
+        insertText: editor.insertText,
         normalizeNode: editor.normalizeNode,
     };
     const extensionsEditor: T & ExtensionsEditor = Object.assign(editor, {
@@ -104,6 +105,22 @@ export function withExtensions<T extends BaseEditor & ReactEditor>(
             }
 
             next(dataTransfer);
+        },
+        insertText(text) {
+            const handlers = extensionsEditor.extensions
+                .map((ext) => ext.insertText)
+                .filter(isNotUndefined);
+
+            function next(text: string) {
+                const handler = handlers.shift();
+                if (handler) {
+                    handler(text, next);
+                } else {
+                    parent.insertText(text);
+                }
+            }
+
+            next(text);
         },
         normalizeNode(entry) {
             const normalizers = extensionsEditor.extensions.flatMap(
