@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import type {
     Decorate,
-    Extension,
     OnDOMBeforeInput,
     OnKeyDown,
     RenderElement,
     RenderLeaf,
 } from '@prezly/slate-commons';
+import { isNotUndefined } from '@technically/is-not-undefined';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import type { Editor } from 'slate';
 import type { ReactEditor } from 'slate-react';
-import { Editable } from 'slate-react';
+import { Editable, useSlateSelector } from 'slate-react';
 
 import {
     combineDecorate,
@@ -20,7 +20,6 @@ import {
     combineOnKeyDown,
     combineRenderElement,
     combineRenderLeaf,
-    createExtensionsDecorators,
 } from './lib';
 
 export interface Props {
@@ -28,40 +27,13 @@ export interface Props {
     className?: string;
     decorate?: Decorate;
     editor: Editor & ReactEditor;
-    /**
-     * Each extension fields will be combined by role.
-     *
-     * To render `Editable`:
-     * - decorate
-     * - renderElement
-     * - renderLeaf
-     * - onDOMBeforeInput
-     * - onKeyDown.ts
-     */
-    extensions?: Extension[];
     onCut?: (event: React.ClipboardEvent<HTMLDivElement>) => void;
-    onDOMBeforeInput?: OnDOMBeforeInput[];
-    // Dependencies of `onDOMBeforeInput`
-    onDOMBeforeInputDeps?: any[];
+    onDOMBeforeInput?: OnDOMBeforeInput;
     onKeyDown?: OnKeyDown;
     placeholder?: string;
     readOnly?: boolean;
-    /**
-     * To customize the rendering of each element components.
-     * Element properties are for contiguous, semantic elements in the document.
-     */
-    renderElement?: RenderElement[];
-    // Dependencies of `renderElement`
-    renderElementDeps?: any[];
-    /**
-     * To customize the rendering of each leaf.
-     * When text-level formatting is rendered, the characters are grouped into
-     * "leaves" of text that each contain the same formatting applied to them.
-     * Text properties are for non-contiguous, character-level formatting.
-     */
-    renderLeaf?: RenderLeaf[];
-    // Dependencies of `renderLeaf`
-    renderLeafDeps?: any[];
+    renderElement?: RenderElement;
+    renderLeaf?: RenderLeaf;
     role?: string;
     style?: React.CSSProperties;
 }
@@ -70,38 +42,49 @@ export function EditableWithExtensions({
     className,
     decorate,
     editor,
-    onDOMBeforeInput: onDOMBeforeInputList = [],
-    onDOMBeforeInputDeps = [],
+    onDOMBeforeInput,
     onKeyDown,
-    renderElement: renderElementList = [],
-    renderElementDeps = [],
-    renderLeaf: renderLeafList = [],
-    renderLeafDeps = [],
+    renderElement,
+    renderLeaf,
     ...props
 }: Props) {
+    const extensions = useSlateSelector((editor) => editor.extensions);
+
     const combinedDecorate: Decorate = useMemo(
         function () {
-            const decorateFns = createExtensionsDecorators(editor, extensions);
-            return combineDecorate(decorate ? [decorate, ...decorateFns] : decorateFns);
+            const decorateExtensions = extensions.map((extension) => extension.decorate?.(editor));
+            return combineDecorate([decorate, ...decorateExtensions].filter(isNotUndefined));
         },
-        [decorate, editor, extensions],
+        [decorate, extensions],
     );
-    const combinedOnDOMBeforeInput = useCallback(
-        combineOnDOMBeforeInput(editor, extensions, onDOMBeforeInputList),
-        onDOMBeforeInputDeps,
-    );
-    const combinedOnKeyDown = useCallback(
-        combineOnKeyDown(editor, extensions, onKeyDown ? [onKeyDown] : []),
-        [onKeyDown],
-    );
-    const combinedRenderElement = useMemo(
-        () => combineRenderElement(editor, extensions, renderElementList),
-        renderElementDeps,
-    );
-    const combinedRenderLeaf = useCallback(
-        combineRenderLeaf(extensions, renderLeafList),
-        renderLeafDeps,
-    );
+
+    const combinedOnDOMBeforeInput = useMemo(() => {
+        const onDOMBeforeInputExtensions = extensions.map(
+            (extension) => extension.onDOMBeforeInput,
+        );
+        return combineOnDOMBeforeInput(
+            editor,
+            [onDOMBeforeInput, ...onDOMBeforeInputExtensions].filter(isNotUndefined),
+        );
+    }, [onDOMBeforeInput, extensions]);
+
+    const combinedOnKeyDown = useMemo(() => {
+        const onKeyDownExtensions = extensions.map((extension) => extension.onKeyDown);
+        return combineOnKeyDown(editor, [onKeyDown, ...onKeyDownExtensions].filter(isNotUndefined));
+    }, [onKeyDown, extensions]);
+
+    const combinedRenderElement = useMemo(() => {
+        const renderElementExtensions = extensions.map((extension) => extension.renderElement);
+        return combineRenderElement(
+            editor,
+            [renderElement, ...renderElementExtensions].filter(isNotUndefined),
+        );
+    }, [renderElement, extensions]);
+
+    const combinedRenderLeaf = useMemo(() => {
+        const renderLeafExtensions = extensions.map((extension) => extension.renderLeaf);
+        return combineRenderLeaf([renderLeaf, ...renderLeafExtensions].filter(isNotUndefined));
+    }, [renderLeaf, extensions]);
 
     return (
         <Editable

@@ -25,7 +25,7 @@ export interface Extension {
     isVoid?: (node: Node) => boolean;
     normalizeNode?: Normalize | Normalize[];
     onDOMBeforeInput?: OnDOMBeforeInput;
-    onKeyDown?: OnKeyDown | null;
+    onKeyDown?: OnKeyDown;
     renderElement?: RenderElement;
     renderLeaf?: RenderLeaf;
     serialize?: Serialize;

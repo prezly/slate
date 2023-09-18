@@ -712,6 +712,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                             {(combinedDecorate) => (
                                 <>
                                     <InitialNormalization />
+
                                     {/** FIXME: Sync this with Extensions mounting. See ExtensionsManager: ExtensionsManagerSync */}
                                     <EditableWithExtensions
                                         className={classNames(styles.Editable, {
@@ -722,7 +723,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         onCut={createOnCut(editor)}
                                         onKeyDown={onKeyDown}
                                         readOnly={readOnly}
-                                        renderElementDeps={[availableWidth]}
                                         style={contentStyle}
                                     />
 
