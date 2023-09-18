@@ -31,6 +31,8 @@ export function useRegisterExtension(extension: Extension): null {
         throw new Error(`Unsupported keys passed: ${Object.keys(rest).join(', ')}.`);
     }
 
+    // FIXME: [Optimization] Replace callback dependencies with refs
+
     useEffect(
         () => manager.register(extension),
         [
