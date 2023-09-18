@@ -40,6 +40,7 @@ export function withExtensions<T extends BaseEditor & ReactEditor>(
     const parent = {
         isInline: editor.isInline,
         isVoid: editor.isVoid,
+        insertBreak: editor.insertBreak,
         insertData: editor.insertData,
         normalizeNode: editor.normalizeNode,
     };
@@ -79,6 +80,14 @@ export function withExtensions<T extends BaseEditor & ReactEditor>(
                 }
             }
             return false;
+        },
+        insertBreak() {
+            for (const extension of extensionsEditor.extensions) {
+                if (extension.insertBreak?.()) {
+                    return;
+                }
+            }
+            parent.insertBreak();
         },
         insertData(dataTransfer) {
             const handlers = extensionsEditor.extensions

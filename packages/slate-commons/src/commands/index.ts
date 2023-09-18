@@ -5,6 +5,7 @@ export { findDescendants } from './findDescendants';
 export { focus } from './focus';
 export { getCurrentDomNode } from './getCurrentDomNode';
 export { getCurrentNodeEntry } from './getCurrentNodeEntry';
+export { getCurrentNode } from './getCurrentNode';
 export { getEditorRange } from './getEditorRange';
 export { getNodePath } from './getNodePath';
 export { getPrevChars } from './getPrevChars';

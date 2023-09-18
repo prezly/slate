@@ -1,3 +1,4 @@
+import type { LineBreakHandler } from '@prezly/slate-commons';
 import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import type { HeadingNode, HeadingRole } from '@prezly/slate-types';
 import {
@@ -7,10 +8,11 @@ import {
     isSubtitleHeadingNode,
     isTitleHeadingNode,
 } from '@prezly/slate-types';
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { Node } from 'slate';
+import { useSlateStatic } from 'slate-react';
 
-import { onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak } from '#lib';
+import { onBackspaceResetFormattingAtDocumentStart, resetFormattingOnBreak } from '#lib';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
@@ -20,6 +22,12 @@ import { normalizeRedundantAttributes, onTabSwitchBlock, parseHeadingElement } f
 export const EXTENSION_ID = 'HeadingExtension';
 
 export function HeadingExtension() {
+    const editor = useSlateStatic();
+
+    const insertBreak = useCallback(() => {
+        return resetFormattingOnBreak(editor, isHeadingNode);
+    }, []);
+
     return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
@@ -34,6 +42,7 @@ export function HeadingExtension() {
                 H6: () => ({ type: HEADING_2_NODE_TYPE }),
             }),
         },
+        insertBreak,
         normalizeNode: [normalizeRedundantAttributes],
         onKeyDown(event, editor) {
             return (
@@ -51,7 +60,6 @@ export function HeadingExtension() {
             }
             return undefined;
         },
-        withOverrides: withResetFormattingOnBreak(isHeadingNode),
     });
 }
 

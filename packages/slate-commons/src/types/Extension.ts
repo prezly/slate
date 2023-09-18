@@ -3,6 +3,7 @@ import type { Element, Node } from 'slate';
 import type { DataTransferHandler } from './DataTransferHandler';
 import type { DecorateFactory } from './DecorateFactory';
 import type { DeserializeHtml } from './DeserializeHtml';
+import type { LineBreakHandler } from './LineBreakHandler';
 import type { Normalize } from './Normalize';
 import type { OnDOMBeforeInput } from './OnDOMBeforeInput';
 import type { OnKeyDown } from './OnKeyDown';
@@ -15,9 +16,10 @@ export interface Extension {
     id: string;
     decorate?: DecorateFactory; // OK
     deserialize?: DeserializeHtml; // OK
+    insertBreak?: LineBreakHandler;
     /**
      * Hook into ReactEditor's `insertData()` method.
-     * Call `next()` to allow other extensions (or the editor) handling the event.
+     * Call `next()` to allow other extensions (or the editor) handling the call.
      */
     insertData?: DataTransferHandler; // OK
     /**

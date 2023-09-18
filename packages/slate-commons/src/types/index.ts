@@ -1,3 +1,4 @@
+export type { LineBreakHandler } from './LineBreakHandler';
 export type { DataTransferHandler } from './DataTransferHandler';
 export type { Decorate } from './Decorate';
 export type { DecorateFactory } from './DecorateFactory';

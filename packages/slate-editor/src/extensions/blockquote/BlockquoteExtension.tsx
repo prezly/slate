@@ -1,8 +1,9 @@
 import { useRegisterExtension } from '@prezly/slate-commons';
 import { isQuoteNode, QUOTE_NODE_TYPE } from '@prezly/slate-types';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useSlateStatic } from 'slate-react';
 
-import { onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak } from '#lib';
+import { onBackspaceResetFormattingAtDocumentStart, resetFormattingOnBreak } from '#lib';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
@@ -12,6 +13,12 @@ import { normalizeRedundantAttributes } from './lib';
 export const EXTENSION_ID = 'BlockquoteExtension';
 
 export function BlockquoteExtension() {
+    const editor = useSlateStatic();
+
+    const insertBreak = useCallback(() => {
+        return resetFormattingOnBreak(editor, isQuoteNode);
+    }, []);
+
     return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
@@ -20,7 +27,8 @@ export function BlockquoteExtension() {
                 BLOCKQUOTE: () => ({ type: QUOTE_NODE_TYPE }),
             }),
         },
-        normalizeNode: [normalizeRedundantAttributes],
+        insertBreak,
+        normalizeNode: normalizeRedundantAttributes,
         onKeyDown(event, editor) {
             return onBackspaceResetFormattingAtDocumentStart(editor, isQuoteNode, event);
         },
@@ -34,6 +42,5 @@ export function BlockquoteExtension() {
             }
             return undefined;
         },
-        withOverrides: withResetFormattingOnBreak(isQuoteNode),
     });
 }
