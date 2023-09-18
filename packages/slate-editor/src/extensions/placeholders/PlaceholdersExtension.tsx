@@ -1,8 +1,12 @@
 import type { NewsroomRef } from '@prezly/sdk';
+import type { DataTransferHandler } from '@prezly/slate-commons';
 import { useRegisterExtension } from '@prezly/slate-commons';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useSlateStatic } from 'slate-react';
 
-import { withPastedUrlsUnfurling } from './behaviour';
+import { useLatest } from '#lib';
+
+import { unfurlPastedUrls } from './behaviour';
 import {
     AttachmentPlaceholderElement,
     ContactPlaceholderElement,
@@ -112,10 +116,30 @@ export function PlaceholdersExtension({
     withStoryBookmarkPlaceholders = false,
     withStoryEmbedPlaceholders = false,
     withSocialPostPlaceholders = false,
-    withPastedUrlsUnfurling: isUnfurlingPastedUrls = false,
+    withPastedUrlsUnfurling = false,
     withVideoPlaceholders = false,
     withWebBookmarkPlaceholders = false,
 }: Parameters = {}) {
+    const editor = useSlateStatic();
+    const callbacks = useLatest({
+        withPastedUrlsUnfurling: withPastedUrlsUnfurling || undefined,
+    });
+
+    const isPastedUrlsUnfurlingEnabled = Boolean(withPastedUrlsUnfurling);
+    const insertData = useCallback<DataTransferHandler>(
+        (dataTransfer, next) => {
+            const fetchOembed = callbacks.current.withPastedUrlsUnfurling?.fetchOembed;
+            let handled = false;
+            if (isPastedUrlsUnfurlingEnabled && fetchOembed) {
+                handled = unfurlPastedUrls(editor, fetchOembed, dataTransfer);
+            }
+            if (!handled) {
+                next(dataTransfer);
+            }
+        },
+        [isPastedUrlsUnfurlingEnabled],
+    );
+
     return useRegisterExtension({
         id: EXTENSION_ID,
         isElementEqual(element, another) {
@@ -128,6 +152,7 @@ export function PlaceholdersExtension({
         },
         isRichBlock: PlaceholderNode.isPlaceholderNode,
         isVoid: PlaceholderNode.isPlaceholderNode,
+        insertData,
         normalizeNode: [
             fixDuplicatePlaceholderUuid,
             removeDisabledPlaceholders({
@@ -365,8 +390,5 @@ export function PlaceholdersExtension({
             }
             return undefined;
         },
-        withOverrides: withPastedUrlsUnfurling(
-            isUnfurlingPastedUrls ? isUnfurlingPastedUrls.fetchOembed : undefined,
-        ),
     });
 }
