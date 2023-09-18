@@ -19,12 +19,13 @@ export interface ImageCandidateNode extends ElementNode {
 }
 
 export interface ImageExtensionConfiguration {
-    captions?: boolean;
     mediaGalleryTab?: {
         newsroom: NewsroomRef;
     };
     withAlignmentOptions?: boolean;
+    withCaptions?: boolean;
     withSizeOptions?: boolean;
     withLayoutOptions?: boolean;
     withNewTabOption?: boolean;
+    withMediaGalleryTab?: false | { enabled: true; newsroom: NewsroomRef };
 }

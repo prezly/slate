@@ -1,15 +1,22 @@
+import type { NewsroomRef } from '@prezly/sdk';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ImageNode, ImageWidth } from '@prezly/slate-types';
 import { Alignment, ImageLayout } from '@prezly/slate-types';
-import { UploadcareImage } from '@prezly/uploadcare';
+import type { PrezlyFileInfo } from '@prezly/uploadcare';
+import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
-import { Editor } from 'slate';
+import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlateStatic } from 'slate-react';
 
 import { ImageWithLoadingPlaceholder, ResizableEditorBlock } from '#components';
 import { Image } from '#icons';
+import { useLatest } from '#lib';
+
+import { createPlaceholder, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
+import type { MediaGalleryOptions } from '#modules/uploadcare';
+import { UploadcareEditor } from '#modules/uploadcare';
 
 import { removeImage, updateImage } from '../transforms';
 
@@ -19,13 +26,17 @@ import { ImageMenu, Size } from './ImageMenu';
 
 interface Props extends RenderElementProps {
     element: ImageNode;
-    onCrop: (editor: Editor, element: ImageNode) => void;
+    onCrop: (editor: Editor, original: ImageNode) => void;
+    onCropped: (editor: Editor, updated: ImageNode) => void;
     onReplace: (editor: Editor, element: ImageNode) => void;
+    onReplaced: (editor: Editor, element: ImageNode) => void;
     onRemove: (editor: Editor, element: ImageNode) => void;
     withAlignmentOptions: boolean;
-    withSizeOptions: boolean;
+    withCaptions: boolean;
     withLayoutOptions: boolean;
+    withMediaGalleryTab: false | { enabled: true; newsroom: NewsroomRef };
     withNewTabOption: boolean;
+    withSizeOptions: boolean;
 }
 
 // Image can be of any size, which can increase loading time.
@@ -37,12 +48,16 @@ export function ImageElement({
     children,
     element,
     onCrop,
+    onCropped,
     onReplace,
+    onReplaced,
     onRemove,
     withAlignmentOptions,
-    withSizeOptions,
+    withCaptions,
     withLayoutOptions,
+    withMediaGalleryTab,
     withNewTabOption,
+    withSizeOptions,
 }: Props) {
     const editor = useSlateStatic();
     const isSelected = useSelected();
@@ -52,6 +67,8 @@ export function ImageElement({
     const isCaptionVisible = isSupportingCaptions && (isSelected || !isCaptionEmpty);
     const isCaptionPlaceholderVisible = isSupportingCaptions && isCaptionEmpty && isSelected;
 
+    const callbacks = useLatest({ onCrop, onCropped, onReplace, onReplaced });
+
     const handleResize = useCallback(
         function (width: ImageNode['width']) {
             updateImage(editor, element, { width });
@@ -59,7 +76,59 @@ export function ImageElement({
         [editor, element],
     );
 
-    const handleCrop = useCallback(() => onCrop(editor, element), [editor, element]);
+    const handleCrop = useCallback(async () => {
+        callbacks.current.onCrop(editor, element);
+
+        const initialFileInfo = UploadcareImage.createFromPrezlyStoragePayload(element.file);
+
+        const [upload] =
+            (await UploadcareEditor.upload(editor, {
+                ...getMediaGalleryParameters(withMediaGalleryTab),
+                captions: withCaptions,
+                files: [initialFileInfo],
+                imagesOnly: true,
+                multiple: false,
+            })) ?? [];
+
+        if (!upload) {
+            return;
+        }
+
+        const placeholder = createPlaceholder({ type: PlaceholderNode.Type.IMAGE });
+
+        PlaceholdersManager.register(
+            placeholder.type,
+            placeholder.uuid,
+            toProgressPromise(upload).then((fileInfo: PrezlyFileInfo) => {
+                const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+
+                callbacks.current.onCropped(editor, element);
+
+                return {
+                    image: {
+                        ...element,
+                        file: image.toPrezlyStoragePayload(),
+                    },
+                    operation: 'edit' as const,
+                };
+            }),
+        );
+
+        const path = EditorCommands.getNodePath(editor, {
+            match: (node) => node === element,
+        });
+
+        if (path) {
+            Editor.withoutNormalizing(editor, () => {
+                // Remove image caption nodes, as placeholders are voids and cannot have children.
+                // We have to do this, as Slate automatically unwraps void node children, if any.
+                // This converts image captions to sibling paragraphs image editing operations.
+                EditorCommands.removeChildren(editor, [element, path]);
+
+                Transforms.setNodes(editor, placeholder, { at: path, voids: true });
+            });
+        }
+    }, [editor, element]);
     const handleRemove = useCallback(
         function () {
             const removedElement = removeImage(editor, element);
@@ -67,7 +136,58 @@ export function ImageElement({
         },
         [editor, element],
     );
-    const handleReplace = useCallback(() => onReplace(editor, element), [editor, element]);
+    const handleReplace = useCallback(async () => {
+        callbacks.current.onReplace(editor, element);
+
+        const [upload] =
+            (await UploadcareEditor.upload(editor, {
+                ...getMediaGalleryParameters(withMediaGalleryTab),
+                captions: withCaptions,
+                imagesOnly: true,
+                multiple: false,
+            })) ?? [];
+
+        if (!upload) {
+            return;
+        }
+
+        const placeholder = createPlaceholder({ type: PlaceholderNode.Type.IMAGE });
+
+        PlaceholdersManager.register(
+            placeholder.type,
+            placeholder.uuid,
+            toProgressPromise(upload).then((fileInfo: PrezlyFileInfo) => {
+                const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+                const updated = {
+                    ...element,
+                    file: image.toPrezlyStoragePayload(),
+                };
+
+                callbacks.current.onReplaced(editor, updated);
+
+                return {
+                    image: updated,
+                    operation: 'edit' as const,
+                };
+            }),
+        );
+
+        const path = EditorCommands.getNodePath(editor, {
+            match: (node) => node === element,
+        });
+
+        if (path) {
+            Editor.withoutNormalizing(editor, () => {
+                // Remove image caption nodes, as placeholders are voids and cannot have children.
+                // We have to do this, as Slate automatically unwraps void node children, if any.
+                // This converts image captions to sibling paragraphs image editing operations.
+                EditorCommands.removeChildren(editor, [element, path]);
+
+                Transforms.setNodes(editor, placeholder, { at: path, voids: true });
+            });
+        }
+    }, [editor, element]);
+
     const handleUpdate = useCallback(
         function (patch: Partial<FormState>) {
             const { size, ...rest } = patch;
@@ -187,4 +307,19 @@ function toSizeOption(image: ImageNode): Size | undefined {
         return Size.ORIGINAL;
     }
     return undefined;
+}
+
+function getMediaGalleryParameters(
+    withMediaGalleryTab: Props['withMediaGalleryTab'],
+): MediaGalleryOptions<true> | MediaGalleryOptions<false> {
+    if (withMediaGalleryTab) {
+        return {
+            mediaGalleryTab: true,
+            newsroom: withMediaGalleryTab.newsroom,
+        };
+    }
+
+    return {
+        mediaGalleryTab: false,
+    };
 }

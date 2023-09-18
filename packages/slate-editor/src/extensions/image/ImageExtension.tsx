@@ -32,22 +32,27 @@ const HOLDING_BACKSPACE_THRESHOLD = 100;
 let lastBackspaceTimestamp = 0;
 
 interface Parameters extends ImageExtensionConfiguration {
-    onCrop?: (editor: Editor, element: ImageNode) => void;
+    onCrop?: (editor: Editor, original: ImageNode) => void;
+    onCropped?: (editor: Editor, updated: ImageNode) => void;
     onRemove?: (editor: Editor, element: ImageNode) => void;
-    onReplace?: (editor: Editor, element: ImageNode) => void;
+    onReplace?: (editor: Editor, original: ImageNode) => void;
+    onReplaced?: (editor: Editor, updated: ImageNode) => void;
 }
 
 export const EXTENSION_ID = 'ImageExtension';
 
 export const ImageExtension = ({
-    captions,
     onCrop = noop,
+    onCropped = noop,
     onRemove = noop,
     onReplace = noop,
+    onReplaced = noop,
     withAlignmentOptions = false,
-    withSizeOptions = false,
+    withCaptions = false,
     withLayoutOptions = false,
+    withMediaGalleryTab = false,
     withNewTabOption = true,
+    withSizeOptions = false,
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
@@ -80,7 +85,7 @@ export const ImageExtension = ({
     },
     isRichBlock: isImageNode,
     isVoid: (node) => {
-        if (captions) {
+        if (withCaptions) {
             return isImageCandidateElement(node);
         }
         return isImageCandidateElement(node) || isImageNode(node);
@@ -91,7 +96,7 @@ export const ImageExtension = ({
         normalizeImageCandidate,
     ],
     onKeyDown: (event: KeyboardEvent, editor: Editor) => {
-        if (!captions) {
+        if (!withCaptions) {
             return;
         }
 
@@ -154,12 +159,16 @@ export const ImageExtension = ({
                     attributes={attributes}
                     element={element}
                     onCrop={onCrop}
+                    onCropped={onCropped}
                     onRemove={onRemove}
                     onReplace={onReplace}
+                    onReplaced={onReplaced}
                     withAlignmentOptions={withAlignmentOptions}
-                    withSizeOptions={withSizeOptions}
+                    withCaptions={withCaptions}
                     withLayoutOptions={withLayoutOptions}
                     withNewTabOption={withNewTabOption}
+                    withMediaGalleryTab={withMediaGalleryTab}
+                    withSizeOptions={withSizeOptions}
                 >
                     {children}
                 </ImageElement>

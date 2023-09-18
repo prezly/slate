@@ -1,6 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
+import { Node } from 'slate';
 
 import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';
@@ -50,12 +51,7 @@ import {
     LIST_RULES,
     TEXT_STYLE_RULES,
 } from './autoformatRules';
-import {
-    createHandleEditGallery,
-    createImageEditHandler,
-    createImageReplaceHandler,
-    handleRemoveImage,
-} from './lib';
+import { createHandleEditGallery, handleRemoveImage } from './lib';
 import type { EditorProps } from './types';
 
 type Parameters = {
@@ -239,15 +235,33 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     }
 
     if (withImages) {
-        const handleCrop = createImageEditHandler(withImages);
-        const handleReplace = createImageReplaceHandler(withImages);
         // ImageExtension has to be after RichFormattingExtension due to the fact
         // that it also deserializes <a> elements (ImageExtension is more specific).
         yield ImageExtension({
             ...withImages,
-            onCrop: handleCrop,
+            onCrop(editor) {
+                EventsEditor.dispatchEvent(editor, 'image-edit-clicked');
+            },
+            onCropped(editor, image) {
+                EventsEditor.dispatchEvent(editor, 'image-edited', {
+                    description: Node.string(image),
+                    mimeType: image.file.mime_type,
+                    size: image.file.size,
+                    uuid: image.file.uuid,
+                });
+            },
             onRemove: handleRemoveImage,
-            onReplace: handleReplace,
+            onReplace(editor) {
+                EventsEditor.dispatchEvent(editor, 'image-edit-clicked');
+            },
+            onReplaced(editor, image) {
+                EventsEditor.dispatchEvent(editor, 'image-edited', {
+                    description: Node.string(image),
+                    mimeType: image.file.mime_type,
+                    size: image.file.size,
+                    uuid: image.file.uuid,
+                });
+            },
         });
     }
 
@@ -365,7 +379,7 @@ function buildPlaceholdersExtensionConfiguration({
         if (withImages) {
             yield {
                 withImagePlaceholders: {
-                    withCaptions: Boolean(withImages.captions),
+                    withCaptions: Boolean(withImages.withCaptions),
                     newsroom: withImages.mediaGalleryTab?.newsroom,
                 },
             };
