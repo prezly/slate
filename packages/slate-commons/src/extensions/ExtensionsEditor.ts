@@ -1,4 +1,4 @@
-import type { BaseEditor, Descendant, Element } from 'slate';
+import type { BaseEditor, Descendant, Element, Node } from 'slate';
 
 import type { Extension } from '../types';
 
@@ -15,6 +15,13 @@ export interface ExtensionsEditor extends BaseEditor {
      * as the outer code will compare them anyway.
      */
     isElementEqual(node: Element, another: Element): boolean | undefined;
+
+    /**
+     * Tell the Editor that the block is not a simple blob of styled text
+     * and is instead a typeof of rich block with additional decorations.
+     * Like, cards, or interactive elements.
+     */
+    isRichBlock(node: Node): boolean;
 
     /**
      * Convert internal editor document value for external consumers.
@@ -61,6 +68,14 @@ export function withExtensions<T extends BaseEditor>(
             }
 
             return parent.isVoid(element);
+        },
+        isRichBlock(node): boolean {
+            for (const extension of extensionsEditor.extensions) {
+                if (extension.isRichBlock?.(node)) {
+                    return true;
+                }
+            }
+            return false;
         },
         normalizeNode(entry) {
             const normalizers = extensionsEditor.extensions.flatMap(

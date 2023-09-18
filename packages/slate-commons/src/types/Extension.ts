@@ -21,7 +21,7 @@ export interface Extension {
      */
     isElementEqual?: (node: Element, another: Element) => boolean | undefined;
     isInline?: (node: Node) => boolean; // OK
-    isRichBlock?: (node: Node) => boolean;
+    isRichBlock?: (node: Node) => boolean; // OK
     isVoid?: (node: Node) => boolean; // OK
     normalizeNode?: Normalize | Normalize[]; // OK
     onDOMBeforeInput?: OnDOMBeforeInput; // OK
