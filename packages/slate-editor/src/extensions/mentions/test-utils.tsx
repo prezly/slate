@@ -1,33 +1,30 @@
-import { withInlineVoid } from '@prezly/slate-commons';
+import { withExtensions } from '@prezly/slate-commons';
 import type { VariableNode } from '@prezly/slate-types';
-import { isVariableNode, VARIABLE_NODE_TYPE } from '@prezly/slate-types';
-import React from 'react';
+import { VARIABLE_NODE_TYPE } from '@prezly/slate-types';
 import type { Editor } from 'slate';
-import type { RenderElementProps } from 'slate-react';
 
-import { MentionElement } from './components';
-import { MentionsExtension } from './MentionsExtension';
+// import { MentionsExtension } from './MentionsExtension';
 
-const PlaceholderMentionsExtension = () =>
-    MentionsExtension({
-        id: 'MentionsExtension',
-        parseSerializedElement: JSON.parse,
-        renderElement: ({ attributes, children, element }: RenderElementProps) => {
-            if (isVariableNode(element)) {
-                return (
-                    <MentionElement attributes={attributes} element={element}>
-                        {`%${element.key}%`}
-                        {children}
-                    </MentionElement>
-                );
-            }
-
-            return undefined;
-        },
-        type: VARIABLE_NODE_TYPE,
-    });
-
-const getExtensions = () => [PlaceholderMentionsExtension()];
+const PlaceholderMentionsExtension = {
+    id: 'MentionsExtension',
+};
+// MentionsExtension({
+//     id: 'MentionsExtension',
+//     parseSerializedElement: JSON.parse,
+//     renderElement: ({ attributes, children, element }: RenderElementProps) => {
+//         if (isVariableNode(element)) {
+//             return (
+//                 <MentionElement attributes={attributes} element={element}>
+//                     {`%${element.key}%`}
+//                     {children}
+//                 </MentionElement>
+//             );
+//         }
+//
+//         return undefined;
+//     },
+//     type: VARIABLE_NODE_TYPE,
+// });
 
 export function createPlaceholderMentionElement(key: VariableNode['key']): VariableNode {
     return {
@@ -38,5 +35,6 @@ export function createPlaceholderMentionElement(key: VariableNode['key']): Varia
 }
 
 export function createMentionsEditor(editor: Editor) {
-    return withInlineVoid(getExtensions)(editor);
+    // FIXME: Enable PlaceholderMentionsExtension extension for the test
+    return withExtensions(editor, [PlaceholderMentionsExtension]);
 }

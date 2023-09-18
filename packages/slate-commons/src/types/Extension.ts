@@ -20,9 +20,9 @@ export interface Extension {
      * as the outer code will compare them anyway.
      */
     isElementEqual?: (node: Element, another: Element) => boolean | undefined;
-    isInline?: (node: Node) => boolean;
+    isInline?: (node: Node) => boolean; // OK
     isRichBlock?: (node: Node) => boolean;
-    isVoid?: (node: Node) => boolean;
+    isVoid?: (node: Node) => boolean; // OK
     normalizeNode?: Normalize | Normalize[];
     onDOMBeforeInput?: OnDOMBeforeInput; // OK
     onKeyDown?: OnKeyDown; // OK

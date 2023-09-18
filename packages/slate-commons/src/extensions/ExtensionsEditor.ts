@@ -1,5 +1,5 @@
+import type { ElementNode } from '@prezly/slate-types';
 import type { BaseEditor, Descendant, Element } from 'slate';
-import { node } from 'slate';
 
 import type { Extension } from '../types';
 
@@ -25,9 +25,16 @@ export interface ExtensionsEditor extends BaseEditor {
     serialize(nodes: Descendant[]): Descendant[];
 }
 
-export function withExtensions<T extends BaseEditor>(editor: T): T & ExtensionsEditor {
+export function withExtensions<T extends BaseEditor>(
+    editor: T,
+    extensions: Extension[] = [],
+): T & ExtensionsEditor {
+    const parent = {
+        isInline: editor.isInline,
+        isVoid: editor.isVoid,
+    };
     const extensionsEditor: T & ExtensionsEditor = Object.assign(editor, {
-        extensions: [],
+        extensions,
         isElementEqual(node: Element, another: Element): boolean | undefined {
             for (const extension of extensionsEditor.extensions) {
                 const ret = extension.isElementEqual?.(node, another);
@@ -36,6 +43,24 @@ export function withExtensions<T extends BaseEditor>(editor: T): T & ExtensionsE
                 }
             }
             return undefined;
+        },
+        isInline(element: ElementNode) {
+            for (const extension of extensionsEditor.extensions) {
+                if (extension.isInline?.(element)) {
+                    return true;
+                }
+            }
+
+            return parent.isInline(element);
+        },
+        isVoid(element: ElementNode) {
+            for (const extension of extensionsEditor.extensions) {
+                if (extension.isVoid?.(element)) {
+                    return true;
+                }
+            }
+
+            return parent.isVoid(element);
         },
         serialize(nodes: Descendant[]) {
             return extensionsEditor.extensions.reduce(
