@@ -30,7 +30,7 @@ interface Props extends RenderElementProps {
     onCropped: (editor: Editor, updated: ImageNode) => void;
     onReplace: (editor: Editor, element: ImageNode) => void;
     onReplaced: (editor: Editor, element: ImageNode) => void;
-    onRemove: (editor: Editor, element: ImageNode) => void;
+    onRemoved: (editor: Editor, element: ImageNode) => void;
     withAlignmentOptions: boolean;
     withCaptions: boolean;
     withLayoutOptions: boolean;
@@ -49,9 +49,9 @@ export function ImageElement({
     element,
     onCrop,
     onCropped,
+    onRemoved,
     onReplace,
     onReplaced,
-    onRemove,
     withAlignmentOptions,
     withCaptions,
     withLayoutOptions,
@@ -67,7 +67,7 @@ export function ImageElement({
     const isCaptionVisible = isSupportingCaptions && (isSelected || !isCaptionEmpty);
     const isCaptionPlaceholderVisible = isSupportingCaptions && isCaptionEmpty && isSelected;
 
-    const callbacks = useLatest({ onCrop, onCropped, onReplace, onReplaced });
+    const callbacks = useLatest({ onCrop, onCropped, onReplace, onReplaced, onRemoved });
 
     const handleResize = useCallback(
         function (width: ImageNode['width']) {
@@ -132,7 +132,9 @@ export function ImageElement({
     const handleRemove = useCallback(
         function () {
             const removedElement = removeImage(editor, element);
-            if (removedElement) onRemove(editor, removedElement);
+            if (removedElement) {
+                callbacks.current.onRemoved(editor, removedElement);
+            }
         },
         [editor, element],
     );

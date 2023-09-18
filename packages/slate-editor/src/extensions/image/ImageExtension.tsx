@@ -34,7 +34,7 @@ let lastBackspaceTimestamp = 0;
 interface Parameters extends ImageExtensionConfiguration {
     onCrop?: (editor: Editor, original: ImageNode) => void;
     onCropped?: (editor: Editor, updated: ImageNode) => void;
-    onRemove?: (editor: Editor, element: ImageNode) => void;
+    onRemoved?: (editor: Editor, element: ImageNode) => void;
     onReplace?: (editor: Editor, original: ImageNode) => void;
     onReplaced?: (editor: Editor, updated: ImageNode) => void;
 }
@@ -44,7 +44,7 @@ export const EXTENSION_ID = 'ImageExtension';
 export const ImageExtension = ({
     onCrop = noop,
     onCropped = noop,
-    onRemove = noop,
+    onRemoved = noop,
     onReplace = noop,
     onReplaced = noop,
     withAlignmentOptions = false,
@@ -160,7 +160,7 @@ export const ImageExtension = ({
                     element={element}
                     onCrop={onCrop}
                     onCropped={onCropped}
-                    onRemove={onRemove}
+                    onRemoved={onRemoved}
                     onReplace={onReplace}
                     onReplaced={onReplaced}
                     withAlignmentOptions={withAlignmentOptions}

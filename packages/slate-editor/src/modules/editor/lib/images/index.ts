@@ -1,1 +1,0 @@
-export { handleRemoveImage } from './handleRemoveImage';

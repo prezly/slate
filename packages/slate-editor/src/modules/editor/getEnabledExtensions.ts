@@ -51,7 +51,7 @@ import {
     LIST_RULES,
     TEXT_STYLE_RULES,
 } from './autoformatRules';
-import { createHandleEditGallery, handleRemoveImage } from './lib';
+import { createHandleEditGallery } from './lib';
 import type { EditorProps } from './types';
 
 type Parameters = {
@@ -250,7 +250,9 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
                     uuid: image.file.uuid,
                 });
             },
-            onRemove: handleRemoveImage,
+            onRemoved(editor, image) {
+                EventsEditor.dispatchEvent(editor, 'image-removed', { uuid: image.file.uuid });
+            },
             onReplace(editor) {
                 EventsEditor.dispatchEvent(editor, 'image-edit-clicked');
             },
