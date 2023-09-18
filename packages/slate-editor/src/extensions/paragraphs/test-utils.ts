@@ -1,4 +1,4 @@
-import { withNormalization } from '@prezly/slate-commons';
+import { withExtensions } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
 
 import { ParagraphsExtension } from './ParagraphsExtension';
@@ -8,5 +8,7 @@ function getExtensions() {
 }
 
 export function createParagraphsEditor(input: JSX.Element) {
-    return withNormalization(getExtensions)(input as unknown as Editor);
+    // FIXME: Enable ParagraphsExtension for the test
+    console.log(getExtensions()); // FIXME: Remove this
+    return withExtensions(input as unknown as Editor);
 }

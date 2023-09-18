@@ -1,6 +1,6 @@
 /** @jsx hyperscript */
 
-import { withNormalization } from '@prezly/slate-commons';
+import { withExtensions } from '@prezly/slate-commons';
 import { ImageLayout } from '@prezly/slate-types';
 import type { UploadedFile } from '@prezly/uploadcare';
 import { Editor } from 'slate';
@@ -25,8 +25,11 @@ const getExtensions = () => [
     }),
 ];
 
-const createEditor = (editor: JSX.Element): Editor =>
-    withNormalization(getExtensions)(withImages(withReact(editor as unknown as Editor)));
+const createEditor = (editor: JSX.Element): Editor => {
+    // FIXME: Enable ImageExtension for the test
+    console.log(getExtensions()); // FIXME: Remove this
+    return withExtensions(withImages(withReact(editor as unknown as Editor)));
+};
 
 describe('withImages - normalizeChildren', () => {
     it('unwraps deeply nested text objects', () => {

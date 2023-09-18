@@ -23,7 +23,7 @@ export interface Extension {
     isInline?: (node: Node) => boolean; // OK
     isRichBlock?: (node: Node) => boolean;
     isVoid?: (node: Node) => boolean; // OK
-    normalizeNode?: Normalize | Normalize[];
+    normalizeNode?: Normalize | Normalize[]; // OK
     onDOMBeforeInput?: OnDOMBeforeInput; // OK
     onKeyDown?: OnKeyDown; // OK
     renderElement?: RenderElement; // OK

@@ -1,4 +1,3 @@
-import type { ElementNode } from '@prezly/slate-types';
 import type { BaseEditor, Descendant, Element } from 'slate';
 
 import type { Extension } from '../types';
@@ -32,10 +31,11 @@ export function withExtensions<T extends BaseEditor>(
     const parent = {
         isInline: editor.isInline,
         isVoid: editor.isVoid,
+        normalizeNode: editor.normalizeNode,
     };
     const extensionsEditor: T & ExtensionsEditor = Object.assign(editor, {
         extensions,
-        isElementEqual(node: Element, another: Element): boolean | undefined {
+        isElementEqual(node, another): boolean | undefined {
             for (const extension of extensionsEditor.extensions) {
                 const ret = extension.isElementEqual?.(node, another);
                 if (typeof ret !== 'undefined') {
@@ -44,7 +44,7 @@ export function withExtensions<T extends BaseEditor>(
             }
             return undefined;
         },
-        isInline(element: ElementNode) {
+        isInline(element) {
             for (const extension of extensionsEditor.extensions) {
                 if (extension.isInline?.(element)) {
                     return true;
@@ -53,7 +53,7 @@ export function withExtensions<T extends BaseEditor>(
 
             return parent.isInline(element);
         },
-        isVoid(element: ElementNode) {
+        isVoid(element) {
             for (const extension of extensionsEditor.extensions) {
                 if (extension.isVoid?.(element)) {
                     return true;
@@ -62,13 +62,28 @@ export function withExtensions<T extends BaseEditor>(
 
             return parent.isVoid(element);
         },
-        serialize(nodes: Descendant[]) {
+        normalizeNode(entry) {
+            const normalizers = extensionsEditor.extensions.flatMap(
+                (ext) => ext.normalizeNode ?? [],
+            );
+
+            for (const normalizer of normalizers) {
+                const normalized = normalizer(editor, entry);
+
+                if (normalized) {
+                    return;
+                }
+            }
+
+            return parent.normalizeNode(entry);
+        },
+        serialize(nodes) {
             return extensionsEditor.extensions.reduce(
                 (result, extension) => extension.serialize?.(result) ?? result,
                 nodes,
             );
         },
-    });
+    } satisfies Partial<BaseEditor & ExtensionsEditor>);
 
     return extensionsEditor;
 }

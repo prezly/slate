@@ -1,7 +1,6 @@
 import {
     withBreaksOnExpandedSelection,
     withBreaksOnVoidNodes,
-    withNormalization,
     withUserFriendlyDeleteBehavior,
 } from '@prezly/slate-commons';
 import type { Extension } from '@prezly/slate-commons';
@@ -37,7 +36,6 @@ export function createEditor(
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,
         withDefaultTextBlock(createParagraph),
-        withNormalization(getExtensions),
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
         withRichBlocks(getExtensions),
