@@ -15,15 +15,15 @@ import { FileAttachment, FileAttachmentMenu } from './components';
 import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
 
 export interface Parameters {
-    onEdit: (editor: Editor, element: Partial<AttachmentNode>) => void;
-    onRemove?: (editor: Editor, element: AttachmentNode) => void;
+    onEdited?: (editor: Editor, updated: AttachmentNode) => void;
+    onRemoved?: (editor: Editor, element: AttachmentNode) => void;
 }
 
 export const EXTENSION_ID = 'FileAttachmentExtension';
 
 export const FileAttachmentExtension = ({
-    onEdit = noop,
-    onRemove = noop,
+    onEdited = noop,
+    onRemoved = noop,
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
@@ -54,8 +54,8 @@ export const FileAttachmentExtension = ({
                     renderMenu={({ onClose }) => (
                         <FileAttachmentMenu
                             element={element}
-                            onEdit={onEdit}
-                            onRemove={onRemove}
+                            onEdited={onEdited}
+                            onRemoved={onRemoved}
                             onClose={onClose}
                         />
                     )}

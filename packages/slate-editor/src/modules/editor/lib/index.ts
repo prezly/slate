@@ -2,11 +2,7 @@ export { createEmptyValue } from './createEmptyValue';
 export { createOnCut } from './createOnCut';
 
 export { insertDivider } from './divider';
-export {
-    handleAddAttachment,
-    handleEditAttachment,
-    handleRemoveAttachment,
-} from './file-attachment';
+export { handleAddAttachment } from './file-attachment';
 export { createHandleEditGallery } from './galleries';
 export { createImageEditHandler, createImageReplaceHandler, handleRemoveImage } from './images';
 

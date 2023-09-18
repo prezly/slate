@@ -25,7 +25,6 @@ export type EditorEventMap = {
         size: number;
         uuid: string;
     };
-    'attachment-edit-clicked': never;
     'attachment-edited': {
         description: string;
         mimeType: string;

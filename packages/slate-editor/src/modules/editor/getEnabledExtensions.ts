@@ -54,8 +54,6 @@ import {
     createHandleEditGallery,
     createImageEditHandler,
     createImageReplaceHandler,
-    handleEditAttachment,
-    handleRemoveAttachment,
     handleRemoveImage,
 } from './lib';
 import type { EditorProps } from './types';
@@ -211,8 +209,20 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
 
     if (withAttachments) {
         yield FileAttachmentExtension({
-            onEdit: handleEditAttachment,
-            onRemove: handleRemoveAttachment,
+            onEdited(editor, updated) {
+                // TODO: It seems it would be more useful to only provide the changeset patch in the event payload.
+                EventsEditor.dispatchEvent(editor, 'attachment-edited', {
+                    description: updated.description,
+                    mimeType: updated.file.mime_type,
+                    size: updated.file.size,
+                    uuid: updated.file.uuid,
+                });
+            },
+            onRemoved(editor, attachment) {
+                EventsEditor.dispatchEvent(editor, 'attachment-removed', {
+                    uuid: attachment.file.uuid,
+                });
+            },
         });
     }
 
