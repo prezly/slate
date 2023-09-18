@@ -1,13 +1,14 @@
+import type { DataTransferHandler } from '@prezly/slate-commons';
 import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import type { LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
-import { flow } from '@technically/lodash';
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
-import { withPastedContentAutolinking, withSelectionAutolinking } from './behaviour';
+import { handlePastedContentAutolinking, handleSelectionAutolinking } from './behaviour';
 import { LinkElement } from './components';
 import {
     escapeLinksBoundaries,
@@ -20,6 +21,14 @@ import {
 export const EXTENSION_ID = 'InlineLinksExtension';
 
 export function InlineLinksExtension() {
+    const editor = useSlateStatic();
+
+    const insertData = useCallback<DataTransferHandler>((dataTransfer, next) => {
+        handlePastedContentAutolinking(editor, dataTransfer) ||
+            handleSelectionAutolinking(editor, dataTransfer) ||
+            next(dataTransfer);
+    }, []);
+
     return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
@@ -39,6 +48,7 @@ export function InlineLinksExtension() {
             }),
         },
         isInline: isLinkNode,
+        insertData,
         normalizeNode: [normalizeEmptyLink, normalizeNestedLink, normalizeRedundantLinkAttributes],
         onKeyDown: function (event, editor) {
             escapeLinksBoundaries(event, editor);
@@ -54,7 +64,5 @@ export function InlineLinksExtension() {
 
             return undefined;
         },
-        withOverrides: (editor) =>
-            flow([withPastedContentAutolinking, withSelectionAutolinking])(editor),
     });
 }
