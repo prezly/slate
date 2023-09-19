@@ -38,8 +38,7 @@ function createItemsList(items: Record<string, string>): ItemsList {
         const updated = [...map.entries()].map(([key, value]) => {
             return createItem(key, value);
         });
-        list.splice(0);
-        list.splice(0, 0, ...updated);
+        list.splice(0, list.length, ...updated);
     }
 
     updateList(map);
