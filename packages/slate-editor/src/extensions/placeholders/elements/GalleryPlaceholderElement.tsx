@@ -62,7 +62,7 @@ export function GalleryPlaceholderElement({
                         file: image.toPrezlyStoragePayload(),
                     };
                 });
-                return { images };
+                return { gallery: createGallery({ images }), operation: 'add' as const };
             });
 
         PlaceholdersManager.register(element.type, element.uuid, uploading);
@@ -89,8 +89,8 @@ export function GalleryPlaceholderElement({
         processSelectedImages(images);
     });
 
-    const handleUploadedImages = useFunction((data: { images: GalleryNode['images'] }) => {
-        replacePlaceholder(editor, element, createGallery({ images: data.images }), {
+    const handleUploadedImages = useFunction((data: { gallery: GalleryNode }) => {
+        replacePlaceholder(editor, element, data.gallery, {
             select: isSelected,
         });
     });

@@ -37,7 +37,8 @@ interface Data {
         fallback?: 'link'; // fallback to a link, if getting oEmbed info for the given URL is not possible
     };
     [Type.GALLERY]: {
-        images: GalleryNode['images'];
+        gallery: GalleryNode;
+        operation: 'add' | 'edit';
     };
     [Type.IMAGE]: {
         image: ImageNode;

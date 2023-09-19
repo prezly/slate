@@ -1,6 +1,5 @@
 import type { NewsroomRef } from '@prezly/sdk';
 import type { GalleryNode } from '@prezly/slate-types';
-import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
 import React from 'react';
@@ -11,17 +10,15 @@ import { useSlateStatic } from 'slate-react';
 import { EditorBlock } from '#components';
 import { useSize } from '#lib';
 
+import { insertPlaceholder, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
 import type { MediaGalleryOptions } from '#modules/uploadcare';
 import { UploadcareEditor } from '#modules/uploadcare';
 
-import { LoaderContentType } from '../../loader';
-import { createGallery, shuffleImages } from '../lib';
+import { shuffleImages } from '../lib';
 import { updateGallery } from '../transforms';
 
 import { Gallery } from './Gallery';
 import { GalleryMenu } from './GalleryMenu';
-
-import { insertUploadingFile } from '#modules/editor/lib';
 
 interface Props extends RenderElementProps {
     availableWidth: number;
@@ -71,28 +68,33 @@ export function GalleryElement({
             return;
         }
 
-        await insertUploadingFile<PrezlyFileInfo[]>(editor, {
-            createElement: (fileInfos) => {
-                const images = fileInfos.map((fileInfo) => {
+        const placeholder = insertPlaceholder(editor, {
+            type: PlaceholderNode.Type.GALLERY,
+        });
+
+        const uploading = awaitUploads(filePromises).then(
+            ({ failedUploads, successfulUploads }) => {
+                onEdited(editor, element, {
+                    successfulUploads: successfulUploads.length,
+                    failedUploads,
+                });
+
+                const images = successfulUploads.map((fileInfo) => {
                     const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
                     return {
                         caption: fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
                         file: image.toPrezlyStoragePayload(),
                     };
                 });
-                return createGallery({ ...element, images });
-            },
-            filePromise: awaitUploads(filePromises).then(({ failedUploads, successfulUploads }) => {
-                onEdited(editor, element, {
-                    successfulUploads: successfulUploads.length,
-                    failedUploads,
-                });
 
-                return successfulUploads;
-            }),
-            loaderContentType: LoaderContentType.GALLERY,
-            loaderMessage: 'Uploading Gallery',
-        });
+                return {
+                    gallery: { ...element, images },
+                    operation: 'edit' as const,
+                };
+            },
+        );
+
+        PlaceholdersManager.register(PlaceholderNode.Type.GALLERY, placeholder.uuid, uploading);
     }
 
     function handleShuffle() {
