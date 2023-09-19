@@ -1,5 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement } from '@prezly/slate-commons';
+import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import type { HeadingNode, HeadingRole } from '@prezly/slate-types';
 import {
     HEADING_1_NODE_TYPE,
@@ -20,8 +19,8 @@ import { normalizeRedundantAttributes, onTabSwitchBlock, parseHeadingElement } f
 
 export const EXTENSION_ID = 'HeadingExtension';
 
-export function HeadingExtension(): Extension {
-    return {
+export function HeadingExtension() {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
             element: composeElementDeserializer({
@@ -53,7 +52,7 @@ export function HeadingExtension(): Extension {
             return undefined;
         },
         withOverrides: withResetFormattingOnBreak(isHeadingNode),
-    };
+    });
 }
 
 function isTitleSubtitleNode(node: Node): node is HeadingNode & { role: HeadingRole } {

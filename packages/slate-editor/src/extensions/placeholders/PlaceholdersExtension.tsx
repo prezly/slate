@@ -1,21 +1,19 @@
 import type { NewsroomRef } from '@prezly/sdk';
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 import React from 'react';
 
 import { withPastedUrlsUnfurling } from './behaviour';
-import { StoryEmbedPlaceholderElement } from './elements';
-import {
-    CoveragePlaceholderElement,
-    InlineContactPlaceholderElement,
-    StoryBookmarkPlaceholderElement,
-} from './elements';
 import {
     AttachmentPlaceholderElement,
     ContactPlaceholderElement,
+    CoveragePlaceholderElement,
     EmbedPlaceholderElement,
     GalleryPlaceholderElement,
     ImagePlaceholderElement,
+    InlineContactPlaceholderElement,
     SocialPostPlaceholderElement,
+    StoryBookmarkPlaceholderElement,
+    StoryEmbedPlaceholderElement,
     VideoPlaceholderElement,
     WebBookmarkPlaceholderElement,
 } from './elements';
@@ -117,8 +115,8 @@ export function PlaceholdersExtension({
     withPastedUrlsUnfurling: isUnfurlingPastedUrls = false,
     withVideoPlaceholders = false,
     withWebBookmarkPlaceholders = false,
-}: Parameters = {}): Extension {
-    return {
+}: Parameters = {}) {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         isElementEqual(element, another) {
             if (isPlaceholderNode(element) && isPlaceholderNode(another)) {
@@ -370,5 +368,5 @@ export function PlaceholdersExtension({
         withOverrides: withPastedUrlsUnfurling(
             isUnfurlingPastedUrls ? isUnfurlingPastedUrls.fetchOembed : undefined,
         ),
-    };
+    });
 }

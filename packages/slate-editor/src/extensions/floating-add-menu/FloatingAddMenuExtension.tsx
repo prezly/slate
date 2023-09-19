@@ -1,4 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
 
 import { isMenuHotkey, MENU_TRIGGER_CHARACTER, shouldShowMenuButton } from './lib';
@@ -11,8 +11,8 @@ interface Parameters {
     onOpen: (trigger: 'hotkey' | 'input') => void;
 }
 
-export function FloatingAddMenuExtension({ onOpen }: Parameters): Extension {
-    return {
+export function FloatingAddMenuExtension({ onOpen }: Parameters) {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         onKeyDown(event, editor) {
             if (isMenuHotkey(event) && shouldShowMenuButton(editor)) {
@@ -26,5 +26,5 @@ export function FloatingAddMenuExtension({ onOpen }: Parameters): Extension {
             }
             return false;
         },
-    };
+    });
 }

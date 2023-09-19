@@ -1,4 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 import React from 'react';
 import type { Editor } from 'slate';
 
@@ -10,8 +10,8 @@ interface Params {
     decorate?: boolean;
 }
 
-export function DecorateSelectionExtension({ decorate = true }: Params = {}): Extension {
-    return {
+export function DecorateSelectionExtension({ decorate = true }: Params = {}) {
+    return useRegisterExtension({
         id: 'DecorateSelectionExtension',
         decorate(editor: Editor) {
             if (!decorate) {
@@ -26,7 +26,7 @@ export function DecorateSelectionExtension({ decorate = true }: Params = {}): Ex
 
             return <>{children}</>;
         },
-    };
+    });
 }
 
 function noopDecoration() {

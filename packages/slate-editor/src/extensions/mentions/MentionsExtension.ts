@@ -1,5 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement } from '@prezly/slate-commons';
+import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import type { Node } from 'slate';
 import { Element } from 'slate';
 
@@ -15,18 +15,19 @@ interface Options<T extends string> {
     renderElement: Extension['renderElement'];
 }
 
+// TODO: Get rid of this abstraction?
 export function MentionsExtension<T extends string>({
     id,
     normalizeNode,
     parseSerializedElement,
     renderElement,
     type,
-}: Options<T>): Extension {
+}: Options<T>) {
     function isMention(node: Node) {
         return Element.isElementType(node, type);
     }
 
-    return {
+    return useRegisterExtension({
         deserialize: {
             element: composeElementDeserializer({
                 [type]: createDeserializeElement(parseSerializedElement),
@@ -37,5 +38,5 @@ export function MentionsExtension<T extends string>({
         isVoid: isMention,
         normalizeNode,
         renderElement,
-    };
+    });
 }

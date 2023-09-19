@@ -1,9 +1,12 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 
 import type { SnippetsExtensionParameters } from './types';
 
 export const EXTENSION_ID = 'SnippetsExtension';
 
-export const SnippetsExtension = (_params: SnippetsExtensionParameters): Extension => ({
-    id: EXTENSION_ID,
-});
+// TODO: Fix unused parameter
+export function SnippetsExtension(_params: SnippetsExtensionParameters) {
+    return useRegisterExtension({
+        id: EXTENSION_ID,
+    });
+}

@@ -1,6 +1,5 @@
 import type { OEmbedInfo } from '@prezly/sdk';
-import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement } from '@prezly/slate-commons';
+import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import { VideoNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
@@ -29,8 +28,8 @@ export function VideoExtension({
     withMenu = false,
     withLayoutControls = true,
     withConversionOptions = false,
-}: VideoExtensionParameters): Extension {
-    return {
+}: VideoExtensionParameters) {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
             element: composeElementDeserializer({
@@ -69,5 +68,5 @@ export function VideoExtension({
 
             return undefined;
         },
-    };
+    });
 }

@@ -4,7 +4,7 @@ import type { Extension } from '../types';
 
 import { useExtensionsManager } from './useExtensionsManager';
 
-export function useRegisterExtension(extension: Extension): void {
+export function useRegisterExtension(extension: Extension): null {
     const manager = useExtensionsManager();
 
     const {
@@ -49,4 +49,6 @@ export function useRegisterExtension(extension: Extension): void {
             withOverrides,
         ],
     );
+
+    return null;
 }

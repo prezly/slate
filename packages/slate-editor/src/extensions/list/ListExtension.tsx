@@ -1,11 +1,10 @@
-import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement } from '@prezly/slate-commons';
+import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import {
     ListsEditor,
     normalizeNode,
     onKeyDown,
-    withListsSchema,
     withListsReact,
+    withListsSchema,
 } from '@prezly/slate-lists';
 import { TablesEditor } from '@prezly/slate-tables';
 import {
@@ -27,8 +26,8 @@ import { schema } from './schema';
 
 export const EXTENSION_ID = 'ListExtension';
 
-export function ListExtension(): Extension {
-    return {
+export function ListExtension() {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
             element: composeElementDeserializer({
@@ -94,5 +93,5 @@ export function ListExtension(): Extension {
         withOverrides: (editor) => {
             return withListsReact(withListsSchema(schema)(editor));
         },
-    };
+    });
 }

@@ -1,4 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 
 import { withSlatePasting } from './lib';
 import type { IsPreservedBlock } from './lib/withSlatePasting';
@@ -12,11 +12,9 @@ interface Options {
     isPreservedBlock?: IsPreservedBlock;
 }
 
-export function PasteSlateContentExtension({
-    isPreservedBlock = () => false,
-}: Options = {}): Extension {
-    return {
+export function PasteSlateContentExtension({ isPreservedBlock = () => false }: Options = {}) {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         withOverrides: withSlatePasting(isPreservedBlock),
-    };
+    });
 }

@@ -1,18 +1,18 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 import {
-    withTables,
-    TablesEditor,
     onKeyDown,
-    withTablesDeleteBehavior,
+    TablesEditor,
+    withTables,
     withTablesCopyPasteBehavior,
+    withTablesDeleteBehavior,
 } from '@prezly/slate-tables';
 import {
-    type TableNode,
-    type TableRowNode,
-    type TableCellNode,
+    isTableCellNode,
     isTableNode,
     isTableRowNode,
-    isTableCellNode,
+    type TableCellNode,
+    type TableNode,
+    type TableRowNode,
 } from '@prezly/slate-types';
 import { flow } from '@technically/lodash';
 import React from 'react';
@@ -21,8 +21,8 @@ import type { RenderElementProps } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
-import { TableElement, TableRowElement, TableCellElement } from './components';
-import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
+import { TableCellElement, TableElement, TableRowElement } from './components';
+import { createTableCellNode, createTableNode, createTableRowNode } from './lib';
 import {
     normalizeCellAttributes,
     normalizeRowAttributes,
@@ -36,8 +36,8 @@ interface Parameters {
     createDefaultElement: (props?: Partial<Element>) => Element;
 }
 
-export function TablesExtension({ createDefaultElement }: Parameters): Extension {
-    return {
+export function TablesExtension({ createDefaultElement }: Parameters) {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         isRichBlock: isTableNode,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
@@ -124,5 +124,5 @@ export function TablesExtension({ createDefaultElement }: Parameters): Extension
 
             return flow([withTablesCopyPasteBehavior, withTablesDeleteBehavior])(tablesEditor);
         },
-    };
+    });
 }

@@ -1,7 +1,7 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 
-export function FlashNodesExtension(): Extension {
-    return {
+export function FlashNodesExtension() {
+    return useRegisterExtension({
         id: 'FlashNodesExtension',
         withOverrides: (editor) => {
             editor.nodesToFlash = [];
@@ -16,5 +16,5 @@ export function FlashNodesExtension(): Extension {
 
             return editor;
         },
-    };
+    });
 }

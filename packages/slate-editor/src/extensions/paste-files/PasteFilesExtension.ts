@@ -1,4 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 import type { Editor } from 'slate';
 
 import { withFilesPasting } from './lib';
@@ -9,9 +9,9 @@ export interface Parameters {
     onFilesPasted?: (editor: Editor, files: File[]) => void;
 }
 
-export function PasteFilesExtension({ onFilesPasted }: Parameters = {}): Extension {
-    return {
+export function PasteFilesExtension({ onFilesPasted }: Parameters = {}) {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         withOverrides: withFilesPasting({ onFilesPasted }),
-    };
+    });
 }

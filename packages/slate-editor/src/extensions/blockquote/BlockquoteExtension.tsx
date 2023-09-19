@@ -1,4 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 import { isQuoteNode, QUOTE_NODE_TYPE } from '@prezly/slate-types';
 import React from 'react';
 
@@ -11,8 +11,8 @@ import { normalizeRedundantAttributes } from './lib';
 
 export const EXTENSION_ID = 'BlockquoteExtension';
 
-export function BlockquoteExtension(): Extension {
-    return {
+export function BlockquoteExtension() {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
             element: composeElementDeserializer({
@@ -35,5 +35,5 @@ export function BlockquoteExtension(): Extension {
             return undefined;
         },
         withOverrides: withResetFormattingOnBreak(isQuoteNode),
-    };
+    });
 }

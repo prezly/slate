@@ -1,6 +1,5 @@
 import type { OEmbedInfo } from '@prezly/sdk';
-import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement } from '@prezly/slate-commons';
+import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -30,7 +29,7 @@ export interface EmbedExtensionConfiguration {
     withConversionOptions?: boolean;
 }
 
-export const EmbedExtension = ({
+export function EmbedExtension({
     allowHtmlInjection,
     allowScreenshots,
     availableWidth,
@@ -38,47 +37,49 @@ export const EmbedExtension = ({
     withMenu = false,
     withLayoutControls = true,
     withConversionOptions = false,
-}: Parameters): Extension => ({
-    id: EXTENSION_ID,
-    deserialize: {
-        element: composeElementDeserializer({
-            [EmbedNode.TYPE]: createDeserializeElement(parseSerializedElement),
-        }),
-    },
-    isElementEqual: (node, another) => {
-        if (EmbedNode.isEmbedNode(node) && EmbedNode.isEmbedNode(another)) {
-            return (
-                node.url === another.url &&
-                node.layout === another.layout &&
-                isEqual(node.oembed, another.oembed)
-            );
-        }
-        return undefined;
-    },
-    isRichBlock: EmbedNode.isEmbedNode,
-    isVoid: EmbedNode.isEmbedNode,
-    normalizeNode: [fixUuidCollisions, normalizeRedundantEmbedAttributes],
-    renderElement: ({ attributes, children, element }: RenderElementProps) => {
-        if (EmbedNode.isEmbedNode(element)) {
-            return (
-                <>
-                    <EmbedElement
-                        allowHtmlInjection={allowHtmlInjection}
-                        allowScreenshots={allowScreenshots}
-                        attributes={attributes}
-                        availableWidth={availableWidth}
-                        element={element}
-                        info={info}
-                        withMenu={withMenu}
-                        withLayoutControls={withLayoutControls}
-                        withConversionOptions={withConversionOptions}
-                    >
-                        {children}
-                    </EmbedElement>
-                </>
-            );
-        }
+}: Parameters) {
+    return useRegisterExtension({
+        id: EXTENSION_ID,
+        deserialize: {
+            element: composeElementDeserializer({
+                [EmbedNode.TYPE]: createDeserializeElement(parseSerializedElement),
+            }),
+        },
+        isElementEqual: (node, another) => {
+            if (EmbedNode.isEmbedNode(node) && EmbedNode.isEmbedNode(another)) {
+                return (
+                    node.url === another.url &&
+                    node.layout === another.layout &&
+                    isEqual(node.oembed, another.oembed)
+                );
+            }
+            return undefined;
+        },
+        isRichBlock: EmbedNode.isEmbedNode,
+        isVoid: EmbedNode.isEmbedNode,
+        normalizeNode: [fixUuidCollisions, normalizeRedundantEmbedAttributes],
+        renderElement: ({ attributes, children, element }: RenderElementProps) => {
+            if (EmbedNode.isEmbedNode(element)) {
+                return (
+                    <>
+                        <EmbedElement
+                            allowHtmlInjection={allowHtmlInjection}
+                            allowScreenshots={allowScreenshots}
+                            attributes={attributes}
+                            availableWidth={availableWidth}
+                            element={element}
+                            info={info}
+                            withMenu={withMenu}
+                            withLayoutControls={withLayoutControls}
+                            withConversionOptions={withConversionOptions}
+                        >
+                            {children}
+                        </EmbedElement>
+                    </>
+                );
+            }
 
-        return undefined;
-    },
-});
+            return undefined;
+        },
+    });
+}
