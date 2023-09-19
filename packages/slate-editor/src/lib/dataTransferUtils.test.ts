@@ -2,6 +2,7 @@ import {
     createDataTransfer,
     filterDataTransferFiles,
     filterDataTransferItems,
+    isFilesOnlyDataTransfer,
 } from './dataTransferUtils';
 
 describe('createDataTransfer', () => {
@@ -241,5 +242,45 @@ describe('filterDataTransferItems', () => {
 
         expect(filtered.items).toHaveLength(1);
         expect(filtered.items[0].type).toBe('text/html');
+    });
+});
+
+describe('isFilesOnlyDataTransfer', () => {
+    it('should check if the DataTransfer contains files only', () => {
+        const dataTransfer = createDataTransfer({
+            items: {
+                'text/plain': 'Hello world',
+                'text/html': '<h1>Hello world</h1>',
+            },
+            files: [
+                new File(['Hello world'], 'helloworld.txt', {
+                    type: 'text/plain',
+                }),
+                new File(['<h1>Hello world</h1>'], 'helloworld.html', {
+                    type: 'text/html',
+                }),
+            ],
+        });
+
+        expect(isFilesOnlyDataTransfer(dataTransfer)).toBe(false);
+
+        dataTransfer.clearData();
+
+        expect(isFilesOnlyDataTransfer(dataTransfer)).toBe(true);
+    });
+
+    it('should always return false for DataTransfer without files', () => {
+        const dataTransfer = createDataTransfer({
+            items: {
+                'text/plain': 'Hello world',
+                'text/html': '<h1>Hello world</h1>',
+            },
+        });
+
+        expect(isFilesOnlyDataTransfer(dataTransfer)).toBe(false);
+
+        dataTransfer.clearData();
+
+        expect(isFilesOnlyDataTransfer(dataTransfer)).toBe(false);
     });
 });

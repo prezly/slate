@@ -5,6 +5,7 @@ export {
     createDataTransfer,
     filterDataTransferItems,
     filterDataTransferFiles,
+    isFilesOnlyDataTransfer,
 } from './dataTransferUtils';
 export { dataUriToFile } from './dataUriToFile';
 export { decodeSlateFragment } from './decodeSlateFragment';

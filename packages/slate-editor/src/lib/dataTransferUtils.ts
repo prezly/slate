@@ -174,3 +174,9 @@ export function filterDataTransferFiles(
         items,
     });
 }
+
+export function isFilesOnlyDataTransfer(dataTransfer: DataTransfer) {
+    const types = dataTransfer.types;
+
+    return types.length === 1 && types[0] === FILES_TYPE;
+}

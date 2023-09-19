@@ -4,7 +4,7 @@ import uploadcare from '@prezly/uploadcare-widget';
 import { noop } from '@technically/lodash';
 import type { Editor } from 'slate';
 
-import { filterDataTransferFiles } from '#lib';
+import { filterDataTransferFiles, isFilesOnlyDataTransfer } from '#lib';
 
 import { IMAGE_TYPES } from '#extensions/image';
 import { insertPlaceholders, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
@@ -20,10 +20,7 @@ export function withFilesPasting({ onFilesPasted = noop }: Parameters = {}) {
         };
 
         editor.insertData = (dataTransfer: DataTransfer) => {
-            const isFilesOnly =
-                dataTransfer.types.length === 1 && dataTransfer.types[0] === 'Files';
-
-            if (!isFilesOnly) {
+            if (!isFilesOnlyDataTransfer(dataTransfer)) {
                 // Handle images, if the pasted content is containing files only.
                 return parent.insertData(dataTransfer);
             }
