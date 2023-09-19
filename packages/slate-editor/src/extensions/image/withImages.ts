@@ -6,7 +6,7 @@ import { ReactEditor } from 'slate-react';
 import { convertToHtml, encodeSlateFragment } from '#lib';
 
 export function withImages<T extends Editor>(editor: T): T {
-    const { insertData, setFragmentData } = editor;
+    const { setFragmentData } = editor;
 
     editor.setFragmentData = (data): void => {
         if (editor.selection && Range.isCollapsed(editor.selection)) {
@@ -32,14 +32,6 @@ export function withImages<T extends Editor>(editor: T): T {
         }
 
         setFragmentData(data);
-    };
-
-    editor.insertData = (data: DataTransfer) => {
-        insertData(data);
-
-        // Make sure `normalizeImageCandidate` is called after pasting content
-        // into the editor. Because sometimes it's not.
-        Editor.normalize(editor, { force: true });
     };
 
     return editor;

@@ -39,8 +39,6 @@ import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
 import { combineFixers } from './utils';
 
-import { IMAGE_CANDIDATE_NODE_TYPE } from '#extensions/image/constants';
-
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
     [ATTACHMENT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
@@ -82,7 +80,6 @@ export const hierarchySchema: NodesHierarchySchema = {
         ),
     ],
     [HTML_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
-    [IMAGE_CANDIDATE_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [IMAGE_NODE_TYPE]: [
         allowChildren(
             Text.isText,

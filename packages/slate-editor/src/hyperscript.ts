@@ -54,8 +54,7 @@ import { createGallery } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
 import { createHeading } from '#extensions/heading';
 import { createHtmlBlock } from '#extensions/html';
-import { createImage, createImageCandidate } from '#extensions/image';
-import type { ImageCandidateNode } from '#extensions/image';
+import { createImage } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { createList, createListItem, createListItemText } from '#extensions/list';
 import { ListExtension } from '#extensions/list';
@@ -94,7 +93,6 @@ interface HElements {
     'h:h1': PropsWithChildren<HElement<HeadingNode>>;
     'h:h2': PropsWithChildren<HElement<HeadingNode>>;
     'h:html': HElement<HtmlNode>;
-    'h:image-candidate': HElement<ImageCandidateNode>;
     'h:image': PropsWithChildren<HElement<ImageNode>>;
     'h:loader': HElement<LoaderNode>;
     'h:ol': PropsWithChildren<HElement<ListNode>>;
@@ -143,9 +141,6 @@ const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
     'h:h1': initCreator((props: HeadingNode) => createHeading({ ...props, type: 'heading-one' })),
     'h:h2': initCreator((props: HeadingNode) => createHeading({ ...props, type: 'heading-two' })),
     'h:html': initCreator((props: HtmlNode) => createHtmlBlock(props)),
-    'h:image-candidate': initCreator((props: ImageCandidateNode) =>
-        createImageCandidate(props.src, props.href),
-    ),
     'h:image': initCreator((props: ImageNode) => createImage(props)),
     'h:loader': initCreator((props: LoaderNode) => createLoader(props)),
     'h:ol': initCreator((props: ListNode) => createList({ ...props, type: 'numbered-list' })),

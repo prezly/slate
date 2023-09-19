@@ -20,7 +20,6 @@ import type { Node } from 'slate';
 
 import { ButtonBlockNode } from '#extensions/button-block';
 import { EmbedNode } from '#extensions/embed';
-import { isImageCandidateElement } from '#extensions/image';
 import { isLoaderElement } from '#extensions/loader';
 import { PlaceholderNode } from '#extensions/placeholders';
 
@@ -37,7 +36,6 @@ export function isAllowedOnTopLevel(node: Node) {
         isHeadingNode(node) ||
         isHtmlNode(node) ||
         isImageNode(node) ||
-        isImageCandidateElement(node) ||
         isLoaderElement(node) ||
         isParagraphNode(node) ||
         PlaceholderNode.isPlaceholderNode(node) ||

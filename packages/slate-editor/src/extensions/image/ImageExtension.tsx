@@ -1,7 +1,8 @@
 import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement, EditorCommands, withoutNodes } from '@prezly/slate-commons';
+import { createDeserializeElement, EditorCommands } from '@prezly/slate-commons';
 import type { ImageNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
+import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
 import { isEqual, noop } from '@technically/lodash';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
@@ -13,18 +14,18 @@ import type { RenderElementProps } from 'slate-react';
 import { isDeletingEvent, isDeletingEventBackward } from '#lib';
 
 import { createParagraph } from '#extensions/paragraphs';
+import { createPlaceholder, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ImageElement } from './components';
 import {
-    createImageCandidate,
+    createImage,
     getAncestorAnchor,
-    isImageCandidateElement,
-    normalizeImageCandidate,
     normalizeRedundantImageAttributes,
     parseSerializedElement,
+    toFilePromise,
 } from './lib';
-import type { ImageCandidateNode, ImageExtensionConfiguration } from './types';
+import type { ImageExtensionConfiguration } from './types';
 import { withImages } from './withImages';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
@@ -58,15 +59,46 @@ export const ImageExtension = ({
     deserialize: {
         element: composeElementDeserializer({
             [IMAGE_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
-            IMG: (element: HTMLElement): ImageCandidateNode | undefined => {
+            IMG: (element: HTMLElement): PlaceholderNode | undefined => {
                 const imageElement = element as HTMLImageElement;
                 const anchorElement = getAncestorAnchor(imageElement);
 
-                if (anchorElement && !anchorElement.textContent) {
-                    return createImageCandidate(imageElement.src, anchorElement.href);
+                function upload(src: string, alt?: string, href?: string) {
+                    const filePromise = toFilePromise(src);
+
+                    if (!filePromise) {
+                        return Promise.reject(
+                            new Error(`Unable to upload an image from the given URL: ${src}`),
+                        );
+                    }
+
+                    return toProgressPromise(filePromise).then((fileInfo) => {
+                        const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+                        return {
+                            image: createImage({
+                                file: image.toPrezlyStoragePayload(),
+                                href,
+                                children: [{ text: alt ?? '' }],
+                            }),
+                            operation: 'add' as const,
+                            trigger: 'paste-html' as const,
+                        };
+                    });
                 }
 
-                return createImageCandidate(imageElement.src);
+                const placeholder = createPlaceholder({
+                    type: PlaceholderNode.Type.IMAGE,
+                });
+
+                const uploading = upload(
+                    imageElement.src,
+                    imageElement.alt ?? imageElement.title,
+                    anchorElement && !anchorElement.textContent ? anchorElement.href : undefined,
+                );
+
+                PlaceholdersManager.register(placeholder.type, placeholder.uuid, uploading);
+
+                return placeholder;
             },
         }),
     },
@@ -85,16 +117,12 @@ export const ImageExtension = ({
     },
     isRichBlock: isImageNode,
     isVoid: (node) => {
-        if (withCaptions) {
-            return isImageCandidateElement(node);
+        if (isImageNode(node)) {
+            return !withCaptions;
         }
-        return isImageCandidateElement(node) || isImageNode(node);
+        return false;
     },
-    normalizeNode: [
-        normalizeRedundantImageAttributes,
-        // normalizeImageCandidate needs to be last because it removes the image candidate element
-        normalizeImageCandidate,
-    ],
+    normalizeNode: normalizeRedundantImageAttributes,
     onKeyDown: (event: KeyboardEvent, editor: Editor) => {
         if (!withCaptions) {
             return;
@@ -177,7 +205,6 @@ export const ImageExtension = ({
 
         return undefined;
     },
-    serialize: (nodes) => withoutNodes(nodes, isImageCandidateElement),
     withOverrides: withImages,
 });
 

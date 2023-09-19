@@ -9,7 +9,7 @@ describe('nodes-hierarchy / Image', () => {
     it('should be kept after normalization', function () {
         const editor = (
             <editor>
-                <h:image-candidate href="image-candidate-href" src="image-candidate-src" />
+                {/*<h:image-candidate href="image-candidate-href" src="image-candidate-src" />*/}
                 <h:image
                     align={Alignment.CENTER}
                     href=""
@@ -35,7 +35,7 @@ describe('nodes-hierarchy / Image', () => {
 
         const expected = (
             <editor>
-                <h:image-candidate href="image-candidate-href" src="image-candidate-src" />
+                {/*<h:image-candidate href="image-candidate-href" src="image-candidate-src" />*/}
                 <h:image
                     align={Alignment.CENTER}
                     href=""

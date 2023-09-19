@@ -44,7 +44,7 @@ interface Data {
     [Type.IMAGE]: {
         image: ImageNode;
         operation: 'add' | 'edit';
-        trigger: 'placeholder' | 'paste';
+        trigger: 'placeholder' | 'paste' | 'paste-html';
     };
     [Type.MEDIA]: {
         media: {
