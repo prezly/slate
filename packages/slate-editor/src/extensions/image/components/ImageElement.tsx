@@ -96,24 +96,22 @@ export function ImageElement({
 
         const placeholder = createPlaceholder({ type: PlaceholderNode.Type.IMAGE });
 
-        PlaceholdersManager.register(
-            placeholder.type,
-            placeholder.uuid,
-            toProgressPromise(upload).then((fileInfo: PrezlyFileInfo) => {
-                const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+        const uploading = toProgressPromise(upload).then((fileInfo: PrezlyFileInfo) => {
+            const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
 
-                callbacks.current.onCropped(editor, element);
+            callbacks.current.onCropped(editor, element);
 
-                return {
-                    image: {
-                        ...element,
-                        file: image.toPrezlyStoragePayload(),
-                    },
-                    operation: 'crop' as const,
-                    trigger: 'image-menu' as const,
-                };
-            }),
-        );
+            return {
+                image: {
+                    ...element,
+                    file: image.toPrezlyStoragePayload(),
+                },
+                operation: 'crop' as const,
+                trigger: 'image-menu' as const,
+            };
+        });
+
+        PlaceholdersManager.register(placeholder.type, placeholder.uuid, uploading);
 
         const path = EditorCommands.getNodePath(editor, {
             match: (node) => node === element,
@@ -156,25 +154,23 @@ export function ImageElement({
 
         const placeholder = createPlaceholder({ type: PlaceholderNode.Type.IMAGE });
 
-        PlaceholdersManager.register(
-            placeholder.type,
-            placeholder.uuid,
-            toProgressPromise(upload).then((fileInfo: PrezlyFileInfo) => {
-                const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-                const updated = {
-                    ...element,
-                    file: image.toPrezlyStoragePayload(),
-                };
+        const uploading = toProgressPromise(upload).then((fileInfo: PrezlyFileInfo) => {
+            const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+            const updated = {
+                ...element,
+                file: image.toPrezlyStoragePayload(),
+            };
 
-                callbacks.current.onReplaced(editor, updated);
+            callbacks.current.onReplaced(editor, updated);
 
-                return {
-                    image: updated,
-                    operation: 'replace' as const,
-                    trigger: 'image-menu' as const,
-                };
-            }),
-        );
+            return {
+                image: updated,
+                operation: 'replace' as const,
+                trigger: 'image-menu' as const,
+            };
+        });
+
+        PlaceholdersManager.register(placeholder.type, placeholder.uuid, uploading);
 
         const path = EditorCommands.getNodePath(editor, {
             match: (node) => node === element,
