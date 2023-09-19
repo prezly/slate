@@ -31,7 +31,9 @@ describe('withSlatePasting', () => {
 
         editor.insertData(
             createDataTransfer({
-                'application/x-slate-fragment': encodeFragment(FRAGMENT),
+                items: {
+                    'application/x-slate-fragment': encodeFragment(FRAGMENT),
+                },
             }),
         );
 
@@ -51,7 +53,9 @@ describe('withSlatePasting', () => {
 
         editor.insertData(
             createDataTransfer({
-                'application/x-slate-fragment': encodeFragment(FRAGMENT),
+                items: {
+                    'application/x-slate-fragment': encodeFragment(FRAGMENT),
+                },
             }),
         );
 
@@ -71,7 +75,9 @@ describe('withSlatePasting', () => {
 
         editor.insertData(
             createDataTransfer({
-                'application/x-slate-fragment': encodeFragment(SINGLE_NODE_FRAGMENT),
+                items: {
+                    'application/x-slate-fragment': encodeFragment(SINGLE_NODE_FRAGMENT),
+                },
             }),
         );
 
@@ -91,7 +97,9 @@ describe('withSlatePasting', () => {
 
         editor.insertData(
             createDataTransfer({
-                'application/x-slate-fragment': encodeFragment(SINGLE_NODE_FRAGMENT),
+                items: {
+                    'application/x-slate-fragment': encodeFragment(SINGLE_NODE_FRAGMENT),
+                },
             }),
         );
 
@@ -111,9 +119,11 @@ describe('withSlatePasting', () => {
 
         editor.insertData(
             createDataTransfer({
-                'application/x-slate-fragment': encodeFragment({
-                    title: 'This is not a valid node',
-                }),
+                items: {
+                    'application/x-slate-fragment': encodeFragment({
+                        title: 'This is not a valid node',
+                    }),
+                },
             }),
         );
 
@@ -150,7 +160,9 @@ describe('withSlatePasting', () => {
 
             editor.insertData(
                 createDataTransfer({
-                    'application/x-slate-fragment': encodeFragment(value),
+                    items: {
+                        'application/x-slate-fragment': encodeFragment(value),
+                    },
                 }),
             );
 
@@ -180,7 +192,9 @@ describe('withSlatePasting', () => {
 
         editor.insertData(
             createDataTransfer({
-                'application/x-slate-fragment': '=== THIS IS NOT VALID ENCODING ===',
+                items: {
+                    'application/x-slate-fragment': '=== THIS IS NOT VALID ENCODING ===',
+                },
             }),
         );
 

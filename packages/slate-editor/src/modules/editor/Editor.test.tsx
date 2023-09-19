@@ -126,7 +126,9 @@ describe('Editor', () => {
 
             const expected = readTestFile('expected/google-docs-reference-document.json');
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/google-docs-reference-document.html'),
+                items: {
+                    'text/html': readTestFile('input/google-docs-reference-document.html'),
+                },
             });
 
             editor.insertData(dataTransfer);
@@ -147,8 +149,10 @@ describe('Editor', () => {
 
             const expected = readTestFile('expected/docx-reference-document.json');
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/docx-reference-document.html'),
-                'text/rtf': readTestFile('input/docx-reference-document.rtf'),
+                items: {
+                    'text/html': readTestFile('input/docx-reference-document.html'),
+                    'text/rtf': readTestFile('input/docx-reference-document.rtf'),
+                },
             });
 
             editor.insertData(dataTransfer);
@@ -168,7 +172,9 @@ describe('Editor', () => {
             );
 
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/divs.html'),
+                items: {
+                    'text/html': readTestFile('input/divs.html'),
+                },
             });
 
             editor.insertData(dataTransfer);
@@ -189,7 +195,9 @@ describe('Editor', () => {
 
             const expected = readTestFile('expected/paragraph-in-quote.json');
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/paragraph-in-quote.html'),
+                items: {
+                    'text/html': readTestFile('input/paragraph-in-quote.html'),
+                },
             });
 
             editor.insertData(dataTransfer);
@@ -210,7 +218,9 @@ describe('Editor', () => {
 
             const expected = readTestFile('expected/image-in-paragraph.json');
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/image-in-paragraph.html'),
+                items: {
+                    'text/html': readTestFile('input/image-in-paragraph.html'),
+                },
             });
 
             editor.insertData(dataTransfer);
@@ -231,7 +241,9 @@ describe('Editor', () => {
 
             const expected = readTestFile('expected/image-in-h1.json');
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/image-in-h1.html'),
+                items: {
+                    'text/html': readTestFile('input/image-in-h1.html'),
+                },
             });
 
             editor.insertData(dataTransfer);
@@ -251,7 +263,9 @@ describe('Editor', () => {
             );
 
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/list-normalization-1.html'),
+                items: {
+                    'text/html': readTestFile('input/list-normalization-1.html'),
+                },
             });
 
             expect(() => {
@@ -272,7 +286,9 @@ describe('Editor', () => {
 
             const expected = readTestFile('expected/slack-line-breaks.json');
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/slack-line-breaks.html'),
+                items: {
+                    'text/html': readTestFile('input/slack-line-breaks.html'),
+                },
             });
 
             editor.insertData(dataTransfer);
@@ -390,7 +406,9 @@ describe('Editor', () => {
 
             const expected = readTestFile('expected/marks-in-style.json');
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/marks-in-style.html'),
+                items: {
+                    'text/html': readTestFile('input/marks-in-style.html'),
+                },
             });
 
             editor.insertData(dataTransfer);
@@ -411,8 +429,10 @@ describe('Editor', () => {
 
             const expected = readTestFile('expected/pdf-plaintext.json');
             const dataTransfer = createDataTransfer({
-                'text/html': readTestFile('input/pdf-plaintext.html'),
-                'text/plain': readTestFile('input/pdf-plaintext.txt'),
+                items: {
+                    'text/html': readTestFile('input/pdf-plaintext.html'),
+                    'text/plain': readTestFile('input/pdf-plaintext.txt'),
+                },
             });
 
             editor.insertData(dataTransfer);
@@ -433,7 +453,7 @@ describe('Editor', () => {
                 </editor>,
             );
 
-            const dataTransfer = createDataTransfer({ 'text/html': HTML });
+            const dataTransfer = createDataTransfer({ items: { 'text/html': HTML } });
 
             editor.insertData(dataTransfer);
 
@@ -457,7 +477,7 @@ describe('Editor', () => {
                 </editor>,
             );
 
-            const dataTransfer = createDataTransfer({ 'text/html': HTML });
+            const dataTransfer = createDataTransfer({ items: { 'text/html': HTML } });
 
             editor.insertData(dataTransfer);
 
