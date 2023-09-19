@@ -24,6 +24,8 @@ export const ManagerContext = createContext<ExtensionsManager>({
     },
 });
 
+// FIXME: Introduce ManagerSyncContext to only render the Editor itself after all sub-tree extensions are already mounted.
+
 /**
  * -- HOOKS --
  * ===========
@@ -75,7 +77,7 @@ export function ExtensionsManager<T extends ExtensionsEditor>({ children, editor
      * Force editor re-rendering every time the extensions list is changed.
      */
     useEffect(() => {
-        editor.onChange();
+        editor.onChange(); // FIXME: Verify this works without causing an infinite update loop.
     }, [counter]);
 
     return <ManagerContext.Provider value={manager}>{children}</ManagerContext.Provider>;

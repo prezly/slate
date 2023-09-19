@@ -113,8 +113,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     // TODO: Wire `onOperationStart` and `onOperationEnd` to the Placeholder extension
     // const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
 
-    // [+] menu
-
     const editor = useCreateEditor({
         events,
         // extensions, // FIXME
@@ -714,6 +712,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                             {(combinedDecorate) => (
                                 <>
                                     <InitialNormalization />
+                                    {/** FIXME: Sync this with Extensions mounting. See ExtensionsManager: ExtensionsManagerSync */}
                                     <EditableWithExtensions
                                         className={classNames(styles.Editable, {
                                             [styles.withEntryPoints]: withEntryPointsAroundBlocks,
