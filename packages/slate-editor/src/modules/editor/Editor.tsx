@@ -716,38 +716,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
 
     return (
         <ExtensionsManagerProvider>
-            <Extensions
-                availableWidth={availableWidth}
-                onFloatingAddMenuToggle={onFloatingAddMenuToggle}
-                withAllowedBlocks={withAllowedBlocks}
-                withAttachments={withAttachments}
-                withAutoformat={withAutoformat}
-                withBlockquotes={withBlockquotes}
-                withButtonBlocks={withButtonBlocks}
-                withCoverage={withCoverage}
-                withCustomNormalization={withCustomNormalization}
-                withDivider={withDivider}
-                withEmbeds={withEmbeds}
-                withFloatingAddMenu={withFloatingAddMenu}
-                withGalleries={withGalleries}
-                withHeadings={withHeadings}
-                withImages={withImages}
-                withInlineContacts={withInlineContacts}
-                withInlineLinks={withInlineLinks}
-                withLists={withLists}
-                withPlaceholders={withPlaceholders}
-                withPressContacts={withPressContacts}
-                withSnippets={withSnippets}
-                withStoryBookmarks={withStoryBookmarks}
-                withStoryEmbeds={withStoryEmbeds}
-                withTables={withTables}
-                withTextStyling={withTextStyling}
-                withUserMentions={withUserMentions}
-                withVariables={withVariables}
-                withVideos={withVideos}
-                withWebBookmarks={withWebBookmarks}
-            />
-
             <PopperOptionsContext.Provider value={popperMenuOptions}>
                 <div
                     id={id}
@@ -788,6 +756,38 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         readOnly={readOnly}
                                         renderElementDeps={[availableWidth]}
                                         style={contentStyle}
+                                    />
+
+                                    <Extensions
+                                        availableWidth={availableWidth}
+                                        onFloatingAddMenuToggle={onFloatingAddMenuToggle}
+                                        withAllowedBlocks={withAllowedBlocks}
+                                        withAttachments={withAttachments}
+                                        withAutoformat={withAutoformat}
+                                        withBlockquotes={withBlockquotes}
+                                        withButtonBlocks={withButtonBlocks}
+                                        withCoverage={withCoverage}
+                                        withCustomNormalization={withCustomNormalization}
+                                        withDivider={withDivider}
+                                        withEmbeds={withEmbeds}
+                                        withFloatingAddMenu={withFloatingAddMenu}
+                                        withGalleries={withGalleries}
+                                        withHeadings={withHeadings}
+                                        withImages={withImages}
+                                        withInlineContacts={withInlineContacts}
+                                        withInlineLinks={withInlineLinks}
+                                        withLists={withLists}
+                                        withPlaceholders={withPlaceholders}
+                                        withPressContacts={withPressContacts}
+                                        withSnippets={withSnippets}
+                                        withStoryBookmarks={withStoryBookmarks}
+                                        withStoryEmbeds={withStoryEmbeds}
+                                        withTables={withTables}
+                                        withTextStyling={withTextStyling}
+                                        withUserMentions={withUserMentions}
+                                        withVariables={withVariables}
+                                        withVideos={withVideos}
+                                        withWebBookmarks={withWebBookmarks}
                                     />
 
                                     <FlashNodes containerRef={containerRef} />
