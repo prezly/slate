@@ -74,6 +74,7 @@ export type EditorEventMap = {
         mimeType: string;
         size: number;
         uuid: string;
+        operation: string;
         trigger: string;
     };
     'image-removed': {

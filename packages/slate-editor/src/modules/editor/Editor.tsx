@@ -58,7 +58,6 @@ import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
 import type { EditorProps, EditorRef, Value } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
-import { usePendingOperation } from './usePendingOperation';
 
 import { replacePlaceholder } from '#extensions/placeholders/lib';
 import { PlaceholdersManager } from '#extensions/placeholders/PlaceholdersManager';
@@ -74,7 +73,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         id,
         initialValue: externalInitialValue,
         blurOnOutsideClick = false,
-        onIsOperationPendingChange,
         onKeyDown = noop,
         placeholder,
         plugins,
@@ -121,7 +119,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
 
     const events = useMemo(() => new Events<EditorEventMap>(), []);
     const containerRef = useRef<HTMLDivElement>(null);
-    const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
+
+    // TODO: Wire `onOperationStart` and `onOperationEnd` to the Placeholder extension
+    // const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
+
     // [+] menu
     const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
     const onFloatingAddMenuToggle = useCallback(
@@ -139,8 +140,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     const extensions = Array.from(
         getEnabledExtensions({
             availableWidth,
-            onOperationEnd,
-            onOperationStart,
             onFloatingAddMenuToggle,
             withAllowedBlocks,
             withAttachments,

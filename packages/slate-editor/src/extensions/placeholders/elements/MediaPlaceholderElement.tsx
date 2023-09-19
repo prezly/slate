@@ -110,6 +110,7 @@ export function MediaPlaceholderElement({
                 mimeType: file.mime_type,
                 size: file.size,
                 uuid: file.uuid,
+                trigger: 'placeholder',
             });
         }
     });

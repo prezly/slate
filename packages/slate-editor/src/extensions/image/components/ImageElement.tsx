@@ -109,7 +109,8 @@ export function ImageElement({
                         ...element,
                         file: image.toPrezlyStoragePayload(),
                     },
-                    operation: 'edit' as const,
+                    operation: 'crop' as const,
+                    trigger: 'image-menu' as const,
                 };
             }),
         );
@@ -169,7 +170,8 @@ export function ImageElement({
 
                 return {
                     image: updated,
-                    operation: 'edit' as const,
+                    operation: 'replace' as const,
+                    trigger: 'image-menu' as const,
                 };
             }),
         );

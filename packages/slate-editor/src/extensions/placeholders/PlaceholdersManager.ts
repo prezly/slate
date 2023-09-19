@@ -43,8 +43,8 @@ interface Data {
     };
     [Type.IMAGE]: {
         image: ImageNode;
-        operation: 'add' | 'edit';
-        trigger: 'placeholder' | 'paste' | 'paste-html';
+        operation: 'add' | 'replace' | 'crop';
+        trigger: 'image-menu' | 'placeholder' | 'paste' | 'paste-html' | 'oembed';
     };
     [Type.MEDIA]: {
         media: {

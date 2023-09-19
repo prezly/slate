@@ -1,6 +1,5 @@
 import { EditorCommands, type Extension } from '@prezly/slate-commons';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
-import { noop } from '@technically/lodash';
 import { Node } from 'slate';
 
 import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
@@ -58,8 +57,6 @@ import type { EditorProps } from './types';
 type Parameters = {
     availableWidth: number;
     onFloatingAddMenuToggle: (show: boolean, trigger: 'input' | 'hotkey') => void;
-    onOperationEnd?: () => void;
-    onOperationStart?: () => void;
 } & Pick<
     Required<EditorProps>,
     | 'withAllowedBlocks'
@@ -95,8 +92,6 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     const {
         availableWidth,
         onFloatingAddMenuToggle,
-        onOperationEnd = noop,
-        onOperationStart = noop,
         withAllowedBlocks,
         withAttachments,
         withAutoformat,
@@ -267,7 +262,6 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
 
     if (withImages) {
         yield PasteImagesExtension({
-            fallbackAttachments: withAttachments,
             onImagesPasted: (editor, images) => {
                 EventsEditor.dispatchEvent(editor, 'images-pasted', {
                     imagesCount: images.length,
@@ -289,6 +283,8 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
                     mimeType: image.file.mime_type,
                     size: image.file.size,
                     uuid: image.file.uuid,
+                    trigger: 'image-menu',
+                    operation: 'crop',
                 });
             },
             onRemoved(editor, image) {
@@ -303,6 +299,8 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
                     mimeType: image.file.mime_type,
                     size: image.file.size,
                     uuid: image.file.uuid,
+                    trigger: 'image-menu',
+                    operation: 'replace',
                 });
             },
         });

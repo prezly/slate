@@ -91,17 +91,18 @@ export function ImagePlaceholderElement({
     });
 
     const handleUploadedImage = useFunction(
-        (data: { image: ImageNode; operation: 'add' | 'edit'; trigger: string }) => {
+        (data: { image: ImageNode; operation: 'add' | 'replace' | 'crop'; trigger: string }) => {
             const node = createImage(data.image);
             replacePlaceholder(editor, element, node, { select: isSelected });
 
-            const event = data.operation === 'edit' ? 'image-edited' : 'image-added';
+            const event = data.operation === 'add' ? 'image-added' : 'image-edited';
             EventsEditor.dispatchEvent(editor, event, {
                 description: Node.string(node),
                 isPasted: false,
                 mimeType: node.file.mime_type,
                 size: node.file.size,
                 uuid: node.file.uuid,
+                operation: data.operation,
                 trigger: data.trigger,
             });
         },
