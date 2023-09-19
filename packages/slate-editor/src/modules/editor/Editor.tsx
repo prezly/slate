@@ -26,7 +26,9 @@ import { useFunction, useGetSet, useSize } from '#lib';
 import { insertButtonBlock } from '#extensions/button-block';
 import { FlashNodesExtension } from '#extensions/flash-nodes';
 import { FloatingAddMenuExtension, type Option } from '#extensions/floating-add-menu';
+import { PasteFilesExtension } from '#extensions/paste-files';
 import { PasteHtmlContentExtension } from '#extensions/paste-html-content';
+import { PasteImagesExtension } from '#extensions/paste-images';
 import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import { PasteTrackingExtension } from '#extensions/paste-tracking';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
@@ -739,6 +741,32 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                             });
                                         }}
                                     />
+
+                                    {withAttachments && (
+                                        <PasteFilesExtension
+                                            onFilesPasted={(editor, files) => {
+                                                EventsEditor.dispatchEvent(editor, 'files-pasted', {
+                                                    filesCount: files.length,
+                                                    isEmpty: EditorCommands.isEmpty(editor),
+                                                });
+                                            }}
+                                        />
+                                    )}
+
+                                    {withImages && (
+                                        <PasteImagesExtension
+                                            onImagesPasted={(editor, images) => {
+                                                EventsEditor.dispatchEvent(
+                                                    editor,
+                                                    'images-pasted',
+                                                    {
+                                                        imagesCount: images.length,
+                                                        isEmpty: EditorCommands.isEmpty(editor),
+                                                    },
+                                                );
+                                            }}
+                                        />
+                                    )}
 
                                     <PasteSlateContentExtension
                                         isPreservedBlock={(node) => {
