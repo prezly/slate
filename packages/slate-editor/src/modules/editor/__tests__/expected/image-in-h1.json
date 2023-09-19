@@ -8,12 +8,12 @@
         ]
     },
     {
+        "type": "placeholder:image",
         "children": [
             {
                 "text": ""
             }
-        ],
-        "type": "loader"
+        ]
     },
     {
         "type": "paragraph",

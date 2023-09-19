@@ -3,16 +3,6 @@
 exports[`nodes-hierarchy / Image should be kept after normalization 1`] = `
 [
   {
-    "children": [
-      {
-        "text": "",
-      },
-    ],
-    "href": "image-candidate-href",
-    "src": "image-candidate-src",
-    "type": "image-block-candidate",
-  },
-  {
     "align": "center",
     "children": [
       {
