@@ -185,19 +185,26 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 ref={setContainer}
                 style={{ width }}
             >
-                {isOnlyBlockSelected && renderMenu && container && editorElement && menuOpen && (
-                    <Menu
-                        className={styles.Menu}
-                        onClick={preventBubbling}
-                        popperOptions={{
-                            ...popperOptions,
-                            placement: menuPlacement ?? popperOptions.placement,
-                        }}
-                        reference={container}
-                    >
-                        {({ updatePosition }) => renderMenu({ onClose: closeMenu, updatePosition })}
-                    </Menu>
-                )}
+                {isOnlyBlockSelected &&
+                    !loading &&
+                    renderMenu &&
+                    container &&
+                    editorElement &&
+                    menuOpen && (
+                        <Menu
+                            className={styles.Menu}
+                            onClick={preventBubbling}
+                            popperOptions={{
+                                ...popperOptions,
+                                placement: menuPlacement ?? popperOptions.placement,
+                            }}
+                            reference={container}
+                        >
+                            {({ updatePosition }) =>
+                                renderMenu({ onClose: closeMenu, updatePosition })
+                            }
+                        </Menu>
+                    )}
                 {isOverlayEnabled && (
                     <Overlay className={styles.Overlay} onClick={handleFrameClick} />
                 )}
@@ -217,6 +224,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 >
                     {renderInjectionPoint(renderEditableFrame ?? renderReadOnlyFrame, renderProps)}
                 </div>
+                {loading && <div className={styles.LoadingIndicator} />}
             </div>
             <NewParagraphDelimiter
                 extendedHitArea={extendedHitArea}

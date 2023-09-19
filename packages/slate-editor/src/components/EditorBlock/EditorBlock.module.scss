@@ -45,11 +45,6 @@ $editor-block-outline-width: 6px;
     &.selected {
         border-radius: 0;
     }
-
-    &.loading {
-        // TODO: Add animation
-        opacity: 0.5;
-    }
 }
 
 .Frame {
@@ -72,6 +67,33 @@ $editor-block-outline-width: 6px;
     &.alignRight {
         margin-left: auto;
         margin-right: 0;
+    }
+}
+
+.LoadingIndicator {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+
+    width: 50%;
+    animation: 3s infinite progress-width;
+
+    @keyframes progress-width {
+        from {
+            left: 0;
+            width: 0;
+        }
+        50% {
+            left: 0;
+            width: 100%;
+        }
+        to {
+            left: 100%;
+            width: 0;
+        }
     }
 }
 
@@ -101,6 +123,10 @@ $editor-block-outline-width: 6px;
         &.selected {
             border-color: $editor-block-focus-color;
         }
+    }
+
+    .loading & > * {
+        opacity: 0.5;
     }
 
     @mixin outline($outline-color, $outline-position: "outer") {
