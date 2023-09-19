@@ -58,8 +58,6 @@ import { createImage } from '#extensions/image';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { createList, createListItem, createListItemText } from '#extensions/list';
 import { ListExtension } from '#extensions/list';
-import type { LoaderNode } from '#extensions/loader';
-import { createLoader } from '#extensions/loader';
 import { createParagraph } from '#extensions/paragraphs';
 import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import { createContactNode } from '#extensions/press-contacts';
@@ -94,7 +92,6 @@ interface HElements {
     'h:h2': PropsWithChildren<HElement<HeadingNode>>;
     'h:html': HElement<HtmlNode>;
     'h:image': PropsWithChildren<HElement<ImageNode>>;
-    'h:loader': HElement<LoaderNode>;
     'h:ol': PropsWithChildren<HElement<ListNode>>;
     'h:ul': PropsWithChildren<HElement<ListNode>>;
     'h:li': PropsWithChildren<HElement<ListItemNode>>;
@@ -142,7 +139,6 @@ const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
     'h:h2': initCreator((props: HeadingNode) => createHeading({ ...props, type: 'heading-two' })),
     'h:html': initCreator((props: HtmlNode) => createHtmlBlock(props)),
     'h:image': initCreator((props: ImageNode) => createImage(props)),
-    'h:loader': initCreator((props: LoaderNode) => createLoader(props)),
     'h:ol': initCreator((props: ListNode) => createList({ ...props, type: 'numbered-list' })),
     'h:ul': initCreator((props: ListNode) => createList({ ...props, type: 'bulleted-list' })),
     'h:li': initCreator((props: ListItemNode) => createListItem(props)),

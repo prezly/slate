@@ -24,7 +24,6 @@ import {
 import { Text, Transforms } from 'slate';
 
 import { EmbedNode } from '#extensions/embed';
-import { LOADER_NODE_TYPE } from '#extensions/loader';
 
 import * as fixers from './fixers';
 import { allowChildren, disallowMark, mustHaveChildren, removeWhenNoChildren } from './normilizers';
@@ -90,7 +89,6 @@ export const hierarchySchema: NodesHierarchySchema = {
             ]),
         ),
     ],
-    [LOADER_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [PARAGRAPH_NODE_TYPE]: [
         allowChildren(
             isInlineNode,

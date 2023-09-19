@@ -24,7 +24,6 @@ import { InlineContactsExtension } from '#extensions/inline-contacts';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { InsertBlockHotkeyExtension } from '#extensions/insert-block-hotkey';
 import { ListExtension } from '#extensions/list';
-import { LoaderExtension } from '#extensions/loader';
 import { createParagraph, ParagraphsExtension } from '#extensions/paragraphs';
 import { PasteFilesExtension } from '#extensions/paste-files';
 import { PasteImagesExtension } from '#extensions/paste-images';
@@ -361,8 +360,6 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withAllowedBlocks) {
         yield AllowedBlocksExtension(withAllowedBlocks);
     }
-
-    yield LoaderExtension({ onOperationEnd, onOperationStart });
 
     yield VoidExtension();
 
