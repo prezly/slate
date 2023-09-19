@@ -1,6 +1,6 @@
 import type { FilePromise } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
-import isDataURI from 'validator/lib/isDataURI';
+import isDataURI from 'validator/lib/isDataURI.js';
 
 import { dataUriToFile } from '#lib';
 
