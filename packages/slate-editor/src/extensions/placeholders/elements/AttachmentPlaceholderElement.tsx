@@ -40,7 +40,11 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
             const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
                 const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
                 const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
-                return { file: file.toPrezlyStoragePayload(), caption };
+                return {
+                    file: file.toPrezlyStoragePayload(),
+                    caption,
+                    trigger: 'placeholder' as const,
+                };
             });
             PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
         });
@@ -64,7 +68,7 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
     });
 
     const handleUploadedFile = useFunction(
-        (data: { file: AttachmentNode['file']; caption: string }) => {
+        (data: { file: AttachmentNode['file']; caption: string; trigger: string }) => {
             replacePlaceholder(editor, element, createFileAttachment(data.file, data.caption), {
                 select: isSelected,
             });
@@ -75,6 +79,7 @@ export function AttachmentPlaceholderElement({ children, element, ...props }: Pr
                 mimeType: data.file.mime_type,
                 size: data.file.size,
                 uuid: data.file.uuid,
+                trigger: data.trigger,
             });
         },
     );

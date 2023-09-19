@@ -24,6 +24,7 @@ interface Data {
     [Type.ATTACHMENT]: {
         file: AttachmentNode['file'];
         caption: string;
+        trigger: 'placeholder' | 'paste';
     };
     [Type.CONTACT]: {
         contact: ContactNode['contact'];
@@ -43,6 +44,7 @@ interface Data {
     [Type.IMAGE]: {
         image: ImageNode;
         operation: 'add' | 'edit';
+        trigger: 'placeholder' | 'paste';
     };
     [Type.MEDIA]: {
         media: {

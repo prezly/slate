@@ -109,6 +109,7 @@ async function scheduleLoaderReplacement(
         mimeType: fileInfo.mimeType,
         size: fileInfo.size,
         uuid: fileInfo.uuid,
+        trigger: 'paste-html',
     });
 }
 

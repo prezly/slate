@@ -1,34 +1,18 @@
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
-import {
-    toProgressPromise,
-    UPLOADCARE_FILE_DATA_KEY,
-    UploadcareFile,
-    UploadcareImage,
-} from '@prezly/uploadcare';
+import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
 import { noop } from '@technically/lodash';
 import type { Editor } from 'slate';
 
-import { createFileAttachment } from '#extensions/file-attachment';
 import { createImage, IMAGE_TYPES } from '#extensions/image';
-import { LoaderContentType } from '#extensions/loader';
-import { EventsEditor } from '#modules/events';
 
-import { insertUploadingFile } from '#modules/editor/lib';
+import { insertPlaceholders, PlaceholderNode, PlaceholdersManager } from '../../placeholders';
 
-interface Parameters {
-    /**
-     * Fallback to inserting an attachment node, if the uploaded image
-     * is reported as a raw file upload by Uploadcare.
-     */
-    fallbackAttachments?: boolean;
+export interface Parameters {
     onImagesPasted?: (editor: Editor, images: File[]) => void;
 }
 
-export function withImagesPasting({
-    fallbackAttachments = false,
-    onImagesPasted = noop,
-}: Parameters = {}) {
+export function withImagesPasting({ onImagesPasted = noop }: Parameters = {}) {
     return <T extends Editor>(editor: T): T => {
         const parent = {
             insertData: editor.insertData,
@@ -53,49 +37,31 @@ export function withImagesPasting({
 
             onImagesPasted(editor, images);
 
-            images.forEach(async (file) => {
-                const uploadedFileInfo = await insertUploadingFile<PrezlyFileInfo>(editor, {
-                    createElement: (fileInfo) => {
-                        const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
+            const placeholders = insertPlaceholders(editor, images.length, {
+                type: PlaceholderNode.Type.IMAGE,
+            });
 
-                        if (fileInfo.isImage) {
-                            const image =
-                                UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-                            return createImage({
+            images.forEach((file, i) => {
+                const filePromise = uploadcare.fileFrom('object', file);
+                const uploading = toProgressPromise(filePromise).then(
+                    (fileInfo: PrezlyFileInfo) => {
+                        const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+                        const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
+                        return {
+                            image: createImage({
                                 file: image.toPrezlyStoragePayload(),
                                 children: [{ text: caption }],
-                            });
-                        }
-
-                        if (fallbackAttachments) {
-                            const attachment =
-                                UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
-
-                            return createFileAttachment(
-                                attachment.toPrezlyStoragePayload(),
-                                caption,
-                            );
-                        }
-
-                        return null;
+                            }),
+                            operation: 'add' as const,
+                            trigger: 'paste' as const,
+                        };
                     },
-                    filePromise: toProgressPromise(uploadcare.fileFrom('object', file)),
-                    loaderContentType: LoaderContentType.IMAGE,
-                    loaderMessage: 'Uploading Image',
-                    mode: 'insert',
-                });
-
-                if (!uploadedFileInfo) {
-                    return;
-                }
-
-                EventsEditor.dispatchEvent(editor, 'image-added', {
-                    description: uploadedFileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
-                    isPasted: true,
-                    mimeType: uploadedFileInfo.mimeType,
-                    size: uploadedFileInfo.size,
-                    uuid: uploadedFileInfo.uuid,
-                });
+                );
+                PlaceholdersManager.register(
+                    PlaceholderNode.Type.IMAGE,
+                    placeholders[i].uuid,
+                    uploading,
+                );
             });
 
             const filteredDataTransfer = withoutImages(dataTransfer);

@@ -51,6 +51,11 @@ export function ImagePlaceholderElement({
 
         images.forEach((filePromise, i) => {
             const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
+                if (!fileInfo.isImage) {
+                    // FIXME: What if it's not an image?
+                    //        It would make sense to re-route this to an Attachment node.
+                }
+
                 const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
                 const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
                 return {
@@ -59,6 +64,7 @@ export function ImagePlaceholderElement({
                         children: [{ text: caption }],
                     }),
                     operation: 'add' as const,
+                    trigger: 'placeholder' as const,
                 };
             });
             PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
@@ -85,7 +91,7 @@ export function ImagePlaceholderElement({
     });
 
     const handleUploadedImage = useFunction(
-        (data: { image: ImageNode; operation: 'add' | 'edit' }) => {
+        (data: { image: ImageNode; operation: 'add' | 'edit'; trigger: string }) => {
             const node = createImage(data.image);
             replacePlaceholder(editor, element, node, { select: isSelected });
 
@@ -96,6 +102,7 @@ export function ImagePlaceholderElement({
                 mimeType: node.file.mime_type,
                 size: node.file.size,
                 uuid: node.file.uuid,
+                trigger: data.trigger,
             });
         },
     );

@@ -5,5 +5,5 @@ export {
 } from './PlaceholdersExtension';
 export { PlaceholderNode } from './PlaceholderNode';
 export { PlaceholdersManager } from './PlaceholdersManager';
-export { createPlaceholder, insertPlaceholder } from './lib';
+export { createPlaceholder, insertPlaceholder, insertPlaceholders } from './lib';
 export type { FetchOEmbedFn } from './types';

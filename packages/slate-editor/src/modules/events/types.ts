@@ -24,6 +24,7 @@ export type EditorEventMap = {
         mimeType: string;
         size: number;
         uuid: string;
+        trigger: string;
     };
     'attachment-edited': {
         description: string;
@@ -65,6 +66,7 @@ export type EditorEventMap = {
         mimeType: string;
         size: number;
         uuid: string;
+        trigger: string;
     };
     'image-edit-clicked': never;
     'image-edited': {
@@ -72,6 +74,7 @@ export type EditorEventMap = {
         mimeType: string;
         size: number;
         uuid: string;
+        trigger: string;
     };
     'image-removed': {
         uuid: string;

@@ -4,12 +4,8 @@ import uploadcare from '@prezly/uploadcare-widget';
 import { noop } from '@technically/lodash';
 import type { Editor } from 'slate';
 
-import { createFileAttachment } from '#extensions/file-attachment';
 import { IMAGE_TYPES } from '#extensions/image';
-import { LoaderContentType } from '#extensions/loader';
-import { EventsEditor } from '#modules/events';
-
-import { insertUploadingFile } from '#modules/editor/lib';
+import { insertPlaceholders, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
 
 interface Parameters {
     onFilesPasted?: (editor: Editor, files: File[]) => void;
@@ -40,33 +36,28 @@ export function withFilesPasting({ onFilesPasted = noop }: Parameters = {}) {
 
             onFilesPasted(editor, files);
 
-            files.forEach(async (file) => {
-                const uploadedFileInfo = await insertUploadingFile<PrezlyFileInfo>(editor, {
-                    createElement: (fileInfo) => {
-                        const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
+            const placeholders = insertPlaceholders(editor, files.length, {
+                type: PlaceholderNode.Type.ATTACHMENT,
+            });
 
-                        const attachment =
-                            UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
-
-                        return createFileAttachment(attachment.toPrezlyStoragePayload(), caption);
+            files.forEach((file, i) => {
+                const filePromise = uploadcare.fileFrom('object', file);
+                const uploading = toProgressPromise(filePromise).then(
+                    (fileInfo: PrezlyFileInfo) => {
+                        const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
+                        const caption = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
+                        return {
+                            file: file.toPrezlyStoragePayload(),
+                            caption,
+                            trigger: 'paste' as const,
+                        };
                     },
-                    filePromise: toProgressPromise(uploadcare.fileFrom('object', file)),
-                    loaderContentType: LoaderContentType.IMAGE,
-                    loaderMessage: 'Uploading Image',
-                    mode: 'insert',
-                });
-
-                if (!uploadedFileInfo) {
-                    return;
-                }
-
-                EventsEditor.dispatchEvent(editor, 'attachment-added', {
-                    description: uploadedFileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
-                    isPasted: true,
-                    mimeType: uploadedFileInfo.mimeType,
-                    size: uploadedFileInfo.size,
-                    uuid: uploadedFileInfo.uuid,
-                });
+                );
+                PlaceholdersManager.register(
+                    PlaceholderNode.Type.ATTACHMENT,
+                    placeholders[i].uuid,
+                    uploading,
+                );
             });
 
             const filteredDataTransfer = withoutFiles(dataTransfer);
