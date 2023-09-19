@@ -2,6 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
 import React from 'react';
 import { Node } from 'slate';
+import { useSlateStatic } from 'slate-react';
 
 import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';
@@ -111,6 +112,8 @@ export function Extensions({
     withVideos,
     withWebBookmarks,
 }: Props) {
+    const editor = useSlateStatic();
+
     if (withPressContacts && withInlineContacts) {
         throw new Error(
             `Using 'withPressContacts' and 'withInlineContacts' at the same time is not supported.`,
@@ -172,7 +175,7 @@ export function Extensions({
             {withAttachments && (
                 <>
                     <PasteFilesExtension
-                        onFilesPasted={(editor, files) => {
+                        onFilesPasted={(files) => {
                             EventsEditor.dispatchEvent(editor, 'files-pasted', {
                                 filesCount: files.length,
                                 isEmpty: EditorCommands.isEmpty(editor),
@@ -180,16 +183,17 @@ export function Extensions({
                         }}
                     />
                     <FileAttachmentExtension
-                        onEdited={(editor, updated) => {
+                        onEdited={(updated) => {
                             // TODO: It seems it would be more useful to only provide the changeset patch in the event payload.
                             EventsEditor.dispatchEvent(editor, 'attachment-edited', {
+                                filename: updated.file.filename,
                                 description: updated.description,
                                 mimeType: updated.file.mime_type,
                                 size: updated.file.size,
                                 uuid: updated.file.uuid,
                             });
                         }}
-                        onRemoved={(editor, attachment) => {
+                        onRemoved={(attachment) => {
                             EventsEditor.dispatchEvent(editor, 'attachment-removed', {
                                 uuid: attachment.file.uuid,
                             });
@@ -203,7 +207,7 @@ export function Extensions({
             {withGalleries && (
                 <GalleriesExtension
                     availableWidth={availableWidth}
-                    onEdited={(editor, gallery, { failedUploads }) => {
+                    onEdited={(gallery, { failedUploads }) => {
                         EventsEditor.dispatchEvent(editor, 'gallery-edited', {
                             imagesCount: gallery.images.length,
                         });
@@ -219,7 +223,7 @@ export function Extensions({
                             });
                         }
                     }}
-                    onShuffled={(editor, updated) => {
+                    onShuffled={(updated) => {
                         EventsEditor.dispatchEvent(editor, 'gallery-images-shuffled', {
                             imagesCount: updated.images.length,
                         });

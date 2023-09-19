@@ -2,7 +2,6 @@ import type { AttachmentNode } from '@prezly/slate-types';
 import { isAttachmentNode } from '@prezly/slate-types';
 import { UploadcareFile } from '@prezly/uploadcare';
 import React, { useCallback } from 'react';
-import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
@@ -14,8 +13,8 @@ import { removeFileAttachment } from '../transforms';
 interface Props {
     element: AttachmentNode;
     onClose: () => void;
-    onEdited: (editor: Editor, updated: AttachmentNode) => void;
-    onRemoved: (editor: Editor, element: AttachmentNode) => void;
+    onEdited: (updated: AttachmentNode, original: AttachmentNode) => void;
+    onRemoved: (element: AttachmentNode) => void;
 }
 
 export function FileAttachmentMenu({ element, onClose, onEdited, onRemoved }: Props) {
@@ -29,7 +28,7 @@ export function FileAttachmentMenu({ element, onClose, onEdited, onRemoved }: Pr
         const removedElement = removeFileAttachment(editor);
 
         if (removedElement) {
-            onRemoved(editor, removedElement);
+            onRemoved(removedElement);
         }
     };
 
@@ -48,7 +47,7 @@ export function FileAttachmentMenu({ element, onClose, onEdited, onRemoved }: Pr
             match: isAttachmentNode,
         });
 
-        onEdited(editor, { ...element, ...update });
+        onEdited({ ...element, ...update }, element);
         onClose();
     };
 

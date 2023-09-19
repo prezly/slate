@@ -13,7 +13,7 @@ import { IMAGE_TYPES } from '#extensions/image';
 import { insertPlaceholders, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
 
 interface Parameters {
-    onFilesPasted?: (editor: Editor, files: File[]) => void;
+    onFilesPasted?: (files: File[]) => void;
 }
 
 export function createDataTransferHandler(
@@ -32,7 +32,7 @@ export function createDataTransferHandler(
             return next(dataTransfer);
         }
 
-        onFilesPasted(editor, files);
+        onFilesPasted(files);
 
         const placeholders = insertPlaceholders(editor, files.length, {
             type: PlaceholderNode.Type.ATTACHMENT,

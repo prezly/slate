@@ -4,7 +4,6 @@ import type { GalleryNode } from '@prezly/slate-types';
 import { GALLERY_NODE_TYPE, isGalleryNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
-import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
@@ -19,14 +18,13 @@ import {
 interface Parameters {
     availableWidth: number;
     onEdited?: (
-        editor: Editor,
         gallery: GalleryNode,
         extra: {
             successfulUploads: number;
             failedUploads: Error[];
         },
     ) => void;
-    onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
+    onShuffled?: (updated: GalleryNode, original: GalleryNode) => void;
     withMediaGalleryTab: false | { enabled: true; newsroom: NewsroomRef };
     withLayoutOptions: boolean | undefined;
 }

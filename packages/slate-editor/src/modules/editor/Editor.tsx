@@ -744,7 +744,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
 
                                     {withAttachments && (
                                         <PasteFilesExtension
-                                            onFilesPasted={(editor, files) => {
+                                            onFilesPasted={(files) => {
                                                 EventsEditor.dispatchEvent(editor, 'files-pasted', {
                                                     filesCount: files.length,
                                                     isEmpty: EditorCommands.isEmpty(editor),
@@ -755,7 +755,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
 
                                     {withImages && (
                                         <PasteImagesExtension
-                                            onImagesPasted={(editor, images) => {
+                                            onImagesPasted={(images) => {
                                                 EventsEditor.dispatchEvent(
                                                     editor,
                                                     'images-pasted',

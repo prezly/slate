@@ -12,7 +12,7 @@ import { createImage, IMAGE_TYPES } from '#extensions/image';
 import { insertPlaceholders, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
 
 export interface Parameters {
-    onImagesPasted: (editor: Editor, images: File[]) => void;
+    onImagesPasted: (images: File[]) => void;
 }
 
 export function createDataTransferHandler(
@@ -31,7 +31,7 @@ export function createDataTransferHandler(
             return next(dataTransfer);
         }
 
-        onImagesPasted(editor, images);
+        onImagesPasted(images);
 
         const placeholders = insertPlaceholders(editor, images.length, {
             type: PlaceholderNode.Type.IMAGE,
