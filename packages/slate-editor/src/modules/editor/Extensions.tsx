@@ -14,8 +14,6 @@ import { DecorateSelectionExtension } from '#extensions/decorate-selection';
 import { DividerExtension } from '#extensions/divider';
 import { EmbedExtension } from '#extensions/embed';
 import { FileAttachmentExtension } from '#extensions/file-attachment';
-import { FlashNodesExtension } from '#extensions/flash-nodes';
-import { FloatingAddMenuExtension } from '#extensions/floating-add-menu';
 import { GalleriesExtension } from '#extensions/galleries';
 import { HeadingExtension } from '#extensions/heading';
 import { HotkeysExtension } from '#extensions/hotkeys';
@@ -59,7 +57,6 @@ import type { EditorProps } from './types';
 type Props = {
     availableWidth: number;
     containerRef: RefObject<HTMLDivElement>;
-    onFloatingAddMenuToggle: (show: boolean, trigger: 'input' | 'hotkey') => void;
 } & Pick<
     Required<EditorProps>,
     | 'withAllowedBlocks'
@@ -71,7 +68,6 @@ type Props = {
     | 'withCustomNormalization'
     | 'withDivider'
     | 'withEmbeds'
-    | 'withFloatingAddMenu'
     | 'withGalleries'
     | 'withHeadings'
     | 'withImages'
@@ -94,7 +90,6 @@ type Props = {
 export function Extensions({
     availableWidth,
     containerRef,
-    onFloatingAddMenuToggle,
     withAllowedBlocks,
     withAttachments,
     withAutoformat,
@@ -104,7 +99,6 @@ export function Extensions({
     withCustomNormalization,
     withDivider,
     withEmbeds,
-    withFloatingAddMenu,
     withGalleries,
     withHeadings,
     withImages,
@@ -160,12 +154,6 @@ export function Extensions({
             )}
 
             {withDivider && <DividerExtension />}
-
-            {withFloatingAddMenu && (
-                <FloatingAddMenuExtension
-                    onOpen={(trigger) => onFloatingAddMenuToggle(true, trigger)}
-                />
-            )}
 
             {withHeadings && <HeadingExtension />}
 

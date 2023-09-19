@@ -14,15 +14,7 @@ import {
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import classNames from 'classnames';
-import React, {
-    forwardRef,
-    useCallback,
-    useEffect,
-    useImperativeHandle,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import type { Element } from 'slate';
 import { Transforms } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
@@ -31,15 +23,15 @@ import { useFunction, useGetSet, useSize } from '#lib';
 
 import { insertButtonBlock } from '#extensions/button-block';
 import { FlashNodesExtension } from '#extensions/flash-nodes';
-import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
+import { FloatingAddMenuExtension, type Option } from '#extensions/floating-add-menu';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
+import { RichFormattingMenuExtension, toggleBlock } from '#extensions/rich-formatting-menu';
 import { Placeholder } from '#modules/components';
 import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
 import { EventsEditor } from '#modules/events';
 import { PopperOptionsContext } from '#modules/popper-options-context';
-import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
 import { Extensions } from './Extensions';
@@ -121,18 +113,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     // const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
 
     // [+] menu
-    const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
-    const onFloatingAddMenuToggle = useCallback(
-        function (shouldOpen: boolean, trigger: 'click' | 'hotkey' | 'input') {
-            setFloatingAddMenuOpen(shouldOpen);
-            if (shouldOpen) {
-                EventsEditor.dispatchEvent(editor, 'add-button-menu-opened', { trigger });
-            } else {
-                EventsEditor.dispatchEvent(editor, 'add-button-menu-closed');
-            }
-        },
-        [setFloatingAddMenuOpen],
-    );
 
     const editor = useCreateEditor({
         events,
@@ -696,7 +676,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     const hasCustomPlaceholder =
-        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
+        withFloatingAddMenu && ReactEditor.isFocused(editor); /*|| isFloatingAddMenuOpen*/ // FIXME: Commented isFloatingAddMenuOpen
 
     const onChange = useOnChange((value) => {
         props.onChange(editor.serialize(value) as Value);
@@ -747,7 +727,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     <Extensions
                                         availableWidth={availableWidth}
                                         containerRef={containerRef}
-                                        onFloatingAddMenuToggle={onFloatingAddMenuToggle}
                                         withAllowedBlocks={withAllowedBlocks}
                                         withAttachments={withAttachments}
                                         withAutoformat={withAutoformat}
@@ -757,7 +736,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         withCustomNormalization={withCustomNormalization}
                                         withDivider={withDivider}
                                         withEmbeds={withEmbeds}
-                                        withFloatingAddMenu={withFloatingAddMenu}
                                         withGalleries={withGalleries}
                                         withHeadings={withHeadings}
                                         withImages={withImages}
@@ -786,27 +764,23 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     )}
 
                                     {withFloatingAddMenu && (
-                                        <FloatingAddMenu
+                                        <FloatingAddMenuExtension<MenuAction>
                                             tooltip={
                                                 typeof withFloatingAddMenu === 'object'
                                                     ? withFloatingAddMenu.tooltip
                                                     : undefined
                                             }
-                                            open={isFloatingAddMenuOpen}
                                             availableWidth={availableWidth}
                                             containerRef={containerRef}
                                             onActivate={handleMenuAction}
                                             onFilter={handleMenuFilter}
-                                            onToggle={(toggle) =>
-                                                onFloatingAddMenuToggle(toggle, 'click')
-                                            }
                                             options={menuOptions}
                                             showTooltipByDefault={EditorCommands.isEmpty(editor)}
                                         />
                                     )}
 
                                     {withRichFormattingMenu && (
-                                        <RichFormattingMenu
+                                        <RichFormattingMenuExtension
                                             availableWidth={availableWidth}
                                             containerElement={containerRef.current}
                                             defaultAlignment={align}

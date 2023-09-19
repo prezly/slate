@@ -14,7 +14,6 @@ import { decorateSelectionFactory } from '#extensions/decorate-selection';
 import { unwrapLink, wrapInLink } from '#extensions/inline-links';
 import { MarkType } from '#extensions/text-styling';
 import { useDecorationFactory } from '#modules/decorations';
-import { toggleBlock } from '#modules/rich-formatting-menu';
 
 import { Toolbar } from './components';
 import {
@@ -22,13 +21,14 @@ import {
     getCurrentFormatting,
     isSelectionSupported,
     keepToolbarInTextColumn,
+    toggleBlock,
     useRangeRef,
 } from './lib';
 import { LinkMenu } from './LinkMenu';
 import styles from './RichFormattingMenu.module.scss';
 import type { FetchOEmbedFn, Formatting, Presentation } from './types';
 
-interface Props {
+export interface Props {
     availableWidth: number;
     containerElement: HTMLElement | null;
     defaultAlignment: Alignment;

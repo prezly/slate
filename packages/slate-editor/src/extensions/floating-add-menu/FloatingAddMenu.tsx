@@ -7,7 +7,7 @@ import {
 } from '@prezly/slate-types';
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
-import type { KeyboardEvent, RefObject } from 'react';
+import type { KeyboardEvent, RefObject, ReactNode } from 'react';
 import React, { useEffect, useState } from 'react';
 import type { Modifier } from 'react-popper';
 import { Node, Transforms } from 'slate';
@@ -29,9 +29,9 @@ import {
     useKeyboardFiltering,
     useMenuToggle,
 } from './lib';
-import type { Option, ExtensionConfiguration } from './types';
+import type { Option } from './types';
 
-interface Props<Action> extends ExtensionConfiguration {
+export interface Props<Action> {
     availableWidth: number;
     containerRef: RefObject<HTMLElement>;
     open: boolean;
@@ -40,6 +40,11 @@ interface Props<Action> extends ExtensionConfiguration {
     onFilter?: (query: string, resultsCount: number) => void;
     onToggle: (isShown: boolean) => void;
     showTooltipByDefault: boolean;
+    tooltip?: {
+        placement: 'top' | 'right' | 'bottom' | 'left';
+        content: ReactNode;
+    };
+    withSpecificProviderOptions?: boolean;
 }
 
 const TOOLTIP_FLIP_MODIFIER: Modifier<'flip'> = {
