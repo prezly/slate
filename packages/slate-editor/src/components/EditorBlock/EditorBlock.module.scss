@@ -45,6 +45,11 @@ $editor-block-outline-width: 6px;
     &.selected {
         border-radius: 0;
     }
+
+    &.loading {
+        // TODO: Add animation
+        opacity: 0.5;
+    }
 }
 
 .Frame {

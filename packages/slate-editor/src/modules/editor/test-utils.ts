@@ -45,7 +45,7 @@ export function getAllExtensions() {
             withGalleries: {},
             withHeadings: true,
             withImages: {
-                captions: true,
+                withCaptions: true,
                 withLayoutOptions: true,
             },
             withInlineContacts: false, // conflicts with withPressContacts

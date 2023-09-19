@@ -2,15 +2,15 @@ import type { NewsroomRef } from '@prezly/sdk';
 import type { GalleryNode } from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
-import React from 'react';
+import React, { useState } from 'react';
 import type { Editor } from 'slate';
+import { Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSlateStatic } from 'slate-react';
 
 import { EditorBlock } from '#components';
-import { useSize } from '#lib';
+import { useLatest, useSize } from '#lib';
 
-import { insertPlaceholder, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
 import type { MediaGalleryOptions } from '#modules/uploadcare';
 import { UploadcareEditor } from '#modules/uploadcare';
 
@@ -23,6 +23,7 @@ import { GalleryMenu } from './GalleryMenu';
 interface Props extends RenderElementProps {
     availableWidth: number;
     element: GalleryNode;
+    onEdit?: (editor: Editor, gallery: GalleryNode) => void;
     onEdited?: (
         editor: Editor,
         gallery: GalleryNode,
@@ -41,6 +42,7 @@ export function GalleryElement({
     attributes,
     children,
     element,
+    onEdit = noop,
     onEdited = noop,
     onShuffled = noop,
     withMediaGalleryTab,
@@ -48,53 +50,66 @@ export function GalleryElement({
 }: Props) {
     const editor = useSlateStatic();
     const [sizer, size] = useSize(Sizer, { width: availableWidth });
+    const [isUploading, setUploading] = useState(false);
+    const callbacks = useLatest({ onEdit, onEdited, onShuffled });
 
     async function handleEdit() {
+        callbacks.current.onEdit(editor, element);
+
         const files = element.images.map(({ caption, file }) => {
             const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
             uploadcareImage[UPLOADCARE_FILE_DATA_KEY] = { caption };
             return uploadcareImage;
         });
 
-        const filePromises = await UploadcareEditor.upload(editor, {
-            ...getMediaGalleryParameters(withMediaGalleryTab),
-            captions: true,
-            files,
-            imagesOnly: true,
-            multiple: true,
-        });
+        async function upload() {
+            const filePromises = await UploadcareEditor.upload(editor, {
+                ...getMediaGalleryParameters(withMediaGalleryTab),
+                captions: true,
+                files,
+                imagesOnly: true,
+                multiple: true,
+            });
 
-        if (!filePromises) {
-            return;
+            if (!filePromises) {
+                return undefined;
+            }
+
+            return awaitUploads(filePromises);
         }
 
-        const placeholder = insertPlaceholder(editor, {
-            type: PlaceholderNode.Type.GALLERY,
-        });
+        setUploading(true);
 
-        const uploading = awaitUploads(filePromises).then(
-            ({ failedUploads, successfulUploads }) => {
-                onEdited(editor, element, {
-                    successfulUploads: successfulUploads.length,
-                    failedUploads,
-                });
+        try {
+            const result = await upload();
 
-                const images = successfulUploads.map((fileInfo) => {
-                    const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-                    return {
-                        caption: fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
-                        file: image.toPrezlyStoragePayload(),
-                    };
-                });
+            if (!result) {
+                return;
+            }
 
+            const { successfulUploads, failedUploads } = result;
+
+            const images = successfulUploads.map((fileInfo) => {
+                const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
                 return {
-                    gallery: { ...element, images },
-                    operation: 'edit' as const,
+                    caption: fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
+                    file: image.toPrezlyStoragePayload(),
                 };
-            },
-        );
+            });
 
-        PlaceholdersManager.register(PlaceholderNode.Type.GALLERY, placeholder.uuid, uploading);
+            Transforms.setNodes<GalleryNode>(
+                editor,
+                { images },
+                { match: (node) => node === element },
+            );
+
+            callbacks.current.onEdited(editor, element, {
+                successfulUploads: successfulUploads.length,
+                failedUploads,
+            });
+        } finally {
+            setUploading(false);
+        }
     }
 
     function handleShuffle() {
@@ -104,7 +119,7 @@ export function GalleryElement({
 
         updateGallery(editor, update);
 
-        onShuffled(editor, element, { ...element, ...update });
+        callbacks.current.onShuffled(editor, element, { ...element, ...update });
     }
 
     return (
@@ -112,6 +127,7 @@ export function GalleryElement({
             {...attributes}
             element={element}
             layout={withLayoutOptions ? element.layout : undefined}
+            loading={isUploading}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderReadOnlyFrame={() => (

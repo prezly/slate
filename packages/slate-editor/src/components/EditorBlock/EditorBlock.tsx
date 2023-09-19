@@ -52,6 +52,7 @@ export interface Props
      */
     hasError?: boolean;
     layout?: `${Layout}`;
+    loading?: boolean;
     menuPlacement?: PopperOptionsContextType['placement'];
     overflow?: 'visible' | 'hidden';
     overlay?: OverlayMode;
@@ -75,6 +76,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         extendedHitArea,
         hasError,
         layout = 'contained',
+        loading = false,
         overflow = 'hidden',
         overlay = false,
         menuPlacement,
@@ -160,6 +162,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 [styles.rounded]: rounded,
                 [styles.hasError]: hasError,
                 [styles.selected]: selected,
+                [styles.loading]: loading,
             })}
             data-slate-block-layout={layout}
             onClick={closeMenu}
