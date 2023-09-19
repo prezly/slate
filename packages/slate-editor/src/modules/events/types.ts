@@ -51,7 +51,6 @@ export type EditorEventMap = {
     error: unknown;
     'files-pasted': {
         filesCount: number;
-        imagesCount: number;
         isEmpty: boolean;
     };
     'gallery-edited': {
@@ -76,6 +75,10 @@ export type EditorEventMap = {
     };
     'image-removed': {
         uuid: string;
+    };
+    'images-pasted': {
+        imagesCount: number;
+        isEmpty: boolean;
     };
     notification:
         | {

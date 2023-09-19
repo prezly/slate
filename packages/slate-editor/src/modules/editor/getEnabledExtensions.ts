@@ -26,6 +26,8 @@ import { InsertBlockHotkeyExtension } from '#extensions/insert-block-hotkey';
 import { ListExtension } from '#extensions/list';
 import { LoaderExtension } from '#extensions/loader';
 import { createParagraph, ParagraphsExtension } from '#extensions/paragraphs';
+import { PasteFilesExtension } from '#extensions/paste-files';
+import { PasteImagesExtension } from '#extensions/paste-images';
 import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import type { PlaceholdersExtensionParameters } from '#extensions/placeholders';
 import { PlaceholdersExtension } from '#extensions/placeholders';
@@ -42,8 +44,7 @@ import { VideoExtension } from '#extensions/video';
 import { VoidExtension } from '#extensions/void';
 import { WebBookmarkExtension } from '#extensions/web-bookmark';
 import { EventsEditor } from '#modules/events';
-
-import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '../uploadcare';
+import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '#modules/uploadcare';
 
 import {
     BLOCKQUOTE_RULES,
@@ -205,6 +206,8 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     }
 
     if (withAttachments) {
+        yield PasteFilesExtension();
+
         yield FileAttachmentExtension({
             onEdited(editor, updated) {
                 // TODO: It seems it would be more useful to only provide the changeset patch in the event payload.
@@ -257,6 +260,8 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     }
 
     if (withImages) {
+        yield PasteImagesExtension({ fallbackAttachments: withAttachments });
+
         // ImageExtension has to be after RichFormattingExtension due to the fact
         // that it also deserializes <a> elements (ImageExtension is more specific).
         yield ImageExtension({

@@ -15,7 +15,7 @@ import { EventsEditor } from '#modules/events';
 import { UPLOAD_SINGLE_FILE_ERROR_MESSAGE } from '#modules/uploadcare';
 
 interface Parameters<T> {
-    createElement: (file: T) => Element;
+    createElement: (file: T) => Element | null;
     filePromise: ProgressPromise<T, any>;
     loaderContentType: LoaderContentType;
     loaderMessage: string;
@@ -81,7 +81,12 @@ export async function insertUploadingFile<T>(
     }
 
     const element = createElement(file);
-    replaceLoader(editor, loader, element, mode === 'replace');
+
+    if (element) {
+        replaceLoader(editor, loader, element, mode === 'replace');
+    } else {
+        removeLoader(editor, loaderPath);
+    }
 
     return file;
 }
