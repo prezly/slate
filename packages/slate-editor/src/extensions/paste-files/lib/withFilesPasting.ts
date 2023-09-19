@@ -4,6 +4,8 @@ import uploadcare from '@prezly/uploadcare-widget';
 import { noop } from '@technically/lodash';
 import type { Editor } from 'slate';
 
+import { filterDataTransferFiles } from '#lib';
+
 import { IMAGE_TYPES } from '#extensions/image';
 import { insertPlaceholders, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
 
@@ -26,9 +28,7 @@ export function withFilesPasting({ onFilesPasted = noop }: Parameters = {}) {
                 return parent.insertData(dataTransfer);
             }
 
-            const files = Array.from(dataTransfer.files).filter(
-                (file) => !IMAGE_TYPES.includes(file.type),
-            );
+            const files = Array.from(dataTransfer.files).filter(isAttachmentFile);
 
             if (files.length === 0) {
                 parent.insertData(dataTransfer);
@@ -71,7 +71,10 @@ export function withFilesPasting({ onFilesPasted = noop }: Parameters = {}) {
     };
 }
 
+function isAttachmentFile(file: File) {
+    return !IMAGE_TYPES.includes(file.type);
+}
+
 function withoutFiles(dataTransfer: DataTransfer): DataTransfer {
-    // FIXME: Filter out non-image files
-    return dataTransfer;
+    return filterDataTransferFiles(dataTransfer, (file) => !isAttachmentFile(file));
 }
