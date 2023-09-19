@@ -11,6 +11,8 @@ import {
     HEADING_2_NODE_TYPE,
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
+    isQuoteNode,
+    isImageNode,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import classNames from 'classnames';
@@ -24,6 +26,7 @@ import { useFunction, useGetSet, useSize } from '#lib';
 import { insertButtonBlock } from '#extensions/button-block';
 import { FlashNodesExtension } from '#extensions/flash-nodes';
 import { FloatingAddMenuExtension, type Option } from '#extensions/floating-add-menu';
+import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import { PasteTrackingExtension } from '#extensions/paste-tracking';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import { RichFormattingMenuExtension, toggleBlock } from '#extensions/rich-formatting-menu';
@@ -736,9 +739,19 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         }}
                                     />
 
+                                    <PasteSlateContentExtension
+                                        isPreservedBlock={(node) => {
+                                            if (withBlockquotes && isQuoteNode(node)) {
+                                                return true;
+                                            } else if (withImages && isImageNode(node)) {
+                                                return true;
+                                            }
+                                            return false;
+                                        }}
+                                    />
+
                                     <Extensions
                                         availableWidth={availableWidth}
-                                        containerRef={containerRef}
                                         withAllowedBlocks={withAllowedBlocks}
                                         withAttachments={withAttachments}
                                         withAutoformat={withAutoformat}

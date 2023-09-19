@@ -1,6 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
-import type { RefObject } from 'react';
 import React from 'react';
 import { Node } from 'slate';
 
@@ -55,7 +54,6 @@ import type { EditorProps } from './types';
 
 type Props = {
     availableWidth: number;
-    containerRef: RefObject<HTMLDivElement>;
 } & Pick<
     Required<EditorProps>,
     | 'withAllowedBlocks'
@@ -87,7 +85,6 @@ type Props = {
 
 export function Extensions({
     availableWidth,
-    containerRef,
     withAllowedBlocks,
     withAttachments,
     withAutoformat,
