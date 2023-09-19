@@ -1,14 +1,12 @@
-import { EditorCommands } from '@prezly/slate-commons';
+import { type DataTransferHandler, EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
 import { Editor, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { convertToHtml, encodeSlateFragment } from '#lib';
 
-export function withImages<T extends Editor>(editor: T): T {
-    const { setFragmentData } = editor;
-
-    editor.setFragmentData = (data): void => {
+export function createFragmentDataSetter(editor: Editor): DataTransferHandler {
+    return (dataTransfer, next) => {
         if (editor.selection && Range.isCollapsed(editor.selection)) {
             const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
@@ -22,17 +20,16 @@ export function withImages<T extends Editor>(editor: T): T {
                 const domRange = ReactEditor.toDOMRange(editor, editor.selection);
                 const contents = domRange.cloneContents();
                 const encodedFragment = encodeSlateFragment(editor.getFragment());
-                data.setData('application/x-slate-fragment', encodedFragment);
-                data.setData('text/html', convertToHtml(contents));
+
+                dataTransfer.setData('application/x-slate-fragment', encodedFragment);
+                dataTransfer.setData('text/html', convertToHtml(contents));
                 if (contents.textContent) {
-                    data.setData('text/plain', contents.textContent);
+                    dataTransfer.setData('text/plain', contents.textContent);
                 }
                 return;
             }
         }
 
-        setFragmentData(data);
+        next(dataTransfer);
     };
-
-    return editor;
 }

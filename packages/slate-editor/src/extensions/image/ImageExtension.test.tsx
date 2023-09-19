@@ -20,7 +20,7 @@ const file: UploadedFile = {
 
 const getExtensions = () => [
     ImageExtension({
-        captions: true,
+        withCaptions: true,
         withLayoutOptions: true,
     }),
 ];
@@ -31,7 +31,7 @@ const createEditor = (editor: JSX.Element): Editor => {
     return withExtensions(withImages(withReact(editor as unknown as Editor)));
 };
 
-describe('withImages - normalizeChildren', () => {
+describe('ImageExtension - normalizeChildren', () => {
     it('unwraps deeply nested text objects', () => {
         const editor = createEditor(
             <editor>

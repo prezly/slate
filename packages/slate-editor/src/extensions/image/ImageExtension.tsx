@@ -9,10 +9,11 @@ import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
 import { isEqual, noop } from '@technically/lodash';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { Editor } from 'slate';
 import { Path, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 
 import { isDeletingEvent, isDeletingEventBackward } from '#lib';
 
@@ -22,6 +23,7 @@ import { composeElementDeserializer } from '#modules/html-deserialization';
 
 import { ImageElement } from './components';
 import {
+    createFragmentDataSetter,
     createImage,
     getAncestorAnchor,
     normalizeRedundantImageAttributes,
@@ -29,7 +31,6 @@ import {
     toFilePromise,
 } from './lib';
 import type { ImageExtensionConfiguration } from './types';
-import { withImages } from './withImages';
 
 const HOLDING_BACKSPACE_THRESHOLD = 100;
 
@@ -58,6 +59,9 @@ export function ImageExtension({
     withNewTabOption = true,
     withSizeOptions = false,
 }: Parameters) {
+    const editor = useSlateStatic();
+    const setFragmentData = useMemo(() => createFragmentDataSetter(editor), []);
+
     return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
@@ -212,7 +216,7 @@ export function ImageExtension({
 
             return undefined;
         },
-        withOverrides: withImages,
+        setFragmentData,
     });
 }
 
