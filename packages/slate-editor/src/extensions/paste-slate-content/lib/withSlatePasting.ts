@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Node } from 'slate';
 import { Editor, Transforms } from 'slate';
 
-import { createDataTransfer, decodeSlateFragment } from '#lib';
+import { decodeSlateFragment, filterDataTransferItems } from '#lib';
 
 import type { Fragment as SlateFragment } from './isFragment';
 import { isFragment as isValidFragment } from './isFragment';
@@ -43,10 +43,11 @@ export function withSlatePasting(isPreservedBlock: IsPreservedBlock) {
     };
 }
 
-function withoutSlateFragmentData(data: DataTransfer): DataTransfer {
-    const types = data.types.filter((type) => type !== 'application/x-slate-fragment');
-    const dataMap = Object.fromEntries(types.map((type) => [type, data.getData(type)]));
-    return createDataTransfer(dataMap);
+function withoutSlateFragmentData(dataTransfer: DataTransfer): DataTransfer {
+    return filterDataTransferItems(
+        dataTransfer,
+        (item) => item.type !== 'application/x-slate-fragment',
+    );
 }
 
 function handlePastingIntoPreservedBlock(

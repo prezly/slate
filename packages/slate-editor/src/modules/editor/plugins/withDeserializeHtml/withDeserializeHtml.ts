@@ -6,8 +6,6 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Editor, Node } from 'slate';
 import { Element } from 'slate';
 
-import { createDataTransfer } from '#lib';
-
 import { EventsEditor } from '#modules/events';
 
 import { deserializeHtml } from './deserializeHtml';
@@ -21,16 +19,7 @@ function tryCleanDocx(html: string, rtf: string, onError: (error: unknown) => vo
     }
 }
 
-export function withDeserializeHtml(
-    getExtensions: () => Extension[],
-    /**
-     * This is useful when debugging with https://github.com/prezly/slate-pasting-events-data
-     * Just go to where "withDeserializeHtml" is called and pass an extra argument to it
-     * with the data acquired via slate-pasting-events-data tool and voilà - all your paste
-     * events will use that fake data now. Happy debugging!
-     */
-    debugDataOverride?: Parameters<typeof createDataTransfer>[0],
-) {
+export function withDeserializeHtml(getExtensions: () => Extension[]) {
     return function <T extends Editor>(editor: T) {
         const { insertData } = editor;
 
@@ -38,8 +27,7 @@ export function withDeserializeHtml(
             return EventsEditor.dispatchEvent(editor, 'error', error);
         }
 
-        editor.insertData = function (dataTransfer) {
-            const data = debugDataOverride ? createDataTransfer(debugDataOverride) : dataTransfer;
+        editor.insertData = function (data) {
             const slateFragment = data.getData('application/x-slate-fragment');
 
             EventsEditor.dispatchEvent(editor, 'paste', {
