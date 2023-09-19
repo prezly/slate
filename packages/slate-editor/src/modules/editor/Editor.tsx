@@ -3,16 +3,16 @@ import { Events } from '@prezly/events';
 import { EditorCommands, ExtensionsManager } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import {
-    type HeadingNode,
-    type ParagraphNode,
-    type QuoteNode,
     Alignment,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
-    PARAGRAPH_NODE_TYPE,
-    QUOTE_NODE_TYPE,
-    isQuoteNode,
+    type HeadingNode,
     isImageNode,
+    isQuoteNode,
+    PARAGRAPH_NODE_TYPE,
+    type ParagraphNode,
+    QUOTE_NODE_TYPE,
+    type QuoteNode,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import classNames from 'classnames';
@@ -26,6 +26,7 @@ import { useFunction, useGetSet, useSize } from '#lib';
 import { insertButtonBlock } from '#extensions/button-block';
 import { FlashNodesExtension } from '#extensions/flash-nodes';
 import { FloatingAddMenuExtension, type Option } from '#extensions/floating-add-menu';
+import { PasteHtmlContentExtension } from '#extensions/paste-html-content';
 import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import { PasteTrackingExtension } from '#extensions/paste-tracking';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
@@ -749,6 +750,8 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                             return false;
                                         }}
                                     />
+
+                                    <PasteHtmlContentExtension />
 
                                     <Extensions
                                         availableWidth={availableWidth}

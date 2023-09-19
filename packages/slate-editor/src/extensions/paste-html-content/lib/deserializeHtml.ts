@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import type { Descendant } from 'slate';
 
-import { createDeserializer } from '../createDeserialize';
+import { createDeserializer } from './createDeserialize';
 import {
     normalizeGoogleDocsAppleNewlines,
     normalizeGoogleDocsDividers,
@@ -10,7 +10,7 @@ import {
     normalizeSlackLineBreaks,
     normalizeUselessBodyTags,
     normalizeZeroWidthSpaces,
-} from '../normalizers';
+} from './normalizers';
 
 const normalizers = [
     normalizeGoogleDocsAppleNewlines,
@@ -34,6 +34,5 @@ export function deserializeHtml(
         document,
     );
     const deserialize = createDeserializer(extensions, onError);
-    const nodes = deserialize(normalizedDocument.body);
-    return nodes;
+    return deserialize(normalizedDocument.body);
 }

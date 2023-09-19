@@ -14,7 +14,7 @@ import { withReact } from 'slate-react';
 import { createParagraph } from '#extensions/paragraphs';
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
-import { withDefaultTextBlock, withDeserializeHtml } from './plugins';
+import { withDefaultTextBlock } from './plugins';
 
 export function createEditor(
     baseEditor: Editor,
@@ -33,7 +33,6 @@ export function createEditor(
         withBreaksOnVoidNodes,
         withDefaultTextBlock(createParagraph),
         withUserFriendlyDeleteBehavior,
-        withDeserializeHtml(getExtensions),
         ...overrides,
         ...plugins,
     ])(baseEditor);
