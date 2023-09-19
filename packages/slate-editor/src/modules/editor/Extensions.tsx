@@ -1,5 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
+import type { RefObject } from 'react';
 import React from 'react';
 import { Node } from 'slate';
 
@@ -57,6 +58,7 @@ import type { EditorProps } from './types';
 
 type Props = {
     availableWidth: number;
+    containerRef: RefObject<HTMLDivElement>;
     onFloatingAddMenuToggle: (show: boolean, trigger: 'input' | 'hotkey') => void;
 } & Pick<
     Required<EditorProps>,
@@ -91,6 +93,7 @@ type Props = {
 
 export function Extensions({
     availableWidth,
+    containerRef,
     onFloatingAddMenuToggle,
     withAllowedBlocks,
     withAttachments,
@@ -342,7 +345,13 @@ export function Extensions({
                 withWebBookmarkPlaceholders={withWebBookmarks}
             />
 
-            {withSnippets && <SnippetsExtension />}
+            {withSnippets && (
+                <SnippetsExtension
+                    {...withSnippets}
+                    availableWidth={availableWidth}
+                    containerRef={containerRef}
+                />
+            )}
 
             {withStoryEmbeds && <StoryEmbedExtension {...withStoryEmbeds} />}
 

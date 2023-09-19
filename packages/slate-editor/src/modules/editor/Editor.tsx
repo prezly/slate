@@ -33,8 +33,7 @@ import { insertButtonBlock } from '#extensions/button-block';
 import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
-import { useFloatingSnippetInput } from '#extensions/snippet';
-import { FloatingSnippetInput, Placeholder } from '#modules/components';
+import { Placeholder } from '#modules/components';
 import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
@@ -244,16 +243,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             },
         }),
     );
-
-    const [
-        { isOpen: isFloatingSnippetInputOpen },
-        {
-            close: closeFloatingSnippetInput,
-            open: openFloatingSnippetInput,
-            rootClose: rootCloseFloatingSnippetInput,
-            submit: submitFloatingSnippetInput,
-        },
-    ] = useFloatingSnippetInput(editor);
 
     const withSpecificProviderOptions =
         typeof withFloatingAddMenu === 'object'
@@ -620,7 +609,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return;
         }
         if (action === MenuAction.ADD_SNIPPET) {
-            return openFloatingSnippetInput();
+            return openFloatingSnippetInput(); // FIXME: Find a way to trigger snippet input
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             const placeholder = insertPlaceholder(
@@ -759,6 +748,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
 
                                     <Extensions
                                         availableWidth={availableWidth}
+                                        containerRef={containerRef}
                                         onFloatingAddMenuToggle={onFloatingAddMenuToggle}
                                         withAllowedBlocks={withAllowedBlocks}
                                         withAttachments={withAttachments}
@@ -838,20 +828,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                                     : false,
                                             )}
                                             withParagraphs
-                                        />
-                                    )}
-
-                                    {withSnippets && isFloatingSnippetInputOpen && (
-                                        <FloatingSnippetInput
-                                            availableWidth={availableWidth}
-                                            containerRef={containerRef}
-                                            onClose={closeFloatingSnippetInput}
-                                            onRootClose={rootCloseFloatingSnippetInput}
-                                            renderInput={() =>
-                                                withSnippets.renderInput({
-                                                    onCreate: submitFloatingSnippetInput,
-                                                })
-                                            }
                                         />
                                     )}
                                 </>

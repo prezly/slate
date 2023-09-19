@@ -19,7 +19,7 @@ import type {
     PlaceholderNode,
     PlaceholdersExtensionParameters,
 } from '#extensions/placeholders';
-import type { SnippetsExtensionParameters } from '#extensions/snippet';
+import type { SnippetsExtensionConfiguration } from '#extensions/snippet';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
 import type { UserMentionsExtensionParameters } from '#extensions/user-mentions';
@@ -140,7 +140,7 @@ export interface EditorProps {
         | false
         | (StoryEmbedExtensionParameters &
               PlaceholdersExtensionParameters['withStoryEmbedPlaceholders']);
-    withSnippets?: false | SnippetsExtensionParameters;
+    withSnippets?: false | SnippetsExtensionConfiguration;
     withTables?: boolean;
     withTextStyling?: boolean;
     withUserMentions?: false | UserMentionsExtensionParameters;
