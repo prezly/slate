@@ -29,7 +29,6 @@ import { PasteImagesExtension } from '#extensions/paste-images';
 import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import { PlaceholdersExtension } from '#extensions/placeholders';
 import { PressContactsExtension } from '#extensions/press-contacts';
-import { SnippetsExtension } from '#extensions/snippet';
 import { SoftBreakExtension } from '#extensions/soft-break';
 import { StoryBookmarkExtension } from '#extensions/story-bookmark';
 import { StoryEmbedExtension } from '#extensions/story-embed';
@@ -84,7 +83,6 @@ type Props = {
     | 'withWebBookmarks'
     | 'withStoryEmbeds'
     | 'withStoryBookmarks'
-    | 'withSnippets'
 >;
 
 export function Extensions({
@@ -107,7 +105,6 @@ export function Extensions({
     withLists,
     withPlaceholders,
     withPressContacts,
-    withSnippets,
     withStoryBookmarks,
     withStoryEmbeds,
     withTables,
@@ -330,14 +327,6 @@ export function Extensions({
                 withVideoPlaceholders={withVideos}
                 withWebBookmarkPlaceholders={withWebBookmarks}
             />
-
-            {withSnippets && (
-                <SnippetsExtension
-                    {...withSnippets}
-                    availableWidth={availableWidth}
-                    containerRef={containerRef}
-                />
-            )}
 
             {withStoryEmbeds && <StoryEmbedExtension {...withStoryEmbeds} />}
 

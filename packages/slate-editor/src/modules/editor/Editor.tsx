@@ -26,6 +26,7 @@ import { FlashNodesExtension } from '#extensions/flash-nodes';
 import { FloatingAddMenuExtension, type Option } from '#extensions/floating-add-menu';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
 import { RichFormattingMenuExtension, toggleBlock } from '#extensions/rich-formatting-menu';
+import { SnippetsExtension } from '#extensions/snippet';
 import { Placeholder } from '#modules/components';
 import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
@@ -223,6 +224,8 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             },
         }),
     );
+
+    const snippetsExtension = useRef<SnippetsExtension.Ref>();
 
     const withSpecificProviderOptions =
         typeof withFloatingAddMenu === 'object'
@@ -589,7 +592,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return;
         }
         if (action === MenuAction.ADD_SNIPPET) {
-            // return openFloatingSnippetInput(); // FIXME: Find a way to trigger snippet input
+            snippetsExtension.current?.open();
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             const placeholder = insertPlaceholder(
@@ -744,7 +747,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         withLists={withLists}
                                         withPlaceholders={withPlaceholders}
                                         withPressContacts={withPressContacts}
-                                        withSnippets={withSnippets}
                                         withStoryBookmarks={withStoryBookmarks}
                                         withStoryEmbeds={withStoryEmbeds}
                                         withTables={withTables}
@@ -761,6 +763,15 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         <Placeholder className="editor-placeholder">
                                             {placeholder}
                                         </Placeholder>
+                                    )}
+
+                                    {withSnippets && (
+                                        <SnippetsExtension
+                                            {...withSnippets}
+                                            ref={snippetsExtension}
+                                            availableWidth={availableWidth}
+                                            containerRef={containerRef}
+                                        />
                                     )}
 
                                     {withFloatingAddMenu && (
