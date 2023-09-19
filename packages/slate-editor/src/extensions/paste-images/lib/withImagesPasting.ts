@@ -1,4 +1,3 @@
-import { EditorCommands } from '@prezly/slate-commons';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import {
     toProgressPromise,
@@ -7,6 +6,7 @@ import {
     UploadcareImage,
 } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
+import { noop } from '@technically/lodash';
 import type { Editor } from 'slate';
 
 import { createFileAttachment } from '#extensions/file-attachment';
@@ -22,9 +22,13 @@ interface Parameters {
      * is reported as a raw file upload by Uploadcare.
      */
     fallbackAttachments?: boolean;
+    onImagesPasted?: (editor: Editor, images: File[]) => void;
 }
 
-export function withImagesPasting({ fallbackAttachments = false }: Parameters = {}) {
+export function withImagesPasting({
+    fallbackAttachments = false,
+    onImagesPasted = noop,
+}: Parameters = {}) {
     return <T extends Editor>(editor: T): T => {
         const parent = {
             insertData: editor.insertData,
@@ -47,10 +51,7 @@ export function withImagesPasting({ fallbackAttachments = false }: Parameters = 
                 parent.insertData(dataTransfer);
             }
 
-            EventsEditor.dispatchEvent(editor, 'images-pasted', {
-                imagesCount: images.length,
-                isEmpty: EditorCommands.isEmpty(editor),
-            });
+            onImagesPasted(editor, images);
 
             images.forEach(async (file) => {
                 const uploadedFileInfo = await insertUploadingFile<PrezlyFileInfo>(editor, {

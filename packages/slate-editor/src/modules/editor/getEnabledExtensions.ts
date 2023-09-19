@@ -1,4 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
+import { EditorCommands, type Extension } from '@prezly/slate-commons';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import { Node } from 'slate';
@@ -206,7 +206,14 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     }
 
     if (withAttachments) {
-        yield PasteFilesExtension();
+        yield PasteFilesExtension({
+            onFilesPasted: (editor, files) => {
+                EventsEditor.dispatchEvent(editor, 'files-pasted', {
+                    filesCount: files.length,
+                    isEmpty: EditorCommands.isEmpty(editor),
+                });
+            },
+        });
 
         yield FileAttachmentExtension({
             onEdited(editor, updated) {
@@ -260,7 +267,15 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     }
 
     if (withImages) {
-        yield PasteImagesExtension({ fallbackAttachments: withAttachments });
+        yield PasteImagesExtension({
+            fallbackAttachments: withAttachments,
+            onImagesPasted: (editor, images) => {
+                EventsEditor.dispatchEvent(editor, 'images-pasted', {
+                    imagesCount: images.length,
+                    isEmpty: EditorCommands.isEmpty(editor),
+                });
+            },
+        });
 
         // ImageExtension has to be after RichFormattingExtension due to the fact
         // that it also deserializes <a> elements (ImageExtension is more specific).
