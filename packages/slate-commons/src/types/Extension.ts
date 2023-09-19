@@ -22,6 +22,7 @@ export interface Extension {
     /**
      * Hook into ReactEditor's `insertData()` method.
      * Call `next()` to allow other extensions (or the editor) handling the call.
+     * @see https://docs.slatejs.org/libraries/slate-react/react-editor
      */
     insertData?: DataTransferHandler; // OK
     insertText?: TextInsertionHandler; // OK
@@ -40,6 +41,12 @@ export interface Extension {
     renderElement?: RenderElement; // OK
     renderLeaf?: RenderLeaf; // OK
     serialize?: Serialize; // OK
+    /**
+     * Hook into ReactEditor's `setFragmentData()` method.
+     * Call `next()` to allow other extensions (or the editor) handling the call.
+     * @see https://docs.slatejs.org/libraries/slate-react/react-editor
+     */
+    setFragmentData?: DataTransferHandler;
 
     undo?: HistoryHandler;
     redo?: HistoryHandler;
