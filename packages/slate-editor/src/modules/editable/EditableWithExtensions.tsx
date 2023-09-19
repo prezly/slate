@@ -8,6 +8,7 @@ import type {
     RenderLeaf,
 } from '@prezly/slate-commons';
 import classNames from 'classnames';
+import type { ReactNode } from 'react';
 import React, { useCallback, useMemo } from 'react';
 import type { Editor } from 'slate';
 import type { ReactEditor } from 'slate-react';
@@ -23,6 +24,7 @@ import {
 } from './lib';
 
 export interface Props {
+    children?: ReactNode;
     className?: string;
     decorate?: Decorate;
     editor: Editor & ReactEditor;
@@ -73,7 +75,6 @@ export function EditableWithExtensions({
     className,
     decorate,
     editor,
-    extensions = [],
     onDOMBeforeInput: onDOMBeforeInputList = [],
     onDOMBeforeInputDeps = [],
     onKeyDown: onKeyDownList = [],

@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import { Events } from '@prezly/events';
-import { EditorCommands } from '@prezly/slate-commons';
+import { EditorCommands, ExtensionsManagerProvider } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import {
     type HeadingNode,
@@ -45,7 +45,7 @@ import { PopperOptionsContext } from '#modules/popper-options-context';
 import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
-import { getEnabledExtensions } from './getEnabledExtensions';
+import { Extensions } from './Extensions';
 import { InitialNormalization } from './InitialNormalization';
 import {
     createOnCut,
@@ -137,43 +137,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         [setFloatingAddMenuOpen],
     );
 
-    const extensions = Array.from(
-        getEnabledExtensions({
-            availableWidth,
-            onFloatingAddMenuToggle,
-            withAllowedBlocks,
-            withAttachments,
-            withAutoformat,
-            withBlockquotes,
-            withButtonBlocks,
-            withCoverage,
-            withCustomNormalization,
-            withDivider,
-            withEmbeds,
-            withFloatingAddMenu,
-            withGalleries,
-            withHeadings,
-            withImages,
-            withInlineContacts,
-            withInlineLinks,
-            withLists,
-            withPlaceholders,
-            withPressContacts,
-            withTextStyling,
-            withTables,
-            withUserMentions,
-            withVariables,
-            withVideos,
-            withWebBookmarks,
-            withStoryEmbeds,
-            withStoryBookmarks,
-            withSnippets,
-        }),
-    );
-
     const { editor, onKeyDownList } = useCreateEditor({
         events,
-        extensions,
+        // extensions, // FIXME
         onKeyDown,
         plugins,
     });
@@ -762,150 +728,185 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     return (
-        <PopperOptionsContext.Provider value={popperMenuOptions}>
-            <div
-                id={id}
-                className={classNames(styles.Editor, className)}
-                ref={containerRef}
-                style={style}
-            >
-                {sizer}
-                <Slate
-                    editor={editor}
-                    onChange={(newValue) => {
-                        /**
-                         * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
-                         *
-                         * The top-level editor node can only contain block nodes. If any of the top-level
-                         * children are inline or text nodes they will be removed. This ensures that there
-                         * are always block nodes in the editor so that behaviors like "splitting a block
-                         * in two" work as expected.
-                         */
-                        onChange(newValue as Element[]);
-                        variables.onChange(editor);
-                        userMentions.onChange(editor);
-                    }}
-                    initialValue={getInitialValue()}
+        <ExtensionsManagerProvider>
+            <Extensions
+                availableWidth={availableWidth}
+                onFloatingAddMenuToggle={onFloatingAddMenuToggle}
+                withAllowedBlocks={withAllowedBlocks}
+                withAttachments={withAttachments}
+                withAutoformat={withAutoformat}
+                withBlockquotes={withBlockquotes}
+                withButtonBlocks={withButtonBlocks}
+                withCoverage={withCoverage}
+                withCustomNormalization={withCustomNormalization}
+                withDivider={withDivider}
+                withEmbeds={withEmbeds}
+                withFloatingAddMenu={withFloatingAddMenu}
+                withGalleries={withGalleries}
+                withHeadings={withHeadings}
+                withImages={withImages}
+                withInlineContacts={withInlineContacts}
+                withInlineLinks={withInlineLinks}
+                withLists={withLists}
+                withPlaceholders={withPlaceholders}
+                withPressContacts={withPressContacts}
+                withSnippets={withSnippets}
+                withStoryBookmarks={withStoryBookmarks}
+                withStoryEmbeds={withStoryEmbeds}
+                withTables={withTables}
+                withTextStyling={withTextStyling}
+                withUserMentions={withUserMentions}
+                withVariables={withVariables}
+                withVideos={withVideos}
+                withWebBookmarks={withWebBookmarks}
+            />
+
+            <PopperOptionsContext.Provider value={popperMenuOptions}>
+                <div
+                    id={id}
+                    className={classNames(styles.Editor, className)}
+                    ref={containerRef}
+                    style={style}
                 >
-                    <DecorationsProvider decorate={decorate}>
-                        {(combinedDecorate) => (
-                            <>
-                                <InitialNormalization />
-                                <EditableWithExtensions
-                                    className={classNames(styles.Editable, {
-                                        [styles.withEntryPoints]: withEntryPointsAroundBlocks,
-                                    })}
-                                    decorate={combinedDecorate}
-                                    editor={editor}
-                                    extensions={extensions}
-                                    onCut={createOnCut(editor)}
-                                    onKeyDown={onKeyDownList}
-                                    onKeyDownDeps={[
-                                        userMentions.index,
-                                        userMentions.query,
-                                        userMentions.target,
-                                        withUserMentions,
-                                        variables.index,
-                                        variables.query,
-                                        variables.target,
-                                        withVariables,
-                                    ]}
-                                    readOnly={readOnly}
-                                    renderElementDeps={[availableWidth]}
-                                    style={contentStyle}
-                                />
-
-                                <FlashNodes containerRef={containerRef} />
-
-                                {!hasCustomPlaceholder && (
-                                    <Placeholder className="editor-placeholder">
-                                        {placeholder}
-                                    </Placeholder>
-                                )}
-
-                                {withFloatingAddMenu && (
-                                    <FloatingAddMenu
-                                        tooltip={
-                                            typeof withFloatingAddMenu === 'object'
-                                                ? withFloatingAddMenu.tooltip
-                                                : undefined
-                                        }
-                                        open={isFloatingAddMenuOpen}
-                                        availableWidth={availableWidth}
-                                        containerRef={containerRef}
-                                        onActivate={handleMenuAction}
-                                        onFilter={handleMenuFilter}
-                                        onToggle={(toggle) =>
-                                            onFloatingAddMenuToggle(toggle, 'click')
-                                        }
-                                        options={menuOptions}
-                                        showTooltipByDefault={EditorCommands.isEmpty(editor)}
+                    {sizer}
+                    <Slate
+                        editor={editor}
+                        onChange={(newValue) => {
+                            /**
+                             * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
+                             *
+                             * The top-level editor node can only contain block nodes. If any of the top-level
+                             * children are inline or text nodes they will be removed. This ensures that there
+                             * are always block nodes in the editor so that behaviors like "splitting a block
+                             * in two" work as expected.
+                             */
+                            onChange(newValue as Element[]);
+                            variables.onChange(editor);
+                            userMentions.onChange(editor);
+                        }}
+                        initialValue={getInitialValue()}
+                    >
+                        <DecorationsProvider decorate={decorate}>
+                            {(combinedDecorate) => (
+                                <>
+                                    <InitialNormalization />
+                                    <EditableWithExtensions
+                                        className={classNames(styles.Editable, {
+                                            [styles.withEntryPoints]: withEntryPointsAroundBlocks,
+                                        })}
+                                        decorate={combinedDecorate}
+                                        editor={editor}
+                                        onCut={createOnCut(editor)}
+                                        onKeyDown={onKeyDownList}
+                                        onKeyDownDeps={[
+                                            userMentions.index,
+                                            userMentions.query,
+                                            userMentions.target,
+                                            withUserMentions,
+                                            variables.index,
+                                            variables.query,
+                                            variables.target,
+                                            withVariables,
+                                        ]}
+                                        readOnly={readOnly}
+                                        renderElementDeps={[availableWidth]}
+                                        style={contentStyle}
                                     />
-                                )}
 
-                                {withVariables && (
-                                    <VariablesDropdown
-                                        index={variables.index}
-                                        onOptionClick={(option) => variables.onAdd(editor, option)}
-                                        options={variables.options}
-                                        target={variables.target}
-                                    />
-                                )}
+                                    <FlashNodes containerRef={containerRef} />
 
-                                {withUserMentions && (
-                                    <UserMentionsDropdown
-                                        index={userMentions.index}
-                                        onOptionClick={(option) =>
-                                            userMentions.onAdd(editor, option)
-                                        }
-                                        options={userMentions.options}
-                                        target={userMentions.target}
-                                    />
-                                )}
+                                    {!hasCustomPlaceholder && (
+                                        <Placeholder className="editor-placeholder">
+                                            {placeholder}
+                                        </Placeholder>
+                                    )}
 
-                                {withRichFormattingMenu && (
-                                    <RichFormattingMenu
-                                        availableWidth={availableWidth}
-                                        containerElement={containerRef.current}
-                                        defaultAlignment={align}
-                                        withAlignment={withAlignmentControls}
-                                        withBlockquotes={withBlockquotes}
-                                        withConversionOptions={
-                                            typeof withRichFormattingMenu === 'object'
-                                                ? withRichFormattingMenu.withConversionOptions
-                                                : false
-                                        }
-                                        withHeadings={withHeadings}
-                                        withInlineLinks={withInlineLinks}
-                                        withLists={withLists}
-                                        withNewTabOption={Boolean(
-                                            typeof withRichFormattingMenu === 'object'
-                                                ? withRichFormattingMenu.withNewTabOption
-                                                : false,
-                                        )}
-                                        withParagraphs
-                                    />
-                                )}
+                                    {withFloatingAddMenu && (
+                                        <FloatingAddMenu
+                                            tooltip={
+                                                typeof withFloatingAddMenu === 'object'
+                                                    ? withFloatingAddMenu.tooltip
+                                                    : undefined
+                                            }
+                                            open={isFloatingAddMenuOpen}
+                                            availableWidth={availableWidth}
+                                            containerRef={containerRef}
+                                            onActivate={handleMenuAction}
+                                            onFilter={handleMenuFilter}
+                                            onToggle={(toggle) =>
+                                                onFloatingAddMenuToggle(toggle, 'click')
+                                            }
+                                            options={menuOptions}
+                                            showTooltipByDefault={EditorCommands.isEmpty(editor)}
+                                        />
+                                    )}
 
-                                {withSnippets && isFloatingSnippetInputOpen && (
-                                    <FloatingSnippetInput
-                                        availableWidth={availableWidth}
-                                        containerRef={containerRef}
-                                        onClose={closeFloatingSnippetInput}
-                                        onRootClose={rootCloseFloatingSnippetInput}
-                                        renderInput={() =>
-                                            withSnippets.renderInput({
-                                                onCreate: submitFloatingSnippetInput,
-                                            })
-                                        }
-                                    />
-                                )}
-                            </>
-                        )}
-                    </DecorationsProvider>
-                </Slate>
-            </div>
-        </PopperOptionsContext.Provider>
+                                    {withVariables && (
+                                        <VariablesDropdown
+                                            index={variables.index}
+                                            onOptionClick={(option) =>
+                                                variables.onAdd(editor, option)
+                                            }
+                                            options={variables.options}
+                                            target={variables.target}
+                                        />
+                                    )}
+
+                                    {withUserMentions && (
+                                        <UserMentionsDropdown
+                                            index={userMentions.index}
+                                            onOptionClick={(option) =>
+                                                userMentions.onAdd(editor, option)
+                                            }
+                                            options={userMentions.options}
+                                            target={userMentions.target}
+                                        />
+                                    )}
+
+                                    {withRichFormattingMenu && (
+                                        <RichFormattingMenu
+                                            availableWidth={availableWidth}
+                                            containerElement={containerRef.current}
+                                            defaultAlignment={align}
+                                            withAlignment={withAlignmentControls}
+                                            withBlockquotes={withBlockquotes}
+                                            withConversionOptions={
+                                                typeof withRichFormattingMenu === 'object'
+                                                    ? withRichFormattingMenu.withConversionOptions
+                                                    : false
+                                            }
+                                            withHeadings={withHeadings}
+                                            withInlineLinks={withInlineLinks}
+                                            withLists={withLists}
+                                            withNewTabOption={Boolean(
+                                                typeof withRichFormattingMenu === 'object'
+                                                    ? withRichFormattingMenu.withNewTabOption
+                                                    : false,
+                                            )}
+                                            withParagraphs
+                                        />
+                                    )}
+
+                                    {withSnippets && isFloatingSnippetInputOpen && (
+                                        <FloatingSnippetInput
+                                            availableWidth={availableWidth}
+                                            containerRef={containerRef}
+                                            onClose={closeFloatingSnippetInput}
+                                            onRootClose={rootCloseFloatingSnippetInput}
+                                            renderInput={() =>
+                                                withSnippets.renderInput({
+                                                    onCreate: submitFloatingSnippetInput,
+                                                })
+                                            }
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </DecorationsProvider>
+                    </Slate>
+                </div>
+            </PopperOptionsContext.Provider>
+        </ExtensionsManagerProvider>
     );
 });
 
