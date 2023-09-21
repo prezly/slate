@@ -29,7 +29,7 @@ export function withImagesPasting({ onImagesPasted = noop }: Parameters = {}) {
             const images = Array.from(dataTransfer.files).filter(isImageFile);
 
             if (images.length === 0) {
-                parent.insertData(dataTransfer);
+                return parent.insertData(dataTransfer);
             }
 
             onImagesPasted(editor, images);

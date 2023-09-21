@@ -28,7 +28,7 @@ export function withFilesPasting({ onFilesPasted = noop }: Parameters = {}) {
             const files = Array.from(dataTransfer.files).filter(isAttachmentFile);
 
             if (files.length === 0) {
-                parent.insertData(dataTransfer);
+                return parent.insertData(dataTransfer);
             }
 
             onFilesPasted(editor, files);
