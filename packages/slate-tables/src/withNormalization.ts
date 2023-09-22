@@ -3,7 +3,7 @@ import type { NodeEntry } from 'slate';
 import * as Normalizations from './normalization';
 import type { TablesEditor } from './TablesEditor';
 
-export function withNormalization(editor: TablesEditor) {
+export function withNormalization<T extends TablesEditor>(editor: T): T {
     const parent = {
         normalizeNode: editor.normalizeNode,
     };

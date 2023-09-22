@@ -6,6 +6,8 @@ export { withTables } from './withTables';
 export { onKeyDown } from './core';
 
 // Separate parts of the `withTables()` plugin, if you need more control of how they're applied
+// - Bind the TablesSchema definition
+export { withTablesSchema } from './withTablesSchema';
 // - Copy & Paste behavior
 export { withTablesCopyPasteBehavior, getFragment } from './core';
 // - Backspace & Delete behavior

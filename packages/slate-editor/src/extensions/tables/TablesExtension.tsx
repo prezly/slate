@@ -2,9 +2,10 @@ import { useRegisterExtension } from '@prezly/slate-commons';
 import {
     onKeyDown,
     TablesEditor,
-    withTables,
-    withTablesCopyPasteBehavior,
-    withTablesDeleteBehavior,
+    withTablesSchema,
+    getFragment,
+    deleteBackward,
+    deleteForward,
 } from '@prezly/slate-tables';
 import {
     isTableCellNode,
@@ -14,10 +15,9 @@ import {
     type TableNode,
     type TableRowNode,
 } from '@prezly/slate-types';
-import { flow } from '@technically/lodash';
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { Element } from 'slate';
-import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic, type RenderElementProps } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
@@ -37,10 +37,45 @@ interface Parameters {
 }
 
 export function TablesExtension({ createDefaultElement }: Parameters) {
+    const editor = useSlateStatic();
+
+    // Register Tables editor extension schema
+    useEffect(() => {
+        withTablesSchema(editor, {
+            createContentNode: createDefaultElement,
+            createTableNode: ({ children, ...props }) =>
+                createTableNode({
+                    ...props,
+                    children: children as TableNode['children'] | undefined,
+                }),
+            createTableRowNode: ({ children, ...props }) =>
+                createTableRowNode({
+                    ...props,
+                    children: children as TableRowNode['children'] | undefined,
+                }),
+            createTableCellNode,
+            isTableNode,
+            isTableRowNode,
+            isTableCellNode,
+        });
+    }, [editor]);
+
     return useRegisterExtension({
         id: EXTENSION_ID,
         isRichBlock: isTableNode,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
+        deleteBackward: (unit, next) => {
+            if (TablesEditor.isTablesEditor(editor)) {
+                return deleteBackward(editor, unit, next);
+            }
+            next(unit);
+        },
+        deleteForward: (unit, next) => {
+            if (TablesEditor.isTablesEditor(editor)) {
+                return deleteForward(editor, unit, next);
+            }
+            next(unit);
+        },
         deserialize: {
             element: composeElementDeserializer({
                 TABLE: (): TableNode => {
@@ -103,26 +138,11 @@ export function TablesExtension({ createDefaultElement }: Parameters) {
 
             return undefined;
         },
-        withOverrides: (editor) => {
-            const tablesEditor = withTables(editor, {
-                createContentNode: createDefaultElement,
-                createTableNode: ({ children, ...props }) =>
-                    createTableNode({
-                        ...props,
-                        children: children as TableNode['children'] | undefined,
-                    }),
-                createTableRowNode: ({ children, ...props }) =>
-                    createTableRowNode({
-                        ...props,
-                        children: children as TableRowNode['children'] | undefined,
-                    }),
-                createTableCellNode,
-                isTableNode,
-                isTableRowNode,
-                isTableCellNode,
-            });
-
-            return flow([withTablesCopyPasteBehavior, withTablesDeleteBehavior])(tablesEditor);
+        getFragment: (next) => {
+            if (TablesEditor.isTablesEditor(editor)) {
+                return getFragment(editor, next);
+            }
+            return next();
         },
     });
 }
