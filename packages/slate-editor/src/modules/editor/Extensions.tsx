@@ -236,7 +236,7 @@ export function Extensions({
             {withImages && (
                 <>
                     <PasteImagesExtension
-                        onImagesPasted={(editor, images) => {
+                        onImagesPasted={(images) => {
                             EventsEditor.dispatchEvent(editor, 'images-pasted', {
                                 imagesCount: images.length,
                                 isEmpty: EditorCommands.isEmpty(editor),
