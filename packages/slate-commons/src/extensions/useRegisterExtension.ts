@@ -27,7 +27,6 @@ export function useRegisterExtension(extension: Extension): null {
         setFragmentData,
         undo,
         redo,
-        withOverrides,
         ...rest
     } = extension;
 
@@ -60,7 +59,6 @@ export function useRegisterExtension(extension: Extension): null {
             setFragmentData,
             undo,
             redo,
-            withOverrides,
         ],
     );
 

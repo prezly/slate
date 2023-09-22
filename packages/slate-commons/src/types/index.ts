@@ -11,4 +11,3 @@ export type { OnKeyDown } from './OnKeyDown';
 export type { RenderElement } from './RenderElement';
 export type { RenderLeaf } from './RenderLeaf';
 export type { TextInsertionHandler } from './TextInsertionHandler';
-export type { WithOverrides } from './WithOverrides';

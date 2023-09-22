@@ -12,7 +12,6 @@ import type { RenderElement } from './RenderElement';
 import type { RenderLeaf } from './RenderLeaf';
 import type { Serialize } from './Serialize';
 import type { TextInsertionHandler } from './TextInsertionHandler';
-import type { WithOverrides } from './WithOverrides';
 
 export interface Extension {
     id: string;
@@ -59,9 +58,4 @@ export interface Extension {
 
     undo?: HistoryHandler;
     redo?: HistoryHandler;
-
-    /**
-     * @deprecated Please do not use this. We're going to drop this functionality soon.
-     */
-    withOverrides?: WithOverrides;
 }
