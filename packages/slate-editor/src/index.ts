@@ -24,15 +24,13 @@ import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
-import type { FlashEditor } from '#extensions/flash-nodes';
 import type { DefaultTextBlockEditor } from '#modules/editor';
 
 type Editor = BaseEditor &
     ReactEditor &
     HistoryEditor &
     ExtensionsEditor &
-    DefaultTextBlockEditor<ParagraphNode> &
-    FlashEditor;
+    DefaultTextBlockEditor<ParagraphNode>;
 
 declare module 'slate' {
     interface CustomTypes {

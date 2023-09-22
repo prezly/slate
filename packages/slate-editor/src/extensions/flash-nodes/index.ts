@@ -1,3 +1,2 @@
-export * from './FlashNodesExtension';
-export * from './components/FlashNodes';
-export * from './types';
+export { FlashNodesEditor } from './FlashNodesEditor';
+export { FlashNodesExtension, EXTENSION_ID, type Parameters } from './FlashNodesExtension';

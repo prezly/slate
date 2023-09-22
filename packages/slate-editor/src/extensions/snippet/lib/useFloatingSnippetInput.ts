@@ -3,6 +3,7 @@ import type { DocumentNode } from '@prezly/slate-types';
 import { useCallback, useState } from 'react';
 import { useSlateStatic } from 'slate-react';
 
+import { FlashNodesEditor } from '#extensions/flash-nodes';
 import { EventsEditor } from '#modules/events';
 
 export function useFloatingSnippetInput() {
@@ -37,7 +38,9 @@ export function useFloatingSnippetInput() {
 
             EditorCommands.insertNodes(editor, node.children, { mode: 'highest' });
 
-            editor.flash(node.children.at(0), node.children.at(-1));
+            if (FlashNodesEditor.isFlashEditor(editor)) {
+                editor.flashNodes(node.children.at(0), node.children.at(-1));
+            }
             savedSelection.restore(editor, { focus: true });
         } catch (error) {
             console.error(error);
