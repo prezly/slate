@@ -72,7 +72,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         blurOnOutsideClick = false,
         onKeyDown = noop,
         placeholder,
-        plugins,
         popperMenuOptions = {},
         readOnly,
         style,
@@ -120,11 +119,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     // TODO: Wire `onOperationStart` and `onOperationEnd` to the Placeholder extension
     // const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
 
-    const editor = useCreateEditor({
-        events,
-        // extensions, // FIXME
-        plugins,
-    });
+    const editor = useCreateEditor({ events });
 
     const [getInitialValue, setInitialValue] = useGetSet(() =>
         EditorCommands.roughlyNormalizeValue(editor, externalInitialValue),

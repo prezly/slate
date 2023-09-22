@@ -2,7 +2,7 @@ import type { Events } from '@prezly/events';
 import type { Decorate, EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
-import type { Editor, Element, Node } from 'slate';
+import type { Element, Node } from 'slate';
 import type { Transforms } from 'slate';
 
 import type { AllowedBlocksExtensionConfiguration } from '#extensions/allowed-blocks';
@@ -91,11 +91,6 @@ export interface EditorProps {
     onChange: (value: Value) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
     placeholder?: ReactNode;
-    /**
-     * [WARNING] this prop is read by EditorV4 only once, when mounting.
-     * Any changes to it will be ignored.
-     */
-    plugins?: (<T extends Editor>(editor: T) => T)[];
     popperMenuOptions?: PopperOptionsContextType;
     readOnly?: boolean;
     style?: CSSProperties;

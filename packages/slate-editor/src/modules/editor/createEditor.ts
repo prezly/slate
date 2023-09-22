@@ -1,11 +1,9 @@
 import {
     withBreaksOnExpandedSelection,
     withBreaksOnVoidNodes,
+    withExtensions,
     withUserFriendlyDeleteBehavior,
 } from '@prezly/slate-commons';
-import type { Extension } from '@prezly/slate-commons';
-import type { WithOverrides } from '@prezly/slate-commons';
-import { isNotUndefined } from '@technically/is-not-undefined';
 import { flow } from '@technically/lodash';
 import type { Editor } from 'slate';
 import { withHistory } from 'slate-history';
@@ -16,24 +14,15 @@ import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
 import { withDefaultTextBlock } from './plugins';
 
-export function createEditor(
-    baseEditor: Editor,
-    getExtensions: () => Extension[],
-    plugins: WithOverrides[] = [],
-) {
-    const overrides = getExtensions()
-        .map(({ withOverrides }) => withOverrides)
-        .filter(isNotUndefined);
-
+export function createEditor(baseEditor: Editor) {
     return flow([
         withReact,
         withHistory,
+        withExtensions,
         withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,
         withDefaultTextBlock(createParagraph),
         withUserFriendlyDeleteBehavior,
-        ...overrides,
-        ...plugins,
     ])(baseEditor);
 }
