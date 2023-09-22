@@ -1,11 +1,10 @@
-import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement } from '@prezly/slate-commons';
+import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import {
     ListsEditor,
     normalizeNode,
     onKeyDown,
-    withListsSchema,
-    withListsReact,
+    registerListsSchema,
+    withRangeCloneContentsPatched,
 } from '@prezly/slate-lists';
 import { TablesEditor } from '@prezly/slate-tables';
 import {
@@ -17,7 +16,8 @@ import {
     LIST_ITEM_TEXT_NODE_TYPE,
     NUMBERED_LIST_NODE_TYPE,
 } from '@prezly/slate-types';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSlateStatic } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
@@ -27,8 +27,13 @@ import { schema } from './schema';
 
 export const EXTENSION_ID = 'ListExtension';
 
-export function ListExtension(): Extension {
-    return {
+export function ListExtension() {
+    const editor = useSlateStatic();
+    useEffect(() => {
+        registerListsSchema(editor, schema);
+    }, [editor]);
+
+    return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
             element: composeElementDeserializer({
@@ -91,8 +96,10 @@ export function ListExtension(): Extension {
             }
             return undefined;
         },
-        withOverrides: (editor) => {
-            return withListsReact(withListsSchema(schema)(editor));
+        setFragmentData(dataTransfer, next) {
+            withRangeCloneContentsPatched(() => {
+                next(dataTransfer);
+            });
         },
-    };
+    });
 }

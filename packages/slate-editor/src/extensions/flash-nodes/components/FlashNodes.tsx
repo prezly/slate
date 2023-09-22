@@ -1,11 +1,14 @@
-import type { RefObject } from 'react';
 import React, { useEffect, useState } from 'react';
 import type { Editor, Node } from 'slate';
 import { ReactEditor, useSlateStatic } from 'slate-react';
 
 import styles from './FlashNodes.module.scss';
 
-export function FlashNodes({ containerRef }: { containerRef: RefObject<HTMLDivElement> }) {
+interface Props {
+    containerElement: HTMLElement | null | undefined;
+}
+
+export function FlashNodes({ containerElement }: Props) {
     const editor = useSlateStatic();
 
     return (
@@ -15,7 +18,7 @@ export function FlashNodes({ containerRef }: { containerRef: RefObject<HTMLDivEl
                     key={index}
                     editor={editor}
                     top={top}
-                    containerRef={containerRef}
+                    containerElement={containerElement}
                     bottom={bottom}
                     onComplete={() =>
                         (editor.nodesToFlash = editor.nodesToFlash.filter(
@@ -28,28 +31,23 @@ export function FlashNodes({ containerRef }: { containerRef: RefObject<HTMLDivEl
     );
 }
 
-function Flasher({
-    editor,
-    top,
-    bottom,
-    containerRef,
-    onComplete,
-}: {
+function Flasher(props: {
     editor: Editor;
     top: Node;
     bottom: Node;
-    containerRef: RefObject<HTMLDivElement>;
+    containerElement: HTMLElement | null | undefined;
     onComplete: () => void;
 }) {
+    const { editor, top, bottom, containerElement, onComplete } = props;
     const [rect, setRect] = useState<Partial<DOMRect> | undefined>(undefined);
 
     useEffect(() => {
-        if (!containerRef.current) {
+        if (!containerElement) {
             return;
         }
 
         try {
-            const containerRect = containerRef.current.getBoundingClientRect();
+            const containerRect = containerElement.getBoundingClientRect();
             const rectA = ReactEditor.toDOMNode(editor, top).getBoundingClientRect();
             const rectB = ReactEditor.toDOMNode(editor, bottom).getBoundingClientRect();
 
@@ -63,7 +61,7 @@ function Flasher({
             console.error(error);
             onComplete();
         }
-    }, []);
+    }, [containerElement]);
 
     return <div className={styles.flash} onAnimationEnd={() => onComplete()} style={rect} />;
 }

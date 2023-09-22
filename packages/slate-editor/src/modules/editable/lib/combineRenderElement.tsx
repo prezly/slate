@@ -1,15 +1,11 @@
-import type { Extension, RenderElement } from '@prezly/slate-commons';
+import type { RenderElement } from '@prezly/slate-commons';
 import React from 'react';
 import type { Editor, Node } from 'slate';
 import { Element } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
-export function combineRenderElement(
-    editor: Editor,
-    extensions: Extension[],
-    renderElementList: RenderElement[],
-) {
-    return function combinedRenderElement({ attributes, children, element }: RenderElementProps) {
+export function combineRenderElement(editor: Editor, renderElementFns: RenderElement[]) {
+    return function combined({ attributes, children, element }: RenderElementProps) {
         const props = {
             attributes: {
                 'data-slate-block': detectBlockType(editor, element),
@@ -20,14 +16,12 @@ export function combineRenderElement(
             children,
             element,
         };
-        for (const renderElement of renderElementList) {
-            const ret = renderElement(props);
-            if (ret) return ret;
-        }
 
-        for (const { renderElement } of extensions) {
-            const ret = renderElement?.(props);
-            if (ret) return ret;
+        for (const renderElement of renderElementFns) {
+            const ret = renderElement(props);
+            if (typeof ret !== 'undefined') {
+                return ret;
+            }
         }
 
         return <div {...props.attributes}>{props.children}</div>;

@@ -1,4 +1,4 @@
-import { createDeserializeElement, type Extension } from '@prezly/slate-commons';
+import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
@@ -24,8 +24,8 @@ export interface ButtonBlockExtensionConfiguration {
 export function ButtonBlockExtension({
     withNewTabOption = true,
     info = [],
-}: ButtonBlockExtensionConfiguration): Extension {
-    return {
+}: ButtonBlockExtensionConfiguration) {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
             element: composeElementDeserializer({
@@ -51,5 +51,5 @@ export function ButtonBlockExtension({
         },
         isRichBlock: ButtonBlockNode.isButtonBlockNode,
         isVoid: ButtonBlockNode.isButtonBlockNode,
-    };
+    });
 }

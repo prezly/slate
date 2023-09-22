@@ -1,2 +1,2 @@
-export { withPastedContentAutolinking } from './withPastedContentAutolinking';
-export { withSelectionAutolinking } from './withSelectionAutolinking';
+export { handlePastedContentAutolinking } from './handlePastedContentAutolinking';
+export { handleSelectionAutolinking } from './handleSelectionAutolinking';

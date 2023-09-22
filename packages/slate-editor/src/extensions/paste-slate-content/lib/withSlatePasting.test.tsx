@@ -22,6 +22,8 @@ const FRAGMENT: object[] = [
 
 const SINGLE_NODE_FRAGMENT: object = FRAGMENT[0];
 
+// FIXME: Reconstruct this test
+
 describe('withSlatePasting', () => {
     it('should pick up "application/x-slate-fragment" content when editor is empty', () => {
         const editor = (<editor />) as unknown as Editor;

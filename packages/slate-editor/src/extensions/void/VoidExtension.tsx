@@ -1,5 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
-import { EditorCommands } from '@prezly/slate-commons';
+import { EditorCommands, useRegisterExtension } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
 import { Transforms } from 'slate';
 
@@ -9,8 +8,8 @@ import { createParagraph } from '#extensions/paragraphs';
 
 export const EXTENSION_ID = 'VoidExtension';
 
-export function VoidExtension(): Extension {
-    return {
+export function VoidExtension() {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         onKeyDown: (event, editor) => {
             const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) ?? [];
@@ -37,5 +36,5 @@ export function VoidExtension(): Extension {
 
             return false;
         },
-    };
+    });
 }

@@ -23,16 +23,15 @@ import { GalleryMenu } from './GalleryMenu';
 interface Props extends RenderElementProps {
     availableWidth: number;
     element: GalleryNode;
-    onEdit?: (editor: Editor, gallery: GalleryNode) => void;
+    onEdit?: (gallery: GalleryNode) => void;
     onEdited?: (
-        editor: Editor,
         gallery: GalleryNode,
         extra: {
             successfulUploads: number;
             failedUploads: Error[];
         },
     ) => void;
-    onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
+    onShuffled?: (updated: GalleryNode, original: GalleryNode) => void;
     withMediaGalleryTab: false | { enabled: true; newsroom: NewsroomRef };
     withLayoutOptions: boolean;
 }
@@ -54,7 +53,7 @@ export function GalleryElement({
     const callbacks = useLatest({ onEdit, onEdited, onShuffled });
 
     async function handleEdit() {
-        callbacks.current.onEdit(editor, element);
+        callbacks.current.onEdit(element);
 
         const files = element.images.map(({ caption, file }) => {
             const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
@@ -103,7 +102,7 @@ export function GalleryElement({
                 { match: (node) => node === element },
             );
 
-            callbacks.current.onEdited(editor, element, {
+            callbacks.current.onEdited(element, {
                 successfulUploads: successfulUploads.length,
                 failedUploads,
             });
@@ -119,7 +118,7 @@ export function GalleryElement({
 
         updateGallery(editor, update);
 
-        callbacks.current.onShuffled(editor, element, { ...element, ...update });
+        callbacks.current.onShuffled(element, { ...element, ...update });
     }
 
     return (

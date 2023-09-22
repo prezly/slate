@@ -1,39 +1,30 @@
 import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
 import type { DocumentNode } from '@prezly/slate-types';
-import { useState } from 'react';
-import type { Editor } from 'slate';
+import { useCallback, useState } from 'react';
+import { useSlateStatic } from 'slate-react';
 
+import { FlashNodesEditor } from '#extensions/flash-nodes';
 import { EventsEditor } from '#modules/events';
 
-interface State {
-    isOpen: boolean;
-}
-
-interface Actions {
-    close: () => void;
-    open: () => void;
-    rootClose: () => void;
-    submit: (node: DocumentNode) => Promise<void>;
-}
-
-export function useFloatingSnippetInput(editor: Editor): [State, Actions] {
+export function useFloatingSnippetInput() {
+    const editor = useSlateStatic();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const savedSelection = useSavedSelection();
 
-    function close() {
-        savedSelection.restore(editor, { focus: true });
-        setIsOpen(false);
-    }
-
-    function rootClose() {
-        setIsOpen(false);
-    }
-
-    function open() {
+    const open = useCallback(() => {
         EventsEditor.dispatchEvent(editor, 'snippet-dialog-opened');
         setIsOpen(true);
         savedSelection.save(editor);
-    }
+    }, [editor, savedSelection]);
+
+    const close = useCallback(() => {
+        savedSelection.restore(editor, { focus: true });
+        setIsOpen(false);
+    }, [editor, savedSelection]);
+
+    const rootClose = useCallback(() => {
+        setIsOpen(false);
+    }, []);
 
     async function submit(node: DocumentNode) {
         EventsEditor.dispatchEvent(editor, 'snippet-dialog-submitted');
@@ -47,7 +38,9 @@ export function useFloatingSnippetInput(editor: Editor): [State, Actions] {
 
             EditorCommands.insertNodes(editor, node.children, { mode: 'highest' });
 
-            editor.flash(node.children.at(0), node.children.at(-1));
+            if (FlashNodesEditor.isFlashEditor(editor)) {
+                editor.flashNodes(node.children.at(0), node.children.at(-1));
+            }
             savedSelection.restore(editor, { focus: true });
         } catch (error) {
             console.error(error);
@@ -58,5 +51,5 @@ export function useFloatingSnippetInput(editor: Editor): [State, Actions] {
         }
     }
 
-    return [{ isOpen }, { close, open, rootClose, submit }];
+    return { isOpen, close, open, rootClose, submit };
 }

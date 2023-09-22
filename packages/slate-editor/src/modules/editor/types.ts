@@ -2,7 +2,7 @@ import type { Events } from '@prezly/events';
 import type { Decorate, EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
-import type { Editor, Element, Node } from 'slate';
+import type { Element, Node } from 'slate';
 import type { Transforms } from 'slate';
 
 import type { AllowedBlocksExtensionConfiguration } from '#extensions/allowed-blocks';
@@ -19,7 +19,7 @@ import type {
     PlaceholderNode,
     PlaceholdersExtensionParameters,
 } from '#extensions/placeholders';
-import type { SnippetsExtensionParameters } from '#extensions/snippet';
+import type { SnippetsExtensionConfiguration } from '#extensions/snippet';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
 import type { UserMentionsExtensionParameters } from '#extensions/user-mentions';
@@ -91,11 +91,6 @@ export interface EditorProps {
     onChange: (value: Value) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
     placeholder?: ReactNode;
-    /**
-     * [WARNING] this prop is read by EditorV4 only once, when mounting.
-     * Any changes to it will be ignored.
-     */
-    plugins?: (<T extends Editor>(editor: T) => T)[];
     popperMenuOptions?: PopperOptionsContextType;
     readOnly?: boolean;
     style?: CSSProperties;
@@ -140,7 +135,7 @@ export interface EditorProps {
         | false
         | (StoryEmbedExtensionParameters &
               PlaceholdersExtensionParameters['withStoryEmbedPlaceholders']);
-    withSnippets?: false | SnippetsExtensionParameters;
+    withSnippets?: false | SnippetsExtensionConfiguration;
     withTables?: boolean;
     withTextStyling?: boolean;
     withUserMentions?: false | UserMentionsExtensionParameters;

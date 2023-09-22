@@ -1,5 +1,7 @@
 import type { ComponentType, ReactNode } from 'react';
 
+import type { Parameters } from './FloatingAddMenuExtension';
+
 type Order = number;
 
 export interface Option<Action> {
@@ -16,9 +18,6 @@ export interface Option<Action> {
 }
 
 export interface ExtensionConfiguration {
-    tooltip?: {
-        placement: 'top' | 'right' | 'bottom' | 'left';
-        content: ReactNode;
-    };
+    tooltip?: Parameters<unknown>['tooltip'];
     withSpecificProviderOptions?: boolean;
 }

@@ -1,14 +1,10 @@
 import { times } from '@technically/lodash';
-import { Path } from 'slate';
-import { Node, Transforms } from 'slate';
-import { Editor } from 'slate';
+import { Editor, Node, type NodeEntry, Path, Transforms } from 'slate';
 
 import type { TableCellNode } from '../nodes';
 import { TablesEditor } from '../TablesEditor';
 
-export function splitRowSpanCells(editor: TablesEditor, path: Path) {
-    const node = Node.get(editor, path);
-
+export function splitRowSpanCells(editor: TablesEditor, [node, path]: NodeEntry) {
     if (!editor.isTableNode(node)) {
         return false;
     }

@@ -27,6 +27,7 @@ export type EditorEventMap = {
         trigger: string;
     };
     'attachment-edited': {
+        filename: string;
         description: string;
         mimeType: string;
         size: number;

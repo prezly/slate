@@ -1,28 +1,22 @@
 /* eslint-disable react/display-name */
 import { Events } from '@prezly/events';
-import { EditorCommands } from '@prezly/slate-commons';
+import { EditorCommands, ExtensionsManager } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import {
-    type HeadingNode,
-    type ParagraphNode,
-    type QuoteNode,
     Alignment,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
+    type HeadingNode,
+    isImageNode,
+    isQuoteNode,
     PARAGRAPH_NODE_TYPE,
+    type ParagraphNode,
     QUOTE_NODE_TYPE,
+    type QuoteNode,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import classNames from 'classnames';
-import React, {
-    forwardRef,
-    useCallback,
-    useEffect,
-    useImperativeHandle,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import type { Element } from 'slate';
 import { Transforms } from 'slate';
 import { ReactEditor, Slate } from 'slate-react';
@@ -30,22 +24,25 @@ import { ReactEditor, Slate } from 'slate-react';
 import { useFunction, useGetSet, useSize } from '#lib';
 
 import { insertButtonBlock } from '#extensions/button-block';
-import { FlashNodes } from '#extensions/flash-nodes';
-import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
+import { FlashNodesExtension } from '#extensions/flash-nodes';
+import { FloatingAddMenuExtension, type Option } from '#extensions/floating-add-menu';
+import { PasteFilesExtension } from '#extensions/paste-files';
+import { PasteHtmlContentExtension } from '#extensions/paste-html-content';
+import { PasteImagesExtension } from '#extensions/paste-images';
+import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
+import { PasteTrackingExtension } from '#extensions/paste-tracking';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
-import { useFloatingSnippetInput } from '#extensions/snippet';
-import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
-import { useVariables, VariablesDropdown } from '#extensions/variables';
-import { FloatingSnippetInput, Placeholder } from '#modules/components';
+import { RichFormattingMenuExtension, toggleBlock } from '#extensions/rich-formatting-menu';
+import { SnippetsExtension } from '#extensions/snippet';
+import { Placeholder } from '#modules/components';
 import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
 import { EventsEditor } from '#modules/events';
 import { PopperOptionsContext } from '#modules/popper-options-context';
-import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
-import { getEnabledExtensions } from './getEnabledExtensions';
+import { Extensions } from './Extensions';
 import { InitialNormalization } from './InitialNormalization';
 import {
     createOnCut,
@@ -75,7 +72,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         blurOnOutsideClick = false,
         onKeyDown = noop,
         placeholder,
-        plugins,
         popperMenuOptions = {},
         readOnly,
         style,
@@ -123,60 +119,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     // TODO: Wire `onOperationStart` and `onOperationEnd` to the Placeholder extension
     // const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
 
-    // [+] menu
-    const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
-    const onFloatingAddMenuToggle = useCallback(
-        function (shouldOpen: boolean, trigger: 'click' | 'hotkey' | 'input') {
-            setFloatingAddMenuOpen(shouldOpen);
-            if (shouldOpen) {
-                EventsEditor.dispatchEvent(editor, 'add-button-menu-opened', { trigger });
-            } else {
-                EventsEditor.dispatchEvent(editor, 'add-button-menu-closed');
-            }
-        },
-        [setFloatingAddMenuOpen],
-    );
-
-    const extensions = Array.from(
-        getEnabledExtensions({
-            availableWidth,
-            onFloatingAddMenuToggle,
-            withAllowedBlocks,
-            withAttachments,
-            withAutoformat,
-            withBlockquotes,
-            withButtonBlocks,
-            withCoverage,
-            withCustomNormalization,
-            withDivider,
-            withEmbeds,
-            withFloatingAddMenu,
-            withGalleries,
-            withHeadings,
-            withImages,
-            withInlineContacts,
-            withInlineLinks,
-            withLists,
-            withPlaceholders,
-            withPressContacts,
-            withTextStyling,
-            withTables,
-            withUserMentions,
-            withVariables,
-            withVideos,
-            withWebBookmarks,
-            withStoryEmbeds,
-            withStoryBookmarks,
-            withSnippets,
-        }),
-    );
-
-    const { editor, onKeyDownList } = useCreateEditor({
-        events,
-        extensions,
-        onKeyDown,
-        plugins,
-    });
+    const editor = useCreateEditor({ events });
 
     const [getInitialValue, setInitialValue] = useGetSet(() =>
         EditorCommands.roughlyNormalizeValue(editor, externalInitialValue),
@@ -282,26 +225,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }),
     );
 
-    const variables = useVariables(editor, withVariables || undefined);
-    const userMentions = useUserMentions(withUserMentions || undefined);
-
-    const [
-        { isOpen: isFloatingSnippetInputOpen },
-        {
-            close: closeFloatingSnippetInput,
-            open: openFloatingSnippetInput,
-            rootClose: rootCloseFloatingSnippetInput,
-            submit: submitFloatingSnippetInput,
-        },
-    ] = useFloatingSnippetInput(editor);
-
-    if (withVariables) {
-        onKeyDownList.push(variables.onKeyDown);
-    }
-
-    if (withUserMentions) {
-        onKeyDownList.push(userMentions.onKeyDown);
-    }
+    const snippetsExtension = useRef<SnippetsExtension.Ref>();
 
     const withSpecificProviderOptions =
         typeof withFloatingAddMenu === 'object'
@@ -668,7 +592,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             return;
         }
         if (action === MenuAction.ADD_SNIPPET) {
-            return openFloatingSnippetInput();
+            snippetsExtension.current?.open();
         }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             const placeholder = insertPlaceholder(
@@ -755,157 +679,195 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     const hasCustomPlaceholder =
-        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
+        withFloatingAddMenu && ReactEditor.isFocused(editor); /*|| isFloatingAddMenuOpen*/ // FIXME: Commented isFloatingAddMenuOpen
 
     const onChange = useOnChange((value) => {
         props.onChange(editor.serialize(value) as Value);
     });
 
     return (
-        <PopperOptionsContext.Provider value={popperMenuOptions}>
-            <div
-                id={id}
-                className={classNames(styles.Editor, className)}
-                ref={containerRef}
-                style={style}
-            >
-                {sizer}
-                <Slate
-                    editor={editor}
-                    onChange={(newValue) => {
-                        /**
-                         * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
-                         *
-                         * The top-level editor node can only contain block nodes. If any of the top-level
-                         * children are inline or text nodes they will be removed. This ensures that there
-                         * are always block nodes in the editor so that behaviors like "splitting a block
-                         * in two" work as expected.
-                         */
-                        onChange(newValue as Element[]);
-                        variables.onChange(editor);
-                        userMentions.onChange(editor);
-                    }}
-                    initialValue={getInitialValue()}
+        <ExtensionsManager editor={editor}>
+            <PopperOptionsContext.Provider value={popperMenuOptions}>
+                <div
+                    id={id}
+                    className={classNames(styles.Editor, className)}
+                    ref={containerRef}
+                    style={style}
                 >
-                    <DecorationsProvider decorate={decorate}>
-                        {(combinedDecorate) => (
-                            <>
-                                <InitialNormalization />
-                                <EditableWithExtensions
-                                    className={classNames(styles.Editable, {
-                                        [styles.withEntryPoints]: withEntryPointsAroundBlocks,
-                                    })}
-                                    decorate={combinedDecorate}
-                                    editor={editor}
-                                    extensions={extensions}
-                                    onCut={createOnCut(editor)}
-                                    onKeyDown={onKeyDownList}
-                                    onKeyDownDeps={[
-                                        userMentions.index,
-                                        userMentions.query,
-                                        userMentions.target,
-                                        withUserMentions,
-                                        variables.index,
-                                        variables.query,
-                                        variables.target,
-                                        withVariables,
-                                    ]}
-                                    readOnly={readOnly}
-                                    renderElementDeps={[availableWidth]}
-                                    style={contentStyle}
-                                />
+                    {sizer}
+                    <Slate
+                        editor={editor}
+                        onChange={(newValue) => {
+                            /**
+                             * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
+                             *
+                             * The top-level editor node can only contain block nodes. If any of the top-level
+                             * children are inline or text nodes they will be removed. This ensures that there
+                             * are always block nodes in the editor so that behaviors like "splitting a block
+                             * in two" work as expected.
+                             */
+                            onChange(newValue as Element[]);
+                        }}
+                        initialValue={getInitialValue()}
+                    >
+                        <DecorationsProvider decorate={decorate}>
+                            {(combinedDecorate) => (
+                                <>
+                                    <InitialNormalization />
 
-                                <FlashNodes containerRef={containerRef} />
+                                    {/** FIXME: Sync this with Extensions mounting. See ExtensionsManager: ExtensionsManagerSync */}
+                                    <EditableWithExtensions
+                                        className={classNames(styles.Editable, {
+                                            [styles.withEntryPoints]: withEntryPointsAroundBlocks,
+                                        })}
+                                        decorate={combinedDecorate}
+                                        editor={editor}
+                                        onCut={createOnCut(editor)}
+                                        onKeyDown={onKeyDown}
+                                        readOnly={readOnly}
+                                        style={contentStyle}
+                                    />
 
-                                {!hasCustomPlaceholder && (
-                                    <Placeholder className="editor-placeholder">
-                                        {placeholder}
-                                    </Placeholder>
-                                )}
+                                    <PasteTrackingExtension
+                                        onPaste={(data) => {
+                                            EventsEditor.dispatchEvent(editor, 'paste', {
+                                                isEmpty: EditorCommands.isEmpty(editor),
+                                                pastedLength: data.getData('text/plain').length,
+                                            });
+                                        }}
+                                    />
 
-                                {withFloatingAddMenu && (
-                                    <FloatingAddMenu
-                                        tooltip={
-                                            typeof withFloatingAddMenu === 'object'
-                                                ? withFloatingAddMenu.tooltip
-                                                : undefined
-                                        }
-                                        open={isFloatingAddMenuOpen}
+                                    {withAttachments && (
+                                        <PasteFilesExtension
+                                            onFilesPasted={(files) => {
+                                                EventsEditor.dispatchEvent(editor, 'files-pasted', {
+                                                    filesCount: files.length,
+                                                    isEmpty: EditorCommands.isEmpty(editor),
+                                                });
+                                            }}
+                                        />
+                                    )}
+
+                                    {withImages && (
+                                        <PasteImagesExtension
+                                            onImagesPasted={(images) => {
+                                                EventsEditor.dispatchEvent(
+                                                    editor,
+                                                    'images-pasted',
+                                                    {
+                                                        imagesCount: images.length,
+                                                        isEmpty: EditorCommands.isEmpty(editor),
+                                                    },
+                                                );
+                                            }}
+                                        />
+                                    )}
+
+                                    <PasteSlateContentExtension
+                                        isPreservedBlock={(node) => {
+                                            if (withBlockquotes && isQuoteNode(node)) {
+                                                return true;
+                                            } else if (withImages && isImageNode(node)) {
+                                                return true;
+                                            }
+                                            return false;
+                                        }}
+                                    />
+
+                                    <PasteHtmlContentExtension />
+
+                                    <Extensions
                                         availableWidth={availableWidth}
-                                        containerRef={containerRef}
-                                        onActivate={handleMenuAction}
-                                        onFilter={handleMenuFilter}
-                                        onToggle={(toggle) =>
-                                            onFloatingAddMenuToggle(toggle, 'click')
-                                        }
-                                        options={menuOptions}
-                                        showTooltipByDefault={EditorCommands.isEmpty(editor)}
-                                    />
-                                )}
-
-                                {withVariables && (
-                                    <VariablesDropdown
-                                        index={variables.index}
-                                        onOptionClick={(option) => variables.onAdd(editor, option)}
-                                        options={variables.options}
-                                        target={variables.target}
-                                    />
-                                )}
-
-                                {withUserMentions && (
-                                    <UserMentionsDropdown
-                                        index={userMentions.index}
-                                        onOptionClick={(option) =>
-                                            userMentions.onAdd(editor, option)
-                                        }
-                                        options={userMentions.options}
-                                        target={userMentions.target}
-                                    />
-                                )}
-
-                                {withRichFormattingMenu && (
-                                    <RichFormattingMenu
-                                        availableWidth={availableWidth}
-                                        containerElement={containerRef.current}
-                                        defaultAlignment={align}
-                                        withAlignment={withAlignmentControls}
+                                        withAllowedBlocks={withAllowedBlocks}
+                                        withAttachments={withAttachments}
+                                        withAutoformat={withAutoformat}
                                         withBlockquotes={withBlockquotes}
-                                        withConversionOptions={
-                                            typeof withRichFormattingMenu === 'object'
-                                                ? withRichFormattingMenu.withConversionOptions
-                                                : false
-                                        }
+                                        withButtonBlocks={withButtonBlocks}
+                                        withCoverage={withCoverage}
+                                        withCustomNormalization={withCustomNormalization}
+                                        withDivider={withDivider}
+                                        withEmbeds={withEmbeds}
+                                        withGalleries={withGalleries}
                                         withHeadings={withHeadings}
+                                        withImages={withImages}
+                                        withInlineContacts={withInlineContacts}
                                         withInlineLinks={withInlineLinks}
                                         withLists={withLists}
-                                        withNewTabOption={Boolean(
-                                            typeof withRichFormattingMenu === 'object'
-                                                ? withRichFormattingMenu.withNewTabOption
-                                                : false,
-                                        )}
-                                        withParagraphs
+                                        withPlaceholders={withPlaceholders}
+                                        withPressContacts={withPressContacts}
+                                        withStoryBookmarks={withStoryBookmarks}
+                                        withStoryEmbeds={withStoryEmbeds}
+                                        withTables={withTables}
+                                        withTextStyling={withTextStyling}
+                                        withUserMentions={withUserMentions}
+                                        withVariables={withVariables}
+                                        withVideos={withVideos}
+                                        withWebBookmarks={withWebBookmarks}
                                     />
-                                )}
 
-                                {withSnippets && isFloatingSnippetInputOpen && (
-                                    <FloatingSnippetInput
-                                        availableWidth={availableWidth}
-                                        containerRef={containerRef}
-                                        onClose={closeFloatingSnippetInput}
-                                        onRootClose={rootCloseFloatingSnippetInput}
-                                        renderInput={() =>
-                                            withSnippets.renderInput({
-                                                onCreate: submitFloatingSnippetInput,
-                                            })
-                                        }
-                                    />
-                                )}
-                            </>
-                        )}
-                    </DecorationsProvider>
-                </Slate>
-            </div>
-        </PopperOptionsContext.Provider>
+                                    <FlashNodesExtension containerElement={containerRef.current} />
+
+                                    {!hasCustomPlaceholder && (
+                                        <Placeholder className="editor-placeholder">
+                                            {placeholder}
+                                        </Placeholder>
+                                    )}
+
+                                    {withSnippets && (
+                                        <SnippetsExtension
+                                            {...withSnippets}
+                                            ref={snippetsExtension}
+                                            availableWidth={availableWidth}
+                                            containerRef={containerRef}
+                                        />
+                                    )}
+
+                                    {withFloatingAddMenu && (
+                                        <FloatingAddMenuExtension<MenuAction>
+                                            tooltip={
+                                                typeof withFloatingAddMenu === 'object'
+                                                    ? withFloatingAddMenu.tooltip
+                                                    : undefined
+                                            }
+                                            availableWidth={availableWidth}
+                                            containerRef={containerRef}
+                                            onActivate={handleMenuAction}
+                                            onFilter={handleMenuFilter}
+                                            options={menuOptions}
+                                            showTooltipByDefault={EditorCommands.isEmpty(editor)}
+                                        />
+                                    )}
+
+                                    {withRichFormattingMenu && (
+                                        <RichFormattingMenuExtension
+                                            availableWidth={availableWidth}
+                                            containerElement={containerRef.current}
+                                            defaultAlignment={align}
+                                            withAlignment={withAlignmentControls}
+                                            withBlockquotes={withBlockquotes}
+                                            withConversionOptions={
+                                                typeof withRichFormattingMenu === 'object'
+                                                    ? withRichFormattingMenu.withConversionOptions
+                                                    : false
+                                            }
+                                            withHeadings={withHeadings}
+                                            withInlineLinks={withInlineLinks}
+                                            withLists={withLists}
+                                            withNewTabOption={Boolean(
+                                                typeof withRichFormattingMenu === 'object'
+                                                    ? withRichFormattingMenu.withNewTabOption
+                                                    : false,
+                                            )}
+                                            withParagraphs
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </DecorationsProvider>
+                    </Slate>
+                </div>
+            </PopperOptionsContext.Provider>
+        </ExtensionsManager>
     );
 });
 

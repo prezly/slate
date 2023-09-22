@@ -1,21 +1,36 @@
-import type { Location } from 'slate';
+import type { Location, TextUnit } from 'slate';
 import { Editor, Range, Point } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
 
+export function deleteBackward(
+    editor: TablesEditor,
+    unit: TextUnit,
+    next: Editor['deleteBackward'],
+) {
+    if (canDeleteInTableCell(editor, Editor.start)) {
+        next(unit);
+    }
+}
+
+export function deleteForward(editor: TablesEditor, unit: TextUnit, next: Editor['deleteForward']) {
+    if (canDeleteInTableCell(editor, Editor.end)) {
+        next(unit);
+    }
+}
+
 export function withTablesDeleteBehavior<T extends TablesEditor>(editor: T): T {
-    const { deleteBackward, deleteForward } = editor;
+    const parent = {
+        deleteBackward: editor.deleteBackward,
+        deleteForward: editor.deleteForward,
+    };
 
     editor.deleteBackward = (unit) => {
-        if (canDeleteInTableCell(editor, Editor.start)) {
-            deleteBackward(unit);
-        }
+        deleteBackward(editor, unit, parent.deleteBackward);
     };
 
     editor.deleteForward = (unit) => {
-        if (canDeleteInTableCell(editor, Editor.end)) {
-            deleteForward(unit);
-        }
+        deleteForward(editor, unit, parent.deleteForward);
     };
 
     return editor;

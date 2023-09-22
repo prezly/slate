@@ -1,18 +1,13 @@
-import type { Extension, OnDOMBeforeInput } from '@prezly/slate-commons';
+import type { OnDOMBeforeInput } from '@prezly/slate-commons';
 import type { ReactEditor } from 'slate-react';
 
 export function combineOnDOMBeforeInput(
     editor: ReactEditor,
-    extensions: Extension[],
-    onDOMBeforeInputList: OnDOMBeforeInput[],
+    onDOMBeforeInputFns: OnDOMBeforeInput[],
 ) {
-    return function (event: Event) {
-        onDOMBeforeInputList.forEach((onDOMBeforeInput) => {
+    return (event: Event) => {
+        onDOMBeforeInputFns.forEach((onDOMBeforeInput) => {
             onDOMBeforeInput(event, editor);
-        });
-
-        extensions.forEach(({ onDOMBeforeInput }) => {
-            onDOMBeforeInput?.(event, editor);
         });
     };
 }

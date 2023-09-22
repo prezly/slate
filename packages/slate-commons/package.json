@@ -50,6 +50,7 @@
     "dependencies": {
         "@prezly/slate-types": "workspace:*",
         "@technically/is-not-null": "^1.0.0",
+        "@technically/is-not-undefined": "^1.0.0",
         "uuid": "^8.3.0"
     },
     "devDependencies": {

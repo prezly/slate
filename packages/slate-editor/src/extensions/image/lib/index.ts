@@ -1,3 +1,4 @@
+export { createFragmentDataSetter } from './createFragmentDataSetter';
 export { createImage } from './createImage';
 export { getAncestorAnchor } from './getAncestorAnchor';
 export { getCurrentImageNodeEntry } from './getCurrentImageNodeEntry';

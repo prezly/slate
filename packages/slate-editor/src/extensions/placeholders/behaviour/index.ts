@@ -1,1 +1,1 @@
-export { withPastedUrlsUnfurling } from './withPastedUrlsUnfurling';
+export { unfurlPastedUrls } from './unfurlPastedUrls';

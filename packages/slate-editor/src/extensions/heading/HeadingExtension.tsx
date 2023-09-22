@@ -1,5 +1,5 @@
-import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement } from '@prezly/slate-commons';
+import type { LineBreakHandler } from '@prezly/slate-commons';
+import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import type { HeadingNode, HeadingRole } from '@prezly/slate-types';
 import {
     HEADING_1_NODE_TYPE,
@@ -8,10 +8,11 @@ import {
     isSubtitleHeadingNode,
     isTitleHeadingNode,
 } from '@prezly/slate-types';
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { Node } from 'slate';
+import { useSlateStatic } from 'slate-react';
 
-import { onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak } from '#lib';
+import { onBackspaceResetFormattingAtDocumentStart, resetFormattingOnBreak } from '#lib';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
@@ -20,8 +21,14 @@ import { normalizeRedundantAttributes, onTabSwitchBlock, parseHeadingElement } f
 
 export const EXTENSION_ID = 'HeadingExtension';
 
-export function HeadingExtension(): Extension {
-    return {
+export function HeadingExtension() {
+    const editor = useSlateStatic();
+
+    const insertBreak = useCallback(() => {
+        return resetFormattingOnBreak(editor, isHeadingNode);
+    }, []);
+
+    return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
             element: composeElementDeserializer({
@@ -35,6 +42,7 @@ export function HeadingExtension(): Extension {
                 H6: () => ({ type: HEADING_2_NODE_TYPE }),
             }),
         },
+        insertBreak,
         normalizeNode: [normalizeRedundantAttributes],
         onKeyDown(event, editor) {
             return (
@@ -52,8 +60,7 @@ export function HeadingExtension(): Extension {
             }
             return undefined;
         },
-        withOverrides: withResetFormattingOnBreak(isHeadingNode),
-    };
+    });
 }
 
 function isTitleSubtitleNode(node: Node): node is HeadingNode & { role: HeadingRole } {

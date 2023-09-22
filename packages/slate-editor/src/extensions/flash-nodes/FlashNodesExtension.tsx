@@ -1,20 +1,21 @@
-import type { Extension } from '@prezly/slate-commons';
+import React, { useEffect } from 'react';
+import { useSlateStatic } from 'slate-react';
 
-export function FlashNodesExtension(): Extension {
-    return {
-        id: 'FlashNodesExtension',
-        withOverrides: (editor) => {
-            editor.nodesToFlash = [];
+import { FlashNodes } from './components/FlashNodes';
+import { withFlashNodes } from './withFlashNodes';
 
-            editor.flash = (from, to) => {
-                if (!from || !to) {
-                    return;
-                }
+export const EXTENSION_ID = 'FlashNodesExtension';
 
-                editor.nodesToFlash.push([from, to]);
-            };
+export interface Parameters {
+    containerElement: HTMLElement | null | undefined;
+}
 
-            return editor;
-        },
-    };
+export function FlashNodesExtension({ containerElement }: Parameters) {
+    const editor = useSlateStatic();
+
+    useEffect(() => {
+        withFlashNodes(editor);
+    }, [editor]);
+
+    return <FlashNodes containerElement={containerElement} />;
 }

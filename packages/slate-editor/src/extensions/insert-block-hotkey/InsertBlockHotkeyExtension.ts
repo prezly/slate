@@ -1,4 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 import { noop } from '@technically/lodash';
 import { isHotkey } from 'is-hotkey';
 import type { Editor, Element } from 'slate';
@@ -18,8 +18,8 @@ interface Parameters {
 export function InsertBlockHotkeyExtension({
     createDefaultElement,
     onInserted = noop,
-}: Parameters): Extension {
-    return {
+}: Parameters) {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         onKeyDown: (event, editor) => {
             if (isShiftModEnter(event) && insertBlockAbove(editor, createDefaultElement)) {
@@ -33,5 +33,5 @@ export function InsertBlockHotkeyExtension({
             }
             return false;
         },
-    };
+    });
 }

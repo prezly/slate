@@ -1,9 +1,8 @@
 import { stubTrue } from '@technically/lodash';
 import { isHotkey } from 'is-hotkey';
-import type { KeyboardEvent } from 'react';
-import { useCallback, useMemo, useState } from 'react';
-import type { Editor } from 'slate';
+import { useCallback, useEffect, useMemo, useState, type KeyboardEvent } from 'react';
 import { Range, Transforms } from 'slate';
+import { useSlate } from 'slate-react';
 
 import { getWordAfterTrigger, insertMention, isPointAtWordEnd } from './lib';
 import type { MentionElementType, Option } from './types';
@@ -17,9 +16,8 @@ interface Parameters<V> {
 
 export interface Mentions<V> {
     index: number;
-    onAdd: (editor: Editor, option: Option<V>) => void;
-    onChange: (editor: Editor) => void;
-    onKeyDown: (event: KeyboardEvent, editor: Editor) => void;
+    onAdd: (option: Option<V>) => void;
+    onKeyDown: (event: KeyboardEvent) => void;
     options: Option<V>[];
     query: string;
     target: Range | null;
@@ -31,16 +29,19 @@ export function useMentions<V>({
     options,
     trigger,
 }: Parameters<V>): Mentions<V> {
+    const editor = useSlate(); // `useSlate()` is to react to the editor changes
+
     const [index, setIndex] = useState<number>(0);
     const [query, setQuery] = useState<string>('');
     const [target, setTarget] = useState<Range | null>(null);
+
     const filteredOptions = useMemo(() => {
         if (!isEnabled(target)) return [];
-        return options.filter(({ label }) => label.search(new RegExp(query, 'i')) !== -1);
+        return options.filter(({ label }) => label.search(new RegExp(query, 'i')) !== -1); // FIXME: RegExp(query, i)
     }, [isEnabled, query, options, target]);
 
     const onAdd = useCallback(
-        (editor: Editor, option: Option<V>) => {
+        (option: Option<V>) => {
             if (target) {
                 Transforms.select(editor, target);
                 const mentionElement = createMentionElement(option);
@@ -48,32 +49,29 @@ export function useMentions<V>({
                 setTarget(null);
             }
         },
-        [createMentionElement, target],
+        [editor, createMentionElement, target],
     );
 
-    const onChange = useCallback(
-        (editor: Editor) => {
-            const { selection } = editor;
+    useEffect(() => {
+        const { selection } = editor;
 
-            if (selection && Range.isCollapsed(selection)) {
-                const at = Range.start(selection);
-                const word = getWordAfterTrigger(editor, { at, trigger });
+        if (selection && Range.isCollapsed(selection)) {
+            const at = Range.start(selection);
+            const word = getWordAfterTrigger(editor, { at, trigger });
 
-                if (word && isPointAtWordEnd(editor, { at })) {
-                    setTarget(word.range);
-                    setQuery(word.text);
-                    setIndex(0);
-                    return;
-                }
+            if (word && isPointAtWordEnd(editor, { at })) {
+                setTarget(word.range);
+                setQuery(word.text);
+                setIndex(0);
+                return;
             }
+        }
 
-            setTarget(null);
-        },
-        [setIndex, setQuery, trigger],
-    );
+        setTarget(null);
+    }, [editor.children, editor.selection]);
 
     const onKeyDown = useCallback(
-        (event: KeyboardEvent, editor: Editor) => {
+        (event: KeyboardEvent) => {
             if (!target || !isEnabled(target)) {
                 return;
             }
@@ -98,7 +96,7 @@ export function useMentions<V>({
                 filteredOptions[index]
             ) {
                 event.preventDefault();
-                onAdd(editor, filteredOptions[index]);
+                onAdd(filteredOptions[index]);
             }
         },
         [index, isEnabled, filteredOptions, onAdd, target],
@@ -107,7 +105,6 @@ export function useMentions<V>({
     return {
         index,
         onAdd,
-        onChange,
         onKeyDown,
         options: filteredOptions,
         query,

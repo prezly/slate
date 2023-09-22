@@ -1,1 +1,1 @@
-export { withImagesPasting } from './withImagesPasting';
+export { createDataTransferHandler } from './createDataTransferHandler';

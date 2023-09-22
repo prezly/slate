@@ -1,5 +1,4 @@
-import type { Extension } from '@prezly/slate-commons';
-import { createDeserializeElement } from '@prezly/slate-commons';
+import { createDeserializeElement, useRegisterExtension } from '@prezly/slate-commons';
 import { CONTACT_NODE_TYPE, isContactNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
@@ -16,8 +15,8 @@ import { InlineContactElement } from './components';
 
 export const EXTENSION_ID = 'InlineContactExtension';
 
-export function InlineContactsExtension(): Extension {
-    return {
+export function InlineContactsExtension() {
+    return useRegisterExtension({
         id: EXTENSION_ID,
         deserialize: {
             element: composeElementDeserializer({
@@ -49,5 +48,5 @@ export function InlineContactsExtension(): Extension {
 
             return undefined;
         },
-    };
+    });
 }

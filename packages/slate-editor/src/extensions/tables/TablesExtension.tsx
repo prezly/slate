@@ -1,28 +1,28 @@
-import type { Extension } from '@prezly/slate-commons';
+import { useRegisterExtension } from '@prezly/slate-commons';
 import {
-    withTables,
-    TablesEditor,
     onKeyDown,
-    withTablesDeleteBehavior,
-    withTablesCopyPasteBehavior,
+    TablesEditor,
+    withTablesSchema,
+    getFragment,
+    deleteBackward,
+    deleteForward,
 } from '@prezly/slate-tables';
 import {
-    type TableNode,
-    type TableRowNode,
-    type TableCellNode,
+    isTableCellNode,
     isTableNode,
     isTableRowNode,
-    isTableCellNode,
+    type TableCellNode,
+    type TableNode,
+    type TableRowNode,
 } from '@prezly/slate-types';
-import { flow } from '@technically/lodash';
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { Element } from 'slate';
-import type { RenderElementProps } from 'slate-react';
+import { useSlateStatic, type RenderElementProps } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
-import { TableElement, TableRowElement, TableCellElement } from './components';
-import { createTableNode, createTableRowNode, createTableCellNode } from './lib';
+import { TableCellElement, TableElement, TableRowElement } from './components';
+import { createTableCellNode, createTableNode, createTableRowNode } from './lib';
 import {
     normalizeCellAttributes,
     normalizeRowAttributes,
@@ -36,11 +36,46 @@ interface Parameters {
     createDefaultElement: (props?: Partial<Element>) => Element;
 }
 
-export function TablesExtension({ createDefaultElement }: Parameters): Extension {
-    return {
+export function TablesExtension({ createDefaultElement }: Parameters) {
+    const editor = useSlateStatic();
+
+    // Register Tables editor extension schema
+    useEffect(() => {
+        withTablesSchema(editor, {
+            createContentNode: createDefaultElement,
+            createTableNode: ({ children, ...props }) =>
+                createTableNode({
+                    ...props,
+                    children: children as TableNode['children'] | undefined,
+                }),
+            createTableRowNode: ({ children, ...props }) =>
+                createTableRowNode({
+                    ...props,
+                    children: children as TableRowNode['children'] | undefined,
+                }),
+            createTableCellNode,
+            isTableNode,
+            isTableRowNode,
+            isTableCellNode,
+        });
+    }, [editor]);
+
+    return useRegisterExtension({
         id: EXTENSION_ID,
         isRichBlock: isTableNode,
         normalizeNode: [normalizeTableAttributes, normalizeRowAttributes, normalizeCellAttributes],
+        deleteBackward: (unit, next) => {
+            if (TablesEditor.isTablesEditor(editor)) {
+                return deleteBackward(editor, unit, next);
+            }
+            next(unit);
+        },
+        deleteForward: (unit, next) => {
+            if (TablesEditor.isTablesEditor(editor)) {
+                return deleteForward(editor, unit, next);
+            }
+            next(unit);
+        },
         deserialize: {
             element: composeElementDeserializer({
                 TABLE: (): TableNode => {
@@ -103,26 +138,11 @@ export function TablesExtension({ createDefaultElement }: Parameters): Extension
 
             return undefined;
         },
-        withOverrides: (editor) => {
-            const tablesEditor = withTables(editor, {
-                createContentNode: createDefaultElement,
-                createTableNode: ({ children, ...props }) =>
-                    createTableNode({
-                        ...props,
-                        children: children as TableNode['children'] | undefined,
-                    }),
-                createTableRowNode: ({ children, ...props }) =>
-                    createTableRowNode({
-                        ...props,
-                        children: children as TableRowNode['children'] | undefined,
-                    }),
-                createTableCellNode,
-                isTableNode,
-                isTableRowNode,
-                isTableCellNode,
-            });
-
-            return flow([withTablesCopyPasteBehavior, withTablesDeleteBehavior])(tablesEditor);
+        getFragment: (next) => {
+            if (TablesEditor.isTablesEditor(editor)) {
+                return getFragment(editor, next);
+            }
+            return next();
         },
-    };
+    });
 }
