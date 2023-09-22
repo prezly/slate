@@ -1,4 +1,4 @@
-import type { Element, Node } from 'slate';
+import type { Descendant, Element, Node } from 'slate';
 
 import type { DataTransferHandler } from './DataTransferHandler';
 import type { DecorateFactory } from './DecorateFactory';
@@ -41,6 +41,13 @@ export interface Extension {
     renderElement?: RenderElement; // OK
     renderLeaf?: RenderLeaf; // OK
     serialize?: Serialize; // OK
+
+    /**
+     * Hook into Editor's `getFragment()` method.
+     * Call `next()` to allow other extensions (or the editor) handling the call.
+     * @see https://docs.slatejs.org/api/nodes/editor#getfragment-method
+     */
+    getFragment?: (next: () => Descendant[]) => Descendant[];
     /**
      * Hook into ReactEditor's `setFragmentData()` method.
      * Call `next()` to allow other extensions (or the editor) handling the call.

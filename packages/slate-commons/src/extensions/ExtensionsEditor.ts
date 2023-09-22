@@ -45,6 +45,7 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
         insertData: editor.insertData,
         insertText: editor.insertText,
         normalizeNode: editor.normalizeNode,
+        getFragment: editor.getFragment,
         setFragmentData: editor.setFragmentData,
         undo: editor.undo,
         redo: editor.redo,
@@ -146,6 +147,22 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
                 (result, extension) => extension.serialize?.(result) ?? result,
                 nodes,
             );
+        },
+        getFragment() {
+            const handlers = extensionsEditor.extensions
+                .map((ext) => ext.getFragment)
+                .filter(isNotUndefined);
+
+            function next() {
+                const handler = handlers.shift();
+                if (handler) {
+                    return handler(next);
+                } else {
+                    return parent.getFragment();
+                }
+            }
+
+            return next();
         },
         setFragmentData(dataTransfer: DataTransfer, originEvent?: 'drag' | 'copy' | 'cut') {
             const handlers = extensionsEditor.extensions
