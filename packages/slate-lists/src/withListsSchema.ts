@@ -4,12 +4,18 @@ import * as Registry from './registry';
 import type { ListsSchema } from './types';
 
 /**
- * Enables normalizations that enforce schema constraints and recover from unsupported cases.
+ * Slate plugin to bind the ListsSchema definition to the editor instance.
  */
 export function withListsSchema(schema: ListsSchema) {
     return function <T extends Editor>(editor: T): T {
-        Registry.register(editor, schema);
-
+        registerListsSchema(editor, schema);
         return editor;
     };
+}
+
+/**
+ * Bind the ListsSchema definition to the editor instance.
+ */
+export function registerListsSchema(editor: Editor, schema: ListsSchema) {
+    Registry.register(editor, schema);
 }
