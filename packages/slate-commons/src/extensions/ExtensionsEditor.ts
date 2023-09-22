@@ -1,12 +1,24 @@
 import { isNotUndefined } from '@technically/is-not-undefined';
+import type { RefObject } from 'react';
 import type { BaseEditor, Descendant, Editor, Element, Node, TextUnit } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
-import type { EditorMethodsHooks, Extension } from '../types/Extension'; // a deep import is necessary to keep `EditorMethodsHooks` package-scoped
+import type {
+    AdditionalEditorMethods,
+    EditorMethodsHooks,
+    EditorRenderHooks,
+} from '../types/Extension'; // a deep import is necessary to keep cominterfaces package-scoped
 
 export interface ExtensionsEditor extends BaseEditor {
-    extensions: Extension[];
+    /**
+     * Method hooks are separate to not trigger a re-render, when changed.
+     */
+    methodHooks: RefObject<EditorMethodsHooks & AdditionalEditorMethods>[];
+    /**
+     * Render hooks are separate to force a re-render, when changed.
+     */
+    renderHooks: EditorRenderHooks[];
 
     /**
      * Compare two elements.
@@ -36,7 +48,6 @@ export interface ExtensionsEditor extends BaseEditor {
 
 export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEditor>(
     editor: T,
-    extensions: Extension[] = [],
 ): T & ExtensionsEditor {
     const parent = {
         deleteBackward: editor.deleteBackward,
@@ -55,8 +66,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
 
     const methodsHooks = {
         deleteBackward(unit) {
-            const handlers = extensionsEditor.extensions
-                .map((ext) => ext.deleteBackward)
+            const handlers = extensionsEditor.methodHooks
+                .map((hook) => hook.current?.deleteBackward)
                 .filter(isNotUndefined);
 
             function next(unit: TextUnit) {
@@ -71,8 +82,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             next(unit);
         },
         deleteForward(unit) {
-            const handlers = extensionsEditor.extensions
-                .map((ext) => ext.deleteForward)
+            const handlers = extensionsEditor.methodHooks
+                .map((hook) => hook.current?.deleteForward)
                 .filter(isNotUndefined);
 
             function next(unit: TextUnit) {
@@ -87,8 +98,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             next(unit);
         },
         isInline(element) {
-            for (const extension of extensionsEditor.extensions) {
-                if (extension.isInline?.(element)) {
+            for (const hook of extensionsEditor.methodHooks) {
+                if (hook.current?.isInline?.(element)) {
                     return true;
                 }
             }
@@ -96,8 +107,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             return parent.isInline(element);
         },
         isVoid(element) {
-            for (const extension of extensionsEditor.extensions) {
-                if (extension.isVoid?.(element)) {
+            for (const hook of extensionsEditor.methodHooks) {
+                if (hook.current?.isVoid?.(element)) {
                     return true;
                 }
             }
@@ -105,16 +116,16 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             return parent.isVoid(element);
         },
         insertBreak() {
-            for (const extension of extensionsEditor.extensions) {
-                if (extension.insertBreak?.()) {
+            for (const hook of extensionsEditor.methodHooks) {
+                if (hook.current?.insertBreak?.()) {
                     return;
                 }
             }
             parent.insertBreak();
         },
         insertData(dataTransfer) {
-            const handlers = extensionsEditor.extensions
-                .map((ext) => ext.insertData)
+            const handlers = extensionsEditor.methodHooks
+                .map((hook) => hook.current?.insertData)
                 .filter(isNotUndefined);
 
             function next(dataTransfer: DataTransfer) {
@@ -129,8 +140,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             next(dataTransfer);
         },
         insertText(text) {
-            const handlers = extensionsEditor.extensions
-                .map((ext) => ext.insertText)
+            const handlers = extensionsEditor.methodHooks
+                .map((hook) => hook.current?.insertText)
                 .filter(isNotUndefined);
 
             function next(text: string) {
@@ -145,8 +156,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             next(text);
         },
         normalizeNode(entry) {
-            const normalizers = extensionsEditor.extensions.flatMap(
-                (ext) => ext.normalizeNode ?? [],
+            const normalizers = extensionsEditor.methodHooks.flatMap(
+                (hook) => hook.current?.normalizeNode ?? [],
             );
 
             for (const normalizer of normalizers) {
@@ -160,8 +171,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             return parent.normalizeNode(entry);
         },
         getFragment() {
-            const handlers = extensionsEditor.extensions
-                .map((ext) => ext.getFragment)
+            const handlers = extensionsEditor.methodHooks
+                .map((hook) => hook.current?.getFragment)
                 .filter(isNotUndefined);
 
             function next() {
@@ -176,8 +187,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             return next();
         },
         setFragmentData(dataTransfer: DataTransfer, originEvent?: 'drag' | 'copy' | 'cut') {
-            const handlers = extensionsEditor.extensions
-                .map((ext) => ext.setFragmentData)
+            const handlers = extensionsEditor.methodHooks
+                .map((hook) => hook.current?.setFragmentData)
                 .filter(isNotUndefined);
 
             function next(dataTransfer: DataTransfer) {
@@ -192,8 +203,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             next(dataTransfer);
         },
         undo() {
-            const handlers = extensionsEditor.extensions
-                .map((ext) => ext.undo)
+            const handlers = extensionsEditor.methodHooks
+                .map((hook) => hook.current?.undo)
                 .filter(isNotUndefined);
 
             function next() {
@@ -208,8 +219,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             next();
         },
         redo() {
-            const handlers = extensionsEditor.extensions
-                .map((ext) => ext.redo)
+            const handlers = extensionsEditor.methodHooks
+                .map((hook) => hook.current?.redo)
                 .filter(isNotUndefined);
 
             function next() {
@@ -226,10 +237,11 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
     } satisfies Pick<Editor & ReactEditor & HistoryEditor, keyof EditorMethodsHooks>;
 
     const extensionsEditor: T & ExtensionsEditor = Object.assign(editor, {
-        extensions,
+        methodHooks: [],
+        renderHooks: [],
         isElementEqual(node, another): boolean | undefined {
-            for (const extension of extensionsEditor.extensions) {
-                const ret = extension.isElementEqual?.(node, another);
+            for (const hook of extensionsEditor.methodHooks) {
+                const ret = hook.current?.isElementEqual?.(node, another);
                 if (typeof ret !== 'undefined') {
                     return ret;
                 }
@@ -237,16 +249,16 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             return undefined;
         },
         isRichBlock(node): boolean {
-            for (const extension of extensionsEditor.extensions) {
-                if (extension.isRichBlock?.(node)) {
+            for (const hook of extensionsEditor.methodHooks) {
+                if (hook.current?.isRichBlock?.(node)) {
                     return true;
                 }
             }
             return false;
         },
         serialize(nodes) {
-            return extensionsEditor.extensions.reduce(
-                (result, extension) => extension.serialize?.(result) ?? result,
+            return extensionsEditor.methodHooks.reduce(
+                (result, hook) => hook.current?.serialize?.(result) ?? result,
                 nodes,
             );
         },

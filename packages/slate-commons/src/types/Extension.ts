@@ -15,8 +15,10 @@ import type { TextInsertionHandler } from './TextInsertionHandler';
 
 /**
  * Extension hooks that affect <Editable> component props and thus should be triggering a React re-render.
+ *
+ * @internal This is a package-scoped interface. Please do not export it publicly.
  */
-export interface EditorPropsHooks {
+export interface EditorRenderHooks {
     decorate?: DecorateFactory;
     onDOMBeforeInput?: OnDOMBeforeInput;
     onKeyDown?: OnKeyDown;
@@ -26,6 +28,8 @@ export interface EditorPropsHooks {
 
 /**
  * Extension hooks that affect the Editor singleton callback-based functionality, and don't require a re-render.
+ *
+ * @internal This is a package-scoped interface. Please do not export it publicly.
  */
 export interface EditorMethodsHooks {
     deleteBackward?: (unit: TextUnit, next: Editor['deleteBackward']) => void;
@@ -58,12 +62,12 @@ export interface EditorMethodsHooks {
     redo?: HistoryHandler;
 }
 
-export interface Extension extends EditorMethodsHooks, EditorPropsHooks {
-    id: string;
-
-    deserialize?: DeserializeHtml;
-    serialize?: Serialize;
-
+/**
+ * Additional Editor methods added by the ExtensionsEditor.
+ *
+ * @internal This is a package-scoped interface. Please do not export it publicly.
+ */
+export interface AdditionalEditorMethods {
     /**
      * Compare two elements.
      * `children` arrays can be omitted from the comparison,
@@ -72,4 +76,11 @@ export interface Extension extends EditorMethodsHooks, EditorPropsHooks {
     isElementEqual?: (node: Element, another: Element) => boolean | undefined;
 
     isRichBlock?: (node: Node) => boolean;
+
+    serialize?: Serialize;
+    deserialize?: DeserializeHtml;
+}
+
+export interface Extension extends EditorMethodsHooks, EditorRenderHooks, AdditionalEditorMethods {
+    id: string;
 }

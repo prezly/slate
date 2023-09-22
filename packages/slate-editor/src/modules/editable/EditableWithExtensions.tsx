@@ -48,42 +48,40 @@ export function EditableWithExtensions({
     renderLeaf,
     ...props
 }: Props) {
-    const extensions = useSlateSelector((editor) => editor.extensions);
+    const extensions = useSlateSelector((editor) => editor.renderHooks);
 
     const combinedDecorate: Decorate = useMemo(
         function () {
-            const decorateExtensions = extensions.map((extension) => extension.decorate?.(editor));
-            return combineDecorate([decorate, ...decorateExtensions].filter(isNotUndefined));
+            const decorateHooks = extensions.map((hook) => hook.decorate?.(editor));
+            return combineDecorate([decorate, ...decorateHooks].filter(isNotUndefined));
         },
         [decorate, extensions],
     );
 
     const combinedOnDOMBeforeInput = useMemo(() => {
-        const onDOMBeforeInputExtensions = extensions.map(
-            (extension) => extension.onDOMBeforeInput,
-        );
+        const onDOMBeforeInputHooks = extensions.map((hook) => hook.onDOMBeforeInput);
         return combineOnDOMBeforeInput(
             editor,
-            [onDOMBeforeInput, ...onDOMBeforeInputExtensions].filter(isNotUndefined),
+            [onDOMBeforeInput, ...onDOMBeforeInputHooks].filter(isNotUndefined),
         );
     }, [onDOMBeforeInput, extensions]);
 
     const combinedOnKeyDown = useMemo(() => {
-        const onKeyDownExtensions = extensions.map((extension) => extension.onKeyDown);
-        return combineOnKeyDown(editor, [onKeyDown, ...onKeyDownExtensions].filter(isNotUndefined));
+        const onKeyDownHooks = extensions.map((hook) => hook.onKeyDown);
+        return combineOnKeyDown(editor, [onKeyDown, ...onKeyDownHooks].filter(isNotUndefined));
     }, [onKeyDown, extensions]);
 
     const combinedRenderElement = useMemo(() => {
-        const renderElementExtensions = extensions.map((extension) => extension.renderElement);
+        const renderElementHooks = extensions.map((hook) => hook.renderElement);
         return combineRenderElement(
             editor,
-            [renderElement, ...renderElementExtensions].filter(isNotUndefined),
+            [renderElement, ...renderElementHooks].filter(isNotUndefined),
         );
     }, [renderElement, extensions]);
 
     const combinedRenderLeaf = useMemo(() => {
-        const renderLeafExtensions = extensions.map((extension) => extension.renderLeaf);
-        return combineRenderLeaf([renderLeaf, ...renderLeafExtensions].filter(isNotUndefined));
+        const renderLeafHooks = extensions.map((hook) => hook.renderLeaf);
+        return combineRenderLeaf([renderLeaf, ...renderLeafHooks].filter(isNotUndefined));
     }, [renderLeaf, extensions]);
 
     return (
