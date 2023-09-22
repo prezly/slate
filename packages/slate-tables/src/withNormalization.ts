@@ -1,29 +1,32 @@
-import * as normalization from './normalization';
+import type { NodeEntry } from 'slate';
+
+import * as Normalizations from './normalization';
 import type { TablesEditor } from './TablesEditor';
 
-const normalizers = [
-    normalization.removeEmptyRows,
-    normalization.splitRowSpanCells,
-    normalization.splitColSpanCells,
-    normalization.insertMissingCells,
-];
-
 export function withNormalization(editor: TablesEditor) {
-    const { normalizeNode } = editor;
+    const parent = {
+        normalizeNode: editor.normalizeNode,
+    };
 
     editor.normalizeNode = (entry) => {
-        const [, path] = entry;
-
-        for (const normalize of normalizers) {
-            const changed = normalize(editor, path);
-
-            if (changed) {
-                return;
-            }
-        }
-
-        normalizeNode(entry);
+        return normalizeNode(editor, entry) || parent.normalizeNode(entry);
     };
 
     return editor;
+}
+
+export function normalizeNode(editor: TablesEditor, entry: NodeEntry): boolean {
+    return (
+        normalizeNode.insertMissingCells(editor, entry) ||
+        normalizeNode.removeEmptyRows(editor, entry) ||
+        normalizeNode.splitColSpanCells(editor, entry) ||
+        normalizeNode.splitRowSpanCells(editor, entry)
+    );
+}
+
+export namespace normalizeNode {
+    export const insertMissingCells = Normalizations.insertMissingCells;
+    export const splitColSpanCells = Normalizations.splitColSpanCells;
+    export const splitRowSpanCells = Normalizations.splitRowSpanCells;
+    export const removeEmptyRows = Normalizations.removeEmptyRows;
 }

@@ -1,11 +1,8 @@
-import { Node, Transforms } from 'slate';
-import type { Path } from 'slate';
+import { Node, type NodeEntry, Transforms } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
 
-export function removeEmptyRows(editor: TablesEditor, path: Path) {
-    const table = Node.get(editor, path);
-
+export function removeEmptyRows(editor: TablesEditor, [table, path]: NodeEntry) {
     if (!editor.isTableNode(table)) {
         return false;
     }

@@ -1,5 +1,11 @@
 export * from './Matrix';
 export * from './Traverse';
-export * from './onKeyDown';
-export * from './withTablesCopyPasteBehavior';
-export * from './withTablesDeleteBehavior';
+
+export { onKeyDown } from './onKeyDown';
+
+export { withTablesCopyPasteBehavior, getFragment } from './withTablesCopyPasteBehavior';
+export {
+    withTablesDeleteBehavior,
+    deleteBackward,
+    deleteForward,
+} from './withTablesDeleteBehavior';

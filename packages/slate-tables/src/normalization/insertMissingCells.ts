@@ -1,21 +1,16 @@
 import { times } from '@technically/lodash';
-import { Node, Transforms } from 'slate';
-import { Path } from 'slate';
+import { Node, type NodeEntry, Path, Transforms } from 'slate';
 
 import type { TableRowNode } from '../nodes';
 import { TablesEditor } from '../TablesEditor';
 
-export function insertMissingCells(editor: TablesEditor, path: Path) {
-    const table = Node.get(editor, path);
-
-    if (!editor.isTableNode(table)) {
+export function insertMissingCells(editor: TablesEditor, [node, path]: NodeEntry) {
+    if (!editor.isTableNode(node)) {
         return false;
     }
 
     const maxWidth = Math.max(
-        ...table.children.map((node) =>
-            editor.isTableRowNode(node) ? calculateRowWidth(node) : 0,
-        ),
+        ...node.children.map((node) => (editor.isTableRowNode(node) ? calculateRowWidth(node) : 0)),
     );
 
     for (const [row, rowPath] of Node.children(editor, path)) {
