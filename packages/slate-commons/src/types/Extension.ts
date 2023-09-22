@@ -1,4 +1,4 @@
-import type { Descendant, Element, Node } from 'slate';
+import type { Descendant, Editor, Element, Node, TextUnit } from 'slate';
 
 import type { DataTransferHandler } from './DataTransferHandler';
 import type { DecorateFactory } from './DecorateFactory';
@@ -17,6 +17,8 @@ import type { WithOverrides } from './WithOverrides';
 export interface Extension {
     id: string;
     decorate?: DecorateFactory; // OK
+    deleteBackward?: (unit: TextUnit, next: Editor['deleteBackward']) => void;
+    deleteForward?: (unit: TextUnit, next: Editor['deleteForward']) => void;
     deserialize?: DeserializeHtml; // OK
     insertBreak?: LineBreakHandler;
     /**

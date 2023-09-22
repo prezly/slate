@@ -1,5 +1,5 @@
 import { isNotUndefined } from '@technically/is-not-undefined';
-import type { BaseEditor, Descendant, Element, Node } from 'slate';
+import type { BaseEditor, Descendant, Editor, Element, Node, TextUnit } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
@@ -39,6 +39,8 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
     extensions: Extension[] = [],
 ): T & ExtensionsEditor {
     const parent = {
+        deleteBackward: editor.deleteBackward,
+        deleteForward: editor.deleteForward,
         isInline: editor.isInline,
         isVoid: editor.isVoid,
         insertBreak: editor.insertBreak,
@@ -49,9 +51,42 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
         setFragmentData: editor.setFragmentData,
         undo: editor.undo,
         redo: editor.redo,
-    };
+    } satisfies Partial<Editor & ReactEditor & HistoryEditor>;
+
     const extensionsEditor: T & ExtensionsEditor = Object.assign(editor, {
         extensions,
+        deleteBackward(unit) {
+            const handlers = extensionsEditor.extensions
+                .map((ext) => ext.deleteBackward)
+                .filter(isNotUndefined);
+
+            function next(unit: TextUnit) {
+                const handler = handlers.shift();
+                if (handler) {
+                    handler(unit, next);
+                } else {
+                    parent.deleteBackward(unit);
+                }
+            }
+
+            next(unit);
+        },
+        deleteForward(unit) {
+            const handlers = extensionsEditor.extensions
+                .map((ext) => ext.deleteForward)
+                .filter(isNotUndefined);
+
+            function next(unit: TextUnit) {
+                const handler = handlers.shift();
+                if (handler) {
+                    handler(unit, next);
+                } else {
+                    parent.deleteForward(unit);
+                }
+            }
+
+            next(unit);
+        },
         isElementEqual(node, another): boolean | undefined {
             for (const extension of extensionsEditor.extensions) {
                 const ret = extension.isElementEqual?.(node, another);
