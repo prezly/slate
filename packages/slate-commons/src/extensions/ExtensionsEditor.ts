@@ -3,7 +3,7 @@ import type { BaseEditor, Descendant, Editor, Element, Node, TextUnit } from 'sl
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 
-import type { Extension } from '../types';
+import type { EditorMethodsHooks, Extension } from '../types/Extension'; // a deep import is necessary to keep `EditorMethodsHooks` package-scoped
 
 export interface ExtensionsEditor extends BaseEditor {
     extensions: Extension[];
@@ -53,8 +53,7 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
         redo: editor.redo,
     } satisfies Partial<Editor & ReactEditor & HistoryEditor>;
 
-    const extensionsEditor: T & ExtensionsEditor = Object.assign(editor, {
-        extensions,
+    const methodsHooks = {
         deleteBackward(unit) {
             const handlers = extensionsEditor.extensions
                 .map((ext) => ext.deleteBackward)
@@ -87,15 +86,6 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
 
             next(unit);
         },
-        isElementEqual(node, another): boolean | undefined {
-            for (const extension of extensionsEditor.extensions) {
-                const ret = extension.isElementEqual?.(node, another);
-                if (typeof ret !== 'undefined') {
-                    return ret;
-                }
-            }
-            return undefined;
-        },
         isInline(element) {
             for (const extension of extensionsEditor.extensions) {
                 if (extension.isInline?.(element)) {
@@ -113,14 +103,6 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             }
 
             return parent.isVoid(element);
-        },
-        isRichBlock(node): boolean {
-            for (const extension of extensionsEditor.extensions) {
-                if (extension.isRichBlock?.(node)) {
-                    return true;
-                }
-            }
-            return false;
         },
         insertBreak() {
             for (const extension of extensionsEditor.extensions) {
@@ -176,12 +158,6 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
             }
 
             return parent.normalizeNode(entry);
-        },
-        serialize(nodes) {
-            return extensionsEditor.extensions.reduce(
-                (result, extension) => extension.serialize?.(result) ?? result,
-                nodes,
-            );
         },
         getFragment() {
             const handlers = extensionsEditor.extensions
@@ -247,7 +223,35 @@ export function withExtensions<T extends BaseEditor & ReactEditor & HistoryEdito
 
             next();
         },
-    } satisfies Partial<BaseEditor & ReactEditor & HistoryEditor & ExtensionsEditor>);
+    } satisfies Pick<Editor & ReactEditor & HistoryEditor, keyof EditorMethodsHooks>;
+
+    const extensionsEditor: T & ExtensionsEditor = Object.assign(editor, {
+        extensions,
+        isElementEqual(node, another): boolean | undefined {
+            for (const extension of extensionsEditor.extensions) {
+                const ret = extension.isElementEqual?.(node, another);
+                if (typeof ret !== 'undefined') {
+                    return ret;
+                }
+            }
+            return undefined;
+        },
+        isRichBlock(node): boolean {
+            for (const extension of extensionsEditor.extensions) {
+                if (extension.isRichBlock?.(node)) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        serialize(nodes) {
+            return extensionsEditor.extensions.reduce(
+                (result, extension) => extension.serialize?.(result) ?? result,
+                nodes,
+            );
+        },
+        ...methodsHooks,
+    } satisfies Omit<ExtensionsEditor, keyof Editor>);
 
     return extensionsEditor;
 }

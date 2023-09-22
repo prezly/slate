@@ -13,36 +13,34 @@ import type { RenderLeaf } from './RenderLeaf';
 import type { Serialize } from './Serialize';
 import type { TextInsertionHandler } from './TextInsertionHandler';
 
-export interface Extension {
-    id: string;
-    decorate?: DecorateFactory; // OK
+/**
+ * Extension hooks that affect <Editable> component props and thus should be triggering a React re-render.
+ */
+export interface EditorPropsHooks {
+    decorate?: DecorateFactory;
+    onDOMBeforeInput?: OnDOMBeforeInput;
+    onKeyDown?: OnKeyDown;
+    renderElement?: RenderElement;
+    renderLeaf?: RenderLeaf;
+}
+
+/**
+ * Extension hooks that affect the Editor singleton callback-based functionality, and don't require a re-render.
+ */
+export interface EditorMethodsHooks {
     deleteBackward?: (unit: TextUnit, next: Editor['deleteBackward']) => void;
     deleteForward?: (unit: TextUnit, next: Editor['deleteForward']) => void;
-    deserialize?: DeserializeHtml; // OK
     insertBreak?: LineBreakHandler;
     /**
      * Hook into ReactEditor's `insertData()` method.
      * Call `next()` to allow other extensions (or the editor) handling the call.
      * @see https://docs.slatejs.org/libraries/slate-react/react-editor
      */
-    insertData?: DataTransferHandler; // OK
-    insertText?: TextInsertionHandler; // OK
-    /**
-     * Compare two elements.
-     * `children` arrays can be omitted from the comparison,
-     * as the outer code will compare them anyway.
-     */
-    isElementEqual?: (node: Element, another: Element) => boolean | undefined;
-    isInline?: (node: Node) => boolean; // OK
-    isRichBlock?: (node: Node) => boolean; // OK
-    isVoid?: (node: Node) => boolean; // OK
-    normalizeNode?: Normalize | Normalize[]; // OK
-    onDOMBeforeInput?: OnDOMBeforeInput; // OK
-    onKeyDown?: OnKeyDown; // OK
-    renderElement?: RenderElement; // OK
-    renderLeaf?: RenderLeaf; // OK
-    serialize?: Serialize; // OK
-
+    insertData?: DataTransferHandler;
+    insertText?: TextInsertionHandler;
+    isInline?: (node: Node) => boolean;
+    isVoid?: (node: Node) => boolean;
+    normalizeNode?: Normalize | Normalize[];
     /**
      * Hook into Editor's `getFragment()` method.
      * Call `next()` to allow other extensions (or the editor) handling the call.
@@ -58,4 +56,20 @@ export interface Extension {
 
     undo?: HistoryHandler;
     redo?: HistoryHandler;
+}
+
+export interface Extension extends EditorMethodsHooks, EditorPropsHooks {
+    id: string;
+
+    deserialize?: DeserializeHtml;
+    serialize?: Serialize;
+
+    /**
+     * Compare two elements.
+     * `children` arrays can be omitted from the comparison,
+     * as the outer code will compare them anyway.
+     */
+    isElementEqual?: (node: Element, another: Element) => boolean | undefined;
+
+    isRichBlock?: (node: Node) => boolean;
 }
