@@ -9,5 +9,5 @@ export interface ImageExtensionConfiguration {
     withSizeOptions?: boolean;
     withLayoutOptions?: boolean;
     withNewTabOption?: boolean;
-    withMediaGalleryTab?: false | { enabled: true; newsroom: NewsroomRef };
+    withMediaGalleryTab?: false | { enabled: boolean; newsroom: NewsroomRef };
 }

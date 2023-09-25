@@ -33,7 +33,7 @@ interface Props extends RenderElementProps {
         },
     ) => void;
     onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
-    withMediaGalleryTab: false | { enabled: true; newsroom: NewsroomRef };
+    withMediaGalleryTab: false | { enabled: boolean; newsroom: NewsroomRef };
     withLayoutOptions: boolean;
 }
 
@@ -164,7 +164,7 @@ function Sizer() {
 function getMediaGalleryParameters(
     withMediaGalleryTab: Props['withMediaGalleryTab'],
 ): MediaGalleryOptions<true> | MediaGalleryOptions<false> {
-    if (withMediaGalleryTab) {
+    if (withMediaGalleryTab && withMediaGalleryTab.enabled) {
         return {
             mediaGalleryTab: true,
             newsroom: withMediaGalleryTab.newsroom,

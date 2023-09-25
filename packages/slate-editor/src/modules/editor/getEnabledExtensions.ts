@@ -256,7 +256,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
                 });
             },
             withMediaGalleryTab: withGalleries.withMediaGalleryTab ?? false,
-            withLayoutOptions: withGalleries.withWidthOption,
+            withLayoutOptions: withGalleries.withLayoutOptions,
         });
     }
 

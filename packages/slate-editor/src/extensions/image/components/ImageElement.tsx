@@ -34,7 +34,7 @@ interface Props extends RenderElementProps {
     withAlignmentOptions: boolean;
     withCaptions: boolean;
     withLayoutOptions: boolean;
-    withMediaGalleryTab: false | { enabled: true; newsroom: NewsroomRef };
+    withMediaGalleryTab: false | { enabled: boolean; newsroom: NewsroomRef };
     withNewTabOption: boolean;
     withSizeOptions: boolean;
 }
@@ -312,7 +312,7 @@ function toSizeOption(image: ImageNode): Size | undefined {
 function getMediaGalleryParameters(
     withMediaGalleryTab: Props['withMediaGalleryTab'],
 ): MediaGalleryOptions<true> | MediaGalleryOptions<false> {
-    if (withMediaGalleryTab) {
+    if (withMediaGalleryTab && withMediaGalleryTab.enabled) {
         return {
             mediaGalleryTab: true,
             newsroom: withMediaGalleryTab.newsroom,

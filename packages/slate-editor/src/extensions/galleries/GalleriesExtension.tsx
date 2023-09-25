@@ -1,4 +1,3 @@
-import type { NewsroomRef } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import type { GalleryNode } from '@prezly/slate-types';
@@ -16,8 +15,9 @@ import {
     normalizeRedundantGalleryAttributes,
     parseSerializedElement,
 } from './lib';
+import type { GalleriesExtensionConfiguration } from './types';
 
-interface Parameters {
+interface Parameters extends GalleriesExtensionConfiguration {
     availableWidth: number;
     onEdited?: (
         editor: Editor,
@@ -28,8 +28,6 @@ interface Parameters {
         },
     ) => void;
     onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
-    withMediaGalleryTab: false | { enabled: true; newsroom: NewsroomRef };
-    withLayoutOptions: boolean | undefined;
 }
 
 export const EXTENSION_ID = 'GalleriesExtension';
@@ -38,8 +36,8 @@ export const GalleriesExtension = ({
     availableWidth,
     onEdited,
     onShuffled,
-    withMediaGalleryTab,
     withLayoutOptions = false,
+    withMediaGalleryTab = false,
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
