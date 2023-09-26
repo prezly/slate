@@ -21,7 +21,7 @@ export function withFilesPasting({ onFilesPasted = noop }: Parameters = {}) {
 
         editor.insertData = (dataTransfer: DataTransfer) => {
             if (!isFilesOnlyDataTransfer(dataTransfer)) {
-                // Handle images, if the pasted content is containing files only.
+                // Exit, if the pasted content contains more than just files.
                 return parent.insertData(dataTransfer);
             }
 
