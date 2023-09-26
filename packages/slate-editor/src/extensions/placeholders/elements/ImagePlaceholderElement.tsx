@@ -1,4 +1,3 @@
-import type { NewsroomRef } from '@prezly/sdk';
 import type { ImageNode } from '@prezly/slate-types';
 import {
     type PrezlyFileInfo,
@@ -23,11 +22,12 @@ import { PlaceholderElement, type Props as BaseProps } from '../components/Place
 import { insertPlaceholders, replacePlaceholder, withGalleryTabMaybe } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
+import type { WithMediaGalleryTab } from '../types';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode<PlaceholderNode.Type.IMAGE>;
     withCaptions: boolean;
-    withMediaGalleryTab: false | { enabled: boolean; newsroom: NewsroomRef };
+    withMediaGalleryTab: WithMediaGalleryTab;
 }
 
 export function ImagePlaceholderElement({

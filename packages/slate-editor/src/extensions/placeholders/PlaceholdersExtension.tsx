@@ -1,4 +1,3 @@
-import type { NewsroomRef } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
@@ -24,13 +23,11 @@ import {
     removeDisabledPlaceholders,
 } from './normalization';
 import { PlaceholderNode } from './PlaceholderNode';
-import type { FetchOEmbedFn, FrameProps, RemovableFlagConfig } from './types';
+import type { FetchOEmbedFn, FrameProps, RemovableFlagConfig, WithMediaGalleryTab } from './types';
 
 export const EXTENSION_ID = 'PlaceholdersExtension';
 
 const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
-
-type WithMediaGalleryTab = false | { enabled: boolean; newsroom: NewsroomRef };
 
 export interface Parameters {
     format?: FrameProps['format'];
