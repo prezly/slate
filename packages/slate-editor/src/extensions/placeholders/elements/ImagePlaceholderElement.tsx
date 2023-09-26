@@ -52,8 +52,10 @@ export function ImagePlaceholderElement({
         images.forEach((filePromise, i) => {
             const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
                 if (!fileInfo.isImage) {
-                    // FIXME: What if it's not an image?
-                    //        It would make sense to re-route this to an Attachment node.
+                    // This should never happen, as there are checks in functions preceding this callback.
+                    // @see `imagesOnly` flag in `handleClick()`
+                    // @see `IMAGE_TYPES` filter in `handleDrop()`
+                    throw new Error('Uploaded file is not an image.');
                 }
 
                 const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
