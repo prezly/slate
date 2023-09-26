@@ -83,7 +83,7 @@ export function ImageElement({
 
         const [upload] =
             (await UploadcareEditor.upload(editor, {
-                ...getMediaGalleryParameters(withMediaGalleryTab),
+                ...withGalleryTabMaybe(withMediaGalleryTab),
                 captions: withCaptions,
                 files: [initialFileInfo],
                 imagesOnly: true,
@@ -142,7 +142,7 @@ export function ImageElement({
 
         const [upload] =
             (await UploadcareEditor.upload(editor, {
-                ...getMediaGalleryParameters(withMediaGalleryTab),
+                ...withGalleryTabMaybe(withMediaGalleryTab),
                 captions: withCaptions,
                 imagesOnly: true,
                 multiple: false,
@@ -309,7 +309,7 @@ function toSizeOption(image: ImageNode): Size | undefined {
     return undefined;
 }
 
-function getMediaGalleryParameters(
+function withGalleryTabMaybe(
     withMediaGalleryTab: Props['withMediaGalleryTab'],
 ): MediaGalleryOptions<true> | MediaGalleryOptions<false> {
     if (withMediaGalleryTab && withMediaGalleryTab.enabled) {

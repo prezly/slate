@@ -64,7 +64,7 @@ export function GalleryElement({
 
         async function upload() {
             const filePromises = await UploadcareEditor.upload(editor, {
-                ...getMediaGalleryParameters(withMediaGalleryTab),
+                ...withGalleryTabMaybe(withMediaGalleryTab),
                 captions: true,
                 files,
                 imagesOnly: true,
@@ -156,7 +156,7 @@ function Sizer() {
     return <div />;
 }
 
-function getMediaGalleryParameters(
+function withGalleryTabMaybe(
     withMediaGalleryTab: Props['withMediaGalleryTab'],
 ): MediaGalleryOptions<true> | MediaGalleryOptions<false> {
     if (withMediaGalleryTab && withMediaGalleryTab.enabled) {

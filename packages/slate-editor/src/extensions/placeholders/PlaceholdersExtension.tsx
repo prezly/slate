@@ -3,19 +3,17 @@ import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
 
 import { withPastedUrlsUnfurling } from './behaviour';
-import { StoryEmbedPlaceholderElement } from './elements';
-import {
-    CoveragePlaceholderElement,
-    InlineContactPlaceholderElement,
-    StoryBookmarkPlaceholderElement,
-} from './elements';
 import {
     AttachmentPlaceholderElement,
     ContactPlaceholderElement,
+    CoveragePlaceholderElement,
     EmbedPlaceholderElement,
     GalleryPlaceholderElement,
     ImagePlaceholderElement,
+    InlineContactPlaceholderElement,
     SocialPostPlaceholderElement,
+    StoryBookmarkPlaceholderElement,
+    StoryEmbedPlaceholderElement,
     VideoPlaceholderElement,
     WebBookmarkPlaceholderElement,
 } from './elements';
@@ -31,6 +29,8 @@ import type { FetchOEmbedFn, FrameProps, RemovableFlagConfig } from './types';
 export const EXTENSION_ID = 'PlaceholdersExtension';
 
 const isPlaceholderNode = PlaceholderNode.isPlaceholderNode;
+
+type WithMediaGalleryTab = false | { enabled: boolean; newsroom: NewsroomRef };
 
 export interface Parameters {
     format?: FrameProps['format'];
@@ -59,8 +59,10 @@ export interface Parameters {
               | 'onCreateCoverage'
           >;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
-    withGalleryPlaceholders?: boolean | { newsroom: NewsroomRef | undefined };
-    withImagePlaceholders?: boolean | { withCaptions: boolean; newsroom: NewsroomRef | undefined };
+    withGalleryPlaceholders?: boolean | { withMediaGalleryTab: WithMediaGalleryTab };
+    withImagePlaceholders?:
+        | boolean
+        | { withCaptions: boolean; withMediaGalleryTab: WithMediaGalleryTab };
     withInlineContactPlaceholders?:
         | false
         | Pick<
@@ -71,7 +73,9 @@ export interface Parameters {
               | 'renderSuggestion'
               | 'renderSuggestionsFooter'
           >;
-    withMediaPlaceholders?: boolean | { withCaptions: boolean; newsroom: NewsroomRef | undefined };
+    withMediaPlaceholders?:
+        | boolean
+        | { withCaptions: boolean; withMediaGalleryTab: WithMediaGalleryTab };
     withStoryBookmarkPlaceholders?:
         | false
         | Pick<
@@ -230,7 +234,7 @@ export function PlaceholdersExtension({
                 );
             }
             if (withImagePlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.IMAGE)) {
-                const { newsroom = undefined, withCaptions = false } =
+                const { withMediaGalleryTab = false, withCaptions = false } =
                     withImagePlaceholders === true ? {} : withImagePlaceholders;
 
                 return (
@@ -238,8 +242,8 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         format={format}
-                        newsroom={newsroom}
                         withCaptions={withCaptions}
+                        withMediaGalleryTab={withMediaGalleryTab}
                         removable={removable}
                     >
                         {children}
@@ -250,15 +254,15 @@ export function PlaceholdersExtension({
                 withGalleryPlaceholders &&
                 isPlaceholderNode(element, PlaceholderNode.Type.GALLERY)
             ) {
-                const { newsroom = undefined } =
+                const { withMediaGalleryTab = false } =
                     withGalleryPlaceholders === true ? {} : withGalleryPlaceholders;
                 return (
                     <GalleryPlaceholderElement
                         attributes={attributes}
                         element={element}
                         format={format}
-                        newsroom={newsroom}
                         withCaptions
+                        withMediaGalleryTab={withMediaGalleryTab}
                         removable={removable}
                     >
                         {children}
@@ -266,7 +270,7 @@ export function PlaceholdersExtension({
                 );
             }
             if (withMediaPlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.MEDIA)) {
-                const { newsroom = undefined, withCaptions = false } =
+                const { withMediaGalleryTab = false, withCaptions = false } =
                     withMediaPlaceholders === true ? {} : withMediaPlaceholders;
 
                 return (
@@ -274,8 +278,8 @@ export function PlaceholdersExtension({
                         attributes={attributes}
                         element={element}
                         format={format}
-                        newsroom={newsroom}
                         withCaptions={withCaptions}
+                        withMediaGalleryTab={withMediaGalleryTab}
                         removable={removable}
                     >
                         {children}

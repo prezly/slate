@@ -26,8 +26,8 @@ import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersMa
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode<PlaceholderNode.Type.MEDIA>;
-    newsroom: NewsroomRef | undefined;
     withCaptions: boolean;
+    withMediaGalleryTab: false | { enabled: boolean; newsroom: NewsroomRef };
 }
 
 type Data = {
@@ -42,9 +42,9 @@ export function MediaPlaceholderElement({
     children,
     element,
     format = 'card',
-    newsroom,
     removable,
     withCaptions,
+    withMediaGalleryTab,
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -67,7 +67,7 @@ export function MediaPlaceholderElement({
 
     const handleClick = useFunction(async () => {
         const images = await UploadcareEditor.upload(editor, {
-            ...withGalleryTabMaybe(newsroom),
+            ...withGalleryTabMaybe(withMediaGalleryTab),
             captions: withCaptions,
             imagesOnly: true,
             multiple: false,

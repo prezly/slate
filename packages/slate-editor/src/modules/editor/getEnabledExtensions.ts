@@ -404,11 +404,10 @@ function buildPlaceholdersExtensionConfiguration({
             };
         }
         if (withGalleries) {
-            const newsroom = withGalleries.withMediaGalleryTab
-                ? withGalleries.withMediaGalleryTab.newsroom
-                : undefined;
             yield {
-                withGalleryPlaceholders: { newsroom },
+                withGalleryPlaceholders: {
+                    withMediaGalleryTab: withGalleries.withMediaGalleryTab ?? false,
+                },
             };
         }
         if (withInlineContacts) {
@@ -420,7 +419,7 @@ function buildPlaceholdersExtensionConfiguration({
             yield {
                 withImagePlaceholders: {
                     withCaptions: Boolean(withImages.withCaptions),
-                    newsroom: withImages.mediaGalleryTab?.newsroom,
+                    withMediaGalleryTab: withImages.withMediaGalleryTab ?? false,
                 },
             };
         }

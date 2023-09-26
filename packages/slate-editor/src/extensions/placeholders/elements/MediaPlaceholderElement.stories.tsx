@@ -42,8 +42,8 @@ export function MediaPlaceholder() {
         <MediaPlaceholderElement
             attributes={attributes}
             element={placeholder}
-            newsroom={undefined}
             withCaptions
+            withMediaGalleryTab={false}
             removable={() => false}
         >
             {''}

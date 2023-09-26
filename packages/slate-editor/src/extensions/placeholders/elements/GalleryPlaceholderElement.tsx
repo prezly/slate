@@ -21,7 +21,7 @@ import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersMa
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode<PlaceholderNode.Type.GALLERY>;
-    newsroom: NewsroomRef | undefined;
+    withMediaGalleryTab: false | { enabled: boolean; newsroom: NewsroomRef };
     withCaptions: boolean;
 }
 
@@ -29,8 +29,8 @@ export function GalleryPlaceholderElement({
     children,
     element,
     format = '16:9',
-    newsroom,
     withCaptions,
+    withMediaGalleryTab,
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -70,7 +70,7 @@ export function GalleryPlaceholderElement({
 
     const handleClick = useFunction(async () => {
         const images = await UploadcareEditor.upload(editor, {
-            ...withGalleryTabMaybe(newsroom),
+            ...withGalleryTabMaybe(withMediaGalleryTab),
             captions: withCaptions,
             imagesOnly: true,
             multiple: true,
