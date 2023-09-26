@@ -75,41 +75,36 @@ export function GalleryElement({
                 return undefined;
             }
 
-            return awaitUploads(filePromises);
-        }
-
-        setUploading(true);
-
-        try {
-            const result = await upload();
-
-            if (!result) {
-                return;
+            setUploading(true);
+            try {
+                return await awaitUploads(filePromises);
+            } finally {
+                setUploading(false);
             }
-
-            const { successfulUploads, failedUploads } = result;
-
-            const images = successfulUploads.map((fileInfo) => {
-                const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
-                return {
-                    caption: fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
-                    file: image.toPrezlyStoragePayload(),
-                };
-            });
-
-            Transforms.setNodes<GalleryNode>(
-                editor,
-                { images },
-                { match: (node) => node === element },
-            );
-
-            callbacks.current.onEdited(editor, element, {
-                successfulUploads: successfulUploads.length,
-                failedUploads,
-            });
-        } finally {
-            setUploading(false);
         }
+
+        const result = await upload();
+
+        if (!result) {
+            return;
+        }
+
+        const { successfulUploads, failedUploads } = result;
+
+        const images = successfulUploads.map((fileInfo) => {
+            const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+            return {
+                caption: fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '',
+                file: image.toPrezlyStoragePayload(),
+            };
+        });
+
+        Transforms.setNodes<GalleryNode>(editor, { images }, { match: (node) => node === element });
+
+        callbacks.current.onEdited(editor, element, {
+            successfulUploads: successfulUploads.length,
+            failedUploads,
+        });
     }
 
     function handleShuffle() {
