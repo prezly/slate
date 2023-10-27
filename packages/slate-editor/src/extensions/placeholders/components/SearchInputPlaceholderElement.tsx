@@ -55,6 +55,7 @@ export function SearchInputPlaceholderElement<T>({
     removable,
     // Input
     getSuggestions,
+    invalidateSuggestions,
     renderEmpty,
     renderSuggestion,
     renderSuggestions,
@@ -123,6 +124,7 @@ export function SearchInputPlaceholderElement<T>({
                     <SearchInputPlaceholder<T>
                         // Customization
                         getSuggestions={getSuggestions}
+                        invalidateSuggestions={invalidateSuggestions}
                         renderAddon={renderAddon}
                         renderEmpty={
                             renderEmpty &&
