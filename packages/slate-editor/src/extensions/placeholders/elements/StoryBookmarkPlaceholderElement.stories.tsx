@@ -39,7 +39,7 @@ const EN: CultureRef = {
     locale: 'en',
     direction: Culture.TextDirection.LTR,
     native_name: 'English',
-    language_code: 'EN',
+    language_code: 'en',
 };
 
 const THUMBNAIL = [
