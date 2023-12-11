@@ -44,7 +44,7 @@
         "slate": "^0.94.1"
     },
     "dependencies": {
-        "@prezly/sdk": "^13.0.0 || ^14.0.0",
+        "@prezly/sdk": "^18.3.0",
         "@prezly/uploads": "^0.3.2",
         "is-plain-object": "^5.0.0"
     },
