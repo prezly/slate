@@ -9,7 +9,6 @@ jobs:
     strategy:
       matrix:
         node-version: [ 16.x ]
-        react-version: [ 16.14.0, 17, 18 ]
 
     steps:
       - uses: actions/checkout@v2
@@ -19,14 +18,6 @@ jobs:
         with:
           node: ${{ matrix.node-version }}
           pnpm: "8.4.0"
-
-      - name: Set React ${{ matrix.react-version }}
-        uses: prezly/pnpm-overrides-action@v1
-        with:
-          '@types/react':     "${{ matrix.react-version }}"
-          '@types/react-dom': "${{ startsWith(matrix.react-version, '16.') && '16.9.9' || matrix.react-version }}"
-          'react':            "${{ matrix.react-version }}"
-          'react-dom':        "${{ matrix.react-version }}"
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile --strict-peer-dependencies --ignore-pnpmfile --prod

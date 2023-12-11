@@ -20,11 +20,6 @@
         "lint": "pnpm --recursive lint",
         "lint:fix": "pnpm --recursive lint --fix",
         "test": "turbo run test",
-        "test:matrix": "pnpm test:react16 && pnpm test:react17 && pnpm test:react18",
-        "test:react16": "REACT_VERSION=16 pnpm test:react",
-        "test:react17": "REACT_VERSION=17 pnpm test:react",
-        "test:react18": "REACT_VERSION=18 pnpm test:react",
-        "test:react": "pnpm install --no-lockfile -w react@$REACT_VERSION react-dom@$REACT_VERSION @types/react@$REACT_VERSION @types/react-dom@$REACT_VERSION && pnpm clean:build && pnpm build && pnpm test",
         "clean": "pnpm clean:build && pnpm clean:node_modules",
         "clean:build": "rimraf *.tsbuildinfo && rimraf node_modules/.cache/ && pnpm --recursive run clean:build",
         "clean:node_modules": "rimraf node_modules/ pnpm-lock.yaml package-lock.json && pnpm --recursive run clean:node_modules",
@@ -41,10 +36,10 @@
         "pnpm": ">= 8.4.0"
     },
     "dependencies": {
-        "@types/react": "^16.14.0 || ^17.0.0 || ^18.0.0",
-        "@types/react-dom": "^16.9.0 || ^17.0.0 || ^18.0.0",
-        "react": "^16.14.0 || ^17.0.0 || ^18.0.0",
-        "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
         "slate": "^0.94.1",
         "slate-history": "^0.93.0",
         "slate-react": "^0.97.0"
