@@ -50,7 +50,7 @@ export function handleOembed(
             const image = createImage({
                 file: file.toPrezlyStoragePayload(),
             });
-            return { image, operation: 'add' as const };
+            return { image, operation: 'add' as const, trigger: 'oembed' as const };
         });
 
         const imagePlaceholder = createPlaceholder({ type: PlaceholderNode.Type.IMAGE });

@@ -1,7 +1,6 @@
 import type { GalleryNode } from '@prezly/slate-types';
 import { GalleryImageSize, GalleryLayout, GalleryPadding } from '@prezly/slate-types';
 import React from 'react';
-import type { Editor } from 'slate';
 import { useSlate } from 'slate-react';
 
 import type { OptionsGroupOption } from '#components';
@@ -18,7 +17,6 @@ import {
     ImageSpacingWide,
 } from '#icons';
 
-import { shuffleImages } from '../lib';
 import { removeGallery, updateGallery } from '../transforms';
 
 const LAYOUT_OPTIONS: OptionsGroupOption<GalleryLayout>[] = [
@@ -82,19 +80,14 @@ const SIZE_OPTIONS: OptionsGroupOption<GalleryImageSize>[] = [
 
 interface Props {
     element: GalleryNode;
-    onEdit: (editor: Editor) => void;
+    onEdit: () => void;
+    onShuffle: () => void;
     onClose: () => void;
-    withWidthOption: boolean;
+    withLayoutOptions: boolean;
 }
 
-export function GalleryMenu({ element, onEdit, onClose, withWidthOption }: Props) {
+export function GalleryMenu({ element, onEdit, onShuffle, onClose, withLayoutOptions }: Props) {
     const editor = useSlate();
-
-    function handleShuffle() {
-        updateGallery(editor, {
-            images: shuffleImages(element.images),
-        });
-    }
 
     return (
         <>
@@ -105,8 +98,8 @@ export function GalleryMenu({ element, onEdit, onClose, withWidthOption }: Props
             <Toolbox.Section noPadding>
                 <ButtonGroup>
                     {[
-                        <EditButton key="edit" onClick={() => onEdit(editor)} />,
-                        <RandomizeButton key="randomize" onClick={handleShuffle} />,
+                        <EditButton key="edit" onClick={onEdit} />,
+                        <RandomizeButton key="randomize" onClick={onShuffle} />,
                     ]}
                 </ButtonGroup>
             </Toolbox.Section>
@@ -114,13 +107,13 @@ export function GalleryMenu({ element, onEdit, onClose, withWidthOption }: Props
             <Toolbox.Section>
                 <InfoText>
                     You can add, reorder, crop and set descriptions for your images by clicking{' '}
-                    <Button variant="underlined" onClick={() => onEdit(editor)}>
+                    <Button variant="underlined" onClick={onEdit}>
                         Edit
                     </Button>
                 </InfoText>
             </Toolbox.Section>
 
-            {withWidthOption && (
+            {withLayoutOptions && (
                 <Toolbox.Section caption="Gallery width">
                     <OptionsGroup<GalleryLayout>
                         name="layout"

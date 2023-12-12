@@ -26,8 +26,8 @@ export type EditorEventMap = {
         mimeType: string;
         size: number;
         uuid: string;
+        trigger: string;
     };
-    'attachment-edit-clicked': never;
     'attachment-edited': {
         description: string;
         mimeType: string;
@@ -54,8 +54,13 @@ export type EditorEventMap = {
     error: unknown;
     'files-pasted': {
         filesCount: number;
-        imagesCount: number;
         isEmpty: boolean;
+    };
+    'gallery-edited': {
+        imagesCount: number;
+    };
+    'gallery-images-shuffled': {
+        imagesCount: number;
     };
     'image-added': {
         description: string;
@@ -63,6 +68,7 @@ export type EditorEventMap = {
         mimeType: string;
         size: number;
         uuid: string;
+        trigger: string;
     };
     'image-edit-clicked': never;
     'image-edited': {
@@ -70,9 +76,15 @@ export type EditorEventMap = {
         mimeType: string;
         size: number;
         uuid: string;
+        operation: string;
+        trigger: string;
     };
     'image-removed': {
         uuid: string;
+    };
+    'images-pasted': {
+        imagesCount: number;
+        isEmpty: boolean;
     };
     notification:
         | {

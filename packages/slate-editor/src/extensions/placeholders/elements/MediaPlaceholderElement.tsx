@@ -1,4 +1,3 @@
-import type { NewsroomRef } from '@prezly/sdk';
 import type { ImageNode } from '@prezly/slate-types';
 import { ImageLayout } from '@prezly/slate-types';
 import {
@@ -23,11 +22,12 @@ import { PlaceholderElement, type Props as BaseProps } from '../components/Place
 import { replacePlaceholder, withGalleryTabMaybe } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
+import type { WithMediaGalleryTab } from '../types';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode<PlaceholderNode.Type.MEDIA>;
-    newsroom: NewsroomRef | undefined;
     withCaptions: boolean;
+    withMediaGalleryTab: WithMediaGalleryTab;
 }
 
 type Data = {
@@ -42,9 +42,9 @@ export function MediaPlaceholderElement({
     children,
     element,
     format = 'card',
-    newsroom,
     removable,
     withCaptions,
+    withMediaGalleryTab,
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -67,7 +67,7 @@ export function MediaPlaceholderElement({
 
     const handleClick = useFunction(async () => {
         const images = await UploadcareEditor.upload(editor, {
-            ...withGalleryTabMaybe(newsroom),
+            ...withGalleryTabMaybe(withMediaGalleryTab),
             captions: withCaptions,
             imagesOnly: true,
             multiple: false,
@@ -110,6 +110,7 @@ export function MediaPlaceholderElement({
                 mimeType: file.mime_type,
                 size: file.size,
                 uuid: file.uuid,
+                trigger: 'placeholder',
             });
         }
     });

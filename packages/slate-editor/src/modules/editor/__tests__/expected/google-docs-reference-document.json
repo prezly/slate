@@ -128,14 +128,12 @@
         ]
     },
     {
+        "type": "placeholder:image",
         "children": [
             {
                 "text": ""
             }
-        ],
-        "contentType": "image",
-        "message": "Uploading Image",
-        "type": "loader"
+        ]
     },
     {
         "type": "paragraph",
@@ -146,14 +144,12 @@
         ]
     },
     {
+        "type": "placeholder:image",
         "children": [
             {
                 "text": ""
             }
-        ],
-        "contentType": "image",
-        "message": "Uploading Image",
-        "type": "loader"
+        ]
     },
     {
         "children": [

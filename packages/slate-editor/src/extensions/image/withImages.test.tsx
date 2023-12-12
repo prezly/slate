@@ -20,7 +20,7 @@ const file: UploadedFile = {
 
 const getExtensions = () => [
     ImageExtension({
-        captions: true,
+        withCaptions: true,
         withLayoutOptions: true,
     }),
 ];

@@ -1,5 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
+import type { GalleryNode } from '@prezly/slate-types';
 import { GALLERY_NODE_TYPE, isGalleryNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
@@ -14,19 +15,29 @@ import {
     normalizeRedundantGalleryAttributes,
     parseSerializedElement,
 } from './lib';
+import type { GalleriesExtensionConfiguration } from './types';
 
-interface Parameters {
+interface Parameters extends GalleriesExtensionConfiguration {
     availableWidth: number;
-    onEdit: (editor: Editor) => void;
-    withWidthOption: boolean | undefined;
+    onEdited?: (
+        editor: Editor,
+        gallery: GalleryNode,
+        extra: {
+            successfulUploads: number;
+            failedUploads: Error[];
+        },
+    ) => void;
+    onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
 }
 
 export const EXTENSION_ID = 'GalleriesExtension';
 
 export const GalleriesExtension = ({
     availableWidth,
-    onEdit,
-    withWidthOption = true,
+    onEdited,
+    onShuffled,
+    withLayoutOptions = false,
+    withMediaGalleryTab = false,
 }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
@@ -54,9 +65,11 @@ export const GalleriesExtension = ({
                 <GalleryElement
                     attributes={attributes}
                     availableWidth={availableWidth}
-                    withWidthOption={withWidthOption}
+                    withMediaGalleryTab={withMediaGalleryTab}
+                    withLayoutOptions={withLayoutOptions}
                     element={element}
-                    onEdit={onEdit}
+                    onEdited={onEdited}
+                    onShuffled={onShuffled}
                 >
                     {children}
                 </GalleryElement>

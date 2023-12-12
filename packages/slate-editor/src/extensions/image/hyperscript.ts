@@ -6,11 +6,6 @@ import type { UploadedFile } from '@prezly/uploadcare';
 import type { ReactNode } from 'react';
 import { createHyperscript, createText } from 'slate-hyperscript';
 
-import type { LoaderNode } from '#extensions/loader';
-import { LOADER_NODE_TYPE } from '#extensions/loader';
-
-import { IMAGE_CANDIDATE_NODE_TYPE } from './constants';
-
 declare global {
     namespace JSX {
         interface IntrinsicElements {
@@ -20,17 +15,6 @@ declare global {
                 href: string;
                 layout: ImageLayout;
                 width: string;
-            };
-            'h-image-candidate': {
-                children?: ReactNode;
-                href: string;
-                src: string;
-            };
-            'h-loader': {
-                children?: ReactNode;
-                contentType: LoaderNode['contentType'];
-                id: LoaderNode['id'];
-                message: LoaderNode['message'];
             };
             'h-p': {
                 children?: ReactNode;
@@ -42,8 +26,6 @@ declare global {
 export const hyperscript = createHyperscript({
     elements: {
         'h-image': { type: IMAGE_NODE_TYPE },
-        'h-image-candidate': { type: IMAGE_CANDIDATE_NODE_TYPE },
-        'h-loader': { type: LOADER_NODE_TYPE },
         'h-p': { type: PARAGRAPH_NODE_TYPE },
     },
     creators: {

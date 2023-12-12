@@ -24,6 +24,7 @@ interface Data {
     [Type.ATTACHMENT]: {
         file: AttachmentNode['file'];
         caption: string;
+        trigger: 'placeholder' | 'paste';
     };
     [Type.CONTACT]: {
         contact: ContactNode['contact'];
@@ -37,11 +38,13 @@ interface Data {
         fallback?: 'link'; // fallback to a link, if getting oEmbed info for the given URL is not possible
     };
     [Type.GALLERY]: {
-        images: GalleryNode['images'];
+        gallery: GalleryNode;
+        operation: 'add' | 'edit';
     };
     [Type.IMAGE]: {
         image: ImageNode;
-        operation: 'add' | 'edit';
+        operation: 'add' | 'replace' | 'crop';
+        trigger: 'image-menu' | 'placeholder' | 'paste' | 'paste-html' | 'oembed';
     };
     [Type.MEDIA]: {
         media: {

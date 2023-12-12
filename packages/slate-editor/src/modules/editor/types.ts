@@ -89,7 +89,6 @@ export interface EditorProps {
      */
     blurOnOutsideClick?: boolean;
     onChange: (value: Value) => void;
-    onIsOperationPendingChange?: (isOperationPending: boolean) => void;
     onKeyDown?: (event: KeyboardEvent) => void;
     placeholder?: ReactNode;
     /**

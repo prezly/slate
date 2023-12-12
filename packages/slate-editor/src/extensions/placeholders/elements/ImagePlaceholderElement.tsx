@@ -1,4 +1,3 @@
-import type { NewsroomRef } from '@prezly/sdk';
 import type { ImageNode } from '@prezly/slate-types';
 import {
     type PrezlyFileInfo,
@@ -23,19 +22,20 @@ import { PlaceholderElement, type Props as BaseProps } from '../components/Place
 import { insertPlaceholders, replacePlaceholder, withGalleryTabMaybe } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
+import type { WithMediaGalleryTab } from '../types';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode<PlaceholderNode.Type.IMAGE>;
-    newsroom: NewsroomRef | undefined;
     withCaptions: boolean;
+    withMediaGalleryTab: WithMediaGalleryTab;
 }
 
 export function ImagePlaceholderElement({
     children,
     element,
     format = '16:9',
-    newsroom,
     withCaptions,
+    withMediaGalleryTab,
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -51,6 +51,13 @@ export function ImagePlaceholderElement({
 
         images.forEach((filePromise, i) => {
             const uploading = toProgressPromise(filePromise).then((fileInfo: PrezlyFileInfo) => {
+                if (!fileInfo.isImage) {
+                    // This should never happen, as there are checks in functions preceding this callback.
+                    // @see `imagesOnly` flag in `handleClick()`
+                    // @see `IMAGE_TYPES` filter in `handleDrop()`
+                    throw new Error('Uploaded file is not an image.');
+                }
+
                 const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
                 const caption: string = fileInfo[UPLOADCARE_FILE_DATA_KEY]?.caption || '';
                 return {
@@ -59,6 +66,7 @@ export function ImagePlaceholderElement({
                         children: [{ text: caption }],
                     }),
                     operation: 'add' as const,
+                    trigger: 'placeholder' as const,
                 };
             });
             PlaceholdersManager.register(element.type, placeholders[i].uuid, uploading);
@@ -67,7 +75,7 @@ export function ImagePlaceholderElement({
 
     const handleClick = useFunction(async () => {
         const images = await UploadcareEditor.upload(editor, {
-            ...withGalleryTabMaybe(newsroom),
+            ...withGalleryTabMaybe(withMediaGalleryTab),
             captions: withCaptions,
             imagesOnly: true,
             multiple: true,
@@ -85,17 +93,19 @@ export function ImagePlaceholderElement({
     });
 
     const handleUploadedImage = useFunction(
-        (data: { image: ImageNode; operation: 'add' | 'edit' }) => {
+        (data: { image: ImageNode; operation: 'add' | 'replace' | 'crop'; trigger: string }) => {
             const node = createImage(data.image);
             replacePlaceholder(editor, element, node, { select: isSelected });
 
-            const event = data.operation === 'edit' ? 'image-edited' : 'image-added';
+            const event = data.operation === 'add' ? 'image-added' : 'image-edited';
             EventsEditor.dispatchEvent(editor, event, {
                 description: Node.string(node),
                 isPasted: false,
                 mimeType: node.file.mime_type,
                 size: node.file.size,
                 uuid: node.file.uuid,
+                operation: data.operation,
+                trigger: data.trigger,
             });
         },
     );

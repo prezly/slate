@@ -1,0 +1,1 @@
+export { withImagesPasting } from './withImagesPasting';

@@ -24,7 +24,6 @@ import {
 import { Text, Transforms } from 'slate';
 
 import { EmbedNode } from '#extensions/embed';
-import { LOADER_NODE_TYPE } from '#extensions/loader';
 
 import * as fixers from './fixers';
 import { allowChildren, disallowMark, mustHaveChildren, removeWhenNoChildren } from './normilizers';
@@ -38,8 +37,6 @@ import {
 import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema } from './types';
 import { combineFixers } from './utils';
-
-import { IMAGE_CANDIDATE_NODE_TYPE } from '#extensions/image/constants';
 
 /*eslint sort-keys-fix/sort-keys-fix: "error"*/
 export const hierarchySchema: NodesHierarchySchema = {
@@ -82,7 +79,6 @@ export const hierarchySchema: NodesHierarchySchema = {
         ),
     ],
     [HTML_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
-    [IMAGE_CANDIDATE_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [IMAGE_NODE_TYPE]: [
         allowChildren(
             Text.isText,
@@ -93,7 +89,6 @@ export const hierarchySchema: NodesHierarchySchema = {
             ]),
         ),
     ],
-    [LOADER_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [PARAGRAPH_NODE_TYPE]: [
         allowChildren(
             isInlineNode,

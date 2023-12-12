@@ -1,4 +1,3 @@
-import type { NewsroomRef } from '@prezly/sdk';
 import type { GalleryNode } from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
@@ -18,10 +17,11 @@ import { PlaceholderElement, type Props as BaseProps } from '../components/Place
 import { replacePlaceholder, withGalleryTabMaybe } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
+import type { WithMediaGalleryTab } from '../types';
 
 interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDrop'> {
     element: PlaceholderNode<PlaceholderNode.Type.GALLERY>;
-    newsroom: NewsroomRef | undefined;
+    withMediaGalleryTab: WithMediaGalleryTab;
     withCaptions: boolean;
 }
 
@@ -29,8 +29,8 @@ export function GalleryPlaceholderElement({
     children,
     element,
     format = '16:9',
-    newsroom,
     withCaptions,
+    withMediaGalleryTab,
     ...props
 }: Props) {
     const editor = useSlateStatic();
@@ -62,7 +62,7 @@ export function GalleryPlaceholderElement({
                         file: image.toPrezlyStoragePayload(),
                     };
                 });
-                return { images };
+                return { gallery: createGallery({ images }), operation: 'add' as const };
             });
 
         PlaceholdersManager.register(element.type, element.uuid, uploading);
@@ -70,7 +70,7 @@ export function GalleryPlaceholderElement({
 
     const handleClick = useFunction(async () => {
         const images = await UploadcareEditor.upload(editor, {
-            ...withGalleryTabMaybe(newsroom),
+            ...withGalleryTabMaybe(withMediaGalleryTab),
             captions: withCaptions,
             imagesOnly: true,
             multiple: true,
@@ -89,8 +89,8 @@ export function GalleryPlaceholderElement({
         processSelectedImages(images);
     });
 
-    const handleUploadedImages = useFunction((data: { images: GalleryNode['images'] }) => {
-        replacePlaceholder(editor, element, createGallery({ images: data.images }), {
+    const handleUploadedImages = useFunction((data: { gallery: GalleryNode }) => {
+        replacePlaceholder(editor, element, data.gallery, {
             select: isSelected,
         });
     });

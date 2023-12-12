@@ -42,8 +42,8 @@ export function ImagePlaceholder() {
         <ImagePlaceholderElement
             attributes={attributes}
             element={placeholder}
-            newsroom={undefined}
             withCaptions
+            withMediaGalleryTab={false}
             removable
         >
             {''}

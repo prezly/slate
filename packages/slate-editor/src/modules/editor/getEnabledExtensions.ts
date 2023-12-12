@@ -1,6 +1,6 @@
-import type { Extension } from '@prezly/slate-commons';
+import { EditorCommands, type Extension } from '@prezly/slate-commons';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
-import { noop } from '@technically/lodash';
+import { Node } from 'slate';
 
 import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';
@@ -23,8 +23,9 @@ import { InlineContactsExtension } from '#extensions/inline-contacts';
 import { InlineLinksExtension } from '#extensions/inline-links';
 import { InsertBlockHotkeyExtension } from '#extensions/insert-block-hotkey';
 import { ListExtension } from '#extensions/list';
-import { LoaderExtension } from '#extensions/loader';
 import { createParagraph, ParagraphsExtension } from '#extensions/paragraphs';
+import { PasteFilesExtension } from '#extensions/paste-files';
+import { PasteImagesExtension } from '#extensions/paste-images';
 import { PasteSlateContentExtension } from '#extensions/paste-slate-content';
 import type { PlaceholdersExtensionParameters } from '#extensions/placeholders';
 import { PlaceholdersExtension } from '#extensions/placeholders';
@@ -41,6 +42,7 @@ import { VideoExtension } from '#extensions/video';
 import { VoidExtension } from '#extensions/void';
 import { WebBookmarkExtension } from '#extensions/web-bookmark';
 import { EventsEditor } from '#modules/events';
+import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '#modules/uploadcare';
 
 import {
     BLOCKQUOTE_RULES,
@@ -50,21 +52,11 @@ import {
     LIST_RULES,
     TEXT_STYLE_RULES,
 } from './autoformatRules';
-import {
-    createHandleEditGallery,
-    createImageEditHandler,
-    createImageReplaceHandler,
-    handleEditAttachment,
-    handleRemoveAttachment,
-    handleRemoveImage,
-} from './lib';
 import type { EditorProps } from './types';
 
 type Parameters = {
     availableWidth: number;
     onFloatingAddMenuToggle: (show: boolean, trigger: 'input' | 'hotkey') => void;
-    onOperationEnd?: () => void;
-    onOperationStart?: () => void;
 } & Pick<
     Required<EditorProps>,
     | 'withAllowedBlocks'
@@ -100,8 +92,6 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     const {
         availableWidth,
         onFloatingAddMenuToggle,
-        onOperationEnd = noop,
-        onOperationStart = noop,
         withAllowedBlocks,
         withAttachments,
         withAutoformat,
@@ -210,9 +200,30 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     }
 
     if (withAttachments) {
+        yield PasteFilesExtension({
+            onFilesPasted: (editor, files) => {
+                EventsEditor.dispatchEvent(editor, 'files-pasted', {
+                    filesCount: files.length,
+                    isEmpty: EditorCommands.isEmpty(editor),
+                });
+            },
+        });
+
         yield FileAttachmentExtension({
-            onEdit: handleEditAttachment,
-            onRemove: handleRemoveAttachment,
+            onEdited(editor, updated) {
+                // TODO: It seems it would be more useful to only provide the changeset patch in the event payload.
+                EventsEditor.dispatchEvent(editor, 'attachment-edited', {
+                    description: updated.description,
+                    mimeType: updated.file.mime_type,
+                    size: updated.file.size,
+                    uuid: updated.file.uuid,
+                });
+            },
+            onRemoved(editor, attachment) {
+                EventsEditor.dispatchEvent(editor, 'attachment-removed', {
+                    uuid: attachment.file.uuid,
+                });
+            },
         });
     }
 
@@ -223,21 +234,75 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withGalleries) {
         yield GalleriesExtension({
             availableWidth,
-            onEdit: createHandleEditGallery(withGalleries),
-            withWidthOption: withGalleries.withWidthOption,
+            onEdited(editor, gallery, { failedUploads }) {
+                EventsEditor.dispatchEvent(editor, 'gallery-edited', {
+                    imagesCount: gallery.images.length,
+                });
+
+                failedUploads.forEach((error) => {
+                    EventsEditor.dispatchEvent(editor, 'error', error);
+                });
+
+                if (failedUploads.length > 0) {
+                    EventsEditor.dispatchEvent(editor, 'notification', {
+                        children: UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE,
+                        type: 'error',
+                    });
+                }
+            },
+            onShuffled(editor, updated) {
+                EventsEditor.dispatchEvent(editor, 'gallery-images-shuffled', {
+                    imagesCount: updated.images.length,
+                });
+            },
+            withMediaGalleryTab: withGalleries.withMediaGalleryTab ?? false,
+            withLayoutOptions: withGalleries.withLayoutOptions,
         });
     }
 
     if (withImages) {
-        const handleCrop = createImageEditHandler(withImages);
-        const handleReplace = createImageReplaceHandler(withImages);
+        yield PasteImagesExtension({
+            onImagesPasted: (editor, images) => {
+                EventsEditor.dispatchEvent(editor, 'images-pasted', {
+                    imagesCount: images.length,
+                    isEmpty: EditorCommands.isEmpty(editor),
+                });
+            },
+        });
+
         // ImageExtension has to be after RichFormattingExtension due to the fact
         // that it also deserializes <a> elements (ImageExtension is more specific).
         yield ImageExtension({
             ...withImages,
-            onCrop: handleCrop,
-            onRemove: handleRemoveImage,
-            onReplace: handleReplace,
+            onCrop(editor) {
+                EventsEditor.dispatchEvent(editor, 'image-edit-clicked');
+            },
+            onCropped(editor, image) {
+                EventsEditor.dispatchEvent(editor, 'image-edited', {
+                    description: Node.string(image),
+                    mimeType: image.file.mime_type,
+                    size: image.file.size,
+                    uuid: image.file.uuid,
+                    trigger: 'image-menu',
+                    operation: 'crop',
+                });
+            },
+            onRemoved(editor, image) {
+                EventsEditor.dispatchEvent(editor, 'image-removed', { uuid: image.file.uuid });
+            },
+            onReplace(editor) {
+                EventsEditor.dispatchEvent(editor, 'image-edit-clicked');
+            },
+            onReplaced(editor, image) {
+                EventsEditor.dispatchEvent(editor, 'image-edited', {
+                    description: Node.string(image),
+                    mimeType: image.file.mime_type,
+                    size: image.file.size,
+                    uuid: image.file.uuid,
+                    trigger: 'image-menu',
+                    operation: 'replace',
+                });
+            },
         });
     }
 
@@ -294,8 +359,6 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         yield AllowedBlocksExtension(withAllowedBlocks);
     }
 
-    yield LoaderExtension({ onOperationEnd, onOperationStart });
-
     yield VoidExtension();
 
     yield HtmlExtension();
@@ -343,7 +406,7 @@ function buildPlaceholdersExtensionConfiguration({
         if (withGalleries) {
             yield {
                 withGalleryPlaceholders: {
-                    newsroom: withGalleries.mediaGalleryTab?.newsroom,
+                    withMediaGalleryTab: withGalleries.withMediaGalleryTab ?? false,
                 },
             };
         }
@@ -355,8 +418,8 @@ function buildPlaceholdersExtensionConfiguration({
         if (withImages) {
             yield {
                 withImagePlaceholders: {
-                    withCaptions: Boolean(withImages.captions),
-                    newsroom: withImages.mediaGalleryTab?.newsroom,
+                    withCaptions: Boolean(withImages.withCaptions),
+                    withMediaGalleryTab: withImages.withMediaGalleryTab ?? false,
                 },
             };
         }

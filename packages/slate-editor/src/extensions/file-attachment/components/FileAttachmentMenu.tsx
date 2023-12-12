@@ -1,7 +1,9 @@
 import type { AttachmentNode } from '@prezly/slate-types';
-import type { FunctionComponent } from 'react';
+import { isAttachmentNode } from '@prezly/slate-types';
+import { UploadcareFile } from '@prezly/uploadcare';
 import React, { useCallback } from 'react';
 import type { Editor } from 'slate';
+import { Transforms } from 'slate';
 import { useSelected, useSlate } from 'slate-react';
 
 import { Button, Input, Toolbox, VStack } from '#components';
@@ -12,16 +14,11 @@ import { removeFileAttachment } from '../transforms';
 interface Props {
     element: AttachmentNode;
     onClose: () => void;
-    onEdit: (editor: Editor, element: Partial<AttachmentNode>) => void;
-    onRemove: (editor: Editor, element: AttachmentNode) => void;
+    onEdited: (editor: Editor, updated: AttachmentNode) => void;
+    onRemoved: (editor: Editor, element: AttachmentNode) => void;
 }
 
-export const FileAttachmentMenu: FunctionComponent<Props> = ({
-    element,
-    onClose,
-    onEdit,
-    onRemove,
-}) => {
+export function FileAttachmentMenu({ element, onClose, onEdited, onRemoved }: Props) {
     const editor = useSlate();
     const isSelected = useSelected();
     const [description, setDescription] = React.useState(element.description);
@@ -32,18 +29,26 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
         const removedElement = removeFileAttachment(editor);
 
         if (removedElement) {
-            onRemove(editor, removedElement);
+            onRemoved(editor, removedElement);
         }
     };
 
-    const save = () => {
-        onEdit(editor, {
-            file: {
+    const handleUpdate = () => {
+        const update = {
+            // Note: I'm not sure why we need to re-hydrate and re-serialize the file here.
+            //       It was added by Dmitry in https://github.com/prezly/slate/pull/386
+            file: UploadcareFile.createFromPrezlyStoragePayload({
                 ...element.file,
                 filename: `${filename}.${getFileExtension(element.file.filename)}`,
-            },
-            description: description,
+            }).toPrezlyStoragePayload(),
+            description,
+        };
+
+        Transforms.setNodes<AttachmentNode>(editor, update, {
+            match: isAttachmentNode,
         });
+
+        onEdited(editor, { ...element, ...update });
         onClose();
     };
 
@@ -80,7 +85,7 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
                         variant="primary"
                         fullWidth
                         round
-                        onClick={save}
+                        onClick={handleUpdate}
                         disabled={!isFilenameValid}
                     >
                         Save
@@ -95,7 +100,7 @@ export const FileAttachmentMenu: FunctionComponent<Props> = ({
             </Toolbox.Footer>
         </Toolbox.Panel>
     );
-};
+}
 
 function getFileExtension(filename: string) {
     return filename.slice(((filename.lastIndexOf('.') - 1) >>> 0) + 2);

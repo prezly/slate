@@ -1,7 +1,12 @@
 export * from './hooks';
 export { convertClientRect } from './convertClientRect';
 export { convertToHtml } from './convertToHtml';
-export { createDataTransfer } from './createDataTransfer';
+export {
+    createDataTransfer,
+    filterDataTransferItems,
+    filterDataTransferFiles,
+    isFilesOnlyDataTransfer,
+} from './dataTransferUtils';
 export { dataUriToFile } from './dataUriToFile';
 export { decodeSlateFragment } from './decodeSlateFragment';
 export { encodeSlateFragment } from './encodeSlateFragment';
