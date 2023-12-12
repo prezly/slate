@@ -4,6 +4,8 @@ import type { TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
 export type EditorEventMap = {
+    undo: never;
+    redo: never;
     'add-button-menu-opened': {
         trigger: 'click' | 'hotkey' | 'input';
     };
