@@ -29,7 +29,8 @@
         "release:build": "pnpm build --force",
         "release:prepare": "pnpm run clean && pnpm install && pnpm release:build && pnpm check",
         "release:publish": "lerna publish",
-        "postpublish": "open-cli https://github.com/prezly/slate/releases/new?tag=$(cat lerna.json | grep version | cut -d\\\" -f4)"
+        "postpublish": "open-cli https://github.com/prezly/slate/releases/new?tag=$(cat lerna.json | grep version | cut -d\\\" -f4)",
+        "sync-package-versions": "node ./sync-package-versions.mjs"
     },
     "devEngines": {
         "node": ">= 16.13.0",
@@ -111,6 +112,18 @@
         "vinyl": "^2.2.1"
     },
     "workspaces": [
-        "packages/*"
-    ]
+        "packages/slate-types",
+        "packages/slate-commons",
+        "packages/slate-lists",
+        "packages/slate-tables",
+        "packages/slate-editor"
+    ],
+    "sync-package-versions": {
+        "packages": [
+            "slate",
+            "slate-history",
+            "slate-hyperscript",
+            "slate-react"
+        ]
+    }
 }
