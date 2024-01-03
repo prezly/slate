@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import { WarningTriangle } from '#icons';
+
 import * as TooltipV2 from '../TooltipV2';
 
 import styles from './ImageSizeWarning.module.scss';
@@ -23,7 +25,7 @@ export function ImageSizeWarning({ className }: Props) {
                     onMouseLeave={onHide}
                     ref={setReferenceElement}
                 >
-                    <i className="icon icon-warning2" />
+                    <WarningTriangle />
                 </div>
             )}
         </TooltipV2.Tooltip>
