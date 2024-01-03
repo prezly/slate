@@ -41,9 +41,9 @@
         "@types/react-dom": "^18.0.0",
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
-        "slate": "^0.94.1",
-        "slate-history": "^0.93.0",
-        "slate-react": "^0.97.0"
+        "slate": "^0.101.5",
+        "slate-history": "^0.100.0",
+        "slate-react": "^0.101.5"
     },
     "devDependencies": {
         "@babel/cli": "^7.21.5",
@@ -102,7 +102,7 @@
         "rimraf": "^3.0.2",
         "sass": "^1.62.1",
         "sinon": "^15.0.4",
-        "slate-hyperscript": "^0.81.3",
+        "slate-hyperscript": "^0.100.0",
         "ts-node": "^10.9.1",
         "ts-plugin-scss-modules": "^0.1.2",
         "tsc-fancy": "^1.1.2",
