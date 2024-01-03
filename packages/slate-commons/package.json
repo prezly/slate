@@ -48,7 +48,7 @@
         "slate-react": "^0.101.5"
     },
     "dependencies": {
-        "@prezly/slate-types": "0.99.0",
+        "@prezly/slate-types": "workspace:*",
         "@technically/is-not-null": "^1.0.0",
         "uuid": "^8.3.0"
     },

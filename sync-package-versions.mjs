@@ -1,8 +1,6 @@
 import fs from 'node:fs';
 
 const rootPackage = JSON.parse(fs.readFileSync('./package.json'));
-const lernaConfig = JSON.parse(fs.readFileSync('./lerna.json'));
-const monorepoVersion = lernaConfig.version;
 
 const subPackages = rootPackage.workspaces
     .map((packagePath) => {
@@ -14,26 +12,10 @@ const subPackages = rootPackage.workspaces
         };
     });
 
-const { workspace = true, packages = [] } = rootPackage['sync-package-versions'] ?? {};
+const { packages = [] } = rootPackage['sync-package-versions'] ?? {};
 
 const updatedSubPackages = subPackages.map((subPackage) => {
     let contents = subPackage.contents;
-
-    if (workspace) {
-        contents = subPackages.reduce((contents, sub) => {
-            return contents.replace(
-                new RegExp(`"version":\\s+"([^"]+)"`, 'g'),
-                (matchedString, matchedVersion) => matchedString.replace(matchedVersion, monorepoVersion),
-            );
-        }, contents);
-
-        contents = subPackages.reduce((contents, sub) => {
-            return contents.replace(
-                new RegExp(`"${sub.package.name}":\\s+"([^"]+)"`, 'g'),
-                (matchedString, matchedVersion) => matchedString.replace(matchedVersion, monorepoVersion),
-            );
-        }, contents);
-    }
 
     contents = packages.reduce((contents, packageName) => {
         const packageVersion = rootPackage.dependencies?.[packageName]
