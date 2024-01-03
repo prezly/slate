@@ -37,8 +37,8 @@
         "pnpm": ">= 8.4.0"
     },
     "dependencies": {
-        "@types/react": "^18.2.0",
-        "@types/react-dom": "^18.2.0",
+        "@types/react": "^18.2.41",
+        "@types/react-dom": "^18.2.17",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "slate": "^0.101.5",
