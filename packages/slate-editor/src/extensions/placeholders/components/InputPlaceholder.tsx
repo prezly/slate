@@ -1,13 +1,6 @@
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
-import type {
-    FunctionComponent,
-    KeyboardEvent,
-    MouseEvent,
-    ReactNode,
-    ReactElement,
-    FormEvent,
-} from 'react';
+import type { FunctionComponent, KeyboardEvent, MouseEvent, ReactNode, FormEvent } from 'react';
 import React, { useCallback, useRef, useState } from 'react';
 
 import { Input } from '#components';
@@ -65,7 +58,7 @@ export function InputPlaceholder({
     function renderContent(
         content: ReactNode | FunctionComponent<ContentRenderProps>,
         isSelected: boolean,
-    ): ReactElement | null {
+    ): ReactNode {
         if (typeof content === 'function') {
             return content({
                 isDragOver: Boolean(dragOver),
@@ -74,7 +67,7 @@ export function InputPlaceholder({
                 progress: progressNumber,
             });
         }
-        return <>{content}</>;
+        return content;
     }
 
     function handleSubmit(event: FormEvent) {

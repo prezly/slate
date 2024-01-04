@@ -64,7 +64,10 @@ module.exports = {
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-namespace": "off",
-        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-unused-vars": ["warn", {
+            "argsIgnorePattern": "_.*",
+            "varsIgnorePattern": "_.*"
+        }],
         "@typescript-eslint/no-inferrable-types": "warn"
     },
     "overrides": [

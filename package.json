@@ -29,20 +29,21 @@
         "release:build": "pnpm build --force",
         "release:prepare": "pnpm run clean && pnpm install && pnpm release:build && pnpm check",
         "release:publish": "lerna publish",
-        "postpublish": "open-cli https://github.com/prezly/slate/releases/new?tag=$(cat lerna.json | grep version | cut -d\\\" -f4)"
+        "postpublish": "open-cli https://github.com/prezly/slate/releases/new?tag=$(cat lerna.json | grep version | cut -d\\\" -f4)",
+        "sync-package-versions": "node ./sync-package-versions.mjs"
     },
     "devEngines": {
         "node": ">= 16.13.0",
         "pnpm": ">= 8.4.0"
     },
     "dependencies": {
-        "@types/react": "^18.0.0",
-        "@types/react-dom": "^18.0.0",
-        "react": "^18.0.0",
-        "react-dom": "^18.0.0",
-        "slate": "^0.94.1",
-        "slate-history": "^0.93.0",
-        "slate-react": "^0.97.0"
+        "@types/react": "^18.2.41",
+        "@types/react-dom": "^18.2.17",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "slate": "^0.101.5",
+        "slate-history": "^0.100.0",
+        "slate-react": "^0.101.5"
     },
     "devDependencies": {
         "@babel/cli": "^7.21.5",
@@ -60,8 +61,8 @@
         "@types/sinon": "^10.0.14",
         "@types/through2": "^2.0.36",
         "@types/vinyl": "^2.0.6",
-        "@typescript-eslint/eslint-plugin": "^5.51.0",
-        "@typescript-eslint/parser": "^5.51.0",
+        "@typescript-eslint/eslint-plugin": "^6.17.0",
+        "@typescript-eslint/parser": "^6.17.0",
         "autoprefixer": "^10.4.13",
         "babel-plugin-add-import-extension": "^1.6.0",
         "babel-plugin-module-resolver": "^5.0.0",
@@ -69,11 +70,11 @@
         "branch-pipe": "^1.0.1",
         "canvas": "^2.11.2",
         "concurrently": "^6.4.0",
-        "eslint": "^8.18.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-jsx-a11y": "^6.5.1",
-        "eslint-plugin-react": "^7.30.0",
+        "eslint": "^8.56.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-jsx-a11y": "^6.8.0",
+        "eslint-plugin-react": "^7.33.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-sort-keys-fix": "^1.1.2",
         "expect": "^29.5.0",
@@ -101,7 +102,7 @@
         "rimraf": "^3.0.2",
         "sass": "^1.62.1",
         "sinon": "^15.0.4",
-        "slate-hyperscript": "^0.81.3",
+        "slate-hyperscript": "^0.100.0",
         "ts-node": "^10.9.1",
         "ts-plugin-scss-modules": "^0.1.2",
         "tsc-fancy": "^1.1.2",
@@ -111,6 +112,22 @@
         "vinyl": "^2.2.1"
     },
     "workspaces": [
-        "packages/*"
-    ]
+        "packages/slate-types",
+        "packages/slate-commons",
+        "packages/slate-lists",
+        "packages/slate-tables",
+        "packages/slate-editor"
+    ],
+    "sync-package-versions": {
+        "packages": [
+            "react",
+            "react-dom",
+            "@types/react",
+            "@types/react-dom",
+            "slate",
+            "slate-history",
+            "slate-hyperscript",
+            "slate-react"
+        ]
+    }
 }

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
-import type { FunctionComponent, KeyboardEvent, MouseEvent, ReactNode, ReactElement } from 'react';
+import type { FunctionComponent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import React, { useCallback, useRef, useState } from 'react';
 
 import { SearchInput } from '#components';
@@ -45,7 +45,7 @@ export function SearchInputPlaceholder<T>({
     function renderContent(
         content: ReactNode | FunctionComponent<ContentRenderProps>,
         isSelected: boolean,
-    ): ReactElement | null {
+    ): ReactNode {
         if (typeof content === 'function') {
             return content({
                 isDragOver: Boolean(dragOver),
@@ -54,7 +54,7 @@ export function SearchInputPlaceholder<T>({
                 progress: progressNumber,
             });
         }
-        return <>{content}</>;
+        return content;
     }
 
     function handleSelect(suggestion: SearchInput.Suggestion<T>) {

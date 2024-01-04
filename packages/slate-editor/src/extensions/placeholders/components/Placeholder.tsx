@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-import React, { type ComponentType, forwardRef, type ReactElement, type ReactNode } from 'react';
+import React, { type ComponentType, forwardRef, type ReactNode } from 'react';
 
 import { type Props as BaseProps, Frame } from './Frame';
 import styles from './Placeholder.module.scss';
@@ -43,7 +43,7 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
         function renderContent(
             content: ReactNode | FunctionComponent<ContentRenderProps>,
             isSelected: boolean,
-        ): ReactElement | null {
+        ): ReactNode {
             if (typeof content === 'function') {
                 return content({
                     isDragOver: Boolean(dragOver),
@@ -52,7 +52,7 @@ export const Placeholder = forwardRef<HTMLDivElement, Props>(
                     progress: progressNumber,
                 });
             }
-            return <>{content}</>;
+            return content;
         }
 
         return (
