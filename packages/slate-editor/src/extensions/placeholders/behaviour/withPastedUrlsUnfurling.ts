@@ -4,6 +4,8 @@ import { Editor, Transforms } from 'slate';
 
 import { isUrl } from '#lib';
 
+import { EventsEditor } from '#modules/events';
+
 import { insertPlaceholder } from '../lib';
 import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager } from '../PlaceholdersManager';
@@ -32,7 +34,7 @@ export function withPastedUrlsUnfurling(fetchOembed: FetchOEmbedFn | undefined):
                     PlaceholdersManager.register(
                         placeholder.type,
                         placeholder.uuid,
-                        bootstrap(fetchOembed, pasted),
+                        bootstrap(editor, fetchOembed, pasted),
                     );
                     const path = EditorCommands.getNodePath(editor, {
                         at: [],
@@ -52,11 +54,13 @@ export function withPastedUrlsUnfurling(fetchOembed: FetchOEmbedFn | undefined):
     };
 }
 
-async function bootstrap(fetchOembed: FetchOEmbedFn, url: string) {
+async function bootstrap(editor: Editor, fetchOembed: FetchOEmbedFn, url: string) {
     try {
         const oembed = await fetchOembed(url);
+        EventsEditor.dispatchEvent(editor, 'unfurl-pasted-url', { url, oembed });
         return { oembed, url };
     } catch {
+        EventsEditor.dispatchEvent(editor, 'unfurl-pasted-url', { url, fallback: 'link' });
         return { url, fallback: 'link' } as const;
     }
 }

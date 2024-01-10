@@ -8,6 +8,7 @@ import { EditorBlock } from '#components';
 import { useResizeObserver } from '#lib';
 
 import { BookmarkCard } from '#modules/components';
+import { EventsEditor } from '#modules/events';
 
 import { convertWebBookmark } from '../transforms';
 import type { Presentation } from '../types';
@@ -46,6 +47,10 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
     const handleConvert = useCallback(
         (presentation: Presentation) => {
             convertWebBookmark(editor, element, presentation);
+            EventsEditor.dispatchEvent(editor, 'web-bookmark-converted', {
+                to: presentation,
+                element,
+            });
         },
         [editor, element],
     );
