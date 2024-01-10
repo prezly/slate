@@ -49,6 +49,10 @@ export type EditorEventMap = {
         to: 'link' | 'embed' | 'card';
         element: Node;
     };
+    'video-converted': {
+        to: 'link' | 'embed' | 'card';
+        element: Node;
+    };
     'button-block-removed': {
         uuid: string;
     };
