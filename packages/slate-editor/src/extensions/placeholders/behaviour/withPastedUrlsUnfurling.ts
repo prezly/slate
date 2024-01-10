@@ -11,10 +11,17 @@ import { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
 
+interface Options {
+    isAllowed?: (editor: Editor, url: string) => boolean;
+}
+
 /**
- * Automatically link pasted content if it's a URL. // See DEV-11519
+ * Automatically link pasted content if it's a URL. // See CARE-3635
  */
-export function withPastedUrlsUnfurling(fetchOembed: FetchOEmbedFn | undefined): WithOverrides {
+export function withPastedUrlsUnfurling(
+    fetchOembed: FetchOEmbedFn | undefined,
+    { isAllowed = EditorCommands.isSelectionEmpty }: Options = {},
+): WithOverrides {
     if (!fetchOembed) {
         return (editor) => editor;
     }
@@ -26,7 +33,7 @@ export function withPastedUrlsUnfurling(fetchOembed: FetchOEmbedFn | undefined):
             const hasHtml = Boolean(data.getData('text/html'));
             const pasted = data.getData('text');
 
-            if (!hasHtml && isUrl(pasted) && EditorCommands.isSelectionEmpty(editor)) {
+            if (!hasHtml && isUrl(pasted) && isAllowed(editor, pasted)) {
                 Editor.withoutNormalizing(editor, () => {
                     const placeholder = insertPlaceholder(editor, {
                         type: PlaceholderNode.Type.EMBED,

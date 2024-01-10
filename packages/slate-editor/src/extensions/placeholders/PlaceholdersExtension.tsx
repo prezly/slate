@@ -1,5 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
+import type { Editor } from 'slate';
 
 import { withPastedUrlsUnfurling } from './behaviour';
 import {
@@ -98,7 +99,9 @@ export interface Parameters {
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
-    withPastedUrlsUnfurling?: false | { fetchOembed: FetchOEmbedFn };
+    withPastedUrlsUnfurling?:
+        | false
+        | { fetchOembed: FetchOEmbedFn; isAllowed?(editor: Editor, url: string): boolean };
 }
 
 export function PlaceholdersExtension({
@@ -370,6 +373,9 @@ export function PlaceholdersExtension({
         },
         withOverrides: withPastedUrlsUnfurling(
             isUnfurlingPastedUrls ? isUnfurlingPastedUrls.fetchOembed : undefined,
+            {
+                isAllowed: isUnfurlingPastedUrls ? isUnfurlingPastedUrls.isAllowed : undefined,
+            },
         ),
     };
 }
