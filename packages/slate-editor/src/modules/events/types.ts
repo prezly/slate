@@ -1,5 +1,5 @@
 import type { Listener } from '@prezly/events';
-import type { CoverageEntry, NewsroomContact, Story } from '@prezly/sdk';
+import type { CoverageEntry, NewsroomContact, OEmbedInfo, Story } from '@prezly/sdk';
 import type { Node, TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
@@ -134,6 +134,11 @@ export type EditorEventMap = {
     'table-insert-column-right': never;
     'table-remove-column': never;
     'table-remove': never;
+    'unfurl-pasted-url': {
+        url: string;
+        oembed?: OEmbedInfo;
+        fallback?: string;
+    };
     'video-placeholder-submitted': {
         url: string;
     };
