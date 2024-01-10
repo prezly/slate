@@ -14,6 +14,7 @@ import { decorateSelectionFactory } from '#extensions/decorate-selection';
 import { unwrapLink, wrapInLink } from '#extensions/inline-links';
 import { MarkType } from '#extensions/text-styling';
 import { useDecorationFactory } from '#modules/decorations';
+import { EventsEditor } from '#modules/events';
 import { toggleBlock } from '#modules/rich-formatting-menu';
 
 import { Toolbar } from './components';
@@ -172,9 +173,15 @@ export function RichFormattingMenu({
 
     useDecorationFactory(linkRange?.current ? decorateSelectionFactory : undefined);
 
-    const onConvert =
+    const handleConvert =
         link && withConversionOptions && withConversionOptions.fetchOembed
-            ? (to: Presentation) => convertLink(editor, link, to, withConversionOptions.fetchOembed)
+            ? (to: Presentation) => {
+                  convertLink(editor, link, to, withConversionOptions.fetchOembed);
+                  EventsEditor.dispatchEvent(editor, 'link-converted', {
+                      to,
+                      element: link,
+                  });
+              }
             : undefined;
 
     if (
@@ -198,7 +205,7 @@ export function RichFormattingMenu({
                     withNewTabOption={withNewTabOption}
                     onBlur={clearLinkRange}
                     onChange={linkSelection}
-                    onConvert={onConvert}
+                    onConvert={handleConvert}
                     onClose={onClose}
                     onUnlink={unlinkSelection}
                 />

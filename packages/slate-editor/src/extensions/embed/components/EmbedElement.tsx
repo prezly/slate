@@ -8,6 +8,7 @@ import { EditorBlock, HtmlInjection, ImageWithLoadingPlaceholder } from '#compon
 import { Embed } from '#icons';
 
 import { BookmarkCard } from '#modules/components';
+import { EventsEditor } from '#modules/events';
 
 import type { FormState } from '../../video/components/VideoMenu';
 import type { EmbedNode } from '../EmbedNode';
@@ -55,6 +56,10 @@ export function EmbedElement({
     const handleConvert = useCallback(
         (presentation: Presentation) => {
             convertEmbed(editor, element, presentation);
+            EventsEditor.dispatchEvent(editor, 'embed-converted', {
+                to: presentation,
+                element,
+            });
         },
         [editor, element],
     );
