@@ -8,6 +8,8 @@ import type { InfoText } from '#components';
 import { EditorBlock, HtmlInjection } from '#components';
 import { PlayButton } from '#icons';
 
+import { EventsEditor } from '#modules/events';
+
 import { removeVideo, convertVideo, updateVideo } from '../transforms';
 import type { Presentation } from '../types';
 
@@ -52,6 +54,10 @@ export function VideoElement({
     const handleConvert = useCallback(
         (presentation: Presentation) => {
             convertVideo(editor, element, presentation);
+            EventsEditor.dispatchEvent(editor, 'video-converted', {
+                to: presentation,
+                element,
+            });
         },
         [editor, element],
     );
