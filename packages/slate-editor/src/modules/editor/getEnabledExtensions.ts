@@ -1,4 +1,5 @@
 import { EditorCommands, type Extension } from '@prezly/slate-commons';
+import { TablesEditor } from '@prezly/slate-tables';
 import { isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { Node } from 'slate';
 
@@ -398,9 +399,19 @@ function buildPlaceholdersExtensionConfiguration({
                 withEmbedPlaceholders: withEmbeds,
                 withSocialPostPlaceholders: withEmbeds,
                 withPastedUrlsUnfurling:
-                    withEmbeds && withPlaceholders
-                        ? withPlaceholders.withPastedUrlsUnfurling
-                        : undefined,
+                    withEmbeds && withPlaceholders && withPlaceholders.withPastedUrlsUnfurling
+                        ? {
+                              isAllowed(editor) {
+                                  const isSelectionEmpty = EditorCommands.isSelectionEmpty(editor);
+                                  const isInsideTable = TablesEditor.isTablesEditor(editor)
+                                      ? TablesEditor.isInTable(editor)
+                                      : false;
+
+                                  return isSelectionEmpty && !isInsideTable;
+                              },
+                              ...withPlaceholders.withPastedUrlsUnfurling,
+                          }
+                        : false,
             };
         }
         if (withGalleries) {

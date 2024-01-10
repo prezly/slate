@@ -184,6 +184,12 @@ export function RichFormattingMenu({
               }
             : undefined;
 
+    const isInsideTable = TablesEditor.isTablesEditor(editor) && TablesEditor.isInTable(editor);
+    const isInsideTableHeader = isInsideTable && TablesEditor.isHeaderCell(editor);
+
+    const isTitleSelected = formatting.active.includes(HeadingRole.TITLE);
+    const isSubtitleSelected = formatting.active.includes(HeadingRole.SUBTITLE);
+
     if (
         withInlineLinks &&
         linkRange?.current &&
@@ -201,7 +207,7 @@ export function RichFormattingMenu({
                 <LinkMenu
                     node={link}
                     canUnlink={link !== null}
-                    withConversionOptions={withConversionOptions}
+                    withConversionOptions={isInsideTable ? false : withConversionOptions}
                     withNewTabOption={withNewTabOption}
                     onBlur={clearLinkRange}
                     onChange={linkSelection}
@@ -216,12 +222,6 @@ export function RichFormattingMenu({
     if (!show) {
         return null;
     }
-
-    const isInsideTable = TablesEditor.isTablesEditor(editor) && TablesEditor.isInTable(editor);
-    const isInsideTableHeader = isInsideTable && TablesEditor.isHeaderCell(editor);
-
-    const isTitleSelected = formatting.active.includes(HeadingRole.TITLE);
-    const isSubtitleSelected = formatting.active.includes(HeadingRole.SUBTITLE);
 
     return (
         <TextSelectionPortalV2
