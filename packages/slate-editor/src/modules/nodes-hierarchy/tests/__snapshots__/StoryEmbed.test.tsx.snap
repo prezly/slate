@@ -9,6 +9,7 @@ exports[`nodes-hierarchy / StoryEmbed should be kept after normalization 1`] = `
         "text": "",
       },
     ],
+    "header_footer": "none",
     "position": "center",
     "story": {
       "uuid": "f0c7c0f8-7e67-4402-b07e-4db2f8c4f439",
