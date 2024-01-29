@@ -24,7 +24,8 @@ export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): 
             return (
                 node.story.uuid === another.story.uuid &&
                 node.appearance === another.appearance &&
-                node.position === another.position
+                node.position === another.position &&
+                node.header_footer === another.header_footer
             );
         }
         return undefined;

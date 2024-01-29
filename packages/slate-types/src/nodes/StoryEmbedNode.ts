@@ -10,6 +10,8 @@ export type StoryEmbedAppearance = Campaign.StoryAppearance;
 export const StoryEmbedAppearance = Campaign.StoryAppearance;
 export type StoryEmbedPosition = Campaign.StoryAlignment;
 export const StoryEmbedPosition = Campaign.StoryAlignment;
+export type StoryEmbedHeaderFooter = Campaign.StoryHeaderFooter;
+export const StoryEmbedHeaderFooter = Campaign.StoryHeaderFooter;
 
 export interface StoryEmbedNode extends ElementNode {
     type: typeof STORY_EMBED_NODE_TYPE;
@@ -18,6 +20,7 @@ export interface StoryEmbedNode extends ElementNode {
     };
     appearance: Campaign.StoryAppearance;
     position: Campaign.StoryAlignment;
+    header_footer: Campaign.StoryHeaderFooter;
 }
 
 export function isStoryEmbedNode(value: any): value is StoryEmbedNode {
@@ -33,6 +36,7 @@ export function validateStoryEmbedNode(
         isObject(node.story) &&
         isUuid(node.story.uuid) &&
         isEnum(node.appearance, Campaign.StoryAppearance) &&
-        isEnum(node.position, Campaign.StoryAlignment)
+        isEnum(node.position, Campaign.StoryAlignment) &&
+        isEnum(node.header_footer, Campaign.StoryHeaderFooter)
     );
 }

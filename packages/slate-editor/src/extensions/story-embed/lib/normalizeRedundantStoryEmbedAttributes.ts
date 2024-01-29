@@ -9,6 +9,7 @@ const shape: Record<keyof StoryEmbedNode, true> = {
     appearance: true,
     position: true,
     children: true,
+    header_footer: true,
 };
 
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
