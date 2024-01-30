@@ -5,7 +5,7 @@ import { Transforms } from 'slate';
 
 export function updateStoryEmbed(
     editor: Editor,
-    properties: Partial<Pick<StoryEmbedNode, 'appearance' | 'position'>>,
+    properties: Partial<Pick<StoryEmbedNode, 'appearance' | 'position' | 'header_footer'>>,
 ): void {
     Transforms.setNodes<StoryEmbedNode>(editor, properties, { match: isStoryEmbedNode });
 }

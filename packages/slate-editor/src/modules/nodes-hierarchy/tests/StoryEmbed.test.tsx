@@ -11,6 +11,7 @@ describe('nodes-hierarchy / StoryEmbed', () => {
             <editor>
                 <h:story-embed
                     appearance={Campaign.StoryAppearance.FULL}
+                    header_footer={Campaign.StoryHeaderFooter.NONE}
                     position={Campaign.StoryAlignment.CENTER}
                     story={{
                         uuid: 'f0c7c0f8-7e67-4402-b07e-4db2f8c4f439',
@@ -23,6 +24,7 @@ describe('nodes-hierarchy / StoryEmbed', () => {
             <editor>
                 <h:story-embed
                     appearance={Campaign.StoryAppearance.FULL}
+                    header_footer={Campaign.StoryHeaderFooter.NONE}
                     position={Campaign.StoryAlignment.CENTER}
                     story={{
                         uuid: 'f0c7c0f8-7e67-4402-b07e-4db2f8c4f439',
