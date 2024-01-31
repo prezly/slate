@@ -16,11 +16,7 @@
         },
         "plugins": [
             {
-                "name": "ts-plugin-scss-modules",
-                // @see https://www.npmjs.com/package/ts-plugin-scss-modules#user-content-options
-                "options": {
-                    "classnameTransform": "asIs",
-                },
+                "name": "typescript-plugin-css-modules"
             },
         ]
     },
