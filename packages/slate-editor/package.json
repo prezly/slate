@@ -71,7 +71,7 @@
         "combine-reducers": "^1.0.0",
         "is-hotkey": "^0.2.0",
         "json-stable-stringify": "^1.0.1",
-        "moment": "^2.29.1",
+        "moment": "^2.30.1",
         "popper-max-size-modifier": "^0.2.0",
         "rangefix": "^0.2.9",
         "react-bootstrap": "=0.32.4",
