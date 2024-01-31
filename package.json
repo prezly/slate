@@ -129,5 +129,10 @@
             "slate-hyperscript",
             "slate-react"
         ]
+    },
+    "pnpm": {
+        "overrides": {
+            "glob-parent@<5.1.2": ">=5.1.2"
+        }
     }
 }
