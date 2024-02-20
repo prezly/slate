@@ -44,7 +44,7 @@ export function Gallery({
 }: Props) {
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const [orderedImages, setOrderedImages] = useState(images);
-    const ids = useMemo(() => orderedImages.map((image) => image.uuid), []);
+    const ids = useMemo(() => orderedImages.map((image) => image.uuid), [orderedImages]);
     const activeIndex = activeId ? orderedImages.findIndex((image) => image.uuid === activeId) : -1;
 
     const sensors = useSensors(useSensor(PointerSensor));
@@ -83,7 +83,7 @@ export function Gallery({
 
     const getIndex = useCallback((id: UniqueIdentifier) => {
         return orderedImages.findIndex((image) => image.uuid === id);
-    }, []);
+    }, [orderedImages]);
 
     return (
         <DndContext

@@ -4,7 +4,7 @@
     position: relative;
     background-size: cover;
     background-position: 50% 50%;
-    overflow: hidden;
+    overflow: visible;
 
     &.interactive {
         &:hover {
@@ -29,22 +29,21 @@
             bottom: 0;
             content: "";
             padding: 2px;
-            background: red;
-            border: 4px solid white;
-            border-top-width: 8px;
-            border-bottom-width: 8px;
+            background: #9747FF;
+            border: 5px solid white;
+            z-index: 2;
         }
     }
 
     &.insertBefore {
         &:after {
-            left: 0;
+            left: -6px;
         }
     }
 
     &.insertAfter {
         &:after {
-            right: 0;
+            right: -6px;
         }
     }
 }
