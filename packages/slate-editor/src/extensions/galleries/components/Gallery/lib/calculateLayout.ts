@@ -17,7 +17,7 @@ interface Tile<Image extends BaseImage> {
     width: number;
 }
 
-type Layout<Image extends BaseImage> = Tile<Image>[][];
+export type Layout<Image extends BaseImage> = Tile<Image>[][];
 
 export function calculateLayout<Image extends BaseImage>({
     idealHeight,

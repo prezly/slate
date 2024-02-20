@@ -125,13 +125,14 @@ export function GalleryElement({
             loading={isUploading}
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
-            renderReadOnlyFrame={() => (
+            renderReadOnlyFrame={({ isSelected }) => (
                 <>
                     {sizer}
                     <Gallery
                         images={element.images.map((image) =>
                             UploadcareImage.createFromPrezlyStoragePayload(image.file),
                         )}
+                        isInteractive={isSelected}
                         padding={element.padding}
                         size={element.thumbnail_size}
                         width={size.width}
