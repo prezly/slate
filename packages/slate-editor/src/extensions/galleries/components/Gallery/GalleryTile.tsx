@@ -63,7 +63,7 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
                             className={styles.Input}
                             onChange={(event) => onCaptionChange?.(event.currentTarget.value)}
                             value={caption}
-                            placeholder="add caption"
+                            placeholder={isInteractive ? 'add caption' : ''}
                         />
                     </div>
                 </div>
