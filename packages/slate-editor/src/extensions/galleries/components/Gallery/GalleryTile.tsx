@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import type { CSSProperties } from 'react';
 import React, { forwardRef } from 'react';
 
-import { ImageSizeWarning, ImageWithLoadingPlaceholder } from '#components';
+import { Button, ImageSizeWarning, ImageWithLoadingPlaceholder } from '#components';
+import { Crop, Delete } from '#icons';
 
 import styles from './GalleryTile.module.scss';
 
@@ -15,7 +16,9 @@ export interface Props {
     imageWidth: number;
     insertPosition?: 'before' | 'after';
     isInteractive?: boolean;
-    onCaptionChange?: (caption: string) => void;
+    onCaptionChange: (caption: string) => void;
+    onCrop: () => void;
+    onDelete: () => void;
     style?: CSSProperties;
     url: string;
     withBorderRadius: boolean;
@@ -33,6 +36,8 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
         insertPosition,
         isInteractive,
         onCaptionChange,
+        onCrop,
+        onDelete,
         style = {},
         url,
         withBorderRadius,
@@ -56,10 +61,16 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
             {clone && <div className={styles.Clone} />}
             {!dragging && (
                 <div className={styles.Overlay}>
+                    <div className={styles.Actions}>
+                        <Button round variant="secondary" icon={Crop} onClick={onCrop} />
+                        <Button round variant="secondary" icon={Delete} onClick={onDelete} />
+                    </div>
                     <div className={styles.DragHandle} {...props} tabIndex={-1} />
-                    <div className={classNames(styles.Caption, {
-                        [styles.visible]: caption !== '',
-                    })}>
+                    <div
+                        className={classNames(styles.Caption, {
+                            [styles.visible]: caption !== '',
+                        })}
+                    >
                         <input
                             type="text"
                             className={styles.Input}

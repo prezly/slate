@@ -68,6 +68,10 @@
 
     &:hover {
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+
+        .Actions {
+            opacity: 1;
+        }
     }
 
     .DragHandle {
@@ -81,7 +85,6 @@
         padding: $spacing-1;
         background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 84%);
         opacity: 0;
-        transition: opacity 0.2s linear;
 
         &.visible,
         .interactive & {
@@ -105,6 +108,15 @@
                 font-weight: 300;
             }
         }
+    }
+
+    .Actions {
+        position: absolute;
+        top: $spacing-1;
+        right: $spacing-1;
+        display: flex;
+        gap: $spacing-1;
+        opacity: 0;
     }
 }
 

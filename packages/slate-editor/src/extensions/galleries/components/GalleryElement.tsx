@@ -15,7 +15,7 @@ import type { MediaGalleryOptions } from '#modules/uploadcare';
 import { UploadcareEditor } from '#modules/uploadcare';
 
 import { shuffleImages } from '../lib';
-import { updateGallery } from '../transforms';
+import { removeGallery, updateGallery } from '../transforms';
 
 import { Gallery } from './Gallery';
 import { GalleryMenu } from './GalleryMenu';
@@ -92,7 +92,11 @@ export function GalleryElement({
             };
         });
 
-        Transforms.setNodes<GalleryNode>(editor, { images: [...element.images, ...images] }, { match: (node) => node === element });
+        Transforms.setNodes<GalleryNode>(
+            editor,
+            { images: [...element.images, ...images] },
+            { match: (node) => node === element },
+        );
 
         callbacks.current.onAdded(editor, element, {
             successfulUploads: successfulUploads.length,
@@ -111,6 +115,12 @@ export function GalleryElement({
     }
 
     function handleImagesChange(images: GalleryImage[]) {
+        if (images.length === 0) {
+            // Last image was removed, we can remove the whole block
+            removeGallery(editor);
+            return;
+        }
+
         const update = { images };
         updateGallery(editor, update);
     }

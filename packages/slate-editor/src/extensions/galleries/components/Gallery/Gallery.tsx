@@ -9,11 +9,15 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import type { GalleryImage, GalleryNode } from '@prezly/slate-types';
-import { UploadcareImage } from '@prezly/uploadcare';
+import { awaitUploads, UploadcareImage } from '@prezly/uploadcare';
 import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
+import { noop } from '@technically/lodash';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useSlateStatic } from 'slate-react';
+
+import { UploadcareEditor } from '#modules/uploadcare';
 
 import { IMAGE_PADDING, IMAGE_SIZE } from './constants';
 import styles from './Gallery.module.scss';
@@ -46,6 +50,7 @@ export function Gallery({
     width,
     ...attributes
 }: Props) {
+    const editor = useSlateStatic();
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const ids = useMemo(() => images.map((image) => image.file.uuid), [images]);
     const activeIndex = activeId ? images.findIndex((image) => image.file.uuid === activeId) : -1;
@@ -100,6 +105,55 @@ export function Gallery({
         onImagesChange(newImages);
     }
 
+    async function handleCrop(uuid: string) {
+        const image = images.find((image) => image.file.uuid === uuid);
+        if (!image) {
+            return;
+        }
+
+        const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(image.file);
+
+        async function crop() {
+            const filePromises = await UploadcareEditor.upload(editor, {
+                files: [uploadcareImage],
+                crop: true,
+                imagesOnly: true,
+                tabs: [],
+            });
+
+            if (!filePromises) {
+                return undefined;
+            }
+
+            return await awaitUploads(filePromises);
+        }
+
+        const result = await crop();
+        if (!result) {
+            return;
+        }
+
+        const [croppedImage] = result.successfulUploads.map((fileInfo) => {
+            const image = UploadcareImage.createFromUploadcareWidgetPayload(fileInfo);
+            return image.toPrezlyStoragePayload();
+        });
+
+        const newImages = images.map((image) => {
+            if (image.file.uuid === uuid) {
+                return { ...image, file: croppedImage };
+            }
+
+            return image;
+        });
+
+        onImagesChange(newImages);
+    }
+
+    function handleDelete(uuid: string) {
+        const newImages = images.filter((image) => image.file.uuid !== uuid);
+        onImagesChange(newImages);
+    }
+
     const getCaption = useCallback(
         (uuid: string) => {
             const image = images.find((image) => image.file.uuid === uuid);
@@ -147,6 +201,8 @@ export function Gallery({
                                         onCaptionChange={(caption) =>
                                             handleCaptionChange(tile.image.uuid, caption)
                                         }
+                                        onCrop={() => handleCrop(tile.image.uuid)}
+                                        onDelete={() => handleDelete(tile.image.uuid)}
                                         style={{
                                             width: `${((100 * tile.width) / width).toFixed(3)}%`,
                                         }}
@@ -196,10 +252,13 @@ function GalleryTileOverlay({
     return (
         <GalleryTile
             dragging
-            url={preview.cdnUrl}
-            imageWidth={tile.width}
             imageHeight={tile.height}
+            imageWidth={tile.width}
+            onCaptionChange={noop}
+            onCrop={noop}
+            onDelete={noop}
             style={{ transform: 'scale(0.4)' }}
+            url={preview.cdnUrl}
             withBorderRadius={margin > 0}
             withSizeWarning={!isUploadcareImageSizeValid(tile.image)}
         />
