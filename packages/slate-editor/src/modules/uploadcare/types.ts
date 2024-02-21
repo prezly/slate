@@ -24,6 +24,7 @@ export type UploadcareOptions<
     files?: File[];
     imagesOnly?: ImagesOnly;
     multiple?: Multiple;
+    tabs?: string[];
 } & MediaGalleryOptions<MediaGallery>;
 
 export type MediaGalleryOptions<MediaGallery extends boolean> = MediaGallery extends true
