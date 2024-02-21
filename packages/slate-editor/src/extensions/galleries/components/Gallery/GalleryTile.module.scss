@@ -80,6 +80,13 @@
         flex-shrink: 0;
         padding: $spacing-1;
         background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 84%);
+        opacity: 0;
+        transition: opacity 0.2s linear;
+
+        &.visible,
+        .interactive & {
+            opacity: 1;
+        }
 
         .Input {
             width: 100%;

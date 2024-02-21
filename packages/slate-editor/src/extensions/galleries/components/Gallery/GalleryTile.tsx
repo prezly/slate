@@ -57,7 +57,9 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
             {!dragging && (
                 <div className={styles.Overlay}>
                     <div className={styles.DragHandle} {...props} tabIndex={-1} />
-                    <div className={styles.Caption}>
+                    <div className={classNames(styles.Caption, {
+                        [styles.visible]: caption !== '',
+                    })}>
                         <input
                             type="text"
                             className={styles.Input}
