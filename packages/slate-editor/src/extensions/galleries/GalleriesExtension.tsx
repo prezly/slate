@@ -19,7 +19,7 @@ import type { GalleriesExtensionConfiguration } from './types';
 
 interface Parameters extends GalleriesExtensionConfiguration {
     availableWidth: number;
-    onEdited?: (
+    onAdded?: (
         editor: Editor,
         gallery: GalleryNode,
         extra: {
@@ -34,7 +34,7 @@ export const EXTENSION_ID = 'GalleriesExtension';
 
 export const GalleriesExtension = ({
     availableWidth,
-    onEdited,
+    onAdded,
     onShuffled,
     withLayoutOptions = false,
     withMediaGalleryTab = false,
@@ -68,7 +68,7 @@ export const GalleriesExtension = ({
                     withMediaGalleryTab={withMediaGalleryTab}
                     withLayoutOptions={withLayoutOptions}
                     element={element}
-                    onEdited={onEdited}
+                    onAdded={onAdded}
                     onShuffled={onShuffled}
                 >
                     {children}
