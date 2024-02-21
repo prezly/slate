@@ -56,7 +56,7 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
             {clone && <div className={styles.Clone} />}
             {!dragging && (
                 <div className={styles.Overlay}>
-                    <div className={styles.DragHandle} {...props} />
+                    <div className={styles.DragHandle} {...props} tabIndex={-1} />
                     <div className={styles.Caption}>
                         <input
                             type="text"
