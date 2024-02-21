@@ -21,7 +21,7 @@ export function SortableGalleryTile({
     return (
         <GalleryTile
             {...props}
-            active={isDragging}
+            clone={isDragging}
             insertPosition={insertPosition}
             ref={setNodeRef}
             {...attributes}

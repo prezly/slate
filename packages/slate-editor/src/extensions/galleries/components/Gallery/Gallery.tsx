@@ -8,8 +8,8 @@ import {
     useSensors,
 } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
-import type { GalleryNode } from '@prezly/slate-types';
-import type { UploadcareImage } from '@prezly/uploadcare';
+import type { GalleryImage, GalleryNode } from '@prezly/slate-types';
+import { UploadcareImage } from '@prezly/uploadcare';
 import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
@@ -24,12 +24,14 @@ import { SortableGalleryTile } from './SortableGalleryTile';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     className?: string;
-    images: UploadcareImage[];
+    images: GalleryImage[];
     isInteractive: boolean;
+    maxViewportWidth?: number;
+    onImagesChange: (images: GalleryImage[]) => void;
     padding: GalleryNode['padding'];
     size: GalleryNode['thumbnail_size'];
+    uuid: string;
     width: number;
-    maxViewportWidth?: number;
 }
 
 export function Gallery({
@@ -37,15 +39,16 @@ export function Gallery({
     images,
     isInteractive,
     maxViewportWidth = 800,
+    onImagesChange,
     padding,
     size,
+    uuid,
     width,
     ...attributes
 }: Props) {
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-    const [orderedImages, setOrderedImages] = useState(images);
-    const ids = useMemo(() => orderedImages.map((image) => image.uuid), [orderedImages]);
-    const activeIndex = activeId ? orderedImages.findIndex((image) => image.uuid === activeId) : -1;
+    const ids = useMemo(() => images.map((image) => image.file.uuid), [images]);
+    const activeIndex = activeId ? images.findIndex((image) => image.file.uuid === activeId) : -1;
 
     const sensors = useSensors(useSensor(PointerSensor));
 
@@ -53,7 +56,7 @@ export function Gallery({
     const idealHeight = IMAGE_SIZE[size] + 2 * margin;
     const calculatedLayout = calculateLayout({
         idealHeight,
-        images: orderedImages,
+        images: images.map((image) => UploadcareImage.createFromPrezlyStoragePayload(image.file)),
         viewportWidth: width,
         margin,
     });
@@ -68,9 +71,10 @@ export function Gallery({
 
     function handleDragEnd({ over }: DragEndEvent) {
         if (over) {
-            const overIndex = orderedImages.findIndex((image) => image.uuid === over.id);
+            const overIndex = images.findIndex((image) => image.file.uuid === over.id);
             if (activeIndex !== overIndex) {
-                setOrderedImages((images) => arrayMove(images, activeIndex, overIndex));
+                const newImages = arrayMove(images, activeIndex, overIndex);
+                onImagesChange(newImages);
             }
         }
 
@@ -81,9 +85,35 @@ export function Gallery({
         setActiveId(null);
     }
 
-    const getIndex = useCallback((id: UniqueIdentifier) => {
-        return orderedImages.findIndex((image) => image.uuid === id);
-    }, [orderedImages]);
+    function handleCaptionChange(uuid: string, caption: string) {
+        const newImages = images.map((image) => {
+            if (image.file.uuid === uuid) {
+                return {
+                    ...image,
+                    caption,
+                };
+            }
+
+            return image;
+        });
+
+        onImagesChange(newImages);
+    }
+
+    const getCaption = useCallback(
+        (uuid: string) => {
+            const image = images.find((image) => image.file.uuid === uuid);
+            return image?.caption ?? '';
+        },
+        [images],
+    );
+
+    const getIndex = useCallback(
+        (id: UniqueIdentifier) => {
+            return images.findIndex((image) => image.file.uuid === id);
+        },
+        [images],
+    );
 
     return (
         <DndContext
@@ -93,7 +123,7 @@ export function Gallery({
             onDragStart={handleDragStart}
             sensors={sensors}
         >
-            <SortableContext disabled={!isInteractive} items={ids}>
+            <SortableContext id={uuid} disabled={!isInteractive} items={ids}>
                 <div {...attributes} className={classNames(styles.Gallery, className)}>
                     {calculatedLayout.map((row, rowIndex) => (
                         <div
@@ -108,11 +138,15 @@ export function Gallery({
                                     <SortableGalleryTile
                                         key={tile.image.uuid}
                                         id={tile.image.uuid}
+                                        caption={getCaption(tile.image.uuid)}
                                         isInteractive={isInteractive}
                                         getIndex={getIndex}
                                         url={preview.cdnUrl}
                                         imageWidth={tile.width}
                                         imageHeight={tile.height}
+                                        onCaptionChange={(caption) =>
+                                            handleCaptionChange(tile.image.uuid, caption)
+                                        }
                                         style={{
                                             width: `${((100 * tile.width) / width).toFixed(3)}%`,
                                         }}

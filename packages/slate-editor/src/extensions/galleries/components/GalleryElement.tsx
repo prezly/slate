@@ -1,5 +1,5 @@
 import type { NewsroomRef } from '@prezly/sdk';
-import type { GalleryNode } from '@prezly/slate-types';
+import type { GalleryImage, GalleryNode } from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
 import React, { useState } from 'react';
@@ -117,6 +117,11 @@ export function GalleryElement({
         callbacks.current.onShuffled(editor, element, { ...element, ...update });
     }
 
+    function handleImagesChange(images: GalleryImage[]) {
+        const update = { images };
+        updateGallery(editor, update);
+    }
+
     return (
         <EditorBlock
             {...attributes}
@@ -129,12 +134,12 @@ export function GalleryElement({
                 <>
                     {sizer}
                     <Gallery
-                        images={element.images.map((image) =>
-                            UploadcareImage.createFromPrezlyStoragePayload(image.file),
-                        )}
+                        images={element.images}
                         isInteractive={isSelected}
+                        onImagesChange={handleImagesChange}
                         padding={element.padding}
                         size={element.thumbnail_size}
+                        uuid={element.uuid}
                         width={size.width}
                     />
                 </>

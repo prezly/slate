@@ -7,28 +7,32 @@ import { ImageSizeWarning, ImageWithLoadingPlaceholder } from '#components';
 import styles from './GalleryTile.module.scss';
 
 export interface Props {
-    active?: boolean;
+    caption?: string;
     className?: string;
+    clone?: boolean;
     dragging?: boolean;
-    url: string;
-    isInteractive?: boolean;
-    imageWidth: number;
     imageHeight: number;
+    imageWidth: number;
     insertPosition?: 'before' | 'after';
+    isInteractive?: boolean;
+    onCaptionChange?: (caption: string) => void;
     style?: CSSProperties;
+    url: string;
     withBorderRadius: boolean;
     withSizeWarning?: boolean;
 }
 
 export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTile(
     {
-        active = false,
+        caption,
         className,
+        clone = false,
         dragging,
-        isInteractive,
         imageHeight,
         imageWidth,
         insertPosition,
+        isInteractive,
+        onCaptionChange,
         style = {},
         url,
         withBorderRadius,
@@ -48,9 +52,22 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
             })}
             ref={ref}
             style={style}
-            {...props}
         >
-            {active && <div className={styles.Overlay} />}
+            {clone && <div className={styles.Clone} />}
+            {!dragging && (
+                <div className={styles.Overlay}>
+                    <div className={styles.DragHandle} {...props} />
+                    <div className={styles.Caption}>
+                        <input
+                            type="text"
+                            className={styles.Input}
+                            onChange={(event) => onCaptionChange?.(event.currentTarget.value)}
+                            value={caption}
+                            placeholder="add caption"
+                        />
+                    </div>
+                </div>
+            )}
             <ImageWithLoadingPlaceholder
                 src={url}
                 imageWidth={imageWidth}

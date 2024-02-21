@@ -4,7 +4,6 @@
     position: relative;
     background-size: cover;
     background-position: 50% 50%;
-    overflow: visible;
 
     &.interactive {
         &:hover {
@@ -14,7 +13,7 @@
 
     &.dragging {
         cursor: grabbing;
-        box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
     }
 
     &.withBorderRadius {
@@ -29,9 +28,9 @@
             bottom: 0;
             content: "";
             padding: 2px;
-            background: #9747FF;
+            background: #9747ff;
             border: 5px solid white;
-            z-index: 2;
+            z-index: 3;
         }
     }
 
@@ -48,7 +47,7 @@
     }
 }
 
-.Overlay {
+.Clone {
     position: absolute;
     top: 0;
     left: 0;
@@ -56,6 +55,50 @@
     height: 100%;
     background: rgba(#fff, 0.5);
     z-index: 2;
+}
+
+.Overlay {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+
+    &:hover {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+    }
+
+    .DragHandle {
+        flex: 1;
+    }
+
+    .Caption {
+        height: 32px;
+        flex-shrink: 0;
+        padding: $spacing-1;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 84%);
+
+        .Input {
+            width: 100%;
+            appearance: none;
+            color: $white;
+            background: none;
+            border: none;
+            outline: none;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.2;
+
+            &::placeholder {
+                color: $white;
+                font-style: italic;
+                font-weight: 300;
+            }
+        }
+    }
 }
 
 .SizeWarning {
