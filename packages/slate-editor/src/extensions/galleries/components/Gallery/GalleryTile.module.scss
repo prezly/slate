@@ -4,11 +4,10 @@
     position: relative;
     background-size: cover;
     background-position: 50% 50%;
+    pointer-events: none;
 
     &.interactive {
-        &:hover {
-            cursor: grab;
-        }
+        pointer-events: all;
     }
 
     &.dragging {
@@ -73,6 +72,7 @@
 
     .DragHandle {
         flex: 1;
+        cursor: grab;
     }
 
     .Caption {
