@@ -14,6 +14,7 @@ import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
 import type { HTMLAttributes } from 'react';
 import React, { useCallback, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useSlateStatic } from 'slate-react';
 
 import { UploadcareEditor } from '#modules/uploadcare';
@@ -216,16 +217,19 @@ export function Gallery({
                     ))}
                 </div>
             </SortableContext>
-            <DragOverlay dropAnimation={null}>
-                {activeId ? (
-                    <GalleryTileOverlay
-                        id={activeId}
-                        layout={calculatedLayout}
-                        margin={margin}
-                        maxViewportWidth={maxViewportWidth}
-                    />
-                ) : null}
-            </DragOverlay>
+            {createPortal(
+                <DragOverlay dropAnimation={null}>
+                    {activeId ? (
+                        <GalleryTileOverlay
+                            id={activeId}
+                            layout={calculatedLayout}
+                            margin={margin}
+                            maxViewportWidth={maxViewportWidth}
+                        />
+                    ) : null}
+                </DragOverlay>,
+                document.body,
+            )}
         </DndContext>
     );
 }
