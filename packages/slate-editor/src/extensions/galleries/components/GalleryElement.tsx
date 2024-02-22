@@ -148,12 +148,11 @@ export function GalleryElement({
                     />
                 </>
             )}
-            renderMenu={({ onClose }) => (
+            renderMenu={() => (
                 <GalleryMenu
                     element={element}
                     onAdd={handleAdd}
                     onShuffle={handleShuffle}
-                    onClose={onClose}
                     withLayoutOptions={withLayoutOptions}
                 />
             )}

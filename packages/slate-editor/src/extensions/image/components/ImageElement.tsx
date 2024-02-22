@@ -257,10 +257,9 @@ export function ImageElement({
                     estimatedDuration={ESTIMATED_LOADING_DURATION}
                 />
             )}
-            renderMenu={({ onClose }) => (
+            renderMenu={() => (
                 <ImageMenu
                     onChange={handleUpdate}
-                    onClose={onClose}
                     onCrop={handleCrop}
                     onRemove={handleRemove}
                     onReplace={handleReplace}

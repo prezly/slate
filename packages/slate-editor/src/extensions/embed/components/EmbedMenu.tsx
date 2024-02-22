@@ -25,7 +25,6 @@ interface Props {
     url: EmbedNode['url'];
     onChange: (props: Partial<FormState>) => void;
     onConvert: (presentation: Presentation) => void;
-    onClose: () => void;
     onRemove: () => void;
     value: FormState;
     withLayoutControls: boolean;
@@ -81,7 +80,6 @@ export function EmbedMenu({
     info = [],
     url,
     onChange,
-    onClose,
     onConvert,
     onRemove,
     value,
@@ -90,9 +88,7 @@ export function EmbedMenu({
 }: Props) {
     return (
         <>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Embed settings
-            </Toolbox.Header>
+            <Toolbox.Header>Embed settings</Toolbox.Header>
 
             <Toolbox.Section noPadding>
                 <Button

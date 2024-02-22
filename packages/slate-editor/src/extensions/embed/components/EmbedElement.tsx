@@ -75,11 +75,10 @@ export function EmbedElement({
             renderAboveFrame={children}
             renderMenu={
                 withMenu
-                    ? ({ onClose }) => (
+                    ? () => (
                           <EmbedMenu
                               info={info}
                               onChange={handleUpdate}
-                              onClose={onClose}
                               onConvert={handleConvert}
                               onRemove={handleRemove}
                               url={element.url}

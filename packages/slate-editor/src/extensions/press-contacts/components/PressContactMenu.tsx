@@ -9,7 +9,6 @@ import { ContactLayoutCard, ContactLayoutSignature, Delete } from '#icons';
 interface Props {
     element: ContactNode;
     onChangeLayout: (layout: ContactLayout) => void;
-    onClose: () => void;
     onRemove: () => void;
     onToggleAvatar: (visible: boolean) => void;
 }
@@ -27,18 +26,10 @@ const LAYOUT_OPTIONS: OptionsGroupOption<ContactLayout>[] = [
     },
 ];
 
-export function PressContactMenu({
-    element,
-    onChangeLayout,
-    onClose,
-    onRemove,
-    onToggleAvatar,
-}: Props) {
+export function PressContactMenu({ element, onChangeLayout, onRemove, onToggleAvatar }: Props) {
     return (
         <>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Site contact settings
-            </Toolbox.Header>
+            <Toolbox.Header>Site contact settings</Toolbox.Header>
 
             <Toolbox.Section>
                 <Toggle

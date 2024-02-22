@@ -16,7 +16,6 @@ interface Props {
     generatePreviewUrl: StoryBookmarkExtensionParameters['generatePreviewUrl'];
     story: Story;
     withNewTabOption: boolean | undefined;
-    onClose: () => void;
     onRemove: () => void;
     onUpdate: (
         attrs: Partial<Pick<StoryBookmarkNode, 'show_thumbnail' | 'layout' | 'new_tab'>>,
@@ -42,7 +41,6 @@ export function StoryBookmarkMenu({
     generatePreviewUrl,
     story,
     withNewTabOption = true,
-    onClose,
     onRemove,
     onUpdate,
 }: Props) {
@@ -54,9 +52,7 @@ export function StoryBookmarkMenu({
 
     return (
         <>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Story bookmark settings
-            </Toolbox.Header>
+            <Toolbox.Header>Story bookmark settings</Toolbox.Header>
 
             <Toolbox.Section noPadding>
                 <ButtonGroup>

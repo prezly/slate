@@ -67,9 +67,8 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
             border
             element={element}
             overlay="always"
-            renderMenu={({ onClose }) => (
+            renderMenu={() => (
                 <WebBookmarkMenu
-                    onClose={onClose}
                     onConvert={handleConvert}
                     element={element}
                     withNewTabOption={withNewTabOption}

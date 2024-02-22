@@ -19,7 +19,6 @@ interface Props {
     element: BookmarkNode;
     withNewTabOption: boolean;
     withConversionOptions: boolean;
-    onClose: () => void;
     onConvert: (presentation: Presentation) => void;
 }
 
@@ -66,7 +65,6 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
     element,
     withNewTabOption,
     withConversionOptions,
-    onClose,
     onConvert,
 }) => {
     const editor = useSlate();
@@ -91,9 +89,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
 
     return (
         <>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Web bookmark settings
-            </Toolbox.Header>
+            <Toolbox.Header>Web bookmark settings</Toolbox.Header>
 
             <Toolbox.Section noPadding>
                 <Button

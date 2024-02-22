@@ -2,7 +2,6 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import { isHotkey } from 'is-hotkey';
 import type { MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Editor, Transforms } from 'slate';
@@ -135,17 +134,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         },
         [isOnlyBlockSelected],
     );
-
-    useEffect(() => {
-        const onEsc = (e: KeyboardEvent) => {
-            if (isHotkey('esc', e)) {
-                closeMenu();
-            }
-        };
-
-        document.addEventListener('keydown', onEsc);
-        return () => document.removeEventListener('keydown', onEsc);
-    }, [closeMenu]);
 
     const renderProps: RenderProps = {
         isSelected,

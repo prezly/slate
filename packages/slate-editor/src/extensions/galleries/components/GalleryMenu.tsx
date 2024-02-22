@@ -82,18 +82,15 @@ interface Props {
     element: GalleryNode;
     onAdd: () => void;
     onShuffle: () => void;
-    onClose: () => void;
     withLayoutOptions: boolean;
 }
 
-export function GalleryMenu({ element, onAdd, onShuffle, onClose, withLayoutOptions }: Props) {
+export function GalleryMenu({ element, onAdd, onShuffle, withLayoutOptions }: Props) {
     const editor = useSlate();
 
     return (
         <>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Gallery settings
-            </Toolbox.Header>
+            <Toolbox.Header>Gallery settings</Toolbox.Header>
 
             <Toolbox.Section noPadding>
                 <ButtonGroup>

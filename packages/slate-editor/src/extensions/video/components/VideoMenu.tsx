@@ -25,7 +25,6 @@ interface Props {
     url: VideoNode['url'];
     onChange: (props: Partial<FormState>) => void;
     onConvert: (presentation: Presentation) => void;
-    onClose: () => void;
     onRemove: () => void;
     value: FormState;
     withLayoutControls: boolean;
@@ -82,7 +81,6 @@ export function VideoMenu({
     url,
     onChange,
     onConvert,
-    onClose,
     onRemove,
     value,
     withLayoutControls,
@@ -94,9 +92,7 @@ export function VideoMenu({
 
     return (
         <>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Video settings
-            </Toolbox.Header>
+            <Toolbox.Header>Video settings</Toolbox.Header>
 
             {!isSelfHosted && (
                 <Toolbox.Section noPadding>

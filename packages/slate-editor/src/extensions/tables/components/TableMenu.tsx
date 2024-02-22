@@ -11,10 +11,9 @@ import { EventsEditor } from '#modules/events';
 
 interface Props {
     element: TableNode;
-    onClose: () => void;
 }
 
-export function TableMenu({ element, onClose }: Props) {
+export function TableMenu({ element }: Props) {
     const editor = useSlateStatic();
 
     if (!TablesEditor.isTablesEditor(editor)) {
@@ -23,9 +22,7 @@ export function TableMenu({ element, onClose }: Props) {
 
     return (
         <Toolbox.Panel>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Table settings
-            </Toolbox.Header>
+            <Toolbox.Header>Table settings</Toolbox.Header>
 
             <Toolbox.Section caption="Layout">
                 <Toggle

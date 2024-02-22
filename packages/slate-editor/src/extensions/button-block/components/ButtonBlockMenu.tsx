@@ -42,7 +42,6 @@ export interface FormState {
 
 interface Props {
     onUpdate: (props: Partial<FormState>) => void;
-    onClose: () => void;
     onRemove: () => void;
     onReposition: () => void;
     value: FormState;
@@ -97,7 +96,6 @@ const BUTTON_LAYOUT_OPTIONS: OptionsGroupOption<ButtonBlockNode.Layout>[] = [
 export function ButtonMenu({
     info = [],
     onUpdate,
-    onClose,
     onRemove,
     onReposition,
     value,
@@ -135,9 +133,7 @@ export function ButtonMenu({
 
     return (
         <>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Button settings
-            </Toolbox.Header>
+            <Toolbox.Header>Button settings</Toolbox.Header>
 
             {info.length > 0 && (
                 <Toolbox.Section>

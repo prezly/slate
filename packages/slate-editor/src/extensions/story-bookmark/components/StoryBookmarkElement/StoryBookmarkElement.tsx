@@ -63,9 +63,8 @@ export function StoryBookmarkElement({ attributes, children, element, params }: 
             overlay={hasStory ? 'always' : false}
             renderMenu={
                 hasStory
-                    ? ({ onClose }) => (
+                    ? () => (
                           <StoryBookmarkMenu
-                              onClose={onClose}
                               element={element}
                               generateEditUrl={params.generateEditUrl}
                               generatePreviewUrl={params.generatePreviewUrl}
