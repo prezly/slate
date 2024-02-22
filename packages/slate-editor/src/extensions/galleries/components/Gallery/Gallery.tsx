@@ -22,7 +22,7 @@ import { UploadcareEditor } from '#modules/uploadcare';
 import { IMAGE_PADDING, IMAGE_SIZE } from './constants';
 import styles from './Gallery.module.scss';
 import { GalleryTile } from './GalleryTile';
-import type { Layout } from './lib';
+import type { Tile } from './lib';
 import { calculateLayout } from './lib';
 import { SortableGalleryTile } from './SortableGalleryTile';
 
@@ -40,7 +40,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export function Gallery({
     className,
-    images,
+    images: originalImages,
     isInteractive,
     maxViewportWidth = 800,
     onImagesChange,
@@ -52,8 +52,13 @@ export function Gallery({
 }: Props) {
     const editor = useSlateStatic();
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-    const ids = useMemo(() => images.map((image) => image.file.uuid), [images]);
-    const activeIndex = activeId ? images.findIndex((image) => image.file.uuid === activeId) : -1;
+    const images = useMemo(
+        () =>
+            originalImages.map((image, index) => ({ ...image, id: `${image.file.uuid}-${index}` })),
+        [originalImages],
+    );
+    const ids = useMemo(() => images.map(({ id }) => id), [images]);
+    const activeIndex = activeId ? images.findIndex(({ id }) => id === activeId) : -1;
 
     const sensors = useSensors(useSensor(PointerSensor));
 
@@ -66,6 +71,13 @@ export function Gallery({
         margin,
     });
 
+    const activeTile: Tile<UploadcareImage> | undefined = calculatedLayout.flat()[activeIndex];
+
+    function handleImagesChange(images: GalleryImage[]) {
+        // Strip out the `id` property before passing the data along
+        onImagesChange(images.map((image) => ({ caption: image.caption, file: image.file })));
+    }
+
     function handleDragStart({ active }: DragStartEvent) {
         if (!active) {
             return;
@@ -76,10 +88,10 @@ export function Gallery({
 
     function handleDragEnd({ over }: DragEndEvent) {
         if (over) {
-            const overIndex = images.findIndex((image) => image.file.uuid === over.id);
+            const overIndex = images.findIndex((image) => image.id === over.id);
             if (activeIndex !== overIndex) {
                 const newImages = arrayMove(images, activeIndex, overIndex);
-                onImagesChange(newImages);
+                handleImagesChange(newImages);
             }
         }
 
@@ -90,9 +102,9 @@ export function Gallery({
         setActiveId(null);
     }
 
-    function handleCaptionChange(uuid: string, caption: string) {
+    function handleCaptionChange(id: UniqueIdentifier, caption: string) {
         const newImages = images.map((image) => {
-            if (image.file.uuid === uuid) {
+            if (image.id === id) {
                 return {
                     ...image,
                     caption,
@@ -102,11 +114,11 @@ export function Gallery({
             return image;
         });
 
-        onImagesChange(newImages);
+        handleImagesChange(newImages);
     }
 
-    async function handleCrop(uuid: string) {
-        const image = images.find((image) => image.file.uuid === uuid);
+    async function handleCrop(id: UniqueIdentifier) {
+        const image = images.find((image) => image.id === id);
         if (!image) {
             return;
         }
@@ -139,35 +151,29 @@ export function Gallery({
         });
 
         const newImages = images.map((image) => {
-            if (image.file.uuid === uuid) {
+            if (image.id === id) {
                 return { ...image, file: croppedImage };
             }
 
             return image;
         });
 
-        onImagesChange(newImages);
+        handleImagesChange(newImages);
     }
 
-    function handleDelete(uuid: string) {
-        const newImages = images.filter((image) => image.file.uuid !== uuid);
-        onImagesChange(newImages);
+    function handleDelete(id: UniqueIdentifier) {
+        const newImages = images.filter((image) => image.id !== id);
+        handleImagesChange(newImages);
     }
-
-    const getCaption = useCallback(
-        (uuid: string) => {
-            const image = images.find((image) => image.file.uuid === uuid);
-            return image?.caption ?? '';
-        },
-        [images],
-    );
 
     const getIndex = useCallback(
         (id: UniqueIdentifier) => {
-            return images.findIndex((image) => image.file.uuid === id);
+            return images.findIndex((image) => image.id === id);
         },
         [images],
     );
+
+    let tileIndex = 0;
 
     return (
         <DndContext
@@ -187,22 +193,25 @@ export function Gallery({
                         >
                             {row.map((tile) => {
                                 const preview = tile.image.resize(maxViewportWidth);
+                                const { id, caption } = images[tileIndex];
+
+                                tileIndex++;
 
                                 return (
                                     <SortableGalleryTile
-                                        key={tile.image.uuid}
-                                        id={tile.image.uuid}
-                                        caption={getCaption(tile.image.uuid)}
+                                        key={id}
+                                        id={id}
+                                        caption={caption}
                                         isInteractive={isInteractive}
                                         getIndex={getIndex}
                                         url={preview.cdnUrl}
                                         imageWidth={tile.width}
                                         imageHeight={tile.height}
                                         onCaptionChange={(caption) =>
-                                            handleCaptionChange(tile.image.uuid, caption)
+                                            handleCaptionChange(id, caption)
                                         }
-                                        onCrop={() => handleCrop(tile.image.uuid)}
-                                        onDelete={() => handleDelete(tile.image.uuid)}
+                                        onCrop={() => handleCrop(id)}
+                                        onDelete={() => handleDelete(id)}
                                         padding={padding}
                                         style={{
                                             width: `${((100 * tile.width) / width).toFixed(3)}%`,
@@ -221,10 +230,9 @@ export function Gallery({
                 <DragOverlay dropAnimation={null}>
                     {activeId ? (
                         <GalleryTileOverlay
-                            id={activeId}
-                            layout={calculatedLayout}
                             margin={margin}
                             maxViewportWidth={maxViewportWidth}
+                            tile={activeTile}
                         />
                     ) : null}
                 </DragOverlay>,
@@ -235,19 +243,14 @@ export function Gallery({
 }
 
 function GalleryTileOverlay({
-    id,
-    layout,
     margin,
     maxViewportWidth,
+    tile,
 }: {
-    id: UniqueIdentifier;
-    layout: Layout<UploadcareImage>;
     margin: number;
     maxViewportWidth: number;
+    tile: Tile<UploadcareImage>;
 }) {
-    const flatLayout = layout.flat();
-    const tile = flatLayout.find(({ image }) => image.uuid === id);
-
     if (!tile) {
         return null;
     }
