@@ -1,3 +1,4 @@
+import { GalleryPadding } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { CSSProperties } from 'react';
 import React, { forwardRef } from 'react';
@@ -19,6 +20,7 @@ export interface Props {
     onCaptionChange: (caption: string) => void;
     onCrop: () => void;
     onDelete: () => void;
+    padding?: GalleryPadding;
     style?: CSSProperties;
     url: string;
     withBorderRadius: boolean;
@@ -39,6 +41,7 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
         onCaptionChange,
         onCrop,
         onDelete,
+        padding,
         style = {},
         url,
         withBorderRadius,
@@ -56,6 +59,8 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
                 [styles.dragging]: dragging,
                 [styles.insertBefore]: insertPosition === 'before',
                 [styles.insertAfter]: insertPosition === 'after',
+                [styles.withMediumPadding]: padding === GalleryPadding.M,
+                [styles.withLargePadding]: padding === GalleryPadding.L,
             })}
             ref={ref}
             style={style}

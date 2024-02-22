@@ -131,6 +131,7 @@ export function GalleryElement({
             element={element}
             layout={withLayoutOptions ? element.layout : undefined}
             loading={isUploading}
+            overflow="visible"
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
             renderReadOnlyFrame={({ isSelected }) => (

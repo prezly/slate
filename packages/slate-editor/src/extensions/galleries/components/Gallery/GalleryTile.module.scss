@@ -44,6 +44,26 @@
             right: -6px;
         }
     }
+
+    &.withMediumPadding {
+        &.insertBefore:after {
+            left: -8px;
+        }
+
+        &.insertAfter:after {
+            right: -8px;
+        }
+    }
+
+    &.withLargePadding {
+        &.insertBefore:after {
+            left: -12px;
+        }
+
+        &.insertAfter:after {
+            right: -12px;
+        }
+    }
 }
 
 .Clone {

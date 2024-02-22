@@ -12,7 +12,6 @@ import { GalleryImageSize, type GalleryImage, type GalleryNode } from '@prezly/s
 import { awaitUploads, UploadcareImage } from '@prezly/uploadcare';
 import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
-import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSlateStatic } from 'slate-react';
@@ -178,7 +177,7 @@ export function Gallery({
             sensors={sensors}
         >
             <SortableContext id={uuid} disabled={!isInteractive} items={ids}>
-                <div {...attributes} className={classNames(styles.Gallery, className)}>
+                <div {...attributes} className={className}>
                     {calculatedLayout.map((row, rowIndex) => (
                         <div
                             key={rowIndex}
@@ -203,6 +202,7 @@ export function Gallery({
                                         }
                                         onCrop={() => handleCrop(tile.image.uuid)}
                                         onDelete={() => handleDelete(tile.image.uuid)}
+                                        padding={padding}
                                         style={{
                                             width: `${((100 * tile.width) / width).toFixed(3)}%`,
                                         }}
