@@ -88,6 +88,7 @@ export function ImageElement({
                 files: [initialFileInfo],
                 imagesOnly: true,
                 multiple: false,
+                tabs: [],
             })) ?? [];
 
         if (!upload) {
