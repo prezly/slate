@@ -8,7 +8,7 @@ import {
     useSensors,
 } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
-import type { GalleryImage, GalleryNode } from '@prezly/slate-types';
+import { GalleryImageSize, type GalleryImage, type GalleryNode } from '@prezly/slate-types';
 import { awaitUploads, UploadcareImage } from '@prezly/uploadcare';
 import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
@@ -208,6 +208,7 @@ export function Gallery({
                                         }}
                                         withBorderRadius={margin > 0}
                                         withSizeWarning={!isUploadcareImageSizeValid(tile.image)}
+                                        withSmallButtons={size === GalleryImageSize.XS}
                                     />
                                 );
                             })}

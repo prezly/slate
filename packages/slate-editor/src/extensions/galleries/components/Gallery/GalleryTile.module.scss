@@ -117,6 +117,27 @@
         display: flex;
         gap: $spacing-1;
         opacity: 0;
+
+        .Button {
+            width: 36px;
+            height: 36px;
+
+            &.small {
+                width: 28px;
+                height: 28px;
+            }
+
+            &.danger {
+                svg {
+                    color: $red-600;
+                }
+            }
+
+            svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
     }
 }
 

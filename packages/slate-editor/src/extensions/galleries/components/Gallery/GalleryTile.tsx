@@ -23,6 +23,7 @@ export interface Props {
     url: string;
     withBorderRadius: boolean;
     withSizeWarning?: boolean;
+    withSmallButtons?: boolean;
 }
 
 export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTile(
@@ -42,6 +43,7 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
         url,
         withBorderRadius,
         withSizeWarning = false,
+        withSmallButtons = false,
         ...props
     },
     ref,
@@ -62,8 +64,8 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
             {!dragging && (
                 <div className={styles.Overlay}>
                     <div className={styles.Actions}>
-                        <Button round variant="secondary" icon={Crop} onClick={onCrop} />
-                        <Button round variant="secondary" icon={Delete} onClick={onDelete} />
+                        <CropButton isSmall={withSmallButtons} onCrop={onCrop} />
+                        <DeleteButton isSmall={withSmallButtons} onDelete={onDelete} />
                     </div>
                     <div className={styles.DragHandle} {...props} tabIndex={-1} />
                     <div
@@ -94,3 +96,31 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
         </div>
     );
 });
+
+function CropButton(props: { isSmall?: boolean; onCrop: () => void }) {
+    return (
+        <Button
+            className={classNames(styles.Button, {
+                [styles.small]: props.isSmall,
+            })}
+            round
+            variant="secondary"
+            icon={Crop}
+            onClick={props.onCrop}
+        />
+    );
+}
+
+function DeleteButton(props: { isSmall?: boolean; onDelete: () => void }) {
+    return (
+        <Button
+            className={classNames(styles.Button, styles.danger, {
+                [styles.small]: props.isSmall,
+            })}
+            round
+            variant="secondary"
+            icon={Delete}
+            onClick={props.onDelete}
+        />
+    );
+}
