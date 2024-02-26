@@ -93,6 +93,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withEntryPointsAroundBlocks = false,
         withFloatingAddMenu = false,
         withGalleries = false,
+        withGalleryBookmarks = false,
         withHeadings = false,
         withImages = false,
         withInlineContacts = false,
@@ -152,6 +153,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withEmbeds,
             withFloatingAddMenu,
             withGalleries,
+            withGalleryBookmarks,
             withHeadings,
             withImages,
             withInlineContacts,
@@ -318,6 +320,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withEmbedSocial: Boolean(withEmbeds),
         withEmbeds: Boolean(withEmbeds),
         withGalleries: Boolean(withGalleries),
+        withGalleryBookmarks: Boolean(withGalleryBookmarks),
         withHeadings,
         withImages: Boolean(withImages),
         withParagraphs: true,
@@ -674,6 +677,16 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             const placeholder = insertPlaceholder(
                 editor,
                 { type: PlaceholderNode.Type.GALLERY },
+                true,
+            );
+            PlaceholdersManager.trigger(placeholder);
+            EditorCommands.selectNode(editor, placeholder);
+            return;
+        }
+        if (action === MenuAction.ADD_GALLERY_BOOKMARK && withGalleryBookmarks) {
+            const placeholder = insertPlaceholder(
+                editor,
+                { type: PlaceholderNode.Type.GALLERY_BOOKMARK },
                 true,
             );
             PlaceholdersManager.trigger(placeholder);

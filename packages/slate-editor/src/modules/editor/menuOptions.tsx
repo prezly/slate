@@ -34,6 +34,7 @@ export enum MenuAction {
     ADD_PINTEREST = 'add_pinterest',
     ADD_EMBED_SOCIAL = 'add_embed_social',
     ADD_GALLERY = 'add_gallery',
+    ADD_GALLERY_BOOKMARK = 'add_gallery_bookmark',
     ADD_HEADING_1 = 'add_heading_1',
     ADD_HEADING_2 = 'add_heading_2',
     ADD_IMAGE = 'add_image',
@@ -65,6 +66,7 @@ interface Params {
     withEmbeds: boolean;
     withEmbedSocial: boolean;
     withGalleries: boolean;
+    withGalleryBookmarks: boolean;
     withHeadings: boolean;
     withImages: boolean;
     withParagraphs: boolean;
@@ -110,6 +112,7 @@ function* generateOptions(
         withEmbeds,
         withEmbedSocial,
         withGalleries,
+        withGalleryBookmarks,
         withHeadings,
         withImages,
         withParagraphs,
@@ -213,6 +216,16 @@ function* generateOptions(
             group: Group.MEDIA_CONTENT,
             text: 'Gallery',
             description: 'Create an image composition',
+        };
+    }
+
+    if (withGalleryBookmarks) {
+        yield {
+            action: MenuAction.ADD_GALLERY_BOOKMARK,
+            icon: Icons.ComponentGallery,
+            group: Group.MEDIA_CONTENT,
+            text: 'Media gallery bookmark',
+            description: 'Add a link to your media gallery',
         };
     }
 

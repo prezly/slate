@@ -43,6 +43,10 @@ export function getAllExtensions() {
             },
             withFloatingAddMenu: true,
             withGalleries: {},
+            withGalleryBookmarks: {
+                fetchOembed,
+                getSuggestions: () => [],
+            },
             withHeadings: true,
             withImages: {
                 withCaptions: true,
