@@ -116,7 +116,9 @@ export interface EditorProps {
     withEntryPointsAroundBlocks?: boolean;
     withFloatingAddMenu?: boolean | FloatingAddMenuExtensionConfiguration;
     withGalleries?: false | GalleriesExtensionConfiguration;
-    withGalleryBookmarks?: false | PlaceholdersExtensionParameters['withGalleryBookmarkPlaceholders'];
+    withGalleryBookmarks?:
+        | false
+        | PlaceholdersExtensionParameters['withGalleryBookmarkPlaceholders'];
     withHeadings?: boolean;
     withImages?: false | ImageExtensionConfiguration;
     withInlineContacts?: PlaceholdersExtensionParameters['withInlineContactPlaceholders'];
