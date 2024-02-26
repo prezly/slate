@@ -121,8 +121,7 @@ export function GalleryElement({
             return;
         }
 
-        const update = { images };
-        updateGallery(editor, update);
+        updateGallery(editor, { images });
     }
 
     return (
