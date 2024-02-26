@@ -86,7 +86,7 @@
     height: 100%;
     z-index: 2;
 
-    &:hover {
+    &.isHovering {
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
 
         .Actions {

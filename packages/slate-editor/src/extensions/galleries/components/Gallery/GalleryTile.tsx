@@ -1,7 +1,7 @@
 import { GalleryPadding } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { CSSProperties } from 'react';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import { Button, ImageSizeWarning, ImageWithLoadingPlaceholder } from '#components';
 import { Crop, Delete } from '#icons';
@@ -51,6 +51,16 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
     },
     ref,
 ) {
+    const [isHovering, setHovering] = useState(false);
+
+    function handleShowOverlay() {
+        setTimeout(() => setHovering(true), 0);
+    }
+
+    function handleHideOverlay() {
+        setHovering(false);
+    }
+
     return (
         <div
             className={classNames(styles.GalleryTile, className, {
@@ -67,7 +77,13 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
         >
             {clone && <div className={styles.Clone} />}
             {!dragging && (
-                <div className={styles.Overlay}>
+                <div
+                    className={classNames(styles.Overlay, {
+                        [styles.isHovering]: isHovering,
+                    })}
+                    onMouseEnter={handleShowOverlay}
+                    onMouseLeave={handleHideOverlay}
+                >
                     <div className={styles.Actions}>
                         <CropButton isSmall={withSmallButtons} onCrop={onCrop} />
                         <DeleteButton isSmall={withSmallButtons} onDelete={onDelete} />
