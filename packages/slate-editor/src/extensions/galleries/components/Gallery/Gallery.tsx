@@ -13,7 +13,7 @@ import { awaitUploads, UploadcareImage } from '@prezly/uploadcare';
 import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
 import type { HTMLAttributes } from 'react';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useSlateStatic } from 'slate-react';
 
@@ -166,13 +166,6 @@ export function Gallery({
         handleImagesChange(newImages);
     }
 
-    const getIndex = useCallback(
-        (id: UniqueIdentifier) => {
-            return images.findIndex((image) => image.id === id);
-        },
-        [images],
-    );
-
     let tileIndex = 0;
 
     return (
@@ -203,7 +196,6 @@ export function Gallery({
                                         id={id}
                                         caption={caption}
                                         isInteractive={isInteractive}
-                                        getIndex={getIndex}
                                         url={preview.cdnUrl}
                                         imageWidth={tile.width}
                                         imageHeight={tile.height}
@@ -212,7 +204,6 @@ export function Gallery({
                                         }
                                         onCrop={() => handleCrop(id)}
                                         onDelete={() => handleDelete(id)}
-                                        padding={padding}
                                         style={{
                                             width: `${((100 * tile.width) / width).toFixed(3)}%`,
                                         }}
@@ -265,7 +256,6 @@ function GalleryTileOverlay({
             onCaptionChange={noop}
             onCrop={noop}
             onDelete={noop}
-            style={{ transform: 'scale(0.4)' }}
             url={preview.cdnUrl}
             withBorderRadius={margin > 0}
             withSizeWarning={!isUploadcareImageSizeValid(tile.image)}

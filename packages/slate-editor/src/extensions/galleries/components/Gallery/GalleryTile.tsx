@@ -1,4 +1,3 @@
-import { GalleryPadding } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { CSSProperties } from 'react';
 import React, { forwardRef, useState } from 'react';
@@ -15,15 +14,14 @@ export interface Props {
     dragging?: boolean;
     imageHeight: number;
     imageWidth: number;
-    insertPosition?: 'before' | 'after';
     isInteractive?: boolean;
     onCaptionChange: (caption: string) => void;
     onCrop: () => void;
     onDelete: () => void;
-    padding?: GalleryPadding;
     style?: CSSProperties;
     url: string;
     withBorderRadius: boolean;
+    withDropOverlay?: boolean;
     withSizeWarning?: boolean;
     withSmallButtons?: boolean;
 }
@@ -36,15 +34,14 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
         dragging,
         imageHeight,
         imageWidth,
-        insertPosition,
         isInteractive,
         onCaptionChange,
         onCrop,
         onDelete,
-        padding,
         style = {},
         url,
         withBorderRadius,
+        withDropOverlay = false,
         withSizeWarning = false,
         withSmallButtons = false,
         ...props
@@ -67,10 +64,7 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
                 [styles.withBorderRadius]: withBorderRadius,
                 [styles.interactive]: isInteractive,
                 [styles.dragging]: dragging,
-                [styles.insertBefore]: insertPosition === 'before',
-                [styles.insertAfter]: insertPosition === 'after',
-                [styles.withMediumPadding]: padding === GalleryPadding.M,
-                [styles.withLargePadding]: padding === GalleryPadding.L,
+                [styles.withDropOverlay]: withDropOverlay,
             })}
             ref={ref}
             style={style}
