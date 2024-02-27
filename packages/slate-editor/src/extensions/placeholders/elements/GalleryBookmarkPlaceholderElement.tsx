@@ -101,7 +101,7 @@ export function GalleryBookmarkPlaceholderElement({
             )}
             inputTitle="Media gallery bookmark"
             inputDescription="Add a media gallery card to your stories, campaigns and pitches"
-            inputPlaceholder="Search media galleries"
+            inputPlaceholder="Search for media galleries"
             onSelect={handleSelect}
             removable={removable}
         >
