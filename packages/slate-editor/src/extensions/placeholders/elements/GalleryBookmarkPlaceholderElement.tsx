@@ -59,7 +59,7 @@ export function GalleryBookmarkPlaceholderElement({
             const { url, oembed } = data;
             if (!oembed) {
                 EventsEditor.dispatchEvent(editor, 'notification', {
-                    children: 'Provided URL does not exist or is not supported.',
+                    children: 'Selected gallery does not exist or is not supported.',
                     type: 'error',
                 });
                 return;
