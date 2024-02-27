@@ -51,7 +51,6 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                 return (
                     <PressContactMenu
                         element={element}
-                        onClose={props.onClose}
                         onChangeLayout={handleChangeLayout}
                         onToggleAvatar={handleToggleAvatar}
                         onRemove={handleRemove}

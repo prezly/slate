@@ -72,7 +72,7 @@ export type EditorEventMap = {
         filesCount: number;
         isEmpty: boolean;
     };
-    'gallery-edited': {
+    'gallery-images-added': {
         imagesCount: number;
     };
     'gallery-images-shuffled': {

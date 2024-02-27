@@ -6,9 +6,9 @@ import { useSlate } from 'slate-react';
 import type { OptionsGroupOption } from '#components';
 import { Button, ButtonGroup, InfoText, OptionsGroup, Toolbox } from '#components';
 import {
+    Add,
     Delete,
     Dice,
-    Edit,
     ImageLayoutContained,
     ImageLayoutExpanded,
     ImageLayoutFullWidth,
@@ -80,25 +80,22 @@ const SIZE_OPTIONS: OptionsGroupOption<GalleryImageSize>[] = [
 
 interface Props {
     element: GalleryNode;
-    onEdit: () => void;
+    onAdd: () => void;
     onShuffle: () => void;
-    onClose: () => void;
     withLayoutOptions: boolean;
 }
 
-export function GalleryMenu({ element, onEdit, onShuffle, onClose, withLayoutOptions }: Props) {
+export function GalleryMenu({ element, onAdd, onShuffle, withLayoutOptions }: Props) {
     const editor = useSlate();
 
     return (
         <>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Gallery settings
-            </Toolbox.Header>
+            <Toolbox.Header>Gallery settings</Toolbox.Header>
 
             <Toolbox.Section noPadding>
                 <ButtonGroup>
                     {[
-                        <EditButton key="edit" onClick={onEdit} />,
+                        <AddButton key="add" onClick={onAdd} />,
                         <RandomizeButton key="randomize" onClick={onShuffle} />,
                     ]}
                 </ButtonGroup>
@@ -106,10 +103,7 @@ export function GalleryMenu({ element, onEdit, onShuffle, onClose, withLayoutOpt
 
             <Toolbox.Section>
                 <InfoText>
-                    You can add, reorder, crop and set descriptions for your images by clicking{' '}
-                    <Button variant="underlined" onClick={onEdit}>
-                        Edit
-                    </Button>
+                    Reorder, delete, crop and set image captions in the main image grid.
                 </InfoText>
             </Toolbox.Section>
 
@@ -157,10 +151,10 @@ export function GalleryMenu({ element, onEdit, onShuffle, onClose, withLayoutOpt
     );
 }
 
-function EditButton(props: { onClick: () => void }) {
+function AddButton(props: { onClick: () => void }) {
     return (
-        <Button variant="clear" icon={Edit} fullWidth onClick={props.onClick}>
-            Edit
+        <Button variant="clear" icon={Add} fullWidth onClick={props.onClick}>
+            Add
         </Button>
     );
 }

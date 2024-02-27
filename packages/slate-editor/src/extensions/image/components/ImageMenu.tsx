@@ -37,7 +37,6 @@ export interface FormState {
 
 interface Props {
     onChange: (props: Partial<FormState>) => void;
-    onClose: () => void;
     onCrop: () => void;
     onRemove: () => void;
     onReplace: () => void;
@@ -119,7 +118,6 @@ const IMAGE_ALIGNMENT_OPTIONS: OptionsGroupOption<Alignment>[] = [
 
 export function ImageMenu({
     onChange,
-    onClose,
     onCrop,
     onRemove,
     onReplace,
@@ -152,9 +150,7 @@ export function ImageMenu({
 
     return (
         <>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Image settings
-            </Toolbox.Header>
+            <Toolbox.Header>Image settings</Toolbox.Header>
 
             <Toolbox.Section noPadding>
                 <ButtonGroup>

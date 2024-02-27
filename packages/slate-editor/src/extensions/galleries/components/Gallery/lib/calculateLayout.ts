@@ -11,7 +11,7 @@ interface Parameters<Image extends BaseImage> {
     margin?: number;
 }
 
-interface Tile<Image extends BaseImage> {
+export interface Tile<Image extends BaseImage> {
     height: number;
     image: Image;
     width: number;

@@ -1,1 +1,1 @@
-export { calculateLayout } from './calculateLayout';
+export { calculateLayout, type Tile } from './calculateLayout';

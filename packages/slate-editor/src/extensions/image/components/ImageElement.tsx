@@ -88,6 +88,7 @@ export function ImageElement({
                 files: [initialFileInfo],
                 imagesOnly: true,
                 multiple: false,
+                tabs: [],
             })) ?? [];
 
         if (!upload) {
@@ -256,10 +257,9 @@ export function ImageElement({
                     estimatedDuration={ESTIMATED_LOADING_DURATION}
                 />
             )}
-            renderMenu={({ onClose }) => (
+            renderMenu={() => (
                 <ImageMenu
                     onChange={handleUpdate}
-                    onClose={onClose}
                     onCrop={handleCrop}
                     onRemove={handleRemove}
                     onReplace={handleReplace}

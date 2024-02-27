@@ -1,5 +1,5 @@
 import type { NewsroomRef } from '@prezly/sdk';
-import type { GalleryNode } from '@prezly/slate-types';
+import type { GalleryImage, GalleryNode } from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
 import React, { useState } from 'react';
@@ -15,7 +15,7 @@ import type { MediaGalleryOptions } from '#modules/uploadcare';
 import { UploadcareEditor } from '#modules/uploadcare';
 
 import { shuffleImages } from '../lib';
-import { updateGallery } from '../transforms';
+import { removeGallery, updateGallery } from '../transforms';
 
 import { Gallery } from './Gallery';
 import { GalleryMenu } from './GalleryMenu';
@@ -23,8 +23,8 @@ import { GalleryMenu } from './GalleryMenu';
 interface Props extends RenderElementProps {
     availableWidth: number;
     element: GalleryNode;
-    onEdit?: (editor: Editor, gallery: GalleryNode) => void;
-    onEdited?: (
+    onAdd?: (editor: Editor, gallery: GalleryNode) => void;
+    onAdded?: (
         editor: Editor,
         gallery: GalleryNode,
         extra: {
@@ -42,8 +42,8 @@ export function GalleryElement({
     attributes,
     children,
     element,
-    onEdit = noop,
-    onEdited = noop,
+    onAdd = noop,
+    onAdded = noop,
     onShuffled = noop,
     withMediaGalleryTab,
     withLayoutOptions,
@@ -51,22 +51,15 @@ export function GalleryElement({
     const editor = useSlateStatic();
     const [sizer, size] = useSize(Sizer, { width: availableWidth });
     const [isUploading, setUploading] = useState(false);
-    const callbacks = useLatest({ onEdit, onEdited, onShuffled });
+    const callbacks = useLatest({ onAdd, onAdded, onShuffled });
 
-    async function handleEdit() {
-        callbacks.current.onEdit(editor, element);
-
-        const files = element.images.map(({ caption, file }) => {
-            const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(file);
-            uploadcareImage[UPLOADCARE_FILE_DATA_KEY] = { caption };
-            return uploadcareImage;
-        });
+    async function handleAdd() {
+        callbacks.current.onAdd(editor, element);
 
         async function upload() {
             const filePromises = await UploadcareEditor.upload(editor, {
                 ...withGalleryTabMaybe(withMediaGalleryTab),
                 captions: true,
-                files,
                 imagesOnly: true,
                 multiple: true,
             });
@@ -99,9 +92,13 @@ export function GalleryElement({
             };
         });
 
-        Transforms.setNodes<GalleryNode>(editor, { images }, { match: (node) => node === element });
+        Transforms.setNodes<GalleryNode>(
+            editor,
+            { images: [...element.images, ...images] },
+            { match: (node) => node === element },
+        );
 
-        callbacks.current.onEdited(editor, element, {
+        callbacks.current.onAdded(editor, element, {
             successfulUploads: successfulUploads.length,
             failedUploads,
         });
@@ -117,33 +114,44 @@ export function GalleryElement({
         callbacks.current.onShuffled(editor, element, { ...element, ...update });
     }
 
+    function handleImagesChange(images: GalleryImage[]) {
+        if (images.length === 0) {
+            // Last image was removed, we can remove the whole block
+            removeGallery(editor);
+            return;
+        }
+
+        updateGallery(editor, { images });
+    }
+
     return (
         <EditorBlock
             {...attributes}
             element={element}
             layout={withLayoutOptions ? element.layout : undefined}
             loading={isUploading}
+            overflow="visible"
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
-            renderReadOnlyFrame={() => (
+            renderReadOnlyFrame={({ isSelected }) => (
                 <>
                     {sizer}
                     <Gallery
-                        images={element.images.map((image) =>
-                            UploadcareImage.createFromPrezlyStoragePayload(image.file),
-                        )}
+                        images={element.images}
+                        isInteractive={isSelected}
+                        onImagesChange={handleImagesChange}
                         padding={element.padding}
                         size={element.thumbnail_size}
+                        uuid={element.uuid}
                         width={size.width}
                     />
                 </>
             )}
-            renderMenu={({ onClose }) => (
+            renderMenu={() => (
                 <GalleryMenu
                     element={element}
-                    onEdit={handleEdit}
+                    onAdd={handleAdd}
                     onShuffle={handleShuffle}
-                    onClose={onClose}
                     withLayoutOptions={withLayoutOptions}
                 />
             )}

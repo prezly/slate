@@ -20,7 +20,7 @@ export function TableElement({ attributes, element, children }: Props) {
             {...attributes} // contains `ref`
             element={element}
             overlay={false}
-            renderMenu={({ onClose }) => <TableMenu onClose={onClose} element={element} />}
+            renderMenu={() => <TableMenu element={element} />}
             renderEditableFrame={() => {
                 return (
                     <TableContext.Provider value={{ table: element }}>

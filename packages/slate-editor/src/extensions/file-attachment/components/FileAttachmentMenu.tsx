@@ -13,12 +13,11 @@ import { removeFileAttachment } from '../transforms';
 
 interface Props {
     element: AttachmentNode;
-    onClose: () => void;
     onEdited: (editor: Editor, updated: AttachmentNode) => void;
     onRemoved: (editor: Editor, element: AttachmentNode) => void;
 }
 
-export function FileAttachmentMenu({ element, onClose, onEdited, onRemoved }: Props) {
+export function FileAttachmentMenu({ element, onEdited, onRemoved }: Props) {
     const editor = useSlate();
     const isSelected = useSelected();
     const [description, setDescription] = React.useState(element.description);
@@ -49,7 +48,6 @@ export function FileAttachmentMenu({ element, onClose, onEdited, onRemoved }: Pr
         });
 
         onEdited(editor, { ...element, ...update });
-        onClose();
     };
 
     const onFilenameChanged = useCallback(function (value: string, isValid: boolean) {
@@ -63,9 +61,7 @@ export function FileAttachmentMenu({ element, onClose, onEdited, onRemoved }: Pr
 
     return (
         <Toolbox.Panel>
-            <Toolbox.Header withCloseButton onCloseClick={onClose}>
-                Attachment settings
-            </Toolbox.Header>
+            <Toolbox.Header>Attachment settings</Toolbox.Header>
             <Toolbox.Section>
                 <VStack spacing="2">
                     <VStack spacing="1-5">

@@ -72,12 +72,11 @@ export function VideoElement({
             renderAboveFrame={children}
             renderMenu={
                 withMenu
-                    ? ({ onClose }) => (
+                    ? () => (
                           <VideoMenu
                               info={info}
                               onChange={handleUpdate}
                               onConvert={handleConvert}
-                              onClose={onClose}
                               onRemove={handleRemove}
                               url={element.url}
                               value={{ layout: element.layout }}

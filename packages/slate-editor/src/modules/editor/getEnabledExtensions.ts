@@ -235,8 +235,8 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withGalleries) {
         yield GalleriesExtension({
             availableWidth,
-            onEdited(editor, gallery, { failedUploads }) {
-                EventsEditor.dispatchEvent(editor, 'gallery-edited', {
+            onAdded(editor, gallery, { failedUploads }) {
+                EventsEditor.dispatchEvent(editor, 'gallery-images-added', {
                     imagesCount: gallery.images.length,
                 });
 
