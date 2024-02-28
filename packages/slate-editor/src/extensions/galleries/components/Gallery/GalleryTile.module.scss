@@ -1,3 +1,4 @@
+@import "styles/helpers";
 @import "styles/variables";
 
 .GalleryTile {
@@ -82,6 +83,7 @@
 
         .Input {
             width: 100%;
+            padding: 0;
             appearance: none;
             color: $white;
             background: none;
@@ -95,6 +97,43 @@
                 color: $white;
                 font-style: italic;
                 font-weight: 300;
+            }
+        }
+
+        .Button {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.2;
+            overflow: hidden;
+
+            &,
+            &:hover,
+            &:focus {
+                color: $white !important;
+                background: none !important;
+            }
+
+            &.empty {
+                font-style: italic;
+                font-weight: 300;
+            }
+
+            > div {
+                overflow: hidden;
+            }
+
+            span {
+                @include ellipsis;
+
+                opacity: 1;
+            }
+
+            svg {
+                flex-shrink: 0;
             }
         }
     }

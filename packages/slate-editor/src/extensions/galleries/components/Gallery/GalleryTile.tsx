@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import type { CSSProperties } from 'react';
-import React, { forwardRef, useState } from 'react';
+import type { CSSProperties, ChangeEvent } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 
 import { Button, ImageSizeWarning, ImageWithLoadingPlaceholder } from '#components';
-import { Crop, Delete } from '#icons';
+import { Crop, Delete, Edit } from '#icons';
 
 import styles from './GalleryTile.module.scss';
 
@@ -28,7 +28,7 @@ export interface Props {
 
 export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTile(
     {
-        caption,
+        caption: originalCaption,
         className,
         clone = false,
         dragging,
@@ -48,7 +48,18 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
     },
     ref,
 ) {
+    // We have to use an intermediate state otherwise the input keeps
+    // re-rendering every time the original caption changes and moves
+    // the caret to the end of the input
+    const [caption, setCaption] = useState(originalCaption);
     const [isHovering, setHovering] = useState(false);
+    const [isEditingCaption, setEditingCaption] = useState(false);
+
+    function handleCaptionChange(event: ChangeEvent<HTMLInputElement>) {
+        const text = event.currentTarget.value;
+        setCaption(text);
+        onCaptionChange(text);
+    }
 
     function handleShowOverlay() {
         setTimeout(() => setHovering(true), 0);
@@ -57,6 +68,10 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
     function handleHideOverlay() {
         setHovering(false);
     }
+
+    useEffect(() => {
+        setCaption(caption);
+    }, [caption]);
 
     return (
         <div
@@ -88,13 +103,29 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
                             [styles.visible]: caption !== '',
                         })}
                     >
-                        <input
-                            type="text"
-                            className={styles.Input}
-                            onChange={(event) => onCaptionChange?.(event.currentTarget.value)}
-                            value={caption}
-                            placeholder={isInteractive ? 'add caption' : ''}
-                        />
+                        {isEditingCaption ? (
+                            <input
+                                autoFocus
+                                type="text"
+                                className={styles.Input}
+                                onChange={handleCaptionChange}
+                                onBlur={() => setEditingCaption(false)}
+                                value={caption}
+                                placeholder="add caption"
+                            />
+                        ) : (
+                            <Button
+                                className={classNames(styles.Button, {
+                                    [styles.empty]: !caption,
+                                })}
+                                icon={isInteractive ? Edit : undefined}
+                                iconPosition="right"
+                                onClick={() => setEditingCaption(true)}
+                                variant="clear"
+                            >
+                                {caption || 'add caption'}
+                            </Button>
+                        )}
                     </div>
                 </div>
             )}
