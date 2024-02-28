@@ -154,7 +154,7 @@ export function GalleryMenu({ element, onAdd, onShuffle, withLayoutOptions }: Pr
 function AddButton(props: { onClick: () => void }) {
     return (
         <Button variant="clear" icon={Add} fullWidth onClick={props.onClick}>
-            Add
+            Add images
         </Button>
     );
 }
