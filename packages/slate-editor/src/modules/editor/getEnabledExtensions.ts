@@ -16,6 +16,7 @@ import { FileAttachmentExtension } from '#extensions/file-attachment';
 import { FlashNodesExtension } from '#extensions/flash-nodes';
 import { FloatingAddMenuExtension } from '#extensions/floating-add-menu';
 import { GalleriesExtension } from '#extensions/galleries';
+import { GalleryBookmarkExtension } from '#extensions/gallery-bookmark';
 import { HeadingExtension } from '#extensions/heading';
 import { HotkeysExtension } from '#extensions/hotkeys';
 import { HtmlExtension } from '#extensions/html';
@@ -71,6 +72,7 @@ type Parameters = {
     | 'withEmbeds'
     | 'withFloatingAddMenu'
     | 'withGalleries'
+    | 'withGalleryBookmarks'
     | 'withHeadings'
     | 'withImages'
     | 'withInlineContacts'
@@ -104,6 +106,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         withEmbeds,
         withFloatingAddMenu,
         withGalleries,
+        withGalleryBookmarks,
         withHeadings,
         withImages,
         withInlineContacts,
@@ -261,6 +264,10 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         });
     }
 
+    if (withGalleryBookmarks) {
+        yield GalleryBookmarkExtension();
+    }
+
     if (withImages) {
         yield PasteImagesExtension({
             onImagesPasted: (editor, images) => {
@@ -374,6 +381,7 @@ function buildPlaceholdersExtensionConfiguration({
     withCoverage,
     withEmbeds,
     withGalleries,
+    withGalleryBookmarks,
     withImages,
     withInlineContacts,
     withPlaceholders,
@@ -419,6 +427,11 @@ function buildPlaceholdersExtensionConfiguration({
                 withGalleryPlaceholders: {
                     withMediaGalleryTab: withGalleries.withMediaGalleryTab ?? false,
                 },
+            };
+        }
+        if (withGalleryBookmarks) {
+            yield {
+                withGalleryBookmarkPlaceholders: withGalleryBookmarks,
             };
         }
         if (withInlineContacts) {

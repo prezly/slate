@@ -1,5 +1,11 @@
 import type { Listener } from '@prezly/events';
-import type { CoverageEntry, NewsroomContact, OEmbedInfo, Story } from '@prezly/sdk';
+import type {
+    CoverageEntry,
+    NewsroomContact,
+    NewsroomGallery,
+    OEmbedInfo,
+    Story,
+} from '@prezly/sdk';
 import type { Node, TableHeader } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
@@ -77,6 +83,9 @@ export type EditorEventMap = {
     };
     'gallery-images-shuffled': {
         imagesCount: number;
+    };
+    'gallery-bookmark-placeholder-submitted': {
+        gallery: Pick<NewsroomGallery, 'uuid'>;
     };
     'image-added': {
         description: string;

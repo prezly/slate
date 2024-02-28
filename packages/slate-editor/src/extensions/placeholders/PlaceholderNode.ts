@@ -42,6 +42,7 @@ export namespace PlaceholderNode {
         COVERAGE = 'placeholder:coverage',
         EMBED = 'placeholder:embed',
         GALLERY = 'placeholder:gallery',
+        GALLERY_BOOKMARK = 'placeholder:gallery-bookmark',
         IMAGE = 'placeholder:image',
         /**
          * Media placeholder allows to insert one of multiple types of media (image, video, and maybe embed?)

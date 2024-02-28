@@ -41,6 +41,10 @@ interface Data {
         gallery: GalleryNode;
         operation: 'add' | 'edit';
     };
+    [Type.GALLERY_BOOKMARK]: {
+        url: string;
+        oembed?: OEmbedInfo; // `oembed` is undefined if an error occurred
+    };
     [Type.IMAGE]: {
         image: ImageNode;
         operation: 'add' | 'replace' | 'crop';

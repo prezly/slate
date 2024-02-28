@@ -3,6 +3,7 @@ import React from 'react';
 import type { Editor } from 'slate';
 
 import { withPastedUrlsUnfurling } from './behaviour';
+import { GalleryBookmarkPlaceholderElement } from './elements';
 import {
     AttachmentPlaceholderElement,
     ContactPlaceholderElement,
@@ -58,6 +59,18 @@ export interface Parameters {
           >;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withGalleryPlaceholders?: boolean | { withMediaGalleryTab: WithMediaGalleryTab };
+    withGalleryBookmarkPlaceholders?:
+        | false
+        | Pick<
+              GalleryBookmarkPlaceholderElement.Props,
+              | 'fetchOembed'
+              | 'getSuggestions'
+              | 'invalidateSuggestions'
+              | 'renderAddon'
+              | 'renderEmpty'
+              | 'renderSuggestion'
+              | 'renderSuggestionsFooter'
+          >;
     withImagePlaceholders?:
         | boolean
         | { withCaptions: boolean; withMediaGalleryTab: WithMediaGalleryTab };
@@ -112,6 +125,7 @@ export function PlaceholdersExtension({
     withCoveragePlaceholders = false,
     withEmbedPlaceholders = false,
     withGalleryPlaceholders = false,
+    withGalleryBookmarkPlaceholders = false,
     withImagePlaceholders = false,
     withInlineContactPlaceholders = false,
     withMediaPlaceholders = false,
@@ -142,6 +156,7 @@ export function PlaceholdersExtension({
                 withCoveragePlaceholders: Boolean(withCoveragePlaceholders),
                 withEmbedPlaceholders: Boolean(withEmbedPlaceholders),
                 withGalleryPlaceholders: Boolean(withGalleryPlaceholders),
+                withGalleryBookmarkPlaceholders: Boolean(withGalleryBookmarkPlaceholders),
                 withImagePlaceholders: Boolean(withImagePlaceholders),
                 withInlineContactPlaceholders: Boolean(withInlineContactPlaceholders),
                 withMediaPlaceholders: Boolean(withMediaPlaceholders),
@@ -267,6 +282,22 @@ export function PlaceholdersExtension({
                     >
                         {children}
                     </GalleryPlaceholderElement>
+                );
+            }
+            if (
+                withGalleryBookmarkPlaceholders &&
+                isPlaceholderNode(element, PlaceholderNode.Type.GALLERY_BOOKMARK)
+            ) {
+                return (
+                    <GalleryBookmarkPlaceholderElement
+                        {...withGalleryBookmarkPlaceholders}
+                        attributes={attributes}
+                        element={element}
+                        format={format}
+                        removable={removable}
+                    >
+                        {children}
+                    </GalleryBookmarkPlaceholderElement>
                 );
             }
             if (withMediaPlaceholders && isPlaceholderNode(element, PlaceholderNode.Type.MEDIA)) {
