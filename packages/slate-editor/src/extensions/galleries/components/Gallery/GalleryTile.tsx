@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { CSSProperties, ChangeEvent } from 'react';
 import React, { forwardRef, useEffect, useState } from 'react';
 
-import { Button, ImageSizeWarning, ImageWithLoadingPlaceholder } from '#components';
+import { Button, ImageSizeWarning, ImageWithLoadingPlaceholder, TooltipV2 } from '#components';
 import { Crop, Delete, Edit } from '#icons';
 
 import styles from './GalleryTile.module.scss';
@@ -145,28 +145,42 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
 
 function CropButton(props: { isSmall?: boolean; onCrop: () => void }) {
     return (
-        <Button
-            className={classNames(styles.Button, {
-                [styles.small]: props.isSmall,
-            })}
-            round
-            variant="secondary"
-            icon={Crop}
-            onClick={props.onCrop}
-        />
+        <TooltipV2.Tooltip tooltip="Crop image">
+            {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
+                <span onMouseEnter={onShow} onMouseLeave={onHide} ref={setReferenceElement}>
+                    <Button
+                        {...ariaAttributes}
+                        className={classNames(styles.Button, {
+                            [styles.small]: props.isSmall,
+                        })}
+                        round
+                        variant="secondary"
+                        icon={Crop}
+                        onClick={props.onCrop}
+                    />
+                </span>
+            )}
+        </TooltipV2.Tooltip>
     );
 }
 
 function DeleteButton(props: { isSmall?: boolean; onDelete: () => void }) {
     return (
-        <Button
-            className={classNames(styles.Button, styles.danger, {
-                [styles.small]: props.isSmall,
-            })}
-            round
-            variant="secondary"
-            icon={Delete}
-            onClick={props.onDelete}
-        />
+        <TooltipV2.Tooltip tooltip="Delete image">
+            {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
+                <span onMouseEnter={onShow} onMouseLeave={onHide} ref={setReferenceElement}>
+                    <Button
+                        {...ariaAttributes}
+                        className={classNames(styles.Button, styles.danger, {
+                            [styles.small]: props.isSmall,
+                        })}
+                        round
+                        variant="secondary"
+                        icon={Delete}
+                        onClick={props.onDelete}
+                    />
+                </span>
+            )}
+        </TooltipV2.Tooltip>
     );
 }
