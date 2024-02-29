@@ -49,17 +49,17 @@ describe('calculateLayout', () => {
     it('should calculate single-row layout', () => {
         const layout = calculateLayout({
             idealHeight: 100,
-            viewportWidth: 300,
+            viewportWidth: 400,
             margin: 0,
             images,
         });
 
         expect(layout).toEqual([
             [
-                { width: 50, height: 100, image: images[0] },
-                { width: 100, height: 100, image: images[1] },
-                { width: 100, height: 100, image: images[2] },
-                { width: 50, height: 100, image: images[3] },
+                { width: 67, height: 133, image: images[0] },
+                { width: 133, height: 133, image: images[1] },
+                { width: 133, height: 133, image: images[2] },
+                { width: 67, height: 133, image: images[3] },
             ],
         ]);
     });
@@ -67,19 +67,19 @@ describe('calculateLayout', () => {
     it('should calculate two-row layout', () => {
         const layout = calculateLayout({
             idealHeight: 200,
-            viewportWidth: 300,
+            viewportWidth: 400,
             margin: 0,
             images,
         });
 
         expect(layout).toEqual([
             [
-                { width: 100, height: 200, image: images[0] },
-                { width: 200, height: 200, image: images[1] },
+                { width: 133, height: 267, image: images[0] },
+                { width: 267, height: 267, image: images[1] },
             ],
             [
-                { width: 200, height: 200, image: images[2] },
-                { width: 100, height: 200, image: images[3] },
+                { width: 267, height: 267, image: images[2] },
+                { width: 133, height: 267, image: images[3] },
             ],
         ]);
     });
@@ -87,7 +87,7 @@ describe('calculateLayout', () => {
     it('should calculate layout preserving images aspect ratio taking margin into account', () => {
         const layout = calculateLayout({
             idealHeight: 200,
-            viewportWidth: 300,
+            viewportWidth: 400,
             margin: 10,
             images,
         });

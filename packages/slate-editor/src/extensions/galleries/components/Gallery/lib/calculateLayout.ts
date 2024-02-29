@@ -29,10 +29,13 @@ export function calculateLayout<Image extends BaseImage>({
         return [];
     }
 
-    const totalWidth = images.reduce((sum, image) => sum + image.aspectRatio * idealHeight, 0);
+    const totalWidth = images.reduce(
+        (sum, image) => sum + Math.max(idealHeight, image.aspectRatio * idealHeight),
+        0,
+    );
     const rowsCount = Math.max(
         1, // forceFullWidth
-        Math.round(totalWidth / viewportWidth),
+        Math.ceil(totalWidth / viewportWidth),
     );
 
     const weights = images.map((image) => 100 * image.aspectRatio);

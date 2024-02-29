@@ -1,5 +1,5 @@
 export const IMAGE_SIZE = {
-    XS: 90,
+    XS: 110,
     S: 200,
     M: 300,
     L: 450,
