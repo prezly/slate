@@ -17,8 +17,6 @@ import {
     ImageSpacingWide,
 } from '#icons';
 
-import { removeGallery, updateGallery } from '../transforms';
-
 const LAYOUT_OPTIONS: OptionsGroupOption<GalleryLayout>[] = [
     {
         value: GalleryLayout.CONTAINED,
@@ -81,13 +79,24 @@ const SIZE_OPTIONS: OptionsGroupOption<GalleryImageSize>[] = [
 interface Props {
     element: GalleryNode;
     onAdd: () => void;
+    onDelete: () => void;
+    onLayoutChange: (layout: GalleryLayout) => void;
+    onPaddingChange: (padding: GalleryPadding) => void;
     onShuffle: () => void;
+    onThumbnailSizeChange: (imageSize: GalleryImageSize) => void;
     withLayoutOptions: boolean;
 }
 
-export function GalleryMenu({ element, onAdd, onShuffle, withLayoutOptions }: Props) {
-    const editor = useSlate();
-
+export function GalleryMenu({
+    element,
+    onAdd,
+    onDelete,
+    onLayoutChange,
+    onPaddingChange,
+    onShuffle,
+    onThumbnailSizeChange,
+    withLayoutOptions,
+}: Props) {
     return (
         <>
             <Toolbox.Header>Gallery settings</Toolbox.Header>
@@ -113,7 +122,7 @@ export function GalleryMenu({ element, onAdd, onShuffle, withLayoutOptions }: Pr
                         name="layout"
                         options={LAYOUT_OPTIONS}
                         selectedValue={element.layout}
-                        onChange={(layout) => updateGallery(editor, { layout })}
+                        onChange={onLayoutChange}
                     />
                 </Toolbox.Section>
             )}
@@ -123,7 +132,7 @@ export function GalleryMenu({ element, onAdd, onShuffle, withLayoutOptions }: Pr
                     name="thumbnail_size"
                     options={SIZE_OPTIONS}
                     selectedValue={element.thumbnail_size}
-                    onChange={(thumbnail_size) => updateGallery(editor, { thumbnail_size })}
+                    onChange={onThumbnailSizeChange}
                     variant="pills"
                 />
             </Toolbox.Section>
@@ -133,17 +142,12 @@ export function GalleryMenu({ element, onAdd, onShuffle, withLayoutOptions }: Pr
                     name="padding"
                     options={PADDING_OPTIONS}
                     selectedValue={element.padding}
-                    onChange={(padding) => updateGallery(editor, { padding })}
+                    onChange={onPaddingChange}
                 />
             </Toolbox.Section>
 
             <Toolbox.Footer>
-                <Button
-                    variant="clear-faded"
-                    icon={Delete}
-                    fullWidth
-                    onClick={() => removeGallery(editor)}
-                >
+                <Button variant="clear-faded" icon={Delete} fullWidth onClick={onDelete}>
                     Remove gallery
                 </Button>
             </Toolbox.Footer>

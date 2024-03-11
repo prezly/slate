@@ -31,7 +31,11 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     images: GalleryImage[];
     isInteractive: boolean;
     maxViewportWidth?: number;
+    onImageCrop: (image: GalleryImage) => void;
+    onImageDelete: (image: GalleryImage) => void;
+    onImageEditCaption: (image: GalleryImage) => void;
     onImagesChange: (images: GalleryImage[]) => void;
+    onImagesReordered: (images: GalleryImage[]) => void;
     padding: GalleryNode['padding'];
     size: GalleryNode['thumbnail_size'];
     uuid: string;
@@ -43,7 +47,11 @@ export function Gallery({
     images: originalImages,
     isInteractive,
     maxViewportWidth = 800,
+    onImageCrop,
+    onImageDelete,
+    onImageEditCaption,
     onImagesChange,
+    onImagesReordered,
     padding,
     size,
     uuid,
@@ -91,6 +99,7 @@ export function Gallery({
             const overIndex = images.findIndex((image) => image.id === over.id);
             if (activeIndex !== overIndex) {
                 const newImages = arrayMove(images, activeIndex, overIndex);
+                onImagesReordered(newImages);
                 handleImagesChange(newImages);
             }
         }
@@ -100,6 +109,13 @@ export function Gallery({
 
     function handleDragCancel() {
         setActiveId(null);
+    }
+
+    function handleCaptionClick(id: UniqueIdentifier) {
+        const image = images.find((image) => image.id === id);
+        if (image) {
+            onImageEditCaption(image);
+        }
     }
 
     function handleCaptionChange(id: UniqueIdentifier, caption: string) {
@@ -123,6 +139,7 @@ export function Gallery({
             return;
         }
 
+        onImageCrop(image);
         const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(image.file);
 
         async function crop() {
@@ -162,6 +179,12 @@ export function Gallery({
     }
 
     function handleDelete(id: UniqueIdentifier) {
+        const imageToDelete = images.find((image) => image.id === id);
+        if (!imageToDelete) {
+            return;
+        }
+
+        onImageDelete(imageToDelete);
         const newImages = images.filter((image) => image.id !== id);
         handleImagesChange(newImages);
     }
@@ -202,6 +225,7 @@ export function Gallery({
                                         onCaptionChange={(caption) =>
                                             handleCaptionChange(id, caption)
                                         }
+                                        onCaptionClick={() => handleCaptionClick(id)}
                                         onCrop={() => handleCrop(id)}
                                         onDelete={() => handleDelete(id)}
                                         style={{

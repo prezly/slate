@@ -16,6 +16,7 @@ export interface Props {
     imageWidth: number;
     isInteractive?: boolean;
     onCaptionChange: (caption: string) => void;
+    onCaptionClick?: (caption: string) => void;
     onCrop: () => void;
     onDelete: () => void;
     style?: CSSProperties;
@@ -36,6 +37,7 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
         imageWidth,
         isInteractive,
         onCaptionChange,
+        onCaptionClick,
         onCrop,
         onDelete,
         style = {},
@@ -59,6 +61,11 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
         const text = event.currentTarget.value;
         setCaption(text);
         onCaptionChange(text);
+    }
+
+    function handleCaptionClick() {
+        setEditingCaption(true);
+        onCaptionClick?.(caption ?? '');
     }
 
     function handleShowOverlay() {
@@ -120,7 +127,7 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
                                 })}
                                 icon={isInteractive ? Edit : undefined}
                                 iconPosition="right"
-                                onClick={() => setEditingCaption(true)}
+                                onClick={handleCaptionClick}
                                 variant="clear"
                             >
                                 {caption || 'add caption'}

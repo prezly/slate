@@ -254,6 +254,31 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
                     });
                 }
             },
+            onImageCrop(editor, image) {
+                EventsEditor.dispatchEvent(editor, 'gallery-image-crop', { image });
+            },
+            onImageDeleted(editor, image) {
+                EventsEditor.dispatchEvent(editor, 'gallery-image-deleted', { image });
+            },
+            onImageEditCaption(editor, image) {
+                EventsEditor.dispatchEvent(editor, 'gallery-image-edit-caption', { image });
+            },
+            onLayoutChanged(editor, layout) {
+                EventsEditor.dispatchEvent(editor, 'gallery-layout-changed', { layout });
+            },
+            onPaddingChanged(editor, padding) {
+                EventsEditor.dispatchEvent(editor, 'gallery-padding-changed', { padding });
+            },
+            onReordered(editor, updated) {
+                EventsEditor.dispatchEvent(editor, 'gallery-images-reordered', {
+                    imagesCount: updated.images.length,
+                });
+            },
+            onThumbnailSizeChanged(editor, thumbnail_size) {
+                EventsEditor.dispatchEvent(editor, 'gallery-thumbnail-size-changed', {
+                    thumbnail_size,
+                });
+            },
             onShuffled(editor, updated) {
                 EventsEditor.dispatchEvent(editor, 'gallery-images-shuffled', {
                     imagesCount: updated.images.length,
