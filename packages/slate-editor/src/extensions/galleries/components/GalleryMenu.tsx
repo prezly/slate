@@ -1,7 +1,6 @@
 import type { GalleryNode } from '@prezly/slate-types';
 import { GalleryImageSize, GalleryLayout, GalleryPadding } from '@prezly/slate-types';
 import React from 'react';
-import { useSlate } from 'slate-react';
 
 import type { OptionsGroupOption } from '#components';
 import { Button, ButtonGroup, InfoText, OptionsGroup, Toolbox } from '#components';
