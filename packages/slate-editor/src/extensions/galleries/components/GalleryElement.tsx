@@ -38,9 +38,9 @@ interface Props extends RenderElementProps {
             failedUploads: Error[];
         },
     ) => void;
-    onImageCrop?: (editor: Editor, image: GalleryImage) => void;
-    onImageDeleted?: (editor: Editor, image: GalleryImage) => void;
-    onImageEditCaption?: (editor: Editor, image: GalleryImage) => void;
+    onImageCaptionClicked?: (editor: Editor) => void;
+    onImageCropClicked?: (editor: Editor) => void;
+    onImageDeleteClicked?: (editor: Editor) => void;
     onLayoutChanged?: (editor: Editor, layout: GalleryLayout) => void;
     onPaddingChanged?: (editor: Editor, padding: GalleryPadding) => void;
     onReordered?: (editor: Editor, gallery: GalleryNode) => void;
@@ -60,9 +60,9 @@ export function GalleryElement({
     element,
     onAdd = noop,
     onAdded = noop,
-    onImageCrop = noop,
-    onImageDeleted = noop,
-    onImageEditCaption = noop,
+    onImageCaptionClicked = noop,
+    onImageCropClicked = noop,
+    onImageDeleteClicked = noop,
     onLayoutChanged = noop,
     onPaddingChanged = noop,
     onReordered = noop,
@@ -77,9 +77,9 @@ export function GalleryElement({
     const callbacks = useLatest({
         onAdd,
         onAdded,
-        onImageCrop,
-        onImageDeleted,
-        onImageEditCaption,
+        onImageCaptionClicked,
+        onImageCropClicked,
+        onImageDeleteClicked,
         onLayoutChanged,
         onPaddingChanged,
         onReordered,
@@ -161,16 +161,16 @@ export function GalleryElement({
         callbacks.current.onReordered(editor, { ...element, images });
     }
 
-    function handleImageCrop(image: GalleryImage) {
-        callbacks.current.onImageCrop(editor, image);
+    function handleImageCaptionClicked() {
+        callbacks.current.onImageCaptionClicked(editor);
     }
 
-    function handleImageDeleted(image: GalleryImage) {
-        callbacks.current.onImageDeleted(editor, image);
+    function handleImageCropClicked() {
+        callbacks.current.onImageCropClicked(editor);
     }
 
-    function handleImageEditCaption(image: GalleryImage) {
-        callbacks.current.onImageEditCaption(editor, image);
+    function handleImageDeleteClicked() {
+        callbacks.current.onImageDeleteClicked(editor);
     }
 
     function handleLayoutChange(layout: GalleryLayout) {
@@ -207,9 +207,9 @@ export function GalleryElement({
                     <Gallery
                         images={element.images}
                         isInteractive={isSelected}
-                        onImageCrop={handleImageCrop}
-                        onImageDelete={handleImageDeleted}
-                        onImageEditCaption={handleImageEditCaption}
+                        onImageCaptionClicked={handleImageCaptionClicked}
+                        onImageCropClicked={handleImageCropClicked}
+                        onImageDeleteClicked={handleImageDeleteClicked}
                         onImagesChange={handleImagesChange}
                         onImagesReordered={handleImagesReordered}
                         padding={element.padding}

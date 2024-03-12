@@ -16,9 +16,11 @@ export interface Props {
     imageWidth: number;
     isInteractive?: boolean;
     onCaptionChange: (caption: string) => void;
-    onCaptionClick?: (caption: string) => void;
+    onCaptionClicked?: () => void;
     onCrop: () => void;
+    onCropClicked?: () => void;
     onDelete: () => void;
+    onDeleteClicked?: () => void;
     style?: CSSProperties;
     url: string;
     withBorderRadius: boolean;
@@ -37,9 +39,11 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
         imageWidth,
         isInteractive,
         onCaptionChange,
-        onCaptionClick,
+        onCaptionClicked,
         onCrop,
+        onCropClicked,
         onDelete,
+        onDeleteClicked,
         style = {},
         url,
         withBorderRadius,
@@ -64,8 +68,18 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
     }
 
     function handleCaptionClick() {
+        onCaptionClicked?.();
         setEditingCaption(true);
-        onCaptionClick?.(caption ?? '');
+    }
+
+    function handleCropClick() {
+        onCropClicked?.();
+        onCrop();
+    }
+
+    function handleDeleteClick() {
+        onDeleteClicked?.();
+        onDelete();
     }
 
     function handleShowOverlay() {
@@ -101,8 +115,8 @@ export const GalleryTile = forwardRef<HTMLDivElement, Props>(function GalleryTil
                     onMouseLeave={handleHideOverlay}
                 >
                     <div className={styles.Actions}>
-                        <CropButton isSmall={withSmallButtons} onCrop={onCrop} />
-                        <DeleteButton isSmall={withSmallButtons} onDelete={onDelete} />
+                        <CropButton isSmall={withSmallButtons} onCrop={handleCropClick} />
+                        <DeleteButton isSmall={withSmallButtons} onDelete={handleDeleteClick} />
                     </div>
                     <div className={styles.DragHandle} {...props} tabIndex={-1} />
                     <div

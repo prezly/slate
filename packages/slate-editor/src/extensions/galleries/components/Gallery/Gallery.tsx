@@ -31,9 +31,9 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     images: GalleryImage[];
     isInteractive: boolean;
     maxViewportWidth?: number;
-    onImageCrop: (image: GalleryImage) => void;
-    onImageDelete: (image: GalleryImage) => void;
-    onImageEditCaption: (image: GalleryImage) => void;
+    onImageCaptionClicked?: () => void;
+    onImageCropClicked?: () => void;
+    onImageDeleteClicked?: () => void;
     onImagesChange: (images: GalleryImage[]) => void;
     onImagesReordered: (images: GalleryImage[]) => void;
     padding: GalleryNode['padding'];
@@ -47,9 +47,9 @@ export function Gallery({
     images: originalImages,
     isInteractive,
     maxViewportWidth = 800,
-    onImageCrop,
-    onImageDelete,
-    onImageEditCaption,
+    onImageCaptionClicked,
+    onImageCropClicked,
+    onImageDeleteClicked,
     onImagesChange,
     onImagesReordered,
     padding,
@@ -111,13 +111,6 @@ export function Gallery({
         setActiveId(null);
     }
 
-    function handleCaptionClick(id: UniqueIdentifier) {
-        const image = images.find((image) => image.id === id);
-        if (image) {
-            onImageEditCaption(image);
-        }
-    }
-
     function handleCaptionChange(id: UniqueIdentifier, caption: string) {
         const newImages = images.map((image) => {
             if (image.id === id) {
@@ -139,7 +132,6 @@ export function Gallery({
             return;
         }
 
-        onImageCrop(image);
         const uploadcareImage = UploadcareImage.createFromPrezlyStoragePayload(image.file);
 
         async function crop() {
@@ -179,12 +171,6 @@ export function Gallery({
     }
 
     function handleDelete(id: UniqueIdentifier) {
-        const imageToDelete = images.find((image) => image.id === id);
-        if (!imageToDelete) {
-            return;
-        }
-
-        onImageDelete(imageToDelete);
         const newImages = images.filter((image) => image.id !== id);
         handleImagesChange(newImages);
     }
@@ -225,9 +211,11 @@ export function Gallery({
                                         onCaptionChange={(caption) =>
                                             handleCaptionChange(id, caption)
                                         }
-                                        onCaptionClick={() => handleCaptionClick(id)}
+                                        onCaptionClicked={onImageCaptionClicked}
                                         onCrop={() => handleCrop(id)}
+                                        onCropClicked={onImageCropClicked}
                                         onDelete={() => handleDelete(id)}
+                                        onDeleteClicked={onImageDeleteClicked}
                                         style={{
                                             width: `${((100 * tile.width) / width).toFixed(3)}%`,
                                         }}

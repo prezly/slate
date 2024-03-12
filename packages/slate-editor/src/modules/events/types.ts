@@ -7,7 +7,6 @@ import type {
     Story,
 } from '@prezly/sdk';
 import type {
-    GalleryImage,
     GalleryImageSize,
     GalleryLayout,
     GalleryPadding,
@@ -94,15 +93,9 @@ export type EditorEventMap = {
     'gallery-images-shuffled': {
         imagesCount: number;
     };
-    'gallery-image-crop': {
-        image: GalleryImage;
-    };
-    'gallery-image-deleted': {
-        image: GalleryImage;
-    };
-    'gallery-image-edit-caption': {
-        image: GalleryImage;
-    };
+    'gallery-image-crop-clicked': never;
+    'gallery-image-delete-clicked': never;
+    'gallery-image-caption-clicked': never;
     'gallery-thumbnail-size-changed': {
         thumbnail_size: GalleryImageSize;
     };

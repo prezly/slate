@@ -1,6 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
-import type { GalleryImage, GalleryLayout, GalleryNode, GalleryPadding } from '@prezly/slate-types';
+import type { GalleryLayout, GalleryNode, GalleryPadding } from '@prezly/slate-types';
 import { GALLERY_NODE_TYPE, isGalleryNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
 import React from 'react';
@@ -27,9 +27,9 @@ interface Parameters extends GalleriesExtensionConfiguration {
             failedUploads: Error[];
         },
     ) => void;
-    onImageCrop?: (editor: Editor, image: GalleryImage) => void;
-    onImageDeleted?: (editor: Editor, image: GalleryImage) => void;
-    onImageEditCaption?: (editor: Editor, image: GalleryImage) => void;
+    onImageCaptionClicked?: (editor: Editor) => void;
+    onImageCropClicked?: (editor: Editor) => void;
+    onImageDeleteClicked?: (editor: Editor) => void;
     onLayoutChanged?: (editor: Editor, layout: GalleryLayout) => void;
     onPaddingChanged?: (editor: Editor, padding: GalleryPadding) => void;
     onReordered?: (editor: Editor, gallery: GalleryNode) => void;
@@ -45,9 +45,9 @@ export const EXTENSION_ID = 'GalleriesExtension';
 export const GalleriesExtension = ({
     availableWidth,
     onAdded,
-    onImageCrop,
-    onImageDeleted,
-    onImageEditCaption,
+    onImageCaptionClicked,
+    onImageCropClicked,
+    onImageDeleteClicked,
     onLayoutChanged,
     onPaddingChanged,
     onReordered,
@@ -86,9 +86,9 @@ export const GalleriesExtension = ({
                     withLayoutOptions={withLayoutOptions}
                     element={element}
                     onAdded={onAdded}
-                    onImageCrop={onImageCrop}
-                    onImageDeleted={onImageDeleted}
-                    onImageEditCaption={onImageEditCaption}
+                    onImageCaptionClicked={onImageCaptionClicked}
+                    onImageCropClicked={onImageCropClicked}
+                    onImageDeleteClicked={onImageDeleteClicked}
                     onLayoutChanged={onLayoutChanged}
                     onPaddingChanged={onPaddingChanged}
                     onReordered={onReordered}

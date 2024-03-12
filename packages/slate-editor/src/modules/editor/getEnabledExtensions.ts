@@ -254,14 +254,14 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
                     });
                 }
             },
-            onImageCrop(editor, image) {
-                EventsEditor.dispatchEvent(editor, 'gallery-image-crop', { image });
+            onImageCaptionClicked(editor) {
+                EventsEditor.dispatchEvent(editor, 'gallery-image-caption-clicked');
             },
-            onImageDeleted(editor, image) {
-                EventsEditor.dispatchEvent(editor, 'gallery-image-deleted', { image });
+            onImageCropClicked(editor) {
+                EventsEditor.dispatchEvent(editor, 'gallery-image-crop-clicked');
             },
-            onImageEditCaption(editor, image) {
-                EventsEditor.dispatchEvent(editor, 'gallery-image-edit-caption', { image });
+            onImageDeleteClicked(editor) {
+                EventsEditor.dispatchEvent(editor, 'gallery-image-delete-clicked');
             },
             onLayoutChanged(editor, layout) {
                 EventsEditor.dispatchEvent(editor, 'gallery-layout-changed', { layout });
