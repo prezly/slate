@@ -1,5 +1,11 @@
 import type { NewsroomRef } from '@prezly/sdk';
-import type { GalleryImage, GalleryNode } from '@prezly/slate-types';
+import type {
+    GalleryImage,
+    GalleryImageSize,
+    GalleryLayout,
+    GalleryNode,
+    GalleryPadding,
+} from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
 import React, { useState } from 'react';
@@ -32,7 +38,17 @@ interface Props extends RenderElementProps {
             failedUploads: Error[];
         },
     ) => void;
+    onImageCaptionClicked?: (editor: Editor) => void;
+    onImageCropClicked?: (editor: Editor) => void;
+    onImageDeleteClicked?: (editor: Editor) => void;
+    onLayoutChanged?: (editor: Editor, layout: GalleryLayout) => void;
+    onPaddingChanged?: (editor: Editor, padding: GalleryPadding) => void;
+    onReordered?: (editor: Editor, gallery: GalleryNode) => void;
     onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
+    onThumbnailSizeChanged?: (
+        editor: Editor,
+        thumbnail_size: GalleryNode['thumbnail_size'],
+    ) => void;
     withMediaGalleryTab: false | { enabled: boolean; newsroom: NewsroomRef };
     withLayoutOptions: boolean;
 }
@@ -44,14 +60,32 @@ export function GalleryElement({
     element,
     onAdd = noop,
     onAdded = noop,
+    onImageCaptionClicked = noop,
+    onImageCropClicked = noop,
+    onImageDeleteClicked = noop,
+    onLayoutChanged = noop,
+    onPaddingChanged = noop,
+    onReordered = noop,
     onShuffled = noop,
+    onThumbnailSizeChanged = noop,
     withMediaGalleryTab,
     withLayoutOptions,
 }: Props) {
     const editor = useSlateStatic();
     const [sizer, size] = useSize(Sizer, { width: availableWidth });
     const [isUploading, setUploading] = useState(false);
-    const callbacks = useLatest({ onAdd, onAdded, onShuffled });
+    const callbacks = useLatest({
+        onAdd,
+        onAdded,
+        onImageCaptionClicked,
+        onImageCropClicked,
+        onImageDeleteClicked,
+        onLayoutChanged,
+        onPaddingChanged,
+        onReordered,
+        onShuffled,
+        onThumbnailSizeChanged,
+    });
 
     async function handleAdd() {
         callbacks.current.onAdd(editor, element);
@@ -116,12 +150,46 @@ export function GalleryElement({
 
     function handleImagesChange(images: GalleryImage[]) {
         if (images.length === 0) {
-            // Last image was removed, we can remove the whole block
-            removeGallery(editor);
+            handleDelete();
             return;
         }
 
         updateGallery(editor, { images });
+    }
+
+    function handleImagesReordered(images: GalleryImage[]) {
+        callbacks.current.onReordered(editor, { ...element, images });
+    }
+
+    function handleImageCaptionClicked() {
+        callbacks.current.onImageCaptionClicked(editor);
+    }
+
+    function handleImageCropClicked() {
+        callbacks.current.onImageCropClicked(editor);
+    }
+
+    function handleImageDeleteClicked() {
+        callbacks.current.onImageDeleteClicked(editor);
+    }
+
+    function handleLayoutChange(layout: GalleryLayout) {
+        updateGallery(editor, { layout });
+        callbacks.current.onLayoutChanged(editor, layout);
+    }
+
+    function handlePaddingChange(padding: GalleryPadding) {
+        updateGallery(editor, { padding });
+        callbacks.current.onPaddingChanged(editor, padding);
+    }
+
+    function handleThumbnailSizeChange(thumbnail_size: GalleryImageSize) {
+        updateGallery(editor, { thumbnail_size });
+        callbacks.current.onThumbnailSizeChanged(editor, thumbnail_size);
+    }
+
+    function handleDelete() {
+        removeGallery(editor);
     }
 
     return (
@@ -139,7 +207,11 @@ export function GalleryElement({
                     <Gallery
                         images={element.images}
                         isInteractive={isSelected}
+                        onImageCaptionClicked={handleImageCaptionClicked}
+                        onImageCropClicked={handleImageCropClicked}
+                        onImageDeleteClicked={handleImageDeleteClicked}
                         onImagesChange={handleImagesChange}
+                        onImagesReordered={handleImagesReordered}
                         padding={element.padding}
                         size={element.thumbnail_size}
                         uuid={element.uuid}
@@ -151,7 +223,11 @@ export function GalleryElement({
                 <GalleryMenu
                     element={element}
                     onAdd={handleAdd}
+                    onDelete={handleDelete}
+                    onLayoutChange={handleLayoutChange}
+                    onPaddingChange={handlePaddingChange}
                     onShuffle={handleShuffle}
+                    onThumbnailSizeChange={handleThumbnailSizeChange}
                     withLayoutOptions={withLayoutOptions}
                 />
             )}

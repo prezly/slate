@@ -31,7 +31,11 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     images: GalleryImage[];
     isInteractive: boolean;
     maxViewportWidth?: number;
+    onImageCaptionClicked?: () => void;
+    onImageCropClicked?: () => void;
+    onImageDeleteClicked?: () => void;
     onImagesChange: (images: GalleryImage[]) => void;
+    onImagesReordered: (images: GalleryImage[]) => void;
     padding: GalleryNode['padding'];
     size: GalleryNode['thumbnail_size'];
     uuid: string;
@@ -43,7 +47,11 @@ export function Gallery({
     images: originalImages,
     isInteractive,
     maxViewportWidth = 800,
+    onImageCaptionClicked,
+    onImageCropClicked,
+    onImageDeleteClicked,
     onImagesChange,
+    onImagesReordered,
     padding,
     size,
     uuid,
@@ -91,6 +99,7 @@ export function Gallery({
             const overIndex = images.findIndex((image) => image.id === over.id);
             if (activeIndex !== overIndex) {
                 const newImages = arrayMove(images, activeIndex, overIndex);
+                onImagesReordered(newImages);
                 handleImagesChange(newImages);
             }
         }
@@ -202,8 +211,11 @@ export function Gallery({
                                         onCaptionChange={(caption) =>
                                             handleCaptionChange(id, caption)
                                         }
+                                        onCaptionClicked={onImageCaptionClicked}
                                         onCrop={() => handleCrop(id)}
+                                        onCropClicked={onImageCropClicked}
                                         onDelete={() => handleDelete(id)}
+                                        onDeleteClicked={onImageDeleteClicked}
                                         style={{
                                             width: `${((100 * tile.width) / width).toFixed(3)}%`,
                                         }}

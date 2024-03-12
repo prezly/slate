@@ -6,7 +6,13 @@ import type {
     OEmbedInfo,
     Story,
 } from '@prezly/sdk';
-import type { Node, TableHeader } from '@prezly/slate-types';
+import type {
+    GalleryImageSize,
+    GalleryLayout,
+    GalleryPadding,
+    Node,
+    TableHeader,
+} from '@prezly/slate-types';
 import type { ReactNode } from 'react';
 
 export type EditorEventMap = {
@@ -81,8 +87,23 @@ export type EditorEventMap = {
     'gallery-images-added': {
         imagesCount: number;
     };
+    'gallery-images-reordered': {
+        imagesCount: number;
+    };
     'gallery-images-shuffled': {
         imagesCount: number;
+    };
+    'gallery-image-crop-clicked': never;
+    'gallery-image-delete-clicked': never;
+    'gallery-image-caption-clicked': never;
+    'gallery-thumbnail-size-changed': {
+        thumbnail_size: GalleryImageSize;
+    };
+    'gallery-padding-changed': {
+        padding: GalleryPadding;
+    };
+    'gallery-layout-changed': {
+        layout: GalleryLayout;
     };
     'gallery-bookmark-placeholder-submitted': {
         gallery: Pick<NewsroomGallery, 'uuid'>;
