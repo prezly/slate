@@ -92,8 +92,8 @@
         "validator": "^13.11.0"
     },
     "peerDependencies": {
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
+        "react": "^18.3.0",
+        "react-dom": "^18.3.0",
         "slate": "^0.101.5",
         "slate-history": "^0.100.0",
         "slate-react": "^0.101.5"
