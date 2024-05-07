@@ -7,6 +7,7 @@ module.exports = {
         'ignore-styles', // ignore non-code imports (.css, .scss, .svg, etc)
         'global-jsdom/register', // mock JSDom
         'mocha-expect-snapshot', // toMatchSnapshot
+        `${__dirname}/register/global-jsdom-mocks.cjs`,
     ],
     'globals': [
         'global',
