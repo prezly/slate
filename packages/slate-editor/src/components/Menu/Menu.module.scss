@@ -197,25 +197,4 @@
     &:has(> *:last-child[data-headlessui-state="open"]) {
         border-bottom-right-radius: 0;
     }
-
-    // Firefox doesn't support `has` selector yet
-    // https://stackoverflow.com/a/1014958/6622233
-    // This is a workaround to apply the same effect
-    // Adds a triangle at bottom-right corner: ◢
-    @include firefox-only {
-        > *:last-child[data-headlessui-state="open"]::after {
-            $size: ($toolbar-dark-theme-border-radius + 2px);
-
-            content: "";
-            position: absolute;
-            height: 0;
-            width: 0;
-            border-left: $size solid transparent;
-            border-bottom: $size solid $toolbar-dark-theme-bg;
-            right: 0;
-            bottom: 0;
-            display: block;
-            z-index: -10;
-        }
-    }
 }
