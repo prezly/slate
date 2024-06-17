@@ -24,5 +24,9 @@ export function Text({ children, text }: RenderLeafProps) {
         children = <u>{children}</u>;
     }
 
+    if (text[MarkType.HIGHLIGHTED]) {
+        children = <mark>{children}</mark>;
+    }
+
     return <>{children}</>;
 }

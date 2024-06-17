@@ -74,6 +74,8 @@ $editor-floating-container-z-index: $editor-block-overlay-z-index + 1;
 
 $editor-selection-bg: #c7d2fe;
 $editor-selection-color: #3630a3;
+$editor-highlighted-text-bg: #3c91ff3d;
+$editor-highlighted-text-selection-bg: mix(rgba($editor-highlighted-text-bg, 1.0), $editor-selection-bg, alpha($editor-highlighted-text-bg) * 100%);
 
 $editor-bookmark-card-height: 180px;
 

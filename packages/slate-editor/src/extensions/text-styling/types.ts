@@ -4,4 +4,5 @@ export enum MarkType {
     UNDERLINED = 'underlined',
     SUBSCRIPT = 'subscript',
     SUPERSCRIPT = 'superscript',
+    HIGHLIGHTED = 'highlighted',
 }

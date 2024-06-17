@@ -4,6 +4,7 @@ export {
     AlignRight,
     Link,
     Bold as FormatBold,
+    Highlighter as FormatHighlight,
     Italic as FormatItalic,
     Underline as FormatUnderline,
     Type as FormatStyleNormal,
