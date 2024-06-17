@@ -46,13 +46,15 @@ $story-composer-navigation-z-index: 10000;
 $story-composer-sidebar-z-index: $story-composer-navigation-z-index + 1;
 
 $toolbar-z-index: 300;
-$toolbar-dark-theme-bg: rgba(#292942, 0.96);
+$toolbar-dark-theme-bg: #1B1B36;
 $toolbar-dark-theme-border-color: rgba(#fff, 0.12);
-$toolbar-dark-theme-text-color: #fff;
+$toolbar-dark-theme-border-radius: $border-radius-base;
+$toolbar-dark-theme-text-color: $grey-300;
 $toolbar-dark-theme-text-hover-color: #fff;
-$toolbar-dark-theme-icon-color: rgba(#fff, 0.6);
+$toolbar-dark-theme-icon-color: $grey-300;
+$toolbar-dark-theme-icon-hover-color: #fff;
 $toolbar-dark-theme-icon-active-color: $color-dark-ui-accent;
-$toolbar-dark-theme-hover-bg: rgba(#fff, 0.12);
+$toolbar-dark-theme-hover-bg: #282842;
 $toolbar-dark-theme-focus-outline: $indigo-200;
 
 $editor-block-focus-color: $yellow-300;

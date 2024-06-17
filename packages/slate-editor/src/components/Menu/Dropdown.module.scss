@@ -41,8 +41,9 @@
                 top: $spacing-base;
                 bottom: $spacing-base;
                 right: $spacing-base;
-                border-radius: $border-radius-base;
+                border-radius: $toolbar-dark-theme-border-radius * 0.5;
                 background-color: $toolbar-dark-theme-hover-bg;
+                z-index: -1;
             }
         }
 
@@ -80,7 +81,7 @@
         overflow: auto;
         padding: $spacing-1 0;
         background-color: $toolbar-dark-theme-bg;
-        border-radius: 0 0 $border-radius-base * 2 $border-radius-base * 2;
+        border-radius: 0 0 $toolbar-dark-theme-border-radius $toolbar-dark-theme-border-radius;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11), inset 0 1px 0 $toolbar-dark-theme-border-color;
     }
 
@@ -94,6 +95,7 @@
         color: $toolbar-dark-theme-icon-color;
         border-top: 1px solid transparent;
         cursor: pointer;
+        z-index: 0;
 
         > span {
             font-size: 14px;
@@ -116,13 +118,14 @@
                 // Trick to display smaller hover background square,
                 // while keeping the button area as big as possible (for a11y)
                 content: "";
-                border-radius: $border-radius-base;
+                border-radius: $toolbar-dark-theme-border-radius * 0.5;
                 position: absolute;
                 top: $spacing-half * 0.5;
                 bottom: $spacing-half * 0.5;
                 left: $spacing-base;
                 right: $spacing-base;
                 background-color: $toolbar-dark-theme-hover-bg;
+                z-index: -1;
             }
         }
 

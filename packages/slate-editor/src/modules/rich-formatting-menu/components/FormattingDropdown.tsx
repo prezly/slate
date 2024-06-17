@@ -60,12 +60,12 @@ const OPTIONS: Option[] = [
         value: HEADING_2_NODE_TYPE,
     },
     {
-        label: 'Unordered List',
-        value: BULLETED_LIST_NODE_TYPE,
-    },
-    {
         label: 'Ordered List',
         value: NUMBERED_LIST_NODE_TYPE,
+    },
+    {
+        label: 'Unordered List',
+        value: BULLETED_LIST_NODE_TYPE,
     },
     {
         label: '“Quote”',

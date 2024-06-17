@@ -6,7 +6,7 @@
     $font-size: 14px;
 
     display: flex;
-    border-radius: $border-radius-base * 2;
+    border-radius: $toolbar-dark-theme-border-radius;
     color: $toolbar-dark-theme-text-color;
     backdrop-filter: blur(6px);
     background-color: $toolbar-dark-theme-bg;
@@ -42,7 +42,7 @@
             top: $spacing-1;
             bottom: $spacing-1;
             background-color: $toolbar-dark-theme-hover-bg;
-            border-radius: $border-radius-base;
+            border-radius: $toolbar-dark-theme-border-radius * 0.5;
         }
 
         &.disabled {
@@ -105,19 +105,21 @@
 
         &:hover {
             cursor: pointer;
+            color: $toolbar-dark-theme-icon-hover-color;
 
             &::before {
                 // Trick to display smaller hover background square,
                 // while keeping the button area as big as possible (for a11y)
                 content: "";
                 display: block;
-                border-radius: $border-radius-base;
+                border-radius: $toolbar-dark-theme-border-radius * 0.5;
                 position: absolute;
                 left: 0;
                 top: $spacing-base;
                 bottom: $spacing-base;
                 right: 0;
                 background-color: $toolbar-dark-theme-hover-bg;
+                z-index: -1;
             }
 
             &:global(.disabled)::before,
@@ -202,7 +204,7 @@
     // Adds a triangle at bottom-right corner: ◢
     @include firefox-only {
         > *:last-child[data-headlessui-state="open"]::after {
-            $size: ($border-radius-base * 2 + 2px);
+            $size: ($toolbar-dark-theme-border-radius + 2px);
 
             content: "";
             position: absolute;
