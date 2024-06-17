@@ -19,6 +19,7 @@ export function Button({
 }: Props) {
     return (
         <button
+            aria-pressed={active ? 'true' : 'false'}
             className={classNames(styles.Button, className, {
                 [styles.danger]: variant === 'danger',
                 [styles.primary]: variant === 'primary',

@@ -90,21 +90,28 @@ export function Toolbar({
         <>
             <Menu.ButtonGroup>
                 {withBold && (
-                    <Menu.Button active={isBold} onClick={onBold}>
+                    <Menu.Button active={isBold} onClick={onBold} title="Bold">
                         <Menu.Icon icon={FormatBold} />
                     </Menu.Button>
                 )}
                 {withItalic && (
-                    <Menu.Button active={isItalic} onClick={onItalic}>
+                    <Menu.Button active={isItalic} onClick={onItalic} title="Italic">
                         <Menu.Icon icon={FormatItalic} />
                     </Menu.Button>
                 )}
                 {withUnderline && (
-                    <Menu.Button active={isUnderline} onClick={onUnderline}>
+                    <Menu.Button active={isUnderline} onClick={onUnderline} title="Underlined">
                         <Menu.Icon icon={FormatUnderline} />
                     </Menu.Button>
                 )}
-                <Menu.Button active={isSubScript || isSuperScript} onMouseDown={onSubSuperScript}>
+                <Menu.Button
+                    active={isSubScript || isSuperScript}
+                    onMouseDown={onSubSuperScript}
+                    title="Subscript/superscript"
+                    aria-valuetext={
+                        isSubScript ? 'subscript' : isSuperScript ? 'superscript' : 'normal'
+                    }
+                >
                     {isSubScript && <Menu.Icon icon={FormatStyleSubscript} />}
                     {isSuperScript && <Menu.Icon icon={FormatStyleSuperscript} />}
                     {!(isSubScript || isSuperScript) && <Menu.Icon icon={FormatStyleNormal} />}
@@ -116,18 +123,21 @@ export function Toolbar({
                     <Menu.Button
                         active={alignment.includes(Alignment.LEFT)}
                         onClick={() => onAlignment(Alignment.LEFT)}
+                        title="Align left"
                     >
                         <Menu.Icon icon={AlignLeft} />
                     </Menu.Button>
                     <Menu.Button
                         active={alignment.includes(Alignment.CENTER)}
                         onClick={() => onAlignment(Alignment.CENTER)}
+                        title="Align center"
                     >
                         <Menu.Icon icon={AlignCenter} />
                     </Menu.Button>
                     <Menu.Button
                         active={alignment.includes(Alignment.RIGHT)}
                         onClick={() => onAlignment(Alignment.RIGHT)}
+                        title="Align right"
                     >
                         <Menu.Icon icon={AlignRight} />
                     </Menu.Button>
@@ -136,7 +146,11 @@ export function Toolbar({
 
             {withInlineLinks && (
                 <Menu.ButtonGroup>
-                    <Menu.Button active={isLink} onClick={onLink}>
+                    <Menu.Button
+                        active={isLink}
+                        onClick={onLink}
+                        title={isLink ? 'Unlink or modify' : 'Link text'}
+                    >
                         <Menu.Icon icon={Link} />
                     </Menu.Button>
                 </Menu.ButtonGroup>
@@ -153,6 +167,7 @@ export function Toolbar({
                         onChange={onFormatting}
                         value={formatting}
                         disabled={withFormatting === 'readonly'}
+                        title="Block formatting"
                         withBlockquotes={withBlockquotes}
                         withHeadings={withHeadings}
                         withLists={withLists}

@@ -21,6 +21,7 @@ interface Props {
     onChange: (value: Formatting) => void;
     value: Formatting;
     disabled?: boolean;
+    title?: string;
     withBlockquotes: boolean;
     withHeadings: boolean;
     withLists: boolean;
@@ -77,6 +78,7 @@ export function FormattingDropdown({
     value,
     onChange,
     disabled = false,
+    title,
     withBlockquotes,
     withHeadings,
     withLists,
@@ -109,6 +111,7 @@ export function FormattingDropdown({
             options={options}
             disabled={disabled}
             renderOption={DropdownOption}
+            title={title}
             value={value}
         />
     );
