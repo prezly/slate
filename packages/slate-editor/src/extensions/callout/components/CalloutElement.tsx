@@ -30,13 +30,15 @@ export const CalloutElement = forwardRef(
                         [styles.alignRight]: align === Alignment.RIGHT,
                     })}
                 >
-                    <div
+                    <button
                         className={classNames(styles.Icon, {
                             [styles.empty]: !element.icon,
                         })}
+                        contentEditable={false}
+                        title="Change icon"
                     >
                         {element.icon}
-                    </div>
+                    </button>
                     <p
                         data-placeholder="Write something here..."
                         className={classNames(styles.Content, className, {

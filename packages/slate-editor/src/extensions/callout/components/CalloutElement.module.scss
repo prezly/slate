@@ -33,23 +33,29 @@
 }
 
 .Icon {
+    all: unset;
     width: 26px;
     height: 26px;
     font-size: 19px;
     text-align: center;
     line-height: 26px;
+    cursor: pointer;
+    border-radius: $border-radius-base;
+    user-select: none;
+
+    &:hover {
+        background-color: rgba($grey-800, 0.12);
+    }
+
+    &.active,
+    &:active {
+        background-color: rgba($grey-800, 0.24);
+    }
 }
 
 .Content {
     line-height: 26px;
 
-//    background-color: $grey-50;
-//    margin: 0;
-//    line-height: 160%;
-//    font-weight: 500;
-//    min-width: 5em;
-//    position: relative;
-//
     &.alignLeft {
         text-align: left;
     }
