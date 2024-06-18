@@ -40,8 +40,12 @@
 
 .Icon {
     all: unset;
+
     width: 26px;
     height: 26px;
+    flex-shrink: 0;
+    flex-grow: 0;
+
     font-size: 19px;
     text-align: center;
     line-height: 26px;
