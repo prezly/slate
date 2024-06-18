@@ -7,8 +7,6 @@ export interface TextNode extends Stylable {
     text: string;
 }
 
-export namespace TextNode {
-    export function isTextNode(node: Node): node is TextNode {
-        return isObject(node) && 'text' in node;
-    }
+export function isTextNode(node: Node): node is TextNode {
+    return isObject(node) && 'text' in node;
 }
