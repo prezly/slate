@@ -85,6 +85,7 @@ function newsroom(): NewsroomRef {
         date_format: 'DD.MM.YYYY',
         is_offline: false,
         is_online: true,
+        is_demo: false,
         url: NEWSROOM[id % NEWSROOM.length].name.toLowerCase() + '.prezly.com',
         /**
          * @deprecated Do not rely on these.

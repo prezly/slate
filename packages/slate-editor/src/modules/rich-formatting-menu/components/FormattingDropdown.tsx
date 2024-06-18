@@ -21,6 +21,7 @@ interface Props {
     onChange: (value: Formatting) => void;
     value: Formatting;
     disabled?: boolean;
+    title?: string;
     withBlockquotes: boolean;
     withHeadings: boolean;
     withLists: boolean;
@@ -60,12 +61,12 @@ const OPTIONS: Option[] = [
         value: HEADING_2_NODE_TYPE,
     },
     {
-        label: 'Unordered List',
-        value: BULLETED_LIST_NODE_TYPE,
-    },
-    {
         label: 'Ordered List',
         value: NUMBERED_LIST_NODE_TYPE,
+    },
+    {
+        label: 'Unordered List',
+        value: BULLETED_LIST_NODE_TYPE,
     },
     {
         label: '“Quote”',
@@ -77,6 +78,7 @@ export function FormattingDropdown({
     value,
     onChange,
     disabled = false,
+    title,
     withBlockquotes,
     withHeadings,
     withLists,
@@ -109,6 +111,7 @@ export function FormattingDropdown({
             options={options}
             disabled={disabled}
             renderOption={DropdownOption}
+            title={title}
             value={value}
         />
     );
