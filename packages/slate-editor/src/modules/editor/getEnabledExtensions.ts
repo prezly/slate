@@ -49,6 +49,7 @@ import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '#modules/uploadcare';
 
 import {
     BLOCKQUOTE_RULES,
+    CALLOUT_RULES,
     COMPOSITE_CHARACTERS_RULES,
     DIVIDER_RULES,
     HEADING_RULES,
@@ -364,6 +365,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withAutoformat) {
         const defaultRules = [
             ...(withBlockquotes ? BLOCKQUOTE_RULES : []),
+            ...(withCallouts ? CALLOUT_RULES : []),
             ...(withDivider ? DIVIDER_RULES : []),
             ...(withHeadings ? HEADING_RULES : []),
             ...(withLists ? LIST_RULES : []),

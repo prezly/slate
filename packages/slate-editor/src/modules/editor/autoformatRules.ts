@@ -1,4 +1,5 @@
 import type { HeadingNode, ListNode, QuoteNode } from '@prezly/slate-types';
+import { CalloutNode } from '@prezly/slate-types';
 import {
     BULLETED_LIST_NODE_TYPE,
     DIVIDER_NODE_TYPE,
@@ -131,6 +132,19 @@ export const BLOCKQUOTE_RULES: AutoformatRule[] = [
         match: '>',
         format: (editor) => {
             return toggleBlock<QuoteNode>(editor, QUOTE_NODE_TYPE);
+        },
+    },
+];
+
+export const CALLOUT_RULES: AutoformatRule[] = [
+    {
+        mode: 'block',
+        type: CalloutNode.TYPE,
+        match: '!',
+        format: (editor) => {
+            return toggleBlock<CalloutNode>(editor, CalloutNode.TYPE, {
+                icon: '💡',
+            });
         },
     },
 ];

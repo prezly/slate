@@ -5,7 +5,11 @@ import { BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE } from '@prezly/slate-
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
-export function toggleBlock<T extends ElementNode>(editor: Editor, type: T['type']): void {
+export function toggleBlock<T extends ElementNode>(
+    editor: Editor,
+    type: T['type'],
+    props: Partial<Omit<ElementNode, 'children' | 'type'>> = {},
+): void {
     const [currentNode, path] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (!currentNode) {
@@ -32,5 +36,5 @@ export function toggleBlock<T extends ElementNode>(editor: Editor, type: T['type
         EditorCommands.removeChildren(editor, [currentNode, path]);
     }
 
-    Transforms.setNodes(editor, { type });
+    Transforms.setNodes(editor, { ...props, type });
 }
