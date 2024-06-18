@@ -75,7 +75,7 @@ const OPTIONS: Option[] = [
         value: QUOTE_NODE_TYPE,
     },
     {
-        label: '[ Callout ]',
+        label: '[Callout]',
         value: CalloutNode.TYPE,
     },
 ];
