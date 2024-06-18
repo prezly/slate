@@ -1,5 +1,6 @@
 import {
     BULLETED_LIST_NODE_TYPE,
+    CalloutNode,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
     HeadingRole,
@@ -23,6 +24,7 @@ interface Props {
     disabled?: boolean;
     title?: string;
     withBlockquotes: boolean;
+    withCallouts: boolean;
     withHeadings: boolean;
     withLists: boolean;
     withParagraphs: boolean;
@@ -72,6 +74,10 @@ const OPTIONS: Option[] = [
         label: '“Quote”',
         value: QUOTE_NODE_TYPE,
     },
+    {
+        label: '[ Callout ]',
+        value: CalloutNode.TYPE,
+    },
 ];
 
 export function FormattingDropdown({
@@ -80,6 +86,7 @@ export function FormattingDropdown({
     disabled = false,
     title,
     withBlockquotes,
+    withCallouts,
     withHeadings,
     withLists,
     withParagraphs,
@@ -96,6 +103,7 @@ export function FormattingDropdown({
             [HEADING_2_NODE_TYPE]: withHeadings,
             [BULLETED_LIST_NODE_TYPE]: withLists,
             [NUMBERED_LIST_NODE_TYPE]: withLists,
+            [CalloutNode.TYPE]: withCallouts,
         };
         return reject(OPTIONS, ({ value }) => MAP[value] === false);
     }, [withBlockquotes, withHeadings, withLists, withParagraphs, withTitle, withSubtitle]);

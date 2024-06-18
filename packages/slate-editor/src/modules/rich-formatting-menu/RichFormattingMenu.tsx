@@ -35,6 +35,7 @@ interface Props {
     defaultAlignment: Alignment;
     withAlignment: boolean;
     withBlockquotes: boolean;
+    withCallouts: boolean;
     withConversionOptions?: false | { fetchOembed: FetchOEmbedFn };
     withHeadings: boolean;
     withInlineLinks: boolean;
@@ -63,6 +64,7 @@ export function RichFormattingMenu({
     defaultAlignment,
     withAlignment,
     withBlockquotes,
+    withCallouts,
     withConversionOptions = false,
     withHeadings,
     withInlineLinks,
@@ -266,6 +268,7 @@ export function RichFormattingMenu({
                     withFormatting={isTitleSelected || isSubtitleSelected ? 'readonly' : true}
                     withAlignment={withAlignment}
                     withBlockquotes={withBlockquotes && !isInsideTable}
+                    withCallouts={withCallouts}
                     withHeadings={withHeadings && !isInsideTable}
                     withInlineLinks={
                         isTitleSelected || isSubtitleSelected ? false : withInlineLinks

@@ -892,6 +892,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         defaultAlignment={align}
                                         withAlignment={withAlignmentControls}
                                         withBlockquotes={withBlockquotes}
+                                        withCallouts={withCallouts}
                                         withConversionOptions={
                                             typeof withRichFormattingMenu === 'object'
                                                 ? withRichFormattingMenu.withConversionOptions

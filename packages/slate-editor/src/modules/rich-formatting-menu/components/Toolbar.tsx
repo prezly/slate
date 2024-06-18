@@ -49,6 +49,7 @@ interface Props {
     withFormatting: boolean | 'readonly';
     withAlignment: boolean;
     withBlockquotes: boolean;
+    withCallouts: boolean;
     withHeadings: boolean;
     withInlineLinks: boolean;
     withLists: boolean;
@@ -86,6 +87,7 @@ export function Toolbar({
     withFormatting = true,
     withAlignment,
     withBlockquotes,
+    withCallouts,
     withInlineLinks,
     withHeadings,
     withLists,
@@ -181,6 +183,7 @@ export function Toolbar({
                         disabled={withFormatting === 'readonly'}
                         title="Block formatting"
                         withBlockquotes={withBlockquotes}
+                        withCallouts={withCallouts}
                         withHeadings={withHeadings}
                         withLists={withLists}
                         withParagraphs={withParagraphs}
