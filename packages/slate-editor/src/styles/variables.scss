@@ -60,6 +60,8 @@ $toolbar-dark-theme-focus-outline: $indigo-200;
 $editor-block-focus-color: $yellow-300;
 $editor-block-spacing-vertical: $spacing-6;
 $editor-block-border-radius: $border-radius-small;
+$editor-block-outline-width: 6px;
+
 $editor-heading-one-font-size: 28px;
 $editor-heading-one-line-height: 34px;
 $editor-heading-two-font-size: 22px;
@@ -69,6 +71,7 @@ $editor-paragraph-line-height: 22px;
 $editor-text-color: $grey-700;
 $editor-floating-button-size: 24px;
 $editor-floating-button-margin: 12px;
+
 $editor-block-overlay-z-index: 10;
 $editor-floating-container-z-index: $editor-block-overlay-z-index + 1;
 
