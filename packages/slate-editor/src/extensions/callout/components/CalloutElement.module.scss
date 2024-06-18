@@ -18,6 +18,11 @@
     margin-top: 0;
     margin-bottom: 0;
 
+    &.selected {
+        border-color: $editor-block-focus-color;
+        outline: ($editor-block-outline-width - 1px) solid $editor-block-focus-color;
+    }
+
     &.alignLeft {
         text-align: left;
     }

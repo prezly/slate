@@ -4,7 +4,7 @@ import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { HTMLAttributes, Ref } from 'react';
 import React, { forwardRef } from 'react';
-import { useSlateStatic } from 'slate-react';
+import { useSelected, useSlateStatic } from 'slate-react';
 
 import { NewParagraphDelimiter } from '#components';
 
@@ -19,12 +19,14 @@ export const CalloutElement = forwardRef(
         const editor = useSlateStatic();
         const align = element.align ?? Alignment.LEFT;
         const isEmpty = EditorCommands.isNodeEmpty(editor, element);
+        const isSelected = useSelected();
 
         return (
             <div {...props} ref={ref} className={classNames(className, styles.CalloutElement)}>
                 <NewParagraphDelimiter extendedHitArea element={element} position="top" />
                 <div
                     className={classNames(className, styles.Callout, {
+                        [styles.selected]: isSelected,
                         [styles.alignLeft]: align === Alignment.LEFT,
                         [styles.alignCenter]: align === Alignment.CENTER,
                         [styles.alignRight]: align === Alignment.RIGHT,
