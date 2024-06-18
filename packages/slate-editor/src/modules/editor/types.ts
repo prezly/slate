@@ -105,6 +105,7 @@ export interface EditorProps {
     withAutoformat?: boolean | AutoformatParameters;
     withButtonBlocks?: boolean | ButtonBlockExtensionConfiguration;
     withBlockquotes?: boolean;
+    withCallouts?: boolean;
     withCoverage?:
         | false
         | (CoverageExtensionConfiguration &

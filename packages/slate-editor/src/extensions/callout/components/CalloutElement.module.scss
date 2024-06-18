@@ -1,0 +1,68 @@
+@import "styles/variables";
+
+.CalloutElement {
+    display: block;
+    position: relative;
+}
+
+.Callout {
+    background-color: $callout-block-background;
+    border: $callout-block-border;
+    border-radius: $callout-block-border-radius;
+
+    padding: $spacing-3;
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-1-5;
+
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &.alignLeft {
+        text-align: left;
+    }
+
+    &.alignCenter {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &.alignRight {
+        flex-direction: row-reverse;
+    }
+}
+
+.Icon {
+    width: 26px;
+    height: 26px;
+}
+
+.Content {
+//    background-color: $grey-50;
+//    margin: 0;
+//    line-height: 160%;
+//    font-weight: 500;
+//    min-width: 5em;
+//    position: relative;
+//
+    &.alignLeft {
+        text-align: left;
+    }
+
+    &.alignCenter {
+        text-align: center;
+    }
+
+    &.alignRight {
+        text-align: right;
+    }
+
+    &.empty {
+        &::before {
+            content: attr(data-placeholder);
+            color: $grey-400;
+            position: absolute;
+            pointer-events: none;
+        }
+    }
+}

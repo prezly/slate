@@ -8,6 +8,7 @@ import { UploadcareEditor } from '#modules/uploadcare';
 export enum MenuAction {
     ADD_ATTACHMENT = 'add_attachment',
     ADD_BUTTON_BLOCK = 'add_button_block',
+    ADD_CALLOUT = 'add_callout',
     ADD_CONTACT = 'add_contact',
     ADD_COVERAGE = 'add_coverage',
     ADD_DIVIDER = 'add_divider',
@@ -60,6 +61,7 @@ interface Params {
     withAttachments: boolean;
     withBlockquotes: boolean;
     withButtonBlocks: boolean;
+    withCallouts: boolean;
     withCoverage: boolean;
     withDivider: boolean;
     withTables: boolean;
@@ -88,8 +90,9 @@ const Suggested: Partial<Record<MenuAction, number>> = {
     [MenuAction.ADD_CONTACT]: 3,
     [MenuAction.ADD_GALLERY]: 4,
     [MenuAction.ADD_DIVIDER]: 5,
-    [MenuAction.ADD_ATTACHMENT]: 6,
-    [MenuAction.ADD_SNIPPET]: 7,
+    [MenuAction.ADD_CALLOUT]: 6,
+    [MenuAction.ADD_ATTACHMENT]: 7,
+    [MenuAction.ADD_SNIPPET]: 8,
 };
 
 export function generateFloatingAddMenuOptions(
@@ -106,6 +109,7 @@ function* generateOptions(
         withAttachments,
         withBlockquotes,
         withButtonBlocks,
+        withCallouts,
         withCoverage,
         withDivider,
         withTables,
@@ -162,6 +166,18 @@ function* generateOptions(
             text: 'Quote',
             keywords: ['citation'],
             description: 'Highlight a text section',
+        };
+    }
+
+    if (withCallouts) {
+        yield {
+            icon: Icons.ComponentCallout,
+            action: MenuAction.ADD_CALLOUT,
+            group: Group.TEXT_N_LAYOUT,
+            text: 'Callout',
+            keywords: ['highlight', 'alert', 'note', 'warning'],
+            description: 'Make your text stand out',
+            isNew: true,
         };
     }
 

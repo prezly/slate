@@ -7,6 +7,7 @@ import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { ButtonBlockExtension } from '#extensions/button-block';
+import { CalloutExtension } from '#extensions/callout';
 import { CoverageExtension } from '#extensions/coverage';
 import { CustomNormalizationExtension } from '#extensions/custom-normalization';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
@@ -66,6 +67,7 @@ type Parameters = {
     | 'withAutoformat'
     | 'withBlockquotes'
     | 'withButtonBlocks'
+    | 'withCallouts'
     | 'withCoverage'
     | 'withCustomNormalization'
     | 'withDivider'
@@ -100,6 +102,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         withAutoformat,
         withBlockquotes,
         withButtonBlocks,
+        withCallouts,
         withCoverage,
         withCustomNormalization,
         withDivider,
@@ -154,6 +157,10 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withButtonBlocks) {
         const config = withButtonBlocks === true ? {} : withButtonBlocks;
         yield ButtonBlockExtension(config);
+    }
+
+    if (withCallouts) {
+        yield CalloutExtension();
     }
 
     if (withDivider) {
