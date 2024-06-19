@@ -20,6 +20,7 @@ import {
     TABLE_CELL_NODE_TYPE,
     isTableCellNode,
     BookmarkNode,
+    CalloutNode,
 } from '@prezly/slate-types';
 import { Text, Transforms } from 'slate';
 
@@ -42,6 +43,9 @@ import { combineFixers } from './utils';
 export const hierarchySchema: NodesHierarchySchema = {
     [ATTACHMENT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [BookmarkNode.TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
+    [CalloutNode.TYPE]: [
+        allowChildren(isInlineNode, combineFixers([fixers.unwrapNode, fixers.liftNodeNoSplit])),
+    ],
     [CONTACT_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [COVERAGE_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [DIVIDER_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],

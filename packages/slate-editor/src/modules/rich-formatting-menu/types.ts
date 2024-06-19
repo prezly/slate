@@ -6,6 +6,7 @@ import type {
     QuoteNode,
     HeadingRole,
 } from '@prezly/slate-types';
+import { CalloutNode } from '@prezly/slate-types';
 import {
     isHeadingNode,
     isListNode,
@@ -21,7 +22,13 @@ export type FetchOEmbedFn = (url: string) => Promise<OEmbedInfo>;
 
 export type Presentation = 'card' | 'embed' | 'link';
 
-export type RichFormattedTextElement = ParagraphNode | HeadingNode | QuoteNode | ListNode;
+export type RichFormattedTextElement =
+    | ParagraphNode
+    | HeadingNode
+    | QuoteNode
+    | CalloutNode
+    | ListNode;
+
 export type Formatting =
     | RichFormattedTextElement['type']
     | `${HeadingRole}`
@@ -33,6 +40,7 @@ export function isRichFormattedTextElement(node: Node): node is RichFormattedTex
         isParagraphNode(node) ||
         isHeadingNode(node) ||
         isQuoteNode(node) ||
+        CalloutNode.isCalloutNode(node) ||
         isListNode(node) ||
         isTableNode(node) ||
         isTableRowNode(node) ||

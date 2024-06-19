@@ -5,4 +5,5 @@ export interface Stylable {
     superscript?: boolean;
     underlined?: boolean;
     selection?: boolean;
+    highlighted?: boolean;
 }

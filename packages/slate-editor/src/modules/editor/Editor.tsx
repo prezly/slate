@@ -30,6 +30,7 @@ import { ReactEditor, Slate } from 'slate-react';
 import { useFunction, useGetSet, useSize } from '#lib';
 
 import { insertButtonBlock } from '#extensions/button-block';
+import { insertCallout } from '#extensions/callout';
 import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
@@ -85,6 +86,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withAutoformat = false,
         withBlockquotes = false,
         withButtonBlocks = false,
+        withCallouts = false,
         withCoverage = false,
         withCursorInView = false,
         withCustomNormalization = false,
@@ -105,6 +107,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withStoryBookmarks = false,
         withStoryEmbeds = false,
         withSnippets = false,
+        withTextHighlight = false,
         withTextStyling = false,
         withTables = false,
         withUserMentions = false,
@@ -147,6 +150,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withAutoformat,
             withBlockquotes,
             withButtonBlocks,
+            withCallouts,
             withCoverage,
             withCustomNormalization,
             withDivider,
@@ -314,6 +318,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withAttachments,
         withBlockquotes,
         withButtonBlocks: Boolean(withButtonBlocks),
+        withCallouts: withCallouts,
         withCoverage: Boolean(withCoverage),
         withDivider,
         withTables: Boolean(withTables),
@@ -365,6 +370,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         if (action === MenuAction.ADD_BUTTON_BLOCK) {
             const button = insertButtonBlock(editor, {}, align);
             EditorCommands.selectNode(editor, button);
+            return;
+        }
+        if (action === MenuAction.ADD_CALLOUT) {
+            const callout = insertCallout(editor, { align });
+            EditorCommands.selectNode(editor, callout);
             return;
         }
         if (action === MenuAction.ADD_CONTACT) {
@@ -883,6 +893,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         defaultAlignment={align}
                                         withAlignment={withAlignmentControls}
                                         withBlockquotes={withBlockquotes}
+                                        withCallouts={withCallouts}
                                         withConversionOptions={
                                             typeof withRichFormattingMenu === 'object'
                                                 ? withRichFormattingMenu.withConversionOptions
@@ -896,6 +907,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                                 ? withRichFormattingMenu.withNewTabOption
                                                 : false,
                                         )}
+                                        withTextHighlight={withTextHighlight}
                                         withParagraphs
                                     />
                                 )}

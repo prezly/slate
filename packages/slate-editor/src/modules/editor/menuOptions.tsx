@@ -8,6 +8,7 @@ import { UploadcareEditor } from '#modules/uploadcare';
 export enum MenuAction {
     ADD_ATTACHMENT = 'add_attachment',
     ADD_BUTTON_BLOCK = 'add_button_block',
+    ADD_CALLOUT = 'add_callout',
     ADD_CONTACT = 'add_contact',
     ADD_COVERAGE = 'add_coverage',
     ADD_DIVIDER = 'add_divider',
@@ -60,6 +61,7 @@ interface Params {
     withAttachments: boolean;
     withBlockquotes: boolean;
     withButtonBlocks: boolean;
+    withCallouts: boolean;
     withCoverage: boolean;
     withDivider: boolean;
     withTables: boolean;
@@ -88,8 +90,9 @@ const Suggested: Partial<Record<MenuAction, number>> = {
     [MenuAction.ADD_CONTACT]: 3,
     [MenuAction.ADD_GALLERY]: 4,
     [MenuAction.ADD_DIVIDER]: 5,
-    [MenuAction.ADD_ATTACHMENT]: 6,
-    [MenuAction.ADD_SNIPPET]: 7,
+    [MenuAction.ADD_CALLOUT]: 6,
+    [MenuAction.ADD_ATTACHMENT]: 7,
+    [MenuAction.ADD_SNIPPET]: 8,
 };
 
 export function generateFloatingAddMenuOptions(
@@ -106,6 +109,7 @@ function* generateOptions(
         withAttachments,
         withBlockquotes,
         withButtonBlocks,
+        withCallouts,
         withCoverage,
         withDivider,
         withTables,
@@ -165,6 +169,18 @@ function* generateOptions(
         };
     }
 
+    if (withCallouts) {
+        yield {
+            icon: Icons.ComponentCallout,
+            action: MenuAction.ADD_CALLOUT,
+            group: Group.TEXT_N_LAYOUT,
+            text: 'Callout',
+            keywords: ['highlight', 'alert', 'note', 'warning'],
+            description: 'Make your text stand out',
+            isNew: true,
+        };
+    }
+
     if (withDivider) {
         yield {
             icon: Icons.ComponentDivider,
@@ -184,7 +200,6 @@ function* generateOptions(
             text: 'Button',
             description: 'Insert a link button',
             keywords: ['cta', 'call to action', 'calltoaction', 'link', 'anchor'],
-            isNew: true,
         };
     }
 
@@ -278,7 +293,6 @@ function* generateOptions(
             text: 'Podcast',
             keywords: ['audio', 'transistor', 'rumble', 'anchor', 'spotify', 'apple', 'google'],
             description: 'Insert a podcast link',
-            isNew: true,
         };
 
         yield {
@@ -288,7 +302,6 @@ function* generateOptions(
             keywords: ['mp3', 'music', 'song'],
             text: 'Audio',
             description: 'Insert audio link',
-            isNew: true,
         };
 
         yield {
@@ -354,7 +367,6 @@ function* generateOptions(
     if (withVideos && withSpecificProviderOptions) {
         yield {
             action: MenuAction.ADD_YOUTUBE,
-            isNew: true,
             keywords: ['video', 'yt', 'reels', 'utube'],
             icon: Icons.ComponentYouTube,
             group: Group.EMBEDS,
@@ -371,7 +383,6 @@ function* generateOptions(
             text: 'X',
             description: 'Embed a social media link',
             keywords: ['twitter', 'tweet', 'social'],
-            isNew: true,
         };
 
         yield {
@@ -381,11 +392,9 @@ function* generateOptions(
             text: 'Instagram',
             description: 'Embed a social media link',
             keywords: ['ig', 'photo', 'foto', 'social'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_TIKTOK,
-            isNew: true,
             keywords: ['social', 'video'],
             icon: Icons.ComponentTikTok,
             group: Group.EMBEDS,
@@ -399,7 +408,6 @@ function* generateOptions(
             text: 'Dropbox',
             description: 'Embed a share link',
             keywords: ['db', 'files', 'share'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_SOUNDCLOUD,
@@ -408,7 +416,6 @@ function* generateOptions(
             text: 'SoundCloud',
             description: 'Embed an audio link',
             keywords: ['audio', 'mp3', 'music', 'song', 'track'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_SPOTIFY,
@@ -417,7 +424,6 @@ function* generateOptions(
             text: 'Spotify',
             description: 'Embed an audio link',
             keywords: ['audio', 'mp3', 'music', 'song', 'track'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_FACEBOOK,
@@ -426,7 +432,6 @@ function* generateOptions(
             text: 'Facebook',
             description: 'Embed a social media link',
             keywords: ['post', 'fb', 'social'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_GIPHY,
@@ -435,14 +440,12 @@ function* generateOptions(
             text: 'Giphy',
             description: 'Insert embeddable content',
             keywords: ['gif', 'video', 'photo', 'foto', 'social'],
-            isNew: true,
         };
     }
 
     if (withVideos && withSpecificProviderOptions) {
         yield {
             action: MenuAction.ADD_VIMEO,
-            isNew: true,
             keywords: ['video'],
             icon: Icons.ComponentVimeo,
             group: Group.EMBEDS,
@@ -459,7 +462,6 @@ function* generateOptions(
             text: 'Calendly',
             description: 'Embed a calendar link',
             keywords: ['invite', 'event', 'schedule'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_EVENTBRITE,
@@ -468,7 +470,6 @@ function* generateOptions(
             text: 'Eventbrite',
             description: 'Embed an event link',
             keywords: ['invite', 'event', 'schedule'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_MICROSOFT_TEAMS,
@@ -477,7 +478,6 @@ function* generateOptions(
             text: 'Microsoft Teams',
             description: 'Embed an event link',
             keywords: ['teams', 'ms', 'meeting'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_GOOGLE_MAPS,
@@ -486,7 +486,6 @@ function* generateOptions(
             text: 'Google Maps',
             description: 'Embed a map',
             keywords: ['map', 'address'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_GOOGLE_DOCS,
@@ -495,7 +494,6 @@ function* generateOptions(
             text: 'Google Docs',
             description: 'Embed a document',
             keywords: ['doc', 'gdoc', 'document'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_GOOGLE_SHEETS,
@@ -504,7 +502,6 @@ function* generateOptions(
             text: 'Google Sheets',
             description: 'Embed a spreadsheet',
             keywords: ['sheet', 'gsheet', 'spreadsheet'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_TYPEFORM,
@@ -513,7 +510,6 @@ function* generateOptions(
             text: 'Typeform',
             description: 'Insert a form',
             keywords: ['form', 'survey'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_TALLY,
@@ -522,7 +518,6 @@ function* generateOptions(
             text: 'Tally',
             description: 'Insert a form',
             keywords: ['form', 'survey'],
-            isNew: true,
         };
         yield {
             action: MenuAction.ADD_PINTEREST,
@@ -531,7 +526,6 @@ function* generateOptions(
             text: 'Pinterest',
             description: 'Embed a social media link',
             keywords: ['social', 'image'],
-            isNew: true,
         };
     }
 

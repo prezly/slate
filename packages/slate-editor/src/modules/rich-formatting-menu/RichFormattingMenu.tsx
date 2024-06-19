@@ -35,11 +35,13 @@ interface Props {
     defaultAlignment: Alignment;
     withAlignment: boolean;
     withBlockquotes: boolean;
+    withCallouts: boolean;
     withConversionOptions?: false | { fetchOembed: FetchOEmbedFn };
     withHeadings: boolean;
     withInlineLinks: boolean;
     withLists: boolean;
     withNewTabOption: boolean;
+    withTextHighlight: boolean;
     withParagraphs: boolean;
 }
 
@@ -63,11 +65,13 @@ export function RichFormattingMenu({
     defaultAlignment,
     withAlignment,
     withBlockquotes,
+    withCallouts,
     withConversionOptions = false,
     withHeadings,
     withInlineLinks,
     withLists,
     withNewTabOption,
+    withTextHighlight,
     withParagraphs,
 }: Props) {
     const editor = useSlate();
@@ -82,6 +86,7 @@ export function RichFormattingMenu({
 
     const alignment = EditorCommands.getAlignment(editor, defaultAlignment);
     const isBoldActive = EditorCommands.isMarkActive(editor, MarkType.BOLD);
+    const isHighlightActive = EditorCommands.isMarkActive(editor, MarkType.HIGHLIGHTED);
     const isItalicActive = EditorCommands.isMarkActive(editor, MarkType.ITALIC);
     const isUnderlineActive = EditorCommands.isMarkActive(editor, MarkType.UNDERLINED);
     const isSuperScriptActive = EditorCommands.isMarkActive(editor, MarkType.SUPERSCRIPT);
@@ -240,6 +245,7 @@ export function RichFormattingMenu({
                     // state
                     alignment={alignment}
                     isBold={isBoldActive}
+                    isHighlight={isHighlightActive}
                     isItalic={isItalicActive}
                     isUnderline={isUnderlineActive}
                     isSubScript={isSubScriptActive}
@@ -249,6 +255,7 @@ export function RichFormattingMenu({
                     // callbacks
                     onAlignment={handleAlignmentChange}
                     onBold={() => EditorCommands.toggleMark(editor, MarkType.BOLD)}
+                    onHighlight={() => EditorCommands.toggleMark(editor, MarkType.HIGHLIGHTED)}
                     onItalic={() => EditorCommands.toggleMark(editor, MarkType.ITALIC)}
                     onUnderline={() => EditorCommands.toggleMark(editor, MarkType.UNDERLINED)}
                     onSubSuperScript={handleSubSupClick}
@@ -256,12 +263,14 @@ export function RichFormattingMenu({
                     onLink={handleLinkButtonClick}
                     // text style
                     withBold={!isInsideTableHeader}
+                    withHighlight={withTextHighlight}
                     withItalic
                     withUnderline
                     // formatting
                     withFormatting={isTitleSelected || isSubtitleSelected ? 'readonly' : true}
                     withAlignment={withAlignment}
                     withBlockquotes={withBlockquotes && !isInsideTable}
+                    withCallouts={withCallouts}
                     withHeadings={withHeadings && !isInsideTable}
                     withInlineLinks={
                         isTitleSelected || isSubtitleSelected ? false : withInlineLinks

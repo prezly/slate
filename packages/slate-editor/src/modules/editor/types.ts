@@ -105,6 +105,7 @@ export interface EditorProps {
     withAutoformat?: boolean | AutoformatParameters;
     withButtonBlocks?: boolean | ButtonBlockExtensionConfiguration;
     withBlockquotes?: boolean;
+    withCallouts?: boolean;
     withCoverage?:
         | false
         | (CoverageExtensionConfiguration &
@@ -145,6 +146,7 @@ export interface EditorProps {
               PlaceholdersExtensionParameters['withStoryEmbedPlaceholders']);
     withSnippets?: false | SnippetsExtensionParameters;
     withTables?: boolean;
+    withTextHighlight?: boolean;
     withTextStyling?: boolean;
     withUserMentions?: false | UserMentionsExtensionParameters;
     withVariables?: false | VariablesExtensionParameters;

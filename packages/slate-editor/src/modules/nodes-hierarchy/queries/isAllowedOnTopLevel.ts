@@ -1,5 +1,6 @@
 import {
     BookmarkNode,
+    CalloutNode,
     isAttachmentNode,
     isContactNode,
     isCoverageNode,
@@ -29,6 +30,7 @@ export function isAllowedOnTopLevel(node: Node) {
         isContactNode(node) ||
         isCoverageNode(node) ||
         ButtonBlockNode.isButtonBlockNode(node) ||
+        CalloutNode.isCalloutNode(node) ||
         isDividerNode(node) ||
         EmbedNode.isEmbedNode(node) ||
         isGalleryNode(node) ||

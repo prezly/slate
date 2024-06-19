@@ -7,6 +7,7 @@ import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { AutoformatExtension } from '#extensions/autoformat';
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { ButtonBlockExtension } from '#extensions/button-block';
+import { CalloutExtension } from '#extensions/callout';
 import { CoverageExtension } from '#extensions/coverage';
 import { CustomNormalizationExtension } from '#extensions/custom-normalization';
 import { DecorateSelectionExtension } from '#extensions/decorate-selection';
@@ -48,6 +49,7 @@ import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '#modules/uploadcare';
 
 import {
     BLOCKQUOTE_RULES,
+    CALLOUT_RULES,
     COMPOSITE_CHARACTERS_RULES,
     DIVIDER_RULES,
     HEADING_RULES,
@@ -66,6 +68,7 @@ type Parameters = {
     | 'withAutoformat'
     | 'withBlockquotes'
     | 'withButtonBlocks'
+    | 'withCallouts'
     | 'withCoverage'
     | 'withCustomNormalization'
     | 'withDivider'
@@ -100,6 +103,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         withAutoformat,
         withBlockquotes,
         withButtonBlocks,
+        withCallouts,
         withCoverage,
         withCustomNormalization,
         withDivider,
@@ -154,6 +158,10 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withButtonBlocks) {
         const config = withButtonBlocks === true ? {} : withButtonBlocks;
         yield ButtonBlockExtension(config);
+    }
+
+    if (withCallouts) {
+        yield CalloutExtension();
     }
 
     if (withDivider) {
@@ -357,6 +365,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withAutoformat) {
         const defaultRules = [
             ...(withBlockquotes ? BLOCKQUOTE_RULES : []),
+            ...(withCallouts ? CALLOUT_RULES : []),
             ...(withDivider ? DIVIDER_RULES : []),
             ...(withHeadings ? HEADING_RULES : []),
             ...(withLists ? LIST_RULES : []),

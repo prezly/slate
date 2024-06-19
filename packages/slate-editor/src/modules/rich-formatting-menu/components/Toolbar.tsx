@@ -7,6 +7,7 @@ import {
     AlignLeft,
     AlignRight,
     FormatBold,
+    FormatHighlight,
     FormatItalic,
     FormatStyleNormal,
     FormatStyleSubscript,
@@ -24,6 +25,7 @@ interface Props {
     alignment: Alignment[];
     formatting: Formatting;
     isBold: boolean;
+    isHighlight: boolean;
     isItalic: boolean;
     isUnderline: boolean;
     isSubScript: boolean;
@@ -32,6 +34,7 @@ interface Props {
     // callbacks
     onAlignment: (align: Alignment) => void;
     onBold: () => void;
+    onHighlight: () => void;
     onItalic: () => void;
     onUnderline: () => void;
     onSubSuperScript: () => void;
@@ -39,12 +42,14 @@ interface Props {
     onFormatting: (formatting: Formatting) => void;
     // text style
     withBold: boolean;
+    withHighlight: boolean;
     withItalic: boolean;
     withUnderline: boolean;
     // formatting
     withFormatting: boolean | 'readonly';
     withAlignment: boolean;
     withBlockquotes: boolean;
+    withCallouts: boolean;
     withHeadings: boolean;
     withInlineLinks: boolean;
     withLists: boolean;
@@ -57,6 +62,7 @@ export function Toolbar({
     // state
     alignment,
     isBold,
+    isHighlight,
     isItalic,
     isUnderline,
     isSubScript,
@@ -66,6 +72,7 @@ export function Toolbar({
     // callbacks
     onAlignment,
     onBold,
+    onHighlight,
     onItalic,
     onUnderline,
     onSubSuperScript,
@@ -73,12 +80,14 @@ export function Toolbar({
     onFormatting,
     // text style
     withBold,
+    withHighlight,
     withItalic,
     withUnderline,
     // formatting
     withFormatting = true,
     withAlignment,
     withBlockquotes,
+    withCallouts,
     withInlineLinks,
     withHeadings,
     withLists,
@@ -116,6 +125,11 @@ export function Toolbar({
                     {isSuperScript && <Menu.Icon icon={FormatStyleSuperscript} />}
                     {!(isSubScript || isSuperScript) && <Menu.Icon icon={FormatStyleNormal} />}
                 </Menu.Button>
+                {withHighlight && (
+                    <Menu.Button active={isHighlight} onClick={onHighlight} title="Highlight">
+                        <Menu.Icon icon={FormatHighlight} />
+                    </Menu.Button>
+                )}
             </Menu.ButtonGroup>
 
             {withAlignment && (
@@ -169,6 +183,7 @@ export function Toolbar({
                         disabled={withFormatting === 'readonly'}
                         title="Block formatting"
                         withBlockquotes={withBlockquotes}
+                        withCallouts={withCallouts}
                         withHeadings={withHeadings}
                         withLists={withLists}
                         withParagraphs={withParagraphs}

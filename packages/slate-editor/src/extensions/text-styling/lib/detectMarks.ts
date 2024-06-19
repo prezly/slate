@@ -2,6 +2,7 @@ import { MarkType } from '../types';
 
 import { detectMark } from './detectMark';
 import { isBold } from './isBold';
+import { isHighlighted } from './isHighlighted';
 import { isItalic } from './isItalic';
 import { isSubscript } from './isSubscript';
 import { isSuperscript } from './isSuperscript';
@@ -30,6 +31,10 @@ export function detectMarks(element: HTMLElement): Partial<Record<MarkType, true
 
     if (detectMark(element, isUnderline)) {
         marks[MarkType.UNDERLINED] = true;
+    }
+
+    if (detectMark(element, isHighlighted)) {
+        marks[MarkType.HIGHLIGHTED] = true;
     }
 
     return marks;
