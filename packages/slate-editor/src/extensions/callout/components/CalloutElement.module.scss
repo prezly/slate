@@ -60,7 +60,7 @@
         border-color: $callout-block-border-color;
 
         &::before {
-            content: '';
+            content: "";
             background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 6H9.5M6 2.5V9.5' stroke='%23374151' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
             background-position: center center;
             background-repeat: no-repeat;

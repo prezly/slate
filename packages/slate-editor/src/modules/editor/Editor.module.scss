@@ -14,7 +14,8 @@
     mark {
         background: $editor-highlighted-text-bg;
 
-        &, * {
+        &,
+        * {
             ::selection {
                 background: $editor-highlighted-text-selection-bg;
             }
