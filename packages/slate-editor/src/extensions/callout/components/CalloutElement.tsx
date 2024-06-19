@@ -8,6 +8,7 @@ import type { HTMLAttributes, Ref } from 'react';
 import React, { forwardRef, useCallback, useState } from 'react';
 import { useRootClose } from 'react-overlays';
 import { Popper } from 'react-popper';
+import { Transforms } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
 
 import { NewParagraphDelimiter } from '#components';
@@ -28,6 +29,7 @@ export const CalloutElement = forwardRef(
         const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
 
         const togglePicker = useCallback(() => {
+            Transforms.collapse(editor);
             setPickerOpen((open) => !open);
         }, []);
 
