@@ -175,7 +175,6 @@ function Picker(props: {
                     <label className={styles.NoIconOption}>
                         <input
                             type="checkbox"
-                            style={{}}
                             onInput={() => props.onPick(null)}
                             disabled={props.empty}
                             checked={props.empty}
