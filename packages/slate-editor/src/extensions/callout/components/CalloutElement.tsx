@@ -7,11 +7,11 @@ import EmojiPicker, { EmojiStyle, SuggestionMode } from 'emoji-picker-react';
 import type { HTMLAttributes, Ref } from 'react';
 import React, { forwardRef, useCallback, useState } from 'react';
 import { useRootClose } from 'react-overlays';
-import { Popper } from 'react-popper';
+import { type Modifier, Popper } from 'react-popper';
 import { Transforms } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
 
-import { NewParagraphDelimiter } from '#components';
+import { NewParagraphDelimiter, TooltipV2 } from '#components';
 import { mergeRefs } from '#lib';
 
 import { updateCallout } from '../lib';
@@ -26,7 +26,7 @@ export const CalloutElement = forwardRef(
     ({ children, className, element, ...props }: Props, ref: Ref<HTMLDivElement>) => {
         const editor = useSlateStatic();
         const [isPickerOpen, setPickerOpen] = useState(false);
-        const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
+        const [buttonElement, setButtonElement] = useState<HTMLElement | null>(null);
 
         const togglePicker = useCallback(() => {
             Transforms.collapse(editor);
@@ -52,11 +52,26 @@ export const CalloutElement = forwardRef(
                         [styles.alignRight]: align === Alignment.RIGHT,
                     })}
                 >
-                    <IconButton
-                        icon={element.icon ?? null}
-                        onClick={togglePicker}
-                        ref={setReferenceElement}
-                    />
+                    <TooltipV2.Tooltip
+                        enabled={!isPickerOpen}
+                        tooltip={<Tooltip empty={!element.icon} />}
+                        placement="bottom"
+                    >
+                        {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
+                            <IconButton
+                                {...ariaAttributes}
+                                onMouseEnter={onShow}
+                                onMouseLeave={onHide}
+                                icon={element.icon ?? null}
+                                onClick={togglePicker}
+                                ref={mergeRefs<HTMLButtonElement>(
+                                    setReferenceElement,
+                                    setButtonElement,
+                                )}
+                            />
+                        )}
+                    </TooltipV2.Tooltip>
+
                     {isPickerOpen && (
                         <Picker
                             empty={!element.icon}
@@ -65,7 +80,7 @@ export const CalloutElement = forwardRef(
                                 updateCallout(editor, element, { icon: icon ?? '' });
                                 closePicker();
                             }}
-                            referenceElement={referenceElement}
+                            referenceElement={buttonElement}
                             placement={selectPlacement(align)}
                         />
                     )}
@@ -91,28 +106,37 @@ export const CalloutElement = forwardRef(
 CalloutElement.displayName = 'CalloutElement';
 
 const IconButton = forwardRef(
-    (props: { icon: string | null; onClick: () => void }, ref: Ref<HTMLButtonElement>) => {
+    (
+        props: { icon: string | null } & HTMLAttributes<HTMLButtonElement>,
+        ref: Ref<HTMLButtonElement>,
+    ) => {
+        const { icon, className, ...attributes } = props;
+        const empty = !icon;
         return (
             <button
-                className={classNames(styles.IconButton, {
-                    [styles.empty]: !props.icon,
+                className={classNames(styles.IconButton, className, {
+                    [styles.empty]: empty,
                 })}
                 contentEditable={false}
                 ref={ref}
-                title={
-                    !props.icon
-                        ? 'Add icon! If left empty, the icon will not appear in your story.'
-                        : 'Change icon'
-                }
-                onClick={props.onClick}
+                {...attributes}
             >
-                {props.icon}
+                {icon}
             </button>
         );
     },
 );
 
 IconButton.displayName = 'IconButton';
+
+const OFFSET_MODIFIER: Modifier<'offset'> = {
+    name: 'offset',
+    options: {
+        offset: [8, 8],
+    },
+};
+
+const MODIFIERS = [OFFSET_MODIFIER];
 
 function Picker(props: {
     empty: boolean;
@@ -130,6 +154,7 @@ function Picker(props: {
             referenceElement={props.referenceElement ?? undefined}
             placement={props.placement}
             strategy="absolute"
+            modifiers={MODIFIERS}
         >
             {({ ref, style }) => (
                 <div
@@ -161,6 +186,25 @@ function Picker(props: {
             )}
         </Popper>
     );
+}
+
+function Tooltip(props: { empty: boolean }) {
+    if (props.empty) {
+        return (
+            <div>
+                <strong>Add icon!</strong>
+                <br />
+                <span style={{ fontWeight: 'normal' }}>
+                    If left empty, the icon
+                    <br /> will not appear in your
+                    <br />
+                    story.
+                </span>
+            </div>
+        );
+    }
+
+    return 'Change icon';
 }
 
 function selectPlacement(align: Alignment): Placement {
