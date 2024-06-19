@@ -107,6 +107,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withStoryBookmarks = false,
         withStoryEmbeds = false,
         withSnippets = false,
+        withTextHighlight = false,
         withTextStyling = false,
         withTables = false,
         withUserMentions = false,
@@ -906,6 +907,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                                 ? withRichFormattingMenu.withNewTabOption
                                                 : false,
                                         )}
+                                        withTextHighlight={withTextHighlight}
                                         withParagraphs
                                     />
                                 )}

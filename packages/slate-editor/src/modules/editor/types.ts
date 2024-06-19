@@ -146,6 +146,7 @@ export interface EditorProps {
               PlaceholdersExtensionParameters['withStoryEmbedPlaceholders']);
     withSnippets?: false | SnippetsExtensionParameters;
     withTables?: boolean;
+    withTextHighlight?: boolean;
     withTextStyling?: boolean;
     withUserMentions?: false | UserMentionsExtensionParameters;
     withVariables?: false | VariablesExtensionParameters;

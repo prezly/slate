@@ -41,6 +41,7 @@ interface Props {
     withInlineLinks: boolean;
     withLists: boolean;
     withNewTabOption: boolean;
+    withTextHighlight: boolean;
     withParagraphs: boolean;
 }
 
@@ -70,6 +71,7 @@ export function RichFormattingMenu({
     withInlineLinks,
     withLists,
     withNewTabOption,
+    withTextHighlight,
     withParagraphs,
 }: Props) {
     const editor = useSlate();
@@ -261,7 +263,7 @@ export function RichFormattingMenu({
                     onLink={handleLinkButtonClick}
                     // text style
                     withBold={!isInsideTableHeader}
-                    withHighlight
+                    withHighlight={withTextHighlight}
                     withItalic
                     withUnderline
                     // formatting
