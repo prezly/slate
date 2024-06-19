@@ -86,7 +86,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withAutoformat = false,
         withBlockquotes = false,
         withButtonBlocks = false,
-        withCallouts = true, // FIXME
+        withCallouts = false,
         withCoverage = false,
         withCursorInView = false,
         withCustomNormalization = false,
