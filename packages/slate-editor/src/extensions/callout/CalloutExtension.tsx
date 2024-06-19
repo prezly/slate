@@ -5,14 +5,14 @@ import React from 'react';
 import { onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak } from '#lib';
 
 import { CalloutElement } from './components';
-import { normalizeRedundantAttributes } from './lib';
+import { normalizeAttributes } from './lib';
 
 export const EXTENSION_ID = 'CalloutExtension';
 
 export function CalloutExtension(): Extension {
     return {
         id: EXTENSION_ID,
-        normalizeNode: [normalizeRedundantAttributes],
+        normalizeNode: [normalizeAttributes],
         onKeyDown(event, editor) {
             return onBackspaceResetFormattingAtDocumentStart(
                 editor,
