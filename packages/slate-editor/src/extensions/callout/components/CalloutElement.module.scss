@@ -109,15 +109,43 @@
 
 .Picker {
     z-index: $editor-emoji-picker-z-index;
+    border: 1px solid $grey-200;
     border-radius: $border-radius-base;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11), inset 0 1px 0 $toolbar-dark-theme-border-color;
+    box-shadow: 0 4px 16px 0 rgba($grey-900, 0.1);
     background: white;
     overflow: hidden;
 
-    --epr-emoji-size: $spacing-3;
+    :global(.EmojiPickerReact) {
+        width: 310px;
+        --epr-emoji-size: #{$spacing-3};
+        --epr-search-input-bg-color: white;
+        --epr-search-input-bg-color-active: white;
+        --epr-picker-border-color: transparent;
+        --epr-picker-border-radius: 0;
+        --epr-category-label-text-color: #{$grey-500};
+        --epr-search-input-height: 30px;
+        --epr-search-input-padding: 0 30px;
+        --epr-search-bar-inner-padding: 8px;
+    }
 
     :global(.epr-category-nav) {
         display: none;
+    }
+
+    :global(.epr-search-container) input {
+        border-radius: $border-radius-base;
+        border: 1px solid $grey-200;
+
+        &:focus {
+            border-color: $grey-300;
+        }
+    }
+
+    :global(.epr-emoji-category-label) {
+        font-size: $font-size-smaller;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .NoIconOption {
@@ -133,6 +161,7 @@
         line-height: 1.2;
         color: $grey-700;
         user-select: none;
+        border-top: 1px solid $grey-200;
 
         input {
             width: $spacing-2;

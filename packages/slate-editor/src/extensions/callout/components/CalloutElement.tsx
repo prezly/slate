@@ -144,6 +144,8 @@ function Picker(props: {
                         skinTonesDisabled={true}
                         suggestedEmojisMode={SuggestionMode.RECENT}
                         emojiStyle={EmojiStyle.APPLE}
+                        width={275}
+                        height={350}
                     />
                     <label className={styles.NoIconOption}>
                         <input
