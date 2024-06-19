@@ -3,7 +3,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { CalloutNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import EmojiPicker, { SuggestionMode } from 'emoji-picker-react';
+import EmojiPicker, { EmojiStyle, SuggestionMode } from 'emoji-picker-react';
 import type { HTMLAttributes, Ref } from 'react';
 import { useState } from 'react';
 import React, { forwardRef } from 'react';
@@ -51,12 +51,16 @@ export const CalloutElement = forwardRef(
                     })}
                 >
                     <button
-                        className={classNames(styles.Icon, {
+                        className={classNames(styles.IconButton, {
                             [styles.empty]: !element.icon,
                         })}
                         contentEditable={false}
                         ref={setReferenceElement}
-                        title={element.icon ? 'Change icon' : 'Add icon'}
+                        title={
+                            element.icon
+                                ? 'Change icon'
+                                : 'Add icon! If left empty, the icon will not appear in your story.'
+                        }
                         onClick={() => togglePicker()}
                     >
                         {element.icon}
@@ -82,6 +86,7 @@ export const CalloutElement = forwardRef(
                                         previewConfig={{ showPreview: false }}
                                         skinTonesDisabled={true}
                                         suggestedEmojisMode={SuggestionMode.RECENT}
+                                        emojiStyle={EmojiStyle.APPLE}
                                     />
                                     <label className={styles.NoIconOption}>
                                         <input
