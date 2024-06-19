@@ -56,7 +56,7 @@ export const CalloutElement = forwardRef(
                         })}
                         contentEditable={false}
                         ref={setReferenceElement}
-                        title="Change icon"
+                        title={element.icon ? 'Change icon' : 'Add icon'}
                         onClick={() => togglePicker()}
                     >
                         {element.icon}
@@ -80,8 +80,22 @@ export const CalloutElement = forwardRef(
                                             setPickerOpen(false);
                                         }}
                                         previewConfig={{ showPreview: false }}
+                                        skinTonesDisabled={true}
                                         suggestedEmojisMode={SuggestionMode.RECENT}
                                     />
+                                    <label className={styles.NoIconOption}>
+                                        <input
+                                            type="checkbox"
+                                            style={{}}
+                                            onInput={() => {
+                                                updateCallout(editor, element, { icon: '' });
+                                                setPickerOpen(false);
+                                            }}
+                                            disabled={!element.icon}
+                                            checked={!element.icon}
+                                        />
+                                        <span>Don&apos;t show icon</span>
+                                    </label>
                                 </div>
                             )}
                         </Popper>

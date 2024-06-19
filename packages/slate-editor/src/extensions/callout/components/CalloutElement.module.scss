@@ -92,4 +92,36 @@
     z-index: $editor-emoji-picker-z-index;
     border-radius: $border-radius-base;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11), inset 0 1px 0 $toolbar-dark-theme-border-color;
+    background: white;
+    overflow: hidden;
+
+    --epr-emoji-size: $spacing-3;
+
+    :global(.epr-category-nav) {
+        display: none;
+    }
+
+    .NoIconOption {
+        display: flex;
+        flex-direction: row;
+        gap: $spacing-1;
+        padding: $spacing-1-5;
+        margin: 0;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: $font-size-smaller;
+        line-height: 1.2;
+        color: $grey-700;
+        user-select: none;
+
+        input {
+            width: $spacing-2;
+            height: $spacing-2;
+            flex-shrink: 0;
+            flex-grow: 0;
+            margin: 0;
+            cursor: pointer;
+        }
+    }
 }

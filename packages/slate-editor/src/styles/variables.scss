@@ -74,7 +74,7 @@ $editor-floating-button-margin: 12px;
 
 $editor-block-overlay-z-index: 10;
 $editor-floating-container-z-index: $editor-block-overlay-z-index + 1;
-$editor-emoji-picker-z-index: $editor-block-overlay-z-index + 2;
+$editor-emoji-picker-z-index: 20000; // to beat the paragraph [+] button & placeholder
 
 $editor-selection-bg: #c7d2fe;
 $editor-selection-color: #3630a3;
