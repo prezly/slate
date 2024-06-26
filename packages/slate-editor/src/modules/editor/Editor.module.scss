@@ -47,6 +47,11 @@
         margin-top: $spacing-4;
     }
 
+    > [data-slate-type="callout"] {
+        margin-top: $spacing-4;
+        margin-bottom: $spacing-4;
+    }
+
     > [data-slate-type="divider"] {
         /** Compensating .extendedHitArea visual expansion */
         margin: $spacing-3 0;

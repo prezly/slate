@@ -83,7 +83,9 @@
 }
 
 .Content {
-    line-height: 26px;
+    font-weight: 500;
+    font-size: $editor-paragraph-font-size;
+    line-height: $editor-paragraph-line-height;
 
     &.alignLeft {
         text-align: left;
