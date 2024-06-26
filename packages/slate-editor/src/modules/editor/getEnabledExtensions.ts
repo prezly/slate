@@ -1,6 +1,6 @@
 import { EditorCommands, type Extension } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
-import { isImageNode, isQuoteNode } from '@prezly/slate-types';
+import { CalloutNode, isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { Node } from 'slate';
 
 import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
@@ -406,7 +406,8 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     yield HtmlExtension();
 
     yield PasteSlateContentExtension({
-        isPreservedBlock: (_, node) => isImageNode(node) || isQuoteNode(node),
+        isPreservedBlock: (_, node) =>
+            isImageNode(node) || isQuoteNode(node) || CalloutNode.isCalloutNode(node),
     });
 }
 
