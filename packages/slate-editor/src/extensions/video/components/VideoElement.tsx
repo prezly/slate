@@ -93,6 +93,7 @@ export function VideoElement({
                     oembed.html &&
                     mode === 'iframe' ? (
                         <HtmlInjection
+                            className={styles.HtmlInjection}
                             html={oembed.html}
                             onError={() => setHtmlEmbeddedWithErrors(true)}
                         />
