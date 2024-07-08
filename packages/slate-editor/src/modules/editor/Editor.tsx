@@ -143,6 +143,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
 
     const extensions = Array.from(
         getEnabledExtensions({
+            align,
             availableWidth,
             onFloatingAddMenuToggle,
             withAllowedBlocks,
