@@ -1,5 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
+import type { Alignment } from '@prezly/slate-types';
 import { PARAGRAPH_NODE_TYPE, isParagraphNode } from '@prezly/slate-types';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -15,7 +16,11 @@ import {
 
 export const EXTENSION_ID = 'ParagraphsExtension';
 
-export const ParagraphsExtension = (): Extension => ({
+interface Parameters {
+    defaultAlignment: Alignment;
+}
+
+export const ParagraphsExtension = ({ defaultAlignment }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({
@@ -31,7 +36,11 @@ export const ParagraphsExtension = (): Extension => ({
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isParagraphNode(element)) {
             return (
-                <ParagraphElement attributes={attributes} element={element}>
+                <ParagraphElement
+                    attributes={attributes}
+                    defaultAlignment={defaultAlignment}
+                    element={element}
+                >
                     {children}
                 </ParagraphElement>
             );

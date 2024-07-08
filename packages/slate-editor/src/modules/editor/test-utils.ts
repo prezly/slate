@@ -1,4 +1,5 @@
 import { Events } from '@prezly/events';
+import { Alignment } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import type { Editor } from 'slate';
 
@@ -16,6 +17,7 @@ export function getAllExtensions() {
     const fetchOembed = createDelayedResolve(oembedInfo);
     return Array.from(
         getEnabledExtensions({
+            align: Alignment.LEFT,
             availableWidth: 1000,
             onFloatingAddMenuToggle: noop,
             withAllowedBlocks: {

@@ -1,5 +1,6 @@
 import { EditorCommands, type Extension } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
+import type { Alignment } from '@prezly/slate-types';
 import { CalloutNode, isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { Node } from 'slate';
 
@@ -59,6 +60,7 @@ import {
 import type { EditorProps } from './types';
 
 type Parameters = {
+    align: Alignment;
     availableWidth: number;
     onFloatingAddMenuToggle: (show: boolean, trigger: 'input' | 'hotkey') => void;
 } & Pick<
@@ -96,6 +98,7 @@ type Parameters = {
 
 export function* getEnabledExtensions(parameters: Parameters): Generator<Extension> {
     const {
+        align,
         availableWidth,
         onFloatingAddMenuToggle,
         withAllowedBlocks,
@@ -143,7 +146,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     yield DecorateSelectionExtension({ decorate: false });
 
     yield FlashNodesExtension();
-    yield ParagraphsExtension();
+    yield ParagraphsExtension({ defaultAlignment: align });
     yield SoftBreakExtension();
     yield InsertBlockHotkeyExtension({
         createDefaultElement: createParagraph,
