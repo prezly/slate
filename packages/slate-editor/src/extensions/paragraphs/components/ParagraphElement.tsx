@@ -1,4 +1,4 @@
-import type { ParagraphNode } from '@prezly/slate-types';
+import { Alignment, type ParagraphNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
 import React from 'react';
@@ -12,12 +12,14 @@ interface Props extends HTMLAttributes<HTMLParagraphElement> {
 }
 
 export function ParagraphElement({ attributes, children, className, element, ...props }: Props) {
+    const align = element.align || Alignment.LEFT;
+
     return (
         <p
             {...attributes}
             {...props}
             className={classNames(styles.ParagraphElement, className)}
-            style={{ textAlign: element.align }}
+            style={{ textAlign: align }}
         >
             {children}
         </p>
