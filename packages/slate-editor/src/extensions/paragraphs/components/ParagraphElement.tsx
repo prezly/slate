@@ -1,4 +1,4 @@
-import type { Alignment} from '@prezly/slate-types';
+import { Alignment} from '@prezly/slate-types';
 import { type ParagraphNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
@@ -21,9 +21,21 @@ export function ParagraphElement({ attributes, children, className, defaultAlign
             {...attributes}
             {...props}
             className={classNames(styles.ParagraphElement, className)}
-            style={{ textAlign: align }}
+            style={{ textAlign: getTextAlign(align) }}
         >
             {children}
         </p>
     );
+}
+
+function getTextAlign(align: Alignment) {
+    if (align === Alignment.CENTER) {
+        return 'center';
+    }
+
+    if (align === Alignment.RIGHT) {
+        return 'end';
+    }
+
+    return 'start';
 }
