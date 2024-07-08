@@ -103,6 +103,10 @@
         z-index: $editor-block-overlay-z-index - 1;
     }
 
+    &.overflowAuto {
+        overflow: auto;
+    }
+
     &.overflowHidden {
         overflow: hidden;
     }
