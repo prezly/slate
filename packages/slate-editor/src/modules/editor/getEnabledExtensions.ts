@@ -1,6 +1,6 @@
 import { EditorCommands, type Extension } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
-import type { Alignment} from '@prezly/slate-types';
+import type { Alignment } from '@prezly/slate-types';
 import { CalloutNode, isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { Node } from 'slate';
 
