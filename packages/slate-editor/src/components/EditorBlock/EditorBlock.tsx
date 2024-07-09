@@ -203,14 +203,12 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         [styles.border]: border,
                         [styles.editable]: Boolean(renderEditableFrame),
                         [styles.hasError]: hasError,
-                        [styles.overflowAuto]: overflow === 'auto',
-                        [styles.overflowHidden]: overflow === 'hidden',
-                        [styles.overflowVisible]: overflow === 'visible',
                         [styles.selected]: isSelected,
                     })}
                     onClick={handleFrameClick}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
+                    style={{ overflow }}
                 >
                     {renderInjectionPoint(renderEditableFrame ?? renderReadOnlyFrame, renderProps)}
                 </div>
