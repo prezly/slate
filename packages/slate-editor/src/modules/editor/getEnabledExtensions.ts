@@ -448,13 +448,18 @@ function buildPlaceholdersExtensionConfiguration({
                     withEmbeds && withPlaceholders && withPlaceholders.withPastedUrlsUnfurling
                         ? {
                               isAllowed(editor) {
+                                  const isSelectionEmpty = EditorCommands.isSelectionEmpty(editor);
                                   const isSelectionInEmptyParagraph =
                                       EditorCommands.isCursorInEmptyParagraph(editor);
                                   const isInsideTable = TablesEditor.isTablesEditor(editor)
                                       ? TablesEditor.isInTable(editor)
                                       : false;
 
-                                  return isSelectionInEmptyParagraph && !isInsideTable;
+                                  return (
+                                      isSelectionEmpty &&
+                                      isSelectionInEmptyParagraph &&
+                                      !isInsideTable
+                                  );
                               },
                               ...withPlaceholders.withPastedUrlsUnfurling,
                           }
