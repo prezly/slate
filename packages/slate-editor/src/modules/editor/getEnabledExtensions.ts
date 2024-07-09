@@ -449,11 +449,17 @@ function buildPlaceholdersExtensionConfiguration({
                         ? {
                               isAllowed(editor) {
                                   const isSelectionEmpty = EditorCommands.isSelectionEmpty(editor);
+                                  const isSelectionInEmptyParagraph =
+                                      EditorCommands.isCursorInEmptyParagraph(editor);
                                   const isInsideTable = TablesEditor.isTablesEditor(editor)
                                       ? TablesEditor.isInTable(editor)
                                       : false;
 
-                                  return isSelectionEmpty && !isInsideTable;
+                                  return (
+                                      isSelectionEmpty &&
+                                      isSelectionInEmptyParagraph &&
+                                      !isInsideTable
+                                  );
                               },
                               ...withPlaceholders.withPastedUrlsUnfurling,
                           }
