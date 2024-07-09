@@ -53,7 +53,7 @@ export interface Props
     layout?: `${Layout}`;
     loading?: boolean;
     menuPlacement?: PopperOptionsContextType['placement'];
-    overflow?: 'visible' | 'hidden';
+    overflow?: 'visible' | 'hidden' | 'auto';
     overlay?: OverlayMode;
     renderAboveFrame?: ((props: RenderProps) => ReactNode) | ReactNode;
     renderBelowFrame?: ((props: RenderProps) => ReactNode) | ReactNode;
@@ -203,13 +203,12 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                         [styles.border]: border,
                         [styles.editable]: Boolean(renderEditableFrame),
                         [styles.hasError]: hasError,
-                        [styles.overflowHidden]: overflow === 'hidden',
-                        [styles.overflowVisible]: overflow === 'visible',
                         [styles.selected]: isSelected,
                     })}
                     onClick={handleFrameClick}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
+                    style={{ overflow }}
                 >
                     {renderInjectionPoint(renderEditableFrame ?? renderReadOnlyFrame, renderProps)}
                 </div>

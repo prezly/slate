@@ -19,6 +19,7 @@ export function TableElement({ attributes, element, children }: Props) {
         <EditorBlock
             {...attributes} // contains `ref`
             element={element}
+            overflow="auto"
             overlay={false}
             renderMenu={() => <TableMenu element={element} />}
             renderEditableFrame={() => {
