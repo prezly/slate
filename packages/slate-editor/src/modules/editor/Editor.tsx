@@ -141,8 +141,45 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         [setFloatingAddMenuOpen],
     );
 
-    const extensions = Array.from(
-        getEnabledExtensions({
+    const extensions = useMemo(
+        () =>
+            Array.from(
+                getEnabledExtensions({
+                    align,
+                    availableWidth,
+                    onFloatingAddMenuToggle,
+                    withAllowedBlocks,
+                    withAttachments,
+                    withAutoformat,
+                    withBlockquotes,
+                    withButtonBlocks,
+                    withCallouts,
+                    withCoverage,
+                    withCustomNormalization,
+                    withDivider,
+                    withEmbeds,
+                    withFloatingAddMenu,
+                    withGalleries,
+                    withGalleryBookmarks,
+                    withHeadings,
+                    withImages,
+                    withInlineContacts,
+                    withInlineLinks,
+                    withLists,
+                    withPlaceholders,
+                    withPressContacts,
+                    withTextStyling,
+                    withTables,
+                    withUserMentions,
+                    withVariables,
+                    withVideos,
+                    withWebBookmarks,
+                    withStoryEmbeds,
+                    withStoryBookmarks,
+                    withSnippets,
+                }),
+            ),
+        [
             align,
             availableWidth,
             onFloatingAddMenuToggle,
@@ -175,7 +212,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withStoryEmbeds,
             withStoryBookmarks,
             withSnippets,
-        }),
+        ],
     );
 
     const { editor, onKeyDownList } = useCreateEditor({

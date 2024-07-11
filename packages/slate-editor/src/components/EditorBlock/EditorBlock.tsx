@@ -9,7 +9,7 @@ import type { RenderElementProps } from 'slate-react';
 import { ReactEditor, useSelected, useSlateStatic } from 'slate-react';
 
 import { NewParagraphDelimiter } from '#components';
-import { useFunction, useSlateDom } from '#lib';
+import { useFunction } from '#lib';
 
 import {
     type PopperOptionsContextType,
@@ -99,7 +99,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     }
 
     const editor = useSlateStatic();
-    const editorElement = useSlateDom(editor);
     const isNodeSelected = useSelected();
     const isOnlyBlockSelected =
         isNodeSelected &&
@@ -175,26 +174,19 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 ref={setContainer}
                 style={{ width }}
             >
-                {isOnlyBlockSelected &&
-                    !loading &&
-                    renderMenu &&
-                    container &&
-                    editorElement &&
-                    menuOpen && (
-                        <Menu
-                            className={styles.Menu}
-                            onClick={preventBubbling}
-                            popperOptions={{
-                                ...popperOptions,
-                                placement: menuPlacement ?? popperOptions.placement,
-                            }}
-                            reference={container}
-                        >
-                            {({ updatePosition }) =>
-                                renderMenu({ onClose: closeMenu, updatePosition })
-                            }
-                        </Menu>
-                    )}
+                {isOnlyBlockSelected && !loading && renderMenu && container && menuOpen && (
+                    <Menu
+                        className={styles.Menu}
+                        onClick={preventBubbling}
+                        popperOptions={{
+                            ...popperOptions,
+                            placement: menuPlacement ?? popperOptions.placement,
+                        }}
+                        reference={container}
+                    >
+                        {({ updatePosition }) => renderMenu({ onClose: closeMenu, updatePosition })}
+                    </Menu>
+                )}
                 {isOverlayEnabled && (
                     <Overlay className={styles.Overlay} onClick={handleFrameClick} />
                 )}
