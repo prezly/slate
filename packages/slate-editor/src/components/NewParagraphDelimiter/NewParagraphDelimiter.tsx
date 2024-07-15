@@ -38,6 +38,7 @@ export function NewParagraphDelimiter(props: Props) {
 
     return (
         <div
+            data-slate-void={true}
             data-new-paragraph-delimiter={true}
             data-new-paragraph-delimiter-position={position}
             className={classNames(styles.NewParagraphDelimiter, {
