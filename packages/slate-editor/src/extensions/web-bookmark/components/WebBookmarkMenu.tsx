@@ -58,7 +58,7 @@ function getPresentationOptions(element: BookmarkNode): OptionsGroupOption<Prese
             value: 'link',
             label: 'Link',
         },
-    ];
+    ].filter(({ disabled }) => !disabled) as OptionsGroupOption<Presentation>[];
 }
 
 export const WebBookmarkMenu: FunctionComponent<Props> = ({
