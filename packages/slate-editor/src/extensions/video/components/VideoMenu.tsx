@@ -94,22 +94,6 @@ export function VideoMenu({
         <>
             <Toolbox.Header>Video settings</Toolbox.Header>
 
-            {!isSelfHosted && (
-                <Toolbox.Section noPadding>
-                    <Button
-                        type="link"
-                        href={url}
-                        target="_blank"
-                        rel="noreferrer"
-                        icon={ExternalLink}
-                        iconPosition="right"
-                        fullWidth
-                    >
-                        Go to video
-                    </Button>
-                </Toolbox.Section>
-            )}
-
             {info.length > 0 && (
                 <Toolbox.Section>
                     <InfoText.Structured className={styles.Info}>{info}</InfoText.Structured>
@@ -138,6 +122,22 @@ export function VideoMenu({
                         onChange={onConvert}
                         variant="pills"
                     />
+                </Toolbox.Section>
+            )}
+
+            {!isSelfHosted && (
+                <Toolbox.Section noPadding>
+                    <Button
+                        type="link"
+                        href={url}
+                        target="_blank"
+                        rel="noreferrer"
+                        icon={ExternalLink}
+                        iconPosition="right"
+                        fullWidth
+                    >
+                        View video
+                    </Button>
                 </Toolbox.Section>
             )}
 
