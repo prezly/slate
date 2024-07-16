@@ -17,7 +17,13 @@ export function Header(props: React.PropsWithChildren<HeaderProps>) {
             <Caption withFullOpacity>{props.children}</Caption>
 
             {props.withCloseButton && (
-                <Button variant="clear" icon={Cross} onClick={props.onCloseClick} round />
+                <Button
+                    variant="clear"
+                    icon={Cross}
+                    onClick={props.onCloseClick}
+                    round
+                    size="small"
+                />
             )}
         </div>
     );
