@@ -81,6 +81,7 @@ export function FileAttachmentMenu({ element, onEdited, onRemoved }: Props) {
                         variant="primary"
                         fullWidth
                         round
+                        size="small"
                         onClick={handleUpdate}
                         disabled={!isFilenameValid}
                     >
@@ -90,8 +91,8 @@ export function FileAttachmentMenu({ element, onEdited, onRemoved }: Props) {
             </Toolbox.Section>
 
             <Toolbox.Footer>
-                <Button variant="clear-faded" icon={Delete} fullWidth onClick={handleRemove}>
-                    Remove attachment
+                <Button variant="clear" icon={Delete} fullWidth onClick={handleRemove}>
+                    Remove
                 </Button>
             </Toolbox.Footer>
         </Toolbox.Panel>

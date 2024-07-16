@@ -54,7 +54,7 @@ export function TableMenu({ element }: Props) {
                         variant="primary"
                         fullWidth
                         round
-                        noPadding
+                        size="tiny"
                         onClick={() => {
                             TablesEditor.insertRowAbove(editor);
                             EventsEditor.dispatchEvent(editor, 'table-insert-row-above');
@@ -67,7 +67,7 @@ export function TableMenu({ element }: Props) {
                         variant="primary"
                         fullWidth
                         round
-                        noPadding
+                        size="tiny"
                         onClick={() => {
                             TablesEditor.insertRowBelow(editor);
                             EventsEditor.dispatchEvent(editor, 'table-insert-row-below');
@@ -79,6 +79,7 @@ export function TableMenu({ element }: Props) {
                         icon={Delete}
                         variant="primary"
                         round
+                        size="small"
                         onClick={() => {
                             TablesEditor.removeRow(editor);
                             EventsEditor.dispatchEvent(editor, 'table-remove-row');
@@ -94,7 +95,7 @@ export function TableMenu({ element }: Props) {
                         variant="primary"
                         fullWidth
                         round
-                        noPadding
+                        size="tiny"
                         onClick={() => {
                             TablesEditor.insertColumnLeft(editor);
                             EventsEditor.dispatchEvent(editor, 'table-insert-column-left');
@@ -107,7 +108,7 @@ export function TableMenu({ element }: Props) {
                         variant="primary"
                         fullWidth
                         round
-                        noPadding
+                        size="tiny"
                         onClick={() => {
                             TablesEditor.insertColumnRight(editor);
                             EventsEditor.dispatchEvent(editor, 'table-insert-column-right');
@@ -119,6 +120,7 @@ export function TableMenu({ element }: Props) {
                         icon={Delete}
                         variant="primary"
                         round
+                        size="small"
                         onClick={() => {
                             TablesEditor.removeColumn(editor);
                             EventsEditor.dispatchEvent(editor, 'table-remove-column');
@@ -129,7 +131,7 @@ export function TableMenu({ element }: Props) {
 
             <Toolbox.Footer>
                 <Button
-                    variant="clear-faded"
+                    variant="clear"
                     icon={Delete}
                     fullWidth
                     onClick={() => {
@@ -137,7 +139,7 @@ export function TableMenu({ element }: Props) {
                         EventsEditor.dispatchEvent(editor, 'table-remove');
                     }}
                 >
-                    Remove table
+                    Remove
                 </Button>
             </Toolbox.Footer>
         </Toolbox.Panel>

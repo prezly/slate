@@ -90,20 +90,6 @@ export function EmbedMenu({
         <>
             <Toolbox.Header>Embed settings</Toolbox.Header>
 
-            <Toolbox.Section noPadding>
-                <Button
-                    type="link"
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer"
-                    icon={ExternalLink}
-                    iconPosition="right"
-                    fullWidth
-                >
-                    View
-                </Button>
-            </Toolbox.Section>
-
             {info.length > 0 && (
                 <Toolbox.Section>
                     <InfoText.Structured className={styles.Info}>{info}</InfoText.Structured>
@@ -135,9 +121,23 @@ export function EmbedMenu({
                 </Toolbox.Section>
             )}
 
+            <Toolbox.Section noPadding>
+                <Button
+                    type="link"
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer"
+                    icon={ExternalLink}
+                    iconPosition="right"
+                    fullWidth
+                >
+                    View embed
+                </Button>
+            </Toolbox.Section>
+
             <Toolbox.Footer>
-                <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>
-                    Remove embed
+                <Button variant="clear" icon={Delete} fullWidth onClick={onRemove}>
+                    Remove
                 </Button>
             </Toolbox.Footer>
         </>

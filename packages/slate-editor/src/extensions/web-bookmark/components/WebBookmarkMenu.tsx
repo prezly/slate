@@ -91,20 +91,6 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
         <>
             <Toolbox.Header>Web bookmark settings</Toolbox.Header>
 
-            <Toolbox.Section noPadding>
-                <Button
-                    type="link"
-                    href={element.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    icon={ExternalLink}
-                    iconPosition="right"
-                    fullWidth
-                >
-                    View
-                </Button>
-            </Toolbox.Section>
-
             <Toolbox.Section caption="Preview image">
                 <Toggle
                     disabled={!element.oembed.thumbnail_url}
@@ -150,9 +136,23 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
                 </Toolbox.Section>
             )}
 
+            <Toolbox.Section noPadding>
+                <Button
+                    type="link"
+                    href={element.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    icon={ExternalLink}
+                    iconPosition="right"
+                    fullWidth
+                >
+                    View website
+                </Button>
+            </Toolbox.Section>
+
             <Toolbox.Footer>
-                <Button variant="clear-faded" icon={Delete} fullWidth onMouseDown={handleRemove}>
-                    Remove web bookmark
+                <Button variant="clear" icon={Delete} fullWidth onMouseDown={handleRemove}>
+                    Remove
                 </Button>
             </Toolbox.Footer>
         </>

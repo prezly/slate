@@ -54,39 +54,6 @@ export function StoryBookmarkMenu({
         <>
             <Toolbox.Header>Story bookmark settings</Toolbox.Header>
 
-            <Toolbox.Section noPadding>
-                <ButtonGroup>
-                    {[
-                        <Button
-                            type="link"
-                            key="edit"
-                            variant="clear"
-                            icon={ExternalLink}
-                            iconPosition="right"
-                            fullWidth
-                            target="_blank"
-                            disabled={!editUrl}
-                            href={editUrl ?? 'javascript:void(0)'}
-                        >
-                            Edit
-                        </Button>,
-                        <Button
-                            type="link"
-                            key="preview"
-                            variant="clear"
-                            icon={ExternalLink}
-                            iconPosition="right"
-                            fullWidth
-                            target="_blank"
-                            disabled={!previewUrl}
-                            href={previewUrl ?? 'javascript:void(0)'}
-                        >
-                            Preview
-                        </Button>,
-                    ]}
-                </ButtonGroup>
-            </Toolbox.Section>
-
             <Toolbox.Section caption="Preview image">
                 <Toggle
                     name="show_preview"
@@ -121,9 +88,42 @@ export function StoryBookmarkMenu({
                 </VStack>
             </Toolbox.Section>
 
+            <Toolbox.Section noPadding>
+                <ButtonGroup>
+                    {[
+                        <Button
+                            type="link"
+                            key="edit"
+                            variant="clear"
+                            icon={ExternalLink}
+                            iconPosition="right"
+                            fullWidth
+                            target="_blank"
+                            disabled={!editUrl}
+                            href={editUrl ?? 'javascript:void(0)'}
+                        >
+                            Edit story
+                        </Button>,
+                        <Button
+                            type="link"
+                            key="preview"
+                            variant="clear"
+                            icon={ExternalLink}
+                            iconPosition="right"
+                            fullWidth
+                            target="_blank"
+                            disabled={!previewUrl}
+                            href={previewUrl ?? 'javascript:void(0)'}
+                        >
+                            View story
+                        </Button>,
+                    ]}
+                </ButtonGroup>
+            </Toolbox.Section>
+
             <Toolbox.Footer>
-                <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>
-                    Remove Story bookmark
+                <Button variant="clear" icon={Delete} fullWidth onClick={onRemove}>
+                    Remove
                 </Button>
             </Toolbox.Footer>
         </>

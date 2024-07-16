@@ -37,8 +37,8 @@ function EditButton(props: { onClick: () => void }) {
 
 function RemoveButton(props: { onClick: () => void }) {
     return (
-        <Button variant="clear-faded" icon={Delete} fullWidth onClick={props.onClick}>
-            Remove contact
+        <Button variant="clear" icon={Delete} fullWidth onClick={props.onClick}>
+            Remove
         </Button>
     );
 }

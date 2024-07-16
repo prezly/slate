@@ -6,13 +6,13 @@ import { HStack } from '#components';
 import styles from './Button.module.scss';
 
 interface ButtonBaseProps {
-    variant?: 'primary' | 'secondary' | 'clear' | 'clear-faded' | 'underlined';
+    variant?: 'primary' | 'secondary' | 'clear' | 'underlined';
     icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     iconPosition?: 'left' | 'right';
     fullWidth?: boolean;
     round?: boolean;
-    noPadding?: boolean;
     disabled?: boolean;
+    size?: 'tiny' | 'small' | 'medium';
 }
 
 interface AsButtonProps extends ButtonBaseProps, React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -32,9 +32,9 @@ export function Button({
     fullWidth,
     type,
     round,
-    noPadding,
     disabled,
     children,
+    size,
     ...attributes
 }: React.PropsWithChildren<ButtonProps>) {
     const Component = type === 'link' ? 'a' : 'button';
@@ -54,14 +54,14 @@ export function Button({
                   }
                 : attributes.onClick,
             className: classNames(attributes.className, styles.button, {
-                [styles['button--clear']]: variant === 'clear' || variant === 'clear-faded',
-                [styles['button--clear-faded']]: variant === 'clear-faded',
+                [styles['button--clear']]: variant === 'clear',
                 [styles['button--primary']]: variant === 'primary',
                 [styles['button--secondary']]: variant === 'secondary',
                 [styles['button--underlined']]: variant === 'underlined',
                 [styles['button--full-width']]: fullWidth,
                 [styles['button--round']]: round,
-                [styles['button--noPadding']]: noPadding,
+                [styles['button--tiny']]: size === 'tiny',
+                [styles['button--small']]: size === 'small',
                 [styles['disabled']]: disabled,
             }),
             type: type !== 'link' ? type : undefined,

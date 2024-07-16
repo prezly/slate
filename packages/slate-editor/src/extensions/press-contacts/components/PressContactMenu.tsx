@@ -61,7 +61,7 @@ export function PressContactMenu({ element, onChangeLayout, onRemove, onToggleAv
 
 function RemoveButton(props: { onClick: () => void }) {
     return (
-        <Button variant="clear-faded" icon={Delete} fullWidth onClick={props.onClick}>
+        <Button variant="clear" icon={Delete} fullWidth onClick={props.onClick}>
             Remove
         </Button>
     );

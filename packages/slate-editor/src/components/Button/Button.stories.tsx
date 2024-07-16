@@ -80,10 +80,6 @@ export function Variants() {
             </div>
 
             <div>
-                <Button variant="clear-faded">Clear-faded Round</Button>
-            </div>
-
-            <div>
                 <Button variant="underlined">Underlined</Button>
             </div>
         </VStack>

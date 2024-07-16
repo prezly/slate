@@ -94,22 +94,6 @@ export function VideoMenu({
         <>
             <Toolbox.Header>Video settings</Toolbox.Header>
 
-            {!isSelfHosted && (
-                <Toolbox.Section noPadding>
-                    <Button
-                        type="link"
-                        href={url}
-                        target="_blank"
-                        rel="noreferrer"
-                        icon={ExternalLink}
-                        iconPosition="right"
-                        fullWidth
-                    >
-                        Go to video
-                    </Button>
-                </Toolbox.Section>
-            )}
-
             {info.length > 0 && (
                 <Toolbox.Section>
                     <InfoText.Structured className={styles.Info}>{info}</InfoText.Structured>
@@ -141,9 +125,25 @@ export function VideoMenu({
                 </Toolbox.Section>
             )}
 
+            {!isSelfHosted && (
+                <Toolbox.Section noPadding>
+                    <Button
+                        type="link"
+                        href={url}
+                        target="_blank"
+                        rel="noreferrer"
+                        icon={ExternalLink}
+                        iconPosition="right"
+                        fullWidth
+                    >
+                        View video
+                    </Button>
+                </Toolbox.Section>
+            )}
+
             <Toolbox.Footer>
-                <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>
-                    Remove video
+                <Button variant="clear" icon={Delete} fullWidth onClick={onRemove}>
+                    Remove
                 </Button>
             </Toolbox.Footer>
         </>
