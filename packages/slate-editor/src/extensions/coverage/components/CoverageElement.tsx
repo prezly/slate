@@ -28,6 +28,7 @@ interface Props extends RenderElementProps {
     dateFormat: string;
     element: CoverageNode;
     fetchCoverage: (id: CoverageEntry['id']) => Promise<CoverageEntry>;
+    onEdit: (id: CoverageEntry['id']) => void;
 }
 
 export function CoverageElement({
@@ -36,6 +37,7 @@ export function CoverageElement({
     dateFormat,
     element,
     fetchCoverage,
+    onEdit,
 }: Props) {
     const editor = useSlate();
     const coverageId = element.coverage.id;
@@ -46,6 +48,10 @@ export function CoverageElement({
     useEffect(() => {
         loadCoverage();
     }, [loadCoverage]);
+
+    function handleEdit() {
+        onEdit(coverageId);
+    }
 
     function handleRemove() {
         if (removeCoverage(editor, element)) {
@@ -65,7 +71,7 @@ export function CoverageElement({
                 <CoverageMenu
                     coverage={coverage}
                     element={element}
-                    onEdit={() => {}} // TODO: Implement!
+                    onEdit={handleEdit}
                     onRemove={handleRemove}
                 />
             ) : undefined}

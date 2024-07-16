@@ -13,7 +13,7 @@ export const EXTENSION_ID = 'CoverageExtension';
 
 export interface Parameters extends CoverageExtensionConfiguration {}
 
-export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Extension => ({
+export const CoverageExtension = ({ dateFormat, fetchCoverage, onEdit }: Parameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({
@@ -42,6 +42,7 @@ export const CoverageExtension = ({ dateFormat, fetchCoverage }: Parameters): Ex
                     dateFormat={dateFormat}
                     element={element}
                     fetchCoverage={fetchCoverage}
+                    onEdit={onEdit}
                 >
                     {children}
                 </CoverageElement>
