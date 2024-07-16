@@ -10,16 +10,12 @@
     cursor: pointer;
     text-decoration: none;
     font-weight: 600;
-    font-size: $font-size-smaller;
+    font-size: $font-size-small;
     color: inherit;
     box-sizing: border-box;
     margin: 0;
     border: $border-size solid transparent;
     padding: $spacing-1 - $border-size;
-
-    &--clear-faded {
-        opacity: 0.5;
-    }
 
     &:not(&.disabled, &:disabled) {
         &:hover,
@@ -130,8 +126,23 @@
         border-radius: 6px;
     }
 
-    &--noPadding {
+    &--tiny {
         padding: 0;
+        font-size: $font-size-smaller;
+
+        .icon-wrapper {
+            width: $spacing-1-5;
+            height: $spacing-1-5;
+        }
+    }
+
+    &--small {
+        padding: $spacing-half $spacing-1;
+
+        .icon-wrapper {
+            width: $spacing-1-5;
+            height: $spacing-1-5;
+        }
     }
 }
 
@@ -140,8 +151,8 @@
 }
 
 .icon-wrapper {
-    width: $spacing-1-5;
-    height: $spacing-1-5;
+    width: $spacing-2;
+    height: $spacing-2;
     color: inherit;
     opacity: 0.8;
 }

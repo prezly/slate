@@ -87,8 +87,8 @@ export function WebBookmark() {
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear-faded" icon={Delete} fullWidth>
-                        Remove web bookmark
+                    <Button variant="clear" icon={Delete} fullWidth>
+                        Remove
                     </Button>
                 </Toolbox.Footer>
             </Toolbox.Panel>
@@ -263,8 +263,8 @@ export function GallerySettings() {
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear-faded" icon={Delete} fullWidth>
-                        Remove gallery
+                    <Button variant="clear" icon={Delete} fullWidth>
+                        Remove
                     </Button>
                 </Toolbox.Footer>
             </Toolbox.Panel>
@@ -295,8 +295,8 @@ export function AttachmentSettings() {
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear-faded" icon={Delete} fullWidth>
-                        Remove attachment
+                    <Button variant="clear" icon={Delete} fullWidth>
+                        Remove
                     </Button>
                 </Toolbox.Footer>
             </Toolbox.Panel>
@@ -370,8 +370,8 @@ export function CoverageCard() {
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear-faded" icon={Delete} fullWidth>
-                        Remove web bookmark
+                    <Button variant="clear" icon={Delete} fullWidth>
+                        Remove
                     </Button>
                 </Toolbox.Footer>
             </Toolbox.Panel>
@@ -477,8 +477,8 @@ export function ImageSettings() {
                 </Toolbox.Section>
 
                 <Toolbox.Footer>
-                    <Button variant="clear-faded" icon={Delete} fullWidth>
-                        Remove image
+                    <Button variant="clear" icon={Delete} fullWidth>
+                        Remove
                     </Button>
                 </Toolbox.Footer>
             </Toolbox.Panel>

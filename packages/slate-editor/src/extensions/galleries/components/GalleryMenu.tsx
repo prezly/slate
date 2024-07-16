@@ -3,7 +3,7 @@ import { GalleryImageSize, GalleryLayout, GalleryPadding } from '@prezly/slate-t
 import React from 'react';
 
 import type { OptionsGroupOption } from '#components';
-import { Button, ButtonGroup, InfoText, OptionsGroup, Toolbox } from '#components';
+import { Button, ButtonGroup, OptionsGroup, Toolbox } from '#components';
 import {
     Add,
     Delete,
@@ -109,12 +109,6 @@ export function GalleryMenu({
                 </ButtonGroup>
             </Toolbox.Section>
 
-            <Toolbox.Section>
-                <InfoText>
-                    Reorder, delete, crop and set image captions in the main image grid.
-                </InfoText>
-            </Toolbox.Section>
-
             {withLayoutOptions && (
                 <Toolbox.Section caption="Gallery width">
                     <OptionsGroup<GalleryLayout>
@@ -146,8 +140,8 @@ export function GalleryMenu({
             </Toolbox.Section>
 
             <Toolbox.Footer>
-                <Button variant="clear-faded" icon={Delete} fullWidth onClick={onDelete}>
-                    Remove gallery
+                <Button variant="clear" icon={Delete} fullWidth onClick={onDelete}>
+                    Remove
                 </Button>
             </Toolbox.Footer>
         </>

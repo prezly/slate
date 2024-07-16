@@ -115,7 +115,7 @@ export function LinkMenu({
             </form>
             <Toolbox.Footer>
                 <Button
-                    variant="clear-faded"
+                    variant="clear"
                     icon={Delete}
                     fullWidth
                     disabled={!canUnlink}

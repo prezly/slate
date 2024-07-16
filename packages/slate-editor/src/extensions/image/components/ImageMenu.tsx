@@ -162,7 +162,7 @@ export function ImageMenu({
             </Toolbox.Section>
 
             {withLayoutOptions && (
-                <Toolbox.Section caption="Image size">
+                <Toolbox.Section caption="Size">
                     <OptionsGroup
                         name="layout"
                         options={IMAGE_LAYOUT_OPTIONS}
@@ -177,7 +177,7 @@ export function ImageMenu({
             )}
 
             {withSizeOptions && (
-                <Toolbox.Section caption="Image size">
+                <Toolbox.Section caption="Size">
                     <OptionsGroup
                         name="width"
                         options={getAvailableSizeOptions(withSizeOptions)}
@@ -190,7 +190,7 @@ export function ImageMenu({
             )}
 
             {withAlignmentOptions && (
-                <Toolbox.Section caption="Image alignment" paddingBottom="3">
+                <Toolbox.Section caption="Alignment" paddingBottom="3">
                     <OptionsGroup
                         disabled={value.layout !== ImageLayout.CONTAINED}
                         name="align"
@@ -231,8 +231,8 @@ export function ImageMenu({
             </Toolbox.Section>
 
             <Toolbox.Footer>
-                <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>
-                    Remove image
+                <Button variant="clear" icon={Delete} fullWidth onClick={onRemove}>
+                    Remove
                 </Button>
             </Toolbox.Footer>
         </>

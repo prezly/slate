@@ -142,8 +142,8 @@ export function VideoMenu({
             )}
 
             <Toolbox.Footer>
-                <Button variant="clear-faded" icon={Delete} fullWidth onClick={onRemove}>
-                    Remove video
+                <Button variant="clear" icon={Delete} fullWidth onClick={onRemove}>
+                    Remove
                 </Button>
             </Toolbox.Footer>
         </>
