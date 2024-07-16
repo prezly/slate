@@ -2,7 +2,7 @@ import type { CoverageEntry } from '@prezly/sdk';
 import type { CoverageNode } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSlateStatic } from 'slate-react';
+import { useSlate } from 'slate-react';
 
 import { EditorBlock, ElementPlaceholder, LoadingPlaceholder } from '#components';
 import { ChickenNoSignalIllustration, Coverage as CoverageIcon } from '#icons';
@@ -15,6 +15,7 @@ import { removeCoverage } from '../lib';
 
 import { CoverageCard } from './CoverageCard';
 import styles from './CoverageElement.module.scss';
+import { CoverageMenu } from './CoverageMenu';
 
 // GET /v2/coverage/:id endpoint usually responds in 300-1000 ms
 // Depending on whether it has an attachment or URL.
@@ -36,7 +37,7 @@ export function CoverageElement({
     element,
     fetchCoverage,
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useSlate();
     const coverageId = element.coverage.id;
     const [{ error, loading, value: coverage }, loadCoverage] = useAsyncFn(() => {
         return fetchCoverage(coverageId);
@@ -46,9 +47,9 @@ export function CoverageElement({
         loadCoverage();
     }, [loadCoverage]);
 
-    function remove() {
+    function handleRemove() {
         if (removeCoverage(editor, element)) {
-            EventsEditor.dispatchEvent(editor, 'coverage-removed');
+            EventsEditor.dispatchEvent(editor, 'coverage-removed', { uuid: element.uuid });
         }
     }
 
@@ -60,6 +61,14 @@ export function CoverageElement({
             overlay="autohide"
             // We have to render children or Slate will fail when trying to find the node.
             renderAboveFrame={children}
+            renderMenu={coverage ? () => (
+                <CoverageMenu
+                    coverage={coverage}
+                    element={element}
+                    onEdit={() => {}} // TODO: Implement!
+                    onRemove={handleRemove}
+                />
+            ) : undefined}
             renderReadOnlyFrame={function () {
                 if (loading) {
                     return (
@@ -73,7 +82,7 @@ export function CoverageElement({
                 }
 
                 if (coverage) {
-                    return <CoverageCard coverage={coverage} dateFormat={dateFormat} />;
+                    return <CoverageCard coverage={coverage} dateFormat={dateFormat} layout={element.layout} withThumbnail={element.show_thumbnail} />;
                 }
 
                 if (error && isNotFoundError(error)) {
@@ -81,7 +90,7 @@ export function CoverageElement({
                         <ElementPlaceholder
                             title="The selected coverage no longer exists and will not be displayed"
                             illustration={<ChickenNoSignalIllustration />}
-                            onDismiss={remove}
+                            onDismiss={handleRemove}
                             onDismissLabel="Remove this coverage"
                         />
                     );
@@ -94,7 +103,7 @@ export function CoverageElement({
                         illustration={<ChickenNoSignalIllustration />}
                         onClick={loadCoverage}
                         onClickLabel="Click to try again"
-                        onDismiss={remove}
+                        onDismiss={handleRemove}
                         onDismissLabel="Remove this coverage"
                     />
                 );

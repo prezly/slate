@@ -1,14 +1,15 @@
 import type { Contact, CoverageEntry } from '@prezly/sdk';
-import { UploadcareImage } from '@prezly/uploadcare';
+import { CoverageLayout } from '@prezly/slate-types';
+import classNames from 'classnames';
 import moment from 'moment';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import { formatBytes } from '#lib';
 
-import styles from './CoverageCard.module.scss';
+import { getCoverageImageUrl } from '../lib';
 
-const IMAGE_HEIGHT = 180;
+import styles from './CoverageCard.module.scss';
 
 interface Props {
     coverage: CoverageEntry;
@@ -16,15 +17,20 @@ interface Props {
      * Moment.js-compatible format
      */
     dateFormat: string;
+    layout: CoverageLayout;
+    withThumbnail: boolean;
 }
 
-export const CoverageCard: FunctionComponent<Props> = ({ coverage, dateFormat }) => {
-    const imageUrl = getCoverageImageUrl(coverage, IMAGE_HEIGHT);
+export const CoverageCard: FunctionComponent<Props> = ({ coverage, dateFormat, layout, withThumbnail }) => {
+    const imageUrl = getCoverageImageUrl(coverage);
     const href = coverage.attachment_oembed?.url || coverage.url;
 
     return (
-        <div className={styles.CoverageCard}>
-            {imageUrl && <Thumbnail src={imageUrl} href={href} />}
+        <div className={classNames(styles.CoverageCard, {
+            [styles.horizontal]: layout === CoverageLayout.HORIZONTAL,
+            [styles.vertical]: layout === CoverageLayout.VERTICAL,
+        })}>
+            {imageUrl && withThumbnail && <Thumbnail src={imageUrl} href={href} />}
 
             <div className={styles.Details}>
                 <Title coverage={coverage} href={href} />
@@ -121,18 +127,4 @@ function Outlet(props: { contact: Contact }) {
             <span className={styles.OutletName}>{contact.display_name}</span>
         </div>
     );
-}
-
-function getCoverageImageUrl(coverage: CoverageEntry, imageHeight: number): string | null {
-    if (coverage.attachment_oembed && coverage.attachment_oembed.thumbnail_url) {
-        return coverage.attachment_oembed.thumbnail_url;
-    }
-
-    if (UploadcareImage.isPrezlyStoragePayload(coverage.attachment)) {
-        const image = UploadcareImage.createFromPrezlyStoragePayload(coverage.attachment);
-
-        return image.resize(null, imageHeight).cdnUrl;
-    }
-
-    return null;
 }
