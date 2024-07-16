@@ -36,6 +36,7 @@ export function getAllExtensions() {
                 renderSuggestion: () => null,
                 renderSuggestionsFooter: () => null,
                 onCreateCoverage: createDelayedResolve({ coverage }),
+                onEdit: () => {},
             },
             withCustomNormalization: false,
             withDivider: true,
