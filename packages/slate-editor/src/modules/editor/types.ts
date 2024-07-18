@@ -19,6 +19,7 @@ import type {
     PlaceholderNode,
     PlaceholdersExtensionParameters,
 } from '#extensions/placeholders';
+import type { PressContactsExtensionParameters } from '#extensions/press-contacts';
 import type { SnippetsExtensionParameters } from '#extensions/snippet';
 import type { StoryBookmarkExtensionParameters } from '#extensions/story-bookmark';
 import type { StoryEmbedExtensionParameters } from '#extensions/story-embed';
@@ -129,7 +130,10 @@ export interface EditorProps {
         PlaceholdersExtensionParameters,
         'format' | 'removable' | 'withMediaPlaceholders' | 'withPastedUrlsUnfurling'
     >;
-    withPressContacts?: false | PlaceholdersExtensionParameters['withContactPlaceholders'];
+    withPressContacts?:
+        | false
+        | (PressContactsExtensionParameters &
+              PlaceholdersExtensionParameters['withContactPlaceholders']);
     withRichFormattingMenu?:
         | boolean
         | {

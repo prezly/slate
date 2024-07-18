@@ -12,10 +12,11 @@ import {
     normalizeContactNodeAttributes,
     parseSerializedElement,
 } from './lib';
+import type { PressContactsExtensionParameters } from './types';
 
 export const EXTENSION_ID = 'PressContactExtension';
 
-export const PressContactsExtension = (): Extension => ({
+export const PressContactsExtension = (params: PressContactsExtensionParameters): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({
@@ -43,7 +44,11 @@ export const PressContactsExtension = (): Extension => ({
     renderElement: ({ attributes, children, element }) => {
         if (isContactNode(element)) {
             return (
-                <PressContactElement attributes={attributes} element={element}>
+                <PressContactElement
+                    attributes={attributes}
+                    element={element}
+                    onEdit={params.onEdit}
+                >
                     {children}
                 </PressContactElement>
             );

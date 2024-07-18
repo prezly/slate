@@ -199,7 +199,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     }
 
     if (withPressContacts) {
-        yield PressContactsExtension();
+        yield PressContactsExtension(withPressContacts);
     }
 
     if (withVariables) {

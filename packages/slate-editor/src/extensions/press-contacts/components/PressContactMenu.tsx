@@ -4,11 +4,14 @@ import React from 'react';
 
 import type { OptionsGroupOption } from '#components';
 import { Button, OptionsGroup, Toggle, Toolbox } from '#components';
-import { ContactLayoutCard, ContactLayoutSignature, Delete } from '#icons';
+import { ContactLayoutCard, ContactLayoutSignature, Delete, ExternalLink } from '#icons';
+
+import type { PressContactsExtensionParameters } from '../types';
 
 interface Props {
     element: ContactNode;
     onChangeLayout: (layout: ContactLayout) => void;
+    onEdit: PressContactsExtensionParameters['onEdit'];
     onRemove: () => void;
     onToggleAvatar: (visible: boolean) => void;
 }
@@ -26,7 +29,19 @@ const LAYOUT_OPTIONS: OptionsGroupOption<ContactLayout>[] = [
     },
 ];
 
-export function PressContactMenu({ element, onChangeLayout, onRemove, onToggleAvatar }: Props) {
+export function PressContactMenu({
+    element,
+    onChangeLayout,
+    onEdit,
+    onRemove,
+    onToggleAvatar,
+}: Props) {
+    function handleEdit() {
+        if (element.reference) {
+            onEdit?.(element.reference);
+        }
+    }
+
     return (
         <>
             <Toolbox.Header>Site contact settings</Toolbox.Header>
@@ -51,6 +66,20 @@ export function PressContactMenu({ element, onChangeLayout, onRemove, onToggleAv
                     onChange={onChangeLayout}
                 />
             </Toolbox.Section>
+
+            {element.reference && onEdit && (
+                <Toolbox.Section noPadding>
+                    <Button
+                        icon={ExternalLink}
+                        iconPosition="right"
+                        fullWidth
+                        onClick={handleEdit}
+                        variant="clear"
+                    >
+                        Edit contact
+                    </Button>
+                </Toolbox.Section>
+            )}
 
             <Toolbox.Footer>
                 <RemoveButton onClick={onRemove} />
