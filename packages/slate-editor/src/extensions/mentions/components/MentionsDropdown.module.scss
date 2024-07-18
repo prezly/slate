@@ -11,6 +11,10 @@
     padding: $spacing-half 0 !important; // override editor's ul styling
     margin: 0 !important; // override editor's ul styling
 
+    &.hidden {
+        display: none;
+    }
+
     .Item {
         // override ".editor-email-campaign ul li" styling
         margin: 0 !important;
