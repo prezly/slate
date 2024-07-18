@@ -11,4 +11,4 @@ node_modules: package.json pnpm-lock.yaml
 	pnpm install
 	
 watch: node_modules
-	pnpm watch
+	pnpm build && pnpm watch
