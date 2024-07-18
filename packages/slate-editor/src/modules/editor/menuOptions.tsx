@@ -257,7 +257,7 @@ function* generateOptions(
     if (withEmbedSocial) {
         yield {
             action: MenuAction.ADD_EMBED_SOCIAL,
-            icon: Icons.Embed,
+            icon: Icons.ComponentEmbed,
             group: Group.MEDIA_CONTENT,
             text: 'Social post',
             description: 'Embed a social media link',
