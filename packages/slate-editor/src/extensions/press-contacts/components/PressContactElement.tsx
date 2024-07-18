@@ -18,7 +18,7 @@ import { PressContactMenu } from './PressContactMenu';
 
 interface Props extends RenderElementProps {
     element: ContactNode;
-    onEdit: PressContactsExtensionParameters['onEdit'];
+    onEdit?: PressContactsExtensionParameters['onEdit'];
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
 }
 
