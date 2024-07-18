@@ -12,6 +12,8 @@ export {
     Superscript as FormatStyleSuperscript,
 } from './lucide';
 
+export * as NewIcon from './new';
+
 export { default as Add } from './Add.svg';
 export { default as Attachment } from './Attachment.svg';
 export { default as BatsIllustration } from './Bats-Illustration.svg';
