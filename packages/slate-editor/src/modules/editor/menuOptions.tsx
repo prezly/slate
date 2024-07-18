@@ -131,7 +131,7 @@ function* generateOptions(
 ): Generator<Omit<Option<MenuAction>, 'suggested'>> {
     if (withHeadings) {
         yield {
-            icon: Icons.NewIcon.Heading1,
+            icon: Icons.ComponentH1,
             action: MenuAction.ADD_HEADING_1,
             group: Group.TEXT_N_LAYOUT,
             text: 'Heading 1',
@@ -139,7 +139,7 @@ function* generateOptions(
             description: 'Big section heading',
         };
         yield {
-            icon: Icons.NewIcon.Heading2,
+            icon: Icons.ComponentH2,
             action: MenuAction.ADD_HEADING_2,
             group: Group.TEXT_N_LAYOUT,
             text: 'Heading 2',
@@ -150,7 +150,7 @@ function* generateOptions(
 
     if (withParagraphs) {
         yield {
-            icon: Icons.NewIcon.Text,
+            icon: Icons.ComponentText,
             action: MenuAction.ADD_PARAGRAPH,
             group: Group.TEXT_N_LAYOUT,
             text: 'Text',
@@ -160,7 +160,7 @@ function* generateOptions(
 
     if (withBlockquotes) {
         yield {
-            icon: Icons.NewIcon.Quote,
+            icon: Icons.ComponentQuote,
             action: MenuAction.ADD_QUOTE,
             group: Group.TEXT_N_LAYOUT,
             text: 'Quote',
@@ -171,7 +171,7 @@ function* generateOptions(
 
     if (withCallouts) {
         yield {
-            icon: Icons.NewIcon.Callout,
+            icon: Icons.ComponentCallout,
             action: MenuAction.ADD_CALLOUT,
             group: Group.TEXT_N_LAYOUT,
             text: 'Callout',
@@ -183,7 +183,7 @@ function* generateOptions(
 
     if (withDivider) {
         yield {
-            icon: Icons.NewIcon.Divider,
+            icon: Icons.ComponentDivider,
             action: MenuAction.ADD_DIVIDER,
             group: Group.TEXT_N_LAYOUT,
             text: 'Divider',
@@ -195,7 +195,7 @@ function* generateOptions(
     if (withButtonBlocks) {
         yield {
             action: MenuAction.ADD_BUTTON_BLOCK,
-            icon: Icons.NewIcon.Button,
+            icon: Icons.ComponentButton,
             group: Group.TEXT_N_LAYOUT,
             text: 'Button',
             description: 'Insert a link button',
@@ -206,7 +206,7 @@ function* generateOptions(
     if (withTables) {
         yield {
             action: MenuAction.ADD_TABLE,
-            icon: Icons.NewIcon.Table,
+            icon: Icons.ComponentTable,
             group: Group.TEXT_N_LAYOUT,
             text: 'Table',
             description: 'Insert a table',
@@ -216,7 +216,7 @@ function* generateOptions(
     if (withImages && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
             action: MenuAction.ADD_IMAGE,
-            icon: Icons.NewIcon.Image,
+            icon: Icons.ComponentImage,
             group: Group.MEDIA_CONTENT,
             text: 'Image',
             keywords: ['photo', 'picture', 'foto'],
@@ -227,7 +227,7 @@ function* generateOptions(
     if (withGalleries && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
             action: MenuAction.ADD_GALLERY,
-            icon: Icons.NewIcon.ImageGallery,
+            icon: Icons.ComponentGallery,
             group: Group.MEDIA_CONTENT,
             text: 'Gallery',
             description: 'Create an image composition',
@@ -237,7 +237,7 @@ function* generateOptions(
     if (withGalleryBookmarks) {
         yield {
             action: MenuAction.ADD_GALLERY_BOOKMARK,
-            icon: Icons.NewIcon.GalleryBookmark,
+            icon: Icons.ComponentGallery,
             group: Group.MEDIA_CONTENT,
             text: 'Media gallery bookmark',
             description: 'Add a link to your media gallery',
@@ -247,7 +247,7 @@ function* generateOptions(
     if (withVideos) {
         yield {
             action: MenuAction.ADD_VIDEO,
-            icon: Icons.NewIcon.Video,
+            icon: Icons.ComponentVideo,
             group: Group.MEDIA_CONTENT,
             text: 'Video',
             description: 'Place a video from a URL',
@@ -257,7 +257,7 @@ function* generateOptions(
     if (withEmbedSocial) {
         yield {
             action: MenuAction.ADD_EMBED_SOCIAL,
-            icon: Icons.NewIcon.Embed,
+            icon: Icons.ComponentSocialPost,
             group: Group.MEDIA_CONTENT,
             text: 'Social post',
             description: 'Embed a social media link',
@@ -267,7 +267,7 @@ function* generateOptions(
     if (withAttachments && UploadcareEditor.isUploadcareEditor(editor)) {
         yield {
             action: MenuAction.ADD_ATTACHMENT,
-            icon: Icons.NewIcon.Attachment,
+            icon: Icons.ComponentAttachment,
             group: Group.MEDIA_CONTENT,
             text: 'File attachment',
             description: 'Upload or link a file',
@@ -277,7 +277,7 @@ function* generateOptions(
     if (withWebBookmarks) {
         yield {
             action: MenuAction.ADD_WEB_BOOKMARK,
-            icon: Icons.NewIcon.WebBookmark,
+            icon: Icons.ComponentWebBookmark,
             group: Group.MEDIA_CONTENT,
             text: 'Website bookmark',
             keywords: ['link'],
@@ -288,7 +288,7 @@ function* generateOptions(
     if (withEmbeds) {
         yield {
             action: MenuAction.ADD_PODCAST,
-            icon: Icons.NewIcon.Podcast,
+            icon: Icons.ComponentPodcast,
             group: Group.MEDIA_CONTENT,
             text: 'Podcast',
             keywords: ['audio', 'transistor', 'rumble', 'anchor', 'spotify', 'apple', 'google'],
@@ -297,7 +297,7 @@ function* generateOptions(
 
         yield {
             action: MenuAction.ADD_AUDIO,
-            icon: Icons.NewIcon.Audio,
+            icon: Icons.ComponentAudio,
             group: Group.MEDIA_CONTENT,
             keywords: ['mp3', 'music', 'song'],
             text: 'Audio',
@@ -306,7 +306,7 @@ function* generateOptions(
 
         yield {
             action: MenuAction.ADD_EMBED,
-            icon: Icons.NewIcon.Embed,
+            icon: Icons.ComponentEmbed,
             group: Group.MEDIA_CONTENT,
             text: 'Embed',
             description: 'Insert embeddable content',
@@ -316,7 +316,7 @@ function* generateOptions(
     if (withCoverage) {
         yield {
             action: MenuAction.ADD_COVERAGE,
-            icon: Icons.NewIcon.Coverage,
+            icon: Icons.ComponentCoverage,
             group: Group.PREZLY_CONTENT,
             text: 'Coverage',
             description: 'Add a link to a Prezly Coverage',
@@ -326,7 +326,7 @@ function* generateOptions(
     if (withPressContacts) {
         yield {
             action: MenuAction.ADD_CONTACT,
-            icon: Icons.NewIcon.SiteContact,
+            icon: Icons.ComponentContact,
             group: Group.PREZLY_CONTENT,
             text: 'Site contact',
             keywords: ['signature'],
@@ -337,7 +337,7 @@ function* generateOptions(
     if (withStoryBookmarks) {
         yield {
             action: MenuAction.ADD_STORY_BOOKMARK,
-            icon: Icons.NewIcon.StoryBookmark,
+            icon: Icons.ComponentStoryBookmark,
             group: Group.PREZLY_CONTENT,
             text: 'Story bookmark',
             description: 'Embed your Prezly content',
@@ -347,7 +347,7 @@ function* generateOptions(
     if (withStoryEmbeds) {
         yield {
             action: MenuAction.ADD_STORY_EMBED,
-            icon: Icons.NewIcon.Embed,
+            icon: Icons.ComponentWebBookmark,
             group: Group.PREZLY_CONTENT,
             text: 'Story embed',
             description: 'Insert Prezly story content',
@@ -357,7 +357,7 @@ function* generateOptions(
     if (withSnippets) {
         yield {
             action: MenuAction.ADD_SNIPPET,
-            icon: Icons.NewIcon.Snippet,
+            icon: Icons.ComponentSnippet,
             group: Group.PREZLY_CONTENT,
             text: 'Snippets',
             description: 'Insert reusable content blocks',
@@ -368,7 +368,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_YOUTUBE,
             keywords: ['video', 'yt', 'reels', 'utube'],
-            icon: Icons.NewIcon.Youtube,
+            icon: Icons.ComponentYouTube,
             group: Group.EMBEDS,
             text: 'YouTube',
             description: 'Place a video from a URL',
@@ -378,7 +378,7 @@ function* generateOptions(
     if (withEmbeds && withSpecificProviderOptions) {
         yield {
             action: MenuAction.ADD_X,
-            icon: Icons.NewIcon.Twitter,
+            icon: Icons.ComponentX,
             group: Group.EMBEDS,
             text: 'X',
             description: 'Embed a social media link',
@@ -387,7 +387,7 @@ function* generateOptions(
 
         yield {
             action: MenuAction.ADD_INSTAGRAM,
-            icon: Icons.NewIcon.Instagram,
+            icon: Icons.ComponentInstagram,
             group: Group.EMBEDS,
             text: 'Instagram',
             description: 'Embed a social media link',
@@ -396,14 +396,14 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_TIKTOK,
             keywords: ['social', 'video'],
-            icon: Icons.NewIcon.Tiktok,
+            icon: Icons.ComponentTikTok,
             group: Group.EMBEDS,
             text: 'TikTok',
             description: 'Embed a social media link',
         };
         yield {
             action: MenuAction.ADD_DROPBOX,
-            icon: Icons.NewIcon.Dropbox,
+            icon: Icons.ComponentDropbox,
             group: Group.EMBEDS,
             text: 'Dropbox',
             description: 'Embed a share link',
@@ -411,7 +411,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_SOUNDCLOUD,
-            icon: Icons.NewIcon.Soundcloud,
+            icon: Icons.ComponentSoundCloud,
             group: Group.EMBEDS,
             text: 'SoundCloud',
             description: 'Embed an audio link',
@@ -419,7 +419,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_SPOTIFY,
-            icon: Icons.NewIcon.Spotify,
+            icon: Icons.ComponentSpotify,
             group: Group.EMBEDS,
             text: 'Spotify',
             description: 'Embed an audio link',
@@ -427,7 +427,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_FACEBOOK,
-            icon: Icons.NewIcon.Facebook,
+            icon: Icons.ComponentFacebook,
             group: Group.EMBEDS,
             text: 'Facebook',
             description: 'Embed a social media link',
@@ -435,7 +435,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_GIPHY,
-            icon: Icons.NewIcon.Giphy,
+            icon: Icons.ComponentGiphy,
             group: Group.EMBEDS,
             text: 'Giphy',
             description: 'Insert embeddable content',
@@ -447,7 +447,7 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_VIMEO,
             keywords: ['video'],
-            icon: Icons.NewIcon.Vimeo,
+            icon: Icons.ComponentVimeo,
             group: Group.EMBEDS,
             text: 'Vimeo',
             description: 'Place a video from a URL',
@@ -457,7 +457,7 @@ function* generateOptions(
     if (withEmbeds && withSpecificProviderOptions) {
         yield {
             action: MenuAction.ADD_CALENDLY,
-            icon: Icons.NewIcon.Calendly,
+            icon: Icons.ComponentCalendly,
             group: Group.EMBEDS,
             text: 'Calendly',
             description: 'Embed a calendar link',
@@ -465,7 +465,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_EVENTBRITE,
-            icon: Icons.NewIcon.Eventbrite,
+            icon: Icons.ComponentEventbrite,
             group: Group.EMBEDS,
             text: 'Eventbrite',
             description: 'Embed an event link',
@@ -473,7 +473,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_MICROSOFT_TEAMS,
-            icon: Icons.NewIcon.MsTeams,
+            icon: Icons.ComponentMicrosoftTeams,
             group: Group.EMBEDS,
             text: 'Microsoft Teams',
             description: 'Embed an event link',
@@ -481,7 +481,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_GOOGLE_MAPS,
-            icon: Icons.NewIcon.GoogleMaps,
+            icon: Icons.ComponentGoogleMaps,
             group: Group.EMBEDS,
             text: 'Google Maps',
             description: 'Embed a map',
@@ -489,7 +489,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_GOOGLE_DOCS,
-            icon: Icons.NewIcon.GoogleDocs,
+            icon: Icons.ComponentGoogleDocs,
             group: Group.EMBEDS,
             text: 'Google Docs',
             description: 'Embed a document',
@@ -497,7 +497,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_GOOGLE_SHEETS,
-            icon: Icons.NewIcon.GoogleSheets,
+            icon: Icons.ComponentGoogleSheets,
             group: Group.EMBEDS,
             text: 'Google Sheets',
             description: 'Embed a spreadsheet',
@@ -505,7 +505,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_TYPEFORM,
-            icon: Icons.NewIcon.Typeform,
+            icon: Icons.ComponentTypeform,
             group: Group.EMBEDS,
             text: 'Typeform',
             description: 'Insert a form',
@@ -513,7 +513,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_TALLY,
-            icon: Icons.NewIcon.Tally,
+            icon: Icons.ComponentTally,
             group: Group.EMBEDS,
             text: 'Tally',
             description: 'Insert a form',
@@ -521,7 +521,7 @@ function* generateOptions(
         };
         yield {
             action: MenuAction.ADD_PINTEREST,
-            icon: Icons.NewIcon.Pinterest,
+            icon: Icons.ComponentPinterest,
             group: Group.EMBEDS,
             text: 'Pinterest',
             description: 'Embed a social media link',
