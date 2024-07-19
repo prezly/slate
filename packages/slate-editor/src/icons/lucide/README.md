@@ -15,3 +15,4 @@ The icons used:
 - https://lucide.dev/icons/align-center
 - https://lucide.dev/icons/align-right
 - https://lucide.dev/icons/link
+- https://lucide.dev/icons/plus
