@@ -16,13 +16,17 @@
         margin: 0 !important;
         font-size: 1em !important;
         line-height: math.div(20, 14) !important;
+        user-select: none;
+        padding: $spacing-1 $spacing-2;
+        cursor: pointer;
 
-        a {
-            &,
-            &:hover {
-                // override ".editor-email-campaign a" and ".editor-story a" styling
-                text-decoration: none;
-            }
+        &:hover:not(.active) {
+            background-color: $grey-100;
+        }
+
+        &.active {
+            background-color: $grey-700;
+            color: $white;
         }
     }
 }
