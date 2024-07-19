@@ -12,7 +12,7 @@ interface Result {
     text: string;
 }
 
-function getStartOfTriggerLocation(editor: Editor, at: Point, trigger: string): Point {
+function getStartOfTriggerLocation(editor: Editor, at: Point, trigger: string): Point | null {
     /**
      * We need the part of `trigger.length` characters before because the `Editor.before` with
      * unit=word ignores punctuation, and the `trigger` will most likely be a punctuation character.
@@ -24,6 +24,12 @@ function getStartOfTriggerLocation(editor: Editor, at: Point, trigger: string): 
     const pointOfTrigger =
         pointOfWordStart &&
         Editor.before(editor, pointOfWordStart, { distance: trigger.length, unit: 'character' });
+
+    // `pointOfWordStart` can still point to the previous node, even if `at` is already pointing to the
+    // node after it. If that is the case, we simply stop looking for the trigger location.
+    if (at.path[0] !== pointOfWordStart?.path[0]) {
+        return null;
+    }
 
     /**
      * `Editor.before` returns undefined if there is no destination location.
@@ -84,7 +90,12 @@ export function getWordAfterTrigger(
      * 1. `editor` state: This is @person<cursor /> (in the process of typing a mention)
      * 2. `textRange` matches "@person"
      */
-    const textRange = Editor.range(editor, at, getStartOfTriggerLocation(editor, at, trigger));
+    const triggerStart = getStartOfTriggerLocation(editor, at, trigger);
+    if (!triggerStart) {
+        return null;
+    }
+
+    const textRange = Editor.range(editor, at, triggerStart);
 
     /**
      * The text might match something before `trigger`, so we should not

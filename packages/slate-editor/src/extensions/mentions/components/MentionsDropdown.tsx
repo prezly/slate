@@ -78,7 +78,9 @@ export const MentionsDropdown = <V extends object>({
     return (
         <ul
             {...popper.attributes.popper}
-            className={classNames(styles.MentionsDropdown, 'dropdown-menu')}
+            className={classNames(styles.MentionsDropdown, 'dropdown-menu', {
+                [styles.hidden]: options.length === 0,
+            })}
             onMouseDown={(event) => event.preventDefault()}
             ref={suggestionsPanelRef}
             role="menu"
