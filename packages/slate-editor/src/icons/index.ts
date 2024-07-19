@@ -10,6 +10,7 @@ export {
     Type as FormatStyleNormal,
     Subscript as FormatStyleSubscript,
     Superscript as FormatStyleSuperscript,
+    Plus,
 } from './lucide';
 
 export { default as Add } from './Add.svg';

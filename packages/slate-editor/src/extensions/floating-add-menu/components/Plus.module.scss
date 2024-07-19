@@ -1,0 +1,17 @@
+@import "styles/variables";
+
+.Plus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    border: 1px solid $grey-300;
+    background-color: $white;
+    border-radius: $border-radius-base;
+
+    .Icon {
+        width: 16px;
+        height: 16px;
+        color: $grey-700;
+    }
+}
