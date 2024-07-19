@@ -158,7 +158,7 @@ export function Dropdown<Action>({
                             <MenuItem group>{group}</MenuItem>
                             {options.map((option) => (
                                 <MenuItem
-                                    active={option.action === selectedOption?.action}
+                                    active={option === selectedOption}
                                     className={styles.MenuItem}
                                     key={`option:${option.text}`}
                                     onClick={(event) => event.preventDefault()}
