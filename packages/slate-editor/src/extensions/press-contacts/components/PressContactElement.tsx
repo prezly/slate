@@ -11,16 +11,18 @@ import { Avatar, EditorBlock } from '#components';
 import { Envelope, Globe, Mobile, Phone, SocialFacebook, SocialTwitter } from '#icons';
 
 import { getSocialHandles, getUrl, removePressContact, updatePressContact } from '../lib';
+import type { PressContactsExtensionParameters } from '../types';
 
 import styles from './PressContactElement.module.scss';
 import { PressContactMenu } from './PressContactMenu';
 
 interface Props extends RenderElementProps {
     element: ContactNode;
+    onEdit?: PressContactsExtensionParameters['onEdit'];
     renderMenu?: (props: { onClose: () => void }) => ReactNode;
 }
 
-export function PressContactElement({ attributes, children, element, renderMenu }: Props) {
+export function PressContactElement({ attributes, children, element, onEdit, renderMenu }: Props) {
     const editor = useSlateStatic();
     const { layout, show_avatar: showAvatar } = element;
     const isCardLayout = layout === ContactLayout.CARD;
@@ -51,6 +53,7 @@ export function PressContactElement({ attributes, children, element, renderMenu 
                 return (
                     <PressContactMenu
                         element={element}
+                        onEdit={onEdit}
                         onChangeLayout={handleChangeLayout}
                         onToggleAvatar={handleToggleAvatar}
                         onRemove={handleRemove}

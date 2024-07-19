@@ -8,3 +8,4 @@ export {
     parseSerializedElement,
     removePressContact,
 } from './lib';
+export type { PressContactsExtensionParameters } from './types';
