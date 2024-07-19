@@ -5,7 +5,6 @@ export { CloseButton, EditorBlock, ResizableEditorBlock } from './EditorBlock';
 export { FancyScrollbars } from './FancyScrollbars';
 export { HtmlInjection } from './HtmlInjection';
 export { ImageSizeWarning } from './ImageSizeWarning';
-export { Key } from './Key';
 export { LoadingIndicator } from './LoadingIndicator';
 export {
     LoadingPlaceholder,

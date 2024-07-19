@@ -5,6 +5,7 @@ export { default as Bold } from './bold.svg';
 export { default as Highlighter } from './highlighter.svg';
 export { default as Italic } from './italic.svg';
 export { default as Link } from './link.svg';
+export { default as Plus } from './plus.svg';
 export { default as Subscript } from './subscript.svg';
 export { default as Superscript } from './superscript.svg';
 export { default as Type } from './type.svg';
