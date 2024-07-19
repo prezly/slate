@@ -51,10 +51,15 @@ export enum MenuAction {
 }
 
 enum Group {
-    TEXT_N_LAYOUT = 'Text & layout',
-    MEDIA_CONTENT = 'Media content',
-    EMBEDS = 'Embeds',
-    PREZLY_CONTENT = 'Prezly content',
+    TEXT_N_LAYOUT = 'Text & Layout',
+    MEDIA_CONTENT = 'Media Content',
+    PREZLY_CONTENT = 'Prezly Content',
+    SOCIAL_MEDIA = 'Social Media',
+    VIDEOS = 'Videos',
+    AUDIO_MUSIC_PODCASTS = 'Audio, Music and Podcasts',
+    FILE_N_DOCUMENTS = 'Files & Documents',
+    FORMS = 'Forms',
+    OTHER = 'Other',
 }
 
 interface Params {
@@ -369,9 +374,9 @@ function* generateOptions(
             action: MenuAction.ADD_YOUTUBE,
             keywords: ['video', 'yt', 'reels', 'utube'],
             icon: Icons.ComponentYouTube,
-            group: Group.EMBEDS,
-            text: 'YouTube',
-            description: 'Place a video from a URL',
+            group: Group.VIDEOS,
+            text: 'YouTube video',
+            description: 'Embed a YouTube video',
         };
     }
 
@@ -379,66 +384,66 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_X,
             icon: Icons.ComponentX,
-            group: Group.EMBEDS,
+            group: Group.SOCIAL_MEDIA,
             text: 'X',
-            description: 'Embed a social media link',
+            description: 'Embed a X post',
             keywords: ['twitter', 'tweet', 'social'],
         };
 
         yield {
             action: MenuAction.ADD_INSTAGRAM,
             icon: Icons.ComponentInstagram,
-            group: Group.EMBEDS,
+            group: Group.SOCIAL_MEDIA,
             text: 'Instagram',
-            description: 'Embed a social media link',
+            description: 'Embed an Instagram post',
             keywords: ['ig', 'photo', 'foto', 'social'],
         };
         yield {
             action: MenuAction.ADD_TIKTOK,
             keywords: ['social', 'video'],
             icon: Icons.ComponentTikTok,
-            group: Group.EMBEDS,
+            group: Group.SOCIAL_MEDIA,
             text: 'TikTok',
-            description: 'Embed a social media link',
+            description: 'Embed a TikTok video',
         };
         yield {
             action: MenuAction.ADD_DROPBOX,
             icon: Icons.ComponentDropbox,
-            group: Group.EMBEDS,
+            group: Group.FILE_N_DOCUMENTS,
             text: 'Dropbox',
-            description: 'Embed a share link',
+            description: 'Embed a Dropbox file or folder',
             keywords: ['db', 'files', 'share'],
         };
         yield {
             action: MenuAction.ADD_SOUNDCLOUD,
             icon: Icons.ComponentSoundCloud,
-            group: Group.EMBEDS,
+            group: Group.AUDIO_MUSIC_PODCASTS,
             text: 'SoundCloud',
-            description: 'Embed an audio link',
+            description: 'Embed a SoundCloud audio file',
             keywords: ['audio', 'mp3', 'music', 'song', 'track'],
         };
         yield {
             action: MenuAction.ADD_SPOTIFY,
             icon: Icons.ComponentSpotify,
-            group: Group.EMBEDS,
+            group: Group.AUDIO_MUSIC_PODCASTS,
             text: 'Spotify',
-            description: 'Embed an audio link',
+            description: 'Embed a music, podcast or playlist',
             keywords: ['audio', 'mp3', 'music', 'song', 'track'],
         };
         yield {
             action: MenuAction.ADD_FACEBOOK,
             icon: Icons.ComponentFacebook,
-            group: Group.EMBEDS,
-            text: 'Facebook',
-            description: 'Embed a social media link',
+            group: Group.SOCIAL_MEDIA,
+            text: 'Facebook post',
+            description: 'Embed a Facebook post',
             keywords: ['post', 'fb', 'social'],
         };
         yield {
             action: MenuAction.ADD_GIPHY,
             icon: Icons.ComponentGiphy,
-            group: Group.EMBEDS,
+            group: Group.OTHER,
             text: 'Giphy',
-            description: 'Insert embeddable content',
+            description: 'Embed a GIF from Giphy',
             keywords: ['gif', 'video', 'photo', 'foto', 'social'],
         };
     }
@@ -448,9 +453,9 @@ function* generateOptions(
             action: MenuAction.ADD_VIMEO,
             keywords: ['video'],
             icon: Icons.ComponentVimeo,
-            group: Group.EMBEDS,
+            group: Group.VIDEOS,
             text: 'Vimeo',
-            description: 'Place a video from a URL',
+            description: 'Embed a video from Vimeo',
         };
     }
 
@@ -458,47 +463,47 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_CALENDLY,
             icon: Icons.ComponentCalendly,
-            group: Group.EMBEDS,
+            group: Group.OTHER,
             text: 'Calendly',
-            description: 'Embed a calendar link',
+            description: 'Embed a calendar from Calendly',
             keywords: ['invite', 'event', 'schedule'],
         };
         yield {
             action: MenuAction.ADD_EVENTBRITE,
             icon: Icons.ComponentEventbrite,
-            group: Group.EMBEDS,
+            group: Group.OTHER,
             text: 'Eventbrite',
-            description: 'Embed an event link',
+            description: 'Embed an event from Eventbrite',
             keywords: ['invite', 'event', 'schedule'],
         };
         yield {
             action: MenuAction.ADD_MICROSOFT_TEAMS,
             icon: Icons.ComponentMicrosoftTeams,
-            group: Group.EMBEDS,
+            group: Group.OTHER,
             text: 'Microsoft Teams',
-            description: 'Embed an event link',
+            description: 'Embed a link to Microsoft Teams',
             keywords: ['teams', 'ms', 'meeting'],
         };
         yield {
             action: MenuAction.ADD_GOOGLE_MAPS,
             icon: Icons.ComponentGoogleMaps,
-            group: Group.EMBEDS,
+            group: Group.OTHER,
             text: 'Google Maps',
-            description: 'Embed a map',
+            description: 'Embed a map from Google Maps',
             keywords: ['map', 'address'],
         };
         yield {
             action: MenuAction.ADD_GOOGLE_DOCS,
             icon: Icons.ComponentGoogleDocs,
-            group: Group.EMBEDS,
+            group: Group.FILE_N_DOCUMENTS,
             text: 'Google Docs',
-            description: 'Embed a document',
+            description: 'Embed a document from Google Docs',
             keywords: ['doc', 'gdoc', 'document'],
         };
         yield {
             action: MenuAction.ADD_GOOGLE_SHEETS,
             icon: Icons.ComponentGoogleSheets,
-            group: Group.EMBEDS,
+            group: Group.FILE_N_DOCUMENTS,
             text: 'Google Sheets',
             description: 'Embed a spreadsheet',
             keywords: ['sheet', 'gsheet', 'spreadsheet'],
@@ -506,25 +511,25 @@ function* generateOptions(
         yield {
             action: MenuAction.ADD_TYPEFORM,
             icon: Icons.ComponentTypeform,
-            group: Group.EMBEDS,
+            group: Group.FORMS,
             text: 'Typeform',
-            description: 'Insert a form',
+            description: 'Embed a form from Typeform',
             keywords: ['form', 'survey'],
         };
         yield {
             action: MenuAction.ADD_TALLY,
             icon: Icons.ComponentTally,
-            group: Group.EMBEDS,
+            group: Group.FORMS,
             text: 'Tally',
-            description: 'Insert a form',
+            description: 'Embed a form from Tally',
             keywords: ['form', 'survey'],
         };
         yield {
             action: MenuAction.ADD_PINTEREST,
             icon: Icons.ComponentPinterest,
-            group: Group.EMBEDS,
+            group: Group.SOCIAL_MEDIA,
             text: 'Pinterest',
-            description: 'Embed a social media link',
+            description: 'Embed a Pinterest post',
             keywords: ['social', 'image'],
         };
     }
