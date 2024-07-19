@@ -1,7 +1,7 @@
 import { noop } from '@technically/lodash';
 import classNames from 'classnames';
 import maxSize from 'popper-max-size-modifier';
-import type { ComponentPropsWithRef, ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 import React, { Fragment, useEffect, useLayoutEffect, useState } from 'react';
 import { usePopper } from 'react-popper';
 
@@ -237,7 +237,7 @@ function MenuItem({
     className,
     disabled,
     ...props
-}: ComponentPropsWithRef<'li'> & { group?: boolean; active?: boolean; disabled?: boolean }) {
+}: HTMLAttributes<HTMLLIElement> & { group?: boolean; active?: boolean; disabled?: boolean }) {
     return (
         <li
             className={classNames(className, {

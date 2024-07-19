@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import RangeFix from 'rangefix';
-import type { ComponentPropsWithRef, FunctionComponent, ReactNode } from 'react';
+import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { usePopper } from 'react-popper';
 import type { Range } from 'slate';
@@ -102,7 +102,7 @@ function MenuItem({
     children,
     className,
     ...props
-}: ComponentPropsWithRef<'li'> & { active?: boolean }) {
+}: HTMLAttributes<HTMLLIElement> & { active?: boolean }) {
     return (
         <li
             className={classNames(className, {
