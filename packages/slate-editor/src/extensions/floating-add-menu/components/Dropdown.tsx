@@ -1,9 +1,8 @@
 import { noop } from '@technically/lodash';
 import classNames from 'classnames';
 import maxSize from 'popper-max-size-modifier';
-import type { ReactNode } from 'react';
+import type { ComponentPropsWithRef, ReactNode } from 'react';
 import React, { Fragment, useEffect, useLayoutEffect, useState } from 'react';
-import { MenuItem } from 'react-bootstrap';
 import { usePopper } from 'react-popper';
 
 import { FancyScrollbars } from '#components';
@@ -142,8 +141,8 @@ export function Dropdown<Action>({
                 >
                     {options.length === 0 && (
                         <MenuItem
-                            className={classNames(styles.MenuItem, styles.noResults)}
                             disabled
+                            className={classNames(styles.MenuItem, styles.noResults)}
                             onClick={noop}
                         >
                             <div className={styles.MenuItemIcon}>
@@ -156,12 +155,10 @@ export function Dropdown<Action>({
 
                     {groups.map(({ group, options }) => (
                         <Fragment key={`group:${group}`}>
-                            <MenuItem className={styles.MenuGroup} header>
-                                {group}
-                            </MenuItem>
+                            <MenuItem group>{group}</MenuItem>
                             {options.map((option) => (
                                 <MenuItem
-                                    active={option === selectedOption}
+                                    active={option.action === selectedOption?.action}
                                     className={styles.MenuItem}
                                     key={`option:${option.text}`}
                                     onClick={(event) => event.preventDefault()}
@@ -231,4 +228,26 @@ function Highlight({ children: text, search }: { children: string; search?: stri
         });
 
     return <>{nodes}</>;
+}
+
+function MenuItem({
+    active,
+    group,
+    children,
+    className,
+    disabled,
+    ...props
+}: ComponentPropsWithRef<'li'> & { group?: boolean; active?: boolean; disabled?: boolean }) {
+    return (
+        <li
+            className={classNames(className, {
+                [styles.MenuGroup]: group,
+                [styles.active]: active,
+                [styles.disabled]: disabled,
+            })}
+            {...props}
+        >
+            <div>{children}</div>
+        </li>
+    );
 }

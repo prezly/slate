@@ -43,32 +43,37 @@
 
     .MenuGroup {
         padding: $vertical-spacing $horizontal-spacing $vertical-spacing $horizontal-spacing;
-        color: $grey-700;
+        color: $grey-500;
         font-size: $font-size-medium;
-        font-weight: 600;
+        font-weight: 400;
         text-transform: none;
         line-height: 1.4;
     }
 
-    // Override specificity of Bootstrap default .dropdown-menu > li > a style
     .MenuItem {
-        > a {
+        user-select: none;
+
+        > div {
             padding: $vertical-spacing $spacing-1 * 2.5 $vertical-spacing $horizontal-spacing;
             display: flex;
             flex-direction: row;
             align-items: center;
         }
 
-        > a:hover {
+        > div:hover {
             background-color: $grey-100;
         }
 
-        &:global(.active) > a {
-            background-color: $grey-100;
-        }
-
-        &:last-child > a {
+        &:last-child > div {
             padding-bottom: $vertical-spacing + $spacing-half;
+        }
+
+        &.active {
+            background-color: $grey-100;
+        }
+
+        &.disabled {
+            pointer-events: none;
         }
     }
 
@@ -161,7 +166,7 @@
             padding-bottom: 0;
         }
 
-        .MenuItem > a {
+        .MenuItem > div {
             padding: $spacing-2;
             min-height: $no-results-decoration-height;
         }
