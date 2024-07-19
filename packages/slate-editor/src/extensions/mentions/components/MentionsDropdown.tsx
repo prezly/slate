@@ -1,9 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import classNames from 'classnames';
 import RangeFix from 'rangefix';
-import type { FunctionComponent, ReactNode } from 'react';
+import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { MenuItem } from 'react-bootstrap';
 import { usePopper } from 'react-popper';
 import type { Range } from 'slate';
 import { useSlate } from 'slate-react';
@@ -99,3 +98,21 @@ export const MentionsDropdown = <V extends object>({
         </ul>
     );
 };
+
+function MenuItem({
+    active,
+    children,
+    className,
+    ...props
+}: HTMLAttributes<HTMLLIElement> & { active?: boolean }) {
+    return (
+        <li
+            className={classNames(className, {
+                [styles.active]: active,
+            })}
+            {...props}
+        >
+            <div>{children}</div>
+        </li>
+    );
+}

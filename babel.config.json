@@ -4,19 +4,42 @@
         "@babel/typescript",
         "@babel/react",
         ["@babel/env", { "modules": false }],
-        "@dr.pogodin/babel-preset-svgr"
+        [
+            "@dr.pogodin/babel-preset-svgr",
+            {
+                "svgr": {
+                    "plugins": ["@svgr/plugin-svgo", "@svgr/plugin-jsx", "@svgr/plugin-prettier"],
+                    "svgoConfig": {
+                        "plugins": [
+                            {
+                                "name": "preset-default",
+                                "params": {
+                                    "overrides": {
+                                        "removeViewBox": false,
+                                        "cleanupIds": false
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     ],
     "plugins": [
-        ["babel-plugin-transform-remove-imports",{ "test": "(?<!module)\\.scss$" }],
+        ["babel-plugin-transform-remove-imports", { "test": "(?<!module)\\.scss$" }],
         ["babel-plugin-add-import-extension", { "extension": "js" }]
     ],
     "overrides": [
         {
             "test": "**/*.test.tsx",
             "presets": [
-                ["@babel/react", {
-                    "throwIfNamespace": false
-                }]
+                [
+                    "@babel/react",
+                    {
+                        "throwIfNamespace": false
+                    }
+                ]
             ]
         }
     ]
