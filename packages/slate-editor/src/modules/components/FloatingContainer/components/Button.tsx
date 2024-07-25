@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { HTMLAttributes, MouseEventHandler, Ref } from 'react';
 import React, { forwardRef } from 'react';
 
-import { Add } from '#icons';
+import { Plus } from '#icons';
 
 import styles from './Button.module.scss';
 
@@ -31,7 +31,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
             tabIndex={-1}
             type="button"
         >
-            <Add className={styles.Icon} />
+            <Plus className={styles.Icon} />
         </button>
     ),
 );

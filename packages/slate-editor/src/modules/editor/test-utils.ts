@@ -62,6 +62,7 @@ export function getAllExtensions() {
             withPlaceholders: {},
             withPressContacts: {
                 getSuggestions: () => [],
+                onEdit: () => {},
                 renderEmpty: () => null,
                 renderSuggestion: () => null,
                 renderSuggestionsFooter: () => null,

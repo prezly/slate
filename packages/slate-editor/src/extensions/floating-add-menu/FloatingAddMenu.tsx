@@ -13,12 +13,12 @@ import type { Modifier } from 'react-popper';
 import { Node, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
-import { Key, TooltipV2 } from '#components';
+import { TooltipV2 } from '#components';
 import { useKeyboardNavigation, useSize } from '#lib';
 
 import { FloatingContainer } from '#modules/components';
 
-import { Input, Dropdown } from './components';
+import { Input, Dropdown, Plus } from './components';
 import styles from './FloatingAddMenu.module.scss';
 import {
     isMenuHotkey,
@@ -219,7 +219,7 @@ function Placeholder(props: { narrow: boolean }) {
     }
     return (
         <p className={styles.placeholder}>
-            Click the green <Key>+</Key> button to add images and other content
+            Click the green <Plus /> button to add images and other content
         </p>
     );
 }
