@@ -9,7 +9,8 @@ export function getCoverageImageUrl(coverage: CoverageEntry): string | null {
         return coverage.attachment_oembed.thumbnail_url;
     }
 
-    if (coverage.attachment) {
+    // @ts-expect-error `isImage` is not defined in the type but it is present
+    if (coverage.attachment && coverage.attachment.isImage) {
         try {
             const image = UploadcareImage.createFromPrezlyStoragePayload(coverage.attachment as UploadedImage);
             return image.resize(IMAGE_WIDTH).cdnUrl;
