@@ -102,6 +102,7 @@
 
 .Meta {
     display: flex;
+    gap: $spacing-half;
     align-items: center;
     color: $grey-500;
     margin: $spacing-2 0 0;
@@ -116,32 +117,24 @@
     }
 }
 
-.Outlet,
-.Author,
-.PublicationDate {
-    &:after {
-        content: "/";
-        margin: 0 $spacing-1;
-    }
-
-    &:last-child {
-        &:after {
-            content: "";
-        }
-    }
-}
-
 .Outlet {
     display: inline-flex;
     align-items: center;
 }
 
 .OutletIcon {
+    flex-shrink: 0;
     width: $spacing-base * 2;
     height: $spacing-base * 2;
     margin-right: $spacing-base;
+    border-radius: 2px;
 }
 
-.OutletName {
-    flex-grow: 1;
+.OutletName,
+.Author {
+    @include ellipsis;
+}
+
+.PublicationDate {
+    flex-shrink: 0;
 }

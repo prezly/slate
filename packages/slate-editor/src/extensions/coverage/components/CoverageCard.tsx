@@ -93,25 +93,39 @@ function Description(props: { coverage: CoverageEntry }) {
 function Meta(props: { author: Contact | null; date: string | null; dateFormat: string, outlet: Contact | null }) {
     const { author, date, dateFormat, outlet } = props;
 
+    const hasOutlet = outlet !== null;
+    const hasAuthor = author !== null;
+    const hasDate = date !== null;
+
+    if (!hasOutlet && !hasAuthor && !hasDate) {
+        return null;
+    }
+
     return (
         <div className={styles.Meta}>
-            {outlet && (
-                <span className={styles.Outlet}>
-                    <img
-                        className={styles.OutletIcon}
-                        src={outlet.avatar_url}
-                        alt={`${outlet.display_name} avatar`}
-                        aria-hidden="true"
-                    />
-                    <span className={styles.OutletName}>{outlet.display_name}</span>
-                </span>
+            {hasOutlet && (
+                <>
+                    <span className={styles.Outlet}>
+                        <img
+                            className={styles.OutletIcon}
+                            src={outlet.avatar_url}
+                            alt={`${outlet.display_name} avatar`}
+                            aria-hidden="true"
+                        />
+                        <span className={styles.OutletName}>{outlet.display_name}</span>
+                    </span>
+                    {(hasAuthor || hasDate) && <span>/</span>}
+                </>
             )}
-            {author?.display_name && (
-                <span className={styles.Author} title="Author">
-                    {author?.display_name}
-                </span>
+            {hasAuthor && (
+                <>
+                    <span className={styles.Author} title="Author">
+                        {author.display_name}
+                    </span>
+                    {hasDate && <span>/</span>}
+                </>
             )}
-            {date && (
+            {hasDate && (
                 <span className={styles.PublicationDate}>{moment(date).format(dateFormat)}</span>
             )}
         </div>
