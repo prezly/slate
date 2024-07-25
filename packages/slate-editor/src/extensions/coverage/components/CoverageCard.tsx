@@ -23,11 +23,12 @@ interface Props {
 export function CoverageCard({ coverage, dateFormat, layout, withThumbnail }: Props) {
     const imageUrl = getCoverageImageUrl(coverage);
     const href = coverage.attachment_oembed?.url || coverage.url;
+    const autoLayout = withThumbnail && imageUrl ? layout : CoverageLayout.HORIZONTAL;
 
     return (
         <div className={classNames(styles.CoverageCard, {
-            [styles.horizontal]: layout === CoverageLayout.HORIZONTAL,
-            [styles.vertical]: layout === CoverageLayout.VERTICAL,
+            [styles.horizontal]: autoLayout === CoverageLayout.HORIZONTAL,
+            [styles.vertical]: autoLayout === CoverageLayout.VERTICAL,
         })}>
             {imageUrl && withThumbnail && <Thumbnail src={imageUrl} href={href} />}
 
