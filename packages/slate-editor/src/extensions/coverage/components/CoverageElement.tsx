@@ -1,8 +1,7 @@
 import type { CoverageEntry } from '@prezly/sdk';
 import type { CoverageNode } from '@prezly/slate-types';
 import React, { useEffect } from 'react';
-import type { RenderElementProps } from 'slate-react';
-import { useSlate } from 'slate-react';
+import { useSlateStatic, type RenderElementProps } from 'slate-react';
 
 import { EditorBlock, ElementPlaceholder, LoadingPlaceholder } from '#components';
 import { ChickenNoSignalIllustration, Coverage as CoverageIcon } from '#icons';
@@ -39,7 +38,7 @@ export function CoverageElement({
     fetchCoverage,
     onEdit,
 }: Props) {
-    const editor = useSlate();
+    const editor = useSlateStatic();
     const coverageId = element.coverage.id;
     const [{ error, loading, value: coverage }, loadCoverage] = useAsyncFn(() => {
         return fetchCoverage(coverageId);
