@@ -2,7 +2,6 @@ import type { Contact, CoverageEntry } from '@prezly/sdk';
 import { CoverageLayout } from '@prezly/slate-types';
 import classNames from 'classnames';
 import moment from 'moment';
-import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import { formatBytes } from '#lib';
@@ -21,7 +20,7 @@ interface Props {
     withThumbnail: boolean;
 }
 
-export const CoverageCard: FunctionComponent<Props> = ({ coverage, dateFormat, layout, withThumbnail }) => {
+export function CoverageCard({ coverage, dateFormat, layout, withThumbnail }: Props) {
     const imageUrl = getCoverageImageUrl(coverage);
     const href = coverage.attachment_oembed?.url || coverage.url;
 
@@ -51,7 +50,7 @@ export const CoverageCard: FunctionComponent<Props> = ({ coverage, dateFormat, l
             </div>
         </div>
     );
-};
+}
 
 function Thumbnail(props: { href: string | null; src: string }) {
     const { href, src } = props;
