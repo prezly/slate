@@ -106,6 +106,14 @@
     color: $grey-500;
     margin: $spacing-2 0 0;
     line-height: 1.4;
+
+    .vertical & {
+        font-size: $font-size-medium;
+    }
+
+    .horizontal & {
+        font-size: $font-size-small;
+    }
 }
 
 .Outlet,
