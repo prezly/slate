@@ -1,0 +1,9 @@
+@import "styles/variables";
+
+.OptionIcon {
+    color: $white;
+
+    &.active {
+        color: $yellow-300;
+    }
+}

@@ -1,14 +1,14 @@
 import type { Contact, CoverageEntry } from '@prezly/sdk';
-import { UploadcareImage } from '@prezly/uploadcare';
+import { CoverageLayout } from '@prezly/slate-types';
+import classNames from 'classnames';
 import moment from 'moment';
-import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import { formatBytes } from '#lib';
 
-import styles from './CoverageCard.module.scss';
+import { getCoverageImageUrl } from '../lib';
 
-const IMAGE_HEIGHT = 180;
+import styles from './CoverageCard.module.scss';
 
 interface Props {
     coverage: CoverageEntry;
@@ -16,36 +16,36 @@ interface Props {
      * Moment.js-compatible format
      */
     dateFormat: string;
+    layout: CoverageLayout;
+    withThumbnail: boolean;
 }
 
-export const CoverageCard: FunctionComponent<Props> = ({ coverage, dateFormat }) => {
-    const imageUrl = getCoverageImageUrl(coverage, IMAGE_HEIGHT);
+export function CoverageCard({ coverage, dateFormat, layout, withThumbnail }: Props) {
+    const imageUrl = getCoverageImageUrl(coverage);
     const href = coverage.attachment_oembed?.url || coverage.url;
 
     return (
-        <div className={styles.CoverageCard}>
-            {imageUrl && <Thumbnail src={imageUrl} href={href} />}
+        <div className={classNames(styles.CoverageCard, {
+            [styles.horizontal]: layout === CoverageLayout.HORIZONTAL,
+            [styles.vertical]: layout === CoverageLayout.VERTICAL,
+        })}>
+            {imageUrl && withThumbnail && <Thumbnail src={imageUrl} href={href} />}
 
             <div className={styles.Details}>
                 <Title coverage={coverage} href={href} />
 
                 <Description coverage={coverage} />
 
-                {(coverage.author_contact || coverage.published_at) && (
-                    <Meta
-                        author={coverage.author_contact}
-                        date={coverage.published_at}
-                        dateFormat={dateFormat}
-                    />
-                )}
-
-                {coverage.organisation_contact && (
-                    <Outlet contact={coverage.organisation_contact} />
-                )}
+                <Meta
+                    author={coverage.author_contact}
+                    date={coverage.published_at}
+                    dateFormat={dateFormat}
+                    outlet={coverage.organisation_contact}
+                />
             </div>
         </div>
     );
-};
+}
 
 function Thumbnail(props: { href: string | null; src: string }) {
     const { href, src } = props;
@@ -64,7 +64,7 @@ function Thumbnail(props: { href: string | null; src: string }) {
 
 function Title(props: { coverage: CoverageEntry; href: string | null }) {
     const { coverage, href } = props;
-    const title = coverage.attachment_oembed?.title || coverage.attachment?.filename || 'Untitled';
+    const title = coverage.headline || coverage.attachment_oembed?.title || coverage.attachment?.filename || 'Untitled';
     const Tag = href ? 'a' : 'div';
 
     return (
@@ -90,49 +90,44 @@ function Description(props: { coverage: CoverageEntry }) {
     return null;
 }
 
-function Meta(props: { author: Contact | null; date: string | null; dateFormat: string }) {
-    const { author, date, dateFormat } = props;
+function Meta(props: { author: Contact | null; date: string | null; dateFormat: string, outlet: Contact | null }) {
+    const { author, date, dateFormat, outlet } = props;
+
+    const hasOutlet = outlet !== null;
+    const hasAuthor = author !== null;
+    const hasDate = date !== null;
+
+    if (!hasOutlet && !hasAuthor && !hasDate) {
+        return null;
+    }
 
     return (
         <div className={styles.Meta}>
-            {author?.display_name && (
-                <span className={styles.Author} title="Author">
-                    {author?.display_name}
-                </span>
+            {hasOutlet && (
+                <>
+                    <span className={styles.Outlet}>
+                        <img
+                            className={styles.OutletIcon}
+                            src={outlet.avatar_url}
+                            alt={`${outlet.display_name} avatar`}
+                            aria-hidden="true"
+                        />
+                        <span className={styles.OutletName}>{outlet.display_name}</span>
+                    </span>
+                    {(hasAuthor || hasDate) && <span>/</span>}
+                </>
             )}
-            {date && (
+            {hasAuthor && (
+                <>
+                    <span className={styles.Author} title="Author">
+                        {author.display_name}
+                    </span>
+                    {hasDate && <span>/</span>}
+                </>
+            )}
+            {hasDate && (
                 <span className={styles.PublicationDate}>{moment(date).format(dateFormat)}</span>
             )}
         </div>
     );
-}
-
-function Outlet(props: { contact: Contact }) {
-    const { contact } = props;
-
-    return (
-        <div className={styles.Outlet}>
-            <img
-                className={styles.OutletIcon}
-                src={contact.avatar_url}
-                alt={`${contact.display_name} avatar`}
-                aria-hidden="true"
-            />
-            <span className={styles.OutletName}>{contact.display_name}</span>
-        </div>
-    );
-}
-
-function getCoverageImageUrl(coverage: CoverageEntry, imageHeight: number): string | null {
-    if (coverage.attachment_oembed && coverage.attachment_oembed.thumbnail_url) {
-        return coverage.attachment_oembed.thumbnail_url;
-    }
-
-    if (UploadcareImage.isPrezlyStoragePayload(coverage.attachment)) {
-        const image = UploadcareImage.createFromPrezlyStoragePayload(coverage.attachment);
-
-        return image.resize(null, imageHeight).cdnUrl;
-    }
-
-    return null;
 }

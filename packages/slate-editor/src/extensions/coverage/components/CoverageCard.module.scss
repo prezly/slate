@@ -2,113 +2,139 @@
 @import "styles/variables";
 
 .CoverageCard {
-    $block-height: 180px;
-    $image-size: $block-height;
-
-    max-height: $block-height;
     color: $grey-700;
     display: flex;
     justify-content: stretch;
-    flex-flow: row;
+    overflow: hidden;
 
-    .Details {
-        padding: (2.5 * $spacing-base) (3 * $spacing-base);
-        flex-grow: 1;
+    &.vertical {
+        flex-flow: column;
     }
 
-    .Thumbnail {
-        background-position: center center;
-        background-size: cover;
-        flex-grow: 0;
+    &.horizontal {
+        flex-flow: row;
+    }
+}
 
-        min-width: $image-size;
-        min-height: $image-size;
-        max-width: $image-size;
+.Details {
+    padding: (2 * $spacing-base) (3 * $spacing-base);
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.Thumbnail {
+    background-position: center center;
+    background-size: cover;
+    flex-grow: 0;
+
+    .vertical & {
+        padding-bottom: 50%; // aspect-ratio: 2:1
+        height: 0;
+        position: relative;
     }
 
-    .ThumbnailImage {
-        visibility: hidden;
+    .horizontal & {
+        min-width: $editor-coverage-card-height;
+        min-height: $editor-coverage-card-height;
+        max-width: $editor-coverage-card-height;
+    }
+}
+
+.ThumbnailImage {
+    visibility: hidden;
+
+    .vertical & {
+        position: absolute;
+        left: 0;
+        top: 0;
         width: 100%;
         height: 100%;
     }
 
-    .Title {
-        margin: 0 0 $spacing-base 0;
-        font-weight: 800;
-        line-height: 1.6;
+    .horizontal & {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.Title {
+    margin: 0 0 $spacing-base 0;
+    font-weight: 800;
+    line-height: 1.6;
+    font-size: $font-size-large;
+    color: $grey-700;
+
+    @include multi-line-ellipsis(2);
+
+    &,
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:hover {
+        color: $grey-800;
+    }
+
+    .vertical & {
+        font-size: 22px;
+    }
+
+    .horizontal & {
         font-size: $font-size-large;
-        color: $grey-700;
+    }
+}
 
-        @include multi-line-ellipsis(1);
+.Description {
+    color: $grey-500;
+    margin: $spacing-base 0;
+    line-height: 1.4;
 
-        &,
-        &:hover {
-            text-decoration: none;
-        }
+    @include multi-line-ellipsis(3);
 
-        &:hover {
-            color: $grey-800;
-        }
+    .vertical & {
+        font-size: $font-size-medium;
     }
 
-    .Description {
-        color: $grey-500;
-        margin: $spacing-base 0;
-        line-height: 1.4;
-        font-size: $font-size-small;
-
-        @include multi-line-ellipsis(2);
-    }
-
-    .Meta {
-        color: $grey-500;
-        margin: $spacing-base 0;
-        line-height: 1.4;
+    .horizontal & {
         font-size: $font-size-small;
     }
+}
 
-    .Author,
-    .PublicationDate {
-        &:after {
-            content: "/";
-            margin: 0 $spacing-1;
-        }
+.Meta {
+    display: flex;
+    gap: $spacing-half;
+    align-items: center;
+    color: $grey-500;
+    margin: $spacing-2 0 0;
+    line-height: 1.4;
 
-        &:last-child {
-            &:after {
-                content: "";
-            }
-        }
+    .vertical & {
+        font-size: $font-size-medium;
     }
 
-    .Outlet {
-        display: flex;
-        align-items: center;
-        color: $grey-700;
-        font-weight: 600;
-        margin-top: $spacing-2;
-
-        &:first-child {
-            margin-top: 0;
-        }
-
-        &,
-        &:hover {
-            text-decoration: none;
-        }
-
-        &:hover {
-            color: $grey-800;
-        }
+    .horizontal & {
+        font-size: $font-size-small;
     }
+}
 
-    .OutletIcon {
-        width: $spacing-base * 2;
-        height: $spacing-base * 2;
-        margin-right: $spacing-base;
-    }
+.Outlet {
+    display: inline-flex;
+    align-items: center;
+}
 
-    .OutletName {
-        flex-grow: 1;
-    }
+.OutletIcon {
+    flex-shrink: 0;
+    width: $spacing-base * 2;
+    height: $spacing-base * 2;
+    margin-right: $spacing-base;
+    border-radius: 2px;
+}
+
+.OutletName,
+.Author {
+    @include ellipsis;
+}
+
+.PublicationDate {
+    flex-shrink: 0;
 }

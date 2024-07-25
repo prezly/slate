@@ -6,4 +6,5 @@ export interface CoverageExtensionConfiguration {
      */
     dateFormat: string;
     fetchCoverage: (id: CoverageEntry['id']) => Promise<CoverageEntry>;
+    onEdit: (id: CoverageEntry['id']) => void;
 }
