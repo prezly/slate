@@ -69,7 +69,7 @@ function Thumbnail(props: { href: string | null; src: string }) {
 
 function Title(props: { coverage: CoverageEntry; href: string | null }) {
     const { coverage, href } = props;
-    const title = coverage.attachment_oembed?.title || coverage.attachment?.filename || 'Untitled';
+    const title = coverage.headline || coverage.attachment_oembed?.title || coverage.attachment?.filename || 'Untitled';
     const Tag = href ? 'a' : 'div';
 
     return (
