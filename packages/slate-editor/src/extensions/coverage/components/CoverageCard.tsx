@@ -36,17 +36,12 @@ export function CoverageCard({ coverage, dateFormat, layout, withThumbnail }: Pr
 
                 <Description coverage={coverage} />
 
-                {(coverage.author_contact || coverage.published_at) && (
-                    <Meta
-                        author={coverage.author_contact}
-                        date={coverage.published_at}
-                        dateFormat={dateFormat}
-                    />
-                )}
-
-                {coverage.organisation_contact && (
-                    <Outlet contact={coverage.organisation_contact} />
-                )}
+                <Meta
+                    author={coverage.author_contact}
+                    date={coverage.published_at}
+                    dateFormat={dateFormat}
+                    outlet={coverage.organisation_contact}
+                />
             </div>
         </div>
     );
@@ -95,11 +90,22 @@ function Description(props: { coverage: CoverageEntry }) {
     return null;
 }
 
-function Meta(props: { author: Contact | null; date: string | null; dateFormat: string }) {
-    const { author, date, dateFormat } = props;
+function Meta(props: { author: Contact | null; date: string | null; dateFormat: string, outlet: Contact | null }) {
+    const { author, date, dateFormat, outlet } = props;
 
     return (
         <div className={styles.Meta}>
+            {outlet && (
+                <span className={styles.Outlet}>
+                    <img
+                        className={styles.OutletIcon}
+                        src={outlet.avatar_url}
+                        alt={`${outlet.display_name} avatar`}
+                        aria-hidden="true"
+                    />
+                    <span className={styles.OutletName}>{outlet.display_name}</span>
+                </span>
+            )}
             {author?.display_name && (
                 <span className={styles.Author} title="Author">
                     {author?.display_name}
@@ -108,22 +114,6 @@ function Meta(props: { author: Contact | null; date: string | null; dateFormat: 
             {date && (
                 <span className={styles.PublicationDate}>{moment(date).format(dateFormat)}</span>
             )}
-        </div>
-    );
-}
-
-function Outlet(props: { contact: Contact }) {
-    const { contact } = props;
-
-    return (
-        <div className={styles.Outlet}>
-            <img
-                className={styles.OutletIcon}
-                src={contact.avatar_url}
-                alt={`${contact.display_name} avatar`}
-                aria-hidden="true"
-            />
-            <span className={styles.OutletName}>{contact.display_name}</span>
         </div>
     );
 }

@@ -89,7 +89,7 @@
     margin: $spacing-base 0;
     line-height: 1.4;
 
-    @include multi-line-ellipsis(2);
+    @include multi-line-ellipsis(3);
 
     .vertical & {
         font-size: $font-size-medium;
@@ -101,11 +101,14 @@
 }
 
 .Meta {
+    display: flex;
+    align-items: center;
     color: $grey-500;
-    margin: $spacing-base 0;
+    margin: $spacing-2 0 0;
     line-height: 1.4;
 }
 
+.Outlet,
 .Author,
 .PublicationDate {
     &:after {
@@ -121,32 +124,8 @@
 }
 
 .Outlet {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    color: $grey-700;
-    font-weight: 600;
-
-    .vertical & {
-        margin-top: 13px;
-        font-size: $font-size-medium;
-    }
-
-    .horizontal & {
-        margin-top: 16px;
-    }
-
-    &:first-child {
-        margin-top: 0;
-    }
-
-    &,
-    &:hover {
-        text-decoration: none;
-    }
-
-    &:hover {
-        color: $grey-800;
-    }
 }
 
 .OutletIcon {
