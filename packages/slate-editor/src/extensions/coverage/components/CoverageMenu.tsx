@@ -6,7 +6,7 @@ import React from 'react';
 import { useSelected, useSlate } from 'slate-react';
 
 import type { OptionsGroupOption } from '#components';
-import { Button, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
+import { Button, OptionsGroup, Toggle, Toolbox } from '#components';
 import { Delete, ExternalLink, ItemsLayoutHorizontal, ItemsLayoutVertical } from '#icons';
 
 import { getCoverageImageUrl, updateCoverage } from '../lib';
@@ -18,6 +18,7 @@ interface Props {
     element: CoverageNode;
     onEdit: () => void;
     onRemove: () => void;
+    withLayoutOptions: boolean;
 }
 
 const LAYOUT_OPTIONS: OptionsGroupOption<CoverageLayout>[] = [
@@ -46,6 +47,7 @@ export function CoverageMenu({
     element,
     onEdit,
     onRemove,
+    withLayoutOptions,
 }: Props) {
     const editor = useSlate();
     const isSelected = useSelected();
@@ -73,8 +75,8 @@ export function CoverageMenu({
                 </Toggle>
             </Toolbox.Section>
 
-            <Toolbox.Section caption="Card layout">
-                <VStack spacing="2-5">
+            {withLayoutOptions && (
+                <Toolbox.Section caption="Card layout">
                     <OptionsGroup<CoverageLayout>
                         columns={3}
                         disabled={!isLayoutChangeable}
@@ -83,14 +85,17 @@ export function CoverageMenu({
                         options={LAYOUT_OPTIONS}
                         selectedValue={activeLayout}
                     />
-                    <Toggle
-                            name="new_tab"
-                            value={element.new_tab}
-                            onChange={(new_tab) => updateCoverage(editor, { new_tab })}
-                        >
-                            Open in new tab
-                        </Toggle>
-                </VStack>
+                </Toolbox.Section>
+            )}
+
+            <Toolbox.Section caption="Link">
+                <Toggle
+                    name="new_tab"
+                    value={element.new_tab}
+                    onChange={(new_tab) => updateCoverage(editor, { new_tab })}
+                >
+                    Open in new tab
+                </Toggle>
             </Toolbox.Section>
 
             <Toolbox.Section noPadding>

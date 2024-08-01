@@ -28,6 +28,7 @@ interface Props extends RenderElementProps {
     element: CoverageNode;
     fetchCoverage: (id: CoverageEntry['id']) => Promise<CoverageEntry>;
     onEdit: (id: CoverageEntry['id']) => void;
+    withLayoutOptions: boolean;
 }
 
 export function CoverageElement({
@@ -37,6 +38,7 @@ export function CoverageElement({
     element,
     fetchCoverage,
     onEdit,
+    withLayoutOptions,
 }: Props) {
     const editor = useSlateStatic();
     const coverageId = element.coverage.id;
@@ -72,6 +74,7 @@ export function CoverageElement({
                     element={element}
                     onEdit={handleEdit}
                     onRemove={handleRemove}
+                    withLayoutOptions={withLayoutOptions}
                 />
             ) : undefined}
             renderReadOnlyFrame={function () {
