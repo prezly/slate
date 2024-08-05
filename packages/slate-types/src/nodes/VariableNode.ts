@@ -5,6 +5,7 @@ export const VARIABLE_NODE_TYPE = 'variable';
 
 export interface VariableNode extends ElementNode {
     type: typeof VARIABLE_NODE_TYPE;
+    fallback: string | null;
     key: string;
 }
 
