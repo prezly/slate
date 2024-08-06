@@ -1,4 +1,4 @@
-import type { VariableNode } from '@prezly/slate-types';
+import { isVariableNode, type VariableNode } from '@prezly/slate-types';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -22,9 +22,11 @@ export function VariableElement({ attributes, children, element, variables }: Pr
     const selected = useSelected();
     const editor = useSlateStatic();
 
-    const [isMenuOpen, setMenuOpen] = useState(false);
     const [fallback, setFallback] = useState<string>(element.fallback ?? '');
     const [container, setContainer] = useState<HTMLSpanElement | null>(null);
+
+    const selectedNodes = Array.from(editor.nodes({ mode: 'lowest' }));
+    const isOnlyVariableSelected = selectedNodes.length === 1 && selectedNodes.every(([node]) => isVariableNode(node));
 
     const options = variables.map((variable) => ({
         value: variable.key,
@@ -33,17 +35,12 @@ export function VariableElement({ attributes, children, element, variables }: Pr
     }));
     const option = options.find(({ value }) => value === element.key);
 
-    function handleCloseMenu() {
-        setMenuOpen(false);
-    }
-
     function handleChangeType(newType: string) {
         updateVariable(editor, { key: newType });
     }
 
     function handleSave() {
         updateVariable(editor, { fallback: fallback !== '' ? fallback : null });
-        handleCloseMenu();
     }
 
     function handleRemove() {
@@ -52,7 +49,6 @@ export function VariableElement({ attributes, children, element, variables }: Pr
 
     useEffect(() => {
         if (selected) {
-            setMenuOpen(true);
             setFallback(element.fallback ?? '');
         }
     }, [selected]);
@@ -65,12 +61,12 @@ export function VariableElement({ attributes, children, element, variables }: Pr
 
     return (
         <>
-            {selected && container && isMenuOpen && (
+            {selected && isOnlyVariableSelected && container && (
                 <Menu
                     popperOptions={{ modifiers: { arrow: { padding: 0 } } }}
                     reference={container}
                 >
-                    <Toolbox.Header onCloseClick={handleCloseMenu} withCloseButton>
+                    <Toolbox.Header>
                         Variable settings
                     </Toolbox.Header>
                     <Toolbox.Section>
@@ -102,6 +98,7 @@ export function VariableElement({ attributes, children, element, variables }: Pr
                                         placeholder="Define your fallback"
                                     />
                                     <Button
+                                        disabled={fallback === element.fallback}
                                         variant="primary"
                                         type="submit"
                                         size="small"
