@@ -71,7 +71,7 @@ export function VariableElement({ attributes, children, element, variables }: Pr
                     reference={container}
                 >
                     <Toolbox.Header onCloseClick={handleCloseMenu} withCloseButton>
-                        Dynamic field settings
+                        Variable settings
                     </Toolbox.Header>
                     <Toolbox.Section>
                         <VStack spacing="2">
