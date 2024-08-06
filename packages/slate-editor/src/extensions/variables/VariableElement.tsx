@@ -26,7 +26,8 @@ export function VariableElement({ attributes, children, element, variables }: Pr
     const [container, setContainer] = useState<HTMLSpanElement | null>(null);
 
     const selectedNodes = Array.from(editor.nodes({ mode: 'lowest' }));
-    const isOnlyVariableSelected = selectedNodes.length === 1 && selectedNodes.every(([node]) => isVariableNode(node));
+    const isOnlyVariableSelected =
+        selectedNodes.length === 1 && selectedNodes.every(([node]) => isVariableNode(node));
 
     const options = variables.map((variable) => ({
         value: variable.key,
@@ -66,9 +67,7 @@ export function VariableElement({ attributes, children, element, variables }: Pr
                     popperOptions={{ modifiers: { arrow: { padding: 0 } } }}
                     reference={container}
                 >
-                    <Toolbox.Header>
-                        Variable settings
-                    </Toolbox.Header>
+                    <Toolbox.Header>Variable settings</Toolbox.Header>
                     <Toolbox.Section>
                         <VStack spacing="2">
                             <Toolbox.Caption>Type</Toolbox.Caption>
