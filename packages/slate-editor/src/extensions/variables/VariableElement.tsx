@@ -7,6 +7,8 @@ import { useSelected, useSlateStatic } from 'slate-react';
 import { Button, Input, Menu as BaseMenu, Toolbox, VStack } from '#components';
 import { Delete } from '#icons';
 
+import { usePopperOptionsContext } from '#modules/popper-options-context';
+
 import { Menu } from '../../components/EditorBlock';
 
 import { removeVariable, updateVariable } from './transforms';
@@ -21,6 +23,7 @@ interface Props extends RenderElementProps {
 export function VariableElement({ attributes, children, element, variables }: Props) {
     const selected = useSelected();
     const editor = useSlateStatic();
+    const popperOptions = usePopperOptionsContext();
 
     const [fallback, setFallback] = useState<string>(element.fallback ?? '');
     const [container, setContainer] = useState<HTMLSpanElement | null>(null);
@@ -64,7 +67,7 @@ export function VariableElement({ attributes, children, element, variables }: Pr
         <>
             {selected && isOnlyVariableSelected && container && (
                 <Menu
-                    popperOptions={{ modifiers: { arrow: { padding: 0 } } }}
+                    popperOptions={{ ...popperOptions, modifiers: { arrow: { padding: 0 } } }}
                     reference={container}
                 >
                     <Toolbox.Header>Variable settings</Toolbox.Header>
