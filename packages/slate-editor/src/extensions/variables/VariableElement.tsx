@@ -71,18 +71,20 @@ export function VariableElement({ attributes, children, element, variables }: Pr
                     reference={container}
                 >
                     <Toolbox.Header>Variable settings</Toolbox.Header>
-                    <Toolbox.Section>
-                        <VStack spacing="2">
-                            <Toolbox.Caption>Type</Toolbox.Caption>
-                            <BaseMenu.Dropdown
-                                className={styles.Dropdown}
-                                onChange={handleChangeType}
-                                options={options}
-                                value={element.key}
-                                variant="light"
-                            />
-                        </VStack>
-                    </Toolbox.Section>
+                    {options.length > 1 && (
+                        <Toolbox.Section>
+                            <VStack spacing="2">
+                                <Toolbox.Caption>Type</Toolbox.Caption>
+                                <BaseMenu.Dropdown
+                                    className={styles.Dropdown}
+                                    onChange={handleChangeType}
+                                    options={options}
+                                    value={element.key}
+                                    variant="light"
+                                />
+                            </VStack>
+                        </Toolbox.Section>
+                    )}
                     {option?.withFallback && (
                         <form
                             onSubmit={(event) => {
