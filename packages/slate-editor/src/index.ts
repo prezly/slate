@@ -15,6 +15,7 @@ export {
 } from './extensions/placeholders';
 export { createContactNode, JobDescription } from './extensions/press-contacts';
 export type { User } from './extensions/user-mentions';
+export type { Variable } from './extensions/variables';
 export { type ResultPromise, type UploadcareOptions, withUploadcare } from './modules/uploadcare';
 
 // Editor type
