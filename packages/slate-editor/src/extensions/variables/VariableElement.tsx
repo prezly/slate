@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlateStatic } from 'slate-react';
 
-import { Button, Input, Menu as BaseMenu, Toolbox, VStack } from '#components';
-import { Delete } from '#icons';
+import { Button, Input, Menu as BaseMenu, Toolbox, VStack, TooltipV2 } from '#components';
+import { Delete, Info } from '#icons';
 
 import { usePopperOptionsContext } from '#modules/popper-options-context';
 
@@ -94,7 +94,31 @@ export function VariableElement({ attributes, children, element, variables }: Pr
                         >
                             <Toolbox.Section>
                                 <VStack spacing="2">
-                                    <Toolbox.Caption>Fallback</Toolbox.Caption>
+                                    <Toolbox.Caption className={styles.Caption}>
+                                        Fallback
+                                        <TooltipV2.Tooltip
+                                            tooltip={`This text will be used if '${option.label}' is not available.`}
+                                        >
+                                            {({
+                                                ariaAttributes,
+                                                onHide,
+                                                onShow,
+                                                setReferenceElement,
+                                            }) => (
+                                                <span
+                                                    {...ariaAttributes}
+                                                    ref={setReferenceElement}
+                                                    onFocus={onShow}
+                                                    onBlur={onHide}
+                                                    onMouseEnter={onShow}
+                                                    onMouseLeave={onHide}
+                                                    className={styles.Icon}
+                                                >
+                                                    <Info />
+                                                </span>
+                                            )}
+                                        </TooltipV2.Tooltip>
+                                    </Toolbox.Caption>
                                     <Input
                                         name="fallback"
                                         value={fallback}
