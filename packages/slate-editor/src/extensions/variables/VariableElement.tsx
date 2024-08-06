@@ -126,8 +126,10 @@ export function VariableElement({ attributes, children, element, variables }: Pr
                 className={classNames(styles.VariableElement, {
                     [styles.selected]: selected,
                 })}
-                contentEditable={false}
-                ref={setContainer}
+                ref={(ref) => {
+                    setContainer(ref);
+                    attributes.ref(ref);
+                }}
             >
                 {option?.label}
                 {element.fallback && ` or "${element.fallback}"`}
