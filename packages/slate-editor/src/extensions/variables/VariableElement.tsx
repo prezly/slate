@@ -55,7 +55,7 @@ export function VariableElement({ attributes, children, element, variables }: Pr
             setMenuOpen(true);
             setFallback(element.fallback ?? '');
         }
-    }, [selected, element.fallback]);
+    }, [selected]);
 
     useEffect(() => {
         if (!option?.withFallback) {
