@@ -43,6 +43,7 @@ export function VariableElement({ attributes, children, element, variables }: Pr
 
     function handleSave() {
         updateVariable(editor, { fallback: fallback !== '' ? fallback : null });
+        handleCloseMenu();
     }
 
     function handleRemove() {
