@@ -27,23 +27,3 @@
         border-color: #004492;
     }
 }
-
-.Dropdown {
-    width: 100% !important;
-}
-
-.Caption {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .Icon {
-        display: flex;
-        align-items: center;
-
-        > svg {
-            width: 16px;
-            height: 16px;
-        }
-    }
-}
