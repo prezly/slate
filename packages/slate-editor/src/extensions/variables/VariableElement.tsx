@@ -29,7 +29,7 @@ export function VariableElement({ attributes, children, element, variables }: Pr
     const options = variables.map((variable) => ({
         value: variable.key,
         label: variable.text,
-        withFallback: variable.withFallback
+        withFallback: variable.withFallback,
     }));
     const option = options.find(({ value }) => value === element.key);
 
@@ -65,8 +65,13 @@ export function VariableElement({ attributes, children, element, variables }: Pr
     return (
         <>
             {selected && container && isMenuOpen && (
-                <Menu popperOptions={{ modifiers: { arrow: { padding: 0 } } }} reference={container}>
-                    <Toolbox.Header onCloseClick={handleCloseMenu} withCloseButton>Dynamic field settings</Toolbox.Header>
+                <Menu
+                    popperOptions={{ modifiers: { arrow: { padding: 0 } } }}
+                    reference={container}
+                >
+                    <Toolbox.Header onCloseClick={handleCloseMenu} withCloseButton>
+                        Dynamic field settings
+                    </Toolbox.Header>
                     <Toolbox.Section>
                         <VStack spacing="2">
                             <Toolbox.Caption>Type</Toolbox.Caption>
@@ -95,7 +100,13 @@ export function VariableElement({ attributes, children, element, variables }: Pr
                                         onChange={setFallback}
                                         placeholder="Define your fallback"
                                     />
-                                    <Button variant="primary" type="submit" size="small" fullWidth round>
+                                    <Button
+                                        variant="primary"
+                                        type="submit"
+                                        size="small"
+                                        fullWidth
+                                        round
+                                    >
                                         Save
                                     </Button>
                                 </VStack>
@@ -117,7 +128,8 @@ export function VariableElement({ attributes, children, element, variables }: Pr
                 contentEditable={false}
                 ref={setContainer}
             >
-                {option?.label}{element.fallback && ` or "${element.fallback}"`}
+                {option?.label}
+                {element.fallback && ` or "${element.fallback}"`}
                 {children}
             </span>
         </>
