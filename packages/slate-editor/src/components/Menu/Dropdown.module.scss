@@ -15,17 +15,28 @@
         .DropdownToggle {
             border-radius: $border-radius-base;
 
+            &[data-headlessui-state="open"] {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
             &.enabled,
             &.enabled:hover {
                 color: $black;
                 background-color: $white;
             }
+
+            &.enabled .Caret {
+                color: $black;
+            }
         }
 
         .DropdownMenu {
             width: 100%;
-            background-color: $white;
             margin: 0;
+            background-color: $white;
+            border-top: 1px solid $grey-200;
+            box-shadow: none;
         }
 
         .MenuItem {
