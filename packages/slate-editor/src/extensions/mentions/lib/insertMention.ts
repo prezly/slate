@@ -3,7 +3,11 @@ import { Transforms } from 'slate';
 
 import type { MentionElementType } from '../types';
 
-export function insertMention(editor: Editor, element: MentionElementType, moveCursorAfterInsert: boolean) {
+export function insertMention(
+    editor: Editor,
+    element: MentionElementType,
+    moveCursorAfterInsert: boolean,
+) {
     Transforms.insertNodes(editor, element);
 
     if (moveCursorAfterInsert) {
