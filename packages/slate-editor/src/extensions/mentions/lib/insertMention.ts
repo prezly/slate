@@ -6,7 +6,7 @@ import type { MentionElementType } from '../types';
 export function insertMention(
     editor: Editor,
     element: MentionElementType,
-    moveCursorAfterInsert: boolean,
+    moveCursorAfterInsert = true,
 ) {
     Transforms.insertNodes(editor, element);
 

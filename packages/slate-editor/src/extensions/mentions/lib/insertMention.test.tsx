@@ -37,7 +37,7 @@ describe('insertMention', () => {
             </editor>
         ) as unknown as Editor;
 
-        insertMention(editor, createPlaceholderMentionElement(placeholderKey), true);
+        insertMention(editor, createPlaceholderMentionElement(placeholderKey));
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
@@ -71,7 +71,7 @@ describe('insertMention', () => {
             </editor>
         ) as unknown as Editor;
 
-        insertMention(editor, createPlaceholderMentionElement(placeholderKey), true);
+        insertMention(editor, createPlaceholderMentionElement(placeholderKey));
 
         expect(editor.children).toEqual(expected.children);
         expect(editor.selection).toEqual(expected.selection);
