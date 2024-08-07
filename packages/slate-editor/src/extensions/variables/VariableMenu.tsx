@@ -16,10 +16,11 @@ import styles from './VariableMenu.module.scss';
 interface Props {
     container: HTMLElement;
     element: VariableNode;
+    onClose: () => void;
     variables: Variable[];
 }
 
-export function VariableMenu({ container, element, variables }: Props) {
+export function VariableMenu({ container, element, onClose, variables }: Props) {
     const editor = useSlateStatic();
     const popperOptions = usePopperOptionsContext();
 
@@ -60,7 +61,9 @@ export function VariableMenu({ container, element, variables }: Props) {
             popperOptions={{ ...popperOptions, modifiers: { arrow: { padding: 0 } } }}
             reference={container}
         >
-            <Toolbox.Header>Variable settings</Toolbox.Header>
+            <Toolbox.Header onCloseClick={onClose} withCloseButton>
+                Variable settings
+            </Toolbox.Header>
             {options.length > 1 && (
                 <Toolbox.Section>
                     <VStack spacing="2">

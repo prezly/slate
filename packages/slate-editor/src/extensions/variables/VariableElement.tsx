@@ -1,6 +1,6 @@
 import { isVariableNode, type VariableNode } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected, useSlateStatic } from 'slate-react';
 
@@ -17,6 +17,7 @@ export function VariableElement({ attributes, children, element, variables }: Pr
     const selected = useSelected();
     const editor = useSlateStatic();
 
+    const [isMenuOpen, setMenuOpen] = useState(false);
     const [container, setContainer] = useState<HTMLSpanElement | null>(null);
 
     const variable = variables.find(({ key }) => key === element.key);
@@ -24,16 +25,28 @@ export function VariableElement({ attributes, children, element, variables }: Pr
     const isOnlyVariableSelected =
         selectedNodes.length === 1 && selectedNodes.every(([node]) => isVariableNode(node));
 
+    useEffect(() => {
+        if (selected) {
+            setMenuOpen(true);
+        }
+    }, [selected]);
+
     return (
         <>
-            {selected && isOnlyVariableSelected && container && (
-                <VariableMenu container={container} element={element} variables={variables} />
+            {selected && isOnlyVariableSelected && container && isMenuOpen && (
+                <VariableMenu
+                    container={container}
+                    element={element}
+                    onClose={() => setMenuOpen(false)}
+                    variables={variables}
+                />
             )}
             <span
                 {...attributes}
                 className={classNames(styles.VariableElement, {
                     [styles.selected]: selected,
                 })}
+                onClick={() => setMenuOpen(true)}
                 ref={(ref) => {
                     setContainer(ref);
                     attributes.ref(ref);
