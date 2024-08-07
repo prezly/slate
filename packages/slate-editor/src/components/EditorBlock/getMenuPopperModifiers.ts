@@ -71,6 +71,7 @@ export function getMenuPopperModifiers(
             enabled: true,
             options: {
                 padding: 19,
+                ...modifiers?.arrow,
             },
         } satisfies Partial<ArrowModifier>,
         {

@@ -11,6 +11,52 @@
         width: 180px;
     }
 
+    &.light {
+        .DropdownToggle {
+            border-radius: $border-radius-base;
+
+            &[data-headlessui-state="open"] {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            &.enabled,
+            &.enabled:hover {
+                color: $black;
+                background-color: $white;
+            }
+
+            &.enabled .Caret {
+                color: $black;
+            }
+        }
+
+        .DropdownMenu {
+            width: 100%;
+            margin: 0;
+            background-color: $white;
+            border: 1px solid $grey-200;
+            box-shadow: none;
+        }
+
+        .MenuItem {
+            color: $black;
+
+            &.selected,
+            &.active {
+                color: $black;
+
+                &::before {
+                    background-color: $grey-200;
+                }
+            }
+
+            &.active:not(.selected) {
+                color: $black;
+            }
+        }
+    }
+
     &:last-child {
         border-right: none;
     }
@@ -83,6 +129,7 @@
         background-color: $toolbar-dark-theme-bg;
         border-radius: 0 0 $toolbar-dark-theme-border-radius $toolbar-dark-theme-border-radius;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.11), inset 0 1px 0 $toolbar-dark-theme-border-color;
+        z-index: 2;
     }
 
     .MenuItem {

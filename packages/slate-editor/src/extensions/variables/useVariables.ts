@@ -44,6 +44,7 @@ export function useVariables(
     return useMentions<Variable>({
         createMentionElement: (option) => createVariableNode(option.value.key),
         isEnabled,
+        moveCursorAfterInsert: false,
         options,
         trigger: '%',
     });

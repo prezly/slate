@@ -21,6 +21,7 @@ export namespace Dropdown {
         disabled?: boolean;
         renderOption?: ComponentType<{ option: Option<Value>; selected: boolean }>;
         value?: Value;
+        variant?: 'dark' | 'light';
         className?: string;
     }
 }
@@ -32,6 +33,7 @@ export function Dropdown<Value extends string = string>({
     disabled = false,
     renderOption = PlainLabel,
     value,
+    variant = 'dark',
     ...props
 }: Dropdown.Props<Value>): ReturnType<FunctionComponent<Dropdown.Props<Value>>> {
     const RenderOption = renderOption;
@@ -50,6 +52,7 @@ export function Dropdown<Value extends string = string>({
         <Listbox
             className={classNames(styles.Dropdown, className, {
                 [styles.enabled]: !disabled,
+                [styles.light]: variant === 'light',
             })}
             as="div"
             {...props}

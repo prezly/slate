@@ -11,6 +11,7 @@ import type { MentionElementType, Option } from './types';
 interface Parameters<V> {
     createMentionElement: (option: Option<V>) => MentionElementType;
     isEnabled?: (target: Range | null) => boolean;
+    moveCursorAfterInsert?: boolean;
     options: Option<V>[];
     trigger: string;
 }
@@ -28,6 +29,7 @@ export interface Mentions<V> {
 export function useMentions<V>({
     createMentionElement,
     isEnabled = stubTrue,
+    moveCursorAfterInsert = true,
     options,
     trigger,
 }: Parameters<V>): Mentions<V> {
@@ -44,7 +46,7 @@ export function useMentions<V>({
             if (target) {
                 Transforms.select(editor, target);
                 const mentionElement = createMentionElement(option);
-                insertMention(editor, mentionElement);
+                insertMention(editor, mentionElement, moveCursorAfterInsert);
                 setTarget(null);
             }
         },

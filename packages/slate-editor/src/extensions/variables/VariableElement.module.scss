@@ -1,0 +1,29 @@
+@import "styles/helpers";
+@import "styles/variables";
+
+.VariableElement {
+    /*
+     * Selection in Slate 0.50+ does not work as expected if a void block is selectable.
+     * It could lead to an error when Slate is resolving the node which crashes the editor.
+     *
+     * Also, it's not possible to drag a node when it's selectable.
+     *
+     * see: https://github.com/prezly/clubhouse-archive/blob/master/archive/stories/19824.md
+     * see: https://github.com/prezly/clubhouse-archive/blob/master/archive/stories/20456.md
+     */
+    user-select: none;
+
+    padding: 0 2px;
+    background-color: $legacy-alert-info-bg;
+    border: 1px solid $legacy-alert-info-border;
+    border-radius: 3px;
+    color: darken($legacy-alert-info-text, 5%);
+
+    &:hover {
+        color: #004492;
+    }
+
+    &.selected {
+        border-color: #004492;
+    }
+}

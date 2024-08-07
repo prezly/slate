@@ -6,6 +6,7 @@ const SHAPE: Record<keyof VariableNode, boolean> = {
     type: true,
     key: true,
     children: true,
+    fallback: true,
 };
 const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
 
