@@ -35,11 +35,11 @@ export function VariableMenu({ container, element, onClose, variables }: Props) 
     const option = options.find(({ value }) => value === element.key);
 
     function handleChangeType(newType: string) {
-        updateVariable(editor, { key: newType });
-
         const newOption = options.find(({ value }) => value === newType);
         if (newOption && !newOption.withFallback) {
             updateVariable(editor, { fallback: '' });
+        } else {
+            updateVariable(editor, { key: newType });
         }
     }
 
