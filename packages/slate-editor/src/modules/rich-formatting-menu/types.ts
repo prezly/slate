@@ -22,6 +22,8 @@ export type FetchOEmbedFn = (url: string) => Promise<OEmbedInfo>;
 
 export type Presentation = 'card' | 'embed' | 'link';
 
+export type LinkType = 'url' | 'email' | 'predefined';
+
 export type RichFormattedTextElement =
     | ParagraphNode
     | HeadingNode

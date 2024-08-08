@@ -12,6 +12,7 @@ import { Menu, TextSelectionPortalV2 } from '#components';
 
 import { decorateSelectionFactory } from '#extensions/decorate-selection';
 import { unwrapLink, wrapInLink } from '#extensions/inline-links';
+import type { InlineLinksExtensionConfiguration } from '#extensions/inline-links';
 import { MarkType } from '#extensions/text-styling';
 import { useDecorationFactory } from '#modules/decorations';
 import { EventsEditor } from '#modules/events';
@@ -38,7 +39,7 @@ interface Props {
     withCallouts: boolean;
     withConversionOptions?: false | { fetchOembed: FetchOEmbedFn };
     withHeadings: boolean;
-    withInlineLinks: boolean;
+    withInlineLinks: boolean | InlineLinksExtensionConfiguration;
     withLists: boolean;
     withNewTabOption: boolean;
     withTextHighlight: boolean;
@@ -219,6 +220,11 @@ export function RichFormattingMenu({
                     onConvert={handleConvert}
                     onClose={onClose}
                     onUnlink={unlinkSelection}
+                    predefinedLinks={
+                        typeof withInlineLinks === 'object'
+                            ? withInlineLinks.predefinedLinks
+                            : undefined
+                    }
                 />
             </TextSelectionPortalV2>
         );
@@ -273,7 +279,7 @@ export function RichFormattingMenu({
                     withCallouts={withCallouts}
                     withHeadings={withHeadings && !isInsideTable}
                     withInlineLinks={
-                        isTitleSelected || isSubtitleSelected ? false : withInlineLinks
+                        isTitleSelected || isSubtitleSelected ? false : Boolean(withInlineLinks)
                     }
                     withLists={withLists}
                     withParagraphs={withParagraphs}

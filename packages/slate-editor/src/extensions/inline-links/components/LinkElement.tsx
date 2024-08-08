@@ -6,14 +6,18 @@ import { ReactEditor, useSlateStatic } from 'slate-react';
 
 import { LinkWithTooltip } from '#modules/components';
 
+import type { InlineLinksExtensionConfiguration } from '../types';
+
 import styles from './LinkElement.module.scss';
 
 interface Props extends RenderElementProps {
     element: LinkNode;
+    predefinedLinks: InlineLinksExtensionConfiguration['predefinedLinks'];
 }
 
-export function LinkElement({ attributes, children, element }: Props) {
+export function LinkElement({ attributes, children, element, predefinedLinks }: Props) {
     const editor = useSlateStatic();
+    const predefinedLink = predefinedLinks?.options.find(({ value }) => value === element.href);
 
     function onMouseUp() {
         if (editor.selection && Range.isCollapsed(editor.selection)) {
@@ -28,7 +32,10 @@ export function LinkElement({ attributes, children, element }: Props) {
         // a failed `ReactEditor.toSlateNode` in Slate's Editable onClick handler.
         // For more details, see https://github.com/prezly/prezly/pull/8016#discussion_r454190469
         <span {...attributes}>
-            <LinkWithTooltip href={element.href}>
+            <LinkWithTooltip
+                href={predefinedLink?.label ?? element.href}
+                textOnly={predefinedLink !== undefined}
+            >
                 {({ ariaAttributes, onHide, onShow, setReferenceElement }) => (
                     <a
                         {...ariaAttributes}
