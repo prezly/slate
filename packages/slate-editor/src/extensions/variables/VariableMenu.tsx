@@ -37,7 +37,7 @@ export function VariableMenu({ container, element, onClose, variables }: Props) 
     function handleChangeType(newType: string) {
         const newOption = options.find(({ value }) => value === newType);
         if (newOption && !newOption.withFallback) {
-            updateVariable(editor, { fallback: '' });
+            updateVariable(editor, { key: newType, fallback: '' });
         } else {
             updateVariable(editor, { key: newType });
         }
