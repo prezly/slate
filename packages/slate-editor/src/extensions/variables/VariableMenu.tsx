@@ -1,5 +1,5 @@
 import type { VariableNode } from '@prezly/slate-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSlateStatic } from 'slate-react';
 
 import { Button, Input, Menu as BaseMenu, Toolbox, VStack, TooltipV2 } from '#components';
@@ -36,6 +36,11 @@ export function VariableMenu({ container, element, onClose, variables }: Props) 
 
     function handleChangeType(newType: string) {
         updateVariable(editor, { key: newType });
+
+        const newOption = options.find(({ value }) => value === newType);
+        if (newOption && !newOption.withFallback) {
+            updateVariable(editor, { fallback: '' });
+        }
     }
 
     function handleSave() {
@@ -45,12 +50,6 @@ export function VariableMenu({ container, element, onClose, variables }: Props) 
     function handleRemove() {
         removeVariable(editor);
     }
-
-    useEffect(() => {
-        if (!option?.withFallback) {
-            updateVariable(editor, { fallback: '' });
-        }
-    }, [option?.withFallback]);
 
     return (
         <Menu
