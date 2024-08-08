@@ -9,12 +9,14 @@ import {
     convertLegacyPlaceholderNodesToVariables,
     removeUnknownVariables,
     removeUnknownVariableNodeAttributes,
+    removeFallbackPropertyIfEmpty,
 } from './';
 
 const normalizations = [
     convertLegacyPlaceholderNodesToVariables,
     removeUnknownVariables(['contact.firstname', 'contact.lastname']),
     removeUnknownVariableNodeAttributes,
+    removeFallbackPropertyIfEmpty,
 ];
 
 function normalizeNode(editor: Editor, entry: NodeEntry) {
@@ -126,6 +128,42 @@ describe('VariablesExtension', () => {
                     <h:paragraph>
                         <h:text>Hello, </h:text>
                         <h:variable key="contact.firstname" bold={true} style="green">
+                            <h:text>%contact.firstname%</h:text>
+                        </h:variable>
+                        <h:text>!</h:text>
+                    </h:paragraph>
+                </editor>
+            ) as unknown as Editor;
+
+            const expected = (
+                <editor>
+                    <h:paragraph>
+                        <h:text>Hello, </h:text>
+                        <h:variable key="contact.firstname">
+                            <h:text>%contact.firstname%</h:text>
+                        </h:variable>
+                        <h:text>!</h:text>
+                    </h:paragraph>
+                </editor>
+            ) as unknown as Editor;
+
+            editor.normalizeNode = function (entry) {
+                normalizeNode(editor, entry);
+            };
+
+            Editor.normalize(editor, { force: true });
+
+            expect(editor.children).toEqual(expected.children);
+        });
+    });
+
+    describe('removeFallbackPropertyIfEmpty', () => {
+        it("should remove fallback property, if it's an empty string", () => {
+            const editor = (
+                <editor>
+                    <h:paragraph>
+                        <h:text>Hello, </h:text>
+                        <h:variable key="contact.firstname" fallback="">
                             <h:text>%contact.firstname%</h:text>
                         </h:variable>
                         <h:text>!</h:text>

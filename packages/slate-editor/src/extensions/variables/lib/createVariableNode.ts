@@ -4,7 +4,6 @@ export function createVariableNode(key: VariableNode['key']): VariableNode {
     return {
         children: [{ text: '' }],
         key,
-        fallback: null,
         type: VARIABLE_NODE_TYPE,
     };
 }
