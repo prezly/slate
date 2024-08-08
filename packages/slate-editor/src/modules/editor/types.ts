@@ -14,6 +14,7 @@ import type { EmbedExtensionConfiguration } from '#extensions/embed';
 import type { ExtensionConfiguration as FloatingAddMenuExtensionConfiguration } from '#extensions/floating-add-menu';
 import type { GalleriesExtensionConfiguration } from '#extensions/galleries';
 import type { ImageExtensionConfiguration } from '#extensions/image';
+import type { InlineLinksExtensionConfiguration } from '#extensions/inline-links';
 import type {
     FetchOEmbedFn,
     PlaceholderNode,
@@ -124,7 +125,7 @@ export interface EditorProps {
     withHeadings?: boolean;
     withImages?: false | ImageExtensionConfiguration;
     withInlineContacts?: PlaceholdersExtensionParameters['withInlineContactPlaceholders'];
-    withInlineLinks?: boolean;
+    withInlineLinks?: boolean | InlineLinksExtensionConfiguration;
     withLists?: boolean;
     withPlaceholders?: Pick<
         PlaceholdersExtensionParameters,

@@ -186,7 +186,8 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     }
 
     if (withInlineLinks) {
-        yield InlineLinksExtension();
+        const config = withInlineLinks === true ? {} : withInlineLinks;
+        yield InlineLinksExtension(config);
     }
 
     // Since we're overriding the default Tab key behavior
