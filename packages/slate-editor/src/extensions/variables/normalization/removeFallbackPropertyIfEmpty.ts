@@ -1,10 +1,7 @@
 import { type VariableNode, isVariableNode } from '@prezly/slate-types';
 import { Transforms, type Editor, type NodeEntry } from 'slate';
 
-export function removeFallbackPropertyIfEmpty(
-    editor: Editor,
-    [node, path]: NodeEntry,
-): boolean {
+export function removeFallbackPropertyIfEmpty(editor: Editor, [node, path]: NodeEntry): boolean {
     if (!isVariableNode(node)) {
         return false;
     }
