@@ -17,10 +17,13 @@ import {
     normalizeRedundantLinkAttributes,
     parseSerializedLinkElement,
 } from './lib';
+import type { InlineLinksExtensionConfiguration } from './types';
 
 export const EXTENSION_ID = 'InlineLinksExtension';
 
-export const InlineLinksExtension = (): Extension => ({
+export const InlineLinksExtension = ({
+    predefinedLinks,
+}: InlineLinksExtensionConfiguration = {}): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({
@@ -46,7 +49,11 @@ export const InlineLinksExtension = (): Extension => ({
     renderElement: ({ attributes, children, element }: RenderElementProps) => {
         if (isLinkNode(element)) {
             return (
-                <LinkElement attributes={attributes} element={element}>
+                <LinkElement
+                    attributes={attributes}
+                    element={element}
+                    predefinedLinks={predefinedLinks}
+                >
                     {children}
                 </LinkElement>
             );

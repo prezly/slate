@@ -15,6 +15,7 @@ export { ensureElementInView } from './ensureElementInView';
 export { ensureRangeInView } from './ensureRangeInView';
 export { formatBytes } from './formatBytes';
 export { getScrollParent } from './getScrollParent';
+export { humanFriendlyEmailUrl } from './humanFriendlyEmailUrl';
 export { humanFriendlyUrl } from './humanFriendlyUrl';
 export { isCorsEnabledOrigin } from './isCorsEnabledOrigin';
 export { isGoogleDocsWrapper } from './isGoogleDocsWrapper';
@@ -28,5 +29,13 @@ export { scrollTo } from './scrollTo';
 export * from './isDeletingEvent';
 export * from './stripTags';
 export * as utils from './utils';
-export { HREF_REGEXP, URL_WITH_OPTIONAL_PROTOCOL_REGEXP, normalizeHref, matchUrls } from './urls';
+export {
+    EMAIL_REGEXP,
+    HREF_REGEXP,
+    MAILTO_REGEXP,
+    URL_WITH_OPTIONAL_PROTOCOL_REGEXP,
+    normalizeHref,
+    normalizeMailtoHref,
+    matchUrls,
+} from './urls';
 export { withResetFormattingOnBreak } from './withResetFormattingOnBreak';

@@ -1,7 +1,8 @@
 export const URL_PLACEHOLDER_REGEXP = new RegExp('%release\\.url%|%release\\.shorturl%');
-export const MAILTO_REGEXP = new RegExp(
-    'mailto:[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*',
+export const EMAIL_REGEXP = new RegExp(
+    '[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*',
 );
+export const MAILTO_REGEXP = new RegExp(`mailto:${EMAIL_REGEXP.source}`);
 /**
  * @see https://regex101.com/r/W0NkQE/2
  * For problems, blame Ivan & Lukas :)
@@ -36,6 +37,13 @@ export const HREF_REGEXP = new RegExp(
 export function normalizeHref(href: string): string {
     if (full(URL_WITHOUT_PROTOCOL_REGEXP).test(href)) {
         return `http://${href}`;
+    }
+    return href;
+}
+
+export function normalizeMailtoHref(href: string): string {
+    if (full(EMAIL_REGEXP).test(href)) {
+        return `mailto:${href}`;
     }
     return href;
 }

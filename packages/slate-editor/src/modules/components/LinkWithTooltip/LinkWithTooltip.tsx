@@ -15,9 +15,10 @@ interface Props {
     children: TooltipV2.TooltipProps['children'];
     enabled?: boolean;
     href: string;
+    textOnly?: boolean;
 }
 
-export function LinkWithTooltip({ children, enabled = true, href }: Props) {
+export function LinkWithTooltip({ children, enabled = true, href, textOnly = false }: Props) {
     return (
         <TooltipV2.Tooltip
             className={styles.LinkWithTooltip}
@@ -26,9 +27,18 @@ export function LinkWithTooltip({ children, enabled = true, href }: Props) {
             placement="bottom"
             showDelay={SHOW_DELAY}
             tooltip={
-                <a className={styles.Link} href={href} rel="noreferrer noopener" target="_blank">
-                    {href}
-                </a>
+                textOnly ? (
+                    href
+                ) : (
+                    <a
+                        className={styles.Link}
+                        href={href}
+                        rel="noreferrer noopener"
+                        target="_blank"
+                    >
+                        {href}
+                    </a>
+                )
             }
         >
             {children}
