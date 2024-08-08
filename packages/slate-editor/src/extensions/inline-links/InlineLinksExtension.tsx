@@ -23,7 +23,7 @@ export const EXTENSION_ID = 'InlineLinksExtension';
 
 export const InlineLinksExtension = ({
     predefinedLinks,
-}: InlineLinksExtensionConfiguration): Extension => ({
+}: InlineLinksExtensionConfiguration = {}): Extension => ({
     id: EXTENSION_ID,
     deserialize: {
         element: composeElementDeserializer({
