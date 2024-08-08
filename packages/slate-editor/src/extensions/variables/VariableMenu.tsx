@@ -48,10 +48,6 @@ export function VariableMenu({ container, element, onClose, variables }: Props) 
 
     useEffect(() => {
         if (!option?.withFallback) {
-            // Even though the API supports `null` for the fallback,
-            // we can't use it here because Slate will remove this property
-            // and the API will add it back upon saving, creating an endless loop
-            // since the two values will differ.
             updateVariable(editor, { fallback: '' });
         }
     }, [option?.withFallback]);

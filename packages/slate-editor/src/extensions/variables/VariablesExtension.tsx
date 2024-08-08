@@ -8,6 +8,7 @@ import { MentionsExtension } from '#extensions/mentions';
 import { parseSerializedElement } from './lib';
 import {
     convertLegacyPlaceholderNodesToVariables,
+    removeFallbackPropertyIfEmpty,
     removeUnknownVariableNodeAttributes,
     removeUnknownVariables,
 } from './normalization';
@@ -25,6 +26,7 @@ export function VariablesExtension({ variables }: VariablesExtensionParameters):
             convertLegacyPlaceholderNodesToVariables,
             removeUnknownVariables(variablesNames),
             removeUnknownVariableNodeAttributes,
+            removeFallbackPropertyIfEmpty,
         ],
         parseSerializedElement,
         renderElement: ({ attributes, children, element }: RenderElementProps) => {
