@@ -42,7 +42,12 @@ export const CalloutElement = forwardRef(
         const isSelected = useSelected();
 
         return (
-            <div {...props} ref={ref} className={classNames(className, styles.CalloutElement)}>
+            <div
+                {...props}
+                ref={ref}
+                className={classNames(className, styles.CalloutElement)}
+                data-slate-block-align={align}
+            >
                 <NewParagraphDelimiter extendedHitArea element={element} position="top" />
                 <div
                     className={classNames(className, styles.Callout, {

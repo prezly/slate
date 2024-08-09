@@ -21,7 +21,12 @@ export const BlockQuoteElement = forwardRef(
         const isEmpty = EditorCommands.isNodeEmpty(editor, element);
 
         return (
-            <div {...props} ref={ref} className={classNames(className, styles.BlockQuoteElement)}>
+            <div
+                {...props}
+                ref={ref}
+                className={classNames(className, styles.BlockQuoteElement)}
+                data-slate-block-align={align}
+            >
                 <NewParagraphDelimiter extendedHitArea element={element} position="top" />
                 <blockquote
                     className={classNames(className, styles.Quote, {
