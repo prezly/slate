@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-editor",
-    "version": "0.113.1",
+    "version": "0.113.2",
     "description": "The Prezly Slate Editor",
     "license": "MIT",
     "type": "module",
