@@ -154,6 +154,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
                 [styles.loading]: loading,
             })}
             data-slate-block-layout={layout}
+            data-slate-block-align={align}
             onClick={closeMenu}
             ref={ref}
         >
