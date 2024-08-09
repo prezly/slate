@@ -51,6 +51,10 @@ export function VariableMenu({ container, element, onClose, variables }: Props) 
         removeVariable(editor);
     }
 
+    if (options.length < 2 && !option?.withFallback) {
+        return null;
+    }
+
     return (
         <Menu
             popperOptions={{ ...popperOptions, modifiers: { arrow: { padding: 0 } } }}
