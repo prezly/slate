@@ -60,14 +60,14 @@ export function CoverageElement({
         }
     }
 
-    function handleCoverageUpdated({ coverage }: { coverage: Pick<CoverageEntry, 'id'>}) {
-        if (element.coverage.id === coverage.id) {
-            loadCoverage();
-        }
-    }
-
     useEffect(() => {
-        EventsEditor.addEventListener(editor, 'coverage-updated', handleCoverageUpdated);
+        function handleCoverageUpdated({ coverage }: { coverage: Pick<CoverageEntry, 'id'>}) {
+            if (element.coverage.id === coverage.id) {
+                loadCoverage();
+            }
+        }
+
+        return EventsEditor.addEventListener(editor, 'coverage-updated', handleCoverageUpdated);
     }, []);
 
     return (
