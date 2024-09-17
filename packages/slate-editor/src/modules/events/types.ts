@@ -74,6 +74,9 @@ export type EditorEventMap = {
     'coverage-placeholder-submitted': {
         coverage: Pick<CoverageEntry, 'id'>;
     };
+    'coverage-updated': {
+        coverage: Pick<CoverageEntry, 'id'>;
+    },
     'coverage-removed': {
         uuid: string;
     };
