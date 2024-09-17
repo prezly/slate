@@ -1,4 +1,6 @@
+import type { RemoveListener } from '@prezly/events';
 import { Events } from '@prezly/events';
+import { noop } from '@technically/lodash';
 import { Editor } from 'slate';
 
 import { EVENTS_PROPERTY } from './constants';
@@ -10,10 +12,12 @@ export abstract class EventsEditor {
         editor: Editor,
         event: Event,
         listener: EditorEventHandlers[Event],
-    ): void {
+    ): RemoveListener {
         if (EventsEditor.isEventsEditor(editor)) {
-            editor[EVENTS_PROPERTY].addEventListener(event, listener);
+            return editor[EVENTS_PROPERTY].addEventListener(event, listener);
         }
+
+        return noop;
     }
 
     static dispatchEvent<Event extends keyof EditorEventMap>(
