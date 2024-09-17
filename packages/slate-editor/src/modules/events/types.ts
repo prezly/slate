@@ -76,7 +76,7 @@ export type EditorEventMap = {
     };
     'coverage-updated': {
         coverage: Pick<CoverageEntry, 'id'>;
-    },
+    };
     'coverage-removed': {
         uuid: string;
     };
