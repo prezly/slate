@@ -255,7 +255,7 @@ function* generateOptions(
             icon: Icons.ComponentVideo,
             group: Group.MEDIA_CONTENT,
             text: 'Video',
-            description: 'Place a video from a URL',
+            description: 'Embed video by URL or upload',
         };
     }
 
