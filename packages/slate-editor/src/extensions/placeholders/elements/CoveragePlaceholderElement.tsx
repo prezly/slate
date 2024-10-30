@@ -145,6 +145,7 @@ export function CoveragePlaceholderElement({
                     query={props.query}
                     suggestions={props.suggestions}
                     footer={renderSuggestionsFooter?.({ ...props, onMode })}
+                    origin={props.origin}
                 >
                     {props.children}
                 </SearchInput.Suggestions>

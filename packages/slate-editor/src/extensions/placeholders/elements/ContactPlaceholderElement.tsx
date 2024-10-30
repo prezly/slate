@@ -72,6 +72,7 @@ export function ContactPlaceholderElement({
                     query={props.query}
                     suggestions={props.suggestions}
                     footer={renderSuggestionsFooter?.(props)}
+                    origin={props.origin}
                 >
                     {props.children}
                 </SearchInput.Suggestions>
