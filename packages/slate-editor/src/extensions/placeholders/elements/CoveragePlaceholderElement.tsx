@@ -7,12 +7,13 @@ import React, { type DragEvent, useEffect, useState } from 'react';
 import { Transforms } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
 
-import { SearchInput } from '#components';
-import { PlaceholderCoverage } from '#icons';
+import { Button, SearchInput } from '#components';
+import { PlaceholderCoverage, Upload } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
 
 import { createCoverage } from '#extensions/coverage';
 import { EventsEditor } from '#modules/events';
+import { UploadcareEditor } from '#modules/uploadcare';
 
 import { InputPlaceholder } from '../components/InputPlaceholder';
 import { withLoadingDots } from '../components/LoadingDots';
@@ -23,6 +24,8 @@ import {
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
+
+import styles from './CoveragePlaceholderElement.module.scss';
 
 type Url = string;
 type CoverageRef = Pick<CoverageNode, 'coverage'>;
@@ -47,6 +50,22 @@ export function CoveragePlaceholderElement({
 
     const handleTrigger = useFunction(() => {
         PlaceholdersManager.activate(element);
+    });
+
+    const handleUpload = useFunction(async () => {
+        const files = await UploadcareEditor.upload(editor, { multiple: false });
+        if (!files) {
+            return;
+        }
+
+        setMode('search');
+        const uploading = toProgressPromise(files[0]).then(async (fileInfo: PrezlyFileInfo) => {
+            const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
+            const ref = await onCreateCoverage(file);
+
+            return { coverage: { id: ref.coverage.id } };
+        });
+        PlaceholdersManager.register(element.type, element.uuid, uploading);
     });
 
     const handleDrop = useFunction((event: DragEvent) => {
@@ -133,10 +152,11 @@ export function CoveragePlaceholderElement({
             renderFrame={() =>
                 mode === 'create' ? (
                     <InputPlaceholder
+                        autoFocus
                         format="card"
                         selected={isSelected}
-                        title="Coverage"
-                        description="Type the URL of the new Coverage you want to add"
+                        title="Log new coverage"
+                        description="Paste a coverage URL or upload a coverage file (you can also drop it here)."
                         placeholder="www.website.com/article"
                         pattern={URL_WITH_OPTIONAL_PROTOCOL_REGEXP.source}
                         action="Add coverage"
@@ -145,7 +165,18 @@ export function CoveragePlaceholderElement({
                         onEsc={() => PlaceholdersManager.deactivate(element)}
                         onRemove={handleRemove}
                         onSubmit={handleSubmitUrl}
-                    />
+                    >
+                        <div className={styles.Action}>
+                            <Button
+                                className={styles.Button}
+                                icon={Upload}
+                                onClick={handleUpload}
+                                variant="underlined"
+                            >
+                                Upload a coverage file
+                            </Button>
+                        </div>
+                    </InputPlaceholder>
                 ) : undefined
             }
             inputTitle="Coverage"

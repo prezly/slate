@@ -11,6 +11,7 @@ import styles from './InputPlaceholder.module.scss';
 import type { ContentRenderProps } from './Placeholder';
 
 export interface Props extends Omit<BaseProps, 'title' | 'onSubmit'> {
+    children?: ReactNode;
     title: ReactNode | FunctionComponent<ContentRenderProps>;
     description: ReactNode | FunctionComponent<ContentRenderProps>;
     // Input properties
@@ -28,6 +29,7 @@ export interface Props extends Omit<BaseProps, 'title' | 'onSubmit'> {
 const isEsc = isHotkey('esc');
 
 export function InputPlaceholder({
+    children,
     className,
     action,
     title,
@@ -135,6 +137,7 @@ export function InputPlaceholder({
                     value={value}
                 />
             </form>
+            {children}
         </Frame>
     );
 }
