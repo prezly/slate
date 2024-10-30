@@ -56,7 +56,7 @@ export function Suggestions<T>({
                     altAxis: true,
                     mainAxis: true,
                 },
-            } satisfies Partial<PreventOverflowModifier>
+            } satisfies Partial<PreventOverflowModifier>,
         ],
         placement: 'bottom',
     });
