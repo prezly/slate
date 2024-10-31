@@ -17,7 +17,6 @@ export interface Props<T> extends HTMLAttributes<HTMLDivElement> {
     activeElement: HTMLElement | undefined;
     footer?: ReactNode;
     maxHeight?: number;
-    minHeight?: number;
     origin: HTMLElement | null;
     query: string;
     suggestions: Suggestion<T>[];
@@ -29,7 +28,6 @@ export function Suggestions<T>({
     className,
     footer,
     maxHeight = 500,
-    minHeight = 200,
     origin,
     query,
     suggestions,
@@ -77,7 +75,7 @@ export function Suggestions<T>({
         };
     }, [updatePanelSize]);
 
-    useEffect(updatePanelSize, [query, suggestions, minHeight, maxHeight]);
+    useEffect(updatePanelSize, [query, suggestions, maxHeight]);
 
     useEffect(() => {
         if (activeElement) {
