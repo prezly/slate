@@ -1,4 +1,4 @@
-import {  type Placement } from '@popperjs/core';
+import { type Placement } from '@popperjs/core';
 import classNames from 'classnames';
 import type { HTMLAttributes, ReactNode } from 'react';
 import React, { forwardRef } from 'react';
@@ -14,10 +14,14 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 export const Panel = forwardRef<HTMLDivElement, Props>(
     ({ children, className, footer, placement = 'bottom', ...attributes }, forwardedRef) => {
         return (
-            <div {...attributes} ref={forwardedRef} className={classNames(className, styles.Panel, {
-                [styles.top]: placement === 'top',
-                [styles.bottom]: placement==='bottom',
-            })}>
+            <div
+                {...attributes}
+                ref={forwardedRef}
+                className={classNames(className, styles.Panel, {
+                    [styles.top]: placement === 'top',
+                    [styles.bottom]: placement === 'bottom',
+                })}
+            >
                 {children}
                 {footer && <div className={styles.Footer}>{footer}</div>}
             </div>
