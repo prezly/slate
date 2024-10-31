@@ -167,9 +167,9 @@ export function CoveragePlaceholderElement({
                         onRemove={handleRemove}
                         onSubmit={handleSubmitUrl}
                     >
-                        <div className={styles.Action}>
+                        <div className={styles.action}>
                             <Button
-                                className={styles.Button}
+                                className={styles.button}
                                 icon={Upload}
                                 onClick={handleUpload}
                                 variant="underlined"
