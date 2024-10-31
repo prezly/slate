@@ -59,23 +59,16 @@ export function Suggestions<T>({
         placement: 'bottom',
     });
 
-    const updatePanelSize = useFunction(() => {
+    const updatePanelSizeAndPosition = useFunction(() => {
         setHeight(childrenContainer.current?.getBoundingClientRect().height);
+        popper.update?.();
     });
 
     useEffect(() => {
-        updatePanelSize();
+        updatePanelSizeAndPosition();
+    }, [updatePanelSizeAndPosition]);
 
-        window.addEventListener('scroll', updatePanelSize);
-        window.addEventListener('resize', updatePanelSize);
-
-        return () => {
-            window.removeEventListener('scroll', updatePanelSize);
-            window.removeEventListener('resize', updatePanelSize);
-        };
-    }, [updatePanelSize]);
-
-    useEffect(updatePanelSize, [query, suggestions, maxHeight]);
+    useEffect(updatePanelSizeAndPosition, [query, suggestions, maxHeight]);
 
     useEffect(() => {
         if (activeElement) {
