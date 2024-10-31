@@ -61,12 +61,7 @@ export function Suggestions<T>({
 
     const updatePanelSizeAndPosition = useFunction(() => {
         setHeight(childrenContainer.current?.getBoundingClientRect().height);
-        popper.update?.();
     });
-
-    useEffect(() => {
-        updatePanelSizeAndPosition();
-    }, [updatePanelSizeAndPosition]);
 
     useEffect(updatePanelSizeAndPosition, [query, suggestions, maxHeight]);
 
@@ -75,6 +70,10 @@ export function Suggestions<T>({
             scrollarea?.ensureVisible(activeElement);
         }
     }, [scrollarea, activeElement]);
+
+    useEffect(() => {
+        popper.update?.();
+    }, [height]);
 
     return (
         <Panel
