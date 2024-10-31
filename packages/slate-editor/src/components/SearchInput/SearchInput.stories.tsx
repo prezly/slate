@@ -89,6 +89,7 @@ export function WithFooter() {
             renderSuggestions={({ activeElement, query, suggestions, children }) => (
                 <SearchInput.Suggestions<string>
                     activeElement={activeElement}
+                    origin={null}
                     query={query}
                     suggestions={suggestions}
                     footer={

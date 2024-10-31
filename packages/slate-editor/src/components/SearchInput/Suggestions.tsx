@@ -1,6 +1,9 @@
+import type { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
+import type { PreventOverflowModifier } from '@popperjs/core/lib/modifiers/preventOverflow';
 import classNames from 'classnames';
 import type { HTMLAttributes, ReactNode } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
+import { usePopper } from 'react-popper';
 
 import { useFunction } from '#lib';
 
@@ -12,11 +15,11 @@ import type { Suggestion } from './types';
 
 export interface Props<T> extends HTMLAttributes<HTMLDivElement> {
     activeElement: HTMLElement | undefined;
-    minHeight?: number;
+    footer?: ReactNode;
     maxHeight?: number;
+    origin: HTMLElement | null;
     query: string;
     suggestions: Suggestion<T>[];
-    footer?: ReactNode;
 }
 
 export function Suggestions<T>({
@@ -24,43 +27,48 @@ export function Suggestions<T>({
     children,
     className,
     footer,
-    minHeight = 200,
     maxHeight = 500,
+    origin,
     query,
     suggestions,
     ...attributes
 }: Props<T>) {
     const [height, setHeight] = useState<number>();
-    const [calculatedMaxHeight, setMaxHeight] = useState<number>();
     const container = useRef<HTMLDivElement | null>(null);
     const childrenContainer = useRef<HTMLDivElement | null>(null);
     const [scrollarea, setScrollarea] = useState<FancyScrollbars | null>(null);
 
-    const updatePanelSize = useFunction(() => {
-        setHeight(childrenContainer.current?.getBoundingClientRect().height);
+    const popper = usePopper(origin, container.current, {
+        modifiers: [
+            {
+                name: 'flip',
+                enabled: true,
+                options: {
+                    fallbackPlacements: ['top'],
+                },
+            } satisfies Partial<FlipModifier>,
+            {
+                name: 'preventOverflow',
+                enabled: true,
+                options: {
+                    altAxis: true,
+                    mainAxis: true,
+                },
+            } satisfies Partial<PreventOverflowModifier>,
+        ],
+        placement: 'bottom',
+    });
 
-        if (container.current) {
-            const viewport = document.body.getBoundingClientRect();
-            const rect = container.current.getBoundingClientRect();
-            setMaxHeight(clamp(viewport.height - rect.top - 4, minHeight, maxHeight));
-        } else {
-            setMaxHeight(undefined);
-        }
+    const updatePanelSizeAndPosition = useFunction(() => {
+        setHeight(childrenContainer.current?.getBoundingClientRect().height);
+        popper.update?.();
     });
 
     useEffect(() => {
-        updatePanelSize();
+        updatePanelSizeAndPosition();
+    }, [updatePanelSizeAndPosition]);
 
-        window.addEventListener('scroll', updatePanelSize);
-        window.addEventListener('resize', updatePanelSize);
-
-        return () => {
-            window.removeEventListener('scroll', updatePanelSize);
-            window.removeEventListener('resize', updatePanelSize);
-        };
-    }, [updatePanelSize]);
-
-    useEffect(updatePanelSize, [query, suggestions, minHeight, maxHeight]);
+    useEffect(updatePanelSizeAndPosition, [query, suggestions, maxHeight]);
 
     useEffect(() => {
         if (activeElement) {
@@ -71,20 +79,16 @@ export function Suggestions<T>({
     return (
         <Panel
             {...attributes}
-            style={{ maxHeight: calculatedMaxHeight, ...attributes.style }}
+            {...popper.attributes.popper}
+            style={{ maxHeight, ...attributes.style, ...popper.styles.popper }}
             ref={container}
             className={classNames(className, styles.Suggestions)}
             footer={footer}
+            placement={popper.state?.placement}
         >
             <FancyScrollbars ref={setScrollarea} style={{ flexGrow: 1, height }}>
                 <div ref={childrenContainer}>{children}</div>
             </FancyScrollbars>
         </Panel>
     );
-}
-
-function clamp(num: number, min: number, max: number) {
-    if (num < min) return min;
-    if (num > max) return max;
-    return num;
 }

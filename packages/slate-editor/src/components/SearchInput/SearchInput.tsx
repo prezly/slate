@@ -128,6 +128,7 @@ export function SearchInput<T = unknown>({
                           suggestions,
                           onClose: handleClose,
                           onSelect,
+                          origin: rootRef.current,
                           children: suggestions.map((suggestion) =>
                               renderSuggestion({
                                   suggestion,
@@ -184,6 +185,7 @@ export namespace SearchInput {
             activeElement: HTMLElement | undefined;
             activeSuggestion: Suggestion<T> | undefined;
             loading: boolean;
+            origin: HTMLElement | null;
             query: string;
             suggestions: Suggestion<T>[];
             onClose: () => void;
@@ -227,6 +229,7 @@ function defaultRenderSuggestions<T>({
     activeElement,
     query,
     suggestions,
+    origin,
     children,
 }: SearchInput.Props.Suggestions<T>) {
     return (
@@ -234,6 +237,7 @@ function defaultRenderSuggestions<T>({
             activeElement={activeElement}
             query={query}
             suggestions={suggestions}
+            origin={origin}
         >
             {children}
         </SearchInput.Suggestions>

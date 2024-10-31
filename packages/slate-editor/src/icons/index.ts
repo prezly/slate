@@ -109,6 +109,7 @@ export { default as Resize } from './Resize.svg';
 export { default as Search } from './Search.svg';
 export { default as SocialFacebook } from './Social-Facebook.svg';
 export { default as SocialTwitter } from './Social-Twitter.svg';
+export { default as Upload } from './Upload.svg';
 export { default as User } from './User.svg';
 export { default as Video } from './Video.svg';
 export { default as WarningCircle } from './Warning-Circle.svg';
