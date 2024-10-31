@@ -91,6 +91,7 @@ export function Suggestions<T>({
             ref={container}
             className={classNames(className, styles.Suggestions)}
             footer={footer}
+            placement={popper.state?.placement}
         >
             <FancyScrollbars ref={setScrollarea} style={{ flexGrow: 1, height }}>
                 <div ref={childrenContainer}>{children}</div>
