@@ -53,7 +53,7 @@ export function Suggestions<T>({
         placement: 'bottom-end',
     });
 
-    const updatePanelSizeAndPosition = useFunction(() => {
+    const updatePanelSize = useFunction(() => {
         setHeight(childrenContainer.current?.getBoundingClientRect().height);
 
         if (container.current) {
@@ -65,18 +65,22 @@ export function Suggestions<T>({
         }
     });
 
-    useEffect(updatePanelSizeAndPosition, [
-        query,
-        suggestions,
-        calculatedMaxHeight,
-        minHeight,
-        maxHeight,
-    ]);
+    useEffect(() => {
+        window.addEventListener('scroll', updatePanelSize);
+        window.addEventListener('resize', updatePanelSize);
+
+        return () => {
+            window.removeEventListener('scroll', updatePanelSize);
+            window.removeEventListener('resize', updatePanelSize);
+        };
+    }, [updatePanelSize]);
+
+    useEffect(updatePanelSize, [query, suggestions, minHeight, maxHeight]);
 
     useEffect(() => {
         async function repositionPopper() {
             await popper.update?.();
-            updatePanelSizeAndPosition();
+            updatePanelSize();
 
             if (activeElement) {
                 scrollarea?.ensureVisible(activeElement);
