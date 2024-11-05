@@ -61,16 +61,7 @@ export interface Parameters {
     withGalleryPlaceholders?: boolean | { withMediaGalleryTab: WithMediaGalleryTab };
     withGalleryBookmarkPlaceholders?:
         | false
-        | Pick<
-              GalleryBookmarkPlaceholderElement.Props,
-              | 'fetchOembed'
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderAddon'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+        | Pick<GalleryBookmarkPlaceholderElement.Props, 'renderPlaceholder'>;
     withImagePlaceholders?:
         | boolean
         | { withCaptions: boolean; withMediaGalleryTab: WithMediaGalleryTab };

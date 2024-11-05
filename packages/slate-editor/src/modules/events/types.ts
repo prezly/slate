@@ -1,11 +1,5 @@
 import type { Listener } from '@prezly/events';
-import type {
-    CoverageEntry,
-    NewsroomContact,
-    NewsroomGallery,
-    OEmbedInfo,
-    Story,
-} from '@prezly/sdk';
+import type { CoverageEntry, NewsroomContact, OEmbedInfo, Story } from '@prezly/sdk';
 import type {
     GalleryImageSize,
     GalleryLayout,
@@ -109,9 +103,6 @@ export type EditorEventMap = {
     };
     'gallery-layout-changed': {
         layout: GalleryLayout;
-    };
-    'gallery-bookmark-placeholder-submitted': {
-        gallery: Pick<NewsroomGallery, 'uuid'>;
     };
     'image-added': {
         description: string;

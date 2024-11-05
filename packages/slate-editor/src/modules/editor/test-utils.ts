@@ -49,8 +49,7 @@ export function getAllExtensions() {
             withFloatingAddMenu: true,
             withGalleries: {},
             withGalleryBookmarks: {
-                fetchOembed,
-                getSuggestions: () => [],
+                renderPlaceholder: () => null,
             },
             withHeadings: true,
             withImages: {
