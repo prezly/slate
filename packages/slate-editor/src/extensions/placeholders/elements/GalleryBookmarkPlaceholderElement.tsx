@@ -1,16 +1,16 @@
 import type { NewsroomGallery, OEmbedInfo } from '@prezly/sdk';
 import type { BookmarkNode } from '@prezly/slate-types';
 import type { ReactNode } from 'react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Transforms } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
 
 import { PlaceholderGallery } from '#icons';
 import { useFunction } from '#lib';
 
-import { createGalleryBookmark } from '#extensions/gallery-bookmark';
 import { EventsEditor } from '#modules/events';
 
+import { createGalleryBookmark } from '../../gallery-bookmark';
 import {
     PlaceholderElement,
     type Props as PlaceholderElementProps,
@@ -69,6 +69,12 @@ export function GalleryBookmarkPlaceholderElement({
         // @ts-expect-error Figure out how to fix this
         onResolve: handleData,
     });
+
+    useEffect(() => {
+        if (!isSelected) {
+            setCustomRendered(false);
+        }
+    }, [isSelected]);
 
     return (
         <PlaceholderElement
