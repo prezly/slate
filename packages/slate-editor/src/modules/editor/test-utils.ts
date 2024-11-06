@@ -75,7 +75,7 @@ export function getAllExtensions() {
             },
             withStoryEmbeds: {
                 render: () => null,
-                getSuggestions: () => [],
+                renderPlaceholder: () => null,
             },
             withTextStyling: true,
             withTables: true,

@@ -83,15 +83,7 @@ export interface Parameters {
         | Pick<StoryBookmarkPlaceholderElement.Props, 'renderPlaceholder'>;
     withStoryEmbedPlaceholders?:
         | false
-        | Pick<
-              StoryEmbedPlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderAddon'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+        | Pick<StoryEmbedPlaceholderElement.Props, 'renderPlaceholder'>;
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
