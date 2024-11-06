@@ -71,7 +71,7 @@ export function getAllExtensions() {
                 loadStory: () => Promise.reject(),
                 generateEditUrl: (story) => `/stories/${story.id}/edit`,
                 generatePreviewUrl: (story) => `/stories/${story.id}/preview`,
-                getSuggestions: () => [],
+                renderPlaceholder: () => null,
             },
             withStoryEmbeds: {
                 render: () => null,

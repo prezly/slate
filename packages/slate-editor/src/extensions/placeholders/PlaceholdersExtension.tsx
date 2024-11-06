@@ -80,15 +80,7 @@ export interface Parameters {
         | { withCaptions: boolean; withMediaGalleryTab: WithMediaGalleryTab };
     withStoryBookmarkPlaceholders?:
         | false
-        | Pick<
-              StoryBookmarkPlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderAddon'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+        | Pick<StoryBookmarkPlaceholderElement.Props, 'renderPlaceholder'>;
     withStoryEmbedPlaceholders?:
         | false
         | Pick<
