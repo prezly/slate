@@ -17,6 +17,7 @@ import {
 } from '../components/PlaceholderElement';
 import { type Props as BaseProps } from '../components/SearchInputPlaceholderElement';
 import { replacePlaceholder } from '../lib';
+import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 export function GalleryBookmarkPlaceholderElement({
@@ -61,7 +62,6 @@ export function GalleryBookmarkPlaceholderElement({
     );
 
     usePlaceholderManagement(element.type, element.uuid, {
-        // @ts-expect-error Figure out how to fix this
         onResolve: handleData,
     });
 
@@ -99,8 +99,9 @@ export function GalleryBookmarkPlaceholderElement({
 
 export namespace GalleryBookmarkPlaceholderElement {
     export interface Props
-        extends Pick<BaseProps<NewsroomGallery>, 'attributes' | 'children' | 'element' | 'format'>,
+        extends Pick<BaseProps<NewsroomGallery>, 'attributes' | 'children' | 'format'>,
             Pick<PlaceholderElementProps, 'removable'> {
+        element: PlaceholderNode<PlaceholderNode.Type.GALLERY_BOOKMARK>;
         renderPlaceholder: (props: {
             onRemove: (() => void) | undefined;
             onSelect: (promise: Promise<{ oembed?: OEmbedInfo; url: string }>) => void;
