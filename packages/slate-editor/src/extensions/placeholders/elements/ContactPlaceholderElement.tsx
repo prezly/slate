@@ -1,42 +1,35 @@
 import type { NewsroomContact } from '@prezly/sdk';
 import type { ContactInfo } from '@prezly/slate-types';
-import React from 'react';
+import type { ReactNode } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Transforms } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
 
-import { SearchInput } from '#components';
 import { PlaceholderContact } from '#icons';
 import { useFunction } from '#lib';
 
 import { EventsEditor } from '#modules/events';
 
 import { createContactNode } from '../../press-contacts';
-import type { Props as PlaceholderElementProps } from '../components/PlaceholderElement';
 import {
-    type Props as BaseProps,
-    SearchInputPlaceholderElement,
-} from '../components/SearchInputPlaceholderElement';
+    PlaceholderElement,
+    type Props as PlaceholderElementProps,
+} from '../components/PlaceholderElement';
+import { type Props as BaseProps } from '../components/SearchInputPlaceholderElement';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
-import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 export function ContactPlaceholderElement({
+    attributes,
     children,
     element,
     format = 'card',
-    getSuggestions,
     removable,
-    renderAddon,
-    renderEmpty,
-    renderSuggestion,
-    renderSuggestionsFooter,
-    ...props
+    renderPlaceholder,
 }: ContactPlaceholderElement.Props) {
+    const [isCustomRendered, setCustomRendered] = useState(true);
     const editor = useSlateStatic();
     const isSelected = useSelected();
-
-    const handleTrigger = useFunction(() => {
-        PlaceholdersManager.activate(element);
-    });
 
     const handleSelect = useFunction((uuid: NewsroomContact['uuid'], contact: ContactInfo) => {
         EventsEditor.dispatchEvent(editor, 'contact-placeholder-submitted', {
@@ -48,61 +41,52 @@ export function ContactPlaceholderElement({
         });
     });
 
-    usePlaceholderManagement(element.type, element.uuid, {
-        onTrigger: handleTrigger,
+    const handleRemove = useFunction(() => {
+        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
 
+    useEffect(() => {
+        if (!isSelected) {
+            setCustomRendered(false);
+        }
+    }, [isSelected]);
+
     return (
-        <SearchInputPlaceholderElement<ContactInfo>
-            {...props}
+        <PlaceholderElement
+            attributes={attributes}
             element={element}
-            // Core
             format={format}
             icon={PlaceholderContact}
             title="Click to insert a site contact"
             description="Add a site contact to your story"
-            // Input
-            getSuggestions={getSuggestions}
-            renderAddon={renderAddon}
-            renderEmpty={renderEmpty}
-            renderSuggestion={renderSuggestion}
-            renderSuggestions={(props) => (
-                <SearchInput.Suggestions
-                    activeElement={props.activeElement}
-                    query={props.query}
-                    suggestions={props.suggestions}
-                    footer={renderSuggestionsFooter?.(props)}
-                    origin={props.origin}
-                >
-                    {props.children}
-                </SearchInput.Suggestions>
-            )}
-            inputTitle="Site contacts"
-            inputDescription="Add a contact card to your stories, campaigns and pitches"
-            inputPlaceholder="Search site contacts"
-            onSelect={handleSelect}
+            onClick={() => setCustomRendered(true)}
+            overflow="visible"
             removable={removable}
+            renderFrame={
+                isCustomRendered
+                    ? () =>
+                          renderPlaceholder({
+                              onRemove: handleRemove,
+                              onSelect: handleSelect,
+                              placeholder: element,
+                          })
+                    : undefined
+            }
         >
             {children}
-        </SearchInputPlaceholderElement>
+        </PlaceholderElement>
     );
 }
 
 export namespace ContactPlaceholderElement {
     export interface Props
-        extends Omit<
-                BaseProps<ContactInfo>,
-                | 'onSelect'
-                | 'icon'
-                | 'title'
-                | 'description'
-                | 'inputTitle'
-                | 'inputDescription'
-                | 'inputPlaceholder'
-                | 'renderSuggestions'
-            >,
+        extends Pick<BaseProps<ContactInfo>, 'attributes' | 'children' | 'format'>,
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.CONTACT>;
-        renderSuggestionsFooter?: BaseProps<ContactInfo>['renderSuggestions'];
+        renderPlaceholder: (props: {
+            onRemove: () => void;
+            onSelect: (uuid: string, contactInfo: ContactInfo) => void;
+            placeholder: PlaceholderNode;
+        }) => ReactNode;
     }
 }

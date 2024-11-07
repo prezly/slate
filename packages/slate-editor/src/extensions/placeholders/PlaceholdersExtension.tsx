@@ -35,17 +35,7 @@ export interface Parameters {
     format?: FrameProps['format'];
     removable?: RemovableFlagConfig;
     withAttachmentPlaceholders?: boolean;
-    withContactPlaceholders?:
-        | false
-        | Pick<
-              ContactPlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderAddon'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+    withContactPlaceholders?: false | Pick<ContactPlaceholderElement.Props, 'renderPlaceholder'>;
     withCoveragePlaceholders?:
         | false
         | Pick<

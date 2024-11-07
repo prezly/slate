@@ -61,11 +61,8 @@ export function getAllExtensions() {
             withLists: true,
             withPlaceholders: {},
             withPressContacts: {
-                getSuggestions: () => [],
                 onEdit: () => {},
-                renderEmpty: () => null,
-                renderSuggestion: () => null,
-                renderSuggestionsFooter: () => null,
+                renderPlaceholder: () => null,
             },
             withStoryBookmarks: {
                 loadStory: () => Promise.reject(),
