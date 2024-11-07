@@ -17,7 +17,6 @@ import {
 import { type Props as BaseProps } from '../components/SearchInputPlaceholderElement';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
-import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 export function StoryEmbedPlaceholderElement({
     attributes,
@@ -27,13 +26,9 @@ export function StoryEmbedPlaceholderElement({
     removable,
     renderPlaceholder,
 }: StoryEmbedPlaceholderElement.Props) {
-    const [isCustomRendered, setCustomRendered] = useState(false);
+    const [isCustomRendered, setCustomRendered] = useState(true);
     const editor = useSlateStatic();
     const isSelected = useSelected();
-
-    const handleTrigger = useFunction(() => {
-        PlaceholdersManager.activate(element);
-    });
 
     const handleSelect = useFunction((uuid: StoryRef['uuid']) => {
         EventsEditor.dispatchEvent(editor, 'story-embed-placeholder-submitted', {
@@ -47,10 +42,6 @@ export function StoryEmbedPlaceholderElement({
 
     const handleRemove = useFunction(() => {
         Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
-    });
-
-    usePlaceholderManagement(element.type, element.uuid, {
-        onTrigger: handleTrigger,
     });
 
     useEffect(() => {

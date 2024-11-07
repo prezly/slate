@@ -27,13 +27,9 @@ export function GalleryBookmarkPlaceholderElement({
     removable,
     renderPlaceholder,
 }: GalleryBookmarkPlaceholderElement.Props) {
-    const [isCustomRendered, setCustomRendered] = useState(false);
+    const [isCustomRendered, setCustomRendered] = useState(true);
     const editor = useSlateStatic();
     const isSelected = useSelected();
-
-    const handleTrigger = useFunction(() => {
-        PlaceholdersManager.activate(element);
-    });
 
     const handleSelect = useFunction(
         (promise: Promise<{ oembed?: BookmarkNode['oembed']; url: BookmarkNode['url'] }>) => {
@@ -65,7 +61,6 @@ export function GalleryBookmarkPlaceholderElement({
     );
 
     usePlaceholderManagement(element.type, element.uuid, {
-        onTrigger: handleTrigger,
         // @ts-expect-error Figure out how to fix this
         onResolve: handleData,
     });
