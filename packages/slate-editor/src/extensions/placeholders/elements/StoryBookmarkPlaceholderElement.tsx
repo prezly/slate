@@ -56,7 +56,11 @@ export function StoryBookmarkPlaceholderElement({
             overflow="visible"
             renderFrame={
                 isCustomRendered
-                    ? () => renderPlaceholder({ onRemove: handleRemove, onSelect: handleSelect })
+                    ? () =>
+                          renderPlaceholder({
+                              onRemove: removable ? handleRemove : undefined,
+                              onSelect: handleSelect,
+                          })
                     : undefined
             }
             removable={removable}
@@ -72,7 +76,7 @@ export namespace StoryBookmarkPlaceholderElement {
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.STORY_BOOKMARK>;
         renderPlaceholder: (props: {
-            onRemove: () => void;
+            onRemove: (() => void) | undefined;
             onSelect: (uuid: string) => void;
         }) => ReactNode;
     }

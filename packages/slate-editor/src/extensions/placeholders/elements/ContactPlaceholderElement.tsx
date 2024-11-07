@@ -66,7 +66,7 @@ export function ContactPlaceholderElement({
                 isCustomRendered
                     ? () =>
                           renderPlaceholder({
-                              onRemove: handleRemove,
+                              onRemove: removable ? handleRemove : undefined,
                               onSelect: handleSelect,
                               placeholder: element,
                           })
@@ -84,7 +84,7 @@ export namespace ContactPlaceholderElement {
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.CONTACT>;
         renderPlaceholder: (props: {
-            onRemove: () => void;
+            onRemove: (() => void) | undefined;
             onSelect: (uuid: string, contactInfo: ContactInfo) => void;
             placeholder: PlaceholderNode;
         }) => ReactNode;

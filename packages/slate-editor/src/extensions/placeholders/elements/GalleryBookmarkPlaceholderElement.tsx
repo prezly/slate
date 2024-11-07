@@ -83,7 +83,11 @@ export function GalleryBookmarkPlaceholderElement({
             overflow="visible"
             renderFrame={
                 isCustomRendered
-                    ? () => renderPlaceholder({ onRemove: handleRemove, onSelect: handleSelect })
+                    ? () =>
+                          renderPlaceholder({
+                              onRemove: removable ? handleRemove : undefined,
+                              onSelect: handleSelect,
+                          })
                     : undefined
             }
             removable={removable}
@@ -98,7 +102,7 @@ export namespace GalleryBookmarkPlaceholderElement {
         extends Pick<BaseProps<NewsroomGallery>, 'attributes' | 'children' | 'element' | 'format'>,
             Pick<PlaceholderElementProps, 'removable'> {
         renderPlaceholder: (props: {
-            onRemove: () => void;
+            onRemove: (() => void) | undefined;
             onSelect: (promise: Promise<{ oembed?: OEmbedInfo; url: string }>) => void;
         }) => ReactNode;
     }

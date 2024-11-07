@@ -62,7 +62,11 @@ export function StoryEmbedPlaceholderElement({
             overflow="visible"
             renderFrame={
                 isCustomRendered
-                    ? () => renderPlaceholder({ onRemove: handleRemove, onSelect: handleSelect })
+                    ? () =>
+                          renderPlaceholder({
+                              onRemove: removable ? handleRemove : undefined,
+                              onSelect: handleSelect,
+                          })
                     : undefined
             }
             removable={removable}
@@ -78,7 +82,7 @@ export namespace StoryEmbedPlaceholderElement {
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.STORY_EMBED>;
         renderPlaceholder: (props: {
-            onRemove: () => void;
+            onRemove: (() => void) | undefined;
             onSelect: (uuid: string) => void;
         }) => ReactNode;
     }
