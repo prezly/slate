@@ -1,24 +1,23 @@
 import type { ContactInfo } from '@prezly/slate-types';
-import type { ReactElement } from 'react';
-import { useState } from 'react';
+import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
+import { Transforms } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
 
-import { SearchInput } from '#components';
 import { PlaceholderContact } from '#icons';
 import { useFunction } from '#lib';
 
 import { InlineContactForm } from '#modules/components';
 
 import { createContactNode } from '../../../press-contacts';
-import type { Props as PlaceholderElementProps } from '../../components/PlaceholderElement';
 import {
-    type Props as BaseProps,
-    SearchInputPlaceholderElement,
-} from '../../components/SearchInputPlaceholderElement';
+    PlaceholderElement,
+    type Props as PlaceholderElementProps,
+} from '../../components/PlaceholderElement';
+import { type Props as BaseProps } from '../../components/SearchInputPlaceholderElement';
 import { replacePlaceholder } from '../../lib';
 import type { PlaceholderNode } from '../../PlaceholderNode';
-import { PlaceholdersManager, usePlaceholderManagement } from '../../PlaceholdersManager';
 
 import { FormFrame } from './FormFrame';
 
@@ -28,114 +27,90 @@ enum Mode {
 }
 
 export function InlineContactPlaceholderElement({
+    attributes,
     children,
     element,
     format = 'card',
-    getSuggestions,
     removable,
-    renderEmpty,
-    renderSuggestion,
-    renderSuggestionsFooter,
-    ...props
+    renderPlaceholder,
 }: InlineContactPlaceholderElement.Props) {
+    const [isCustomRendered, setCustomRendered] = useState(true);
     const editor = useSlateStatic();
     const isSelected = useSelected();
 
     const [mode, setMode] = useState(Mode.SEARCH);
     const [contact, setContact] = useState<ContactInfo | null>(null);
 
-    const handleTrigger = useFunction(() => {
-        PlaceholdersManager.activate(element);
-    });
-
     const handleSelect = useFunction((contact: ContactInfo | null) => {
         setMode(Mode.FORM);
         setContact(contact);
+    });
+
+    const handleRemove = useFunction(() => {
+        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
 
     const handleSubmit = useFunction((contact: ContactInfo) => {
         replacePlaceholder(editor, element, createContactNode({ contact }));
     });
 
-    usePlaceholderManagement(element.type, element.uuid, {
-        onTrigger: handleTrigger,
+    const renderFormFrame = useFunction(() => (
+        <FormFrame isSelected={isSelected}>
+            <InlineContactForm
+                contact={contact}
+                onClose={() => setMode(Mode.SEARCH)}
+                onSubmit={handleSubmit}
+            />
+        </FormFrame>
+    ));
+
+    const renderFrame = useFunction(() => {
+        if (mode === Mode.FORM) {
+            return () => renderFormFrame();
+        }
+
+        if (isCustomRendered) {
+            return () =>
+                renderPlaceholder({
+                    onRemove: removable ? handleRemove : undefined,
+                    onSelect: handleSelect,
+                });
+        }
+
+        return undefined;
     });
 
+    useEffect(() => {
+        if (!isSelected) {
+            setCustomRendered(false);
+        }
+    }, [isSelected]);
+
     return (
-        <SearchInputPlaceholderElement<ContactInfo>
-            {...props}
+        <PlaceholderElement
+            attributes={attributes}
             element={element}
-            // Core
             format={format}
             icon={PlaceholderContact}
             title="Click to insert a contact"
             description="Add a contact to your story"
-            // Input
-            getSuggestions={getSuggestions}
-            renderEmpty={(props) => renderEmpty({ ...props, onCreate: () => handleSelect(null) })}
-            renderFrame={
-                mode === Mode.FORM
-                    ? () => (
-                          <FormFrame isSelected={isSelected}>
-                              <InlineContactForm
-                                  contact={contact}
-                                  onClose={() => setMode(Mode.SEARCH)}
-                                  onSubmit={handleSubmit}
-                              />
-                          </FormFrame>
-                      )
-                    : undefined
-            }
-            renderSuggestion={
-                renderSuggestion
-                    ? (props) =>
-                          renderSuggestion({
-                              ...props,
-                              onSelect: () => handleSelect(props.suggestion.value),
-                          })
-                    : undefined
-            }
-            renderSuggestions={(props) => (
-                <SearchInput.Suggestions
-                    activeElement={props.activeElement}
-                    query={props.query}
-                    suggestions={props.suggestions}
-                    footer={renderSuggestionsFooter?.(props)}
-                    origin={props.origin}
-                >
-                    {props.children}
-                </SearchInput.Suggestions>
-            )}
-            inputTitle="Contact"
-            inputDescription="Select a contact to insert or create a new one"
-            inputPlaceholder="Search for contacts"
-            onSelect={(_, contact) => handleSelect(contact)}
+            onClick={() => setCustomRendered(true)}
             removable={removable}
+            renderFrame={renderFrame()}
         >
             {children}
-        </SearchInputPlaceholderElement>
+        </PlaceholderElement>
     );
 }
 
 export namespace InlineContactPlaceholderElement {
     export interface Props
-        extends Omit<
-                BaseProps<ContactInfo>,
-                | 'onSelect'
-                | 'icon'
-                | 'title'
-                | 'description'
-                | 'inputTitle'
-                | 'inputDescription'
-                | 'inputPlaceholder'
-                | 'renderEmpty'
-                | 'renderSuggestions'
-            >,
+        extends Pick<BaseProps<ContactInfo>, 'attributes' | 'children' | 'format'>,
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.CONTACT>;
-        renderEmpty: (
-            props: SearchInput.Props.Empty & { onCreate: () => void },
-        ) => ReactElement | null;
-        renderSuggestionsFooter?: BaseProps<ContactInfo>['renderSuggestions'];
+        renderPlaceholder: (props: {
+            onRemove: (() => void) | undefined;
+            onSelect: (contactInfo: ContactInfo) => void;
+        }) => ReactNode;
     }
 }

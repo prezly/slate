@@ -57,14 +57,7 @@ export interface Parameters {
         | { withCaptions: boolean; withMediaGalleryTab: WithMediaGalleryTab };
     withInlineContactPlaceholders?:
         | false
-        | Pick<
-              InlineContactPlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+        | Pick<InlineContactPlaceholderElement.Props, 'renderPlaceholder'>;
     withMediaPlaceholders?:
         | boolean
         | { withCaptions: boolean; withMediaGalleryTab: WithMediaGalleryTab };
