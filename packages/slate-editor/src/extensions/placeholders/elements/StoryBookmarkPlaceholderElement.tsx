@@ -1,41 +1,34 @@
 import type { StoryRef } from '@prezly/sdk';
-import React from 'react';
+import type { ReactNode } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Transforms } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
 
-import { SearchInput } from '#components';
 import { PlaceholderStory } from '#icons';
 import { useFunction } from '#lib';
 
 import { EventsEditor } from '#modules/events';
 
 import { createStoryBookmark } from '../../story-bookmark';
-import type { Props as PlaceholderElementProps } from '../components/PlaceholderElement';
 import {
-    type Props as BaseProps,
-    SearchInputPlaceholderElement,
-} from '../components/SearchInputPlaceholderElement';
+    PlaceholderElement,
+    type Props as PlaceholderElementProps,
+} from '../components/PlaceholderElement';
+import { type Props as BaseProps } from '../components/SearchInputPlaceholderElement';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
-import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
 export function StoryBookmarkPlaceholderElement({
+    attributes,
     children,
     element,
     format = 'card',
-    getSuggestions,
     removable,
-    renderAddon,
-    renderEmpty,
-    renderSuggestion,
-    renderSuggestionsFooter,
-    ...props
+    renderPlaceholder,
 }: StoryBookmarkPlaceholderElement.Props) {
+    const [isCustomRendered, setCustomRendered] = useState(true);
     const editor = useSlateStatic();
     const isSelected = useSelected();
-
-    const handleTrigger = useFunction(() => {
-        PlaceholdersManager.activate(element);
-    });
 
     const handleSelect = useFunction((uuid: StoryRef['uuid']) => {
         EventsEditor.dispatchEvent(editor, 'story-bookmark-placeholder-submitted', {
@@ -47,61 +40,50 @@ export function StoryBookmarkPlaceholderElement({
         });
     });
 
-    usePlaceholderManagement(element.type, element.uuid, {
-        onTrigger: handleTrigger,
+    const handleRemove = useFunction(() => {
+        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
 
+    useEffect(() => {
+        if (!isSelected) {
+            setCustomRendered(false);
+        }
+    }, [isSelected]);
+
     return (
-        <SearchInputPlaceholderElement<StoryRef>
-            {...props}
+        <PlaceholderElement
+            attributes={attributes}
             element={element}
-            // Core
             format={format}
             icon={PlaceholderStory}
             title="Click to insert a story bookmark"
             description="Add one of your Prezly stories"
-            // Input
-            getSuggestions={getSuggestions}
-            renderAddon={renderAddon}
-            renderEmpty={renderEmpty}
-            renderSuggestion={renderSuggestion}
-            renderSuggestions={(props) => (
-                <SearchInput.Suggestions
-                    activeElement={props.activeElement}
-                    query={props.query}
-                    suggestions={props.suggestions}
-                    footer={renderSuggestionsFooter?.(props)}
-                    origin={props.origin}
-                >
-                    {props.children}
-                </SearchInput.Suggestions>
-            )}
-            inputTitle="Story bookmark"
-            inputDescription="Add a story card to your stories, campaigns and pitches"
-            inputPlaceholder="Search Prezly stories"
-            onSelect={handleSelect}
+            onClick={() => setCustomRendered(true)}
+            overflow="visible"
+            renderFrame={
+                isCustomRendered
+                    ? () =>
+                          renderPlaceholder({
+                              onRemove: removable ? handleRemove : undefined,
+                              onSelect: handleSelect,
+                          })
+                    : undefined
+            }
             removable={removable}
         >
             {children}
-        </SearchInputPlaceholderElement>
+        </PlaceholderElement>
     );
 }
 
 export namespace StoryBookmarkPlaceholderElement {
     export interface Props
-        extends Omit<
-                BaseProps<StoryRef>,
-                | 'onSelect'
-                | 'icon'
-                | 'title'
-                | 'description'
-                | 'inputTitle'
-                | 'inputDescription'
-                | 'inputPlaceholder'
-                | 'renderSuggestions'
-            >,
+        extends Pick<BaseProps<StoryRef>, 'attributes' | 'children' | 'format'>,
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.STORY_BOOKMARK>;
-        renderSuggestionsFooter?: BaseProps<StoryRef>['renderSuggestions'];
+        renderPlaceholder: (props: {
+            onRemove: (() => void) | undefined;
+            onSelect: (uuid: string) => void;
+        }) => ReactNode;
     }
 }

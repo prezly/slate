@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import React, { type MouseEvent, useState } from 'react';
 import { Transforms } from 'slate';
 import { ReactEditor, type RenderElementProps, useSlateStatic } from 'slate-react';
@@ -14,7 +15,9 @@ import { type Props as BaseProps, Placeholder } from './Placeholder';
 export type Props = RenderElementProps &
     Pick<BaseProps, 'icon' | 'title' | 'description' | 'format' | 'onClick' | 'onDrop'> & {
         element: PlaceholderNode;
+        overflow?: 'visible' | 'hidden' | 'auto';
         removable: RemovableFlagConfig;
+        renderFrame?: () => ReactNode;
     };
 
 export function PlaceholderElement({
@@ -27,7 +30,9 @@ export function PlaceholderElement({
     icon,
     title,
     description,
+    overflow,
     removable,
+    renderFrame,
     // Callbacks
     onClick,
     onDrop,
@@ -63,29 +68,34 @@ export function PlaceholderElement({
         <EditorBlock
             {...attributes}
             element={element}
+            overflow={overflow}
             renderAboveFrame={children}
-            renderReadOnlyFrame={({ isSelected }) => (
-                <Placeholder
-                    // Core
-                    active={isActive}
-                    format={format}
-                    icon={icon}
-                    title={title}
-                    description={description}
-                    // Variations
-                    dragOver={onDrop ? dragOver : false}
-                    dropZone={Boolean(onDrop)}
-                    selected={isSelected}
-                    progress={progress ?? isLoading}
-                    // Callbacks
-                    onClick={isLoading ? undefined : onClick}
-                    onRemove={isRemovable ? handleRemove : undefined}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onDrop={onDrop}
-                    onMouseOver={handleMouseOver}
-                />
-            )}
+            renderReadOnlyFrame={({ isSelected }) =>
+                renderFrame ? (
+                    renderFrame()
+                ) : (
+                    <Placeholder
+                        // Core
+                        active={isActive}
+                        format={format}
+                        icon={icon}
+                        title={title}
+                        description={description}
+                        // Variations
+                        dragOver={onDrop ? dragOver : false}
+                        dropZone={Boolean(onDrop)}
+                        selected={isSelected}
+                        progress={progress ?? isLoading}
+                        // Callbacks
+                        onClick={isLoading ? undefined : onClick}
+                        onRemove={isRemovable ? handleRemove : undefined}
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={onDrop}
+                        onMouseOver={handleMouseOver}
+                    />
+                )
+            }
             rounded
             void
         />

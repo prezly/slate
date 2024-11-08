@@ -31,12 +31,9 @@ export function getAllExtensions() {
             withCoverage: {
                 dateFormat: 'YYYY/MM/DD',
                 fetchCoverage: createDelayedResolve(coverage),
-                getSuggestions: () => [],
-                renderEmpty: () => null,
-                renderSuggestion: () => null,
-                renderSuggestionsFooter: () => null,
                 onCreateCoverage: createDelayedResolve({ coverage }),
                 onEdit: () => {},
+                renderPlaceholder: () => null,
                 withLayoutOptions: true,
             },
             withCustomNormalization: false,
@@ -49,8 +46,7 @@ export function getAllExtensions() {
             withFloatingAddMenu: true,
             withGalleries: {},
             withGalleryBookmarks: {
-                fetchOembed,
-                getSuggestions: () => [],
+                renderPlaceholder: () => null,
             },
             withHeadings: true,
             withImages: {
@@ -62,21 +58,18 @@ export function getAllExtensions() {
             withLists: true,
             withPlaceholders: {},
             withPressContacts: {
-                getSuggestions: () => [],
                 onEdit: () => {},
-                renderEmpty: () => null,
-                renderSuggestion: () => null,
-                renderSuggestionsFooter: () => null,
+                renderPlaceholder: () => null,
             },
             withStoryBookmarks: {
                 loadStory: () => Promise.reject(),
                 generateEditUrl: (story) => `/stories/${story.id}/edit`,
                 generatePreviewUrl: (story) => `/stories/${story.id}/preview`,
-                getSuggestions: () => [],
+                renderPlaceholder: () => null,
             },
             withStoryEmbeds: {
                 render: () => null,
-                getSuggestions: () => [],
+                renderPlaceholder: () => null,
             },
             withTextStyling: true,
             withTables: true,

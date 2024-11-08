@@ -35,80 +35,30 @@ export interface Parameters {
     format?: FrameProps['format'];
     removable?: RemovableFlagConfig;
     withAttachmentPlaceholders?: boolean;
-    withContactPlaceholders?:
-        | false
-        | Pick<
-              ContactPlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderAddon'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+    withContactPlaceholders?: false | Pick<ContactPlaceholderElement.Props, 'renderPlaceholder'>;
     withCoveragePlaceholders?:
         | false
-        | Pick<
-              CoveragePlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-              | 'onCreateCoverage'
-          >;
+        | Pick<CoveragePlaceholderElement.Props, 'onCreateCoverage' | 'renderPlaceholder'>;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withGalleryPlaceholders?: boolean | { withMediaGalleryTab: WithMediaGalleryTab };
     withGalleryBookmarkPlaceholders?:
         | false
-        | Pick<
-              GalleryBookmarkPlaceholderElement.Props,
-              | 'fetchOembed'
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderAddon'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+        | Pick<GalleryBookmarkPlaceholderElement.Props, 'renderPlaceholder'>;
     withImagePlaceholders?:
         | boolean
         | { withCaptions: boolean; withMediaGalleryTab: WithMediaGalleryTab };
     withInlineContactPlaceholders?:
         | false
-        | Pick<
-              InlineContactPlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+        | Pick<InlineContactPlaceholderElement.Props, 'renderPlaceholder'>;
     withMediaPlaceholders?:
         | boolean
         | { withCaptions: boolean; withMediaGalleryTab: WithMediaGalleryTab };
     withStoryBookmarkPlaceholders?:
         | false
-        | Pick<
-              StoryBookmarkPlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderAddon'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+        | Pick<StoryBookmarkPlaceholderElement.Props, 'renderPlaceholder'>;
     withStoryEmbedPlaceholders?:
         | false
-        | Pick<
-              StoryEmbedPlaceholderElement.Props,
-              | 'getSuggestions'
-              | 'invalidateSuggestions'
-              | 'renderAddon'
-              | 'renderEmpty'
-              | 'renderSuggestion'
-              | 'renderSuggestionsFooter'
-          >;
+        | Pick<StoryEmbedPlaceholderElement.Props, 'renderPlaceholder'>;
     withSocialPostPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withVideoPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };

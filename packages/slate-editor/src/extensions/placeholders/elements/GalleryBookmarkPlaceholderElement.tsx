@@ -1,57 +1,48 @@
-import type { NewsroomGallery } from '@prezly/sdk';
+import type { NewsroomGallery, OEmbedInfo } from '@prezly/sdk';
 import type { BookmarkNode } from '@prezly/slate-types';
-import React from 'react';
+import type { ReactNode } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Transforms } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
 
-import { SearchInput } from '#components';
 import { PlaceholderGallery } from '#icons';
 import { useFunction } from '#lib';
 
 import { EventsEditor } from '#modules/events';
 
 import { createGalleryBookmark } from '../../gallery-bookmark';
-import type { Props as PlaceholderElementProps } from '../components/PlaceholderElement';
 import {
-    type Props as BaseProps,
-    SearchInputPlaceholderElement,
-} from '../components/SearchInputPlaceholderElement';
+    PlaceholderElement,
+    type Props as PlaceholderElementProps,
+} from '../components/PlaceholderElement';
+import { type Props as BaseProps } from '../components/SearchInputPlaceholderElement';
 import { replacePlaceholder } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
-import type { FetchOEmbedFn } from '../types';
 
 export function GalleryBookmarkPlaceholderElement({
+    attributes,
     children,
     element,
-    fetchOembed,
     format = 'card',
-    getSuggestions,
     removable,
-    renderAddon,
-    renderEmpty,
-    renderSuggestion,
-    renderSuggestionsFooter,
-    ...props
+    renderPlaceholder,
 }: GalleryBookmarkPlaceholderElement.Props) {
+    const [isCustomRendered, setCustomRendered] = useState(true);
     const editor = useSlateStatic();
     const isSelected = useSelected();
 
-    const handleTrigger = useFunction(() => {
-        PlaceholdersManager.activate(element);
-    });
+    const handleSelect = useFunction(
+        (promise: Promise<{ oembed?: BookmarkNode['oembed']; url: BookmarkNode['url'] }>) => {
+            setCustomRendered(false);
 
-    const handleSelect = useFunction(async (uuid: string, { url }: NewsroomGallery) => {
-        EventsEditor.dispatchEvent(editor, 'gallery-bookmark-placeholder-submitted', {
-            gallery: { uuid },
-        });
+            PlaceholdersManager.register(element.type, element.uuid, promise);
+            PlaceholdersManager.deactivateAll();
+        },
+    );
 
-        const loading = fetchOembed(url).then(
-            (oembed) => ({ oembed, url }),
-            () => ({ url }), // `oembed` is undefined if an error occurred
-        );
-
-        PlaceholdersManager.register(element.type, element.uuid, loading);
-        PlaceholdersManager.deactivateAll();
+    const handleRemove = useFunction(() => {
+        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
     });
 
     const handleData = useFunction(
@@ -71,62 +62,49 @@ export function GalleryBookmarkPlaceholderElement({
     );
 
     usePlaceholderManagement(element.type, element.uuid, {
-        onTrigger: handleTrigger,
         onResolve: handleData,
     });
 
+    useEffect(() => {
+        if (!isSelected) {
+            setCustomRendered(false);
+        }
+    }, [isSelected]);
+
     return (
-        <SearchInputPlaceholderElement<NewsroomGallery>
-            {...props}
+        <PlaceholderElement
+            attributes={attributes}
             element={element}
-            // Core
             format={format}
             icon={PlaceholderGallery}
             title="Click to insert a media gallery bookmark"
             description="Add a link to your media gallery"
-            // Input
-            getSuggestions={getSuggestions}
-            renderAddon={renderAddon}
-            renderEmpty={renderEmpty}
-            renderSuggestion={renderSuggestion}
-            renderSuggestions={(props) => (
-                <SearchInput.Suggestions
-                    activeElement={props.activeElement}
-                    query={props.query}
-                    suggestions={props.suggestions}
-                    footer={renderSuggestionsFooter?.(props)}
-                    origin={props.origin}
-                >
-                    {props.children}
-                </SearchInput.Suggestions>
-            )}
-            inputTitle="Media gallery bookmark"
-            inputDescription="Add a media gallery card to your stories, campaigns and pitches"
-            inputPlaceholder="Search for media galleries"
-            onSelect={handleSelect}
+            onClick={() => setCustomRendered(true)}
+            overflow="visible"
+            renderFrame={
+                isCustomRendered
+                    ? () =>
+                          renderPlaceholder({
+                              onRemove: removable ? handleRemove : undefined,
+                              onSelect: handleSelect,
+                          })
+                    : undefined
+            }
             removable={removable}
         >
             {children}
-        </SearchInputPlaceholderElement>
+        </PlaceholderElement>
     );
 }
 
 export namespace GalleryBookmarkPlaceholderElement {
     export interface Props
-        extends Omit<
-                BaseProps<NewsroomGallery>,
-                | 'onSelect'
-                | 'icon'
-                | 'title'
-                | 'description'
-                | 'inputTitle'
-                | 'inputDescription'
-                | 'inputPlaceholder'
-                | 'renderSuggestions'
-            >,
+        extends Pick<BaseProps<NewsroomGallery>, 'attributes' | 'children' | 'format'>,
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.GALLERY_BOOKMARK>;
-        fetchOembed: FetchOEmbedFn;
-        renderSuggestionsFooter?: BaseProps<NewsroomGallery>['renderSuggestions'];
+        renderPlaceholder: (props: {
+            onRemove: (() => void) | undefined;
+            onSelect: (promise: Promise<{ oembed?: OEmbedInfo; url: string }>) => void;
+        }) => ReactNode;
     }
 }
