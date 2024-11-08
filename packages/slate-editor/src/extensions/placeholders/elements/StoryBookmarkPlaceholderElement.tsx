@@ -7,6 +7,8 @@ import { useSelected, useSlateStatic } from 'slate-react';
 import { PlaceholderStory } from '#icons';
 import { useFunction } from '#lib';
 
+import { EventsEditor } from '#modules/events';
+
 import { createStoryBookmark } from '../../story-bookmark';
 import {
     PlaceholderElement,
@@ -29,6 +31,10 @@ export function StoryBookmarkPlaceholderElement({
     const isSelected = useSelected();
 
     const handleSelect = useFunction((uuid: StoryRef['uuid']) => {
+        EventsEditor.dispatchEvent(editor, 'story-bookmark-placeholder-submitted', {
+            story: { uuid },
+        });
+
         replacePlaceholder(editor, element, createStoryBookmark({ story: { uuid } }), {
             select: isSelected,
         });

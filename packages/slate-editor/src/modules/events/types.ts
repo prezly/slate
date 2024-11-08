@@ -144,6 +144,9 @@ export type EditorEventMap = {
     'story-embed-placeholder-submitted': {
         story: Pick<Story, 'uuid'>;
     };
+    'story-bookmark-placeholder-submitted': {
+        story: Pick<Story, 'uuid'>;
+    };
     'story-bookmark-removed': {
         uuid: string;
     };
