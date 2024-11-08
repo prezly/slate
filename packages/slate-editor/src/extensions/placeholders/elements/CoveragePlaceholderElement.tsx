@@ -1,8 +1,11 @@
 import type { ProgressPromise } from '@prezly/progress-promise';
 import type { CoverageNode } from '@prezly/slate-types';
+import type { PrezlyFileInfo } from '@prezly/uploadcare';
+import { toProgressPromise, UploadcareFile } from '@prezly/uploadcare';
 import type { UploadInfo } from '@prezly/uploadcare-widget';
+import uploadcare from '@prezly/uploadcare-widget';
 import type { ReactNode } from 'react';
-import React, { /*type DragEvent,*/ useEffect, useState } from 'react';
+import React, { type DragEvent, useEffect, useState } from 'react';
 import { Transforms } from 'slate';
 import { useSelected, useSlateStatic } from 'slate-react';
 
@@ -29,6 +32,7 @@ export function CoveragePlaceholderElement({
     children,
     element,
     format = 'card',
+    onCreateCoverage,
     removable,
     renderPlaceholder,
 }: CoveragePlaceholderElement.Props) {
@@ -43,23 +47,27 @@ export function CoveragePlaceholderElement({
         },
     );
 
-    // const handleDrop = useFunction((event: DragEvent) => {
-    //     event.preventDefault();
-    //     event.stopPropagation();
+    const handleDragOver = useFunction(() => {
+        setCustomRendered(false);
+    });
 
-    //     const [file] = Array.from(event.dataTransfer.files)
-    //         .slice(0, 1)
-    //         .map((file) => uploadcare.fileFrom('object', file));
+    const handleDrop = useFunction((event: DragEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
 
-    //     if (file) {
-    //         const uploading = toProgressPromise(file).then(async (fileInfo: PrezlyFileInfo) => {
-    //             const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
-    //             const ref = await onCreateCoverage(file);
-    //             return { coverage: { id: ref.coverage.id } };
-    //         });
-    //         PlaceholdersManager.register(element.type, element.uuid, uploading);
-    //     }
-    // });
+        const [file] = Array.from(event.dataTransfer.files)
+            .slice(0, 1)
+            .map((file) => uploadcare.fileFrom('object', file));
+
+        if (file) {
+            const uploading = toProgressPromise(file).then(async (fileInfo: PrezlyFileInfo) => {
+                const file = UploadcareFile.createFromUploadcareWidgetPayload(fileInfo);
+                const ref = await onCreateCoverage(file);
+                return { coverage: { id: ref.coverage.id } };
+            });
+            PlaceholdersManager.register(element.type, element.uuid, uploading);
+        }
+    });
 
     const handleSelect = useFunction((data: CoverageRef) => {
         EventsEditor.dispatchEvent(editor, 'coverage-placeholder-submitted', {
@@ -94,11 +102,13 @@ export function CoveragePlaceholderElement({
             title={Title}
             description={Description}
             onClick={() => setCustomRendered(true)}
+            onDrop={handleDrop}
             removable={removable}
             renderFrame={
                 isCustomRendered
                     ? () =>
                           renderPlaceholder({
+                              onDragOver: handleDragOver,
                               onRemove: removable ? handleRemove : undefined,
                               onSelect: handleSelect,
                               onUpload: handleUpload,
@@ -117,7 +127,9 @@ export namespace CoveragePlaceholderElement {
         extends Pick<BaseProps<CoverageRef>, 'attributes' | 'children' | 'format'>,
             Pick<PlaceholderElementProps, 'removable'> {
         element: PlaceholderNode<PlaceholderNode.Type.COVERAGE>;
+        onCreateCoverage(input: UploadcareFile): Promise<CoverageRef>;
         renderPlaceholder: (props: {
+            onDragOver: () => void;
             onRemove: (() => void) | undefined;
             onSelect: (data: CoverageRef) => void;
             onUpload: (

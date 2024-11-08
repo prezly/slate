@@ -36,7 +36,9 @@ export interface Parameters {
     removable?: RemovableFlagConfig;
     withAttachmentPlaceholders?: boolean;
     withContactPlaceholders?: false | Pick<ContactPlaceholderElement.Props, 'renderPlaceholder'>;
-    withCoveragePlaceholders?: false | Pick<CoveragePlaceholderElement.Props, 'renderPlaceholder'>;
+    withCoveragePlaceholders?:
+        | false
+        | Pick<CoveragePlaceholderElement.Props, 'onCreateCoverage' | 'renderPlaceholder'>;
     withEmbedPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withGalleryPlaceholders?: boolean | { withMediaGalleryTab: WithMediaGalleryTab };
     withGalleryBookmarkPlaceholders?:

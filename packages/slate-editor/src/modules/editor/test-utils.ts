@@ -31,6 +31,7 @@ export function getAllExtensions() {
             withCoverage: {
                 dateFormat: 'YYYY/MM/DD',
                 fetchCoverage: createDelayedResolve(coverage),
+                onCreateCoverage: createDelayedResolve({ coverage }),
                 onEdit: () => {},
                 renderPlaceholder: () => null,
                 withLayoutOptions: true,
