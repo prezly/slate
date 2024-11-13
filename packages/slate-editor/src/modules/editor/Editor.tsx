@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import { Events } from '@prezly/events';
 import { EditorCommands } from '@prezly/slate-commons';
-import { TablesEditor } from '@prezly/slate-tables';
+// import { TablesEditor } from '@prezly/slate-tables';
 import {
     type HeadingNode,
     type ParagraphNode,
@@ -13,6 +13,8 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
+import { Plate } from '@udecode/plate-common/react';
+import { isEditorFocused } from '@udecode/slate-react';
 import classNames from 'classnames';
 import React, {
     forwardRef,
@@ -23,21 +25,18 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import type { Element } from 'slate';
-import { Transforms } from 'slate';
-import { ReactEditor, Slate } from 'slate-react';
+// import type { Element } from 'slate';
 
 import { useFunction, useGetSet, useSize } from '#lib';
 
-import { insertButtonBlock } from '#extensions/button-block';
-import { insertCallout } from '#extensions/callout';
+// import { insertButtonBlock } from '#extensions/button-block';
+// import { insertCallout } from '#extensions/callout';
 import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
 import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
-import { useFloatingSnippetInput } from '#extensions/snippet';
-import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
-import { useVariables, VariablesDropdown } from '#extensions/variables';
-import { FloatingSnippetInput, Placeholder } from '#modules/components';
+// import { UserMentionsDropdown } from '#extensions/user-mentions';
+// import { VariablesDropdown } from '#extensions/variables';
+import { Placeholder } from '#modules/components';
 import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
@@ -50,8 +49,8 @@ import { getEnabledExtensions } from './getEnabledExtensions';
 import { InitialNormalization } from './InitialNormalization';
 import {
     createOnCut,
-    insertDivider,
-    insertTable,
+    // insertDivider,
+    // insertTable,
     isEditorValueEqual,
     useCursorInView,
 } from './lib';
@@ -301,11 +300,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             clearSelection: () => EditorCommands.resetSelection(editor),
             insertNodes: (nodes, options) => EditorCommands.insertNodes(editor, nodes, options),
             updateNodes: (props, options = {}) => {
-                Transforms.setNodes(
-                    editor,
-                    props,
-                    options.match ? { at: [], ...options } : options,
-                );
+                editor.setNodes(props, options.match ? { at: [], ...options } : options);
             },
             insertPlaceholder(props, ensureEmptyParagraphAfter) {
                 return insertPlaceholder(editor, props, ensureEmptyParagraphAfter);
@@ -314,7 +309,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 replacePlaceholder(editor, placeholder, element, options);
             },
             isEmpty: () => EditorCommands.isEmpty(editor),
-            isFocused: () => ReactEditor.isFocused(editor),
+            isFocused: () => isEditorFocused(editor),
             isModified: () =>
                 !isEditorValueEqual(editor, getInitialValue(), editor.children as Value),
             isValueEqual: (value: Value, another: Value) =>
@@ -326,26 +321,26 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         }),
     );
 
-    const variables = useVariables(editor, withVariables || undefined);
-    const userMentions = useUserMentions(withUserMentions || undefined);
+    // const variables = useVariables(editor, withVariables || undefined);
+    // const userMentions = useUserMentions(withUserMentions || undefined);
 
-    const [
-        { isOpen: isFloatingSnippetInputOpen },
-        {
-            close: closeFloatingSnippetInput,
-            open: openFloatingSnippetInput,
-            rootClose: rootCloseFloatingSnippetInput,
-            submit: submitFloatingSnippetInput,
-        },
-    ] = useFloatingSnippetInput(editor);
+    // const [
+    //     { isOpen: isFloatingSnippetInputOpen },
+    //     {
+    //         close: closeFloatingSnippetInput,
+    //         open: openFloatingSnippetInput,
+    //         rootClose: rootCloseFloatingSnippetInput,
+    //         submit: submitFloatingSnippetInput,
+    //     },
+    // ] = useFloatingSnippetInput(editor);
 
-    if (withVariables) {
-        onKeyDownList.push(variables.onKeyDown);
-    }
+    // if (withVariables) {
+    //     onKeyDownList.push(variables.onKeyDown);
+    // }
 
-    if (withUserMentions) {
-        onKeyDownList.push(userMentions.onKeyDown);
-    }
+    // if (withUserMentions) {
+    //     onKeyDownList.push(userMentions.onKeyDown);
+    // }
 
     const withSpecificProviderOptions =
         typeof withFloatingAddMenu === 'object'
@@ -405,16 +400,16 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
-        if (action === MenuAction.ADD_BUTTON_BLOCK) {
-            const button = insertButtonBlock(editor, {}, align);
-            EditorCommands.selectNode(editor, button);
-            return;
-        }
-        if (action === MenuAction.ADD_CALLOUT) {
-            const callout = insertCallout(editor, { align });
-            EditorCommands.selectNode(editor, callout);
-            return;
-        }
+        // if (action === MenuAction.ADD_BUTTON_BLOCK) {
+        //     const button = insertButtonBlock(editor, {}, align);
+        //     EditorCommands.selectNode(editor, button);
+        //     return;
+        // }
+        // if (action === MenuAction.ADD_CALLOUT) {
+        //     const callout = insertCallout(editor, { align });
+        //     EditorCommands.selectNode(editor, callout);
+        //     return;
+        // }
         if (action === MenuAction.ADD_CONTACT) {
             const placeholder = insertPlaceholder(
                 editor,
@@ -438,12 +433,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         if (action === MenuAction.ADD_QUOTE) {
             return toggleBlock<QuoteNode>(editor, QUOTE_NODE_TYPE);
         }
-        if (action === MenuAction.ADD_DIVIDER) {
-            return insertDivider(editor);
-        }
-        if (action === MenuAction.ADD_TABLE) {
-            return TablesEditor.isTablesEditor(editor) && insertTable(editor);
-        }
+        // if (action === MenuAction.ADD_DIVIDER) {
+        //     return insertDivider(editor);
+        // }
+        // if (action === MenuAction.ADD_TABLE) {
+        //     return TablesEditor.isTablesEditor(editor) && insertTable(editor);
+        // }
         if (action === MenuAction.ADD_EMBED) {
             const placeholder = insertPlaceholder(
                 editor,
@@ -718,9 +713,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             EditorCommands.selectNode(editor, placeholder);
             return;
         }
-        if (action === MenuAction.ADD_SNIPPET) {
-            return openFloatingSnippetInput();
-        }
+        // if (action === MenuAction.ADD_SNIPPET) {
+        //     return openFloatingSnippetInput();
+        // }
         if (action === MenuAction.ADD_GALLERY && withGalleries) {
             const placeholder = insertPlaceholder(
                 editor,
@@ -816,7 +811,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     const hasCustomPlaceholder =
-        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
+        withFloatingAddMenu && (isEditorFocused(editor) || isFloatingAddMenuOpen);
 
     const onChange = useOnChange((value) => {
         props.onChange(editor.serialize(value) as Value);
@@ -831,9 +826,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 style={style}
             >
                 {sizer}
-                <Slate
+                <Plate
                     editor={editor}
-                    onChange={(newValue) => {
+                    onChange={({ value }) => {
                         /**
                          * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
                          *
@@ -842,9 +837,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                          * are always block nodes in the editor so that behaviors like "splitting a block
                          * in two" work as expected.
                          */
-                        onChange(newValue as Element[]);
-                        variables.onChange(editor);
-                        userMentions.onChange(editor);
+                        onChange(value);
+                        // variables.onChange(editor);
+                        // userMentions.onChange(editor);
                     }}
                     initialValue={getInitialValue()}
                 >
@@ -862,13 +857,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     onCut={createOnCut(editor)}
                                     onKeyDown={onKeyDownList}
                                     onKeyDownDeps={[
-                                        userMentions.index,
-                                        userMentions.query,
-                                        userMentions.target,
+                                        // userMentions.index,
+                                        // userMentions.query,
+                                        // userMentions.target,
                                         withUserMentions,
-                                        variables.index,
-                                        variables.query,
-                                        variables.target,
+                                        // variables.index,
+                                        // variables.query,
+                                        // variables.target,
                                         withVariables,
                                     ]}
                                     readOnly={readOnly}
@@ -904,16 +899,16 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     />
                                 )}
 
-                                {withVariables && (
+                                {/* {withVariables && (
                                     <VariablesDropdown
                                         index={variables.index}
                                         onOptionClick={(option) => variables.onAdd(editor, option)}
                                         options={variables.options}
                                         target={variables.target}
                                     />
-                                )}
+                                )} */}
 
-                                {withUserMentions && (
+                                {/* {withUserMentions && (
                                     <UserMentionsDropdown
                                         index={userMentions.index}
                                         onOptionClick={(option) =>
@@ -922,7 +917,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         options={userMentions.options}
                                         target={userMentions.target}
                                     />
-                                )}
+                                )} */}
 
                                 {withRichFormattingMenu && (
                                     <RichFormattingMenu
@@ -950,7 +945,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     />
                                 )}
 
-                                {withSnippets && isFloatingSnippetInputOpen && (
+                                {/* {withSnippets && isFloatingSnippetInputOpen && (
                                     <FloatingSnippetInput
                                         availableWidth={availableWidth}
                                         containerRef={containerRef}
@@ -962,11 +957,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                             })
                                         }
                                     />
-                                )}
+                                )} */}
                             </>
                         )}
                     </DecorationsProvider>
-                </Slate>
+                </Plate>
             </div>
         </PopperOptionsContext.Provider>
     );

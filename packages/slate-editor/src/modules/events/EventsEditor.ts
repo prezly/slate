@@ -1,7 +1,7 @@
 import type { RemoveListener } from '@prezly/events';
 import { Events } from '@prezly/events';
 import { noop } from '@technically/lodash';
-import { Editor } from 'slate';
+import type { PlateEditor } from '@udecode/plate-common/react';
 
 import { EVENTS_PROPERTY } from './constants';
 import type { EditorEventMap } from './types';
@@ -9,7 +9,7 @@ import type { EditorEventHandlers } from './types';
 
 export abstract class EventsEditor {
     static addEventListener<Event extends keyof EditorEventMap>(
-        editor: Editor,
+        editor: PlateEditor,
         event: Event,
         listener: EditorEventHandlers[Event],
     ): RemoveListener {
@@ -21,7 +21,7 @@ export abstract class EventsEditor {
     }
 
     static dispatchEvent<Event extends keyof EditorEventMap>(
-        editor: Editor,
+        editor: PlateEditor,
         event: Event,
         ...rest: EditorEventMap[Event] extends never ? [never?] : [EditorEventMap[Event]]
     ): void {

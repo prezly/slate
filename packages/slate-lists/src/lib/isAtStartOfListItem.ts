@@ -1,4 +1,5 @@
-import type { Editor, Location } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Location } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -10,7 +11,7 @@ import { getListItems } from './getListItems';
  * Returns true when editor has collapsed selection and the cursor is at the beginning of a "list-item".
  */
 export function isAtStartOfListItem(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     at: Location | null = editor.selection,
 ): boolean {

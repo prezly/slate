@@ -1,4 +1,5 @@
-import type { Editor, NodeEntry, Path } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry, Path } from 'slate';
 import { Element, Node } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
@@ -9,7 +10,7 @@ import type { ListsSchema } from '../types';
  * Returns null if there is no nested "list".
  */
 export function getNestedList(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     path: Path,
 ): NodeEntry<Element> | null {

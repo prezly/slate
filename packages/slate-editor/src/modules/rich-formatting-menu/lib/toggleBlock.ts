@@ -2,11 +2,11 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { ListsEditor, ListType } from '@prezly/slate-lists';
 import type { ElementNode } from '@prezly/slate-types';
 import { BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { PlateEditor } from '@udecode/plate-common/react';
 import { Transforms } from 'slate';
 
 export function toggleBlock<T extends ElementNode>(
-    editor: Editor,
+    editor: PlateEditor,
     type: T['type'],
     props: Partial<Omit<ElementNode, 'children' | 'type'>> = {},
 ): void {

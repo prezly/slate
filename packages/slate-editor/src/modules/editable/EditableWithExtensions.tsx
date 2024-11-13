@@ -7,25 +7,23 @@ import type {
     RenderElement,
     RenderLeaf,
 } from '@prezly/slate-commons';
+import { PlateContent, type PlateEditor } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
-import type { Editor } from 'slate';
-import type { ReactEditor } from 'slate-react';
-import { Editable } from 'slate-react';
 
 import {
-    combineDecorate,
+    // combineDecorate,
     combineOnDOMBeforeInput,
     combineOnKeyDown,
     combineRenderElement,
     combineRenderLeaf,
-    createExtensionsDecorators,
+    // createExtensionsDecorators,
 } from './lib';
 
 export interface Props {
     className?: string;
     decorate?: Decorate;
-    editor: Editor & ReactEditor;
+    editor: PlateEditor;
     /**
      * Each extension fields will be combined by role.
      *
@@ -71,7 +69,7 @@ export interface Props {
 
 export function EditableWithExtensions({
     className,
-    decorate,
+    // decorate,
     editor,
     extensions = [],
     onDOMBeforeInput: onDOMBeforeInputList = [],
@@ -84,13 +82,13 @@ export function EditableWithExtensions({
     renderLeafDeps = [],
     ...props
 }: Props) {
-    const combinedDecorate: Decorate = useMemo(
-        function () {
-            const decorateFns = createExtensionsDecorators(editor, extensions);
-            return combineDecorate(decorate ? [decorate, ...decorateFns] : decorateFns);
-        },
-        [decorate, editor, extensions],
-    );
+    // const combinedDecorate: Decorate = useMemo(
+    //     function () {
+    //         const decorateFns = createExtensionsDecorators(editor, extensions);
+    //         return combineDecorate(decorate ? [decorate, ...decorateFns] : decorateFns);
+    //     },
+    //     [decorate, editor, extensions],
+    // );
     const combinedOnDOMBeforeInput = useCallback(
         combineOnDOMBeforeInput(editor, extensions, onDOMBeforeInputList),
         onDOMBeforeInputDeps,
@@ -109,11 +107,12 @@ export function EditableWithExtensions({
     );
 
     return (
-        <Editable
+        <PlateContent
             {...props}
             className={classNames(className, 'notranslate')}
             translate="no"
-            decorate={combinedDecorate}
+            decorate={null}
+            // decorate={combinedDecorate}
             onDOMBeforeInput={combinedOnDOMBeforeInput}
             onKeyDown={combinedOnKeyDown}
             renderElement={combinedRenderElement}

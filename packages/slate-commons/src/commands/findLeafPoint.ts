@@ -1,10 +1,11 @@
-import { Editor, Path, Point } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Path, Point } from 'slate';
 
 import type { Edge } from './findLeafPath';
 import { findLeafPath } from './findLeafPath';
 
 export function findLeafPoint(
-    editor: Editor,
+    editor: SlateEditor,
     point: Point,
     edge: Edge = 'highest',
 ): Point | undefined {
@@ -14,7 +15,7 @@ export function findLeafPoint(
         return undefined;
     }
 
-    const [, end] = Editor.edges(editor, path);
+    const [, end] = editor.edges(path);
 
     if (Path.equals(point.path, path)) {
         if (Point.isAfter(point, end)) {

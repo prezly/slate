@@ -1,4 +1,5 @@
-import type { Editor, Location } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Location } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -11,7 +12,7 @@ import { isAtStartOfListItem } from './isAtStartOfListItem';
  * Check if `editor.deleteBackward()` is safe to call (it won't break the structure).
  */
 export function isDeleteBackwardAllowed(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     at: Location | null = editor.selection,
 ): boolean {

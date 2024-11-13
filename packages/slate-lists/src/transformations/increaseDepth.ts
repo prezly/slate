@@ -1,5 +1,5 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Location } from 'slate';
-import { Editor } from 'slate';
 
 import { getListItems, getPrevSibling, pickSubtreesRoots } from '../lib';
 import type { ListsSchema } from '../types';
@@ -15,7 +15,7 @@ import { wrapInList } from './wrapInList';
  * @returns {boolean} True, if the editor state has been changed.
  */
 export function increaseDepth(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     at: Location | null = editor.selection,
 ): boolean {
@@ -35,10 +35,10 @@ export function increaseDepth(
     // When calling `increaseListItemDepth` the paths and references to list items
     // can change, so we need a way of marking the list items scheduled for transformation.
     const refs = pickSubtreesRoots(indentableListItems).map(([_, path]) =>
-        Editor.pathRef(editor, path),
+        editor.pathRef(path),
     );
 
-    Editor.withoutNormalizing(editor, () => {
+    editor.withoutNormalizing(() => {
         // Before we indent "list-items", we want to convert every non list-related block in selection to a "list".
         wrapInList(editor, schema, ListType.UNORDERED);
 

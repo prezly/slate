@@ -1,9 +1,9 @@
 import type { Extension, OnKeyDown } from '@prezly/slate-commons';
+import type { SlateEditor } from '@udecode/plate-common';
 import type { KeyboardEvent } from 'react';
-import type { Editor } from 'slate';
 
 export function combineOnKeyDown(
-    editor: Editor,
+    editor: SlateEditor,
     extensions: Extension[],
     onKeyDownList: OnKeyDown[],
 ) {

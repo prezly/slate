@@ -1,5 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, Element } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Element } from 'slate';
 
 import { PlaceholderNode } from '../PlaceholderNode';
 
@@ -8,7 +9,7 @@ interface Options {
 }
 
 export function replacePlaceholder(
-    editor: Editor,
+    editor: SlateEditor,
     placeholder: Pick<PlaceholderNode, 'type' | 'uuid'>,
     element: Element,
     { select = false }: Options = {},

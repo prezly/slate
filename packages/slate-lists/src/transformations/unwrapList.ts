@@ -1,5 +1,6 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Location, Span } from 'slate';
-import { Editor, Point, Range } from 'slate';
+import { Point, Range } from 'slate';
 
 import { getListItems } from '../lib';
 import type { ListsSchema } from '../types';
@@ -11,7 +12,7 @@ import { decreaseDepth } from './decreaseDepth';
  * No lists will be left in the current selection.
  */
 export function unwrapList(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     at: Location | null = editor.selection,
 ): boolean {
@@ -22,10 +23,10 @@ export function unwrapList(
     let iterations = 0;
 
     const span = toSpan(at);
-    const start = Editor.pathRef(editor, span[0]);
-    const end = Editor.pathRef(editor, span[1]);
+    const start = editor.pathRef(span[0]);
+    const end = editor.pathRef(span[1]);
 
-    Editor.withoutNormalizing(editor, () => {
+    editor.withoutNormalizing(() => {
         do {
             if (!start.current || !end.current) {
                 break;

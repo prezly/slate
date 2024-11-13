@@ -1,16 +1,15 @@
 import type { Events } from '@prezly/events';
 import type { Extension, OnKeyDown } from '@prezly/slate-commons';
+import type { PlateEditor } from '@udecode/plate-common/react';
+import { createPlateEditor } from '@udecode/plate-common/react';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Editor } from 'slate';
-import { createEditor as createSlateEditor } from 'slate';
 
 import { useLatest } from '#lib';
 
 import type { EditorEventMap } from '../events';
 import { withEvents } from '../events';
-
-import { createEditor } from './createEditor';
 
 interface Parameters {
     events: Events<EditorEventMap>;
@@ -20,7 +19,7 @@ interface Parameters {
 }
 
 interface State {
-    editor: Editor;
+    editor: PlateEditor;
     onKeyDownList: OnKeyDown[];
 }
 
@@ -47,7 +46,9 @@ export function useCreateEditor({
     const [userPlugins] = useState(plugins);
     const finalPlugins = useMemo(() => [withEvents(events), ...userPlugins], [userPlugins, events]);
     const editor = useMemo(() => {
-        return createEditor(createSlateEditor(), getExtensions, finalPlugins);
+        return createPlateEditor({
+            plugins: [],
+        });
     }, [getExtensions, finalPlugins]);
 
     useEffect(() => {

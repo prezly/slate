@@ -1,7 +1,8 @@
 import { isEqual } from '@technically/lodash';
-import type { Editor, Element, Text, Descendant } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Element, Text, Descendant } from 'slate';
 
-export function isEditorValueEqual<T extends Descendant>(editor: Editor, a: T[], b: T[]): boolean {
+export function isEditorValueEqual<T extends Descendant>(editor: SlateEditor, a: T[], b: T[]): boolean {
     const compareNodes = cached(editor, (node: Descendant, another: Descendant): boolean => {
         const isNodeText = isText(node);
         const isAnotherText = isText(another);
@@ -43,12 +44,12 @@ function isText(node: Descendant): node is Text {
 
 // CACHE
 
-const CACHE: WeakMap<Editor, WeakMap<Descendant, WeakMap<Descendant, boolean>>> = new WeakMap();
+const CACHE: WeakMap<SlateEditor, WeakMap<Descendant, WeakMap<Descendant, boolean>>> = new WeakMap();
 
-type WeakMatrix = WeakMap<Editor, WeakMap<Descendant, WeakMap<Descendant, boolean>>>;
+type WeakMatrix = WeakMap<SlateEditor, WeakMap<Descendant, WeakMap<Descendant, boolean>>>;
 type NodesComparator = (node: Descendant, another: Descendant) => boolean;
 
-function cached(editor: Editor, fn: NodesComparator): NodesComparator {
+function cached(editor: SlateEditor, fn: NodesComparator): NodesComparator {
     return (node, another) => {
         const cached = get(CACHE, editor, node, another) ?? get(CACHE, editor, another, node);
 
@@ -67,7 +68,7 @@ function cached(editor: Editor, fn: NodesComparator): NodesComparator {
 
 function get(
     matrix: WeakMatrix,
-    editor: Editor,
+    editor: SlateEditor,
     node: Descendant,
     another: Descendant,
 ): boolean | undefined {
@@ -76,7 +77,7 @@ function get(
 
 function set(
     matrix: WeakMatrix,
-    editor: Editor,
+    editor: SlateEditor,
     node: Descendant,
     another: Descendant,
     value: boolean,

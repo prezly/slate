@@ -1,5 +1,6 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Element, Location, NodeEntry } from 'slate';
-import { Editor, Path, Point, Range, Span } from 'slate';
+import { Path, Point, Range, Span } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -7,7 +8,7 @@ import type { ListsSchema } from '../types';
  * Returns all "list-items" in a given Range.
  */
 export function getListItems(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     at: Location | Span | null = editor.selection,
 ): NodeEntry<Element>[] {
@@ -16,7 +17,7 @@ export function getListItems(
     }
 
     const start = getLocationStart(at);
-    const listItems = Editor.nodes(editor, {
+    const listItems = editor.nodes({
         at,
         match: schema.isListItemNode,
     });

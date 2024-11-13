@@ -1,22 +1,22 @@
+import type { SlateEditor } from '@udecode/plate-common';
+import { focusEditor } from '@udecode/slate-react';
 import { useState } from 'react';
-import type { BaseEditor, Editor } from 'slate';
-import { ReactEditor } from 'slate-react';
 
 import { saveSelection } from '../commands';
 
 type SavedSelection = ReturnType<typeof saveSelection>;
 
 interface Actions {
-    restore: (editor: ReactEditor & Editor, options?: { focus?: boolean }) => void;
-    save: (editor: Editor) => void;
+    restore: (editor: SlateEditor, options?: { focus?: boolean }) => void;
+    save: (editor: SlateEditor) => void;
 }
 
 export function useSavedSelection(): Actions {
     const [savedSelection, setSavedSelection] = useState<SavedSelection | null>(null);
 
-    function restore(editor: ReactEditor & Editor, { focus = false } = {}) {
+    function restore(editor: SlateEditor, { focus = false } = {}) {
         if (focus) {
-            ReactEditor.focus(editor);
+            focusEditor(editor);
         }
 
         if (savedSelection) {
@@ -25,7 +25,7 @@ export function useSavedSelection(): Actions {
         }
     }
 
-    function save(editor: BaseEditor) {
+    function save(editor: SlateEditor) {
         return setSavedSelection(saveSelection(editor));
     }
 

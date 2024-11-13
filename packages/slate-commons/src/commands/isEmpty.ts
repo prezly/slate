@@ -1,8 +1,8 @@
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { isNodeEmpty } from './isNodeEmpty';
 
-export function isEmpty(editor: Editor): boolean {
+export function isEmpty(editor: SlateEditor): boolean {
     if (editor.children.length === 0) {
         return true;
     }

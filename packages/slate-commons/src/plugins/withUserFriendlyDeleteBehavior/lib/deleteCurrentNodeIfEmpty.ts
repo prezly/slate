@@ -1,6 +1,5 @@
 import { isElementNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { getCurrentNodeEntry, isNodeEmpty } from '../../../commands';
 
@@ -11,7 +10,7 @@ interface Parameters {
     unit: 'character' | 'word' | 'line' | 'block';
 }
 
-export function deleteCurrentNodeIfEmpty(editor: Editor, { reverse, unit }: Parameters): boolean {
+export function deleteCurrentNodeIfEmpty(editor: SlateEditor, { reverse, unit }: Parameters): boolean {
     const [currentNode] = getCurrentNodeEntry(editor) || [];
     const targetNode = getDeletionTargetNode(editor, { reverse, unit });
 
@@ -38,7 +37,7 @@ export function deleteCurrentNodeIfEmpty(editor: Editor, { reverse, unit }: Para
         currentNode.type !== targetNode.type &&
         isNodeEmpty(editor, currentNode)
     ) {
-        Transforms.removeNodes(editor, {
+        editor.removeNodes({
             match: (node) => {
                 return isElementNode(node, currentNode.type);
             },

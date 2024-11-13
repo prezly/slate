@@ -1,7 +1,8 @@
-import type { Range, Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Range } from 'slate';
 import { Node, Text } from 'slate';
 
-export function isValidSelection(editor: Editor, selection: Range): false | true | 'fixable' {
+export function isValidSelection(editor: SlateEditor, selection: Range): false | true | 'fixable' {
     try {
         const anchor = Node.get(editor, selection.anchor.path);
         const focus = Node.get(editor, selection.focus.path);
@@ -21,7 +22,7 @@ export function isValidSelection(editor: Editor, selection: Range): false | true
     return true;
 }
 
-export function fixSelection(editor: Editor, selection: Range): Range | null {
+export function fixSelection(editor: SlateEditor, selection: Range): Range | null {
     try {
         const anchor = Node.get(editor, selection.anchor.path);
         const focus = Node.get(editor, selection.focus.path);

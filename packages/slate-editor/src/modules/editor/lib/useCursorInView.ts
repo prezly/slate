@@ -1,8 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
+import type { SlateEditor } from '@udecode/plate-common';
 import jsonStableStringify from 'json-stable-stringify';
 import { useLayoutEffect } from 'react';
-import type { Editor } from 'slate';
 import { Range } from 'slate';
 
 import { ensureElementInView, ensureRangeInView } from '#lib';
@@ -12,7 +12,7 @@ export interface Parameters {
     minBottom?: number;
 }
 
-export function useCursorInView(editor: Editor, parameters: false | Parameters = false): void {
+export function useCursorInView(editor: SlateEditor, parameters: false | Parameters = false): void {
     useLayoutEffect(() => {
         if (!parameters) return;
 
@@ -24,7 +24,7 @@ export function useCursorInView(editor: Editor, parameters: false | Parameters =
     }, [editor, editor.selection, jsonStableStringify(parameters)]);
 }
 
-function ensureCursorInView(editor: Editor, parameters: Parameters): void {
+function ensureCursorInView(editor: SlateEditor, parameters: Parameters): void {
     if (!editor.selection) {
         return;
     }
