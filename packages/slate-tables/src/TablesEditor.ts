@@ -1,5 +1,5 @@
-import type { Editor, Element, Location, Node, Text } from 'slate';
-import type { ReactEditor } from 'slate-react';
+import type { PlateEditor } from '@udecode/plate-common/react';
+import type { Element, Location, Node, Text } from 'slate';
 
 import * as TableCommands from './commands';
 import { TableCellNode, TableRowNode, TableNode } from './nodes';
@@ -15,7 +15,7 @@ export interface TablesSchema {
     isTableCellNode: (node: Node) => node is TableCellNode;
 }
 
-export interface TablesEditor extends TablesSchema, ReactEditor {}
+export interface TablesEditor extends TablesSchema, PlateEditor {}
 
 export namespace TablesEditor {
     export const insertTable = TableCommands.insertTable;
@@ -50,7 +50,7 @@ export namespace TablesEditor {
         return TableCommands.insertRow(editor, location, 'bellow');
     }
 
-    export function isTablesEditor(editor: Editor): editor is TablesEditor {
-        return 'isTableCellNode' in editor;
+    export function isTablesEditor(editor: unknown): editor is TablesEditor {
+        return typeof editor === 'object' && editor !== null && 'isTableCellNode' in editor;
     }
 }

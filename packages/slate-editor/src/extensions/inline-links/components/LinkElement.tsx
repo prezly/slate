@@ -1,8 +1,8 @@
 import type { LinkNode } from '@prezly/slate-types';
+import { findNodePath, useEditorRef } from '@udecode/plate-common/react';
 import React from 'react';
-import { Editor, Range, Transforms } from 'slate';
+import { Range } from 'slate';
 import type { RenderElementProps } from 'slate-react';
-import { ReactEditor, useSlateStatic } from 'slate-react';
 
 import { LinkWithTooltip } from '#modules/components';
 
@@ -16,14 +16,17 @@ interface Props extends RenderElementProps {
 }
 
 export function LinkElement({ attributes, children, element, predefinedLinks }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const predefinedLink = predefinedLinks?.options.find(({ value }) => value === element.href);
 
     function onMouseUp() {
         if (editor.selection && Range.isCollapsed(editor.selection)) {
-            const path = ReactEditor.findPath(editor, element);
-            const range = Editor.range(editor, path);
-            Transforms.select(editor, range);
+            // @ts-expect-error TODO: Fix this
+            const path = findNodePath(editor, element);
+            if (path) {
+                const range = editor.range(path);
+                editor.select(range);
+            }
         }
     }
 

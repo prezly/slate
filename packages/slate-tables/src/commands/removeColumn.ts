@@ -1,5 +1,5 @@
-import { type Location, Transforms, Editor } from 'slate';
-import { ReactEditor } from 'slate-react';
+import { focusEditor } from '@udecode/slate-react';
+import { type Location } from 'slate';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
@@ -27,7 +27,7 @@ export function removeColumn(
     }
 
     // As we remove cells one by one Slate calls normalization which insert empty cells
-    Editor.withoutNormalizing(editor, () => {
+    editor.withoutNormalizing(() => {
         activeColumn.cells.forEach((cell) => {
             if (TableCellNode.getCellColspan(cell.node) > 1) {
                 TableCellNode.update(
@@ -36,12 +36,12 @@ export function removeColumn(
                     cell.path,
                 );
             } else {
-                Transforms.removeNodes(editor, { at: cell.path });
+                editor.removeNodes({ at: cell.path });
             }
         });
     });
 
-    Editor.normalize(editor);
+    editor.normalize();
 
     let anchorFocusColumn = activeColumn;
 
@@ -52,11 +52,11 @@ export function removeColumn(
     const firstCell = anchorFocusColumn.cells.at(0);
 
     if (firstCell) {
-        Transforms.select(editor, firstCell.path);
-        Transforms.collapse(editor, { edge: 'start' });
+        editor.select(firstCell.path);
+        editor.collapse({ edge: 'start' });
     }
 
-    ReactEditor.focus(editor);
+    focusEditor(editor);
 
     return true;
 }

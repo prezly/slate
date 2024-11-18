@@ -6,9 +6,10 @@ import {
     UploadcareImage,
 } from '@prezly/uploadcare';
 import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
+import { useEditorRef } from '@udecode/plate-common/react';
 import React, { type DragEventHandler } from 'react';
 import { Node } from 'slate';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { PlaceholderImage } from '#icons';
 import { useFunction } from '#lib';
@@ -38,7 +39,7 @@ export function ImagePlaceholderElement({
     withMediaGalleryTab,
     ...props
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const isSelected = useSelected();
 
     function processSelectedImages(images: FilePromise[]) {

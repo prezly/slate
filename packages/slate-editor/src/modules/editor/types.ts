@@ -1,8 +1,9 @@
 import type { Events } from '@prezly/events';
 import type { Decorate, EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
+import type { SlateEditor } from '@udecode/plate-common';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
-import type { Editor, Element, Node } from 'slate';
+import type { Element, Node } from 'slate';
 import type { Transforms } from 'slate';
 
 import type { AllowedBlocksExtensionConfiguration } from '#extensions/allowed-blocks';
@@ -97,7 +98,7 @@ export interface EditorProps {
      * [WARNING] this prop is read by EditorV4 only once, when mounting.
      * Any changes to it will be ignored.
      */
-    plugins?: (<T extends Editor>(editor: T) => T)[];
+    plugins?: (<T extends SlateEditor>(editor: T) => T)[];
     popperMenuOptions?: PopperOptionsContextType;
     readOnly?: boolean;
     style?: CSSProperties;

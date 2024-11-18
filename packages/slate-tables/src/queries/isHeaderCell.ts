@@ -1,7 +1,7 @@
-import { Editor, Location, Node } from 'slate';
+import { Location, Node } from 'slate';
 
 import type { TableCellNode, TableNode } from '../nodes';
-import type { TablesEditor } from '../TablesEditor';
+import { TablesEditor } from '../TablesEditor';
 
 export function isHeaderCell(editor: TablesEditor, location?: Location | null): boolean;
 export function isHeaderCell(table: TableNode, cell: TableCellNode): boolean;
@@ -28,7 +28,7 @@ function findTableAndCellNodes(
     let tableNode: TableNode | undefined;
     let cellNode: TableCellNode | undefined;
 
-    const isEditor = Editor.isEditor(editorOrTable);
+    const isEditor = TablesEditor.isTablesEditor(editorOrTable);
     const isLocation = Location.isLocation(locationOrCell);
 
     if (isEditor || isLocation || locationOrCell === null) {
@@ -39,7 +39,7 @@ function findTableAndCellNodes(
             if (Location.isLocation(location)) {
                 for (const [currentNodeToCheck] of Node.levels(
                     editor,
-                    Editor.path(editor, location),
+                    editor.path(location),
                 )) {
                     if (editor.isTableNode(currentNodeToCheck)) {
                         tableNode = currentNodeToCheck;

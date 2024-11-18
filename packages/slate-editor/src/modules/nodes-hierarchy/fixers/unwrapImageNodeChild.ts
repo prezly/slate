@@ -1,9 +1,10 @@
-import type { NodeEntry, Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 import { isTextualNode } from '../queries';
 
 import { unwrapNode } from './unwrapNode';
 
-export function unwrapImageNodeChild(editor: Editor, entry: NodeEntry) {
+export function unwrapImageNodeChild(editor: SlateEditor, entry: NodeEntry) {
     return unwrapNode(editor, entry, ([node]) => isTextualNode(node));
 }

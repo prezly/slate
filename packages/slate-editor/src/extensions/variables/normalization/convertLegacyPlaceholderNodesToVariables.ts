@@ -1,14 +1,15 @@
 import { isElementNode, VARIABLE_NODE_TYPE } from '@prezly/slate-types';
-import { type Editor, type NodeEntry, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { type NodeEntry } from 'slate';
 
 /**
  * @deprecated
  */
 const PLACEHOLDER_NODE_TYPE = 'placeholder';
 
-export function convertLegacyPlaceholderNodesToVariables(editor: Editor, [node, path]: NodeEntry) {
+export function convertLegacyPlaceholderNodesToVariables(editor: SlateEditor, [node, path]: NodeEntry) {
     if (isElementNode(node, PLACEHOLDER_NODE_TYPE)) {
-        Transforms.setNodes(editor, { type: VARIABLE_NODE_TYPE }, { at: path });
+        editor.setNodes({ type: VARIABLE_NODE_TYPE }, { at: path });
         return true;
     }
 

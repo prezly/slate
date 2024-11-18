@@ -1,4 +1,4 @@
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import type { getMatchPoints } from './utils';
 
@@ -39,7 +39,7 @@ export interface AutoformatCommonRule {
     /**
      * Query to allow autoformat.
      */
-    query?: (editor: Editor, options: AutoformatQueryOptions) => boolean;
+    query?: (editor: SlateEditor, options: AutoformatQueryOptions) => boolean;
 }
 
 export interface AutoformatBlockRule extends AutoformatCommonRule {
@@ -75,13 +75,13 @@ export interface AutoformatBlockRule extends AutoformatCommonRule {
      * Function called just before `format`.
      * Generally used to reset the selected block.
      */
-    preFormat?: (editor: Editor) => void;
+    preFormat?: (editor: SlateEditor) => void;
 
     /**
      * Custom formatting function.
      * @default setNodes(editor, { type }, { match: (n) => Editor.isBlock(editor, n) })
      */
-    format?: (editor: Editor) => void;
+    format?: (editor: SlateEditor) => void;
 }
 
 export interface AutoformatMarkRule extends AutoformatCommonRule {
@@ -111,7 +111,7 @@ export interface AutoformatTextRule extends AutoformatCommonRule {
     format:
         | string
         | string[]
-        | ((editor: Editor, options?: ReturnType<typeof getMatchPoints>) => void);
+        | ((editor: SlateEditor, options?: ReturnType<typeof getMatchPoints>) => void);
 }
 
 export type AutoformatRule = AutoformatBlockRule | AutoformatMarkRule | AutoformatTextRule;

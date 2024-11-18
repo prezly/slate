@@ -1,10 +1,10 @@
 import type { AlignableNode, Alignment } from '@prezly/slate-types';
 import { isAlignableElement, isTableCellNode } from '@prezly/slate-types';
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Node, NodeEntry, Path } from 'slate';
-import { Editor, Transforms } from 'slate';
 
-export function getAlignment(editor: Editor, defaultAlignment: Alignment): Alignment[] {
-    const nodes = Editor.nodes<AlignableNode>(editor, {
+export function getAlignment(editor: SlateEditor, defaultAlignment: Alignment): Alignment[] {
+    const nodes = editor.nodes<AlignableNode>({
         match: (node, path) => isTopLevelAlignableElement(editor, node, path),
     });
 
@@ -17,16 +17,15 @@ export function getAlignment(editor: Editor, defaultAlignment: Alignment): Align
     return [...alignments];
 }
 
-export function toggleAlignment(editor: Editor, align: Alignment | undefined): void {
+export function toggleAlignment(editor: SlateEditor, align: Alignment | undefined): void {
     if (align === undefined) {
-        Transforms.unsetNodes(editor, 'align', {
+        editor.unsetNodes('align', {
             match: (node, path) => isTopLevelAlignableElement(editor, node, path),
         });
         return;
     }
 
-    Transforms.setNodes<AlignableNode>(
-        editor,
+    editor.setNodes<AlignableNode>(
         { align },
         { match: (node, path) => isTopLevelAlignableElement(editor, node, path) },
     );
@@ -37,7 +36,7 @@ function isAlignmentRoot([node, path]: NodeEntry): boolean {
     return path.length === 0 || isTableCellNode(node);
 }
 
-function isTopLevelAlignableElement(editor: Editor, node: Node, path: Path): node is AlignableNode {
-    const parent = Editor.above(editor, { at: path });
+function isTopLevelAlignableElement(editor: SlateEditor, node: Node, path: Path): node is AlignableNode {
+    const parent = editor.above({ at: path });
     return parent !== undefined && isAlignmentRoot(parent) && isAlignableElement(node);
 }

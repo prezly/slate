@@ -1,10 +1,8 @@
-import { Editor } from 'slate';
-
 import type { HierarchyNodeQuery } from '../types';
 
 export function isDescendantOf(parentMatch: HierarchyNodeQuery): HierarchyNodeQuery {
     return (node, path, editor) => {
-        const levels = Editor.levels(editor, {
+        const levels = editor.levels({
             at: path,
             match: (n) => n !== node,
         });

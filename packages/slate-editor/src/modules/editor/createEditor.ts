@@ -9,7 +9,7 @@ import type { Extension } from '@prezly/slate-commons';
 import type { WithOverrides } from '@prezly/slate-commons';
 import { isNotUndefined } from '@technically/is-not-undefined';
 import { flow } from '@technically/lodash';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
 
@@ -25,7 +25,7 @@ import {
 } from './plugins';
 
 export function createEditor(
-    baseEditor: Editor,
+    baseEditor: SlateEditor,
     getExtensions: () => Extension[],
     plugins: WithOverrides[] = [],
 ) {

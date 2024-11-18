@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { LinkNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { getNode } from '@udecode/slate';
 import { Node, Path } from 'slate';
 
 import { createPlaceholder, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
@@ -8,7 +9,7 @@ import { createPlaceholder, PlaceholderNode, PlaceholdersManager } from '#extens
 import type { FetchOEmbedFn, Presentation } from '../types';
 
 export function convertLink(
-    editor: Editor,
+    editor: SlateEditor,
     element: LinkNode,
     presentation: Presentation,
     fetchOembed: FetchOEmbedFn,
@@ -36,16 +37,16 @@ export function convertLink(
     });
 }
 
-function determineReplacementPath(editor: Editor, link: LinkNode) {
+function determineReplacementPath(editor: SlateEditor, link: LinkNode) {
     const path = EditorCommands.getNodePath(editor, {
         match: (node) => node === link,
     });
 
     if (path && path.length > 1) {
         const parentPath = Path.parent(path);
-        const parent = Node.get(editor, parentPath);
+        const parent = getNode(editor, parentPath);
 
-        if (Node.string(parent) === Node.string(link)) {
+        if (parent?.string === Node.string(link)) {
             return parentPath;
         }
     }

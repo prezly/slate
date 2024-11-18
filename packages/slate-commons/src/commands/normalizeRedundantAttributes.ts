@@ -1,12 +1,12 @@
-import type { Editor, ElementEntry } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { ElementEntry } from 'slate';
 
 import { NODE_ID_MANAGER_ID_PROPERTY_NAME } from '../constants';
 
 const GLOBALLY_ALLOWED_ATTRIBUTES = [NODE_ID_MANAGER_ID_PROPERTY_NAME];
 
 export function normalizeRedundantAttributes(
-    editor: Editor,
+    editor: SlateEditor,
     [element, path]: ElementEntry,
     allowedAttributes: string[],
 ): boolean {
@@ -27,7 +27,7 @@ export function normalizeRedundantAttributes(
         {},
     );
 
-    Transforms.setNodes(editor, attributesToUnset, { at: path });
+    editor.setNodes(attributesToUnset, { at: path });
 
     return true;
 }

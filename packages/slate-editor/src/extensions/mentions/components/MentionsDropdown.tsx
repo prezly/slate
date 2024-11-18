@@ -1,11 +1,11 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import RangeFix from 'rangefix';
 import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { usePopper } from 'react-popper';
 import type { Range } from 'slate';
-import { useSlate } from 'slate-react';
 
 import { convertClientRect, ensureChildInView } from '#lib';
 
@@ -44,7 +44,7 @@ export const MentionsDropdown = <V extends object>({
     renderOption,
     target,
 }: Props<V>): ReturnType<FunctionComponent<V>> => {
-    const editor = useSlate();
+    const editor = useEditorRef();
     const suggestionsPanelRef = useRef<HTMLUListElement | null>(null);
 
     useEffect(() => {

@@ -1,7 +1,6 @@
 import { castArray } from '@technically/lodash';
-import type { Editor, Point, Range } from 'slate';
-import { Transforms } from 'slate';
-import { HistoryEditor } from 'slate-history';
+import { HistoryEditor, type SlateEditor } from '@udecode/plate-common';
+import type { Point, Range } from 'slate';
 
 import type { AutoformatTextRule } from '../types';
 import { getMatchPoints } from '../utils/getMatchPoints';
@@ -11,7 +10,7 @@ export interface AutoformatTextOptions extends AutoformatTextRule {
     text: string;
 }
 
-export function autoformatText(editor: Editor, options: AutoformatTextOptions) {
+export function autoformatText(editor: SlateEditor, options: AutoformatTextOptions) {
     const selection = editor.selection as Range;
     const matches = castArray(options.match);
 
@@ -37,8 +36,9 @@ export function autoformatText(editor: Editor, options: AutoformatTextOptions) {
         const { afterStartMatchPoint, beforeEndMatchPoint, beforeStartMatchPoint } = matched;
 
         if (end) {
+            // @ts-expect-error TODO: Fix this
             HistoryEditor.withoutMerging(editor, () => {
-                Transforms.delete(editor, {
+                editor.delete({
                     at: {
                         anchor: beforeEndMatchPoint,
                         focus: {
@@ -61,14 +61,14 @@ export function autoformatText(editor: Editor, options: AutoformatTextOptions) {
                     ? options.format[0]
                     : options.format;
 
-                Transforms.delete(editor, {
+                editor.delete({
                     at: {
                         anchor: beforeStartMatchPoint as Point,
                         focus: afterStartMatchPoint as Point,
                     },
                 });
 
-                Transforms.insertText(editor, formatStart + ' ', {
+                editor.insertText(formatStart + ' ', {
                     at: beforeStartMatchPoint,
                 });
             }

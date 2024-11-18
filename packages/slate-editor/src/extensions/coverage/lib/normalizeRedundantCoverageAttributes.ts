@@ -1,7 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { CoverageNode } from '@prezly/slate-types';
 import { isCoverageNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 const SHAPE: Record<keyof CoverageNode, boolean> = {
     type: true,
@@ -15,7 +16,7 @@ const SHAPE: Record<keyof CoverageNode, boolean> = {
 const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
 
 export function normalizeRedundantCoverageAttributes(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
 ): boolean {
     if (!isCoverageNode(node)) {

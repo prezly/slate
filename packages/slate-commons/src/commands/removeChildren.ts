@@ -1,12 +1,13 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { NodeEntry } from 'slate';
-import { Editor, Element, Text, Transforms } from 'slate';
+import { Element, Text } from 'slate';
 
 /**
  * Ensures given element has a single, empty `Text` child.
  * Returns `true` when removal occurred.
  * Returns `false` when nothing changed.
  */
-export function removeChildren(editor: Editor, [node, path]: NodeEntry): boolean {
+export function removeChildren(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (!Element.isElement(node)) {
         return false;
     }
@@ -17,11 +18,11 @@ export function removeChildren(editor: Editor, [node, path]: NodeEntry): boolean
         return false;
     }
 
-    Editor.withoutNormalizing(editor, () => {
-        Transforms.insertNodes(editor, [{ text: '' }], { at: [...path, 0] });
+    editor.withoutNormalizing(() => {
+        editor.insertNodes([{ text: '' }], { at: [...path, 0] });
 
         node.children.forEach(() => {
-            Transforms.removeNodes(editor, {
+            editor.removeNodes({
                 at: [...path, 1],
                 voids: true,
             });

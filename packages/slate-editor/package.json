@@ -69,7 +69,6 @@
         "@technically/is-not-undefined": "^1.0.0",
         "@technically/lodash": "^4.17.0",
         "@types/combine-reducers": "^1.0.1",
-        "@udecode/plate-core": "^9.0.0",
         "classnames": "^2.3.1",
         "combine-reducers": "^1.0.0",
         "emoji-picker-react": "^4.10.0",

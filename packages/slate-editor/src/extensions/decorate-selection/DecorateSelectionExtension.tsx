@@ -1,6 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
 import React from 'react';
-import type { Editor } from 'slate';
 
 import { SelectionHighlight } from './components';
 import { SELECTION_MARK } from './constants';
@@ -13,7 +12,7 @@ interface Params {
 export function DecorateSelectionExtension({ decorate = true }: Params = {}): Extension {
     return {
         id: 'DecorateSelectionExtension',
-        decorate(editor: Editor) {
+        decorate(editor) {
             if (!decorate) {
                 return noopDecoration;
             }

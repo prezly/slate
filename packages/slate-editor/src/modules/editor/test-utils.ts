@@ -1,7 +1,7 @@
 import { Events } from '@prezly/events';
 import { Alignment } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import type { EditorEventMap } from '#modules/events';
 import { withEvents } from '#modules/events';
@@ -108,7 +108,7 @@ export function getAllExtensions() {
 }
 
 export function createEditor(input: JSX.Element) {
-    return createBaseEditor(input as unknown as Editor, getAllExtensions, [
+    return createBaseEditor(input as unknown as SlateEditor, getAllExtensions, [
         withEvents(events),
         withNodesHierarchy(hierarchySchema),
     ]);

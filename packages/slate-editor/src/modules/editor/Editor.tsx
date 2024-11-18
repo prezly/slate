@@ -1,16 +1,8 @@
 /* eslint-disable react/display-name */
 import { Events } from '@prezly/events';
 import { EditorCommands } from '@prezly/slate-commons';
-// import { TablesEditor } from '@prezly/slate-tables';
 import {
-    type HeadingNode,
-    type ParagraphNode,
-    type QuoteNode,
     Alignment,
-    HEADING_1_NODE_TYPE,
-    HEADING_2_NODE_TYPE,
-    PARAGRAPH_NODE_TYPE,
-    QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import { Plate } from '@udecode/plate-common/react';
@@ -23,44 +15,31 @@ import React, {
     useImperativeHandle,
     useMemo,
     useRef,
-    useState,
+    // useState,
 } from 'react';
-// import type { Element } from 'slate';
 
-import { useFunction, useGetSet, useSize } from '#lib';
+import { useGetSet, useSize } from '#lib';
 
-// import { insertButtonBlock } from '#extensions/button-block';
-// import { insertCallout } from '#extensions/callout';
-import { FlashNodes } from '#extensions/flash-nodes';
-import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
-import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
-// import { UserMentionsDropdown } from '#extensions/user-mentions';
-// import { VariablesDropdown } from '#extensions/variables';
-import { Placeholder } from '#modules/components';
+import { insertPlaceholder, replacePlaceholder } from '#extensions/placeholders';
+// import { Placeholder } from '#modules/components';
 import { DecorationsProvider } from '#modules/decorations';
 import { EditableWithExtensions } from '#modules/editable';
 import type { EditorEventMap } from '#modules/events';
 import { EventsEditor } from '#modules/events';
 import { PopperOptionsContext } from '#modules/popper-options-context';
-import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
+// import { RichFormattingMenu } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';
 import { InitialNormalization } from './InitialNormalization';
 import {
     createOnCut,
-    // insertDivider,
-    // insertTable,
     isEditorValueEqual,
     useCursorInView,
 } from './lib';
-import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
 import type { EditorProps, EditorRef, Value } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
-
-import { replacePlaceholder } from '#extensions/placeholders/lib';
-import { PlaceholdersManager } from '#extensions/placeholders/PlaceholdersManager';
 
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
     const {
@@ -74,12 +53,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         initialValue: externalInitialValue,
         blurOnOutsideClick = false,
         onKeyDown = noop,
-        placeholder,
+        // placeholder,
         plugins,
         popperMenuOptions = {},
         readOnly,
         style,
-        withAlignmentControls,
+        // withAlignmentControls,
         withAllowedBlocks = false,
         withAttachments = false,
         withAutoformat = false,
@@ -102,11 +81,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         withLists = false,
         withPlaceholders = {},
         withPressContacts = false,
-        withRichFormattingMenu = false,
+        // withRichFormattingMenu = false,
         withStoryBookmarks = false,
         withStoryEmbeds = false,
         withSnippets = false,
-        withTextHighlight = false,
+        // withTextHighlight = false,
         withTextStyling = false,
         withTables = false,
         withUserMentions = false,
@@ -127,18 +106,20 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     // const { onOperationEnd, onOperationStart } = usePendingOperation(onIsOperationPendingChange);
 
     // [+] menu
-    const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
+    // const [isFloatingAddMenuOpen, setFloatingAddMenuOpen] = useState(false);
     const onFloatingAddMenuToggle = useCallback(
         function (shouldOpen: boolean, trigger: 'click' | 'hotkey' | 'input') {
-            setFloatingAddMenuOpen(shouldOpen);
+            // setFloatingAddMenuOpen(shouldOpen);
             if (shouldOpen) {
                 EventsEditor.dispatchEvent(editor, 'add-button-menu-opened', { trigger });
             } else {
                 EventsEditor.dispatchEvent(editor, 'add-button-menu-closed');
             }
         },
-        [setFloatingAddMenuOpen],
+        [/*setFloatingAddMenuOpen*/],
     );
+
+    console.log('loading Plate editor');
 
     const extensions = useMemo(
         () =>
@@ -182,35 +163,35 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             align,
             availableWidth,
             onFloatingAddMenuToggle,
-            withAllowedBlocks,
-            withAttachments,
-            withAutoformat,
-            withBlockquotes,
-            withButtonBlocks,
-            withCallouts,
-            withCoverage,
-            withCustomNormalization,
-            withDivider,
-            withEmbeds,
-            withFloatingAddMenu,
-            withGalleries,
-            withGalleryBookmarks,
-            withHeadings,
-            withImages,
-            withInlineContacts,
-            withInlineLinks,
-            withLists,
-            withPlaceholders,
-            withPressContacts,
-            withTextStyling,
-            withTables,
-            withUserMentions,
-            withVariables,
-            withVideos,
-            withWebBookmarks,
-            withStoryEmbeds,
-            withStoryBookmarks,
-            withSnippets,
+            // withAllowedBlocks,
+            // withAttachments,
+            // withAutoformat,
+            // withBlockquotes,
+            // withButtonBlocks,
+            // withCallouts,
+            // withCoverage,
+            // withCustomNormalization,
+            // withDivider,
+            // withEmbeds,
+            // withFloatingAddMenu,
+            // withGalleries,
+            // withGalleryBookmarks,
+            // withHeadings,
+            // withImages,
+            // withInlineContacts,
+            // withInlineLinks,
+            // withLists,
+            // withPlaceholders,
+            // withPressContacts,
+            // withTextStyling,
+            // withTables,
+            // withUserMentions,
+            // withVariables,
+            // withVideos,
+            // withWebBookmarks,
+            // withStoryEmbeds,
+            // withStoryBookmarks,
+            // withSnippets,
         ],
     );
 
@@ -222,6 +203,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     const [getInitialValue, setInitialValue] = useGetSet(() =>
+        // @ts-expect-error TODO: Fix this
         EditorCommands.roughlyNormalizeValue(editor, externalInitialValue),
     );
 
@@ -311,11 +293,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             isEmpty: () => EditorCommands.isEmpty(editor),
             isFocused: () => isEditorFocused(editor),
             isModified: () =>
+                // @ts-expect-error TODO: Fix this
                 !isEditorValueEqual(editor, getInitialValue(), editor.children as Value),
             isValueEqual: (value: Value, another: Value) =>
                 isEditorValueEqual(editor, value, another),
             resetValue: (value) => {
                 EditorCommands.resetNodes(editor, value, editor.selection);
+                // @ts-expect-error TODO: Fix this
                 setInitialValue(value);
             },
         }),
@@ -342,476 +326,476 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     //     onKeyDownList.push(userMentions.onKeyDown);
     // }
 
-    const withSpecificProviderOptions =
-        typeof withFloatingAddMenu === 'object'
-            ? withFloatingAddMenu.withSpecificProviderOptions
-            : false;
+    // const withSpecificProviderOptions =
+    //     typeof withFloatingAddMenu === 'object'
+    //         ? withFloatingAddMenu.withSpecificProviderOptions
+    //         : false;
 
-    const menuOptions = generateFloatingAddMenuOptions(editor, {
-        withAttachments,
-        withBlockquotes,
-        withButtonBlocks: Boolean(withButtonBlocks),
-        withCallouts: withCallouts,
-        withCoverage: Boolean(withCoverage),
-        withDivider,
-        withTables: Boolean(withTables),
-        withEmbedSocial: Boolean(withEmbeds),
-        withEmbeds: Boolean(withEmbeds),
-        withGalleries: Boolean(withGalleries),
-        withGalleryBookmarks: Boolean(withGalleryBookmarks),
-        withHeadings,
-        withImages: Boolean(withImages),
-        withParagraphs: true,
-        withPressContacts: Boolean(withPressContacts),
-        withStoryBookmarks: Boolean(withStoryBookmarks),
-        withStoryEmbeds: Boolean(withStoryEmbeds),
-        withSnippets: Boolean(withSnippets),
-        withVideos: Boolean(withVideos),
-        withWebBookmarks: Boolean(withWebBookmarks),
-        withSpecificProviderOptions,
-    });
+    // const menuOptions = generateFloatingAddMenuOptions(editor, {
+    //     withAttachments,
+    //     withBlockquotes,
+    //     withButtonBlocks: Boolean(withButtonBlocks),
+    //     withCallouts: withCallouts,
+    //     withCoverage: Boolean(withCoverage),
+    //     withDivider,
+    //     withTables: Boolean(withTables),
+    //     withEmbedSocial: Boolean(withEmbeds),
+    //     withEmbeds: Boolean(withEmbeds),
+    //     withGalleries: Boolean(withGalleries),
+    //     withGalleryBookmarks: Boolean(withGalleryBookmarks),
+    //     withHeadings,
+    //     withImages: Boolean(withImages),
+    //     withParagraphs: true,
+    //     withPressContacts: Boolean(withPressContacts),
+    //     withStoryBookmarks: Boolean(withStoryBookmarks),
+    //     withStoryEmbeds: Boolean(withStoryEmbeds),
+    //     withSnippets: Boolean(withSnippets),
+    //     withVideos: Boolean(withVideos),
+    //     withWebBookmarks: Boolean(withWebBookmarks),
+    //     withSpecificProviderOptions,
+    // });
 
-    const handleMenuAction = useFunction((option: Option<MenuAction>, query: string) => {
-        const { action, text, suggested } = option;
+    // const handleMenuAction = useFunction((option: Option<MenuAction>, query: string) => {
+    //     const { action, text, suggested } = option;
 
-        EventsEditor.dispatchEvent(editor, 'add-button-menu-option-click', {
-            action,
-            title: text,
-            suggested: typeof suggested === 'number',
-            query,
-        });
+    //     EventsEditor.dispatchEvent(editor, 'add-button-menu-option-click', {
+    //         action,
+    //         title: text,
+    //         suggested: typeof suggested === 'number',
+    //         query,
+    //     });
 
-        if (action === MenuAction.ADD_PARAGRAPH) {
-            return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);
-        }
-        if (action === MenuAction.ADD_HEADING_1) {
-            return toggleBlock<HeadingNode>(editor, HEADING_1_NODE_TYPE);
-        }
-        if (action === MenuAction.ADD_HEADING_2) {
-            return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
-        }
-        if (action === MenuAction.ADD_ATTACHMENT) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.ATTACHMENT },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        // if (action === MenuAction.ADD_BUTTON_BLOCK) {
-        //     const button = insertButtonBlock(editor, {}, align);
-        //     EditorCommands.selectNode(editor, button);
-        //     return;
-        // }
-        // if (action === MenuAction.ADD_CALLOUT) {
-        //     const callout = insertCallout(editor, { align });
-        //     EditorCommands.selectNode(editor, callout);
-        //     return;
-        // }
-        if (action === MenuAction.ADD_CONTACT) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.CONTACT },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_COVERAGE) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.COVERAGE },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_QUOTE) {
-            return toggleBlock<QuoteNode>(editor, QUOTE_NODE_TYPE);
-        }
-        // if (action === MenuAction.ADD_DIVIDER) {
-        //     return insertDivider(editor);
-        // }
-        // if (action === MenuAction.ADD_TABLE) {
-        //     return TablesEditor.isTablesEditor(editor) && insertTable(editor);
-        // }
-        if (action === MenuAction.ADD_EMBED) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.EMBED },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_PODCAST) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.PODCAST,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_AUDIO) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.AUDIO,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_DROPBOX) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.DROPBOX,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_SOUNDCLOUD) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.SOUNDCLOUD,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_GIPHY) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.GIPHY,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_SPOTIFY) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.SPOTIFY,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_GOOGLE_MAPS) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.GOOGLE_MAPS,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_GOOGLE_SHEETS) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.GOOGLE_SHEETS,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_GOOGLE_DOCS) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.GOOGLE_DOCS,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_CALENDLY) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.CALENDLY,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_EVENTBRITE) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.EVENTBRITE,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_TYPEFORM) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.TYPEFORM,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_TALLY) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.TALLY,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_MICROSOFT_TEAMS) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.EMBED,
-                    provider: PlaceholderNode.Provider.MICROSOFT_TEAMS,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_EMBED_SOCIAL) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.SOCIAL_POST },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_INSTAGRAM) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.SOCIAL_POST,
-                    provider: PlaceholderNode.Provider.INSTAGRAM,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_X) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.SOCIAL_POST,
-                    provider: PlaceholderNode.Provider.X,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_FACEBOOK) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.SOCIAL_POST,
-                    provider: PlaceholderNode.Provider.FACEBOOK,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_PINTEREST) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.SOCIAL_POST,
-                    provider: PlaceholderNode.Provider.PINTEREST,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_STORY_BOOKMARK) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.STORY_BOOKMARK },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_STORY_EMBED) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.STORY_EMBED },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        // if (action === MenuAction.ADD_SNIPPET) {
-        //     return openFloatingSnippetInput();
-        // }
-        if (action === MenuAction.ADD_GALLERY && withGalleries) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.GALLERY },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_GALLERY_BOOKMARK && withGalleryBookmarks) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.GALLERY_BOOKMARK },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_IMAGE && withImages) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.IMAGE },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-        }
-        if (action === MenuAction.ADD_VIDEO) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.VIDEO },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_YOUTUBE) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.VIDEO,
-                    provider: PlaceholderNode.Provider.YOUTUBE,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_VIMEO) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.VIDEO,
-                    provider: PlaceholderNode.Provider.VIMEO,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_TIKTOK) {
-            const placeholder = insertPlaceholder(
-                editor,
-                {
-                    type: PlaceholderNode.Type.VIDEO,
-                    provider: PlaceholderNode.Provider.TIKTOK,
-                },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        if (action === MenuAction.ADD_WEB_BOOKMARK) {
-            const placeholder = insertPlaceholder(
-                editor,
-                { type: PlaceholderNode.Type.WEB_BOOKMARK },
-                true,
-            );
-            PlaceholdersManager.trigger(placeholder);
-            EditorCommands.selectNode(editor, placeholder);
-            return;
-        }
-        return;
-    });
-    const handleMenuFilter = useFunction((query: string, resultsCount: number) => {
-        EventsEditor.dispatchEvent(editor, 'add-button-menu-filtered', { query, resultsCount });
-    });
+    //     if (action === MenuAction.ADD_PARAGRAPH) {
+    //         return toggleBlock<ParagraphNode>(editor, PARAGRAPH_NODE_TYPE);
+    //     }
+    //     if (action === MenuAction.ADD_HEADING_1) {
+    //         return toggleBlock<HeadingNode>(editor, HEADING_1_NODE_TYPE);
+    //     }
+    //     if (action === MenuAction.ADD_HEADING_2) {
+    //         return toggleBlock<HeadingNode>(editor, HEADING_2_NODE_TYPE);
+    //     }
+    //     if (action === MenuAction.ADD_ATTACHMENT) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.ATTACHMENT },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     // if (action === MenuAction.ADD_BUTTON_BLOCK) {
+    //     //     const button = insertButtonBlock(editor, {}, align);
+    //     //     EditorCommands.selectNode(editor, button);
+    //     //     return;
+    //     // }
+    //     // if (action === MenuAction.ADD_CALLOUT) {
+    //     //     const callout = insertCallout(editor, { align });
+    //     //     EditorCommands.selectNode(editor, callout);
+    //     //     return;
+    //     // }
+    //     if (action === MenuAction.ADD_CONTACT) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.CONTACT },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_COVERAGE) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.COVERAGE },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_QUOTE) {
+    //         return toggleBlock<QuoteNode>(editor, QUOTE_NODE_TYPE);
+    //     }
+    //     // if (action === MenuAction.ADD_DIVIDER) {
+    //     //     return insertDivider(editor);
+    //     // }
+    //     // if (action === MenuAction.ADD_TABLE) {
+    //     //     return TablesEditor.isTablesEditor(editor) && insertTable(editor);
+    //     // }
+    //     if (action === MenuAction.ADD_EMBED) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.EMBED },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_PODCAST) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.PODCAST,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_AUDIO) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.AUDIO,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_DROPBOX) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.DROPBOX,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_SOUNDCLOUD) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.SOUNDCLOUD,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_GIPHY) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.GIPHY,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_SPOTIFY) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.SPOTIFY,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_GOOGLE_MAPS) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.GOOGLE_MAPS,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_GOOGLE_SHEETS) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.GOOGLE_SHEETS,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_GOOGLE_DOCS) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.GOOGLE_DOCS,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_CALENDLY) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.CALENDLY,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_EVENTBRITE) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.EVENTBRITE,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_TYPEFORM) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.TYPEFORM,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_TALLY) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.TALLY,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_MICROSOFT_TEAMS) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.EMBED,
+    //                 provider: PlaceholderNode.Provider.MICROSOFT_TEAMS,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_EMBED_SOCIAL) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.SOCIAL_POST },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_INSTAGRAM) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.SOCIAL_POST,
+    //                 provider: PlaceholderNode.Provider.INSTAGRAM,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_X) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.SOCIAL_POST,
+    //                 provider: PlaceholderNode.Provider.X,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_FACEBOOK) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.SOCIAL_POST,
+    //                 provider: PlaceholderNode.Provider.FACEBOOK,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_PINTEREST) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.SOCIAL_POST,
+    //                 provider: PlaceholderNode.Provider.PINTEREST,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_STORY_BOOKMARK) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.STORY_BOOKMARK },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_STORY_EMBED) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.STORY_EMBED },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     // if (action === MenuAction.ADD_SNIPPET) {
+    //     //     return openFloatingSnippetInput();
+    //     // }
+    //     if (action === MenuAction.ADD_GALLERY && withGalleries) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.GALLERY },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_GALLERY_BOOKMARK && withGalleryBookmarks) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.GALLERY_BOOKMARK },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_IMAGE && withImages) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.IMAGE },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //     }
+    //     if (action === MenuAction.ADD_VIDEO) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.VIDEO },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_YOUTUBE) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.VIDEO,
+    //                 provider: PlaceholderNode.Provider.YOUTUBE,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_VIMEO) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.VIDEO,
+    //                 provider: PlaceholderNode.Provider.VIMEO,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_TIKTOK) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             {
+    //                 type: PlaceholderNode.Type.VIDEO,
+    //                 provider: PlaceholderNode.Provider.TIKTOK,
+    //             },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     if (action === MenuAction.ADD_WEB_BOOKMARK) {
+    //         const placeholder = insertPlaceholder(
+    //             editor,
+    //             { type: PlaceholderNode.Type.WEB_BOOKMARK },
+    //             true,
+    //         );
+    //         PlaceholdersManager.trigger(placeholder);
+    //         EditorCommands.selectNode(editor, placeholder);
+    //         return;
+    //     }
+    //     return;
+    // });
+    // const handleMenuFilter = useFunction((query: string, resultsCount: number) => {
+    //     EventsEditor.dispatchEvent(editor, 'add-button-menu-filtered', { query, resultsCount });
+    // });
 
-    const hasCustomPlaceholder =
-        withFloatingAddMenu && (isEditorFocused(editor) || isFloatingAddMenuOpen);
+    // const hasCustomPlaceholder =
+    //     withFloatingAddMenu && (isEditorFocused(editor) || isFloatingAddMenuOpen);
 
     const onChange = useOnChange((value) => {
         props.onChange(editor.serialize(value) as Value);
@@ -841,6 +825,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                         // variables.onChange(editor);
                         // userMentions.onChange(editor);
                     }}
+                    // @ts-expect-error TODO: Fix this
                     initialValue={getInitialValue()}
                 >
                     <DecorationsProvider decorate={decorate}>
@@ -860,26 +845,26 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         // userMentions.index,
                                         // userMentions.query,
                                         // userMentions.target,
-                                        withUserMentions,
+                                        // withUserMentions,
                                         // variables.index,
                                         // variables.query,
                                         // variables.target,
-                                        withVariables,
+                                        // withVariables,
                                     ]}
                                     readOnly={readOnly}
                                     renderElementDeps={[availableWidth]}
                                     style={contentStyle}
                                 />
 
-                                <FlashNodes containerRef={containerRef} />
+                                {/* <FlashNodes containerRef={containerRef} /> */}
 
-                                {!hasCustomPlaceholder && (
+                                {/* {!hasCustomPlaceholder && (
                                     <Placeholder className="editor-placeholder">
                                         {placeholder}
                                     </Placeholder>
-                                )}
+                                )} */}
 
-                                {withFloatingAddMenu && (
+                                {/* {withFloatingAddMenu && (
                                     <FloatingAddMenu
                                         tooltip={
                                             typeof withFloatingAddMenu === 'object'
@@ -897,7 +882,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         options={menuOptions}
                                         showTooltipByDefault={EditorCommands.isEmpty(editor)}
                                     />
-                                )}
+                                )} */}
 
                                 {/* {withVariables && (
                                     <VariablesDropdown
@@ -919,7 +904,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     />
                                 )} */}
 
-                                {withRichFormattingMenu && (
+                                {/*withRichFormattingMenu && (
                                     <RichFormattingMenu
                                         availableWidth={availableWidth}
                                         containerElement={containerRef.current}
@@ -943,7 +928,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         withTextHighlight={withTextHighlight}
                                         withParagraphs
                                     />
-                                )}
+                                )*/}
 
                                 {/* {withSnippets && isFloatingSnippetInputOpen && (
                                     <FloatingSnippetInput

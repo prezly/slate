@@ -1,8 +1,9 @@
-import type { Editor, NodeEntry, NodeMatch } from 'slate';
-import { Node, Path, Text, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry, NodeMatch } from 'slate';
+import { Node, Path, Text } from 'slate';
 
 export function wrapSiblingTextNodesIntoParagraph(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
 ): boolean {
     if (!Text.isText(node)) return false;
@@ -13,7 +14,7 @@ export function wrapSiblingTextNodesIntoParagraph(
     const from = combinePaths[0];
     const to = combinePaths[combinePaths.length - 1];
 
-    Transforms.wrapNodes(editor, editor.createDefaultTextBlock({ children: [] }), {
+    editor.wrapNodes(editor.createDefaultTextBlock({ children: [] }), {
         at: Path.parent(path),
         match: betweenPaths(from, to),
     });
@@ -33,12 +34,13 @@ function betweenPaths(from: Path, to: Path): NodeMatch<Node> {
 }
 
 function collectNextSiblingsWhileMatching(
-    editor: Editor,
+    editor: SlateEditor,
     current: Path,
     match: NodeMatch<Node>,
 ): Path[] {
     if (current.length === 0) return [];
 
+    // @ts-expect-error TODO: Fix this
     const siblingsAfter = Array.from(Node.children(editor, Path.parent(current))).filter(
         ([, path]) => Path.isAfter(path, current),
     );

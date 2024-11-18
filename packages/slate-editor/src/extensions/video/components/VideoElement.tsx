@@ -1,8 +1,8 @@
 import type { VideoNode } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import type { ReactNode } from 'react';
 import React, { useCallback, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSlateStatic } from 'slate-react';
 
 import type { InfoText } from '#components';
 import { EditorBlock, HtmlInjection } from '#components';
@@ -35,7 +35,7 @@ export function VideoElement({
     withLayoutControls,
     withConversionOptions,
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     const { url, oembed } = element;
     const [isHtmlEmbeddedWithErrors, setHtmlEmbeddedWithErrors] = useState<boolean>(false);

@@ -1,10 +1,11 @@
-import { getRangeBefore, getText } from '@udecode/plate-core';
-import type { Editor, Location } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { getEditorString, getRangeBefore } from '@udecode/plate-common';
+import type { Location } from 'slate';
 
-export function isPreviousCharacterEmpty(editor: Editor, at: Location) {
+export function isPreviousCharacterEmpty(editor: SlateEditor, at: Location) {
     const range = getRangeBefore(editor, at);
     if (range) {
-        const text = getText(editor, range);
+        const text = getEditorString(editor, range);
         if (text) {
             const noWhiteSpaceRegex = new RegExp(`\\S+`);
 

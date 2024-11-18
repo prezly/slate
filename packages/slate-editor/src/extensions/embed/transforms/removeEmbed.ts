@@ -1,9 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { EmbedNode } from '../EmbedNode';
 
-export function removeEmbed(editor: Editor, element?: EmbedNode): EmbedNode | null {
+export function removeEmbed(editor: SlateEditor, element?: EmbedNode): EmbedNode | null {
     return EditorCommands.removeNode<EmbedNode>(editor, {
         match: (node) => {
             if (EmbedNode.isEmbedNode(node)) {

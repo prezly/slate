@@ -1,13 +1,14 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isHtmlNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 import { createHtmlBlock } from './createHtmlBlock';
 
 const ALLOWED_ATTRIBUTES = Object.keys(createHtmlBlock({ content: '' }));
 
 export function normalizeRedundantHtmlBlockAttributes(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
 ): boolean {
     if (!isHtmlNode(node)) {

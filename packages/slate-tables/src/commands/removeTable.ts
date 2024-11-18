@@ -1,5 +1,5 @@
-import { type Location, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
+import { focusEditor } from '@udecode/slate-react';
+import { type Location } from 'slate';
 
 import { Traverse } from '../core';
 import type { TablesEditor } from '../TablesEditor';
@@ -20,9 +20,9 @@ export function removeTable(
 
     const { matrix } = traverse;
 
-    ReactEditor.focus(editor);
+    focusEditor(editor);
 
-    Transforms.removeNodes(editor, { at: matrix.path });
+    editor.removeNodes({ at: matrix.path });
 
     return true;
 }

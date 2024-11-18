@@ -1,8 +1,7 @@
 import { castArray } from '@technically/lodash';
-import { getText, removeMark } from '@udecode/plate-core';
-import type { Editor, Point, Range } from 'slate';
-import { Transforms } from 'slate';
-import { HistoryEditor } from 'slate-history';
+import { removeMark, type SlateEditor } from '@udecode/plate-common';
+import { getEditorString, HistoryEditor } from '@udecode/slate';
+import type { Point, Range } from 'slate';
 
 import type { AutoformatMarkRule } from '../types';
 import { getMatchPoints } from '../utils/getMatchPoints';
@@ -13,7 +12,7 @@ export interface AutoformatMarkOptions extends AutoformatMarkRule {
 }
 
 export function autoformatMark(
-    editor: Editor,
+    editor: SlateEditor,
     { type, text, trigger, match: _match, ignoreTrim }: AutoformatMarkOptions,
 ) {
     if (!type) return false;
@@ -40,14 +39,15 @@ export function autoformatMark(
         } as Range;
 
         if (!ignoreTrim) {
-            const matchText = getText(editor, matchRange);
+            const matchText = getEditorString(editor, matchRange);
             if (matchText.trim() !== matchText) continue;
         }
 
         // delete end match
         if (end) {
+            // @ts-expect-error TODO: Fix this
             HistoryEditor.withoutMerging(editor, () => {
-                Transforms.delete(editor, {
+                editor.delete({
                     at: {
                         anchor: beforeEndMatchPoint,
                         focus: {
@@ -62,23 +62,23 @@ export function autoformatMark(
         const marks = castArray(type);
 
         // add mark to the text between the matches
-        Transforms.select(editor, matchRange as Range);
+        editor.select(matchRange as Range);
 
         marks.forEach((mark) => {
             editor.addMark(mark, true);
         });
 
-        Transforms.collapse(editor, { edge: 'end' });
+        editor.collapse({ edge: 'end' });
         removeMark(editor, { key: marks, shouldChange: false });
 
-        Transforms.delete(editor, {
+        editor.delete({
             at: {
                 anchor: beforeStartMatchPoint as Point,
                 focus: afterStartMatchPoint as Point,
             },
         });
 
-        Transforms.move(editor, { distance: 1 });
+        editor.move({ distance: 1 });
 
         return true;
     }

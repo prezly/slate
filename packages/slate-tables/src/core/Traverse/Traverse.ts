@@ -1,5 +1,5 @@
 import type { Location, NodeEntry } from 'slate';
-import { Editor, Node } from 'slate';
+import { Node } from 'slate';
 
 import type { MatrixRow, MatrixColumn, MatrixCell } from '../../core';
 import { Matrix } from '../../core';
@@ -29,7 +29,7 @@ export class Traverse {
             return undefined;
         }
 
-        const cellPath = Editor.path(editor, cellLocation);
+        const cellPath = editor.path(cellLocation);
         const ancestors = Node.ancestors(editor, cellPath, { reverse: true });
 
         const cellNode = Node.get(editor, cellPath);

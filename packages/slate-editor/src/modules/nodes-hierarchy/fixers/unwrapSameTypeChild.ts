@@ -1,8 +1,9 @@
-import { Editor, Element, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Element } from 'slate';
 import type { NodeEntry } from 'slate';
 
-export function unwrapSameTypeChild(editor: Editor, [node, path]: NodeEntry) {
-    const ancestor = Editor.above(editor, { at: path });
+export function unwrapSameTypeChild(editor: SlateEditor, [node, path]: NodeEntry) {
+    const ancestor = editor.above({ at: path });
 
     if (!ancestor) {
         return false;
@@ -15,7 +16,7 @@ export function unwrapSameTypeChild(editor: Editor, [node, path]: NodeEntry) {
     }
 
     if ('type' in node && node.type == ancestorNode.type && ancestorNode.children.length === 1) {
-        Transforms.unwrapNodes(editor, { at: ancestorPath, voids: true });
+        editor.unwrapNodes({ at: ancestorPath, voids: true });
         return true;
     }
 

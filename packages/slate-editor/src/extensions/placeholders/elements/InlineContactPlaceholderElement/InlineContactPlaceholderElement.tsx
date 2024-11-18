@@ -1,9 +1,9 @@
 import type { ContactInfo } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { Transforms } from 'slate';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { PlaceholderContact } from '#icons';
 import { useFunction } from '#lib';
@@ -35,7 +35,7 @@ export function InlineContactPlaceholderElement({
     renderPlaceholder,
 }: InlineContactPlaceholderElement.Props) {
     const [isCustomRendered, setCustomRendered] = useState(true);
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const isSelected = useSelected();
 
     const [mode, setMode] = useState(Mode.SEARCH);
@@ -47,7 +47,7 @@ export function InlineContactPlaceholderElement({
     });
 
     const handleRemove = useFunction(() => {
-        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
+        editor.removeNodes({ at: [], match: (node) => node === element });
     });
 
     const handleSubmit = useFunction((contact: ContactInfo) => {

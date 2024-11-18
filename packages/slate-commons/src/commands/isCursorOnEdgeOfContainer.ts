@@ -1,19 +1,19 @@
-import { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { toDOMRange } from '@udecode/slate-react';
 import type { Range, Point } from 'slate';
-import { ReactEditor } from 'slate-react';
 
 export type ContainerEdge = 'top' | 'bottom';
 
-export function isCursorOnFirstLine(editor: ReactEditor, container: Point, cursor: Point): boolean {
+export function isCursorOnFirstLine(editor: SlateEditor, container: Point, cursor: Point): boolean {
     return isCursorOnEdgeOfContainer(editor, container, cursor, 'top');
 }
 
-export function isCursorOnLastLine(editor: ReactEditor, container: Point, cursor: Point): boolean {
+export function isCursorOnLastLine(editor: SlateEditor, container: Point, cursor: Point): boolean {
     return isCursorOnEdgeOfContainer(editor, container, cursor, 'bottom');
 }
 
 export function isCursorOnEdgeOfContainer(
-    editor: ReactEditor,
+    editor: SlateEditor,
     container: Point,
     cursor: Point,
     edge: ContainerEdge,
@@ -33,8 +33,8 @@ export function isCursorOnEdgeOfContainer(
     }
 }
 
-function getPointRect(editor: ReactEditor, point: Point) {
-    const range = Editor.range(editor, { ...point, offset: Math.max(point.offset, 0) });
+function getPointRect(editor: SlateEditor, point: Point) {
+    const range = editor.range({ ...point, offset: Math.max(point.offset, 0) });
     try {
         return getRangeRect(editor, range);
     } catch {
@@ -45,8 +45,9 @@ function getPointRect(editor: ReactEditor, point: Point) {
 /**
  * @throws error when `ReactEditor.toDOMRange()` cannot match range to a DOM node
  */
-function getRangeRect(editor: ReactEditor, range: Range) {
-    const domRange = ReactEditor.toDOMRange(editor, range);
+function getRangeRect(editor: SlateEditor, range: Range) {
+    const domRange = toDOMRange(editor, range);
+    // @ts-expect-error TODO: Fix this
     const rects = domRange.getClientRects();
 
     // if the cursor will be in the beginning of next line there will be two rects:
@@ -55,5 +56,6 @@ function getRangeRect(editor: ReactEditor, range: Range) {
         return Array.from(rects);
     }
 
+    // @ts-expect-error TODO: Fix this
     return [domRange.getBoundingClientRect()];
 }

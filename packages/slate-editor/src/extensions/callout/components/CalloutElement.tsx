@@ -2,14 +2,14 @@ import type { Placement } from '@popperjs/core';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { CalloutNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import EmojiPicker, { EmojiStyle, SuggestionMode } from 'emoji-picker-react';
 import type { HTMLAttributes, Ref } from 'react';
 import React, { forwardRef, useCallback, useState } from 'react';
 import { useRootClose } from 'react-overlays';
 import { type Modifier, Popper } from 'react-popper';
-import { Transforms } from 'slate';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { NewParagraphDelimiter, TooltipV2 } from '#components';
 import { mergeRefs } from '#lib';
@@ -24,12 +24,12 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const CalloutElement = forwardRef(
     ({ children, className, element, ...props }: Props, ref: Ref<HTMLDivElement>) => {
-        const editor = useSlateStatic();
+        const editor = useEditorRef();
         const [isPickerOpen, setPickerOpen] = useState(false);
         const [buttonElement, setButtonElement] = useState<HTMLElement | null>(null);
 
         const togglePicker = useCallback(() => {
-            Transforms.collapse(editor);
+            editor.collapse();
             setPickerOpen((open) => !open);
         }, []);
 

@@ -4,10 +4,10 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UploadcareFile } from '@prezly/uploadcare';
 import type { UploadInfo } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
+import { useEditorRef } from '@udecode/plate-common/react';
 import type { ReactNode } from 'react';
 import React, { type DragEvent, useEffect, useState } from 'react';
-import { Transforms } from 'slate';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { PlaceholderCoverage } from '#icons';
 import { useFunction } from '#lib';
@@ -36,7 +36,7 @@ export function CoveragePlaceholderElement({
     removable,
     renderPlaceholder,
 }: CoveragePlaceholderElement.Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const isSelected = useSelected();
     const [isCustomRendered, setCustomRendered] = useState(true);
 
@@ -80,7 +80,7 @@ export function CoveragePlaceholderElement({
     });
 
     const handleRemove = useFunction(() => {
-        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
+        editor.removeNodes({ at: [], match: (node) => node === element });
     });
 
     usePlaceholderManagement(element.type, element.uuid, {

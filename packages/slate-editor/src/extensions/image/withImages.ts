@@ -1,11 +1,12 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
-import { Editor, Range } from 'slate';
-import { ReactEditor } from 'slate-react';
+import type { SlateEditor } from '@udecode/plate-common';
+import { toDOMRange } from '@udecode/slate-react';
+import { Range } from 'slate';
 
 import { convertToHtml, encodeSlateFragment } from '#lib';
 
-export function withImages<T extends Editor>(editor: T): T {
+export function withImages<T extends SlateEditor>(editor: T): T {
     const { setFragmentData } = editor;
 
     editor.setFragmentData = (data): void => {
@@ -17,10 +18,11 @@ export function withImages<T extends Editor>(editor: T): T {
                 currentNode &&
                 isImageNode(currentNode) &&
                 EditorCommands.isNodeEmpty(editor, currentNode) &&
-                !Editor.isVoid(editor, currentNode)
+                // @ts-expect-error TODO: Fix this
+                !editor.isVoid(currentNode)
             ) {
-                const domRange = ReactEditor.toDOMRange(editor, editor.selection);
-                const contents = domRange.cloneContents();
+                const domRange = toDOMRange(editor, editor.selection);
+                const contents = domRange!.cloneContents();
                 const encodedFragment = encodeSlateFragment(editor.getFragment());
                 data.setData('application/x-slate-fragment', encodedFragment);
                 data.setData('text/html', convertToHtml(contents));

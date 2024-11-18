@@ -1,10 +1,11 @@
 import type { Decorate } from '@prezly/slate-commons';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 import { Range, Text } from 'slate';
 
 import { SELECTION_MARK } from './constants';
 
-export function decorateSelection(editor: Editor, [node, path]: NodeEntry) {
+export function decorateSelection(editor: SlateEditor, [node, path]: NodeEntry) {
     if (editor.selection && Range.isExpanded(editor.selection) && Text.isText(node)) {
         const intersection = Range.intersection(editor.selection, {
             anchor: { path, offset: 0 },
@@ -17,6 +18,6 @@ export function decorateSelection(editor: Editor, [node, path]: NodeEntry) {
     return [];
 }
 
-export function decorateSelectionFactory(editor: Editor): Decorate {
+export function decorateSelectionFactory(editor: SlateEditor): Decorate {
     return (entry) => decorateSelection(editor, entry);
 }

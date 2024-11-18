@@ -7,7 +7,8 @@ import type {
     RenderElement,
     RenderLeaf,
 } from '@prezly/slate-commons';
-import { PlateContent, type PlateEditor } from '@udecode/plate-common/react';
+import type { SlateEditor } from '@udecode/plate-common';
+import { PlateContent } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 
@@ -23,7 +24,7 @@ import {
 export interface Props {
     className?: string;
     decorate?: Decorate;
-    editor: PlateEditor;
+    editor: SlateEditor;
     /**
      * Each extension fields will be combined by role.
      *

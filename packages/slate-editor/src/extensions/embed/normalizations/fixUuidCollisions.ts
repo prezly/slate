@@ -1,12 +1,13 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { NodeEntry } from 'slate';
-import { Editor, Path, Transforms } from 'slate';
+import { Path } from 'slate';
 import * as uuid from 'uuid';
 
 import { EmbedNode } from '../EmbedNode';
 
-export function fixUuidCollisions(editor: Editor, [node, path]: NodeEntry): boolean {
+export function fixUuidCollisions(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (EmbedNode.isEmbedNode(node)) {
-        const [dupe] = Editor.nodes(editor, {
+        const [dupe] = editor.nodes({
             at: [],
             match: (anotherNode, anotherPath) =>
                 EmbedNode.isEmbedNode(anotherNode) &&
@@ -15,7 +16,7 @@ export function fixUuidCollisions(editor: Editor, [node, path]: NodeEntry): bool
         });
 
         if (dupe) {
-            Transforms.setNodes<EmbedNode>(editor, { uuid: uuid.v4() }, { at: path });
+            editor.setNodes<EmbedNode>({ uuid: uuid.v4() }, { at: path });
             return true;
         }
     }

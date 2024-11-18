@@ -2,10 +2,10 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { HeadingNode } from '@prezly/slate-types';
 import { HeadingRole } from '@prezly/slate-types';
 import { HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
 import React, { forwardRef } from 'react';
-import { useSlateStatic } from 'slate-react';
 
 import styles from './HeadingElement.module.scss';
 
@@ -15,7 +15,7 @@ interface Props extends HTMLAttributes<HTMLHeadingElement> {
 
 export const HeadingElement = forwardRef<HTMLHeadingElement, Props>(
     ({ children, className, element, ...props }, ref) => {
-        const editor = useSlateStatic();
+        const editor = useEditorRef();
         const Tag = element.type === HEADING_1_NODE_TYPE ? 'h3' : 'h4';
 
         const isHeadingOne = element.type === HEADING_1_NODE_TYPE;

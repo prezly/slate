@@ -1,5 +1,5 @@
-import { type Location, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
+import { focusEditor } from '@udecode/slate-react';
+import { type Location } from 'slate';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
@@ -35,18 +35,18 @@ export function removeRow(
         }
     });
 
-    Transforms.removeNodes(editor, { at: activeRow.path });
+    editor.removeNodes({ at: activeRow.path });
 
     const anchorFocusRow = activeRow.rowBelow ?? activeRow;
 
     const firstCell = anchorFocusRow.rowAbove.cells.at(0);
 
     if (firstCell) {
-        Transforms.select(editor, firstCell.path);
-        Transforms.collapse(editor, { edge: 'start' });
+        editor.select(firstCell.path);
+        editor.collapse({ edge: 'start' });
     }
 
-    ReactEditor.focus(editor);
+    focusEditor(editor);
 
     return true;
 }

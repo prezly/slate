@@ -7,7 +7,6 @@ import { withListsSchema } from './withListsSchema';
 
 export function withLists(schema: ListsSchema) {
     return <T extends SlateEditor>(editor: T): T => {
-        // @ts-expect-error TODO: Fix this
         return withListsReact(withListsNormalization(withListsSchema(schema)(editor)));
     };
 }

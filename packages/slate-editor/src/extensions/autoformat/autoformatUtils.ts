@@ -1,15 +1,17 @@
-import { isElementNode } from '@prezly/slate-types';
-import { getParent } from '@udecode/plate-core';
+// import { isElementNode } from '@prezly/slate-types';
+// import { getParent } from '@udecode/plate-core';
 import type { Editor } from 'slate';
 
-export function format(editor: Editor, customFormatting: () => void) {
+// TODO: Fix this
+export function format(editor: Editor, _: () => void) {
     if (editor.selection) {
-        const parentEntry = getParent(editor, editor.selection);
-        if (!parentEntry) return;
-        const [node] = parentEntry;
-        if (isElementNode(node)) {
-            customFormatting();
-        }
+        // const parentEntry = getParent(editor, editor.selection);
+        // if (!parentEntry) return;
+        return;
+        // const [node] = parentEntry;
+        // if (isElementNode(node)) {
+        //     customFormatting();
+        // }
     }
 }
 

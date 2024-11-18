@@ -6,7 +6,7 @@ import {
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
-import { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { isUrl, normalizeHref } from '#lib';
 
@@ -15,7 +15,7 @@ import { unwrapLink, wrapInLink } from '../lib';
 /**
  * Automatically link selected text if the pasted content is a URL.
  */
-export function withSelectionAutolinking<T extends Editor>(editor: T): T {
+export function withSelectionAutolinking<T extends SlateEditor>(editor: T): T {
     const { insertData } = editor;
 
     editor.insertData = (data) => {
@@ -23,7 +23,7 @@ export function withSelectionAutolinking<T extends Editor>(editor: T): T {
 
         if (isUrl(href) && !EditorCommands.isSelectionEmpty(editor)) {
             const nodes = Array.from(
-                Editor.nodes(editor, { match: isElementNode, mode: 'highest' }),
+                editor.nodes({ match: isElementNode, mode: 'highest' }),
             );
 
             const isOnlyAllowedNodes = nodes.every(([node]) =>

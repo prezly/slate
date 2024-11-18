@@ -1,11 +1,11 @@
 import type { Events } from '@prezly/events';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { EVENTS_PROPERTY } from './constants';
 import type { EditorEventMap } from './types';
 
 export function withEvents(events: Events<EditorEventMap>) {
-    return <T extends Editor>(editor: T): T => {
+    return <T extends SlateEditor>(editor: T): T => {
         const parent = {
             undo: editor.undo,
             redo: editor.redo,

@@ -1,13 +1,12 @@
 import type { ContactNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 export function updateInlineContact(
-    editor: Editor,
+    editor: SlateEditor,
     contact: ContactNode,
     patch: Pick<ContactNode, 'contact'>,
 ) {
-    Transforms.setNodes<ContactNode>(editor, patch, {
+    editor.setNodes<ContactNode>(patch, {
         at: [],
         match: (node) => node === contact,
     });

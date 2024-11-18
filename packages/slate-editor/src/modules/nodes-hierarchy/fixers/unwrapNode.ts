@@ -1,13 +1,14 @@
 import { stubTrue } from '@technically/lodash';
-import { Editor, Element, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Element } from 'slate';
 import type { NodeEntry, Ancestor } from 'slate';
 
 export function unwrapNode(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
     match: (entry: NodeEntry, ancestor: NodeEntry<Ancestor>) => boolean = stubTrue,
 ) {
-    const ancestor = Editor.above(editor, { at: path });
+    const ancestor = editor.above({ at: path });
 
     if (!ancestor) {
         return false;
@@ -20,7 +21,7 @@ export function unwrapNode(
     }
 
     if (match([node, path], ancestor)) {
-        Transforms.unwrapNodes(editor, { at: path });
+        editor.unwrapNodes({ at: path });
         return true;
     }
 

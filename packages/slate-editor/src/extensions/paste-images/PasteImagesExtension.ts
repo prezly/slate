@@ -1,12 +1,12 @@
 import type { Extension } from '@prezly/slate-commons';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { withImagesPasting } from './lib';
 
 export const EXTENSION_ID = 'PasteImagesExtension';
 
 export interface Parameters {
-    onImagesPasted?: (editor: Editor, images: File[]) => void;
+    onImagesPasted?: (editor: SlateEditor, images: File[]) => void;
 }
 
 export function PasteImagesExtension({ onImagesPasted }: Parameters = {}): Extension {

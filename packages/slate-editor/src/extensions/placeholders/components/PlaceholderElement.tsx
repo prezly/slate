@@ -1,7 +1,8 @@
+import type { SlateEditor } from '@udecode/plate-common';
+import { findNodePath, useEditorRef } from '@udecode/plate-common/react';
 import type { ReactNode } from 'react';
 import React, { type MouseEvent, useState } from 'react';
-import { Transforms } from 'slate';
-import { ReactEditor, type RenderElementProps, useSlateStatic } from 'slate-react';
+import { type RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useFunction } from '#lib';
@@ -37,7 +38,7 @@ export function PlaceholderElement({
     onClick,
     onDrop,
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     const [progress, setProgress] = useState<number | undefined>(undefined);
     const [dragOver, setDragOver] = useState(false);
@@ -50,7 +51,7 @@ export function PlaceholderElement({
     const handleDragOver = useFunction(() => setDragOver(true));
     const handleDragLeave = useFunction(() => setDragOver(false));
     const handleRemove = useFunction(() => {
-        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
+        editor.removeNodes({ at: [], match: (node) => node === element });
     });
 
     const { isActive, isLoading } = usePlaceholderManagement(
@@ -103,13 +104,18 @@ export function PlaceholderElement({
 }
 
 function checkRemovable(
-    editor: ReactEditor,
+    editor: SlateEditor,
     element: PlaceholderNode,
     removable: Exclude<RemovableFlagConfig, boolean>,
 ) {
     try {
-        const path = ReactEditor.findPath(editor, element);
-        return removable(element, path);
+        // @ts-expect-error TODO: Fix this
+        const path = findNodePath(editor, element);
+        if (path) {
+            return removable(element, path);
+        }
+
+        return false;
     } catch {
         return false;
     }

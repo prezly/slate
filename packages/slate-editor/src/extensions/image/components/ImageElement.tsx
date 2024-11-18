@@ -4,11 +4,12 @@ import type { ImageNode, ImageWidth } from '@prezly/slate-types';
 import { Alignment, ImageLayout } from '@prezly/slate-types';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
+import type { SlateEditor } from '@udecode/plate-common';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
-import { Editor, Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { ImageWithLoadingPlaceholder, ResizableEditorBlock } from '#components';
 import { Image } from '#icons';
@@ -26,11 +27,11 @@ import { ImageMenu, Size } from './ImageMenu';
 
 interface Props extends RenderElementProps {
     element: ImageNode;
-    onCrop: (editor: Editor, original: ImageNode) => void;
-    onCropped: (editor: Editor, updated: ImageNode) => void;
-    onReplace: (editor: Editor, element: ImageNode) => void;
-    onReplaced: (editor: Editor, element: ImageNode) => void;
-    onRemoved: (editor: Editor, element: ImageNode) => void;
+    onCrop: (editor: SlateEditor, original: ImageNode) => void;
+    onCropped: (editor: SlateEditor, updated: ImageNode) => void;
+    onReplace: (editor: SlateEditor, element: ImageNode) => void;
+    onReplaced: (editor: SlateEditor, element: ImageNode) => void;
+    onRemoved: (editor: SlateEditor, element: ImageNode) => void;
     withAlignmentOptions: boolean;
     withCaptions: boolean;
     withLayoutOptions: boolean;
@@ -59,9 +60,10 @@ export function ImageElement({
     withNewTabOption,
     withSizeOptions,
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const isSelected = useSelected();
-    const isVoid = Editor.isVoid(editor, element);
+    // @ts-expect-error TODO: Fix this
+    const isVoid = editor.isVoid(element);
     const isSupportingCaptions = !isVoid;
     const isCaptionEmpty = EditorCommands.isNodeEmpty(editor, element, true);
     const isCaptionVisible = isSupportingCaptions && (isSelected || !isCaptionEmpty);
@@ -119,13 +121,13 @@ export function ImageElement({
         });
 
         if (path) {
-            Editor.withoutNormalizing(editor, () => {
+            editor.withoutNormalizing(() => {
                 // Remove image caption nodes, as placeholders are voids and cannot have children.
                 // We have to do this, as Slate automatically unwraps void node children, if any.
                 // This converts image captions to sibling paragraphs image editing operations.
                 EditorCommands.removeChildren(editor, [element, path]);
 
-                Transforms.setNodes(editor, placeholder, { at: path, voids: true });
+                editor.setNodes(placeholder, { at: path, voids: true });
             });
         }
     }, [editor, element]);
@@ -178,13 +180,13 @@ export function ImageElement({
         });
 
         if (path) {
-            Editor.withoutNormalizing(editor, () => {
+            editor.withoutNormalizing(() => {
                 // Remove image caption nodes, as placeholders are voids and cannot have children.
                 // We have to do this, as Slate automatically unwraps void node children, if any.
                 // This converts image captions to sibling paragraphs image editing operations.
                 EditorCommands.removeChildren(editor, [element, path]);
 
-                Transforms.setNodes(editor, placeholder, { at: path, voids: true });
+                editor.setNodes(placeholder, { at: path, voids: true });
             });
         }
     }, [editor, element]);

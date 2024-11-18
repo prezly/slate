@@ -1,5 +1,6 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Location } from 'slate';
-import { Editor, Range, Point } from 'slate';
+import { Range, Point } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
 
@@ -7,13 +8,15 @@ export function withTablesDeleteBehavior<T extends TablesEditor>(editor: T): T {
     const { deleteBackward, deleteForward } = editor;
 
     editor.deleteBackward = (unit) => {
-        if (canDeleteInTableCell(editor, Editor.start)) {
+        // @ts-expect-error TODO: Fix this
+        if (canDeleteInTableCell(editor, editor.start)) {
             deleteBackward(unit);
         }
     };
 
     editor.deleteForward = (unit) => {
-        if (canDeleteInTableCell(editor, Editor.end)) {
+        // @ts-expect-error TODO: Fix this
+        if (canDeleteInTableCell(editor, editor.end)) {
             deleteForward(unit);
         }
     };
@@ -23,10 +26,10 @@ export function withTablesDeleteBehavior<T extends TablesEditor>(editor: T): T {
 
 function canDeleteInTableCell<T extends TablesEditor>(
     editor: T,
-    getEdgePoint: (editor: Editor, at: Location) => Point,
+    getEdgePoint: (editor: SlateEditor, at: Location) => Point,
 ) {
     if (editor.selection && Range.isCollapsed(editor.selection)) {
-        const [cell] = Editor.nodes(editor, {
+        const [cell] = editor.nodes({
             match: editor.isTableCellNode,
         });
 

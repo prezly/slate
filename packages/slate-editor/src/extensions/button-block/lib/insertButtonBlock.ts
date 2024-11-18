@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import { isAlignableElement, isImageNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 import { Node, Path, Range } from 'slate';
 
 import type { ButtonBlockNode } from '../ButtonBlockNode';
@@ -9,7 +9,7 @@ import type { ButtonBlockNode } from '../ButtonBlockNode';
 import { createButtonBlock } from './createButtonBlock';
 
 export function insertButtonBlock(
-    editor: Editor,
+    editor: SlateEditor,
     props: Partial<Omit<ButtonBlockNode, 'type' | 'children'>> = {},
     defaultAlignment?: Alignment,
 ) {
@@ -22,7 +22,7 @@ export function insertButtonBlock(
     return button;
 }
 
-function inferPrevBlockAlignment(editor: Editor): Alignment | undefined {
+function inferPrevBlockAlignment(editor: SlateEditor): Alignment | undefined {
     const block = prevBlock(editor);
     if (block && (isAlignableElement(block) || isImageNode(block))) {
         return block.align;
@@ -30,10 +30,11 @@ function inferPrevBlockAlignment(editor: Editor): Alignment | undefined {
     return undefined;
 }
 
-function prevBlock(editor: Editor): Node | undefined {
+function prevBlock(editor: SlateEditor): Node | undefined {
     if (editor.selection && Range.isCollapsed(editor.selection)) {
         const topLevelPath = editor.selection.focus.path.slice(0, 1);
         if (Path.hasPrevious(topLevelPath)) {
+            // @ts-expect-error TODO: Fix this
             return Node.get(editor, Path.previous(topLevelPath));
         }
     }

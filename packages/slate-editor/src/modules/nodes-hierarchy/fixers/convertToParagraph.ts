@@ -1,17 +1,17 @@
-import { Transforms } from 'slate';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 import { createParagraph } from '#extensions/paragraphs';
 
 import { isInlineNode } from '../queries';
 
-export function convertToParagraph(editor: Editor, [node, path]: NodeEntry) {
+export function convertToParagraph(editor: SlateEditor, [node, path]: NodeEntry) {
     if (isInlineNode(node)) {
-        Transforms.wrapNodes(editor, createParagraph(), { at: path });
+        editor.wrapNodes(createParagraph(), { at: path });
         return true;
     }
 
-    Transforms.setNodes(editor, createParagraph({}), {
+    editor.setNodes(createParagraph({}), {
         at: path,
     });
 

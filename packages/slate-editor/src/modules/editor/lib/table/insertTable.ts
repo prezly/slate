@@ -1,10 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
-import { type Editor, Transforms } from 'slate';
 
 import { EventsEditor } from '#modules/events';
 
-export function insertTable(editor: Editor & TablesEditor) {
+export function insertTable(editor: TablesEditor) {
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (!currentNode) {
@@ -18,7 +17,7 @@ export function insertTable(editor: Editor & TablesEditor) {
         columnsCount: 3,
     });
 
-    Transforms.removeNodes(editor, { match: (node) => node === currentNode });
+    editor.removeNodes({ match: (node) => node === currentNode });
 
     EventsEditor.dispatchEvent(editor, 'table-insert');
 }

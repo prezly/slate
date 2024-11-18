@@ -22,7 +22,7 @@ import {
     BookmarkNode,
     CalloutNode,
 } from '@prezly/slate-types';
-import { Text, Transforms } from 'slate';
+import { Text } from 'slate';
 
 import { EmbedNode } from '#extensions/embed';
 
@@ -53,7 +53,7 @@ export const hierarchySchema: NodesHierarchySchema = {
         mustHaveChildren((editor, [node, path]) => {
             const isFixed = fixers.insertParagraph(editor, [node, path]);
             if (isFixed) {
-                Transforms.select(editor, path);
+                editor.select(path);
             }
 
             return isFixed;

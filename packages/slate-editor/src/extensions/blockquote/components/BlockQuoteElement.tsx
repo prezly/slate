@@ -1,10 +1,10 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { QuoteNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import type { HTMLAttributes, Ref } from 'react';
 import React, { forwardRef } from 'react';
-import { useSlateStatic } from 'slate-react';
 
 import { NewParagraphDelimiter } from '#components';
 
@@ -16,7 +16,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const BlockQuoteElement = forwardRef(
     ({ children, className, element, ...props }: Props, ref: Ref<HTMLDivElement>) => {
-        const editor = useSlateStatic();
+        const editor = useEditorRef();
         const align = element.align ?? Alignment.LEFT;
         const isEmpty = EditorCommands.isNodeEmpty(editor, element);
 

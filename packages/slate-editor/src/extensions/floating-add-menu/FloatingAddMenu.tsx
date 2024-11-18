@@ -5,13 +5,13 @@ import {
     isHeadingNode,
     isParagraphNode,
 } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { useEffect, useState } from 'react';
 import type { Modifier } from 'react-popper';
-import { Node, Transforms } from 'slate';
-import { useSlate } from 'slate-react';
+import { Node } from 'slate';
 
 import { TooltipV2 } from '#components';
 import { useKeyboardNavigation, useSize } from '#lib';
@@ -64,7 +64,7 @@ export function FloatingAddMenu<Action>({
     showTooltipByDefault,
     tooltip,
 }: Props<Action>) {
-    const editor = useSlate();
+    const editor = useEditorRef();
     const [sizer, { width: containerWidth }] = useSize(Sizer);
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
@@ -124,7 +124,7 @@ export function FloatingAddMenu<Action>({
             if (displayedOptions.length === 0) {
                 event.preventDefault();
                 event.stopPropagation();
-                Transforms.insertText(editor, `${input} `);
+                editor.insertText(`${input} `);
                 rememberEditorSelection();
                 menu.close();
                 return;

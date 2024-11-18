@@ -1,7 +1,7 @@
 import type { Decorate } from '@prezly/slate-commons';
 import { isNotUndefined } from '@technically/is-not-undefined';
+import { useEditorRef } from '@udecode/plate-common/react';
 import React, { useMemo, useState, type ReactElement } from 'react';
-import { useSlateStatic } from 'slate-react';
 
 import { combineDecorate } from '../editable/lib';
 
@@ -18,7 +18,7 @@ type Entry = { decorate: Decorate };
  * DecorationsProvider allows to attach additional Slate Editor decorations dynamically down the hierarchy.
  */
 export function DecorationsProvider({ decorate, children }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const [entries, setEntries] = useState<Entry[]>([]);
 
     const connector = useMemo(

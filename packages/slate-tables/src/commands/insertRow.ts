@@ -1,5 +1,5 @@
-import { type Location, Path, Transforms, Node } from 'slate';
-import { ReactEditor } from 'slate-react';
+import { focusEditor } from '@udecode/slate-react';
+import { type Location, Path, Node } from 'slate';
 
 import { Traverse } from '../core';
 import { TableRowNode, TableCellNode } from '../nodes';
@@ -34,12 +34,12 @@ export function insertRow(
     const newRow = TableRowNode.createTableRow(editor, { children: cellsToAdd });
 
     const at = side === 'bellow' ? Path.next(activeRow.path) : activeRow.path;
-    Transforms.insertNodes(editor, newRow, { at });
+    editor.insertNodes(newRow, { at });
 
-    ReactEditor.focus(editor);
+    focusEditor(editor);
 
     const [, firstCellInNewRowPath] = Node.first(editor, at);
-    Transforms.select(editor, firstCellInNewRowPath);
+    editor.select(firstCellInNewRowPath);
 
     return true;
 }
