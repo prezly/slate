@@ -1,4 +1,4 @@
-import type { PlateEditor } from '@udecode/plate-common/react';
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Element, Location, Node, Text } from 'slate';
 
 import * as TableCommands from './commands';
@@ -15,7 +15,7 @@ export interface TablesSchema {
     isTableCellNode: (node: Node) => node is TableCellNode;
 }
 
-export interface TablesEditor extends TablesSchema, PlateEditor {}
+export interface TablesEditor extends TablesSchema, SlateEditor {}
 
 export namespace TablesEditor {
     export const insertTable = TableCommands.insertTable;
