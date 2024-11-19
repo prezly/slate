@@ -1,5 +1,5 @@
 import type { Events } from '@prezly/events';
-import type { Extension, OnKeyDown } from '@prezly/slate-commons';
+import { type Extension, type OnKeyDown } from '@prezly/slate-commons';
 import type { SlateEditor } from '@udecode/plate-common';
 import type { PlateEditor } from '@udecode/plate-common/react';
 import { createPlateEditor } from '@udecode/plate-common/react';
@@ -12,10 +12,12 @@ import type { EditorEventMap } from '../events';
 import { withEvents } from '../events';
 
 import { createEditor } from './createEditor';
+import type { Value } from './types';
 
 interface Parameters {
     events: Events<EditorEventMap>;
     extensions: Extension[];
+    initialValue: Value;
     onKeyDown?: (event: KeyboardEvent) => void;
     plugins?: (<T extends SlateEditor>(editor: T) => T)[] | undefined;
 }
@@ -32,6 +34,7 @@ const DEFAULT_PLUGINS: NonUndefined<Parameters['plugins']> = [];
 export function useCreateEditor({
     events,
     extensions,
+    initialValue,
     onKeyDown,
     plugins = DEFAULT_PLUGINS,
 }: Parameters): State {
@@ -50,6 +53,7 @@ export function useCreateEditor({
     const editor = useMemo(() => {
         const plateEditor = createPlateEditor({
             plugins: [],
+            value: initialValue,
         });
 
         return createEditor(plateEditor, getExtensions, finalPlugins);

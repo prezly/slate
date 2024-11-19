@@ -27,7 +27,7 @@ interface Options {
 }
 
 export function insertNodes(editor: SlateEditor, nodes: Node[], options: Options = {}): void {
-    insertNormalizedNodes(editor, roughlyNormalizeNodes(editor, nodes), options);
+    insertNormalizedNodes(editor, roughlyNormalizeNodes(nodes), options);
 }
 
 function insertNormalizedNodes(editor: SlateEditor, nodes: Node[], options: Options = {}): void {

@@ -10,10 +10,9 @@ import type { Node } from 'slate';
  * @see CARE-1320
  */
 export function roughlyNormalizeValue<TopLevelNode extends SlateEditor['children'][number]>(
-    editor: SlateEditor,
     value: TopLevelNode[],
 ): TopLevelNode[] {
-    return roughlyNormalizeNodes<TopLevelNode>(editor, value);
+    return roughlyNormalizeNodes<TopLevelNode>(value);
 }
 
 /**
@@ -23,8 +22,8 @@ export function roughlyNormalizeValue<TopLevelNode extends SlateEditor['children
  * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
  * @see CARE-1320
  */
-export function roughlyNormalizeNodes<T extends Node>(editor: SlateEditor, nodes: T[]): T[] {
-    const normalized = nodes.map((node) => roughlyNormalizeNode(editor, node)).filter(isNotNull);
+export function roughlyNormalizeNodes<T extends Node>(nodes: T[]): T[] {
+    const normalized = nodes.map((node) => roughlyNormalizeNode(node)).filter(isNotNull);
 
     return isShallowEqual(normalized, nodes) ? nodes : normalized;
 }
@@ -36,14 +35,14 @@ export function roughlyNormalizeNodes<T extends Node>(editor: SlateEditor, nodes
  * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
  * @see CARE-1320
  */
-export function roughlyNormalizeNode<T extends Node>(editor: SlateEditor, node: T): T | null {
+export function roughlyNormalizeNode<T extends Node>(node: T): T | null {
     if ('text' in node) {
         return node; // as is
     }
 
     if ('children' in node) {
         const children = Array.isArray(node.children)
-            ? roughlyNormalizeNodes(editor, node.children)
+            ? roughlyNormalizeNodes(node.children)
             : [];
 
         if (children.length > 0) {

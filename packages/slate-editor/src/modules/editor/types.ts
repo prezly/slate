@@ -1,7 +1,7 @@
 import type { Events } from '@prezly/events';
 import type { Decorate, EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor, TElement } from '@udecode/plate-common';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
 import type { Element, Node } from 'slate';
 import type { Transforms } from 'slate';
@@ -75,7 +75,7 @@ export interface EditorRef {
     resetValue(value: Value): void;
 }
 
-export type Value = Element[];
+export type Value = TElement[];
 
 export interface EditorProps {
     align?: Alignment;

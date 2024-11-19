@@ -212,17 +212,17 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         ],
     );
 
+    const [getInitialValue, setInitialValue] = useGetSet(() =>
+        EditorCommands.roughlyNormalizeValue(externalInitialValue),
+    );
+
     const { editor, onKeyDownList } = useCreateEditor({
         events,
         extensions,
+        initialValue: getInitialValue(),
         onKeyDown,
         plugins,
     });
-
-    const [getInitialValue, setInitialValue] = useGetSet(() =>
-        // @ts-expect-error TODO: Fix this
-        EditorCommands.roughlyNormalizeValue(editor, externalInitialValue),
-    );
 
     useEffect(() => {
         if (autoFocus) {
@@ -310,13 +310,11 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             isEmpty: () => EditorCommands.isEmpty(editor),
             isFocused: () => isEditorFocused(editor),
             isModified: () =>
-                // @ts-expect-error TODO: Fix this
                 !isEditorValueEqual(editor, getInitialValue(), editor.children as Value),
             isValueEqual: (value: Value, another: Value) =>
                 isEditorValueEqual(editor, value, another),
             resetValue: (value) => {
                 EditorCommands.resetNodes(editor, value, editor.selection);
-                // @ts-expect-error TODO: Fix this
                 setInitialValue(value);
             },
         }),
