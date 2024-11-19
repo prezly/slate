@@ -43,11 +43,14 @@ function getPointRect(editor: SlateEditor, point: Point) {
 }
 
 /**
- * @throws error when `ReactEditor.toDOMRange()` cannot match range to a DOM node
+ * @throws error when `toDOMRange()` cannot match range to a DOM node
  */
 function getRangeRect(editor: SlateEditor, range: Range) {
     const domRange = toDOMRange(editor, range);
-    // @ts-expect-error TODO: Fix this
+    if (!domRange) {
+        throw new Error('toDOMRange cannot find a DOM node');
+    }
+
     const rects = domRange.getClientRects();
 
     // if the cursor will be in the beginning of next line there will be two rects:
@@ -56,6 +59,5 @@ function getRangeRect(editor: SlateEditor, range: Range) {
         return Array.from(rects);
     }
 
-    // @ts-expect-error TODO: Fix this
     return [domRange.getBoundingClientRect()];
 }

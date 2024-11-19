@@ -5,7 +5,7 @@ import {
     isHeadingNode,
     isParagraphNode,
 } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorState } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
@@ -64,7 +64,7 @@ export function FloatingAddMenu<Action>({
     showTooltipByDefault,
     tooltip,
 }: Props<Action>) {
-    const editor = useEditorRef();
+    const editor = useEditorState();
     const [sizer, { width: containerWidth }] = useSize(Sizer);
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);

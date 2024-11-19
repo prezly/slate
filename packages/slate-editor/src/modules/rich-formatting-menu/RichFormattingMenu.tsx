@@ -2,17 +2,19 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { HeadingRole, isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
-import { blurEditor, focusEditor, useEditorRef } from '@udecode/plate-common/react';
+import { HistoryEditor, isExpanded } from '@udecode/plate-common';
+import { blurEditor, focusEditor, useEditorState } from '@udecode/plate-common/react';
 import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
 import { Editor, Range } from 'slate';
-import { HistoryEditor } from 'slate-history';
 
 import { Menu, TextSelectionPortalV2 } from '#components';
 
+import { decorateSelectionFactory } from '#extensions/decorate-selection';
 import { unwrapLink, wrapInLink } from '#extensions/inline-links';
 import type { InlineLinksExtensionConfiguration } from '#extensions/inline-links';
 import { MarkType } from '#extensions/text-styling';
+import { useDecorationFactory } from '#modules/decorations';
 import { EventsEditor } from '#modules/events';
 import { toggleBlock } from '#modules/rich-formatting-menu';
 
@@ -73,7 +75,7 @@ export function RichFormattingMenu({
     withTextHighlight,
     withParagraphs,
 }: Props) {
-    const editor = useEditorRef();
+    const editor = useEditorState();
 
     if (!HistoryEditor.isHistoryEditor(editor)) {
         throw new Error('RichFormattingMenu requires HistoryEditor to work');
@@ -175,7 +177,7 @@ export function RichFormattingMenu({
         [editor.selection],
     );
 
-    // useDecorationFactory(linkRange?.current ? decorateSelectionFactory : undefined);
+    useDecorationFactory(linkRange?.current ? decorateSelectionFactory : undefined);
 
     const handleConvert =
         link && withConversionOptions && withConversionOptions.fetchOembed
@@ -198,7 +200,7 @@ export function RichFormattingMenu({
         withInlineLinks &&
         linkRange?.current &&
         editor.selection &&
-        Range.isExpanded(editor.selection)
+        isExpanded(editor.selection)
     ) {
         return (
             <TextSelectionPortalV2
