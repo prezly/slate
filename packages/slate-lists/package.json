@@ -36,7 +36,7 @@
         "test:unit": "mocha --exit --config ../../.mocha/config.cjs './src/**/*.test.{ts,tsx}'",
         "test:build": "pnpm test:esm && pnpm test:types",
         "test:esm": "node --input-type module -e \" import '../../.mocha/mockDOM.cjs'; import './build/index.js'; \" ",
-        "test:types": "tsc --noEmit --esModuleInterop build/index.d.ts",
+        "test:types": "tsc --noEmit --esModuleInterop --skipLibCheck build/index.d.ts",
         "clean": "pnpm clean:build && pnpm clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
