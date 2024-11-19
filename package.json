@@ -88,9 +88,9 @@
         "@udecode/slate-react": "^40.0.0",
         "react": "^18.3.0",
         "react-dom": "^18.3.0",
-        "slate": "^0.101.5",
-        "slate-history": "^0.100.0",
-        "slate-react": "^0.101.5"
+        "slate": "^0.110.2",
+        "slate-history": "^0.110.3",
+        "slate-react": "^0.111.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.23.9",
