@@ -13,12 +13,12 @@ import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 
 import {
-    // combineDecorate,
+    combineDecorate,
     combineOnDOMBeforeInput,
     combineOnKeyDown,
     combineRenderElement,
     combineRenderLeaf,
-    // createExtensionsDecorators,
+    createExtensionsDecorators,
 } from './lib';
 
 export interface Props {
@@ -70,7 +70,7 @@ export interface Props {
 
 export function EditableWithExtensions({
     className,
-    // decorate,
+    decorate,
     editor,
     extensions = [],
     onDOMBeforeInput: onDOMBeforeInputList = [],
@@ -83,13 +83,13 @@ export function EditableWithExtensions({
     renderLeafDeps = [],
     ...props
 }: Props) {
-    // const combinedDecorate: Decorate = useMemo(
-    //     function () {
-    //         const decorateFns = createExtensionsDecorators(editor, extensions);
-    //         return combineDecorate(decorate ? [decorate, ...decorateFns] : decorateFns);
-    //     },
-    //     [decorate, editor, extensions],
-    // );
+    const combinedDecorate: Decorate = useMemo(
+        function () {
+            const decorateFns = createExtensionsDecorators(editor, extensions);
+            return combineDecorate(decorate ? [decorate, ...decorateFns] : decorateFns);
+        },
+        [decorate, editor, extensions],
+    );
     const combinedOnDOMBeforeInput = useCallback(
         combineOnDOMBeforeInput(editor, extensions, onDOMBeforeInputList),
         onDOMBeforeInputDeps,
@@ -112,8 +112,7 @@ export function EditableWithExtensions({
             {...props}
             className={classNames(className, 'notranslate')}
             translate="no"
-            decorate={null}
-            // decorate={combinedDecorate}
+            decorate={combinedDecorate}
             onDOMBeforeInput={combinedOnDOMBeforeInput}
             onKeyDown={combinedOnKeyDown}
             renderElement={combinedRenderElement}

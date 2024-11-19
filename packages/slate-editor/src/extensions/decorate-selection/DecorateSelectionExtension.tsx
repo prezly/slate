@@ -12,11 +12,11 @@ interface Params {
 export function DecorateSelectionExtension({ decorate = true }: Params = {}): Extension {
     return {
         id: 'DecorateSelectionExtension',
-        decorate(editor) {
+        decorate() {
             if (!decorate) {
                 return noopDecoration;
             }
-            return decorateSelectionFactory(editor);
+            return decorateSelectionFactory();
         },
         renderLeaf({ leaf, children }) {
             if (leaf[SELECTION_MARK]) {
