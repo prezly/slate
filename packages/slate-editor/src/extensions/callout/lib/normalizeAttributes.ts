@@ -23,7 +23,10 @@ export function normalizeAttributes(editor: SlateEditor, [node, path]: NodeEntry
     return false;
 }
 
-function normalizeIconAttribute(editor: SlateEditor, [node, path]: NodeEntry<CalloutNode>): boolean {
+function normalizeIconAttribute(
+    editor: SlateEditor,
+    [node, path]: NodeEntry<CalloutNode>,
+): boolean {
     // If there's no icon, the attribute should be absent.
     // We replace `null` and "" empty string values with `undefined`.
     if (!node.icon && typeof node.icon !== 'undefined') {

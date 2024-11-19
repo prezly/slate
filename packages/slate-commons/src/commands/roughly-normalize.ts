@@ -41,9 +41,7 @@ export function roughlyNormalizeNode<T extends Node>(node: T): T | null {
     }
 
     if ('children' in node) {
-        const children = Array.isArray(node.children)
-            ? roughlyNormalizeNodes(node.children)
-            : [];
+        const children = Array.isArray(node.children) ? roughlyNormalizeNodes(node.children) : [];
 
         if (children.length > 0) {
             return node.children === children ? node : { ...node, children };

@@ -4,7 +4,11 @@ import { Node, Text } from 'slate';
 
 export type Edge = 'highest' | 'lowest';
 
-export function findLeafPath(editor: SlateEditor, path: Path, edge: Edge = 'highest'): Path | undefined {
+export function findLeafPath(
+    editor: SlateEditor,
+    path: Path,
+    edge: Edge = 'highest',
+): Path | undefined {
     if (!Node.has(editor, path)) {
         return undefined;
     }
@@ -15,8 +19,7 @@ export function findLeafPath(editor: SlateEditor, path: Path, edge: Edge = 'high
         return path;
     }
 
-    const [, nestedPath] =
-        edge === 'highest' ? editor.first(path) : editor.last(path);
+    const [, nestedPath] = edge === 'highest' ? editor.first(path) : editor.last(path);
 
     return findLeafPath(editor, nestedPath);
 }

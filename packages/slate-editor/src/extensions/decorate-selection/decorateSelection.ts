@@ -1,5 +1,5 @@
 import type { Decorate } from '@prezly/slate-commons';
-import { isExpanded, isText} from '@udecode/plate-common';
+import { isExpanded, isText } from '@udecode/plate-common';
 import type { SlateEditor, TNodeEntry } from '@udecode/plate-common';
 import { Range } from 'slate';
 

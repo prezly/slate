@@ -51,8 +51,7 @@ function getMatchingTextRange(
      * It should probably not happen in this case, because we're computing the distance based
      * on the matched text. But just in case, use start of the editor as the fallback point.
      */
-    const triggerPoint =
-        editor.before(at, { distance, unit: 'character' }) || editor.start([]);
+    const triggerPoint = editor.before(at, { distance, unit: 'character' }) || editor.start([]);
 
     /**
      * Compute a new range to match the exact range of `trigger` + `text`.

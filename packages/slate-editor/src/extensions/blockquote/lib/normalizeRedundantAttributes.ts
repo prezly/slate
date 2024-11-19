@@ -12,7 +12,10 @@ const shape: Record<keyof QuoteNode, true> = {
 
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
-export function normalizeRedundantAttributes(editor: SlateEditor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantAttributes(
+    editor: SlateEditor,
+    [node, path]: NodeEntry,
+): boolean {
     if (isQuoteNode(node)) {
         return EditorCommands.normalizeRedundantAttributes(
             editor,

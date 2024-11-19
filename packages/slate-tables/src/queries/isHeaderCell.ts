@@ -37,10 +37,7 @@ function findTableAndCellNodes(
             const location = locationOrCell ?? editor.selection;
 
             if (Location.isLocation(location)) {
-                for (const [currentNodeToCheck] of Node.levels(
-                    editor,
-                    editor.path(location),
-                )) {
+                for (const [currentNodeToCheck] of Node.levels(editor, editor.path(location))) {
                     if (editor.isTableNode(currentNodeToCheck)) {
                         tableNode = currentNodeToCheck;
                     }

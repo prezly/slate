@@ -36,7 +36,11 @@ function isAlignmentRoot([node, path]: NodeEntry): boolean {
     return path.length === 0 || isTableCellNode(node);
 }
 
-function isTopLevelAlignableElement(editor: SlateEditor, node: Node, path: Path): node is AlignableNode {
+function isTopLevelAlignableElement(
+    editor: SlateEditor,
+    node: Node,
+    path: Path,
+): node is AlignableNode {
     const parent = editor.above({ at: path });
     return parent !== undefined && isAlignmentRoot(parent) && isAlignableElement(node);
 }

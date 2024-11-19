@@ -24,7 +24,10 @@ const ALLOWED_LIST_ATTRIBUTES = Object.keys(LIST_SHAPE);
 const ALLOWED_LIST_ITEM_ATTRIBUTES = Object.keys(LIST_ITEM_SHAPE);
 const ALLOWED_LIST_ITEM_TEXT_ATTRIBUTES = Object.keys(LIST_ITEM_TEXT_SHAPE);
 
-export function normalizeRedundantAttributes(editor: SlateEditor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantAttributes(
+    editor: SlateEditor,
+    [node, path]: NodeEntry,
+): boolean {
     if (isListNode(node)) {
         return EditorCommands.normalizeRedundantAttributes(
             editor,

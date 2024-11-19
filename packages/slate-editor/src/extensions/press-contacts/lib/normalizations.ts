@@ -17,7 +17,10 @@ const SHAPE: Record<keyof ContactNode, boolean> = {
 
 const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
 
-export function normalizeContactNodeAttributes(editor: SlateEditor, [node, path]: NodeEntry): boolean {
+export function normalizeContactNodeAttributes(
+    editor: SlateEditor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isContactNode(node)) {
         return false;
     }
@@ -25,7 +28,10 @@ export function normalizeContactNodeAttributes(editor: SlateEditor, [node, path]
     return EditorCommands.normalizeRedundantAttributes(editor, [node, path], ALLOWED_ATTRIBUTES);
 }
 
-export function normalizeContactInfoAttributes(editor: SlateEditor, [node, path]: NodeEntry): boolean {
+export function normalizeContactInfoAttributes(
+    editor: SlateEditor,
+    [node, path]: NodeEntry,
+): boolean {
     if (!isContactNode(node)) {
         return false;
     }
@@ -33,9 +39,6 @@ export function normalizeContactInfoAttributes(editor: SlateEditor, [node, path]
         return false;
     }
 
-    editor.setNodes<ContactNode>(
-        { contact: ContactInfo.normalize(node.contact) },
-        { at: path },
-    );
+    editor.setNodes<ContactNode>({ contact: ContactInfo.normalize(node.contact) }, { at: path });
     return true;
 }

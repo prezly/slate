@@ -10,7 +10,10 @@ interface Parameters {
     unit: 'character' | 'word' | 'line' | 'block';
 }
 
-export function deleteCurrentNodeIfEmpty(editor: SlateEditor, { reverse, unit }: Parameters): boolean {
+export function deleteCurrentNodeIfEmpty(
+    editor: SlateEditor,
+    { reverse, unit }: Parameters,
+): boolean {
     const [currentNode] = getCurrentNodeEntry(editor) || [];
     const targetNode = getDeletionTargetNode(editor, { reverse, unit });
 

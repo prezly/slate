@@ -15,7 +15,11 @@ export function insertBlockBelow(editor: SlateEditor, createElement: () => Eleme
     return insertBlock(editor, createElement, Direction.BELOW);
 }
 
-function insertBlock(editor: SlateEditor, createElement: () => Element, direction: Direction): boolean {
+function insertBlock(
+    editor: SlateEditor,
+    createElement: () => Element,
+    direction: Direction,
+): boolean {
     const path = editor.selection?.focus.path ?? [];
 
     if (path.length === 0) return false;

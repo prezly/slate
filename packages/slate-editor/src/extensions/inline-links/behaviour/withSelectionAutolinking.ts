@@ -22,9 +22,7 @@ export function withSelectionAutolinking<T extends SlateEditor>(editor: T): T {
         const href = data.getData('text');
 
         if (isUrl(href) && !EditorCommands.isSelectionEmpty(editor)) {
-            const nodes = Array.from(
-                editor.nodes({ match: isElementNode, mode: 'highest' }),
-            );
+            const nodes = Array.from(editor.nodes({ match: isElementNode, mode: 'highest' }));
 
             const isOnlyAllowedNodes = nodes.every(([node]) =>
                 isElementNode(node, [

@@ -6,7 +6,10 @@ import { Element } from 'slate';
 /**
  * If there's an Element node without a `type` attribute - mark it as paragraph.
  */
-export function normalizeUnknownElement(editor: SlateEditor, [node, path]: NodeEntry<Node>): boolean {
+export function normalizeUnknownElement(
+    editor: SlateEditor,
+    [node, path]: NodeEntry<Node>,
+): boolean {
     if (!Element.isElement(node)) {
         // This function does not know how to normalize other nodes.
         return false;

@@ -34,9 +34,7 @@ export function increaseDepth(
 
     // When calling `increaseListItemDepth` the paths and references to list items
     // can change, so we need a way of marking the list items scheduled for transformation.
-    const refs = pickSubtreesRoots(indentableListItems).map(([_, path]) =>
-        editor.pathRef(path),
-    );
+    const refs = pickSubtreesRoots(indentableListItems).map(([_, path]) => editor.pathRef(path));
 
     editor.withoutNormalizing(() => {
         // Before we indent "list-items", we want to convert every non list-related block in selection to a "list".

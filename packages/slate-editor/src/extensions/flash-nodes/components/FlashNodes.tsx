@@ -1,6 +1,6 @@
 // import { useEditorRef } from '@udecode/plate-common/react';
 // import type { RefObject } from 'react';
-import React, { /*useEffect, useState*/ } from 'react';
+import React /*useEffect, useState*/ from 'react';
 // import type { Editor, Node } from 'slate';
 // import { ReactEditor } from 'slate-react';
 

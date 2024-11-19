@@ -13,7 +13,10 @@ const shape: Record<keyof LinkNode, true> = {
 
 const ALLOWED_LINK_ATTRIBUTES = Object.keys(shape);
 
-export function normalizeRedundantLinkAttributes(editor: SlateEditor, [node, path]: NodeEntry<Node>) {
+export function normalizeRedundantLinkAttributes(
+    editor: SlateEditor,
+    [node, path]: NodeEntry<Node>,
+) {
     if (isLinkNode(node)) {
         return EditorCommands.normalizeRedundantAttributes(
             editor,

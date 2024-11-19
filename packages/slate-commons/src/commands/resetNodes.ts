@@ -6,7 +6,11 @@ import { fixSelection } from './isValidSelection';
  * Based on the snippet from the Slate issue discussion:
  * @see https://github.com/ianstormtaylor/slate/pull/4540#issuecomment-951903419
  */
-export function resetNodes(editor: SlateEditor, nodes: TDescendant[], selection?: TSelection): void {
+export function resetNodes(
+    editor: SlateEditor,
+    nodes: TDescendant[],
+    selection?: TSelection,
+): void {
     const children = [...editor.children];
 
     editor.withoutNormalizing(() => {

@@ -1,6 +1,6 @@
 import type { SlateEditor } from '@udecode/plate-common';
 // import { getPointBefore } from '@udecode/plate-core';
-import type { Point/*, Range*/ } from 'slate';
+import type { Point /*, Range*/ } from 'slate';
 
 import type { MatchRange } from '../types';
 

@@ -2,7 +2,11 @@ import { isEqual } from '@technically/lodash';
 import { isVoid, type SlateEditor } from '@udecode/plate-common';
 import type { Element, Text, Descendant } from 'slate';
 
-export function isEditorValueEqual<T extends Descendant>(editor: SlateEditor, a: T[], b: T[]): boolean {
+export function isEditorValueEqual<T extends Descendant>(
+    editor: SlateEditor,
+    a: T[],
+    b: T[],
+): boolean {
     const compareNodes = cached(editor, (node: Descendant, another: Descendant): boolean => {
         const isNodeText = isText(node);
         const isAnotherText = isText(another);
@@ -44,7 +48,10 @@ function isText(node: Descendant): node is Text {
 
 // CACHE
 
-const CACHE: WeakMap<SlateEditor, WeakMap<Descendant, WeakMap<Descendant, boolean>>> = new WeakMap();
+const CACHE: WeakMap<
+    SlateEditor,
+    WeakMap<Descendant, WeakMap<Descendant, boolean>>
+> = new WeakMap();
 
 type WeakMatrix = WeakMap<SlateEditor, WeakMap<Descendant, WeakMap<Descendant, boolean>>>;
 type NodesComparator = (node: Descendant, another: Descendant) => boolean;

@@ -196,12 +196,7 @@ export function RichFormattingMenu({
     const isTitleSelected = formatting.active.includes(HeadingRole.TITLE);
     const isSubtitleSelected = formatting.active.includes(HeadingRole.SUBTITLE);
 
-    if (
-        withInlineLinks &&
-        linkRange?.current &&
-        editor.selection &&
-        isExpanded(editor.selection)
-    ) {
+    if (withInlineLinks && linkRange?.current && editor.selection && isExpanded(editor.selection)) {
         return (
             <TextSelectionPortalV2
                 containerElement={containerElement}

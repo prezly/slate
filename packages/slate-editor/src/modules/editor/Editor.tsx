@@ -2,16 +2,13 @@
 import { Events } from '@prezly/events';
 import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
-import type {
-    HeadingNode,
-    ParagraphNode,
-    QuoteNode} from '@prezly/slate-types';
+import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
 import {
     Alignment,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
     PARAGRAPH_NODE_TYPE,
-    QUOTE_NODE_TYPE
+    QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import { Plate } from '@udecode/plate-common/react';
@@ -32,7 +29,12 @@ import { useFunction, useGetSet, useSize } from '#lib';
 import { insertButtonBlock } from '#extensions/button-block';
 import { insertCallout } from '#extensions/callout';
 import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
-import { insertPlaceholder, PlaceholderNode, PlaceholdersManager, replacePlaceholder } from '#extensions/placeholders';
+import {
+    insertPlaceholder,
+    PlaceholderNode,
+    PlaceholdersManager,
+    replacePlaceholder,
+} from '#extensions/placeholders';
 import { useFloatingSnippetInput } from '#extensions/snippet';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
 import { useVariables, VariablesDropdown } from '#extensions/variables';
@@ -58,7 +60,6 @@ import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
 import type { EditorProps, EditorRef, Value } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
-
 
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
     const {

@@ -13,7 +13,10 @@ const shape: Record<keyof HeadingNode, true> = {
 
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
-export function normalizeRedundantAttributes(editor: SlateEditor, [node, path]: NodeEntry): boolean {
+export function normalizeRedundantAttributes(
+    editor: SlateEditor,
+    [node, path]: NodeEntry,
+): boolean {
     if (isHeadingNode(node)) {
         return EditorCommands.normalizeRedundantAttributes(
             editor,
