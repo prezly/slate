@@ -21,7 +21,6 @@ export function LinkElement({ attributes, children, element, predefinedLinks }: 
 
     function onMouseUp() {
         if (editor.selection && Range.isCollapsed(editor.selection)) {
-            // @ts-expect-error TODO: Fix this
             const path = findNodePath(editor, element);
             if (path) {
                 const range = editor.range(path);

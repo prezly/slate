@@ -10,7 +10,9 @@ import { createButtonBlock } from './createButtonBlock';
 
 export function insertButtonBlock(
     editor: SlateEditor,
-    props: Partial<Omit<ButtonBlockNode, 'type' | 'children'>> = {},
+    props: Partial<
+        Pick<ButtonBlockNode, 'href' | 'new_tab' | 'layout' | 'variant' | 'uuid' | 'label'>
+    > = {},
     defaultAlignment?: Alignment,
 ) {
     const { layout = inferPrevBlockAlignment(editor) ?? defaultAlignment } = props;

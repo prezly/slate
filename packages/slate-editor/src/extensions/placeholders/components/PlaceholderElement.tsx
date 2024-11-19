@@ -109,7 +109,6 @@ function checkRemovable(
     removable: Exclude<RemovableFlagConfig, boolean>,
 ) {
     try {
-        // @ts-expect-error TODO: Fix this
         const path = findNodePath(editor, element);
         if (path) {
             return removable(element, path);

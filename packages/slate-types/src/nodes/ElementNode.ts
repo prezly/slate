@@ -1,8 +1,8 @@
-import type { BaseElement } from 'slate';
+import type { TElement } from '@udecode/plate-common';
 
 import { isObject } from './validation';
 
-export interface ElementNode extends BaseElement {
+export interface ElementNode extends TElement {
     type: string;
 }
 

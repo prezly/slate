@@ -18,7 +18,6 @@ export function withImages<T extends SlateEditor>(editor: T): T {
                 currentNode &&
                 isImageNode(currentNode) &&
                 EditorCommands.isNodeEmpty(editor, currentNode) &&
-                // @ts-expect-error TODO: Fix this
                 !editor.isVoid(currentNode)
             ) {
                 const domRange = toDOMRange(editor, editor.selection);

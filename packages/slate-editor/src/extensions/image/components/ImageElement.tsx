@@ -62,7 +62,6 @@ export function ImageElement({
 }: Props) {
     const editor = useEditorRef();
     const isSelected = useSelected();
-    // @ts-expect-error TODO: Fix this
     const isVoid = editor.isVoid(element);
     const isSupportingCaptions = !isVoid;
     const isCaptionEmpty = EditorCommands.isNodeEmpty(editor, element, true);

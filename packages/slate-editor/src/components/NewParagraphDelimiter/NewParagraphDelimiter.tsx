@@ -26,7 +26,6 @@ export function NewParagraphDelimiter(props: Props) {
     const handleClick = useFunction((event: MouseEvent) => {
         preventBubbling(event);
 
-        // @ts-expect-error TODO: Fix this
         const path = findNodePath(editor, element);
         if (!path) {
             return;

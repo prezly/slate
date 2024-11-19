@@ -122,7 +122,6 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         event.stopPropagation();
 
         if (!isSelected) {
-            // @ts-expect-error TODO: Fix this
             const path = findNodePath(editor, element);
             if (path) {
                 editor.select(path);
