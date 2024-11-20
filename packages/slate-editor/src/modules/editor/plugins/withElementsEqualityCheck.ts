@@ -1,8 +1,8 @@
 import type { Extension } from '@prezly/slate-commons';
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Element } from 'slate';
-import type { BaseEditor } from 'slate';
 
-export interface ElementsEqualityCheckEditor extends BaseEditor {
+export interface ElementsEqualityCheckEditor {
     /**
      * Compare two elements.
      *
@@ -16,7 +16,7 @@ export interface ElementsEqualityCheckEditor extends BaseEditor {
 }
 
 export function withElementsEqualityCheck(getExtensions: () => Extension[]) {
-    return function <T extends BaseEditor>(editor: T): T & ElementsEqualityCheckEditor {
+    return function <T extends SlateEditor>(editor: T): T & ElementsEqualityCheckEditor {
         function isElementEqual(node: Element, another: Element): boolean | undefined {
             for (const extension of getExtensions()) {
                 const ret = extension.isElementEqual?.(node, another);
