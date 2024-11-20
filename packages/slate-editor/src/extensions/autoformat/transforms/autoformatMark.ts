@@ -1,6 +1,10 @@
 import { castArray } from '@technically/lodash';
-import { removeMark, type SlateEditor } from '@udecode/plate-common';
-import { getEditorString, HistoryEditor } from '@udecode/slate';
+import {
+    getEditorString,
+    HistoryEditor,
+    removeMark,
+    type SlateEditor,
+} from '@udecode/plate-common';
 import type { Point, Range } from 'slate';
 
 import type { AutoformatMarkRule } from '../types';

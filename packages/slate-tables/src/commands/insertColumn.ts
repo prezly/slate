@@ -1,4 +1,4 @@
-import { focusEditor } from '@udecode/slate-react';
+import { focusEditor } from '@udecode/plate-common/react';
 import { type Location, Path } from 'slate';
 
 import { Traverse } from '../core';

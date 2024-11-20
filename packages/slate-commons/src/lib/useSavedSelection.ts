@@ -1,5 +1,5 @@
 import type { SlateEditor } from '@udecode/plate-common';
-import { focusEditor } from '@udecode/slate-react';
+import { focusEditor } from '@udecode/plate-common/react';
 import { useState } from 'react';
 
 import { saveSelection } from '../commands';

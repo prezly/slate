@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
 import type { SlateEditor } from '@udecode/plate-common';
-import { toDOMRange } from '@udecode/slate-react';
+import { toDOMRange } from '@udecode/plate-common/react';
 import { Range } from 'slate';
 
 import { convertToHtml, encodeSlateFragment } from '#lib';

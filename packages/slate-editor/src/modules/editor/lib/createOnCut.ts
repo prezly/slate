@@ -1,13 +1,12 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { SlateEditor } from '@udecode/plate-common';
-import { setFragmentData } from '@udecode/slate-react';
 import { Range } from 'slate';
 
 export function createOnCut(editor: SlateEditor) {
     return function (event: React.ClipboardEvent<HTMLDivElement>): void {
         event.preventDefault();
 
-        setFragmentData(editor, event.clipboardData);
+        editor.setFragmentData(event.clipboardData);
 
         const { selection } = editor;
 

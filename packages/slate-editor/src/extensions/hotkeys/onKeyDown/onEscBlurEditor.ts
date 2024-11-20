@@ -1,5 +1,5 @@
 import type { SlateEditor } from '@udecode/plate-common';
-import { blurEditor } from '@udecode/slate-react';
+import { blurEditor } from '@udecode/plate-common/react';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 

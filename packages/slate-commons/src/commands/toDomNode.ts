@@ -1,5 +1,5 @@
 import type { SlateEditor } from '@udecode/plate-common';
-import { toDOMNode } from '@udecode/slate-react';
+import { toDOMNode } from '@udecode/plate-common/react';
 import type { Node } from 'slate';
 
 export function toDomNode(editor: SlateEditor, node: Node): HTMLElement | null {

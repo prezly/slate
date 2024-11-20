@@ -58,7 +58,7 @@
         "@prezly/events": "^2.0.3",
         "@prezly/linear-partition": "^1.0.3",
         "@prezly/progress-promise": "^2.0.1",
-        "@prezly/sdk": "^22.1.0",
+        "@prezly/sdk": "^23.0.0",
         "@prezly/slate-commons": "workspace:*",
         "@prezly/slate-lists": "workspace:*",
         "@prezly/slate-tables": "workspace:*",
@@ -91,6 +91,7 @@
         "validator": "^13.11.0"
     },
     "peerDependencies": {
+        "@udecode/plate-common": "^40.0.0",
         "react": "^18.3.0",
         "react-dom": "^18.3.0",
         "slate": "^0.110.2",

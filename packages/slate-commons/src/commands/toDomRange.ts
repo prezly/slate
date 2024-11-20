@@ -1,5 +1,5 @@
 import type { SlateEditor } from '@udecode/plate-common';
-import { toDOMRange } from '@udecode/slate-react';
+import { toDOMRange } from '@udecode/plate-common/react';
 import type { Range } from 'slate';
 
 export function toDomRange(editor: SlateEditor, range: Range): globalThis.Range | null {

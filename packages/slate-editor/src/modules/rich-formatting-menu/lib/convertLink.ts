@@ -1,7 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { LinkNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import { getNode } from '@udecode/slate';
+import { getNode, type SlateEditor } from '@udecode/plate-common';
 import { Node, Path } from 'slate';
 
 import { createPlaceholder, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';

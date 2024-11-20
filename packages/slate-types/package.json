@@ -41,6 +41,7 @@
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {
+        "@udecode/plate-common": "^40.0.0",
         "slate": "^0.110.2"
     },
     "dependencies": {
