@@ -5,9 +5,11 @@ export * from './modules/editor';
 export { EditableWithExtensions } from './modules/editable';
 
 export { createCoverage } from './extensions/coverage';
+export { CustomNormalizationExtension } from './extensions/custom-normalization';
 export { createEmbed } from './extensions/embed';
-export { createHeading } from './extensions/heading';
-export { createParagraph } from './extensions/paragraphs';
+export { createHeading, HeadingExtension } from './extensions/heading';
+export { createImage } from './extensions/image';
+export { createParagraph, ParagraphsExtension } from './extensions/paragraphs';
 export {
     type PlaceholdersExtensionParameters,
     createPlaceholder,
