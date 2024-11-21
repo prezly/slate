@@ -12,7 +12,8 @@
             "#extensions/*": ["./extensions/*"],
             "#icons": ["./icons"],
             "#lib": ["./lib"],
-            "#modules/*": ["./modules/*"]
+            "#modules/*": ["./modules/*"],
+            "#plugins/*": ["./plugins/*"]
         },
         "plugins": [
             {

@@ -11,8 +11,7 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
-import { Plate } from '@udecode/plate-common/react';
-import { isEditorFocused } from '@udecode/slate-react';
+import { isEditorFocused, Plate } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React, {
     forwardRef,
@@ -48,6 +47,7 @@ import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';
+import { getEnabledPlugins } from './getEnabledPlugins';
 import { InitialNormalization } from './InitialNormalization';
 import {
     createOnCut,
@@ -74,7 +74,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         blurOnOutsideClick = false,
         onKeyDown = noop,
         placeholder,
-        plugins,
+        plugins = [],
         popperMenuOptions = {},
         readOnly,
         style,
@@ -184,7 +184,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             withAllowedBlocks,
             withAttachments,
             withAutoformat,
-            withBlockquotes,
             withButtonBlocks,
             withCallouts,
             withCoverage,
@@ -213,16 +212,20 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         ],
     );
 
+    const enabledPlugins = useMemo(
+        () => [...Array.from(getEnabledPlugins({ events })), ...plugins],
+        [events],
+    );
+
     const [getInitialValue, setInitialValue] = useGetSet(() =>
         EditorCommands.roughlyNormalizeValue(externalInitialValue),
     );
 
     const { editor, onKeyDownList } = useCreateEditor({
-        events,
         extensions,
         initialValue: getInitialValue(),
         onKeyDown,
-        plugins,
+        plugins: enabledPlugins,
     });
 
     useEffect(() => {

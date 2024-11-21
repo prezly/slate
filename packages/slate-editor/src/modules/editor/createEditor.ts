@@ -6,7 +6,6 @@ import {
     withUserFriendlyDeleteBehavior,
 } from '@prezly/slate-commons';
 import type { Extension } from '@prezly/slate-commons';
-import type { WithOverrides } from '@prezly/slate-commons';
 import { isNotUndefined } from '@technically/is-not-undefined';
 import { flow } from '@technically/lodash';
 import type { SlateEditor } from '@udecode/plate-common';
@@ -24,11 +23,7 @@ import {
     withSerialization,
 } from './plugins';
 
-export function createEditor(
-    baseEditor: SlateEditor,
-    getExtensions: () => Extension[],
-    plugins: WithOverrides[] = [],
-) {
+export function createEditor(baseEditor: SlateEditor, getExtensions: () => Extension[]) {
     const overrides = getExtensions()
         .map(({ withOverrides }) => withOverrides)
         .filter(isNotUndefined);
@@ -48,6 +43,5 @@ export function createEditor(
         withElementsEqualityCheck(getExtensions),
         withSerialization(getExtensions),
         ...overrides,
-        ...plugins,
     ])(baseEditor);
 }
