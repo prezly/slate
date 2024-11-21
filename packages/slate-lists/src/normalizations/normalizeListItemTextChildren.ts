@@ -1,5 +1,5 @@
 import { getNodeChildren, isElement, type SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry , Node } from 'slate';
+import type { NodeEntry, Node } from 'slate';
 
 import type { ListsSchema } from '../types';
 

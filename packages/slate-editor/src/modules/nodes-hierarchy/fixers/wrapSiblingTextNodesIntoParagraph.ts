@@ -1,6 +1,6 @@
-import type { TNodeEntry} from '@udecode/plate-common';
+import type { TNodeEntry } from '@udecode/plate-common';
 import { getNodeChildren, isText, type SlateEditor } from '@udecode/plate-common';
-import type { NodeMatch , Node} from 'slate';
+import type { NodeMatch, Node } from 'slate';
 import { Path } from 'slate';
 
 export function wrapSiblingTextNodesIntoParagraph(
@@ -42,9 +42,7 @@ function collectNextSiblingsWhileMatching(
     if (current.length === 0) return [];
 
     const children = getNodeChildren(editor, Path.parent(current));
-    const siblingsAfter = Array.from(children).filter(
-        ([, path]) => Path.isAfter(path, current),
-    );
+    const siblingsAfter = Array.from(children).filter(([, path]) => Path.isAfter(path, current));
 
     const matching: Path[] = [];
 

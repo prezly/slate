@@ -1,18 +1,18 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isParagraphNode } from '@prezly/slate-types';
-import { noop } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { HistoryEditor, SlateEditor } from '@udecode/plate-common';
 
-import { /*autoformatBlock, */ autoformatMark, autoformatText } from './transforms';
+import { autoformatBlock, autoformatMark, autoformatText } from './transforms';
 import type { AutoformatRule } from './types';
 
-export function withAutoformat<T extends SlateEditor>(editor: T, rules: AutoformatRule[]): T {
+export function withAutoformat<T extends SlateEditor & HistoryEditor>(
+    editor: T,
+    rules: AutoformatRule[],
+): T {
     const { insertText } = editor;
 
     const autoformatters = {
-        // TODO: Fix this
-        // block: autoformatBlock,
-        block: noop,
+        block: autoformatBlock,
         mark: autoformatMark,
         text: autoformatText,
     };

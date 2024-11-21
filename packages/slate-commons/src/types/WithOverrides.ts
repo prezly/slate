@@ -1,3 +1,3 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import type { HistoryEditor, SlateEditor } from '@udecode/plate-common';
 
-export type WithOverrides = <T extends SlateEditor>(editor: T) => T;
+export type WithOverrides = <T extends SlateEditor & HistoryEditor>(editor: T) => T;

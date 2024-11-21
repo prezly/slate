@@ -1,15 +1,19 @@
-import type { Editor, ElementEntry, NodeEntry } from 'slate';
-import { Element } from 'slate';
+import {
+    isElement,
+    type SlateEditor,
+    type TElementEntry,
+    type TNodeEntry,
+} from '@udecode/plate-common';
 
 export function withElementNormalization(
-    editor: Editor,
-    normalization: (entry: ElementEntry) => boolean,
+    editor: SlateEditor,
+    normalization: (entry: TElementEntry) => boolean,
 ) {
     const { normalizeNode } = editor;
 
-    editor.normalizeNode = (entry: NodeEntry) => {
+    editor.normalizeNode = (entry: TNodeEntry) => {
         const [node, path] = entry;
-        if (Element.isElement(node) && normalization([node, path])) {
+        if (isElement(node) && normalization([node, path])) {
             return;
         }
 

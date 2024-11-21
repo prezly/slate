@@ -23,7 +23,6 @@ export { type ResultPromise, type UploadcareOptions, withUploadcare } from './mo
 import type { ElementNode, ParagraphNode, TextNode } from '@prezly/slate-types';
 import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
-import type { ReactEditor } from 'slate-react';
 
 import type { FlashEditor } from '#extensions/flash-nodes';
 import type {
@@ -34,7 +33,6 @@ import type {
 } from '#modules/editor';
 
 type Editor = BaseEditor &
-    ReactEditor &
     HistoryEditor &
     DefaultTextBlockEditor<ParagraphNode> &
     ElementsEqualityCheckEditor &

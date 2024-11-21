@@ -1,4 +1,4 @@
-import type { TNode} from '@udecode/plate-common';
+import type { TNode } from '@udecode/plate-common';
 import { isElement, type SlateEditor } from '@udecode/plate-common';
 import type { Node } from 'slate';
 

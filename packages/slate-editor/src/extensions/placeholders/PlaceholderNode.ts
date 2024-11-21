@@ -83,8 +83,13 @@ export namespace PlaceholderNode {
         return isElementNode(node, Object.values(Type));
     }
 
-    export function isSameAs<T extends PlaceholderNode>(placeholder: T, node: Node | TNode): node is T;
-    export function isSameAs<T extends PlaceholderNode>(placeholder: T): (node: Node | TNode) => node is T;
+    export function isSameAs<T extends PlaceholderNode>(
+        placeholder: T,
+        node: Node | TNode,
+    ): node is T;
+    export function isSameAs<T extends PlaceholderNode>(
+        placeholder: T,
+    ): (node: Node | TNode) => node is T;
     export function isSameAs<T extends PlaceholderNode>(
         placeholder: T,
         node?: Node | TNode,

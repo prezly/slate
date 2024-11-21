@@ -1,5 +1,11 @@
 import { stubTrue } from '@technically/lodash';
-import { getAboveNode, isElement, type SlateEditor, type TAncestor, type TNodeEntry } from '@udecode/plate-common';
+import {
+    getAboveNode,
+    isElement,
+    type SlateEditor,
+    type TAncestor,
+    type TNodeEntry,
+} from '@udecode/plate-common';
 
 export function unwrapNode(
     editor: SlateEditor,

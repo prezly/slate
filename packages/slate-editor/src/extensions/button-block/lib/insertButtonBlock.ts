@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import { isAlignableElement, isImageNode } from '@prezly/slate-types';
 import { type SlateEditor } from '@udecode/plate-common';
-import type { Node} from 'slate';
+import type { Node } from 'slate';
 import { Path, Range } from 'slate';
 
 import type { ButtonBlockNode } from '../ButtonBlockNode';

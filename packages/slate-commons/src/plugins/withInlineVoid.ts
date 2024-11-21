@@ -1,10 +1,9 @@
-/* eslint-disable no-param-reassign */
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import type { Extension } from '../types';
 
 export function withInlineVoid(getExtensions: () => Extension[]) {
-    return function <T extends Editor>(editor: T) {
+    return function <T extends SlateEditor>(editor: T) {
         const { isInline, isVoid } = editor;
 
         editor.isInline = (element) => {
