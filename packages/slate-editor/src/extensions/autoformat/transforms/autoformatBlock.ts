@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { castArray } from '@technically/lodash';
 import type { SlateEditor } from '@udecode/plate-common';
-import { HistoryEditor } from '@udecode/plate-common';
+import { withoutMergingHistory, withoutSavingHistory } from '@udecode/plate-common';
 import {
     ELEMENT_DEFAULT,
     getRangeBefore,
@@ -74,13 +74,11 @@ export function autoformatBlock(
             if (isBelowSameBlockType) continue;
         }
 
-        // @ts-expect-error Temporary, until we migrate to Autoformat plugin from current Plate
-        HistoryEditor.withoutMerging(editor, () => {
+        withoutMergingHistory(editor, () => {
             editor.delete({ at: matchRange });
         });
 
-        // @ts-expect-error Temporary, until we migrate to Autoformat plugin from current Plate
-        HistoryEditor.withoutSaving(editor, () => {
+        withoutSavingHistory(editor, () => {
             preFormat?.(editor);
         });
 
