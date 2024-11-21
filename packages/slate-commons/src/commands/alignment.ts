@@ -1,7 +1,7 @@
 import type { AlignableNode, Alignment } from '@prezly/slate-types';
 import { isAlignableElement, isTableCellNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeEntry, Path } from 'slate';
+import { getAboveNode, type SlateEditor, type TNodeEntry } from '@udecode/plate-common';
+import type { Node, Path } from 'slate';
 
 export function getAlignment(editor: SlateEditor, defaultAlignment: Alignment): Alignment[] {
     const nodes = editor.nodes<AlignableNode>({
@@ -31,7 +31,7 @@ export function toggleAlignment(editor: SlateEditor, align: Alignment | undefine
     );
 }
 
-function isAlignmentRoot([node, path]: NodeEntry): boolean {
+function isAlignmentRoot([node, path]: TNodeEntry): boolean {
     // We allow aligning elements either at top-level or inside table cells.
     return path.length === 0 || isTableCellNode(node);
 }
@@ -41,6 +41,6 @@ function isTopLevelAlignableElement(
     node: Node,
     path: Path,
 ): node is AlignableNode {
-    const parent = editor.above({ at: path });
+    const parent = getAboveNode(editor, { at: path });
     return parent !== undefined && isAlignmentRoot(parent) && isAlignableElement(node);
 }

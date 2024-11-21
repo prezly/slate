@@ -22,7 +22,7 @@ import {
     BookmarkNode,
     CalloutNode,
 } from '@prezly/slate-types';
-import { Text } from 'slate';
+import { isText } from '@udecode/plate-common';
 
 import { EmbedNode } from '#extensions/embed';
 
@@ -85,7 +85,7 @@ export const hierarchySchema: NodesHierarchySchema = {
     [HTML_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [IMAGE_NODE_TYPE]: [
         allowChildren(
-            Text.isText,
+            isText,
             combineFixers([
                 fixers.unwrapImageNodeChild,
                 fixers.unwrapSameTypeChild,

@@ -1,6 +1,6 @@
-import { Text } from 'slate';
-import type { Node } from 'slate';
+import type { TNode } from '@udecode/plate-common';
+import { isText } from '@udecode/plate-common';
 
-export function isEmptyTextNode(node: Node) {
-    return Text.isText(node) && node.text === '';
+export function isEmptyTextNode(node: TNode) {
+    return isText(node) && node.text === '';
 }

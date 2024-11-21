@@ -1,8 +1,6 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor, TNode } from '@udecode/plate-common';
 import { toDOMNode } from '@udecode/plate-common/react';
-import type { Node } from 'slate';
 
-export function toDomNode(editor: SlateEditor, node: Node): HTMLElement | null {
-    // @ts-expect-error TODO: Fix this
+export function toDomNode(editor: SlateEditor, node: TNode): HTMLElement | null {
     return toDOMNode(editor, node) ?? null;
 }

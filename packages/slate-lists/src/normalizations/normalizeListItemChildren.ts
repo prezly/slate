@@ -1,6 +1,6 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import { getNodeChildren, isText, type SlateEditor } from '@udecode/plate-common';
 import type { NodeEntry } from 'slate';
-import { Node, Text } from 'slate';
+import type { Node } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -17,11 +17,10 @@ export function normalizeListItemChildren(
         return false;
     }
 
-    const children = Array.from(Node.children(editor, path));
+    const children = Array.from(getNodeChildren(editor, path));
 
     for (const [childIndex, [childNode, childPath]] of children.entries()) {
-        // @ts-expect-error TODO: Fix this
-        if (Text.isText(childNode) || editor.isInline(childNode)) {
+        if (isText(childNode) || editor.isInline(childNode)) {
             const listItemText = schema.createListItemTextNode({
                 children: [childNode],
             });

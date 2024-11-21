@@ -1,8 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import { isAlignableElement, isImageNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import { Node, Path, Range } from 'slate';
+import { type SlateEditor } from '@udecode/plate-common';
+import type { Node} from 'slate';
+import { Path, Range } from 'slate';
 
 import type { ButtonBlockNode } from '../ButtonBlockNode';
 
@@ -36,8 +37,8 @@ function prevBlock(editor: SlateEditor): Node | undefined {
     if (editor.selection && Range.isCollapsed(editor.selection)) {
         const topLevelPath = editor.selection.focus.path.slice(0, 1);
         if (Path.hasPrevious(topLevelPath)) {
-            // @ts-expect-error TODO: Fix this
-            return Node.get(editor, Path.previous(topLevelPath));
+            const [node] = editor.node(Path.previous(topLevelPath));
+            return node;
         }
     }
     return undefined;

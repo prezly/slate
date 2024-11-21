@@ -841,11 +841,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                          * in two" work as expected.
                          */
                         onChange(value);
-                        // variables.onChange(editor);
-                        // userMentions.onChange(editor);
+                        variables.onChange(editor);
+                        userMentions.onChange(editor);
                     }}
-                    // @ts-expect-error TODO: Fix this
-                    initialValue={getInitialValue()}
                 >
                     <DecorationsProvider decorate={decorate}>
                         {(combinedDecorate) => (

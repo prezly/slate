@@ -1,11 +1,10 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { Element, Path } from 'slate';
-import type { NodeEntry } from 'slate';
+import { isElement, type SlateEditor, type TNodeEntry } from '@udecode/plate-common';
+import { Path } from 'slate';
 
 /**
  * This fixer just moves node up, without parent node splitting
  */
-export function liftNodeNoSplit(editor: SlateEditor, [, path]: NodeEntry) {
+export function liftNodeNoSplit(editor: SlateEditor, [, path]: TNodeEntry) {
     const ancestor = editor.above({ at: path });
 
     if (!ancestor) {
@@ -14,7 +13,7 @@ export function liftNodeNoSplit(editor: SlateEditor, [, path]: NodeEntry) {
 
     const [ancestorNode] = ancestor;
 
-    if (!Element.isElement(ancestorNode)) {
+    if (!isElement(ancestorNode)) {
         return false;
     }
 

@@ -47,8 +47,7 @@ export function useFloatingSnippetInput(editor: SlateEditor): [State, Actions] {
 
             EditorCommands.insertNodes(editor, node.children, { mode: 'highest' });
 
-            // TODO: Fix this!
-            // editor.flash(node.children.at(0), node.children.at(-1));
+            editor.flash(node.children.at(0), node.children.at(-1));
             savedSelection.restore(editor, { focus: true });
         } catch (error) {
             console.error(error);

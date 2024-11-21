@@ -25,7 +25,6 @@ export function withSlatePasting(isPreservedBlock: IsPreservedBlock) {
                     }
 
                     if (editor.selection) {
-                        // @ts-expect-error TODO: Fix this
                         editor.insertFragment(fragment);
                     } else {
                         editor.insertNodes(fragment);

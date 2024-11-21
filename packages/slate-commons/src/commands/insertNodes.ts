@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import type { SlateEditor } from '@udecode/plate-common';
+import { isElement, isInline } from '@udecode/plate-common';
 import type { Node } from 'slate';
 import { Text } from 'slate';
 
@@ -9,7 +10,6 @@ import { insertEmptyParagraph } from './insertEmptyParagraph';
 import { isAtEmptyBlock } from './isAtEmptyBlock';
 import { isBlock } from './isBlock';
 import { isCursorInEmptyParagraph } from './isCursorInEmptyParagraph';
-import { isInline } from './isInline';
 import { isVoid } from './isVoid';
 import { roughlyNormalizeNodes } from './roughly-normalize';
 
@@ -40,8 +40,7 @@ function insertNormalizedNodes(editor: SlateEditor, nodes: Node[], options: Opti
     // In case we're inserting things into an empty paragraph, we will want to replace that paragraph.
     const initialSelection = editor.selection;
     const isInitialSelectionAtEmptyBlock = isAtEmptyBlock(editor);
-    // @ts-expect-error TODO: Fix this
-    const isAppendingToCurrentNode = Text.isText(nodes[0]) || editor.isInline(nodes[0]);
+    const isAppendingToCurrentNode = Text.isText(nodes[0]) || isInline(editor, nodes[0]);
     const isInsertingBlockNodes = nodes.some((node) => isBlock(editor, node));
 
     for (const node of nodes) {
@@ -54,7 +53,7 @@ function insertNormalizedNodes(editor: SlateEditor, nodes: Node[], options: Opti
                 insertEmptyParagraph(editor);
             }
 
-            if (isInline(editor, node)) {
+            if (isElement(node) && isInline(editor, node)) {
                 // Slate does not allow inline nodes next to inline nodes.
                 // Adding text nodes around it helps to prevent unwanted side-effects.
                 //
@@ -64,7 +63,6 @@ function insertNormalizedNodes(editor: SlateEditor, nodes: Node[], options: Opti
                 // >    nor can it be next to another inline node in the children array.
                 // >    If this is the case, an empty text node will be added to correct
                 // >    this to be in compliance with the constraint.
-                // @ts-expect-error TODO: Fix this
                 editor.insertFragment([{ text: '' }, node, { text: '' }]);
             } else {
                 editor.insertNodes([node], { mode });

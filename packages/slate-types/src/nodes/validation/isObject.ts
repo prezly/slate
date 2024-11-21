@@ -1,4 +1,3 @@
-// @ts-expect-error TODO: Fix this
 import { isPlainObject } from 'is-plain-object';
 
 export function isObject(value: unknown): value is Record<string, unknown> {

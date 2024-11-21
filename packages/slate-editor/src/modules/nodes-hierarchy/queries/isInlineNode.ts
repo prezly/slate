@@ -1,7 +1,6 @@
 import { isLinkNode, isMentionNode, isVariableNode } from '@prezly/slate-types';
-import { Text } from 'slate';
-import type { Node } from 'slate';
+import { isText, type TNode } from '@udecode/plate-common';
 
-export function isInlineNode(node: Node) {
-    return Text.isText(node) || isLinkNode(node) || isMentionNode(node) || isVariableNode(node);
+export function isInlineNode(node: TNode) {
+    return isText(node) || isLinkNode(node) || isMentionNode(node) || isVariableNode(node);
 }
