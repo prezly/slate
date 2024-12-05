@@ -1,7 +1,7 @@
 import type { StoryBookmarkNode } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import React, { useEffect } from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSlateStatic } from 'slate-react';
 
 import { EditorBlock, ElementPlaceholder, LoadingPlaceholder } from '#components';
 import { ChickenNoSignalIllustration, ComponentStoryBookmark } from '#icons';
@@ -24,7 +24,7 @@ interface Props extends RenderElementProps {
 const ESTIMATED_LOADING_DURATION = 300;
 
 export function StoryBookmarkElement({ attributes, children, element, params }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     const [{ error, loading, value: story }, loadStory] = useAsyncFn(() => {
         return params.loadStory(element.story.uuid);

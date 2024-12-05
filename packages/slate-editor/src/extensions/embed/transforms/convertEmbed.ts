@@ -1,5 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, Node } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node } from 'slate';
 
 import { humanFriendlyUrl } from '#lib';
 
@@ -9,7 +10,7 @@ import { createWebBookmark } from '#extensions/web-bookmark';
 import { EmbedNode } from '../EmbedNode';
 import type { Presentation } from '../types';
 
-export function convertEmbed(editor: Editor, element: EmbedNode, presentation: Presentation) {
+export function convertEmbed(editor: SlateEditor, element: EmbedNode, presentation: Presentation) {
     function convert() {
         if (presentation === 'card') {
             return createWebBookmark({ oembed: element.oembed, url: element.url });

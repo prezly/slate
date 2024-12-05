@@ -1,8 +1,9 @@
 import { isVariableNode, type VariableNode } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import type { Variable } from './types';
 import styles from './VariableElement.module.scss';
@@ -15,7 +16,7 @@ interface Props extends RenderElementProps {
 
 export function VariableElement({ attributes, children, element, variables }: Props) {
     const selected = useSelected();
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [container, setContainer] = useState<HTMLSpanElement | null>(null);

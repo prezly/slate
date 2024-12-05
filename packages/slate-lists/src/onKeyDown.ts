@@ -1,10 +1,10 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { KeyboardEvent } from 'react';
-import { Editor } from 'slate';
 
 import { ListsEditor } from './ListsEditor';
 import * as OnKeyDownHandlers from './on-key-down';
 
-export function onKeyDown(editor: Editor, event: KeyboardEvent): boolean | void {
+export function onKeyDown(editor: SlateEditor, event: KeyboardEvent): boolean | void {
     if (!ListsEditor.isListsEnabled(editor)) {
         return;
     }
@@ -22,7 +22,7 @@ export function onKeyDown(editor: Editor, event: KeyboardEvent): boolean | void 
         // So we want to force it after we perform lists operations, as it fixes
         // many unexpected behaviors.
         // https://github.com/ianstormtaylor/slate/issues/3758
-        Editor.normalize(editor, { force: true });
+        editor.normalize({ force: true });
     }
 }
 

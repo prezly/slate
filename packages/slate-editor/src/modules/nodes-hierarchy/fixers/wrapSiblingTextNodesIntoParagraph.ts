@@ -1,19 +1,21 @@
-import type { Editor, NodeEntry, NodeMatch } from 'slate';
-import { Node, Path, Text, Transforms } from 'slate';
+import type { TNodeEntry } from '@udecode/plate-common';
+import { getNodeChildren, isText, type SlateEditor } from '@udecode/plate-common';
+import type { NodeMatch, Node } from 'slate';
+import { Path } from 'slate';
 
 export function wrapSiblingTextNodesIntoParagraph(
-    editor: Editor,
-    [node, path]: NodeEntry,
+    editor: SlateEditor,
+    [node, path]: TNodeEntry,
 ): boolean {
-    if (!Text.isText(node)) return false;
+    if (!isText(node)) return false;
     if (path.length === 0) return false;
 
-    const combinePaths = [path, ...collectNextSiblingsWhileMatching(editor, path, Text.isText)];
+    const combinePaths = [path, ...collectNextSiblingsWhileMatching(editor, path, isText)];
 
     const from = combinePaths[0];
     const to = combinePaths[combinePaths.length - 1];
 
-    Transforms.wrapNodes(editor, editor.createDefaultTextBlock({ children: [] }), {
+    editor.wrapNodes(editor.createDefaultTextBlock({ children: [] }), {
         at: Path.parent(path),
         match: betweenPaths(from, to),
     });
@@ -33,15 +35,14 @@ function betweenPaths(from: Path, to: Path): NodeMatch<Node> {
 }
 
 function collectNextSiblingsWhileMatching(
-    editor: Editor,
+    editor: SlateEditor,
     current: Path,
     match: NodeMatch<Node>,
 ): Path[] {
     if (current.length === 0) return [];
 
-    const siblingsAfter = Array.from(Node.children(editor, Path.parent(current))).filter(
-        ([, path]) => Path.isAfter(path, current),
-    );
+    const children = getNodeChildren(editor, Path.parent(current));
+    const siblingsAfter = Array.from(children).filter(([, path]) => Path.isAfter(path, current));
 
     const matching: Path[] = [];
 

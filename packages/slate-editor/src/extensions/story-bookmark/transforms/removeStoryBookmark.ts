@@ -1,9 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { StoryBookmarkNode } from '@prezly/slate-types';
 import { isStoryBookmarkNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
-export function removeStoryBookmark(editor: Editor): StoryBookmarkNode | null {
+export function removeStoryBookmark(editor: SlateEditor): StoryBookmarkNode | null {
     return EditorCommands.removeNode<StoryBookmarkNode>(editor, {
         match: isStoryBookmarkNode,
     });

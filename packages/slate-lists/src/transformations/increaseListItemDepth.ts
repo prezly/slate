@@ -1,4 +1,5 @@
-import { Editor, Element, Node, Path, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Element, Node, Path } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import { getListType, getPrevSibling } from '../lib';
@@ -8,7 +9,7 @@ import type { ListsSchema } from '../types';
  * Increases nesting depth of "list-item" at a given Path.
  */
 export function increaseListItemDepth(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     listItemPath: Path,
 ): boolean {
@@ -32,13 +33,12 @@ export function increaseListItemDepth(
 
     let changed = false;
 
-    Editor.withoutNormalizing(editor, () => {
+    editor.withoutNormalizing(() => {
         // Ensure there's a nested "list" in the previous sibling "list-item".
         if (!previousListItemHasChildList) {
             const listNodePath = Path.ancestors(listItemPath, { reverse: true })[0];
             const listNode = Node.get(editor, listNodePath);
-            Transforms.insertNodes(
-                editor,
+            editor.insertNodes(
                 schema.createListNode(getListType(schema, listNode), { children: [] }),
                 {
                     at: previousListItemChildListPath,
@@ -57,7 +57,7 @@ export function increaseListItemDepth(
                 ? previousListItemChildList.children.length
                 : 0;
 
-            Transforms.moveNodes(editor, {
+            editor.moveNodes({
                 at: listItemPath,
                 to: [...previousListItemChildListPath, index],
             });

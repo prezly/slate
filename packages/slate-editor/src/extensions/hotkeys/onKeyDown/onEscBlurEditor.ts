@@ -1,12 +1,12 @@
+import type { SlateEditor } from '@udecode/plate-common';
+import { blurEditor } from '@udecode/plate-common/react';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import type { Editor } from 'slate';
-import { ReactEditor } from 'slate-react';
 
-export function onEscBlurEditor(editor: Editor, event: KeyboardEvent) {
+export function onEscBlurEditor(editor: SlateEditor, event: KeyboardEvent) {
     if (isHotkey('esc', event.nativeEvent)) {
         event.preventDefault();
-        ReactEditor.blur(editor);
+        blurEditor(editor);
         return true;
     }
     return false;

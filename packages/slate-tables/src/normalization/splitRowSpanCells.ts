@@ -1,9 +1,7 @@
 import { times } from '@technically/lodash';
 import { Path } from 'slate';
-import { Node, Transforms } from 'slate';
-import { Editor } from 'slate';
+import { Node } from 'slate';
 
-import type { TableCellNode } from '../nodes';
 import { TablesEditor } from '../TablesEditor';
 
 export function splitRowSpanCells(editor: TablesEditor, path: Path) {
@@ -25,15 +23,15 @@ export function splitRowSpanCells(editor: TablesEditor, path: Path) {
                     TablesEditor.createTableCell(editor),
                 );
 
-                Editor.withoutNormalizing(editor, () => {
-                    Transforms.unsetNodes<TableCellNode>(editor, 'rowspan', { at: cellPath });
+                editor.withoutNormalizing(() => {
+                    editor.unsetNodes('rowspan', { at: cellPath });
                     let nextRow = Path.next(rowPath);
 
                     for (const padCell of padCells) {
                         const at = [...nextRow, ...currentCellRelativePath];
 
-                        if (Editor.hasPath(editor, at)) {
-                            Transforms.insertNodes(editor, padCell, { at });
+                        if (editor.hasPath(at)) {
+                            editor.insertNodes(padCell, { at });
                         } else {
                             console.error(
                                 `Can't find path to insert pad cell when split row spans at:`,

@@ -17,13 +17,14 @@ import {
     isTableNode,
     VideoNode,
 } from '@prezly/slate-types';
+import type { TNode } from '@udecode/plate-common';
 import type { Node } from 'slate';
 
 import { ButtonBlockNode } from '#extensions/button-block';
 import { EmbedNode } from '#extensions/embed';
 import { PlaceholderNode } from '#extensions/placeholders';
 
-export function isAllowedOnTopLevel(node: Node) {
+export function isAllowedOnTopLevel(node: Node | TNode) {
     return (
         BookmarkNode.isBookmarkNode(node) ||
         isAttachmentNode(node) ||

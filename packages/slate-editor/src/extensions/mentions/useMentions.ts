@@ -1,9 +1,9 @@
 import { stubTrue } from '@technically/lodash';
+import type { SlateEditor } from '@udecode/plate-common';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useMemo, useState } from 'react';
-import type { Editor } from 'slate';
-import { Range, Transforms } from 'slate';
+import { Range } from 'slate';
 
 import { getWordAfterTrigger, insertMention, isPointAtWordEnd } from './lib';
 import type { MentionElementType, Option } from './types';
@@ -18,9 +18,9 @@ interface Parameters<V> {
 
 export interface Mentions<V> {
     index: number;
-    onAdd: (editor: Editor, option: Option<V>) => void;
-    onChange: (editor: Editor) => void;
-    onKeyDown: (event: KeyboardEvent, editor: Editor) => void;
+    onAdd: (editor: SlateEditor, option: Option<V>) => void;
+    onChange: (editor: SlateEditor) => void;
+    onKeyDown: (event: KeyboardEvent, editor: SlateEditor) => void;
     options: Option<V>[];
     query: string;
     target: Range | null;
@@ -42,9 +42,9 @@ export function useMentions<V>({
     }, [isEnabled, query, options, target]);
 
     const onAdd = useCallback(
-        (editor: Editor, option: Option<V>) => {
+        (editor: SlateEditor, option: Option<V>) => {
             if (target) {
-                Transforms.select(editor, target);
+                editor.select(target);
                 const mentionElement = createMentionElement(option);
                 insertMention(editor, mentionElement, moveCursorAfterInsert);
                 setTarget(null);
@@ -54,7 +54,7 @@ export function useMentions<V>({
     );
 
     const onChange = useCallback(
-        (editor: Editor) => {
+        (editor: SlateEditor) => {
             const { selection } = editor;
 
             if (selection && Range.isCollapsed(selection)) {
@@ -75,7 +75,7 @@ export function useMentions<V>({
     );
 
     const onKeyDown = useCallback(
-        (event: KeyboardEvent, editor: Editor) => {
+        (event: KeyboardEvent, editor: SlateEditor) => {
             if (!target || !isEnabled(target)) {
                 return;
             }

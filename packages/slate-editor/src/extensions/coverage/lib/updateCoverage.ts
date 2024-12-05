@@ -1,11 +1,10 @@
 import type { CoverageNode} from '@prezly/slate-types';
 import { isCoverageNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 export function updateCoverage(
-    editor: Editor,
+    editor: SlateEditor,
     properties: Partial<Pick<CoverageNode, 'layout' | 'new_tab' | 'show_thumbnail'>>,
 ): void {
-    Transforms.setNodes<CoverageNode>(editor, properties, { match: isCoverageNode });
+    editor.setNodes<CoverageNode>(properties, { match: isCoverageNode });
 }

@@ -1,5 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 import { PlaceholderNode } from '../PlaceholderNode';
 
@@ -12,7 +13,7 @@ const SHAPE = {
 
 const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
 
-export function normalizeAttributes(editor: Editor, [node, path]: NodeEntry) {
+export function normalizeAttributes(editor: SlateEditor, [node, path]: NodeEntry) {
     if (PlaceholderNode.isPlaceholderNode(node)) {
         return EditorCommands.normalizeRedundantAttributes(
             editor,

@@ -1,4 +1,5 @@
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 import { ListsEditor } from './ListsEditor';
 import * as Normalizations from './normalizations';
@@ -6,7 +7,7 @@ import * as Normalizations from './normalizations';
 /**
  * All plugin normalizations combined into a single function.
  */
-export function normalizeNode(editor: Editor, entry: NodeEntry): boolean {
+export function normalizeNode(editor: SlateEditor, entry: NodeEntry): boolean {
     const schema = ListsEditor.getListsSchema(editor);
     if (schema) {
         return (

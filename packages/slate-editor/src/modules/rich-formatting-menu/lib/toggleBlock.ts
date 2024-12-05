@@ -2,11 +2,10 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { ListsEditor, ListType } from '@prezly/slate-lists';
 import type { ElementNode } from '@prezly/slate-types';
 import { BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 export function toggleBlock<T extends ElementNode>(
-    editor: Editor,
+    editor: SlateEditor,
     type: T['type'],
     props: Partial<Omit<ElementNode, 'children' | 'type'>> = {},
 ): void {
@@ -36,5 +35,5 @@ export function toggleBlock<T extends ElementNode>(
         EditorCommands.removeChildren(editor, [currentNode, path]);
     }
 
-    Transforms.setNodes(editor, { ...props, type });
+    editor.setNodes({ ...props, type });
 }

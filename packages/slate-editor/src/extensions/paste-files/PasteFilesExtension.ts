@@ -1,12 +1,12 @@
 import type { Extension } from '@prezly/slate-commons';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { withFilesPasting } from './lib';
 
 export const EXTENSION_ID = 'PasteFilesExtension';
 
 export interface Parameters {
-    onFilesPasted?: (editor: Editor, files: File[]) => void;
+    onFilesPasted?: (editor: SlateEditor, files: File[]) => void;
 }
 
 export function PasteFilesExtension({ onFilesPasted }: Parameters = {}): Extension {

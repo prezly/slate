@@ -1,5 +1,5 @@
-import type { Editor, Node, NodeEntry } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node, NodeEntry } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import type { ListsSchema } from '../types';
@@ -8,7 +8,7 @@ import type { ListsSchema } from '../types';
  * Nests (moves) given "list" in a given "list-item".
  */
 export function moveListToListItem(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     parameters: {
         at: NodeEntry<Node>;
@@ -23,7 +23,7 @@ export function moveListToListItem(
         return;
     }
 
-    Transforms.moveNodes(editor, {
+    editor.moveNodes({
         at: sourceListPath,
         to: [...targetListPath, NESTED_LIST_PATH_INDEX],
     });

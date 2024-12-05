@@ -1,5 +1,6 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Location } from 'slate';
-import { Editor, Element, Transforms } from 'slate';
+import { Element } from 'slate';
 
 import type { ListsSchema, ListType } from '../types';
 
@@ -10,7 +11,7 @@ import type { ListsSchema, ListType } from '../types';
  * @see ListsSchema.isConvertibleToListTextNode()
  */
 export function wrapInList(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     listType: ListType,
     at: Location | null = editor.selection,
@@ -20,7 +21,7 @@ export function wrapInList(
     }
 
     const nonListEntries = Array.from(
-        Editor.nodes(editor, {
+        editor.nodes({
             at,
             match: (node) => {
                 return (
@@ -38,15 +39,15 @@ export function wrapInList(
         return false;
     }
 
-    const refs = nonListEntries.map(([_, path]) => Editor.pathRef(editor, path));
+    const refs = nonListEntries.map(([_, path]) => editor.pathRef(path));
 
     refs.forEach((ref) => {
         const path = ref.current;
         if (path) {
-            Editor.withoutNormalizing(editor, () => {
-                Transforms.setNodes(editor, schema.createListItemTextNode(), { at: path });
-                Transforms.wrapNodes(editor, schema.createListItemNode(), { at: path });
-                Transforms.wrapNodes(editor, schema.createListNode(listType), { at: path });
+            editor.withoutNormalizing(() => {
+                editor.setNodes(schema.createListItemTextNode(), { at: path });
+                editor.wrapNodes(schema.createListItemNode(), { at: path });
+                editor.wrapNodes(schema.createListNode(listType), { at: path });
             });
         }
         ref.unref();

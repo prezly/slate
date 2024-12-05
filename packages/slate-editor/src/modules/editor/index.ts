@@ -1,6 +1,13 @@
 export { Editor } from './Editor';
 export { createEditor } from './createEditor';
 export { createEmptyValue } from './lib';
+export {
+    withDefaultTextBlock,
+    withDeserializeHtml,
+    withElementsEqualityCheck,
+    withRichBlocks,
+    withSerialization,
+} from './plugins';
 export type {
     DefaultTextBlockEditor,
     ElementsEqualityCheckEditor,

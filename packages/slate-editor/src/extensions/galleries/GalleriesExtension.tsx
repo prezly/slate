@@ -3,8 +3,8 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import type { GalleryLayout, GalleryNode, GalleryPadding } from '@prezly/slate-types';
 import { GALLERY_NODE_TYPE, isGalleryNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
+import type { SlateEditor } from '@udecode/plate-common';
 import React from 'react';
-import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
@@ -20,22 +20,22 @@ import type { GalleriesExtensionConfiguration } from './types';
 interface Parameters extends GalleriesExtensionConfiguration {
     availableWidth: number;
     onAdded?: (
-        editor: Editor,
+        editor: SlateEditor,
         gallery: GalleryNode,
         extra: {
             successfulUploads: number;
             failedUploads: Error[];
         },
     ) => void;
-    onImageCaptionClicked?: (editor: Editor) => void;
-    onImageCropClicked?: (editor: Editor) => void;
-    onImageDeleteClicked?: (editor: Editor) => void;
-    onLayoutChanged?: (editor: Editor, layout: GalleryLayout) => void;
-    onPaddingChanged?: (editor: Editor, padding: GalleryPadding) => void;
-    onReordered?: (editor: Editor, gallery: GalleryNode) => void;
-    onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
+    onImageCaptionClicked?: (editor: SlateEditor) => void;
+    onImageCropClicked?: (editor: SlateEditor) => void;
+    onImageDeleteClicked?: (editor: SlateEditor) => void;
+    onLayoutChanged?: (editor: SlateEditor, layout: GalleryLayout) => void;
+    onPaddingChanged?: (editor: SlateEditor, padding: GalleryPadding) => void;
+    onReordered?: (editor: SlateEditor, gallery: GalleryNode) => void;
+    onShuffled?: (editor: SlateEditor, updated: GalleryNode, original: GalleryNode) => void;
     onThumbnailSizeChanged?: (
-        editor: Editor,
+        editor: SlateEditor,
         thumbnail_size: GalleryNode['thumbnail_size'],
     ) => void;
 }

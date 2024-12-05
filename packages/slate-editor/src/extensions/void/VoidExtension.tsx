@@ -1,7 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
-import { Transforms } from 'slate';
 
 import { isDeletingEvent } from '#lib';
 
@@ -29,7 +28,7 @@ export function VoidExtension(): Extension {
                 EditorCommands.insertEmptyParagraph(editor);
                 return true;
             } else if (isDeletingEvent(event)) {
-                Transforms.setNodes(editor, createParagraph(), {
+                editor.setNodes(createParagraph(), {
                     match: (node) => node === currentNode,
                 });
                 return true;

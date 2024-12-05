@@ -1,5 +1,6 @@
-import type { Node, NodeEntry, Editor } from 'slate';
-import { Element, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node, NodeEntry } from 'slate';
+import { Element } from 'slate';
 
 import { isContainingTextNodes, isElementOrEditor } from '../lib';
 import type { ListsSchema } from '../types';
@@ -13,7 +14,7 @@ import type { ListsSchema } from '../types';
  * pasting, so we have a separate rule for that in `deserializeHtml`.
  */
 export function normalizeOrphanListItem(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     [node, path]: NodeEntry<Node>,
 ): boolean {
@@ -22,11 +23,11 @@ export function normalizeOrphanListItem(
         for (const [index, child] of node.children.entries()) {
             if (Element.isElement(child) && schema.isListItemNode(child)) {
                 if (isContainingTextNodes(child)) {
-                    Transforms.setNodes(editor, schema.createDefaultTextNode(), {
+                    editor.setNodes(schema.createDefaultTextNode(), {
                         at: [...path, index],
                     });
                 } else {
-                    Transforms.unwrapNodes(editor, {
+                    editor.unwrapNodes({
                         at: [...path, index],
                         mode: 'highest',
                     });

@@ -1,11 +1,11 @@
 import type { ContactInfo, ContactNode } from '@prezly/slate-types';
 import { ContactLayout } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import { useCallback } from 'react';
 import React from 'react';
 import type { FunctionComponent, ReactNode, SVGProps } from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSlateStatic } from 'slate-react';
 
 import { Avatar, EditorBlock } from '#components';
 import { Envelope, Globe, Mobile, Phone, SocialFacebook, SocialTwitter } from '#icons';
@@ -23,7 +23,7 @@ interface Props extends RenderElementProps {
 }
 
 export function PressContactElement({ attributes, children, element, onEdit, renderMenu }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const { layout, show_avatar: showAvatar } = element;
     const isCardLayout = layout === ContactLayout.CARD;
     const isSignatureLayout = layout === ContactLayout.SIGNATURE;

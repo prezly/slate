@@ -2,13 +2,13 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { isHeadingNode } from '@prezly/slate-types';
 import { isNotNull } from '@technically/is-not-null';
 import { uniq } from '@technically/lodash';
-import { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import type { Formatting } from '../types';
 
 import { findRichFormattingTextParent } from './findRichFormattingTextParent';
 
-export function getCurrentFormatting(editor: Editor): {
+export function getCurrentFormatting(editor: SlateEditor): {
     aggregate: Formatting;
     active: Formatting[];
 } {
@@ -17,7 +17,7 @@ export function getCurrentFormatting(editor: Editor): {
     }
 
     // Find the lowest nodes, work our way back to a RichFormattedTextElement parent.
-    const leafNodes = Array.from(Editor.nodes(editor, { at: editor.selection, mode: 'lowest' }));
+    const leafNodes = Array.from(editor.nodes({ at: editor.selection, mode: 'lowest' }));
     const richTextBlocks = leafNodes
         .map((entry) => findRichFormattingTextParent(editor, entry))
         .filter(isNotNull);

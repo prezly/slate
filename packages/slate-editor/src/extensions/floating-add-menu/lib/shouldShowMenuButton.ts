@@ -5,12 +5,12 @@ import {
     isSubtitleHeadingNode,
     isTitleHeadingNode,
 } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 import { Node, Range } from 'slate';
 
 import { MENU_TRIGGER_CHARACTER } from './isMenuHotkey';
 
-export function shouldShowMenuButton(editor: Editor): boolean {
+export function shouldShowMenuButton(editor: SlateEditor): boolean {
     if (!editor.selection || Range.isExpanded(editor.selection)) {
         return false;
     }

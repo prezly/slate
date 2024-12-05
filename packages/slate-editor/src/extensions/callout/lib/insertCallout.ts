@@ -1,11 +1,11 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { CalloutNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { createCallout } from './createCallout';
 
 export function insertCallout(
-    editor: Editor,
+    editor: SlateEditor,
     props: Partial<Pick<CalloutNode, 'icon' | 'align' | 'children'>> = {},
 ) {
     const callout = createCallout(props);

@@ -1,9 +1,9 @@
 import { identity } from '@technically/lodash';
+import type { SlateEditor } from '@udecode/plate-common';
+import { toDOMRange, useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import RangeFix from 'rangefix';
 import React, { useCallback, useRef, useState } from 'react';
-import type { Editor } from 'slate';
-import { ReactEditor, useSlateStatic } from 'slate-react';
 
 import { convertClientRect, useIsMouseDown } from '#lib';
 
@@ -26,7 +26,7 @@ export function TextSelectionPortalV2({
     modifySelectionRect = identity,
     ...props
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const lastRect = useRef<ClientRect | null>(null);
     // When making a selection with mouse, it's possible that mouse will be moved so quickly that
     // it will hover over the `children` of the `BasePortalV2` and it will interfere with the
@@ -66,11 +66,14 @@ export function TextSelectionPortalV2({
     );
 }
 
-function getSelectionRect(editor: Editor): ClientRect | null {
+function getSelectionRect(editor: SlateEditor): ClientRect | null {
     if (!editor.selection) return null;
 
     try {
-        const range = ReactEditor.toDOMRange(editor, editor.selection);
+        const range = toDOMRange(editor, editor.selection);
+        if (!range) {
+            return null;
+        }
 
         const [rect] = RangeFix.getClientRects(range) || [];
 

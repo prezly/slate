@@ -1,11 +1,11 @@
-import type { Editor, Node, NodeEntry } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node, NodeEntry } from 'slate';
 
 import { getListType, getParentListItem, getPrevSibling } from '../lib';
 import type { ListsSchema } from '../types';
 
 export function mergeListWithPreviousSiblingList(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     [node, path]: NodeEntry<Node>,
 ): boolean {
@@ -37,7 +37,7 @@ export function mergeListWithPreviousSiblingList(
         return false;
     }
 
-    Transforms.mergeNodes(editor, { at: path });
+    editor.mergeNodes({ at: path });
 
     return true;
 }

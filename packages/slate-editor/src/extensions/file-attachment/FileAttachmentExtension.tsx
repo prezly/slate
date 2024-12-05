@@ -3,8 +3,8 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import type { AttachmentNode } from '@prezly/slate-types';
 import { ATTACHMENT_NODE_TYPE, isAttachmentNode } from '@prezly/slate-types';
 import { isEqual, noop } from '@technically/lodash';
+import type { SlateEditor } from '@udecode/plate-common';
 import React from 'react';
-import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
@@ -15,8 +15,8 @@ import { FileAttachment, FileAttachmentMenu } from './components';
 import { normalizeRedundantFileAttachmentAttributes, parseSerializedElement } from './lib';
 
 export interface Parameters {
-    onEdited?: (editor: Editor, updated: AttachmentNode) => void;
-    onRemoved?: (editor: Editor, element: AttachmentNode) => void;
+    onEdited?: (editor: SlateEditor, updated: AttachmentNode) => void;
+    onRemoved?: (editor: SlateEditor, element: AttachmentNode) => void;
 }
 
 export const EXTENSION_ID = 'FileAttachmentExtension';

@@ -4,11 +4,10 @@ import type { ImageNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
 import { isEqual, noop } from '@technically/lodash';
+import type { SlateEditor } from '@udecode/plate-common';
 import { isHotkey } from 'is-hotkey';
-import type { KeyboardEvent } from 'react';
 import React from 'react';
-import type { Editor } from 'slate';
-import { Path, Transforms } from 'slate';
+import { Path } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { isDeletingEvent, isDeletingEventBackward } from '#lib';
@@ -33,11 +32,11 @@ const HOLDING_BACKSPACE_THRESHOLD = 100;
 let lastBackspaceTimestamp = 0;
 
 interface Parameters extends ImageExtensionConfiguration {
-    onCrop?: (editor: Editor, original: ImageNode) => void;
-    onCropped?: (editor: Editor, updated: ImageNode) => void;
-    onRemoved?: (editor: Editor, element: ImageNode) => void;
-    onReplace?: (editor: Editor, original: ImageNode) => void;
-    onReplaced?: (editor: Editor, updated: ImageNode) => void;
+    onCrop?: (editor: SlateEditor, original: ImageNode) => void;
+    onCropped?: (editor: SlateEditor, updated: ImageNode) => void;
+    onRemoved?: (editor: SlateEditor, element: ImageNode) => void;
+    onReplace?: (editor: SlateEditor, original: ImageNode) => void;
+    onReplaced?: (editor: SlateEditor, updated: ImageNode) => void;
 }
 
 export const EXTENSION_ID = 'ImageExtension';
@@ -123,7 +122,7 @@ export const ImageExtension = ({
         return false;
     },
     normalizeNode: normalizeRedundantImageAttributes,
-    onKeyDown: (event: KeyboardEvent, editor: Editor) => {
+    onKeyDown: (event, editor) => {
         if (!withCaptions) {
             return;
         }
@@ -135,14 +134,14 @@ export const ImageExtension = ({
 
                 const nextPath = Path.next(nodeEntry[1]);
                 EditorCommands.insertEmptyParagraph(editor, { at: nextPath });
-                Transforms.select(editor, nextPath);
+                editor.select(nextPath);
                 return true;
             }
         }
 
         if (isHotkey('shift+enter', event.nativeEvent) && !event.isDefaultPrevented()) {
             event.preventDefault();
-            Transforms.insertText(editor, '\n');
+            editor.insertText('\n');
             return true;
         }
 
@@ -208,6 +207,6 @@ export const ImageExtension = ({
     withOverrides: withImages,
 });
 
-function replaceImageWithParagraph(editor: Editor, at: Path) {
+function replaceImageWithParagraph(editor: SlateEditor, at: Path) {
     EditorCommands.replaceNode(editor, createParagraph(), { at, match: isImageNode });
 }

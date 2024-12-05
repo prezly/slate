@@ -1,4 +1,5 @@
-import type { Editor, Node, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node, NodeEntry } from 'slate';
 
 import { getNextSibling } from '../lib';
 import { mergeListWithPreviousSiblingList } from '../transformations';
@@ -9,7 +10,7 @@ import type { ListsSchema } from '../types';
  * If there are 2 nested "lists" next to each other, merge them together.
  */
 export function normalizeSiblingLists(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     entry: NodeEntry<Node>,
 ): boolean {

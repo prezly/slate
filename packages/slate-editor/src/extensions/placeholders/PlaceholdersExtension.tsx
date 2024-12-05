@@ -1,6 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
+import type { SlateEditor } from '@udecode/plate-common';
 import React from 'react';
-import type { Editor } from 'slate';
 
 import { withPastedUrlsUnfurling } from './behaviour';
 import { GalleryBookmarkPlaceholderElement } from './elements';
@@ -64,7 +64,7 @@ export interface Parameters {
     withWebBookmarkPlaceholders?: false | { fetchOembed: FetchOEmbedFn };
     withPastedUrlsUnfurling?:
         | false
-        | { fetchOembed: FetchOEmbedFn; isAllowed?(editor: Editor, url: string): boolean };
+        | { fetchOembed: FetchOEmbedFn; isAllowed?(editor: SlateEditor, url: string): boolean };
 }
 
 export function PlaceholdersExtension({

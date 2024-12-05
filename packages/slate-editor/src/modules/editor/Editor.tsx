@@ -2,10 +2,8 @@
 import { Events } from '@prezly/events';
 import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
+import type { HeadingNode, ParagraphNode, QuoteNode } from '@prezly/slate-types';
 import {
-    type HeadingNode,
-    type ParagraphNode,
-    type QuoteNode,
     Alignment,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
@@ -13,6 +11,7 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
+import { isEditorFocused, Plate } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React, {
     forwardRef,
@@ -23,17 +22,18 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import type { Element } from 'slate';
-import { Transforms } from 'slate';
-import { ReactEditor, Slate } from 'slate-react';
 
 import { useFunction, useGetSet, useSize } from '#lib';
 
 import { insertButtonBlock } from '#extensions/button-block';
 import { insertCallout } from '#extensions/callout';
-import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
-import { insertPlaceholder, PlaceholderNode } from '#extensions/placeholders';
+import {
+    insertPlaceholder,
+    PlaceholderNode,
+    PlaceholdersManager,
+    replacePlaceholder,
+} from '#extensions/placeholders';
 import { useFloatingSnippetInput } from '#extensions/snippet';
 import { UserMentionsDropdown, useUserMentions } from '#extensions/user-mentions';
 import { useVariables, VariablesDropdown } from '#extensions/variables';
@@ -47,6 +47,7 @@ import { RichFormattingMenu, toggleBlock } from '#modules/rich-formatting-menu';
 
 import styles from './Editor.module.scss';
 import { getEnabledExtensions } from './getEnabledExtensions';
+import { getEnabledPlugins } from './getEnabledPlugins';
 import { InitialNormalization } from './InitialNormalization';
 import {
     createOnCut,
@@ -59,9 +60,6 @@ import { generateFloatingAddMenuOptions, MenuAction } from './menuOptions';
 import type { EditorProps, EditorRef, Value } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
-
-import { replacePlaceholder } from '#extensions/placeholders/lib';
-import { PlaceholdersManager } from '#extensions/placeholders/PlaceholdersManager';
 
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
     const {
@@ -76,7 +74,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         blurOnOutsideClick = false,
         onKeyDown = noop,
         placeholder,
-        plugins,
+        plugins = [],
         popperMenuOptions = {},
         readOnly,
         style,
@@ -150,7 +148,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     onFloatingAddMenuToggle,
                     withAllowedBlocks,
                     withAttachments,
-                    withAutoformat,
                     withBlockquotes,
                     withButtonBlocks,
                     withCallouts,
@@ -185,8 +182,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             onFloatingAddMenuToggle,
             withAllowedBlocks,
             withAttachments,
-            withAutoformat,
-            withBlockquotes,
             withButtonBlocks,
             withCallouts,
             withCoverage,
@@ -215,16 +210,44 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         ],
     );
 
-    const { editor, onKeyDownList } = useCreateEditor({
-        events,
-        extensions,
-        onKeyDown,
-        plugins,
-    });
+    const enabledPlugins = useMemo(
+        () => [
+            ...Array.from(
+                getEnabledPlugins({
+                    events,
+                    withAutoformat,
+                    withBlockquotes,
+                    withCallouts,
+                    withDivider,
+                    withHeadings,
+                    withLists,
+                    withTextStyling,
+                }),
+            ),
+            ...plugins,
+        ],
+        [
+            events,
+            withAutoformat,
+            withBlockquotes,
+            withCallouts,
+            withDivider,
+            withHeadings,
+            withLists,
+            withTextStyling,
+        ],
+    );
 
     const [getInitialValue, setInitialValue] = useGetSet(() =>
-        EditorCommands.roughlyNormalizeValue(editor, externalInitialValue),
+        EditorCommands.roughlyNormalizeValue(externalInitialValue),
     );
+
+    const { editor, onKeyDownList } = useCreateEditor({
+        extensions,
+        initialValue: getInitialValue(),
+        onKeyDown,
+        plugins: enabledPlugins,
+    });
 
     useEffect(() => {
         if (autoFocus) {
@@ -301,11 +324,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             clearSelection: () => EditorCommands.resetSelection(editor),
             insertNodes: (nodes, options) => EditorCommands.insertNodes(editor, nodes, options),
             updateNodes: (props, options = {}) => {
-                Transforms.setNodes(
-                    editor,
-                    props,
-                    options.match ? { at: [], ...options } : options,
-                );
+                editor.setNodes(props, options.match ? { at: [], ...options } : options);
             },
             insertPlaceholder(props, ensureEmptyParagraphAfter) {
                 return insertPlaceholder(editor, props, ensureEmptyParagraphAfter);
@@ -314,7 +333,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 replacePlaceholder(editor, placeholder, element, options);
             },
             isEmpty: () => EditorCommands.isEmpty(editor),
-            isFocused: () => ReactEditor.isFocused(editor),
+            isFocused: () => isEditorFocused(editor),
             isModified: () =>
                 !isEditorValueEqual(editor, getInitialValue(), editor.children as Value),
             isValueEqual: (value: Value, another: Value) =>
@@ -816,7 +835,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     const hasCustomPlaceholder =
-        withFloatingAddMenu && (ReactEditor.isFocused(editor) || isFloatingAddMenuOpen);
+        withFloatingAddMenu && (isEditorFocused(editor) || isFloatingAddMenuOpen);
 
     const onChange = useOnChange((value) => {
         props.onChange(editor.serialize(value) as Value);
@@ -831,9 +850,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 style={style}
             >
                 {sizer}
-                <Slate
+                <Plate
                     editor={editor}
-                    onChange={(newValue) => {
+                    onChange={({ value }) => {
                         /**
                          * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
                          *
@@ -842,11 +861,10 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                          * are always block nodes in the editor so that behaviors like "splitting a block
                          * in two" work as expected.
                          */
-                        onChange(newValue as Element[]);
+                        onChange(value);
                         variables.onChange(editor);
                         userMentions.onChange(editor);
                     }}
-                    initialValue={getInitialValue()}
                 >
                     <DecorationsProvider decorate={decorate}>
                         {(combinedDecorate) => (
@@ -876,7 +894,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     style={contentStyle}
                                 />
 
-                                <FlashNodes containerRef={containerRef} />
+                                {/* <FlashNodes containerRef={containerRef} /> */}
 
                                 {!hasCustomPlaceholder && (
                                     <Placeholder className="editor-placeholder">
@@ -966,7 +984,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                             </>
                         )}
                     </DecorationsProvider>
-                </Slate>
+                </Plate>
             </div>
         </PopperOptionsContext.Provider>
     );

@@ -1,4 +1,5 @@
-import type { Editor, Element, Location, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Element, Location, NodeEntry } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -9,7 +10,7 @@ import { getParentList } from './getParentList';
  * Get all lists in the given Range.
  */
 export function getLists(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     at: Location | null,
 ): NodeEntry<Element>[] {

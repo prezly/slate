@@ -1,5 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, Node, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node, NodeEntry } from 'slate';
 
 import { ButtonBlockNode } from '../ButtonBlockNode';
 
@@ -17,7 +18,7 @@ const shape: Record<keyof ButtonBlockNode, true> = {
 const ALLOWED_BUTTON_BLOCK_ATTRIBUTES = Object.keys(shape);
 
 export function normalizeRedundantButtonBlockAttributes(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry<Node>,
 ) {
     if (ButtonBlockNode.isButtonBlockNode(node)) {

@@ -1,6 +1,6 @@
 import { withNormalization } from '@prezly/slate-commons';
 import { Alignment } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { ParagraphsExtension } from './ParagraphsExtension';
 
@@ -9,5 +9,5 @@ function getExtensions() {
 }
 
 export function createParagraphsEditor(input: JSX.Element) {
-    return withNormalization(getExtensions)(input as unknown as Editor);
+    return withNormalization(getExtensions)(input as unknown as SlateEditor);
 }

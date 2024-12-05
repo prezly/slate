@@ -1,5 +1,6 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Location } from 'slate';
-import { Editor, Node, Path, Range, Transforms } from 'slate';
+import { Node, Path, Range } from 'slate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
 import { getCursorPositionInNode, getListItems } from '../lib';
@@ -14,7 +15,7 @@ import type { ListsSchema } from '../types';
  * @returns {boolean} True, if the editor state has been changed.
  */
 export function splitListItem(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     at: Location | null = editor.selection,
 ): boolean {
@@ -32,7 +33,7 @@ export function splitListItem(
 
     if (Range.isRange(at) && Range.isExpanded(at)) {
         // Remove everything in selection (this will collapse the selection).
-        Transforms.delete(editor);
+        editor.delete();
     }
 
     const listItemsInSelection = getListItems(editor, schema, editor.selection);
@@ -51,7 +52,7 @@ export function splitListItem(
         const newListItem = schema.createListItemNode({
             children: [schema.createListItemTextNode()],
         });
-        Transforms.insertNodes(editor, newListItem, { at: listItemPath });
+        editor.insertNodes(newListItem, { at: listItemPath });
         return true;
     }
 
@@ -59,23 +60,23 @@ export function splitListItem(
     const newListItemTextPath = Path.next(listItemTextPath);
     const hasNestedList = Node.has(listItemNode, [NESTED_LIST_PATH_INDEX]); // listItemNode.children.length > 1
 
-    Editor.withoutNormalizing(editor, () => {
+    editor.withoutNormalizing(() => {
         if (isEnd) {
             const newListItem = schema.createListItemNode({
                 children: [schema.createListItemTextNode()],
             });
-            Transforms.insertNodes(editor, newListItem, { at: newListItemPath });
+            editor.insertNodes(newListItem, { at: newListItemPath });
             // Move the cursor to the new "list-item".
-            Transforms.select(editor, newListItemPath);
+            editor.select(newListItemPath);
         } else {
             // Split current "list-item-text" element into 2.
-            Transforms.splitNodes(editor);
+            editor.splitNodes();
 
             // The current "list-item-text" has a parent "list-item", the new one needs its own.
-            Transforms.wrapNodes(editor, schema.createListItemNode(), { at: newListItemTextPath });
+            editor.wrapNodes(schema.createListItemNode(), { at: newListItemTextPath });
 
             // Move the new "list-item" up to be a sibling of the original "list-item".
-            Transforms.moveNodes(editor, {
+            editor.moveNodes({
                 at: newListItemTextPath,
                 to: newListItemPath,
             });
@@ -83,7 +84,7 @@ export function splitListItem(
 
         // If there was a "list" in the "list-item" move it to the new "list-item".
         if (hasNestedList) {
-            Transforms.moveNodes(editor, {
+            editor.moveNodes({
                 at: Path.next(listItemTextPath),
                 to: [...newListItemPath, NESTED_LIST_PATH_INDEX],
             });

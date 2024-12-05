@@ -1,7 +1,7 @@
 import type { NewsroomRef } from '@prezly/sdk';
 import type { UPLOADCARE_FILE_DATA_KEY } from '@prezly/uploadcare';
 import type { FilePromise } from '@prezly/uploadcare-widget';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 interface File {
     [UPLOADCARE_FILE_DATA_KEY]?: {
@@ -39,7 +39,7 @@ export type MediaGalleryOptions<MediaGallery extends boolean> = MediaGallery ext
 
 export interface Uploadcare {
     upload<Multiple extends boolean, ImagesOnly extends boolean, MediaGallery extends boolean>(
-        editor: Editor,
+        editor: SlateEditor,
         options: UploadcareOptions<Multiple, ImagesOnly, MediaGallery>,
     ): Promise<ResultPromise<Multiple>>;
 }

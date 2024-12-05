@@ -1,4 +1,5 @@
-import type { Editor, Element, Location, Node, NodeEntry, Path, Range } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Element, Location, Node, NodeEntry, Path, Range } from 'slate';
 
 import {
     isDeleteBackwardAllowed,
@@ -30,118 +31,118 @@ import {
 import type { ListsSchema } from './types';
 import { ListType } from './types';
 
-function schema(editor: Editor) {
+function schema(editor: SlateEditor) {
     return Registry.get(editor);
 }
 
 export const ListsEditor = {
     // ListsEditor schema availability
-    isListsEnabled(editor: Editor): boolean {
+    isListsEnabled(editor: SlateEditor): boolean {
         return Registry.has(editor);
     },
-    getListsSchema(editor: Editor): ListsSchema | undefined {
+    getListsSchema(editor: SlateEditor): ListsSchema | undefined {
         return Registry.has(editor) ? Registry.get(editor) : undefined;
     },
 
     // Schema proxies
-    isConvertibleToListTextNode(editor: Editor, node: Node): boolean {
+    isConvertibleToListTextNode(editor: SlateEditor, node: Node): boolean {
         return schema(editor).isConvertibleToListTextNode(node);
     },
-    isDefaultTextNode(editor: Editor, node: Node): boolean {
+    isDefaultTextNode(editor: SlateEditor, node: Node): boolean {
         return schema(editor).isDefaultTextNode(node);
     },
-    isListNode(editor: Editor, node: Node, type?: ListType): boolean {
+    isListNode(editor: SlateEditor, node: Node, type?: ListType): boolean {
         return schema(editor).isListNode(node, type);
     },
-    isListItemNode(editor: Editor, node: Node): boolean {
+    isListItemNode(editor: SlateEditor, node: Node): boolean {
         return schema(editor).isListItemNode(node);
     },
-    isListItemTextNode(editor: Editor, node: Node): boolean {
+    isListItemTextNode(editor: SlateEditor, node: Node): boolean {
         return schema(editor).isListItemTextNode(node);
     },
-    createDefaultTextNode(editor: Editor, props?: Partial<Element>): Element {
+    createDefaultTextNode(editor: SlateEditor, props?: Partial<Element>): Element {
         return schema(editor).createDefaultTextNode(props);
     },
-    createListNode(editor: Editor, type?: ListType, props?: Partial<Element>): Element {
+    createListNode(editor: SlateEditor, type?: ListType, props?: Partial<Element>): Element {
         return schema(editor).createListNode(type, props);
     },
-    createListItemNode(editor: Editor, props?: Partial<Element>): Element {
+    createListItemNode(editor: SlateEditor, props?: Partial<Element>): Element {
         return schema(editor).createListItemNode(props);
     },
-    createListItemTextNode(editor: Editor, props?: Partial<Element>): Element {
+    createListItemTextNode(editor: SlateEditor, props?: Partial<Element>): Element {
         return schema(editor).createListItemTextNode(props);
     },
 
     // Checks & Getters
-    isDeleteBackwardAllowed(editor: Editor, at?: Location | null) {
+    isDeleteBackwardAllowed(editor: SlateEditor, at?: Location | null) {
         return isDeleteBackwardAllowed(editor, schema(editor), at);
     },
-    isAtStartOfListItem(editor: Editor, at?: Location | null) {
+    isAtStartOfListItem(editor: SlateEditor, at?: Location | null) {
         return isAtStartOfListItem(editor, schema(editor), at);
     },
-    isAtEmptyListItem(editor: Editor, at?: Location | null) {
+    isAtEmptyListItem(editor: SlateEditor, at?: Location | null) {
         return isAtEmptyListItem(editor, schema(editor), at);
     },
-    isAtList(editor: Editor, at?: Location | null) {
+    isAtList(editor: SlateEditor, at?: Location | null) {
         return isInList(editor, schema(editor), at);
     },
-    isListItemContainingText(editor: Editor, node: Node) {
+    isListItemContainingText(editor: SlateEditor, node: Node) {
         return isListItemContainingText(editor, schema(editor), node);
     },
-    getLists(editor: Editor, at: Range | null) {
+    getLists(editor: SlateEditor, at: Range | null) {
         return getLists(editor, schema(editor), at);
     },
-    getListItems(editor: Editor, at?: Location | null) {
+    getListItems(editor: SlateEditor, at?: Location | null) {
         return getListItems(editor, schema(editor), at);
     },
-    getListType(editor: Editor, node: Node) {
+    getListType(editor: SlateEditor, node: Node) {
         return getListType(schema(editor), node);
     },
-    getNestedList(editor: Editor, path: Path) {
+    getNestedList(editor: SlateEditor, path: Path) {
         return getNestedList(editor, schema(editor), path);
     },
-    getParentList(editor: Editor, path: Path) {
+    getParentList(editor: SlateEditor, path: Path) {
         return getParentList(editor, schema(editor), path);
     },
-    getParentListItem(editor: Editor, path: Path) {
+    getParentListItem(editor: SlateEditor, path: Path) {
         return getParentListItem(editor, schema(editor), path);
     },
 
     // Transformations
-    increaseDepth(editor: Editor, at?: Location | null) {
+    increaseDepth(editor: SlateEditor, at?: Location | null) {
         return increaseDepth(editor, schema(editor), at);
     },
-    increaseListItemDepth(editor: Editor, listItemPath: Path) {
+    increaseListItemDepth(editor: SlateEditor, listItemPath: Path) {
         return increaseListItemDepth(editor, schema(editor), listItemPath);
     },
-    decreaseDepth(editor: Editor, at?: Location | null) {
+    decreaseDepth(editor: SlateEditor, at?: Location | null) {
         return decreaseDepth(editor, schema(editor), at);
     },
-    decreaseListItemDepth(editor: Editor, listItemPath: Path) {
+    decreaseListItemDepth(editor: SlateEditor, listItemPath: Path) {
         return decreaseListItemDepth(editor, schema(editor), listItemPath);
     },
-    mergeListWithPreviousSiblingList(editor: Editor, entry: NodeEntry) {
+    mergeListWithPreviousSiblingList(editor: SlateEditor, entry: NodeEntry) {
         return mergeListWithPreviousSiblingList(editor, schema(editor), entry);
     },
     moveListItemsToAnotherList(
-        editor: Editor,
+        editor: SlateEditor,
         parameters: Parameters<typeof moveListItemsToAnotherList>[2],
     ) {
         return moveListItemsToAnotherList(editor, schema(editor), parameters);
     },
-    moveListToListItem(editor: Editor, parameters: Parameters<typeof moveListToListItem>[2]) {
+    moveListToListItem(editor: SlateEditor, parameters: Parameters<typeof moveListToListItem>[2]) {
         return moveListToListItem(editor, schema(editor), parameters);
     },
-    setListType(editor: Editor, listType: ListType, at?: Location | null) {
+    setListType(editor: SlateEditor, listType: ListType, at?: Location | null) {
         return setListType(editor, schema(editor), listType, at);
     },
-    splitListItem(editor: Editor, at?: Location | null) {
+    splitListItem(editor: SlateEditor, at?: Location | null) {
         return splitListItem(editor, schema(editor), at);
     },
-    unwrapList(editor: Editor, at?: Location | null) {
+    unwrapList(editor: SlateEditor, at?: Location | null) {
         return unwrapList(editor, schema(editor), at);
     },
-    wrapInList(editor: Editor, listType = ListType.UNORDERED, at?: Location | null) {
+    wrapInList(editor: SlateEditor, listType = ListType.UNORDERED, at?: Location | null) {
         return wrapInList(editor, schema(editor), listType, at);
     },
 };

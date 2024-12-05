@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isLinkNode } from '@prezly/slate-types';
-import { Editor, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { isUrl } from '#lib';
 
@@ -9,7 +9,7 @@ import { autolinkPlaintext, createLink } from '../lib';
 /**
  * Automatically link pasted content if it's a URL. // See DEV-11519
  */
-export function withPastedContentAutolinking<T extends Editor>(editor: T): T {
+export function withPastedContentAutolinking<T extends SlateEditor>(editor: T): T {
     const { insertData } = editor;
 
     editor.insertData = (data) => {
@@ -18,10 +18,10 @@ export function withPastedContentAutolinking<T extends Editor>(editor: T): T {
         const hasHtml = Boolean(data.getData('text/html'));
 
         if (isUrl(pasted) && EditorCommands.isSelectionEmpty(editor)) {
-            const isInsideLink = Array.from(Editor.nodes(editor, { match: isLinkNode })).length > 0;
+            const isInsideLink = Array.from(editor.nodes({ match: isLinkNode })).length > 0;
 
             if (!isInsideLink) {
-                Transforms.insertNodes(editor, createLink({ href: pasted }));
+                editor.insertNodes(createLink({ href: pasted }));
                 return;
             }
         }
@@ -29,7 +29,7 @@ export function withPastedContentAutolinking<T extends Editor>(editor: T): T {
         if (!hasHtml) {
             const autolinked = autolinkPlaintext(pasted);
             if (autolinked) {
-                Transforms.insertNodes(editor, autolinked);
+                editor.insertNodes(autolinked);
                 return;
             }
         }

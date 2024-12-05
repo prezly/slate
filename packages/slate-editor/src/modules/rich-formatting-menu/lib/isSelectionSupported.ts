@@ -1,15 +1,16 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Element } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Element } from 'slate';
 
 import { findRichFormattingTextParent } from './findRichFormattingTextParent';
 
-export function isSelectionSupported(editor: Editor): boolean {
+export function isSelectionSupported(editor: SlateEditor): boolean {
     if (EditorCommands.isSelectionEmpty(editor)) {
         return false;
     }
 
     const nodeEntries = Array.from(
-        Editor.nodes<Element>(editor, {
+        editor.nodes<Element>({
             match: (node) => Element.isElement(node),
             mode: 'lowest',
         }),

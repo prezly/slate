@@ -1,9 +1,9 @@
 import { isLinkNode } from '@prezly/slate-types';
-import type { Editor, Path, Range } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Path, Range } from 'slate';
 
-export function unwrapLink(editor: Editor, selection?: Path | Range): void {
-    return Transforms.unwrapNodes(editor, {
+export function unwrapLink(editor: SlateEditor, selection?: Path | Range): void {
+    editor.unwrapNodes({
         at: selection,
         match: isLinkNode,
         split: true,

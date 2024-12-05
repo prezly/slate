@@ -1,8 +1,8 @@
 import { withInlineVoid } from '@prezly/slate-commons';
 import type { VariableNode } from '@prezly/slate-types';
 import { isVariableNode, VARIABLE_NODE_TYPE } from '@prezly/slate-types';
+import type { SlateEditor } from '@udecode/plate-common';
 import React from 'react';
-import type { Editor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement } from './components';
@@ -37,6 +37,6 @@ export function createPlaceholderMentionElement(key: VariableNode['key']): Varia
     };
 }
 
-export function createMentionsEditor(editor: Editor) {
+export function createMentionsEditor(editor: SlateEditor) {
     return withInlineVoid(getExtensions)(editor);
 }

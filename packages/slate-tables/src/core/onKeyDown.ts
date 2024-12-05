@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import { type Location, type Point, Editor, Transforms } from 'slate';
+import { type Location, type Point } from 'slate';
 
 import { TablesEditor } from '../TablesEditor';
 
@@ -27,7 +27,7 @@ export function onKeyDown(event: KeyboardEvent<Element>, editor: TablesEditor) {
     }
 
     if (locationToSelect) {
-        Transforms.select(editor, locationToSelect);
+        editor.select(locationToSelect);
         return true;
     }
 
@@ -47,7 +47,7 @@ function onUpPress(editor: TablesEditor): Point | undefined {
 
     const { activeCell, matrix } = traverse;
 
-    const cellStart = Editor.start(editor, activeCell.path);
+    const cellStart = editor.start(activeCell.path);
 
     const isCursorOnFirstLine = EditorCommands.isCursorOnFirstLine(
         editor,
@@ -57,7 +57,7 @@ function onUpPress(editor: TablesEditor): Point | undefined {
 
     if (isCursorOnFirstLine) {
         if (activeCell.row.isFirst) {
-            return Editor.before(editor, matrix.path, { unit: 'block' });
+            return editor.before(matrix.path, { unit: 'block' });
         }
 
         const { cellAbove } = activeCell;
@@ -90,7 +90,7 @@ function onDownPress(editor: TablesEditor): Point | undefined {
 
     const { activeCell, matrix } = traverse;
 
-    const cellEnd = Editor.end(editor, activeCell.path);
+    const cellEnd = editor.end(activeCell.path);
 
     const isCursorOnLastLine = EditorCommands.isCursorOnLastLine(
         editor,
@@ -100,7 +100,7 @@ function onDownPress(editor: TablesEditor): Point | undefined {
 
     if (isCursorOnLastLine) {
         if (activeCell.row.isLast) {
-            return Editor.after(editor, matrix.path, { unit: 'block' });
+            return editor.after(matrix.path, { unit: 'block' });
         }
 
         const { cellBelow } = activeCell;

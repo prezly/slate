@@ -1,5 +1,5 @@
 import { times } from '@technically/lodash';
-import { Node, Transforms } from 'slate';
+import { Node } from 'slate';
 import { Path } from 'slate';
 
 import type { TableRowNode } from '../nodes';
@@ -34,7 +34,7 @@ export function insertMissingCells(editor: TablesEditor, path: Path) {
                     const [lastNode, lastNodePath] = lastNodeInRowEntry;
 
                     if (editor.isTableCellNode(lastNode)) {
-                        Transforms.insertNodes(editor, newCells, {
+                        editor.insertNodes(newCells, {
                             at: Path.next(lastNodePath),
                         });
                         return true;

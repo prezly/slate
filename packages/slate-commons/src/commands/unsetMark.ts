@@ -1,16 +1,15 @@
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Text, NodeEntry } from 'slate';
-import type { Editor } from 'slate';
 
 export function unsetMark<T extends Text>(
-    editor: Editor,
+    editor: SlateEditor,
     entry: NodeEntry<T>,
     mark: keyof Omit<T, 'text'>,
 ) {
     const [node, path] = entry;
 
     if (node[mark]) {
-        Transforms.unsetNodes<T>(editor, mark.toString(), {
+        editor.unsetNodes(mark.toString(), {
             at: path,
             match: (n) => n === node,
         });

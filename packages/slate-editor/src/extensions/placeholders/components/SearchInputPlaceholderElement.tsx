@@ -1,7 +1,7 @@
+import { useEditorRef } from '@udecode/plate-common/react';
 import type { ReactElement, MouseEvent, ReactNode } from 'react';
 import React, { type KeyboardEvent, useEffect, useRef, useState } from 'react';
-import { Transforms } from 'slate';
-import { type RenderElementProps, useSelected, useSlateStatic } from 'slate-react';
+import { type RenderElementProps, useSelected } from 'slate-react';
 
 import type { SearchInput } from '#components';
 import { EditorBlock } from '#components';
@@ -66,7 +66,7 @@ export function SearchInputPlaceholderElement<T>({
     onDrop,
     onSelect,
 }: Props<T>) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const isSelected = useSelected();
     const block = useRef<HTMLDivElement>(null);
 
@@ -94,7 +94,7 @@ export function SearchInputPlaceholderElement<T>({
     });
     const handleDragLeave = useFunction(() => setDragOver(false));
     const handleRemove = useFunction(() => {
-        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
+        editor.removeNodes({ at: [], match: (node) => node === element });
     });
 
     const { isActive, isLoading } = usePlaceholderManagement(element.type, element.uuid, {

@@ -1,16 +1,16 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Node } from 'slate';
-import { Editor, Transforms } from 'slate';
 
 import { decodeSlateFragment, filterDataTransferItems } from '#lib';
 
 import type { Fragment as SlateFragment } from './isFragment';
 import { isFragment as isValidFragment } from './isFragment';
 
-export type IsPreservedBlock = (editor: Editor, node: Node) => boolean;
+export type IsPreservedBlock = (editor: SlateEditor, node: Node) => boolean;
 
 export function withSlatePasting(isPreservedBlock: IsPreservedBlock) {
-    return function <T extends Editor>(editor: T) {
+    return function <T extends SlateEditor>(editor: T) {
         const { insertData } = editor;
 
         editor.insertData = (data) => {
@@ -25,9 +25,9 @@ export function withSlatePasting(isPreservedBlock: IsPreservedBlock) {
                     }
 
                     if (editor.selection) {
-                        Transforms.insertFragment(editor, fragment);
+                        editor.insertFragment(fragment);
                     } else {
-                        Transforms.insertNodes(editor, fragment);
+                        editor.insertNodes(fragment);
                     }
                 } else {
                     editor.insertData(withoutSlateFragmentData(data));
@@ -51,11 +51,11 @@ function withoutSlateFragmentData(dataTransfer: DataTransfer): DataTransfer {
 }
 
 function handlePastingIntoPreservedBlock(
-    editor: Editor,
+    editor: SlateEditor,
     fragment: SlateFragment,
     isPreservedBlock: IsPreservedBlock,
 ) {
-    const nodesAbove = Editor.nodes(editor, {
+    const nodesAbove = editor.nodes({
         match: (node) => EditorCommands.isBlock(editor, node),
     });
     const [nearestBlock] = Array.from(nodesAbove).at(-1) ?? [];
@@ -65,7 +65,7 @@ function handlePastingIntoPreservedBlock(
         EditorCommands.isNodeEmpty(editor, nearestBlock) &&
         isPreservedBlock(editor, nearestBlock)
     ) {
-        Transforms.insertNodes(editor, fragment, { at: editor.selection?.anchor.path });
+        editor.insertNodes(fragment, { at: editor.selection?.anchor.path });
         return true;
     }
 

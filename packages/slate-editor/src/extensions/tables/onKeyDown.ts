@@ -1,14 +1,14 @@
 import { TablesEditor } from '@prezly/slate-tables';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import { type Element, Editor, Range, Transforms } from 'slate';
+import { type Element, Range } from 'slate';
 
 const isClipboardCopy = isHotkey(['mod+c', 'ctrl+insert']);
 const isClipboardCut = isHotkey(['mod+x', 'shift+delete']);
 
 export function onClipboardHotkey(
     event: KeyboardEvent,
-    editor: Editor & TablesEditor,
+    editor: TablesEditor,
     createDefaultElement: () => Element,
 ) {
     const selection = editor.selection;
@@ -22,7 +22,7 @@ export function onClipboardHotkey(
         }
         const [, path] = entry;
 
-        Transforms.select(editor, path); // Select the table
+        editor.select(path); // Select the table
 
         document.execCommand('copy');
 
@@ -36,16 +36,16 @@ export function onClipboardHotkey(
         }
         const [, path] = entry;
 
-        Editor.withoutNormalizing(editor, () => {
-            Transforms.select(editor, path); // Select the table
-            const ref = Editor.pathRef(editor, path);
+        editor.withoutNormalizing(() => {
+            editor.select(path); // Select the table
+            const ref = editor.pathRef(path);
 
             if (document.execCommand('cut')) {
-                Transforms.insertNodes(editor, createDefaultElement(), { at: path });
+                editor.insertNodes(createDefaultElement(), { at: path });
                 if (ref.current) {
-                    Transforms.removeNodes(editor, { at: ref.current });
+                    editor.removeNodes({ at: ref.current });
                 }
-                Transforms.select(editor, path);
+                editor.select(path);
             }
 
             ref.unref();

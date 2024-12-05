@@ -1,6 +1,6 @@
-import type { Editor } from 'slate';
-import { ReactEditor } from 'slate-react';
+import type { SlateEditor } from '@udecode/plate-common';
+import { deselectEditor } from '@udecode/plate-common/react';
 
-export function blur(editor: Editor & ReactEditor): void {
-    ReactEditor.deselect(editor);
+export function blur(editor: SlateEditor): void {
+    deselectEditor(editor);
 }

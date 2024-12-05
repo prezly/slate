@@ -1,7 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { StoryEmbedNode } from '@prezly/slate-types';
 import { isStoryEmbedNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 const shape: Record<keyof StoryEmbedNode, true> = {
     type: true,
@@ -15,7 +16,7 @@ const shape: Record<keyof StoryEmbedNode, true> = {
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
 export function normalizeRedundantStoryEmbedAttributes(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
 ): boolean {
     if (!isStoryEmbedNode(node)) {

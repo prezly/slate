@@ -8,7 +8,8 @@ import {
     isTableCellNode,
 } from '@prezly/slate-types';
 import { isEqual, uniq } from '@technically/lodash';
-import { type Editor, type NodeEntry, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { type NodeEntry } from 'slate';
 
 const ALLOWED_TABLE_ATTRIBUTES: { [key in keyof TableNode]: boolean } = {
     type: true,
@@ -29,20 +30,20 @@ const ALLOWED_CELL_ATTRIBUTES: { [key in keyof TableCellNode]: boolean } = {
     children: true,
 };
 
-export function normalizeTableAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeTableAttributes(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (isTableNode(node)) {
         if (!node.border) {
-            Transforms.setNodes<TableNode>(editor, { border: true }, { at: path });
+            editor.setNodes<TableNode>({ border: true }, { at: path });
             return true;
         }
         if (node.header !== undefined && node.header.length === 0) {
-            Transforms.unsetNodes<TableNode>(editor, 'header', { at: path });
+            editor.unsetNodes('header', { at: path });
             return true;
         }
         if (node.header && node.header.length > 2) {
             const normalizedHeader = uniq([...node.header].sort());
             if (!isEqual(normalizedHeader, node.header)) {
-                Transforms.setNodes<TableNode>(editor, { header: normalizedHeader }, { at: path });
+                editor.setNodes<TableNode>({ header: normalizedHeader }, { at: path });
                 return true;
             }
         }
@@ -55,7 +56,7 @@ export function normalizeTableAttributes(editor: Editor, [node, path]: NodeEntry
     return false;
 }
 
-export function normalizeRowAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeRowAttributes(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (isTableRowNode(node)) {
         return EditorCommands.normalizeRedundantAttributes(
             editor,
@@ -66,14 +67,14 @@ export function normalizeRowAttributes(editor: Editor, [node, path]: NodeEntry):
     return false;
 }
 
-export function normalizeCellAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function normalizeCellAttributes(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (isTableCellNode(node)) {
         if (node.colspan === 1) {
-            Transforms.unsetNodes<TableCellNode>(editor, 'colspan', { at: path });
+            editor.unsetNodes('colspan', { at: path });
             return true;
         }
         if (node.rowspan === 1) {
-            Transforms.unsetNodes<TableCellNode>(editor, 'rowspan', { at: path });
+            editor.unsetNodes('rowspan', { at: path });
             return true;
         }
         return EditorCommands.normalizeRedundantAttributes(

@@ -1,5 +1,6 @@
 import { isNotNull } from '@technically/is-not-null';
-import type { Editor, Node } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node } from 'slate';
 
 /**
  * Enforce Slate's built-in constraints on nodes being inserted,
@@ -8,11 +9,10 @@ import type { Editor, Node } from 'slate';
  * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
  * @see CARE-1320
  */
-export function roughlyNormalizeValue<TopLevelNode extends Editor['children'][number]>(
-    editor: Editor,
+export function roughlyNormalizeValue<TopLevelNode extends SlateEditor['children'][number]>(
     value: TopLevelNode[],
 ): TopLevelNode[] {
-    return roughlyNormalizeNodes<TopLevelNode>(editor, value);
+    return roughlyNormalizeNodes<TopLevelNode>(value);
 }
 
 /**
@@ -22,8 +22,8 @@ export function roughlyNormalizeValue<TopLevelNode extends Editor['children'][nu
  * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
  * @see CARE-1320
  */
-export function roughlyNormalizeNodes<T extends Node>(editor: Editor, nodes: T[]): T[] {
-    const normalized = nodes.map((node) => roughlyNormalizeNode(editor, node)).filter(isNotNull);
+export function roughlyNormalizeNodes<T extends Node>(nodes: T[]): T[] {
+    const normalized = nodes.map((node) => roughlyNormalizeNode(node)).filter(isNotNull);
 
     return isShallowEqual(normalized, nodes) ? nodes : normalized;
 }
@@ -35,15 +35,13 @@ export function roughlyNormalizeNodes<T extends Node>(editor: Editor, nodes: T[]
  * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
  * @see CARE-1320
  */
-export function roughlyNormalizeNode<T extends Node>(editor: Editor, node: T): T | null {
+export function roughlyNormalizeNode<T extends Node>(node: T): T | null {
     if ('text' in node) {
         return node; // as is
     }
 
     if ('children' in node) {
-        const children = Array.isArray(node.children)
-            ? roughlyNormalizeNodes(editor, node.children)
-            : [];
+        const children = Array.isArray(node.children) ? roughlyNormalizeNodes(node.children) : [];
 
         if (children.length > 0) {
             return node.children === children ? node : { ...node, children };

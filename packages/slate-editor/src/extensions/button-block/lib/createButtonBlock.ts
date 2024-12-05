@@ -3,7 +3,9 @@ import { v4 as generateUuid } from 'uuid';
 import { ButtonBlockNode } from '../ButtonBlockNode';
 
 export function createButtonBlock(
-    props: Partial<Omit<ButtonBlockNode, 'type' | 'children'>>,
+    props: Partial<
+        Pick<ButtonBlockNode, 'href' | 'new_tab' | 'layout' | 'variant' | 'uuid' | 'label'>
+    >,
 ): ButtonBlockNode {
     const {
         href = '',

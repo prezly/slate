@@ -1,10 +1,10 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Location } from 'slate';
-import { Editor } from 'slate';
 
 /**
- * See {@link Editor.string}.
+ * See {@link SlateEditor.string}.
  * If `at` is `null`, return an empty string.
  */
-export function getText(editor: Editor, at: Location | null) {
-    return at ? Editor.string(editor, at) : '';
+export function getText(editor: SlateEditor, at: Location | null) {
+    return at ? editor.string(at) : '';
 }

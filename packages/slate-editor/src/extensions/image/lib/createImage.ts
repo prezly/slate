@@ -9,7 +9,10 @@ export function createImage({
     align = Alignment.CENTER,
     new_tab = true,
     width = '100%',
-}: Pick<ImageNode, 'file'> & Partial<Omit<ImageNode, 'type'>>): ImageNode {
+}: Pick<ImageNode, 'file'> &
+    Partial<
+        Pick<ImageNode, 'children' | 'file' | 'href' | 'layout' | 'align' | 'new_tab' | 'width'>
+    >): ImageNode {
     return {
         type: IMAGE_NODE_TYPE,
         children,

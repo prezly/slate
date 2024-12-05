@@ -1,5 +1,6 @@
-import type { Editor, Node, NodeEntry } from 'slate';
-import { Element, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node, NodeEntry } from 'slate';
+import { Element } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -7,7 +8,7 @@ import type { ListsSchema } from '../types';
  * Moves all "list-items" from one "list" to the end of another "list".
  */
 export function moveListItemsToAnotherList(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     parameters: {
         at: NodeEntry<Node>;
@@ -26,7 +27,7 @@ export function moveListItemsToAnotherList(
     ) {
         // Sanity check.
         for (let i = 0; i < sourceListNode.children.length; ++i) {
-            Transforms.moveNodes(editor, {
+            editor.moveNodes({
                 at: [...sourceListPath, 0],
                 to: [...targetListPath, targetListNode.children.length + i],
             });

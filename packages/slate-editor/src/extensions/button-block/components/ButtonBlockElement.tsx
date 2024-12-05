@@ -1,6 +1,7 @@
 import type * as Popper from '@popperjs/core';
+import { useEditorRef } from '@udecode/plate-common/react';
 import React, { useCallback } from 'react';
-import { useSlateStatic, type RenderElementProps } from 'slate-react';
+import { type RenderElementProps } from 'slate-react';
 
 import type { InfoText } from '#components';
 import { EditorBlock } from '#components';
@@ -33,7 +34,7 @@ export function ButtonBlockElement({
     info,
     withNewTabOption,
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     const { layout } = element;
 

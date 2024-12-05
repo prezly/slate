@@ -1,13 +1,13 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Location } from 'slate';
-import { Editor, Transforms } from 'slate';
 
 export function moveCursorToPreviousBlock(
-    editor: Editor,
+    editor: SlateEditor,
     location: Location | null = editor.selection,
 ): void {
     if (location) {
-        const before = Editor.before(editor, location, { unit: 'block' });
-        const prevBlockPoint = before ?? Editor.start(editor, []);
-        Transforms.select(editor, prevBlockPoint);
+        const before = editor.before(location, { unit: 'block' });
+        const prevBlockPoint = before ?? editor.start([]);
+        editor.select(prevBlockPoint);
     }
 }

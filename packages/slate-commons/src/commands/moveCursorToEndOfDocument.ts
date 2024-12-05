@@ -1,6 +1,6 @@
-import { Editor, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
-export function moveCursorToEndOfDocument(editor: Editor): void {
-    const endPoint = Editor.end(editor, []);
-    Transforms.select(editor, endPoint);
+export function moveCursorToEndOfDocument(editor: SlateEditor): void {
+    const endPoint = editor.end([]);
+    editor.select(endPoint);
 }

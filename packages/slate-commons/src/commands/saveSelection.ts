@@ -1,5 +1,5 @@
-import type { BaseEditor, Editor, Location, Range } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Location, Range } from 'slate';
 
 import { findLeafLocation } from './findLeafLocation';
 import { isValidLocation } from './isValidLocation';
@@ -8,11 +8,11 @@ interface Actions {
     /**
      * @returns {boolean} True if the selection is successfully restored, or false if not.
      */
-    restore: (editor: Editor) => boolean;
+    restore: (editor: SlateEditor) => boolean;
 }
 
 function createRestore(location: Location | null): Actions['restore'] {
-    return (editor: Editor): boolean => {
+    return (editor: SlateEditor): boolean => {
         /* We have to make sure to set the selection to leaf nodes, otherwise
          * Slate may start throwing errors such as:
          * "Cannot get the leaf node at path [${path}] because it refers to a non-leaf node: ${node}"
@@ -22,7 +22,7 @@ function createRestore(location: Location | null): Actions['restore'] {
         const locationLeaf = location && findLeafLocation(editor, location);
 
         if (locationLeaf && isValidLocation(editor, locationLeaf)) {
-            Transforms.select(editor, locationLeaf);
+            editor.select(locationLeaf);
             return true;
         }
 
@@ -31,7 +31,7 @@ function createRestore(location: Location | null): Actions['restore'] {
 }
 
 export function saveSelection(
-    editor: BaseEditor,
+    editor: SlateEditor,
     transformLocation: (selection: Range) => Location = (selection) => selection,
 ): Actions {
     const savedSelection = editor.selection && transformLocation(editor.selection);

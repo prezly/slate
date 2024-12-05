@@ -1,11 +1,12 @@
-import { Editor, Range } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Range } from 'slate';
 
 import { isSelectionValid } from './isSelectionValid';
 
-export function isSelectionEmpty(editor: Editor): boolean {
+export function isSelectionEmpty(editor: SlateEditor): boolean {
     if (!editor.selection || !isSelectionValid(editor)) {
         return true;
     }
 
-    return Range.isCollapsed(editor.selection) && Editor.string(editor, editor.selection) === '';
+    return Range.isCollapsed(editor.selection) && editor.string(editor.selection) === '';
 }

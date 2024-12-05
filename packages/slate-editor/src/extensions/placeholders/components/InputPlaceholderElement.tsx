@@ -1,6 +1,6 @@
+import { useEditorRef } from '@udecode/plate-common/react';
 import React, { type KeyboardEvent, type MouseEvent, useEffect, useRef, useState } from 'react';
-import { Transforms } from 'slate';
-import { type RenderElementProps, useSelected, useSlateStatic } from 'slate-react';
+import { type RenderElementProps, useSelected } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { mergeRefs, useFunction, useUnmount } from '#lib';
@@ -47,7 +47,7 @@ export function InputPlaceholderElement({
     onDrop,
     onSubmit,
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const isSelected = useSelected();
     const block = useRef<HTMLDivElement>(null);
 
@@ -79,7 +79,7 @@ export function InputPlaceholderElement({
     });
     const handleDragLeave = useFunction(() => setDragOver(false));
     const handleRemove = useFunction(() => {
-        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
+        editor.removeNodes({ at: [], match: (node) => node === element });
     });
 
     useUnmount(() => {

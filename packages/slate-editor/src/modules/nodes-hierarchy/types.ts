@@ -1,8 +1,9 @@
-import type { Editor, Path, Node, NodeEntry } from 'slate';
+import type { SlateEditor, TNode, TNodeEntry } from '@udecode/plate-common';
+import type { Path } from 'slate';
 
-export type HierarchyNodeQuery = (node: Node, path: Path, editor: Editor) => boolean;
-export type HierarchyNormalizer = (editor: Editor, node: Node, path: Path) => boolean;
-export type HierarchyFixer = (editor: Editor, entry: NodeEntry) => boolean;
+export type HierarchyNodeQuery = (node: TNode, path: Path, editor: SlateEditor) => boolean;
+export type HierarchyNormalizer = (editor: SlateEditor, node: TNode, path: Path) => boolean;
+export type HierarchyFixer = (editor: SlateEditor, entry: TNodeEntry) => boolean;
 
 export const EDITOR_NODE_TYPE = Symbol('EDITOR');
 export const TEXT_NODE_TYPE = Symbol('TEXT');

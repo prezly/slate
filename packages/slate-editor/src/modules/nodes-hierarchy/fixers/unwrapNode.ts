@@ -1,13 +1,18 @@
 import { stubTrue } from '@technically/lodash';
-import { Editor, Element, Transforms } from 'slate';
-import type { NodeEntry, Ancestor } from 'slate';
+import {
+    getAboveNode,
+    isElement,
+    type SlateEditor,
+    type TAncestor,
+    type TNodeEntry,
+} from '@udecode/plate-common';
 
 export function unwrapNode(
-    editor: Editor,
-    [node, path]: NodeEntry,
-    match: (entry: NodeEntry, ancestor: NodeEntry<Ancestor>) => boolean = stubTrue,
+    editor: SlateEditor,
+    [node, path]: TNodeEntry,
+    match: (entry: TNodeEntry, ancestor: TNodeEntry<TAncestor>) => boolean = stubTrue,
 ) {
-    const ancestor = Editor.above(editor, { at: path });
+    const ancestor = getAboveNode(editor, { at: path });
 
     if (!ancestor) {
         return false;
@@ -15,12 +20,12 @@ export function unwrapNode(
 
     const [ancestorNode] = ancestor;
 
-    if (!Element.isElement(ancestorNode)) {
+    if (!isElement(ancestorNode)) {
         return false;
     }
 
     if (match([node, path], ancestor)) {
-        Transforms.unwrapNodes(editor, { at: path });
+        editor.unwrapNodes({ at: path });
         return true;
     }
 

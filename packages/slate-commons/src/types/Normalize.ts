@@ -1,3 +1,4 @@
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
-export type Normalize = (editor: Editor, entry: NodeEntry) => boolean;
+export type Normalize = (editor: SlateEditor, entry: NodeEntry) => boolean;

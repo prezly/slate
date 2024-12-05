@@ -1,6 +1,7 @@
-import { type Editor, type NodeEntry, Node, Path } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { type NodeEntry, Node, Path } from 'slate';
 
-export function getNextSibling(editor: Editor, path: Path): NodeEntry | null {
+export function getNextSibling(editor: SlateEditor, path: Path): NodeEntry | null {
     let nextSiblingPath: Path;
 
     try {

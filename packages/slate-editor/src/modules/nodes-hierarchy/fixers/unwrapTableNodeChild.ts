@@ -5,16 +5,15 @@ import {
     isTableNode,
     isTableRowNode,
 } from '@prezly/slate-types';
-import type { NodeEntry, Editor } from 'slate';
-import type { Node } from 'slate';
+import type { SlateEditor, TNode, TNodeEntry } from '@udecode/plate-common';
 
 import { unwrapNode } from './unwrapNode';
 
-export function unwrapTableNodeChild(editor: Editor, entry: NodeEntry) {
+export function unwrapTableNodeChild(editor: SlateEditor, entry: TNodeEntry) {
     return unwrapNode(editor, entry, ([node]) => canUnwrapNode(node));
 }
 
-function canUnwrapNode(node: Node) {
+function canUnwrapNode(node: TNode) {
     return (
         isHeadingNode(node) ||
         isQuoteNode(node) ||

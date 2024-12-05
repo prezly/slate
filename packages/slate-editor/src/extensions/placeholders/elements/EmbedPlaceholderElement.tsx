@@ -1,5 +1,6 @@
+import { useEditorRef } from '@udecode/plate-common/react';
 import React from 'react';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { PlaceholderEmbed } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';
@@ -50,7 +51,7 @@ export function EmbedPlaceholderElement({
     withWebBookmarkPlaceholders = false,
     ...props
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const isSelected = useSelected();
 
     const handleTrigger = useFunction(() => {

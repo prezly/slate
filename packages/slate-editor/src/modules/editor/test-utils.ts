@@ -1,17 +1,11 @@
-import { Events } from '@prezly/events';
 import { Alignment } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
-import type { EditorEventMap } from '#modules/events';
-import { withEvents } from '#modules/events';
-import { hierarchySchema, withNodesHierarchy } from '#modules/nodes-hierarchy';
 import { coverage, createDelayedResolve, oembedInfo } from '#modules/tests';
 
 import { createEditor as createBaseEditor } from './createEditor';
 import { getEnabledExtensions } from './getEnabledExtensions';
-
-const events = new Events<EditorEventMap>();
 
 export function getAllExtensions() {
     const fetchOembed = createDelayedResolve(oembedInfo);
@@ -24,7 +18,6 @@ export function getAllExtensions() {
                 check: () => true,
             },
             withAttachments: true,
-            withAutoformat: true,
             withBlockquotes: true,
             withButtonBlocks: true,
             withCallouts: true,
@@ -108,8 +101,5 @@ export function getAllExtensions() {
 }
 
 export function createEditor(input: JSX.Element) {
-    return createBaseEditor(input as unknown as Editor, getAllExtensions, [
-        withEvents(events),
-        withNodesHierarchy(hierarchySchema),
-    ]);
+    return createBaseEditor(input as unknown as SlateEditor, getAllExtensions);
 }

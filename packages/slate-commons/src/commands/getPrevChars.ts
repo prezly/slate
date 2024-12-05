@@ -1,8 +1,9 @@
-import { Editor, Path, Text } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Path, Text } from 'slate';
 
 import { isVoid } from './isVoid';
 
-export function getPrevChars(editor: Editor, length: number): string {
+export function getPrevChars(editor: SlateEditor, length: number): string {
     const selection = editor.selection;
 
     if (!selection) {
@@ -10,7 +11,7 @@ export function getPrevChars(editor: Editor, length: number): string {
     }
 
     const { focus } = selection;
-    let text = Editor.string(editor, { focus, anchor: { path: focus.path, offset: 0 } });
+    let text = editor.string({ focus, anchor: { path: focus.path, offset: 0 } });
 
     if (text.length > length) {
         return text.slice(-length);
@@ -18,7 +19,7 @@ export function getPrevChars(editor: Editor, length: number): string {
 
     const start = { path: [...Path.parent(focus.path), 0], offset: 0 };
 
-    const nodes = Editor.nodes(editor, {
+    const nodes = editor.nodes({
         mode: 'lowest',
         at: { anchor: start, focus },
         reverse: true,

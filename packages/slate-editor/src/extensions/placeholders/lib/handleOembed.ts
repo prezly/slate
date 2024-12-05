@@ -1,7 +1,7 @@
 import type { OEmbedInfo } from '@prezly/sdk';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { createEmbed } from '#extensions/embed';
 import { createImage } from '#extensions/image';
@@ -27,7 +27,7 @@ type Options = {
 };
 
 export function handleOembed(
-    editor: Editor,
+    editor: SlateEditor,
     placeholder: PlaceholderNode,
     { url, oembed }: Params,
     {

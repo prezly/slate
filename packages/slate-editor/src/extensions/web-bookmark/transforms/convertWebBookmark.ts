@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { BookmarkNode } from '@prezly/slate-types';
-import type { Editor, Node } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node } from 'slate';
 
 import { humanFriendlyUrl } from '#lib';
 
@@ -11,7 +12,7 @@ import { createVideoBookmark } from '#extensions/video';
 import type { Presentation } from '../types';
 
 export function convertWebBookmark(
-    editor: Editor,
+    editor: SlateEditor,
     element: BookmarkNode,
     presentation: Presentation,
 ) {

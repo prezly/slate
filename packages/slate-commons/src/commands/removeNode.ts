@@ -1,14 +1,14 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Node } from 'slate';
-import { Editor, Transforms } from 'slate';
 
 export function removeNode<N extends Node>(
-    editor: Editor,
-    options: NonNullable<Parameters<typeof Editor.nodes>[1]>,
+    editor: SlateEditor,
+    options: NonNullable<Parameters<typeof editor.nodes>[0]>,
 ): N | null {
-    const [nodeEntry] = Editor.nodes<N>(editor, options);
+    const [nodeEntry] = editor.nodes<N>(options);
     if (nodeEntry) {
         const [node, nodePath] = nodeEntry;
-        Transforms.removeNodes(editor, { at: nodePath });
+        editor.removeNodes({ at: nodePath });
         return node;
     }
     return null;

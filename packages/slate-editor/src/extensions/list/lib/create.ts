@@ -15,7 +15,7 @@ export function createList({ type, align, children }: Partial<ListNode> = {}): L
 
 export function createListItem({
     children,
-}: Partial<Omit<ListItemNode, 'type'>> = {}): ListItemNode {
+}: Partial<Pick<ListItemNode, 'children'>> = {}): ListItemNode {
     return {
         type: LIST_ITEM_NODE_TYPE,
         children: children ?? [createListItemText()],
@@ -24,7 +24,7 @@ export function createListItem({
 
 export function createListItemText({
     children,
-}: Partial<Omit<ListItemTextNode, 'type'>> = {}): ListItemTextNode {
+}: Partial<Pick<ListItemTextNode, 'children'>> = {}): ListItemTextNode {
     return {
         type: LIST_ITEM_TEXT_NODE_TYPE,
         children: children ?? [{ text: '' }],

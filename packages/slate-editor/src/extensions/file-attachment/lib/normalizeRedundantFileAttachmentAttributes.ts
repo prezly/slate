@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isAttachmentNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 import { createFileAttachment } from './createFileAttachment';
 
@@ -18,7 +19,7 @@ const ALLOWED_ATTRIBUTES = Object.keys(
 );
 
 export function normalizeRedundantFileAttachmentAttributes(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
 ): boolean {
     if (!isAttachmentNode(node)) {

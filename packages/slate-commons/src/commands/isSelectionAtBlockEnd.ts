@@ -1,15 +1,16 @@
-import { Editor, Range } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Range } from 'slate';
 
 import { isBlock } from './isBlock';
 
-export function isSelectionAtBlockEnd(editor: Editor): boolean {
+export function isSelectionAtBlockEnd(editor: SlateEditor): boolean {
     if (!editor.selection) {
         // Cannot determine the location if there is no selection.
         return false;
     }
 
     const endOfSelection = Range.end(editor.selection);
-    const blockAbove = Editor.above(editor, { match: (node) => isBlock(editor, node) });
+    const blockAbove = editor.above({ match: (node) => isBlock(editor, node) });
 
     if (!blockAbove) {
         return false;
@@ -17,5 +18,5 @@ export function isSelectionAtBlockEnd(editor: Editor): boolean {
 
     const [, endOfBlock] = blockAbove;
 
-    return Editor.isEnd(editor, endOfSelection, endOfBlock);
+    return editor.isEnd(endOfSelection, endOfBlock);
 }

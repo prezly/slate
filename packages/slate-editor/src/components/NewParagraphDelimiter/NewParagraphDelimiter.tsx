@@ -1,9 +1,9 @@
 import type { ElementNode } from '@prezly/slate-types';
+import { findNodePath, useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import type { MouseEvent } from 'react';
 import React from 'react';
-import { Path, Transforms } from 'slate';
-import { ReactEditor, useSlateStatic } from 'slate-react';
+import { Path } from 'slate';
 
 import { useFunction } from '#lib';
 
@@ -21,12 +21,17 @@ interface Props {
 export function NewParagraphDelimiter(props: Props) {
     const { element, position, title = 'Click to insert a new paragraph' } = props;
 
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     const handleClick = useFunction((event: MouseEvent) => {
         preventBubbling(event);
-        const path = ReactEditor.findPath(editor, element);
-        Transforms.insertNodes(editor, editor.createDefaultTextBlock(), {
+
+        const path = findNodePath(editor, element);
+        if (!path) {
+            return;
+        }
+
+        editor.insertNodes(editor.createDefaultTextBlock(), {
             at: position === 'top' ? path : Path.next(path),
             select: true,
         });

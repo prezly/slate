@@ -1,6 +1,6 @@
 import { isElementNode } from '@prezly/slate-types';
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Node, NodeMatch, Path } from 'slate';
-import { Editor, Transforms } from 'slate';
 
 import { replaceChildren } from './replaceChildren';
 
@@ -11,24 +11,24 @@ interface Options<T extends Node> {
 }
 
 export function replaceNode<Original extends Node, New extends Node>(
-    editor: Editor,
+    editor: SlateEditor,
     newNode: New,
     options: Options<Original>,
 ) {
     const { at, match, select = false } = options;
-    Editor.withoutNormalizing(editor, () => {
-        const [entry] = Editor.nodes(editor, { at, match, mode: 'highest' });
+    editor.withoutNormalizing(() => {
+        const [entry] = editor.nodes({ at, match, mode: 'highest' });
 
         if (entry) {
             const [node, path] = entry;
 
-            Transforms.unsetNodes<Original>(editor, Object.keys(node), { at: path });
-            Transforms.setNodes<Original | New>(editor, newNode, { at: path });
+            editor.unsetNodes(Object.keys(node), { at: path });
+            editor.setNodes<Original | New>(newNode, { at: path });
             if (isElementNode(newNode)) {
                 replaceChildren(editor, [node, path], newNode.children);
             }
             if (select) {
-                Transforms.select(editor, path);
+                editor.select(path);
             }
         }
     });

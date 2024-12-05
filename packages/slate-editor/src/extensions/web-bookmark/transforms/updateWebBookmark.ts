@@ -1,10 +1,9 @@
 import { BookmarkNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 export function updateWebBookmark(
-    editor: Editor,
+    editor: SlateEditor,
     properties: Partial<Pick<BookmarkNode, 'layout' | 'new_tab' | 'show_thumbnail'>>,
 ): void {
-    Transforms.setNodes<BookmarkNode>(editor, properties, { match: BookmarkNode.isBookmarkNode });
+    editor.setNodes<BookmarkNode>(properties, { match: BookmarkNode.isBookmarkNode });
 }

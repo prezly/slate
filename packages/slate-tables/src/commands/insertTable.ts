@@ -1,5 +1,5 @@
-import { type Location, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
+import { focusEditor } from '@udecode/plate-common/react';
+import { type Location } from 'slate';
 
 import { TableNode } from '../nodes';
 import type { TablesEditor } from '../TablesEditor';
@@ -13,11 +13,11 @@ export function insertTable(
         return false;
     }
 
-    Transforms.insertNodes(editor, TableNode.createTable(editor, props), {
+    editor.insertNodes(TableNode.createTable(editor, props), {
         at: location,
     });
 
-    ReactEditor.focus(editor);
+    focusEditor(editor);
 
     return true;
 }

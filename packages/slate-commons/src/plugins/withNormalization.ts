@@ -1,10 +1,9 @@
-/* eslint-disable no-param-reassign */
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import type { Extension } from '../types';
 
 export function withNormalization(getExtensions: () => Extension[]) {
-    return function <T extends Editor>(editor: T) {
+    return function <T extends SlateEditor>(editor: T) {
         const { normalizeNode } = editor;
 
         editor.normalizeNode = (entry) => {

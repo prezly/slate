@@ -1,5 +1,4 @@
 import type { Element, Location } from 'slate';
-import { Transforms } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
 
@@ -29,7 +28,7 @@ export namespace TableRowNode {
         props: Partial<Omit<TableRowNode, 'children'>>,
         location: Location,
     ) {
-        Transforms.setNodes<TableRowNode>(editor, props, {
+        editor.setNodes<TableRowNode>(props, {
             at: location,
             match: (node) => editor.isTableRowNode(node),
         });

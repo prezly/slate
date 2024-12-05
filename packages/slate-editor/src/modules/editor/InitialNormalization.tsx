@@ -1,12 +1,11 @@
+import { useEditorRef } from '@udecode/plate-common/react';
 import { useEffect } from 'react';
-import { Editor } from 'slate';
-import { useSlateStatic } from 'slate-react';
 
 export function InitialNormalization() {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     useEffect(() => {
-        Editor.normalize(editor, { force: true });
+        editor.normalize({ force: true });
     }, []);
 
     return null;

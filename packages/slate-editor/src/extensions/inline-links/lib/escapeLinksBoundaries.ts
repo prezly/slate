@@ -1,7 +1,8 @@
 import { isLinkNode } from '@prezly/slate-types';
+import type { SlateEditor } from '@udecode/plate-common';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import { Editor, Node, Path, Range, Transforms } from 'slate';
+import { Node, Path, Range } from 'slate';
 
 const isEscapingLink = isHotkey(['space', '.']);
 
@@ -10,24 +11,24 @@ const isEscapingLink = isHotkey(['space', '.']);
  *
  * @see MT-4667
  */
-export function escapeLinksBoundaries(event: KeyboardEvent, editor: Editor) {
+export function escapeLinksBoundaries(event: KeyboardEvent, editor: SlateEditor) {
     if (isEscapingLink(event) && isCursorAtEndOfLink(editor)) {
-        const next = Editor.next(editor, { at: editor.selection?.focus });
+        const next = editor.next({ at: editor.selection?.focus });
         if (next) {
             event.preventDefault();
-            Transforms.insertText(editor, event.key, { at: { path: next[1], offset: 0 } });
-            Transforms.select(editor, { path: next[1], offset: 1 });
+            editor.insertText(event.key, { at: { path: next[1], offset: 0 } });
+            editor.select({ path: next[1], offset: 1 });
         }
     }
 }
 
-function isCursorAtEndOfLink(editor: Editor): boolean {
+function isCursorAtEndOfLink(editor: SlateEditor): boolean {
     if (!editor.selection) return false;
     if (!Range.isCollapsed(editor.selection)) return false;
 
     const cursor = editor.selection.focus;
 
-    const link = Editor.above(editor, { at: cursor, match: isLinkNode });
+    const link = editor.above({ at: cursor, match: isLinkNode });
     if (!link) return false;
 
     const relativeCursorPath = Path.relative(cursor.path, link[1]);

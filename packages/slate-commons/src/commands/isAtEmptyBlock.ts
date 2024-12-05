@@ -1,4 +1,5 @@
-import { Editor, Element } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Element } from 'slate';
 import { Range } from 'slate';
 
 import { isNodeEmpty } from './isNodeEmpty';
@@ -11,7 +12,7 @@ interface Options {
  * Check if the selection is pointing to an empty non-void block element.
  */
 export function isAtEmptyBlock(
-    editor: Editor,
+    editor: SlateEditor,
     at: Range | null = editor.selection,
     options?: Options,
 ): boolean {
@@ -23,7 +24,7 @@ export function isAtEmptyBlock(
         return false;
     }
 
-    const entry = Editor.node(editor, at, { depth: 1 });
+    const entry = editor.node(at, { depth: 1 });
     if (!entry) {
         return false;
     }

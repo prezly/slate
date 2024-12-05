@@ -1,7 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ParagraphNode } from '@prezly/slate-types';
 import { isParagraphNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 const shape: Record<keyof ParagraphNode, true> = {
     type: true,
@@ -12,7 +13,7 @@ const shape: Record<keyof ParagraphNode, true> = {
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
 export function normalizeRedundantParagraphAttributes(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
 ): boolean {
     if (!isParagraphNode(node)) {

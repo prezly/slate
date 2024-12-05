@@ -1,9 +1,9 @@
-import type { Editor } from 'slate';
-import { ReactEditor } from 'slate-react';
+import type { SlateEditor } from '@udecode/plate-common';
+import { focusEditor } from '@udecode/plate-common/react';
 
 import { moveCursorToEndOfDocument } from './moveCursorToEndOfDocument';
 
-export function focus(editor: Editor & ReactEditor): void {
-    ReactEditor.focus(editor);
+export function focus(editor: SlateEditor): void {
+    focusEditor(editor);
     moveCursorToEndOfDocument(editor);
 }

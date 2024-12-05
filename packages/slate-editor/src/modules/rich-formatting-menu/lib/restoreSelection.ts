@@ -1,8 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, Path, Range } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Path, Range } from 'slate';
 
-export function restoreSelection(editor: Editor, selection: Path | Range): void {
+export function restoreSelection(editor: SlateEditor, selection: Path | Range): void {
     EditorCommands.focus(editor);
-    Transforms.select(editor, selection);
+    editor.select(selection);
 }

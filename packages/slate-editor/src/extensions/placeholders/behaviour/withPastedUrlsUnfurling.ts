@@ -1,6 +1,6 @@
 import type { WithOverrides } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
-import { Editor, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { isUrl } from '#lib';
 
@@ -12,7 +12,7 @@ import { PlaceholdersManager } from '../PlaceholdersManager';
 import type { FetchOEmbedFn } from '../types';
 
 interface Options {
-    isAllowed?: (editor: Editor, url: string) => boolean;
+    isAllowed?: (editor: SlateEditor, url: string) => boolean;
 }
 
 /**
@@ -34,7 +34,7 @@ export function withPastedUrlsUnfurling(
             const pasted = data.getData('text');
 
             if (!hasHtml && isUrl(pasted) && isAllowed(editor, pasted)) {
-                Editor.withoutNormalizing(editor, () => {
+                editor.withoutNormalizing(() => {
                     const placeholder = insertPlaceholder(editor, {
                         type: PlaceholderNode.Type.EMBED,
                     });
@@ -48,7 +48,7 @@ export function withPastedUrlsUnfurling(
                         match: PlaceholderNode.isSameAs(placeholder),
                     });
                     if (path) {
-                        Transforms.select(editor, path);
+                        editor.select(path);
                     }
                 });
                 return;
@@ -61,7 +61,7 @@ export function withPastedUrlsUnfurling(
     };
 }
 
-async function bootstrap(editor: Editor, fetchOembed: FetchOEmbedFn, url: string) {
+async function bootstrap(editor: SlateEditor, fetchOembed: FetchOEmbedFn, url: string) {
     try {
         const oembed = await fetchOembed(url);
         EventsEditor.dispatchEvent(editor, 'unfurl-pasted-url', { url, oembed });

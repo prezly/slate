@@ -1,11 +1,10 @@
 import type { StoryEmbedNode } from '@prezly/slate-types';
 import { isStoryEmbedNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 export function updateStoryEmbed(
-    editor: Editor,
+    editor: SlateEditor,
     properties: Partial<Pick<StoryEmbedNode, 'appearance' | 'position' | 'header_footer'>>,
 ): void {
-    Transforms.setNodes<StoryEmbedNode>(editor, properties, { match: isStoryEmbedNode });
+    editor.setNodes<StoryEmbedNode>(properties, { match: isStoryEmbedNode });
 }

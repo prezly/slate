@@ -1,8 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { BookmarkNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
-export function removeWebBookmark(editor: Editor): BookmarkNode | null {
+export function removeWebBookmark(editor: SlateEditor): BookmarkNode | null {
     return EditorCommands.removeNode<BookmarkNode>(editor, {
         match: BookmarkNode.isBookmarkNode,
     });

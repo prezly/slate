@@ -1,9 +1,10 @@
 /* eslint-disable no-param-reassign */
-import { Editor, Range, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { Range } from 'slate';
 
 import { insertEmptyParagraph, isBlock } from '../../commands';
 
-export function withBreaksOnExpandedSelection<T extends Editor>(editor: T): T {
+export function withBreaksOnExpandedSelection<T extends SlateEditor>(editor: T): T {
     const { insertBreak } = editor;
 
     editor.insertBreak = () => {
@@ -26,7 +27,7 @@ export function withBreaksOnExpandedSelection<T extends Editor>(editor: T): T {
              * @see https://github.com/ianstormtaylor/slate/blob/b616e75d6/packages/slate/src/transforms/node.ts#L418
              */
             const nodes = Array.from(
-                Editor.nodes(editor, {
+                editor.nodes({
                     at: editor.selection,
                     match: (node) => isBlock(editor, node),
                     mode: 'highest',
@@ -38,11 +39,11 @@ export function withBreaksOnExpandedSelection<T extends Editor>(editor: T): T {
              * We have to find all pathRefs first, before doing any changes to the editor.
              * Otherwise the paths point to the invalid location, causing the reported bug.
              */
-            const pathRefs = nodes.map(([, path]) => Editor.pathRef(editor, path));
+            const pathRefs = nodes.map(([, path]) => editor.pathRef(path));
             pathRefs.forEach((pathRef) => {
                 const path = pathRef.unref();
                 if (path) {
-                    Transforms.removeNodes(editor, { at: path });
+                    editor.removeNodes({ at: path });
                 }
             });
 

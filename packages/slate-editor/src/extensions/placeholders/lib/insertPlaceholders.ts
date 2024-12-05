@@ -1,13 +1,13 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { times } from '@technically/lodash';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import type { PlaceholderNode } from '../PlaceholderNode';
 
 import { createPlaceholder } from './createPlaceholder';
 
 export function insertPlaceholders<T extends PlaceholderNode.Type>(
-    editor: Editor,
+    editor: SlateEditor,
     count: number,
     props: Partial<PlaceholderNode<T>> & Pick<PlaceholderNode<T>, 'type'>,
     ensureEmptyParagraphAfter = false,

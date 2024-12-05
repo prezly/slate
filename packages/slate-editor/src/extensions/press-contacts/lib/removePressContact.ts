@@ -1,9 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ContactNode } from '@prezly/slate-types';
 import { isContactNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
-export function removePressContact(editor: Editor): ContactNode | null {
+export function removePressContact(editor: SlateEditor): ContactNode | null {
     return EditorCommands.removeNode<ContactNode>(editor, {
         match: isContactNode,
     });

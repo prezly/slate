@@ -1,6 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
 import { isHotkey } from 'is-hotkey';
-import { Editor } from 'slate';
 
 export const EXTENSION_ID = 'SoftBreakExtension';
 
@@ -11,7 +10,7 @@ export function SoftBreakExtension(): Extension {
         id: EXTENSION_ID,
         onKeyDown(event, editor) {
             if (isShiftEnter(event.nativeEvent) && !event.isDefaultPrevented()) {
-                Editor.insertText(editor, '\n');
+                editor.insertText('\n');
                 return true;
             }
             return false;

@@ -1,13 +1,12 @@
 import type { CalloutNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 export function updateCallout(
-    editor: Editor,
+    editor: SlateEditor,
     callout: CalloutNode,
     patch: Partial<Pick<CalloutNode, 'icon' | 'align'>>,
 ) {
-    Transforms.setNodes<CalloutNode>(editor, patch, {
+    editor.setNodes<CalloutNode>(patch, {
         at: [],
         match: (node) => node === callout,
     });

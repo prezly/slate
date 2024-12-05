@@ -1,7 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { StoryBookmarkNode } from '@prezly/slate-types';
 import { isStoryBookmarkNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 const shape: Record<keyof StoryBookmarkNode, true> = {
     type: true,
@@ -16,7 +17,7 @@ const shape: Record<keyof StoryBookmarkNode, true> = {
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
 export function normalizeRedundantStoryBookmarkAttributes(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
 ): boolean {
     if (!isStoryBookmarkNode(node)) {

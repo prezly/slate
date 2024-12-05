@@ -1,4 +1,4 @@
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import * as Icons from '#icons';
 
@@ -101,7 +101,7 @@ const Suggested: Partial<Record<MenuAction, number>> = {
 };
 
 export function generateFloatingAddMenuOptions(
-    editor: Editor,
+    editor: SlateEditor,
     params: Params,
 ): Option<MenuAction>[] {
     const options = Array.from(generateOptions(editor, params));
@@ -109,7 +109,7 @@ export function generateFloatingAddMenuOptions(
 }
 
 function* generateOptions(
-    editor: Editor,
+    editor: SlateEditor,
     {
         withAttachments,
         withBlockquotes,

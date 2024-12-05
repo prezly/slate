@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { useEditorRef } from '@udecode/plate-common/react';
 import { useEffect, useRef } from 'react';
-import { useSlate } from 'slate-react';
 
 import { useUpdate } from '#lib';
 
@@ -11,7 +11,7 @@ interface Parameters {
 export function useCurrentDomNode({
     withFallbackToLastExistingNode,
 }: Parameters): HTMLElement | null {
-    const editor = useSlate();
+    const editor = useEditorRef();
     const lastKnownElementRef = useRef<HTMLElement | null>(null);
     const update = useUpdate();
 

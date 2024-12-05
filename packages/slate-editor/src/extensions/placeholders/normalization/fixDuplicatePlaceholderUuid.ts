@@ -1,12 +1,13 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { NodeEntry } from 'slate';
-import { Editor, Path, Transforms } from 'slate';
+import { Path } from 'slate';
 import * as uuid from 'uuid';
 
 import { PlaceholderNode } from '../PlaceholderNode';
 
-export function fixDuplicatePlaceholderUuid(editor: Editor, [node, path]: NodeEntry): boolean {
+export function fixDuplicatePlaceholderUuid(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (PlaceholderNode.isPlaceholderNode(node)) {
-        const [dupe] = Editor.nodes(editor, {
+        const [dupe] = editor.nodes({
             at: [],
             match: (anotherNode, anotherPath) =>
                 PlaceholderNode.isPlaceholderNode(anotherNode) &&
@@ -15,7 +16,7 @@ export function fixDuplicatePlaceholderUuid(editor: Editor, [node, path]: NodeEn
         });
 
         if (dupe) {
-            Transforms.setNodes<PlaceholderNode>(editor, { uuid: uuid.v4() }, { at: path });
+            editor.setNodes<PlaceholderNode>({ uuid: uuid.v4() }, { at: path });
             return true;
         }
     }

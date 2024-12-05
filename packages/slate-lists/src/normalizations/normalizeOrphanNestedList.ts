@@ -1,5 +1,6 @@
-import type { Editor, NodeEntry } from 'slate';
-import { Node, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
+import { Node } from 'slate';
 
 import { getNestedList, getPrevSibling } from '../lib';
 import { moveListItemsToAnotherList, moveListToListItem } from '../transformations';
@@ -10,7 +11,7 @@ import type { ListsSchema } from '../types';
  * unwrap that nested "list" and try to nest it in previous sibling "list-item".
  */
 export function normalizeOrphanNestedList(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     [node, path]: NodeEntry<Node>,
 ): boolean {
@@ -51,11 +52,11 @@ export function normalizeOrphanNestedList(
             });
         }
         // Remove now empty "list-item".
-        Transforms.removeNodes(editor, { at: path });
+        editor.removeNodes({ at: path });
     } else {
         // If there's no previous "list-item" to move nested "list" into, just lift it up.
-        Transforms.unwrapNodes(editor, { at: listPath });
-        Transforms.unwrapNodes(editor, { at: path });
+        editor.unwrapNodes({ at: listPath });
+        editor.unwrapNodes({ at: path });
     }
 
     return true;

@@ -1,8 +1,9 @@
-import type { Editor, Range } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Range } from 'slate';
 
 import { findLeafPoint } from './findLeafPoint';
 
-export function findLeafRange(editor: Editor, range: Range): Range | undefined {
+export function findLeafRange(editor: SlateEditor, range: Range): Range | undefined {
     const anchor = findLeafPoint(editor, range.anchor);
     const focus = findLeafPoint(editor, range.focus);
 

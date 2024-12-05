@@ -1,9 +1,9 @@
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import type { TablesEditor, TablesSchema } from './TablesEditor';
 import { withNormalization } from './withNormalization';
 
-export function withTables<T extends Editor>(editor: T, schema: TablesSchema) {
+export function withTables<T extends SlateEditor>(editor: T, schema: TablesSchema) {
     const tablesEditor = Object.assign(editor, {
         ...schema,
     }) as T & TablesEditor;

@@ -1,9 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { CoverageNode } from '@prezly/slate-types';
 import { isCoverageNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
-export function getCurrentCoverageNode(editor: Editor): CoverageNode | null {
+export function getCurrentCoverageNode(editor: SlateEditor): CoverageNode | null {
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
     if (isCoverageNode(currentNode)) {
