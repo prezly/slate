@@ -18,7 +18,6 @@ export function getAllExtensions() {
                 check: () => true,
             },
             withAttachments: true,
-            withAutoformat: true,
             withBlockquotes: true,
             withButtonBlocks: true,
             withCallouts: true,

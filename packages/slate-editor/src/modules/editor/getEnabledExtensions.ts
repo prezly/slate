@@ -5,7 +5,6 @@ import { CalloutNode, isImageNode, isQuoteNode } from '@prezly/slate-types';
 import { Node } from 'slate';
 
 import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
-// import { AutoformatExtension } from '#extensions/autoformat';
 import { BlockquoteExtension } from '#extensions/blockquote';
 import { ButtonBlockExtension } from '#extensions/button-block';
 import { CalloutExtension } from '#extensions/callout';
@@ -48,15 +47,6 @@ import { WebBookmarkExtension } from '#extensions/web-bookmark';
 import { EventsEditor } from '#modules/events';
 import { UPLOAD_MULTIPLE_IMAGES_SOME_ERROR_MESSAGE } from '#modules/uploadcare';
 
-// import {
-//     BLOCKQUOTE_RULES,
-//     CALLOUT_RULES,
-//     COMPOSITE_CHARACTERS_RULES,
-//     DIVIDER_RULES,
-//     HEADING_RULES,
-//     LIST_RULES,
-//     TEXT_STYLE_RULES,
-// } from './autoformatRules';
 import type { EditorProps } from './types';
 
 type Parameters = {
@@ -67,7 +57,6 @@ type Parameters = {
     Required<EditorProps>,
     | 'withAllowedBlocks'
     | 'withAttachments'
-    | 'withAutoformat'
     | 'withBlockquotes'
     | 'withButtonBlocks'
     | 'withCallouts'
@@ -103,7 +92,6 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
         onFloatingAddMenuToggle,
         withAllowedBlocks,
         withAttachments,
-        // withAutoformat,
         withBlockquotes,
         withButtonBlocks,
         withCallouts,
@@ -365,20 +353,6 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
     if (withWebBookmarks) {
         yield WebBookmarkExtension(withWebBookmarks);
     }
-
-    // if (withAutoformat) {
-    //     const defaultRules = [
-    //         ...(withBlockquotes ? BLOCKQUOTE_RULES : []),
-    //         ...(withCallouts ? CALLOUT_RULES : []),
-    //         ...(withDivider ? DIVIDER_RULES : []),
-    //         ...(withHeadings ? HEADING_RULES : []),
-    //         ...(withLists ? LIST_RULES : []),
-    //         ...(withTextStyling ? TEXT_STYLE_RULES : []),
-    //         ...COMPOSITE_CHARACTERS_RULES,
-    //     ];
-    //     const rules = withAutoformat === true ? defaultRules : withAutoformat.rules;
-    //     yield AutoformatExtension({ rules });
-    // }
 
     const placeholders = buildPlaceholdersExtensionConfiguration(parameters);
     if (placeholders) {

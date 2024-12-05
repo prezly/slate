@@ -148,7 +148,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                     onFloatingAddMenuToggle,
                     withAllowedBlocks,
                     withAttachments,
-                    withAutoformat,
                     withBlockquotes,
                     withButtonBlocks,
                     withCallouts,
@@ -183,7 +182,6 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             onFloatingAddMenuToggle,
             withAllowedBlocks,
             withAttachments,
-            withAutoformat,
             withButtonBlocks,
             withCallouts,
             withCoverage,
@@ -213,8 +211,31 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     );
 
     const enabledPlugins = useMemo(
-        () => [...Array.from(getEnabledPlugins({ events })), ...plugins],
-        [events],
+        () => [
+            ...Array.from(
+                getEnabledPlugins({
+                    events,
+                    withAutoformat,
+                    withBlockquotes,
+                    withCallouts,
+                    withDivider,
+                    withHeadings,
+                    withLists,
+                    withTextStyling,
+                }),
+            ),
+            ...plugins,
+        ],
+        [
+            events,
+            withAutoformat,
+            withBlockquotes,
+            withCallouts,
+            withDivider,
+            withHeadings,
+            withLists,
+            withTextStyling,
+        ],
     );
 
     const [getInitialValue, setInitialValue] = useGetSet(() =>
