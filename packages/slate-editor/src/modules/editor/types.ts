@@ -2,7 +2,7 @@ import type { Events } from '@prezly/events';
 import type { Decorate, EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
-import type { Editor, Element, Node } from 'slate';
+import type { Editor, Element, Node, Location } from 'slate';
 import type { Transforms } from 'slate';
 
 import type { AllowedBlocksExtensionConfiguration } from '#extensions/allowed-blocks';
@@ -72,6 +72,12 @@ export interface EditorRef {
     isModified(): boolean;
 
     resetValue(value: Value): void;
+
+    /**
+     * Programmatically set the selection in the editor.
+     * @param target - The target location for the selection.
+     */
+    select(target: Location): void;
 }
 
 export type Value = Element[];

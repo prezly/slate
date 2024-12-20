@@ -323,6 +323,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 EditorCommands.resetNodes(editor, value, editor.selection);
                 setInitialValue(value);
             },
+            select: (target) => {
+                Transforms.select(editor, target);
+            },
         }),
     );
 
