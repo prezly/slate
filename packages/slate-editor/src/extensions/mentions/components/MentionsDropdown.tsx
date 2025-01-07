@@ -1,5 +1,4 @@
-import { EditorCommands } from '@prezly/slate-commons';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { toDOMRange, useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import RangeFix from 'rangefix';
 import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
@@ -57,7 +56,7 @@ export const MentionsDropdown = <V extends object>({
                 if (!target) {
                     return EMPTY_RECT;
                 }
-                const domRange = EditorCommands.toDomRange(editor, target);
+                const domRange = toDOMRange(editor, target);
                 if (!domRange) {
                     return EMPTY_RECT;
                 }
