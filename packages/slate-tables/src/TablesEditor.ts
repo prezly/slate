@@ -50,7 +50,7 @@ export namespace TablesEditor {
         return TableCommands.insertRow(editor, location, 'bellow');
     }
 
-    export function isTablesEditor(editor: unknown): editor is TablesEditor {
+    export function isTablesEditor(editor: SlateEditor): editor is TablesEditor {
         return typeof editor === 'object' && editor !== null && 'isTableCellNode' in editor;
     }
 }

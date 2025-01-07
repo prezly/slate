@@ -1,3 +1,4 @@
+import { isEditor as isEditorObject } from '@udecode/plate-common';
 import { Location, Node } from 'slate';
 
 import type { TableCellNode, TableNode } from '../nodes';
@@ -28,7 +29,7 @@ function findTableAndCellNodes(
     let tableNode: TableNode | undefined;
     let cellNode: TableCellNode | undefined;
 
-    const isEditor = TablesEditor.isTablesEditor(editorOrTable);
+    const isEditor = isEditorObject(editorOrTable) && TablesEditor.isTablesEditor(editorOrTable);
     const isLocation = Location.isLocation(locationOrCell);
 
     if (isEditor || isLocation || locationOrCell === null) {
