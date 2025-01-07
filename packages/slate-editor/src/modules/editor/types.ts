@@ -4,7 +4,7 @@ import type { Alignment } from '@prezly/slate-types';
 import type { TElement } from '@udecode/plate-common';
 import type { PlatePlugin } from '@udecode/plate-common/react';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
-import type { Element, Node } from 'slate';
+import type { Element, Node, Location } from 'slate';
 import type { Transforms } from 'slate';
 
 import type { AllowedBlocksExtensionConfiguration } from '#extensions/allowed-blocks';
@@ -74,6 +74,12 @@ export interface EditorRef {
     isModified(): boolean;
 
     resetValue(value: Value): void;
+
+    /**
+     * Programmatically set the selection in the editor.
+     * @param target - The target location for the selection.
+     */
+    select(target: Location): void;
 }
 
 export type Value = TElement[];
