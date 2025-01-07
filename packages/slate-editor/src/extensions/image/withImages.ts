@@ -21,7 +21,10 @@ export function withImages<T extends SlateEditor>(editor: T): T {
                 !editor.isVoid(currentNode)
             ) {
                 const domRange = toDOMRange(editor, editor.selection);
-                const contents = domRange!.cloneContents();
+                if (!domRange) {
+                    return;
+                }
+                const contents = domRange.cloneContents();
                 const encodedFragment = encodeSlateFragment(editor.getFragment());
                 data.setData('application/x-slate-fragment', encodedFragment);
                 data.setData('text/html', convertToHtml(contents));
