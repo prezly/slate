@@ -11,6 +11,7 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
+import { select } from '@udecode/plate-common';
 import { isEditorFocused, Plate } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React, {
@@ -343,7 +344,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 setInitialValue(value);
             },
             select: (target) => {
-                Transforms.select(editor, target);
+                select(editor, target);
             },
         }),
     );
