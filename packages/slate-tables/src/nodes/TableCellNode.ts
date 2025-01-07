@@ -1,8 +1,9 @@
-import type { Element, Location } from 'slate';
+import type { TElement } from '@udecode/plate-common';
+import type { Location } from 'slate';
 
 import type { TablesEditor } from '../TablesEditor';
 
-export interface TableCellNode extends Element {
+export interface TableCellNode extends TElement {
     rowspan?: number;
     colspan?: number;
 }

@@ -1,12 +1,12 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Element, Location, Node, Text } from 'slate';
+import type { SlateEditor, TElement, TText } from '@udecode/plate-common';
+import type { Location, Node } from 'slate';
 
 import * as TableCommands from './commands';
 import { TableCellNode, TableRowNode, TableNode } from './nodes';
 import * as TableQueries from './queries';
 
 export interface TablesSchema {
-    createContentNode: () => Element | Text;
+    createContentNode: () => TElement | TText;
     createTableNode: (props: Partial<TableNode>) => TableNode;
     createTableRowNode: (props: Partial<TableRowNode>) => TableRowNode;
     createTableCellNode: (props: Partial<TableCellNode>) => TableCellNode;
