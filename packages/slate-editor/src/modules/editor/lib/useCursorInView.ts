@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
 import { isExpanded, type SlateEditor } from '@udecode/plate-common';
+import { toDOMNode } from '@udecode/plate-common/react';
 import jsonStableStringify from 'json-stable-stringify';
 import { useLayoutEffect } from 'react';
 
@@ -56,7 +57,7 @@ function ensureCursorInView(editor: SlateEditor, parameters: Parameters): void {
          * As a fallback, we use the DOM element of the currentNode and ensure this
          * element is in view.
          */
-        const domElement = EditorCommands.toDomNode(editor, currentNode);
+        const domElement = toDOMNode(editor, currentNode) ?? null;
         ensureElementInView(domElement, {
             minBottom: parameters.minBottom,
             minTop: parameters.minTop,

@@ -52,7 +52,6 @@ export {
 } from './roughly-normalize';
 export { saveSelection } from './saveSelection';
 export { selectNode } from './selectNode';
-export { toDomNode } from './toDomNode';
 export { toDomRange } from './toDomRange';
 export { toggleMark } from './toggleMark';
 export { unsetMark } from './unsetMark';
