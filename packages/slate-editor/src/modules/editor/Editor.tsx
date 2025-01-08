@@ -229,6 +229,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         ],
         [
             events,
+            plugins,
             withAutoformat,
             withBlockquotes,
             withCallouts,
