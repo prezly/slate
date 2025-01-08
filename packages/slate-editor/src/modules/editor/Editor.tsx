@@ -28,6 +28,7 @@ import { useFunction, useGetSet, useSize } from '#lib';
 
 import { insertButtonBlock } from '#extensions/button-block';
 import { insertCallout } from '#extensions/callout';
+import { FlashNodes } from '#extensions/flash-nodes';
 import { FloatingAddMenu, type Option } from '#extensions/floating-add-menu';
 import {
     insertPlaceholder,
@@ -899,7 +900,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                     style={contentStyle}
                                 />
 
-                                {/* <FlashNodes containerRef={containerRef} /> */}
+                                <FlashNodes containerRef={containerRef} />
 
                                 {!hasCustomPlaceholder && (
                                     <Placeholder className="editor-placeholder">

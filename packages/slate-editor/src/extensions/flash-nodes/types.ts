@@ -1,6 +1,6 @@
-import type { Node } from 'slate';
+import type { TNode } from '@udecode/plate-common';
 
 export interface FlashEditor {
-    flash(from: Node | undefined, to: Node | undefined): void;
-    nodesToFlash: Array<[top: Node, bottom: Node]>;
+    flash(from: TNode | undefined, to: TNode | undefined): void;
+    nodesToFlash: Array<[top: TNode, bottom: TNode]>;
 }
