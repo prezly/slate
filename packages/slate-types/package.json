@@ -35,7 +35,7 @@
         "test": "pnpm test:build",
         "test:build": "pnpm test:esm && pnpm test:types",
         "test:esm": "node build/index.js",
-        "test:types": "tsc --noEmit --skipLibCheck build/index.d.ts",
+        "test:types": "tsc --noEmit --esModuleInterop build/index.d.ts",
         "clean": "pnpm clean:build && pnpm clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
