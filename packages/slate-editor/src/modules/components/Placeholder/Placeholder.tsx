@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorState } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import React from 'react';
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function Placeholder({ children, className }: Props) {
-    const editor = useEditorRef();
+    const editor = useEditorState();
 
     if (!EditorCommands.isEmpty(editor)) {
         return null;
