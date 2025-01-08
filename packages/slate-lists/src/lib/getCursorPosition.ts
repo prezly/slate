@@ -1,8 +1,6 @@
 import type { SlateEditor } from '@udecode/plate-common';
 import type { Point } from 'slate';
-import { Path } from 'slate';
-import { Span } from 'slate';
-import { Range } from 'slate';
+import { Path, Range, Span } from 'slate';
 
 /**
  * Get the cursor position for the given location.
