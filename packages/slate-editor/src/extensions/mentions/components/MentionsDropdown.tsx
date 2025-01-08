@@ -1,4 +1,4 @@
-import { toDOMRange, useEditorRef } from '@udecode/plate-common/react';
+import { toDOMRange, useEditorState } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import RangeFix from 'rangefix';
 import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
@@ -43,7 +43,7 @@ export const MentionsDropdown = <V extends object>({
     renderOption,
     target,
 }: Props<V>): ReturnType<FunctionComponent<V>> => {
-    const editor = useEditorRef();
+    const editor = useEditorState();
     const suggestionsPanelRef = useRef<HTMLUListElement | null>(null);
 
     useEffect(() => {
