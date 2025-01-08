@@ -858,7 +858,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 {sizer}
                 <Plate
                     editor={editor}
-                    onChange={({ value }) => {
+                    onValueChange={({ editor, value }) => {
                         /**
                          * @see https://docs.slatejs.org/concepts/11-normalizing#built-in-constraints
                          *
