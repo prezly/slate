@@ -127,14 +127,14 @@ export const WithButtons = () => {
             style={{ marginLeft: '3rem' }}
             withAlignmentControls
             withAttachments
-            // withAutoformat
-            // withButtonBlocks
-            // withFloatingAddMenu={{
-            //     tooltip: {
-            //         placement: 'left',
-            //         content: 'Add content to your story',
-            //     },
-            // }}
+            withAutoformat
+            withButtonBlocks
+            withFloatingAddMenu={{
+                tooltip: {
+                    placement: 'left',
+                    content: 'Add content to your story',
+                },
+            }}
         />
     );
 };
