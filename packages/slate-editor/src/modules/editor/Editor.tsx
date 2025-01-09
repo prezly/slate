@@ -12,6 +12,7 @@ import {
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
 import { select } from '@udecode/plate-common';
+import type { PlatePlugin } from '@udecode/plate-common/react';
 import { isEditorFocused, Plate } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React, {
@@ -63,6 +64,8 @@ import type { EditorProps, EditorRef, Value } from './types';
 import { useCreateEditor } from './useCreateEditor';
 import { useOnChange } from './useOnChange';
 
+const EMPTY_PLUGINS: PlatePlugin[] = [];
+
 export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) => {
     const {
         align = Alignment.LEFT,
@@ -76,7 +79,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         blurOnOutsideClick = false,
         onKeyDown = noop,
         placeholder,
-        plugins = [],
+        plugins = EMPTY_PLUGINS,
         popperMenuOptions = {},
         readOnly,
         style,
