@@ -1,6 +1,6 @@
 import { Alignment } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
-import type { PlateEditor } from '@udecode/plate-common/react';
+import type { SlateEditor } from '@udecode/plate-common';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
 
@@ -103,7 +103,7 @@ export function getAllExtensions() {
 }
 
 export function createEditor(input: JSX.Element) {
-    return createBaseEditor(input as unknown as PlateEditor, getAllExtensions, [
+    return createBaseEditor(input as unknown as SlateEditor, getAllExtensions, [
         withReact,
         withHistory,
     ]);
