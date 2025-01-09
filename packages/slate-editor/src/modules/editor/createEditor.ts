@@ -9,8 +9,6 @@ import type { Extension } from '@prezly/slate-commons';
 import { isNotUndefined } from '@technically/is-not-undefined';
 import { flow } from '@technically/lodash';
 import type { SlateEditor } from '@udecode/plate-common';
-import { withHistory } from 'slate-history';
-import { withReact } from 'slate-react';
 
 import { createParagraph } from '#extensions/paragraphs';
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
@@ -29,8 +27,6 @@ export function createEditor(baseEditor: SlateEditor, getExtensions: () => Exten
         .filter(isNotUndefined);
 
     return flow([
-        withReact,
-        withHistory,
         withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,
