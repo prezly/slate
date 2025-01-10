@@ -850,6 +850,15 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
         props.onChange(editor.serialize(value) as Value);
     });
 
+    const floatingSnippetRenderInput = useFunction(() => {
+        return (
+            withSnippets &&
+            withSnippets.renderInput({
+                onCreate: submitFloatingSnippetInput,
+            })
+        );
+    });
+
     return (
         <PopperOptionsContext.Provider value={popperMenuOptions}>
             <div
@@ -983,11 +992,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                                         containerRef={containerRef}
                                         onClose={closeFloatingSnippetInput}
                                         onRootClose={rootCloseFloatingSnippetInput}
-                                        renderInput={() =>
-                                            withSnippets.renderInput({
-                                                onCreate: submitFloatingSnippetInput,
-                                            })
-                                        }
+                                        renderInput={floatingSnippetRenderInput}
                                     />
                                 )}
                             </>

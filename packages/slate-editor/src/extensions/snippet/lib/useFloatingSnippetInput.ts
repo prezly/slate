@@ -3,6 +3,8 @@ import type { DocumentNode } from '@prezly/slate-types';
 import type { SlateEditor } from '@udecode/plate-common';
 import { useState } from 'react';
 
+import { useFunction } from '#lib';
+
 import { EventsEditor } from '#modules/events';
 
 interface State {
@@ -13,29 +15,29 @@ interface Actions {
     close: () => void;
     open: () => void;
     rootClose: () => void;
-    submit: (node: DocumentNode) => Promise<void>;
+    submit: (node: DocumentNode) => void;
 }
 
 export function useFloatingSnippetInput(editor: SlateEditor): [State, Actions] {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const savedSelection = useSavedSelection();
 
-    function close() {
+    const close = useFunction(() => {
         savedSelection.restore(editor, { focus: true });
         setIsOpen(false);
-    }
+    });
 
-    function rootClose() {
+    const rootClose = useFunction(() => {
         setIsOpen(false);
-    }
+    });
 
-    function open() {
+    const open = useFunction(() => {
         EventsEditor.dispatchEvent(editor, 'snippet-dialog-opened');
         setIsOpen(true);
         savedSelection.save(editor);
-    }
+    });
 
-    async function submit(node: DocumentNode) {
+    const submit = useFunction((node: DocumentNode) => {
         EventsEditor.dispatchEvent(editor, 'snippet-dialog-submitted');
 
         close();
@@ -56,7 +58,7 @@ export function useFloatingSnippetInput(editor: SlateEditor): [State, Actions] {
                 type: 'error',
             });
         }
-    }
+    });
 
     return [{ isOpen }, { close, open, rootClose, submit }];
 }
