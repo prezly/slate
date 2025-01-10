@@ -6,7 +6,7 @@ import type { UploadInfo } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
 import { useEditorRef } from '@udecode/plate-common/react';
 import type { ReactNode } from 'react';
-import React, { type DragEvent, useEffect, useState } from 'react';
+import React, { type DragEvent } from 'react';
 import { useSelected } from 'slate-react';
 
 import { PlaceholderCoverage } from '#icons';
@@ -21,7 +21,7 @@ import {
     type Props as PlaceholderElementProps,
 } from '../components/PlaceholderElement';
 import { type Props as BaseProps } from '../components/SearchInputPlaceholderElement';
-import { replacePlaceholder } from '../lib';
+import { replacePlaceholder, useCustomRendered } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 import { PlaceholdersManager, usePlaceholderManagement } from '../PlaceholdersManager';
 
@@ -38,7 +38,7 @@ export function CoveragePlaceholderElement({
 }: CoveragePlaceholderElement.Props) {
     const editor = useEditorRef();
     const isSelected = useSelected();
-    const [isCustomRendered, setCustomRendered] = useState(true);
+    const [isCustomRendered, setCustomRendered] = useCustomRendered(isSelected);
 
     const handleUpload = useFunction(
         (promise: Promise<CoverageRef> | ProgressPromise<CoverageRef, UploadInfo>) => {
@@ -86,12 +86,6 @@ export function CoveragePlaceholderElement({
     usePlaceholderManagement(element.type, element.uuid, {
         onResolve: handleSelect,
     });
-
-    useEffect(() => {
-        if (!isSelected) {
-            setCustomRendered(false);
-        }
-    }, [isSelected]);
 
     return (
         <PlaceholderElement

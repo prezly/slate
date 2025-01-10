@@ -1,7 +1,7 @@
 import type { StoryRef } from '@prezly/sdk';
 import { useEditorRef } from '@udecode/plate-common/react';
 import type { ReactNode } from 'react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelected } from 'slate-react';
 
 import { PlaceholderStory } from '#icons';
@@ -15,7 +15,7 @@ import {
     type Props as PlaceholderElementProps,
 } from '../components/PlaceholderElement';
 import { type Props as BaseProps } from '../components/SearchInputPlaceholderElement';
-import { replacePlaceholder } from '../lib';
+import { replacePlaceholder, useCustomRendered } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 
 export function StoryBookmarkPlaceholderElement({
@@ -26,9 +26,9 @@ export function StoryBookmarkPlaceholderElement({
     removable,
     renderPlaceholder,
 }: StoryBookmarkPlaceholderElement.Props) {
-    const [isCustomRendered, setCustomRendered] = useState(true);
     const editor = useEditorRef();
     const isSelected = useSelected();
+    const [isCustomRendered, setCustomRendered] = useCustomRendered(isSelected);
 
     const handleSelect = useFunction((uuid: StoryRef['uuid']) => {
         EventsEditor.dispatchEvent(editor, 'story-bookmark-placeholder-submitted', {
@@ -43,12 +43,6 @@ export function StoryBookmarkPlaceholderElement({
     const handleRemove = useFunction(() => {
         editor.removeNodes({ at: [], match: (node) => node === element });
     });
-
-    useEffect(() => {
-        if (!isSelected) {
-            setCustomRendered(false);
-        }
-    }, [isSelected]);
 
     return (
         <PlaceholderElement

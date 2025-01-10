@@ -1,7 +1,7 @@
 import type { ContactInfo } from '@prezly/slate-types';
 import { useEditorRef } from '@udecode/plate-common/react';
 import type { ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import { useSelected } from 'slate-react';
 
@@ -16,7 +16,7 @@ import {
     type Props as PlaceholderElementProps,
 } from '../../components/PlaceholderElement';
 import { type Props as BaseProps } from '../../components/SearchInputPlaceholderElement';
-import { replacePlaceholder } from '../../lib';
+import { replacePlaceholder, useCustomRendered } from '../../lib';
 import type { PlaceholderNode } from '../../PlaceholderNode';
 
 import { FormFrame } from './FormFrame';
@@ -34,9 +34,9 @@ export function InlineContactPlaceholderElement({
     removable,
     renderPlaceholder,
 }: InlineContactPlaceholderElement.Props) {
-    const [isCustomRendered, setCustomRendered] = useState(true);
     const editor = useEditorRef();
     const isSelected = useSelected();
+    const [isCustomRendered, setCustomRendered] = useCustomRendered(isSelected);
 
     const [mode, setMode] = useState(Mode.SEARCH);
     const [contact, setContact] = useState<ContactInfo | null>(null);
@@ -79,12 +79,6 @@ export function InlineContactPlaceholderElement({
 
         return undefined;
     });
-
-    useEffect(() => {
-        if (!isSelected) {
-            setCustomRendered(false);
-        }
-    }, [isSelected]);
 
     return (
         <PlaceholderElement
