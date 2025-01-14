@@ -60,6 +60,11 @@ const LINK_MENU_OFFSET_MODIFIER: Modifier<'offset'> = {
     },
 };
 
+const LINK_MENU_FLIP_MODIFIER: Modifier<'flip'> = {
+    name: 'flip',
+    enabled: true,
+};
+
 export function RichFormattingMenu({
     availableWidth,
     containerElement,
@@ -200,7 +205,7 @@ export function RichFormattingMenu({
         return (
             <TextSelectionPortalV2
                 containerElement={containerElement}
-                modifiers={[LINK_MENU_OFFSET_MODIFIER]}
+                modifiers={[LINK_MENU_OFFSET_MODIFIER, LINK_MENU_FLIP_MODIFIER]}
                 modifySelectionRect={getTextSelectionLeftTopCornerRect}
                 placement="bottom-start"
                 arrowClassName={styles.LinkMenu}

@@ -78,7 +78,7 @@ export const BasePortalV2: FunctionComponent<Props> = ({
         });
     }
 
-    const { attributes, styles } = usePopper(referenceElement, popperElement, {
+    const { attributes, state, styles } = usePopper(referenceElement, popperElement, {
         modifiers: popperModifiers,
         placement,
     });
@@ -108,6 +108,8 @@ export const BasePortalV2: FunctionComponent<Props> = ({
         }
     });
 
+    const computedPlacement = state?.placement ?? placement;
+
     return (
         <Portal node={containerElement}>
             <div
@@ -124,10 +126,10 @@ export const BasePortalV2: FunctionComponent<Props> = ({
                     <div
                         ref={setArrowElement}
                         className={classNames(arrowClassName, portalStyles.arrow, {
-                            [portalStyles.top]: placement.indexOf('top') >= 0,
-                            [portalStyles.bottom]: placement.indexOf('bottom') >= 0,
-                            [portalStyles.left]: placement.indexOf('left') >= 0,
-                            [portalStyles.right]: placement.indexOf('right') >= 0,
+                            [portalStyles.top]: computedPlacement.indexOf('top') >= 0,
+                            [portalStyles.bottom]: computedPlacement.indexOf('bottom') >= 0,
+                            [portalStyles.left]: computedPlacement.indexOf('left') >= 0,
+                            [portalStyles.right]: computedPlacement.indexOf('right') >= 0,
                         })}
                         style={styles.arrow}
                     />
