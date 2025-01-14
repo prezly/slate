@@ -5,13 +5,10 @@ import {
     withNormalization,
     withUserFriendlyDeleteBehavior,
 } from '@prezly/slate-commons';
-import type { Extension } from '@prezly/slate-commons';
-import type { WithOverrides } from '@prezly/slate-commons';
+import type { Extension, WithOverrides } from '@prezly/slate-commons';
 import { isNotUndefined } from '@technically/is-not-undefined';
 import { flow } from '@technically/lodash';
-import type { Editor } from 'slate';
-import { withHistory } from 'slate-history';
-import { withReact } from 'slate-react';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { createParagraph } from '#extensions/paragraphs';
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
@@ -25,7 +22,7 @@ import {
 } from './plugins';
 
 export function createEditor(
-    baseEditor: Editor,
+    baseEditor: SlateEditor,
     getExtensions: () => Extension[],
     plugins: WithOverrides[] = [],
 ) {
@@ -34,8 +31,7 @@ export function createEditor(
         .filter(isNotUndefined);
 
     return flow([
-        withReact,
-        withHistory,
+        ...plugins,
         withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,
@@ -48,6 +44,5 @@ export function createEditor(
         withElementsEqualityCheck(getExtensions),
         withSerialization(getExtensions),
         ...overrides,
-        ...plugins,
     ])(baseEditor);
 }

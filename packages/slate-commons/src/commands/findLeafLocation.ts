@@ -1,11 +1,12 @@
-import type { Editor, Location } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Location } from 'slate';
 import { Path, Point } from 'slate';
 
 import { findLeafPath } from './findLeafPath';
 import { findLeafPoint } from './findLeafPoint';
 import { findLeafRange } from './findLeafRange';
 
-export function findLeafLocation(editor: Editor, location: Location): Location | undefined {
+export function findLeafLocation(editor: SlateEditor, location: Location): Location | undefined {
     if (Path.isPath(location)) {
         return findLeafPath(editor, location);
     }

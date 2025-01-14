@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { type VariableNode, isVariableNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 const SHAPE: Record<keyof VariableNode, boolean> = {
     type: true,
@@ -11,7 +12,7 @@ const SHAPE: Record<keyof VariableNode, boolean> = {
 const ALLOWED_ATTRIBUTES = Object.keys(SHAPE);
 
 export function removeUnknownVariableNodeAttributes(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
 ): boolean {
     if (!isVariableNode(node)) {

@@ -7,11 +7,10 @@ import type {
     RenderElement,
     RenderLeaf,
 } from '@prezly/slate-commons';
+import type { SlateEditor } from '@udecode/plate-common';
+import { PlateContent } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
-import type { Editor } from 'slate';
-import type { ReactEditor } from 'slate-react';
-import { Editable } from 'slate-react';
 
 import {
     combineDecorate,
@@ -25,7 +24,7 @@ import {
 export interface Props {
     className?: string;
     decorate?: Decorate;
-    editor: Editor & ReactEditor;
+    editor: SlateEditor;
     /**
      * Each extension fields will be combined by role.
      *
@@ -109,7 +108,7 @@ export function EditableWithExtensions({
     );
 
     return (
-        <Editable
+        <PlateContent
             {...props}
             className={classNames(className, 'notranslate')}
             translate="no"

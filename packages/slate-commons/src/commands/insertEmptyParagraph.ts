@@ -1,7 +1,7 @@
 import type { ParagraphNode } from '@prezly/slate-types';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import type { Editor, Location } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Location } from 'slate';
 
 function createEmptyParagraph(): ParagraphNode {
     return {
@@ -11,10 +11,10 @@ function createEmptyParagraph(): ParagraphNode {
 }
 
 export function insertEmptyParagraph(
-    editor: Editor,
+    editor: SlateEditor,
     options: { at?: Location; select?: boolean } = {},
 ): void {
     // Using `mode: 'highest' under assumption that "paragraph" can only be
     // at the root of the document.
-    Transforms.insertNodes(editor, [createEmptyParagraph()], { ...options, mode: 'highest' });
+    editor.insertNodes([createEmptyParagraph()], { ...options, mode: 'highest' });
 }

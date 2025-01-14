@@ -1,5 +1,5 @@
+import { createPlateEditor } from '@udecode/plate-common/react';
 import * as React from 'react';
-import { createEditor as createSlateEditor } from 'slate';
 import { type RenderElementProps, Slate } from 'slate-react';
 
 import { PlaceholderEmbed } from '#icons';
@@ -13,7 +13,7 @@ import { PlaceholdersManager } from '../PlaceholdersManager';
 import { InputPlaceholderElement } from './InputPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createSlateEditor(), () => extensions);
+const editor = createEditor(createPlateEditor(), () => extensions);
 
 const placeholder: PlaceholderNode = {
     type: PlaceholderNode.Type.EMBED,

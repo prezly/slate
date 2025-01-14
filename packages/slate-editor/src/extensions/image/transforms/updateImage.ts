@@ -1,13 +1,12 @@
 import type { ImageNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 export function updateImage(
-    editor: Editor,
+    editor: SlateEditor,
     image: ImageNode,
     patch: Partial<Pick<ImageNode, 'align' | 'file' | 'layout' | 'href' | 'width' | 'new_tab'>>,
 ) {
-    Transforms.setNodes<ImageNode>(editor, patch, {
+    editor.setNodes<ImageNode>(patch, {
         at: [],
         match: (node) => node === image,
     });

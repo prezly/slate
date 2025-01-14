@@ -1,12 +1,13 @@
-import { type Node, Editor, Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import { type Node } from 'slate';
 
-export function selectNode(editor: Editor, node: Node): void {
-    const [entry] = Editor.nodes(editor, {
+export function selectNode(editor: SlateEditor, node: Node): void {
+    const [entry] = editor.nodes({
         at: [],
         match: (n) => n === node,
     });
 
     if (entry) {
-        Transforms.select(editor, entry[1]);
+        editor.select(entry[1]);
     }
 }

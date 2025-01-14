@@ -3,9 +3,10 @@ import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareFile } from '@pr
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import type { FilePromise } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
+import { useEditorRef } from '@udecode/plate-common/react';
 import type { DragEventHandler } from 'react';
 import React from 'react';
-import { useSelected, useSlateStatic } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { PlaceholderAttachment } from '#icons';
 import { useFunction } from '#lib';
@@ -25,7 +26,7 @@ interface Props extends Omit<BaseProps, 'icon' | 'title' | 'description' | 'onDr
 }
 
 export function AttachmentPlaceholderElement({ children, element, ...props }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const isSelected = useSelected();
 
     function processSelectedFiles(files: FilePromise[]) {

@@ -1,9 +1,9 @@
 import type { ContactInfo, ContactNode } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import { useCallback, useState } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 import { useSelected } from 'slate-react';
-import { useSlateStatic } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useFunction } from '#lib';
@@ -28,7 +28,7 @@ interface Props extends RenderElementProps {
 export function InlineContactElement(props: Props) {
     const { attributes, element, children } = props;
     const { contact } = element;
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const selected = useSelected();
     const [mode, setMode] = useState(Mode.READ);
 

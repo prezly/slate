@@ -1,8 +1,8 @@
 import type { StoryRef } from '@prezly/sdk';
+import { useEditorRef } from '@udecode/plate-common/react';
 import type { ReactNode } from 'react';
-import React, { useEffect, useState } from 'react';
-import { Transforms } from 'slate';
-import { useSelected, useSlateStatic } from 'slate-react';
+import React from 'react';
+import { useSelected } from 'slate-react';
 
 import { PlaceholderStory } from '#icons';
 import { useFunction } from '#lib';
@@ -15,7 +15,7 @@ import {
     type Props as PlaceholderElementProps,
 } from '../components/PlaceholderElement';
 import { type Props as BaseProps } from '../components/SearchInputPlaceholderElement';
-import { replacePlaceholder } from '../lib';
+import { replacePlaceholder, useCustomRendered } from '../lib';
 import type { PlaceholderNode } from '../PlaceholderNode';
 
 export function StoryEmbedPlaceholderElement({
@@ -26,9 +26,9 @@ export function StoryEmbedPlaceholderElement({
     removable,
     renderPlaceholder,
 }: StoryEmbedPlaceholderElement.Props) {
-    const [isCustomRendered, setCustomRendered] = useState(true);
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const isSelected = useSelected();
+    const [isCustomRendered, setCustomRendered] = useCustomRendered(isSelected);
 
     const handleSelect = useFunction((uuid: StoryRef['uuid']) => {
         EventsEditor.dispatchEvent(editor, 'story-embed-placeholder-submitted', {
@@ -41,14 +41,8 @@ export function StoryEmbedPlaceholderElement({
     });
 
     const handleRemove = useFunction(() => {
-        Transforms.removeNodes(editor, { at: [], match: (node) => node === element });
+        editor.removeNodes({ at: [], match: (node) => node === element });
     });
-
-    useEffect(() => {
-        if (!isSelected) {
-            setCustomRendered(false);
-        }
-    }, [isSelected]);
 
     return (
         <PlaceholderElement

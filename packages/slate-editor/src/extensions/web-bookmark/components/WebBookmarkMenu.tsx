@@ -1,8 +1,9 @@
 import { BookmarkNode } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
-import { useSelected, useSlate } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import type { OptionsGroupOption } from '#components';
 import { Button, OptionsGroup, Toggle, Toolbox, VStack } from '#components';
@@ -67,7 +68,7 @@ export const WebBookmarkMenu: FunctionComponent<Props> = ({
     withConversionOptions,
     onConvert,
 }) => {
-    const editor = useSlate();
+    const editor = useEditorRef();
     const isSelected = useSelected();
 
     function handleRemove() {

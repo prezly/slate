@@ -1,8 +1,9 @@
 import { BookmarkNode } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import type { FunctionComponent } from 'react';
 import { useCallback, useRef, useState } from 'react';
 import React from 'react';
-import { useSlateStatic, type RenderElementProps } from 'slate-react';
+import { type RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useResizeObserver } from '#lib';
@@ -30,7 +31,7 @@ export const WebBookmarkElement: FunctionComponent<Props> = ({
     withNewTabOption,
     withConversionOptions,
 }) => {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     const card = useRef<HTMLDivElement | null>(null);
     const [isSmallViewport, setSmallViewport] = useState(false);

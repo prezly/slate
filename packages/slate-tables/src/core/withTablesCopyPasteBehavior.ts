@@ -1,4 +1,5 @@
-import { type Range, Node, Path } from 'slate';
+import { getNodeFragment } from '@udecode/plate-common';
+import { type Range, Path } from 'slate';
 
 import { findParentCell } from '../queries';
 import type { TablesEditor } from '../TablesEditor';
@@ -14,7 +15,7 @@ export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): 
                 const [cell, cellPath] = cellEntry;
                 const { focus, anchor } = editor.selection;
 
-                return Node.fragment(cell, {
+                return getNodeFragment(cell, {
                     anchor: {
                         offset: anchor.offset,
                         path: Path.relative(anchor.path, cellPath),

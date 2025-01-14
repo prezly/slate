@@ -1,6 +1,6 @@
 import type { VariableNode } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import React, { useState } from 'react';
-import { useSlateStatic } from 'slate-react';
 
 import { Button, Input, Menu as BaseMenu, Toolbox, VStack, TooltipV2 } from '#components';
 import { Delete, Info } from '#icons';
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export function VariableMenu({ container, element, onClose, variables }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const popperOptions = usePopperOptionsContext();
 
     const [fallback, setFallback] = useState<string>(element.fallback ?? '');

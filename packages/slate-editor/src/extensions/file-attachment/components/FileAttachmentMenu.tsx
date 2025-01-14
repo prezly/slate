@@ -1,10 +1,10 @@
 import type { AttachmentNode } from '@prezly/slate-types';
 import { isAttachmentNode } from '@prezly/slate-types';
 import { UploadcareFile } from '@prezly/uploadcare';
+import type { SlateEditor } from '@udecode/plate-common';
+import { useEditorRef } from '@udecode/plate-common/react';
 import React, { useCallback } from 'react';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
-import { useSelected, useSlate } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { Button, Input, Toolbox, VStack } from '#components';
 import { Delete } from '#icons';
@@ -13,12 +13,12 @@ import { removeFileAttachment } from '../transforms';
 
 interface Props {
     element: AttachmentNode;
-    onEdited: (editor: Editor, updated: AttachmentNode) => void;
-    onRemoved: (editor: Editor, element: AttachmentNode) => void;
+    onEdited: (editor: SlateEditor, updated: AttachmentNode) => void;
+    onRemoved: (editor: SlateEditor, element: AttachmentNode) => void;
 }
 
 export function FileAttachmentMenu({ element, onEdited, onRemoved }: Props) {
-    const editor = useSlate();
+    const editor = useEditorRef();
     const isSelected = useSelected();
     const [description, setDescription] = React.useState(element.description);
     const [filename, setFilename] = React.useState(getFilename(element.file.filename));
@@ -43,7 +43,7 @@ export function FileAttachmentMenu({ element, onEdited, onRemoved }: Props) {
             description,
         };
 
-        Transforms.setNodes<AttachmentNode>(editor, update, {
+        editor.setNodes<AttachmentNode>(update, {
             match: isAttachmentNode,
         });
 

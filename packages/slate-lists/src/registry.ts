@@ -1,22 +1,22 @@
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import type { ListsSchema } from './types';
 
-const EDITOR_LISTS_SCHEMA = new WeakMap<Editor, ListsSchema>();
+const EDITOR_LISTS_SCHEMA = new WeakMap<SlateEditor, ListsSchema>();
 
-export function register(editor: Editor, schema: ListsSchema): void {
+export function register(editor: SlateEditor, schema: ListsSchema): void {
     EDITOR_LISTS_SCHEMA.set(editor, schema);
 }
 
-export function unregister(editor: Editor): void {
+export function unregister(editor: SlateEditor): void {
     EDITOR_LISTS_SCHEMA.delete(editor);
 }
 
-export function has(editor: Editor) {
+export function has(editor: SlateEditor) {
     return EDITOR_LISTS_SCHEMA.has(editor);
 }
 
-export function get(editor: Editor): ListsSchema {
+export function get(editor: SlateEditor): ListsSchema {
     const schema = EDITOR_LISTS_SCHEMA.get(editor);
     if (!schema) {
         throw new Error(

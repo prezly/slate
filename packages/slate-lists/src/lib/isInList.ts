@@ -1,10 +1,10 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Location } from 'slate';
-import { Editor } from 'slate';
 
 import type { ListsSchema } from '../types';
 
 export function isInList(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     at: Location | null = editor.selection,
 ) {
@@ -12,7 +12,7 @@ export function isInList(
         return false;
     }
 
-    for (const [currentNode] of Editor.levels(editor, { at })) {
+    for (const [currentNode] of editor.levels({ at })) {
         if (schema.isListNode(currentNode)) {
             return true;
         }

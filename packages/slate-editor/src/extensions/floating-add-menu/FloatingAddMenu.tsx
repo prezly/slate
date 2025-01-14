@@ -5,13 +5,13 @@ import {
     isHeadingNode,
     isParagraphNode,
 } from '@prezly/slate-types';
+import { getNodeString } from '@udecode/plate-common';
+import { useEditorState } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { useEffect, useState } from 'react';
 import type { Modifier } from 'react-popper';
-import { Node, Transforms } from 'slate';
-import { useSlate } from 'slate-react';
 
 import { TooltipV2 } from '#components';
 import { useKeyboardNavigation, useSize } from '#lib';
@@ -64,7 +64,7 @@ export function FloatingAddMenu<Action>({
     showTooltipByDefault,
     tooltip,
 }: Props<Action>) {
-    const editor = useSlate();
+    const editor = useEditorState();
     const [sizer, { width: containerWidth }] = useSize(Sizer);
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
@@ -124,7 +124,7 @@ export function FloatingAddMenu<Action>({
             if (displayedOptions.length === 0) {
                 event.preventDefault();
                 event.stopPropagation();
-                Transforms.insertText(editor, `${input} `);
+                editor.insertText(`${input} `);
                 rememberEditorSelection();
                 menu.close();
                 return;
@@ -138,7 +138,7 @@ export function FloatingAddMenu<Action>({
     const isParagraph = isParagraphNode(currentNode);
     const isHeading1 = isHeadingNode(currentNode, HEADING_1_NODE_TYPE);
     const isHeading2 = isHeadingNode(currentNode, HEADING_2_NODE_TYPE);
-    const text = currentNode ? Node.string(currentNode) : '';
+    const text = currentNode ? getNodeString(currentNode) : '';
 
     return (
         <FloatingContainer.Container

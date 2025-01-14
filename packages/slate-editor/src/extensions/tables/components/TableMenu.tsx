@@ -1,7 +1,7 @@
 import { TablesEditor } from '@prezly/slate-tables';
 import type { TableNode } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import React from 'react';
-import { useSlateStatic } from 'slate-react';
 
 import { HStack, Toggle } from '#components';
 import { Button, Toolbox } from '#components';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function TableMenu({ element }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     if (!TablesEditor.isTablesEditor(editor)) {
         return null;

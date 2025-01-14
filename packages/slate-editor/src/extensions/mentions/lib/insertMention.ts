@@ -1,16 +1,15 @@
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import type { MentionElementType } from '../types';
 
 export function insertMention(
-    editor: Editor,
+    editor: SlateEditor,
     element: MentionElementType,
     moveCursorAfterInsert = true,
 ) {
-    Transforms.insertNodes(editor, element);
+    editor.insertNodes(element);
 
     if (moveCursorAfterInsert) {
-        Transforms.move(editor, { distance: 1, unit: 'offset' });
+        editor.move({ distance: 1, unit: 'offset' });
     }
 }

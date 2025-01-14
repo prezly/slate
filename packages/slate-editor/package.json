@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-editor",
-    "version": "0.117.0",
+    "version": "0.117.4-alpha.0",
     "description": "The Prezly Slate Editor",
     "license": "MIT",
     "type": "module",
@@ -58,7 +58,7 @@
         "@prezly/events": "^2.0.3",
         "@prezly/linear-partition": "^1.0.3",
         "@prezly/progress-promise": "^2.0.1",
-        "@prezly/sdk": "^22.1.0",
+        "@prezly/sdk": "^23.0.0",
         "@prezly/slate-commons": "workspace:*",
         "@prezly/slate-lists": "workspace:*",
         "@prezly/slate-tables": "workspace:*",
@@ -69,7 +69,6 @@
         "@technically/is-not-undefined": "^1.0.0",
         "@technically/lodash": "^4.17.0",
         "@types/combine-reducers": "^1.0.1",
-        "@udecode/plate-core": "^9.0.0",
         "classnames": "^2.3.1",
         "combine-reducers": "^1.0.0",
         "emoji-picker-react": "^4.10.0",
@@ -92,11 +91,13 @@
         "validator": "^13.11.0"
     },
     "peerDependencies": {
+        "@udecode/plate-autoformat": "^40.0.0",
+        "@udecode/plate-common": "^40.0.0",
         "react": "^18.3.0",
         "react-dom": "^18.3.0",
-        "slate": "^0.101.5",
-        "slate-history": "^0.100.0",
-        "slate-react": "^0.101.5"
+        "slate": "^0.110.2",
+        "slate-history": "^0.110.3",
+        "slate-react": "^0.111.0"
     },
     "devDependencies": {
         "@babel/core": "^7.18.5",

@@ -1,6 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { BookmarkNode } from '@prezly/slate-types';
-import type { Editor, NodeEntry } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
 
 const shape: Record<keyof BookmarkNode, true> = {
     type: true,
@@ -15,7 +16,7 @@ const shape: Record<keyof BookmarkNode, true> = {
 
 const ALLOWED_ATTRIBUTES = Object.keys(shape);
 
-export function unsetUnknownAttributes(editor: Editor, [node, path]: NodeEntry): boolean {
+export function unsetUnknownAttributes(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (!BookmarkNode.isBookmarkNode(node)) {
         return false;
     }

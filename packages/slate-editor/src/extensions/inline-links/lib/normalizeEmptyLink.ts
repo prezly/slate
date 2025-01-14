@@ -1,16 +1,16 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isLinkNode } from '@prezly/slate-types';
-import type { Editor, Node, NodeEntry } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node, NodeEntry } from 'slate';
 
-export function normalizeEmptyLink(editor: Editor, [node, path]: NodeEntry<Node>): boolean {
+export function normalizeEmptyLink(editor: SlateEditor, [node, path]: NodeEntry<Node>): boolean {
     if (!isLinkNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
 
     if (EditorCommands.isNodeEmpty(editor, node) || !node.href) {
-        Transforms.removeNodes(editor, { at: path });
+        editor.removeNodes({ at: path });
         return true;
     }
 

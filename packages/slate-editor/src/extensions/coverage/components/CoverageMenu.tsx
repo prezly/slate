@@ -1,9 +1,10 @@
 import type { CoverageEntry } from '@prezly/sdk';
 import type { CoverageNode } from '@prezly/slate-types';
 import { CoverageLayout } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import React from 'react';
-import { useSelected, useSlate } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import type { OptionsGroupOption } from '#components';
 import { Button, OptionsGroup, Toggle, Toolbox } from '#components';
@@ -49,7 +50,7 @@ export function CoverageMenu({
     onRemove,
     withLayoutOptions,
 }: Props) {
-    const editor = useSlate();
+    const editor = useEditorRef();
     const isSelected = useSelected();
 
     if (!isSelected) {

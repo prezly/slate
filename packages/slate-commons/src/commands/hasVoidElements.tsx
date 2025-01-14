@@ -1,9 +1,10 @@
-import type { Node, Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node } from 'slate';
 import { Text } from 'slate';
 
 import { isVoid } from './isVoid';
 
-export function hasVoidElements(editor: Editor, node: Node): boolean {
+export function hasVoidElements(editor: SlateEditor, node: Node): boolean {
     if (Text.isText(node)) {
         return false;
     }

@@ -1,8 +1,8 @@
 import { EditorCommands } from '@prezly/slate-commons';
+import { useEditorState } from '@udecode/plate-common/react';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import React from 'react';
-import { useSlate } from 'slate-react';
 
 import styles from './Placeholder.module.scss';
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function Placeholder({ children, className }: Props) {
-    const editor = useSlate();
+    const editor = useEditorState();
 
     if (!EditorCommands.isEmpty(editor)) {
         return null;

@@ -1,4 +1,4 @@
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 import { Range } from 'slate';
 
 import { getCurrentNodeEntry } from './getCurrentNodeEntry';
@@ -8,7 +8,7 @@ interface Options {
     trim?: boolean;
 }
 
-export function isCursorInEmptyParagraph(editor: Editor, options?: Options): boolean {
+export function isCursorInEmptyParagraph(editor: SlateEditor, options?: Options): boolean {
     if (!editor.selection) {
         return false;
     }

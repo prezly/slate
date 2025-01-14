@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { VideoNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { humanFriendlyUrl } from '#lib';
 
@@ -9,7 +9,7 @@ import { createWebBookmark } from '#extensions/web-bookmark';
 
 import type { Presentation } from '../types';
 
-export function convertVideo(editor: Editor, video: VideoNode, presentation: Presentation) {
+export function convertVideo(editor: SlateEditor, video: VideoNode, presentation: Presentation) {
     function convert() {
         if (presentation === 'card') {
             return createWebBookmark({ oembed: video.oembed, url: video.url });

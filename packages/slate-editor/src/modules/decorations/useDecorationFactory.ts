@@ -1,11 +1,11 @@
 import type { DecorateFactory } from '@prezly/slate-commons';
+import { useEditorRef } from '@udecode/plate-common/react';
 import { useMemo } from 'react';
-import { useSlateStatic } from 'slate-react';
 
 import { useDecoration } from './useDecoration';
 
 export function useDecorationFactory(factory: DecorateFactory | undefined): void {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     const decorate = useMemo(() => factory?.(editor), [editor, factory]);
 

@@ -12,10 +12,10 @@ import { GalleryImageSize, type GalleryImage, type GalleryNode } from '@prezly/s
 import { awaitUploads, UploadcareImage } from '@prezly/uploadcare';
 import { isUploadcareImageSizeValid } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
+import { useEditorRef } from '@udecode/plate-common/react';
 import type { HTMLAttributes } from 'react';
 import React, { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useSlateStatic } from 'slate-react';
 
 import { UploadcareEditor } from '#modules/uploadcare';
 
@@ -58,7 +58,7 @@ export function Gallery({
     width,
     ...attributes
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const images = useMemo(
         () =>

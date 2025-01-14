@@ -1,3 +1,4 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import { Editor } from 'slate';
 
 import { UPLOADCARE_PROPERTY } from './constants';
@@ -9,7 +10,7 @@ export abstract class UploadcareEditor {
         ImagesOnly extends boolean,
         MediaGallery extends boolean,
     >(
-        editor: Editor,
+        editor: SlateEditor,
         options: UploadcareOptions<Multiple, ImagesOnly, MediaGallery>,
     ): Promise<ResultPromise<Multiple> | void> {
         if (UploadcareEditor.isUploadcareEditor(editor)) {

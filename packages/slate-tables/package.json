@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-tables",
-    "version": "0.117.0",
+    "version": "0.117.3-alpha.0",
     "description": "The best Slate tables extension out there",
     "license": "MIT",
     "type": "module",
@@ -42,10 +42,11 @@
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {
+        "@udecode/plate-common": "^40.0.0",
         "react": "^18.3.0",
         "react-dom": "^18.3.0",
-        "slate": "^0.101.5",
-        "slate-react": "^0.101.5"
+        "slate": "^0.110.2",
+        "slate-react": "^0.111.0"
     },
     "dependencies": {
         "@prezly/slate-commons": "workspace:*",

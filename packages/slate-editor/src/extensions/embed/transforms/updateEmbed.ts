@@ -1,14 +1,13 @@
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { EmbedNode } from '../EmbedNode';
 
 export function updateEmbed(
-    editor: Editor,
+    editor: SlateEditor,
     element: EmbedNode,
     patch: Partial<Pick<EmbedNode, 'url' | 'oembed' | 'layout' | 'uuid'>>,
 ) {
-    Transforms.setNodes<EmbedNode>(editor, patch, {
+    editor.setNodes<EmbedNode>(patch, {
         at: [],
         match: (node) => EmbedNode.isEmbedNode(node) && node.uuid === element.uuid,
     });

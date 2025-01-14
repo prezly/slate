@@ -5,9 +5,11 @@ export * from './modules/editor';
 export { EditableWithExtensions } from './modules/editable';
 
 export { createCoverage } from './extensions/coverage';
+export { CustomNormalizationExtension } from './extensions/custom-normalization';
 export { createEmbed } from './extensions/embed';
-export { createHeading } from './extensions/heading';
-export { createParagraph } from './extensions/paragraphs';
+export { createHeading, HeadingExtension } from './extensions/heading';
+export { createImage } from './extensions/image';
+export { createParagraph, ParagraphsExtension } from './extensions/paragraphs';
 export {
     type PlaceholdersExtensionParameters,
     createPlaceholder,
@@ -23,7 +25,6 @@ export { type ResultPromise, type UploadcareOptions, withUploadcare } from './mo
 import type { ElementNode, ParagraphNode, TextNode } from '@prezly/slate-types';
 import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
-import type { ReactEditor } from 'slate-react';
 
 import type { FlashEditor } from '#extensions/flash-nodes';
 import type {
@@ -34,7 +35,6 @@ import type {
 } from '#modules/editor';
 
 type Editor = BaseEditor &
-    ReactEditor &
     HistoryEditor &
     DefaultTextBlockEditor<ParagraphNode> &
     ElementsEqualityCheckEditor &

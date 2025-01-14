@@ -1,13 +1,12 @@
 import type { VideoNode } from '@prezly/slate-types';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 export function updateVideo(
-    editor: Editor,
+    editor: SlateEditor,
     video: VideoNode,
     patch: Partial<Pick<VideoNode, 'url' | 'oembed' | 'layout' | 'uuid'>>,
 ) {
-    Transforms.setNodes<VideoNode>(editor, patch, {
+    editor.setNodes<VideoNode>(patch, {
         at: [],
         match: (node) => node === video,
     });

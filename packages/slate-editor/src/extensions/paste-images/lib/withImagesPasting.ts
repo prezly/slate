@@ -2,7 +2,7 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
 import { noop } from '@technically/lodash';
-import type { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { filterDataTransferFiles, isFilesOnlyDataTransfer } from '#lib';
 
@@ -11,11 +11,11 @@ import { createImage, IMAGE_TYPES } from '#extensions/image';
 import { insertPlaceholders, PlaceholderNode, PlaceholdersManager } from '../../placeholders';
 
 export interface Parameters {
-    onImagesPasted?: (editor: Editor, images: File[]) => void;
+    onImagesPasted?: (editor: SlateEditor, images: File[]) => void;
 }
 
 export function withImagesPasting({ onImagesPasted = noop }: Parameters = {}) {
-    return <T extends Editor>(editor: T): T => {
+    return <T extends SlateEditor>(editor: T): T => {
         const parent = {
             insertData: editor.insertData,
         };

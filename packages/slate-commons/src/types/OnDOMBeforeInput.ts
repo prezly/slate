@@ -1,3 +1,3 @@
-import type { ReactEditor } from 'slate-react';
+import type { SlateEditor } from '@udecode/plate-common';
 
-export type OnDOMBeforeInput = (event: Event, editor: ReactEditor) => void;
+export type OnDOMBeforeInput = (event: Event, editor: SlateEditor) => void;

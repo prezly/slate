@@ -23,7 +23,6 @@ export {
 } from './isCursorOnEdgeOfContainer';
 export { isEmpty } from './isEmpty';
 export { isEmptyParagraphElement } from './isEmptyParagraphElement';
-export { isInline } from './isInline';
 export { isMarkActive } from './isMarkActive';
 export { isNodeEmpty } from './isNodeEmpty';
 export { isSelectionAtBlockEnd } from './isSelectionAtBlockEnd';
@@ -53,7 +52,5 @@ export {
 } from './roughly-normalize';
 export { saveSelection } from './saveSelection';
 export { selectNode } from './selectNode';
-export { toDomNode } from './toDomNode';
-export { toDomRange } from './toDomRange';
 export { toggleMark } from './toggleMark';
 export { unsetMark } from './unsetMark';

@@ -1,17 +1,17 @@
 /* eslint-disable no-param-reassign */
-import { Editor } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 import { saveSelection } from '../../commands';
 
 import { deleteCurrentNodeIfEmpty } from './lib';
 
-export function withUserFriendlyDeleteBehavior<T extends Editor>(editor: T): T {
+export function withUserFriendlyDeleteBehavior<T extends SlateEditor>(editor: T): T {
     const { deleteBackward, deleteForward } = editor;
 
     editor.deleteBackward = (unit) => {
         const previousBlockSelection = saveSelection(
             editor,
-            (location) => Editor.before(editor, location) ?? location,
+            (location) => editor.before(location) ?? location,
         );
 
         const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: true, unit });

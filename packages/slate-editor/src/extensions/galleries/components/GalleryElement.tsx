@@ -8,11 +8,10 @@ import type {
 } from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
+import type { SlateEditor } from '@udecode/plate-common';
+import { useEditorRef } from '@udecode/plate-common/react';
 import React, { useState } from 'react';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
 import type { RenderElementProps } from 'slate-react';
-import { useSlateStatic } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useLatest, useSize } from '#lib';
@@ -29,24 +28,24 @@ import { GalleryMenu } from './GalleryMenu';
 interface Props extends RenderElementProps {
     availableWidth: number;
     element: GalleryNode;
-    onAdd?: (editor: Editor, gallery: GalleryNode) => void;
+    onAdd?: (editor: SlateEditor, gallery: GalleryNode) => void;
     onAdded?: (
-        editor: Editor,
+        editor: SlateEditor,
         gallery: GalleryNode,
         extra: {
             successfulUploads: number;
             failedUploads: Error[];
         },
     ) => void;
-    onImageCaptionClicked?: (editor: Editor) => void;
-    onImageCropClicked?: (editor: Editor) => void;
-    onImageDeleteClicked?: (editor: Editor) => void;
-    onLayoutChanged?: (editor: Editor, layout: GalleryLayout) => void;
-    onPaddingChanged?: (editor: Editor, padding: GalleryPadding) => void;
-    onReordered?: (editor: Editor, gallery: GalleryNode) => void;
-    onShuffled?: (editor: Editor, updated: GalleryNode, original: GalleryNode) => void;
+    onImageCaptionClicked?: (editor: SlateEditor) => void;
+    onImageCropClicked?: (editor: SlateEditor) => void;
+    onImageDeleteClicked?: (editor: SlateEditor) => void;
+    onLayoutChanged?: (editor: SlateEditor, layout: GalleryLayout) => void;
+    onPaddingChanged?: (editor: SlateEditor, padding: GalleryPadding) => void;
+    onReordered?: (editor: SlateEditor, gallery: GalleryNode) => void;
+    onShuffled?: (editor: SlateEditor, updated: GalleryNode, original: GalleryNode) => void;
     onThumbnailSizeChanged?: (
-        editor: Editor,
+        editor: SlateEditor,
         thumbnail_size: GalleryNode['thumbnail_size'],
     ) => void;
     withMediaGalleryTab: false | { enabled: boolean; newsroom: NewsroomRef };
@@ -71,7 +70,7 @@ export function GalleryElement({
     withMediaGalleryTab,
     withLayoutOptions,
 }: Props) {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
     const [sizer, size] = useSize(Sizer, { width: availableWidth });
     const [isUploading, setUploading] = useState(false);
     const callbacks = useLatest({
@@ -126,8 +125,7 @@ export function GalleryElement({
             };
         });
 
-        Transforms.setNodes<GalleryNode>(
-            editor,
+        editor.setNodes<GalleryNode>(
             { images: [...element.images, ...images] },
             { match: (node) => node === element },
         );

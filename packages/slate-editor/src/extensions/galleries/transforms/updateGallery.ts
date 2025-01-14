@@ -1,16 +1,15 @@
 import type { GalleryNode } from '@prezly/slate-types';
 import { isGalleryNode } from '@prezly/slate-types';
 import { pick } from '@technically/lodash';
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
 
 export function updateGallery(
-    editor: Editor,
+    editor: SlateEditor,
     changes: Partial<Pick<GalleryNode, 'images' | 'layout' | 'padding' | 'thumbnail_size'>>,
 ) {
     const changedAttributes = pick(changes, ['images', 'layout', 'padding', 'thumbnail_size']);
 
-    Transforms.setNodes<GalleryNode>(editor, changedAttributes, {
+    editor.setNodes<GalleryNode>(changedAttributes, {
         match: isGalleryNode,
     });
 }

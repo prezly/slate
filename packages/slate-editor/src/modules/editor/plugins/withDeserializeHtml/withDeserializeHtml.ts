@@ -3,7 +3,8 @@
 import { cleanDocx } from '@prezly/docx-cleaner';
 import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
-import type { Editor, Node } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Node } from 'slate';
 import { Element } from 'slate';
 
 import { EventsEditor } from '#modules/events';
@@ -20,7 +21,7 @@ function tryCleanDocx(html: string, rtf: string, onError: (error: unknown) => vo
 }
 
 export function withDeserializeHtml(getExtensions: () => Extension[]) {
-    return function <T extends Editor>(editor: T) {
+    return function <T extends SlateEditor>(editor: T) {
         const { insertData } = editor;
 
         function handleError(error: unknown) {
@@ -81,7 +82,7 @@ export function withDeserializeHtml(getExtensions: () => Extension[]) {
     };
 }
 
-function checkSingleTextBlockInserted(editor: Editor, nodes: Node[]): Element | undefined {
+function checkSingleTextBlockInserted(editor: SlateEditor, nodes: Node[]): Element | undefined {
     const [node] = nodes;
 
     if (

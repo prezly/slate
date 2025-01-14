@@ -1,8 +1,8 @@
 import type { StoryEmbedNode } from '@prezly/slate-types';
+import { useEditorRef } from '@udecode/plate-common/react';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
-import { useSlateStatic } from 'slate-react';
 
 import { EditorBlock } from '#components';
 
@@ -20,7 +20,7 @@ export const StoryEmbedElement: FunctionComponent<Props> = ({
     element,
     render,
 }) => {
-    const editor = useSlateStatic();
+    const editor = useEditorRef();
 
     function onChange(props: Partial<Pick<StoryEmbedNode, 'appearance' | 'position'>>) {
         updateStoryEmbed(editor, props);

@@ -1,9 +1,9 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
+import { isExpanded, type SlateEditor } from '@udecode/plate-common';
+import { toDOMNode, toDOMRange } from '@udecode/plate-common/react';
 import jsonStableStringify from 'json-stable-stringify';
 import { useLayoutEffect } from 'react';
-import type { Editor } from 'slate';
-import { Range } from 'slate';
 
 import { ensureElementInView, ensureRangeInView } from '#lib';
 
@@ -12,7 +12,7 @@ export interface Parameters {
     minBottom?: number;
 }
 
-export function useCursorInView(editor: Editor, parameters: false | Parameters = false): void {
+export function useCursorInView(editor: SlateEditor, parameters: false | Parameters = false): void {
     useLayoutEffect(() => {
         if (!parameters) return;
 
@@ -24,13 +24,13 @@ export function useCursorInView(editor: Editor, parameters: false | Parameters =
     }, [editor, editor.selection, jsonStableStringify(parameters)]);
 }
 
-function ensureCursorInView(editor: Editor, parameters: Parameters): void {
+function ensureCursorInView(editor: SlateEditor, parameters: Parameters): void {
     if (!editor.selection) {
         return;
     }
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (Range.isExpanded(editor.selection) || isImageNode(currentNode)) {
+    if (isExpanded(editor.selection) || isImageNode(currentNode)) {
         // Slate has built-in mechanism to follow the cursor, but it's not perfect,
         // see: https://github.com/ianstormtaylor/slate/issues/3750
         // We don't know any issues when selecting things, so our fix is only
@@ -57,7 +57,7 @@ function ensureCursorInView(editor: Editor, parameters: Parameters): void {
          * As a fallback, we use the DOM element of the currentNode and ensure this
          * element is in view.
          */
-        const domElement = EditorCommands.toDomNode(editor, currentNode);
+        const domElement = toDOMNode(editor, currentNode);
         ensureElementInView(domElement, {
             minBottom: parameters.minBottom,
             minTop: parameters.minTop,
@@ -65,7 +65,7 @@ function ensureCursorInView(editor: Editor, parameters: Parameters): void {
         return;
     }
 
-    const domRange = EditorCommands.toDomRange(editor, editor.selection);
+    const domRange = toDOMRange(editor, editor.selection);
     ensureRangeInView(domRange, {
         minBottom: parameters.minBottom,
         minTop: parameters.minTop,

@@ -37,6 +37,7 @@ import {
 } from '@prezly/slate-types';
 import type { PropsWithChildren } from 'react';
 import { createEditor as createSlateEditor } from 'slate';
+import { withHistory } from 'slate-history';
 import type { HyperscriptCreators } from 'slate-hyperscript';
 import {
     createEditor as createEditorFactory,
@@ -122,7 +123,9 @@ const extensions = [
 ];
 
 const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
-    editor: createEditorFactory(() => createEditor(createSlateEditor(), () => extensions)),
+    editor: createEditorFactory(() =>
+        createEditor(createSlateEditor(), () => extensions, [withReact, withHistory]),
+    ),
     'editor-pure': createEditorFactory(() => withReact(createSlateEditor())),
     'h:text': createText,
     'h-text': createText,

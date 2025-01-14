@@ -1,12 +1,12 @@
+import type { SlateEditor, TNode } from '@udecode/plate-common';
+import { toDOMNode, useEditorState } from '@udecode/plate-common/react';
 import type { RefObject } from 'react';
 import React, { useEffect, useState } from 'react';
-import type { Editor, Node } from 'slate';
-import { ReactEditor, useSlateStatic } from 'slate-react';
 
 import styles from './FlashNodes.module.scss';
 
 export function FlashNodes({ containerRef }: { containerRef: RefObject<HTMLDivElement> }) {
-    const editor = useSlateStatic();
+    const editor = useEditorState();
 
     return (
         <>
@@ -35,9 +35,9 @@ function Flasher({
     containerRef,
     onComplete,
 }: {
-    editor: Editor;
-    top: Node;
-    bottom: Node;
+    editor: SlateEditor;
+    top: TNode;
+    bottom: TNode;
     containerRef: RefObject<HTMLDivElement>;
     onComplete: () => void;
 }) {
@@ -50,15 +50,17 @@ function Flasher({
 
         try {
             const containerRect = containerRef.current.getBoundingClientRect();
-            const rectA = ReactEditor.toDOMNode(editor, top).getBoundingClientRect();
-            const rectB = ReactEditor.toDOMNode(editor, bottom).getBoundingClientRect();
+            const rectA = toDOMNode(editor, top)?.getBoundingClientRect();
+            const rectB = toDOMNode(editor, bottom)?.getBoundingClientRect();
 
-            setRect({
-                top: rectA.top - containerRect.top,
-                height: rectB.bottom - rectA.top,
-                left: Math.min(rectA.left, rectB.left) - containerRect.left,
-                width: Math.max(rectA.width, rectB.width),
-            });
+            if (rectA && rectB) {
+                setRect({
+                    top: rectA.top - containerRect.top,
+                    height: rectB.bottom - rectA.top,
+                    left: Math.min(rectA.left, rectB.left) - containerRect.left,
+                    width: Math.max(rectA.width, rectB.width),
+                });
+            }
         } catch (error) {
             console.error(error);
             onComplete();

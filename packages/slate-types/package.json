@@ -1,6 +1,6 @@
 {
     "name": "@prezly/slate-types",
-    "version": "0.117.0",
+    "version": "0.117.3-alpha.0",
     "description": "TypeScript definitions for Slate document structure used at Prezly",
     "license": "MIT",
     "type": "module",
@@ -35,13 +35,14 @@
         "test": "pnpm test:build",
         "test:build": "pnpm test:esm && pnpm test:types",
         "test:esm": "node build/index.js",
-        "test:types": "tsc --noEmit build/index.d.ts",
+        "test:types": "tsc --noEmit --esModuleInterop build/index.d.ts",
         "clean": "pnpm clean:build && pnpm clean:node_modules",
         "clean:node_modules": "rimraf node_modules/",
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {
-        "slate": "^0.101.5"
+        "@udecode/plate-common": "^40.0.0",
+        "slate": "^0.110.2"
     },
     "dependencies": {
         "@prezly/sdk": "^22.1.0",

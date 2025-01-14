@@ -1,12 +1,11 @@
-import type { Node } from 'slate';
-import { Text } from 'slate';
-import { Editor } from 'slate';
+import type { TNode } from '@udecode/plate-common';
+import { isEditor, isElement, isText, type SlateEditor } from '@udecode/plate-common';
 
 import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema, HierarchyNormalizer } from './types';
 
 export function withNodesHierarchy(schema: NodesHierarchySchema) {
-    return <T extends Editor>(editor: T): T => {
+    return <T extends SlateEditor>(editor: T): T => {
         const { normalizeNode } = editor;
 
         editor.normalizeNode = (entry) => {
@@ -28,14 +27,14 @@ export function withNodesHierarchy(schema: NodesHierarchySchema) {
     };
 }
 
-function getSchemaNormalizers(node: Node, schema: NodesHierarchySchema) {
+function getSchemaNormalizers(node: TNode, schema: NodesHierarchySchema) {
     let res: HierarchyNormalizer[] | undefined = undefined;
 
-    if (Text.isText(node)) {
+    if (isText(node)) {
         res = schema[TEXT_NODE_TYPE];
-    } else if (Editor.isEditor(node)) {
+    } else if (isEditor(node)) {
         res = schema[EDITOR_NODE_TYPE];
-    } else if ('type' in node) {
+    } else if (isElement(node)) {
         res = schema[node.type];
     }
 

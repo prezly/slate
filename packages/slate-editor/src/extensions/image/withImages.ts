@@ -1,11 +1,12 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
-import { Editor, Range } from 'slate';
-import { ReactEditor } from 'slate-react';
+import type { SlateEditor } from '@udecode/plate-common';
+import { toDOMRange } from '@udecode/plate-common/react';
+import { Range } from 'slate';
 
 import { convertToHtml, encodeSlateFragment } from '#lib';
 
-export function withImages<T extends Editor>(editor: T): T {
+export function withImages<T extends SlateEditor>(editor: T): T {
     const { setFragmentData } = editor;
 
     editor.setFragmentData = (data): void => {
@@ -17,9 +18,12 @@ export function withImages<T extends Editor>(editor: T): T {
                 currentNode &&
                 isImageNode(currentNode) &&
                 EditorCommands.isNodeEmpty(editor, currentNode) &&
-                !Editor.isVoid(editor, currentNode)
+                !editor.isVoid(currentNode)
             ) {
-                const domRange = ReactEditor.toDOMRange(editor, editor.selection);
+                const domRange = toDOMRange(editor, editor.selection);
+                if (!domRange) {
+                    return;
+                }
                 const contents = domRange.cloneContents();
                 const encodedFragment = encodeSlateFragment(editor.getFragment());
                 data.setData('application/x-slate-fragment', encodedFragment);

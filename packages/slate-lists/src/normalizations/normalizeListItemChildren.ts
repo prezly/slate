@@ -1,5 +1,6 @@
-import type { Editor, NodeEntry } from 'slate';
-import { Node, Text, Transforms } from 'slate';
+import { getNodeChildren, isText, type SlateEditor } from '@udecode/plate-common';
+import type { NodeEntry } from 'slate';
+import type { Node } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -7,7 +8,7 @@ import type { ListsSchema } from '../types';
  * A "list-item" can have a single "list-item-text" and optionally an extra "list" as a child.
  */
 export function normalizeListItemChildren(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     [node, path]: NodeEntry<Node>,
 ): boolean {
@@ -16,20 +17,20 @@ export function normalizeListItemChildren(
         return false;
     }
 
-    const children = Array.from(Node.children(editor, path));
+    const children = Array.from(getNodeChildren(editor, path));
 
     for (const [childIndex, [childNode, childPath]] of children.entries()) {
-        if (Text.isText(childNode) || editor.isInline(childNode)) {
+        if (isText(childNode) || editor.isInline(childNode)) {
             const listItemText = schema.createListItemTextNode({
                 children: [childNode],
             });
-            Transforms.wrapNodes(editor, listItemText, { at: childPath });
+            editor.wrapNodes(listItemText, { at: childPath });
 
             if (childIndex > 0) {
                 const [previousChildNode] = children[childIndex - 1];
 
                 if (schema.isListItemTextNode(previousChildNode)) {
-                    Transforms.mergeNodes(editor, { at: childPath });
+                    editor.mergeNodes({ at: childPath });
                 }
             }
 
@@ -37,17 +38,17 @@ export function normalizeListItemChildren(
         }
 
         if (schema.isListItemNode(childNode)) {
-            Transforms.liftNodes(editor, { at: childPath });
+            editor.liftNodes({ at: childPath });
             return true;
         }
 
         if (schema.isListItemTextNode(childNode) && childIndex !== 0) {
-            Transforms.wrapNodes(editor, schema.createListItemNode(), { at: childPath });
+            editor.wrapNodes(schema.createListItemNode(), { at: childPath });
             return true;
         }
 
         if (!schema.isListItemTextNode(childNode) && !schema.isListNode(childNode)) {
-            Transforms.setNodes(editor, schema.createListItemTextNode(), { at: childPath });
+            editor.setNodes(schema.createListItemTextNode(), { at: childPath });
             return true;
         }
     }

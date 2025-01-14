@@ -1,4 +1,5 @@
-import type { Editor, Location, Span } from 'slate';
+import type { SlateEditor } from '@udecode/plate-common';
+import type { Location, Span } from 'slate';
 
 import type { ListsSchema } from '../types';
 
@@ -10,7 +11,7 @@ import { isListItemContainingText } from './isListItemContainingText';
  * Returns true when editor has collapsed selection and the cursor is in an empty "list-item".
  */
 export function isAtEmptyListItem(
-    editor: Editor,
+    editor: SlateEditor,
     schema: ListsSchema,
     at: Location | Span | null = editor.selection,
 ): boolean {

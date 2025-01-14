@@ -1,12 +1,12 @@
-import type { Editor, Element, Location, Node, Text } from 'slate';
-import type { ReactEditor } from 'slate-react';
+import type { SlateEditor, TElement, TText } from '@udecode/plate-common';
+import type { Location, Node } from 'slate';
 
 import * as TableCommands from './commands';
 import { TableCellNode, TableRowNode, TableNode } from './nodes';
 import * as TableQueries from './queries';
 
 export interface TablesSchema {
-    createContentNode: () => Element | Text;
+    createContentNode: () => TElement | TText;
     createTableNode: (props: Partial<TableNode>) => TableNode;
     createTableRowNode: (props: Partial<TableRowNode>) => TableRowNode;
     createTableCellNode: (props: Partial<TableCellNode>) => TableCellNode;
@@ -15,7 +15,7 @@ export interface TablesSchema {
     isTableCellNode: (node: Node) => node is TableCellNode;
 }
 
-export interface TablesEditor extends TablesSchema, ReactEditor {}
+export interface TablesEditor extends TablesSchema, SlateEditor {}
 
 export namespace TablesEditor {
     export const insertTable = TableCommands.insertTable;
@@ -50,7 +50,7 @@ export namespace TablesEditor {
         return TableCommands.insertRow(editor, location, 'bellow');
     }
 
-    export function isTablesEditor(editor: Editor): editor is TablesEditor {
-        return 'isTableCellNode' in editor;
+    export function isTablesEditor(editor: SlateEditor): editor is TablesEditor {
+        return typeof editor === 'object' && editor !== null && 'isTableCellNode' in editor;
     }
 }

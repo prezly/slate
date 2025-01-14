@@ -1,5 +1,4 @@
 import type { Normalize } from '@prezly/slate-commons';
-import { Transforms } from 'slate';
 
 import { PlaceholderNode } from '../PlaceholderNode';
 
@@ -61,7 +60,7 @@ export function removeDisabledPlaceholders({
             PlaceholderNode.isPlaceholderNode(node) &&
             !PlaceholderNode.isPlaceholderNode(node, allowedTypes)
         ) {
-            Transforms.removeNodes(editor, { at: path });
+            editor.removeNodes({ at: path });
             return true;
         }
         return false;

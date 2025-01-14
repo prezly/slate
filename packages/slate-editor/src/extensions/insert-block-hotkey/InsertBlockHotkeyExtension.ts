@@ -1,7 +1,8 @@
 import type { Extension } from '@prezly/slate-commons';
 import { noop } from '@technically/lodash';
+import type { SlateEditor } from '@udecode/plate-common';
 import { isHotkey } from 'is-hotkey';
-import type { Editor, Element } from 'slate';
+import type { Element } from 'slate';
 
 import { insertBlockAbove, insertBlockBelow } from './lib';
 
@@ -12,7 +13,7 @@ const isShiftModEnter = isHotkey('shift+mod+enter');
 
 interface Parameters {
     createDefaultElement: (props?: Partial<Element>) => Element;
-    onInserted?: (editor: Editor) => void;
+    onInserted?: (editor: SlateEditor) => void;
 }
 
 export function InsertBlockHotkeyExtension({

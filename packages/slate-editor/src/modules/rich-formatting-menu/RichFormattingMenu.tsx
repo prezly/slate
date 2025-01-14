@@ -2,11 +2,11 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { HeadingRole, isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
+import { HistoryEditor, isExpanded } from '@udecode/plate-common';
+import { blurEditor, focusEditor, useEditorState } from '@udecode/plate-common/react';
 import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
-import { Editor, Range, Transforms } from 'slate';
-import { HistoryEditor } from 'slate-history';
-import { ReactEditor, useSlate } from 'slate-react';
+import { Editor, Range } from 'slate';
 
 import { Menu, TextSelectionPortalV2 } from '#components';
 
@@ -75,7 +75,7 @@ export function RichFormattingMenu({
     withTextHighlight,
     withParagraphs,
 }: Props) {
-    const editor = useSlate();
+    const editor = useEditorState();
 
     if (!HistoryEditor.isHistoryEditor(editor)) {
         throw new Error('RichFormattingMenu requires HistoryEditor to work');
@@ -123,14 +123,14 @@ export function RichFormattingMenu({
     function handleLinkButtonClick() {
         if (!editor.selection) return;
 
-        const rangeRef = Editor.rangeRef(editor, editor.selection, {
+        const rangeRef = editor.rangeRef(editor.selection, {
             affinity: 'inward',
         });
 
         setLinkRange(rangeRef);
 
         // We have to blur the editor to allow the LinkMenu input focus.
-        ReactEditor.blur(editor);
+        blurEditor(editor);
     }
 
     function linkSelection(props: Pick<LinkNode, 'href' | 'new_tab'>) {
@@ -139,7 +139,7 @@ export function RichFormattingMenu({
 
         clearLinkRange();
 
-        ReactEditor.focus(editor);
+        focusEditor(editor);
 
         unwrapLink(editor);
         wrapInLink(editor, props);
@@ -151,8 +151,8 @@ export function RichFormattingMenu({
 
         clearLinkRange();
 
-        Transforms.select(editor, selection);
-        ReactEditor.focus(editor);
+        editor.select(selection);
+        focusEditor(editor);
 
         unwrapLink(editor);
     }
@@ -163,9 +163,9 @@ export function RichFormattingMenu({
 
         clearLinkRange();
 
-        ReactEditor.focus(editor);
-        Transforms.collapse(editor, { edge: 'anchor' });
-        Transforms.select(editor, selection);
+        focusEditor(editor);
+        editor.collapse({ edge: 'anchor' });
+        editor.select(selection);
     }
 
     useEffect(
@@ -196,12 +196,7 @@ export function RichFormattingMenu({
     const isTitleSelected = formatting.active.includes(HeadingRole.TITLE);
     const isSubtitleSelected = formatting.active.includes(HeadingRole.SUBTITLE);
 
-    if (
-        withInlineLinks &&
-        linkRange?.current &&
-        editor.selection &&
-        Range.isExpanded(editor.selection)
-    ) {
+    if (withInlineLinks && linkRange?.current && editor.selection && isExpanded(editor.selection)) {
         return (
             <TextSelectionPortalV2
                 containerElement={containerElement}

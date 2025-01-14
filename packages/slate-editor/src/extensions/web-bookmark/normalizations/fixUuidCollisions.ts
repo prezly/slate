@@ -1,11 +1,12 @@
 import { BookmarkNode } from '@prezly/slate-types';
+import type { SlateEditor } from '@udecode/plate-common';
 import type { NodeEntry } from 'slate';
-import { Editor, Path, Transforms } from 'slate';
+import { Path } from 'slate';
 import * as uuid from 'uuid';
 
-export function fixUuidCollisions(editor: Editor, [node, path]: NodeEntry): boolean {
+export function fixUuidCollisions(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (BookmarkNode.isBookmarkNode(node)) {
-        const [dupe] = Editor.nodes(editor, {
+        const [dupe] = editor.nodes({
             at: [],
             match: (anotherNode, anotherPath) =>
                 BookmarkNode.isBookmarkNode(anotherNode) &&
@@ -14,7 +15,7 @@ export function fixUuidCollisions(editor: Editor, [node, path]: NodeEntry): bool
         });
 
         if (dupe) {
-            Transforms.setNodes<BookmarkNode>(editor, { uuid: uuid.v4() }, { at: path });
+            editor.setNodes<BookmarkNode>({ uuid: uuid.v4() }, { at: path });
             return true;
         }
     }

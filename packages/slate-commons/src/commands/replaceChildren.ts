@@ -1,5 +1,6 @@
+import type { SlateEditor } from '@udecode/plate-common';
 import type { Node, NodeEntry } from 'slate';
-import { Editor, Element, Transforms } from 'slate';
+import { Element } from 'slate';
 
 /**
  * Replaces the given element children with a new list of nodes.
@@ -8,7 +9,7 @@ import { Editor, Element, Transforms } from 'slate';
  * @returns {boolean} True, if the change has been applied.
  */
 export function replaceChildren(
-    editor: Editor,
+    editor: SlateEditor,
     [node, path]: NodeEntry,
     children: Node[],
 ): boolean {
@@ -18,15 +19,15 @@ export function replaceChildren(
 
     const newChildren: Node[] = children.length === 0 ? [{ text: '' }] : children;
 
-    Editor.withoutNormalizing(editor, () => {
+    editor.withoutNormalizing(() => {
         node.children.forEach(() => {
-            Transforms.removeNodes(editor, {
+            editor.removeNodes({
                 at: [...path, 0],
                 voids: true,
             });
         });
 
-        Transforms.insertNodes(editor, newChildren, {
+        editor.insertNodes(newChildren, {
             at: [...path, 0],
             voids: true,
         });
