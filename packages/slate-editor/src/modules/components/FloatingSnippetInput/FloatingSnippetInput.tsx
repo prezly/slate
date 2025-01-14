@@ -1,5 +1,5 @@
 import type { ReactNode, RefObject } from 'react';
-import React from 'react';
+import React, { memo } from 'react';
 
 import { FloatingContainer } from '#modules/components';
 
@@ -13,7 +13,7 @@ interface Props {
     renderInput: () => ReactNode;
 }
 
-export function FloatingSnippetInput({
+function FloatingSnippetInputComponent({
     availableWidth,
     containerRef,
     onClose,
@@ -34,3 +34,5 @@ export function FloatingSnippetInput({
         </FloatingContainer.Container>
     );
 }
+
+export const FloatingSnippetInput = memo(FloatingSnippetInputComponent);
