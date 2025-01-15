@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { withRangeCloneContentsPatched } from './util';
 

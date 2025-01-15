@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry } from 'slate';
-import { Node, Text } from 'slate';
+import { NodeApi, TextApi, type NodeEntry, type SlateEditor } from '@udecode/plate';
 
 import type { ListsSchema } from '../types';
 
@@ -12,33 +10,33 @@ import type { ListsSchema } from '../types';
 export function normalizeListChildren(
     editor: SlateEditor,
     schema: ListsSchema,
-    [node, path]: NodeEntry<Node>,
+    [node, path]: NodeEntry,
 ): boolean {
     if (!schema.isListNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
 
-    const children = Array.from(Node.children(editor, path));
+    const children = Array.from(NodeApi.children(editor, path));
 
     for (const [childNode, childPath] of children) {
-        if (Text.isText(childNode)) {
+        if (TextApi.isText(childNode)) {
             // This can happen during pasting
 
             // When pasting from MS Word there may be weird text nodes with some whitespace
             // characters. They're not expected to be deserialized so we remove them.
             if (childNode.text.trim() === '') {
                 if (children.length > 1) {
-                    editor.removeNodes({ at: childPath });
+                    editor.tf.removeNodes({ at: childPath });
                 } else {
                     // If we're removing the only child, we may delete the whole list as well
                     // to avoid never-ending normalization (Slate will insert empty text node).
-                    editor.removeNodes({ at: path });
+                    editor.tf.removeNodes({ at: path });
                 }
                 return true;
             }
 
-            editor.wrapNodes(
+            editor.tf.wrapNodes(
                 schema.createListItemNode({
                     children: [schema.createListItemTextNode({ children: [childNode] })],
                 }),
@@ -48,19 +46,19 @@ export function normalizeListChildren(
         }
 
         if (schema.isListItemTextNode(childNode)) {
-            editor.wrapNodes(schema.createListItemNode(), { at: childPath });
+            editor.tf.wrapNodes(schema.createListItemNode(), { at: childPath });
             return true;
         }
 
         if (schema.isListNode(childNode)) {
             // Wrap it into a list item so that `normalizeOrphanNestedList` can take care of it.
-            editor.wrapNodes(schema.createListItemNode(), { at: childPath });
+            editor.tf.wrapNodes(schema.createListItemNode(), { at: childPath });
             return true;
         }
 
         if (!schema.isListItemNode(childNode)) {
-            editor.setNodes(schema.createListItemTextNode(), { at: childPath });
-            editor.wrapNodes(schema.createListItemNode(), { at: childPath });
+            editor.tf.setNodes(schema.createListItemTextNode(), { at: childPath });
+            editor.tf.wrapNodes(schema.createListItemNode(), { at: childPath });
             return true;
         }
     }

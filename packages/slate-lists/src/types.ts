@@ -1,4 +1,4 @@
-import type { Element, Node } from 'slate';
+import { type Element, type Node } from '@udecode/plate';
 
 export enum ListType {
     ORDERED = 'ol',

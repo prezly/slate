@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
-import { Element } from 'slate';
+import { ElementApi, type SlateEditor } from '@udecode/plate';
 
 import type { ListsSchema } from '../types';
 
@@ -12,10 +10,12 @@ export function isListItemContainingText(
     schema: ListsSchema,
     node: Node,
 ): boolean {
-    if (Element.isElement(node) && schema.isListItemNode(node)) {
+    if (ElementApi.isElement(node) && schema.isListItemNode(node)) {
         return node.children.some((node) => {
             return (
-                Element.isElement(node) && schema.isListItemTextNode(node) && !editor.isEmpty(node)
+                ElementApi.isElement(node) &&
+                schema.isListItemTextNode(node) &&
+                !editor.api.isEmpty(node)
             );
         });
     }

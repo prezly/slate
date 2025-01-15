@@ -1,4 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 

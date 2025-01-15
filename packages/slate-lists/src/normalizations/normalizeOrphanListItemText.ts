@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeEntry } from 'slate';
-import { Element } from 'slate';
+import { ElementApi, type NodeEntry, type SlateEditor } from '@udecode/plate';
 
 import { isContainingTextNodes, isElementOrEditor } from '../lib';
 import type { ListsSchema } from '../types';
@@ -16,18 +14,18 @@ import type { ListsSchema } from '../types';
 export function normalizeOrphanListItemText(
     editor: SlateEditor,
     schema: ListsSchema,
-    [node, path]: NodeEntry<Node>,
+    [node, path]: NodeEntry,
 ): boolean {
     if (isElementOrEditor(node) && !schema.isListItemNode(node)) {
         // We look for "list-item-text" nodes that are NOT under a "list-item" node
         for (const [index, child] of node.children.entries()) {
-            if (Element.isElement(child) && schema.isListItemTextNode(child)) {
+            if (ElementApi.isElement(child) && schema.isListItemTextNode(child)) {
                 if (isContainingTextNodes(child)) {
-                    editor.setNodes(schema.createDefaultTextNode(), {
+                    editor.tf.setNodes(schema.createDefaultTextNode(), {
                         at: [...path, index],
                     });
                 } else {
-                    editor.unwrapNodes({
+                    editor.tf.unwrapNodes({
                         at: [...path, index],
                         mode: 'highest',
                     });

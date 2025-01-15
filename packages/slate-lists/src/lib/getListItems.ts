@@ -1,6 +1,15 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Element, Location, NodeEntry } from 'slate';
-import { Path, Point, Range, Span } from 'slate';
+import {
+    type Path,
+    PathApi,
+    PointApi,
+    RangeApi,
+    type Span,
+    SpanApi,
+    type Element,
+    type Location,
+    type NodeEntry,
+    type SlateEditor,
+} from '@udecode/plate';
 
 import type { ListsSchema } from '../types';
 
@@ -17,16 +26,16 @@ export function getListItems(
     }
 
     const start = getLocationStart(at);
-    const listItems = editor.nodes({
+    const listItems = editor.api.nodes({
         at,
         match: schema.isListItemNode,
     });
 
     return Array.from(listItems).filter(([, path]) => {
-        const [, grandparent] = Path.ancestors(start, { reverse: true });
-        const rangeIsGrandhild = Path.equals(path, grandparent);
-        const rangeIsDescendant = Path.isDescendant(start, path);
-        const rangeStartsAfter = Path.isAfter(start, path);
+        const [, grandparent] = PathApi.ancestors(start, { reverse: true });
+        const rangeIsGrandhild = PathApi.equals(path, grandparent);
+        const rangeIsDescendant = PathApi.isDescendant(start, path);
+        const rangeStartsAfter = PathApi.isAfter(start, path);
 
         if (rangeIsDescendant) {
             // There's just one case where we want to include a "list-item" that is
@@ -48,15 +57,15 @@ export function getListItems(
 }
 
 function getLocationStart(location: Location | Span): Path {
-    if (Range.isRange(location)) {
-        return Range.start(location).path;
+    if (RangeApi.isRange(location)) {
+        return RangeApi.start(location).path;
     }
-    if (Point.isPoint(location)) {
+    if (PointApi.isPoint(location)) {
         return location.path;
     }
-    if (Span.isSpan(location)) {
+    if (SpanApi.isSpan(location)) {
         const [start, end] = location;
-        return Path.compare(start, end) <= 0 ? start : end;
+        return PathApi.compare(start, end) <= 0 ? start : end;
     }
     return location;
 }

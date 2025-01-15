@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location } from 'slate';
+import { type Location, type SlateEditor } from '@udecode/plate';
 
 import type { ListsSchema } from '../types';
 
@@ -12,7 +11,7 @@ export function isInList(
         return false;
     }
 
-    for (const [currentNode] of editor.levels({ at })) {
+    for (const [currentNode] of editor.api.levels({ at })) {
         if (schema.isListNode(currentNode)) {
             return true;
         }

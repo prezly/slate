@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Element, NodeEntry, Path } from 'slate';
+import { type Path, type Element, type NodeEntry, type SlateEditor } from '@udecode/plate';
 
 import type { ListsSchema } from '../types';
 
@@ -12,7 +11,7 @@ export function getParentList(
     schema: ListsSchema,
     path: Path,
 ): NodeEntry<Element> | null {
-    const parentList = editor.above({
+    const parentList = editor.api.above({
         at: path,
         match: (node) => schema.isListNode(node),
     });

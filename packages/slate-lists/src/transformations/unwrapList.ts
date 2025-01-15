@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location, Span } from 'slate';
-import { Point, Range } from 'slate';
+import { type Location, PointApi, RangeApi, type SlateEditor, type Span } from '@udecode/plate';
 
 import { getListItems } from '../lib';
 import type { ListsSchema } from '../types';
@@ -23,10 +21,10 @@ export function unwrapList(
     let iterations = 0;
 
     const span = toSpan(at);
-    const start = editor.pathRef(span[0]);
-    const end = editor.pathRef(span[1]);
+    const start = editor.api.pathRef(span[0]);
+    const end = editor.api.pathRef(span[1]);
 
-    editor.withoutNormalizing(() => {
+    editor.tf.withoutNormalizing(() => {
         do {
             if (!start.current || !end.current) {
                 break;
@@ -59,12 +57,12 @@ export function unwrapList(
 }
 
 function toSpan(at: Location): Span {
-    if (Range.isRange(at)) {
-        const [start, end] = Range.edges(at);
+    if (RangeApi.isRange(at)) {
+        const [start, end] = RangeApi.edges(at);
         return [start.path, end.path];
     }
 
-    if (Point.isPoint(at)) {
+    if (PointApi.isPoint(at)) {
         return [at.path, at.path];
     }
 

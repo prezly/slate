@@ -1,4 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import type { ListsSchema } from './types';
 import { withListsNormalization } from './withListsNormalization';

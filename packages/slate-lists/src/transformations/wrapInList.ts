@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location } from 'slate';
-import { Element } from 'slate';
+import { ElementApi, type Location, type SlateEditor } from '@udecode/plate';
 
 import type { ListsSchema, ListType } from '../types';
 
@@ -21,11 +19,11 @@ export function wrapInList(
     }
 
     const nonListEntries = Array.from(
-        editor.nodes({
+        editor.api.nodes({
             at,
             match: (node) => {
                 return (
-                    Element.isElement(node) &&
+                    ElementApi.isElement(node) &&
                     !schema.isListNode(node) &&
                     !schema.isListItemNode(node) &&
                     !schema.isListItemTextNode(node) &&
@@ -39,15 +37,15 @@ export function wrapInList(
         return false;
     }
 
-    const refs = nonListEntries.map(([_, path]) => editor.pathRef(path));
+    const refs = nonListEntries.map(([_, path]) => editor.api.pathRef(path));
 
     refs.forEach((ref) => {
         const path = ref.current;
         if (path) {
-            editor.withoutNormalizing(() => {
-                editor.setNodes(schema.createListItemTextNode(), { at: path });
-                editor.wrapNodes(schema.createListItemNode(), { at: path });
-                editor.wrapNodes(schema.createListNode(listType), { at: path });
+            editor.tf.withoutNormalizing(() => {
+                editor.tf.setNodes(schema.createListItemTextNode(), { at: path });
+                editor.tf.wrapNodes(schema.createListItemNode(), { at: path });
+                editor.tf.wrapNodes(schema.createListNode(listType), { at: path });
             });
         }
         ref.unref();

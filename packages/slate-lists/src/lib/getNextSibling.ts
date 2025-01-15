@@ -1,18 +1,18 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { type NodeEntry, Node, Path } from 'slate';
+import { NodeApi, type NodeEntry, type Path, PathApi, type SlateEditor } from '@udecode/plate';
 
 export function getNextSibling(editor: SlateEditor, path: Path): NodeEntry | null {
     let nextSiblingPath: Path;
 
     try {
-        nextSiblingPath = Path.next(path);
+        nextSiblingPath = PathApi.next(path);
     } catch (error) {
         // Unable to calculate `Path.next`, which means there is no next sibling.
         return null;
     }
 
-    if (Node.has(editor, nextSiblingPath)) {
-        return [Node.get(editor, nextSiblingPath), nextSiblingPath];
+    const nextSibling = NodeApi.get(editor, nextSiblingPath);
+    if (nextSibling) {
+        return [nextSibling, nextSiblingPath];
     }
 
     return null;
