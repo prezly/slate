@@ -11,7 +11,7 @@ import { PlaceholderNode } from '../PlaceholderNode';
 import { EmbedPlaceholderElement } from './EmbedPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createPlateEditor(), () => extensions);
+const editor = createEditor({ editor: createPlateEditor(), getExtensions: () => extensions });
 
 const placeholder: PlaceholderNode<PlaceholderNode.Type.EMBED> = {
     type: PlaceholderNode.Type.EMBED,

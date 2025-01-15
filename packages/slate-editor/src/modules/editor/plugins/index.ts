@@ -1,7 +1,4 @@
-export { type DefaultTextBlockEditor, withDefaultTextBlock } from './withDefaultTextBlock';
+export { DefaultTextBlockPlugin } from './DefaultTextBlockPlugin';
+export { ElementsEqualityCheckPlugin } from './ElementsEqualityCheckPlugin';
+export { RichBlocksPlugin } from './RichBlocksPlugin';
 export { withDeserializeHtml } from './withDeserializeHtml';
-export {
-    type ElementsEqualityCheckEditor,
-    withElementsEqualityCheck,
-} from './withElementsEqualityCheck';
-export { type RichBlocksAwareEditor, withRichBlocks } from './withRichBlocks';

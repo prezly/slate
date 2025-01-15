@@ -1,6 +1,5 @@
 import { type Extension, type OnKeyDown } from '@prezly/slate-commons';
 import type { PlateEditor, PlatePlugin } from '@udecode/plate/react';
-import { createPlateEditor } from '@udecode/plate/react';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useMemo } from 'react';
 
@@ -42,13 +41,8 @@ export function useCreateEditor({
     const extensionsRef = useLatest<Extension[]>(extensions);
     const getExtensions = useCallback(() => extensionsRef.current, [extensionsRef]);
     const editor = useMemo(() => {
-        const plateEditor = createPlateEditor({
-            plugins: plugins,
-            value: initialValue,
-        });
-
-        return createEditor(plateEditor, getExtensions);
-    }, [getExtensions, plugins]);
+        return createEditor({ initialValue, plugins, getExtensions });
+    }, [plugins, getExtensions]);
 
     return {
         editor,

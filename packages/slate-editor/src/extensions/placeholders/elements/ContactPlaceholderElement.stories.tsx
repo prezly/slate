@@ -10,7 +10,7 @@ import { PlaceholderNode } from '../PlaceholderNode';
 import { ContactPlaceholderElement } from './ContactPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createPlateEditor(), () => extensions);
+const editor = createEditor({ editor: createPlateEditor(), getExtensions: () => extensions });
 
 const placeholder: PlaceholderNode<PlaceholderNode.Type.CONTACT> = {
     type: PlaceholderNode.Type.CONTACT,

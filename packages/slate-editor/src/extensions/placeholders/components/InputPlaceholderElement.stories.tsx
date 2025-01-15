@@ -13,7 +13,7 @@ import { PlaceholdersManager } from '../PlaceholdersManager';
 import { InputPlaceholderElement } from './InputPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createPlateEditor(), () => extensions);
+const editor = createEditor({ editor: createPlateEditor(), getExtensions: () => extensions });
 
 const placeholder: PlaceholderNode = {
     type: PlaceholderNode.Type.EMBED,

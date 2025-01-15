@@ -124,7 +124,11 @@ const extensions = [
 
 const creators: Record<keyof HElements, HyperscriptCreators[string]> = {
     editor: createEditorFactory(() =>
-        createEditor(createSlateEditor(), () => extensions, [withReact, withHistory]),
+        createEditor({
+            editor: createSlateEditor(),
+            getExtensions: () => extensions,
+            withOverrides: [withReact, withHistory],
+        }),
     ),
     'editor-pure': createEditorFactory(() => withReact(createSlateEditor())),
     'h:text': createText,

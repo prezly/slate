@@ -10,7 +10,7 @@ import { PlaceholderNode } from '../PlaceholderNode';
 import { AttachmentPlaceholderElement } from './AttachmentPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createPlateEditor(), () => extensions);
+const editor = createEditor({ editor: createPlateEditor(), getExtensions: () => extensions });
 
 const placeholder: PlaceholderNode<PlaceholderNode.Type.ATTACHMENT> = {
     type: PlaceholderNode.Type.ATTACHMENT,

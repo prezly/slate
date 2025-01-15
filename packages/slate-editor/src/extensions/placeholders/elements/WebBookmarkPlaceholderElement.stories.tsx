@@ -11,7 +11,7 @@ import { PlaceholderNode } from '../PlaceholderNode';
 import { WebBookmarkPlaceholderElement } from './WebBookmarkPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createPlateEditor(), () => extensions);
+const editor = createEditor({ editor: createPlateEditor(), getExtensions: () => extensions });
 
 const placeholder: PlaceholderNode<PlaceholderNode.Type.WEB_BOOKMARK> = {
     type: PlaceholderNode.Type.WEB_BOOKMARK,

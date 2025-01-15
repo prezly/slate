@@ -10,7 +10,7 @@ import { PlaceholderNode } from '../PlaceholderNode';
 import { StoryBookmarkPlaceholderElement } from './StoryBookmarkPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createPlateEditor(), () => extensions);
+const editor = createEditor({ editor: createPlateEditor(), getExtensions: () => extensions });
 
 const placeholder: PlaceholderNode<PlaceholderNode.Type.STORY_BOOKMARK> = {
     type: PlaceholderNode.Type.STORY_BOOKMARK,

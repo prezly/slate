@@ -6,7 +6,7 @@ import { isEditorValueEqual } from './isEditorValueEqual';
 
 describe('isEditorValueEqual', () => {
     it('should return true for equivalent values', () => {
-        const editor = createEditor(createSlateEditor(), () => []);
+        const editor = createEditor({ editor: createSlateEditor() });
 
         const a = [
             {
@@ -25,7 +25,7 @@ describe('isEditorValueEqual', () => {
     });
 
     it('should return false for non-equivalent values', () => {
-        const editor = createEditor(createSlateEditor(), () => []);
+        const editor = createEditor({ editor: createSlateEditor() });
 
         const a = [
             {
@@ -44,7 +44,7 @@ describe('isEditorValueEqual', () => {
     });
 
     it('should consider structural equality', () => {
-        const editor = createEditor(createSlateEditor(), () => []);
+        const editor = createEditor({ editor: createSlateEditor() });
 
         const a = [
             {

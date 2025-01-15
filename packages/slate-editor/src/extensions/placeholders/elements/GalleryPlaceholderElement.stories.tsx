@@ -10,7 +10,7 @@ import { PlaceholderNode } from '../PlaceholderNode';
 import { GalleryPlaceholderElement } from './GalleryPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createPlateEditor(), () => extensions);
+const editor = createEditor({ editor: createPlateEditor(), getExtensions: () => extensions });
 
 const placeholder: PlaceholderNode<PlaceholderNode.Type.GALLERY> = {
     type: PlaceholderNode.Type.GALLERY,

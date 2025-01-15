@@ -102,8 +102,9 @@ export function getAllExtensions() {
 }
 
 export function createEditor(input: JSX.Element) {
-    return createBaseEditor(input as unknown as SlateEditor, getAllExtensions, [
-        withReact,
-        withHistory,
-    ]);
+    return createBaseEditor({
+        editor: input as unknown as SlateEditor,
+        getExtensions: getAllExtensions,
+        withOverrides: [withReact, withHistory],
+    });
 }
