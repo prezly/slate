@@ -42,12 +42,9 @@
         "clean:build": "rimraf build/ *.tsbuildinfo"
     },
     "peerDependencies": {
-        "@udecode/plate-common": "^40.0.0",
+        "@udecode/plate": "^42.1.1",
         "react": "^18.3.0",
-        "react-dom": "^18.3.0",
-        "slate": "^0.110.2",
-        "slate-history": "^0.110.3",
-        "slate-react": "^0.111.0"
+        "react-dom": "^18.3.0"
     },
     "dependencies": {
         "@prezly/slate-types": "workspace:*",

@@ -91,13 +91,10 @@
         "validator": "^13.11.0"
     },
     "peerDependencies": {
-        "@udecode/plate-autoformat": "^40.0.0",
-        "@udecode/plate-common": "^40.0.0",
+        "@udecode/plate": "^42.1.1",
+        "@udecode/plate-autoformat": "^42.0.0",
         "react": "^18.3.0",
-        "react-dom": "^18.3.0",
-        "slate": "^0.110.2",
-        "slate-history": "^0.110.3",
-        "slate-react": "^0.111.0"
+        "react-dom": "^18.3.0"
     },
     "devDependencies": {
         "@babel/core": "^7.18.5",
