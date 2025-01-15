@@ -4,12 +4,10 @@ import type { ImageNode, ImageWidth } from '@prezly/slate-types';
 import { Alignment, ImageLayout } from '@prezly/slate-types';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
-import type { SlateEditor } from '@udecode/plate-common';
-import { useEditorRef } from '@udecode/plate-common/react';
+import type { RenderElementProps, SlateEditor } from '@udecode/plate';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
-import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
 
 import { ImageWithLoadingPlaceholder, ResizableEditorBlock } from '#components';
 import { Image } from '#icons';
@@ -62,7 +60,7 @@ export function ImageElement({
 }: Props) {
     const editor = useEditorRef();
     const isSelected = useSelected();
-    const isVoid = editor.isVoid(element);
+    const isVoid = editor.api.isVoid(element);
     const isSupportingCaptions = !isVoid;
     const isCaptionEmpty = EditorCommands.isNodeEmpty(editor, element, true);
     const isCaptionVisible = isSupportingCaptions && (isSelected || !isCaptionEmpty);
@@ -120,13 +118,13 @@ export function ImageElement({
         });
 
         if (path) {
-            editor.withoutNormalizing(() => {
+            editor.tf.withoutNormalizing(() => {
                 // Remove image caption nodes, as placeholders are voids and cannot have children.
                 // We have to do this, as Slate automatically unwraps void node children, if any.
                 // This converts image captions to sibling paragraphs image editing operations.
                 EditorCommands.removeChildren(editor, [element, path]);
 
-                editor.setNodes(placeholder, { at: path, voids: true });
+                editor.tf.setNodes(placeholder, { at: path, voids: true });
             });
         }
     }, [editor, element]);
@@ -179,13 +177,13 @@ export function ImageElement({
         });
 
         if (path) {
-            editor.withoutNormalizing(() => {
+            editor.tf.withoutNormalizing(() => {
                 // Remove image caption nodes, as placeholders are voids and cannot have children.
                 // We have to do this, as Slate automatically unwraps void node children, if any.
                 // This converts image captions to sibling paragraphs image editing operations.
                 EditorCommands.removeChildren(editor, [element, path]);
 
-                editor.setNodes(placeholder, { at: path, voids: true });
+                editor.tf.setNodes(placeholder, { at: path, voids: true });
             });
         }
     }, [editor, element]);

@@ -1,7 +1,7 @@
 import type { NewsroomRef } from '@prezly/sdk';
 import type { UPLOADCARE_FILE_DATA_KEY } from '@prezly/uploadcare';
 import type { FilePromise } from '@prezly/uploadcare-widget';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 interface File {
     [UPLOADCARE_FILE_DATA_KEY]?: {

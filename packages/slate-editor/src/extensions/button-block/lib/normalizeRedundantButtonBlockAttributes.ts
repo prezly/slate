@@ -1,6 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeEntry } from 'slate';
+import type { Node, NodeEntry, SlateEditor } from '@udecode/plate';
 
 import { ButtonBlockNode } from '../ButtonBlockNode';
 

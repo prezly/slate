@@ -1,7 +1,7 @@
 import type { OEmbedInfo } from '@prezly/sdk';
-import { createPlateEditor } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { createPlateEditor, Slate } from '@udecode/plate/react';
 import * as React from 'react';
-import { type RenderElementProps, Slate } from 'slate-react';
 
 import { PlaceholdersExtension } from '#extensions/placeholders';
 import { createEditor } from '#modules/editor';

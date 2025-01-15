@@ -1,16 +1,16 @@
-import type { SlateEditor, TNodeEntry } from '@udecode/plate-common';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 import { createParagraph } from '#extensions/paragraphs';
 
 import { isInlineNode } from '../queries';
 
-export function convertToParagraph(editor: SlateEditor, [node, path]: TNodeEntry) {
+export function convertToParagraph(editor: SlateEditor, [node, path]: NodeEntry) {
     if (isInlineNode(node)) {
-        editor.wrapNodes(createParagraph(), { at: path });
+        editor.tf.wrapNodes(createParagraph(), { at: path });
         return true;
     }
 
-    editor.setNodes(createParagraph({}), {
+    editor.tf.setNodes(createParagraph({}), {
         at: path,
     });
 

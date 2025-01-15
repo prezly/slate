@@ -1,6 +1,6 @@
-import { focusEditor, isEditorFocused, useEditorRef } from '@udecode/plate-common/react';
+import { type Range } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import { useCallback, useRef } from 'react';
-import type { Range } from 'slate';
 
 type RememberFn = () => void;
 type RestoreFn = () => void;
@@ -18,11 +18,11 @@ export function useEditorSelectionMemory(): [RememberFn, RestoreFn] {
 
     const restore = useCallback(
         function () {
-            if (!isEditorFocused(editor)) {
+            if (!editor.api.isFocused()) {
                 // Restore editor focus because the input captured the focus.
-                focusEditor(editor);
+                editor.tf.focus();
                 if (lastSelectionRef.current) {
-                    editor.select(lastSelectionRef.current);
+                    editor.tf.select(lastSelectionRef.current);
                     lastSelectionRef.current = null;
                 }
             }

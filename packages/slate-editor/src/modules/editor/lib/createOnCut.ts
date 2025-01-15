@@ -1,12 +1,11 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
-import { Range } from 'slate';
+import { RangeApi, type SlateEditor } from '@udecode/plate';
 
 export function createOnCut(editor: SlateEditor) {
     return function (event: React.ClipboardEvent<HTMLDivElement>): void {
         event.preventDefault();
 
-        editor.setFragmentData(event.clipboardData);
+        editor.tf.setFragmentData(event.clipboardData);
 
         const { selection } = editor;
 
@@ -14,8 +13,8 @@ export function createOnCut(editor: SlateEditor) {
             return;
         }
 
-        if (Range.isExpanded(selection)) {
-            editor.deleteFragment();
+        if (RangeApi.isExpanded(selection)) {
+            editor.tf.deleteFragment();
             return;
         }
 
@@ -26,14 +25,14 @@ export function createOnCut(editor: SlateEditor) {
         // see: https://app.clubhouse.io/prezly/story/20076/cutting-ctrl-x-does-not-work-on-blocks
 
         const [voidEntry] = Array.from(
-            editor.nodes({
+            editor.api.nodes({
                 match: (node) => EditorCommands.isVoid(editor, node),
             }),
         );
 
         if (voidEntry) {
             const [, voidEntryPath] = voidEntry;
-            editor.removeNodes({ at: voidEntryPath, voids: true });
+            editor.tf.removeNodes({ at: voidEntryPath, voids: true });
         }
     };
 }

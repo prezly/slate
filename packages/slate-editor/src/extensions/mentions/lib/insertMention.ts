@@ -1,4 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import type { MentionElementType } from '../types';
 
@@ -7,9 +7,9 @@ export function insertMention(
     element: MentionElementType,
     moveCursorAfterInsert = true,
 ) {
-    editor.insertNodes(element);
+    editor.tf.insertNodes(element);
 
     if (moveCursorAfterInsert) {
-        editor.move({ distance: 1, unit: 'offset' });
+        editor.tf.move({ distance: 1, unit: 'offset' });
     }
 }

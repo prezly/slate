@@ -1,5 +1,5 @@
 import type { VariableNode } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef } from '@udecode/plate/react';
 import React, { useState } from 'react';
 
 import { Button, Input, Menu as BaseMenu, Toolbox, VStack, TooltipV2 } from '#components';

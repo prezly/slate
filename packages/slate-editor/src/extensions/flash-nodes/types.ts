@@ -1,4 +1,4 @@
-import type { TNode } from '@udecode/plate-common';
+import type { TNode } from '@udecode/plate';
 
 export interface FlashEditor {
     flash(from: TNode | undefined, to: TNode | undefined): void;

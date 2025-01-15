@@ -1,6 +1,6 @@
 import { TablesEditor } from '@prezly/slate-tables';
 import type { TableNode } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef } from '@udecode/plate/react';
 import React from 'react';
 
 import { HStack, Toggle } from '#components';

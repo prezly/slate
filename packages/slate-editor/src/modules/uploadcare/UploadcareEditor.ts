@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { Editor } from 'slate';
+import { NodeApi, type SlateEditor } from '@udecode/plate';
 
 import { UPLOADCARE_PROPERTY } from './constants';
 import type { ResultPromise, Uploadcare, UploadcareOptions } from './types';
@@ -22,7 +21,7 @@ export abstract class UploadcareEditor {
 
     static isUploadcareEditor = (value: unknown): value is UploadcareEditor => {
         // @ts-expect-error todo
-        return Editor.isEditor(value) && typeof value[UPLOADCARE_PROPERTY] !== 'undefined';
+        return NodeApi.isEditor(value) && typeof value[UPLOADCARE_PROPERTY] !== 'undefined';
     };
 
     public abstract [UPLOADCARE_PROPERTY]: Uploadcare;

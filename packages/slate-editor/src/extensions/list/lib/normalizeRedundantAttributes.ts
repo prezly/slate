@@ -1,8 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ListItemNode, ListItemTextNode, ListNode } from '@prezly/slate-types';
 import { isListItemNode, isListItemTextNode, isListNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 const LIST_SHAPE: Record<keyof ListNode, true> = {
     type: true,

@@ -1,9 +1,8 @@
 import { stubTrue } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import { type Range, RangeApi, type SlateEditor } from '@udecode/plate';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useMemo, useState } from 'react';
-import { Range } from 'slate';
 
 import { getWordAfterTrigger, insertMention, isPointAtWordEnd } from './lib';
 import type { MentionElementType, Option } from './types';
@@ -44,7 +43,7 @@ export function useMentions<V>({
     const onAdd = useCallback(
         (editor: SlateEditor, option: Option<V>) => {
             if (target) {
-                editor.select(target);
+                editor.tf.select(target);
                 const mentionElement = createMentionElement(option);
                 insertMention(editor, mentionElement, moveCursorAfterInsert);
                 setTarget(null);
@@ -57,8 +56,8 @@ export function useMentions<V>({
         (editor: SlateEditor) => {
             const { selection } = editor;
 
-            if (selection && Range.isCollapsed(selection)) {
-                const at = Range.start(selection);
+            if (selection && RangeApi.isCollapsed(selection)) {
+                const at = RangeApi.start(selection);
                 const word = getWordAfterTrigger(editor, { at, trigger });
 
                 if (word && isPointAtWordEnd(editor, { at })) {

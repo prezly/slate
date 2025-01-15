@@ -1,4 +1,10 @@
-import { type Editor, ElementApi, type ElementOrTextOf, type NodeEntry, type SlateEditor } from '@udecode/plate';
+import {
+    type Editor,
+    ElementApi,
+    type ElementOrTextOf,
+    type NodeEntry,
+    type SlateEditor,
+} from '@udecode/plate';
 
 /**
  * Replaces the given element children with a new list of nodes.
@@ -15,7 +21,8 @@ export function replaceChildren(
         return false;
     }
 
-    const newChildren: ElementOrTextOf<Editor>[] = children.length === 0 ? [{ text: '' }] : children;
+    const newChildren: ElementOrTextOf<Editor>[] =
+        children.length === 0 ? [{ text: '' }] : children;
 
     editor.tf.withoutNormalizing(() => {
         node.children.forEach(() => {

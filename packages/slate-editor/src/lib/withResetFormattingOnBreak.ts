@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { SlateEditor, TNode } from '@udecode/plate-common';
+import type { Node, SlateEditor } from '@udecode/plate';
 
-export function withResetFormattingOnBreak(match: (node: TNode) => boolean) {
+export function withResetFormattingOnBreak(match: (node: Node) => boolean) {
     return function <T extends SlateEditor>(editor: T): T {
         const { insertBreak } = editor;
 

@@ -1,6 +1,6 @@
-import { useEditorRef } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import React, { type KeyboardEvent, type MouseEvent, useEffect, useRef, useState } from 'react';
-import { type RenderElementProps, useSelected } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { mergeRefs, useFunction, useUnmount } from '#lib';

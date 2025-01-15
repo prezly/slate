@@ -1,5 +1,5 @@
 import type { Extension, OnKeyDown } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 import type { KeyboardEvent } from 'react';
 
 export function combineOnKeyDown(

@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { QuoteNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef } from '@udecode/plate/react';
 import classNames from 'classnames';
 import type { HTMLAttributes, Ref } from 'react';
 import React, { forwardRef } from 'react';

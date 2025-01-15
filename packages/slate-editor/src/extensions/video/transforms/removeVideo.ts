@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { VideoNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 export function removeVideo(editor: SlateEditor, element?: VideoNode): VideoNode | null {
     return EditorCommands.removeNode<VideoNode>(editor, {

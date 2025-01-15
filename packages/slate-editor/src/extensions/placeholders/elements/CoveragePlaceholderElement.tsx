@@ -4,10 +4,9 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UploadcareFile } from '@prezly/uploadcare';
 import type { UploadInfo } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import type { ReactNode } from 'react';
 import React, { type DragEvent } from 'react';
-import { useSelected } from 'slate-react';
 
 import { PlaceholderCoverage } from '#icons';
 import { useFunction } from '#lib';

@@ -1,8 +1,7 @@
 import { Alignment } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
-import { withHistory } from 'slate-history';
-import { withReact } from 'slate-react';
+import { withHistory, type SlateEditor } from '@udecode/plate';
+import { withReact } from '@udecode/plate/react';
 
 import { coverage, createDelayedResolve, oembedInfo } from '#modules/tests';
 

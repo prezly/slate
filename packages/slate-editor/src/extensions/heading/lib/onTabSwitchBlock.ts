@@ -1,9 +1,7 @@
 import { isHeadingNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import { PathApi, type Node, type SlateEditor } from '@udecode/plate';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import type { Node } from 'slate';
-import { Path } from 'slate';
 
 const isTab = isHotkey('tab');
 const isShiftTab = isHotkey('shift+tab');
@@ -14,21 +12,21 @@ export function onTabSwitchBlock(
     match: (node: Node) => boolean = isHeadingNode,
 ): boolean | void {
     if (editor.selection !== null && isTab(event)) {
-        for (const [, path] of editor.nodes({ match })) {
-            const next = Path.next(path);
-            if (editor.hasPath(next)) {
+        for (const [, path] of editor.api.nodes({ match })) {
+            const next = PathApi.next(path);
+            if (editor.api.hasPath(next)) {
                 event.preventDefault();
-                editor.select(editor.start(next));
+                editor.tf.select(editor.api.start(next));
                 return true;
             }
         }
     }
     if (editor.selection !== null && isShiftTab(event)) {
-        for (const [, path] of editor.nodes({ match })) {
-            const prev = Path.hasPrevious(path) ? Path.previous(path) : null;
-            if (prev && editor.hasPath(prev)) {
+        for (const [, path] of editor.api.nodes({ match })) {
+            const prev = PathApi.hasPrevious(path) ? PathApi.previous(path) : null;
+            if (prev && editor.api.hasPath(prev)) {
                 event.preventDefault();
-                editor.select(editor.start(prev));
+                editor.tf.select(editor.api.start(prev));
                 return true;
             }
         }

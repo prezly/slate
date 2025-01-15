@@ -1,8 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { noop } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { Element, SlateEditor } from '@udecode/plate';
 import { isHotkey } from 'is-hotkey';
-import type { Element } from 'slate';
 
 import { insertBlockAbove, insertBlockBelow } from './lib';
 

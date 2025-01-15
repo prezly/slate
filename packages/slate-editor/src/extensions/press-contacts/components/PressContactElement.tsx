@@ -1,11 +1,11 @@
 import type { ContactInfo, ContactNode } from '@prezly/slate-types';
 import { ContactLayout } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import classNames from 'classnames';
 import { useCallback } from 'react';
 import React from 'react';
 import type { FunctionComponent, ReactNode, SVGProps } from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { Avatar, EditorBlock } from '#components';
 import { Envelope, Globe, Mobile, Phone, SocialFacebook, SocialTwitter } from '#icons';

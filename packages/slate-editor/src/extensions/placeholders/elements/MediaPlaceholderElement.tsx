@@ -7,9 +7,8 @@ import {
     UploadcareImage,
 } from '@prezly/uploadcare';
 import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import React, { type DragEventHandler } from 'react';
-import { useSelected } from 'slate-react';
 
 import { PlaceholderImage } from '#icons';
 import { useFunction } from '#lib';

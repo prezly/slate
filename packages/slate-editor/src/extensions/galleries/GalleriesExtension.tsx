@@ -3,9 +3,8 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import type { GalleryLayout, GalleryNode, GalleryPadding } from '@prezly/slate-types';
 import { GALLERY_NODE_TYPE, isGalleryNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { RenderElementProps, SlateEditor } from '@udecode/plate';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 

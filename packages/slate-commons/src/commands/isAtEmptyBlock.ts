@@ -29,6 +29,8 @@ export function isAtEmptyBlock(
 
     const [node] = entry;
     return (
-        ElementApi.isElement(node) && editor.api.isBlock(node) && isNodeEmpty(editor, node, options?.trim)
+        ElementApi.isElement(node) &&
+        editor.api.isBlock(node) &&
+        isNodeEmpty(editor, node, options?.trim)
     );
 }

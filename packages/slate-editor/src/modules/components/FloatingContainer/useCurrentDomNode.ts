@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef } from '@udecode/plate/react';
 import { useEffect, useRef } from 'react';
 
 import { useUpdate } from '#lib';

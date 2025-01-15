@@ -1,6 +1,6 @@
 import { type Extension, type OnKeyDown } from '@prezly/slate-commons';
-import type { PlateEditor, PlatePlugin } from '@udecode/plate-common/react';
-import { createPlateEditor } from '@udecode/plate-common/react';
+import type { PlateEditor, PlatePlugin } from '@udecode/plate/react';
+import { createPlateEditor } from '@udecode/plate/react';
 import type { KeyboardEvent } from 'react';
 import { useCallback, useMemo } from 'react';
 

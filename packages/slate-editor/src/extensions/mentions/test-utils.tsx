@@ -1,9 +1,8 @@
 import { withInlineVoid } from '@prezly/slate-commons';
 import type { VariableNode } from '@prezly/slate-types';
 import { isVariableNode, VARIABLE_NODE_TYPE } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { RenderElementProps, SlateEditor } from '@udecode/plate';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { MentionElement } from './components';
 import { MentionsExtension } from './MentionsExtension';

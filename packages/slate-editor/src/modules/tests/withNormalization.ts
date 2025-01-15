@@ -1,12 +1,12 @@
-import type { SlateEditor, TNodeEntry } from '@udecode/plate-common';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 export function withNormalization(
     editor: SlateEditor,
-    normalization: (entry: TNodeEntry) => boolean,
+    normalization: (entry: NodeEntry) => boolean,
 ) {
     const { normalizeNode } = editor;
 
-    editor.normalizeNode = (entry: TNodeEntry) => {
+    editor.normalizeNode = (entry: NodeEntry) => {
         if (normalization(entry)) {
             return;
         }

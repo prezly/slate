@@ -1,7 +1,7 @@
 import type { OEmbedInfo } from '@prezly/sdk';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { createEmbed } from '#extensions/embed';
 import { createImage } from '#extensions/image';

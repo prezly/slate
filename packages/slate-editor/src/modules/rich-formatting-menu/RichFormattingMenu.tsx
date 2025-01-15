@@ -2,11 +2,10 @@ import { EditorCommands } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import type { Alignment, LinkNode } from '@prezly/slate-types';
 import { HeadingRole, isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
-import { HistoryEditor, isExpanded } from '@udecode/plate-common';
-import { blurEditor, focusEditor, useEditorState } from '@udecode/plate-common/react';
+import { type Range, RangeApi, type SlateEditor } from '@udecode/plate';
+import { useEditorState } from '@udecode/plate/react';
 import React, { useEffect } from 'react';
 import type { Modifier } from 'react-popper';
-import { Editor, Range } from 'slate';
 
 import { Menu, TextSelectionPortalV2 } from '#components';
 
@@ -82,10 +81,6 @@ export function RichFormattingMenu({
 }: Props) {
     const editor = useEditorState();
 
-    if (!HistoryEditor.isHistoryEditor(editor)) {
-        throw new Error('RichFormattingMenu requires HistoryEditor to work');
-    }
-
     const show = isSelectionSupported(editor);
     const [linkRange, setLinkRange, clearLinkRange] = useRangeRef();
     const link = linkRange?.current ? getCurrentLinkNode(editor, { at: linkRange.current }) : null;
@@ -128,14 +123,14 @@ export function RichFormattingMenu({
     function handleLinkButtonClick() {
         if (!editor.selection) return;
 
-        const rangeRef = editor.rangeRef(editor.selection, {
+        const rangeRef = editor.api.rangeRef(editor.selection, {
             affinity: 'inward',
         });
 
         setLinkRange(rangeRef);
 
         // We have to blur the editor to allow the LinkMenu input focus.
-        blurEditor(editor);
+        editor.tf.blur();
     }
 
     function linkSelection(props: Pick<LinkNode, 'href' | 'new_tab'>) {
@@ -144,7 +139,7 @@ export function RichFormattingMenu({
 
         clearLinkRange();
 
-        focusEditor(editor);
+        editor.tf.focus();
 
         unwrapLink(editor);
         wrapInLink(editor, props);
@@ -156,8 +151,8 @@ export function RichFormattingMenu({
 
         clearLinkRange();
 
-        editor.select(selection);
-        focusEditor(editor);
+        editor.tf.select(selection);
+        editor.tf.focus();
 
         unwrapLink(editor);
     }
@@ -168,14 +163,14 @@ export function RichFormattingMenu({
 
         clearLinkRange();
 
-        focusEditor(editor);
-        editor.collapse({ edge: 'anchor' });
-        editor.select(selection);
+        editor.tf.focus();
+        editor.tf.collapse({ edge: 'anchor' });
+        editor.tf.select(selection);
     }
 
     useEffect(
         function () {
-            if (editor.selection && Range.isCollapsed(editor.selection) && linkRange?.current) {
+            if (editor.selection && RangeApi.isCollapsed(editor.selection) && linkRange?.current) {
                 clearLinkRange();
             }
         },
@@ -201,7 +196,7 @@ export function RichFormattingMenu({
     const isTitleSelected = formatting.active.includes(HeadingRole.TITLE);
     const isSubtitleSelected = formatting.active.includes(HeadingRole.SUBTITLE);
 
-    if (withInlineLinks && linkRange?.current && editor.selection && isExpanded(editor.selection)) {
+    if (withInlineLinks && linkRange?.current && editor.selection && editor.api.isExpanded()) {
         return (
             <TextSelectionPortalV2
                 containerElement={containerElement}
@@ -291,8 +286,8 @@ export function RichFormattingMenu({
     );
 }
 
-function getCurrentLinkNode(editor: Editor, options: { at: Range }): LinkNode | null {
-    const entries = Array.from(Editor.nodes(editor, { match: isLinkNode, at: options.at }));
+function getCurrentLinkNode(editor: SlateEditor, options: { at: Range }): LinkNode | null {
+    const entries = Array.from(editor.api.nodes<LinkNode>({ match: isLinkNode, at: options.at }));
     return entries.length > 0 ? entries[0][0] : null;
 }
 

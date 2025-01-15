@@ -8,17 +8,11 @@ import {
 import type { Extension, WithOverrides } from '@prezly/slate-commons';
 import { isNotUndefined } from '@technically/is-not-undefined';
 import { flow } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
-import { createParagraph } from '#extensions/paragraphs';
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
-import {
-    withDefaultTextBlock,
-    withDeserializeHtml,
-    withElementsEqualityCheck,
-    withRichBlocks,
-} from './plugins';
+import { withDeserializeHtml, withElementsEqualityCheck, withRichBlocks } from './plugins';
 
 export function createEditor(
     baseEditor: SlateEditor,
@@ -34,7 +28,6 @@ export function createEditor(
         withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,
-        withDefaultTextBlock(createParagraph),
         withInlineVoid(getExtensions),
         withNormalization(getExtensions),
         withUserFriendlyDeleteBehavior,

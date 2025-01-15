@@ -1,7 +1,6 @@
 import type { BookmarkNode } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import React from 'react';
-import { useSelected } from 'slate-react';
 
 import { PlaceholderWebBookmark } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';

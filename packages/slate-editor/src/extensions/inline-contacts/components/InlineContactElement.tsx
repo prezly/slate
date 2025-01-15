@@ -1,9 +1,8 @@
 import type { ContactInfo, ContactNode } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import { useCallback, useState } from 'react';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useFunction } from '#lib';

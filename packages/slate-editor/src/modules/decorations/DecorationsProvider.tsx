@@ -1,6 +1,6 @@
 import type { Decorate } from '@prezly/slate-commons';
 import { isNotUndefined } from '@technically/is-not-undefined';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef } from '@udecode/plate/react';
 import React, { useMemo, useState, type ReactElement } from 'react';
 
 import { combineDecorate } from '../editable/lib';

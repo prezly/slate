@@ -1,9 +1,8 @@
 import { isVariableNode, type VariableNode } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
 
 import type { Variable } from './types';
 import styles from './VariableElement.module.scss';
@@ -22,7 +21,7 @@ export function VariableElement({ attributes, children, element, variables }: Pr
     const [container, setContainer] = useState<HTMLSpanElement | null>(null);
 
     const variable = variables.find(({ key }) => key === element.key);
-    const selectedNodes = Array.from(editor.nodes({ mode: 'lowest' }));
+    const selectedNodes = Array.from(editor.api.nodes({ mode: 'lowest' }));
     const isOnlyVariableSelected =
         selectedNodes.length === 1 && selectedNodes.every(([node]) => isVariableNode(node));
 

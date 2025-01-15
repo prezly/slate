@@ -1,6 +1,5 @@
-import type { TNode } from '@udecode/plate-common';
-import { isText } from '@udecode/plate-common';
+import { TextApi, type TNode } from '@udecode/plate';
 
 export function isEmptyTextNode(node: TNode) {
-    return isText(node) && node.text === '';
+    return TextApi.isText(node) && node.text === '';
 }

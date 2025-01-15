@@ -1,6 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
+import type { Node, SlateEditor } from '@udecode/plate';
 
 export interface RichBlocksAwareEditor {
     isRichBlock(node: Node): boolean;

@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Element } from 'slate';
+import { type Element, type SlateEditor } from '@udecode/plate';
 
 type TextBlockFactory<T extends Element> = (props?: Partial<T>) => T;
 

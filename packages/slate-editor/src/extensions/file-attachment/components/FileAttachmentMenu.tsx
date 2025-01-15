@@ -1,10 +1,9 @@
 import type { AttachmentNode } from '@prezly/slate-types';
 import { isAttachmentNode } from '@prezly/slate-types';
 import { UploadcareFile } from '@prezly/uploadcare';
-import type { SlateEditor } from '@udecode/plate-common';
-import { useEditorRef } from '@udecode/plate-common/react';
+import type { SlateEditor } from '@udecode/plate';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import React, { useCallback } from 'react';
-import { useSelected } from 'slate-react';
 
 import { Button, Input, Toolbox, VStack } from '#components';
 import { Delete } from '#icons';
@@ -43,7 +42,7 @@ export function FileAttachmentMenu({ element, onEdited, onRemoved }: Props) {
             description,
         };
 
-        editor.setNodes<AttachmentNode>(update, {
+        editor.tf.setNodes<AttachmentNode>(update, {
             match: isAttachmentNode,
         });
 

@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Point, Range } from 'slate';
+import type { Point, Range, SlateEditor } from '@udecode/plate';
 
 import { getText } from './getText';
 
@@ -20,10 +19,10 @@ function getStartOfTriggerLocation(editor: SlateEditor, at: Point, trigger: stri
      * List of punctuation characters:
      * https://github.com/ianstormtaylor/slate/blob/0bbe121d76c5c2313d939de8a7ebed3bfd37f62d/packages/slate/src/utils/string.ts#L6
      */
-    const pointOfWordStart = editor.before(at, { unit: 'word' });
+    const pointOfWordStart = editor.api.before(at, { unit: 'word' });
     const pointOfTrigger =
         pointOfWordStart &&
-        editor.before(pointOfWordStart, { distance: trigger.length, unit: 'character' });
+        editor.api.before(pointOfWordStart, { distance: trigger.length, unit: 'character' });
 
     // `pointOfWordStart` can still point to the previous node, even if `at` is already pointing to the
     // node after it. If that is the case, we simply stop looking for the trigger location.
@@ -38,20 +37,21 @@ function getStartOfTriggerLocation(editor: SlateEditor, at: Point, trigger: stri
      *
      * So we can use start of the editor as the fallback point.
      */
-    return pointOfTrigger || editor.start([]);
+    return pointOfTrigger || editor.api.start([]);
 }
 
 function getMatchingTextRange(
     editor: SlateEditor,
     { at, text, trigger }: { at: Point; text: string; trigger: string },
-): Range {
+): Range | undefined {
     const distance = text.length + trigger.length;
     /**
      * `Editor.before` returns undefined if there is no destination location.
      * It should probably not happen in this case, because we're computing the distance based
      * on the matched text. But just in case, use start of the editor as the fallback point.
      */
-    const triggerPoint = editor.before(at, { distance, unit: 'character' }) || editor.start([]);
+    const triggerPoint =
+        editor.api.before(at, { distance, unit: 'character' }) || editor.api.start([]);
 
     /**
      * Compute a new range to match the exact range of `trigger` + `text`.
@@ -62,7 +62,7 @@ function getMatchingTextRange(
      * is the end of the matched word.
      * For example: <anchor />@mention<focus />
      */
-    return editor.range(triggerPoint, at);
+    return editor.api.range(triggerPoint, at);
 }
 
 export function getWordAfterTrigger(
@@ -94,7 +94,10 @@ export function getWordAfterTrigger(
         return null;
     }
 
-    const textRange = editor.range(at, triggerStart);
+    const textRange = editor.api.range(at, triggerStart);
+    if (!textRange) {
+        return null;
+    }
 
     /**
      * The text might match something before `trigger`, so we should not

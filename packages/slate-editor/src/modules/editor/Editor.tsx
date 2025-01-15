@@ -11,9 +11,8 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
-import { select } from '@udecode/plate-common';
-import type { PlatePlugin } from '@udecode/plate-common/react';
-import { isEditorFocused, Plate } from '@udecode/plate-common/react';
+import type { PlatePlugin } from '@udecode/plate/react';
+import { Plate } from '@udecode/plate/react';
 import classNames from 'classnames';
 import React, {
     forwardRef,
@@ -330,7 +329,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
             clearSelection: () => EditorCommands.resetSelection(editor),
             insertNodes: (nodes, options) => EditorCommands.insertNodes(editor, nodes, options),
             updateNodes: (props, options = {}) => {
-                editor.setNodes(props, options.match ? { at: [], ...options } : options);
+                editor.tf.setNodes(props, options.match ? { at: [], ...options } : options);
             },
             insertPlaceholder(props, ensureEmptyParagraphAfter) {
                 return insertPlaceholder(editor, props, ensureEmptyParagraphAfter);
@@ -339,7 +338,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 replacePlaceholder(editor, placeholder, element, options);
             },
             isEmpty: () => EditorCommands.isEmpty(editor),
-            isFocused: () => isEditorFocused(editor),
+            isFocused: () => editor.api.isFocused(),
             isModified: () =>
                 !isEditorValueEqual(editor, getInitialValue(), editor.children as Value),
             isValueEqual: (value: Value, another: Value) =>
@@ -349,7 +348,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
                 setInitialValue(value);
             },
             select: (target) => {
-                select(editor, target);
+                editor.tf.select(target);
             },
         }),
     );
@@ -844,7 +843,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     });
 
     const hasCustomPlaceholder =
-        withFloatingAddMenu && (isEditorFocused(editor) || isFloatingAddMenuOpen);
+        withFloatingAddMenu && (editor.api.isFocused() || isFloatingAddMenuOpen);
 
     const onChange = useOnChange(props.onChange);
 

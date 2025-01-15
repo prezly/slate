@@ -4,11 +4,9 @@ import type { ImageNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
 import { isEqual, noop } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import { type Path, PathApi, type RenderElementProps, type SlateEditor } from '@udecode/plate';
 import { isHotkey } from 'is-hotkey';
 import React from 'react';
-import { Path } from 'slate';
-import type { RenderElementProps } from 'slate-react';
 
 import { isDeletingEvent, isDeletingEventBackward } from '#lib';
 
@@ -132,16 +130,16 @@ export const ImageExtension = ({
             if (nodeEntry && isImageNode(nodeEntry[0])) {
                 event.preventDefault();
 
-                const nextPath = Path.next(nodeEntry[1]);
+                const nextPath = PathApi.next(nodeEntry[1]);
                 EditorCommands.insertEmptyParagraph(editor, { at: nextPath });
-                editor.select(nextPath);
+                editor.tf.select(nextPath);
                 return true;
             }
         }
 
         if (isHotkey('shift+enter', event.nativeEvent) && !event.isDefaultPrevented()) {
             event.preventDefault();
-            editor.insertText('\n');
+            editor.tf.insertText('\n');
             return true;
         }
 

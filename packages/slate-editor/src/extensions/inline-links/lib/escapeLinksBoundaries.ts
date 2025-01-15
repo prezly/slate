@@ -1,8 +1,7 @@
 import { isLinkNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import { NodeApi, PathApi, RangeApi, type SlateEditor } from '@udecode/plate';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent } from 'react';
-import { Node, Path, Range } from 'slate';
 
 const isEscapingLink = isHotkey(['space', '.']);
 
@@ -13,27 +12,27 @@ const isEscapingLink = isHotkey(['space', '.']);
  */
 export function escapeLinksBoundaries(event: KeyboardEvent, editor: SlateEditor) {
     if (isEscapingLink(event) && isCursorAtEndOfLink(editor)) {
-        const next = editor.next({ at: editor.selection?.focus });
+        const next = editor.api.next({ at: editor.selection?.focus });
         if (next) {
             event.preventDefault();
-            editor.insertText(event.key, { at: { path: next[1], offset: 0 } });
-            editor.select({ path: next[1], offset: 1 });
+            editor.tf.insertText(event.key, { at: { path: next[1], offset: 0 } });
+            editor.tf.select({ path: next[1], offset: 1 });
         }
     }
 }
 
 function isCursorAtEndOfLink(editor: SlateEditor): boolean {
     if (!editor.selection) return false;
-    if (!Range.isCollapsed(editor.selection)) return false;
+    if (!RangeApi.isCollapsed(editor.selection)) return false;
 
     const cursor = editor.selection.focus;
 
-    const link = editor.above({ at: cursor, match: isLinkNode });
+    const link = editor.api.above({ at: cursor, match: isLinkNode });
     if (!link) return false;
 
-    const relativeCursorPath = Path.relative(cursor.path, link[1]);
+    const relativeCursorPath = PathApi.relative(cursor.path, link[1]);
 
-    const [tail] = [...Node.texts(link[0], { reverse: true, to: relativeCursorPath })];
+    const [tail] = [...NodeApi.texts(link[0], { reverse: true, to: relativeCursorPath })];
 
-    return Path.equals(relativeCursorPath, tail[1]) && cursor.offset === tail[0].text.length;
+    return PathApi.equals(relativeCursorPath, tail[1]) && cursor.offset === tail[0].text.length;
 }

@@ -1,8 +1,7 @@
 import type { LinkNode } from '@prezly/slate-types';
-import { findNodePath, useEditorRef } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import React from 'react';
-import { Range } from 'slate';
-import type { RenderElementProps } from 'slate-react';
 
 import { LinkWithTooltip } from '#modules/components';
 
@@ -21,10 +20,10 @@ export function LinkElement({ attributes, children, element, predefinedLinks }: 
 
     function onMouseUp() {
         if (editor.selection && Range.isCollapsed(editor.selection)) {
-            const path = findNodePath(editor, element);
+            const path = editor.api.findPath(element);
             if (path) {
-                const range = editor.range(path);
-                editor.select(range);
+                const range = editor.api.range(path);
+                editor.tf.select(range);
             }
         }
     }

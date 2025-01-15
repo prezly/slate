@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { type Element } from 'slate';
+import type { Element, SlateEditor } from '@udecode/plate';
 
 enum Direction {
     // Note: The enum values are used as index offsets. Watch out when you decide to modify them.
@@ -26,8 +25,8 @@ function insertBlock(
 
     const [index] = path;
 
-    editor.insertNodes(createElement(), { at: [index + direction] });
-    editor.select([index + direction]);
+    editor.tf.insertNodes(createElement(), { at: [index + direction] });
+    editor.tf.select([index + direction]);
 
     return true;
 }

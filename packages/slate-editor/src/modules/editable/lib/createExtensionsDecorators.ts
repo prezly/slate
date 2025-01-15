@@ -1,6 +1,6 @@
 import type { Decorate, Extension } from '@prezly/slate-commons';
 import { isNotUndefined } from '@technically/is-not-undefined';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 export function createExtensionsDecorators<E extends SlateEditor>(
     editor: E,

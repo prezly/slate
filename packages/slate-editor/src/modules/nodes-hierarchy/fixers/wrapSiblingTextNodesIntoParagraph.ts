@@ -1,35 +1,40 @@
-import type { TNodeEntry } from '@udecode/plate-common';
-import { getNodeChildren, isText, type SlateEditor } from '@udecode/plate-common';
-import type { NodeMatch, Node } from 'slate';
-import { Path } from 'slate';
+import {
+    type Node,
+    type NodeEntry,
+    PathApi,
+    TextApi,
+    type SlateEditor,
+    type Path,
+    NodeApi,
+} from '@udecode/plate';
 
 export function wrapSiblingTextNodesIntoParagraph(
     editor: SlateEditor,
-    [node, path]: TNodeEntry,
+    [node, path]: NodeEntry,
 ): boolean {
-    if (!isText(node)) return false;
+    if (!TextApi.isText(node)) return false;
     if (path.length === 0) return false;
 
-    const combinePaths = [path, ...collectNextSiblingsWhileMatching(editor, path, isText)];
+    const combinePaths = [path, ...collectNextSiblingsWhileMatching(editor, path, TextApi.isText)];
 
     const from = combinePaths[0];
     const to = combinePaths[combinePaths.length - 1];
 
-    editor.wrapNodes(editor.createDefaultTextBlock({ children: [] }), {
-        at: Path.parent(path),
+    editor.tf.wrapNodes(editor.createDefaultTextBlock({ children: [] }), {
+        at: PathApi.parent(path),
         match: betweenPaths(from, to),
     });
 
     return true;
 }
 
-function betweenPaths(from: Path, to: Path): NodeMatch<Node> {
+function betweenPaths(from: Path, to: Path): (node: Node, path: Path) => boolean {
     return (_, path) => {
         return (
-            Path.equals(path, from) ||
-            Path.isAfter(path, from) ||
-            Path.equals(path, to) ||
-            Path.isBefore(path, from)
+            PathApi.equals(path, from) ||
+            PathApi.isAfter(path, from) ||
+            PathApi.equals(path, to) ||
+            PathApi.isBefore(path, from)
         );
     };
 }
@@ -37,12 +42,12 @@ function betweenPaths(from: Path, to: Path): NodeMatch<Node> {
 function collectNextSiblingsWhileMatching(
     editor: SlateEditor,
     current: Path,
-    match: NodeMatch<Node>,
+    match: (node: Node, path: Path) => boolean,
 ): Path[] {
     if (current.length === 0) return [];
 
-    const children = getNodeChildren(editor, Path.parent(current));
-    const siblingsAfter = Array.from(children).filter(([, path]) => Path.isAfter(path, current));
+    const children = NodeApi.children(editor, PathApi.parent(current));
+    const siblingsAfter = Array.from(children).filter(([, path]) => PathApi.isAfter(path, current));
 
     const matching: Path[] = [];
 

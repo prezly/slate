@@ -1,7 +1,6 @@
 import { isSubtitleHeadingNode, isTitleHeadingNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { Range, SlateEditor } from '@udecode/plate';
 import { useCallback, useMemo } from 'react';
-import type { BaseRange } from 'slate';
 
 import type { Option } from '#extensions/mentions';
 import { useMentions } from '#extensions/mentions';
@@ -25,13 +24,13 @@ export function useVariables(
 ) {
     const options = useMemo(() => variables.map(placeholderToOption), [variables]);
     const isEnabled = useCallback(
-        (range: BaseRange | null) => {
+        (range: Range | null) => {
             if (!range) {
                 return true;
             }
 
             const nodes = Array.from(
-                editor.nodes({
+                editor.api.nodes({
                     at: range,
                     match: (node) => isTitleHeadingNode(node) || isSubtitleHeadingNode(node),
                 }),

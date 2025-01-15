@@ -8,10 +8,9 @@ import type {
 } from '@prezly/slate-types';
 import { awaitUploads, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import { noop } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
-import { useEditorRef } from '@udecode/plate-common/react';
+import type { RenderElementProps, SlateEditor } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import React, { useState } from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useLatest, useSize } from '#lib';
@@ -125,7 +124,7 @@ export function GalleryElement({
             };
         });
 
-        editor.setNodes<GalleryNode>(
+        editor.tf.setNodes<GalleryNode>(
             { images: [...element.images, ...images] },
             { match: (node) => node === element },
         );
