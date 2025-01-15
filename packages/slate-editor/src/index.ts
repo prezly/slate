@@ -27,9 +27,8 @@ import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 
 import type { FlashEditor } from '#extensions/flash-nodes';
-import type { ElementsEqualityCheckEditor } from '#modules/editor';
 
-type Editor = BaseEditor & HistoryEditor & ElementsEqualityCheckEditor & FlashEditor;
+type Editor = BaseEditor & HistoryEditor & FlashEditor;
 
 declare module 'slate' {
     interface CustomTypes {

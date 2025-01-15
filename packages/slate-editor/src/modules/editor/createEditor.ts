@@ -18,8 +18,8 @@ import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 import {
     DefaultTextBlockPlugin,
     withDeserializeHtml,
-    withElementsEqualityCheck,
     RichBlocksPlugin,
+    ElementsEqualityCheckPlugin,
 } from './plugins';
 import { type Value } from './types';
 
@@ -53,6 +53,7 @@ export function createEditor({
                     createDefaultTextBlock: createParagraph,
                 },
             }),
+            ElementsEqualityCheckPlugin,
             RichBlocksPlugin.configure({
                 options: { getExtensions },
             }),
@@ -73,7 +74,6 @@ export function createEditor({
         withNormalization(getExtensions),
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
-        withElementsEqualityCheck,
         ...extensionsOverrides,
     ])(baseEditor);
 }

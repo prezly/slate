@@ -10,32 +10,21 @@ import {
     VideoNode,
 } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Element } from 'slate';
+import type { Element } from '@udecode/plate';
+import { createPlatePlugin } from '@udecode/plate/react';
 
 import { EmbedNode } from '#extensions/embed';
 import { PlaceholderNode } from '#extensions/placeholders';
 
-export interface ElementsEqualityCheckEditor {
-    /**
-     * Compare two elements.
-     *
-     * This is useful to implement smarter comparison rules to,
-     * for example, ignore data-independent properties like `uuid`.
-     *
-     * `children` arrays can be omitted from the comparison,
-     * as the outer code will compare them anyway.
-     */
-    isElementEqual(node: Element, another: Element): boolean | undefined;
-}
-
-export function withElementsEqualityCheck<T extends SlateEditor>(
-    editor: T,
-): T & ElementsEqualityCheckEditor {
-    return Object.assign(editor, {
-        isElementEqual,
-    });
-}
+export const ElementsEqualityCheckPlugin = createPlatePlugin({
+    key: 'withElementsEqualityCheck',
+}).overrideEditor(() => {
+    return {
+        api: {
+            isElementEqual,
+        },
+    };
+});
 
 function isElementEqual(node: Element, another: Element): boolean | undefined {
     if (isAttachmentNode(node) && isAttachmentNode(another)) {
