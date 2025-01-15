@@ -1,7 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { BookmarkNode } from '@prezly/slate-types';
-import { isEqual } from '@technically/lodash';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
 
@@ -27,19 +26,6 @@ export const WebBookmarkExtension = ({
         element: composeElementDeserializer({
             [BookmarkNode.TYPE]: createDeserializeElement(parseSerializedElement),
         }),
-    },
-    isElementEqual: (node, another) => {
-        if (BookmarkNode.isBookmarkNode(node) && BookmarkNode.isBookmarkNode(another)) {
-            // Compare ignoring `uuid` and `children`
-            return (
-                node.url === another.url &&
-                node.show_thumbnail === another.show_thumbnail &&
-                node.layout === another.layout &&
-                node.new_tab === another.new_tab &&
-                isEqual(node.oembed, another.oembed)
-            );
-        }
-        return undefined;
     },
     isRichBlock: BookmarkNode.isBookmarkNode,
     isVoid: BookmarkNode.isBookmarkNode,

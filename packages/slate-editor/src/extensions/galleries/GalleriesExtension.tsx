@@ -2,7 +2,6 @@ import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import type { GalleryLayout, GalleryNode, GalleryPadding } from '@prezly/slate-types';
 import { GALLERY_NODE_TYPE, isGalleryNode } from '@prezly/slate-types';
-import { isEqual } from '@technically/lodash';
 import type { SlateEditor } from '@udecode/plate-common';
 import React from 'react';
 import type { RenderElementProps } from 'slate-react';
@@ -61,17 +60,6 @@ export const GalleriesExtension = ({
         element: composeElementDeserializer({
             [GALLERY_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         }),
-    },
-    isElementEqual: (node, another) => {
-        if (isGalleryNode(node) && isGalleryNode(another)) {
-            return (
-                node.layout === another.layout &&
-                node.padding === another.padding &&
-                node.thumbnail_size === another.thumbnail_size &&
-                isEqual(node.images, another.images)
-            );
-        }
-        return undefined;
     },
     isRichBlock: isGalleryNode,
     isVoid: isGalleryNode,

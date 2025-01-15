@@ -3,7 +3,7 @@ import { createDeserializeElement, EditorCommands } from '@prezly/slate-commons'
 import type { ImageNode } from '@prezly/slate-types';
 import { IMAGE_NODE_TYPE, isImageNode } from '@prezly/slate-types';
 import { toProgressPromise, UploadcareImage } from '@prezly/uploadcare';
-import { isEqual, noop } from '@technically/lodash';
+import { noop } from '@technically/lodash';
 import type { SlateEditor } from '@udecode/plate-common';
 import { isHotkey } from 'is-hotkey';
 import React from 'react';
@@ -100,19 +100,6 @@ export const ImageExtension = ({
                 return placeholder;
             },
         }),
-    },
-    isElementEqual: (node, another) => {
-        if (isImageNode(node) && isImageNode(another)) {
-            return (
-                node.href === another.href &&
-                node.layout === another.layout &&
-                node.align === another.align &&
-                node.new_tab === another.new_tab &&
-                node.width === another.width &&
-                isEqual(node.file, another.file)
-            );
-        }
-        return undefined;
     },
     isRichBlock: isImageNode,
     isVoid: (node) => {

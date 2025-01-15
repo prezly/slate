@@ -1,9 +1,11 @@
 import { isEqual } from '@technically/lodash';
-import { isVoid, type SlateEditor } from '@udecode/plate-common';
+import { type SlateEditor } from '@udecode/plate-common';
 import type { Element, Text, Descendant } from 'slate';
 
+import type { ElementsEqualityCheckEditor } from '../plugins';
+
 export function isEditorValueEqual<T extends Descendant>(
-    editor: SlateEditor,
+    editor: SlateEditor & ElementsEqualityCheckEditor,
     a: T[],
     b: T[],
 ): boolean {
@@ -18,7 +20,7 @@ export function isEditorValueEqual<T extends Descendant>(
         if (!isNodeText && !isAnotherText) {
             const equal = editor.isElementEqual(node as Element, another as Element);
             if (typeof equal !== 'undefined') {
-                if (isVoid(editor, node) || isVoid(editor, another)) {
+                if (editor.isVoid(node) || editor.isVoid(another)) {
                     // Do not compare void elements children
                     return equal;
                 }
@@ -49,14 +51,17 @@ function isText(node: Descendant): node is Text {
 // CACHE
 
 const CACHE: WeakMap<
-    SlateEditor,
+    ElementsEqualityCheckEditor,
     WeakMap<Descendant, WeakMap<Descendant, boolean>>
 > = new WeakMap();
 
-type WeakMatrix = WeakMap<SlateEditor, WeakMap<Descendant, WeakMap<Descendant, boolean>>>;
+type WeakMatrix = WeakMap<
+    ElementsEqualityCheckEditor,
+    WeakMap<Descendant, WeakMap<Descendant, boolean>>
+>;
 type NodesComparator = (node: Descendant, another: Descendant) => boolean;
 
-function cached(editor: SlateEditor, fn: NodesComparator): NodesComparator {
+function cached(editor: ElementsEqualityCheckEditor, fn: NodesComparator): NodesComparator {
     return (node, another) => {
         const cached = get(CACHE, editor, node, another) ?? get(CACHE, editor, another, node);
 
@@ -75,7 +80,7 @@ function cached(editor: SlateEditor, fn: NodesComparator): NodesComparator {
 
 function get(
     matrix: WeakMatrix,
-    editor: SlateEditor,
+    editor: ElementsEqualityCheckEditor,
     node: Descendant,
     another: Descendant,
 ): boolean | undefined {
@@ -84,7 +89,7 @@ function get(
 
 function set(
     matrix: WeakMatrix,
-    editor: SlateEditor,
+    editor: ElementsEqualityCheckEditor,
     node: Descendant,
     another: Descendant,
     value: boolean,
