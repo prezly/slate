@@ -16,7 +16,7 @@ import { createParagraph } from '#extensions/paragraphs';
 import { withNodesHierarchy, hierarchySchema } from '#modules/nodes-hierarchy';
 
 import {
-    withDefaultTextBlock,
+    DefaultTextBlockPlugin,
     withDeserializeHtml,
     withElementsEqualityCheck,
     RichBlocksPlugin,
@@ -48,6 +48,11 @@ export function createEditor({
         editor,
         plugins: [
             ...plugins,
+            DefaultTextBlockPlugin.configure({
+                options: {
+                    createDefaultTextBlock: createParagraph,
+                },
+            }),
             RichBlocksPlugin.configure({
                 options: { getExtensions },
             }),
@@ -64,7 +69,6 @@ export function createEditor({
         withNodesHierarchy(hierarchySchema),
         withBreaksOnExpandedSelection,
         withBreaksOnVoidNodes,
-        withDefaultTextBlock(createParagraph),
         withInlineVoid(getExtensions),
         withNormalization(getExtensions),
         withUserFriendlyDeleteBehavior,

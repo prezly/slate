@@ -1,4 +1,4 @@
-export { type DefaultTextBlockEditor, withDefaultTextBlock } from './withDefaultTextBlock';
+export { DefaultTextBlockPlugin } from './DefaultTextBlockPlugin';
 export { withDeserializeHtml } from './withDeserializeHtml';
 export {
     type ElementsEqualityCheckEditor,

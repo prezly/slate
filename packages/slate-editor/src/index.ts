@@ -22,18 +22,14 @@ export { type ResultPromise, type UploadcareOptions, withUploadcare } from './mo
 
 // Editor type
 
-import type { ElementNode, ParagraphNode, TextNode } from '@prezly/slate-types';
+import type { ElementNode, TextNode } from '@prezly/slate-types';
 import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 
 import type { FlashEditor } from '#extensions/flash-nodes';
-import type { DefaultTextBlockEditor, ElementsEqualityCheckEditor } from '#modules/editor';
+import type { ElementsEqualityCheckEditor } from '#modules/editor';
 
-type Editor = BaseEditor &
-    HistoryEditor &
-    DefaultTextBlockEditor<ParagraphNode> &
-    ElementsEqualityCheckEditor &
-    FlashEditor;
+type Editor = BaseEditor & HistoryEditor & ElementsEqualityCheckEditor & FlashEditor;
 
 declare module 'slate' {
     interface CustomTypes {
