@@ -2,7 +2,6 @@ import type { OEmbedInfo } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import { VideoNode } from '@prezly/slate-types';
-import { isEqual } from '@technically/lodash';
 import React from 'react';
 
 import type { InfoText } from '#components';
@@ -36,16 +35,6 @@ export function VideoExtension({
             element: composeElementDeserializer({
                 [VideoNode.TYPE]: createDeserializeElement(parseSerializedElement),
             }),
-        },
-        isElementEqual: (node, another) => {
-            if (VideoNode.isVideoNode(node) && VideoNode.isVideoNode(another)) {
-                return (
-                    node.url === another.url &&
-                    node.layout === another.layout &&
-                    isEqual(node.oembed, another.oembed)
-                );
-            }
-            return undefined;
         },
         isRichBlock: VideoNode.isVideoNode,
         isVoid: VideoNode.isVideoNode,
