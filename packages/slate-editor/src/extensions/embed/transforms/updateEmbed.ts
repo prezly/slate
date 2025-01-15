@@ -1,4 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { EmbedNode } from '../EmbedNode';
 
@@ -7,7 +7,7 @@ export function updateEmbed(
     element: EmbedNode,
     patch: Partial<Pick<EmbedNode, 'url' | 'oembed' | 'layout' | 'uuid'>>,
 ) {
-    editor.setNodes<EmbedNode>(patch, {
+    editor.tf.setNodes<EmbedNode>(patch, {
         at: [],
         match: (node) => EmbedNode.isEmbedNode(node) && node.uuid === element.uuid,
     });

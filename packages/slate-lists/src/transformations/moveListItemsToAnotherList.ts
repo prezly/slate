@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeEntry } from 'slate';
-import { Element } from 'slate';
+import { ElementApi, type NodeEntry, type SlateEditor } from '@udecode/plate';
 
 import type { ListsSchema } from '../types';
 
@@ -11,23 +9,23 @@ export function moveListItemsToAnotherList(
     editor: SlateEditor,
     schema: ListsSchema,
     parameters: {
-        at: NodeEntry<Node>;
-        to: NodeEntry<Node>;
+        at: NodeEntry;
+        to: NodeEntry;
     },
 ): boolean {
     const [sourceListNode, sourceListPath] = parameters.at;
     const [targetListNode, targetListPath] = parameters.to;
 
     if (
-        Element.isElement(sourceListNode) &&
-        Element.isElement(targetListNode) &&
+        ElementApi.isElement(sourceListNode) &&
+        ElementApi.isElement(targetListNode) &&
         schema.isListNode(sourceListNode) &&
         schema.isListNode(targetListNode) &&
         sourceListNode.children.length > 0
     ) {
         // Sanity check.
         for (let i = 0; i < sourceListNode.children.length; ++i) {
-            editor.moveNodes({
+            editor.tf.moveNodes({
                 at: [...sourceListPath, 0],
                 to: [...targetListPath, targetListNode.children.length + i],
             });

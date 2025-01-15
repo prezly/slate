@@ -1,5 +1,5 @@
-import type { SlateEditor, TNode } from '@udecode/plate-common';
-import { toDOMNode, useEditorState } from '@udecode/plate-common/react';
+import type { SlateEditor, TNode } from '@udecode/plate';
+import { useEditorState } from '@udecode/plate/react';
 import type { RefObject } from 'react';
 import React, { useEffect, useState } from 'react';
 
@@ -50,8 +50,8 @@ function Flasher({
 
         try {
             const containerRect = containerRef.current.getBoundingClientRect();
-            const rectA = toDOMNode(editor, top)?.getBoundingClientRect();
-            const rectB = toDOMNode(editor, bottom)?.getBoundingClientRect();
+            const rectA = editor.api.toDOMNode(top)?.getBoundingClientRect();
+            const rectB = editor.api.toDOMNode(bottom)?.getBoundingClientRect();
 
             if (rectA && rectB) {
                 setRect({

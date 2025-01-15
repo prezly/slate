@@ -1,7 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ImageNode } from '@prezly/slate-types';
 import { isImageNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 export function removeImage(editor: SlateEditor, image?: ImageNode): ImageNode | null {
     if (image === undefined) {

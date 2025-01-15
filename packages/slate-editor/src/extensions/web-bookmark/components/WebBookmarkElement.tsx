@@ -1,9 +1,9 @@
 import { BookmarkNode } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import type { FunctionComponent } from 'react';
 import { useCallback, useRef, useState } from 'react';
 import React from 'react';
-import { type RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useResizeObserver } from '#lib';

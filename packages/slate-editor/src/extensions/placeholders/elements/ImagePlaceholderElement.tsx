@@ -6,10 +6,8 @@ import {
     UploadcareImage,
 } from '@prezly/uploadcare';
 import uploadcare, { type FilePromise } from '@prezly/uploadcare-widget';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import React, { type DragEventHandler } from 'react';
-import { Node } from 'slate';
-import { useSelected } from 'slate-react';
 
 import { PlaceholderImage } from '#icons';
 import { useFunction } from '#lib';
@@ -100,7 +98,7 @@ export function ImagePlaceholderElement({
 
             const event = data.operation === 'add' ? 'image-added' : 'image-edited';
             EventsEditor.dispatchEvent(editor, event, {
-                description: Node.string(node),
+                description: editor.api.string(node),
                 isPasted: false,
                 mimeType: node.file.mime_type,
                 size: node.file.size,

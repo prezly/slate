@@ -2,8 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { ContactNode } from '@prezly/slate-types';
 import { ContactInfo, isContactNode } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 const SHAPE: Record<keyof ContactNode, boolean> = {
     type: true,
@@ -39,6 +38,6 @@ export function normalizeContactInfoAttributes(
         return false;
     }
 
-    editor.setNodes<ContactNode>({ contact: ContactInfo.normalize(node.contact) }, { at: path });
+    editor.tf.setNodes<ContactNode>({ contact: ContactInfo.normalize(node.contact) }, { at: path });
     return true;
 }

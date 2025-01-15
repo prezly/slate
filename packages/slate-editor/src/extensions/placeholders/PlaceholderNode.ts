@@ -1,7 +1,6 @@
 import type { ElementNode } from '@prezly/slate-types';
 import { isElementNode } from '@prezly/slate-types';
-import type { TNode } from '@udecode/plate-common';
-import type { Node } from 'slate';
+import type { Node } from '@udecode/plate';
 
 type Uuid = string;
 
@@ -56,24 +55,24 @@ export namespace PlaceholderNode {
         WEB_BOOKMARK = 'placeholder:bookmark',
     }
 
-    export function isPlaceholderNode(node: Node | TNode): node is PlaceholderNode;
+    export function isPlaceholderNode(node: Node): node is PlaceholderNode;
 
     export function isPlaceholderNode<T extends Type>(
-        node: Node | TNode,
+        node: Node,
         type: T,
     ): node is PlaceholderNode<T>;
 
     export function isPlaceholderNode<T extends Type>(
-        node: Node | TNode,
+        node: Node,
         types: T[],
     ): node is PlaceholderNode<T>;
 
     export function isPlaceholderNode<T extends Type>(
-        node: Node | TNode,
+        node: Node,
         type: `${T}`,
     ): node is PlaceholderNode<T>;
 
-    export function isPlaceholderNode(node: Node | TNode, type?: string | string[]): boolean {
+    export function isPlaceholderNode(node: Node, type?: string | string[]): boolean {
         if (typeof type === 'string') {
             return isElementNode(node, type);
         }
@@ -83,19 +82,14 @@ export namespace PlaceholderNode {
         return isElementNode(node, Object.values(Type));
     }
 
+    export function isSameAs<T extends PlaceholderNode>(placeholder: T, node: Node): node is T;
+    export function isSameAs<T extends PlaceholderNode>(placeholder: T): (node: Node) => node is T;
     export function isSameAs<T extends PlaceholderNode>(
         placeholder: T,
-        node: Node | TNode,
-    ): node is T;
-    export function isSameAs<T extends PlaceholderNode>(
-        placeholder: T,
-    ): (node: Node | TNode) => node is T;
-    export function isSameAs<T extends PlaceholderNode>(
-        placeholder: T,
-        node?: Node | TNode,
-    ): boolean | ((node: Node | TNode) => boolean) {
+        node?: Node,
+    ): boolean | ((node: Node) => boolean) {
         if (!node) {
-            return (node: Node | TNode): node is T => {
+            return (node: Node): node is T => {
                 return (
                     PlaceholderNode.isPlaceholderNode(node, placeholder.type) &&
                     node.uuid === placeholder.uuid

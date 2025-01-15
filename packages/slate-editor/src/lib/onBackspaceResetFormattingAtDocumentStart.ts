@@ -1,9 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import { type Node, type Path, type Point, RangeApi, type SlateEditor } from '@udecode/plate';
 import type { KeyboardEvent } from 'react';
-import type { Node, Path, Point } from 'slate';
-import { Range } from 'slate';
 
 import { isDeletingEventBackward } from './isDeletingEvent';
 
@@ -16,11 +14,11 @@ export function onBackspaceResetFormattingAtDocumentStart(
     if (
         isDeletingEventBackward(event) &&
         selection !== null &&
-        Range.isCollapsed(selection) &&
+        RangeApi.isCollapsed(selection) &&
         isDocumentStart(selection.focus)
     ) {
         if (isFocused(editor, match)) {
-            editor.setNodes(
+            editor.tf.setNodes(
                 { type: PARAGRAPH_NODE_TYPE },
                 {
                     match: (node, path) => match(node) && EditorCommands.isTopLevelNode(node, path),
@@ -40,5 +38,5 @@ function isDocumentStart(focus: Point): boolean {
 }
 
 function isFocused(editor: SlateEditor, match: (node: Node, path: Path) => boolean): boolean {
-    return Array.from(editor.nodes({ match })).length > 0;
+    return Array.from(editor.api.nodes({ match })).length > 0;
 }

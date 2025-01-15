@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeEntry } from 'slate';
+import { type NodeEntry, type SlateEditor } from '@udecode/plate';
 
 import { getListType, getParentListItem, getPrevSibling } from '../lib';
 import type { ListsSchema } from '../types';
@@ -7,7 +6,7 @@ import type { ListsSchema } from '../types';
 export function mergeListWithPreviousSiblingList(
     editor: SlateEditor,
     schema: ListsSchema,
-    [node, path]: NodeEntry<Node>,
+    [node, path]: NodeEntry,
 ): boolean {
     if (!schema.isListNode(node)) {
         // This function does not know how to normalize other nodes.
@@ -37,7 +36,7 @@ export function mergeListWithPreviousSiblingList(
         return false;
     }
 
-    editor.mergeNodes({ at: path });
+    editor.tf.mergeNodes({ at: path });
 
     return true;
 }

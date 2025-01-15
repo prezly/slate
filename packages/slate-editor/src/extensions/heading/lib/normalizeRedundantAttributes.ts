@@ -1,8 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { HeadingNode } from '@prezly/slate-types';
 import { isHeadingNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 const shape: Record<keyof HeadingNode, true> = {
     type: true,

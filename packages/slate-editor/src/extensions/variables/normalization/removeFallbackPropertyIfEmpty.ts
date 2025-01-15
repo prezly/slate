@@ -1,6 +1,5 @@
 import { type VariableNode, isVariableNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import { type NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 export function removeFallbackPropertyIfEmpty(
     editor: SlateEditor,
@@ -11,7 +10,7 @@ export function removeFallbackPropertyIfEmpty(
     }
 
     if (node.fallback === '') {
-        editor.setNodes<VariableNode>({ fallback: undefined }, { at: path });
+        editor.tf.setNodes<VariableNode>({ fallback: undefined }, { at: path });
         return true;
     }
 

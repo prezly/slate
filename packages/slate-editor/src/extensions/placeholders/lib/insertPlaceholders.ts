@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { times } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import type { PlaceholderNode } from '../PlaceholderNode';
 

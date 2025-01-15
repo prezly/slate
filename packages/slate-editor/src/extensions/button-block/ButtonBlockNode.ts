@@ -1,7 +1,6 @@
 import type { ElementNode } from '@prezly/slate-types';
 import { isElementNode } from '@prezly/slate-types';
-import type { TNode } from '@udecode/plate-common';
-import type { Node } from 'slate';
+import type { Node } from '@udecode/plate';
 
 type Uuid = string;
 
@@ -30,7 +29,7 @@ export namespace ButtonBlockNode {
         OUTLINE = 'outline',
     }
 
-    export function isButtonBlockNode(node: Node | TNode): node is ButtonBlockNode {
+    export function isButtonBlockNode(node: Node): node is ButtonBlockNode {
         return isElementNode(node, Type);
     }
 }

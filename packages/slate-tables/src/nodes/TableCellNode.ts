@@ -1,9 +1,8 @@
-import type { TElement } from '@udecode/plate-common';
-import type { Location } from 'slate';
+import { type Element, type Location } from '@udecode/plate';
 
 import type { TablesEditor } from '../TablesEditor';
 
-export interface TableCellNode extends TElement {
+export interface TableCellNode extends Element {
     rowspan?: number;
     colspan?: number;
 }
@@ -66,7 +65,7 @@ export namespace TableCellNode {
         props: Partial<Omit<TableCellNode, 'children'>>,
         location: Location,
     ) {
-        editor.setNodes<TableCellNode>(props, {
+        editor.tf.setNodes<TableCellNode>(props, {
             at: location,
             match: (node) => editor.isTableCellNode(node),
         });

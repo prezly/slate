@@ -1,6 +1,13 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Point } from 'slate';
-import { Path, Range, Span } from 'slate';
+import {
+    type Path,
+    PathApi,
+    type Point,
+    type Range,
+    RangeApi,
+    type SlateEditor,
+    type Span,
+    SpanApi,
+} from '@udecode/plate';
 
 /**
  * Get the cursor position for the given location.
@@ -13,14 +20,14 @@ export function getCursorPosition(
     if (!at) {
         return null;
     }
-    if (Range.isRange(at)) {
-        return Range.isCollapsed(at) ? at.focus : null;
+    if (RangeApi.isRange(at)) {
+        return RangeApi.isCollapsed(at) ? at.focus : null;
     }
-    if (Span.isSpan(at)) {
-        return Path.equals(at[0], at[1]) ? getCursorPosition(editor, at[0]) : null;
+    if (SpanApi.isSpan(at)) {
+        return PathApi.equals(at[0], at[1]) ? getCursorPosition(editor, at[0]) : null;
     }
-    if (Path.isPath(at)) {
-        return editor.point(at, { edge: 'start' });
+    if (PathApi.isPath(at)) {
+        return editor.api.point(at, { edge: 'start' });
     }
     return at; // Point
 }

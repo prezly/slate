@@ -1,6 +1,6 @@
 import { identity } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
-import { toDOMRange, useEditorRef } from '@udecode/plate-common/react';
+import type { SlateEditor } from '@udecode/plate';
+import { toDOMRange, useEditorRef } from '@udecode/plate/react';
 import classNames from 'classnames';
 import RangeFix from 'rangefix';
 import React, { useCallback, useRef, useState } from 'react';

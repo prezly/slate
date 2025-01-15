@@ -5,8 +5,7 @@ import {
     isHeadingNode,
     isParagraphNode,
 } from '@prezly/slate-types';
-import { getNodeString } from '@udecode/plate-common';
-import { useEditorState } from '@udecode/plate-common/react';
+import { useEditorState } from '@udecode/plate/react';
 import classNames from 'classnames';
 import { isHotkey } from 'is-hotkey';
 import type { KeyboardEvent, RefObject } from 'react';
@@ -124,7 +123,7 @@ export function FloatingAddMenu<Action>({
             if (displayedOptions.length === 0) {
                 event.preventDefault();
                 event.stopPropagation();
-                editor.insertText(`${input} `);
+                editor.tf.insertText(`${input} `);
                 rememberEditorSelection();
                 menu.close();
                 return;
@@ -138,7 +137,7 @@ export function FloatingAddMenu<Action>({
     const isParagraph = isParagraphNode(currentNode);
     const isHeading1 = isHeadingNode(currentNode, HEADING_1_NODE_TYPE);
     const isHeading2 = isHeadingNode(currentNode, HEADING_2_NODE_TYPE);
-    const text = currentNode ? getNodeString(currentNode) : '';
+    const text = currentNode ? editor.api.string(currentNode) : '';
 
     return (
         <FloatingContainer.Container

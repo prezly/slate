@@ -1,8 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { CoverageNode } from '@prezly/slate-types';
 import { isCoverageNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 const SHAPE: Record<keyof CoverageNode, boolean> = {
     type: true,

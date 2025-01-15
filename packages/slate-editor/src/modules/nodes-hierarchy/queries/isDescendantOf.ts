@@ -1,10 +1,8 @@
-import { getLevels } from '@udecode/plate-common';
-
 import type { HierarchyNodeQuery } from '../types';
 
 export function isDescendantOf(parentMatch: HierarchyNodeQuery): HierarchyNodeQuery {
     return (node, path, editor) => {
-        const levels = getLevels(editor, {
+        const levels = editor.api.levels({
             at: path,
             match: (n) => n !== node,
         });

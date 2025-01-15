@@ -1,9 +1,8 @@
 import { BookmarkNode } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import React from 'react';
-import { useSelected } from 'slate-react';
 
 import type { OptionsGroupOption } from '#components';
 import { Button, OptionsGroup, Toggle, Toolbox, VStack } from '#components';

@@ -22,7 +22,7 @@ import {
     BookmarkNode,
     CalloutNode,
 } from '@prezly/slate-types';
-import { isText } from '@udecode/plate-common';
+import { TextApi } from '@udecode/plate';
 
 import { EmbedNode } from '#extensions/embed';
 
@@ -53,7 +53,7 @@ export const hierarchySchema: NodesHierarchySchema = {
         mustHaveChildren((editor, [node, path]) => {
             const isFixed = fixers.insertParagraph(editor, [node, path]);
             if (isFixed) {
-                editor.select(path);
+                editor.tf.select(path);
             }
 
             return isFixed;
@@ -85,7 +85,7 @@ export const hierarchySchema: NodesHierarchySchema = {
     [HTML_NODE_TYPE]: [allowChildren(isEmptyTextNode, fixers.liftNodeNoSplit)],
     [IMAGE_NODE_TYPE]: [
         allowChildren(
-            isText,
+            TextApi.isText,
             combineFixers([
                 fixers.unwrapImageNodeChild,
                 fixers.unwrapSameTypeChild,

@@ -1,5 +1,5 @@
 import { isHeadingNode, isParagraphNode, isQuoteNode } from '@prezly/slate-types';
-import type { TNode } from '@udecode/plate-common';
+import type { TNode } from '@udecode/plate';
 
 import { isInlineNode } from './isInlineNode';
 

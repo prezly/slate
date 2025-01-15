@@ -1,8 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { LinkNode } from '@prezly/slate-types';
 import { isLinkNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 const shape: Record<keyof LinkNode, true> = {
     type: true,
@@ -13,10 +12,7 @@ const shape: Record<keyof LinkNode, true> = {
 
 const ALLOWED_LINK_ATTRIBUTES = Object.keys(shape);
 
-export function normalizeRedundantLinkAttributes(
-    editor: SlateEditor,
-    [node, path]: NodeEntry<Node>,
-) {
+export function normalizeRedundantLinkAttributes(editor: SlateEditor, [node, path]: NodeEntry) {
     if (isLinkNode(node)) {
         return EditorCommands.normalizeRedundantAttributes(
             editor,

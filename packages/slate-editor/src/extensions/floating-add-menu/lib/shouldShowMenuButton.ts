@@ -5,13 +5,12 @@ import {
     isSubtitleHeadingNode,
     isTitleHeadingNode,
 } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import { Node, Range } from 'slate';
+import { RangeApi, type SlateEditor } from '@udecode/plate';
 
 import { MENU_TRIGGER_CHARACTER } from './isMenuHotkey';
 
 export function shouldShowMenuButton(editor: SlateEditor): boolean {
-    if (!editor.selection || Range.isExpanded(editor.selection)) {
+    if (!editor.selection || RangeApi.isExpanded(editor.selection)) {
         return false;
     }
 
@@ -33,7 +32,7 @@ export function shouldShowMenuButton(editor: SlateEditor): boolean {
         return false;
     }
 
-    const text = Node.string(currentNode);
+    const text = editor.api.string(currentNode);
     return (
         text === '' ||
         text === MENU_TRIGGER_CHARACTER ||

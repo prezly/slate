@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location, Span } from 'slate';
+import { type Location, type SlateEditor, type Span } from '@udecode/plate';
 
 import type { ListsSchema } from '../types';
 

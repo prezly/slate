@@ -1,7 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { type VariableNode, isVariableNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 const SHAPE: Record<keyof VariableNode, boolean> = {
     type: true,

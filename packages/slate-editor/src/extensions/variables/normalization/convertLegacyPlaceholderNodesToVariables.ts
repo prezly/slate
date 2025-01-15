@@ -1,6 +1,5 @@
 import { isElementNode, VARIABLE_NODE_TYPE } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import { type NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 /**
  * @deprecated
@@ -12,7 +11,7 @@ export function convertLegacyPlaceholderNodesToVariables(
     [node, path]: NodeEntry,
 ) {
     if (isElementNode(node, PLACEHOLDER_NODE_TYPE)) {
-        editor.setNodes({ type: VARIABLE_NODE_TYPE }, { at: path });
+        editor.tf.setNodes({ type: VARIABLE_NODE_TYPE }, { at: path });
         return true;
     }
 

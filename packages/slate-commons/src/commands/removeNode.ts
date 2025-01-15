@@ -1,9 +1,9 @@
-import type { Node, SlateEditor } from '@udecode/plate';
+import type { Editor, EditorNodesOptions, ElementOrTextOf, SlateEditor } from '@udecode/plate';
 
-export function removeNode(
+export function removeNode<T extends ElementOrTextOf<Editor>>(
     editor: SlateEditor,
-    options: NonNullable<Parameters<typeof editor.api.nodes>[0]>,
-): Node | null {
+    options: NonNullable<EditorNodesOptions>,
+): T | null {
     const [nodeEntry] = editor.api.nodes(options);
     if (nodeEntry) {
         const [node, nodePath] = nodeEntry;

@@ -1,8 +1,7 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { findNodePath, useEditorRef } from '@udecode/plate-common/react';
+import type { RenderElementProps, SlateEditor } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import type { ReactNode } from 'react';
 import React, { type MouseEvent, useState } from 'react';
-import { type RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 import { useFunction } from '#lib';
@@ -51,7 +50,7 @@ export function PlaceholderElement({
     const handleDragOver = useFunction(() => setDragOver(true));
     const handleDragLeave = useFunction(() => setDragOver(false));
     const handleRemove = useFunction(() => {
-        editor.removeNodes({ at: [], match: (node) => node === element });
+        editor.tf.removeNodes({ at: [], match: (node) => node === element });
     });
 
     const { isActive, isLoading } = usePlaceholderManagement(
@@ -109,7 +108,7 @@ function checkRemovable(
     removable: Exclude<RemovableFlagConfig, boolean>,
 ) {
     try {
-        const path = findNodePath(editor, element);
+        const path = editor.api.findPath(element);
         if (path) {
             return removable(element, path);
         }

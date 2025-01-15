@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location, Span } from 'slate';
+import { type Location, type SlateEditor, type Span } from '@udecode/plate';
 
 import { getListItems, pickSubtreesRoots } from '../lib';
 import type { ListsSchema } from '../types';
@@ -25,7 +24,7 @@ export function decreaseDepth(
 
     // When calling `decreaseListItemDepth` the paths and references to "list-items"
     // can change, so we need a way of marking the "list-items" scheduled for transformation.
-    const refs = pickSubtreesRoots(listItems).map(([_, path]) => editor.pathRef(path));
+    const refs = pickSubtreesRoots(listItems).map(([_, path]) => editor.api.pathRef(path));
 
     let handled = false;
 

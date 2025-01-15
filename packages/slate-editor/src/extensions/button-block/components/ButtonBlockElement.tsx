@@ -1,7 +1,7 @@
 import type * as Popper from '@popperjs/core';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import React, { useCallback } from 'react';
-import { type RenderElementProps } from 'slate-react';
 
 import type { InfoText } from '#components';
 import { EditorBlock } from '#components';

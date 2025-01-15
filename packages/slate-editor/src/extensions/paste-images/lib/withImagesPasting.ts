@@ -2,7 +2,7 @@ import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareImage } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
 import { noop } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { filterDataTransferFiles, isFilesOnlyDataTransfer } from '#lib';
 

@@ -1,6 +1,6 @@
 import { EditorCommands, useSavedSelection } from '@prezly/slate-commons';
 import type { DocumentNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 import { useState } from 'react';
 
 import { useFunction } from '#lib';

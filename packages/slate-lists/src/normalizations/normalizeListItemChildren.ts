@@ -1,6 +1,4 @@
-import { getNodeChildren, isText, type SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry } from 'slate';
-import type { Node } from 'slate';
+import { NodeApi, TextApi, type NodeEntry, type SlateEditor } from '@udecode/plate';
 
 import type { ListsSchema } from '../types';
 
@@ -10,27 +8,27 @@ import type { ListsSchema } from '../types';
 export function normalizeListItemChildren(
     editor: SlateEditor,
     schema: ListsSchema,
-    [node, path]: NodeEntry<Node>,
+    [node, path]: NodeEntry,
 ): boolean {
     if (!schema.isListItemNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
 
-    const children = Array.from(getNodeChildren(editor, path));
+    const children = Array.from(NodeApi.children(editor, path));
 
     for (const [childIndex, [childNode, childPath]] of children.entries()) {
-        if (isText(childNode) || editor.isInline(childNode)) {
+        if (TextApi.isText(childNode) || editor.api.isInline(childNode)) {
             const listItemText = schema.createListItemTextNode({
                 children: [childNode],
             });
-            editor.wrapNodes(listItemText, { at: childPath });
+            editor.tf.wrapNodes(listItemText, { at: childPath });
 
             if (childIndex > 0) {
                 const [previousChildNode] = children[childIndex - 1];
 
                 if (schema.isListItemTextNode(previousChildNode)) {
-                    editor.mergeNodes({ at: childPath });
+                    editor.tf.mergeNodes({ at: childPath });
                 }
             }
 
@@ -38,17 +36,17 @@ export function normalizeListItemChildren(
         }
 
         if (schema.isListItemNode(childNode)) {
-            editor.liftNodes({ at: childPath });
+            editor.tf.liftNodes({ at: childPath });
             return true;
         }
 
         if (schema.isListItemTextNode(childNode) && childIndex !== 0) {
-            editor.wrapNodes(schema.createListItemNode(), { at: childPath });
+            editor.tf.wrapNodes(schema.createListItemNode(), { at: childPath });
             return true;
         }
 
         if (!schema.isListItemTextNode(childNode) && !schema.isListNode(childNode)) {
-            editor.setNodes(schema.createListItemTextNode(), { at: childPath });
+            editor.tf.setNodes(schema.createListItemTextNode(), { at: childPath });
             return true;
         }
     }

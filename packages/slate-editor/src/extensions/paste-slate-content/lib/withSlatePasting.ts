@@ -1,6 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
+import type { Node, SlateEditor } from '@udecode/plate';
 
 import { decodeSlateFragment, filterDataTransferItems } from '#lib';
 
@@ -55,7 +54,7 @@ function handlePastingIntoPreservedBlock(
     fragment: SlateFragment,
     isPreservedBlock: IsPreservedBlock,
 ) {
-    const nodesAbove = editor.nodes({
+    const nodesAbove = editor.api.nodes({
         match: (node) => EditorCommands.isBlock(editor, node),
     });
     const [nearestBlock] = Array.from(nodesAbove).at(-1) ?? [];
@@ -65,7 +64,7 @@ function handlePastingIntoPreservedBlock(
         EditorCommands.isNodeEmpty(editor, nearestBlock) &&
         isPreservedBlock(editor, nearestBlock)
     ) {
-        editor.insertNodes(fragment, { at: editor.selection?.anchor.path });
+        editor.tf.insertNodes(fragment, { at: editor.selection?.anchor.path });
         return true;
     }
 

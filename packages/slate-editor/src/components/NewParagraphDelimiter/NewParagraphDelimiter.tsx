@@ -1,9 +1,9 @@
 import type { ElementNode } from '@prezly/slate-types';
-import { findNodePath, useEditorRef } from '@udecode/plate-common/react';
+import { PathApi } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import classNames from 'classnames';
 import type { MouseEvent } from 'react';
 import React from 'react';
-import { Path } from 'slate';
 
 import { useFunction } from '#lib';
 
@@ -26,13 +26,14 @@ export function NewParagraphDelimiter(props: Props) {
     const handleClick = useFunction((event: MouseEvent) => {
         preventBubbling(event);
 
-        const path = findNodePath(editor, element);
+        const path = editor.api.findPath(element);
         if (!path) {
             return;
         }
 
-        editor.insertNodes(editor.createDefaultTextBlock(), {
-            at: position === 'top' ? path : Path.next(path),
+        // @ts-expect-error TODO: Fix types
+        editor.tf.insertNodes(editor.createDefaultTextBlock(), {
+            at: position === 'top' ? path : PathApi.next(path),
             select: true,
         });
 

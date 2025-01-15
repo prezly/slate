@@ -1,5 +1,4 @@
-import { getNodeFragment } from '@udecode/plate-common';
-import { type Range, Path } from 'slate';
+import { NodeApi, type Path, PathApi, type Range } from '@udecode/plate';
 
 import { findParentCell } from '../queries';
 import type { TablesEditor } from '../TablesEditor';
@@ -15,14 +14,14 @@ export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): 
                 const [cell, cellPath] = cellEntry;
                 const { focus, anchor } = editor.selection;
 
-                return getNodeFragment(cell, {
+                return NodeApi.fragment(cell, {
                     anchor: {
                         offset: anchor.offset,
-                        path: Path.relative(anchor.path, cellPath),
+                        path: PathApi.relative(anchor.path, cellPath),
                     },
                     focus: {
                         offset: focus.offset,
-                        path: Path.relative(focus.path, cellPath),
+                        path: PathApi.relative(focus.path, cellPath),
                     },
                 });
             }
@@ -35,5 +34,8 @@ export function withTablesCopyPasteBehavior<T extends TablesEditor>(editor: T): 
 }
 
 function isRangeInside(selection: Range, path: Path) {
-    return Path.isCommon(path, selection.anchor.path) && Path.isCommon(path, selection.focus.path);
+    return (
+        PathApi.isCommon(path, selection.anchor.path) &&
+        PathApi.isCommon(path, selection.focus.path)
+    );
 }

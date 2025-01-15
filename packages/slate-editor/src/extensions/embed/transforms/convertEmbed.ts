@@ -1,6 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
+import type { SlateEditor } from '@udecode/plate';
 
 import { humanFriendlyUrl } from '#lib';
 
@@ -29,7 +28,7 @@ export function convertEmbed(editor: SlateEditor, element: EmbedNode, presentati
     if (converted) {
         EditorCommands.replaceNode(editor, converted, {
             at: [],
-            match: (node: Node) => EmbedNode.isEmbedNode(node) && node.uuid === element.uuid,
+            match: (node) => EmbedNode.isEmbedNode(node) && node.uuid === element.uuid,
             select: true,
         });
     }

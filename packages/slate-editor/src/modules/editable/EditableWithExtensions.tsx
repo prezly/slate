@@ -6,8 +6,8 @@ import type {
     RenderElement,
     RenderLeaf,
 } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
-import { PlateContent } from '@udecode/plate-common/react';
+import type { SlateEditor } from '@udecode/plate';
+import { PlateContent } from '@udecode/plate/react';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 

@@ -16,6 +16,15 @@ import { createPlatePlugin } from '@udecode/plate/react';
 import { EmbedNode } from '#extensions/embed';
 import { PlaceholderNode } from '#extensions/placeholders';
 
+/**
+ * Compare two elements.
+ *
+ * This is useful to implement smarter comparison rules to,
+ * for example, ignore data-independent properties like `uuid`.
+ *
+ * `children` arrays can be omitted from the comparison,
+ * as the outer code will compare them anyway.
+ */
 export const ElementsEqualityCheckPlugin = createPlatePlugin({
     key: 'withElementsEqualityCheck',
 }).overrideEditor(() => {

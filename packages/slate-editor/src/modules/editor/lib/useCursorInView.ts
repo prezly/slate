@@ -1,7 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isImageNode } from '@prezly/slate-types';
-import { isExpanded, type SlateEditor } from '@udecode/plate-common';
-import { toDOMNode, toDOMRange } from '@udecode/plate-common/react';
+import { type SlateEditor } from '@udecode/plate';
 import jsonStableStringify from 'json-stable-stringify';
 import { useLayoutEffect } from 'react';
 
@@ -30,7 +29,7 @@ function ensureCursorInView(editor: SlateEditor, parameters: Parameters): void {
     }
     const [currentNode] = EditorCommands.getCurrentNodeEntry(editor) || [];
 
-    if (isExpanded(editor.selection) || isImageNode(currentNode)) {
+    if (editor.api.isExpanded() || isImageNode(currentNode)) {
         // Slate has built-in mechanism to follow the cursor, but it's not perfect,
         // see: https://github.com/ianstormtaylor/slate/issues/3750
         // We don't know any issues when selecting things, so our fix is only
@@ -57,7 +56,7 @@ function ensureCursorInView(editor: SlateEditor, parameters: Parameters): void {
          * As a fallback, we use the DOM element of the currentNode and ensure this
          * element is in view.
          */
-        const domElement = toDOMNode(editor, currentNode);
+        const domElement = editor.api.toDOMNode(currentNode);
         ensureElementInView(domElement, {
             minBottom: parameters.minBottom,
             minTop: parameters.minTop,
@@ -65,7 +64,7 @@ function ensureCursorInView(editor: SlateEditor, parameters: Parameters): void {
         return;
     }
 
-    const domRange = toDOMRange(editor, editor.selection);
+    const domRange = editor.api.toDOMRange(editor.selection);
     ensureRangeInView(domRange, {
         minBottom: parameters.minBottom,
         minTop: parameters.minTop,

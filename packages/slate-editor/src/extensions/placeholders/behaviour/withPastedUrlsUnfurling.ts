@@ -1,6 +1,6 @@
 import type { WithOverrides } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { isUrl } from '#lib';
 
@@ -34,7 +34,7 @@ export function withPastedUrlsUnfurling(
             const pasted = data.getData('text');
 
             if (!hasHtml && isUrl(pasted) && isAllowed(editor, pasted)) {
-                editor.withoutNormalizing(() => {
+                editor.tf.withoutNormalizing(() => {
                     const placeholder = insertPlaceholder(editor, {
                         type: PlaceholderNode.Type.EMBED,
                     });
@@ -48,7 +48,7 @@ export function withPastedUrlsUnfurling(
                         match: PlaceholderNode.isSameAs(placeholder),
                     });
                     if (path) {
-                        editor.select(path);
+                        editor.tf.select(path);
                     }
                 });
                 return;

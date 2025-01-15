@@ -1,5 +1,4 @@
-import { focusEditor } from '@udecode/plate-common/react';
-import { type Location } from 'slate';
+import { type Location } from '@udecode/plate';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
@@ -27,7 +26,7 @@ export function removeColumn(
     }
 
     // As we remove cells one by one Slate calls normalization which insert empty cells
-    editor.withoutNormalizing(() => {
+    editor.tf.withoutNormalizing(() => {
         activeColumn.cells.forEach((cell) => {
             if (TableCellNode.getCellColspan(cell.node) > 1) {
                 TableCellNode.update(
@@ -36,12 +35,12 @@ export function removeColumn(
                     cell.path,
                 );
             } else {
-                editor.removeNodes({ at: cell.path });
+                editor.tf.removeNodes({ at: cell.path });
             }
         });
     });
 
-    editor.normalize();
+    editor.tf.normalize();
 
     let anchorFocusColumn = activeColumn;
 
@@ -52,11 +51,11 @@ export function removeColumn(
     const firstCell = anchorFocusColumn.cells.at(0);
 
     if (firstCell) {
-        editor.select(firstCell.path);
-        editor.collapse({ edge: 'start' });
+        editor.tf.select(firstCell.path);
+        editor.tf.collapse({ edge: 'start' });
     }
 
-    focusEditor(editor);
+    editor.tf.focus();
 
     return true;
 }

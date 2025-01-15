@@ -1,10 +1,10 @@
-import { toDOMRange, useEditorState } from '@udecode/plate-common/react';
+import { type Range } from '@udecode/plate';
+import { useEditorState } from '@udecode/plate/react';
 import classNames from 'classnames';
 import RangeFix from 'rangefix';
 import type { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { usePopper } from 'react-popper';
-import type { Range } from 'slate';
 
 import { convertClientRect, ensureChildInView } from '#lib';
 
@@ -56,7 +56,7 @@ export const MentionsDropdown = <V extends object>({
                 if (!target) {
                     return EMPTY_RECT;
                 }
-                const domRange = toDOMRange(editor, target);
+                const domRange = editor.api.toDOMRange(target);
                 if (!domRange) {
                     return EMPTY_RECT;
                 }

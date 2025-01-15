@@ -8,7 +8,7 @@ import {
 import type { Extension, WithOverrides } from '@prezly/slate-commons';
 import { isNotUndefined } from '@technically/is-not-undefined';
 import { flow } from '@technically/lodash';
-import { type Editor } from '@udecode/plate';
+import { type SlateEditor } from '@udecode/plate';
 import { createPlateEditor } from '@udecode/plate/react';
 import { type PlatePlugin } from '@udecode/plate/react';
 
@@ -26,7 +26,7 @@ import { type Value } from './types';
 type Params = {
     initialValue?: Value;
     plugins?: PlatePlugin[];
-    editor?: Editor;
+    baseEditor?: SlateEditor;
     /**
      * @deprecated It is planned to migrate extensions to become Plate Plugins
      */
@@ -40,12 +40,12 @@ type Params = {
 export function createEditor({
     initialValue,
     plugins = [],
-    editor,
+    baseEditor,
     getExtensions = noExtensions,
     withOverrides = [],
 }: Params) {
-    const baseEditor = createPlateEditor({
-        editor,
+    const editor = createPlateEditor({
+        editor: baseEditor,
         plugins: [
             ...plugins,
             DefaultTextBlockPlugin.configure({
@@ -75,7 +75,7 @@ export function createEditor({
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
         ...extensionsOverrides,
-    ])(baseEditor);
+    ])(editor);
 }
 
 function noExtensions(): Extension[] {

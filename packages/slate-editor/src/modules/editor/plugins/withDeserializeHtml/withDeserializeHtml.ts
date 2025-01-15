@@ -3,9 +3,7 @@
 import { cleanDocx } from '@prezly/docx-cleaner';
 import type { Extension } from '@prezly/slate-commons';
 import { EditorCommands } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
-import { Element } from 'slate';
+import { type Element, ElementApi, type Node, type SlateEditor } from '@udecode/plate';
 
 import { EventsEditor } from '#modules/events';
 
@@ -87,8 +85,8 @@ function checkSingleTextBlockInserted(editor: SlateEditor, nodes: Node[]): Eleme
 
     if (
         nodes.length === 1 &&
-        Element.isElement(node) &&
-        editor.isBlock(node) &&
+        ElementApi.isElement(node) &&
+        editor.api.isBlock(node) &&
         !editor.isRichBlock(node)
     ) {
         return node;

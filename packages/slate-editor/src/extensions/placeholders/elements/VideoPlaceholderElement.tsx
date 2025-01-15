@@ -2,10 +2,9 @@ import type { VideoNode } from '@prezly/slate-types';
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import { toProgressPromise, UploadcareFile } from '@prezly/uploadcare';
 import uploadcare from '@prezly/uploadcare-widget';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import type { DragEvent } from 'react';
 import React from 'react';
-import { useSelected } from 'slate-react';
 
 import { PlaceholderVideo } from '#icons';
 import { URL_WITH_OPTIONAL_PROTOCOL_REGEXP, useFunction } from '#lib';

@@ -1,12 +1,11 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ElementNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
-import { findNodePath, focusEditor, useEditorRef } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import classNames from 'classnames';
 import type { MouseEvent, ReactNode } from 'react';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import type { RenderElementProps } from 'slate-react';
-import { useSelected } from 'slate-react';
 
 import { NewParagraphDelimiter } from '#components';
 import { useFunction } from '#lib';
@@ -102,7 +101,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
     const isNodeSelected = useSelected();
     const isOnlyBlockSelected =
         isNodeSelected &&
-        Array.from(editor.nodes({ match: EditorCommands.isTopLevelNode })).length === 1;
+        Array.from(editor.api.nodes({ match: EditorCommands.isTopLevelNode })).length === 1;
     const isSelected = selected ?? isNodeSelected;
     const isOverlayEnabled = overlay === 'always' || (overlay === 'autohide' && !isSelected);
     const popperOptions = usePopperOptionsContext();
@@ -113,7 +112,7 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
 
     const closeMenu = useCallback(() => {
         setMenuOpen(false);
-        focusEditor(editor);
+        editor.tf.focus();
     }, [editor]);
 
     const handleFrameClick = useFunction(function (event: MouseEvent) {
@@ -122,9 +121,9 @@ export const EditorBlock = forwardRef<HTMLDivElement, Props>(function (
         event.stopPropagation();
 
         if (!isSelected) {
-            const path = findNodePath(editor, element);
+            const path = editor.api.findPath(element);
             if (path) {
-                editor.select(path);
+                editor.tf.select(path);
             }
         }
     });

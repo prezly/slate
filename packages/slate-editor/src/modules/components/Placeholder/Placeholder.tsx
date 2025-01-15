@@ -1,5 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import { useEditorState } from '@udecode/plate-common/react';
+import { useEditorState } from '@udecode/plate/react';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import React from 'react';

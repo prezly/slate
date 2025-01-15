@@ -1,10 +1,9 @@
 import type { CoverageEntry } from '@prezly/sdk';
 import type { CoverageNode } from '@prezly/slate-types';
 import { CoverageLayout } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import classNames from 'classnames';
 import React from 'react';
-import { useSelected } from 'slate-react';
 
 import type { OptionsGroupOption } from '#components';
 import { Button, OptionsGroup, Toggle, Toolbox } from '#components';

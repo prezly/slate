@@ -1,7 +1,7 @@
-import { getAboveNode, isElement, type SlateEditor, type TNodeEntry } from '@udecode/plate-common';
+import { ElementApi, type NodeEntry, type SlateEditor } from '@udecode/plate';
 
-export function unwrapSameTypeChild(editor: SlateEditor, [node, path]: TNodeEntry) {
-    const ancestor = getAboveNode(editor, { at: path });
+export function unwrapSameTypeChild(editor: SlateEditor, [node, path]: NodeEntry) {
+    const ancestor = editor.api.above({ at: path });
 
     if (!ancestor) {
         return false;
@@ -9,12 +9,12 @@ export function unwrapSameTypeChild(editor: SlateEditor, [node, path]: TNodeEntr
 
     const [ancestorNode, ancestorPath] = ancestor;
 
-    if (!isElement(ancestorNode)) {
+    if (!ElementApi.isElement(ancestorNode)) {
         return false;
     }
 
     if ('type' in node && node.type == ancestorNode.type && ancestorNode.children.length === 1) {
-        editor.unwrapNodes({ at: ancestorPath, voids: true });
+        editor.tf.unwrapNodes({ at: ancestorPath, voids: true });
         return true;
     }
 

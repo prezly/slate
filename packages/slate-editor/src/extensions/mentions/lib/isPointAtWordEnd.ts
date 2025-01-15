@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Point } from 'slate';
+import type { Point, SlateEditor } from '@udecode/plate';
 
 import { getText } from './getText';
 
@@ -11,10 +10,14 @@ const AFTER_MATCH_REGEX = /^(\s|$)/;
  */
 export function isPointAtWordEnd(editor: SlateEditor, { at }: { at: Point }): boolean {
     // Point after at
-    const after = editor.after(at);
+    const after = editor.api.after(at);
 
     // From at to after
-    const afterRange = editor.range(at, after);
+    const afterRange = editor.api.range(at, after);
+    if (!afterRange) {
+        return false;
+    }
+
     const afterText = getText(editor, afterRange);
 
     // Match regex on after text

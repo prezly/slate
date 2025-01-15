@@ -1,9 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
 import { isAlignableElement, isImageNode } from '@prezly/slate-types';
-import { type SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
-import { Path, Range } from 'slate';
+import { type Node, PathApi, RangeApi, type SlateEditor } from '@udecode/plate';
 
 import type { ButtonBlockNode } from '../ButtonBlockNode';
 
@@ -34,10 +32,20 @@ function inferPrevBlockAlignment(editor: SlateEditor): Alignment | undefined {
 }
 
 function prevBlock(editor: SlateEditor): Node | undefined {
-    if (editor.selection && Range.isCollapsed(editor.selection)) {
+    if (editor.selection && RangeApi.isCollapsed(editor.selection)) {
         const topLevelPath = editor.selection.focus.path.slice(0, 1);
-        if (Path.hasPrevious(topLevelPath)) {
-            const [node] = editor.node(Path.previous(topLevelPath));
+        if (PathApi.hasPrevious(topLevelPath)) {
+            const previousPath = PathApi.previous(topLevelPath);
+            if (!previousPath) {
+                return undefined;
+            }
+
+            const nodeEntry = editor.api.node(previousPath);
+            if (!nodeEntry) {
+                return undefined;
+            }
+
+            const [node] = nodeEntry;
             return node;
         }
     }

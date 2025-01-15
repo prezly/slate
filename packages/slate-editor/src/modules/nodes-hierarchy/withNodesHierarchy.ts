@@ -1,5 +1,5 @@
-import type { TNode } from '@udecode/plate-common';
-import { isEditor, isElement, isText, type SlateEditor } from '@udecode/plate-common';
+import type { Node } from '@udecode/plate';
+import { ElementApi, NodeApi, TextApi, type SlateEditor } from '@udecode/plate';
 
 import { EDITOR_NODE_TYPE, TEXT_NODE_TYPE } from './types';
 import type { NodesHierarchySchema, HierarchyNormalizer } from './types';
@@ -27,14 +27,14 @@ export function withNodesHierarchy(schema: NodesHierarchySchema) {
     };
 }
 
-function getSchemaNormalizers(node: TNode, schema: NodesHierarchySchema) {
+function getSchemaNormalizers(node: Node, schema: NodesHierarchySchema) {
     let res: HierarchyNormalizer[] | undefined = undefined;
 
-    if (isText(node)) {
+    if (TextApi.isText(node)) {
         res = schema[TEXT_NODE_TYPE];
-    } else if (isEditor(node)) {
+    } else if (NodeApi.isEditor(node)) {
         res = schema[EDITOR_NODE_TYPE];
-    } else if (isElement(node)) {
+    } else if (ElementApi.isElement(node)) {
         res = schema[node.type];
     }
 

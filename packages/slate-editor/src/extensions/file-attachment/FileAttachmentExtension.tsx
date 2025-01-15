@@ -3,9 +3,8 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import type { AttachmentNode } from '@prezly/slate-types';
 import { ATTACHMENT_NODE_TYPE, isAttachmentNode } from '@prezly/slate-types';
 import { noop } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { RenderElementProps, SlateEditor } from '@udecode/plate';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 

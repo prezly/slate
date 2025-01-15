@@ -1,7 +1,7 @@
 import type { RemoveListener } from '@prezly/events';
 import { Events } from '@prezly/events';
 import { noop } from '@technically/lodash';
-import { isEditor, type SlateEditor } from '@udecode/plate-common';
+import { NodeApi, type SlateEditor } from '@udecode/plate';
 
 import { EVENTS_PROPERTY } from './constants';
 import type { EditorEventMap } from './types';
@@ -32,7 +32,7 @@ export abstract class EventsEditor {
 
     static isEventsEditor = (value: unknown): value is EventsEditor => {
         // @ts-expect-error TODO: Fix this
-        return isEditor(value) && value[EVENTS_PROPERTY] instanceof Events;
+        return NodeApi.isEditor(value) && value[EVENTS_PROPERTY] instanceof Events;
     };
 
     public abstract [EVENTS_PROPERTY]: Events<EditorEventMap>;

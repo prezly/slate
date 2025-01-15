@@ -1,6 +1,6 @@
 import { withNormalization } from '@prezly/slate-commons';
 import { Alignment } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { ParagraphsExtension } from './ParagraphsExtension';
 

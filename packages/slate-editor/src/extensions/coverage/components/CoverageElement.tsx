@@ -1,8 +1,8 @@
 import type { CoverageEntry } from '@prezly/sdk';
 import type { CoverageNode } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { type RenderElementProps } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import React, { useEffect } from 'react';
-import { type RenderElementProps } from 'slate-react';
 
 import { EditorBlock, ElementPlaceholder, LoadingPlaceholder } from '#components';
 import { ChickenNoSignalIllustration, Coverage as CoverageIcon } from '#icons';

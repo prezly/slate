@@ -1,7 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { LinkNode } from '@prezly/slate-types';
-import { getNode, getNodeString, type SlateEditor } from '@udecode/plate-common';
-import { Path } from 'slate';
+import { PathApi, type SlateEditor } from '@udecode/plate';
 
 import { createPlaceholder, PlaceholderNode, PlaceholdersManager } from '#extensions/placeholders';
 
@@ -31,7 +30,7 @@ export function convertLink(
 
     EditorCommands.replaceNode(editor, placeholder, {
         at: replacementPath,
-        match: (_, path) => Path.equals(path, replacementPath),
+        match: (_, path) => PathApi.equals(path, replacementPath),
         select: true,
     });
 }
@@ -42,10 +41,10 @@ function determineReplacementPath(editor: SlateEditor, link: LinkNode) {
     });
 
     if (path && path.length > 1) {
-        const parentPath = Path.parent(path);
-        const parent = getNode(editor, parentPath);
+        const parentPath = PathApi.parent(path);
+        const parent = editor.api.node(parentPath);
 
-        if (parent && getNodeString(parent) === getNodeString(link)) {
+        if (parent && editor.api.string(parent[0]) === editor.api.string(link)) {
             return parentPath;
         }
     }

@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import type { ListsSchema } from '../types';
@@ -11,8 +10,8 @@ export function moveListToListItem(
     editor: SlateEditor,
     schema: ListsSchema,
     parameters: {
-        at: NodeEntry<Node>;
-        to: NodeEntry<Node>;
+        at: NodeEntry;
+        to: NodeEntry;
     },
 ): void {
     const [sourceListNode, sourceListPath] = parameters.at;
@@ -23,7 +22,7 @@ export function moveListToListItem(
         return;
     }
 
-    editor.moveNodes({
+    editor.tf.moveNodes({
         at: sourceListPath,
         to: [...targetListPath, NESTED_LIST_PATH_INDEX],
     });

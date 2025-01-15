@@ -1,13 +1,9 @@
 import { isGalleryNode, validateGalleryNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
-export function normalizeInvalidGallery(
-    editor: SlateEditor,
-    [node, path]: NodeEntry<Node>,
-): boolean {
+export function normalizeInvalidGallery(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (isGalleryNode(node) && !validateGalleryNode(node)) {
-        editor.removeNodes({ at: path });
+        editor.tf.removeNodes({ at: path });
         return true;
     }
 

@@ -1,6 +1,6 @@
 import type { Events } from '@prezly/events';
+import type { PlatePlugin } from '@udecode/plate/react';
 import { AutoformatPlugin } from '@udecode/plate-autoformat/react';
-import type { PlatePlugin } from '@udecode/plate-common/react';
 
 import { EventsPlugin, type EditorEventMap } from '#modules/events';
 

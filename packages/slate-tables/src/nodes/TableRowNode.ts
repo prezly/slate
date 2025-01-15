@@ -1,4 +1,4 @@
-import type { Element, Location } from 'slate';
+import { type Element, type Location } from '@udecode/plate';
 
 import type { TablesEditor } from '../TablesEditor';
 
@@ -28,7 +28,7 @@ export namespace TableRowNode {
         props: Partial<Omit<TableRowNode, 'children'>>,
         location: Location,
     ) {
-        editor.setNodes<TableRowNode>(props, {
+        editor.tf.setNodes<TableRowNode>(props, {
             at: location,
             match: (node) => editor.isTableRowNode(node),
         });

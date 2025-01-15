@@ -1,5 +1,4 @@
-import { getNodeChildren, isElement, type SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry, Node } from 'slate';
+import { ElementApi, NodeApi, type NodeEntry, type SlateEditor } from '@udecode/plate';
 
 import type { ListsSchema } from '../types';
 
@@ -9,17 +8,17 @@ import type { ListsSchema } from '../types';
 export function normalizeListItemTextChildren(
     editor: SlateEditor,
     schema: ListsSchema,
-    [node, path]: NodeEntry<Node>,
+    [node, path]: NodeEntry,
 ): boolean {
     if (!schema.isListItemTextNode(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
 
-    const children = getNodeChildren(editor, path);
+    const children = NodeApi.children(editor, path);
     for (const [childNode, childPath] of children) {
-        if (isElement(childNode) && !editor.isInline(childNode)) {
-            editor.unwrapNodes({ at: childPath });
+        if (ElementApi.isElement(childNode) && !editor.api.isInline(childNode)) {
+            editor.tf.unwrapNodes({ at: childPath });
             return true;
         }
     }

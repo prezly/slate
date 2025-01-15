@@ -1,11 +1,9 @@
 import type { Events } from '@prezly/events';
 import type { Decorate, EditorCommands } from '@prezly/slate-commons';
 import type { Alignment } from '@prezly/slate-types';
-import type { TElement } from '@udecode/plate-common';
-import type { PlatePlugin } from '@udecode/plate-common/react';
+import type { EditorTransforms, Element, Location, Node } from '@udecode/plate';
+import type { PlatePlugin } from '@udecode/plate/react';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
-import type { Element, Node, Location } from 'slate';
-import type { Transforms } from 'slate';
 
 import type { AllowedBlocksExtensionConfiguration } from '#extensions/allowed-blocks';
 import type { AutoformatParameters } from '#extensions/autoformat';
@@ -48,7 +46,7 @@ export interface EditorRef {
 
     updateNodes<T extends Node>(
         props: Partial<Omit<T, 'children' | 'text'>>,
-        options?: Parameters<typeof Transforms.setNodes<T>>[2],
+        options?: Parameters<EditorTransforms['setNodes']>[1],
     ): void;
 
     insertPlaceholder<T extends PlaceholderNode.Type>(
@@ -82,7 +80,7 @@ export interface EditorRef {
     select(target: Location): void;
 }
 
-export type Value = TElement[];
+export type Value = Element[];
 
 export interface EditorProps {
     align?: Alignment;

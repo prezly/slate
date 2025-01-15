@@ -1,6 +1,11 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry, Path } from 'slate';
-import { Element, Node } from 'slate';
+import {
+    type Element,
+    ElementApi,
+    NodeApi,
+    type NodeEntry,
+    type Path,
+    type SlateEditor,
+} from '@udecode/plate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import type { ListsSchema } from '../types';
@@ -16,13 +21,13 @@ export function getNestedList(
 ): NodeEntry<Element> | null {
     const nestedListPath = [...path, NESTED_LIST_PATH_INDEX];
 
-    if (!Node.has(editor, nestedListPath)) {
+    if (!NodeApi.has(editor, nestedListPath)) {
         return null;
     }
 
-    const nestedList = Node.get(editor, nestedListPath);
+    const nestedList = NodeApi.get(editor, nestedListPath);
 
-    if (Element.isElement(nestedList) && schema.isListNode(nestedList)) {
+    if (ElementApi.isElement(nestedList) && schema.isListNode(nestedList)) {
         // Sanity check.
         return [nestedList, nestedListPath];
     }

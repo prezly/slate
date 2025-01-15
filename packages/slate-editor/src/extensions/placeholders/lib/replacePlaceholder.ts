@@ -1,6 +1,5 @@
 import { EditorCommands } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Element } from 'slate';
+import type { Element, SlateEditor } from '@udecode/plate';
 
 import { PlaceholderNode } from '../PlaceholderNode';
 
@@ -14,7 +13,7 @@ export function replacePlaceholder(
     element: Element,
     { select = false }: Options = {},
 ) {
-    EditorCommands.replaceNode<PlaceholderNode, Element>(editor, element, {
+    EditorCommands.replaceNode(editor, element, {
         at: [],
         match: (node) =>
             PlaceholderNode.isPlaceholderNode(node, placeholder.type) &&

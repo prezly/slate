@@ -9,11 +9,7 @@ interface Options {
     select?: boolean;
 }
 
-export function replaceNode(
-    editor: SlateEditor,
-    newNode: Node,
-    options: Options,
-) {
+export function replaceNode(editor: SlateEditor, newNode: Node, options: Options) {
     const { at, match, select = false } = options;
     editor.tf.withoutNormalizing(() => {
         const [entry] = editor.api.nodes({ at, match, mode: 'highest' });

@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { Node, Path } from 'slate';
+import { NodeApi, type Path, PathApi, type SlateEditor } from '@udecode/plate';
 
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants';
 import { getListType, getParentList, getParentListItem } from '../lib';
@@ -30,7 +29,7 @@ export function decreaseListItemDepth(
     const previousSiblings = parentListNode.children.slice(0, listItemIndex);
     const nextSiblings = parentListNode.children.slice(listItemIndex + 1);
 
-    editor.withoutNormalizing(() => {
+    editor.tf.withoutNormalizing(() => {
         // We have to move all subsequent sibling "list-items" into a new "list" that will be
         // nested in the "list-item" we're trying to move.
         nextSiblings.forEach(() => {
@@ -43,36 +42,36 @@ export function decreaseListItemDepth(
         if (parentListItem) {
             // Move the "list-item" to the grandparent "list".
             const [, parentListItemPath] = parentListItem;
-            editor.moveNodes({
+            editor.tf.moveNodes({
                 at: listItemPath,
-                to: Path.next(parentListItemPath),
+                to: PathApi.next(parentListItemPath),
             });
 
             // We've moved the "list-item" and all its subsequent sibling "list-items" out of this list.
             // So in case there are no more "list-items" left, we should remove the list.
             if (previousSiblings.length === 0) {
-                editor.removeNodes({ at: parentListPath });
+                editor.tf.removeNodes({ at: parentListPath });
             }
         } else {
             // Move the "list-item" to the root of the editor.
             const listItemTextPath = [...listItemPath, TEXT_PATH_INDEX];
             const listItemNestedListPath = [...listItemPath, NESTED_LIST_PATH_INDEX];
 
-            if (Node.has(editor, listItemNestedListPath)) {
-                editor.setNodes(
+            if (NodeApi.has(editor, listItemNestedListPath)) {
+                editor.tf.setNodes(
                     schema.createListNode(getListType(schema, parentListNode), { children: [] }),
                     { at: listItemNestedListPath },
                 );
-                editor.liftNodes({ at: listItemNestedListPath });
-                editor.liftNodes({ at: Path.next(listItemPath) });
+                editor.tf.liftNodes({ at: listItemNestedListPath });
+                editor.tf.liftNodes({ at: PathApi.next(listItemPath) });
             }
 
-            if (Node.has(editor, listItemTextPath)) {
-                editor.setNodes(schema.createDefaultTextNode(), {
+            if (NodeApi.has(editor, listItemTextPath)) {
+                editor.tf.setNodes(schema.createDefaultTextNode(), {
                     at: listItemTextPath,
                 });
-                editor.liftNodes({ at: listItemTextPath });
-                editor.liftNodes({ at: listItemPath });
+                editor.tf.liftNodes({ at: listItemTextPath });
+                editor.tf.liftNodes({ at: listItemPath });
             }
         }
     });

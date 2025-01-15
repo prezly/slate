@@ -1,9 +1,8 @@
 import type { NewsroomContact } from '@prezly/sdk';
 import type { ContactInfo } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import type { ReactNode } from 'react';
 import React from 'react';
-import { useSelected } from 'slate-react';
 
 import { PlaceholderContact } from '#icons';
 import { useFunction } from '#lib';
@@ -42,7 +41,7 @@ export function ContactPlaceholderElement({
     });
 
     const handleRemove = useFunction(() => {
-        editor.removeNodes({ at: [], match: (node) => node === element });
+        editor.tf.removeNodes({ at: [], match: (node) => node === element });
     });
 
     return (

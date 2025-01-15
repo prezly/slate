@@ -1,7 +1,7 @@
 import type { GalleryNode } from '@prezly/slate-types';
 import { isGalleryNode } from '@prezly/slate-types';
 import { pick } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 export function updateGallery(
     editor: SlateEditor,
@@ -9,7 +9,7 @@ export function updateGallery(
 ) {
     const changedAttributes = pick(changes, ['images', 'layout', 'padding', 'thumbnail_size']);
 
-    editor.setNodes<GalleryNode>(changedAttributes, {
+    editor.tf.setNodes<GalleryNode>(changedAttributes, {
         match: isGalleryNode,
     });
 }

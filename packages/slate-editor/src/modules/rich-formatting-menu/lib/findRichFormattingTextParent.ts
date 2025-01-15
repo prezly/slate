@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { type NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 import { type RichFormattedTextElement, isRichFormattedTextElement } from '../types';
 
@@ -15,5 +14,10 @@ export function findRichFormattingTextParent(
         return node;
     }
 
-    return findRichFormattingTextParent(editor, editor.parent(path));
+    const parent = editor.api.parent(path);
+    if (!parent) {
+        return null;
+    }
+
+    return findRichFormattingTextParent(editor, parent);
 }

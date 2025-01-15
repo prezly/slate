@@ -1,6 +1,5 @@
 import { isEqual } from '@technically/lodash';
-import { type SlateEditor } from '@udecode/plate-common';
-import type { Element, Text, Descendant } from 'slate';
+import { type Descendant, type Element, type SlateEditor, type Text } from '@udecode/plate';
 
 import type { ElementsEqualityCheckEditor } from '../plugins';
 
@@ -20,7 +19,7 @@ export function isEditorValueEqual<T extends Descendant>(
         if (!isNodeText && !isAnotherText) {
             const equal = editor.isElementEqual(node as Element, another as Element);
             if (typeof equal !== 'undefined') {
-                if (editor.isVoid(node) || editor.isVoid(another)) {
+                if (editor.api.isVoid(node) || editor.api.isVoid(another)) {
                     // Do not compare void elements children
                     return equal;
                 }

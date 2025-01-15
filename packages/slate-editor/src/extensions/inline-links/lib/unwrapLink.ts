@@ -1,9 +1,8 @@
 import { isLinkNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Path, Range } from 'slate';
+import type { Path, Range, SlateEditor } from '@udecode/plate';
 
 export function unwrapLink(editor: SlateEditor, selection?: Path | Range): void {
-    editor.unwrapNodes({
+    editor.tf.unwrapNodes({
         at: selection,
         match: isLinkNode,
         split: true,

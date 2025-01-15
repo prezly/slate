@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { Element, Node, Path } from 'slate';
+import { ElementApi, NodeApi, type Path, PathApi, type SlateEditor } from '@udecode/plate';
 
 import { NESTED_LIST_PATH_INDEX } from '../constants';
 import { getListType, getPrevSibling } from '../lib';
@@ -29,16 +28,16 @@ export function increaseListItemDepth(
     }
 
     const previousListItemChildListPath = [...previousListItemPath, NESTED_LIST_PATH_INDEX];
-    const previousListItemHasChildList = Node.has(editor, previousListItemChildListPath);
+    const previousListItemHasChildList = NodeApi.has(editor, previousListItemChildListPath);
 
     let changed = false;
 
-    editor.withoutNormalizing(() => {
+    editor.tf.withoutNormalizing(() => {
         // Ensure there's a nested "list" in the previous sibling "list-item".
         if (!previousListItemHasChildList) {
-            const listNodePath = Path.ancestors(listItemPath, { reverse: true })[0];
-            const listNode = Node.get(editor, listNodePath);
-            editor.insertNodes(
+            const listNodePath = PathApi.ancestors(listItemPath, { reverse: true })[0];
+            const listNode = NodeApi.get(editor, listNodePath);
+            editor.tf.insertNodes(
                 schema.createListNode(getListType(schema, listNode), { children: [] }),
                 {
                     at: previousListItemChildListPath,
@@ -47,17 +46,17 @@ export function increaseListItemDepth(
             changed = true;
         }
 
-        const previousListItemChildList = Node.get(editor, previousListItemChildListPath);
+        const previousListItemChildList = NodeApi.get(editor, previousListItemChildListPath);
 
         if (
-            Element.isElement(previousListItemChildList) &&
+            ElementApi.isElement(previousListItemChildList) &&
             schema.isListNode(previousListItemChildList)
         ) {
             const index = previousListItemHasChildList
                 ? previousListItemChildList.children.length
                 : 0;
 
-            editor.moveNodes({
+            editor.tf.moveNodes({
                 at: listItemPath,
                 to: [...previousListItemChildListPath, index],
             });

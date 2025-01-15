@@ -1,7 +1,7 @@
 import type { StoryBookmarkNode } from '@prezly/slate-types';
 import { isStoryBookmarkNode } from '@prezly/slate-types';
 import { pick } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 export function updateStoryBookmark(
     editor: SlateEditor,
@@ -9,7 +9,7 @@ export function updateStoryBookmark(
 ) {
     const changes = pick(attrs, ['show_thumbnail', 'layout', 'new_tab']);
 
-    editor.setNodes<StoryBookmarkNode>(changes, {
+    editor.tf.setNodes<StoryBookmarkNode>(changes, {
         match: isStoryBookmarkNode,
     });
 }

@@ -1,7 +1,7 @@
 import type { VariableNode } from '@prezly/slate-types';
 import { isVariableNode } from '@prezly/slate-types';
 import { pick } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 export function updateVariable(
     editor: SlateEditor,
@@ -9,7 +9,7 @@ export function updateVariable(
 ) {
     const changes = pick(attrs, ['fallback', 'key']);
 
-    editor.setNodes<VariableNode>(changes, {
+    editor.tf.setNodes<VariableNode>(changes, {
         match: isVariableNode,
     });
 }

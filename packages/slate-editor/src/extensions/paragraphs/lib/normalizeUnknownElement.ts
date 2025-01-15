@@ -1,16 +1,11 @@
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeEntry } from 'slate';
-import { Element } from 'slate';
+import { type Element, ElementApi, type NodeEntry, type SlateEditor } from '@udecode/plate';
 
 /**
  * If there's an Element node without a `type` attribute - mark it as paragraph.
  */
-export function normalizeUnknownElement(
-    editor: SlateEditor,
-    [node, path]: NodeEntry<Node>,
-): boolean {
-    if (!Element.isElement(node)) {
+export function normalizeUnknownElement(editor: SlateEditor, [node, path]: NodeEntry): boolean {
+    if (!ElementApi.isElement(node)) {
         // This function does not know how to normalize other nodes.
         return false;
     }
@@ -18,7 +13,7 @@ export function normalizeUnknownElement(
     const anyNode: Record<string, unknown> = node as unknown as Record<string, unknown>;
 
     if (typeof anyNode.type === 'undefined') {
-        editor.setNodes({ type: PARAGRAPH_NODE_TYPE } as Partial<Element>, {
+        editor.tf.setNodes({ type: PARAGRAPH_NODE_TYPE } as Partial<Element>, {
             at: path,
         });
         return true;

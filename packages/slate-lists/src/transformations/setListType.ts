@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location } from 'slate';
-import { type Element, Node } from 'slate';
+import { NodeApi, type Location, type SlateEditor } from '@udecode/plate';
 
 import { getLists } from '../lib';
 import type { ListsSchema, ListType } from '../types';
@@ -24,14 +22,14 @@ export function setListType(
         return false;
     }
 
-    const refs = lists.map(([_, path]) => editor.pathRef(path));
+    const refs = lists.map(([_, path]) => editor.api.pathRef(path));
 
     refs.forEach((ref) => {
         const path = ref.current;
-        const node = path ? Node.get(editor, path) : null;
+        const node = path ? NodeApi.get(editor, path) : null;
 
         if (node && path) {
-            editor.setNodes(schema.createListNode(listType, node as Element), {
+            editor.tf.setNodes(schema.createListNode(listType, node), {
                 at: path,
             });
         }

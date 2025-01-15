@@ -1,8 +1,6 @@
 import type { Extension, RenderElement } from '@prezly/slate-commons';
-import { isElement, type SlateEditor } from '@udecode/plate-common';
+import { ElementApi, type Node, type RenderElementProps, type SlateEditor } from '@udecode/plate';
 import React from 'react';
-import type { Node } from 'slate';
-import type { RenderElementProps } from 'slate-react';
 
 export function combineRenderElement(
     editor: SlateEditor,
@@ -35,7 +33,7 @@ export function combineRenderElement(
 }
 
 function detectBlockType(editor: SlateEditor, element: Node): string | undefined {
-    if (!isElement(element) || editor.isInline(element)) {
+    if (!ElementApi.isElement(element) || editor.api.isInline(element)) {
         return undefined;
     }
     return editor.isRichBlock(element) ? 'rich' : 'regular';

@@ -1,5 +1,4 @@
-import { focusEditor } from '@udecode/plate-common/react';
-import { type Location, Path, Node } from 'slate';
+import { type Location, NodeApi, PathApi } from '@udecode/plate';
 
 import { Traverse } from '../core';
 import { TableRowNode, TableCellNode } from '../nodes';
@@ -33,13 +32,17 @@ export function insertRow(
 
     const newRow = TableRowNode.createTableRow(editor, { children: cellsToAdd });
 
-    const at = side === 'bellow' ? Path.next(activeRow.path) : activeRow.path;
-    editor.insertNodes(newRow, { at });
+    const at = side === 'bellow' ? PathApi.next(activeRow.path) : activeRow.path;
+    editor.tf.insertNodes(newRow, { at });
+    editor.tf.focus();
 
-    focusEditor(editor);
+    const firstNode = NodeApi.first(editor, at);
+    if (!firstNode) {
+        return false;
+    }
 
-    const [, firstCellInNewRowPath] = Node.first(editor, at);
-    editor.select(firstCellInNewRowPath);
+    const [, firstCellInNewRowPath] = firstNode;
+    editor.tf.select(firstCellInNewRowPath);
 
     return true;
 }

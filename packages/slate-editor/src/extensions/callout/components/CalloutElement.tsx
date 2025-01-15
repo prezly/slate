@@ -2,14 +2,13 @@ import type { Placement } from '@popperjs/core';
 import { EditorCommands } from '@prezly/slate-commons';
 import type { CalloutNode } from '@prezly/slate-types';
 import { Alignment } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import classNames from 'classnames';
 import EmojiPicker, { EmojiStyle, SuggestionMode } from 'emoji-picker-react';
 import type { HTMLAttributes, Ref } from 'react';
 import React, { forwardRef, useCallback, useState } from 'react';
 import { useRootClose } from 'react-overlays';
 import { type Modifier, Popper } from 'react-popper';
-import { useSelected } from 'slate-react';
 
 import { NewParagraphDelimiter, TooltipV2 } from '#components';
 import { mergeRefs } from '#lib';
@@ -29,7 +28,7 @@ export const CalloutElement = forwardRef(
         const [buttonElement, setButtonElement] = useState<HTMLElement | null>(null);
 
         const togglePicker = useCallback(() => {
-            editor.collapse();
+            editor.tf.collapse();
             setPickerOpen((open) => !open);
         }, []);
 

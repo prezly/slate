@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location } from 'slate';
+import { type Location, type SlateEditor } from '@udecode/plate';
 
 import { getListItems, getPrevSibling, pickSubtreesRoots } from '../lib';
 import type { ListsSchema } from '../types';
@@ -34,9 +33,11 @@ export function increaseDepth(
 
     // When calling `increaseListItemDepth` the paths and references to list items
     // can change, so we need a way of marking the list items scheduled for transformation.
-    const refs = pickSubtreesRoots(indentableListItems).map(([_, path]) => editor.pathRef(path));
+    const refs = pickSubtreesRoots(indentableListItems).map(([_, path]) =>
+        editor.api.pathRef(path),
+    );
 
-    editor.withoutNormalizing(() => {
+    editor.tf.withoutNormalizing(() => {
         // Before we indent "list-items", we want to convert every non list-related block in selection to a "list".
         wrapInList(editor, schema, ListType.UNORDERED);
 

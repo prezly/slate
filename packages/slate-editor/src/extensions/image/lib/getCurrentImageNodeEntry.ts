@@ -1,8 +1,7 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { ImageNode } from '@prezly/slate-types';
 import { isImageNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 export function getCurrentImageNodeEntry(editor: SlateEditor): NodeEntry<ImageNode> | null {
     const currentNodeEntry = EditorCommands.getCurrentNodeEntry(editor);

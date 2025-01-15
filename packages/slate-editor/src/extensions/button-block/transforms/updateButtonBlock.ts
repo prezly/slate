@@ -1,4 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import type { ButtonBlockNode } from '../ButtonBlockNode';
 
@@ -7,7 +7,7 @@ export function updateButtonBlock(
     buttonBlock: ButtonBlockNode,
     patch: Partial<Pick<ButtonBlockNode, 'href' | 'label' | 'layout' | 'variant' | 'new_tab'>>,
 ) {
-    editor.setNodes<ButtonBlockNode>(patch, {
+    editor.tf.setNodes<ButtonBlockNode>(patch, {
         at: [],
         match: (node) => node === buttonBlock,
     });

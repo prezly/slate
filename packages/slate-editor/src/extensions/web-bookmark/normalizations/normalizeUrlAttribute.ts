@@ -1,7 +1,6 @@
 import { BookmarkNode, normalizeUrl } from '@prezly/slate-types';
 import { isEqual } from '@technically/lodash';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { NodeEntry } from 'slate';
+import type { NodeEntry, SlateEditor } from '@udecode/plate';
 
 export function normalizeUrlAttribute(editor: SlateEditor, [node, path]: NodeEntry): boolean {
     if (!BookmarkNode.isBookmarkNode(node)) {
@@ -12,6 +11,6 @@ export function normalizeUrlAttribute(editor: SlateEditor, [node, path]: NodeEnt
         return false;
     }
 
-    editor.setNodes<BookmarkNode>({ url: normalizeUrl(node.url) }, { at: path });
+    editor.tf.setNodes<BookmarkNode>({ url: normalizeUrl(node.url) }, { at: path });
     return true;
 }

@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Element, Location, Node, NodeEntry, Path, Range } from 'slate';
+import type { Location, Node, NodeEntry, Path, Range, SlateEditor } from '@udecode/plate';
 
 import {
     isDeleteBackwardAllowed,

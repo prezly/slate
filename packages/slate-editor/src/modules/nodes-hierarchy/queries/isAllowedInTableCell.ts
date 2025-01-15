@@ -1,5 +1,5 @@
 import { isListNode, isParagraphNode } from '@prezly/slate-types';
-import type { TNode } from '@udecode/plate-common';
+import type { TNode } from '@udecode/plate';
 
 export function isAllowedInTableCell(node: TNode) {
     return isParagraphNode(node) || isListNode(node);

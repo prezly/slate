@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import { isLinkNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { isUrl } from '#lib';
 
@@ -18,10 +18,10 @@ export function withPastedContentAutolinking<T extends SlateEditor>(editor: T): 
         const hasHtml = Boolean(data.getData('text/html'));
 
         if (isUrl(pasted) && EditorCommands.isSelectionEmpty(editor)) {
-            const isInsideLink = Array.from(editor.nodes({ match: isLinkNode })).length > 0;
+            const isInsideLink = Array.from(editor.api.nodes({ match: isLinkNode })).length > 0;
 
             if (!isInsideLink) {
-                editor.insertNodes(createLink({ href: pasted }));
+                editor.tf.insertNodes(createLink({ href: pasted }));
                 return;
             }
         }
@@ -29,7 +29,7 @@ export function withPastedContentAutolinking<T extends SlateEditor>(editor: T): 
         if (!hasHtml) {
             const autolinked = autolinkPlaintext(pasted);
             if (autolinked) {
-                editor.insertNodes(autolinked);
+                editor.tf.insertNodes(autolinked);
                 return;
             }
         }

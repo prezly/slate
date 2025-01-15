@@ -1,5 +1,5 @@
 import type { DecorateFactory } from '@prezly/slate-commons';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef } from '@udecode/plate/react';
 import { useMemo } from 'react';
 
 import { useDecoration } from './useDecoration';

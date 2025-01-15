@@ -3,10 +3,9 @@ import { toProgressPromise, UPLOADCARE_FILE_DATA_KEY, UploadcareFile } from '@pr
 import type { PrezlyFileInfo } from '@prezly/uploadcare';
 import type { FilePromise } from '@prezly/uploadcare-widget';
 import uploadcare from '@prezly/uploadcare-widget';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef, useSelected } from '@udecode/plate/react';
 import type { DragEventHandler } from 'react';
 import React from 'react';
-import { useSelected } from 'slate-react';
 
 import { PlaceholderAttachment } from '#icons';
 import { useFunction } from '#lib';

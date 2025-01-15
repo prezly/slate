@@ -2,7 +2,7 @@ import { EditorCommands } from '@prezly/slate-commons';
 import type { HeadingNode } from '@prezly/slate-types';
 import { HeadingRole } from '@prezly/slate-types';
 import { HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
-import { useEditorRef } from '@udecode/plate-common/react';
+import { useEditorRef } from '@udecode/plate/react';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
 import React, { forwardRef } from 'react';

@@ -1,5 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 import React from 'react';
 
 import { withPastedUrlsUnfurling } from './behaviour';

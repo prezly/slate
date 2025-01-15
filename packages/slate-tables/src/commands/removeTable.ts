@@ -1,5 +1,4 @@
-import { focusEditor } from '@udecode/plate-common/react';
-import { type Location } from 'slate';
+import { type Location } from '@udecode/plate';
 
 import { Traverse } from '../core';
 import type { TablesEditor } from '../TablesEditor';
@@ -20,9 +19,9 @@ export function removeTable(
 
     const { matrix } = traverse;
 
-    focusEditor(editor);
+    editor.tf.focus();
 
-    editor.removeNodes({ at: matrix.path });
+    editor.tf.removeNodes({ at: matrix.path });
 
     return true;
 }
