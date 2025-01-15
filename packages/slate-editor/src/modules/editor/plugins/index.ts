@@ -4,4 +4,4 @@ export {
     type ElementsEqualityCheckEditor,
     withElementsEqualityCheck,
 } from './withElementsEqualityCheck';
-export { type RichBlocksAwareEditor, withRichBlocks } from './withRichBlocks';
+export { RichBlocksPlugin } from './RichBlocksPlugin';

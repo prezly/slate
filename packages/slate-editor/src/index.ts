@@ -27,17 +27,12 @@ import type { BaseEditor } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 
 import type { FlashEditor } from '#extensions/flash-nodes';
-import type {
-    DefaultTextBlockEditor,
-    ElementsEqualityCheckEditor,
-    RichBlocksAwareEditor,
-} from '#modules/editor';
+import type { DefaultTextBlockEditor, ElementsEqualityCheckEditor } from '#modules/editor';
 
 type Editor = BaseEditor &
     HistoryEditor &
     DefaultTextBlockEditor<ParagraphNode> &
     ElementsEqualityCheckEditor &
-    RichBlocksAwareEditor &
     FlashEditor;
 
 declare module 'slate' {

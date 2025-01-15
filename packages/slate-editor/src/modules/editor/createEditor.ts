@@ -19,7 +19,7 @@ import {
     withDefaultTextBlock,
     withDeserializeHtml,
     withElementsEqualityCheck,
-    withRichBlocks,
+    RichBlocksPlugin,
 } from './plugins';
 import { type Value } from './types';
 
@@ -46,7 +46,12 @@ export function createEditor({
 }: Params) {
     const baseEditor = createPlateEditor({
         editor,
-        plugins,
+        plugins: [
+            ...plugins,
+            RichBlocksPlugin.configure({
+                options: { getExtensions },
+            }),
+        ],
         value: initialValue,
     });
 
@@ -64,7 +69,6 @@ export function createEditor({
         withNormalization(getExtensions),
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
-        withRichBlocks(getExtensions),
         withElementsEqualityCheck,
         ...extensionsOverrides,
     ])(baseEditor);
