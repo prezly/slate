@@ -19,17 +19,6 @@ export const StoryBookmarkExtension = (params: StoryBookmarkExtensionParameters)
             [STORY_BOOKMARK_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         }),
     },
-    isElementEqual: (node, another) => {
-        if (isStoryBookmarkNode(node) && isStoryBookmarkNode(another)) {
-            return (
-                node.story.uuid === another.story.uuid &&
-                node.show_thumbnail === another.show_thumbnail &&
-                node.new_tab === another.new_tab &&
-                node.layout === another.layout
-            );
-        }
-        return undefined;
-    },
     isRichBlock: isStoryBookmarkNode,
     isVoid: isStoryBookmarkNode,
     normalizeNode: normalizeRedundantStoryBookmarkAttributes,
