@@ -5,4 +5,3 @@ export {
     withElementsEqualityCheck,
 } from './withElementsEqualityCheck';
 export { type RichBlocksAwareEditor, withRichBlocks } from './withRichBlocks';
-export { type SerializingEditor, withSerialization } from './withSerialization';

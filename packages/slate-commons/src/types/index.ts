@@ -3,7 +3,6 @@ export type { DecorateFactory } from './DecorateFactory';
 export type { DeserializeHtml, DeserializeElement, DeserializeMarks } from './DeserializeHtml';
 export type { Extension } from './Extension';
 export type { Normalize } from './Normalize';
-export type { OnDOMBeforeInput } from './OnDOMBeforeInput';
 export type { OnKeyDown } from './OnKeyDown';
 export type { RenderElement } from './RenderElement';
 export type { RenderLeaf } from './RenderLeaf';

@@ -6,13 +6,11 @@ export {
     withDeserializeHtml,
     withElementsEqualityCheck,
     withRichBlocks,
-    withSerialization,
 } from './plugins';
 export type {
     DefaultTextBlockEditor,
     ElementsEqualityCheckEditor,
     RichBlocksAwareEditor,
-    SerializingEditor,
 } from './plugins';
 export type { EditorRef, EditorProps, Value } from './types';
 export { useEditorEvents } from './useEditorEvents';

@@ -846,9 +846,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>((props, forwardedRef) =
     const hasCustomPlaceholder =
         withFloatingAddMenu && (isEditorFocused(editor) || isFloatingAddMenuOpen);
 
-    const onChange = useOnChange((value) => {
-        props.onChange(editor.serialize(value) as Value);
-    });
+    const onChange = useOnChange(props.onChange);
 
     const floatingSnippetRenderInput = useFunction(() => {
         return (
