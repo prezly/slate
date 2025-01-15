@@ -39,7 +39,7 @@ export function isEditorValueEqual<T extends Descendant>(
         );
     }
 
-    return a === b || compareLists(editor.serialize(a), editor.serialize(b));
+    return a === b || compareLists(a, b);
 }
 
 function isText(node: Descendant): node is Text {
