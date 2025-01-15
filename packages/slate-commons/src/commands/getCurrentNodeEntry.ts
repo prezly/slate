@@ -1,12 +1,11 @@
-import type { TNodeEntry } from '@udecode/plate-common';
-import { getNodeEntry, type SlateEditor } from '@udecode/plate-common';
+import { type NodeEntry, type SlateEditor } from '@udecode/plate';
 
 import { isSelectionValid } from './isSelectionValid';
 
-export function getCurrentNodeEntry(editor: SlateEditor): TNodeEntry | null {
+export function getCurrentNodeEntry(editor: SlateEditor): NodeEntry | null {
     if (!editor.selection || !isSelectionValid(editor)) {
         return null;
     }
 
-    return getNodeEntry(editor, editor.selection, { depth: 1 }) ?? null;
+    return editor.api.node(editor.selection, { depth: 1 }) ?? null;
 }

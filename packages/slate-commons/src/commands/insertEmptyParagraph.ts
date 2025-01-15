@@ -1,7 +1,6 @@
 import type { ParagraphNode } from '@prezly/slate-types';
 import { PARAGRAPH_NODE_TYPE } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location } from 'slate';
+import type { Location, SlateEditor } from '@udecode/plate';
 
 function createEmptyParagraph(): ParagraphNode {
     return {
@@ -16,5 +15,5 @@ export function insertEmptyParagraph(
 ): void {
     // Using `mode: 'highest' under assumption that "paragraph" can only be
     // at the root of the document.
-    editor.insertNodes([createEmptyParagraph()], { ...options, mode: 'highest' });
+    editor.tf.insertNodes([createEmptyParagraph()], { ...options, mode: 'highest' });
 }

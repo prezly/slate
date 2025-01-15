@@ -1,7 +1,6 @@
-import type { TNode } from '@udecode/plate-common';
-import { isElement, type SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
+import type { Node, SlateEditor } from '@udecode/plate';
+import { ElementApi } from '@udecode/plate';
 
-export function isBlock(editor: SlateEditor, node: Node | TNode): boolean {
-    return isElement(node) && editor.isBlock(node);
+export function isBlock(editor: SlateEditor, node: Node): boolean {
+    return ElementApi.isElement(node) && editor.api.isBlock(node);
 }

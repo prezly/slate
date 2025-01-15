@@ -1,8 +1,6 @@
 import type { ElementNode } from '@prezly/slate-types';
 import { isElementNode } from '@prezly/slate-types';
-import { isInline, isVoid, type SlateEditor } from '@udecode/plate-common';
-import type { ElementEntry } from 'slate';
-import { Element } from 'slate';
+import { type Element, ElementApi, type ElementEntry, type SlateEditor } from '@udecode/plate';
 
 import { makeDirty } from './makeDirty';
 
@@ -11,14 +9,14 @@ export function normalizeNestedElement(
     [element, path]: ElementEntry,
     isParentAllowed: (element: Element) => boolean,
 ): boolean {
-    const ancestor = editor.above({ at: path });
+    const ancestor = editor.api.above({ at: path });
     if (!ancestor) {
         return false;
     }
 
     const [ancestorNode, ancestorPath] = ancestor;
 
-    if (!Element.isElement(ancestorNode)) {
+    if (!ElementApi.isElement(ancestorNode)) {
         return false;
     }
 
@@ -29,17 +27,17 @@ export function normalizeNestedElement(
     makeDirty(editor, path);
 
     if (
-        isInline(editor, element) ||
-        isVoid(editor, element) ||
+        editor.api.isInline(element) ||
+        editor.api.isVoid(element) ||
         isElementNode(ancestorNode, (element as ElementNode).type)
     ) {
         if (ancestorNode.children.length === 1) {
-            editor.unwrapNodes({ at: ancestorPath, voids: true });
+            editor.tf.unwrapNodes({ at: ancestorPath, voids: true });
         } else {
-            editor.liftNodes({ at: path, voids: true });
+            editor.tf.liftNodes({ at: path, voids: true });
         }
     } else {
-        editor.unwrapNodes({ at: path });
+        editor.tf.unwrapNodes({ at: path });
     }
 
     return true;

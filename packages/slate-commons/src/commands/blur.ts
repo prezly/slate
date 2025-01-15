@@ -1,6 +1,5 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { deselectEditor } from '@udecode/plate-common/react';
+import type { SlateEditor } from '@udecode/plate';
 
 export function blur(editor: SlateEditor): void {
-    deselectEditor(editor);
+    editor.tf.deselectDOM();
 }

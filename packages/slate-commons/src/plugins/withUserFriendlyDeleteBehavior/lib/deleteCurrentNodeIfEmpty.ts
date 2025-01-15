@@ -1,5 +1,5 @@
 import { isElementNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { getCurrentNodeEntry, isNodeEmpty } from '../../../commands';
 
@@ -40,7 +40,7 @@ export function deleteCurrentNodeIfEmpty(
         currentNode.type !== targetNode.type &&
         isNodeEmpty(editor, currentNode)
     ) {
-        editor.removeNodes({
+        editor.tf.removeNodes({
             match: (node) => {
                 return isElementNode(node, currentNode.type);
             },

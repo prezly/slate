@@ -1,10 +1,9 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Path } from 'slate';
+import type { Path, SlateEditor } from '@udecode/plate';
 
 export function getNodePath(
     editor: SlateEditor,
-    options: NonNullable<Parameters<typeof editor.nodes>[0]>,
+    options: NonNullable<Parameters<typeof editor.api.nodes>[0]>,
 ): Path | null {
-    const [entry] = editor.nodes(options);
+    const [entry] = editor.api.nodes(options);
     return entry ? entry[1] : null;
 }

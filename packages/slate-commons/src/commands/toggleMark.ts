@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Text } from 'slate';
+import type { SlateEditor, Text } from '@udecode/plate';
 
 import { isMarkActive } from './isMarkActive';
 
@@ -11,8 +10,8 @@ export function toggleMark<T extends Text>(
     const shouldSet = force ?? !isMarkActive(editor, mark);
 
     if (shouldSet) {
-        editor.addMark(mark as string, true);
+        editor.tf.addMark(mark as string, true);
     } else {
-        editor.removeMark(mark as string);
+        editor.tf.removeMark(mark as string);
     }
 }

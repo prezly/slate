@@ -1,10 +1,9 @@
 import type { AlignableNode, Alignment } from '@prezly/slate-types';
 import { isAlignableElement, isTableCellNode } from '@prezly/slate-types';
-import { getAboveNode, type SlateEditor, type TNodeEntry } from '@udecode/plate-common';
-import type { Node, Path } from 'slate';
+import { type Node, type Path, type SlateEditor, type NodeEntry } from '@udecode/plate';
 
 export function getAlignment(editor: SlateEditor, defaultAlignment: Alignment): Alignment[] {
-    const nodes = editor.nodes<AlignableNode>({
+    const nodes = editor.api.nodes<AlignableNode>({
         match: (node, path) => isTopLevelAlignableElement(editor, node, path),
     });
 
@@ -19,19 +18,19 @@ export function getAlignment(editor: SlateEditor, defaultAlignment: Alignment): 
 
 export function toggleAlignment(editor: SlateEditor, align: Alignment | undefined): void {
     if (align === undefined) {
-        editor.unsetNodes('align', {
+        editor.tf.unsetNodes('align', {
             match: (node, path) => isTopLevelAlignableElement(editor, node, path),
         });
         return;
     }
 
-    editor.setNodes<AlignableNode>(
+    editor.tf.setNodes<AlignableNode>(
         { align },
         { match: (node, path) => isTopLevelAlignableElement(editor, node, path) },
     );
 }
 
-function isAlignmentRoot([node, path]: TNodeEntry): boolean {
+function isAlignmentRoot([node, path]: NodeEntry): boolean {
     // We allow aligning elements either at top-level or inside table cells.
     return path.length === 0 || isTableCellNode(node);
 }
@@ -41,6 +40,6 @@ function isTopLevelAlignableElement(
     node: Node,
     path: Path,
 ): node is AlignableNode {
-    const parent = getAboveNode(editor, { at: path });
+    const parent = editor.api.above({ at: path });
     return parent !== undefined && isAlignmentRoot(parent) && isAlignableElement(node);
 }

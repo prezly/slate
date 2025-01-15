@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { Path, Point } from 'slate';
+import { PathApi, type Point, PointApi, type SlateEditor } from '@udecode/plate';
 
 import type { Edge } from './findLeafPath';
 import { findLeafPath } from './findLeafPath';
@@ -15,10 +14,14 @@ export function findLeafPoint(
         return undefined;
     }
 
-    const [, end] = editor.edges(path);
+    const edges = editor.api.edges(path);
+    if (!edges) {
+        return undefined;
+    }
 
-    if (Path.equals(point.path, path)) {
-        if (Point.isAfter(point, end)) {
+    const [, end] = edges;
+    if (PathApi.equals(point.path, path)) {
+        if (PointApi.isAfter(point, end)) {
             return end;
         }
 

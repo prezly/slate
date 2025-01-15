@@ -1,11 +1,9 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
-import { Text } from 'slate';
+import { TextApi, type Node, type SlateEditor } from '@udecode/plate';
 
 import { isVoid } from './isVoid';
 
 export function hasVoidElements(editor: SlateEditor, node: Node): boolean {
-    if (Text.isText(node)) {
+    if (TextApi.isText(node)) {
         return false;
     }
     if (isVoid(editor, node)) {

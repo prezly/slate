@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { toDOMNode } from '@udecode/plate-common/react';
+import type { SlateEditor } from '@udecode/plate';
 
 import { getCurrentNodeEntry } from './getCurrentNodeEntry';
 
@@ -10,5 +9,5 @@ export function getCurrentDomNode(editor: SlateEditor): HTMLElement | null {
         return null;
     }
 
-    return toDOMNode(editor, currentNode) ?? null;
+    return editor.api.toDOMNode(currentNode) ?? null;
 }

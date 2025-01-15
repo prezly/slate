@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Range } from 'slate';
+import type { Range, SlateEditor } from '@udecode/plate';
 
 import { findLeafPoint } from './findLeafPoint';
 

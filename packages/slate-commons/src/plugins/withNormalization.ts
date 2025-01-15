@@ -1,12 +1,12 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import type { Extension } from '../types';
 
 export function withNormalization(getExtensions: () => Extension[]) {
     return function <T extends SlateEditor>(editor: T) {
-        const { normalizeNode } = editor;
+        const { normalizeNode } = editor.tf;
 
-        editor.normalizeNode = (entry) => {
+        editor.tf.normalizeNode = (entry) => {
             const normalizers = getExtensions().flatMap(({ normalizeNode = [] }) => normalizeNode);
 
             for (const normalizer of normalizers) {

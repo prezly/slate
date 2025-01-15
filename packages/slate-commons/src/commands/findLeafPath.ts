@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Path } from 'slate';
-import { Node, Text } from 'slate';
+import { NodeApi, type Path, type SlateEditor, TextApi } from '@udecode/plate';
 
 export type Edge = 'highest' | 'lowest';
 
@@ -9,17 +7,21 @@ export function findLeafPath(
     path: Path,
     edge: Edge = 'highest',
 ): Path | undefined {
-    if (!Node.has(editor, path)) {
+    if (!NodeApi.has(editor, path)) {
         return undefined;
     }
 
-    const node = Node.get(editor, path);
+    const node = NodeApi.get(editor, path);
 
-    if (Text.isText(node)) {
+    if (TextApi.isText(node)) {
         return path;
     }
 
-    const [, nestedPath] = edge === 'highest' ? editor.first(path) : editor.last(path);
+    const result = edge === 'highest' ? editor.api.first(path) : editor.api.last(path);
+    if (!result) {
+        return undefined;
+    }
 
+    const [, nestedPath] = result;
     return findLeafPath(editor, nestedPath);
 }

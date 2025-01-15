@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { focusEditor } from '@udecode/plate-common/react';
+import type { SlateEditor } from '@udecode/plate';
 import { useState } from 'react';
 
 import { saveSelection } from '../commands';
@@ -16,7 +15,7 @@ export function useSavedSelection(): Actions {
 
     function restore(editor: SlateEditor, { focus = false } = {}) {
         if (focus) {
-            focusEditor(editor);
+            editor.tf.focus();
         }
 
         if (savedSelection) {

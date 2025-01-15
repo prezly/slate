@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { Element } from 'slate';
-import { Range } from 'slate';
+import { ElementApi, type Range, RangeApi, type SlateEditor } from '@udecode/plate';
 
 import { isNodeEmpty } from './isNodeEmpty';
 
@@ -20,17 +18,17 @@ export function isAtEmptyBlock(
         return false;
     }
 
-    if (Range.isExpanded(at)) {
+    if (RangeApi.isExpanded(at)) {
         return false;
     }
 
-    const entry = editor.node(at, { depth: 1 });
+    const entry = editor.api.node(at, { depth: 1 });
     if (!entry) {
         return false;
     }
 
     const [node] = entry;
     return (
-        Element.isElement(node) && editor.isBlock(node) && isNodeEmpty(editor, node, options?.trim)
+        ElementApi.isElement(node) && editor.api.isBlock(node) && isNodeEmpty(editor, node, options?.trim)
     );
 }

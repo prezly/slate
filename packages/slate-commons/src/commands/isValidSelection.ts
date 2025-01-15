@@ -1,13 +1,11 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Range } from 'slate';
-import { Node, Text } from 'slate';
+import { type Range, type SlateEditor, TextApi } from '@udecode/plate';
 
 export function isValidSelection(editor: SlateEditor, selection: Range): false | true | 'fixable' {
     try {
-        const anchor = Node.get(editor, selection.anchor.path);
-        const focus = Node.get(editor, selection.focus.path);
+        const anchor = editor.api.node(selection.anchor.path);
+        const focus = editor.api.node(selection.focus.path);
 
-        if (Text.isText(anchor) && Text.isText(focus)) {
+        if (TextApi.isText(anchor) && TextApi.isText(focus)) {
             if (
                 selection.anchor.offset > anchor.text.length ||
                 selection.focus.offset > focus.text.length
@@ -24,10 +22,10 @@ export function isValidSelection(editor: SlateEditor, selection: Range): false |
 
 export function fixSelection(editor: SlateEditor, selection: Range): Range | null {
     try {
-        const anchor = Node.get(editor, selection.anchor.path);
-        const focus = Node.get(editor, selection.focus.path);
+        const anchor = editor.api.node(selection.anchor.path);
+        const focus = editor.api.node(selection.focus.path);
 
-        if (Text.isText(anchor) && Text.isText(focus)) {
+        if (TextApi.isText(anchor) && TextApi.isText(focus)) {
             return {
                 anchor: {
                     ...selection.anchor,

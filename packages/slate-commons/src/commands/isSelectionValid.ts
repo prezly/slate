@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { Range } from 'slate';
+import { RangeApi, type SlateEditor } from '@udecode/plate';
 
 import { getEditorRange } from './getEditorRange';
 
@@ -18,5 +17,5 @@ export function isSelectionValid(editor: SlateEditor): boolean {
         return false;
     }
 
-    return Range.includes(editorRange, editor.selection);
+    return RangeApi.includes(editorRange, editor.selection);
 }

@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location, Range } from 'slate';
+import type { Location, Range, SlateEditor } from '@udecode/plate';
 
 import { findLeafLocation } from './findLeafLocation';
 import { isValidLocation } from './isValidLocation';
@@ -22,7 +21,7 @@ function createRestore(location: Location | null): Actions['restore'] {
         const locationLeaf = location && findLeafLocation(editor, location);
 
         if (locationLeaf && isValidLocation(editor, locationLeaf)) {
-            editor.select(locationLeaf);
+            editor.tf.select(locationLeaf);
             return true;
         }
 

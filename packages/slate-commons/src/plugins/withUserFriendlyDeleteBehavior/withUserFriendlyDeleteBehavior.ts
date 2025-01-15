@@ -1,20 +1,19 @@
-/* eslint-disable no-param-reassign */
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { saveSelection } from '../../commands';
 
 import { deleteCurrentNodeIfEmpty } from './lib';
 
 export function withUserFriendlyDeleteBehavior<T extends SlateEditor>(editor: T): T {
-    const { deleteBackward, deleteForward } = editor;
+    const { deleteBackward, deleteForward } = editor.tf;
 
-    editor.deleteBackward = (unit) => {
+    editor.tf.deleteBackward = (unit) => {
         const previousBlockSelection = saveSelection(
             editor,
-            (location) => editor.before(location) ?? location,
+            (location) => editor.api.before(location) ?? location,
         );
 
-        const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: true, unit });
+        const isRemoved = unit && deleteCurrentNodeIfEmpty(editor, { reverse: true, unit });
 
         if (isRemoved) {
             previousBlockSelection.restore(editor);
@@ -24,10 +23,10 @@ export function withUserFriendlyDeleteBehavior<T extends SlateEditor>(editor: T)
         }
     };
 
-    editor.deleteForward = (unit) => {
+    editor.tf.deleteForward = (unit) => {
         const selectionBeforeDeleting = saveSelection(editor);
 
-        const isRemoved = deleteCurrentNodeIfEmpty(editor, { reverse: false, unit });
+        const isRemoved = unit && deleteCurrentNodeIfEmpty(editor, { reverse: false, unit });
         if (!isRemoved) {
             // The custom delete could not be applied, fall back to the default editor action.
             deleteForward(unit);

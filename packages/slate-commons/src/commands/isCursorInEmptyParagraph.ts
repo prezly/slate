@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { Range } from 'slate';
+import { RangeApi, type SlateEditor } from '@udecode/plate';
 
 import { getCurrentNodeEntry } from './getCurrentNodeEntry';
 import { isEmptyParagraphElement } from './isEmptyParagraphElement';
@@ -13,7 +12,7 @@ export function isCursorInEmptyParagraph(editor: SlateEditor, options?: Options)
         return false;
     }
 
-    if (Range.isExpanded(editor.selection)) {
+    if (RangeApi.isExpanded(editor.selection)) {
         return false;
     }
 

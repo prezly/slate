@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { toDOMRange } from '@udecode/plate-common/react';
-import type { Range, Point } from 'slate';
+import type { Point, Range, SlateEditor } from '@udecode/plate';
 
 export type ContainerEdge = 'top' | 'bottom';
 
@@ -34,7 +32,11 @@ export function isCursorOnEdgeOfContainer(
 }
 
 function getPointRect(editor: SlateEditor, point: Point) {
-    const range = editor.range({ ...point, offset: Math.max(point.offset, 0) });
+    const range = editor.api.range({ ...point, offset: Math.max(point.offset, 0) });
+    if (!range) {
+        return undefined;
+    }
+
     try {
         return getRangeRect(editor, range);
     } catch {
@@ -46,7 +48,7 @@ function getPointRect(editor: SlateEditor, point: Point) {
  * @throws error when `toDOMRange()` cannot match range to a DOM node
  */
 function getRangeRect(editor: SlateEditor, range: Range) {
-    const domRange = toDOMRange(editor, range);
+    const domRange = editor.api.toDOMRange(range);
     if (!domRange) {
         throw new Error('toDOMRange cannot find a DOM node');
     }

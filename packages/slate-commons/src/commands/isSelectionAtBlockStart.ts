@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import { Range } from 'slate';
+import { RangeApi, type SlateEditor } from '@udecode/plate';
 
 import { isBlock } from './isBlock';
 
@@ -9,8 +8,8 @@ export function isSelectionAtBlockStart(editor: SlateEditor): boolean {
         return false;
     }
 
-    const startOfSelection = Range.start(editor.selection);
-    const blockAbove = editor.above({
+    const startOfSelection = RangeApi.start(editor.selection);
+    const blockAbove = editor.api.above({
         match: (node) => isBlock(editor, node),
     });
 
@@ -20,5 +19,5 @@ export function isSelectionAtBlockStart(editor: SlateEditor): boolean {
 
     const [, startOfBlock] = blockAbove;
 
-    return editor.isStart(startOfSelection, startOfBlock);
+    return editor.api.isStart(startOfSelection, startOfBlock);
 }

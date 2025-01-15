@@ -1,12 +1,11 @@
-/* eslint-disable no-param-reassign */
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import { getCurrentNodeEntry, insertEmptyParagraph, isVoid } from '../../commands';
 
 export function withBreaksOnVoidNodes<T extends SlateEditor>(editor: T): T {
-    const { insertBreak } = editor;
+    const { insertBreak } = editor.tf;
 
-    editor.insertBreak = () => {
+    editor.tf.insertBreak = () => {
         const [currentNode] = getCurrentNodeEntry(editor) || [];
 
         if (currentNode && isVoid(editor, currentNode)) {

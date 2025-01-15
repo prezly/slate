@@ -1,6 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { EditorBeforeOptions, Node } from 'slate';
-import { Element } from 'slate';
+import { ElementApi, type EditorBeforeOptions, type Node, type SlateEditor } from '@udecode/plate';
 
 export function getDeletionTargetNode(
     editor: SlateEditor,
@@ -12,13 +10,13 @@ export function getDeletionTargetNode(
 
     // From Slate's TextTransforms.delete
     const targetPoint = reverse
-        ? editor.before(editor.selection, options) || editor.start([])
-        : editor.after(editor.selection, options) || editor.end([]);
+        ? editor.api.before(editor.selection, options) || editor.api.start([])
+        : editor.api.after(editor.selection, options) || editor.api.end([]);
 
     const [[targetNode]] = targetPoint
-        ? editor.nodes({
+        ? editor.api.nodes({
               at: targetPoint,
-              match: (node) => Element.isElement(node),
+              match: (node) => ElementApi.isElement(node),
           })
         : [];
 

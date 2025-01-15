@@ -1,5 +1,4 @@
-import type { SlateEditor, TNodeEntry } from '@udecode/plate-common';
-import type { Range } from 'slate';
+import type { NodeEntry, Range, SlateEditor } from '@udecode/plate';
 
 /**
  * Decorations are another type of text-level formatting.
@@ -11,4 +10,4 @@ import type { Range } from 'slate';
  * keywords, where changes to the content (or some external data) has the
  * potential to change the formatting.
  */
-export type Decorate = (options: { editor: SlateEditor; entry: TNodeEntry }) => Range[];
+export type Decorate = (options: { editor: SlateEditor; entry: NodeEntry }) => Range[];

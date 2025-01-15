@@ -1,12 +1,12 @@
-import type { SlateEditor } from '@udecode/plate-common';
+import type { SlateEditor } from '@udecode/plate';
 
 import type { Extension } from '../types';
 
 export function withInlineVoid(getExtensions: () => Extension[]) {
     return function <T extends SlateEditor>(editor: T) {
-        const { isInline, isVoid } = editor;
+        const { isInline, isVoid } = editor.api;
 
-        editor.isInline = (element) => {
+        editor.api.isInline = (element) => {
             for (const extension of getExtensions()) {
                 if (extension.isInline?.(element)) {
                     return true;
@@ -16,7 +16,7 @@ export function withInlineVoid(getExtensions: () => Extension[]) {
             return isInline(element);
         };
 
-        editor.isVoid = (element) => {
+        editor.api.isVoid = (element) => {
             for (const extension of getExtensions()) {
                 if (extension.isVoid?.(element)) {
                     return true;

@@ -1,34 +1,33 @@
 import { isElementNode } from '@prezly/slate-types';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node, NodeMatch, Path } from 'slate';
+import type { Node, Path, QueryOptions, SlateEditor } from '@udecode/plate';
 
 import { replaceChildren } from './replaceChildren';
 
-interface Options<T extends Node> {
+interface Options {
     at?: Path;
-    match: NodeMatch<T>;
+    match: QueryOptions['match'];
     select?: boolean;
 }
 
-export function replaceNode<Original extends Node, New extends Node>(
+export function replaceNode(
     editor: SlateEditor,
-    newNode: New,
-    options: Options<Original>,
+    newNode: Node,
+    options: Options,
 ) {
     const { at, match, select = false } = options;
-    editor.withoutNormalizing(() => {
-        const [entry] = editor.nodes({ at, match, mode: 'highest' });
+    editor.tf.withoutNormalizing(() => {
+        const [entry] = editor.api.nodes({ at, match, mode: 'highest' });
 
         if (entry) {
             const [node, path] = entry;
 
-            editor.unsetNodes(Object.keys(node), { at: path });
-            editor.setNodes<Original | New>(newNode, { at: path });
+            editor.tf.unsetNodes(Object.keys(node), { at: path });
+            editor.tf.setNodes(newNode, { at: path, match });
             if (isElementNode(newNode)) {
                 replaceChildren(editor, [node, path], newNode.children);
             }
             if (select) {
-                editor.select(path);
+                editor.tf.select(path);
             }
         }
     });

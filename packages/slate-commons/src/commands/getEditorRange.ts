@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Range } from 'slate';
+import type { Range, SlateEditor } from '@udecode/plate';
 
 export function getEditorRange(editor: SlateEditor): Range | undefined {
     // editor.children can sometimes be undefined, even though TypeScript says otherwise
@@ -8,7 +7,7 @@ export function getEditorRange(editor: SlateEditor): Range | undefined {
     }
 
     return {
-        anchor: editor.start([0]),
-        focus: editor.end([editor.children.length - 1]),
+        anchor: editor.api.start([0]),
+        focus: editor.api.end([editor.children.length - 1]),
     };
 }

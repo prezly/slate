@@ -1,10 +1,8 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Location } from 'slate';
-import { Node } from 'slate';
+import { NodeApi, type Location, type SlateEditor } from '@udecode/plate';
 
 export function isValidLocation(editor: SlateEditor, location: Location): boolean {
     try {
-        return Node.has(editor, editor.path(location));
+        return NodeApi.has(editor, editor.api.path(location));
     } catch {
         return false;
     }

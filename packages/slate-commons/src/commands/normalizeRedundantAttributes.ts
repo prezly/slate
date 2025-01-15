@@ -1,5 +1,4 @@
-import type { SlateEditor } from '@udecode/plate-common';
-import type { ElementEntry } from 'slate';
+import type { ElementEntry, SlateEditor } from '@udecode/plate';
 
 import { NODE_ID_MANAGER_ID_PROPERTY_NAME } from '../constants';
 
@@ -27,7 +26,7 @@ export function normalizeRedundantAttributes(
         {},
     );
 
-    editor.setNodes(attributesToUnset, { at: path });
+    editor.tf.setNodes(attributesToUnset, { at: path });
 
     return true;
 }

@@ -1,14 +1,13 @@
 /* eslint-disable no-param-reassign */
-import type { SlateEditor } from '@udecode/plate-common';
-import { Range } from 'slate';
+import { RangeApi, type SlateEditor } from '@udecode/plate';
 
 import { insertEmptyParagraph, isBlock } from '../../commands';
 
 export function withBreaksOnExpandedSelection<T extends SlateEditor>(editor: T): T {
-    const { insertBreak } = editor;
+    const { insertBreak } = editor.tf;
 
-    editor.insertBreak = () => {
-        if (editor.selection && Range.isExpanded(editor.selection)) {
+    editor.tf.insertBreak = () => {
+        if (editor.selection && RangeApi.isExpanded(editor.selection)) {
             /**
              * A fix for inserting a break on an expanded selection, for example, selecting
              * multiple blocks.
@@ -27,7 +26,7 @@ export function withBreaksOnExpandedSelection<T extends SlateEditor>(editor: T):
              * @see https://github.com/ianstormtaylor/slate/blob/b616e75d6/packages/slate/src/transforms/node.ts#L418
              */
             const nodes = Array.from(
-                editor.nodes({
+                editor.api.nodes({
                     at: editor.selection,
                     match: (node) => isBlock(editor, node),
                     mode: 'highest',
@@ -39,11 +38,11 @@ export function withBreaksOnExpandedSelection<T extends SlateEditor>(editor: T):
              * We have to find all pathRefs first, before doing any changes to the editor.
              * Otherwise the paths point to the invalid location, causing the reported bug.
              */
-            const pathRefs = nodes.map(([, path]) => editor.pathRef(path));
+            const pathRefs = nodes.map(([, path]) => editor.api.pathRef(path));
             pathRefs.forEach((pathRef) => {
                 const path = pathRef.unref();
                 if (path) {
-                    editor.removeNodes({ at: path });
+                    editor.tf.removeNodes({ at: path });
                 }
             });
 

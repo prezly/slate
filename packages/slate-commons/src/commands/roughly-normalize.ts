@@ -1,6 +1,5 @@
 import { isNotNull } from '@technically/is-not-null';
-import type { SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
+import type { Node, SlateEditor } from '@udecode/plate';
 
 /**
  * Enforce Slate's built-in constraints on nodes being inserted,

@@ -1,7 +1,6 @@
-import type { TNode } from '@udecode/plate-common';
-import { isElement, type SlateEditor } from '@udecode/plate-common';
-import type { Node } from 'slate';
+import type { Node } from '@udecode/plate';
+import { ElementApi, type SlateEditor } from '@udecode/plate';
 
-export function isVoid(editor: SlateEditor, node: Node | TNode): boolean {
-    return isElement(node) && editor.isVoid(node);
+export function isVoid(editor: SlateEditor, node: Node): boolean {
+    return ElementApi.isElement(node) && editor.api.isVoid(node);
 }
