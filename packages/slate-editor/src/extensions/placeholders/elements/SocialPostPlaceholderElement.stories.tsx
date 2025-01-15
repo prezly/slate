@@ -11,7 +11,7 @@ import { PlaceholderNode } from '../PlaceholderNode';
 import { SocialPostPlaceholderElement } from './SocialPostPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createPlateEditor(), () => extensions);
+const editor = createEditor({ editor: createPlateEditor(), getExtensions: () => extensions });
 
 const placeholder: PlaceholderNode<PlaceholderNode.Type.SOCIAL_POST> = {
     type: PlaceholderNode.Type.SOCIAL_POST,

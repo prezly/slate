@@ -10,7 +10,7 @@ import { PlaceholderNode } from '../PlaceholderNode';
 import { StoryEmbedPlaceholderElement } from './StoryEmbedPlaceholderElement';
 
 const extensions = [PlaceholdersExtension()];
-const editor = createEditor(createPlateEditor(), () => extensions);
+const editor = createEditor({ editor: createPlateEditor(), getExtensions: () => extensions });
 
 const placeholder: PlaceholderNode<PlaceholderNode.Type.STORY_EMBED> = {
     type: PlaceholderNode.Type.STORY_EMBED,
