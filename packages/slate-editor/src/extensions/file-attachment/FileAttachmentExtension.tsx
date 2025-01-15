@@ -2,7 +2,7 @@ import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
 import type { AttachmentNode } from '@prezly/slate-types';
 import { ATTACHMENT_NODE_TYPE, isAttachmentNode } from '@prezly/slate-types';
-import { isEqual, noop } from '@technically/lodash';
+import { noop } from '@technically/lodash';
 import type { RenderElementProps, SlateEditor } from '@udecode/plate';
 import React from 'react';
 
@@ -29,13 +29,6 @@ export const FileAttachmentExtension = ({
         element: composeElementDeserializer({
             [ATTACHMENT_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         }),
-    },
-    isElementEqual: (node, another) => {
-        if (isAttachmentNode(node) && isAttachmentNode(another)) {
-            // Compare ignoring `uuid`
-            return node.description === another.description && isEqual(node.file, another.file);
-        }
-        return undefined;
     },
     isRichBlock: isAttachmentNode,
     isVoid: isAttachmentNode,

@@ -19,17 +19,6 @@ export const StoryEmbedExtension = ({ render }: StoryEmbedExtensionParameters): 
             [STORY_EMBED_NODE_TYPE]: createDeserializeElement(parseSerializedElement),
         }),
     },
-    isElementEqual: (node, another) => {
-        if (isStoryEmbedNode(node) && isStoryEmbedNode(another)) {
-            return (
-                node.story.uuid === another.story.uuid &&
-                node.appearance === another.appearance &&
-                node.position === another.position &&
-                node.header_footer === another.header_footer
-            );
-        }
-        return undefined;
-    },
     isRichBlock: isStoryEmbedNode,
     isVoid: isStoryEmbedNode,
     normalizeNode: normalizeRedundantStoryEmbedAttributes,

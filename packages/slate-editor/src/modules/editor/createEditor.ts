@@ -33,7 +33,7 @@ export function createEditor(
         withUserFriendlyDeleteBehavior,
         withDeserializeHtml(getExtensions),
         withRichBlocks(getExtensions),
-        withElementsEqualityCheck(getExtensions),
+        withElementsEqualityCheck,
         ...overrides,
     ])(baseEditor);
 }
