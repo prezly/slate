@@ -2,7 +2,6 @@
 import type {
     Decorate,
     Extension,
-    OnDOMBeforeInput,
     OnKeyDown,
     RenderElement,
     RenderLeaf,
@@ -36,7 +35,7 @@ export interface Props {
      */
     extensions?: Extension[];
     onCut?: (event: React.ClipboardEvent<HTMLDivElement>) => void;
-    onDOMBeforeInput?: OnDOMBeforeInput;
+    onDOMBeforeInput?: (event: InputEvent) => void;
     /**
      * Handlers when we press a key
      */
