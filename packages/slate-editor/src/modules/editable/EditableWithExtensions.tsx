@@ -14,7 +14,6 @@ import React, { useCallback, useMemo } from 'react';
 
 import {
     combineDecorate,
-    combineOnDOMBeforeInput,
     combineOnKeyDown,
     combineRenderElement,
     combineRenderLeaf,
@@ -37,9 +36,7 @@ export interface Props {
      */
     extensions?: Extension[];
     onCut?: (event: React.ClipboardEvent<HTMLDivElement>) => void;
-    onDOMBeforeInput?: OnDOMBeforeInput[];
-    // Dependencies of `onDOMBeforeInput`
-    onDOMBeforeInputDeps?: any[];
+    onDOMBeforeInput?: OnDOMBeforeInput;
     /**
      * Handlers when we press a key
      */
@@ -73,8 +70,7 @@ export function EditableWithExtensions({
     decorate,
     editor,
     extensions = [],
-    onDOMBeforeInput: onDOMBeforeInputList = [],
-    onDOMBeforeInputDeps = [],
+    onDOMBeforeInput,
     onKeyDown: onKeyDownList = [],
     onKeyDownDeps = [],
     renderElement: renderElementList = [],
@@ -89,10 +85,6 @@ export function EditableWithExtensions({
             return combineDecorate(decorate ? [decorate, ...decorateFns] : decorateFns);
         },
         [decorate, editor, extensions],
-    );
-    const combinedOnDOMBeforeInput = useCallback(
-        combineOnDOMBeforeInput(editor, extensions, onDOMBeforeInputList),
-        onDOMBeforeInputDeps,
     );
     const combinedOnKeyDown = useCallback(
         combineOnKeyDown(editor, extensions, onKeyDownList),
@@ -113,7 +105,7 @@ export function EditableWithExtensions({
             className={classNames(className, 'notranslate')}
             translate="no"
             decorate={combinedDecorate}
-            onDOMBeforeInput={combinedOnDOMBeforeInput}
+            onDOMBeforeInput={onDOMBeforeInput}
             onKeyDown={combinedOnKeyDown}
             renderElement={combinedRenderElement}
             renderLeaf={combinedRenderLeaf}
