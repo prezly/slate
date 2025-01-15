@@ -1,5 +1,4 @@
-import { focusEditor } from '@udecode/plate-common/react';
-import { type Location, Path } from 'slate';
+import { type Location, type Path, PathApi } from '@udecode/plate';
 
 import { Traverse } from '../core';
 import { TableCellNode } from '../nodes';
@@ -25,24 +24,23 @@ export function insertColumn(
     let firstCellInNewColumnPath: Path | undefined = undefined;
 
     // As we insert cells one by one Slate calls normalization which insert empty cells
-    editor.withoutNormalizing(() => {
+    editor.tf.withoutNormalizing(() => {
         activeColumn.cells.forEach((columnCell, index) => {
-            const at = side === 'left' ? columnCell.path : Path.next(columnCell.path);
+            const at = side === 'left' ? columnCell.path : PathApi.next(columnCell.path);
 
             if (index === 0) {
                 firstCellInNewColumnPath = at;
             }
 
-            editor.insertNodes(TableCellNode.createTableCell(editor), { at });
+            editor.tf.insertNodes(TableCellNode.createTableCell(editor), { at });
         });
     });
 
-    editor.normalize();
-
-    focusEditor(editor);
+    editor.tf.normalize();
+    editor.tf.focus();
 
     if (firstCellInNewColumnPath) {
-        editor.select(firstCellInNewColumnPath);
+        editor.tf.select(firstCellInNewColumnPath);
     }
 
     return true;

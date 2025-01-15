@@ -1,5 +1,4 @@
-import type { TNode } from '@udecode/plate-common';
-import type { Node } from 'slate';
+import { type Node } from '@udecode/plate';
 
 import { type ElementNode, isElementNode } from './ElementNode';
 
@@ -27,14 +26,14 @@ export interface TableCellNode extends ElementNode {
     colspan?: number;
 }
 
-export function isTableNode(value: Node | TNode): value is TableNode {
+export function isTableNode(value: Node): value is TableNode {
     return isElementNode<TableNode>(value, TABLE_NODE_TYPE);
 }
 
-export function isTableCellNode(value: Node | TNode): value is TableCellNode {
+export function isTableCellNode(value: Node): value is TableCellNode {
     return isElementNode<TableCellNode>(value, TABLE_CELL_NODE_TYPE);
 }
 
-export function isTableRowNode(value: Node | TNode): value is TableRowNode {
+export function isTableRowNode(value: Node): value is TableRowNode {
     return isElementNode<TableRowNode>(value, TABLE_ROW_NODE_TYPE);
 }

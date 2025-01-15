@@ -1,5 +1,4 @@
-import { getLevels, isEditor as isEditorObject } from '@udecode/plate-common';
-import { Location } from 'slate';
+import { type Location, LocationApi, NodeApi } from '@udecode/plate';
 
 import type { TableCellNode, TableNode } from '../nodes';
 import { TablesEditor } from '../TablesEditor';
@@ -29,16 +28,16 @@ function findTableAndCellNodes(
     let tableNode: TableNode | undefined;
     let cellNode: TableCellNode | undefined;
 
-    const isEditor = isEditorObject(editorOrTable) && TablesEditor.isTablesEditor(editorOrTable);
-    const isLocation = Location.isLocation(locationOrCell);
+    const isEditor = NodeApi.isEditor(editorOrTable) && TablesEditor.isTablesEditor(editorOrTable);
+    const isLocation = LocationApi.isLocation(locationOrCell);
 
     if (isEditor || isLocation || locationOrCell === null) {
         if (isEditor) {
             const editor = editorOrTable;
             const location = locationOrCell ?? editor.selection;
 
-            if (Location.isLocation(location)) {
-                for (const [currentNodeToCheck] of getLevels(editor, { at: location })) {
+            if (LocationApi.isLocation(location)) {
+                for (const [currentNodeToCheck] of editor.api.levels({ at: location })) {
                     if (editor.isTableNode(currentNodeToCheck)) {
                         tableNode = currentNodeToCheck;
                     }

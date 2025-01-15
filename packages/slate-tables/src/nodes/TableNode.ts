@@ -1,4 +1,4 @@
-import type { Element, Location } from 'slate';
+import { type Element, type Location } from '@udecode/plate';
 
 import { Traverse } from '../core';
 import type { TablesEditor } from '../TablesEditor';
@@ -36,7 +36,7 @@ export namespace TableNode {
         props: Partial<Omit<TableNode, 'children'>>,
         location: Location | undefined = editor.selection ?? undefined,
     ) {
-        editor.setNodes<TableNode>(props, {
+        editor.tf.setNodes<TableNode>(props, {
             at: location,
             match: (node) => editor.isTableNode(node),
         });
@@ -62,7 +62,7 @@ export namespace TableNode {
             ? traverse.matrix.node.header?.filter((h) => h !== headerType)
             : [...(traverse.matrix.node.header ?? []), headerType];
 
-        editor.setNodes<TableNode>(
+        editor.tf.setNodes<TableNode>(
             { header: newHeader },
             {
                 at: location,
@@ -72,7 +72,7 @@ export namespace TableNode {
 
         // When we mark text in cell as bold and then mark the first row as header the normalization is not called
         // and bold mark still present in cell content
-        editor.normalize({ force: true });
+        editor.tf.normalize({ force: true });
 
         return newHeader;
     }
