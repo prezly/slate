@@ -1,4 +1,4 @@
-import type { Node } from 'slate';
+import { type Node } from '@udecode/plate';
 
 type Parse<E extends Node> = (serialized: string) => E | undefined;
 

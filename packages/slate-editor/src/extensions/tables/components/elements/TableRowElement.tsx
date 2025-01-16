@@ -1,6 +1,6 @@
 import type { TableRowNode } from '@prezly/slate-types';
+import { type RenderElementProps } from '@udecode/plate';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import styles from './elements.module.scss';
 

@@ -1,10 +1,9 @@
-import type { Editor } from 'slate';
-import { Transforms } from 'slate';
+import { type Editor } from '@udecode/plate';
 
 import { PlaceholderNode } from '../PlaceholderNode';
 
 export function removePlaceholder(editor: Editor, placeholder: PlaceholderNode): void {
-    Transforms.removeNodes(editor, {
+    editor.tf.removeNodes({
         match: (node) =>
             PlaceholderNode.isPlaceholderNode(node) &&
             node.type === placeholder.type &&

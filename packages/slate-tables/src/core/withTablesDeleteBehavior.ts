@@ -1,5 +1,4 @@
-import type { Location } from 'slate';
-import { Range, Point } from 'slate';
+import { type Location, type Point, PointApi, RangeApi } from '@udecode/plate';
 
 import type { TablesEditor } from '../TablesEditor';
 
@@ -25,8 +24,8 @@ function canDeleteInTableCell<T extends TablesEditor>(
     editor: T,
     getEdgePoint: (at: Location) => Point,
 ) {
-    if (editor.selection && Range.isCollapsed(editor.selection)) {
-        const [cell] = editor.nodes({
+    if (editor.selection && RangeApi.isCollapsed(editor.selection)) {
+        const [cell] = editor.api.nodes({
             match: editor.isTableCellNode,
         });
 
@@ -34,7 +33,7 @@ function canDeleteInTableCell<T extends TablesEditor>(
             const [, cellPath] = cell;
             const edge = getEdgePoint(cellPath);
 
-            if (Point.equals(editor.selection.anchor, edge)) {
+            if (PointApi.equals(editor.selection.anchor, edge)) {
                 return false;
             }
         }

@@ -1,5 +1,5 @@
 import type { Extension } from '@prezly/slate-commons';
-import type { Descendant } from 'slate';
+import { type Descendant } from '@udecode/plate';
 
 import { isGoogleDocsWrapper } from '#lib';
 

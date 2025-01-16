@@ -1,7 +1,6 @@
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
-import type { Node } from 'slate';
-import { Element } from 'slate';
+import { ElementApi, type Node } from '@udecode/plate';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 
@@ -23,7 +22,7 @@ export function MentionsExtension<T extends string>({
     type,
 }: Options<T>): Extension {
     function isMention(node: Node) {
-        return Element.isElementType(node, type);
+        return ElementApi.isElementType(node, type);
     }
 
     return {

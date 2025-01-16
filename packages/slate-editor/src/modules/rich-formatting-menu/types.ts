@@ -16,7 +16,7 @@ import {
     isTableRowNode,
     isTableCellNode,
 } from '@prezly/slate-types';
-import type { Node } from 'slate';
+import { type Node } from '@udecode/plate';
 
 export type FetchOEmbedFn = (url: string) => Promise<OEmbedInfo>;
 

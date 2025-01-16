@@ -1,5 +1,5 @@
+import { type RangeRef } from '@udecode/plate';
 import { useState } from 'react';
-import type { RangeRef } from 'slate';
 
 type Value = RangeRef | null;
 

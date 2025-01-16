@@ -1,4 +1,4 @@
-import type { Node, Path } from 'slate';
+import { type Node, type Path } from '@udecode/plate';
 
 export interface AllowedBlocksExtensionConfiguration {
     /**

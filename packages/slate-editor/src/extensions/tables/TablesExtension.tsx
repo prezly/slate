@@ -15,9 +15,8 @@ import {
     isTableCellNode,
 } from '@prezly/slate-types';
 import { flow } from '@technically/lodash';
+import { type Element, type RenderElementProps } from '@udecode/plate';
 import React from 'react';
-import type { Element } from 'slate';
-import type { RenderElementProps } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 

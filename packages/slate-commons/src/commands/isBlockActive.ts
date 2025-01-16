@@ -1,11 +1,14 @@
 import type { ElementNode } from '@prezly/slate-types';
 import { isElementNode } from '@prezly/slate-types';
-import type { Location } from 'slate';
-import { Editor } from 'slate';
+import { type Location, type SlateEditor } from '@udecode/plate';
 
-export function isBlockActive(editor: Editor, type: ElementNode['type'], at?: Location): boolean {
+export function isBlockActive(
+    editor: SlateEditor,
+    type: ElementNode['type'],
+    at?: Location,
+): boolean {
     const [match] = Array.from(
-        Editor.nodes(editor, {
+        editor.api.nodes({
             match: (node) => isElementNode(node, type),
             at,
         }),

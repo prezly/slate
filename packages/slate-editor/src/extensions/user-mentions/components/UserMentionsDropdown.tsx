@@ -1,5 +1,5 @@
+import { type Range } from '@udecode/plate';
 import React from 'react';
-import type { Range } from 'slate';
 
 import { Avatar } from '#components';
 

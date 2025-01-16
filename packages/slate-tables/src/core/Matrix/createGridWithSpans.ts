@@ -1,5 +1,4 @@
-import type { NodeEntry } from 'slate';
-import { Node } from 'slate';
+import { NodeApi, type NodeEntry } from '@udecode/plate';
 
 import type { TableNode } from '../../nodes';
 import { type TableRowNode, TableCellNode } from '../../nodes';
@@ -18,7 +17,7 @@ export interface GridWithSpansCell {
 export function createGridWithSpans(editor: TablesEditor, [, tablePath]: NodeEntry<TableNode>) {
     const grid: GridWithSpansRow[] = [];
 
-    const rows = Array.from(Node.children(editor, tablePath));
+    const rows = Array.from(NodeApi.children(editor, tablePath));
     let rowIdx = 0;
 
     rows.forEach(([row, rowPath]) => {
@@ -26,7 +25,7 @@ export function createGridWithSpans(editor: TablesEditor, [, tablePath]: NodeEnt
             return;
         }
 
-        const cells = Array.from(Node.children(editor, rowPath));
+        const cells = Array.from(NodeApi.children(editor, rowPath));
         let colIdx = 0;
 
         cells.forEach(([cell, cellPath]) => {

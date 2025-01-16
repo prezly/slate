@@ -1,23 +1,22 @@
 import { times } from '@technically/lodash';
-import { Path } from 'slate';
-import { Node } from 'slate';
+import { NodeApi, type Path, PathApi } from '@udecode/plate';
 
 import { TablesEditor } from '../TablesEditor';
 
 export function splitColSpanCells(editor: TablesEditor, path: Path) {
-    const node = Node.get(editor, path);
+    const node = NodeApi.get(editor, path);
 
-    if (!editor.isTableRowNode(node)) {
+    if (!node || !editor.isTableRowNode(node)) {
         return false;
     }
 
-    for (const [cell, cellPath] of Node.children(editor, path)) {
+    for (const [cell, cellPath] of NodeApi.children(editor, path)) {
         if (editor.isTableCellNode(cell) && cell.colspan && cell.colspan > 1) {
             const padCells = times(cell.colspan - 1, () => TablesEditor.createTableCell(editor));
 
-            editor.withoutNormalizing(() => {
-                editor.unsetNodes('colspan', { at: cellPath });
-                editor.insertNodes(padCells, { at: Path.next(cellPath) });
+            editor.tf.withoutNormalizing(() => {
+                editor.tf.unsetNodes('colspan', { at: cellPath });
+                editor.tf.insertNodes(padCells, { at: PathApi.next(cellPath) });
             });
 
             return true;

@@ -1,5 +1,4 @@
-import type { Node } from 'slate';
-import { Editor } from 'slate';
+import { type Editor, type Node } from '@udecode/plate';
 
 import { isTopLevelNode } from './isTopLevelNode';
 
@@ -11,7 +10,7 @@ export function isTopLevelNodeSelected(
     const selection = editor.selection;
     if (!selection) return false;
 
-    const selectedNodes = Array.from(Editor.nodes(editor, { match: isTopLevelNode }));
+    const selectedNodes = Array.from(editor.api.nodes({ match: isTopLevelNode }));
 
     for (const [selectedNode] of selectedNodes) {
         if (selectedNode === node) {

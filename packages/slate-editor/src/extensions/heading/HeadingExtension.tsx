@@ -8,8 +8,8 @@ import {
     isSubtitleHeadingNode,
     isTitleHeadingNode,
 } from '@prezly/slate-types';
+import { type Node } from '@udecode/plate';
 import React from 'react';
-import type { Node } from 'slate';
 
 import { onBackspaceResetFormattingAtDocumentStart, withResetFormattingOnBreak } from '#lib';
 

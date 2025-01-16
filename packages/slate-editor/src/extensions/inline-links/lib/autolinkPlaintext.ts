@@ -1,4 +1,4 @@
-import type { Node } from 'slate';
+import { type Node } from '@udecode/plate';
 import validator from 'validator';
 
 import { matchUrls } from '#lib';

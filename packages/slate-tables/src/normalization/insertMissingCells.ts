@@ -1,14 +1,13 @@
 import { times } from '@technically/lodash';
-import { Node } from 'slate';
-import { Path } from 'slate';
+import { NodeApi, type Path, PathApi } from '@udecode/plate';
 
 import type { TableRowNode } from '../nodes';
 import { TablesEditor } from '../TablesEditor';
 
 export function insertMissingCells(editor: TablesEditor, path: Path) {
-    const table = Node.get(editor, path);
+    const table = NodeApi.get(editor, path);
 
-    if (!editor.isTableNode(table)) {
+    if (!table || !editor.isTableNode(table)) {
         return false;
     }
 
@@ -18,7 +17,7 @@ export function insertMissingCells(editor: TablesEditor, path: Path) {
         ),
     );
 
-    for (const [row, rowPath] of Node.children(editor, path)) {
+    for (const [row, rowPath] of NodeApi.children(editor, path)) {
         if (editor.isTableRowNode(row)) {
             const rowSize = calculateRowWidth(row);
             const absentCellsQuantity = maxWidth - rowSize;
@@ -28,14 +27,14 @@ export function insertMissingCells(editor: TablesEditor, path: Path) {
                     TablesEditor.createTableCell(editor),
                 );
 
-                const lastNodeInRowEntry = Array.from(Node.children(editor, rowPath)).at(-1);
+                const lastNodeInRowEntry = Array.from(NodeApi.children(editor, rowPath)).at(-1);
 
                 if (lastNodeInRowEntry) {
                     const [lastNode, lastNodePath] = lastNodeInRowEntry;
 
                     if (editor.isTableCellNode(lastNode)) {
-                        editor.insertNodes(newCells, {
-                            at: Path.next(lastNodePath),
+                        editor.tf.insertNodes(newCells, {
+                            at: PathApi.next(lastNodePath),
                         });
                         return true;
                     }

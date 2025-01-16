@@ -1,4 +1,4 @@
-import type { Text } from 'slate';
+import { type Text } from '@udecode/plate';
 
 import type { HTMLText } from './dom';
 

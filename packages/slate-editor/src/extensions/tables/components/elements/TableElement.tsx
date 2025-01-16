@@ -1,7 +1,7 @@
 import type { TableNode } from '@prezly/slate-types';
+import { type RenderElementProps } from '@udecode/plate';
 import classNames from 'classnames';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 

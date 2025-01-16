@@ -1,8 +1,8 @@
 import { TablesEditor } from '@prezly/slate-tables';
 import type { TableCellNode } from '@prezly/slate-types';
+import { type RenderElementProps } from '@udecode/plate';
 import classNames from 'classnames';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import styles from './elements.module.scss';
 import { TableContext } from './TableContext';

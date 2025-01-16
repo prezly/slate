@@ -1,7 +1,7 @@
-import type { NodeEntry, SlateEditor, Text } from '@udecode/plate';
+import { type Editor, type NodeEntry, type Text } from '@udecode/plate';
 
 export function unsetMark<T extends Text>(
-    editor: SlateEditor,
+    editor: Editor,
     entry: NodeEntry<T>,
     mark: keyof Omit<T, 'text'>,
 ) {

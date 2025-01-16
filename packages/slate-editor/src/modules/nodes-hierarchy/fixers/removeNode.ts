@@ -1,9 +1,8 @@
-import { Editor, Element, Path, Transforms } from 'slate';
-import type { NodeEntry } from 'slate';
+import { type Editor, ElementApi, type NodeEntry, PathApi } from '@udecode/plate';
 
 export function removeNode(editor: Editor, [, path]: NodeEntry) {
-    const targetPath = Path.parent(path);
-    const ancestor = Editor.above(editor, { at: targetPath });
+    const targetPath = PathApi.parent(path);
+    const ancestor = editor.api.above({ at: targetPath });
 
     if (!ancestor) {
         return false;
@@ -11,11 +10,11 @@ export function removeNode(editor: Editor, [, path]: NodeEntry) {
 
     const [ancestorNode] = ancestor;
 
-    if (!Element.isElement(ancestorNode)) {
+    if (!ElementApi.isElement(ancestorNode)) {
         return false;
     }
 
-    Transforms.removeNodes(editor, { at: targetPath, voids: true });
+    editor.tf.removeNodes({ at: targetPath, voids: true });
 
     return true;
 }

@@ -2,7 +2,7 @@ import { EditorCommands, type Extension } from '@prezly/slate-commons';
 import { TablesEditor } from '@prezly/slate-tables';
 import type { Alignment } from '@prezly/slate-types';
 import { CalloutNode, isImageNode, isQuoteNode } from '@prezly/slate-types';
-import { Node } from 'slate';
+import { NodeApi } from '@udecode/plate';
 
 import { AllowedBlocksExtension } from '#extensions/allowed-blocks';
 import { BlockquoteExtension } from '#extensions/blockquote';
@@ -312,7 +312,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
             },
             onCropped(editor, image) {
                 EventsEditor.dispatchEvent(editor, 'image-edited', {
-                    description: Node.string(image),
+                    description: NodeApi.string(image),
                     mimeType: image.file.mime_type,
                     size: image.file.size,
                     uuid: image.file.uuid,
@@ -328,7 +328,7 @@ export function* getEnabledExtensions(parameters: Parameters): Generator<Extensi
             },
             onReplaced(editor, image) {
                 EventsEditor.dispatchEvent(editor, 'image-edited', {
-                    description: Node.string(image),
+                    description: NodeApi.string(image),
                     mimeType: image.file.mime_type,
                     size: image.file.size,
                     uuid: image.file.uuid,

@@ -1,6 +1,6 @@
 import { EditorCommands } from '@prezly/slate-commons';
 import type { TextNode } from '@prezly/slate-types';
-import { Text } from 'slate';
+import { TextApi } from '@udecode/plate';
 
 import type { HierarchyNormalizer, HierarchyNodeQuery } from '../types';
 
@@ -9,7 +9,7 @@ export function disallowMark(
     match: HierarchyNodeQuery,
 ): HierarchyNormalizer {
     return (editor, node, path) => {
-        if (Text.isText(node)) {
+        if (TextApi.isText(node)) {
             if (!node[mark]) {
                 return false;
             }
@@ -18,7 +18,7 @@ export function disallowMark(
                 return false;
             }
 
-            return EditorCommands.unsetMark(editor, [node, path], mark);
+            return EditorCommands.unsetMark(editor, [node, path], mark as string);
         }
 
         return false;

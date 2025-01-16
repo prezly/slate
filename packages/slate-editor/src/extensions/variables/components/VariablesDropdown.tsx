@@ -1,5 +1,5 @@
+import { type Range } from '@udecode/plate';
 import React from 'react';
-import type { Range } from 'slate';
 
 import type { Option } from '#extensions/mentions';
 import { MentionsDropdown } from '#extensions/mentions';

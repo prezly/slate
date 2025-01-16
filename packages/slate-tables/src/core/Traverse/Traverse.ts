@@ -1,5 +1,4 @@
-import type { Location, NodeEntry } from 'slate';
-import { Node } from 'slate';
+import { NodeApi, type Location, type NodeEntry } from '@udecode/plate';
 
 import type { MatrixRow, MatrixColumn, MatrixCell } from '../../core';
 import { Matrix } from '../../core';
@@ -29,17 +28,14 @@ export class Traverse {
             return undefined;
         }
 
-        const cellPath = editor.path(cellLocation);
-        const ancestors = Node.ancestors(editor, cellPath, { reverse: true });
+        const cellPath = editor.api.path(cellLocation);
+        const ancestors = NodeApi.ancestors(editor, cellPath, { reverse: true });
 
-        const cellNode = Node.get(editor, cellPath);
+        const cellNode = NodeApi.get(editor, cellPath);
         let currentTableEntry: NodeEntry<TableNode> | undefined = undefined;
         let currentRowEntry: NodeEntry<TableRowNode> | undefined = undefined;
-        let currentCellEntry: NodeEntry<TableCellNode> | undefined = editor.isTableCellNode(
-            cellNode,
-        )
-            ? [cellNode, cellPath]
-            : undefined;
+        let currentCellEntry: NodeEntry<TableCellNode> | undefined =
+            cellNode && editor.isTableCellNode(cellNode) ? [cellNode, cellPath] : undefined;
 
         for (const [node, path] of ancestors) {
             if (editor.isTableNode(node)) {

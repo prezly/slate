@@ -1,6 +1,5 @@
 import type { DeserializeMarks } from '@prezly/slate-commons';
-import type { Descendant } from 'slate';
-import { Element, Text } from 'slate';
+import { type Descendant, ElementApi, TextApi } from '@udecode/plate';
 
 export type MarksDeserializer = (node: HTMLElement, children: Descendant[]) => Descendant[];
 
@@ -20,12 +19,12 @@ export function createMarksDeserializer(deserialize: DeserializeMarks): MarksDes
  * Recursively apply the given style marks to all descendant Text nodes.
  */
 function applyStylingProps<T extends Descendant>(node: T, styles: Record<string, any>): T {
-    if (Text.isText(node)) {
+    if (TextApi.isText(node)) {
         const { text, ...props } = node;
         return { ...props, ...styles, text } as T;
     }
 
-    if (Element.isElement(node)) {
+    if (ElementApi.isElement(node)) {
         const { children, ...props } = node;
 
         return {

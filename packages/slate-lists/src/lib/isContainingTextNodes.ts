@@ -1,6 +1,5 @@
-import type { Element } from 'slate';
-import { Text } from 'slate';
+import { type Element, TextApi } from '@udecode/plate';
 
 export function isContainingTextNodes(element: Element): boolean {
-    return element.children.some(Text.isText);
+    return element.children.some(TextApi.isText);
 }

@@ -1,5 +1,4 @@
-import type { Location } from 'slate';
-import { Node } from 'slate';
+import { type Location, NodeApi } from '@udecode/plate';
 
 import { Traverse } from '../core';
 import type { TablesEditor } from '../TablesEditor';
@@ -10,5 +9,5 @@ export function isInTable(editor: TablesEditor, location: Location | null = edit
     }
 
     const traverse = Traverse.create(editor, location);
-    return Node.isNode(traverse?.matrix.node);
+    return NodeApi.isNode(traverse?.matrix.node);
 }

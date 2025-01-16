@@ -1,5 +1,5 @@
 import type { DeserializeElement } from '@prezly/slate-commons';
-import type { Descendant, Element } from 'slate';
+import { type Descendant, type Element } from '@udecode/plate';
 
 import type { HTMLElement } from './dom';
 

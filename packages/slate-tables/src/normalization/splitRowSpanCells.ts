@@ -1,37 +1,36 @@
 import { times } from '@technically/lodash';
-import { Path } from 'slate';
-import { Node } from 'slate';
+import { NodeApi, type Path, PathApi } from '@udecode/plate';
 
 import { TablesEditor } from '../TablesEditor';
 
 export function splitRowSpanCells(editor: TablesEditor, path: Path) {
-    const node = Node.get(editor, path);
+    const node = NodeApi.get(editor, path);
 
-    if (!editor.isTableNode(node)) {
+    if (!node || !editor.isTableNode(node)) {
         return false;
     }
 
-    for (const [row, rowPath] of Node.children(editor, path)) {
+    for (const [row, rowPath] of NodeApi.children(editor, path)) {
         if (!editor.isTableRowNode(row)) {
             continue;
         }
 
-        for (const [cell, cellPath] of Node.children(editor, rowPath)) {
+        for (const [cell, cellPath] of NodeApi.children(editor, rowPath)) {
             if (editor.isTableCellNode(cell) && cell.rowspan && cell.rowspan > 1) {
-                const currentCellRelativePath = Path.relative(cellPath, rowPath);
+                const currentCellRelativePath = PathApi.relative(cellPath, rowPath);
                 const padCells = times(cell.rowspan - 1, () =>
                     TablesEditor.createTableCell(editor),
                 );
 
-                editor.withoutNormalizing(() => {
-                    editor.unsetNodes('rowspan', { at: cellPath });
-                    let nextRow = Path.next(rowPath);
+                editor.tf.withoutNormalizing(() => {
+                    editor.tf.unsetNodes('rowspan', { at: cellPath });
+                    let nextRow = PathApi.next(rowPath);
 
                     for (const padCell of padCells) {
                         const at = [...nextRow, ...currentCellRelativePath];
 
-                        if (editor.hasPath(at)) {
-                            editor.insertNodes(padCell, { at });
+                        if (editor.api.hasPath(at)) {
+                            editor.tf.insertNodes(padCell, { at });
                         } else {
                             console.error(
                                 `Can't find path to insert pad cell when split row spans at:`,
@@ -39,7 +38,7 @@ export function splitRowSpanCells(editor: TablesEditor, path: Path) {
                             );
                         }
 
-                        nextRow = Path.next(nextRow);
+                        nextRow = PathApi.next(nextRow);
                     }
                 });
 

@@ -1,5 +1,5 @@
 import type { NewsroomRef, OEmbedInfo } from '@prezly/sdk';
-import type { Path } from 'slate';
+import { type Path } from '@udecode/plate';
 
 import type { PlaceholderNode } from './PlaceholderNode';
 

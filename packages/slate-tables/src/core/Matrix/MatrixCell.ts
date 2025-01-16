@@ -1,4 +1,4 @@
-import type { NodeEntry } from 'slate';
+import { type NodeEntry } from '@udecode/plate';
 
 import { TableCellNode } from '../../nodes';
 import { compareNumbers } from '../../utils/comparators';

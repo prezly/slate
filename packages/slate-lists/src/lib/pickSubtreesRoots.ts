@@ -1,5 +1,4 @@
-import type { Node, NodeEntry } from 'slate';
-import { Path } from 'slate';
+import { type NodeEntry, PathApi } from '@udecode/plate';
 
 /**
  * Will return a minimal subset of the given nodes that includes the rest of the given nodes as descendants.
@@ -26,12 +25,12 @@ import { Path } from 'slate';
  * A and B are the subtree roots that include every other node:
  * - pickSubtreesRoots([A, A1, A2, A3, A31, B, B1, B2, B3, B31]) === [A, B]
  */
-export function pickSubtreesRoots(entries: NodeEntry<Node>[]): NodeEntry<Node>[] {
+export function pickSubtreesRoots(entries: NodeEntry[]): NodeEntry[] {
     return entries.filter(([, nodePath]) => {
-        const ancestors = Path.ancestors(nodePath);
+        const ancestors = PathApi.ancestors(nodePath);
 
         return !ancestors.some((ancestor) => {
-            return entries.some(([, path]) => Path.equals(path, ancestor));
+            return entries.some(([, path]) => PathApi.equals(path, ancestor));
         });
     });
 }

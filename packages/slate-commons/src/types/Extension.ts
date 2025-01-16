@@ -1,4 +1,4 @@
-import type { Node } from 'slate';
+import { type Node } from '@udecode/plate';
 
 import type { DecorateFactory } from './DecorateFactory';
 import type { DeserializeHtml } from './DeserializeHtml';
