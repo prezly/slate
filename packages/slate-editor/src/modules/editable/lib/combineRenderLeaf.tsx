@@ -1,6 +1,6 @@
 import type { Extension, RenderLeaf } from '@prezly/slate-commons';
+import { type RenderLeafProps } from '@udecode/plate';
 import React from 'react';
-import type { RenderLeafProps } from 'slate-react';
 
 export function combineRenderLeaf(extensions: Extension[], renderLeafList: RenderLeaf[]) {
     return function RenderLeaf({ attributes, children, leaf, text }: RenderLeafProps) {

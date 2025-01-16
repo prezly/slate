@@ -3,8 +3,8 @@ import { createDeserializeElement } from '@prezly/slate-commons';
 import type { LinkNode } from '@prezly/slate-types';
 import { isLinkNode, LINK_NODE_TYPE } from '@prezly/slate-types';
 import { flow } from '@technically/lodash';
+import { type RenderElementProps } from '@udecode/plate';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { composeElementDeserializer } from '#modules/html-deserialization';
 

@@ -1,4 +1,4 @@
-import type { RenderLeafProps } from 'slate-react';
+import { type RenderLeafProps } from '@udecode/plate';
 
 /**
  * To customize the rendering of each leaf.

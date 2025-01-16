@@ -1,7 +1,7 @@
 import type { Extension } from '@prezly/slate-commons';
 import { isVariableNode, VARIABLE_NODE_TYPE } from '@prezly/slate-types';
+import { type RenderElementProps } from '@udecode/plate';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { MentionsExtension } from '#extensions/mentions';
 

@@ -1,6 +1,6 @@
 import { createDeserializeElement, type Extension } from '@prezly/slate-commons';
+import { type RenderElementProps } from '@udecode/plate';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import type { InfoText } from '#components';
 

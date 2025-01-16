@@ -1,9 +1,9 @@
 import { Alignment } from '@prezly/slate-types';
 import { type ParagraphNode } from '@prezly/slate-types';
+import { type RenderElementProps } from '@udecode/plate';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import styles from './ParagraphElement.module.scss';
 

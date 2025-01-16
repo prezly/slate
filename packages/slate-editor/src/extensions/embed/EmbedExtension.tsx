@@ -1,8 +1,8 @@
 import type { OEmbedInfo } from '@prezly/sdk';
 import type { Extension } from '@prezly/slate-commons';
 import { createDeserializeElement } from '@prezly/slate-commons';
+import { type RenderElementProps } from '@udecode/plate';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import type { InfoText } from '#components';
 

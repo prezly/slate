@@ -1,7 +1,7 @@
 import type { DividerNode } from '@prezly/slate-types';
+import { type RenderElementProps } from '@udecode/plate';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
-import type { RenderElementProps } from 'slate-react';
 
 import { EditorBlock } from '#components';
 

@@ -1,5 +1,5 @@
+import { type RenderLeafProps } from '@udecode/plate';
 import React from 'react';
-import type { RenderLeafProps } from 'slate-react';
 
 import { MarkType } from '../types';
 
